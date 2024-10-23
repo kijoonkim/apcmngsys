@@ -120,8 +120,8 @@
 					</div>
 				</div>
 
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdApcPrdcr" style="height:576px;"></div>
+				<div class="table-responsive tbl_scroll_sm" style="width:100%">
+					<div id="sb-area-grdApcPrdcr" style="height:576px; width:100%"></div>
 				</div>
 			</div>
 
@@ -317,7 +317,7 @@
 	            	}
 		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
-		    {caption: ['생산자코드'], 		ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
+			{caption: ['생산자코드'], 		ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
 	        	{
@@ -363,6 +363,7 @@
 				validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
 	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 20})},
+			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
 			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'inputbutton',   width:'100px', style: 'text-align:center',
 				typeinfo : {callback: fn_grdComCd}},
 			{caption: ["외부연결코드"],    	ref: 'extrnlLnkgCd',     type:'input',   width:'100px', style: 'text-align:center'},
@@ -497,6 +498,7 @@
 				  , extrnlLnkgCd	: item.extrnlLnkgCd
 				  , itemVrtyCd		: gfn_isEmpty(item.rprsItemCd) ? item.rprsVrtyCd : item.rprsItemCd + item.rprsVrtyCd
 				  , agrcYn			: item.agrcYn
+				  , useYn			: item.useYn
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});

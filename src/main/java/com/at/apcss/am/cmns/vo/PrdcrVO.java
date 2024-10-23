@@ -270,6 +270,10 @@ public class PrdcrVO extends ComVO {
 	 * 영농관리여부
 	 */
 	private String agrcYn;
+	/**
+	 * 사용여부
+	 */
+	private String useYn;
 
 
 	private int crtrArea;

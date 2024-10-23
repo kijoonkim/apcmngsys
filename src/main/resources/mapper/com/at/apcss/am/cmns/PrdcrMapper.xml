@@ -210,6 +210,7 @@
                  , PR.PRCHS_AMT         AS PRCHS_AMT
                  , FI.FRMERNO           AS FRMERNO
                  , NVL(PR.AGRC_YN, 'N')			AS AGRC_YN
+	    		 , PR.USE_YN			AS USE_YN
 
 			  FROM TB_PRDCR_INFO PR
 			     , TB_AX_FRMER_INFO FI
@@ -510,6 +511,7 @@
 					, RMRK
 					, EXTRNL_LNKG_CD
 					, AGRC_YN
+					, USE_YN
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
 	    		  	, SYS_FRST_INPT_PRGRM_ID
@@ -535,6 +537,7 @@
 					, #{rmrk}
 					, #{extrnlLnkgCd}
 					, #{agrcYn}
+					, #{useYn}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
 	   			  	, #{sysFrstInptPrgrmId}
@@ -575,6 +578,7 @@
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 				, AGRC_YN = #{agrcYn}
+			    , USE_YN = #{useYn}
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}
@@ -616,6 +620,7 @@
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 				, AGRC_YN = #{agrcYn}
+			    , USE_YN = #{useYn}
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}

@@ -297,9 +297,15 @@
                     </table>
                 </div>
                 <div id="tab_pckgPrfmnc">
-                    <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px">
-
-                    </div>
+                    <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
+                    <sbux-button
+                            id="btnExportExcel"
+                            name="btnExportExcel"
+                            uitype="normal"
+                            class="btn btn-sm btn-outline-danger"
+                            text="엑셀다운로드"
+                            onclick="fn_exportExcel"
+                    ></sbux-button>
                 </div>
             </div>
         </div>
@@ -400,24 +406,32 @@
         /** 거래처 **/
         const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
+        let useYn = data.resultList.filter((item) => item.useYn ==='Y');
+        data.resultList = useYn;
         await fn_append_button(data,"cnptInfoWrap","cnptNm","cnptCd");
         carouselObj.cnptInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#cnptInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
     const fn_search_prdcr = async function(){
         const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
+        let useYn = data.resultList.filter((item) => item.useYn ==='Y');
+        data.resultList = useYn;
         await fn_append_button(data,"prdcrInfoWrap","prdcrNm","prdcrCd");
         carouselObj.prdcrInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#prdcrInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
     const fn_search_item = async function(){
         const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: gv_apcCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
+        let useYn = data.resultList.filter((item) => item.useYn ==='Y');
+        data.resultList = useYn;
         await fn_append_button(data,"itemInfoWrap","itemNm","itemCd");
         carouselObj.itemInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#itemInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
     const fn_search_vrty = async function(_itemCd){
         const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
+        let useYn = data.resultList.filter((item) => item.useYn ==='Y');
+        data.resultList = useYn;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
         carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
@@ -691,6 +705,11 @@
         $(".tabBox.active").removeClass('active');
         $(".tabBox_sm.active").removeClass('active');
         fn_RegReset();
+    }
+
+    const fn_exportExcel = function(){
+        gridPckgPrfmnc.deleteColumn(0);
+        gridPckgPrfmnc.exportLocalExcel("포장실적");
     }
 
 

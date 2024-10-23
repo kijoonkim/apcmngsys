@@ -472,6 +472,8 @@
 		     , PD.DEL_YN            AS DEL_YN
 		     , PD.SPMT_CMNDNO       AS SPMT_CMNDNO
 		     , PD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+			 , PD.CNPT_CD			AS CNPT_CD
+
 
 		  FROM TB_SPMT_PRFMNC_DTL PD
 		 WHERE PD.APC_CD = #{apcCd}
@@ -1401,6 +1403,30 @@
 			AND PCKG_SN = #{pckgSn}
 			AND SPMT_SN = #{spmtSn}
 	</delete>
+
+	<select id="selectSpmtPrfmncDetailList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		SELECT
+			  (SELECT FN_GET_CNPT_NM(SPC.CNPT_CD, SPD.APC_CD) FROM DUAL) 						AS CNPT_NM
+			, (SELECT FN_GET_PRDCR_NM(SPD.PRDCR_CD, SPD.APC_CD) FROM DUAL) 						AS PRDCR_NM
+			, (SELECT FN_GET_ITEM_NM(SPD.ITEM_CD, SPD.APC_CD) FROM DUAL) 						AS ITEM_NM
+			, (SELECT FN_GET_VRTY_NM(SPD.ITEM_CD, SPD.VRTY_CD, SPD.APC_CD) FROM DUAL)			AS VRTY_NM
+			, (SELECT FN_GET_SPCFCT_NM(SPD.ITEM_CD, SPD.SPCFCT_CD, SPD.APC_CD) FROM DUAL)		AS SPCFCT_NM
+			, SPD.SPMT_QNTT																		AS SPMT_QNTT
+		FROM TB_SPMT_PRFMNC_DTL AS SPD
+		JOIN TB_SPMT_PRFMNC_COM AS SPC
+		ON SPD.APC_CD = SPC.APC_CD
+		AND SPD.SPMTNO = SPC.SPMTNO
+		WHERE SPD.APC_CD = #{apcCd}
+		<choose>
+			<when test = 'spmtYmd != null and spmtYmd != ""'>
+				AND SPC.SPMT_YMD = #{spmtYmd}
+			</when>
+			<otherwise>
+				AND SPD.SPMTNO = #{spmtno}
+			</otherwise>
+		</choose>
+		ORDER BY SPMT_SN
+	</select>
 
 </mapper>
 
