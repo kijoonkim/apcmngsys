@@ -87,7 +87,7 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_callbackFnc , _brno , _selType) {
+		init: async function(_callbackFnc , _selType , _brno) {
 			console.log('pd gpcSelectPopup init');
 			SBUxMethod.set("uoGpc-inp-brno", _brno);
 			SBUxMethod.set("uoGpc-inp-selType", _selType);
@@ -123,41 +123,41 @@
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
-		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdGpcPop';					//'grdGpcPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonGpcPop';		//'jsonGpcPop';
-		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.extendlastcol = 'scroll';
-		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.allowcopy = true;
+			SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
+			SBGridProperties.id = this.gridId;			//'grdGpcPop';					//'grdGpcPop';
+			SBGridProperties.jsonref = this.jsonId;		//'jsonGpcPop';		//'jsonGpcPop';
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
 			SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.scrollbubbling = false;
-		    SBGridProperties.paging = {
+			SBGridProperties.extendlastcol = 'scroll';
+			SBGridProperties.oneclickedit = true;
+			SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+			SBGridProperties.scrollbubbling = false;
+			SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
-		    SBGridProperties.columns = [
-		        {caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
-		        {caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
-		        /*
-		        {caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
-		        */
-		        {caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
-		        {caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
-		        /*
-		        {caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
-		        */
-		    ];
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
+			};
+			SBGridProperties.columns = [
+				{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+				{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+				/*
+				{caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
+				*/
+				{caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
+				{caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
+				/*
+				{caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
+				*/
+			];
 
-		    grdGpcPop = _SBGrid.create(SBGridProperties);
-		    grdGpcPop.bind('beforepagechanged', this.paging);
-		    grdGpcPop.bind('dblclick', popGpcSelect.choice);	//'popGpcChoice');
-		    //this.search();
+			grdGpcPop = _SBGrid.create(SBGridProperties);
+			grdGpcPop.bind('beforepagechanged', this.paging);
+			grdGpcPop.bind('dblclick', popGpcSelect.choice);	//'popGpcChoice');
+			//this.search();
 		},
 		choice: function() {
 			let nRow = grdGpcPop.getRow();
@@ -167,33 +167,26 @@
 		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
 			grdGpcPop.rebuild();
-	    	let pageSize = grdGpcPop.getPageSize();
-	    	let pageNo = 1;
+			let pageSize = grdGpcPop.getPageSize();
+			let pageNo = 1;
 
-	    	// grid clear
-	    	jsonGpcPop.length = 0;
-	    	grdGpcPop.refresh();
-	    	//grdGpcPop.clearStatus();
-	    	this.setGrid(pageSize, pageNo, isEditable);
+			// grid clear
+			jsonGpcPop.length = 0;
+			grdGpcPop.refresh();
+			//grdGpcPop.clearStatus();
+			this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
-
-			//var gpcCd = SBUxMethod.get("gpc-inp-gpcCd");
-			//var gpcNm = nvlScnd(SBUxMethod.get("gpc-inp-gpcNm"),'');
 			let itemNm = SBUxMethod.get("uoGpc-inp-itemNm");
 			let brno = SBUxMethod.get("uoGpc-inp-brno");
 			let selType = SBUxMethod.get("uoGpc-inp-selType");
-			//console.log(brno,selType);
-			//console.log("setGrid 호출 / gpcNm : " + gpcNm + "/ 타입 : " + typeof(gpcNm));
 
 			console.log(itemNm,brno,selType);
 
 			const postJsonPromise = gfn_postJSON("/fm/popup/selectGpcListPopup.do", {
-
-				//gpcNm : gpcNm, //검색 파라미터
 				itemNm : itemNm,
 				brno : brno,
-				selType : selType,//
+				selType : selType,
 				// pagination
 				pagingYn : 'Y',
 				currentPageNo : pageNo,
