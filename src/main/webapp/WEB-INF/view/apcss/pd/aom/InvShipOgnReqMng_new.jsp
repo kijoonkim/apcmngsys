@@ -1110,7 +1110,7 @@
 		//사용자는 현재년도만 필요함
 		let now = new Date();
 		let year = now.getFullYear();
-		year = '2025';
+		//year = '2025';
 		let yr = SBUxMethod.get("dtl-input-yr");//
 		if(gfn_isEmpty(yr)){
 			yr = year;

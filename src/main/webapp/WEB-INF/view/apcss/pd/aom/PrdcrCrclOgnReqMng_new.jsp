@@ -1125,8 +1125,8 @@
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 		var now = new Date();
 		var year = now.getFullYear();
-		//SBUxMethod.set("dtl-input-yr",year);//
-		SBUxMethod.set("dtl-input-yr",'2025');
+		SBUxMethod.set("dtl-input-yr",year);//
+		//SBUxMethod.set("dtl-input-yr",'2025');
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_dtlSearch();
@@ -1444,7 +1444,7 @@
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
-			,yr : '2025'//TEST
+			,yr : year//TEST
 		});
 		let data = await postJsonPromise;
 		try{
@@ -1610,8 +1610,6 @@
 	}
 	//필수값 확인
 	function fn_checkRequiredInput(){
-
-
 		//품목 그리드 필수갑 확인
 		let gridData = grdGpcList.getGridDataAll();
 		for(var i=1; i<=gridData.length; i++ ){
@@ -1685,8 +1683,8 @@
 			,brno: SBUxMethod.get('dtl-input-brno')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
-			//,yr : yr
-			,yr : '2025'
+			,yr : yr
+			//,yr : '2025'
 			//생산유통통합조직 승인형,육성형
 			,aprv: SBUxMethod.get('rdo-aprv')//
 			//원물확보 시군 및 시도 개소 수
@@ -1753,7 +1751,7 @@
 			yr = year;
 		}
 		//TEST
-		yr = '2025';
+		//yr = '2025';
 
 		let gridData = grdGpcList.getGridDataAll();
 		let gpcList = [];
@@ -2651,9 +2649,12 @@
 		//if(gfn_isEmpty(brno)) return;
 		//if(gfn_isEmpty(yr)) return;
 		//if(yr == year) return;
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/deletePrdcrCrclOgnReqMng.do", {
-			yr : '2025'
+			yr : yr
 			,brno : brno
 		});
 		let data = await postJsonPromise;
