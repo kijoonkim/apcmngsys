@@ -2130,6 +2130,34 @@
 			var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
 			//console.log(nCol);
 			window.scrollTo(0, 0);
+
+			let rmrkCol = grdGpcList.getColRef('rmrk');//부류
+			let clsfCdCol = grdGpcList.getColRef('clsfCd');//부류
+			let ctgryCdCol = grdGpcList.getColRef('ctgryCd');//평가부류
+			let sttgUpbrItemSeCol = grdGpcList.getColRef('sttgUpbrItemSe');//전문/육성 구분
+
+			let grdData = grdGpcList.getGridDataAll();
+			for (var i = 1; i <= grdData.length; i++) {
+				let rowData = grdGpcList.getRowData(i);
+				if(rowData.delYn != 'N'){
+					//추가 row 비활성화
+					grdGpcList.setCellDisabled(i, sttgUpbrItemSeCol, i, ctgryCdCol, true);
+					grdGpcList.setCellStyle('background-color', i, sttgUpbrItemSeCol, i, rmrkCol, 'lightgray');
+				}else{
+					//기타일떄 부류,평가부류 비활성화
+					if(rowData.sttgUpbrItemSe == '3'){
+						//grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, true);
+						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
+						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'lightgray');
+						//grdGpcList.setCellData(i,clsfCdCol,0);
+						grdGpcList.setCellData(i,ctgryCdCol,0);
+					}else{
+						//grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, false);
+						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, false);
+						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
+					}
+				}
+			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -2653,7 +2681,7 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mgrTypeCd eq '1'}">
+			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 				fn_dtlSearch();
 			</c:if>
 			} else {
