@@ -407,10 +407,10 @@
 				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-			   AND APO_CD = #{apoCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND APO_CD = #{apoCd}
+		]]>
+	</update>
 
 
 
@@ -496,8 +496,31 @@
 	<!-- 출자출하조직이 속한 통합조직 리스트 insert -->
 	<insert id="insertUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
 		<![CDATA[
+		MERGE INTO TB_EV_APO_UO_CD AUC  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertUo */
+		USING DUAL
+			ON (
+				AUC.ISO_BRNO  = #{isoBrno}
+				AND AUC.UO_BRNO  = #{uoBrno}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					SET
+						UO_APO_CD				= #{uoApoCd}
+					  , UO_APO_SE				= '1'
+					  , UO_CORP_NM				= #{uoCorpNm}
+					  , UO_CRNO					= (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{uoBrno})
+
+					  , ISO_APO_CD				= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
+					  , ISO_APO_SE				= '2'
+					  , ISO_CORP_NM				= #{isoCorpNm}
+					  , ISO_CRNO				= (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{isoBrno})
+		]]>
+		<![CDATA[
+					  , SYS_LAST_CHG_DT			= SYSDATE
+					  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+					  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
 			INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertUo */
-			  INTO TB_EV_APO_UO_CD
 				(
 				    UO_APO_CD
 				  , UO_APO_SE
@@ -541,7 +564,6 @@
 	</insert>
 
 	<!-- 출자출하조직이 속한 통합조직 리스트 update -->
-	<!-- 해당 테이블에서 업데이트 사용할 필요성 x -->
 	<update id="updateUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.updateUo */
@@ -558,7 +580,6 @@
 				  , ISO_BRNO				= #{isoBrno}
 				  , ISO_CORP_NM				= #{isoCorpNm}
 				  , ISO_CRNO				= (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{isoBrno})
-
 		]]>
 		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
@@ -566,7 +587,8 @@
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-			   AND APO_CD	= #{apoCd}
+			   AND ISO_BRNO	= #{isoBrno}
+			   AND UO_BRNO = #{uoBrno}
 		]]>
 	</update>
 
@@ -579,4 +601,188 @@
 		   AND ISO_APO_CD 	= #{isoApoCd}
 		]]>
 	</delete>
+
+	<!-- 2024/10/21 이력 추가 -->
+	<update id="updatePrdcrCrclOgnMngHstry" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
+		MERGE INTO TB_EV_APO_HSTRY EAH  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMngHstry */
+		USING DUAL
+			ON (
+				EAH.APO_CD  = #{apoCd}
+				AND EAH.YR  = TO_CHAR(SYSDATE,'YYYY')
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					SET
+						CORP_NM						= #{corpNm}
+						, MNGMST_INFO_ID			= #{mngmstInfoId}
+						, MNGMST_YN					= #{mngmstYn}
+						, NONGHYUP_CD				= #{nonghyupCd}
+						, CMPTN_INST				= #{cmptnInst}
+						, CTPV						= #{ctpv}
+						, SGG						= #{sgg}
+						, ZIP						= #{zip}
+						, LOTNO_ADDR				= #{lotnoAddr}
+						, LOTNO_DTL_ADDR			= #{lotnoDtlAddr}
+						, ROAD_NM_ADDR				= #{roadNmAddr}
+						, ROAD_NM_DTL_ADDR			= #{roadNmDtlAddr}
+						, CORP_SE_CD				= #{corpSeCd}
+						, CORP_DTL_SE_CD			= #{corpDtlSeCd}
+						, CORP_FNDN_DAY				= TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
+						, ISO_HLD_YN				= #{isoHldYn}
+						, INVST_NOPE				= #{invstNope}
+						, INVST_EXPND_FRMER_NOPE	= #{invstExpndFrmerNope}
+						, INVST_AMT					= #{invstAmt}
+						, FRMER_INVST_AMT			= #{frmerInvstAmt}
+						, PRDCR_GRP_INVST_AMT		= #{prdcrGrpInvstAmt}
+						, LOCGOV_INVST_AMT			= #{locgovInvstAmt}
+						, ETC_INVST_AMT				= #{etcInvstAmt}
+						, RGLLBR_NOPE				= #{rgllbrNope}
+						, DW_NOPE					= #{dwNope}
+						, DLBRR_NOPE				= #{dlbrrNope}
+						, RPRSV_FLNM				= #{rprsvFlnm}
+						, RPRSV_TELNO				= #{rprsvTelno}
+						, RPRSV_MOBLNO				= #{rprsvMoblno}
+						, RPRSV_EML					= #{rprsvEml}
+						, PIC_POSITION				= #{picPosition}
+						, PIC_FLNM					= #{picFlnm}
+						, PIC_TELNO					= #{picTelno}
+						, PIC_MOBLNO				= #{picMoblno}
+						, PIC_EML					= #{picEml}
+						, FXNO						= #{fxno}
+						, ITEM_NH_BROF_YN			= #{itemNhBrofYn}
+						, TOT						= #{tot}
+						, FRMER_INVST_AMT_RT		= #{frmerInvstAmtRt}
+						, WRT_YN					= 'Y'
+						<if test='slctnYr != null and slctnYr != ""'>
+						, SLCTN_YR					= #{slctnYr}
+						</if>
+						<if test='mno != null and mno != ""'>
+						, MNO						= #{mno}
+						</if>
+						<if test='sno != null and sno != ""'>
+						, SNO						= #{sno}
+						</if>
+
+						, SYS_LAST_CHG_DT			= SYSDATE
+						, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+						, APO_SE
+						, APO_CD
+						, CRNO
+						, BRNO
+						, CORP_NM
+						, MNGMST_INFO_ID
+						, MNGMST_YN
+						, NONGHYUP_CD
+						, CMPTN_INST
+						, CTPV
+						, SGG
+						, ZIP
+						, LOTNO_ADDR
+						, LOTNO_DTL_ADDR
+						, ROAD_NM_ADDR
+						, ROAD_NM_DTL_ADDR
+						, CORP_SE_CD
+						, CORP_DTL_SE_CD
+						, CORP_FNDN_DAY
+						, ISO_HLD_YN
+						, INVST_NOPE
+						, INVST_EXPND_FRMER_NOPE
+						, INVST_AMT
+						, FRMER_INVST_AMT
+						, PRDCR_GRP_INVST_AMT
+						, LOCGOV_INVST_AMT
+						, ETC_INVST_AMT
+						, RGLLBR_NOPE
+						, DW_NOPE
+						, DLBRR_NOPE
+						, RPRSV_FLNM
+						, RPRSV_TELNO
+						, RPRSV_MOBLNO
+						, RPRSV_EML
+						, PIC_POSITION
+						, PIC_FLNM
+						, PIC_TELNO
+						, PIC_MOBLNO
+						, PIC_EML
+						, FXNO
+						, ITEM_NH_BROF_YN
+						, TOT
+						, FRMER_INVST_AMT_RT
+						, WRT_YN
+						, SLCTN_YR
+						, MNO
+						, SNO
+
+						, SYS_FRST_INPT_DT
+						, SYS_FRST_INPT_USER_ID
+						, SYS_FRST_INPT_PRGRM_ID
+						, SYS_LAST_CHG_DT
+						, SYS_LAST_CHG_USER_ID
+						, SYS_LAST_CHG_PRGRM_ID
+					)
+			VALUES
+					(
+						TO_CHAR(SYSDATE,'YYYY')
+						, #{apoSe}
+						, (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = #{brno})
+						, #{crno}
+						, #{brno}
+						, #{corpNm}
+						, #{mngmstInfoId}
+						, #{mngmstYn}
+						, #{nonghyupCd}
+						, #{cmptnInst}
+						, #{ctpv}
+						, #{sgg}
+						, #{zip}
+						, #{lotnoAddr}
+						, #{lotnoDtlAddr}
+						, #{roadNmAddr}
+						, #{roadNmDtlAddr}
+						, #{corpSeCd}
+						, #{corpDtlSeCd}
+						, TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
+						, #{isoHldYn}
+						, #{invstNope}
+						, #{invstExpndFrmerNope}
+						, #{invstAmt}
+						, #{frmerInvstAmt}
+						, #{prdcrGrpInvstAmt}
+						, #{locgovInvstAmt}
+						, #{etcInvstAmt}
+						, #{rgllbrNope}
+						, #{dwNope}
+						, #{dlbrrNope}
+						, #{rprsvFlnm}
+						, #{rprsvTelno}
+						, #{rprsvMoblno}
+						, #{rprsvEml}
+						, #{picPosition}
+						, #{picFlnm}
+						, #{picTelno}
+						, #{picMoblno}
+						, #{picEml}
+						, #{fxno}
+						, #{itemNhBrofYn}
+						, #{tot}
+						, #{frmerInvstAmtRt}
+						, 'Y'
+						, #{slctnYr}
+						, #{mno}
+						, #{sno}
+
+						, SYSDATE
+						, #{sysFrstInptUserId}
+						, #{sysFrstInptPrgrmId}
+						, SYSDATE
+						, #{sysLastChgUserId}
+						, #{sysLastChgPrgrmId}
+					)
+	</update>
 </mapper>

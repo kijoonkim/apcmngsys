@@ -1279,19 +1279,22 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
 			{caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
-			{caption: ["비고"], 		ref: 'rmrk',	type:'output',     style:'text-align:center'}
+			{caption: ["비고"], 		ref: 'rmrk',	type:'output',     style:'text-align:center'},
+
+			{caption: ["상세내역"], 	ref: 'uoCrno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'isoApoCd',	hidden : true}
 		];
 
 		grdUoList = _SBGrid.create(SBGridProperties);
 
-	  	//클릭 이벤트 바인드
+			//클릭 이벤트 바인드
 		grdUoList.bind('click','gridUoListClick');
 	}
 
 	/**
      * 목록 조회
      */
-    const fn_search = async function() {
+	const fn_search = async function() {
 		console.log("fn_search");
 		// set pagination
 		let pageSize = grdPrdcrCrclOgnMng.getPageSize();
@@ -2125,7 +2128,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		*/
 
-    }
+	}
 
 
 	/* Grid Row 조회 기능*/
@@ -2177,7 +2180,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 
 
-    function fn_create() {
+	function fn_create() {
 		console.log("******************fn_create**********************************");
 		SBUxMethod.set('dtl-input-apoCd',null)//
 		SBUxMethod.set('dtl-input-apoSe',null)//
@@ -2330,8 +2333,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		//alert("성공");
 	}
 
-    //그리드 클릭이벤트
-    function gridUoListClick(){
+	//그리드 클릭이벤트
+	function gridUoListClick(){
 		console.log("================gridUoListClick================");
 		//grdPrdcrCrclOgnReqClsMng 그리드 객체
 		let selGridUoListRow = grdUoList.getRow();
@@ -2360,7 +2363,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		} else {
 			//선택한 데이터가 통합조직명,통합조직 사업자번호 일떄
 			if (selGridUoListCol == uoCorpNmCol || selGridUoListCol == uoBrnoCol){
-				console.log("");
 				//통합조직 선택 세팅
 				//통합조직 팝업 객체 popBrno
 				popBrno.init(fn_setGridMngmstInfoId);

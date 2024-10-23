@@ -35,7 +35,7 @@
 
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -216,101 +216,6 @@
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
-				<!-- 그리드 식으로 변경 -->
-				<!--
-				<table class="table table-bordered tbl_fixed">
-					<caption>통합조직</caption>
-					<tbody>
-						<tr>
-							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자출하조직이 속한 통합조직 사업자번호</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-uoNm1"
-									name="uoNm1"
-									class="form-control input-sm"
-									autocomplete="off"
-									group-id = "uoList"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-uoBrno1"
-									name="uoBrno1"
-									class="form-control input-sm"
-									autocomplete="off"
-									group-id = "uoList"
-								></sbux-input>
-							</td>
-							<td>
-								<sbux-button id="srch-btn-brno1" name="srch-btn-brno" uitype="modal" target-id="modal-brno" onclick="fn_choiceBrno" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-							</td>
-							<td colspan="7" class="td_input" style="border-bottom:hidden; border-right:hidden; border-top:hidden;">
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자출하조직이 속한 통합조직 사업자번호</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-uoNm2"
-									name="uoNm2"
-									class="form-control input-sm"
-									autocomplete="off"
-									group-id = "uoList"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-uoBrno2"
-									name="uoBrno2"
-									class="form-control input-sm"
-									autocomplete="off"
-									group-id = "uoList"
-								></sbux-input>
-							</td>
-							<td>
-								<sbux-button id="srch-btn-brno2" name="srch-btn-brno" uitype="modal" target-id="modal-brno" onclick="fn_choiceBrno" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-							</td>
-							<td colspan="7" class="td_input" style="border-bottom:hidden; border-right:hidden; border-top:hidden;">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				-->
-
-				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
-				<div class="uoList">
-					<!-- <div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="font-size:14px">▶출자출하조직이 속한 통합조직 리스트</span>
-							</li>
-
-							<li>
-								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
-							</li>
-							<li>
-								<span style="font-size:12px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
-							</li>
-
-						</ul>
-					</div> -->
-
-					<div  class="ad_tbl_top">
-						<p style="font-size:14px; color: #3c6dbc; text-align: left">▶ 출자출하조직이 속한 통합조직 리스트</p>
-
-					</div>
-
-
-					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUoList" style="height:150px; width: 100%; overflow-x: hidden"></div>
-					<br>
-				</div>
-
-
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
 					<colgroup>
@@ -965,22 +870,6 @@
 		</div>
 	</section>
 
-	<!-- 사업자번호 조회 팝업 -->
-	<div>
-		<sbux-modal
-			id="modal-brno"
-			name="modal-brno"
-			uitype="middle"
-			header-title="사업자번호 선택"
-			body-html-id="body-modal-brno"
-			footer-is-close-button="false"
-			style="width:1000px"
-		></sbux-modal>
-	</div>
-	<div id="body-modal-brno">
-		<jsp:include page="/WEB-INF/view/apcss/pd/popup/BrnoPopup.jsp"></jsp:include>
-	</div>
-
 	<!-- 경영체 조회 팝업 -->
 	<div>
 		<sbux-modal
@@ -1030,14 +919,14 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
-		  	const el = elements.item(i);
-		  	el.addEventListener("keyup", (event) => {
-		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-		  			fn_search();
-		  		}
-		  		//key	Enter
-		  		//keyCode
-		  	});
+			const el = elements.item(i);
+			el.addEventListener("keyup", (event) => {
+				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+					fn_search();
+				}
+				//key	Enter
+				//keyCode
+			});
 		}
 	})
 
@@ -1046,21 +935,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//그리드 생성
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		fn_fcltMngCreateGrid();
-		fn_uoListGrid();
 	</c:if>
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-		//통합조직인 경우
-		<c:if test="${loginVO.userType eq '21'}">
-		$(".uoList").hide();
-		</c:if>
-		//출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
-		await fn_uoListGrid();
-		</c:if>
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -1242,56 +1122,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		grdPrdcrCrclOgnMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
 
-	var jsonUoList = []; // 그리드의 참조 데이터 주소 선언
-	var grdUoList; //그리드 객체
-
-	// TB_EV_APO_UO_CD 테이블
-	/* Grid 화면 그리기 기능*/
-	const fn_uoListGrid = async function() {
-
-		let SBGridProperties = {};
-		SBGridProperties.parentid = 'sb-area-grdUoList';
-		SBGridProperties.id = 'grdUoList';
-		SBGridProperties.jsonref = 'jsonUoList';
-		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
-		SBGridProperties.extendlastcol = 'scroll';
-		SBGridProperties.oneclickedit = true;
-		SBGridProperties.columns = [
-			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
-				if(corpDdlnSeCd == 'Y'){
-					return "";
-				}
-				if(strValue== null || strValue == ""){
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
-				}else{
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
-				}
-			}},
-			{caption: ["조직선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
-				if(corpDdlnSeCd == 'Y'){
-					return "";
-				}
-				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
-			}},
-			{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
-			{caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
-			{caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
-			{caption: ["비고"], 		ref: 'rmrk',	type:'output',     style:'text-align:center'}
-		];
-
-		grdUoList = _SBGrid.create(SBGridProperties);
-
-	  	//클릭 이벤트 바인드
-		grdUoList.bind('click','gridUoListClick');
-	}
-
 	/**
      * 목록 조회
      */
-    const fn_search = async function() {
+	const fn_search = async function() {
 		console.log("fn_search");
 		// set pagination
 		let pageSize = grdPrdcrCrclOgnMng.getPageSize();
@@ -1349,7 +1183,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let brno = rowData.brno
 		</c:if>
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 		//debugger;
@@ -1471,6 +1305,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		let userType = '${loginVO.userType}';
+		let mbrTypeCd = '${loginVO.mbrTypeCd}';
+
+		console.log('fn_dtlSearch','brno = ',brno , 'userType = ',userType, 'mbrTypeCd = ',mbrTypeCd);
 		//SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
@@ -1546,24 +1384,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
 			await SBUxMethod.set('dtl-input-sgg',sgg);
 
-			let userType = '${loginVO.userType}';
-			let apoSe = SBUxMethod.get('dtl-input-apoSe');
-			if(userType == '21'){
-				userType = '1'
-			}else if(userType == '22'){
-				userType = '2'
-			}
-			//유저 권한과 데이터가 맞지 않는 경우 오류 처리
-			/*
-			if(userType != apoSe){
-				alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
-						"\n관리자에게 문의 해주세요");
-				$(".btn").hide();// 모든 버튼 숨기기
-				$(".uoList").hide();
-				SBUxMethod.clearAllData();//모든 데이터 클리어
-				return false;
-			}
-			*/
 			if(corpDdlnSeCd == 'Y'){
 				//$(".btn").hide();// 모든 버튼 숨기기
 				//저장버튼만 숨김처리
@@ -1573,9 +1393,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 			fn_calInvstAmtTot();
 			fn_calTot();
-			<c:if test="${loginVO.userType eq '22'}">
-			fn_searchUoList();
-			</c:if>
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1608,9 +1425,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			// 변경 저장
 			fn_subUpdate(confirm("저장 하시겠습니까?"));
 		}
-    }
+	}
 
-    function fn_checkRequiredInput(){
+	function fn_checkRequiredInput(){
 		//레드닷 처리한 필수값들 확인
 		//W0001	{0}을/를 선택하세요.
 		//W0002 : {0}을/를 입력하세요.
@@ -1877,19 +1694,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				let gridData = grdUoList.getGridDataAll();
-				console.log(gridData.length);
-				if(gridData.length > 0){
-					fn_uoListMultiSave();
-				}else{
-					alert("처리 되었습니다.");
+				alert("처리 되었습니다.");
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					fn_search();
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 					fn_dtlSearch();
 				</c:if>
-				}
 			} else {
 				alert(data.resultMessage);
 			}
@@ -1966,29 +1777,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				let apoSe = SBUxMethod.get('dtl-input-apoSe')//
-				if(apoSe == '2'){
-					let gridData = grdUoList.getGridDataAll();
-					if(gridData.length > 0){
-						fn_uoListMultiSave();
-					}else{
-						alert("처리 되었습니다.");
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-						fn_search();
-					</c:if>
-					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-						fn_dtlSearch();
-					</c:if>
-					}
-				}else{
-					alert("처리 되었습니다.");
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					fn_search();
-					</c:if>
-					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				</c:if>
+				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
 					fn_dtlSearch();
-					</c:if>
-				}
+				</c:if>
 			} else {
 				alert(data.resultMessage);
 			}
@@ -2110,74 +1904,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		fn_calInvstAmtTot();
 		fn_calTot();
 
-		if(rowData.apoSe == '1'){
-			$("div.uoList").hide();
-		}else{
-			$("div.uoList").show();
-			fn_searchUoList();
-		}
-		/*
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(!gfn_isEmpty(apoCd)){
-		}else{
-			grdUoList.refresh();
-			grdUoList.addRow();
-		}
-		*/
-
-    }
-
-
-	/* Grid Row 조회 기능*/
-	const fn_searchUoList = async function(){
-
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		let brno = SBUxMethod.get('dtl-input-brno');
-
-		if (gfn_isEmpty(apoCd)) {
-			return;
-		}
-		if (gfn_isEmpty(brno)) {
-			return;
-		}
-
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			apoCd : apoCd
-			,brno : brno
-		});
-		let data = await postJsonPromise;
-		try{
-			jsonUoList.length = 0;
-			//console.log("data==="+data);
-			data.resultList.forEach((item, index) => {
-				let uoListVO = {
-						uoApoCd		: item.uoApoCd
-						,uoCorpNm	: item.uoCorpNm
-						,uoBrno		: item.uoBrno
-						,uoCrno		: item.uoCrno
-						,isoApoCd	: item.isoApoCd
-						,delYn		: item.delYn
-				}
-				jsonUoList.push(uoListVO);
-			});
-			grdUoList.rebuild();
-
-			//비어 있는 마지막 줄 추가용도
-			let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
-			if(corpDdlnSeCd != 'Y'){
-				grdUoList.addRow();
-			}
-		}catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
 	}
 
-
-
-    function fn_create() {
+	function fn_create() {
 		console.log("******************fn_create**********************************");
 		SBUxMethod.set('dtl-input-apoCd',null)//
 		SBUxMethod.set('dtl-input-apoSe',null)//
@@ -2227,11 +1956,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-mno',null)//
 		SBUxMethod.set('dtl-input-sno',null)//
 		</c:if>
-
-		$("div.uoList").hide();
-		//출자출하조직이 속한 통합조직 리스트 입력 추가
-		grdUoList.addRow();
-    }
+	}
 
 	const fn_clearForm = function() {
 
@@ -2283,10 +2008,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-mno',null)//
 		SBUxMethod.set('dtl-input-sno',null)//
 		</c:if>
-
-		//출자출하조직이 속한 통합조직 리스트 초기화
-		$("div.uoList").hide();
-		grdUoList.rebuild();
 	}
 
 	/* 주소 팝업 */
@@ -2330,212 +2051,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		//alert("성공");
 	}
 
-    //그리드 클릭이벤트
-    function gridUoListClick(){
-		console.log("================gridUoListClick================");
-		//grdPrdcrCrclOgnReqClsMng 그리드 객체
-		let selGridUoListRow = grdUoList.getRow();
-		let selGridUoListCol = grdUoList.getCol();
-
-		let delYnCol = grdUoList.getColRef('delYn');
-		let uoBrnoCol = grdUoList.getColRef('uoBrno');
-		let delYnValue = grdUoList.getCellData(selGridUoListRow,delYnCol);
-		let uoBrnoValue = grdUoList.getCellData(selGridUoListRow,uoBrnoCol);
-
-		//입력할 데이터 인지 확인
-		//추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-		//fn_procRow 의 ADD 확인
-		if(delYnValue != 'N'){
-			return;
-		}
-		if(!gfn_isEmpty(uoBrnoValue)){
-			return;
-		}
-
-		//uoCorpNm 법인체명 uoBrno 사업자번호
-		let uoCorpNmCol = grdUoList.getColRef('uoCorpNm');
-
-		if(selGridUoListRow == '-1'){
-			return;
-		} else {
-			//선택한 데이터가 통합조직명,통합조직 사업자번호 일떄
-			if (selGridUoListCol == uoCorpNmCol || selGridUoListCol == uoBrnoCol){
-				console.log("");
-				//통합조직 선택 세팅
-				//통합조직 팝업 객체 popBrno
-				popBrno.init(fn_setGridMngmstInfoId);
-				//팝업창 오픈
-				//통합조직 팝업창 id : modal-brno
-				SBUxMethod.openModal('modal-brno');
-			}else{
-				return;
-			}
-		}
-	}
-
-	function fn_openMaodalSelect(nRow){
-		let delYnCol = grdUoList.getColRef('delYn');
-		let delYnValue = grdUoList.getCellData(nRow,delYnCol);
-		if(delYnValue == '' || delYnValue == null){
-			return
-		}
-		grdUoList.setRow(nRow);
-		popBrno.init(fn_setGridMngmstInfoId);
-		SBUxMethod.openModal('modal-brno');
-	}
-
-	// 그리드의 통합조직선택 선택 팝업 콜백 함수
-	const fn_setGridMngmstInfoId = function(rowData) {
-		console.log("================fn_setGridMngmstInfoId================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridUoListRow 선택된 행 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-
-			let selGridUoListRow = grdUoList.getRow();
-
-			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//통합조직 인덱스
-			let colRefIdx2 = grdUoList.getColRef('uoBrno');//통합조직 코드 인덱스
-			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//통합조직 코드 인덱스
-
-			let gridData = grdUoList.getGridDataAll();
-			for(var i=1; i<=gridData.length; i++ ){
-				let uoData = grdUoList.getRowData(i);
-				if ($.trim(rowData.apoCd) === $.trim(uoData.uoApoCd)){
-					gfn_comAlert("E0000", "동일한 통합조직이 있습니다.");
-					return false;
-				}
-			}
-			//그리드 값 세팅
-			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
-			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
-			grdUoList.setCellData(selGridUoListRow,colRefIdx3,rowData.apoCd,true);
-
-			let grdStatus = grdUoList.getRowStatus(selGridUoListRow);
-		 	if(grdStatus != '1'){
-		 		grdUoList.setRowStatus(selGridUoListRow,'update');
-		 	}
-		}
-	}
-
-	/* Grid Row 추가 및 삭제 기능*/
-	function fn_procRow(gubun, grid, nRow, nCol) {
-		if (gubun === "ADD") {
-			if (grid === "grdUoList") {
-				grdUoList.setCellData(nRow, nCol, "N", true);
-				//grdUoList.setCellData(nRow, 5, gv_apcCd, true);
-				grdUoList.addRow(true);
-			}
-		}
-		else if (gubun === "DEL") {
-			if (grid === "grdUoList") {
-				if(grdUoList.getRowStatus(nRow) == 0 || grdUoList.getRowStatus(nRow) == 2){
-					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-					if(confirm(delMsg)){
-						var uoVO = grdUoList.getRowData(nRow);
-						fn_deleteRsrc(uoVO);
-						grdUoList.deleteRow(nRow);
-					}
-				}else{
-					grdUoList.deleteRow(nRow);
-				}
-			}
-		}
-	}
-
-	//출자출하조직이 속한 통합조직 리스트 업데이트
-	//업데이트가 존재할 필요가 없음
-	const fn_uoListMultiSave = async function (){
-		console.log("******************fn_uoListMultiSave**********************************");
-
-		let gridData = grdUoList.getGridDataAll();
-		let saveList = [];
-
-		let isoBrno = SBUxMethod.get('dtl-input-brno')//
-		let isoCorpNm = SBUxMethod.get('dtl-input-corpNm')//
-
-		for(var i=1; i<=gridData.length; i++ ){
-
-			let rowData = grdUoList.getRowData(i);
-			let rowSts = grdUoList.getRowStatus(i);
-			//console.log(i+"행 상태값 : "+rowSts);
-			let uoBrno = rowData.uoBrno;
-			let uoCorpNm = rowData.uoCorpNm;
-			let uoApoCd = rowData.uoApoCd;
-			let delYn = rowData.delYn;
-			//console.log(i+"행 uoApoCd : "+uoApoCd);
-			rowData.isoBrno = isoBrno;
-			rowData.isoCorpNm = isoCorpNm;
-
-			if(delYn == 'N'){
-				if (gfn_isEmpty(uoBrno)) {
-					alert("통합조직을 선택해주세요");
-					return;
-				}
-
-				if (rowSts === 1){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 2){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 3){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else {
-					continue;
-				}
-
-			}
-		}
-		if(saveList.length == 0){
-			//출자출하조직이 속한리스트 의 메세지 인데 오해의 소지가 있음
-			//gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
-			gfn_comAlert("I0001") // 변경 대상이 없어도 처리 됬습니다 띄우기로 함
-			return;
-		}
-
-		let postJsonPromise = gfn_postJSON("/pd/bsm/multiSaveUoList.do", saveList);
-		let data = await postJsonPromise;
-		try {
-			if (_.isEqual("S", data.resultStatus)) {
-				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-				fn_search();
-			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-				fn_dtlSearch();
-			</c:if>
-			} else {
-				alert(data.resultMessage);
-			}
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
-	}
-
-	async function fn_deleteRsrc(uoVO){
-		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", uoVO);
-		let data = await postJsonPromise;
-
-		try{
-			if(data.result > 0){
-				alert("삭제 되었습니다.");
-			}else{
-				alert("삭제 도중 오류가 발생 되었습니다.");
-			}
-		}catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
-
-	}
 	//농업인 출자 지분율 계산
 	function fn_calFrmerInvstAmtRt(){
 		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));

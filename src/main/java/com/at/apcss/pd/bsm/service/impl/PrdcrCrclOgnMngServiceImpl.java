@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper;
 import com.at.apcss.pd.bsm.service.PrdcrCrclOgnMngService;
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
@@ -56,7 +52,7 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	public int insertPrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
 		int insertedCnt = PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
-
+		updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
 		return insertedCnt;
 	}
 
@@ -64,6 +60,14 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	public int updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
 		int updatedCnt = PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+		updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public int updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
+
+		int updatedCnt = PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
 
 		return updatedCnt;
 	}
