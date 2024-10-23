@@ -110,9 +110,9 @@
 			     , CC.CD_EXPLN      AS CD_EXPLN
 			     , CD.CD_VL			AS CD_VL
 			     , CD.APC_CD		AS APC_CD
-			     , CASE 
+			     , CASE
 			     		WHEN APC_CD = '0000' THEN '공통'
-			     		ELSE (SELECT FN_GET_APC_NM(APC_CD) FROM DUAL) 
+			     		ELSE (SELECT FN_GET_APC_NM(APC_CD) FROM DUAL)
 		     		END AS APC_NM
 			     , CD.CD_VL_NM		AS CD_VL_NM
 			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
@@ -642,8 +642,8 @@
 				                '선별지시' AS DELIBLE
 				               , (SELECT COUNT(*)
 				                    FROM TB_SORT_CMND X
-				                   WHERE X.APC_CD = '8888'
-				                     AND X.FCLT_CD = '04'
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.FCLT_CD = #{cdVl}
 				                     AND X.DEL_YN = 'N'
 				                  )  AS CNT
 				           FROM DUAL
@@ -655,8 +655,8 @@
 				                      , TB_SORT_INVNTR Y
 				                  WHERE X.APC_CD = Y.APC_CD
 				                    AND X.SORTNO = Y.SORTNO
-				                    AND X.APC_CD = '8888'
-				                    AND Y.FCLT_CD = '04'
+				                    AND X.APC_CD = #{apcCd}
+				                    AND Y.FCLT_CD = #{cdVl}
 				                    AND X.DEL_YN = 'N'
 				                    AND Y.DEL_YN = 'N'
 				                 )  AS CNT
@@ -666,8 +666,8 @@
 				                '선별재고' AS DELIBLE
 				               , (SELECT COUNT(*)
 				                    FROM TB_SORT_INVNTR X
-				                   WHERE X.APC_CD = '8888'
-				                     AND X.FCLT_CD = '04'
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.FCLT_CD = #{cdVl}
 				                     AND X.DEL_YN = 'N'
 				                  )  AS CNT
 				           FROM DUAL
@@ -717,7 +717,7 @@
 			]]>
     	</if>
     </select>
-    
+
    	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComApcStdInq			-->
 	<!-- DESC : APC기준 정보 업데이트  		                            				-->
