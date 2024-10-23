@@ -25,6 +25,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<sbux-input uitype="hidden" id="aplyBrno-inp-yr" name="aplyBrno-inp-yr"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -90,7 +91,7 @@
 		jsonId: 'jsonAplyBrnoPop',
 		areaId: "sb-area-grdAplyBrnoPop",
 		prvApcCd: "",
-		yr:"",
+		//yr:"",
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
@@ -101,8 +102,10 @@
 			SBUxMethod.hide('btnSaveBrno');
 			SBUxMethod.attr('btnSearchBrno', 'disabled', false);
 			if(!gfn_isEmpty(_yr)){
-				this.yr = _yr;
+				//this.yr = _yr;
+				SBUxMethod.set('aplyBrno-inp-yr' , _yr);
 			}
+			console.log('_yr',_yr,'this.yr',this.yr);
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
@@ -169,10 +172,12 @@
 			var brno = nvlScnd(SBUxMethod.get("aplyBrno-inp-brno"),'');
 			var corpNm = nvlScnd(SBUxMethod.get("aplyBrno-inp-corpNm"),'');
 
+			let yr = SBUxMethod.get('aplyBrno-inp-yr');
+
 			const postJsonPromise = gfn_postJSON("/pd/popup/selectAplyBrnoList.do", {
 
 				brno : brno, //검색 파라미터
-				yr : this.yr,
+				yr : yr,
 				corpNm : corpNm,
 
 				// pagination

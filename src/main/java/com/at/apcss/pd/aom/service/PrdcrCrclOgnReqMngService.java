@@ -24,22 +24,44 @@ import com.at.apcss.pd.aom.vo.GpcVO;
 public interface PrdcrCrclOgnReqMngService {
 
 	/**
-	 * 정보를 조회한다.
+	 * 통합조직 신청정보를 조회한다.
 	 * @param PrdcrCrclOgnReqMngVO
-	 * @return
+	 * @return PrdcrCrclOgnReqMngVO
 	 * @throws Exception
 	 */
 	public PrdcrCrclOgnReqMngVO selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 통합조직 신청정보 리스트를 조회한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return List<PrdcrCrclOgnReqMngVO>
+	 * @throws Exception
+	 */
 	public List<PrdcrCrclOgnReqMngVO> selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 통합조직 조직정보를 등록한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 통합조직 조직정보를 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 통합조직 조직정보 리스트를 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int multiSavePrdcrCrclOgnReqMngList(List<PrdcrCrclOgnReqMngVO> PrdcrCrclOgnReqMngVOList) throws Exception;
-
-	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
 	/**
 	 * 품목 리스트를 조회한다.
@@ -73,8 +95,20 @@ public interface PrdcrCrclOgnReqMngService {
 	 */
 	public int deleteGpc(GpcVO gpcVO) throws Exception;
 
+	/**
+	 * 통합조직 신청마감 한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 통합조직 신청정보 로우데이터를 조회 한다
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
 	/**
@@ -84,4 +118,36 @@ public interface PrdcrCrclOgnReqMngService {
 	 * @throws Exception
 	 */
 	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO) throws Exception;
+
+	/**
+	 * 통합조직 신청정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteUoAply(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
+	/**
+	 * 통합조직 조직관계 정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteUoUoCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
+	/**
+	 * 통합조직 품목정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteUoItem(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
+	/**
+	 * 통합조직 조직구분을 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateUoApoSe(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 }

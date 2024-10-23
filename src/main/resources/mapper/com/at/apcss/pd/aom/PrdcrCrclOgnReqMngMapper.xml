@@ -117,31 +117,11 @@
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
 
-
 		ORDER BY CM.CORP_NM DESC
 	</select>
 
-
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-
-		<!-- Start 페이징 -->
-		<if test='pagingYn != null and pagingYn.equals("Y")'>
-			SELECT
-				  ROWNUM AS ROW_SEQ
-				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-				, pt0.*
-			  FROM (
-		</if>
-			SELECT * FROM
-			(SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+	<select id="selectAplyInfo" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -175,10 +155,105 @@
 				, CM.UO_BRNO
 				, CM.UO_NM
 				, CM.UNTY_YR
+				, CM.APRV
+
+				, EAM.YR
+				, EAM.APLY_DAY
+				, EAM.CORP_DDLN_SE_CD
+				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
+						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
+						END
+				) AS RAW_MTR_ENSR
+				, EAM.RAW_MTR_ENSR_SIGUN_CNT
+				, EAM.RAW_MTR_ENSR_CTPV_CNT
+				, EAM.CTPV_NM
+				, EAM.SIGUN_NM
+				, EAM.PRUO_FUND_APLY_AMT
+				, EAM.ISO_FUND_APLY_AMT
+				, EAM.APLY_TRGT_SE
+
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			FROM TB_EV_APO CM ,
+				(SELECT *
+					FROM TB_EV_APLY_MNG
+					WHERE 1=1
+					  AND YR = #{yr}
+				) EAM
+			WHERE 1=1
+			  AND CM.BRNO = EAM.BRNO(+)
+			  AND CM.BRNO = #{brno}
+
+		ORDER BY CM.CORP_NM DESC
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdcrCrclOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+			SELECT * FROM
+			(SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+				  CM.APO_CD
+				, EAM.APO_SE
+				, CM.WRT_YN
+				, CM.CTPV
+				, CM.SGG
+				, CM.CORP_NM
+				, CM.BRNO
+				, CM.CRNO
+
+				, CM.PIC_FLNM
+				, CM.ZIP
+				, CM.LOTNO_ADDR
+				, CM.LOTNO_DTL_ADDR
+				, CM.ROAD_NM_ADDR
+				, CM.ROAD_NM_DTL_ADDR
+				, CM.CORP_SE_CD
+				, CM.CORP_DTL_SE_CD
+				, CM.CORP_FNDN_DAY
+				, CM.INVST_NOPE
+				, CM.INVST_EXPND_FRMER_NOPE
+				, CM.INVST_AMT
+				, CM.FRMER_INVST_AMT
+				, CM.PRDCR_GRP_INVST_AMT
+				, CM.LOCGOV_INVST_AMT
+				, CM.ETC_INVST_AMT
+				, CM.RGLLBR_NOPE
+				, CM.DW_NOPE
+				, CM.DLBRR_NOPE
+				, CM.ISO_HLD_YN
+				, CM.UNTY_YN
+				, CM.UO_BRNO
+				, CM.UO_NM
+				, CM.UNTY_YR
 				<if test='yr != null and yr != ""'>
-				, (CASE WHEN CM.APO_SE = '1'
+				, (CASE WHEN EAM.APO_SE = '1'
 						THEN CM.APRV
-						WHEN CM.APO_SE = '2'
+						WHEN EAM.APO_SE = '2'
 						THEN (SELECT (SELECT APRV FROM TB_EV_APO WHERE BRNO = AM.UO_BRNO) AS APRV
 								FROM TB_EV_APLY_MNG AM
 								WHERE 1=1
@@ -197,7 +272,7 @@
 							FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
 							WHERE 1=1
 							  AND STBLT_YN = 'Y'
-							  AND APO_SE = CM.APO_SE
+							  AND APO_SE = EAM.APO_SE
 							  AND TYPE_SE_NO = '8'
 							<if test='apoSe == "2"'>
 							  <if test='stbltYnBrno != null and stbltYnBrno != ""'>
@@ -338,11 +413,10 @@
 						) EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
-			   AND CM.APO_SE IS NOT NULL
 			   AND CM.APO_CD IS NOT NULL
 
 			<if test='apoSe != null and apoSe != ""'>
-				AND CM.APO_SE = #{apoSe}
+				AND EAM.APO_SE = #{apoSe}
 			</if>
 			<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST = #{cmptnInst}
@@ -429,50 +503,64 @@
 		]]>
 	</insert>
 
+
 	<update id="updatePrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.upatePrdcrCrclOgnReqMng */
 				TB_EV_APO
 			   SET
-			 	  UNTY_YN		= #{untyYn}
-			 	, UO_NM 		= #{uoNm}
-			 	, UO_BRNO 		= #{uoBrno}
-			 	, UNTY_YR 		= #{untyYr}
-			 	, APRV			= #{aprv}
-			 	, ISO_HLD_YN 	= #{isoHldYn}
+				  UNTY_YN		= #{untyYn}
+				, UO_NM 		= #{uoNm}
+				, UO_BRNO 		= #{uoBrno}
+				, UNTY_YR 		= #{untyYr}
+				, APRV			= #{aprv}
+				, ISO_HLD_YN 	= #{isoHldYn}
+				, APO_SE 		= '1'
 		]]>
 		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
 				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-			   AND APO_CD	= #{apoCd}
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
 		]]>
 	</update>
 
-
-	<delete id="deletePrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<update id="updatePrdcrCrclOgnReqMngHstry" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-		DELETE 	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deletePrdcrCrclOgnReqMng */
-		FROM TB_PD_PrdcrCrclOgnVluIdctrMng
-		 WHERE TEST_NO 	= #{testNo}
+			UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry */
+				TB_EV_APO_HSTRY
+			   SET
+				  UNTY_YN		= #{untyYn}
+				, UO_NM 		= #{uoNm}
+				, UO_BRNO 		= #{uoBrno}
+				, UNTY_YR 		= #{untyYr}
+				, APRV			= #{aprv}
+				, ISO_HLD_YN 	= #{isoHldYn}
+				, APO_SE 		= '1'
 		]]>
-	</delete>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
+		]]>
+	</update>
 
 	<insert id="insertEvAplyMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 	<![CDATA[
-    	MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 				CLT.APO_CD  = #{apoCd}
 				AND CLT.YR  = #{yr}
 				)
 		WHEN MATCHED THEN
-				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
-						SET
+				UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+					SET
 						RAW_MTR_ENSR_SIGUN_CNT	= #{rawMtrEnsrSigunCnt}
 						, RAW_MTR_ENSR_CTPV_CNT		= #{rawMtrEnsrCtpvCnt}
 						, CTPV_NM					= #{ctpvNm}
@@ -480,13 +568,11 @@
 						, PRUO_FUND_APLY_AMT		= #{pruoFundAplyAmt}
 						, ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
 						, APLY_TRGT_SE				= #{aplyTrgtSe}
-						, APO_SE					= #{apoSe}
-				]]>
-				<![CDATA[
+						, APO_SE					= '1'
 
-					 WHERE 1=1
-					 AND CLT.APO_CD		= #{apoCd}
-					 AND CLT.YR  		= #{yr}
+						, UO_BRNO					= NULL
+						, UO_CD						= NULL
+
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 					(
@@ -504,11 +590,12 @@
 					  , PRUO_FUND_APLY_AMT
 					  , ISO_FUND_APLY_AMT
 					  , APLY_TRGT_SE
+
 					)
 				VALUES
 					(
 					    #{apoCd}
-					  , #{apoSe}
+					  , '1'
 					  , #{brno}
 					  , #{crno}
 					  , #{corpNm}
@@ -521,10 +608,10 @@
 					  , #{pruoFundAplyAmt}
 					  , #{isoFundAplyAmt}
 					  , #{aplyTrgtSe}
+
 					)
 		]]>
 	</insert>
-
 
 	<insert id="insertGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
 	<![CDATA[
@@ -590,7 +677,7 @@
 					  , #{crno}
 					  , #{corpNm}
 
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{yr}
 					  , #{sttgUpbrItemSe}
 					  , #{ctgryCd}
 					  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})
@@ -672,23 +759,20 @@
 		 WHERE BRNO 	= #{brno}
 		   AND ITEM_CD  = #{itemCd}
 		   AND YR		= #{yr}
-		   AND CTGRY_CD	= #{ctgryCd}
-		   AND APO_SE	= #{apoSe}
-		   AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 		]]>
 	</delete>
 
 	<!-- 법인체마감 -->
 	<update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-			UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd */
-				TB_EV_APLY_MNG
-			   SET
-			 	  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
-			 WHERE 1=1
-				<if test='brno != null and brno != ""'>
-				AND BRNO 	= #{brno}
-				</if>
-				AND YR		= #{yr}
+		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd */
+			TB_EV_APLY_MNG
+		   SET
+			  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
+		 WHERE 1=1
+			<if test='brno != null and brno != ""'>
+			AND BRNO 	= #{brno}
+			</if>
+			AND YR		= #{yr}
 	</update>
 
 	<!-- 로우데이터 요청 -->
@@ -799,6 +883,56 @@
 		  					  						WHERE 1=1
 		  					  						  AND BRNO = #{brno})
 	</select>
+
+	<!-- 통합조직 신청정보 삭제 처리 -->
+	<delete id="deleteUoAply" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APLY_MNG	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoAply */
+		 WHERE 1=1
+		   AND YR 	= #{yr}
+		   AND BRNO = #{brno}
+		]]>
+	</delete>
+
+	<!-- 통합조직 조직관계 정보 삭제 처리 -->
+	<delete id="deleteUoUoCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoUoCd */
+		 WHERE 1=1
+		   AND UO_BRNO = #{brno}
+		]]>
+	</delete>
+
+	<!-- 통합조직 품목정보 삭제 처리 -->
+	<delete id="deleteUoItem" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoItem */
+		 WHERE 1=1
+		   AND YR 	= #{yr}
+		   AND BRNO = #{brno}
+		]]>
+	</delete>
+
+	<!-- 조직구분 변경 -->
+	<update id="updateUoApoSe" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSe */
+			TB_EV_APO
+		   SET
+			  APO_SE	= #{apoSe}
+		 WHERE 1=1
+			AND BRNO 	= #{brno}
+	</update>
+
+	<!-- 조직구분 변경 -->
+	<update id="updateUoApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry */
+			TB_EV_APO_HSTRY
+		   SET
+			  APO_SE	= #{apoSe}
+		 WHERE 1=1
+			AND BRNO 	= #{brno}
+	</update>
+
 </mapper>
 
 
