@@ -1501,6 +1501,39 @@
 			return false;
 		}
 
+		//품목 그리드 필수갑 확인
+		let gridData = grdGpcList.getGridDataAll();
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdGpcList.getRowData(i);
+
+			if(rowData.delYn == 'N'){
+				if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
+					alert('품목 리스트의 전문/육성 구분을 선택해주세요');
+					grdGpcList.focus();
+					return true;
+				}
+				//기타가 아닌 경우
+				if(rowData.sttgUpbrItemSe != '3'){
+
+					if(gfn_isEmpty(rowData.ctgryCd)){
+						alert('품목 리스트의 평가부류를 선택해주세요');
+						grdGpcList.focus();//그리드 객체로 포커스 이동
+						return true;
+					}
+				}
+				if(gfn_isEmpty(rowData.clsfCd)){
+					alert('품목 리스트의 부류를 선택해주세요');
+					grdGpcList.focus();//그리드 객체로 포커스 이동
+					return true;
+				}
+				if(gfn_isEmpty(rowData.itemCd)){
+					alert('품목 리스트의 품목을 선택해주세요');
+					grdGpcList.focus();
+					return true;
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -2010,11 +2043,6 @@
 
 	//전문/육성 품목 선택
 	function fn_Validate(objGrid, nRow, nCol, strValue) {
-
-	}
-
-	//전문/육성 품목 선택
-	function fn_Validate(objGrid, nRow, nCol, strValue) {
 		//console.log(strValue);
 		let aprv = SBUxMethod.get("dtl-input-aprv");
 		if(strValue != ""){
@@ -2032,13 +2060,15 @@
 		console.log("strValue = " +strValue ,clsfCdCol , ctgryCdCol);
 		//기타일떄 부류,평가부류 비활성화
 		if(strValue == '3'){
-			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
+			//objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
 			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
-			objGrid.setCellData(nRow,clsfCdCol,0);
+			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'lightgray');
+			//objGrid.setCellData(nRow,clsfCdCol,0);
 			objGrid.setCellData(nRow,ctgryCdCol,0);
 		}else{
-			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
+			//objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
 			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
+			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'white');
 		}
 		return strValue;
 	}
@@ -2114,8 +2144,17 @@
 		if (gubun === "ADD") {
 			if (grid === "grdGpcList") {
 				grdGpcList.setCellData(nRow, nCol, "N", true);
-				//grdGpcList.setCellData(nRow, 5, gv_apcCd, true);
 				grdGpcList.addRow(true);
+
+				let rmrkCol = grdGpcList.getColRef('rmrk');//부류
+				let ctgryCdCol = grdGpcList.getColRef('ctgryCd');//평가부류
+				let sttgUpbrItemSeCol = grdGpcList.getColRef('sttgUpbrItemSe');//전문/육성 구분
+				//기존 row 활성화
+				grdGpcList.setCellDisabled(nRow, sttgUpbrItemSeCol, nRow, ctgryCdCol, false);
+				grdGpcList.setCellStyle('background-color', nRow, sttgUpbrItemSeCol, nRow, rmrkCol, 'white');
+				//추가 row 비활성화
+				grdGpcList.setCellDisabled(nRow+1, sttgUpbrItemSeCol, nRow+1, ctgryCdCol, true);
+				grdGpcList.setCellStyle('background-color', nRow+1, sttgUpbrItemSeCol, nRow+1, rmrkCol, 'lightgray');
 			}
 		}
 		else if (gubun === "DEL") {
@@ -2255,10 +2294,9 @@
 		if(selGridRow == '-1'){
 			return;
 		} else {
-			//선택한 데이터가 통합조직 일떄
 			if (selGridCol == itemNmCol){
 				//팝업창 오픈
-				//통합조직 팝업창 id : modal-gpcList
+				//팝업창 id : modal-gpcList
 				//popGpcSelect.init(fn_setGridItem);
 				//SBUxMethod.openModal('modal-gpcList');
 				fn_openMaodalGpcSelect(selGridRow);
@@ -2268,6 +2306,7 @@
 
 	//품목선택 팝업 버튼
 	function fn_openMaodalGpcSelect(nRow){
+		grdGpcList.setRow(nRow);
 		let delYnCol = grdGpcList.getColRef('delYn');
 		let delYnValue = grdGpcList.getCellData(nRow,delYnCol);
 		if(delYnValue == '' || delYnValue == null){
@@ -2278,6 +2317,7 @@
 		console.log(rowData);
 
 		if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
+			alert('전문/육성 구분을 선택해주세요');
 			return;
 		}
 		//기타품목인 경우 모든 품목 사용 가능
@@ -2285,7 +2325,7 @@
 			selType = 'N';
 		}
 		let brno = SBUxMethod.get('dtl-input-brno');//
-		grdGpcList.setRow(nRow);
+		console.log('fn_openMaodalGpcSelect',selType);
 		popGpcSelect.init(fn_setGridItem , selType , brno);
 		SBUxMethod.openModal('modal-gpcList');
 	}
