@@ -1184,21 +1184,18 @@
 
 	//최종제출 여부 체크
 	function fn_prgrsLastChk(){
-		console.log('fn_prgrsLastChk');
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
 		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
-
 			SBUxMethod.attr("btnTmprStrg",'disabled','true'); // 임시저장버튼 비활성화
-
 		} else {
 			SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','false'); // 저장버튼 활성화
 
-			SBUxMethod.attr("btnTmprStrg",'disabled','true'); // 임시저장버튼 비활성화
+			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
 	}
 </script>
