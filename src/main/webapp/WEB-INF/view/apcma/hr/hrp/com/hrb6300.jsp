@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-gvwDetail" style="height:390px;"></div>
+                            <div id="sb-area-gvwDetail" style="height:460px;"></div>
                         </div>
                     </div>
                 </div>
@@ -207,10 +207,10 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["과세표준하한(초과)"],         ref: 'PAY_AMT_FR',    type:'input',  	width:'150px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["과세표준상한(이하)"],         ref: 'PAY_AMT_TO',    type:'input',  	width:'150px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["과세율(%)"],         ref: 'TAX_RATE',    type:'input',  	width:'80px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 5}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-            {caption: ["누진공제액"],         ref: 'CUMULATIVE_TAX_DED_AMT',    type:'input',  	width:'120px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}}
+            {caption: ["과세표준하한(초과)"],         ref: 'PAY_AMT_FR',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["과세표준상한(이하)"],         ref: 'PAY_AMT_TO',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["과세율(%)"],         ref: 'TAX_RATE',    type:'input',  	width:'100px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 5}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
+            {caption: ["누진공제액"],         ref: 'CUMULATIVE_TAX_DED_AMT',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}}
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
@@ -518,6 +518,7 @@
                     jsonBaseYearList.push(msg);
                 });
                 gvwMaster.rebuild();
+                gvwMaster.sortColumn(0, 'desc');
 
                 if(jsonBaseYearList.length > 0) {
                     gvwMaster.clickRow(1);

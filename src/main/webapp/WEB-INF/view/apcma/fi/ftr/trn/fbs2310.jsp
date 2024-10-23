@@ -445,7 +445,7 @@
         if (copyMode == 'clear') { //복사해제모드
             SBGridProperties.selectmode = 'free';
         } else if (copyMode == 'line') { //행복사모드
-            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.selectmode = 'byrows'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
             SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
         } else if (copyMode == 'cell') { //셀복사모드
