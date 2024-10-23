@@ -37,6 +37,10 @@ public interface InvShipOgnReqMngMapper {
 
 	public int updateInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO);
 
+	public int updateApoSe(InvShipOgnReqMngVO InvShipOgnReqMngVO);
+
+	public int updateApoSeHstry(InvShipOgnReqMngVO InvShipOgnReqMngVO);
+
 	public int deleteInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
 
 	public List<InvShipOgnReqMngVO> hiddenGrdIsoSelectList(InvShipOgnReqMngVO InvShipOgnReqMngVO);

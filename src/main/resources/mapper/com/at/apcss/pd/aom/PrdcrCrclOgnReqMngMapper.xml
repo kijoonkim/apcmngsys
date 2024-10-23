@@ -547,6 +547,7 @@
 
 			WHERE 1=1
 			  AND APO_CD	= #{apoCd}
+			  AND YR		= #{yr}
 		]]>
 	</update>
 

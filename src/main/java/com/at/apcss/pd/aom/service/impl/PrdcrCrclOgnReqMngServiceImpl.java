@@ -59,7 +59,6 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 
 	@Override
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-
 		int updatedCnt = PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
 		PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry(PrdcrCrclOgnReqMngVO);
 		updatedCnt += PrdcrCrclOgnReqMngMapper.insertEvAplyMng(PrdcrCrclOgnReqMngVO);

@@ -55,7 +55,8 @@ public class InvShipOgnReqMngServiceImpl extends BaseServiceImpl implements InvS
 	public int insertInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception {
 
 		int insertedCnt = InvShipOgnReqMngMapper.insertInvShipOgnReqMng(InvShipOgnReqMngVO);
-
+		insertedCnt += InvShipOgnReqMngMapper.updateApoSe(InvShipOgnReqMngVO);
+		insertedCnt += InvShipOgnReqMngMapper.updateApoSeHstry(InvShipOgnReqMngVO);
 		return insertedCnt;
 	}
 

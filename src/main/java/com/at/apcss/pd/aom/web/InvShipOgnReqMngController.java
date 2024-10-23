@@ -142,5 +142,4 @@ public class InvShipOgnReqMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
-
 }

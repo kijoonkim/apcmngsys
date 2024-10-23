@@ -365,12 +365,24 @@
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시군구</th>
 							<td  colspan="3" class="td_input" >
+								<!--
 								<sbux-select
 									id="dtl-input-sgg"
 									name="dtl-input-sgg"
 									uitype="single"
 									jsondata-ref="jsonComDtlSgg"
 									unselected-text="선택"
+									class="form-control input-sm"
+									filter-source-name="dtl-input-ctpv"
+									jsondata-filter="mastervalue"
+								></sbux-select>
+								-->
+								<sbux-select
+									id="dtl-input-sgg"
+									name="dtl-input-sgg"
+									uitype="single"
+									jsondata-ref="jsonComDtlSgg"
+									unselected-text="전체"
 									class="form-control input-sm"
 									filter-source-name="dtl-input-ctpv"
 									jsondata-filter="mastervalue"
@@ -996,23 +1008,24 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
+			//시도 시군 공통코드 변경 CMPTN_INST_CTPV, CMPTN_INST_SIGUN- > UNTY_CTPV , UNTY_SGG
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), 	//관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), 	//시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'CMPTN_INST_SIGUN'),	 //시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'CMPTN_INST_SIGUN'),	 //시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'CMPTN_INST_CTPV'), 	//시도
-			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), 		//법인구분
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'UNTY_SGG'),	 //시군
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'UNTY_SGG'),	 //시군
+			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), 	//법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), 	//법인형태
 			</c:if>
 			//상세
 			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), 	//법인형태
-			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComDtlCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN'),	//시군
+			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComDtlCtpv, 	'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'UNTY_SGG'),	//시군
 
 
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'CMPTN_INST_SIGUN'),	//시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'CMPTN_INST_CTPV'), 	//시도
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'UNTY_SGG'),	//시군
 			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), 	//관할기관
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), 		//법인구분
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
@@ -1025,7 +1038,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	}
 
 	const fn_ctpvDtlChange = async function(){
-		//SBUxMethod.set("dtl-input-sgg", null);
+		console.log("fn_ctpvDtlChange");
+		console.log(jsonComDtlSgg);
+		SBUxMethod.set("dtl-input-sgg", "");
+		console.log(SBUxMethod.get("dtl-input-sgg"));
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1322,12 +1338,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,yr : yr
 		});
 		let data = await postJsonPromise;
-		let sgg;
 		let corpDdlnSeCd;//법인체마감 확인
 		try{
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				sgg = item.sgg;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))
@@ -1377,12 +1391,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
 				SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 
-				SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv));
-
+				SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv).trim(), { isTriggerExt : true })
+				SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg).trim());
 			});
-
-			await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
-			await SBUxMethod.set('dtl-input-sgg',sgg);
 
 			if(corpDdlnSeCd == 'Y'){
 				//$(".btn").hide();// 모든 버튼 숨기기
@@ -1897,9 +1908,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-sno',gfn_nvl(rowData.sno))//
 		</c:if>
 
-		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv));
-		await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
-		await SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg));
+		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv).trim(), { isTriggerExt : true })
+		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg).trim());
 
 		fn_calInvstAmtTot();
 		fn_calTot();
@@ -2193,9 +2203,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();
 		//콤보박스 설정
+		//공통코드 변경 CMPTN_INST_CTPV,CMPTN_INST_SIGUN -> UNTY_CTPV,UNTY_SGG
 		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCmptnInstH, 	'CMPTNC_INST'); 	//관할기관
-		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCtpvH, 		'CMPTN_INST_CTPV'); 	//시도
-		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComSggH, 		'CMPTN_INST_SIGUN');	 //시군
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCtpvH, 		'UNTY_CTPV'); 	//시도
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComSggH, 		'UNTY_SGG');	 //시군
 		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpSeCdH, 	'CORP_SE_CD'); 		//법인구분
 		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpDtlSeCdH, 'CORP_SHAP'); 	//법인형태
 
