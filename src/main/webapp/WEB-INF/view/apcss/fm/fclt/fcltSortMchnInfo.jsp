@@ -862,9 +862,9 @@
 			srchLclsfCd: srchLclsfCd,
 
 			// pagination
-			pagingYn : 'Y',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'Y',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 		const data = await postJsonPromise;
 		//await 오류시 확인
