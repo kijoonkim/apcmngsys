@@ -381,12 +381,29 @@
 	}	
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-
-    	fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async  function(e) {
+        let initObject = localStorage.getItem("callMain");
+    	await fn_initSBSelect();
     	fn_createGrid();
     	fn_createSubGrid();
-    	cfn_search();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await cfn_search();
+        }
+    });
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await cfn_search();
+        }
     });
     
 	// 신규
@@ -416,6 +433,20 @@
 		fn_createGrid();
 		fn_createSubGrid();
 	}
+
+    const fn_onload = async function (parentParameter) {
+        if (parentParameter){
+            if (gfn_nvl(parentParameter["GROUP_CODE"]) != "") {
+                SBUxMethod.set("SRCH_GROUP_CODE", gfn_nvl(parentParameter["GROUP_CODE"]));
+                SBUxMethod.attr('SRCH_GROUP_CODE', 'readonly', 'false');
+                fn_search();
+            } else {
+                SBUxMethod.set("SRCH_GROUP_CODE", "");
+                SBUxMethod.attr('SRCH_GROUP_CODE', 'readonly', 'true');
+                fn_search();
+            }
+        }
+    }
 
     //grid 초기화
     var CMNSCDGrid; 			// 그리드를 담기위한 객체 선언
@@ -546,6 +577,9 @@
     	  	        	CMNSCDGrid.rebuild();
     	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
 
+                        if(jsonCMNSCDList.length > 0) {
+                            CMNSCDGrid.clickRow(1);
+                        }
     	        	} else {
     	          		alert(data.resultMessage);
     	        	}

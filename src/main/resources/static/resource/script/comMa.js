@@ -645,6 +645,9 @@ async function gfnma_multiSelectInit(obj) {
 		
 		//table tbody
 		htm = '';
+		htm += '<tr style="cursor:pointer" class="clickable-row">';
+		htm += '<td colspan="'+ _columns.length +'" style="text-align:center;" cu-code="">선택</td>';
+		htm += '</tr>';
 		for(i=0; i<data.cv_1.length; i++){
 			var obj = data.cv_1[i];
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
@@ -669,11 +672,18 @@ async function gfnma_multiSelectInit(obj) {
 				$(tarId).find('font').text('선택');
 			} else {
 				$(this).addClass('active').siblings().removeClass('active');
-				var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
-				var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
-				$(tarId).attr('cu-value', cu_value);
-				$(tarId).attr('cu-label', cu_label);
-				$(tarId).find('font').text(cu_label);
+				var empty = $(this).find('[cu-code=""]').text();
+				if(empty) {
+					$(tarId).attr('cu-value', '');
+					$(tarId).attr('cu-label', '');
+					$(tarId).find('font').text('선택');
+				} else {
+					var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
+					var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
+					$(tarId).attr('cu-value', cu_value);
+					$(tarId).attr('cu-label', cu_label);
+					$(tarId).find('font').text(cu_label);
+				}
 				if(typeof _callback == "function") {
 					_callback(cu_value)
 				}
