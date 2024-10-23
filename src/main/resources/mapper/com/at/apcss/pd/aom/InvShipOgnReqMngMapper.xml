@@ -243,6 +243,41 @@
 		]]>
 	</insert>
 
+	<update id="updateApoSe" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSe */
+				TB_EV_APO
+			   SET
+				, APO_SE 		= '2'
+		]]>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
+		]]>
+	</update>
+
+	<update id="updateApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSeHstry */
+				TB_EV_APO_HSTRY
+			   SET
+				, APO_SE 		= '2'
+		]]>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
+			  AND YR		= #{yr}
+		]]>
+	</update>
+
 	<update id="updateInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
 		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
