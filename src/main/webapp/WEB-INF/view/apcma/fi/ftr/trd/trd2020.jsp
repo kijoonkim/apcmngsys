@@ -58,7 +58,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
@@ -188,7 +188,7 @@
                                             <th scope="row" class="th_bg">사업단위</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -221,7 +221,7 @@
                                             <th scope="row" class="th_bg">예적금유형</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -304,7 +304,7 @@
                                             <th scope="row" class="th_bg">통화</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -407,7 +407,7 @@
                                             <th scope="row" class="th_bg">예적금상태</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -620,7 +620,7 @@
                                             <th scope="row" class="th_bg">불입조건</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -665,7 +665,7 @@
                                             <th scope="row" class="th_bg">불입일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -678,7 +678,7 @@
                                             <th scope="row" class="th_bg">불입기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -689,7 +689,7 @@
                                             <th scope="row" class="th_bg">단복리 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -702,7 +702,7 @@
                                             <th scope="row" class="th_bg">이자율구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -720,7 +720,7 @@
                                             <th scope="row" class="th_bg">이자수취기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -731,7 +731,7 @@
                                             <th scope="row" class="th_bg">이자일수계산기준</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -749,7 +749,7 @@
                                             <th scope="row" class="th_bg">년간이자일수</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -775,7 +775,7 @@
                                             <th scope="row" class="th_bg">이자발생일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -2219,7 +2219,7 @@
 
     const fnQRY_P_TRD2010_Q = async function (strWorkType) {
         if (strWorkType == "LIST") {
-            if (!SBUxMethod.validateRequired('panHeader') && !validateRequired()) {
+            if (!SBUxMethod.validateRequired('panHeader') && !validateRequired('panHeader')) {
                 return false;
             }
         }

@@ -1055,31 +1055,67 @@ const gfnma_getBrowser = function () {
 };
 
 /**
+ * @name 		gfnma_showPopover
+ * @description 필수값 체크에서 필수값이 없는 부분에 팝오버 메시지 출력
+ * @param 		{object} element : HTML node
+ * @function
+ */
+function gfnma_showPopover(element) {
+	// 경고 메시지 템플릿 생성
+	const popoverHtml = `
+        <div id="popover_wrap_` + element.id + `" style="position: absolute; display: inline;">
+            <div id="popover_req_` + element.id + `" class="sbux-pop sbux-fade sbux-pop-bottom sbux-in sbux-required-popover" style="display: block;">
+                <div class="sbux-pop-arrow"></div>
+                <div class="sbux-pop-content">이 입력란을 작성하세요.</div>
+            </div>
+        </div>`;
+
+	// popover를 버튼의 중앙에 추가
+	const $element = $(element).parent();
+	const offset = $element.offset();
+	const popover = $(popoverHtml).appendTo('body');
+
+	// 위치 설정 (중앙에 배치)
+	const popoverWidth = $("#popover_req_"+element.id).outerWidth();
+	const popoverHeight = $("#popover_req_"+element.id).outerHeight();
+	const elementWidth = $element.outerWidth();
+	const elementHeight = $element.outerHeight();
+
+	popover.css({
+		top: offset.top + (elementHeight / 2) + (popoverHeight / 2),  // 버튼의 중앙 위치
+		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),  // 버튼의 중앙 위치
+	});
+
+/*	setTimeout(function() {
+		popover.fadeOut(300, function() {
+			popover.remove(); // 팝오버 제거
+		});
+	}, 1000); // 1초 동안 표시*/
+}
+
+/**
  * @name 		validateRequired
  * @description 필수값 체크
  * @function
  */
-const validateRequired = function () {
-	let requiredFields = document.querySelectorAll('[aria-required="true"]');
+const validateRequired = function (target) {
+	var dropdownList = [];
 	if(target) {
-		requiredFields = $("#"+target).find('[aria-required="true"]');
+		dropdownList = $('button[group-id='+target+'][required]');
+	} else {
+		dropdownList = $('button[required]');
 	}
-	let allValid = true;
 
-	requiredFields.forEach(field => {
-		if (field.tagName === 'INPUT') {
-			if (field.value.trim() === '') {
-				allValid = false;
-			}
-		} else if (field.tagName === 'BUTTON') {
-			alert(field.getAttribute('cu-label'))
-			if (!field.getAttribute('cu-label')) {
-				allValid = false;
-			}
+	for(var i = 0; i < dropdownList.length; i++) {
+		const selectedValue = dropdownList[i].attr('cu-value');
+
+		if (!selectedValue) {
+			gfnma_showPopover(dropdownList[i]);
+			return false;
+		} else {
+			return true;
 		}
-	});
-
-	return allValid;
+	}
 }
 
 /**

@@ -92,7 +92,7 @@
                     <td class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>

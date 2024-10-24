@@ -67,7 +67,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
