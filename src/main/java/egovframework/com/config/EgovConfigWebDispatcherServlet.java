@@ -66,6 +66,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 			.addPathPatterns(
 //				"/cop/com/*.do",
 //				"/cop/bbs/*Master*.do",
+				"/com/getFileImage.do",
 				"/**/*.do",
 				"/main.do",
 				"/actionMain.do",
