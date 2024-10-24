@@ -104,8 +104,15 @@ public class ApcMaHri1750Controller extends BaseController {
 
       try {
 
-          param.put("procedure", 		"P_HRI1700_Q");
-          resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+	        param.put("procedure", 		"P_HRI1700_Q");
+	        resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+          
+			//self url 편집
+			String f_path1 = request.getRequestURL().toString();
+			String f_path2 = request.getRequestURI().toString();
+			String f_path3 = f_path1.replaceAll(f_path2, "");
+			resultMap.put("SEVER_ROOT_PATH", f_path3);
+          
 
       } catch (Exception e) {
           logger.debug(e.getMessage());
@@ -131,6 +138,11 @@ public class ApcMaHri1750Controller extends BaseController {
 		param.put("procedure", 		"P_HRA1800_Q");
 		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		
+		//self url 편집
+		String f_path1 = request.getRequestURL().toString();
+		String f_path2 = request.getRequestURI().toString();
+		String f_path3 = f_path1.replaceAll(f_path2, "");
+		resultMap.put("SEVER_ROOT_PATH", f_path3);
 	} catch (Exception e) {
 		logger.debug(e.getMessage());
 		return getErrorResponseEntity(e);
