@@ -1061,36 +1061,33 @@ const gfnma_getBrowser = function () {
  * @function
  */
 function gfnma_showPopover(element) {
-	// 경고 메시지 템플릿 생성
 	const popoverHtml = `
         <div id="popover_wrap_` + element.id + `" style="position: absolute; display: inline;">
             <div id="popover_req_` + element.id + `" class="sbux-pop sbux-fade sbux-pop-bottom sbux-in sbux-required-popover" style="display: block;">
                 <div class="sbux-pop-arrow"></div>
-                <div class="sbux-pop-content">이 입력란을 작성하세요.</div>
+                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 작성하세요.</div>
             </div>
         </div>`;
 
-	// popover를 버튼의 중앙에 추가
 	const $element = $(element).parent();
 	const offset = $element.offset();
 	const popover = $(popoverHtml).appendTo('body');
 
-	// 위치 설정 (중앙에 배치)
 	const popoverWidth = $("#popover_req_"+element.id).outerWidth();
 	const popoverHeight = $("#popover_req_"+element.id).outerHeight();
 	const elementWidth = $element.outerWidth();
 	const elementHeight = $element.outerHeight();
 
 	popover.css({
-		top: offset.top + (elementHeight / 2) + (popoverHeight / 2),  // 버튼의 중앙 위치
-		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),  // 버튼의 중앙 위치
+		top: offset.top + (elementHeight / 2),
+		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),
 	});
 
 	setTimeout(function() {
 		popover.fadeOut(300, function() {
-			popover.remove(); // 팝오버 제거
+			popover.remove();
 		});
-	}, 1000); // 1초 동안 표시
+	}, 1000);
 }
 
 /**
@@ -1100,17 +1097,23 @@ function gfnma_showPopover(element) {
  */
 const validateRequired = function (target) {
 	var dropdownList = [];
+
 	if(target) {
 		dropdownList = $('button[group-id='+target+'][required]');
 	} else {
 		dropdownList = $('button[required]');
 	}
 
+	if(dropdownList.length < 1) {
+		return true;
+	}
+
 	for(var i = 0; i < dropdownList.length; i++) {
-		const selectedValue = dropdownList[i].attr('cu-value');
+		const selectedValue = $(dropdownList[i]).attr('cu-value');
 
 		if (!selectedValue) {
 			gfnma_showPopover(dropdownList[i]);
+			$(dropdownList[i]).click();
 			return false;
 		} else {
 			return true;

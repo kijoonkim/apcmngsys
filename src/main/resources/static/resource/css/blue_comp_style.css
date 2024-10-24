@@ -7579,7 +7579,6 @@ input.sbux-pik-input.sbux-dirty[readonly] + .sbux-pik-icon-span .sbux-pik-icon-b
 }
 .sbux-pop .sbux-pop-content {
   padding: 1em;
-  /*width: max-content;*/
 }
 .sbux-pop.sbux-pop-top {
   margin-top: -10px;
