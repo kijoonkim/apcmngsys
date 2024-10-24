@@ -260,20 +260,6 @@ public class ApcMaComController extends BaseController {
 				ipAddress = request.getRemoteAddr();
 			}
 			
-//    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-//    		if(!ssmap.containsKey("DEBUGMODEYN") ) {
-//    			ssmap.put("DEBUGMODEYN", "N");
-//    		}
-//    		if(!ssmap.containsKey("LANGID")) {
-//    			ssmap.put("LANGID", "KOR");
-//    		}
-//    		if(!ssmap.containsKey("USERID")) {
-//    			ssmap.put("USERID", "CHUNYJ");
-//    		}
-    		Map<String, Object> ssmap 	= new HashMap<String, Object>();
-    		ssmap.put("DEBUGMODEYN", "N");
-    		ssmap.put("LANGID", "KOR");
-    		ssmap.put("USERID", "CHUNYJ");
 			//get key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
 			gmap4.put("procedure", 			"P_COM5100_Q");
@@ -282,8 +268,8 @@ public class ApcMaComController extends BaseController {
 			gmap4.put("cv_count", 			"1");
 			
 			String palist2[][] = {
-					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
-					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
+					{"V_P_DEBUG_MODE_YN",		""},
+					{"V_P_LANG_ID",				""},
 					{"V_P_COMP_CODE",			param.get("comp_code").toString()},
 					{"V_P_CLIENT_CODE",			param.get("client_code").toString()},
 					{"V_P_FILE_NAME",			""},
@@ -293,7 +279,7 @@ public class ApcMaComController extends BaseController {
 					{"V_P_FORM_ID",				""},
 					{"V_P_MENU_ID",				""},
 					{"V_P_PROC_ID",				"P_COM5100_Q"},
-					{"V_P_USERID",				ssmap.get("USERID").toString()},
+					{"V_P_USERID",				""},
 					{"V_P_PC",					ipAddress}
 			};			
 			Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
@@ -301,6 +287,13 @@ public class ApcMaComController extends BaseController {
 			Map<String, Object> map4 = clist.get(0);			
     		//-------------------------------------------------------------------------
 			String filePath = map4.get("FILE_SERVER_PATH").toString();
+			
+			//self url 편집
+			String f_path1 = request.getRequestURL().toString();
+			String f_path2 = request.getRequestURI().toString();
+			String f_path3 = f_path1.replaceAll(f_path2, "");
+			filePath = f_path3 + filePath;
+			//---------------------------------------------------------------------------
 			
     		if(filePath!=null && !filePath.equals("")) {
     			
