@@ -248,6 +248,7 @@
 	        {caption: ["품종"],     	ref: 'vrtrCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
 	        {caption: ["규격"],     	ref: 'spcfctCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
 	        {caption: ["등급"],     	ref: 'grdCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
 			{caption: ["설비연계"], 	ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'60px',    style:'text-align:center'},
 			{caption: ["GAP인증"],    	ref: 'gapCertNo',  	type:'input',  	width:'70px',    style:'text-align:center',
 				typeinfo :{mask : {alias : 'numeric'}}, maxlength: 7},
@@ -337,6 +338,7 @@
     				maxlength : 10},
     				format : {type:'number', rule:'#,###.##'}
     		},
+			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
 	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'60px',    style:'text-align:center',
@@ -498,6 +500,7 @@
 					  , gapCertNo		: item.gapCertNo
 					  , hstryTrcMngNo 	: item.hstryTrcMngNo
 					  , invntrInqAuCd	: item.invntrInqAuCd
+					  , useYn			: item.useYn
   					}
   					jsonApcItem.push(itemVO);
   				});
@@ -615,6 +618,7 @@
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
 					  , sortInptVlType  : item.sortInptVlType
 					  , indctArtclType  : item.indctArtclType
+					  , useYn			: item.useYn
   					}
   					newJsonApcVrty.push(vrtyVO);
   				});

@@ -102,6 +102,7 @@
 			    , AIC.INVNTR_INQ_AU_CD				AS INVNTR_INQ_AU_CD
 			    , CASE WHEN INSTR(AIC.INVNTR_INQ_AU_CD, 'P') > 0 THEN 'Y' ELSE 'N' END AS AU_PRDCR_YN
 			    , CASE WHEN INSTR(AIC.INVNTR_INQ_AU_CD, 'V') > 0 THEN 'Y' ELSE 'N' END AS AU_VRTY_YN
+	    		, AIC.USE_YN
 			  FROM TB_APC_ITEM_CRTR AIC
 			 WHERE AIC.DEL_YN = 'N'
 			   AND AIC.APC_CD = #{apcCd}
@@ -176,6 +177,7 @@
 			    , HSTRY_TRC_MNG_NO		= #{hstryTrcMngNo}
 			    , GAP_CERT_NO			= #{gapCertNo}
 			    , INVNTR_INQ_AU_CD		= #{invntrInqAuCd}
+			    , USE_YN				= #{useYn}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD		= #{itemCd}
 		]]>

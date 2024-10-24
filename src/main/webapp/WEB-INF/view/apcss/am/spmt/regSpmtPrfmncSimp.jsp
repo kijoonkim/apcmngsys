@@ -295,6 +295,7 @@
 
                     </div>
                     <div style="display: flex; gap: 10px;justify-content: flex-end">
+                        <button class="btn btn-outline-danger" onclick="SBUxMethod.openModal('modal-spmtPrfmncCom')">출하목록</button>
                         <button class="btn btn-success" onclick="fn_saveWithReport()">출하등록<span style="color: yellow"> + 출하통지서</span></button>
                         <button class="btn btn-success" onclick="fn_save()">출하등록</button>
                     </div>
@@ -303,6 +304,12 @@
         </div>
     </div>
 </section>
+<div>
+    <sbux-modal id="modal-spmtPrfmncCom" name="modal-spmtPrfmncCom" uitype="middle" header-title="출하실적 목록" body-html-id="body-modal-spmtPrfmncCom" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+</div>
+<div id="body-modal-spmtPrfmncCom">
+    <jsp:include page="../../am/popup/spmtPrfmncComPopup.jsp"></jsp:include>
+</div>
 <!-- clip report direct print area  -->
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
@@ -812,6 +819,7 @@
         }
         return;
     }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
