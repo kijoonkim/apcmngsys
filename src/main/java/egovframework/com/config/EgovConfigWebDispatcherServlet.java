@@ -66,12 +66,12 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 			.addPathPatterns(
 //				"/cop/com/*.do",
 //				"/cop/bbs/*Master*.do",
-				"/com/getFileImage.do",
 				"/**/*.do",
 				"/main.do",
 				"/actionMain.do",
 				"/uat/uia/*.do")
 			.excludePathPatterns(
+				"/com/getFileImage.do",
 				"/uat/uia/actionLogin.do",
 				"/uat/uia/actionLoginAPI.do",
 				"/uat/uia/actionLoginJWT.do",
