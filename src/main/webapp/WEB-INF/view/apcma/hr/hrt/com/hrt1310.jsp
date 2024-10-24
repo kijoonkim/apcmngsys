@@ -307,7 +307,7 @@
                 jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
                 jsonPatternListOrigin[index]['SHIFT_CODE'] = bandgvwInfo.getCellData(nRow, nCol);
             } else {
-                jsonPatternListOrigin.push({WORK_TYPE: "N", SHIFT_CODE: bandgvwInfo.getCellData(nRow, nCol), WORK_PATTERN_CODE: bandgvwInfo.getColRef("WORK_PATTERN_CODE"), YYYYMMDD: bandgvwInfo.getRefOfCol(nCol).replace("D", "")})
+                jsonPatternListOrigin.push({WORK_TYPE: "N", SHIFT_CODE: bandgvwInfo.getCellData(nRow, nCol), WORK_PATTERN_CODE: bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE")), YYYYMMDD: bandgvwInfo.getRefOfCol(nCol).replace("D", "")})
             }
         } else {
             bandgvwInfo.removeCellStyle(nRow, nCol);

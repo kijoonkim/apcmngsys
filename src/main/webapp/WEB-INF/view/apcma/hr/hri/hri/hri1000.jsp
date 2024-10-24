@@ -2466,16 +2466,22 @@
         SBUxMethod.set("ANNUAL_BASE_DATE", data.ANNUAL_BASE_DATE);
         SBUxMethod.set("CURRENT_PAY_GRADE", data.CURRENT_PAY_GRADE);
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", data.CURRENT_PAY_GRADE_DATE);
+        SBUxMethod.set("EMP_PHOTO_NAME", gfn_nvl(data.EMP_PHOTO_NAME));
         if(gfn_nvl(data.EMP_PHOTO_NAME) != "") {
-            SBUxMethod.set("EMP_PHOTO_NAME", data.EMP_PHOTO_NAME);
             $("#EMP_PHOTO").attr("src", "/com/getFileImage.do?fkey="+data.EMP_PHOTO_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
             $("#DIV_EMP_PHOTO").hide();
+        } else {
+            $("#EMP_PHOTO").attr("src", "");
+            $("#DIV_EMP_PHOTO").show();
         }
 
+        SBUxMethod.set("SIGN_IMG_NAME", gfn_nvl(data.SIGN_IMG_NAME));
         if(gfn_nvl(data.SIGN_IMG_NAME) != "") {
-            SBUxMethod.set("SIGN_IMG_NAME", data.SIGN_IMG_NAME);
             $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.SIGN_IMG_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
             $("#DIV_SIGN_IMG").hide();
+        } else {
+            $("#SIGN_IMG").attr("src", "");
+            $("#DIV_SIGN_IMG").show();
         }
 
         if(data.JOB_GROUP == '3') {
