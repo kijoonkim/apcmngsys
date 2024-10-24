@@ -260,17 +260,20 @@ public class ApcMaComController extends BaseController {
 				ipAddress = request.getRemoteAddr();
 			}
 			
-    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-    		if(!ssmap.containsKey("DEBUGMODEYN")) {
-    			ssmap.put("DEBUGMODEYN", "N");
-    		}
-    		if(!ssmap.containsKey("LANGID")) {
-    			ssmap.put("LANGID", "KOR");
-    		}
-    		if(!ssmap.containsKey("USERID")) {
-    			ssmap.put("USERID", "CHUNYJ");
-    		}
-    		
+//    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+//    		if(!ssmap.containsKey("DEBUGMODEYN") ) {
+//    			ssmap.put("DEBUGMODEYN", "N");
+//    		}
+//    		if(!ssmap.containsKey("LANGID")) {
+//    			ssmap.put("LANGID", "KOR");
+//    		}
+//    		if(!ssmap.containsKey("USERID")) {
+//    			ssmap.put("USERID", "CHUNYJ");
+//    		}
+    		Map<String, Object> ssmap 	= new HashMap<String, Object>();
+    		ssmap.put("DEBUGMODEYN", "N");
+    		ssmap.put("LANGID", "KOR");
+    		ssmap.put("USERID", "CHUNYJ");
 			//get key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
 			gmap4.put("procedure", 			"P_COM5100_Q");
