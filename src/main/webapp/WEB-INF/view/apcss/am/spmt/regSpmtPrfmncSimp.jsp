@@ -295,8 +295,7 @@
 
                     </div>
                     <div style="display: flex; gap: 10px;justify-content: flex-end">
-                        <button class="btn btn-sm btn-outline-danger" onclick="fn_saveWithReport()">엑셀다운로드</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="SBUxMethod.openModal('modal-spmtPrfmncCom')">출하목록</button>
+                        <button class="btn btn-outline-danger" onclick="SBUxMethod.openModal('modal-spmtPrfmncCom')">출하목록</button>
                         <button class="btn btn-success" onclick="fn_saveWithReport()">출하등록<span style="color: yellow"> + 출하통지서</span></button>
                         <button class="btn btn-success" onclick="fn_save()">출하등록</button>
                     </div>

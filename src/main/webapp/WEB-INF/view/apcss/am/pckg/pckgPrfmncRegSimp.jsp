@@ -151,15 +151,25 @@
                     </td>
                     <th scope="row" class="th_bg">포장일자</th>
                     <td class="td_input">
-                        <div style="display: flex;">
+                        <div style="display: flex; gap: 15px; align-items: center">
                             <sbux-datepicker
-                                    id="srch-dtp-pckgYmd"
-                                    name="srch-dtp-pckgYmd"
+                                    id="srch-dtp-pckgYmdFrom"
+                                    name="srch-dtp-pckgYmdFrom"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast inpt_data_reqed"
                                     style="height: 28px"
                             ></sbux-datepicker>
+                            <sbux-datepicker
+                                    id="srch-dtp-pckgYmdTo"
+                                    name="srch-dtp-pckgYmdTo"
+                                    uitype="popup"
+                                    date-format="yyyy-mm-dd"
+                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                    style="height: 28px"
+                            ></sbux-datepicker>
+                            <sbux-checkbox id="chkbox_norm" name="chkbox_norm" uitype="normal" text="일일기준" onclick="fn_oneDay()">
+                            </sbux-checkbox>
                         </div>
                     </td>
                 </tr>
@@ -298,14 +308,16 @@
                 </div>
                 <div id="tab_pckgPrfmnc">
                     <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
-                    <sbux-button
-                            id="btnExportExcel"
-                            name="btnExportExcel"
-                            uitype="normal"
-                            class="btn btn-sm btn-outline-danger"
-                            text="엑셀다운로드"
-                            onclick="fn_exportExcel"
-                    ></sbux-button>
+                    <div style="display: flex; justify-content: flex-end">
+                        <sbux-button
+                                id="btnExportExcel"
+                                name="btnExportExcel"
+                                uitype="normal"
+                                class="btn btn-sm btn-outline-danger"
+                                text="엑셀다운로드"
+                                onclick="fn_exportExcel"
+                        ></sbux-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,7 +375,8 @@
     }
 
     const fn_init = async function(){
-        SBUxMethod.set('srch-dtp-pckgYmd',gfn_dateToYmd(new Date()));
+        SBUxMethod.set('srch-dtp-pckgYmdFrom',gfn_dateToYmd(new Date()));
+        SBUxMethod.set('srch-dtp-pckgYmdTo',gfn_dateToYmd(new Date()));
         /** 거래처 **/
         await fn_search_cnpt();
         /** 생산자 **/
@@ -668,8 +681,18 @@
     }
 
     const fn_search = async function(){
+        let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+        let postJsonPromise;
+        if(isEmpty(checked)){
+            let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+            let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
+            postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmdFrom:pckgYmdFrom,pckgYmdTo:pckgYmdTo});
+        }else{
+            let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+            postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmd:pckgYmd});
+        }
 
-        const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd});
         const data = await postJsonPromise;
         try {
             if(data.resultStatus === 'S'){
@@ -708,8 +731,44 @@
     }
 
     const fn_exportExcel = function(){
-        gridPckgPrfmnc.deleteColumn(0);
-        gridPckgPrfmnc.exportLocalExcel("포장실적");
+        if(jsonPckgPrfmnc.length == 0){
+            gfn_comAlert("W0005","다운로드 목록");
+            return;
+        }else{
+            gridPckgPrfmnc.deleteColumn(0);
+            gridPckgPrfmnc.insertColumn(0, {type:'output', caption:['포장일자'] ,ref:'pckgYmd', width:'150px', style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold'});
+            let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+            const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+            let title ="";
+            if(isEmpty(checked)){
+                let to = SBUxMethod.get("srch-dtp-pckgYmdTo");
+                let from = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+                title = from + " ~ " + to + "_포장실적";
+            }else{
+                let from = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+                title = from + "_포장실적";
+            }
+            gridPckgPrfmnc.exportLocalExcel(title);
+
+            if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+                gfn_comAlert("I0001");
+                jsonPckgPrfmnc.length = 0;
+                gridPckgPrfmnc.rebuild();
+                fn_search();
+            }
+        }
+    }
+
+    const fn_oneDay = function(){
+        let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+        if(isEmpty(checked)){
+            SBUxMethod.show('srch-dtp-pckgYmdTo');
+        }else{
+            SBUxMethod.hide('srch-dtp-pckgYmdTo');
+        }
     }
 
 

@@ -21,6 +21,15 @@
             font-weight: bold;
             color: white;
         }
+        .custom_disabled{
+            padding: 10px 67px;
+            background-color: grey;
+            border-radius: 5px;
+            border: 1px solid #e8f1f9;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -57,7 +66,7 @@
                         <sbux-datepicker id="spmtCmnd-dtp-cmndYmd" name="spmtCmnd-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
                     </td>
                     <td colspan="2" style="text-align: right">
-                        <button class="custom_btn" style="padding: 0px 60px !important;" onclick="fn_exportExcel()">일괄 다운로드</button>
+                        <button id="export_all" class="custom_disabled" style="padding: 0px 60px !important;" onclick="fn_exportExcel()" disabled>일괄 다운로드</button>
                     </td>
                 </tr>
                 <tr>
@@ -111,6 +120,13 @@
                     <td class="td_input custom_td" colspan="4" style="text-align: center">조회 결과가 없습니다.</td>
                </tr>
                `);
+                $("#export_all").prop("disabled",true);
+                $("#export_all").removeClass("custom_btn");
+                $("#export_all").addClass("custom_disabled");
+            }else{
+                $("#export_all").prop("disabled",false);
+                $("#export_all").removeClass("custom_disabled");
+                $("#export_all").addClass("custom_btn");
             }
         }
     }
@@ -130,8 +146,13 @@
         if(data.resultStatus === 'S'){
             jsonPckgPrfmnc = data.resultList;
             gridPckgPrfmnc.rebuild();
+
             gridPckgPrfmnc.deleteColumn(0);
-            gridPckgPrfmnc.exportLocalExcel("출하실적");
+            gridPckgPrfmnc.insertColumn(0, {type:'output', caption:['출하일자'] ,ref:'spmtYmd', width:'150px', style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false});
+            let ymd = data.resultList[0].spmtYmd;
+            gridPckgPrfmnc.exportLocalExcel(ymd + "_출하실적");
+            gfn_comAlert("I0001");
+            fn_reset();
         }
     }
     //
