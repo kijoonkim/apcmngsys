@@ -288,11 +288,6 @@ public class ApcMaComController extends BaseController {
     		//-------------------------------------------------------------------------
 			String filePath = map4.get("FILE_SERVER_PATH").toString();
 			
-			//self url 편집
-			String f_path1 = request.getRequestURL().toString();
-			String f_path2 = request.getRequestURI().toString();
-			String f_path3 = f_path1.replaceAll(f_path2, "");
-			filePath = f_path3 + filePath;
 			//---------------------------------------------------------------------------
 			
     		if(filePath!=null && !filePath.equals("")) {
