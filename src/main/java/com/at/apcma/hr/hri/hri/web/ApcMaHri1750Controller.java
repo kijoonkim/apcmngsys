@@ -90,4 +90,55 @@ public class ApcMaHri1750Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
+    
+    //리포트 출력 데이터
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList(
+          @RequestBody Map<String, Object> param
+          , Model model
+          , HttpSession session
+          , HttpServletRequest request) throws Exception{
+
+      logger.info("=============selectHri1750ReportList=====start========");
+      HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+      try {
+
+          param.put("procedure", 		"P_HRI1700_Q");
+          resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+      } catch (Exception e) {
+          logger.debug(e.getMessage());
+          return getErrorResponseEntity(e);
+      }
+
+      logger.info("=============selectHri1750ReportList=====end========");
+      return getSuccessResponseEntity(resultMap);
+	}
+	//  리포트 출력 데이터
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList2(
+	  		@RequestBody Map<String, Object> param
+	  		, Model model
+	  		, HttpSession session
+	  		, HttpServletRequest request) throws Exception{
+	  	
+  	logger.info("=============selectHri1750ReportList2=====start========");
+	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	
+	try {
+		
+		param.put("procedure", 		"P_HRA1800_Q");
+		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		
+	} catch (Exception e) {
+		logger.debug(e.getMessage());
+		return getErrorResponseEntity(e);
+	}
+	
+	logger.info("=============selectHri1750ReportList2=====end========");
+	  	return getSuccessResponseEntity(resultMap);
+	}
+    
+    
 }
