@@ -1043,36 +1043,37 @@ console.log('search data ==>', data);
         if(rowData.REPORT_TYPE == "R_INCOME_A") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("갑종근로소득 원천징수확인서", "ma/test.crf", null, conn );	
     		
     	} else if (rowData.REPORT_TYPE == "R_INCOME_B") {
             conn = await fn_GetReportData2(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("근로소득원천징수부",  "ma/test.crf", null, conn );	
     		
         } else if (rowData.REPORT_TYPE == "R_INCOME_C") {
             conn = await fn_GetReportData2(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("근로소득원천징수영수증", "ma/test.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_CAREER") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("경력증명서", "ma/RPT_HRI1700_CAREER.crf", null, conn );
     		
         } else if(rowData.REPORT_TYPE == "R_RETIRE") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("퇴직증명서", "ma/RPT_HRI1700_RETIRE.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_WORK") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            
+            console.log('conn ==>', conn);
     		gfn_popClipReportPost("재직증명서", "ma/RPT_HRI1700_WORK.crf", null, conn );	
         }
 
@@ -1310,9 +1311,7 @@ console.log('search data ==>', data);
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
 	                if(data.cv_3[0].IMG_YN == 'N'){
-// 		                data.cv_3[0].IMG2 = "http://133.186.212.16:8080/resource/images/header_logo.png";
-// 		                data.cv_3[0].IMG2 = "/com/getFileImage.do?fkey=ae3a1766508244d082db677f9cce656a.png&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-		                data.cv_3[0].IMG2 = "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+		                data.cv_3[0].IMG2 = "http://133.186.212.16/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }else{
 	                	data.cv_3[0].IMG2 = '';
 	                }
