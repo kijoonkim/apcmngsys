@@ -1728,11 +1728,11 @@
     }
 
     const fnQRY_P_FBS2010_Q = async function (strWorkType) {
-/*        if (strWorkType == "Q") {
-            if (!SBUxMethod.validateRequired('panHeader')) {
+        if (strWorkType == "Q") {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
                 return false;
             }
-        }*/
+        }
 
         try {
             let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
@@ -1966,11 +1966,11 @@
     }
 
     const fnQRY_P_FBS2010_Q2 = async function (strWorkType, strApprID) {
-        /*        if (strWorkType == "Q") {
-                    if (!SBUxMethod.validateRequired('panHeader')) {
-                        return false;
-                    }
-                }*/
+        if (strWorkType == "Q") {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+                return false;
+            }
+        }
 
         try {
             // 비즈니스 로직 정보

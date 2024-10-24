@@ -2158,7 +2158,7 @@
 
     const fnQRY_P_TRD2010_Q = async function (strWorkType) {
         if (strWorkType == "LIST") {
-            if (!SBUxMethod.validateRequired('panHeader') && !validateRequired('panHeader')) {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
                 return false;
             }
         }
@@ -2376,14 +2376,14 @@
     }
 
     const fnSET_P_TRD2010_S = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
             return false;
         }
 
-        if (!SBUxMethod.validateRequired('tabBase') || !SBUxMethod.validateRequired('tabInfo')
-            || !SBUxMethod.validateRequired('tabAccount') || !SBUxMethod.validateRequired('tabPL')
-            || !SBUxMethod.validateRequired('tabTreasury') || !SBUxMethod.validateRequired('tabTreasuryF')
-            || !SBUxMethod.validateRequired('tabDept'))
+        if (!SBUxMethod.validateRequired({group_id:'tabBase'}) || !SBUxMethod.validateRequired({group_id:'tabInfo'})
+            || !SBUxMethod.validateRequired({group_id:'tabAccount'}) || !SBUxMethod.validateRequired({group_id:'tabPL'})
+            || !SBUxMethod.validateRequired({group_id:'tabTreasury'}) || !SBUxMethod.validateRequired({group_id:'tabTreasuryF'})
+            || !SBUxMethod.validateRequired({group_id:'tabDept'}))
             return false;
 
         // 비즈니스 로직 정보
@@ -2507,7 +2507,7 @@
     }
 
     const fnSET_P_TRD2010_S1 = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired('gvwHistory'))
+        if (!SBUxMethod.validateRequired({group_id:'gvwHistory'}))
             return false;
 
         // 비즈니스 로직 정보

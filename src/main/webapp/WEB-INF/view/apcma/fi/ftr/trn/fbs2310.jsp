@@ -854,9 +854,9 @@
     }
 
     const fnQRY_P_FBS2310_Q = async function (strWorkType) {
-        /*if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
             return false;
-        }*/
+        }
 
         var nRow = gvwList.getRow();
 

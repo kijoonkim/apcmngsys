@@ -1048,7 +1048,7 @@
     }
 
     const fnQRY_P_TRD2030_Q = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
             return false;
         }
 

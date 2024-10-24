@@ -1086,11 +1086,11 @@ function gfnma_showPopover(element) {
 		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),  // 버튼의 중앙 위치
 	});
 
-/*	setTimeout(function() {
+	setTimeout(function() {
 		popover.fadeOut(300, function() {
 			popover.remove(); // 팝오버 제거
 		});
-	}, 1000); // 1초 동안 표시*/
+	}, 1000); // 1초 동안 표시
 }
 
 /**
