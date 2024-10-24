@@ -261,6 +261,15 @@ public class ApcMaComController extends BaseController {
 			}
 			
     		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+    		if(!ssmap.containsKey("DEBUGMODEYN")) {
+    			ssmap.put("DEBUGMODEYN", "N");
+    		}
+    		if(!ssmap.containsKey("LANGID")) {
+    			ssmap.put("LANGID", "KOR");
+    		}
+    		if(!ssmap.containsKey("USERID")) {
+    			ssmap.put("USERID", "CHUNYJ");
+    		}
     		
 			//get key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
