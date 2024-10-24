@@ -129,6 +129,7 @@
 					itemcount: 10
 				}
             },
+			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
             {caption: ["사업자번호"], 		ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption: ["외부연계코드"], 	ref: 'extrnlLnkgCd',type:'input',  width:'135px',    style:'text-align:center'},
             {caption: ["담당자"], 			ref: 'picNm',  		type:'input',  width:'90px',     style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
@@ -240,6 +241,7 @@
   					  , dlngMthdCd 		: item.dlngMthdCd
   					  , extrnlLnkgCd 	: item.extrnlLnkgCd
 					  , sn				: item.sn
+					  , useYn 			: item.useYn
   					}
   					jsonCnpt.push(cnpt);
   				});

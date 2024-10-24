@@ -71,6 +71,7 @@ public class ClclnRsltServiceImpl extends BaseServiceImpl implements ClclnRsltSe
 			
 			String clclnYr = rslt.getClclnYr();
 			int clclnSn = rslt.getClclnSn();
+			String clclnTrprType = rslt.getClclnTrprType();
 			String prdcrCd = rslt.getPrdcrCd();
 			
 			// validation check
@@ -80,6 +81,10 @@ public class ClclnRsltServiceImpl extends BaseServiceImpl implements ClclnRsltSe
 			
 			if (clclnSn <= 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산차수");
+			}
+			
+			if (!StringUtils.hasText(clclnTrprType)) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산대상구분");
 			}
 			
 			if (!StringUtils.hasText(prdcrCd)) {
@@ -107,6 +112,7 @@ public class ClclnRsltServiceImpl extends BaseServiceImpl implements ClclnRsltSe
 				rsltDtlVO.setApcCd(apcCd);
 				rsltDtlVO.setClclnYr(clclnYr);
 				rsltDtlVO.setClclnSn(clclnSn);
+				rsltDtlVO.setClclnTrprType(clclnTrprType);
 				rsltDtlVO.setPrdcrCd(prdcrCd);
 				rsltDtlVO.setSysFrstInptUserId(sysUserId);
 				rsltDtlVO.setSysFrstInptPrgrmId(sysPrgrmId);

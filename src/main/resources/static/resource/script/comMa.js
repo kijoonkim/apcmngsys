@@ -645,6 +645,9 @@ async function gfnma_multiSelectInit(obj) {
 		
 		//table tbody
 		htm = '';
+		htm += '<tr style="cursor:pointer" class="clickable-row">';
+		htm += '<td colspan="'+ _columns.length +'" style="text-align:center;" cu-code="">선택</td>';
+		htm += '</tr>';
 		for(i=0; i<data.cv_1.length; i++){
 			var obj = data.cv_1[i];
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
@@ -669,11 +672,18 @@ async function gfnma_multiSelectInit(obj) {
 				$(tarId).find('font').text('선택');
 			} else {
 				$(this).addClass('active').siblings().removeClass('active');
-				var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
-				var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
-				$(tarId).attr('cu-value', cu_value);
-				$(tarId).attr('cu-label', cu_label);
-				$(tarId).find('font').text(cu_label);
+				var empty = $(this).find('[cu-code=""]').text();
+				if(empty) {
+					$(tarId).attr('cu-value', '');
+					$(tarId).attr('cu-label', '');
+					$(tarId).find('font').text('선택');
+				} else {
+					var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
+					var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
+					$(tarId).attr('cu-value', cu_value);
+					$(tarId).attr('cu-label', cu_label);
+					$(tarId).find('font').text(cu_label);
+				}
 				if(typeof _callback == "function") {
 					_callback(cu_value)
 				}
@@ -1045,31 +1055,70 @@ const gfnma_getBrowser = function () {
 };
 
 /**
+ * @name 		gfnma_showPopover
+ * @description 필수값 체크에서 필수값이 없는 부분에 팝오버 메시지 출력
+ * @param 		{object} element : HTML node
+ * @function
+ */
+function gfnma_showPopover(element) {
+	const popoverHtml = `
+        <div id="popover_wrap_` + element.id + `" style="position: absolute; display: inline;">
+            <div id="popover_req_` + element.id + `" class="sbux-pop sbux-fade sbux-pop-bottom sbux-in sbux-required-popover" style="display: block;">
+                <div class="sbux-pop-arrow"></div>
+                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 작성하세요.</div>
+            </div>
+        </div>`;
+
+	const $element = $(element).parent();
+	const offset = $element.offset();
+	const popover = $(popoverHtml).appendTo('body');
+
+	const popoverWidth = $("#popover_req_"+element.id).outerWidth();
+	const popoverHeight = $("#popover_req_"+element.id).outerHeight();
+	const elementWidth = $element.outerWidth();
+	const elementHeight = $element.outerHeight();
+
+	popover.css({
+		top: offset.top + (elementHeight / 2),
+		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),
+	});
+
+	setTimeout(function() {
+		popover.fadeOut(300, function() {
+			popover.remove();
+		});
+	}, 1000);
+}
+
+/**
  * @name 		validateRequired
  * @description 필수값 체크
  * @function
  */
-const validateRequired = function () {
-	let requiredFields = document.querySelectorAll('[aria-required="true"]');
+const validateRequired = function (target) {
+	var dropdownList = [];
+
 	if(target) {
-		requiredFields = $("#"+target).find('[aria-required="true"]');
+		dropdownList = $('button[group-id='+target+'][required]');
+	} else {
+		dropdownList = $('button[required]');
 	}
-	let allValid = true;
 
-	requiredFields.forEach(field => {
-		if (field.tagName === 'INPUT') {
-			if (field.value.trim() === '') {
-				allValid = false;
-			}
-		} else if (field.tagName === 'BUTTON') {
-			alert(field.getAttribute('cu-label'))
-			if (!field.getAttribute('cu-label')) {
-				allValid = false;
-			}
+	if(dropdownList.length < 1) {
+		return true;
+	}
+
+	for(var i = 0; i < dropdownList.length; i++) {
+		const selectedValue = $(dropdownList[i]).attr('cu-value');
+
+		if (!selectedValue) {
+			gfnma_showPopover(dropdownList[i]);
+			$(dropdownList[i]).click();
+			return false;
+		} else {
+			return true;
 		}
-	});
-
-	return allValid;
+	}
 }
 
 /**

@@ -20,14 +20,14 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
 
 /**
- * 자산원장 처리하는 컨트롤러 클래스
+ * 자산명세조회 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.10.17
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 자산원장(Modification Information) >>
+ * << 자산명세조회(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -36,7 +36,7 @@ import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
  *  </pre>
  */
 @Controller
-public class ApcMaFia3100Controller extends BaseController {
+public class ApcMaFia3200Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
@@ -44,20 +44,20 @@ public class ApcMaFia3100Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
-	// 자산원장 조회
-	@PostMapping(value = "/fi/ffa/alm/selectFia3100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectFia3100List(
+	// 자산명세조회 조회
+	@PostMapping(value = "/fi/ffa/alm/selectFia3200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia3200List(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectFia3100List=====start========");
+		logger.info("=============selectFia3200List=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			param.put("procedure", 		"P_FIA3100_Q");
+			param.put("procedure", 		"P_FIA3200_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -65,32 +65,9 @@ public class ApcMaFia3100Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectFia3100List=====end========");
+		logger.info("=============selectFia3200List=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 자산원장 신규
-    @PostMapping(value = "/fi/ffa/alm/saveFia3100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveFia3100List(
-    		@RequestBody Map<String, Object> param
-    		, Model model
-    		, HttpSession session
-    		, HttpServletRequest request) throws Exception{
-    	
-    	logger.info("=============saveFia3100List=====start========");
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-    	
-    	try {
-    		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA3100_S");
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.getMessage());
-    		return getErrorResponseEntity(e);
-    	}
-    	
-    	logger.info("=============saveFia3100List=====end========");
-    	return getSuccessResponseEntityMa(resultMap);
-    } 	
 	
 }

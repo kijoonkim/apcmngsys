@@ -329,12 +329,10 @@
 							SBUxMethod.attr('prgrs-btnLastSave','disabled','false');
 						}else{
 							SBUxMethod.attr('prgrs-btnLastSave','disabled','true');
-							if(prgrsLast == "Y"){
-								//저장버튼 비활성화 처리
-								if(typeof fn_prgrsLastChk === 'function'){
-									fn_prgrsLastChk();
-								}
-							}
+						}
+						//최종체출시 버튼 비활성화 처리
+						if(typeof fn_prgrsLastChk === 'function'){
+							fn_prgrsLastChk();
 						}
 					}
 				}else{
@@ -383,6 +381,19 @@
 				,crtrYr : crtrYr
 				,prgrsLast : 'Y'//최종 제출
 			});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					alert("처리 되었습니다.");
+					cfn_allTabPrgrsRefrash();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch(e) {
+
+			}
+
 		}
 		//열려있는 탭 중 apc전수조사인 경우 진척도 갱신
 		const cfn_allTabPrgrsRefrash = async function(){

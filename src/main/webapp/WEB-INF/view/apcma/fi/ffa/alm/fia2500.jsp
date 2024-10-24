@@ -1434,7 +1434,7 @@
         var replaceText1 	= "_ASSET_NAME_";
         var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
     	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '자산목록');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd

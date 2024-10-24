@@ -90,4 +90,67 @@ public class ApcMaHri1750Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
+    
+    //리포트 출력 데이터
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList(
+          @RequestBody Map<String, Object> param
+          , Model model
+          , HttpSession session
+          , HttpServletRequest request) throws Exception{
+
+      logger.info("=============selectHri1750ReportList=====start========");
+      HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+      try {
+
+	        param.put("procedure", 		"P_HRI1700_Q");
+	        resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+          
+			//self url 편집
+			String f_path1 = request.getRequestURL().toString();
+			String f_path2 = request.getRequestURI().toString();
+			String f_path3 = f_path1.replaceAll(f_path2, "");
+			resultMap.put("SEVER_ROOT_PATH", f_path3);
+          
+
+      } catch (Exception e) {
+          logger.debug(e.getMessage());
+          return getErrorResponseEntity(e);
+      }
+
+      logger.info("=============selectHri1750ReportList=====end========");
+      return getSuccessResponseEntity(resultMap);
+	}
+	//  리포트 출력 데이터
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList2(
+	  		@RequestBody Map<String, Object> param
+	  		, Model model
+	  		, HttpSession session
+	  		, HttpServletRequest request) throws Exception{
+	  	
+  	logger.info("=============selectHri1750ReportList2=====start========");
+	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	
+	try {
+		
+		param.put("procedure", 		"P_HRA1800_Q");
+		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		
+		//self url 편집
+		String f_path1 = request.getRequestURL().toString();
+		String f_path2 = request.getRequestURI().toString();
+		String f_path3 = f_path1.replaceAll(f_path2, "");
+		resultMap.put("SEVER_ROOT_PATH", f_path3);
+	} catch (Exception e) {
+		logger.debug(e.getMessage());
+		return getErrorResponseEntity(e);
+	}
+	
+	logger.info("=============selectHri1750ReportList2=====end========");
+	  	return getSuccessResponseEntity(resultMap);
+	}
+    
+    
 }

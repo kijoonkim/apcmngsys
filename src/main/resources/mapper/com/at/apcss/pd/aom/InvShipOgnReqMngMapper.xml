@@ -186,48 +186,8 @@
 		</if>
 	</select>
 
-	<!--
 	<insert id="insertInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , CRNO
-		    		  , CORP_NM
-		    		  , YR
-		    		  , APLY_DAY
-		    		  , RAW_MTR_ENSR_SIGUN_CNT
-		    		  , RAW_MTR_ENSR_CTPV_CNT
-		    		  , CTPV_NM
-		    		  , SIGUN_NM
-		    		  , PRUO_FUND_APLY_AMT
-		    		  , ISO_FUND_APLY_AMT
-		    		  , APLY_TRGT_SE
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		   			  , #{apoSe}
-		   			  , #{brno}
-		   			  , #{crno}
-		   			  , #{corpNm}
-		   			  , #{yr}
-		   			  , SYSDATE
-		   			  , #{rawMtrEnsrSigunCnt}
-		   			  , #{rawMtrEnsrCtpvCnt}
-		   			  , #{ctpvNm}
-		   			  , #{sigunNm}
-		   			  , #{pruoFundAplyAmt}
-		   			  , #{isoFundAplyAmt}
-		   			  , #{aplyTrgtSe}
-		   			)
-		]]>
-	</insert>
-	-->
-	<insert id="insertInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-			<![CDATA[
+		<![CDATA[
 		MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
 		USING DUAL
 			ON (
@@ -241,13 +201,14 @@
 						, APLY_TRGT_SE				= #{aplyTrgtSe}
 						, UO_BRNO					= #{uoBrno}
 						, UO_CD						= #{uoCd}
-						, APO_SE					= #{apoSe}
-				]]>
-				<![CDATA[
+						, APO_SE					= '2'
 
-					 WHERE 1=1
-					 AND CLT.APO_CD	= #{apoCd}
-					 AND CLT.YR  	= #{yr}
+						, RAW_MTR_ENSR_SIGUN_CNT	= NULL
+						, RAW_MTR_ENSR_CTPV_CNT		= NULL
+						, CTPV_NM					= NULL
+						, SIGUN_NM					= NULL
+						, PRUO_FUND_APLY_AMT		= NULL
+
 		WHEN NOT MATCHED THEN
 			 INSERT
 					(
@@ -262,11 +223,12 @@
 					  , UO_CD
 					  , ISO_FUND_APLY_AMT
 					  , APLY_TRGT_SE
+
 					)
 			VALUES
 				(
-				    #{apoCd}
-				  , #{apoSe}
+					#{apoCd}
+				  , '2'
 				  , #{brno}
 				  , #{crno}
 				  , #{corpNm}
@@ -276,21 +238,57 @@
 				  , #{uoCd}
 				  , #{isoFundAplyAmt}
 				  , #{aplyTrgtSe}
+
 				)
 		]]>
 	</insert>
 
+	<update id="updateApoSe" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSe */
+				TB_EV_APO
+			   SET
+				, APO_SE 		= '2'
+		]]>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
+		]]>
+	</update>
+
+	<update id="updateApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSeHstry */
+				TB_EV_APO_HSTRY
+			   SET
+				, APO_SE 		= '2'
+		]]>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE 1=1
+			  AND APO_CD	= #{apoCd}
+			  AND YR		= #{yr}
+		]]>
+	</update>
+
 	<update id="updateInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
-				TB_EV_APLY_MNG
-			   SET
-			 	  ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
-				, APLY_TRGT_SE				= #{aplyTrgtSe}
+		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
+			TB_EV_APLY_MNG
+		   SET
+			  ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
+			, APLY_TRGT_SE				= #{aplyTrgtSe}
 		]]>
 
-			 WHERE 1=1
-			   AND CLT.APO_CD		= #{apoCd}
+		 WHERE 1=1
+		   AND CLT.APO_CD		= #{apoCd}
 	</update>
 
 
@@ -349,5 +347,54 @@
 		  AND B.BRNO = D.ISO_BRNO(+)
 		ORDER BY B.BRNO ,  D.UO_BRNO
 	</select>
+
+	<!-- 출자출하조직 신청정보 삭제 처리 -->
+	<delete id="deleteIsoAply" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APLY_MNG	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoAply */
+		 WHERE 1=1
+		   AND YR 	= #{yr}
+		   AND BRNO = #{brno}
+		]]>
+	</delete>
+	<!-- 출자출하조직 조직관계 정보 삭제 처리 -->
+	<delete id="deleteIsoUoCd" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoUoCd */
+		 WHERE 1=1
+		   AND ISO_BRNO = #{brno}
+		]]>
+	</delete>
+
+	<!-- 출자출하조직 품목정보 삭제 처리 -->
+	<delete id="deleteIsoItem" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoItem */
+		 WHERE 1=1
+		   AND YR 	= #{yr}
+		   AND BRNO = #{brno}
+		]]>
+	</delete>
+
+	<!-- 조직구분 변경 -->
+	<update id="updateIsoApoSe" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSe */
+			TB_EV_APO
+		   SET
+			  APO_SE	= #{apoSe}
+		 WHERE 1=1
+		   AND BRNO 	= #{brno}
+	</update>
+
+	<!-- 조직구분 변경 -->
+	<update id="updateIsoApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSeHstry */
+			TB_EV_APO_HSTRY
+		   SET
+			  APO_SE	= #{apoSe}
+		 WHERE 1=1
+		   AND YR 		= #{yr}
+		   AND BRNO 	= #{brno}
+	</update>
 
 </mapper>

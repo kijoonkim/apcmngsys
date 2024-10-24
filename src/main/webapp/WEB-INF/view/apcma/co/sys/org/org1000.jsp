@@ -260,7 +260,7 @@
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
-										    <div class="dropdown-menu" aria-labelledby=CURRENCY_CODE style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    <div class="dropdown-menu" aria-labelledby=CURRENCY_CODE style="width:350px;height:150px;padding-top:0px;overflow:auto">
 										    </div>
 										</div>
 		                            </td>
@@ -366,14 +366,14 @@
 	            formId			: p_formId,
 	            menuId			: p_menuId,
 	            selectValue		: '',
-	            dropType		: 'down', // up, down
+	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
 	            colValue		: 'CURRENCY_CODE',
 	            colLabel		: 'CURRENCY_NAME',
 	            columns: [
 	            	{ caption: "통화코드", 	ref: 'CURRENCY_CODE', 	width: '100px', style: 'text-align:left' },
-	            	{ caption: "통화명", 		ref: 'CURRENCY_NAME', 	width: '100px', style: 'text-align:left' },
-	                { caption: "비고",		ref: 'DESCIPTION',	 	width: '150px', style: 'text-align:left' }
+	            	{ caption: "통화명", 		ref: 'CURRENCY_NAME', 	width: '150px', style: 'text-align:left' },
+	                { caption: "비고",		ref: 'DESCIPTION',	 	width: '200px', style: 'text-align:left' }
 	            ]
 	        }),
 	        //국가
@@ -386,7 +386,7 @@
 	            formId			: p_formId,
 	            menuId			: p_menuId,
 	            selectValue		: '',
-	            dropType		: 'down', // up, down
+	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
 	            colValue		: 'NATION_CODE',
 	            colLabel		: 'NATION_NAME',
@@ -405,7 +405,7 @@
 	            formId			: p_formId,
 	            menuId			: p_menuId,
 	            selectValue		: '',
-	            dropType		: 'down', // up, down
+	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
 	            colValue		: 'SUB_CODE',
 	            colLabel		: 'CODE_NAME',
@@ -630,7 +630,7 @@ console.log('data ==> ', data);
             formId			: p_formId,
             menuId			: p_menuId,
             selectValue		: '',
-            dropType		: 'down', // up, down
+            dropType		: 'up', // up, down
             dropAlign		: 'left', // left, right
             colValue		: 'SUB_CODE',
             colLabel		: 'CODE_NAME',

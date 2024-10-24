@@ -1932,7 +1932,7 @@
         if (copyMode == 'clear') { //복사해제모드
             SBGridProperties.selectmode = 'free';
         } else if (copyMode == 'line') { //행복사모드
-            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.selectmode = 'byrows'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
             SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
         } else if (copyMode == 'cell') { //셀복사모드
@@ -3767,7 +3767,7 @@
                 $("#LBL_PAY_BASE_DATE").text("수금기산일자");
                 $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
-                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
                 $("#btnScmInfo").attr('disabled', 'false');
@@ -3797,7 +3797,7 @@
 
                 SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
 
-                $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+                $("#SUB_TAX_SITE_CODE").attr("required", "false");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             } else if (strsourceType == "BAD") {
                 strFileSourceType = "BADSALESDOC";
@@ -3818,7 +3818,7 @@
 
                 SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
 
-                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             }
         } else {
@@ -3948,7 +3948,7 @@
             $("#LBL_PAY_BASE_DATE").text("수금기산일자");
             $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
-            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            $("#SUB_TAX_SITE_CODE").attr("required", "true");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
@@ -3965,7 +3965,7 @@
             $("#LBL_PAY_BASE_DATE").text("지급기산일자");
             $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
 
-            $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+            $("#SUB_TAX_SITE_CODE").attr("required", "false");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         } else if (strsourceType == "BAD") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -3978,7 +3978,7 @@
 
             SBUxMethod.set("DOC_TYPE", "91");
 
-            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            $("#SUB_TAX_SITE_CODE").attr("required", "true");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 

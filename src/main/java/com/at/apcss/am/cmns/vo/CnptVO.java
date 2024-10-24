@@ -115,4 +115,8 @@ public class CnptVO extends ComVO {
 	 * 순번
 	 * */
 	private String sn;
+	/*
+	 * 사용여부
+	 * */
+	private String useYn;
 }

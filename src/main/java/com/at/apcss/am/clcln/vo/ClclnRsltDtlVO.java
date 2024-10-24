@@ -27,6 +27,7 @@ public class ClclnRsltDtlVO extends ComVO {
 	private String apcCd;
 	private String clclnYr;
 	private int clclnSn;
+	private String clclnTrprType;
 	private String prdcrCd;
 	
 	private String rtnCd;

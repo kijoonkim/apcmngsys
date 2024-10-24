@@ -36,6 +36,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnPatternInput" name="btnPatternInput" uitype="normal" text="패턴 등록" class="btn btn-sm btn-outline-danger" onclick="fn_patternInput" ></sbux-button>
                 <sbux-button id="btnInitCreate" name="btnInitCreate" uitype="normal" text="초기 생성" class="btn btn-sm btn-outline-danger" onclick="fn_initCreate" ></sbux-button>
             </div>
         </div>
@@ -278,6 +279,9 @@
             if(Object.keys(bandgvwInfoData[i]).length > 1) {
                 for(var key in bandgvwInfoData[i]) {
                     if(/D(\d{8})/.test(key)) {
+                        bandgvwInfo.setCellStyle('color',
+                            0, bandgvwInfo.getColRef(key),
+                            1, bandgvwInfo.getColRef(key), '#0e3979');
                         bandgvwInfo.setCellStyle('background-color',
                             i+4, bandgvwInfo.getColRef(key),
                             i+4, bandgvwInfo.getColRef(key), colorList[bandgvwInfoData[i][key]]);
@@ -285,6 +289,7 @@
                 }
             }
         }
+
     }
 
     const fn_bandgvwInfoValueChanged = async function() {
@@ -302,7 +307,7 @@
                 jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
                 jsonPatternListOrigin[index]['SHIFT_CODE'] = bandgvwInfo.getCellData(nRow, nCol);
             } else {
-                jsonPatternListOrigin.push({WORK_TYPE: "N", SHIFT_CODE: bandgvwInfo.getCellData(nRow, nCol), WORK_PATTERN_CODE: bandgvwInfo.getColRef("WORK_PATTERN_CODE"), YYYYMMDD: bandgvwInfo.getRefOfCol(nCol).replace("D", "")})
+                jsonPatternListOrigin.push({WORK_TYPE: "N", SHIFT_CODE: bandgvwInfo.getCellData(nRow, nCol), WORK_PATTERN_CODE: bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE")), YYYYMMDD: bandgvwInfo.getRefOfCol(nCol).replace("D", "")})
             }
         } else {
             bandgvwInfo.removeCellStyle(nRow, nCol);
@@ -344,6 +349,13 @@
                 SHIFT_CODE_D += item.SHIFT_CODE + "|";
             }
         });
+
+        if (WORK_TYPE_D.length > 0){
+            WORK_TYPE_D = WORK_TYPE_D.substring(0, WORK_TYPE_D.length - 1);
+            YYYYMMDD_D = YYYYMMDD_D.substring(0, YYYYMMDD_D.length - 1);
+            WORK_PATTERN_CODE_D = WORK_PATTERN_CODE_D.substring(0, WORK_PATTERN_CODE_D.length - 1);
+            SHIFT_CODE_D = SHIFT_CODE_D.substring(0, SHIFT_CODE_D.length - 1);
+        }
 
         if(WORK_TYPE_D.length > 0) {
             var paramObj = {
@@ -431,6 +443,16 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    const fn_patternInput = async function() {
+        var param = {
+            GROUP_CODE : "HRT020",
+            target : "MA_A00_010_020_080"
+        };
+
+        let json = JSON.stringify(param);
+        window.parent.cfn_openTabSearch(json);
     }
 
     const fn_makeDynamicColumn = async function(list) {

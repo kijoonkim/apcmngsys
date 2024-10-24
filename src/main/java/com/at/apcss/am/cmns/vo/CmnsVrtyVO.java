@@ -86,6 +86,10 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 표시명
 	 */
 	private String indctNm;
+	/**
+	 * 사용여부
+	 */
+	private String useYn;
 	
 	
 }

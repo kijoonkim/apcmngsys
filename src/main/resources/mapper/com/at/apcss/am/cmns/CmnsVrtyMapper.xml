@@ -203,6 +203,7 @@
 	    		, AVC.EXTRNL_LNKG_CD	 	AS EXTRNL_LNKG_CD
 	    		, AVC.SORT_INPT_VL_TYPE	 	AS SORT_INPT_VL_TYPE
 	    		, AVC.INDCT_ARTCL_TYPE	 	AS INDCT_ARTCL_TYPE
+	    		, AVC.USE_YN				AS USE_YN
 			  FROM TB_APC_VRTY_CRTR AVC
 			 WHERE AVC.APC_CD = #{apcCd}
 		]]>
@@ -319,6 +320,7 @@
 			   	, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 			   	, SORT_INPT_VL_TYPE      	= #{sortInptVlType}
 			   	, INDCT_ARTCL_TYPE      	= #{indctArtclType}
+			    , USE_YN					= #{useYn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND VRTY_CD = #{vrtyCd}
 			   AND APC_CD = #{apcCd}

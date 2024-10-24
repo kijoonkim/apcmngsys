@@ -913,14 +913,7 @@
             'showgoalpageui': true
         };
         SBGridProperties.columns = [
-            {
-                caption: [""],
-                ref: 'CHK_YN',
-                type: 'checkbox',
-                width: '45px',
-                style: 'text-align:left',
-                typeinfo: {fixedcellcheckbox: {usemode: true, rowindex: 0, deletecaption: false}}
-            },
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["발령일자"], ref: 'APPOINT_DATE', type: 'output', width: '89px', style: 'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -1148,7 +1141,7 @@
         if (copyMode == 'clear') { //복사해제모드
             SBGridProperties.selectmode = 'free';
         } else if(copyMode == 'line'){ //행복사모드
-            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.selectmode = 'byrows'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
             SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
         } else if(copyMode == 'cell'){ //셀복사모드

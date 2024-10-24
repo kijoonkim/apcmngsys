@@ -59,8 +59,8 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 
 	@Override
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-
 		int updatedCnt = PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+		PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry(PrdcrCrclOgnReqMngVO);
 		updatedCnt += PrdcrCrclOgnReqMngMapper.insertEvAplyMng(PrdcrCrclOgnReqMngVO);
 		return updatedCnt;
 	}
@@ -77,11 +77,6 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 			}
 		}
 		return savedCnt;
-	}
-
-	@Override
-	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		return PrdcrCrclOgnReqMngMapper.deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
 	}
 
 	@Override
@@ -132,5 +127,30 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 
 		List<ApcInfoVO> resultList = PrdcrCrclOgnReqMngMapper.SelectApcInfoList(apcInfoVO);
 		return resultList;
+	}
+
+	@Override
+	public int deleteUoAply(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoAply(PrdcrCrclOgnReqMngVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public int deleteUoUoCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public int deleteUoItem(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoItem(PrdcrCrclOgnReqMngVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public int updateUoApoSe(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnReqMngMapper.updateUoApoSe(PrdcrCrclOgnReqMngVO);
+		PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry(PrdcrCrclOgnReqMngVO);
+		return updatedCnt;
 	}
 }

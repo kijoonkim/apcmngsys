@@ -27,32 +27,122 @@ public interface PrdcrCrclOgnReqMngMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
-	 * @return
+	 * 통합조직 신청정보를 조회한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return PrdcrCrclOgnReqMngVO
 	 */
 	public PrdcrCrclOgnReqMngVO selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 신청정보 리스트를 조회한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return List<PrdcrCrclOgnReqMngVO>
+	 */
 	public List<PrdcrCrclOgnReqMngVO> selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 조직정보를 등록한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
 	public int insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 조직정보를 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
-	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+	/**
+	 * 통합조직 조직정보 이력정보를 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int updatePrdcrCrclOgnReqMngHstry(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 신청정보를 등록한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
 	public int insertEvAplyMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 품목 리스트를 조회한다.
+	 * @param GpcVO
+	 * @return List<GpcVO>
+	 */
 	public List<GpcVO> selectGpcList(GpcVO gpcVO);
 
+	/**
+	 * 통합조직 품목정보를 등록한다.
+	 * @param GpcVO
+	 * @return int
+	 */
 	public int insertGpc(GpcVO gpcVO);
 
+	/**
+	 * 통합조직 품목정보를 삭제한다.
+	 * @param GpcVO
+	 * @return int
+	 */
 	public int deleteGpc(GpcVO gpcVO);
 
+	/**
+	 * 통합조직 신청을 마감 한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직 신청정보 로우데이터를 조회 한다
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return List<PrdcrCrclOgnReqMngVO>
+	 */
 	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	/**
+	 * 통합조직의 APC정보 리스트를 조회 한다
+	 * @param ApcInfoVO
+	 * @return List<ApcInfoVO>
+	 */
 	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO);
+
+	/**
+	 * 통합조직 신청정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int deleteUoAply(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	/**
+	 * 통합조직 조직관계 정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int deleteUoUoCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	/**
+	 * 통합조직 품목정보를 삭제한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int deleteUoItem(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	/**
+	 * 통합조직 조직구분을 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int updateUoApoSe(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	/**
+	 * 통합조직 조직구분을 수정한다.
+	 * @param PrdcrCrclOgnReqMngVO
+	 * @return int
+	 */
+	public int updateUoApoSeHstry(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
 }

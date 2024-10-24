@@ -645,9 +645,9 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_S = async function (strWorkType) {
-        /*if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
              return false;
-         }*/
+         }
 
         let gvwListCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHECK_YN"), true);
         let arr_txn_id = "";
@@ -776,9 +776,9 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_Q = async function (strWorkType) {
-        /*if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
              return false;
-         }*/
+         }
 
         let arr_txn_id = "";
         let arr_emp_code = "";
@@ -855,9 +855,9 @@
     }
 
     const fn_search = async function () {
-        /*if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
              return false;
-         }*/
+         }
 
         // 비즈니스 로직 정보
         let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
@@ -1495,9 +1495,9 @@
     }
 
     const fn_create = async function () {
-        /*if (!SBUxMethod.validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
               return false;
-          }*/
+          }
 
         // 비즈니스 로직 정보
         let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));

@@ -1360,11 +1360,11 @@
     }
 
     const fn_search = async function () {
-        /*        if (strWorkType == "Q") {
-            if (!SBUxMethod.validateRequired('panHeader')) {
+        if (strWorkType == "Q") {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
                 return false;
             }
-        }*/
+        }
 
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));
         let CURRENCY_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_CODE"));

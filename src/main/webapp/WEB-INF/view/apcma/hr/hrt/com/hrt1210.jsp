@@ -73,7 +73,7 @@
                     </td>
                     <th scope="row" class="th_bg">사용여부</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_USE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_USE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td></td>
                 </tr>

@@ -2202,4 +2202,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		result.put(ComConstants.PROP_RESULT_LIST,spmtnos);
 		return result;
 	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDetailList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		return spmtPrfmncMapper.selectSpmtPrfmncDetailList(spmtPrfmncVO);
+	}
 }

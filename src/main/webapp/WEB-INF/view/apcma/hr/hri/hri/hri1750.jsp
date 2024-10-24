@@ -686,6 +686,8 @@
         });
 
         const data = await postJsonPromise;
+console.log('search paramObj ==>', paramObj);
+console.log('search data ==>', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1009,6 +1011,12 @@
     const fn_print = async function() {
         // TODO : 레포트 개발 필요
         var nRow = bandgvwInfo.getRow();
+    	var conn = '';
+        if (nRow < 1) {
+        	alert("출력할 증명서를 선택하세요.");
+            return;
+        }
+        
         let rowData = bandgvwInfo.getRowData(nRow);
 
         // 00 : 미승인, 11 : 승인, 19 : 반려
@@ -1030,62 +1038,45 @@
             if (rowData.PRINTABLE_YN == "N")
                 return;
         }
-
-        var param = {}
-        param.VIEW_TYPE = 'PRINT';
-        param.REPORT_TYPE = rowData.REPORT_TYPE;
-        param.DOC_NUM = rowData.DOC_NUM;
-        param.SOCIAL_VIEW = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
-        param.IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
-
-        if (rowData.REPORT_TYPE == "R_INCOME_B") {
-            let reportFilePath = await gfnma_findReportFilePath(rowData.REPORT_TYPE);
-
-            param.WORK_TYPE = "REPORT";
-            param.LANG_ID = 'KOR'
-            param.COMP_CODE = gv_ma_selectedApcCd;
-            param.YE_TX_YYYY = rowData.INCOME_YEAR;
-            param.SITE_CODE = '';
-            param.DEPT_CODE = '';
-            param.EMP_CODE = rowData.EMP_CODE;
-            param.EMP_STATE = '';
-            param.EMP_CODE_LIST = rowData.EMP_CODE;
-            param.PAY_AREA_TYPE = '';
-
-            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
+        
+        console.log('rowData.REPORT_TYPE', rowData.REPORT_TYPE);
+        if(rowData.REPORT_TYPE == "R_INCOME_A") {
+            conn = await fn_GetReportData(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("갑종근로소득 원천징수확인서", "ma/test.crf", null, conn );	
+    		
+    	} else if (rowData.REPORT_TYPE == "R_INCOME_B") {
+            conn = await fn_GetReportData2(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("근로소득원천징수부",  "ma/test.crf", null, conn );	
+    		
         } else if (rowData.REPORT_TYPE == "R_INCOME_C") {
-            let reportFilePath = await gfnma_findReportFilePath(rowData.REPORT_TYPE);
-            let strye_tx_yyyy = rowData.INCOME_YEAR;
-
-            let strretire_yyyy = rowData.RETIRE_DATE == "" ? "": rowData.RETIRE_DATE.substring(0, 4);
-
-            param.WORK_TYPE = "REPORT";
-            param.LANG_ID = 'KOR'
-            param.COMP_CODE = gv_ma_selectedApcCd;
-
-            param.YE_TX_YYYY = rowData.INCOME_YEAR;
-            if (strye_tx_yyyy == strretire_yyyy) {
-                param.YE_TX_TYPE = "RETIRE";
-            } else {
-                param.YE_TX_TYPE = "YEAREND";
-            }
-            param.SITE_CODE = '';
-            param.DEPT_CODE = '';
-            param.EMP_CODE = rowData.EMP_CODE;
-            param.PRINT_TYPE = '10';
-            param.PRINT_TYPE1 = '30';
-
-            param.WORK_END_DAT_FR = rowData.INCOME_RECEIVE_START_DATE;
-
-            param.WORK_END_DAT_TO = rowData.INCOME_RECEIVE_END_DATE;
-            param.EMP_CODE_LIST = rowData.EMP_CODE;
-            param.PAY_AREA_TYPE = '';
-
-            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
-        } else {
-            let reportFilePath = await gfnma_findReportFilePath("R_CERTI");
-            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
+            conn = await fn_GetReportData2(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("근로소득원천징수영수증", "ma/test.crf", null, conn );	
+    		
+        } else if(rowData.REPORT_TYPE == "R_CAREER") {
+            conn = await fn_GetReportData(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("경력증명서", "ma/RPT_HRI1700_CAREER.crf", null, conn );
+    		
+        } else if(rowData.REPORT_TYPE == "R_RETIRE") {
+            conn = await fn_GetReportData(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("퇴직증명서", "ma/RPT_HRI1700_RETIRE.crf", null, conn );	
+    		
+        } else if(rowData.REPORT_TYPE == "R_WORK") {
+            conn = await fn_GetReportData(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("재직증명서", "ma/RPT_HRI1700_WORK.crf", null, conn );	
         }
+
     }
 
     const fn_onload = async function () {
@@ -1215,6 +1206,32 @@
 
     const fn_approval = async function() {
         var nRow = bandgvwInfo.getRow();
+        
+        //TEST
+            let apprId = Number(gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID"))));
+            let strcurrentapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("CURRENT_APPROVE_EMP_CODE"));
+            let strfinalapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("FINAL_APPROVER"));
+            let intapprcount = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")) == "" ? 0 : parseInt(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")));
+
+            compopappvmng({
+                workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+                ,compCode		: gv_ma_selectedApcCd
+                ,compCodeNm		: gv_ma_selectedApcNm
+                ,clientCode		: gv_ma_selectedClntCd
+                ,apprId			: apprId
+                ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")))
+                ,sourceType		: sourceType
+                ,empCode		: p_empCode
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+                ,callback       : function(data) {
+                    if(data && data.result == "Y") {
+                        fn_search();
+                    }
+                }
+            });
+        return;
+        //TEST
 
         if (nRow < 2) {
             gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
@@ -1258,6 +1275,118 @@
             });
         }
     }
+    
+    const fn_GetReportData = async function(obj) {
+    	
+        var paramObj = {
+            V_P_DEBUG_MODE_YN 		: '',
+            V_P_LANG_ID 			: '',
+            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
+        	V_P_REQUEST_DATE_FR 	: '',
+        	V_P_REQUEST_DATE_TO 	: '',
+        	V_P_REPORT_TYPE     	: obj.REPORT_TYPE,
+        	V_P_CONFIRM_STEP    	: '',
+        	V_P_DEPT_CODE       	: '',
+        	V_P_EMP_CODE        	: '',
+        	V_P_DOC_NUM				: obj.DOC_NUM,
+            V_P_FORM_ID 			: p_formId,
+            V_P_MENU_ID 			: p_menuId,
+            V_P_PROC_ID 			: '',
+            V_P_USERID 				: '',
+            V_P_PC 					: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportList.do", {
+            getType				: 'json',
+            workType			: 'REPORT',
+            cv_count			: '9',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+       	console.log('fn_GetReportData data => ', data);
+       	console.log('fn_GetReportData paramObj => ', paramObj);
+        try { 
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.cv_3.length > 0){
+	                if(data.cv_3[0].IMG_YN == 'N'){
+		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                }else{
+	                	data.cv_3[0].IMG2 = '';
+	                }
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+        return data;
+    }
+
+    const fn_GetReportData2 = async function(obj) {
+    	
+     	let YE_TX_YYYY		= obj.REQUEST_DATE;
+     	let EMP_CODE	 	= obj.EMP_CODE;
+     	
+        var paramObj = {
+            V_P_DEBUG_MODE_YN 	: '',
+            V_P_LANG_ID 		: '',
+            V_P_COMP_CODE 		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE 	: gv_ma_selectedClntCd,
+            V_P_YE_TX_YYYY 		: YE_TX_YYYY.substr(0,4),
+            V_P_SITE_CODE 		: '',
+            V_P_DEPT_CODE     	: '',
+            V_P_EMP_CODE    	: '',
+            V_P_EMP_STATE       : '',
+            V_P_EMP_CODE_LIST   : EMP_CODE,
+            V_P_PAY_AREA_TYPE	: '',
+            V_P_FORM_ID 		: p_formId,
+            V_P_MENU_ID 		: p_menuId,
+            V_P_PROC_ID 		: '',
+            V_P_USERID 			: '',
+            V_P_PC 				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportList2.do", {
+            getType				: 'json',
+            workType			: 'REPORT',
+            cv_count			: '7',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+       	console.log('fn_GetReportData2 data => ', data);
+       	console.log('fn_GetReportData2 paramObj => ', paramObj);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.cv_3.length > 0){
+	                if(data.cv_3[0].IMG_YN == 'N'){
+		                data.cv_3[0].IMG2 = "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                }else{
+	                	data.cv_3[0].IMG2 = '';
+	                }
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        return data;
+    }
+    
+    
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

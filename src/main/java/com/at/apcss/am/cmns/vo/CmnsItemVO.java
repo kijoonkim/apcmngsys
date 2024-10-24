@@ -108,4 +108,8 @@ public class CmnsItemVO extends ComVO {
 	 * 합산-품종-여부
 	 */
 	private String auVrtyYn;
+	/**
+	 * 사용여부
+	 */
+	private String useYn;
 }
