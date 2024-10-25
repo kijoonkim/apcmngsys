@@ -71,14 +71,14 @@
             <tr>
                 <th scope="row" class="th_bg">소수유형ID</th>
                 <td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="search_decimal_id" uitype="text" style="width:200px" placeholder=""
+                    <sbux-input id="SRCH_DECIMAL_ID" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">소수유형명</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="search_decimal_name" uitype="text" style="width:200px" placeholder=""
+                    <sbux-input id="SRCH_DECIMAL_NAME" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
@@ -231,8 +231,8 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
-        let DECIMAL_ID = gfnma_nvl(SBUxMethod.get("search_decimal_id"));
-        let DECIMAL_NAME = gfnma_nvl(SBUxMethod.get("search_decimal_name"));
+        let DECIMAL_ID = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
+        let DECIMAL_NAME = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
 
         var paramObj = {
              V_P_DEBUG_MODE_YN: 'N'

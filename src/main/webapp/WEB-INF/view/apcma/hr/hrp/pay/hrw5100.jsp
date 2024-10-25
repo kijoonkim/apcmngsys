@@ -68,8 +68,8 @@
                             <th scope="row" class="th_bg">보험년월</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        id="srch-yyyymm_fr"
-                                        name="srch-yyyymm_fr"
+                                        id="SRCH_YYYYMM_FR"
+                                        name="SRCH_YYYYMM_FR"
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyymm"
@@ -83,7 +83,7 @@
                             <th scope="row" class="th_bg">지급구분</th>
                             <td class="td_input">
                                 <sbux-select
-                                        id="srch-pay_area_type"
+                                        id="SRCH_PAY_AREA_TYPE"
                                         uitype="single"
                                         jsondata-ref="jsonPayAreaType"
                                         unselected-text="선택"
@@ -319,7 +319,7 @@
     var gvwPivotListGrid;
     var jsonPivotList = [];
 
-    var jsonPayAreaType = []; //지급구분 //srch-pay_area_type, PAY_AREA_TYPE  //L_HRP034
+    var jsonPayAreaType = []; //지급구분 //SRCH_PAY_AREA_TYPE, PAY_AREA_TYPE  //L_HRP034
     var jsonPayItem = []; //급여항목 //EMP_PAY_ITEM, COMP_PAY_ITEM ,EMP_HEALTH_PAY_ITEM//L_HRP004
     //var jsonPositionCode = []; //직위 //POSITION_CODE //L_HRI002
 
@@ -345,7 +345,7 @@
     const fn_initSBSelect = async function () {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid', 'srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid', 'SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             //gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
@@ -416,8 +416,8 @@
     }
 
     var fn_compopup3 = function (type) {
-        var yyyymm_fr = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        var pay_area_type = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        var yyyymm_fr = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        var pay_area_type = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
         if (yyyymm_fr == "") {
             gfn_comAlert("W0002", "보험년월");
@@ -462,7 +462,7 @@
 
         let openDateFr = openDate - 5;
 
-        SBUxMethod.set('srch-yyyymm_fr', openDate); //보험년월
+        SBUxMethod.set('SRCH_YYYYMM_FR', openDate); //보험년월
         SBUxMethod.set('YYYYMM_FR', openDateFr); //기간 시작시간
         SBUxMethod.set('YYYYMM_TO', openDate);  //기간 종료시간
 
@@ -984,10 +984,10 @@
 
         if (_.isEqual(workType, 'LIST')) { //국민연금내역 등록 조회시
 
-            YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-            PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-            DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-            EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+            YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+            PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+            DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+            EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
             YYYYMM_FR = '';
             YYYYMM_TO = '';
@@ -1030,13 +1030,13 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
-            , V_P_DEPT_CODE: DEPT_CODE
-            , V_P_EMP_CODE: EMP_CODE
-            , V_P_SOCIAL_NO: ''
-            , V_P_YYYYMM_FR: YYYYMM_FR    /*YYYYMM_FR*/
-            , V_P_YYYYMM_TO: YYYYMM_TO    /*YYYYMM_TO*/
+            , V_P_INSURE_YYYYMM     : YYYYMM
+            , V_P_PAY_AREA_TYPE     : PAY_AREA_TYPE
+            , V_P_DEPT_CODE         : DEPT_CODE
+            , V_P_EMP_CODE          : EMP_CODE
+            , V_P_SOCIAL_NO         : ''
+            , V_P_YYYYMM_FR         : YYYYMM_FR    /*YYYYMM_FR*/
+            , V_P_YYYYMM_TO         : YYYYMM_TO    /*YYYYMM_TO*/
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1060,29 +1060,29 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHECK_YN: gfnma_nvl(item.CHECK_YN),
-                        INSURE_YYYYMM: gfnma_nvl(item.INSURE_YYYYMM),
-                        DEPT_CODE: gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME: gfnma_nvl(item.DEPT_NAME),
-                        POSITION_CODE: gfnma_nvl(item.POSITION_CODE),
-                        PAY_AREA_TYPE: gfnma_nvl(item.PAY_AREA_TYPE),
-                        EMP_CODE: gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME: gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO: gfnma_nvl(item.SOCIAL_NO),
-                        BASE_INCOME_AMT: gfnma_nvl(item.BASE_INCOME_AMT),
-                        TOTAL_INSURE_AMT: gfnma_nvl(item.TOTAL_INSURE_AMT),
-                        EMP_INSURE_AMT: gfnma_nvl(item.EMP_INSURE_AMT),
-                        COMP_INSURE_AMT: gfnma_nvl(item.COMP_INSURE_AMT),
-                        MEMO: gfnma_nvl(item.MEMO),
-                        PAY_YN: gfnma_nvl(item.PAY_YN),
-                        PAY_YYYYMM: gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE: gfnma_nvl(item.PAY_DATE),
-                        EMP_PAY_ITEM: gfnma_nvl(item.EMP_PAY_ITEM),
-                        EMP_PAY_AMT: gfnma_nvl(item.EMP_PAY_AMT),
-                        COMP_PAY_ITEM: gfnma_nvl(item.COMP_PAY_ITEM),
-                        COMP_PAY_AMT: gfnma_nvl(item.COMP_PAY_AMT),
-                        DATA_YN: gfnma_nvl(item.DATA_YN)
+                        CHECK_YN            : gfnma_nvl(item.CHECK_YN),
+                        INSURE_YYYYMM       : gfnma_nvl(item.INSURE_YYYYMM),
+                        DEPT_CODE           : gfnma_nvl(item.DEPT_CODE),
+                        DEPT_NAME           : gfnma_nvl(item.DEPT_NAME),
+                        POSITION_CODE       : gfnma_nvl(item.POSITION_CODE),
+                        PAY_AREA_TYPE       : gfnma_nvl(item.PAY_AREA_TYPE),
+                        EMP_CODE            : gfnma_nvl(item.EMP_CODE),
+                        EMP_NAME            : gfnma_nvl(item.EMP_NAME),
+                        SOCIAL_NO           : gfnma_nvl(item.SOCIAL_NO),
+                        BASE_INCOME_AMT     : gfnma_nvl(item.BASE_INCOME_AMT),
+                        TOTAL_INSURE_AMT    : gfnma_nvl(item.TOTAL_INSURE_AMT),
+                        EMP_INSURE_AMT      : gfnma_nvl(item.EMP_INSURE_AMT),
+                        COMP_INSURE_AMT     : gfnma_nvl(item.COMP_INSURE_AMT),
+                        MEMO                : gfnma_nvl(item.MEMO),
+                        PAY_YN              : gfnma_nvl(item.PAY_YN),
+                        PAY_YYYYMM          : gfnma_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                        PAY_DATE            : gfnma_nvl(item.PAY_DATE),
+                        EMP_PAY_ITEM        : gfnma_nvl(item.EMP_PAY_ITEM),
+                        EMP_PAY_AMT         : gfnma_nvl(item.EMP_PAY_AMT),
+                        COMP_PAY_ITEM       : gfnma_nvl(item.COMP_PAY_ITEM),
+                        COMP_PAY_AMT        : gfnma_nvl(item.COMP_PAY_AMT),
+                        DATA_YN             : gfnma_nvl(item.DATA_YN)
 
                     }
                     jsonGvwList.push(msg);
@@ -1181,8 +1181,8 @@
     //급여반영,취소
     const fn_btnApply = async function (reData, type) {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
         let pay_yyyymm = reData.pay_yyyymm;
         let pay_type = reData.pay_type;
@@ -1225,12 +1225,12 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
-            , V_P_PAY_YYYYMM: pay_yyyymm
-            , V_P_PAY_TYPE: pay_type
-            , V_P_PAY_DATE: pay_date
-            , V_P_EMP_CODE_D: stremp_code_d
+            , V_P_INSURE_YYYYMM : YYYYMM
+            , V_P_PAY_AREA_TYPE : PAY_AREA_TYPE
+            , V_P_PAY_YYYYMM    : pay_yyyymm
+            , V_P_PAY_TYPE      : pay_type
+            , V_P_PAY_DATE      : pay_date
+            , V_P_EMP_CODE_D    : stremp_code_d
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1270,10 +1270,10 @@
     //데이터 검증
     const fn_btnDataCheck = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
@@ -1282,9 +1282,9 @@
 
         let grdList = gvwListGrid.getGridDataAll();
 
-        let isChecked = false;
-        let strSocial_no = '';
-        let strSocial_no2 = '';
+        let isChecked       = false;
+        let strSocial_no    = '';
+        let strSocial_no2   = '';
 
         grdList.forEach((item, index) => {
 
@@ -1303,8 +1303,8 @@
 
             if (_.isEqual(item.CHECK_YN, 'Y')) {
 
-                strSocial_no = item.SOCIAL_NO.replace("-", "") + '|';
-                strSocial_no2 = item.SOCIAL_NO.replace("-", "") + '|';
+                strSocial_no    = item.SOCIAL_NO.replace("-", "") + '|';
+                strSocial_no2   = item.SOCIAL_NO.replace("-", "") + '|';
             }
         })
 
@@ -1318,13 +1318,13 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
-            , V_P_DEPT_CODE: DEPT_CODE
-            , V_P_EMP_CODE: EMP_CODE
-            , V_P_SOCIAL_NO: strSocial_no
-            , V_P_YYYYMM_FR: ''    /*YYYYMM_FR*/
-            , V_P_YYYYMM_TO: ''    /*YYYYMM_TO*/
+            , V_P_INSURE_YYYYMM     : YYYYMM
+            , V_P_PAY_AREA_TYPE     : PAY_AREA_TYPE
+            , V_P_DEPT_CODE         : DEPT_CODE
+            , V_P_EMP_CODE          : EMP_CODE
+            , V_P_SOCIAL_NO         : strSocial_no
+            , V_P_YYYYMM_FR         : ''    /*YYYYMM_FR*/
+            , V_P_YYYYMM_TO         : ''    /*YYYYMM_TO*/
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1347,9 +1347,9 @@
 
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE: gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME: gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO: gfnma_nvl(item.SOCIAL_NO)
+                        EMP_CODE    : gfnma_nvl(item.EMP_CODE),
+                        EMP_NAME    : gfnma_nvl(item.EMP_NAME),
+                        SOCIAL_NO   : gfnma_nvl(item.SOCIAL_NO)
 
                     }
                 });
@@ -1394,8 +1394,8 @@
     //저장 전 년월로 저장한 정보 체크
     const fn_check = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        /*let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        /*let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드*/
 
@@ -1410,12 +1410,12 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_EMP_CODE_D: ''
-            , V_P_BASE_INCOME_AMT_D: ''
-            , V_P_TOTAL_INSURE_AMT_D: ''
-            , V_P_COMP_INSURE_AMT_D: ''
-            , V_P_EMP_INSURE_AMT_D: ''
+            , V_P_INSURE_YYYYMM         : YYYYMM
+            , V_P_EMP_CODE_D            : ''
+            , V_P_BASE_INCOME_AMT_D     : ''
+            , V_P_TOTAL_INSURE_AMT_D    : ''
+            , V_P_COMP_INSURE_AMT_D     : ''
+            , V_P_EMP_INSURE_AMT_D      : ''
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1455,10 +1455,10 @@
     //저장
     const fn_save = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
         /*  let YYYYMM_FR = gfnma_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
           let YYYYMM_TO = gfnma_nvl(SBUxMethod.get("YYYYMM_TO")); //기간*/
@@ -1468,32 +1468,32 @@
             return;
         }
 
-        let stremp_code_d = '';
-        let strbase_income_amt_d = '';
-        let strtotal_insure_amt_d = '';
-        let strcomp_insure_amt_d = '';
-        let stremp_insure_amt_d = '';
-        let isChecked = '';
+        let stremp_code_d           = '';
+        let strbase_income_amt_d    = '';
+        let strtotal_insure_amt_d   = '';
+        let strcomp_insure_amt_d    = '';
+        let stremp_insure_amt_d     = '';
+        let isChecked               = '';
 
         let updateData = gvwListGrid.getGridDataAll();
 
         updateData.forEach((item, index) => {
 
             if (!_.isEqual(gfnma_nvl(item.EMP_CODE), '')) {
-                stremp_code_d += item.EMP_CODE + '|';
-                strbase_income_amt_d += item.BASE_INCOME_AMT + '|';
-                strtotal_insure_amt_d += item.TOTAL_INSURE_AMT + '|';
-                strcomp_insure_amt_d += item.COMP_INSURE_AMT + '|';
-                stremp_insure_amt_d += item.EMP_INSURE_AMT + '|';
+                stremp_code_d           += item.EMP_CODE + '|';
+                strbase_income_amt_d    += item.BASE_INCOME_AMT + '|';
+                strtotal_insure_amt_d   += item.TOTAL_INSURE_AMT + '|';
+                strcomp_insure_amt_d    += item.COMP_INSURE_AMT + '|';
+                stremp_insure_amt_d     += item.EMP_INSURE_AMT + '|';
             }
         })
 
         if (stremp_code_d.length > 0) {
-            stremp_code_d = stremp_code_d.slice(0, -1);
-            strbase_income_amt_d = strbase_income_amt_d.slice(0, -1);
-            strtotal_insure_amt_d = strtotal_insure_amt_d.slice(0, -1);
-            strcomp_insure_amt_d = strcomp_insure_amt_d.slice(0, -1);
-            stremp_insure_amt_d = stremp_insure_amt_d.slice(0, -1);
+            stremp_code_d           = stremp_code_d.slice(0, -1);
+            strbase_income_amt_d    = strbase_income_amt_d.slice(0, -1);
+            strtotal_insure_amt_d   = strtotal_insure_amt_d.slice(0, -1);
+            strcomp_insure_amt_d    = strcomp_insure_amt_d.slice(0, -1);
+            stremp_insure_amt_d     = stremp_insure_amt_d.slice(0, -1);
         }
 
         var paramObj = {
@@ -1502,12 +1502,12 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_EMP_CODE_D: stremp_code_d
-            , V_P_BASE_INCOME_AMT_D: strbase_income_amt_d
-            , V_P_TOTAL_INSURE_AMT_D: strtotal_insure_amt_d
-            , V_P_COMP_INSURE_AMT_D: strcomp_insure_amt_d
-            , V_P_EMP_INSURE_AMT_D: stremp_insure_amt_d
+            , V_P_INSURE_YYYYMM         : YYYYMM
+            , V_P_EMP_CODE_D            : stremp_code_d
+            , V_P_BASE_INCOME_AMT_D     : strbase_income_amt_d
+            , V_P_TOTAL_INSURE_AMT_D    : strtotal_insure_amt_d
+            , V_P_COMP_INSURE_AMT_D     : strcomp_insure_amt_d
+            , V_P_EMP_INSURE_AMT_D      : stremp_insure_amt_d
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1551,19 +1551,12 @@
     //삭제
     const fn_del = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        /*  let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-          let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-          let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드*/
-
-        /*  let YYYYMM_FR = gfnma_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
-          let YYYYMM_TO = gfnma_nvl(SBUxMethod.get("YYYYMM_TO")); //기간*/
+        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
             return;
         }
-
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -1571,12 +1564,12 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_INSURE_YYYYMM: YYYYMM
-            , V_P_EMP_CODE_D: ''
-            , V_P_BASE_INCOME_AMT_D: ''
-            , V_P_TOTAL_INSURE_AMT_D: ''
-            , V_P_COMP_INSURE_AMT_D: ''
-            , V_P_EMP_INSURE_AMT_D: ''
+            , V_P_INSURE_YYYYMM         : YYYYMM
+            , V_P_EMP_CODE_D            : ''
+            , V_P_BASE_INCOME_AMT_D     : ''
+            , V_P_TOTAL_INSURE_AMT_D    : ''
+            , V_P_COMP_INSURE_AMT_D     : ''
+            , V_P_EMP_INSURE_AMT_D      : ''
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1599,9 +1592,9 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
+                }else{
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 }
-
-                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
 
             } else {
                 alert(data.resultMessage);

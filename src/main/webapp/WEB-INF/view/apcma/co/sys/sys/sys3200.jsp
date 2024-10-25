@@ -74,19 +74,19 @@
                     <sbux-select
                             unselected-text="전체"
                             uitype="single"
-                            id="srch-numbering_group"
-                            name="srch-numbering_group"
+                            id="SRCH_NUMBERING_GROUP"
+                            name="SRCH_NUMBERING_GROUP"
                             class="form-control input-sm"
                             jsondata-ref="jsonNumberingGroup"
                     />
                 </td>--%>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-numbering_group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_NUMBERING_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-numbering_group" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_NUMBERING_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -94,14 +94,14 @@
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">채번 ID</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="search_numbering_id" uitype="text" style="width:200px" placeholder=""
+                    <sbux-input id="SRCH_NUMBERING_ID" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">채번명</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="search_numbering_name" uitype="text" style="width:200px" placeholder=""
+                    <sbux-input id="SRCH_NUMBERING_NAME" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
                 </td>
@@ -525,12 +525,12 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
-            //gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['SRCH_NUMBERING_GROUP'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             //급여체계
             gfnma_multiSelectInit({
-                target			: ['#srch-numbering_group','#NUMBERING_GROUP']
+                target			: ['#SRCH_NUMBERING_GROUP','#NUMBERING_GROUP']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS001'
@@ -707,9 +707,9 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
-        let V_P_NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("srch-numbering_group"));
-        let V_P_NUMBERING_ID = gfnma_nvl(SBUxMethod.get("search_numbering_id"));
-        let V_P_NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("search_numbering_name"));
+        let V_P_NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_GROUP"));
+        let V_P_NUMBERING_ID = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_ID"));
+        let V_P_NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_NAME"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'

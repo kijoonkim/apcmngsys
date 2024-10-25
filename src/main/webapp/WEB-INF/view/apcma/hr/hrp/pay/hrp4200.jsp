@@ -60,7 +60,7 @@
                 <th scope="row" class="th_bg">급여영역</th>
                 <td class="td_input">
                    <%-- <sbux-select
-                            id="srch-pay_area_type"
+                            id="SRCH_PAY_AREA_TYPE"
                             uitype="single"
                             jsondata-ref="jsonPayAreaType"
                             unselected-text=""
@@ -69,7 +69,7 @@
                             required
                     ></sbux-select>--%>
                     <sbux-select
-                            id="srch-pay_area_type"
+                            id="SRCH_PAY_AREA_TYPE"
                             uitype="single"
                             jsondata-ref="jsonPayAreaType"
                             unselected-text="선택"
@@ -83,8 +83,8 @@
                 <th scope="row" class="th_bg">귀속년월</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-pay_yyyymm"
-                            name="srch-pay_yyyymm"
+                            id="SRCH_PAY_YYYYMM"
+                            name="SRCH_PAY_YYYYMM"
                             uitype="popup"
                             datepicker-mode="month"
                             date-format="yyyymm"
@@ -97,17 +97,8 @@
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input">
-                   <%-- <sbux-select
-                            id="srch-pay_type"
-                            uitype="single"
-                            jsondata-ref="jsonPayType"
-                            unselected-text=""
-                            class="form-control input-sm inpt_data_reqed"
-                            onchange="fn_payDate"
-                            required
-                    ></sbux-select>--%>
                     <sbux-select
-                            id="srch-pay_type"
+                            id="SRCH_PAY_TYPE"
                             uitype="single"
                             jsondata-ref="jsonPayType"
                             unselected-text="선택"
@@ -120,7 +111,7 @@
                 <th scope="row" class="th_bg">지급일자</th>
                 <td class="td_input">
                     <sbux-select
-                            id="srch-pay_date"
+                            id="SRCH_PAY_DATE"
                             uitype="single"
                             jsondata-ref="jsonPayDate"
                             unselected-text=""
@@ -414,9 +405,9 @@
     var jsonDocListList = [];
 
 
-    var jsonPayAreaType = []; //급여영역 //srch-pay_area_type	  //L_HRP034
-    var jsonPayType = []; //지급구분 //srch-pay_type	          //L_HRB008
-    var jsonPayDate = []; //지급일자 //srch-pay_date	          //L_HRP027
+    var jsonPayAreaType = []; //급여영역 //SRCH_PAY_AREA_TYPE	  //L_HRP034
+    var jsonPayType = []; //지급구분 //SRCH_PAY_TYPE	          //L_HRB008
+    var jsonPayDate = []; //지급일자 //SRCH_PAY_DATE	          //L_HRP027
     var jsonPostingStatus = []; //진행상태 //POSTING_STATUS	          //L_HRP032
     var jsonSiteCode = []; //사업장 //SITE_CODE	          //L_ORG001
     var jsonCurrencyCode = []; //사업장 //CURRENCY_CODE	          //L_COM001
@@ -424,8 +415,8 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['srch-pay_type'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
@@ -521,7 +512,7 @@
 
         let openDate = gfn_dateToYm(new Date());
 
-        SBUxMethod.set('srch-pay_yyyymm', openDate);
+        SBUxMethod.set('SRCH_PAY_YYYYMM', openDate);
 
         fn_createGrid();
         fn_createInfoGrid();
@@ -701,10 +692,10 @@
         let rowData = gvwDocListGrid.getRowData(nRow);
 
 
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
         if (!_.isEmpty(rowData)){
 
@@ -811,14 +802,14 @@
      */
     var fn_payDate = function() {
 
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
+        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
         let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
 
-        gfnma_setComSelect(['srch-pay_date'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
 
     }
 
@@ -827,10 +818,10 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
 
         if (!PAY_AREA_TYPE) {
@@ -1021,10 +1012,10 @@
 
     const getParamForm = async function(){
 
-        //let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        //let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
         let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE"));
         let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO"));
@@ -1128,9 +1119,9 @@
 
     const getParamFormS2 = async function(){
 
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
         let SOURCE_DOC      = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //지급일자
 
         if (!PAY_YYYYMM) {
@@ -1305,10 +1296,10 @@
         let POSTING_DATE        = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
         let CS_CODE             = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
 
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
         let EMP_CODE            = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
         let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO")); //사원코드
@@ -1457,10 +1448,10 @@
     //회계반영  [프로시저 변경 : P_Z_IF_PayResult_S = 'N'  -> P_HRP4200_S1 = 'PayRollN']
     const fn_btnPayResult = async function (type) {
 
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
         let POSTING_DATE        = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
         let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
@@ -1498,13 +1489,6 @@
             ,V_P_LANG_ID		: ''
             ,V_P_COMP_CODE		: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
-            /*,V_P_PAY_YYYYMM            : PAY_YYYYMM
-            ,V_P_PAY_TYPE              : PAY_TYPE
-            ,V_P_PAY_DATE              : PAY_DATE
-            ,V_P_POSTING_DATE          : POSTING_DATE
-            ,V_P_EXPECTED_PAY_DATE     : EXPECTED_PAY_DATE
-            ,V_P_SOURCE_DOC            : SOURCE_DOC  //추가 20181218*/
 
             ,V_P_PERIOD_YYYYMM     : PAY_YYYYMM
             ,V_P_PAY_TYPE          : PAY_TYPE

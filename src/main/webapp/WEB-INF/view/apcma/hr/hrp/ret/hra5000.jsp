@@ -68,8 +68,8 @@
                 <th scope="row" class="th_bg">기준년도</th>
                 <td colspan="11" class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-ye_tx_yyyy"
-                            name="srch-ye_tx_yyyy"
+                            id="SRCH_YE_TX_YYYY"
+                            name="SRCH_YE_TX_YYYY"
                             uitype="popup"
                             datepicker-mode="year"
                             date-format="yyyy"
@@ -661,7 +661,7 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy")); //기준년도
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //기준년도
 
         /*if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "기준년도");
@@ -832,10 +832,10 @@
                     jsonConvertList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            YYYY		        : gfnma_nvl(item.YYYY),
-                            PAY_AMT_FR		: gfnma_nvl(item.PAY_AMT_FR),
-                            PAY_AMT_TO		: gfnma_nvl(item.PAY_AMT_TO),
-                            TX_R		: gfnma_nvl(item.TX_R),
+                            YYYY		            : gfnma_nvl(item.YYYY),
+                            PAY_AMT_FR		        : gfnma_nvl(item.PAY_AMT_FR),
+                            PAY_AMT_TO		        : gfnma_nvl(item.PAY_AMT_TO),
+                            TX_R		            : gfnma_nvl(item.TX_R),
                             CUMULATIVE_TAX_DED_AMT	: gfnma_nvl(item.CUMULATIVE_TAX_DED_AMT),
 
                         }

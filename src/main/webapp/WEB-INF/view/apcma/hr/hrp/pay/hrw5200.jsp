@@ -68,8 +68,8 @@
                             <th scope="row" class="th_bg">보험년월</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        id="srch-yyyymm_fr"
-                                        name="srch-yyyymm_fr"
+                                        id="SRCH_YYYYMM_FR"
+                                        name="SRCH_YYYYMM_FR"
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyymm"
@@ -83,7 +83,7 @@
                             <th scope="row" class="th_bg">지급구분</th>
                             <td class="td_input">
                                 <sbux-select
-                                        id="srch-pay_area_type"
+                                        id="SRCH_PAY_AREA_TYPE"
                                         uitype="single"
                                         jsondata-ref="jsonPayAreaType"
                                         unselected-text="선택"
@@ -316,7 +316,7 @@
     var gvwPivotListGrid;
     var jsonPivotList = [];
 
-    var jsonPayAreaType = []; //지급구분 //srch-pay_area_type, PAY_AREA_TYPE  //L_HRP034
+    var jsonPayAreaType = []; //지급구분 //SRCH_PAY_AREA_TYPE, PAY_AREA_TYPE  //L_HRP034
     var jsonPayItem = []; //급여항목 //EMP_PAY_ITEM, COMP_PAY_ITEM //L_HRP004
     var jsonPositionCode = []; //직위 //POSITION_CODE //L_HRI002
 
@@ -329,7 +329,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid','srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid','SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
@@ -400,8 +400,8 @@
     }
 
     var fn_compopup3 = function(type) {
-        var yyyymm_fr = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        var pay_area_type = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        var yyyymm_fr = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        var pay_area_type = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
         if (yyyymm_fr == "") {
             gfn_comAlert("W0002", "보험년월");
@@ -446,7 +446,7 @@
 
         let openDateFr = openDate - 5;
 
-        SBUxMethod.set('srch-yyyymm_fr', openDate); //보험년월
+        SBUxMethod.set('SRCH_YYYYMM_FR', openDate); //보험년월
         SBUxMethod.set('YYYYMM_FR', openDateFr); //기간 시작시간
         SBUxMethod.set('YYYYMM_TO', openDate);  //기간 종료시간
 
@@ -1054,8 +1054,8 @@
 
         if (_.isEqual(workType, 'LIST')) { //국민연금내역 등록 조회시
 
-            YYYYMM        = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-            PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+            YYYYMM        = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+            PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
             DEPT_CODE     = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
             EMP_CODE      = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
@@ -1293,17 +1293,17 @@
     //급여반영,취소
     const fn_btnApply = async function (reData, type) {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
-        let pay_yyyymm = reData.pay_yyyymm;
-        let pay_type = reData.pay_type;
-        let pay_date = reData.pay_date;
+        let pay_yyyymm  = reData.pay_yyyymm;
+        let pay_type    = reData.pay_type;
+        let pay_date    = reData.pay_date;
 
         let grdList = gvwListGrid.getGridDataAll();
 
-        let isChecked = false;
-        let stremp_code_d = '';
+        let isChecked       = false;
+        let stremp_code_d   = '';
 
         grdList.forEach((item,index) =>{
 
@@ -1382,10 +1382,10 @@
     //데이터 검증
     const fn_btnDataCheck = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
@@ -1456,9 +1456,9 @@
 
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME : gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO : gfnma_nvl(item.SOCIAL_NO)
+                        EMP_CODE    : gfnma_nvl(item.EMP_CODE),
+                        EMP_NAME    : gfnma_nvl(item.EMP_NAME),
+                        SOCIAL_NO   : gfnma_nvl(item.SOCIAL_NO)
 
                     }
                 });
@@ -1503,8 +1503,8 @@
     //저장 전 년월로 저장한 정보 체크
     const fn_check = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        /*let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        /*let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드*/
 
@@ -1564,10 +1564,10 @@
     //저장
     const fn_save = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
         /*  let YYYYMM_FR = gfnma_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
           let YYYYMM_TO = gfnma_nvl(SBUxMethod.get("YYYYMM_TO")); //기간*/
@@ -1680,8 +1680,8 @@
     //삭제
     const fn_del = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("srch-yyyymm_fr")); //보험년월
-      /*  let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //지급구분
+        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+      /*  let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드*/
 

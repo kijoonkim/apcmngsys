@@ -79,8 +79,8 @@
                 <th scope="row" class="th_bg">정산연도</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-ye_tx_yyyy"
-                            name="srch-ye_tx_yyyy"
+                            id="SRCH_YE_TX_YYYY"
+                            name="SRCH_YE_TX_YYYY"
                             uitype="popup"
                             datepicker-mode="year"
                             date-format="yyyy"
@@ -94,11 +94,11 @@
                 <th scope="row" class="th_bg">정산구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="srch-ye_tx_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-ye_tx_type" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -106,7 +106,7 @@
                 <th scope="row" class="th_bg">급여영역</th>
                 <td class="td_input">
                     <sbux-select
-                            id="srch-pay_area_type"
+                            id="SRCH_PAY_AREA_TYPE"
                             uitype="single"
                             jsondata-ref="jsonPayAreaType"
                             unselected-text="선택"
@@ -121,7 +121,7 @@
                 <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
-                            id="srch-dept_code"
+                            id="SRCH_DEPT_CODE"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -129,7 +129,7 @@
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
-                            id="srch-dept_name"
+                            id="SRCH_DEPT_NAME"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -145,7 +145,7 @@
                 <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
-                            id="srch-emp_code"
+                            id="SRCH_EMP_CODE"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -153,7 +153,7 @@
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
-                            id="srch-emp_name"
+                            id="SRCH_EMP_NAME"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -168,8 +168,8 @@
                 <th scope="row" class="th_bg">퇴사일</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-date_fr"
-                            name="srch-date_fr"
+                            id="SRCH_DATE_FR"
+                            name="SRCH_DATE_FR"
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast"
@@ -179,8 +179,8 @@
                 <td>~</td>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-date_to"
-                            name="srch-date_to"
+                            id="SRCH_DATE_TO"
+                            name="SRCH_DATE_TO"
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast">
@@ -188,8 +188,8 @@
                 </td>
                 <td class="td_input" style="border-right: hidden; display: none">
                     <sbux-checkbox
-                            id="srch-update_yn"
-                            name="srch-update_yn"
+                            id="SRCH_UPDATE_YN"
+                            name="SRCH_UPDATE_YN"
                             uitype="normal"
                             text="확정여부"
                             true-value="Y"
@@ -201,11 +201,11 @@
                 <th scope="row" class="th_bg">사업장</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-site_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-site_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -213,8 +213,8 @@
                 <th scope="row" class="th_bg">퇴직년월</th>
                 <td colspan="8" class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-retire_month"
-                            name="srch-retire_month"
+                            id="SRCH_RETIRE_MONTH"
+                            name="SRCH_RETIRE_MONTH"
                             uitype="popup"
                             datepicker-mode="month"
                             date-format="yyyymm"
@@ -744,7 +744,7 @@
     var gvwTaxFreeAmtGrid;
     var jsonTaxFreeAmt = [];
 
-    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
+    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )SRCH_PAY_AREA_TYPE
     var jsonSiteCode = []; //사업장 ( L_ORG001 )SITE_CODE
     var jsonSummaryStep = []; //상태 ( L_HRA046 )SUMMARY_STEP
     var jsonTxfreeCode = []; //비과세코드 ( P_HRB015 )TXFREE_CODE
@@ -753,14 +753,14 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwEmpListGrid'], jsonSummaryStep, 'L_HRA046', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwTaxFreeAmtGrid'], jsonTxfreeCode, 'P_HRB015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_FREE_CODE', 'TAX_FREE_NAME', 'Y', ''),
 
             //지급구분
             gfnma_multiSelectInit({
-                target			: ['#srch-ye_tx_type']
+                target			: ['#SRCH_YE_TX_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA029'
@@ -780,7 +780,7 @@
 
             //사업장
             gfnma_multiSelectInit({
-                target			: ['#srch-site_code']
+                target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
@@ -802,7 +802,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -823,8 +823,8 @@
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -832,7 +832,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-emp_name"));
+        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -857,8 +857,8 @@
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-emp_name', data.EMP_NAME);
-                SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
 
@@ -939,7 +939,7 @@
 
         let openDate = gfn_dateToYear(new Date());
 
-        SBUxMethod.set('srch-ye_tx_yyyy', openDate);
+        SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
         /*SBUxMethod.set('srch-pay_yyyymm_fr2', openDate);*/
 
         fn_createGrid();
@@ -1056,18 +1056,18 @@
      */
     const fn_search = async function () {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
-        let YE_TX_TYPE			= gfnma_multiSelectGet('#srch-ye_tx_type');//정산구분
-        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));//급여영역
-        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("srch-dept_code")); //부서
-        let DEPT_NAME 			= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
-        let EMP_CODE 			= gfnma_nvl(SBUxMethod.get("srch-emp_code"));//사원
-        let EMP_NAME 			= gfnma_nvl(SBUxMethod.get("srch-emp_name"));
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("srch-date_fr")); //퇴사일
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("srch-date_to"));
-        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("srch-update_yn"));//확정여부
-        let SITE_CODE 			= gfnma_multiSelectGet('#srch-site_code');//사 업 장
-        let RETIRE_MONTH 		= gfnma_nvl(SBUxMethod.get("srch-retire_month"));//퇴직년월	---하이드처리 되어있음
+        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
+        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let DEPT_NAME 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        let EMP_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));//사원
+        let EMP_NAME 			= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
+        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
+        let SITE_CODE 			= gfnma_multiSelectGet('#SRCH_SITE_CODE');//사 업 장
+        let RETIRE_MONTH 		= gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1158,14 +1158,14 @@
     //상세정보 보기
     async function fn_view() {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
-        let YE_TX_TYPE			= gfnma_multiSelectGet('#srch-ye_tx_type');//정산구분
-        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));//급여영역
-        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("srch-dept_code")); //부서
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("srch-date_fr")); //퇴사일
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("srch-date_to"));
-        let SITE_CODE 			= gfnma_multiSelectGet('#srch-site_code');//사 업 장
-        let RETIRE_MONTH 			= gfnma_nvl(SBUxMethod.get("srch-retire_month"));//퇴직년월	---하이드처리 되어있음
+        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
+        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
+        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+        let SITE_CODE 			= gfnma_multiSelectGet('#SRCH_SITE_CODE');//사 업 장
+        let RETIRE_MONTH 			= gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1343,9 +1343,9 @@
     //저장
     const fn_save = async function (type) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
-        let YE_TX_TYPE			= gfnma_multiSelectGet('#srch-ye_tx_type');//정산구분
-        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("srch-update_yn"));//확정여부
+        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
+        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1501,8 +1501,8 @@
 
     const getParamForm = async function (updatedData) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
-        let YE_TX_TYPE			= gfnma_multiSelectGet('#srch-ye_tx_type');//정산구분
+        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
         let EMP_CODE 			= gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
 
         if (!YE_TX_YYYY) {
@@ -1609,8 +1609,8 @@
      */
     const fn_batForm = async function (type) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
-        let YE_TX_TYPE			= gfnma_multiSelectGet('#srch-ye_tx_type');//정산구분
+        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
