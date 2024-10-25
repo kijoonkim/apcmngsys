@@ -101,4 +101,11 @@ public interface PrdcrCrclOgnMngMapper {
 	 * @return int
 	 */
 	public int deleteUo(UoListVO uoListVO) throws Exception;
+
+	/**
+	 * 로우데이터 리스트를 조회한다.
+	 * @param PrdcrCrclOgnMngVO
+	 * @return List<PrdcrCrclOgnMngVO>
+	 */
+	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO);
 }

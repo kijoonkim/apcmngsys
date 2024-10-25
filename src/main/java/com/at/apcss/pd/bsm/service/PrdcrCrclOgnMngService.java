@@ -127,4 +127,12 @@ public interface PrdcrCrclOgnMngService {
 	 */
 	public int deleteUo(UoListVO uoListVO) throws Exception;
 
+	/**
+	 * 로우데이터 리스트를 조회한다.
+	 * @param PrdcrCrclOgnMngVO
+	 * @return List<PrdcrCrclOgnMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception;
+
 }
