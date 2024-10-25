@@ -136,8 +136,10 @@
                                 id="SRCH_APPLY_START_DATE"
                                 name="SRCH_APPLY_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -149,8 +151,10 @@
                                 id="SRCH_APPLY_END_DATE"
                                 name="SRCH_APPLY_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">사원</th>
@@ -283,10 +287,6 @@
     var jsonCheckList = [];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_PERIOD_YYYYMM", gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_APPLY_START_DATE", gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_APPLY_END_DATE", gfn_dateLastYmd(new Date()));
-
         let rst = await Promise.all([
             // 교대조
             gfnma_setComSelect(['gvwShift', 'gvwShiftInfo'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
@@ -663,12 +663,12 @@
         gvwCheck = _SBGrid.create(SBGridProperties);
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwShiftGrid();
         fn_createGvwShiftInfoGrid();
         fn_createGvwCheckGrid();
-        fn_search();
+        await fn_onload();
     });
 
     // 행추가
@@ -866,7 +866,19 @@
         fn_save();
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_PERIOD_YYYYMM", gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_APPLY_START_DATE", gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_APPLY_END_DATE", gfn_dateLastYmd(new Date()));
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1183,7 +1195,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1268,7 +1280,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1352,7 +1364,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1436,7 +1448,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }

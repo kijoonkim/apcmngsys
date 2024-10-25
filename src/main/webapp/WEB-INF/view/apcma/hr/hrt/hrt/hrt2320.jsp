@@ -93,7 +93,7 @@
                                 name="SRCH_PERIOD_YYYYMM"
                                 date-format="yyyy-mm"
                                 datepicker-mode="month"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -128,6 +128,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -141,6 +143,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">사원</th>
@@ -250,13 +254,6 @@
     var jsonDayShiftList = [];
 
     const fn_initSBSelect = async function() {
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_YYYYMMDD_FR",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateToYmd(new Date()));
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['bandgvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -885,11 +882,11 @@
         });
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwShiftGrid();
         fn_createBandgvwInfoGrid();
-        fn_search();
+        await fn_onload();
     });
 
     // 행추가
@@ -1114,7 +1111,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1137,6 +1134,10 @@
     }
 
     const fn_delete = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let gvwShiftCheckedList = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
         let bandgvwInfoCheckedList = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
 
@@ -1363,11 +1364,26 @@
                 }
             }
             gfn_comAlert("I0001");
-            fn_search();
+            await fn_search();
         }
     }
 
+    const fn_onload = async function () {
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_YYYYMMDD_FR",gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateToYmd(new Date()));
+
+        await fn_search();
+    }
+
     const fn_search = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
         let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1450,6 +1466,10 @@
     }
 
     const fn_view = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         var nRow = gvwShift.getRow();
         var rowData = gvwShift.getRowData(nRow);
 
@@ -1677,7 +1697,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1686,6 +1706,10 @@
     }
 
     const fn_confirm = async function() {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
 
         if (grdRows.length > 0) {
@@ -1810,7 +1834,7 @@
                                 if (data.resultMessage) {
                                     alert(data.resultMessage);
                                 }
-                                fn_search();
+                                await fn_search();
                             } else {
                                 alert(data.resultMessage);
                             }
@@ -1917,7 +1941,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1925,6 +1949,10 @@
     }
 
     const fn_cancel = async function() {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
 
         if (grdRows.length > 0) {
@@ -2049,7 +2077,7 @@
                                 if (data.resultMessage) {
                                     alert(data.resultMessage);
                                 }
-                                fn_search();
+                                await fn_search();
                             } else {
                                 alert(data.resultMessage);
                             }
@@ -2156,7 +2184,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
