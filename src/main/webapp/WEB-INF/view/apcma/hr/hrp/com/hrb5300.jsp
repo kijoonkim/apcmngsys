@@ -66,11 +66,11 @@
                 <th scope="row" class="th_bg">급여체계</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="cbopay_group_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAY_GROUP_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="cbopay_group_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_GROUP_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -80,11 +80,11 @@
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="cbopay_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="cbopay_type" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -94,11 +94,11 @@
                 <th scope="row" class="th_bg">급여항목구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="cbopay_item_category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAY_ITEM_CATEGORY" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="cbopay_item_category" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_ITEM_CATEGORY" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -298,7 +298,7 @@
 
             //급여체계
             gfnma_multiSelectInit({
-                target			: ['#cbopay_group_code']
+                target			: ['#SRCH_PAY_GROUP_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI010'
@@ -318,7 +318,7 @@
 
             //지급구분
             gfnma_multiSelectInit({
-                target			: ['#cbopay_item_category']
+                target			: ['#SRCH_PAY_ITEM_CATEGORY']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB009'
@@ -338,7 +338,7 @@
 
             //지급구분
             gfnma_multiSelectInit({
-                target			: ['#cbopay_type']
+                target			: ['#SRCH_PAY_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB008'
@@ -555,9 +555,9 @@
 
         gvwMasterGrid.clearStatus();
 
-        let PAY_GROUP_CODE = gfnma_multiSelectGet("#cbopay_group_code");
-        let PAY_TYPE = gfnma_multiSelectGet("#cbopay_type");
-        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#cbopay_item_category");
+        let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
+        let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
+        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
 
 
         if (!PAY_GROUP_CODE) {
@@ -668,9 +668,9 @@
             return;
         }
 
-        let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("cbopay_group_code"));
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("cbopay_type"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("cbopay_item_category"));
+        let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE"));
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
 
 
         let rowData = gvwMasterGrid.getRowData(nRow);
@@ -937,9 +937,9 @@
             return;
         }
 
-        let PAY_GROUP_CODE = gfnma_multiSelectGet("#cbopay_group_code");
-        let PAY_TYPE = gfnma_multiSelectGet("#cbopay_type");
-        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#cbopay_item_category");
+        let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
+        let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
+        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
 
         let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
         let QTY_FORMULA = gfnma_nvl(SBUxMethod.get("QTY_FORMULA"));

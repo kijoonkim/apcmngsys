@@ -70,8 +70,8 @@
                 <th scope="row" class="th_bg">정산연도</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-ye_tx_yyyy"
-                            name="srch-ye_tx_yyyy"
+                            id="SRCH_YE_TX_YYYY"
+                            name="SRCH_YE_TX_YYYY"
                             uitype="popup"
                             datepicker-mode="year"
                             date-format="yyyy"
@@ -1956,7 +1956,7 @@
 
         let openDate = gfn_dateToYear(new Date());
 
-        SBUxMethod.set('srch-ye_tx_yyyy', openDate);
+        SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
 
         fn_createGrid();
 
@@ -2075,7 +2075,7 @@
      */
     const fn_search = async function () {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy")); //정산년도
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산년도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산년도");
@@ -2366,7 +2366,7 @@
 
     const getParamForm = async function (updatedData) {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));
 
         let returnData = [];
 
@@ -2410,7 +2410,7 @@
     //저장
     const fn_save = async function (type) {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산년도");
             return;

@@ -62,11 +62,11 @@
                 <th scope="row" class="th_bg">사업장</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-site_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-site_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -77,8 +77,8 @@
                     <sbux-select
                             unselected-text="전체"
                             uitype="single"
-                            id="srch-emp_state"
-                            name="srch-emp_state"
+                            id="SRCH_EMP_STATE"
+                            name="SRCH_EMP_STATE"
                             class="form-control input-sm"
                             jsondata-ref="jsonEmpState"
                     />
@@ -100,14 +100,14 @@
                     <sbux-input
                             uitype="text"
                             uitype="text"
-                            id="srch-dept_code"
+                            id="SRCH_DEPT_CODE"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
                 <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
-                            id="srch-dept_name"
+                            id="SRCH_DEPT_NAME"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -123,14 +123,14 @@
                 <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
-                            id="srch-emp_code"
+                            id="SRCH_EMP_CODE"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
                 <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
-                            id="srch-emp_full_name"
+                            id="SRCH_EMP_FULL_NAME"
                             class="form-control input-sm"
 
                     ></sbux-input>
@@ -148,8 +148,8 @@
                     <sbux-select
                             unselected-text="전체"
                             uitype="single"
-                            id="srch-pay_area_type"
-                            name="srch-pay_area_type"
+                            id="SRCH_PAY_AREA_TYPE"
+                            name="SRCH_PAY_AREA_TYPE"
                             class="form-control input-sm"
                             jsondata-ref="jsonPayAreaType"
                     />
@@ -809,7 +809,7 @@
     var jsonPayGroupCode = []; //급여체계 ( L_HRI010 )pay_group_code
     var jsonBankCode = []; //급여은행 ( L_BANK_CODE )bank_code, bank_code2, ret_pens_bank_code
     var jsonBank2PayItem = []; //2계좌지급급여 ( L_HRP063 )bank2_pay_item
-    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )pay_area_type,srch-pay_area_type
+    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )pay_area_type,SRCH_PAY_AREA_TYPE
     var jsonDutyCode = []; //직책 ( L_HRI003 )duty_code
     var jsonDeptName = []; //부서 ( P_ORG001 )dept_name
     var jsonPayType = []; //지급구분 ( L_HRB008 )pay_type
@@ -830,8 +830,8 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             gfnma_setComSelect(['srch-comp_code'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
-            gfnma_setComSelect(['srch-emp_state','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['srch-pay_area_type','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'GRADE_HOBONG_CODE', 'GRADE_HOBONG_NAME', 'Y', ''),
             gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -858,7 +858,7 @@
 
             //사업장
             gfnma_multiSelectInit({
-                target			: ['#srch-site_code']
+                target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
@@ -885,7 +885,7 @@
 
         var searchText = '';
         if (_.isEqual(type, 'srch')){
-            searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+            searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
         }else {
             searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
         }
@@ -909,8 +909,8 @@
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 if (_.isEqual(type, 'srch')){
-                    SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                    SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                    SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                    SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
                 }else{
                     SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                     SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
@@ -925,7 +925,7 @@
 
         var searchText = '';
         if (_.isEqual(type, 'srch')){
-            searchText = gfnma_nvl(SBUxMethod.get("srch-emp_full_name"));
+            searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_FULL_NAME"));
         }else{
             searchText = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
         }
@@ -955,8 +955,8 @@
             , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
                 if (_.isEqual(type, 'srch')){
-                    SBUxMethod.set('srch-emp_full_name', data.EMP_NAME);
-                    SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                    SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NAME);
+                    SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
                 }else{
                     SBUxMethod.set('EMP_NAME', data.EMP_NAME);
                     SBUxMethod.set('EMP_CODE', data.EMP_CODE);
@@ -1682,11 +1682,13 @@
                 , V_P_LANG_ID: 'KOR'
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-                , V_P_SITE_CODE: rowData.SITE_CODE
-                , V_P_DEPT_CODE: rowData.DEPT_CODE
-                , V_P_EMP_CODE: rowData.EMP_CODE
-                , V_P_EMP_STATE: rowData.EMP_STATE
-                , V_P_PAY_AREA_TYPE: rowData.PAY_AREA_TYPE
+
+                , V_P_SITE_CODE     : rowData.SITE_CODE
+                , V_P_DEPT_CODE     : rowData.DEPT_CODE
+                , V_P_EMP_CODE      : rowData.EMP_CODE
+                , V_P_EMP_STATE     : rowData.EMP_STATE
+                , V_P_PAY_AREA_TYPE : rowData.PAY_AREA_TYPE
+
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
                 , V_P_PROC_ID: ''
@@ -1795,30 +1797,30 @@
                     jsonPayInfoList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            SALARY_BASE_AMT: gfnma_nvl(item.SALARY_BASE_AMT),
-                            JOB_BASE_AMT: gfnma_nvl(item.JOB_BASE_AMT),
-                            OT_FIXED_BASE_AMT: gfnma_nvl(item.OT_FIXED_BASE_AMT),
-                            ROLE_BASE_AMT: gfnma_nvl(item.ROLE_BASE_AMT),
-                            INCENTIVE_BASE_AMT: gfnma_nvl(item.INCENTIVE_BASE_AMT),
-                            COMPETENCE_BASE_AMT: gfnma_nvl(item.COMPETENCE_BASE_AMT),
-                            MONTHLY_SALARY_AMT: gfnma_nvl(item.MONTHLY_SALARY_AMT),
-                            PAY_COUNT: gfnma_nvl(item.PAY_COUNT),
-                            INCENTIVE_ADD_AMT: gfnma_nvl(item.INCENTIVE_ADD_AMT),
-                            BONUS_COUNT: gfnma_nvl(item.BONUS_COUNT),
-                            ANNUAL_SALARY_AMT: gfnma_nvl(item.ANNUAL_SALARY_AMT),
-                            INCENTIVE_MONTH_AMT: gfnma_nvl(item.INCENTIVE_MONTH_AMT),
-                            HOURLY_BASE_AMT: gfnma_nvl(item.HOURLY_BASE_AMT),
-                            SUM_BASE_AMT: gfnma_nvl(item.SUM_BASE_AMT),
-                            ANNUAL_BASE_AMT: gfnma_nvl(item.ANNUAL_BASE_AMT),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            DAILY_BASE_AMT: gfnma_nvl(item.DAILY_BASE_AMT),
-                            BONUS_BASE_AMT: gfnma_nvl(item.BONUS_BASE_AMT),
-                            CONTRIBUTE_BASE_AMT: gfnma_nvl(item.CONTRIBUTE_BASE_AMT),
-                            ADJUST_BASE_AMT: gfnma_nvl(item.ADJUST_BASE_AMT)
+                            APPLY_START_DATE        : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE          : gfnma_nvl(item.APPLY_END_DATE),
+                            MEMO                    : gfnma_nvl(item.MEMO),
+                            SALARY_BASE_AMT         : gfnma_nvl(item.SALARY_BASE_AMT),
+                            JOB_BASE_AMT            : gfnma_nvl(item.JOB_BASE_AMT),
+                            OT_FIXED_BASE_AMT       : gfnma_nvl(item.OT_FIXED_BASE_AMT),
+                            ROLE_BASE_AMT           : gfnma_nvl(item.ROLE_BASE_AMT),
+                            INCENTIVE_BASE_AMT      : gfnma_nvl(item.INCENTIVE_BASE_AMT),
+                            COMPETENCE_BASE_AMT     : gfnma_nvl(item.COMPETENCE_BASE_AMT),
+                            MONTHLY_SALARY_AMT      : gfnma_nvl(item.MONTHLY_SALARY_AMT),
+                            PAY_COUNT               : gfnma_nvl(item.PAY_COUNT),
+                            INCENTIVE_ADD_AMT       : gfnma_nvl(item.INCENTIVE_ADD_AMT),
+                            BONUS_COUNT             : gfnma_nvl(item.BONUS_COUNT),
+                            ANNUAL_SALARY_AMT       : gfnma_nvl(item.ANNUAL_SALARY_AMT),
+                            INCENTIVE_MONTH_AMT     : gfnma_nvl(item.INCENTIVE_MONTH_AMT),
+                            HOURLY_BASE_AMT         : gfnma_nvl(item.HOURLY_BASE_AMT),
+                            SUM_BASE_AMT            : gfnma_nvl(item.SUM_BASE_AMT),
+                            ANNUAL_BASE_AMT         : gfnma_nvl(item.ANNUAL_BASE_AMT),
+                            USERID                  : gfnma_nvl(item.USERID),
+                            USERTIME                : gfnma_nvl(item.USERTIME),
+                            DAILY_BASE_AMT          : gfnma_nvl(item.DAILY_BASE_AMT),
+                            BONUS_BASE_AMT          : gfnma_nvl(item.BONUS_BASE_AMT),
+                            CONTRIBUTE_BASE_AMT     : gfnma_nvl(item.CONTRIBUTE_BASE_AMT),
+                            ADJUST_BASE_AMT         : gfnma_nvl(item.ADJUST_BASE_AMT)
                         }
                         jsonPayInfoList.push(msg);
                     });
@@ -1829,15 +1831,15 @@
                     jsonPayList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT: gfnma_nvl(item.PAY_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            TXN_ID: gfnma_nvl(item.TXN_ID)
+                            PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT             : gfnma_nvl(item.PAY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            TXN_ID              : gfnma_nvl(item.TXN_ID)
                         }
                         jsonPayList.push(msg);
                     });
@@ -1848,16 +1850,16 @@
                     jsonDedList.length = 0;
                     data.cv_6.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT: gfnma_nvl(item.PAY_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            PAY_ITEM_CATEGORY: gfnma_nvl(item.PAY_ITEM_CATEGORY),
-                            TXN_ID: gfnma_nvl(item.TXN_ID)
+                            PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT             : gfnma_nvl(item.PAY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            PAY_ITEM_CATEGORY   : gfnma_nvl(item.PAY_ITEM_CATEGORY),
+                            TXN_ID              : gfnma_nvl(item.TXN_ID)
                         }
                         jsonDedList.push(msg);
                     });
@@ -1868,16 +1870,16 @@
                     jsonVarPayList.length = 0;
                     data.cv_8.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT: gfnma_nvl(item.PAY_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            TAX_PAY_DATE: gfnma_nvl(item.TAX_PAY_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            TXN_ID: gfnma_nvl(item.TXN_ID)
+                            PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT             : gfnma_nvl(item.PAY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            TAX_PAY_DATE        : gfnma_nvl(item.TAX_PAY_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME),
+                            TXN_ID              : gfnma_nvl(item.TXN_ID)
                         }
                         jsonVarPayList.push(msg);
                     });
@@ -1888,16 +1890,16 @@
                     jsonVarDedList.length = 0;
                     data.cv_9.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT: gfnma_nvl(item.PAY_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            TAX_PAY_DATE: gfnma_nvl(item.TAX_PAY_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            TXN_ID: gfnma_nvl(item.TXN_ID)
+                            PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT             : gfnma_nvl(item.PAY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            TAX_PAY_DATE        : gfnma_nvl(item.TAX_PAY_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME),
+                            TXN_ID              : gfnma_nvl(item.TXN_ID)
                         }
                         jsonVarDedList.push(msg);
                     });
@@ -1908,17 +1910,17 @@
                     jsonPayExList.length = 0;
                     data.cv_10.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT: gfnma_nvl(item.PAY_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            PAY_APPLY_TYPE: gfnma_nvl(item.PAY_APPLY_TYPE),
-                            PAY_APPLY_RATE: gfnma_nvl(item.PAY_APPLY_RATE),
-                            PAY_APPLY_AMT: gfnma_nvl(item.PAY_APPLY_AMT),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME),
-                            MEMO: gfnma_nvl(item.MEMO)
+                            PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT             : gfnma_nvl(item.PAY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            PAY_APPLY_TYPE      : gfnma_nvl(item.PAY_APPLY_TYPE),
+                            PAY_APPLY_RATE      : gfnma_nvl(item.PAY_APPLY_RATE),
+                            PAY_APPLY_AMT       : gfnma_nvl(item.PAY_APPLY_AMT),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME),
+                            MEMO                : gfnma_nvl(item.MEMO)
                         }
                         jsonPayExList.push(msg);
                     });
@@ -1929,19 +1931,19 @@
                     jsonDetailList.length = 0;
                     data.cv_11.forEach((item, index) => {
                         const msg = {
-                            INSU_TYPE: gfnma_nvl(item.INSU_TYPE),
-                            START_DATE: gfnma_nvl(item.START_DATE),
-                            END_DATE: gfnma_nvl(item.END_DATE),
-                            INSU_REASON_TYPE: gfnma_nvl(item.INSU_REASON_TYPE),
-                            INSU_STATE_TYPE: gfnma_nvl(item.INSU_STATE_TYPE),
-                            INSU_REG_TYPE: gfnma_nvl(item.INSU_REG_TYPE),
-                            INSU_RATE: gfnma_nvl(item.INSU_RATE),
-                            INSU_AMT_YN: gfnma_nvl(item.INSU_AMT_YN),
-                            OVER_WORKER_YN: gfnma_nvl(item.OVER_WORKER_YN),
-                            AGE_65_OVER_YN: gfnma_nvl(item.AGE_65_OVER_YN),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME)
+                            INSU_TYPE           : gfnma_nvl(item.INSU_TYPE),
+                            START_DATE          : gfnma_nvl(item.START_DATE),
+                            END_DATE            : gfnma_nvl(item.END_DATE),
+                            INSU_REASON_TYPE    : gfnma_nvl(item.INSU_REASON_TYPE),
+                            INSU_STATE_TYPE     : gfnma_nvl(item.INSU_STATE_TYPE),
+                            INSU_REG_TYPE       : gfnma_nvl(item.INSU_REG_TYPE),
+                            INSU_RATE           : gfnma_nvl(item.INSU_RATE),
+                            INSU_AMT_YN         : gfnma_nvl(item.INSU_AMT_YN),
+                            OVER_WORKER_YN      : gfnma_nvl(item.OVER_WORKER_YN),
+                            AGE_65_OVER_YN      : gfnma_nvl(item.AGE_65_OVER_YN),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME)
                         }
                         jsonDetailList.push(msg);
                     });
@@ -1952,18 +1954,18 @@
                     jsonViewEx1List.length = 0;
                     data.cv_7.forEach((item, index) => {
                         const msg = {
-                            APPLY_TYPE: gfnma_nvl(item.APPLY_TYPE),
-                            LONG_APPLY_TYPE: gfnma_nvl(item.LONG_APPLY_TYPE),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            BASE_AMT: gfnma_nvl(item.BASE_AMT),
-                            VAL1: gfnma_nvl(item.VAL1),
-                            VAL2: gfnma_nvl(item.VAL2),
-                            VAL3: gfnma_nvl(item.VAL3),
-                            LONG_APPLY_EXEM_AMT: gfnma_nvl(item.LONG_APPLY_EXEM_AMT),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME)
+                            APPLY_TYPE          : gfnma_nvl(item.APPLY_TYPE),
+                            LONG_APPLY_TYPE     : gfnma_nvl(item.LONG_APPLY_TYPE),
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            BASE_AMT            : gfnma_nvl(item.BASE_AMT),
+                            VAL1                : gfnma_nvl(item.VAL1),
+                            VAL2                : gfnma_nvl(item.VAL2),
+                            VAL3                : gfnma_nvl(item.VAL3),
+                            LONG_APPLY_EXEM_AMT : gfnma_nvl(item.LONG_APPLY_EXEM_AMT),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME)
                         }
                         jsonViewEx1List.push(msg);
                     });
@@ -1974,12 +1976,12 @@
                     jsonWithholdList.length = 0;
                     data.cv_12.forEach((item, index) => {
                         const msg = {
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-                            WITHHOLD_RATE: gfnma_nvl(item.WITHHOLD_RATE),
-                            MEMO: gfnma_nvl(item.MEMO),
-                            USERID: gfnma_nvl(item.USERID),
-                            USERTIME: gfnma_nvl(item.USERTIME)
+                            APPLY_START_DATE    : gfnma_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfnma_nvl(item.APPLY_END_DATE),
+                            WITHHOLD_RATE       : gfnma_nvl(item.WITHHOLD_RATE),
+                            MEMO                : gfnma_nvl(item.MEMO),
+                            USERID              : gfnma_nvl(item.USERID),
+                            USERTIME            : gfnma_nvl(item.USERTIME)
                         }
                         jsonWithholdList.push(msg);
                     });
@@ -2287,11 +2289,11 @@
         gvwInfoGrid.clearStatus();
 
         /* let comp_code = gfnma_nvl(SBUxMethod.get("srch-comp_code"));  공통처리 */
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("srch-emp_state"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("srch-dept_code"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code"));
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));
+        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE       = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
 
         var paramObj = {
@@ -2299,11 +2301,13 @@
             ,V_P_LANG_ID: ''
             ,V_P_COMP_CODE: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-            ,V_P_SITE_CODE: SITE_CODE
-            ,V_P_DEPT_CODE: DEPT_CODE
-            ,V_P_EMP_CODE: EMP_CODE
-            ,V_P_EMP_STATE: EMP_STATE
-            ,V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
+
+            ,V_P_SITE_CODE      : SITE_CODE
+            ,V_P_DEPT_CODE      : DEPT_CODE
+            ,V_P_EMP_CODE       : EMP_CODE
+            ,V_P_EMP_STATE      : EMP_STATE
+            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
+
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
             ,V_P_PROC_ID: ''
@@ -2329,26 +2333,26 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CREATE: gfnma_nvl(item.CREATE),
-                        EMP_CODE: gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME: gfnma_nvl(item.EMP_NAME),
-                        PAY_GROUP_CODE: gfnma_nvl(item.PAY_GROUP_CODE),
-                        PAY_AREA_TYPE: gfnma_nvl(item.PAY_AREA_TYPE),
-                        DUTY_CODE: gfnma_nvl(item.DUTY_CODE),
-                        POSITION_CODE: gfnma_nvl(item.POSITION_CODE),
-                        DEPT_NAME: gfnma_nvl(item.DEPT_NAME),
-                        ENTER_DATE: gfnma_nvl(item.ENTER_DATE),
-                        RETIRE_DATE: gfnma_nvl(item.RETIRE_DATE),
-                        BANK_CODE: gfnma_nvl(item.BANK_CODE),
-                        BANK_ACCOUNT_REAL: gfnma_nvl(item.BANK_ACCOUNT_REAL),
-                        BANK_CODE2: gfnma_nvl(item.BANK_CODE2),
-                        BANK_ACCOUNT2_REAL: gfnma_nvl(item.BANK_ACCOUNT2_REAL),
-                        EMP_STATE: gfnma_nvl(item.EMP_STATE),
-                        BANK_ACCOUNT: gfnma_nvl(item.BANK_ACCOUNT),
-                        BANK_ACCOUNT2: gfnma_nvl(item.BANK_ACCOUNT2),
-                        RET_PENS_BANK_CODE: gfnma_nvl(item.RET_PENS_BANK_CODE),
-                        RET_PENS_BANK_ACC: gfnma_nvl(item.RET_PENS_BANK_ACC),
-                        RET_PENS_BANK_ACC_REAL: gfnma_nvl(item.RET_PENS_BANK_ACC_REAL)
+                        CREATE                  : gfnma_nvl(item.CREATE),
+                        EMP_CODE                : gfnma_nvl(item.EMP_CODE),
+                        EMP_NAME                : gfnma_nvl(item.EMP_NAME),
+                        PAY_GROUP_CODE          : gfnma_nvl(item.PAY_GROUP_CODE),
+                        PAY_AREA_TYPE           : gfnma_nvl(item.PAY_AREA_TYPE),
+                        DUTY_CODE               : gfnma_nvl(item.DUTY_CODE),
+                        POSITION_CODE           : gfnma_nvl(item.POSITION_CODE),
+                        DEPT_NAME               : gfnma_nvl(item.DEPT_NAME),
+                        ENTER_DATE              : gfnma_nvl(item.ENTER_DATE),
+                        RETIRE_DATE             : gfnma_nvl(item.RETIRE_DATE),
+                        BANK_CODE               : gfnma_nvl(item.BANK_CODE),
+                        BANK_ACCOUNT_REAL       : gfnma_nvl(item.BANK_ACCOUNT_REAL),
+                        BANK_CODE2              : gfnma_nvl(item.BANK_CODE2),
+                        BANK_ACCOUNT2_REAL      : gfnma_nvl(item.BANK_ACCOUNT2_REAL),
+                        EMP_STATE               : gfnma_nvl(item.EMP_STATE),
+                        BANK_ACCOUNT            : gfnma_nvl(item.BANK_ACCOUNT),
+                        BANK_ACCOUNT2           : gfnma_nvl(item.BANK_ACCOUNT2),
+                        RET_PENS_BANK_CODE      : gfnma_nvl(item.RET_PENS_BANK_CODE),
+                        RET_PENS_BANK_ACC       : gfnma_nvl(item.RET_PENS_BANK_ACC),
+                        RET_PENS_BANK_ACC_REAL  : gfnma_nvl(item.RET_PENS_BANK_ACC_REAL)
 
                     }
                     jsonGvwInfoList.push(msg);
@@ -2495,10 +2499,10 @@
          let varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
          let varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
  */
-        let payData = gvwPayGrid.getGridDataAll(true, 'all'); //고정 수당항목
-        let dedData = gvwDedGrid.getGridDataAll(true, 'all'); //고정공제항목
-        let varPayData = gvwVarPayGrid.getGridDataAll(true, 'all');  //변동수당항목
-        let varDedData = gvwVarDedGrid.getGridDataAll(true, 'all'); //변동공제항목
+        let payData     = gvwPayGrid.getGridDataAll(true, 'all'); //고정 수당항목
+        let dedData     = gvwDedGrid.getGridDataAll(true, 'all'); //고정공제항목
+        let varPayData  = gvwVarPayGrid.getGridDataAll(true, 'all');  //변동수당항목
+        let varDedData  = gvwVarDedGrid.getGridDataAll(true, 'all'); //변동공제항목
 
         /************고정,고정 수당/공제 항목 프로시저 변수************/
         let strtype             = "";
@@ -3264,371 +3268,6 @@
 
 
     }
-
-
-
-    /*const getParamForm = async function(){
-
-        let EMP_CODE                = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let SITE_CODE               = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
-        let SALARY_CLASS            = gfnma_nvl(SBUxMethod.get("SALARY_CLASS"));
-        let DEPT_CODE               = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        let EMP_TYPE                = gfnma_nvl(SBUxMethod.get("EMP_TYPE"));
-        let POSITION_CODE           = gfnma_nvl(SBUxMethod.get("POSITION_CODE"));
-        let ENTER_DATE              = gfnma_nvl(SBUxMethod.get("ENTER_DATE"));
-        let RETIRE_DATE             = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
-        let TEMP_END_DATE           = gfnma_nvl(SBUxMethod.get("TEMP_END_DATE"));
-        let BONUS_APPLY_START_DATE  = gfnma_nvl(SBUxMethod.get("BONUS_APPLY_START_DATE"));
-
-        let PAY_GROUP_CODE          = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
-        let BANK_CODE               = gfnma_nvl(SBUxMethod.get("BANK_CODE"));
-        let BANK_ACCOUNT_REAL       = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT_REAL"));
-
-        let PAY_YN                  = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
-        let BONUS_PAY_YN            = gfnma_nvl(SBUxMethod.get("BONUS_PAY_YN").BONUS_PAY_YN);
-        let RETIRE_PAY_YN           = gfnma_nvl(SBUxMethod.get("RETIRE_PAY_YN").RETIRE_PAY_YN);
-        let BANK_CODE2              = gfnma_nvl(SBUxMethod.get("BANK_CODE2"));
-        let BANK_ACCOUNT2_REAL      = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT2_REAL"));
-        let BANK2_PAY_ITEM          = gfnma_nvl(SBUxMethod.get("BANK2_PAY_ITEM"));
-        let LUNCH_PAY_YN            = gfnma_nvl(SBUxMethod.get("LUNCH_PAY_YN").LUNCH_PAY_YN);
-        let OVER_TIME_PAY_YN        = gfnma_nvl(SBUxMethod.get("OVER_TIME_PAY_YN").OVER_TIME_PAY_YN);
-        let OT_TAX_FREE_YN          = gfnma_nvl(SBUxMethod.get("OT_TAX_FREE_YN").OT_TAX_FREE_YN);
-        let RET_PENS_BANK_CODE      = gfnma_nvl(SBUxMethod.get("RET_PENS_BANK_CODE"));
-        let RET_PENS_BANK_ACC_REAL  = gfnma_nvl(SBUxMethod.get("RET_PENS_BANK_ACC_REAL"));
-        let MUTUAL_AID_MEMBER_YN    = gfnma_nvl(SBUxMethod.get("MUTUAL_AID_MEMBER_YN").MUTUAL_AID_MEMBER_YN);
-        let MONTHLY_DONATION_YN     = gfnma_nvl(SBUxMethod.get("MONTHLY_DONATION_YN").MONTHLY_DONATION_YN);
-        let INCOME_TAX_YN           = gfnma_nvl(SBUxMethod.get("INCOME_TAX_YN").INCOME_TAX_YN);
-        let MAIN_ACC_TYPE           = gfnma_nvl(SBUxMethod.get("MAIN_ACC_TYPE"));
-        let SUPPORTEE_QTY           = gfnma_nvl(SBUxMethod.get("SUPPORTEE_QTY"));
-        let CHILDREN_QTY            = gfnma_nvl(SBUxMethod.get("CHILDREN_QTY"));
-
-
-        let PENSION_YN               = gfnma_nvl(SBUxMethod.get("PENSION_YN").PENSION_YN);
-        let HEALTH_INSURE_YN         = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_YN").HEALTH_INSURE_YN);
-        let LONGTERM_CARE_YN         = gfnma_nvl(SBUxMethod.get("LONGTERM_CARE_YN").LONGTERM_CARE_YN);
-        let PENSION_JOIN_DATE        = gfnma_nvl(SBUxMethod.get("PENSION_JOIN_DATE"));
-        let HEALTH_INSURE_JOIN_DATE  = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_JOIN_DATE"));
-        let PENSION_CLOSE_DATE       = gfnma_nvl(SBUxMethod.get("PENSION_CLOSE_DATE"));
-        let HEALTH_INSURE_CLOSE_DATE = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_CLOSE_DATE"));
-        let LAST_APPLICATION_DATE    = gfnma_nvl(SBUxMethod.get("LAST_APPLICATION_DATE"));
-        let PENSION_NO               = gfnma_nvl(SBUxMethod.get("PENSION_NO"));
-        let HEALTH_INSURE_NO         = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_NO"));
-        let PENSION_BASE_AMT         = gfnma_nvl(SBUxMethod.get("PENSION_BASE_AMT"));
-        let HEALTH_INSURE_BASE_AMT   = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_BASE_AMT"));
-        let EMPLOY_INSURE_BASE_AMT   = gfnma_nvl(SBUxMethod.get("EMPLOY_INSURE_BASE_AMT"));
-        let APPLICATION_RATE         = gfnma_nvl(SBUxMethod.get("APPLICATION_RATE"));
-        let EMPLOY_INSURE_YN         = gfnma_nvl(SBUxMethod.get("EMPLOY_INSURE_YN").EMPLOY_INSURE_YN);
-
-        let BANK_ACCOUNT            = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT"));
-        let BANK_ACCOUNT2           = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT2"));
-        let RET_PENS_BANK_ACC       = gfnma_nvl(SBUxMethod.get("RET_PENS_BANK_ACC"));
-
-       /!* let payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
-        let dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
-        let varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-        let varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
-*!/
-        let payData     = gvwPayGrid.getGridDataAll(true, 'all') //고정 수당항목
-        let dedData     = gvwDedGrid.getGridDataAll(); //고정공제항목
-        let varPayData  = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-        let varDedData  = gvwVarDedGrid.getGridDataAll(); //변동공제항목
-
-        /!************고정,고정 수당/공제 항목 프로시저 변수************!/
-        let strtype             = "";
-        let strtxn_id           = "";
-        let strpay_type         = ""; // 지급구분
-        let strpay_item_code    = ""; // 급여항목
-        let strapply_start_date = ""; // 적용시작일
-        let strapply_end_date   = ""; // 적용종료일
-        let strpay_amt          = ""; // 금액
-        let strmemo             = "";    //메모
-
-
-        /!************변동 수당/공제 항목************!/
-        let strtype1                = "";
-        let strtxn_id1              = "";
-        let strpay_type1            = ""; // 지급구분
-        let strpay_item_code1       = ""; // 급여항목
-        let strapply_start_date1    = ""; // 적용시작일
-        let strapply_end_date1      = ""; // 적용종료일
-        let strpay_amt1             = ""; // 금액
-        let strmemo1                = "";    //메모
-        let strtax_pay_date1        = "";
-        let rowcnt                  = 0;
-
-        if (_.isEmpty(payData) == false)
-        {
-            // 고정 수당항목 중복체크
-            payData.forEach((item1, index1) => {
-                payData.forEach((item2, index2) => {
-                    if (item1.data.PAY_TYPE         == item2.data.PAY_TYPE &&
-                        item1.data.PAY_ITEM_CODE    == item2.data.PAY_ITEM_CODE &&
-                        item1.data.APPLY_START_DATE == item2.data.APPLY_START_DATE &&
-                        item1.data.APPLY_END_DATE   == item2.data.APPLY_END_DATE)
-                    {
-                        gfn_comAlert("Q0000", "중복된 수당항목이 존재합니다."); //수정(HRP1000_002)
-                        return false;
-                    }
-                });
-            });
-        }
-
-        // 고정 공제항목 중복체크
-        if (_.isEmpty(dedData) == false)
-        {
-            dedData.forEach((item1, index1) => {
-                dedData.forEach((item2, index2) => {
-                    if (item1.PAY_TYPE           == item2.PAY_TYPE &&
-                        item1.PAY_ITEM_CODE      == item2.PAY_ITEM_CODE     &&
-                        item1.APPLY_START_DATE   == item2.APPLY_START_DATE  &&
-                        item1.APPLY_END_DATE     == item2.APPLY_END_DATE    )
-                    {
-                        gfn_comAlert("Q0000", "중복된 공제항목이 존재합니다."); //수정 (HRP1000_003)
-                        return false;
-                    }
-                });
-            });
-        }
-
-        rowcnt = 0;
-
-        payData.forEach((item, index) => {
-
-            if (item.status == 'i' ||  item.status == 'u' ||  item.status == 'd')
-            {
-                if(rowcnt == 0)
-                {
-                    strtype             = "PAY";
-                    strtxn_id           = item.data.TXN_ID; // 순번
-                    strpay_type         = item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    = item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date = item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   = item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          = item.data.PAY_AMT; // 금액
-                    strmemo             = item.data.MEMO; // 메모
-                }
-                else
-                {
-                    strtype             += "|" + "PAY";
-                    strtxn_id            = "|" + item.data.TXN_ID; // 순번
-                    strpay_type         += "|" + item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += "|" + item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += "|" + item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += "|" + item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += "|" + item.data.PAY_AMT; // 금액
-                    strmemo             += "|" + item.data.MEMO; // 금액
-                }
-
-                rowcnt++;
-            }
-        });
-
-        let strtpay_item_category = string.Empty;
-
-        rowcnt = 0;
-
-        dedData.forEach((item, index) => {
-            if (item.status == 'i' ||  item.status == 'u' ||  item.status == 'd')
-            {
-                if (rowcnt == 0)
-                {
-                    if (strtype != "")
-                    {
-                        strtype += "|";
-                        strtxn_id += "|";
-                        strpay_type += "|";
-                        strpay_item_code += "|";
-                        strapply_start_date += "|";
-                        strapply_end_date += "|";
-                        strpay_amt += "|";
-                        strmemo += "|";
-                    }
-
-
-                    strtype             += item.data.PAY_ITEM_CATEGORY;
-
-                    strtxn_id           += item.data.TXN_ID; // 순번
-                    strpay_type         += item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += item.data.PAY_AMT; // 금액
-                    strmemo             += item.data.MEMO; // 메모
-                }
-                else
-                {
-                    strtype             += "|" + item.data.PAY_ITEM_CATEGORY;
-
-                    strtxn_id           += "|" + item.data.TXN_ID; // 지급구분
-                    strpay_type         += "|" + item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += "|" + item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += "|" + item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += "|" + item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += "|" + item.data.PAY_AMT; // 금액
-                    strmemo             += "|" + item.data.MEMO; // 메모
-                }
-                rowcnt++;
-            }
-        });
-
-        rowcnt = 0;
-
-        varPayData.forEach((item, index) => {
-            if (item.status == 'i' ||  item.status == 'u' ||  item.status == 'd')
-            {
-                if (rowcnt == 0)
-                {
-                    strtype1 = "PAY";
-                    strtxn_id1 = gvwvarpay.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1 = gvwvarpay.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1 = gvwvarpay.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 = gvwvarpay.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1 = gvwvarpay.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1 = gvwvarpay.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1 = gvwvarpay.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
-                }
-                else
-                {
-                    strtype1 += "|" + "PAY";
-                    strtxn_id1 = "|" + gvwvarpay.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1 += "|" + gvwvarpay.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1 += "|" + gvwvarpay.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += "|" + gvwvarpay.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1 += "|" + gvwvarpay.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1 += "|" + gvwvarpay.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1 = "|" + gvwvarpay.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
-                }
-
-                rowcnt++;
-            }
-        });
-
-
-        rowcnt = 0;
-
-        varDedData.forEach((item, index) => {
-            if (item.status == 'i' ||  item.status == 'u' ||  item.status == 'd')
-            {
-                if (rowcnt == 0)
-                {
-                    if (strtype1 != "")
-                    {
-                        strtype1 += "|";
-                        strtxn_id1 += "|";
-                        strpay_type1 += "|";
-                        strpay_item_code1 += "|";
-                        strapply_start_date1 += "|";
-                        strapply_end_date1 += "|";
-                        strpay_amt1 += "|";
-                        strmemo1 += "|";
-                        strtax_pay_date1 += "|";
-                    }
-
-                    strtype1 += "DED";
-                    strtxn_id1 += gvwvarded.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1 += gvwvarded.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1 += gvwvarded.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += gvwvarded.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1 += gvwvarded.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1 += gvwvarded.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1 += gvwvarded.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
-                }
-                else
-                {
-                    strtype1 += "|" + "DED";
-                    strtxn_id1 += "|" + gvwvarded.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1 += "|" + gvwvarded.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1 += "|" + gvwvarded.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += "|" + gvwvarded.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1 += "|" + gvwvarded.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1 += "|" + gvwvarded.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1 += "|" + gvwvarded.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
-                }
-                rowcnt++;
-            }
-        });
-
-        let strBank_account   = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT_REAL"));
-        let strBank_account2  = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT2_REAL"));
-        let strBank_account3  = gfnma_nvl(SBUxMethod.get("BANK_ACCOUNT3_REAL"));
-
-        let paramObj = {
-                V_P_DEBUG_MODE_YN	: ''
-                ,V_P_LANG_ID		: ''
-                ,V_P_COMP_CODE		: gv_ma_selectedApcCd
-                ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
-                , V_P_EMP_CODE                  : EMP_CODE
-                , V_P_SALARY_CLASS              : SALARY_CLASS
-                , V_P_TEMP_END_DATE             : TEMP_END_DATE
-                , V_P_BONUS_APPLY_START_DATE    : BONUS_APPLY_START_DATE
-                , V_P_PAY_GROUP_CODE            : PAY_GROUP_CODE
-                , V_P_PAY_YN                    : PAY_YN
-                , V_P_BONUS_PAY_YN              : BONUS_PAY_YN
-                , V_P_RETIRE_PAY_YN             : RETIRE_PAY_YN
-                , V_P_SUPPORTEE_QTY             : SUPPORTEE_QTY
-                , V_P_CHILDREN_QTY              : CHILDREN_QTY
-                , V_P_LUNCH_PAY_YN              : LUNCH_PAY_YN
-                , V_P_MUTUAL_AID_MEMBER_YN      : MUTUAL_AID_MEMBER_YN
-                , V_P_MONTHLY_DONATION_YN       : MONTHLY_DONATION_YN
-                , V_P_OVER_TIME_PAY_YN          : OVER_TIME_PAY_YN
-                , V_P_INCOME_TAX_YN             : INCOME_TAX_YN
-                , V_P_OT_TAX_FREE_YN            : OT_TAX_FREE_YN
-                , V_P_PENSION_YN                : PENSION_YN
-                , V_P_PENSION_JOIN_DATE         : PENSION_JOIN_DATE
-                , V_P_PENSION_CLOSE_DATE        : PENSION_CLOSE_DATE
-                , V_P_PENSION_NO                : PENSION_NO
-                , V_P_PENSION_BASE_AMT          : PENSION_BASE_AMT
-                , V_P_HEALTH_INSURE_YN          : HEALTH_INSURE_YN
-                , V_P_HEALTH_INSURE_JOIN_DATE   : HEALTH_INSURE_JOIN_DATE
-                , V_P_HEALTH_INSURE_CLOSE_DATE  : HEALTH_INSURE_CLOSE_DATE
-                , V_P_HEALTH_INSURE_NO          : HEALTH_INSURE_NO
-                , V_P_HEALTH_INSURE_BASE_AMT    : HEALTH_INSURE_BASE_AMT
-                , V_P_EMPLOY_INSURE_YN          : EMPLOY_INSURE_YN
-                , V_P_EMPLOY_INSURE_BASE_AMT    : EMPLOY_INSURE_BASE_AMT
-                , V_P_MAIN_ACC_TYPE             : MAIN_ACC_TYPE
-                , V_P_BANK_CODE                 : BANK_CODE
-                , V_P_BANK_ACCOUNT              : strBank_account
-                , V_P_BANK_ACCOUNT_ORIG         : BANK_ACCOUNT
-                , V_P_BANK_CODE2                : BANK_CODE2
-                , V_P_BANK_ACCOUNT2             : strBank_account2
-                , V_P_BANK_ACCOUNT2_ORIG        : BANK_ACCOUNT2
-                , V_P_IRP_BANK_CODE             : RET_PENS_BANK_CODE
-                , V_P_IRP_BANK_ACCOUNT          : strBank_account3
-                , V_P_IRP_BANK_ACCOUNT_ORIG     : RET_PENS_BANK_ACC
-                , V_P_APPLICATION_RATE          : APPLICATION_RATE
-                , V_P_LAST_APPLICATION_DATE     : LAST_APPLICATION_DATE
-                , V_P_LONGTERM_CARE_YN          : LONGTERM_CARE_YN
-                , V_P_BANK2_PAY_ITEM            : BANK2_PAY_ITEM
-                //-- 고정 수당/공제 항목
-                , V_P_TYPE                      : strtype
-                , V_P_TXN_ID                    : strtxn_id
-                , V_P_PAY_TYPE                  : strpay_type
-                , V_P_PAY_ITEM_CODE             : strpay_item_code
-                , V_P_APPLY_START_DATE          : strapply_start_date
-                , V_P_APPLY_END_DATE            : strapply_end_date
-                , V_P_PAY_AMT                   : strpay_amt
-                , V_P_PAY_MEMO                  : strmemo
-                //-- 변동 수당/공제 항목
-                , V_P_TYPE1                     : strtype1
-                , V_P_TXN_ID1                   : strtxn_id1
-                , V_P_PAY_TYPE1                 : strpay_type1
-                , V_P_PAY_ITEM_CODE1            : strpay_item_code1
-                , V_P_APPLY_START_DATE1         : strapply_start_date1
-                , V_P_PAY_AMT1                  : strpay_amt1
-                , V_P_PAY_MEMO1                 : strmemo1
-                , V_P_TAX_PAY_DATE1             : strtax_pay_date1
-
-                ,V_P_FORM_ID		: p_formId
-                ,V_P_MENU_ID		: p_menuId
-                ,V_P_PROC_ID		: ''
-                ,V_P_USERID			: ''
-                ,V_P_PC				: ''
-            }
-
-
-        return paramObj;
-    }*/
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
