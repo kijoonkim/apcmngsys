@@ -87,7 +87,7 @@
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>--%>
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -99,7 +99,7 @@
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)"  required></sbux-select>--%>
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAID_VACATION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAID_VACATION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -120,6 +120,7 @@
                                 datepicker-mode="year"
                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
                                 onchange="fn_srchYyyy(SRCH_YYYY)"
+                                group-id="panHeader"
                                 required
                         />
                     </td>
@@ -131,7 +132,7 @@
                                 id="SRCH_BASE_DATE"
                                 name="SRCH_BASE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -232,9 +233,6 @@
     var jsonStatusList = []; 	// 그리드의 참조 데이터 주소 선언
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_YYYY", gfn_dateToYear(new Date()));
-        SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(new Date().getFullYear(),0,1)));
-
         let rst = await Promise.all([
             // 사업장
             //gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -460,8 +458,15 @@
         fn_save();
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_YYYY", gfn_dateToYear(new Date()));
+        SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(new Date().getFullYear(),0,1)));
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
             return false;
         }
 
@@ -570,7 +575,7 @@
     }
 
     const fn_save = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
             return false;
         }
 
@@ -635,14 +640,14 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwShiftGrid();
-        fn_search();
+        await fn_onload();
     });
 
     const fn_unconfirm = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
             return false;
         }
 
@@ -709,7 +714,7 @@
     }
 
     const fn_confirm = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
             return false;
         }
 
@@ -776,7 +781,7 @@
     }
 
     const fn_cancel = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
             return false;
         }
 
@@ -843,6 +848,10 @@
     }
 
     const fn_create = async function() {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+            return false;
+        }
+
         let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
         let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));

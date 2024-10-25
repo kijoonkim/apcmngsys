@@ -86,6 +86,8 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">소급년월</th>
@@ -98,6 +100,8 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">직종</th>
@@ -198,9 +202,6 @@
     var jsonDetailHistoryList = [];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_ACCT_YYYYMM",gfn_dateToYm(new Date()));
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -649,11 +650,11 @@
         grdDetail = _SBGrid.create(SBGridProperties);
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwInfoGrid();
         fn_createGrdDetailGrid();
-        fn_search();
+        await fn_onload();
     });
 
     var fn_findDeptCode = function() {
@@ -1029,7 +1030,18 @@
         }
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_YYYYMM",gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_ACCT_YYYYMM",gfn_dateToYm(new Date()));
+
+        await fn_search();
+    }
+
     const fn_search = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM"));
         let ACCT_YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_ACCT_YYYYMM"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1505,6 +1517,10 @@
     }
 
     const fn_confirm = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let grdRows = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHK_YN"), true);
         let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM"));
         let strbatch_emp_list = "";
@@ -1661,6 +1677,10 @@
     }
 
     const fn_cancel = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let grdRows = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHK_YN"), true);
         let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM"));
         let strbatch_emp_list = "";

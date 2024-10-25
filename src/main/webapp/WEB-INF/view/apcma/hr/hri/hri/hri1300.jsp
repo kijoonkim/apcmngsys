@@ -111,7 +111,7 @@
                                 id="SRCH_APPOINT_DATE_FR"
                                 name="SRCH_APPOINT_DATE_FR"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -124,7 +124,7 @@
                                 id="SRCH_APPOINT_DATE"
                                 name="SRCH_APPOINT_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -176,22 +176,24 @@
                                     <td colspan="2" class="td_input">
                                         <sbux-input id="APPOINT_NUM" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">발령일자</th>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>발령일자</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="APPOINT_DATE"
                                                 name="APPOINT_DATE"
-                                                class="input-sm"
+                                                class="input-sm inpt_data_reqed"
                                                 autocomplete="off"
+                                                group-id="panAppoint"
+                                                required
                                         ></sbux-datepicker>
                                     </td>
-                                    <th scope="row" class="th_bg">발령구분</th>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>발령구분</th>
                                     <td class="td_input" data-group="APPOINT">
-                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAppoint" readonly required></sbux-input>
                                     </td>
                                     <td class="td_input" data-group="APPOINT">
-                                        <sbux-input id="APPOINT_TYPE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TYPE_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;" data-group="APPOINT">
                                         <sbux-button
@@ -203,9 +205,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">발령명칭</th>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>발령명칭</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="APPOINT_TITLE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TITLE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">적용여부</th>
                                     <td colspan="2" class="td_input">
@@ -228,7 +230,7 @@
                                                 id="APPROVE_DATE"
                                                 name="APPROVE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -2434,6 +2436,10 @@
 
     // 저장
     const fn_save = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'})) {
+            return false;
+        }
+
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));

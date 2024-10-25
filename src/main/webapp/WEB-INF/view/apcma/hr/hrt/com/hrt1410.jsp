@@ -86,6 +86,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                 </tr>
@@ -360,11 +362,6 @@
     ];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_BASE_YYYYMMDD", gfn_dateToYmd(new Date()));
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -899,12 +896,12 @@
         fn_search();
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createTreeMasterGrid();
         fn_createGvwPatternGrid();
         fn_createGvwEmpGrid();
-        fn_search();
+        await fn_onload();
     });
 
     const fn_create = async function() {
@@ -928,7 +925,20 @@
         gvwEmp.rebuild();
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_BASE_YYYYMMDD", gfn_dateToYmd(new Date()));
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         editType = "N";
         let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));

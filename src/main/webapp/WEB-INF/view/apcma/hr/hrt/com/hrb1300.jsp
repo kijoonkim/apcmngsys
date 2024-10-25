@@ -83,7 +83,7 @@
                         <sbux-button id="btnBeforeYear" name="btnBeforeYear" 	uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-button id="btnNextYear" name="btnNextYear" 	uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
@@ -176,11 +176,11 @@
                                 <tr>
                                     <th scope="row" class="th_bg">근무유형</th>
                                     <td class="td_input">
-                                        <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" readonly></sbux-select>
+                                        <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm" readonly></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">휴일유형</th>
                                     <td class="td_input">
-                                        <sbux-select id="SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" readonly></sbux-select>
+                                        <sbux-select id="SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="" class="form-control input-sm" readonly></sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -300,11 +300,11 @@
         gvwDay = _SBGrid.create(SBGridProperties);
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwDayGrid();
         calendarYear(new Date());
-        fn_search();
+        await fn_search();
     });
 
     // 저장

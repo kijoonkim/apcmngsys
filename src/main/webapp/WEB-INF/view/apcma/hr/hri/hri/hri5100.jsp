@@ -74,6 +74,7 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                required
                         />
                     </td>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
@@ -137,7 +138,6 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
-        fn_clearForm();
     });
 
     function fnSrchChkgubunChange(args){
@@ -284,10 +284,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    }
-
-    const fn_clearForm = function() {
-        SBUxMethod.set("SRCH_YMDDATE1", gfn_dateToYmd(new Date()));
     }
 
     const fn_valueChangeForYmddate2 = async function(data) {

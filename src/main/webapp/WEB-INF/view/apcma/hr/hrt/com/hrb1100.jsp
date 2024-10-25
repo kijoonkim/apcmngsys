@@ -65,6 +65,8 @@
                                 date-format="yyyy"
                                 datepicker-mode="year"
                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                 </tr>
@@ -253,11 +255,11 @@
         gvwHoliday = _SBGrid.create(SBGridProperties);
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwDayGrid();
         fn_createGvwHolidayGrid();
-        fn_search();
+        await fn_search();
     });
 
 
@@ -308,6 +310,10 @@
     }
 
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
