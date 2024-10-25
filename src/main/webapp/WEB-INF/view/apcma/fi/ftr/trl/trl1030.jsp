@@ -1034,6 +1034,12 @@
     var Trl1030GridTab4; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1030Tab4	= []; 		// 그리드의 참조 데이터 주소 선언
     
+    var Trl1030GridTab5; 			// 그리드를 담기위한 객체 선언
+    var jsonTrl1030Tab5	= []; 		// 그리드의 참조 데이터 주소 선언
+    
+    var Trl1030GridTab6; 			// 그리드를 담기위한 객체 선언
+    var jsonTrl1030Tab6	= []; 		// 그리드의 참조 데이터 주소 선언
+    
 	var jsonFiOrgCode		= [];	// 사업단위
 	var jsonAllYn			= [];	// 만기차입금포함여부
 	var jsonLoanType		= [];	// 차입금유형
