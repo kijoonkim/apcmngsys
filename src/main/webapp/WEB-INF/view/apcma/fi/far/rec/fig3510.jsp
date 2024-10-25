@@ -4942,7 +4942,7 @@
         if (!SBUxMethod.validateRequired( {group_id: 'panWFBottom'} ))
             return;
 
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) && !validateRequired("panWFTop"))
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop"))
             return;
 
         if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
@@ -4985,7 +4985,7 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) && !validateRequired("panWFTop")) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop")) {
             return false;
         }
 
@@ -5863,7 +5863,7 @@
     }
 
     const fn_createLine = async function () {
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) && !validateRequired("panWFTop"))
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop"))
             return;
 
         if (gfn_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN")) != "Y" && gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "AG") {

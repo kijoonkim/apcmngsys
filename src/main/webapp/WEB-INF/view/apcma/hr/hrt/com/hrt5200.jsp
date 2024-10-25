@@ -764,7 +764,7 @@
 
         let rowData = gvwInfo.getRowData(nRow);
 
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -858,7 +858,7 @@
     }
 
     const fn_search = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -1032,7 +1032,7 @@
     }
 
     const fn_confirm = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -1126,7 +1126,7 @@
     }
 
     const fn_unconfirm = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 

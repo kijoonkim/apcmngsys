@@ -1186,7 +1186,7 @@
     }
 
     const fn_save = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) && !validateRequired("panInfo")) {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) || !validateRequired("panInfo")) {
             return false;
         }
 
@@ -1352,7 +1352,7 @@
     }
 
     const fn_delete = async function () {
-        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) && !validateRequired("panInfo")) {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) || !validateRequired("panInfo")) {
             return false;
         }
 

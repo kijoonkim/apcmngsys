@@ -1323,7 +1323,7 @@
     }
 
     const fn_release = async function() {
-        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) && !validateRequired("panHeader")) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
             return;
         }
 
@@ -1420,7 +1420,7 @@
     }
 
     const fn_hold = async function() {
-        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) && !validateRequired("panHeader")) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
             return;
         }
 
@@ -1643,7 +1643,7 @@
     }
 
     const fn_search = async function() {
-        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) && !validateRequired("panHeader")) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
             return;
         }
 

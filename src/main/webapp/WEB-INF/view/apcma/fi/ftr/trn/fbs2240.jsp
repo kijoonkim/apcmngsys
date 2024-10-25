@@ -649,7 +649,7 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_S = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired('panHeader')) {
              return false;
         }
 
@@ -780,7 +780,7 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_Q = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired('panHeader')) {
             return false;
         }
 
@@ -859,7 +859,7 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired('panHeader')) {
             return false;
         }
 

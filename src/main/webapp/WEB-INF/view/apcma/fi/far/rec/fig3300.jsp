@@ -692,7 +692,7 @@
 	}
 
 	const fn_view = async function () {
-		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 			return false;
 		}
 
@@ -850,7 +850,7 @@
 
 		document.getElementById('excelFile').addEventListener('change', function(event) {
 			if(!window.FileReader) return;
-			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 				return;
 			}
 
@@ -975,7 +975,7 @@
 
 		document.getElementById('excelFile2').addEventListener('change', function(event) {
 			if(!window.FileReader) return;
-			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 				return;
 			}
 
@@ -1375,7 +1375,7 @@
 	}
 
 	const fn_search = async function () {
-		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 			return false;
 		}
 
@@ -1528,7 +1528,7 @@
 	}
 
 	const fn_uploadXml = async function (file) {
-		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 			return false;
 		}
 		let parser = new DOMParser();
