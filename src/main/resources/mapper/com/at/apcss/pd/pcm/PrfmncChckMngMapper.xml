@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrfmncChckMngMapper.xml												-->
+<!-- DESC : 승인형조직 실적 점검 정보 mapper											 	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  				-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.10.24  	ljw				Initial Creation							-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectUoAprv			-->
+	<!-- DESC : 승인형 조직 조회                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	ljw				Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUoAprv" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO" resultType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
+		SELECT /* com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectUoAprv */
+			TEA.APO_CD
+			, TEA.APO_SE
+			, TEA.BRNO
+			, TEA.CRNO
+			, TEA.APRV
+			, TEA.CORP_NM
+		FROM TB_EV_APO TEA
+		WHERE 1=1
+		  AND TEA.APRV = '1'
+		  AND APO_SE = '1'
+		  AND TEA.BRNO = #{brno}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectUoAprv			-->
+	<!-- DESC : 승인형 조직 리스트 조회                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	ljw				Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUoAprvList" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO" resultType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
+		SELECT /* com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectUoAprvList */
+			TEA.APO_CD
+			, TEA.APO_SE
+			, TEA.BRNO
+			, TEA.CRNO
+			, TEA.APRV
+			, TEA.CORP_NM
+			, TEA.SLCTN_YR
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+				FROM (SELECT
+							(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+						FROM TB_EV_APO_YR_GPC_CD YGC
+						WHERE 1=1
+						  AND STTG_UPBR_ITEM_SE IN ('1','2')
+						  AND APO_SE = '1'
+						  AND STTG_UPBR_ITEM_SE = '1'
+						  AND YR = #{yr}
+						  AND BRNO = TEA.BRNO
+						)
+			) AS ITEM_NM_LIST
+		FROM TB_EV_APO TEA
+		WHERE 1=1
+		  AND TEA.APRV = '1'
+		  AND TEA.APO_SE = '1'
+		<if test='brno != null and brno != ""'>
+		  AND TEA.BRNO = #{brno}
+		</if>
+		<if test='corpNm != null and corpNm != ""'>
+		  AND TEA.CORP_NM like '%' || #{corpNm} || '%'
+		</if>
+
+		ORDER BY TEA.CORP_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectPrfmncChckMngList	-->
+	<!-- DESC : 승인형 조직 실적 점검 리스트 조회                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	ljw				Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrfmncChckMngList" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO" resultType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
+		SELECT
+			ITEM.YR
+			,ITEM.BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CORP_NM
+			,(SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS APO_CD
+			,ITEM.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+
+			,(SELECT SLCTN_YR FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS SLCTN_YR
+			,EPC.PRFMNC_AMT_1
+			,EPC.PRFMNC_AMT_2
+			,EPC.PRFMNC_AMT_3
+			,EPC.PRFMNC_AMT_4
+			,EPC.PRFMNC_AMT_5
+			,EPC.PRFMNC_AMT_6
+			,EPC.PRFMNC_AMT_7
+			,EPC.PRFMNC_AMT_8
+			,EPC.PRFMNC_AMT_8
+			,EPC.PRFMNC_AMT_9
+			,EPC.PRFMNC_AMT_10
+			,EPC.PRFMNC_AMT_11
+			,EPC.PRFMNC_AMT_12
+			,EPC.PREV_YR_PRFMNC_AMT
+			,EPC.EXPCT_PRFMNC_AMT
+			,EPC.PRFMNC_AMT_RT
+		FROM
+			(SELECT
+					YR
+					,ITEM_CD
+					,BRNO
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND STTG_UPBR_ITEM_SE = '1'
+				  AND BRNO = #{brno}
+				  AND YR = #{yr}
+			) ITEM
+			,TB_EV_PRFMNC_CHCK EPC
+		WHERE 1=1
+		  AND ITEM.BRNO = EPC.BRNO(+)
+
+		ORDER BY ITEM_NM
+	</select>
+
+</mapper>

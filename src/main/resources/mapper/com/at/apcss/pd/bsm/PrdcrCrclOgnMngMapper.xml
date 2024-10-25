@@ -785,4 +785,89 @@
 						, #{sysLastChgPrgrmId}
 					)
 	</update>
+
+
+	<select id="selectPrdcrCrclOgnMngRowDataList" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
+		SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngRowDataList */
+			(SELECT MIN(OGNZ_CD)
+				FROM (SELECT OGNZ_CD
+						FROM TB_APC_OGNZ_INFO
+						WHERE BRNO = CM.BRNO
+						GROUP BY OGNZ_CD
+						ORDER BY OGNZ_CD DESC
+						)
+				WHERE ROWNUM = 1
+			) AS OGNZ_CD
+			, CM.APO_CD
+			, CM.APO_NM
+			, CM.APO_SE
+			, CM.APRV
+			, CM.BRNO
+			, CM.CORP_NM
+			, CM.CORP_SE_CD
+			, CM.CORP_DTL_SE_CD
+			, CM.NONGHYUP_CD
+			, CM.CORP_FNDN_DAY
+			, CM.CMPTN_INST
+			, CM.CTPV
+			, CM.SGG
+			, CM.ZIP
+			, CM.LOTNO_ADDR
+			, CM.LOTNO_DTL_ADDR
+			, CM.ROAD_NM_ADDR
+			, CM.ROAD_NM_DTL_ADDR
+			, CM.RPRSV_FLNM
+			, CM.RPRSV_TELNO
+			, CM.RPRSV_MOBLNO
+			, CM.RPRSV_EML
+			, CM.PIC_POSITION
+			, CM.PIC_FLNM
+			, CM.PIC_TELNO
+			, CM.PIC_MOBLNO
+			, CM.PIC_EML
+			, CM.FXNO
+			, CM.INVST_NOPE
+			, CM.INVST_EXPND_FRMER_NOPE
+			, CM.INVST_AMT
+			, CM.FRMER_INVST_AMT
+			, CM.RMRK
+			, CM.PRDCR_GRP_INVST_AMT
+			, CM.LOCGOV_INVST_AMT
+			, CM.ETC_INVST_AMT
+			, CM.MNGMST_INFO_ID
+			, CM.MNGMST_YN
+			, CM.CRNO
+			, CM.ISO_HLD_YN
+			, CM.UO_BRNO
+			, CM.RGLLBR_NOPE
+			, CM.DW_NOPE
+			, CM.DLBRR_NOPE
+			, CM.ITEM_NH_BROF_YN
+			, CM.WRT_YN
+			, CM.SLCTN_YR
+			, CM.MNO
+			, CM.SNO
+			,(SELECT LISTAGG(UO_BRNO_NM, ' , ') WITHIN GROUP (ORDER BY UO_BRNO_NM) AS UO_BRNO_NM
+				FROM (SELECT
+							(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = AUC.UO_BRNO) AS UO_BRNO_NM
+						FROM TB_EV_APO_UO_CD AUC
+						WHERE 1=1
+						  AND ISO_BRNO = CM.BRNO
+						)
+			) AS UO_BRNO_NM
+			,(SELECT
+				(CASE WHEN MNGR_STBLT_YN IS NOT NULL THEN MNGR_STBLT_YN
+							ELSE STBLT_YN
+							END
+					) AS STBLT_YN
+				FROM USRAM.TB_EV_REG_RSLT
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND BRNO = CM.BRNO
+				  AND YR = #{yr}
+			) AS STBLT_YN
+		  FROM TB_EV_APO CM
+		 WHERE 1=1
+		ORDER BY CM.CORP_NM ASC
+	</select>
 </mapper>

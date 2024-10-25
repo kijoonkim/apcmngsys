@@ -2610,6 +2610,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			{caption: ["법인명"], 		ref: 'corpNm',   	type:'output',  width:'250px',    style:'text-align:center'},
 			{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'},
 
+			{caption: ["소속 통합조직명"], 	ref: 'uoCorpNm',   	type:'output',  width:'160px',    style:'text-align:center'},
+
 			{caption: ["법인등록번호"], 	ref: 'crno',   			type:'output', width:'60px',style:'text-align:center' },
 			{caption: ["경영체정보ID"], ref: 'mngmstInfoId',   	type:'output', width:'60px',style:'text-align:center' },
 			{caption: ["경영체여부"], 	ref: 'mngmstYn',   		type:'output', width:'60px',style:'text-align:center' },
@@ -2686,10 +2688,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpSeCdH, 	'CORP_SE_CD'); 		//법인구분
 		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpDtlSeCdH, 'CORP_SHAP'); 	//법인형태
 
-		let apoSe = SBUxMethod.get("srch-input-apoSe");
+		let yr = SBUxMethod.get("srch-input-yr");
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
-			apoSe : apoSe
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngRowDataList.do", {
+			yr : yr
 		});
 
 		let data = await postJsonPromise;
@@ -2745,6 +2747,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						,slctnYr: item.slctnYr
 						,mno: item.mno
 						,sno: item.sno
+
+						,uoCorpNm: item.uoCorpNm
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

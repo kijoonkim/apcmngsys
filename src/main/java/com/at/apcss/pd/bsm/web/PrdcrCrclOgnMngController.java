@@ -218,4 +218,20 @@ public class PrdcrCrclOgnMngController extends BaseController{
 	}
 	*/
 
+	// 로우데이터 리스트 조회
+	@PostMapping(value = "/pd/bsm/selectPrdcrCrclOgnMngRowDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnMngRowDataList(Model model, @RequestBody PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnMngVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = PrdcrCrclOgnMngService.selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

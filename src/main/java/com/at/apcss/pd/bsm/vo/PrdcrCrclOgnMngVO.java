@@ -16,6 +16,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String ctpv;			//시도
 	private String sgg;				//시군
 	private String corpNm;			//법인명
+	private String uoCorpNm;			//법인명
 	private String brno;			//사업자번호
 	private String apoSe;			//참여조직여부
 	private String rmrk;				//비고
@@ -49,7 +50,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String rgllbrNope;		//정규직 종사자 수
 	private String dwNope;			//파견직 종사자 수
 	private String dlbrrNope;		//일용직 종사자 수
-	private String tot;		//합계
+	private String tot;				//합계
 
 	private String rprsvFlnm;		//대표자성명
 	private String rprsvTelno;		//대표자전화번호
@@ -67,12 +68,12 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String uoBrno;			//통합조직사업자번호
 	private String uoNm;			//통합조직명
 
-	private String yr;						//신청관리 등록년도 확인용
-	private String corpDdlnSeCd;			//신청관리 법인체마감 사용자 산지조직관리 수정 불가 처리용
+	private String yr;				//신청관리 등록년도 확인용
+	private String corpDdlnSeCd;	//신청관리 법인체마감 사용자 산지조직관리 수정 불가 처리용
 
-	private String slctnYr;	//선정년도
-	private String mno;	//본번(생산유통통합조직 관리자가 정한 정렬)
-	private String sno;	//부번(생산유통통합조직 관리자가 정한 정렬)
+	private String slctnYr;			//선정년도
+	private String mno;				//본번(생산유통통합조직 관리자가 정한 정렬)
+	private String sno;				//부번(생산유통통합조직 관리자가 정한 정렬)
 
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd

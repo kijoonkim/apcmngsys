@@ -140,4 +140,11 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 		return PrdcrCrclOgnMngMapper.deleteUo(uoListVO);
 	}
 
+	@Override
+	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
+
+		List<PrdcrCrclOgnMngVO> resultList = PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO);
+		return resultList;
+	}
+
 }
