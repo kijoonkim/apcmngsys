@@ -66,8 +66,8 @@
                             datepicker-mode="month"
                             date-format="yyyymm"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            <%--onchange="fn_payDate"--%>>
-                    </sbux-datepicker>
+                            onchange="fn_ymPay"
+                    ></sbux-datepicker>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">상여기준월</th>
@@ -83,26 +83,16 @@
                     </sbux-datepicker>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">급상여구분</th>
-               <%-- <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text=""
-                            uitype="single"
-                            id="srch-pay_calculate_type"
-                            name="srch-pay_calculate_type"
-                            class="form-control input-sm inpt_data_reqed"
-                            jsondata-ref="jsonPayCalculateType"
-                    />
-                </td>--%>
-                <td class="td_input">
+                <th scope="row" class="th_bg" style="display: none">급상여구분</th>
+                <td class="td_input" style="display: none">
                     <sbux-select
                             id="srch-pay_calculate_type"
                             uitype="single"
                             jsondata-ref="jsonPayCalculateType"
                             unselected-text="선택"
                             class="form-control input-sm"
-                            <%--onchange="fn_payType"--%>>
-                    </sbux-select>
+                            onchange="fn_payCalType"
+                    ></sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
             </tr>
@@ -126,8 +116,8 @@
                             jsondata-ref="jsonPayType"
                             unselected-text="선택"
                             class="form-control input-sm inpt_data_reqed"
-                            onchange="fn_payType">
-                    </sbux-select>
+                            onchange="fn_payType"
+                    ></sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">지급일</th>
@@ -203,8 +193,9 @@
                                     uitype="single"
                                     jsondata-ref="jsonCompCode"
                                     unselected-text="선택"
-                                    class="form-control input-sm inpt_data_reqed">
-                            </sbux-select>
+                                    class="form-control input-sm inpt_data_reqed"
+                                    readonly
+                            ></sbux-select>
                         </td>
                         <td style="border-right: hidden;">&nbsp;</td>
                         <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -527,9 +518,54 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <table class="table table-bordered tbl_fixed" style="display: none">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 7%">
+                        <col style="width: 5%">
+
+                        <col style="width: 7%">
+                        <col style="width: 5%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="th_bg">numbonus_rate</th>
+                        <td class="td_input" style="border-right: hidden;" data-group="DEPT">
+                            <sbux-input
+                            <%--uitype="hidden"--%>
+                                    uitype="text"
+                                    id="BONUS_RATE"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <th scope="row" class="th_bg">cbobonus_pay_item_code</th>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="BONUS_PAY_ITEM_CODE"
+                                    uitype="single"
+                                    jsondata-ref="jsonBonusPayType"
+                                    unselected-text="선택"
+                                    class="form-control input-sm">
+                            </sbux-select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="th_bg">cbobonus_calculate_type</th>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="BONUS_CALCULATE_TYPE"
+                                    uitype="single"
+                                    jsondata-ref="jsonBonusCalculateType"
+                                    unselected-text="선택"
+                                    class="form-control input-sm">
+                            </sbux-select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-
         <div>
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
@@ -538,6 +574,12 @@
             </div>
             <div>
                 <div id="sb-area-gvwLog" style="height:800px; width:100%;"></div>
+            </div>
+            <div style="display: none">
+                <div id="sb-area-gvwBonus" style="height:800px; width:100%;"></div>
+            </div>
+            <div style="display: none">
+                <div id="sb-area-gvwException" style="height:800px; width:100%;"></div>
             </div>
         </div>
     </div>
@@ -550,6 +592,12 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+<div>
+    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup3">
+    <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
+</div>
 <script type="text/javascript">
 
     // common ---------------------------------------------------
@@ -558,9 +606,15 @@
     var p_userId = '${loginVO.id}';
     //-----------------------------------------------------------
 
+    var strEmpCodeList = '';
+
     //grid 초기화
     var gvwLogGrid; 			// 그리드를 담기위한 객체 선언
     var jsonGvwLogList = []; 	// 그리드의 참조 데이터 주소 선언
+    var gvwBonusGrid;
+    var jsonBonusList = [];
+    var gvwExceptionGrid;
+    var jsonExceptionList = [];
 
     var jsonPayType = []; //지급구분 //srch-pay_type  //L_HRB008
     var jsonPayCalculateType = []; //급상여구분 //srch-pay_calculate_type  //L_HRP005
@@ -569,6 +623,12 @@
     var jsonSiteCode = []; //사업장 //SITE_CODE  //L_ORG001
     var jsonPayGroupCode = []; //급여체계 //PAY_GROUP_CODE  //L_HRI010
     var jsonCalculateWorkType = []; //처리구분 //CALCULATE_WORK_TYPE  //L_HRP008
+    var jsonWorkMonthsType = []; //근속기간(~개월 이상) //PAY_WORK_MONTHS  //L_HRP010
+    var jsonApplyType = []; //상여적용기준 //BONUS_APPLY_TYPE  //L_HRP021
+    var jsonBonusPayType = []; //cbobonus_pay_item_code //BONUS_PAY_ITEM_CODE  //L_HRP014
+    var jsonPayItemCodeType = []; //급여항목 -gvwExceptionGrid //PAY_ITEM_CODE  //L_HRP004
+    var jsonBonusCalculateType = []; //cbobonus_calculate_type //BONUS_CALCULATE_TYPE  //L_HRP007
+
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -579,10 +639,16 @@
             gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['CALCULATE_WORK_TYPE'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
-
+            gfnma_setComSelect(['gvwLogGrid'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonWorkMonthsType, 'L_HRP010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['BONUS_PAY_ITEM_CODE'], jsonBonusPayType, 'L_HRP014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwExceptionGrid'], jsonPayItemCodeType, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['BONUS_CALCULATE_TYPE'], jsonBonusCalculateType, 'L_HRP007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
         ]);
+
+       fn_onLoad();
     }
 
     /**
@@ -667,6 +733,37 @@
         SBUxMethod.set('srch-pay_yyyymm', openDate);
 
         fn_createGrid();
+        fn_createBonusGrid();
+        fn_createExceptionGrid();
+
+        //fn_onLoad();
+
+    }
+
+    function fn_onLoad() {
+
+        /*cbopay_area_type.EditValue = "1";
+
+        cbopay_calculate_type.EditValue = "PAY";
+
+        chkcalc_year_end_yyyy_yn.EditValue = "N";
+        chktax_calculate_each.EditValue = "Y";
+        chkreCalc_year_end_yyyy_yn.EditValue = "N";
+        chkreserve_yn.EditValue = "N";*/
+
+        SBUxMethod.set("PAY_AREA_TYPE", "1");
+
+        SBUxMethod.set("srch-pay_calculate_type", "PAY");
+
+        SBUxMethod.set("CALC_YEAR_END_YYYY1", "N");
+        SBUxMethod.set("TAX_CALCULATE_EACH", "Y");
+        SBUxMethod.set("CALC_YEAR_END_YYYY2", "N");
+        SBUxMethod.set("CHKRESERVE_YN", "N");
+
+
+        console.log('-----gv_ma_selectedApcCd------', gv_ma_selectedApcCd)
+        SBUxMethod.set("COMP_CODE", gv_ma_selectedApcCd);
+
     }
 
     // 신규
@@ -684,7 +781,7 @@
 
     // 조회
     function cfn_search() {
-        fn_search();
+        fn_search('Q');
     }
 
     /**
@@ -707,7 +804,8 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '150px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption : ["처리구분"], ref : 'CALCULATE_WORK_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonCalculateWorkType', displayui : true, label : 'label', value : 'value'}
             },
@@ -728,15 +826,89 @@
         gvwLogGrid.bind('click', 'fn_view');
     }
 
-    // 지급일자 가져오기
-    const fn_search = async function () {
+    function fn_createBonusGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gvwBonus';
+        SBGridProperties.id = 'gvwBonusGrid';
+        SBGridProperties.jsonref = 'jsonBonusList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        /*SBGridProperties.allowcopy = true; //복사*/
+        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
+        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption : ["근속기간(~개월 이상)"], ref : 'PAY_WORK_MONTHS', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonWorkMonthsType', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption : ["상여적용기준"], ref : 'BONUS_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["적용비율(%)"], ref: 'BONUS_RATE', type: 'input', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
+            {caption: ["상여금액"], ref: 'BONUS_AMT', type: 'input', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+        ];
 
-        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
-        let BASE_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
-        let PAY_CALCULATE_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
-        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
-        let EXPECTED_PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+        gvwBonusGrid = _SBGrid.create(SBGridProperties);
+    }
+
+    function fn_createExceptionGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gvwException';
+        SBGridProperties.id = 'gvwExceptionGrid';
+        SBGridProperties.jsonref = 'jsonExceptionList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        /*SBGridProperties.allowcopy = true; //복사*/
+        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
+        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItemCodeType', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ['적용시작년월'], ref: 'PAY_APPLY_YYYYMM_FR', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
+            {caption: ['적용종료년월'], ref: 'PAY_APPLY_YYYYMM_TO', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
+        ];
+
+        gvwExceptionGrid = _SBGrid.create(SBGridProperties);
+    }
+
+    // 지급일자 가져오기
+    const fn_search = async function (strWorkType) {
+
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let BASE_YYYYMM         = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
+        let PAY_CALCULATE_TYPE  = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+
+        let SITE_CODE   = gfnma_nvl(SBUxMethod.get("SITE_CODE")); // 사업장
+        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE")); // 급여영역
+
+        if (_.isEqual(strWorkType, 'Q')){
+
+            if (!PAY_TYPE) {
+                gfn_comAlert("W0002", "지급구분");
+                return;
+            }
+            if (!PAY_YYYYMM) {
+                gfn_comAlert("W0002", "귀속년월");
+                return;
+            }
+            if (!PAY_DATE) {
+                gfn_comAlert("W0002", "지급일");
+                return;
+            }
+            if (!EXPECTED_PAY_DATE) {
+                gfn_comAlert("W0002", "퇴사일");
+                return;
+            }
+        }
 
 
         var paramObj = {
@@ -745,13 +917,13 @@
             ,V_P_COMP_CODE: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            ,V_P_SITE_CODE          : ''
+            ,V_P_SITE_CODE          : SITE_CODE
             ,V_P_PAY_YYYYMM         : PAY_YYYYMM
-            ,V_P_PAY_CALCULATE_TYPE : ''
+            ,V_P_PAY_CALCULATE_TYPE : PAY_CALCULATE_TYPE
             /* -- 'PAY' : 급여,  'BONUS' : 상여,  'ALL' : 급상여*/
             ,V_P_PAY_TYPE           : PAY_TYPE
-            ,V_P_PAY_DATE           : ''
-            ,V_P_PAY_AREA_TYPE      : ''
+            ,V_P_PAY_DATE           : PAY_DATE
+            ,V_P_PAY_AREA_TYPE      : PAY_AREA_TYPE
 
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
@@ -760,69 +932,239 @@
             ,V_P_PC: ''
         };
 
+        console.log('-------paramObj--------', paramObj);
+
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
             getType: 'json',
-            workType: 'Q',
+            workType: strWorkType,
             cv_count: '8',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
 
+        console.log('-------data--------', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
-                data.cv_3.forEach((item, index) => {
-                    const msg = {
-                        PAY_ITEM_CODE		        : gfnma_nvl(item.PAY_ITEM_CODE),
-                        PAY_APPLY_YYYYMM_FR		        : gfnma_nvl(item.PAY_APPLY_YYYYMM_FR),
-                        PAY_APPLY_YYYYMM_TO		        : gfnma_nvl(item.PAY_APPLY_YYYYMM_TO)
-                    }
-                });
 
-                data.cv_4.forEach((item, index) => {
-                    const msg = {
-                        PAY_WORK_MONTHS		        : gfnma_nvl(item.PAY_WORK_MONTHS),
-                        BONUS_APPLY_TYPE		        : gfnma_nvl(item.BONUS_APPLY_TYPE),
-                        BONUS_RATE		        : gfnma_nvl(item.BONUS_RATE),
-                        BONUS_AMT		        : gfnma_nvl(item.BONUS_AMT),
+                if (strWorkType == "Q"){
 
-                    }
-                });
+                    jsonGvwLogList.length = 0;
+                    data.cv_3.forEach((item, index) => {
+                        const msg = {
+                            PAY_ITEM_CODE		 : gfnma_nvl(item.PAY_ITEM_CODE),
+                            PAY_APPLY_YYYYMM_FR		 : gfnma_nvl(item.PAY_APPLY_YYYYMM_FR),
+                            PAY_APPLY_YYYYMM_TO		 : gfnma_nvl(item.PAY_APPLY_YYYYMM_TO),
+                        }
+                        jsonGvwLogList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwLogGrid.rebuild();
+
+                    jsonBonusList.length = 0;
+                    data.cv_4.forEach((item, index) => {
+                        const msg = {
+                            PAY_WORK_MONTHS		 : gfnma_nvl(item.PAY_WORK_MONTHS),
+                            BONUS_APPLY_TYPE	 : gfnma_nvl(item.BONUS_APPLY_TYPE),
+                            BONUS_RATE		     : gfnma_nvl(item.BONUS_RATE),
+                            BONUS_AMT		     : gfnma_nvl(item.BONUS_AMT),
+                        }
+                        jsonBonusList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwBonusGrid.rebuild();
 
 
-                /** @type {number} **/
-                //let totalRecordCount = 0;
+                    jsonBonusList.length = 0;
+                    data.cv_3.forEach((item, index) => {
+                        const msg = {
+                            PAY_CALCULATE_SEQ		 : gfnma_nvl(item.PAY_CALCULATE_SEQ),
+                            CALCULATE_WORK_TYPE		 : gfnma_nvl(item.CALCULATE_WORK_TYPE),
+                            TAX_CALCULATE_TYPE		 : gfnma_nvl(item.TAX_CALCULATE_TYPE),
+                            TAX_RATE		         : gfnma_nvl(item.TAX_RATE),
+                            BONUS_CALCULATE_TYP      : gfnma_nvl(item.BONUS_CALCULATE_TYP),
+                            BONUS_RATE		         : gfnma_nvl(item.BONUS_RATE),
+                            BONUS_APPLY_TYPE		 : gfnma_nvl(item.BONUS_APPLY_TYPE),
+                            CALCULATE_CONDITION		 : gfnma_nvl(item.CALCULATE_CONDITION),
+                            MEMO		             : gfnma_nvl(item.MEMO),
+                            ACTION_START_TIME		 : gfnma_nvl(item.ACTION_START_TIME),
+                            ACTION_END_TIME		     : gfnma_nvl(item.ACTION_END_TIME),
+                            INSERT_USERID		     : gfnma_nvl(item.INSERT_USERID),
+                            INSERT_TIME		         : gfnma_nvl(item.INSERT_TIME),
+                            INSERT_PC		         : gfnma_nvl(item.INSERT_PC),
+                            PAY_AREA_TYPE		     : gfnma_nvl(item.PAY_AREA_TYPE),
+                        }
+                        jsonBonusList.push(msg);
+                        //totalRecordCount ++;
+                    });
 
-                jsonGvwLogList.length = 0;
-                data.cv_5.forEach((item, index) => {
-                    const msg = {
-                        PAY_CALCULATE_SEQ		 : gfnma_nvl(item.PAY_CALCULATE_SEQ),
-                        CALCULATE_WORK_TYPE		 : gfnma_nvl(item.CALCULATE_WORK_TYPE),
-                        TAX_CALCULATE_TYPE		 : gfnma_nvl(item.TAX_CALCULATE_TYPE),
-                        TAX_RATE		         : gfnma_nvl(item.TAX_RATE),
-                        BONUS_CALCULATE_TYP      : gfnma_nvl(item.BONUS_CALCULATE_TYP),
-                        BONUS_RATE		         : gfnma_nvl(item.BONUS_RATE),
-                        BONUS_APPLY_TYPE		 : gfnma_nvl(item.BONUS_APPLY_TYPE),
-                        CALCULATE_CONDITION		 : gfnma_nvl(item.CALCULATE_CONDITION),
-                        MEMO		             : gfnma_nvl(item.MEMO),
-                        ACTION_START_TIME		 : gfnma_nvl(item.ACTION_START_TIME),
-                        ACTION_END_TIME		     : gfnma_nvl(item.ACTION_END_TIME),
-                        INSERT_USERID		     : gfnma_nvl(item.INSERT_USERID),
-                        INSERT_TIME		         : gfnma_nvl(item.INSERT_TIME),
-                        INSERT_PC		         : gfnma_nvl(item.INSERT_PC),
-                        PAY_AREA_TYPE		     : gfnma_nvl(item.PAY_AREA_TYPE),
-                    }
-                    jsonGvwLogList.push(msg);
-                    //totalRecordCount ++;
-                });
+                    gvwBonusGrid.rebuild();
 
-                gvwLogGrid.rebuild();
-                //document.querySelector('#listCount').innerText = totalRecordCount;
+                } else if (strWorkType == "PAYDATE") {
 
+                    data.cv_1.forEach((item, index) => {
+
+                        SBUxMethod.set("srch-pay_date"          , gfnma_nvl(item.PAY_DATE));
+                        SBUxMethod.set("srch-expected_pay_date" , gfnma_nvl(item.EXPECTED_PAY_DATE));
+
+                    });
+
+
+                    jsonGvwLogList.length = 0;
+                    data.cv_2.forEach((item, index) => {
+                        const msg = {
+                            PAY_CALCULATE_SEQ		 : gfnma_nvl(item.PAY_CALCULATE_SEQ),
+                            CALCULATE_WORK_TYPE		 : gfnma_nvl(item.CALCULATE_WORK_TYPE),
+                            // -- 처리구분
+                            TAX_CALCULATE_TYPE		 : gfnma_nvl(item.TAX_CALCULATE_TYPE),
+                            TAX_RATE		         : gfnma_nvl(item.TAX_RATE),
+                            BONUS_CALCULATE_TYPE     : gfnma_nvl(item.BONUS_CALCULATE_TYPE),
+                            BONUS_RATE		         : gfnma_nvl(item.BONUS_RATE),
+                            BONUS_APPLY_TYPE		 : gfnma_nvl(item.BONUS_APPLY_TYPE),
+                            CALCULATE_CONDITION		 : gfnma_nvl(item.CALCULATE_CONDITION),
+                            MEMO		             : gfnma_nvl(item.MEMO),
+                            INSERT_USERID		     : gfnma_nvl(item.INSERT_USERID),
+                            ACTION_START_TIME		 : gfnma_nvl(item.ACTION_START_TIME),
+                            ACTION_END_TIME		     : gfnma_nvl(item.ACTION_END_TIME),
+                            INSERT_TIME		         : gfnma_nvl(item.INSERT_TIME),
+                            INSERT_PC		         : gfnma_nvl(item.INSERT_PC),
+                            PAY_AREA_TYPE		     : gfnma_nvl(item.PAY_AREA_TYPE)
+                        }
+                        jsonGvwLogList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwLogGrid.rebuild();
+
+
+                } else if (strWorkType == "PAYDATE2") {
+
+                    data.cv_1.forEach((item, index) => {
+
+                        SBUxMethod.set("srch-expected_pay_date", item.EXPECTED_PAY_DATE); //퇴사일
+
+                    });
+
+
+                    jsonGvwLogList.length = 0;
+                    data.cv_2.forEach((item, index) => {
+                        const msg = {
+                            PAY_CALCULATE_SEQ: gfnma_nvl(item.PAY_CALCULATE_SEQ),
+                            CALCULATE_WORK_TYPE: gfnma_nvl(item.CALCULATE_WORK_TYPE),
+                            // -- 처리구분
+                            TAX_CALCULATE_TYPE: gfnma_nvl(item.TAX_CALCULATE_TYPE),
+                            TAX_RATE: gfnma_nvl(item.TAX_RATE),
+                            BONUS_CALCULATE_TYPE: gfnma_nvl(item.BONUS_CALCULATE_TYPE),
+                            BONUS_RATE: gfnma_nvl(item.BONUS_RATE),
+                            BONUS_APPLY_TYPE: gfnma_nvl(item.BONUS_APPLY_TYPE),
+                            CALCULATE_CONDITION: gfnma_nvl(item.CALCULATE_CONDITION),
+                            MEMO: gfnma_nvl(item.MEMO),
+                            INSERT_USERID: gfnma_nvl(item.INSERT_USERID),
+                            ACTION_START_TIME: gfnma_nvl(item.ACTION_START_TIME),
+                            ACTION_END_TIME: gfnma_nvl(item.ACTION_END_TIME),
+                            INSERT_TIME: gfnma_nvl(item.INSERT_TIME),
+                            INSERT_PC: gfnma_nvl(item.INSERT_PC),
+                            PAY_AREA_TYPE: gfnma_nvl(item.PAY_AREA_TYPE)
+                        }
+                        jsonGvwLogList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwLogGrid.rebuild();
+
+
+                } else if (strWorkType == "BONUS") {
+
+                    data.cv6.forEach((item, index) => {
+
+                        SBUxMethod.set("BONUS_RATE", item.BONUS_RATE);
+                        SBUxMethod.set("BONUS_PAY_ITEM_CODE", item.PAY_ITEM_CODE);
+
+                    });
+
+
+                    jsonGvwLogList.length = 0;
+                    data.cv_7.forEach((item, index) => {
+                        const msg = {
+                            PAY_CALCULATE_SEQ: gfnma_nvl(item.PAY_CALCULATE_SEQ),
+                            CALCULATE_WORK_TYPE: gfnma_nvl(item.CALCULATE_WORK_TYPE),
+                            // -- 처리구분
+                            TAX_CALCULATE_TYPE: gfnma_nvl(item.TAX_CALCULATE_TYPE),
+                            TAX_RATE: gfnma_nvl(item.TAX_RATE),
+                            BONUS_CALCULATE_TYPE: gfnma_nvl(item.BONUS_CALCULATE_TYPE),
+                            BONUS_RATE: gfnma_nvl(item.BONUS_RATE),
+                            BONUS_APPLY_TYPE: gfnma_nvl(item.BONUS_APPLY_TYPE),
+                            CALCULATE_CONDITION: gfnma_nvl(item.CALCULATE_CONDITION),
+                            MEMO: gfnma_nvl(item.MEMO),
+                            INSERT_USERID: gfnma_nvl(item.INSERT_USERID),
+                            ACTION_START_TIME: gfnma_nvl(item.ACTION_START_TIME),
+                            ACTION_END_TIME: gfnma_nvl(item.ACTION_END_TIME),
+                            INSERT_TIME: gfnma_nvl(item.INSERT_TIME),
+                            INSERT_PC: gfnma_nvl(item.INSERT_PC),
+                            PAY_AREA_TYPE: gfnma_nvl(item.PAY_AREA_TYPE)
+                        }
+                        jsonGvwLogList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwLogGrid.rebuild();
+
+                } else if (strWorkType == "COPY") {
+
+                    jsonBonusList.length = 0;
+                    data.cv_8.forEach((item, index) => {
+                        const msg = {
+                            PAY_WORK_MONTHS: gfnma_nvl(item.PAY_WORK_MONTHS),
+                            BONUS_RATE: gfnma_nvl(item.BONUS_RATE),
+                            BONUS_AMT: gfnma_nvl(item.BONUS_AMT)
+
+                        }
+                        jsonBonusList.push(msg);
+                        //totalRecordCount ++;
+                    });
+
+                    gvwBonusGrid.rebuild();
+
+                }
+
+                return true;
 
             } else {
                 alert(data.resultMessage);
+
+                if (strWorkType == "PAYDATE") {
+
+                        SBUxMethod.set("srch-pay_date"          , "");
+                        SBUxMethod.set("srch-expected_pay_date" , "");
+                        SBUxMethod.set("BONUS_RATE" , '0');
+                        SBUxMethod.set("BONUS_PAY_ITEM_CODE" , "");
+                        return false;
+
+
+                }else if (strWorkType == "PAYDATE2") {
+
+                        SBUxMethod.set("srch-pay_date"          , "");
+                        SBUxMethod.set("srch-expected_pay_date" , "");
+                        SBUxMethod.set("BONUS_RATE" , '0');
+                        SBUxMethod.set("BONUS_PAY_ITEM_CODE" , "");
+                        return false;
+
+
+                }else if (strWorkType == "BONUS") {
+
+                        SBUxMethod.set("BONUS_RATE" , '0');
+                        SBUxMethod.set("BONUS_PAY_ITEM_CODE" , "");
+                        return false;
+
+                }else if (strWorkType == "COPY") {
+
+                    return false;
+
+                }
             }
 
         } catch (e) {
@@ -840,63 +1182,105 @@
 
     }
 
+    // 귀속년월 EditValueModified
+    const fn_ymPay = async function () {
+
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let PAY_CALCULATE_TYPE  = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+
+        if(PAY_YYYYMM != '') {
+
+            SBUxMethod.set("srch-base_yyyymm", 			PAY_YYYYMM);
+        }
+        // 지급일 조회
+        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '')
+        {
+            await fn_search("PAYDATE");
+        }
+
+        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '' && PAY_DATE != '')
+        {
+            if (PAY_CALCULATE_TYPE == "PAY"){
+                return;
+            }
+
+            await fn_search('Q');
+
+            // 상여율 조회
+            await fn_search('BONUS');
+        }
+
+    }
+
+    // 급상여구분 EditValueChanged
+    const fn_payCalType = async function () {
+
+        if (cbopay_calculate_type.EditValue.ToString() == "")
+            return;
+
+        // ALL : 급상여, BONUS : 상여
+        if (cbopay_calculate_type.EditValue.ToString() == "ALL" || cbopay_calculate_type.EditValue.ToString() == "BONUS")
+        {
+            grpBonus.Enabled = true;
+            grpBonusCriteria.Enabled = true;
+            cbobonus_calculate_type.SelectedIndex = 1;
+
+            if (ymdpay_yyyymm.Text != "" && cbopay_calculate_type.EditValue.ToString() != ""
+                && cbopay_type.EditValue.ToString() != "" && ymdpay_date.Text != "")
+            {
+                QueryClick();
+
+                // 상여율 조회
+                fnQRY_P_HRP2320_Q("BONUS");
+            }
+        }
+        else
+        {
+            grpBonus.Enabled = false;
+            grpBonusCriteria.Enabled = false;
+
+            InitControls(grpBonus);
+            InitControls(grpBonusCriteria);
+            InitControls(grdBonus);
+        }
+
+    }
+
     // 지급일자 가져오기
     const fn_payType = async function () {
 
-        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
-        let BASE_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let PAY_CALCULATE_TYPE  = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+
+        let PAY_AREA_TYPE            = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE")); // 지급일\
+
+        console.log('----jsonPayType-----', jsonPayType);
+        console.log('----jsonPayCalculateType-----', jsonPayCalculateType);
+        console.log('----jsonPayAreaType-----', jsonPayAreaType);
+        console.log('----PAY_AREA_TYPE-----', PAY_AREA_TYPE);
+        console.log('----PAY_CALCULATE_TYPE-----', PAY_CALCULATE_TYPE);
 
 
-        var paramObj = {
-            V_P_DEBUG_MODE_YN: ''
-            ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
-            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+        // 지급일 조회
+        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '')
+        {
+            await fn_search('PAYDATE');
+        }
 
-            ,V_P_SITE_CODE          : ''
-            ,V_P_PAY_YYYYMM         : PAY_YYYYMM
-            ,V_P_PAY_CALCULATE_TYPE : ''
-            /* -- 'PAY' : 급여,  'BONUS' : 상여,  'ALL' : 급상여*/
-            ,V_P_PAY_TYPE           : PAY_TYPE
-            ,V_P_PAY_DATE           : ''
-            ,V_P_PAY_AREA_TYPE      : ''
-
-            ,V_P_FORM_ID: p_formId
-            ,V_P_MENU_ID: p_menuId
-            ,V_P_PROC_ID: ''
-            ,V_P_USERID: ''
-            ,V_P_PC: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
-            getType: 'json',
-            workType: 'PAYDATE',
-            cv_count: '8',
-            params: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-
-                data.cv_1.forEach((item, index) => {
-
-                        SBUxMethod.set("srch-pay_date", 			rowData.PAY_DATE);
-                        SBUxMethod.set("srch-expected_pay_date", 	rowData.EXPECTED_PAY_DATE);
-
-                });
-            } else {
-                alert(data.resultMessage);
+        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '' && PAY_DATE != ''){
+            if (PAY_CALCULATE_TYPE == "PAY"){
+                return;
             }
 
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            await fn_search('Q');
+
+            // 상여율 조회
+            await fn_search('BONUS');
+
         }
     }
 
@@ -936,45 +1320,629 @@
     //복수선택
     const fn_btnMultiSelect =  async function () {
 
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수사원');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strEmpCodeList = "";
+                data.forEach((item, index) => {
+                    strEmpCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strEmpCodeList = strEmpCodeList.substring(0, strEmpCodeList.length - 1);
+
+                if (strEmpCodeList.replace("|", "") == ""){
+                    SBUxMethod.set("MULTI_YN", "N");
+                }else {
+                    SBUxMethod.set("MULTI_YN", "Y");
+                }
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+
     }
 
+    //급여계산
+    const fn_P_HRP2320_CHECK =  async function (strWorkType, strPassCheck) {
+
+        let PAY_YYYYMM           = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let BASE_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
+        let PAY_TYPE             = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE             = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+        let EXPECTED_PAY_DATE    = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+        let PAY_CALCULATE_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+
+
+        let SITE_CODE               = gfnma_nvl(SBUxMethod.get("SITE_CODE")); // 사업장
+        let BONUS_CALCULATE_TYPE    = gfnma_nvl(SBUxMethod.get("BONUS_CALCULATE_TYPE"));
+        let BONUS_RATE              = gfnma_nvl(SBUxMethod.get("BONUS_RATE"));
+        let BONUS_PAY_ITEM_CODE     = gfnma_nvl(SBUxMethod.get("BONUS_PAY_ITEM_CODE"));
+
+        let PAY_AREA_TYPE           = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE")); //급여영역
+        let PAY_GROUP_CODE          = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")); //급여체계
+        let DEPT_CODE               = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서
+        let EMP_CODE                = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원
+        let CALC_YEAR_END_YYYY1     = gfnma_nvl(SBUxMethod.get("CALC_YEAR_END_YYYY1").CALC_YEAR_END_YYYY1); //연말정산반영
+        let YEAR_END_TAX_YYYY       = gfnma_nvl(SBUxMethod.get("YEAR_END_TAX_YYYY")); //정산연도
+        let TAX_CALCULATE_EACH      = gfnma_nvl(SBUxMethod.get("TAX_CALCULATE_EACH").TAX_CALCULATE_EACH); //소급계산제외
+        let CALC_YEAR_END_YYYY2     = gfnma_nvl(SBUxMethod.get("CALC_YEAR_END_YYYY2").CALC_YEAR_END_YYYY2); //연말정산 재정산
+        let YMDRESERVE_TIME         = gfnma_nvl(SBUxMethod.get("YMDRESERVE_TIME")); //예약시간
+
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일");
+            return;
+        }
+        if (!EXPECTED_PAY_DATE) {
+            gfn_comAlert("W0002", "퇴사일");
+            return;
+        }
+
+        let gridBonus =gvwBonusGrid.getGridDataAll();
+        let gridException =gvwExceptionGrid.getGridDataAll();
+
+        if (_.isEmpty(gridBonus) ||  _.isEmpty(gridException)){
+            return false;
+        }
+
+        //귀속연월 예외 정보
+        let strpay_item_code = '';
+        let strpay_apply_yyyymm_fr = '';
+        let strpay_apply_yyyymm_to = '';
+
+        // 상여 1년 미만 근속자
+        let strpay_work_months = '';
+        let strbonus_apply_type = '';
+        let strbonus_rate_detail = '';
+        let strbonus_amt_detail = '';
+
+
+        gridException.forEach((item,index) => {
+
+            strpay_item_code       += item.PAY_ITEM_CODE + "|";
+            strpay_apply_yyyymm_fr += item.PAY_APPLY_YYYYMM_FR + "|";
+            strpay_apply_yyyymm_to += item.PAY_APPLY_YYYYMM_TO + "|";
+
+        });
+
+        if (strpay_item_code.length > 0){
+
+            strpay_item_code = strpay_item_code.slice(0, -1);
+            strpay_apply_yyyymm_fr = strpay_apply_yyyymm_fr.slice(0, -1);
+            strpay_apply_yyyymm_to = strpay_apply_yyyymm_to.slice(0, -1);
+
+        }
+
+        if (PAY_CALCULATE_TYPE == "ALL" || PAY_CALCULATE_TYPE == "BONUS") {
+
+            gridBonus.forEach((item, index) => {
+
+                strpay_work_months      += item.PAY_WORK_MONTHS + "|";
+                strbonus_apply_type     += item.BONUS_APPLY_TYPE + "|";
+                strbonus_rate_detail    += item.BONUS_RATE + "|";
+                strbonus_amt_detail     += item.BONUS_AMT + "|";
+
+            });
+
+            if (strpay_work_months.length > 0)
+            {
+                strpay_work_months = strpay_work_months.slice(0, -1);
+                strbonus_apply_type = strbonus_apply_type.slice(0, -1);
+                strbonus_rate_detail = strbonus_rate_detail.slice(0, -1);
+                strbonus_amt_detail = strbonus_amt_detail.slice(0, -1);
+            }
+
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_SITE_CODE             : SITE_CODE
+            ,V_P_PAY_YYYYMM            : PAY_YYYYMM
+            ,V_P_PAY_CALCULATE_TYPE    : PAY_CALCULATE_TYPE      //-- 'PAY' : 급여,  'BONUS' : 상여,  'ALL' : 급상여
+            ,V_P_PAY_TYPE              : PAY_TYPE      //-- 계산정보
+            ,V_P_PAY_DATE              : PAY_DATE
+            ,V_P_TAX_CALCULATE_TYPE    : 'TAXTABLE'      //-- 소득세 적용방법 APPLYALL : 전체일괄세율, INDIVISUAL : 개인별 소득세율 적용, TAXTABLE : 간이세율표
+            ,V_P_TAX_RATE              : 0
+            ,V_P_BONUS_CALCULATE_TYPE  : BONUS_CALCULATE_TYPE
+            ,V_P_BONUS_RATE            : BONUS_RATE
+            ,V_P_BONUS_PAY_ITEM_CODE   : BONUS_PAY_ITEM_CODE      //-- 상여급여 항목
+
+        //-- 귀속년월 예외 정보
+            ,V_P_PAY_ITEM_CODE         : strpay_item_code
+            ,V_P_PAY_APPLY_YYYYMM_FR   : strpay_apply_yyyymm_fr
+            ,V_P_PAY_APPLY_YYYYMM_TO   : strpay_apply_yyyymm_to
+
+        //-- 상여 1년 미만자 정보
+            ,V_P_PAY_WORK_MONTHS       : strpay_work_months
+            ,V_P_BONUS_APPLY_TYPE      : strbonus_apply_type
+            ,V_P_BONUS_RATE_DETAIL     : strbonus_rate_detail
+            ,V_P_BONUS_AMT_DETAIL      : strbonus_amt_detail
+
+        //-- 계산 대상 정보
+            ,V_P_APPLY_PAY_AREA_TYPE   : PAY_AREA_TYPE          //-- 추가 급여영역 170915
+            ,V_P_APPLY_PAY_GROUP_CODE  : PAY_GROUP_CODE
+            ,V_P_APPLY_DEPT_CODE       : strEmpCodeList == '' ? DEPT_CODE : ''
+            ,V_P_APPLY_EMP_CODE        : strEmpCodeList == '' ? EMP_CODE : ''
+            ,V_P_CALC_YE_YYYY_YN       : CALC_YEAR_END_YYYY1          //--20180228 ADJ
+            ,V_P_YEAR_END_TAX_YYYY     : YEAR_END_TAX_YYYY
+            ,V_P_PASS_CHECK_YN         : strPassCheck           //-- 이미 급상여 계산한 자료 존재시(귀속년월, 지급구분만 체크) 계속 수행할 것인지에 대한 판단
+            ,V_P_TAX_CALCULATE_EACH    : TAX_CALCULATE_EACH     //--  'Y'이면 세금계산 단독으로 아니면 누적(정기급여[='1']이면 단독인 것은 이전 방식 유지)
+            ,V_P_RE_CALC_YE_YYYY_YN    : CALC_YEAR_END_YYYY2     //--20170814ADD --연말정산 재정산결과 급여반영여부
+            ,V_P_EXPECTED_PAY_DATE     : EXPECTED_PAY_DATE
+            ,V_P_APPLY_EMP_CODE_D      : strEmpCodeList
+            ,V_P_RESERVE_TIME          : YMDRESERVE_TIME
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
+            getType: 'json',
+            workType: strWorkType,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                if (data.resultMessage) {
+                    await alert(data.resultMessage);
+                    return true;
+                }else{
+                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    return true;
+                }
+
+            } else {
+                alert(data.resultMessage);
+                return false;
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
+    }
 
     //급여계산
     const fn_btnCalculate =  async function () {
 
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 예약여부
-        let PAY_CALCULATE_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 예약여부
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        //let PAY_CALCULATE_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
 
-        if (_.isEqual(PAY_TYPE, '99')){
+        if (_.isEqual(PAY_TYPE, "99")){
             gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");		//	W0001	{0}
             return;
         }
         gfn_comAlert("I0002", "급여계산버튼을","실행");		//	W0001	{0}
 
-        //급여계산
-        fn_P_HRP2320_BAT();
-
-        if (_.isEqual(PAY_CALCULATE_TYPE, 'PAY')){
-
-            //필수값 검증
-            if(!SBUxMethod.validateRequired({
-                isDetectAttack: true,
-                group_id : 'group1'})) {
-                return false;
-            }
-        }else{
-
+        if (fn_P_HRP2320_CHECK('CHECK', 'N')){
+            fn_search('Q');
         }
+    }
 
+    //급여계산취소
+    const fn_btnCanceld =  async function () {
+
+        /*SetMessageBox("급여계산취소버튼을 실행하였습니다."); // 소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.
+        if (fnSET_P_HRP2320_BAT("CANCEL", "N"))
+            QueryClick();*/
+
+        gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");
+
+        if (fn_P_HRP2320_CHECK('CANCEL', 'N')){
+            fn_search('Q');
+        }
 
     }
 
+    //소급반영
+    const fn_btnApplyUpdate =  async function () {
+
+        /*if (cbopay_type.EditValue.ToString() == "99")
+        {
+            SetMessageBox(cbopay_type.Text + GetFormMessage("HRP2320_002")); // 소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.
+            return;
+        }
+        SetMessageBox("급여계산버튼을 실행하였습니다."); // 소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.
+        if (fnSET_P_HRP2320_CHANGE_CREATE("UPDATE"))
+            QueryClick();*/
+
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+
+        if (_.isEqual(PAY_TYPE, "99")){
+            gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");		//	W0001	{0}
+            return;
+        }
+
+        gfn_comAlert("E0000", "급여계산버튼을 실행하였습니다.");
+        if (fn_P_HRP2320_CHANGE_CREATE('UPDATE')){
+            fn_search('Q');
+        }
+
+    }
+
+    //소급취소
+    const fn_btnCancelUpdate =  async function () {
+
+         gfn_comAlert("E0000", "급여계산취소버튼을 실행하였습니다.");
+        if (fn_P_HRP2320_CHANGE_CREATE('CANCEL')){
+            fn_search('Q');
+        }
+
+    }
+
+    //퇴직정산 일괄실행
+    const fn_btnRetireCalc =  async function () {
+
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); // 사원
+
+        if(PAY_TYPE != '7')
+        {
+            gfn_comAlert("E0000", "지급구분이 퇴직자정산일 경우에만 실행할 수 있습니다.");
+            return;
+        }
+
+        if (EMP_CODE == '')
+        {
+            gfn_comAlert("E0000", "사원을 선택하세요.");
+            return;
+        }
+
+        if (fn_P_HRP2320_RETI_BAT("CALCULATE", "N")){
+            fn_search('Q');
+        }
+
+    }
+
+    //퇴직정산 일괄취소
+    const fn_btnRetireCancel =  async function () {
+
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); // 사원
+
+        if(PAY_TYPE != '7')
+        {
+            gfn_comAlert("E0000", "지급구분이 퇴직자정산일 경우에만 실행할 수 있습니다.");
+            return;
+        }
+
+        if (EMP_CODE == '')
+        {
+            gfn_comAlert("E0000", "사원을 선택하세요.");
+            return;
+        }
+
+        if (fn_P_HRP2320_RETI_BAT("CANCEL", "N")){
+            fn_search('Q');
+        }
+
+    }
 
     //급여계산
-    const fn_P_HRP2320_BAT =  async function () {
+    const fn_P_HRP2320_CHANGE_CREATE =  async function (strWorkType) {
+
+        let PAY_YYYYMM           = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let BASE_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
+        let PAY_TYPE             = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE             = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+        let EXPECTED_PAY_DATE    = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+        let PAY_CALCULATE_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+
+        let COMP_CODE            = gfnma_nvl(SBUxMethod.get("COMP_CODE")); // 법인
+        let SITE_CODE            = gfnma_nvl(SBUxMethod.get("SITE_CODE")); // 사업장
+        let PAY_AREA_TYPE        = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE")); // 급여영역
+        let PAY_GROUP_CODE       = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")); // 급여체계
+        let DEPT_CODE            = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); // 부서
+        let EMP_CODE             = gfnma_nvl(SBUxMethod.get("EMP_CODE")); // 사원
+
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일");
+            return;
+        }
+        if (!EXPECTED_PAY_DATE) {
+            gfn_comAlert("W0002", "퇴사일");
+            return;
+        }
+
+        //귀속연월 예외 정보
+        let strpay_item_code        = '';
+        let strpay_apply_yyyymm_fr  = '';
+        let strpay_apply_yyyymm_to  = '';
+
+        // 상여 1년 미만 근속자
+        let strpay_work_months      = '';
+        let strbonus_apply_type     = '';
+        let strbonus_rate_detail    = '';
+        let strbonus_amt_detail     = '';
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_PAY_YYYYMM             : PAY_YYYYMM
+            ,V_P_PAY_TYPE               : PAY_TYPE
+            ,V_P_PAY_DATE               : PAY_DATE
+            // 계산 대상 정보
+            ,V_P_SITE_CODE              : SITE_CODE
+            ,V_P_APPLY_PAY_AREA_TYPE    : PAY_AREA_TYPE
+            ,V_P_APPLY_PAY_GROUP_CODE   : PAY_GROUP_CODE
+            ,V_P_APPLY_DEPT_CODE        : strEmpCodeList == '' ? DEPT_CODE : ''
+            ,V_P_APPLY_EMP_CODE         : strEmpCodeList == '' ? EMP_CODE : ''
+            ,V_P_EXPECTED_PAY_DATE      : strEmpCodeList
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2320CRE.do", {
+            getType: 'json',
+            workType: strWorkType,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                if (data.resultMessage) {
+                    await alert(data.resultMessage);
+                    return true;
+                }else{
+                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    return true;
+                }
+
+            } else {
+                alert(data.resultMessage);
+                return false;
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+    const fn_P_HRP2320_RETI_BAT =  async function (strWorkType, strPassCheck) {
+
+        let PAY_YYYYMM           = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let BASE_YYYYMM          = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
+        let PAY_TYPE             = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE             = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+        let EXPECTED_PAY_DATE    = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+        let PAY_CALCULATE_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
 
 
+        let SITE_CODE               = gfnma_nvl(SBUxMethod.get("SITE_CODE")); // 사업장
+        let BONUS_CALCULATE_TYPE    = gfnma_nvl(SBUxMethod.get("BONUS_CALCULATE_TYPE"));
+        let BONUS_RATE              = gfnma_nvl(SBUxMethod.get("BONUS_RATE"));
+        let BONUS_PAY_ITEM_CODE     = gfnma_nvl(SBUxMethod.get("BONUS_PAY_ITEM_CODE"));
 
+        let PAY_AREA_TYPE           = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE")); //급여영역
+        let PAY_GROUP_CODE          = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")); //급여체계
+        let DEPT_CODE               = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서
+        let EMP_CODE                = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원
+        let CALC_YEAR_END_YYYY1     = gfnma_nvl(SBUxMethod.get("CALC_YEAR_END_YYYY1").CALC_YEAR_END_YYYY1); //연말정산반영
+        let YEAR_END_TAX_YYYY       = gfnma_nvl(SBUxMethod.get("YEAR_END_TAX_YYYY")); //정산연도
+        let TAX_CALCULATE_EACH      = gfnma_nvl(SBUxMethod.get("TAX_CALCULATE_EACH").TAX_CALCULATE_EACH); //소급계산제외
+        let CALC_YEAR_END_YYYY2     = gfnma_nvl(SBUxMethod.get("CALC_YEAR_END_YYYY2").CALC_YEAR_END_YYYY2); //연말정산 재정산
+        let YMDRESERVE_TIME         = gfnma_nvl(SBUxMethod.get("YMDRESERVE_TIME")); //예약시간
+
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일");
+            return;
+        }
+        if (!EXPECTED_PAY_DATE) {
+            gfn_comAlert("W0002", "퇴사일");
+            return;
+        }
+
+        let gridBonus =gvwBonusGrid.getGridDataAll();
+        let gridException =gvwExceptionGrid.getGridDataAll();
+
+        if (_.isEmpty(gridBonus) ||  _.isEmpty(gridException)){
+            return false;
+        }
+
+        //귀속연월 예외 정보
+        let strpay_item_code = '';
+        let strpay_apply_yyyymm_fr = '';
+        let strpay_apply_yyyymm_to = '';
+
+        // 상여 1년 미만 근속자
+        let strpay_work_months = '';
+        let strbonus_apply_type = '';
+        let strbonus_rate_detail = '';
+        let strbonus_amt_detail = '';
+
+        gridException.forEach((item, index) => {
+
+            strpay_item_code        += item.PAY_ITEM_CODE + "|";
+            strpay_apply_yyyymm_fr  += item.PAY_APPLY_YYYYMM_FR + "|";
+            strpay_apply_yyyymm_to  += item.PAY_APPLY_YYYYMM_TO + "|";
+
+        });
+
+        if (strpay_item_code.length > 0){
+            strpay_item_code        = strpay_item_code.slice(0, -1);
+            strpay_apply_yyyymm_fr  = strpay_apply_yyyymm_fr.slice(0, -1);
+            strpay_apply_yyyymm_to  = strpay_apply_yyyymm_to.slice(0, -1);
+        }
+
+        if (PAY_CALCULATE_TYPE == "ALL" || PAY_CALCULATE_TYPE == "BONUS"){
+
+            gridBonus.forEach((item, index) => {
+
+                strpay_work_months      += item.PAY_WORK_MONTHS + "|";
+                strbonus_apply_type     += item.BONUS_APPLY_TYPE + "|";
+                strbonus_rate_detail    += item.BONUS_RATE + "|";
+                strbonus_amt_detail     += item.BONUS_AMT + "|";
+
+            });
+
+            if (strpay_work_months.length > 0)
+            {
+                strpay_work_months      = strpay_work_months.slice(0, -1);
+                strbonus_apply_type     = strbonus_apply_type.slice(0, -1);
+                strbonus_rate_detail    = strbonus_rate_detail.slice(0, -1);
+                strbonus_amt_detail     = strbonus_amt_detail.slice(0, -1);
+            }
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_SITE_CODE                  : SITE_CODE
+            ,V_P_PAY_YYYYMM                 : PAY_YYYYMM
+            ,V_P_PAY_CALCULATE_TYPE         : PAY_CALCULATE_TYPE         //-- 'PAY' : 급여,  'BONUS' : 상여,  'ALL' : 급상여
+            ,V_P_PAY_TYPE                   : PAY_TYPE         //-- 계산정보
+            ,V_P_PAY_DATE                   : PAY_DATE
+            ,V_P_TAX_CALCULATE_TYPE         : 'TAXTABLE'         //-- 소득세 적용방법 APPLYALL : 전체일괄세율, INDIVISUAL : 개인별 소득세율 적용, TAXTABLE : 간이세율표
+            ,V_P_TAX_RATE                   : 0
+            ,V_P_BONUS_CALCULATE_TYPE       : BONUS_CALCULATE_TYPE
+            ,V_P_BONUS_RATE                 : BONUS_RATE
+            ,V_P_BONUS_PAY_ITEM_CODE        : BONUS_PAY_ITEM_CODE         //-- 상여급여 항목
+        //-- 귀속년월 예외 정보
+            ,V_P_PAY_ITEM_CODE              : strpay_item_code
+            ,V_P_PAY_APPLY_YYYYMM_FR        : strpay_apply_yyyymm_fr
+            ,V_P_PAY_APPLY_YYYYMM_TO        : strpay_apply_yyyymm_to
+        //-- 상여 1년 미만자 정보
+            ,V_P_PAY_WORK_MONTHS            : strpay_work_months
+            ,V_P_BONUS_APPLY_TYPE           : strbonus_apply_type
+            ,V_P_BONUS_RATE_DETAIL          : strbonus_rate_detail
+            ,V_P_BONUS_AMT_DETAIL           : strbonus_amt_detail
+        //-- 계산 대상 정보
+            ,V_P_APPLY_PAY_AREA_TYPE        : PAY_AREA_TYPE         //-- 추가 급여영역 170915
+            ,V_P_APPLY_PAY_GROUP_CODE       : PAY_GROUP_CODE
+            ,V_P_APPLY_DEPT_CODE            : strEmpCodeList == '' ? DEPT_CODE : ''
+            ,V_P_APPLY_EMP_CODE             : strEmpCodeList == '' ? EMP_CODE : ''
+            ,V_P_CALC_YE_YYYY_YN            : CALC_YEAR_END_YYYY1         //--20180228 ADJ
+            ,V_P_YEAR_END_TAX_YYYY          : YEAR_END_TAX_YYYY
+            ,V_P_PASS_CHECK_YN              : strPassCheck          //-- 이미 급상여 계산한 자료 존재시(귀속년월, 지급구분만 체크) 계속 수행할 것인지에 대한 판단
+            ,V_P_TAX_CALCULATE_EACH         : TAX_CALCULATE_EACH          //--  'Y'이면 세금계산 단독으로 아니면 누적(정기급여[='1']이면 단독인 것은 이전 방식 유지)
+            ,V_P_RE_CALC_YE_YYYY_YN         : CALC_YEAR_END_YYYY2          //--20170814ADD --연말정산 재정산결과 급여반영여부
+            ,V_P_EXPECTED_PAY_DATE          : EXPECTED_PAY_DATE
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2320CRE.do", {
+            getType: 'json',
+            workType: strWorkType,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            //TODO : grpCalculate에 어떤컬럼이 있는지 모르겠음 기능 이해가 안댐
+
+            let bResult = false;
+            if (_.isEqual("S", data.resultStatus)) {
+
+                if (strWorkType == "CALCULATE"){
+                    //ResultSet rs = CommonCallExecute(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo());
+
+                    if (_.isEmpty(data) == false) {
+                        if (data.v_errorCode == "P_HRP2320_BAT_011") {
+
+                            //let dr = gfn_comConfirm("Q0000", PAY_YYYYMM + " " + pay_type + "계산된 정보 다른 지급일자가 존재합니다. 계속하시겠습니까?");
+                            //DialogResult dr = SetYesNoMessageBox(PAY_YYYYMM + " " + pay_type + ""); // 계산된 정보 다른 지급일자가 존재합니다. 계속하시겠습니까?
+
+                            if (gfn_comConfirm("Q0000", PAY_YYYYMM + " " + pay_type + "계산된 정보 다른 지급일자가 존재합니다. 계속하시겠습니까?")){
+                                if (fnSET_P_HRP2320_RETI_BAT("CANCEL", "N"))
+                                {
+                                    if (fnSET_P_HRP2320_RETI_BAT("CALCULATE", "Y"))
+                                    {
+                                        bResult = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (strWorkType == "CANCEL")
+                {
+                    bResult = true;
+                    //bResult = CommonProcessSave(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo(), grpCalculate);
+                }
+
+                return bResult;
+
+            } else {
+                alert(data.resultMessage);
+                return false;
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
 </script>
