@@ -72,7 +72,7 @@
                     <th scope="row" class="th_bg">사업단위</th>
                     <td colspan="3" class="td_input">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -89,8 +89,10 @@
                                 id="SRCH_EXPECTED_PAY_DT"
                                 name="SRCH_EXPECTED_PAY_DT"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td colspan="2"></td>
@@ -509,10 +511,6 @@
     var jsonApprovalList = [];
 
     const fn_initSBSelect = async function() {
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-
         let rst = await Promise.all([
             // 회계단위
             gfnma_multiSelectInit({
@@ -643,17 +641,6 @@
             // 직책
             gfnma_setComSelect(['gvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
-
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-        SBUxMethod.set("SRCH_EXPECTED_PAY_DT", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("SRCH_HOLD_INCLUDE_YN", "Y");
-        SBUxMethod.set("SRCH_CURRENCY_TYPE", "2");
-
-        SBUxMethod.set("SRCH_MULTI_YN", "N");
-        SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
-        SBUxMethod.set("SRCH_MULTI_M_YN", "N");
-        SBUxMethod.set("SRCH_MULTI_A_YN", "N");
-        SBUxMethod.set("SRCH_OTHER_CURRENCY_YN", "Y");
     }
 
     function fn_createGvwListGrid() {
@@ -1336,6 +1323,10 @@
     }
 
     const fn_release = async function() {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
+            return;
+        }
+
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
         if (gvwListCheckedList.length == 0)
             return;
@@ -1429,6 +1420,10 @@
     }
 
     const fn_hold = async function() {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
+            return;
+        }
+
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
         if (gvwListCheckedList.length == 0)
             return;
@@ -1525,7 +1520,7 @@
         await fn_initSBSelect();
         fn_createGvwListGrid();
         fn_createGvwDetailGrid();
-        await fn_search();
+        await fn_onload();
     });
 
     // 저장
@@ -1628,7 +1623,30 @@
         }
     }
 
+    const fn_onload = async function() {
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        SBUxMethod.set("SRCH_EXPECTED_PAY_DT", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_HOLD_INCLUDE_YN", "Y");
+        SBUxMethod.set("SRCH_CURRENCY_TYPE", "2");
+
+        SBUxMethod.set("SRCH_MULTI_YN", "N");
+        SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
+        SBUxMethod.set("SRCH_MULTI_M_YN", "N");
+        SBUxMethod.set("SRCH_MULTI_A_YN", "N");
+        SBUxMethod.set("SRCH_OTHER_CURRENCY_YN", "Y");
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired( {group_id: 'panHeader'} ) || !validateRequired("panHeader")) {
+            return;
+        }
+
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));
         let EXPECTED_PAY_DATE = gfn_nvl(SBUxMethod.get("SRCH_EXPECTED_PAY_DT"));
         let PAY_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_FR"));

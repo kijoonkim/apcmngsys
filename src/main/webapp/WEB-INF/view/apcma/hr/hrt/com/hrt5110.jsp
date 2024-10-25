@@ -466,7 +466,7 @@
     }
 
     const fn_search = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -575,7 +575,7 @@
     }
 
     const fn_save = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -647,7 +647,7 @@
     });
 
     const fn_unconfirm = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -714,7 +714,7 @@
     }
 
     const fn_confirm = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -781,7 +781,7 @@
     }
 
     const fn_cancel = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -848,7 +848,7 @@
     }
 
     const fn_create = async function() {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) && !validateRequired("panHeader")) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 

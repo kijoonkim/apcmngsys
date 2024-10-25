@@ -98,7 +98,7 @@
                                 <th scope="row" class="th_bg">신고사업장</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -109,7 +109,7 @@
                                 <th scope="row" class="th_bg">종사업장</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" >
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -120,15 +120,15 @@
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">배치번호</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">결의부서</th>
                                 <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                    <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                    <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                     <sbux-button
@@ -143,11 +143,11 @@
                             <tr>
                                 <th scope="row" class="th_bg">전표유형</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
+                                    <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-select>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -158,36 +158,36 @@
                                 <td colspan="3"></td>
                                 <th scope="row" class="th_bg">전표번호</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">전표ID</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">실사용자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" disabled>
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
-                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
                                 <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeCsCode(this)" group-id="panWFTop" required></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                    <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                    <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="CS">
                                     <sbux-button
@@ -200,10 +200,10 @@
                                 <td></td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                 <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop" required></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                    <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                     <sbux-button
@@ -216,10 +216,10 @@
                                 <td></td>
                                 <th scope="row" class="th_bg">증빙번호</th>
                                 <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
-                                    <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
+                                    <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
-                                    <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
                                     <sbux-button
@@ -238,10 +238,11 @@
                                             id="DOC_DATE"
                                             name="DOC_DATE"
                                             date-format="yyyy-mm-dd"
-                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                             style="width:100%;"
                                             onchange="fn_changeDocDate(DOC_DATE)"
                                             group-id="panWFTop"
+                                            required
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">신고일자</th>
@@ -251,19 +252,20 @@
                                             id="STANDARD_DATE"
                                             name="STANDARD_DATE"
                                             date-format="yyyy-mm-dd"
-                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                             style="width:100%;"
                                             onchange="fn_changeStandardDate(STANDARD_DATE)"
                                             group-id="panWFTop"
+                                            required
                                     />
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -274,7 +276,7 @@
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">매입송장번호</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
@@ -285,15 +287,16 @@
                                             id="VOUCHER_RECEIPT_DATE"
                                             name="VOUCHER_RECEIPT_DATE"
                                             date-format="yyyy-mm-dd"
-                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                             style="width:100%;"
                                             group-id="panWFTop"
+                                            required
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">통화</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -302,7 +305,7 @@
                                     </div>
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_exchageUpdate" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_exchageUpdate" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
                                 <td class="td_input" style="border-right:hidden;">
@@ -313,12 +316,11 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
-                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop" readonly></sbux-input>
-                                    <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden" onchange="fn_changeBasisType(BASIS_TYPE)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" readonly></sbux-input>
+                                    <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden" onchange="fn_changeBasisType(BASIS_TYPE)"></sbux-input>
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">현업결재일</th>
@@ -330,23 +332,22 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
-                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">총지급액</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">세금코드</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -362,10 +363,11 @@
                                             id="EXPECTED_PAY_DATE"
                                             name="EXPECTED_PAY_DATE"
                                             date-format="yyyy-mm-dd"
-                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                             style="width:100%;"
                                             onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
                                             group-id="panWFTop"
+                                            required
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">어음만기일자</th>
@@ -377,7 +379,6 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
-                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">회계승인일</th>
@@ -389,28 +390,27 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
-                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">부가세</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">공급가액</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">계좌정보</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -419,10 +419,10 @@
                                     </div>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
+                                    <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">승인취소일</th>
                                 <td class="td_input" style="border-right:hidden;">
@@ -433,59 +433,58 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
-                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">제목</th>
                                 <td colspan="5" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeDescription(DESCRIPTION)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeDescription(DESCRIPTION)" required></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">계좌비고</th>
                                 <td colspan="4" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">역분개전표</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
-                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" onchange="fn_changeWriteDate(WRITE_DATE)" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
-                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" onchange="fn_changeWriteDate(WRITE_DATE)"></sbux-input>
+                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             </tr>
                             </tbody>
                         </table>
@@ -3144,20 +3143,26 @@
                     if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "D") {
                         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN" + i)) == "Y") {
                             SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "true");
+                            $("#ACC_ITEM_VALUE" + i).addClass("inpt_data_reqed");
                             if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE" + i)) == "POPUP") {
                                 SBUxMethod.attr("ACC_VALUE_NAME" + i, "required", "true");
+                                $("#ACC_VALUE_NAME" + i).addClass("inpt_data_reqed");
                             }
                         } else {
                             SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "false");
+                            $("#ACC_ITEM_VALUE" + i).removeClass("inpt_data_reqed");
                         }
                     } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "C") {
                         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN" + i)) == "Y") {
                             SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "true");
+                            $("#ACC_ITEM_VALUE" + i).addClass("inpt_data_reqed");
                             if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE" + i)) == "POPUP") {
                                 SBUxMethod.attr("ACC_VALUE_NAME" + i, "required", "true");
+                                $("#ACC_VALUE_NAME" + i).addClass("inpt_data_reqed");
                             }
                         } else {
                             SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "false");
+                            $("#ACC_ITEM_VALUE" + i).removeClass("inpt_data_reqed");
                         }
                     }
                 }
@@ -3474,15 +3479,20 @@
             // 필수입력 설정
             if (dr["ACC_ITEM_YN" + i] == "Y") {
                 SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "true");
+                $("#ACC_ITEM_VALUE" + i).addClass("inpt_data_reqed");
 
                 if (dr["DATA_TYPE" + i] == "POPUP") {
                     SBUxMethod.attr("ACC_VALUE_NAME" + i, "required", "true");
+                    $("#ACC_VALUE_NAME" + i).addClass("inpt_data_reqed");
                 } else {
                     SBUxMethod.attr("ACC_VALUE_NAME" + i, "required", "false");
+                    $("#ACC_VALUE_NAME" + i).removeClass("inpt_data_reqed");
                 }
             } else {
                 SBUxMethod.attr("ACC_ITEM_VALUE" + i, "required", "false");
                 SBUxMethod.attr("ACC_VALUE_NAME" + i, "required", "false");
+                $("#ACC_ITEM_VALUE" + i).removeClass("inpt_data_reqed");
+                $("#ACC_VALUE_NAME" + i).removeClass("inpt_data_reqed");
             }
         }
     }
@@ -3768,6 +3778,7 @@
                 $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
+                $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
                 $("#btnScmInfo").attr('disabled', 'false');
@@ -3798,6 +3809,7 @@
                 SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "false");
+                $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             } else if (strsourceType == "BAD") {
                 strFileSourceType = "BADSALESDOC";
@@ -3819,6 +3831,7 @@
                 SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
+                $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             }
         } else {
@@ -3949,6 +3962,7 @@
             $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
+            $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
@@ -3966,6 +3980,7 @@
             $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
 
             $("#SUB_TAX_SITE_CODE").attr("required", "false");
+            $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         } else if (strsourceType == "BAD") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -3979,6 +3994,7 @@
             SBUxMethod.set("DOC_TYPE", "91");
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
+            $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
@@ -4926,7 +4942,7 @@
         if (!SBUxMethod.validateRequired( {group_id: 'panWFBottom'} ))
             return;
 
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ))
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop"))
             return;
 
         if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
@@ -4969,7 +4985,7 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired() && !validateRequired()) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop")) {
             return false;
         }
 
@@ -5847,7 +5863,7 @@
     }
 
     const fn_createLine = async function () {
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ))
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop"))
             return;
 
         if (gfn_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN")) != "Y" && gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "AG") {

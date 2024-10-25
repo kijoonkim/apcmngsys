@@ -61,7 +61,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
@@ -78,7 +78,7 @@
 										id="SRCH_BASE_DATE"
 										name="SRCH_BASE_DATE"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
 										style="width:100%;"
                                         group-id="panHeader"
                                         required
@@ -162,10 +162,10 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th scope="row" class="th_bg">사업단위</th>
+                                            <th scope="row" class="th_bg"> </th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panList" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -198,7 +198,7 @@
                                             <th scope="row" class="th_bg">예적금유형</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panList" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -224,10 +224,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">금융기관</th>
                                             <td class="td_input" data-group="BANK_CS">
-                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" readonly group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="BANK_CS">
-                                                <sbux-input id="BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="BANK_CS_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK_CS">
                                                 <sbux-button
@@ -241,10 +241,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
                                             <td class="td_input" data-group="BANK">
-                                                <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="BANK_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="BANK">
-                                                <sbux-input id="BANK_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="BANK_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-button
@@ -281,7 +281,7 @@
                                             <th scope="row" class="th_bg">통화</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panList" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -291,29 +291,29 @@
                                             </td>
                                             <th scope="row" class="th_bg">환율</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-input id="EXCHANGE_RATE" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeExchangeRate(EXCHANGE_RATE)" required></sbux-input>
+                                                <sbux-input id="EXCHANGE_RATE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeExchangeRate(EXCHANGE_RATE)" group-id="panList" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금액(원래)</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeDepositAmt(DEPOSIT_AMT)" required></sbux-input>
+                                                <sbux-input id="DEPOSIT_AMT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeDepositAmt(DEPOSIT_AMT)" group-id="panList" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">예적금액(환산)</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-input id="DEPOSIT_AMT_KRW" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" required></sbux-input>
+                                                <sbux-input id="DEPOSIT_AMT_KRW" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panList" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">입금계좌</th>
                                             <td class="td_input" data-group="IN_DEPOSIT">
-                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="IN_DEPOSIT">
-                                                <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="IN_DEPOSIT">
                                                 <sbux-button
@@ -330,10 +330,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">출금계좌</th>
                                             <td class="td_input" data-group="OUT_DEPOSIT">
-                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="OUT_DEPOSIT">
-                                                <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panList" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="OUT_DEPOSIT">
                                                 <sbux-button
@@ -355,9 +355,10 @@
                                                         id="DEPOSIT_DATE"
                                                         name="DEPOSIT_DATE"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
                                                         style="width:100%;"
                                                         onchange="fn_changeDepositDate(DEPOSIT_DATE)"
+                                                        group-id="panList"
                                                         required
                                                 />
                                             </td>
@@ -368,23 +369,24 @@
                                                         id="DUE_DATE"
                                                         name="DUE_DATE"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
                                                         style="width:100%;"
                                                         onchange="fn_changeDueDate(DUE_DATE)"
+                                                        group-id="panList"
                                                         required
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">총가입일수(일)</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_DAY" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="DEPOSIT_DAY" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panList" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금상태</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panList" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -436,10 +438,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">예적금계정</th>
                                             <td class="td_input" data-group="DEPOSIT_ACCOUNT">
-                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="DEPOSIT_ACCOUNT">
-                                                <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_ACCOUNT">
                                                 <sbux-button
@@ -453,10 +455,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선수수익계정</th>
                                             <td class="td_input" data-group="ADVANCE_INCOME_ACCOUNT">
-                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="ADVANCE_INCOME_ACCOUNT">
-                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="ADVANCE_INCOME_ACCOUNT">
                                                 <sbux-button
@@ -470,10 +472,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">미수수익계정</th>
                                             <td class="td_input" data-group="ACCRUED_INCOME_ACCOUNT">
-                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="ACCRUED_INCOME_ACCOUNT">
-                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="ACCRUED_INCOME_ACCOUNT">
                                                 <sbux-button
@@ -487,10 +489,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선급법인세계정</th>
                                             <td class="td_input" data-group="CTAX_WITHHOLD_ACCOUNT">
-                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="CTAX_WITHHOLD_ACCOUNT">
-                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="CTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
@@ -504,10 +506,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선급지방소득세계정</th>
                                             <td class="td_input" data-group="PTAX_WITHHOLD_ACCOUNT">
-                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="PTAX_WITHHOLD_ACCOUNT">
-                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAccount" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="PTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
@@ -576,10 +578,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">불입계좌</th>
                                             <td class="td_input" data-group="PAY_DEPOSIT">
-                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="PAY_DEPOSIT">
-                                                <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="PAY_DEPOSIT">
                                                 <sbux-button
@@ -597,7 +599,7 @@
                                             <th scope="row" class="th_bg">불입조건</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -607,8 +609,8 @@
                                             </td>
                                             <th scope="row" class="th_bg">불입주기(개월)</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-input id="IN_CYCLE_MM" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="IN_CYCLE_MM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panInfo" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
@@ -619,30 +621,31 @@
                                                         id="IN_START_DATE"
                                                         name="IN_START_DATE"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
                                                         style="width:100%;"
                                                         onchange="fn_changeInStartDate(IN_START_DATE)"
+                                                        group-id="panInfo"
                                                         required
                                                 />
                                             </td>
                                             </td>
                                             <th scope="row" class="th_bg">최초불입액</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-input id="IN_FIRST_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="IN_FIRST_AMT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panInfo" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
 
                                             <th scope="row" class="th_bg">1회불입액</th>
                                             <td class="td_input">
-                                                <sbux-input id="IN_PER_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="IN_PER_AMT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panInfo" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">불입일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -655,7 +658,7 @@
                                             <th scope="row" class="th_bg">불입기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -666,7 +669,7 @@
                                             <th scope="row" class="th_bg">단복리 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -679,7 +682,7 @@
                                             <th scope="row" class="th_bg">이자율구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -689,15 +692,15 @@
                                             </td>
                                             <th scope="row" class="th_bg">약정이율</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-input id="INTEREST_RATE" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="INTEREST_RATE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panInfo" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">이자수취기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -708,7 +711,7 @@
                                             <th scope="row" class="th_bg">이자일수계산기준</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -720,13 +723,13 @@
                                         <tr>
                                             <th scope="row" class="th_bg">이자발생주기(개월)</th>
                                             <td class="td_input">
-                                                <sbux-input id="INTEREST_IN_CYCLE_MM" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
+                                                <sbux-input id="INTEREST_IN_CYCLE_MM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" group-id="panInfo" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">년간이자일수</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -743,16 +746,17 @@
                                                         id="INTEREST_IN_START_DATE"
                                                         name="INTEREST_IN_START_DATE"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
                                                         style="width:100%;"
                                                         onchange="fn_changeInterestInStartDate(INTEREST_IN_START_DATE)"
+                                                        group-id="panInfo"
                                                         required
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">이자발생일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -864,10 +868,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익계정</th>
                                             <td class="td_input" data-group="INTEREST_INCOME_ACCOUNT">
-                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="INTEREST_INCOME_ACCOUNT">
-                                                <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="INTEREST_INCOME_ACCOUNT">
                                                 <sbux-button
@@ -881,10 +885,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차익계정</th>
                                             <td class="td_input" data-group="EXCHANGE_GAIN_ACC">
-                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="EXCHANGE_GAIN_ACC">
-                                                <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_GAIN_ACC">
                                                 <sbux-button
@@ -898,10 +902,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차손계정</th>
                                             <td class="td_input" data-group="EXCHANGE_LOSS_ACC">
-                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="EXCHANGE_LOSS_ACC">
-                                                <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_LOSS_ACC">
                                                 <sbux-button
@@ -915,10 +919,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환평가이익계정</th>
                                             <td class="td_input" data-group="VAL_GAIN_ACC">
-                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="VAL_GAIN_ACC">
-                                                <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="VAL_GAIN_ACC">
                                                 <sbux-button
@@ -932,10 +936,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환평가손실계정</th>
                                             <td class="td_input" data-group="VAL_LOSS_ACC">
-                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="VAL_LOSS_ACC">
-                                                <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panPL" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="VAL_LOSS_ACC">
                                                 <sbux-button
@@ -1128,10 +1132,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">부서</th>
                                             <td class="td_input" data-group="DEPT">
-                                                <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
+                                                <sbux-input id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panDept" required></sbux-input>
                                             </td>
                                             <td class="td_input" data-group="DEPT">
-                                                <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                                                <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panDept" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                                 <sbux-button
@@ -2158,7 +2162,7 @@
 
     const fnQRY_P_TRD2010_Q = async function (strWorkType) {
         if (strWorkType == "LIST") {
-            if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired('panHeader')) {
                 return false;
             }
         }
@@ -2376,14 +2380,14 @@
     }
 
     const fnSET_P_TRD2010_S = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
-            return false;
-        }
-
-        if (!SBUxMethod.validateRequired({group_id:'tabBase'}) || !SBUxMethod.validateRequired({group_id:'tabInfo'})
-            || !SBUxMethod.validateRequired({group_id:'tabAccount'}) || !SBUxMethod.validateRequired({group_id:'tabPL'})
-            || !SBUxMethod.validateRequired({group_id:'tabTreasury'}) || !SBUxMethod.validateRequired({group_id:'tabTreasuryF'})
-            || !SBUxMethod.validateRequired({group_id:'tabDept'}))
+        if (!SBUxMethod.validateRequired({group_id:'panList'}) || !SBUxMethod.validateRequired({group_id:'panInfo'})
+            || !SBUxMethod.validateRequired({group_id:'panAccount'}) || !SBUxMethod.validateRequired({group_id:'panPL'})
+            || !SBUxMethod.validateRequired({group_id:'panTR'}) || !SBUxMethod.validateRequired({group_id:'panTRF'})
+            || !SBUxMethod.validateRequired({group_id:'panDept'})
+            || !validateRequired('panList') || !validateRequired('panInfo')
+            || !validateRequired('panAccount') || !validateRequired('panPL')
+            || !validateRequired('panTR') || !validateRequired('panTRF')
+            || !validateRequired('panDept'))
             return false;
 
         // 비즈니스 로직 정보
