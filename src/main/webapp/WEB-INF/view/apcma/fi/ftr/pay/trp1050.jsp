@@ -75,7 +75,7 @@
                     <th scope="row" class="th_bg">회계단위</th>
                     <td colspan="3" class="td_input">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -140,8 +140,10 @@
                                 id="SRCH_FROM_DATE"
                                 name="SRCH_FROM_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td>
@@ -1361,7 +1363,7 @@
 
     const fn_search = async function () {
         if (strWorkType == "Q") {
-            if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired("panHeader")) {
                 return false;
             }
         }

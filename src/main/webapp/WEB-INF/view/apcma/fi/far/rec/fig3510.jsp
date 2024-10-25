@@ -4985,7 +4985,7 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired() && !validateRequired()) {
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) && !validateRequired("panWFTop")) {
             return false;
         }
 

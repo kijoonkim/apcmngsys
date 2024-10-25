@@ -83,7 +83,7 @@
                     <th scope="row" class="th_bg">예적금</th>
                     <td class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -104,7 +104,7 @@
                     <th scope="row" class="th_bg">FBS서비스</th>
                     <td class="td_input">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -122,17 +122,19 @@
                                 name="SRCH_PAY_YYYYMM"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">급여구분</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAY_TYPE" uitype="single" jsondata-ref="jsonPayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_PAY_TYPE" uitype="single" jsondata-ref="jsonPayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">귀속일자</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAY_DATE" uitype="single" jsondata-ref="jsonPayDate" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_PAY_DATE" uitype="single" jsondata-ref="jsonPayDate" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">실지급일자</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -141,8 +143,10 @@
                                 id="SRCH_ACTUAL_PAY_DATE"
                                 name="SRCH_ACTUAL_PAY_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                         <sbux-input id="SRCH_PASSWORD" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                         <sbux-input id="SRCH_APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
@@ -645,9 +649,9 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_S = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
              return false;
-         }
+        }
 
         let gvwListCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHECK_YN"), true);
         let arr_txn_id = "";
@@ -776,9 +780,9 @@
     }
 
     const fnQRY_P_FBSPAYROLLBATCH_Q = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
-             return false;
-         }
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+            return false;
+        }
 
         let arr_txn_id = "";
         let arr_emp_code = "";
@@ -855,9 +859,9 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
-             return false;
-         }
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) && !validateRequired('panHeader')) {
+            return false;
+        }
 
         // 비즈니스 로직 정보
         let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
