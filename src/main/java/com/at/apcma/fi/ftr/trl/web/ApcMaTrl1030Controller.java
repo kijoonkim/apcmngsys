@@ -20,14 +20,14 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
 
 /**
- * 차입금원장등록 처리하는 컨트롤러 클래스
+ * 차입금상환스케줄 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.10.17
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 차입금원장등록(Modification Information) >>
+ * << 차입금상환스케줄(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -36,7 +36,7 @@ import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
  *  </pre>
  */
 @Controller
-public class ApcMaTrl1010Controller extends BaseController {
+public class ApcMaTrl1030Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
@@ -44,20 +44,20 @@ public class ApcMaTrl1010Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
-	// 차입금원장등록 조회
-	@PostMapping(value = "/fi/ffa/alm/selectTrl1010List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectTrl1010List(
+	// 차입금상환스케줄 조회
+	@PostMapping(value = "/fi/ffa/alm/selectTrl1030List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTrl1030List(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectTrl1010List=====start========");
+		logger.info("=============selectTrl1030List=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			param.put("procedure", 		"P_TRL1010_Q");
+			param.put("procedure", 		"P_TRL1030_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectTrl1010List=====end========");
+		logger.info("=============selectTrl1030List=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
