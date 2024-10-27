@@ -91,7 +91,7 @@ public class ApcMaHri1750Controller extends BaseController {
         }
     }
     
-    //리포트 출력 데이터
+    //재직증명서, 경력증명서, 퇴직증명서 리포트 출력 데이터
 	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList(
           @RequestBody Map<String, Object> param
@@ -122,20 +122,20 @@ public class ApcMaHri1750Controller extends BaseController {
       logger.info("=============selectHri1750ReportList=====end========");
       return getSuccessResponseEntity(resultMap);
 	}
-	//  리포트 출력 데이터
-	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportList2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportList2(
+	//  근로소득 원천징수 영수증 리포트 출력 리스트
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportListIncomeC.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportListIncomeC(
 	  		@RequestBody Map<String, Object> param
 	  		, Model model
 	  		, HttpSession session
 	  		, HttpServletRequest request) throws Exception{
 	  	
-  	logger.info("=============selectHri1750ReportList2=====start========");
+  	logger.info("=============selectHri1750ReportListIncomeC=====start========");
 	HashMap<String,Object> resultMap = new HashMap<String,Object>();
 	
 	try {
 		
-		param.put("procedure", 		"P_HRA1800_Q");
+		param.put("procedure", 		"P_HRA1600_2023_Q");
 		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		
 		//self url 편집
@@ -148,8 +148,38 @@ public class ApcMaHri1750Controller extends BaseController {
 		return getErrorResponseEntity(e);
 	}
 	
-	logger.info("=============selectHri1750ReportList2=====end========");
+	logger.info("=============selectHri1750ReportListIncomeC=====end========");
 	  	return getSuccessResponseEntity(resultMap);
+	}
+	
+	//  근로소득 원천징수 영수증 리포트 출력 리스트
+	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportListIncomeD.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHri1750ReportListIncomeD(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+		
+		logger.info("=============selectHri1750ReportListIncomeD=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_HRA5200_2022_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+			//self url 편집
+			String f_path1 = request.getRequestURL().toString();
+			String f_path2 = request.getRequestURI().toString();
+			String f_path3 = f_path1.replaceAll(f_path2, "");
+			resultMap.put("SEVER_ROOT_PATH", f_path3);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============selectHri1750ReportListIncomeD=====end========");
+		return getSuccessResponseEntity(resultMap);
 	}
     
     
