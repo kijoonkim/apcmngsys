@@ -79,6 +79,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -92,6 +94,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">증명서유형</th>
@@ -163,7 +167,8 @@
                             <col style="width: 9%">
                             <col style="width: 9%">
                             <col style="width: 9%">
-                            <col style="width: 9%">
+                            <col style="width: 1%">
+                            <col style="width: 8%">
                             <col style="width: 9%">
                             <col style="width: 9%">
                             <col style="width: 9%">
@@ -182,6 +187,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                         required
                                 />
                             </td>
@@ -189,7 +195,7 @@
                             <td class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                             </td>
-                            <td class="td_input" data-group="EMP">
+                            <td colspan="2" class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
                             <td class="td_input" style="border-right:hidden;" data-group="EMP">
@@ -230,19 +236,19 @@
                         <tr>
                             <th scope="row" class="th_bg">증명서유형</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" required></sbux-select>
+                                <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" group-id="panBottom" required></sbux-select>
                             </td>
                             <th scope="row" class="th_bg">제출처</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">사용용도</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                                <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                             <th id="certiMemoTh" scope="row" class="th_bg">담당업무</th>
                             <td id="certiMemoTd" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                                <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                         </tr>
                         <tr id="incomeTr">
@@ -256,6 +262,7 @@
                                         datepicker-mode="year"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                             <th scope="row" class="th_bg">기간</th>
@@ -267,6 +274,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                             <td class="td_input" style="border-right:hidden;">
@@ -280,6 +288,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                         </tr>
@@ -452,6 +461,10 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "true");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "true");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "true");
+            $("#INCOME_YEAR").addClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").addClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").addClass("inpt_data_reqed");
+
         } else if (reportType == "R_CAREER" || reportType == "R_RETIRE" ) {
             $("#incomeTr").hide();
             $("#certiMemoTh").show();
@@ -461,6 +474,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         } else if (reportType == "R_WORK") {
             $("#incomeTr").hide();
             $("#certiMemoTh").show();
@@ -470,6 +486,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         } else {
             $("#incomeTr").hide();
             $("#certiMemoTh").hide();
@@ -478,6 +497,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         }
     }
 
@@ -653,6 +675,10 @@
      * 목록 조회
      */
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         let REQUEST_DATE_FR	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
         let REQUEST_DATE_TO	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
         let REPORT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
@@ -791,6 +817,10 @@
 
     // 저장
     const fn_save = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panBottom'})) {
+            return false;
+        }
+
         var nRow = bandgvwInfo.getRow();
         let rowData = bandgvwInfo.getRowData(nRow);
 
