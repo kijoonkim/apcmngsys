@@ -492,11 +492,11 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
@@ -517,8 +517,8 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
@@ -539,8 +539,8 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["항목코드"], ref: 'ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항목명"], ref: 'ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["항목코드"], ref: 'ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["항목명"], ref: 'ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
@@ -714,8 +714,6 @@
                 , V_P_PC: ''
             };
 
-            console.log('-----paramObj----', paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrb5300List.do", {
                 getType: 'json',
                 workType: 'DETAIL',
@@ -725,8 +723,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('-----data----', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1064,31 +1060,31 @@
 
         salary.forEach((item, index) => {
 
-            let PAY_ITEM_CODE = '/<' + item.PAY_ITEM_CODE + '>/g';
-            let PAY_ITEM_NAME = '/<' + item.PAY_ITEM_NAME + '>/g';
+            let PAY_ITEM_CODE = '<' + item.PAY_ITEM_CODE + '>';
+            let PAY_ITEM_NAME = '<' + item.PAY_ITEM_NAME + '>';
 
-            PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            PAY_FORMULA = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
-            QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            QTY_FORMULA = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
         });
 
         work.forEach((item, index) => {
 
-            let PAY_ITEM_CODE = '/<' + item.PAY_ITEM_CODE + '>/g';
-            let PAY_ITEM_NAME = '/<' + item.PAY_ITEM_NAME + '>/g';
+            let PAY_ITEM_CODE = '<' + item.PAY_ITEM_CODE + '>';
+            let PAY_ITEM_NAME = '<' + item.PAY_ITEM_NAME + '>';
 
-            PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            PAY_FORMULA = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
-            QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            QTY_FORMULA = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
         });
 
