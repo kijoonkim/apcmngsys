@@ -242,7 +242,7 @@
 						</c:if>
 					</div>
 				</div>
-				<div style="">
+				<div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -1153,10 +1153,10 @@
 		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
 			};
 		SBGridProperties.columns = [
 			//{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
@@ -2208,8 +2208,6 @@
 			, yr		: gfn_nvl(yr)
 		});
 	}
-
-
 
 	/* 품목리스트 조회 기능*/
 	const fn_selectGpcList = async function(){

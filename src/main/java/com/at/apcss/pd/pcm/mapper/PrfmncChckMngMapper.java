@@ -38,10 +38,18 @@ public interface PrfmncChckMngMapper {
 	public List<PrfmncChckMngVO> selectUoAprvList(PrfmncChckMngVO PrfmncChckMngVO);
 
 	/**
-	 * 승인형 조직 총취급액 실적 리스트를 조회 한다.
+	 * 승인형 조직 총취급 실적 리스트를 조회 한다.
 	 * @param PrfmncChckMngVO
 	 * @return List<PrfmncChckMngVO>
 	 */
 	public List<PrfmncChckMngVO> selectPrfmncChckMngList(PrfmncChckMngVO PrfmncChckMngVO);
+
+	/**
+	 * 승인형 조직 총취급 실적을 저장 한다.
+	 * @param PrfmncChckMngVO
+	 * @return int
+	 */
+	public int insertPrfmncChckMng(PrfmncChckMngVO PrfmncChckMngVO);
+
 
 }

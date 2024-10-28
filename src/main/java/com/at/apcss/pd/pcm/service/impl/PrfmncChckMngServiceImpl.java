@@ -52,4 +52,19 @@ public class PrfmncChckMngServiceImpl extends BaseServiceImpl implements PrfmncC
 		return resultList;
 	}
 
+	@Override
+	public int insertPrfmncChckMng(PrfmncChckMngVO PrfmncChckMngVO) throws Exception {
+		int insertedCnt = PrfmncChckMngMapper.insertPrfmncChckMng(PrfmncChckMngVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public int multiSavePrfmncChckMngList(List<PrfmncChckMngVO> PrfmncChckMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrfmncChckMngVO prfmncChckMngVO : PrfmncChckMngVOList) {
+			savedCnt += insertPrfmncChckMng(prfmncChckMngVO);
+		}
+		return savedCnt;
+	}
+
 }

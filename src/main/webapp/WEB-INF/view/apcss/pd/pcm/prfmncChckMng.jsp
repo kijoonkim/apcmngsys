@@ -266,7 +266,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		SBGridProperties.explorerbar = 'sort';//정렬
+		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheight = 72;
 		SBGridProperties.rowheader="seq";
@@ -300,11 +300,15 @@
 			{caption: ["통합조직 총취급액(판매액)","12월"], 		ref: 'prfmncAmt12',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","23년말 실적"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'100px',	style:'text-align:center; background-color: lightgray;'},
-			{caption: ["통합조직 총취급액(판매액)","24년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'output',  width:'100px',	style:'text-align:center'
+			{caption: ["통합조직 총취급액(판매액)","소계"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+				, calc : 'fn_prfmncAmtSum',	format : { type:'number' , rule:'#,###' }},
+
+			{caption: ["통합조직 총취급액(판매액)","23년말 실적"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+				,format : { type:'number' , rule:'#,###' }},
+			{caption: ["통합조직 총취급액(판매액)","24년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
-			{caption: ["통합조직 총취급액(판매액)","연말전망치 기준\n증감률(%)"], 		ref: 'prfmncAmtRt',	type:'output',  width:'100px',	style:'text-align:center; background-color: lightgray;'
-				,format: {type: 'string', rule: '@" %"'}},
+			{caption: ["통합조직 총취급액(판매액)","연말전망치 기준\n증감률(%)"], 	ref: 'prfmncAmtRt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+				, calc : 'fn_prfmncAmtRt',	format: {type: 'string', rule: '@" %"'}},
 
 			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',		hidden : true},
@@ -312,6 +316,54 @@
 			{caption: ["상세내역"], 	ref: 'itemCd',		hidden : true},
 		];
 		grdPrfmncChckMng = _SBGrid.create(SBGridProperties);
+
+		grdPrfmncChckMng.bind('valuechanged','fn_valuechanged');
+	}
+
+	//해당 컬럼 변경시 리프래시 리스트
+	const columnsToRefresh = [
+		'prfmncAmt1','prfmncAmt2','prfmncAmt3'
+		,'prfmncAmt4','prfmncAmt5','prfmncAmt6'
+		,'prfmncAmt7','prfmncAmt8','prfmncAmt9'
+		,'prfmncAmt10','prfmncAmt11','prfmncAmt12'
+		,'expctPrfmncAmt'
+	];
+
+	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
+	function fn_valuechanged(){
+		let nCol = grdPrfmncChckMng.getCol();
+		let nRef = grdPrfmncChckMng.getRefOfCol(nCol);
+		if(columnsToRefresh.includes(nRef)){
+			grdPrfmncChckMng.refresh();
+		}
+	}
+
+	//소계
+	function fn_prfmncAmtRt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.prfmncAmt1) + Number(rowData.prfmncAmt2) + Number(rowData.prfmncAmt3)
+				+ Number(rowData.prfmncAmt4) + Number(rowData.prfmncAmt5) + Number(rowData.prfmncAmt6)
+				+ Number(rowData.prfmncAmt7) + Number(rowData.prfmncAmt8) + Number(rowData.prfmncAmt9)
+				+ Number(rowData.prfmncAmt10) + Number(rowData.prfmncAmt11) + Number(rowData.prfmncAmt12);
+		let resultVal = 0;
+		let prevYrPrfmncAmt = Number(rowData.prevYrPrfmncAmt);
+		//증감률 공식 올해 매출 - 전년도 매출 / 전년도 매출
+		if(!gfn_isEmpty(rowData.prevYrPrfmncAmt)){
+			resultVal = ( sumVal - prevYrPrfmncAmt ) / prevYrPrfmncAmt * 100 ;
+		}
+		return resultVal.toFixed(2);
+	}
+
+	//소계
+	function fn_prfmncAmtSum(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.prfmncAmt1) + Number(rowData.prfmncAmt2) + Number(rowData.prfmncAmt3)
+				+ Number(rowData.prfmncAmt4) + Number(rowData.prfmncAmt5) + Number(rowData.prfmncAmt6)
+				+ Number(rowData.prfmncAmt7) + Number(rowData.prfmncAmt8) + Number(rowData.prfmncAmt9)
+				+ Number(rowData.prfmncAmt10) + Number(rowData.prfmncAmt11) + Number(rowData.prfmncAmt12);
+		return sumVal;
 	}
 
 	/* 승인형 조직 조회*/
@@ -476,6 +528,70 @@
 
 		jsonPrfmncChckMng.length=0;
 		grdPrfmncChckMng.rebuild();
+	}
+
+	/**
+	 * 저장 버튼
+	 */
+	const fn_save = async function() {
+
+		//통합조직 정보가 있어야만 가능함
+		let brno = SBUxMethod.get("dtl-input-brno");
+		if(gfn_isEmpty(brno)) return;
+
+		//필수값 체크
+		if(fn_checkRequiredInput()){
+			return;
+		}
+
+		// 변경 저장
+		fn_subUpdate(confirm("저장 하시겠습니까?"));
+	}
+
+	//필수값 확인
+	function fn_checkRequiredInput(){
+		//그리드 필수갑 확인
+		//let gridData = grdGpcList.getGridDataAll();
+
+		return false;
+	}
+
+	//실적 저장
+	const fn_subUpdate = async function(isConfirmed){
+		if (!isConfirmed) return;
+
+		let gridData01 = grdPrfmncChckMng.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=2; i<=gridData01.length + 1; i++ ){
+			let rowData01 = grdPrfmncChckMng.getRowData(i);
+			let rowSts01 = grdPrfmncChckMng.getRowStatus(i);
+
+			rowData01.rowSts = "I";
+			saveList.push(rowData01);
+		}
+
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcm/multiSavePrfmncChckMngList.do", saveList);
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				fn_dtlSearch();//상세조회
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 </script>
