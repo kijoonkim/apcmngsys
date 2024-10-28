@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 세무 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
- * @since 		2024.08.05
+ * @since 		2024.10.07
  * @version 	1.0
  * @see
  *
@@ -27,31 +27,30 @@ import java.util.Map;
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
- * @ 2024.09.04   	천용진		최초 생성
+ * @ 2024.10.07   	천용진		최초 생성
  *
  *  </pre>
  */
 @Controller
-public class ApcMaFit2110Controller extends BaseController {
+public class ApcMaFit2430Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
-
-    @PostMapping(value = "/fi/tax/vat/selectFit2110.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFit2110(
+    @PostMapping(value = "/fi/tax/vat/selectFit2430.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFit2430(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectFit2110=====start========");
+        logger.info("=============selectFit2430=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
 
-            param.put("procedure", 		"P_FIT2110_Q");
+            param.put("procedure", 		"P_FIT2430_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -59,7 +58,7 @@ public class ApcMaFit2110Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectFit2110=====end========");
+        logger.info("=============selectFit2430=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
 }

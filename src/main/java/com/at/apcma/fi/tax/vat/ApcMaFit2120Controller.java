@@ -32,26 +32,26 @@ import java.util.Map;
  *  </pre>
  */
 @Controller
-public class ApcMaFit2110Controller extends BaseController {
+public class ApcMaFit2120Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
 
-    @PostMapping(value = "/fi/tax/vat/selectFit2110.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFit2110(
+    @PostMapping(value = "/fi/tax/vat/selectFit2120.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFit2120(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectFit2110=====start========");
+        logger.info("=============selectFit2120=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
 
-            param.put("procedure", 		"P_FIT2110_Q");
+            param.put("procedure", 		"P_FIT2120_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class ApcMaFit2110Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectFit2110=====end========");
+        logger.info("=============selectFit2120=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
 }
