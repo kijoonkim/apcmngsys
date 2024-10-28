@@ -2739,7 +2739,7 @@
             , V_P_BONUS_PAY_YN              : BONUS_PAY_YN == '' ? 'N' : BONUS_PAY_YN
             , V_P_RETIRE_PAY_YN             : RETIRE_PAY_YN == '' ? 'N' : RETIRE_PAY_YN
             , V_P_SUPPORTEE_QTY             : SUPPORTEE_QTY
-            , V_P_CHILDREN_QTY              : CHILDREN_QTY
+            , V_P_CHILDREN_QTY              : CHILDREN_QTY == '' ? 0 : CHILDREN_QTY
             , V_P_LUNCH_PAY_YN              : LUNCH_PAY_YN == '' ? 'N' : LUNCH_PAY_YN
             , V_P_MUTUAL_AID_MEMBER_YN      : MUTUAL_AID_MEMBER_YN == '' ? 'N' : MUTUAL_AID_MEMBER_YN
             , V_P_MONTHLY_DONATION_YN       : MONTHLY_DONATION_YN == '' ? 'N' : MONTHLY_DONATION_YN
@@ -2750,14 +2750,14 @@
             , V_P_PENSION_JOIN_DATE         : PENSION_JOIN_DATE
             , V_P_PENSION_CLOSE_DATE        : PENSION_CLOSE_DATE
             , V_P_PENSION_NO                : PENSION_NO
-            , V_P_PENSION_BASE_AMT          : PENSION_BASE_AMT
+            , V_P_PENSION_BASE_AMT          : PENSION_BASE_AMT == '' ? 0 :  PENSION_BASE_AMT
             , V_P_HEALTH_INSURE_YN          : HEALTH_INSURE_YN == '' ? 'N' : HEALTH_INSURE_YN
             , V_P_HEALTH_INSURE_JOIN_DATE   : HEALTH_INSURE_JOIN_DATE
             , V_P_HEALTH_INSURE_CLOSE_DATE  : HEALTH_INSURE_CLOSE_DATE
             , V_P_HEALTH_INSURE_NO          : HEALTH_INSURE_NO
-            , V_P_HEALTH_INSURE_BASE_AMT    : HEALTH_INSURE_BASE_AMT
+            , V_P_HEALTH_INSURE_BASE_AMT    : HEALTH_INSURE_BASE_AMT == '' ? 0 :  HEALTH_INSURE_BASE_AMT
             , V_P_EMPLOY_INSURE_YN          : EMPLOY_INSURE_YN == '' ? 'N' : EMPLOY_INSURE_YN
-            , V_P_EMPLOY_INSURE_BASE_AMT    : EMPLOY_INSURE_BASE_AMT
+            , V_P_EMPLOY_INSURE_BASE_AMT    : EMPLOY_INSURE_BASE_AMT  == '' ? 0 :  EMPLOY_INSURE_BASE_AMT
             , V_P_MAIN_ACC_TYPE             : MAIN_ACC_TYPE
             , V_P_BANK_CODE                 : BANK_CODE
             , V_P_BANK_ACCOUNT              : strBank_account

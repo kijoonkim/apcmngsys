@@ -461,7 +461,7 @@
             }},
             {caption: ["최소한도값"], ref: 'APPLY_MIN_AMT', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["비    고"], ref: 'DESCR', type: 'input', width: '150px', style: 'text-align:left'},
-            {caption: ["급여산식"], ref: 'PAY_FORMULA', type: 'output', width: '250px', style: 'text-align:left'},
+            {caption: ["급여산식"], ref: 'PAY_FORMULA', type: 'output', width: '250px', style: 'text-align:left', hidden: true},
             {caption: ["급여산식"], ref: 'PAY_FORMULA_TMP', type: 'output', width: '250px', style: 'text-align:left'},
             {caption: ["급여산식설명"], ref: 'PAY_FORMULA_DESC', type: 'output', width: '250px', style: 'text-align:left'},
             {caption: ["변환여부"], ref: 'PARSING_YN', type: 'checkbox', width: '70px', style: 'text-align:center', hidden: true,
@@ -668,9 +668,12 @@
             return;
         }
 
-        let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE"));
+        let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
+        let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
+        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
+      /*  let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE"));
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
+        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));*/
 
 
         let rowData = gvwMasterGrid.getRowData(nRow);
@@ -711,6 +714,8 @@
                 , V_P_PC: ''
             };
 
+            console.log('-----paramObj----', paramObj);
+
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrb5300List.do", {
                 getType: 'json',
                 workType: 'DETAIL',
@@ -720,6 +725,8 @@
             });
 
             const data = await postJsonPromise;
+
+            console.log('-----data----', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -755,13 +762,16 @@
                     });
                     gvwSettingGrid.rebuild();
 
-                    data.cv_5.forEach((item, index) => {
-                        SBUxMethod.set("PAY_FORMULA", gfnma_nvl(item.PAY_FORMULA));
-                        SBUxMethod.set("PAY_FORMULA_DESC", gfnma_nvl(item.PAY_FORMULA_DESC));
-                        SBUxMethod.set("QTY_FORMULA", gfnma_nvl(item.QTY_FORMULA));
-                        SBUxMethod.set("QTY_FORMULA_DESC", gfnma_nvl(item.QTY_FORMULA_DESC));
-                        SBUxMethod.set("QTY_UNIT", gfnma_nvl(item.QTY_UNIT));
-                    });
+                    if (_.isEmpty(data.cv_5[0]) == false){
+                        data.cv_5.forEach((item, index) => {
+                            SBUxMethod.set("PAY_FORMULA", gfnma_nvl(item.PAY_FORMULA));
+                            SBUxMethod.set("PAY_FORMULA_DESC", gfnma_nvl(item.PAY_FORMULA_DESC));
+                            SBUxMethod.set("QTY_FORMULA", gfnma_nvl(item.QTY_FORMULA));
+                            SBUxMethod.set("QTY_FORMULA_DESC", gfnma_nvl(item.QTY_FORMULA_DESC));
+                            SBUxMethod.set("QTY_UNIT", gfnma_nvl(item.QTY_UNIT));
+                        });
+                    }
+
 
                 } else {
                     alert(data.resultMessage);

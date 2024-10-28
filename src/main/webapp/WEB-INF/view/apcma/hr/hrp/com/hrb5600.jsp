@@ -418,8 +418,10 @@
             {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'input', width: '200px', style: 'text-align:left'},
+
             {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
+
             {caption: ["적용금액","비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'}
         ];
 
@@ -437,6 +439,7 @@
             gvwBandgvwDetailGrid.insertRow(rowVal);
         }
         //grdFimList.refresh();
+
     }
 
     // 행삭제
@@ -458,8 +461,12 @@
         fn_add();
     }
     // 저장
-    function cfn_save() {
-        fn_save();
+    async function cfn_save() {
+
+
+        if (await fn_save()){
+            fn_saveS1()
+        }
     }
     // 삭제
     function cfn_del() {
@@ -887,14 +894,15 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
+                       /* if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }
+                        }*/
 
-                        fn_saveS1();
+                        return true;
 
                     } else {
                         alert(data.resultMessage);
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -917,14 +925,15 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
+                        /*if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }
+                        }*/
 
-                        fn_saveS1();
+                        return true;
 
                     } else {
                         alert(data.resultMessage);
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
