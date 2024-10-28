@@ -332,7 +332,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -409,30 +408,30 @@
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '150px', style : 'text-align:center', type : 'combo',
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'150px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}/*, disabled: true*/},
-            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'150px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
+            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}/*, disabled: true*/},
+            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '150px', style: 'text-align:right',
+            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',
                 format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
-            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '150px', style: 'text-align:right',
-                format : {type:'number', rule:'#', emptyvalue:'0'}},
+            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'}
 
         ];
@@ -475,8 +474,6 @@
       /*  if (!_.isEmpty(row)){
             grdExceptionList.setRowStatus(row, 'u', true);
         }*/
-        console.log('grid popup row:', row);
-        console.log('grid popup col:', col);
 
         let rowData = grdExceptionList.getRowData(row);
         let rowStatus = grdExceptionList.getRowStatus(row);
@@ -526,7 +523,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 grdExceptionList.setCellData(row, (col-1), data['EMP_CODE']);
                 grdExceptionList.setCellData(row, (col+1), data['EMP_NAME']);
@@ -672,7 +668,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -864,9 +859,9 @@
             let strType = gridData.PAY_APPLY_TYPE;
 
             if (strType == 'AMOUNT'){
-                rdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),0,true);
-            } else if (strType == 'RATE'){
                 grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),0,true);
+            } else if (strType == 'RATE'){
+                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),0,true);
             }
 
             fn_ColumnSetting(nRow,strType);
@@ -880,7 +875,7 @@
     //월별 급상여 예외자 그리드 값 셋팅
     async function fn_ColumnSetting(nRow, strType) {
 
-        if (strType == 'AMOUNT')
+        if (strType == 'RATE')
         {
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), false, false, true );
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), true, false, true );
@@ -893,7 +888,7 @@
             //gvwException.Columns["pay_apply_amt"].AllowBlank = false;
             gvwException.Columns["pay_apply_amt"].AppearanceHeader.ForeColor = AllowBlankGridColor;*/
         }
-        else if (strType == 'RATE')
+        else if (strType == 'AMOUNT')
         {
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), true, false, true );
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), false, false, true );

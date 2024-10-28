@@ -110,8 +110,7 @@
                             class="btn btn-sm btn-outline-danger"
                             onclick="fn_btnDel"
                             style="float: right;"
-                    >
-                    </sbux-button>
+                    ></sbux-button>
                     <sbux-button
                             id="btnAdd"
                             name="btnAdd"
@@ -2043,17 +2042,18 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00', emptyvalue:'0.0' }},
-            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["비고"], ref: 'MEMO', type: 'input', width: '170px', style: 'text-align:left'},
+            {caption: ["비고"], ref: 'MEMO', type: 'input', width: '500px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
         ];
 
         gvwDeductionGrid = _SBGrid.create(SBGridProperties);
@@ -2416,146 +2416,146 @@
             return;
         }
 
-        let PERSONAL_DED_LIM = gfnma_nvl(SBUxMethod.get("PERSONAL_DED_LIM"));
-        let WIFE_DED_LIM = gfnma_nvl(SBUxMethod.get("WIFE_DED_LIM"));
-        let SUPPORT_DED_LIM = gfnma_nvl(SBUxMethod.get("SUPPORT_DED_LIM"));
-        let FOREI_WORK_SINGLE_TX_RATE = gfnma_nvl(SBUxMethod.get("FOREI_WORK_SINGLE_TX_RATE"));
-        let SENIOR_DED_LIM = gfnma_nvl(SBUxMethod.get("SENIOR_DED_LIM"));
-        let HDCP_DED_LIM = gfnma_nvl(SBUxMethod.get("HDCP_DED_LIM"));
-        let WOMAN_DED_LIM = gfnma_nvl(SBUxMethod.get("WOMAN_DED_LIM"));
-        let WOMAN_INC_LIM = gfnma_nvl(SBUxMethod.get("WOMAN_INC_LIM"));
-        let SINGLE_PARENT_DED_LIM = gfnma_nvl(SBUxMethod.get("SINGLE_PARENT_DED_LIM"));
-        let HSRENT_PRIN_PERS_INC_LIM = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_PERS_INC_LIM"));
-        let HSRENT_PRIN_DER = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_DER"));
-        let HSRENT_PRIN_DED_LIM = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_DED_LIM"));
-        let HS_SV_PRIN_RENT_LIM = gfnma_nvl(SBUxMethod.get("HS_SV_PRIN_RENT_LIM"));
-        let HSLOAN_10_15_LIM = gfnma_nvl(SBUxMethod.get("HSLOAN_10_15_LIM"));
-        let HSLOAN_15_30_LIM = gfnma_nvl(SBUxMethod.get("HSLOAN_15_30_LIM"));
-        let HSLOAN_30_LIM = gfnma_nvl(SBUxMethod.get("HSLOAN_30_LIM"));
-        let HSLOAN_FX_LIM = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_LIM"));
-        let HSLOAN_ETC_LIM = gfnma_nvl(SBUxMethod.get("HSLOAN_ETC_LIM"));
-        let HSLOAN_FX_15_AND_LIM_2015 = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_15_AND_LIM_2015"));
-        let HSLOAN_FX_15_OR_LIM_2015 = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_15_OR_LIM_2015"));
-        let HSLOAN_GENERAL_LIM_2015 = gfnma_nvl(SBUxMethod.get("HSLOAN_GENERAL_LIM_2015"));
-        let HSLOAN_FX_10_LIM_2015 = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_10_LIM_2015"));
-        let DON_LGL_R = gfnma_nvl(SBUxMethod.get("DON_LGL_R"));
-        let DON_SPEC_R = gfnma_nvl(SBUxMethod.get("DON_SPEC_R"));
-        let DON_EMP_STOCK_R = gfnma_nvl(SBUxMethod.get("DON_EMP_STOCK_R"));
-        let DON_OUT_OF_REL_R = gfnma_nvl(SBUxMethod.get("DON_OUT_OF_REL_R"));
-        let DON_REL_R = gfnma_nvl(SBUxMethod.get("DON_REL_R"));
-        let DON_ASSIGN_COMPARE_R = gfnma_nvl(SBUxMethod.get("DON_ASSIGN_COMPARE_R"));
-        let PRIV_PENS_SV_LIM = gfnma_nvl(SBUxMethod.get("PRIV_PENS_SV_LIM"));
-        let PRIV_PENS_SV_R = gfnma_nvl(SBUxMethod.get("PRIV_PENS_SV_R"));
-        let HS_SUBS_SV_DED_LIM = gfnma_nvl(SBUxMethod.get("HS_SUBS_SV_DED_LIM"));
-        let HS_EMP_SV_DED_LIM = gfnma_nvl(SBUxMethod.get("HS_EMP_SV_DED_LIM"));
-        let HS_TOT_SV_DED_LIM = gfnma_nvl(SBUxMethod.get("HS_TOT_SV_DED_LIM"));
-        let HS_SV_DER = gfnma_nvl(SBUxMethod.get("HS_SV_DER"));
-        let HS_SV_DED_LIM = gfnma_nvl(SBUxMethod.get("HS_SV_DED_LIM"));
-        let CD_DED_BASE_R = gfnma_nvl(SBUxMethod.get("CD_DED_BASE_R"));
-        let CD_DER = gfnma_nvl(SBUxMethod.get("CD_DER"));
-        let CHKCD_DER = gfnma_nvl(SBUxMethod.get("CHKCD_DER"));
-        let CASH_RECEIPT_DER = gfnma_nvl(SBUxMethod.get("CASH_RECEIPT_DER"));
-        let TDMK_DER = gfnma_nvl(SBUxMethod.get("TDMK_DER"));
-        let TDMK_DER2 = gfnma_nvl(SBUxMethod.get("TDMK_DER2"));
-        let PBTRN_DER = gfnma_nvl(SBUxMethod.get("PBTRN_DER"));
-        let PBTRN_DER2 = gfnma_nvl(SBUxMethod.get("PBTRN_DER2"));
-        let BOOK_PERF_DER = gfnma_nvl(SBUxMethod.get("BOOK_PERF_DER"));
-        let BOOK_PERF_DER2 = gfnma_nvl(SBUxMethod.get("BOOK_PERF_DER2"));
-        let CD_DED_LIM = gfnma_nvl(SBUxMethod.get("CD_DED_LIM"));
-        let CARD_DED_LIMIT2 = gfnma_nvl(SBUxMethod.get("CARD_DED_LIMIT2"));
-        let CARD_DED_LIMIT3 = gfnma_nvl(SBUxMethod.get("CARD_DED_LIMIT3"));
-        let CD_DED_COMPARE_R = gfnma_nvl(SBUxMethod.get("CD_DED_COMPARE_R"));
-        let CD_MARKET_ADD_DED_LIM = gfnma_nvl(SBUxMethod.get("CD_MARKET_ADD_DED_LIM"));
-        let CD_TRANSPORT_ADD_DED_LIM = gfnma_nvl(SBUxMethod.get("CD_TRANSPORT_ADD_DED_LIM"));
-        let CD_BOOK_PERF_ADD_DED_LIM = gfnma_nvl(SBUxMethod.get("CD_BOOK_PERF_ADD_DED_LIM"));
-        let SM_COM_DED_LIM = gfnma_nvl(SBUxMethod.get("SM_COM_DED_LIM"));
-        let SMALL_COM_DED_LIMIT2 = gfnma_nvl(SBUxMethod.get("SMALL_COM_DED_LIMIT2"));
-        let SMALL_COM_DED_LIMIT3 = gfnma_nvl(SBUxMethod.get("SMALL_COM_DED_LIMIT3"));
-        let INVEST_R1 = gfnma_nvl(SBUxMethod.get("INVEST_R1"));
-        let INVEST_R2 = gfnma_nvl(SBUxMethod.get("INVEST_R2"));
-        let INVEST_R3 = gfnma_nvl(SBUxMethod.get("INVEST_R3"));
-        let INVEST_R4 = gfnma_nvl(SBUxMethod.get("INVEST_R4"));
-        let INVEST_R5 = gfnma_nvl(SBUxMethod.get("INVEST_R5"));
-        let INVEST_R6 = gfnma_nvl(SBUxMethod.get("INVEST_R6"));
-        let INVEST_R7 = gfnma_nvl(SBUxMethod.get("INVEST_R7"));
-        let INVEST_R8 = gfnma_nvl(SBUxMethod.get("INVEST_R8"));
-        let INVEST_R9 = gfnma_nvl(SBUxMethod.get("INVEST_R9"));
-        let INVEST_R10 = gfnma_nvl(SBUxMethod.get("INVEST_R10"));
-        let EMP_STOCK_GIVE_LIM = gfnma_nvl(SBUxMethod.get("EMP_STOCK_GIVE_LIM"));
-        let SALARY_DECREASE_DER = gfnma_nvl(SBUxMethod.get("SALARY_DECREASE_DER"));
-        let SALARY_DECREASE_DED_LIM = gfnma_nvl(SBUxMethod.get("SALARY_DECREASE_DED_LIM"));
-        let LEASE_INT_RDM_DER = gfnma_nvl(SBUxMethod.get("LEASE_INT_RDM_DER"));
-        let LEASE_INT_RDM_DED_LIM = gfnma_nvl(SBUxMethod.get("LEASE_INT_RDM_DED_LIM"));
-        let LT_INV_ST_SV_INC_LIM = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_INC_LIM"));
-        let LT_INV_ST_SV_DER = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_DER"));
-        let LT_INV_ST_SV_DED_LIM = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_DED_LIM"));
-        let INC_DED_TOT_LIM = gfnma_nvl(SBUxMethod.get("INC_DED_TOT_LIM"));
-        let INC_TX_DED_STD = gfnma_nvl(SBUxMethod.get("INC_TX_DED_STD"));
-        let INC_TX_DED_BELOW_R = gfnma_nvl(SBUxMethod.get("INC_TX_DED_BELOW_R"));
-        let INC_TX_DED_EXCS_AMT = gfnma_nvl(SBUxMethod.get("INC_TX_DED_EXCS_AMT"));
-        let INC_TX_DED_EXCS_AMT_R = gfnma_nvl(SBUxMethod.get("INC_TX_DED_EXCS_AMT_R"));
-        let PAY_TOT_TX_DED_STD = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_STD"));
-        let PAY_TOT_TX_DED_STD_LIM = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_STD_LIM"));
-        let PAY_TOT_TX_DED_BELOW = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW"));
-        let PAY_TOT_TX_DED_BELOW2 = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW2"));
-        let PAY_TOT_TX_DED_BELOW_R = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_R"));
-        let PAY_TOT_TX_DED_BELOW_LIM = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_LIM"));
-        let PAY_TOT_TX_DED_BELOW_LIM2 = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_LIM2"));
-        let PAY_TOT_TX_DED_EXCS_R = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_EXCS_R"));
-        let PAY_TOT_TX_DED_EXLMT = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_EXLMT"));
-        let CHILD_TX_DED_LIM1 = gfnma_nvl(SBUxMethod.get("CHILD_TX_DED_LIM1"));
-        let CHILD_TX_DED_LIM2 = gfnma_nvl(SBUxMethod.get("CHILD_TX_DED_LIM2"));
-        let PENS_ACC_DED_LIM = gfnma_nvl(SBUxMethod.get("PENS_ACC_DED_LIM"));
-        let PENS_ACCOUNT_DED_LIMIT2 = gfnma_nvl(SBUxMethod.get("PENS_ACCOUNT_DED_LIMIT2"));
-        let PENS_ACC_TX_DER = gfnma_nvl(SBUxMethod.get("PENS_ACC_TX_DER"));
-        let GENERAL_INSURE_DED_LIM = gfnma_nvl(SBUxMethod.get("GENERAL_INSURE_DED_LIM"));
-        let HDCP_INSURE_DED_LIM = gfnma_nvl(SBUxMethod.get("HDCP_INSURE_DED_LIM"));
-        let GENERAL_INSURE_TX_DER = gfnma_nvl(SBUxMethod.get("GENERAL_INSURE_TX_DER"));
-        let MED_EXP_DER = gfnma_nvl(SBUxMethod.get("MED_EXP_DER"));
-        let MED_EXP_DED_LIM = gfnma_nvl(SBUxMethod.get("MED_EXP_DED_LIM"));
-        let MED_EXP_TX_DER = gfnma_nvl(SBUxMethod.get("MED_EXP_TX_DER"));
-        let MED_EXP_TAX_DED_RATE2 = gfnma_nvl(SBUxMethod.get("MED_EXP_TAX_DED_RATE2"));
-        let MED_EXP_TAX_DED_RATE3 = gfnma_nvl(SBUxMethod.get("MED_EXP_TAX_DED_RATE3"));
-        let EDU_EXP_DED_LIM1 = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM1"));
-        let EDU_EXP_DED_LIM2 = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM2"));
-        let EDU_EXP_DED_LIM3 = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM3"));
-        let EDU_EXP_TX_DER = gfnma_nvl(SBUxMethod.get("EDU_EXP_TX_DER"));
-        let DON_POL_DED_LIM = gfnma_nvl(SBUxMethod.get("DON_POL_DED_LIM"));
-        let DON_OUT_OF_REL_DER = gfnma_nvl(SBUxMethod.get("DON_OUT_OF_REL_DER"));
-        let DON_REL_DER = gfnma_nvl(SBUxMethod.get("DON_REL_DER"));
-        let DON_TX_DED_STD = gfnma_nvl(SBUxMethod.get("DON_TX_DED_STD"));
-        let DON_TX_DED_BELOW_R = gfnma_nvl(SBUxMethod.get("DON_TX_DED_BELOW_R"));
-        let DON_TX_DED_EXCS_R = gfnma_nvl(SBUxMethod.get("DON_TX_DED_EXCS_R"));
-        let STD_TX_DED_LIM = gfnma_nvl(SBUxMethod.get("STD_TX_DED_LIM"));
-        let TX_UNION_DER = gfnma_nvl(SBUxMethod.get("TX_UNION_DER"));
-        let HSRENT_INT_DER = gfnma_nvl(SBUxMethod.get("HSRENT_INT_DER"));
-        let HS_MM_RENT_DED_INC_LIM = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_DED_INC_LIM"));
-        let HS_MM_RENT_TX_DER = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DER"));
-        let HS_MM_RENT_DED_INC_LIM2 = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_DED_INC_LIM2"));
-        let HS_MM_RENT_TX_DER2 = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DER2"));
-        let HS_MM_RENT_TX_DED_LIM = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DED_LIM"));
-        let HSRENT_INT_DED_SPEC_TX_R = gfnma_nvl(SBUxMethod.get("HSRENT_INT_DED_SPEC_TX_R"));
-        let INVEST_DED_SPEC_TX_R = gfnma_nvl(SBUxMethod.get("INVEST_DED_SPEC_TX_R"));
-        let BRING_CHILD_TX_DED_LIM = gfnma_nvl(SBUxMethod.get("BRING_CHILD_TX_DED_LIM"));
-        let CHILDBIRTH_TX_DED_LIM = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TX_DED_LIM"));
-        let CHILDBIRTH_TAX_DED_LIMIT2 = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TAX_DED_LIMIT2"));
-        let CHILDBIRTH_TAX_DED_LIMIT3 = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TAX_DED_LIMIT3"));
-        let PENS_ACC_DED_INC_LIM = gfnma_nvl(SBUxMethod.get("PENS_ACC_DED_INC_LIM"));
-        let PENS_ACC_TX_DED_BELOW_R = gfnma_nvl(SBUxMethod.get("PENS_ACC_TX_DED_BELOW_R"));
-        let HDCP_INSURE_TX_DER = gfnma_nvl(SBUxMethod.get("HDCP_INSURE_TX_DER"));
-        let RET_PENS_ACC_LIM = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_LIM"));
-        let PENS_ISA_DED_LIMIT = gfnma_nvl(SBUxMethod.get("PENS_ISA_DED_LIMIT"));
-        let HS_SV_INC_LIM = gfnma_nvl(SBUxMethod.get("HS_SV_INC_LIM"));
-        let HS_SUBS_SV_DED_BEF_LIM = gfnma_nvl(SBUxMethod.get("HS_SUBS_SV_DED_BEF_LIM"));
-        let HS_TOT_SV_DED_BEF_LIM = gfnma_nvl(SBUxMethod.get("HS_TOT_SV_DED_BEF_LIM"));
+        let PERSONAL_DED_LIM                = gfnma_nvl(SBUxMethod.get("PERSONAL_DED_LIM"));
+        let WIFE_DED_LIM                    = gfnma_nvl(SBUxMethod.get("WIFE_DED_LIM"));
+        let SUPPORT_DED_LIM                 = gfnma_nvl(SBUxMethod.get("SUPPORT_DED_LIM"));
+        let FOREI_WORK_SINGLE_TX_RATE       = gfnma_nvl(SBUxMethod.get("FOREI_WORK_SINGLE_TX_RATE"));
+        let SENIOR_DED_LIM                  = gfnma_nvl(SBUxMethod.get("SENIOR_DED_LIM"));
+        let HDCP_DED_LIM                    = gfnma_nvl(SBUxMethod.get("HDCP_DED_LIM"));
+        let WOMAN_DED_LIM                   = gfnma_nvl(SBUxMethod.get("WOMAN_DED_LIM"));
+        let WOMAN_INC_LIM                   = gfnma_nvl(SBUxMethod.get("WOMAN_INC_LIM"));
+        let SINGLE_PARENT_DED_LIM           = gfnma_nvl(SBUxMethod.get("SINGLE_PARENT_DED_LIM"));
+        let HSRENT_PRIN_PERS_INC_LIM        = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_PERS_INC_LIM"));
+        let HSRENT_PRIN_DER                 = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_DER"));
+        let HSRENT_PRIN_DED_LIM             = gfnma_nvl(SBUxMethod.get("HSRENT_PRIN_DED_LIM"));
+        let HS_SV_PRIN_RENT_LIM             = gfnma_nvl(SBUxMethod.get("HS_SV_PRIN_RENT_LIM"));
+        let HSLOAN_10_15_LIM                = gfnma_nvl(SBUxMethod.get("HSLOAN_10_15_LIM"));
+        let HSLOAN_15_30_LIM                = gfnma_nvl(SBUxMethod.get("HSLOAN_15_30_LIM"));
+        let HSLOAN_30_LIM                   = gfnma_nvl(SBUxMethod.get("HSLOAN_30_LIM"));
+        let HSLOAN_FX_LIM                   = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_LIM"));
+        let HSLOAN_ETC_LIM                  = gfnma_nvl(SBUxMethod.get("HSLOAN_ETC_LIM"));
+        let HSLOAN_FX_15_AND_LIM_2015       = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_15_AND_LIM_2015"));
+        let HSLOAN_FX_15_OR_LIM_2015        = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_15_OR_LIM_2015"));
+        let HSLOAN_GENERAL_LIM_2015         = gfnma_nvl(SBUxMethod.get("HSLOAN_GENERAL_LIM_2015"));
+        let HSLOAN_FX_10_LIM_2015           = gfnma_nvl(SBUxMethod.get("HSLOAN_FX_10_LIM_2015"));
+        let DON_LGL_R                       = gfnma_nvl(SBUxMethod.get("DON_LGL_R"));
+        let DON_SPEC_R                      = gfnma_nvl(SBUxMethod.get("DON_SPEC_R"));
+        let DON_EMP_STOCK_R                 = gfnma_nvl(SBUxMethod.get("DON_EMP_STOCK_R"));
+        let DON_OUT_OF_REL_R                = gfnma_nvl(SBUxMethod.get("DON_OUT_OF_REL_R"));
+        let DON_REL_R                       = gfnma_nvl(SBUxMethod.get("DON_REL_R"));
+        let DON_ASSIGN_COMPARE_R            = gfnma_nvl(SBUxMethod.get("DON_ASSIGN_COMPARE_R"));
+        let PRIV_PENS_SV_LIM                = gfnma_nvl(SBUxMethod.get("PRIV_PENS_SV_LIM"));
+        let PRIV_PENS_SV_R                  = gfnma_nvl(SBUxMethod.get("PRIV_PENS_SV_R"));
+        let HS_SUBS_SV_DED_LIM              = gfnma_nvl(SBUxMethod.get("HS_SUBS_SV_DED_LIM"));
+        let HS_EMP_SV_DED_LIM               = gfnma_nvl(SBUxMethod.get("HS_EMP_SV_DED_LIM"));
+        let HS_TOT_SV_DED_LIM               = gfnma_nvl(SBUxMethod.get("HS_TOT_SV_DED_LIM"));
+        let HS_SV_DER                       = gfnma_nvl(SBUxMethod.get("HS_SV_DER"));
+        let HS_SV_DED_LIM                   = gfnma_nvl(SBUxMethod.get("HS_SV_DED_LIM"));
+        let CD_DED_BASE_R                   = gfnma_nvl(SBUxMethod.get("CD_DED_BASE_R"));
+        let CD_DER                          = gfnma_nvl(SBUxMethod.get("CD_DER"));
+        let CHKCD_DER                       = gfnma_nvl(SBUxMethod.get("CHKCD_DER"));
+        let CASH_RECEIPT_DER                = gfnma_nvl(SBUxMethod.get("CASH_RECEIPT_DER"));
+        let TDMK_DER                        = gfnma_nvl(SBUxMethod.get("TDMK_DER"));
+        let TDMK_DER2                       = gfnma_nvl(SBUxMethod.get("TDMK_DER2"));
+        let PBTRN_DER                       = gfnma_nvl(SBUxMethod.get("PBTRN_DER"));
+        let PBTRN_DER2                      = gfnma_nvl(SBUxMethod.get("PBTRN_DER2"));
+        let BOOK_PERF_DER                   = gfnma_nvl(SBUxMethod.get("BOOK_PERF_DER"));
+        let BOOK_PERF_DER2                  = gfnma_nvl(SBUxMethod.get("BOOK_PERF_DER2"));
+        let CD_DED_LIM                      = gfnma_nvl(SBUxMethod.get("CD_DED_LIM"));
+        let CARD_DED_LIMIT2                 = gfnma_nvl(SBUxMethod.get("CARD_DED_LIMIT2"));
+        let CARD_DED_LIMIT3                 = gfnma_nvl(SBUxMethod.get("CARD_DED_LIMIT3"));
+        let CD_DED_COMPARE_R                = gfnma_nvl(SBUxMethod.get("CD_DED_COMPARE_R"));
+        let CD_MARKET_ADD_DED_LIM           = gfnma_nvl(SBUxMethod.get("CD_MARKET_ADD_DED_LIM"));
+        let CD_TRANSPORT_ADD_DED_LIM        = gfnma_nvl(SBUxMethod.get("CD_TRANSPORT_ADD_DED_LIM"));
+        let CD_BOOK_PERF_ADD_DED_LIM        = gfnma_nvl(SBUxMethod.get("CD_BOOK_PERF_ADD_DED_LIM"));
+        let SM_COM_DED_LIM                  = gfnma_nvl(SBUxMethod.get("SM_COM_DED_LIM"));
+        let SMALL_COM_DED_LIMIT2            = gfnma_nvl(SBUxMethod.get("SMALL_COM_DED_LIMIT2"));
+        let SMALL_COM_DED_LIMIT3            = gfnma_nvl(SBUxMethod.get("SMALL_COM_DED_LIMIT3"));
+        let INVEST_R1                       = gfnma_nvl(SBUxMethod.get("INVEST_R1"));
+        let INVEST_R2                       = gfnma_nvl(SBUxMethod.get("INVEST_R2"));
+        let INVEST_R3                       = gfnma_nvl(SBUxMethod.get("INVEST_R3"));
+        let INVEST_R4                       = gfnma_nvl(SBUxMethod.get("INVEST_R4"));
+        let INVEST_R5                       = gfnma_nvl(SBUxMethod.get("INVEST_R5"));
+        let INVEST_R6                       = gfnma_nvl(SBUxMethod.get("INVEST_R6"));
+        let INVEST_R7                       = gfnma_nvl(SBUxMethod.get("INVEST_R7"));
+        let INVEST_R8                       = gfnma_nvl(SBUxMethod.get("INVEST_R8"));
+        let INVEST_R9                       = gfnma_nvl(SBUxMethod.get("INVEST_R9"));
+        let INVEST_R10                      = gfnma_nvl(SBUxMethod.get("INVEST_R10"));
+        let EMP_STOCK_GIVE_LIM              = gfnma_nvl(SBUxMethod.get("EMP_STOCK_GIVE_LIM"));
+        let SALARY_DECREASE_DER             = gfnma_nvl(SBUxMethod.get("SALARY_DECREASE_DER"));
+        let SALARY_DECREASE_DED_LIM         = gfnma_nvl(SBUxMethod.get("SALARY_DECREASE_DED_LIM"));
+        let LEASE_INT_RDM_DER               = gfnma_nvl(SBUxMethod.get("LEASE_INT_RDM_DER"));
+        let LEASE_INT_RDM_DED_LIM           = gfnma_nvl(SBUxMethod.get("LEASE_INT_RDM_DED_LIM"));
+        let LT_INV_ST_SV_INC_LIM            = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_INC_LIM"));
+        let LT_INV_ST_SV_DER                = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_DER"));
+        let LT_INV_ST_SV_DED_LIM            = gfnma_nvl(SBUxMethod.get("LT_INV_ST_SV_DED_LIM"));
+        let INC_DED_TOT_LIM                 = gfnma_nvl(SBUxMethod.get("INC_DED_TOT_LIM"));
+        let INC_TX_DED_STD                  = gfnma_nvl(SBUxMethod.get("INC_TX_DED_STD"));
+        let INC_TX_DED_BELOW_R              = gfnma_nvl(SBUxMethod.get("INC_TX_DED_BELOW_R"));
+        let INC_TX_DED_EXCS_AMT             = gfnma_nvl(SBUxMethod.get("INC_TX_DED_EXCS_AMT"));
+        let INC_TX_DED_EXCS_AMT_R           = gfnma_nvl(SBUxMethod.get("INC_TX_DED_EXCS_AMT_R"));
+        let PAY_TOT_TX_DED_STD              = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_STD"));
+        let PAY_TOT_TX_DED_STD_LIM          = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_STD_LIM"));
+        let PAY_TOT_TX_DED_BELOW            = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW"));
+        let PAY_TOT_TX_DED_BELOW2           = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW2"));
+        let PAY_TOT_TX_DED_BELOW_R          = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_R"));
+        let PAY_TOT_TX_DED_BELOW_LIM        = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_LIM"));
+        let PAY_TOT_TX_DED_BELOW_LIM2       = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_BELOW_LIM2"));
+        let PAY_TOT_TX_DED_EXCS_R           = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_EXCS_R"));
+        let PAY_TOT_TX_DED_EXLMT            = gfnma_nvl(SBUxMethod.get("PAY_TOT_TX_DED_EXLMT"));
+        let CHILD_TX_DED_LIM1               = gfnma_nvl(SBUxMethod.get("CHILD_TX_DED_LIM1"));
+        let CHILD_TX_DED_LIM2               = gfnma_nvl(SBUxMethod.get("CHILD_TX_DED_LIM2"));
+        let PENS_ACC_DED_LIM                = gfnma_nvl(SBUxMethod.get("PENS_ACC_DED_LIM"));
+        let PENS_ACCOUNT_DED_LIMIT2         = gfnma_nvl(SBUxMethod.get("PENS_ACCOUNT_DED_LIMIT2"));
+        let PENS_ACC_TX_DER                 = gfnma_nvl(SBUxMethod.get("PENS_ACC_TX_DER"));
+        let GENERAL_INSURE_DED_LIM          = gfnma_nvl(SBUxMethod.get("GENERAL_INSURE_DED_LIM"));
+        let HDCP_INSURE_DED_LIM             = gfnma_nvl(SBUxMethod.get("HDCP_INSURE_DED_LIM"));
+        let GENERAL_INSURE_TX_DER           = gfnma_nvl(SBUxMethod.get("GENERAL_INSURE_TX_DER"));
+        let MED_EXP_DER                     = gfnma_nvl(SBUxMethod.get("MED_EXP_DER"));
+        let MED_EXP_DED_LIM                 = gfnma_nvl(SBUxMethod.get("MED_EXP_DED_LIM"));
+        let MED_EXP_TX_DER                  = gfnma_nvl(SBUxMethod.get("MED_EXP_TX_DER"));
+        let MED_EXP_TAX_DED_RATE2           = gfnma_nvl(SBUxMethod.get("MED_EXP_TAX_DED_RATE2"));
+        let MED_EXP_TAX_DED_RATE3           = gfnma_nvl(SBUxMethod.get("MED_EXP_TAX_DED_RATE3"));
+        let EDU_EXP_DED_LIM1                = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM1"));
+        let EDU_EXP_DED_LIM2                = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM2"));
+        let EDU_EXP_DED_LIM3                = gfnma_nvl(SBUxMethod.get("EDU_EXP_DED_LIM3"));
+        let EDU_EXP_TX_DER                  = gfnma_nvl(SBUxMethod.get("EDU_EXP_TX_DER"));
+        let DON_POL_DED_LIM                 = gfnma_nvl(SBUxMethod.get("DON_POL_DED_LIM"));
+        let DON_OUT_OF_REL_DER              = gfnma_nvl(SBUxMethod.get("DON_OUT_OF_REL_DER"));
+        let DON_REL_DER                     = gfnma_nvl(SBUxMethod.get("DON_REL_DER"));
+        let DON_TX_DED_STD                  = gfnma_nvl(SBUxMethod.get("DON_TX_DED_STD"));
+        let DON_TX_DED_BELOW_R              = gfnma_nvl(SBUxMethod.get("DON_TX_DED_BELOW_R"));
+        let DON_TX_DED_EXCS_R               = gfnma_nvl(SBUxMethod.get("DON_TX_DED_EXCS_R"));
+        let STD_TX_DED_LIM                  = gfnma_nvl(SBUxMethod.get("STD_TX_DED_LIM"));
+        let TX_UNION_DER                    = gfnma_nvl(SBUxMethod.get("TX_UNION_DER"));
+        let HSRENT_INT_DER                  = gfnma_nvl(SBUxMethod.get("HSRENT_INT_DER"));
+        let HS_MM_RENT_DED_INC_LIM          = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_DED_INC_LIM"));
+        let HS_MM_RENT_TX_DER               = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DER"));
+        let HS_MM_RENT_DED_INC_LIM2         = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_DED_INC_LIM2"));
+        let HS_MM_RENT_TX_DER2              = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DER2"));
+        let HS_MM_RENT_TX_DED_LIM           = gfnma_nvl(SBUxMethod.get("HS_MM_RENT_TX_DED_LIM"));
+        let HSRENT_INT_DED_SPEC_TX_R        = gfnma_nvl(SBUxMethod.get("HSRENT_INT_DED_SPEC_TX_R"));
+        let INVEST_DED_SPEC_TX_R            = gfnma_nvl(SBUxMethod.get("INVEST_DED_SPEC_TX_R"));
+        let BRING_CHILD_TX_DED_LIM          = gfnma_nvl(SBUxMethod.get("BRING_CHILD_TX_DED_LIM"));
+        let CHILDBIRTH_TX_DED_LIM           = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TX_DED_LIM"));
+        let CHILDBIRTH_TAX_DED_LIMIT2       = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TAX_DED_LIMIT2"));
+        let CHILDBIRTH_TAX_DED_LIMIT3       = gfnma_nvl(SBUxMethod.get("CHILDBIRTH_TAX_DED_LIMIT3"));
+        let PENS_ACC_DED_INC_LIM            = gfnma_nvl(SBUxMethod.get("PENS_ACC_DED_INC_LIM"));
+        let PENS_ACC_TX_DED_BELOW_R         = gfnma_nvl(SBUxMethod.get("PENS_ACC_TX_DED_BELOW_R"));
+        let HDCP_INSURE_TX_DER              = gfnma_nvl(SBUxMethod.get("HDCP_INSURE_TX_DER"));
+        let RET_PENS_ACC_LIM                = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_LIM"));
+        let PENS_ISA_DED_LIMIT              = gfnma_nvl(SBUxMethod.get("PENS_ISA_DED_LIMIT"));
+        let HS_SV_INC_LIM                   = gfnma_nvl(SBUxMethod.get("HS_SV_INC_LIM"));
+        let HS_SUBS_SV_DED_BEF_LIM          = gfnma_nvl(SBUxMethod.get("HS_SUBS_SV_DED_BEF_LIM"));
+        let HS_TOT_SV_DED_BEF_LIM           = gfnma_nvl(SBUxMethod.get("HS_TOT_SV_DED_BEF_LIM"));
 
-        let PENS_ACC_50_DED_LIM = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_DED_LIM"));
-        let PENS_ACCOUNT_50_DED_LIMIT2 = gfnma_nvl(SBUxMethod.get("PENS_ACCOUNT_50_DED_LIMIT2"));
-        let PENS_ACC_50_TX_DER = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_TX_DER"));
-        let RET_PENS_ACC_50_OVER_LIM = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_50_OVER_LIM"));
-        let PENS_ACC_50_DED_INC_LIM = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_DED_INC_LIM"));
-        let PENS_ACC_50_TX_DED_BELOW_R = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_TX_DED_BELOW_R"));
-        let RET_PENS_ACC_50_BELOW_LIM = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_50_BELOW_LIM"));
+        let PENS_ACC_50_DED_LIM             = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_DED_LIM"));
+        let PENS_ACCOUNT_50_DED_LIMIT2      = gfnma_nvl(SBUxMethod.get("PENS_ACCOUNT_50_DED_LIMIT2"));
+        let PENS_ACC_50_TX_DER              = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_TX_DER"));
+        let RET_PENS_ACC_50_OVER_LIM        = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_50_OVER_LIM"));
+        let PENS_ACC_50_DED_INC_LIM         = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_DED_INC_LIM"));
+        let PENS_ACC_50_TX_DED_BELOW_R      = gfnma_nvl(SBUxMethod.get("PENS_ACC_50_TX_DED_BELOW_R"));
+        let RET_PENS_ACC_50_BELOW_LIM       = gfnma_nvl(SBUxMethod.get("RET_PENS_ACC_50_BELOW_LIM"));
 
 
         var paramObj = {
