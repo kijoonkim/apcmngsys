@@ -87,7 +87,7 @@
 	<!-- 2024.10.24  	ljw				Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectPrfmncChckMngList" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO" resultType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectPrfmncChckMngList */
 			ITEM.YR
 			,ITEM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CORP_NM
@@ -109,7 +109,15 @@
 			,EPC.PRFMNC_AMT_10
 			,EPC.PRFMNC_AMT_11
 			,EPC.PRFMNC_AMT_12
-			,EPC.PREV_YR_PRFMNC_AMT
+			,(SELECT NVL(SLS_TRST_AMT,0) + NVL(SLS_EMSPAP_AMT,0) + NVL(ETC_AMT,0)
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND PRCHS_SLS_SE = '2'
+				  AND YR = ITEM.YR
+				  AND BRNO = ITEM.BRNO
+				  AND ITEM_CD = ITEM.ITEM_CD
+			) AS PREV_YR_PRFMNC_AMT
 			,EPC.EXPCT_PRFMNC_AMT
 			,EPC.PRFMNC_AMT_RT
 		FROM
@@ -130,5 +138,107 @@
 
 		ORDER BY ITEM_NM
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.insertPrfmncChckMng	-->
+	<!-- DESC : 승인형 조직 실적 점검 리스트 저장                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	ljw				Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertPrfmncChckMng" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
+		MERGE INTO TB_EV_PRFMNC_CHCK EPC  /* com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.insertPrfmncChckMng */
+		USING DUAL
+			ON (
+				EPC.YR		= #{yr}
+				AND EPC.ITEM_CD	= #{itemCd}
+				AND EPC.BRNO	= #{brno}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					SET
+						PRFMNC_AMT_1			= #{prfmncAmt1}
+						, PRFMNC_AMT_2			= #{prfmncAmt2}
+						, PRFMNC_AMT_3			= #{prfmncAmt3}
+						, PRFMNC_AMT_4			= #{prfmncAmt4}
+						, PRFMNC_AMT_5			= #{prfmncAmt5}
+						, PRFMNC_AMT_6			= #{prfmncAmt6}
+						, PRFMNC_AMT_7			= #{prfmncAmt7}
+						, PRFMNC_AMT_8			= #{prfmncAmt8}
+						, PRFMNC_AMT_9			= #{prfmncAmt9}
+						, PRFMNC_AMT_10			= #{prfmncAmt10}
+						, PRFMNC_AMT_11			= #{prfmncAmt11}
+						, PRFMNC_AMT_12			= #{prfmncAmt12}
+						, PREV_YR_PRFMNC_AMT	= #{prevYrPrfmncAmt}
+						, EXPCT_PRFMNC_AMT		= #{expctPrfmncAmt}
+						, PRFMNC_AMT_RT			= #{prfmncAmtRt}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+						, APO_CD
+						, BRNO
+						, ITEM_CD
+						, PRFMNC_AMT_1
+						, PRFMNC_AMT_2
+						, PRFMNC_AMT_3
+						, PRFMNC_AMT_4
+						, PRFMNC_AMT_5
+						, PRFMNC_AMT_6
+						, PRFMNC_AMT_7
+						, PRFMNC_AMT_8
+						, PRFMNC_AMT_9
+						, PRFMNC_AMT_10
+						, PRFMNC_AMT_11
+						, PRFMNC_AMT_12
+						, PREV_YR_PRFMNC_AMT
+						, EXPCT_PRFMNC_AMT
+						, PRFMNC_AMT_RT
+
+						, SYS_FRST_INPT_DT
+						, SYS_FRST_INPT_USER_ID
+						, SYS_FRST_INPT_PRGRM_ID
+						, SYS_LAST_CHG_DT
+						, SYS_LAST_CHG_USER_ID
+						, SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+						#{yr}
+						, #{apoCd}
+						, #{brno}
+						, #{itemCd}
+
+						, #{prfmncAmt1}
+						, #{prfmncAmt2}
+						, #{prfmncAmt3}
+						, #{prfmncAmt4}
+						, #{prfmncAmt5}
+						, #{prfmncAmt6}
+						, #{prfmncAmt7}
+						, #{prfmncAmt8}
+						, #{prfmncAmt9}
+						, #{prfmncAmt10}
+						, #{prfmncAmt11}
+						, #{prfmncAmt12}
+
+						, #{prevYrPrfmncAmt}
+						, #{expctPrfmncAmt}
+						, #{prfmncAmtRt}
+
+						, SYSDATE
+						, #{sysFrstInptUserId}
+						, #{sysFrstInptPrgrmId}
+						, SYSDATE
+						, #{sysLastChgUserId}
+						, #{sysLastChgPrgrmId}
+					)
+	</insert>
 
 </mapper>

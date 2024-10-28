@@ -39,11 +39,27 @@ public interface PrfmncChckMngService {
 	public List<PrfmncChckMngVO> selectUoAprvList(PrfmncChckMngVO PrfmncChckMngVO) throws Exception;
 
 	/**
-	 * 승인형 총취급액 실적 리스트를 조회 한다.
+	 * 승인형 조직 총취급 실적 리스트를 조회 한다.
 	 * @param PrfmncChckMngVO
 	 * @return List<PrfmncChckMngVO>
 	 * @throws Exception
 	 */
 	public List<PrfmncChckMngVO> selectPrfmncChckMngList(PrfmncChckMngVO PrfmncChckMngVO) throws Exception;
+
+	/**
+	 * 승인형 조직 총취급 실적을 저장 한다.
+	 * @param PrfmncChckMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertPrfmncChckMng (PrfmncChckMngVO PrfmncChckMngVO) throws Exception;
+
+	/**
+	 * 승인형 조직 총취급 실적 리스트를 저장 한다.
+	 * @param PrfmncChckMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSavePrfmncChckMngList (List<PrfmncChckMngVO> PrfmncChckMngVOList) throws Exception;
 
 }

@@ -78,4 +78,27 @@ public class PrfmncChckMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/pd/pcm/multiSavePrfmncChckMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSavePrfmncChckMngList(@RequestBody List<PrfmncChckMngVO> prfmncChckMngVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrfmncChckMngVO prfmncChckMngVO : prfmncChckMngVOList) {
+				prfmncChckMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prfmncChckMngVO.setSysFrstInptUserId(getUserId());
+				prfmncChckMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				prfmncChckMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = PrfmncChckMngService.multiSavePrfmncChckMngList(prfmncChckMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
