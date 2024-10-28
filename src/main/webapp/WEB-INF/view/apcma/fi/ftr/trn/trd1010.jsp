@@ -85,8 +85,10 @@
                                 id="SRCH_DATE_FR_P"
                                 name="SRCH_DATE_FR_P"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -98,8 +100,10 @@
                                 id="SRCH_DATE_TO_P"
                                 name="SRCH_DATE_TO_P"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td></td>
@@ -1159,6 +1163,10 @@
     });
 
     const fnQRY_P_TRD1010_Q = async function (strWorkType) {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         var nRow = gvwList.getRow();
 
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));

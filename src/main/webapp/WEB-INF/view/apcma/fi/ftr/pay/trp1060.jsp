@@ -77,7 +77,7 @@
                         <th scope="row" class="th_bg">회계단위</th>
                         <td class="td_input" style="border-right:hidden;">
                             <div class="dropdown">
-                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -216,8 +216,6 @@
 
 
     const fn_initSBSelect = async function() {
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-
         let rst = await Promise.all([
             // 회계단위
             gfnma_setComSelect(['gvwList'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
@@ -931,6 +929,8 @@
     }
 
     const fn_onload = async function(parentParameter) {
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+
         if (parentParameter) {
             if (gfn_nvl(parentParameter["APRINT"]) != "Y") {
                 bPrint_YN = false;
@@ -1026,6 +1026,10 @@
     }
 
     const fn_search = async function() {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         let TREASURY_BATCH_NO = gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO"));
         let FROM_DATE = gfn_nvl(SBUxMethod.get("SRCH_FROM_DATE"));
         let TO_DATE = gfn_nvl(SBUxMethod.get("SRCH_TO_DATE"));

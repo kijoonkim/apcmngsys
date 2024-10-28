@@ -85,7 +85,7 @@
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>--%>
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -97,7 +97,7 @@
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)" required></sbux-select>--%>
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAID_VACATION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAID_VACATION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -119,9 +119,8 @@
                                 name="SRCH_YYYY"
                                 date-format="yyyy"
                                 datepicker-mode="year"
-                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                class="form-control pull-right input-sm-ast input-sm"
                                 onchange="fn_srchYyyy(SRCH_YYYY)"
-                                required
                         />
                     </td>
                     <td colspan="2"></td>
@@ -134,6 +133,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td colspan="2"></td>
@@ -285,12 +286,6 @@
 
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_YYYY", gfn_dateToYear(new Date()));
-        SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(new Date().getFullYear(),0,1)));
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -340,9 +335,13 @@
                         gfnma_multiSelectSet('#SRCH_PAID_VACATION_TYPE', 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', "4010");
                         SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
                         SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                        $("#SRCH_SPECIAL_PERIOD").removeClass("inpt_data_reqed");
+                        $("#SRCH_BASE_DATE").addClass("inpt_data_reqed");
                     } else if (args == "3") {
                         SBUxMethod.attr("SRCH_PAID_VACATION_TYPE", "required", "true");
                         SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+                        $("#SRCH_PAID_VACATION_TYPE").addClass("inpt_data_reqed");
+                        $("#SRCH_SPECIAL_PERIOD").removeClass("inpt_data_reqed");
                     }
                 }
             }),
@@ -372,16 +371,22 @@
                     } else if (args == "4050") {
                         SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
                         SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                        $("#SRCH_SPECIAL_PERIOD").removeClass("inpt_data_reqed");
+                        $("#SRCH_BASE_DATE").addClass("inpt_data_reqed");
                         gvwInfo.setColHidden(19, true, false);
                         gvwInfo.setColHidden(21, true, false);
                     } else if (args == "4040") {
                         SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
                         SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                        $("#SRCH_SPECIAL_PERIOD").removeClass("inpt_data_reqed");
+                        $("#SRCH_BASE_DATE").addClass("inpt_data_reqed");
                         gvwInfo.setColHidden(19, true, false);
                         gvwInfo.setColHidden(21, true, false);
                     } else if (args == "4010") {
                         SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
                         SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                        $("#SRCH_SPECIAL_PERIOD").removeClass("inpt_data_reqed");
+                        $("#SRCH_BASE_DATE").addClass("inpt_data_reqed");
                         gvwInfo.setColHidden(19, false, false);
                         gvwInfo.setColHidden(21, false, false);
                     }
@@ -707,11 +712,11 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwInfoGrid();
         fn_createGvwDetailGrid();
-        fn_search();
+        await fn_onload();
     });
 
     // 조회
@@ -759,7 +764,7 @@
 
         let rowData = gvwInfo.getRowData(nRow);
 
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -842,8 +847,18 @@
         }
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_YYYY", gfn_dateToYear(new Date()));
+        SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(new Date().getFullYear(),0,1)));
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -1001,7 +1016,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1017,7 +1032,7 @@
     }
 
     const fn_confirm = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -1097,7 +1112,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 alert("연차발생이 확정되었습니다.");
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1111,7 +1126,7 @@
     }
 
     const fn_unconfirm = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
 
@@ -1180,7 +1195,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 alert("연차발생이 확정취소되었습니다.");
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }

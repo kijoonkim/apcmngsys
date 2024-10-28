@@ -79,6 +79,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -92,6 +94,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">증명서유형</th>
@@ -163,7 +167,8 @@
                             <col style="width: 9%">
                             <col style="width: 9%">
                             <col style="width: 9%">
-                            <col style="width: 9%">
+                            <col style="width: 1%">
+                            <col style="width: 8%">
                             <col style="width: 9%">
                             <col style="width: 9%">
                             <col style="width: 9%">
@@ -182,6 +187,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                         required
                                 />
                             </td>
@@ -189,7 +195,7 @@
                             <td class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                             </td>
-                            <td class="td_input" data-group="EMP">
+                            <td colspan="2" class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
                             <td class="td_input" style="border-right:hidden;" data-group="EMP">
@@ -230,19 +236,19 @@
                         <tr>
                             <th scope="row" class="th_bg">증명서유형</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" required></sbux-select>
+                                <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" group-id="panBottom" required></sbux-select>
                             </td>
                             <th scope="row" class="th_bg">제출처</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">사용용도</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                                <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                             <th id="certiMemoTh" scope="row" class="th_bg">담당업무</th>
                             <td id="certiMemoTd" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                                <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
                             </td>
                         </tr>
                         <tr id="incomeTr">
@@ -256,6 +262,7 @@
                                         datepicker-mode="year"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                             <th scope="row" class="th_bg">기간</th>
@@ -267,6 +274,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                             <td class="td_input" style="border-right:hidden;">
@@ -280,6 +288,7 @@
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
+                                        group-id="panBottom"
                                 />
                             </td>
                         </tr>
@@ -452,6 +461,10 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "true");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "true");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "true");
+            $("#INCOME_YEAR").addClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").addClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").addClass("inpt_data_reqed");
+
         } else if (reportType == "R_CAREER" || reportType == "R_RETIRE" ) {
             $("#incomeTr").hide();
             $("#certiMemoTh").show();
@@ -461,6 +474,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         } else if (reportType == "R_WORK") {
             $("#incomeTr").hide();
             $("#certiMemoTh").show();
@@ -470,6 +486,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         } else {
             $("#incomeTr").hide();
             $("#certiMemoTh").hide();
@@ -478,6 +497,9 @@
             SBUxMethod.attr("INCOME_YEAR", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_START_DATE", "required", "false");
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
+            $("#INCOME_YEAR").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_START_DATE").removeClass("inpt_data_reqed");
+            $("#INCOME_RECEIVE_END_DATE").removeClass("inpt_data_reqed");
         }
     }
 
@@ -653,6 +675,10 @@
      * 목록 조회
      */
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         let REQUEST_DATE_FR	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
         let REQUEST_DATE_TO	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
         let REPORT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
@@ -686,8 +712,6 @@
         });
 
         const data = await postJsonPromise;
-console.log('search paramObj ==>', paramObj);
-console.log('search data ==>', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -793,6 +817,10 @@ console.log('search data ==>', data);
 
     // 저장
     const fn_save = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panBottom'})) {
+            return false;
+        }
+
         var nRow = bandgvwInfo.getRow();
         let rowData = bandgvwInfo.getRowData(nRow);
 
@@ -1007,7 +1035,25 @@ console.log('search data ==>', data);
             }
         }
     }
+    
+    
+    const downloadJSON = async ({ data, fileName ,fileType }) => {
+        
+        const blob = new Blob([data], { type: fileType });
+        
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = await URL.createObjectURL(blob);
 
+        const clickEvt = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+        });
+        link.dispatchEvent(clickEvt);
+        link.remove();
+    };
+      
     const fn_print = async function() {
         // TODO : 레포트 개발 필요
         var nRow = bandgvwInfo.getRow();
@@ -1039,24 +1085,11 @@ console.log('search data ==>', data);
                 return;
         }
         
-        console.log('rowData.REPORT_TYPE', rowData.REPORT_TYPE);
-        if(rowData.REPORT_TYPE == "R_INCOME_A") {
-            conn = await fn_GetReportData(rowData);
+    	if (rowData.REPORT_TYPE == "R_INCOME_C") {
+            conn = await fn_GetReportDataIncomeC(rowData);
             conn = await gfnma_convertDataForReport(conn);
             console.log('conn ==>', conn);
-    		gfn_popClipReportPost("갑종근로소득 원천징수확인서", "ma/test.crf", null, conn );	
-    		
-    	} else if (rowData.REPORT_TYPE == "R_INCOME_B") {
-            conn = await fn_GetReportData2(rowData);
-            conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
-    		gfn_popClipReportPost("근로소득원천징수부",  "ma/test.crf", null, conn );	
-    		
-        } else if (rowData.REPORT_TYPE == "R_INCOME_C") {
-            conn = await fn_GetReportData2(rowData);
-            conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
-    		gfn_popClipReportPost("근로소득원천징수영수증", "ma/test.crf", null, conn );	
+    		gfn_popClipReportPost("근로소득 원천징수영수증", "ma/RPT_HRA1600_INCOME_C.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_CAREER") {
             conn = await fn_GetReportData(rowData);
@@ -1075,6 +1108,12 @@ console.log('search data ==>', data);
             conn = await gfnma_convertDataForReport(conn);
             console.log('conn ==>', conn);
     		gfn_popClipReportPost("재직증명서", "ma/RPT_HRI1700_WORK.crf", null, conn );	
+    		
+        } else if(rowData.REPORT_TYPE == "R_INCOME_D") {
+            conn = await fn_GetReportDataIncomeD(rowData);
+            conn = await gfnma_convertDataForReport(conn);
+            console.log('conn ==>', conn);
+    		gfn_popClipReportPost("퇴직소득 원천징수영수증", "ma/RPT_HRI1700_WORK.crf", null, conn );	
         }
 
     }
@@ -1151,7 +1190,6 @@ console.log('search data ==>', data);
 
         let rowData = bandgvwInfo.getRowData(nRow);
         let reportType = rowData.REPORT_TYPE;
-
         SBUxMethod.attr('REQUEST_DATE',"disabled","true");
 
         SBUxMethod.set("REQUEST_DATE", rowData.REQUEST_DATE);
@@ -1206,33 +1244,6 @@ console.log('search data ==>', data);
 
     const fn_approval = async function() {
         var nRow = bandgvwInfo.getRow();
-        
-        //TEST
-            let apprId = Number(gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID"))));
-            let strcurrentapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("CURRENT_APPROVE_EMP_CODE"));
-            let strfinalapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("FINAL_APPROVER"));
-            let intapprcount = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")) == "" ? 0 : parseInt(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")));
-
-            compopappvmng({
-                workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-                ,compCode		: gv_ma_selectedApcCd
-                ,compCodeNm		: gv_ma_selectedApcNm
-                ,clientCode		: gv_ma_selectedClntCd
-                ,apprId			: apprId
-                ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")))
-                ,sourceType		: sourceType
-                ,empCode		: p_empCode
-                ,formID			: p_formId
-                ,menuId			: p_menuId
-                ,callback       : function(data) {
-                    if(data && data.result == "Y") {
-                        fn_search();
-                    }
-                }
-            });
-        return;
-        //TEST
-
         if (nRow < 2) {
             gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
             return;
@@ -1276,8 +1287,8 @@ console.log('search data ==>', data);
         }
     }
     
+  //재직증명서, 퇴직증명서, 경력증명서 리포트
     const fn_GetReportData = async function(obj) {
-    	
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
@@ -1306,7 +1317,6 @@ console.log('search data ==>', data);
         const data = await postJsonPromise;
 
        	console.log('fn_GetReportData data => ', data);
-       	console.log('fn_GetReportData paramObj => ', paramObj);
         try { 
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
@@ -1328,49 +1338,108 @@ console.log('search data ==>', data);
         }
         return data;
     }
-
-    const fn_GetReportData2 = async function(obj) {
-    	
-     	let YE_TX_YYYY		= obj.REQUEST_DATE;
-     	let EMP_CODE	 	= obj.EMP_CODE;
-     	
+	//근로소득 원천징수영수증 리포트
+    const fn_GetReportDataIncomeC = async function(obj) {
+		
+		let YEAR_END_TX_TYPE = '';
+		let EMP_CODE = gfnma_nvl(obj.EMP_CODE);
+		let INCOME_YEAR = gfnma_nvl(obj.INCOME_YEAR);
+		let INCOME_RECEIVE_START_DATE = gfnma_nvl(obj.INCOME_RECEIVE_START_DATE);
+		let INCOME_RECEIVE_END_DATE = gfnma_nvl(obj.INCOME_RECEIVE_END_DATE);
+		let RETIRE_YYYY = gfnma_nvl(obj.RETIRE_YYYY) == '' ? '' : obj.RETIRE_YYY.substring(0, 4);
+		
+    	if(INCOME_YEAR == RETIRE_YYYY){
+    		YEAR_END_TX_TYPE = 'RETIRE';
+    	}else{
+    		YEAR_END_TX_TYPE = 'YEAREND';
+    	}
         var paramObj = {
-            V_P_DEBUG_MODE_YN 	: '',
-            V_P_LANG_ID 		: '',
-            V_P_COMP_CODE 		: gv_ma_selectedApcCd,
-            V_P_CLIENT_CODE 	: gv_ma_selectedClntCd,
-            V_P_YE_TX_YYYY 		: YE_TX_YYYY.substr(0,4),
-            V_P_SITE_CODE 		: '',
-            V_P_DEPT_CODE     	: '',
-            V_P_EMP_CODE    	: '',
-            V_P_EMP_STATE       : '',
-            V_P_EMP_CODE_LIST   : EMP_CODE,
-            V_P_PAY_AREA_TYPE	: '',
-            V_P_FORM_ID 		: p_formId,
-            V_P_MENU_ID 		: p_menuId,
-            V_P_PROC_ID 		: '',
-            V_P_USERID 			: '',
-            V_P_PC 				: ''
+            V_P_DEBUG_MODE_YN 		: '',
+            V_P_LANG_ID 			: '',
+            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
+            V_P_YE_TX_YYYY 			: obj.INCOME_YEAR,
+            V_P_YEAR_END_TX_TYPE	: YEAR_END_TX_TYPE,
+            V_P_SITE_CODE 			: '',
+            V_P_DEPT_CODE     		: '',
+            V_P_EMP_CODE     		: '',
+            V_P_PRINT_TYPE     		: '10',
+            V_P_PRINT_TYPE1     	: '30',
+            V_P_WORK_END_DAT_FR    	: INCOME_RECEIVE_START_DATE,
+            V_P_WORK_END_DAT_TO     : INCOME_RECEIVE_END_DATE,
+            V_P_EMP_CODE_LIST   	: EMP_CODE,
+            V_P_PAY_AREA_TYPE		: '',
+            V_P_CONFIRM_PRINT_YN	: 'N',
+            V_P_FORM_ID 			: p_formId,
+            V_P_MENU_ID 			: p_menuId,
+            V_P_PROC_ID 			: '',
+            V_P_USERID 				: '',
+            V_P_PC 					: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportList2.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportListIncomeC.do", {
             getType				: 'json',
             workType			: 'REPORT',
-            cv_count			: '7',
+            cv_count			: '8',
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
-       	console.log('fn_GetReportData2 data => ', data);
-       	console.log('fn_GetReportData2 paramObj => ', paramObj);
+       	console.log('fn_GetReportDataIncomeC data => ', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if(data.cv_3.length > 0){
-	                if(data.cv_3[0].IMG_YN == 'N'){
-		                data.cv_3[0].IMG2 = "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-	                }else{
-	                	data.cv_3[0].IMG2 = '';
-	                }
+                if(data.cv_1.length > 0){
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        return data;
+    }
+	//퇴직소득 원천징수영수증 리포트
+    const fn_GetReportDataIncomeD = async function(obj) {
+		
+        var paramObj = {
+            V_P_DEBUG_MODE_YN 		: '',
+            V_P_LANG_ID 			: '',
+            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
+            
+            V_P_RET_CALC_DAT_FR 	: '',
+            V_P_RET_CALC_DAT_TO		: '',
+            V_P_RET_CALC_TYPE 		: '',
+            V_P_SITE_CODE     		: '',
+            V_P_DEPT_CODE     		: '',
+            V_P_EMP_CODE     		: '',
+            V_P_PRINT_TYPE     		: '',
+            V_P_PAY_DATE    		: '',
+            
+            V_P_FORM_ID 			: p_formId,
+            V_P_MENU_ID 			: p_menuId,
+            V_P_PROC_ID 			: '',
+            V_P_USERID 				: '',
+            V_P_PC 					: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportListIncomeD.do", {
+            getType				: 'json',
+            workType			: 'REPORT',
+            cv_count			: '2',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+       	console.log('fn_GetReportDataIncomeD data => ', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.cv_1.length > 0){
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);

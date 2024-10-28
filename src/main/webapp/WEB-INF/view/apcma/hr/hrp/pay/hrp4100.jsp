@@ -60,7 +60,7 @@
                 <th scope="row" class="th_bg">급여체계</th>
                 <td class="td_input">
                     <sbux-select
-                            id="srch-pay_group_code"
+                            id="SRCH_PAY_GROUP_CODE"
                             uitype="single"
                             jsondata-ref="jsonPayGroupCode"
                             unselected-text=""
@@ -72,11 +72,11 @@
                 <th scope="row" class="th_bg">전표구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-hr_posting_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_HR_POSTING_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-hr_posting_type" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_HR_POSTING_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -84,7 +84,7 @@
                 <th scope="row" class="th_bg">상대계정(미지급금)</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
-                            id="srch-txtcorresponding_account"
+                            id="SRCH_TXTCORRESPONDING_ACCOUNT"
                             class="form-control input-sm"
                             uitype="text"
                             style="width:100%"
@@ -616,8 +616,8 @@
         { text  : "차변"  , value  : "D"  },
         { text  : "대변"  , value  : "C"  }
     ];*/
-    var jsonPayGroupCode = []; //급여체계 //srch-pay_group_code  //L_HRI010
-    var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRP023
+    var jsonPayGroupCode = []; //급여체계 //SRCH_PAY_GROUP_CODE  //L_HRI010
+    var jsonHrPostingType = []; //전표구분 //SRCH_HR_POSTING_TYPE	//L_HRP023
     var jsonHrPayAccountType = []; //급여항목 //HR_PAY_ACCOUNT_TYPE	//L_HRP004_A
     var jsonPayItemCategory = []; //구분 //gvwBandgvwInfoGrid(PAY_ITEM_CATEGORY)	//L_HRB009
     var jsonPostingSummaryType = []; //집계단위 //gvwBandgvwInfoGrid(POSTING_SUMMARY_TYPE)	//L_HRP031
@@ -627,7 +627,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['srch-pay_group_code'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -635,7 +635,7 @@
 
             //전표구분
             gfnma_multiSelectInit({
-                target			: ['#srch-hr_posting_type']
+                target			: ['#SRCH_HR_POSTING_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP023'
@@ -962,10 +962,10 @@
      */
     const fn_search = async function (type) {
 
-        let PAY_GROUP_CODE              = gfnma_nvl(SBUxMethod.get("srch-pay_group_code")); //급여체계
-        let HR_POSTING_TYPE			    = gfnma_multiSelectGet('#srch-hr_posting_type');//전표구분
-        /*let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("srch-hr_posting_type")); //전표구분*/
-        let TXTCORRESPONDING_ACCOUNT    = gfnma_nvl(SBUxMethod.get("srch-txtcorresponding_account")); //상대계정(미지급금)
+        let PAY_GROUP_CODE              = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
+        let HR_POSTING_TYPE			    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
+        /*let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_HR_POSTING_TYPE")); //전표구분*/
+        let TXTCORRESPONDING_ACCOUNT    = gfnma_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
 
         //필수값 검증
         if(!SBUxMethod.validateRequired({
@@ -1009,24 +1009,24 @@
                 jsonBandgvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CATEGORY       : gfnma_nvl(item.PAY_ITEM_CATEGORY),
-                        HR_PAY_ACCOUNT_TYPE     : gfnma_nvl(item.HR_PAY_ACCOUNT_TYPE),
-                        POSTING_SUMMARY_TYPE    : gfnma_nvl(item.POSTING_SUMMARY_TYPE),
-                        SALES_COST_ACC_CODE     : gfnma_nvl(item.SALES_COST_ACC_CODE),
-                        SALES_COST_ACC_NAME     : gfnma_nvl(item.SALES_COST_ACC_NAME),
-                        MFG_COST_ACC_CODE       : gfnma_nvl(item.MFG_COST_ACC_CODE),
-                        MFG_COST_ACC_NAME       : gfnma_nvl(item.MFG_COST_ACC_NAME),
-                        RESEARCH_COST_ACC_CODE  : gfnma_nvl(item.RESEARCH_COST_ACC_CODE),
-                        RESEARCH_COST_ACC_NAME  : gfnma_nvl(item.RESEARCH_COST_ACC_NAME),
-                        SALES_COST_TEMP_ACC_CODE: gfnma_nvl(item.SALES_COST_TEMP_ACC_CODE),
-                        SALES_COST_TEMP_ACC_NAME: gfnma_nvl(item.SALES_COST_TEMP_ACC_NAME),
-                        MFG_COST_TEMP_ACC_CODE  : gfnma_nvl(item.MFG_COST_TEMP_ACC_CODE),
-                        MFG_COST_TEMP_ACC_NAME  : gfnma_nvl(item.MFG_COST_TEMP_ACC_NAME),
-                        SALES_COST_CENTER       : gfnma_nvl(item.SALES_COST_CENTER),
-                        SALES_COST_CENTER_NAME  : gfnma_nvl(item.SALES_COST_CENTER_NAME),
-                        MFG_COST_CENTER         : gfnma_nvl(item.MFG_COST_CENTER),
-                        MFG_COST_CENTER_NAME    : gfnma_nvl(item.MFG_COST_CENTER_NAME),
-                        RESEARCH_COST_CENTER    : gfnma_nvl(item.RESEARCH_COST_CENTER),
+                        PAY_ITEM_CATEGORY           : gfnma_nvl(item.PAY_ITEM_CATEGORY),
+                        HR_PAY_ACCOUNT_TYPE         : gfnma_nvl(item.HR_PAY_ACCOUNT_TYPE),
+                        POSTING_SUMMARY_TYPE        : gfnma_nvl(item.POSTING_SUMMARY_TYPE),
+                        SALES_COST_ACC_CODE         : gfnma_nvl(item.SALES_COST_ACC_CODE),
+                        SALES_COST_ACC_NAME         : gfnma_nvl(item.SALES_COST_ACC_NAME),
+                        MFG_COST_ACC_CODE           : gfnma_nvl(item.MFG_COST_ACC_CODE),
+                        MFG_COST_ACC_NAME           : gfnma_nvl(item.MFG_COST_ACC_NAME),
+                        RESEARCH_COST_ACC_CODE      : gfnma_nvl(item.RESEARCH_COST_ACC_CODE),
+                        RESEARCH_COST_ACC_NAME      : gfnma_nvl(item.RESEARCH_COST_ACC_NAME),
+                        SALES_COST_TEMP_ACC_CODE    : gfnma_nvl(item.SALES_COST_TEMP_ACC_CODE),
+                        SALES_COST_TEMP_ACC_NAME    : gfnma_nvl(item.SALES_COST_TEMP_ACC_NAME),
+                        MFG_COST_TEMP_ACC_CODE      : gfnma_nvl(item.MFG_COST_TEMP_ACC_CODE),
+                        MFG_COST_TEMP_ACC_NAME      : gfnma_nvl(item.MFG_COST_TEMP_ACC_NAME),
+                        SALES_COST_CENTER           : gfnma_nvl(item.SALES_COST_CENTER),
+                        SALES_COST_CENTER_NAME      : gfnma_nvl(item.SALES_COST_CENTER_NAME),
+                        MFG_COST_CENTER             : gfnma_nvl(item.MFG_COST_CENTER),
+                        MFG_COST_CENTER_NAME        : gfnma_nvl(item.MFG_COST_CENTER_NAME),
+                        RESEARCH_COST_CENTER        : gfnma_nvl(item.RESEARCH_COST_CENTER),
                         RESEARCH_COST_CENTER_NAME   : gfnma_nvl(item.RESEARCH_COST_CENTER_NAME),
                         NEED_EMP_CODE_YN            : gfnma_nvl(item.NEED_EMP_CODE_YN),
                         POSTING_RESULT_ADJUST_YN    : gfnma_nvl(item.POSTING_RESULT_ADJUST_YN),
@@ -1136,6 +1136,7 @@
 
                         if (data.resultMessage) {
                             alert(data.resultMessage);
+                            fn_search('save');
                         }else{
                             gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                             fn_search('save');
@@ -1203,9 +1204,9 @@
 
     const getParamForm = async function(){
 
-        let PAY_GROUP_CODE      = gfnma_nvl(SBUxMethod.get("srch-pay_group_code")); //급여체계
-        let HR_POSTING_TYPE	    = gfnma_multiSelectGet('#srch-hr_posting_type');//전표구분
-        //let TXTCORRESPONDING_ACCOUNT = gfnma_nvl(SBUxMethod.get("srch-txtcorresponding_account")); //상대계정(미지급금)
+        let PAY_GROUP_CODE      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
+        let HR_POSTING_TYPE	    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
+        //let TXTCORRESPONDING_ACCOUNT = gfnma_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
 
         if (!PAY_GROUP_CODE) {
             gfn_comAlert("W0002", "급여체계");
@@ -1362,6 +1363,7 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
+                        fn_search('search');
                     }else{
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search('search');
@@ -1383,7 +1385,7 @@
     $(function () {
 
         // 변경을 감지할 노드 선택
-        const targetNode = document.getElementById("srch-hr_posting_type");
+        const targetNode = document.getElementById("SRCH_HR_POSTING_TYPE");
 
         // 감지 옵션 (감지할 변경)
         const config = { attributes: true, childList: true, subtree: true };
@@ -1392,7 +1394,7 @@
         // 변경 감지 시 실행할 콜백 함수
         const callback = (mutationList, observer) => {
 
-            let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
+            let HR_POSTING_TYPE = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');
 
             if (!_.isEmpty(HR_POSTING_TYPE)) {
                 if (!_.isEqual(CHk_HR_POSTING_TYPE, HR_POSTING_TYPE)) {
@@ -1402,7 +1404,7 @@
 
                         if (_.isEqual(HR_POSTING_TYPE, item.value)){
 
-                            SBUxMethod.set("srch-txtcorresponding_account", item.label);
+                            SBUxMethod.set("SRCH_TXTCORRESPONDING_ACCOUNT", item.label);
                         }
 
                     })
@@ -1419,9 +1421,9 @@
 
 
         //전표구분 선택시 상태계정(미지지급금 set)
-        /*$("#srch-hr_posting_type").on("DOMSubtreeModified",function(e){
+        /*$("#SRCH_HR_POSTING_TYPE").on("DOMSubtreeModified",function(e){
 
-            let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
+            let HR_POSTING_TYPE = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');
 
             if (!_.isEmpty(HR_POSTING_TYPE)) {
                 if (!_.isEqual(CHk_HR_POSTING_TYPE, HR_POSTING_TYPE)) {
@@ -1431,7 +1433,7 @@
 
                         if (_.isEqual(HR_POSTING_TYPE, item.value)){
 
-                            SBUxMethod.set("srch-txtcorresponding_account", item.label);
+                            SBUxMethod.set("SRCH_TXTCORRESPONDING_ACCOUNT", item.label);
                         }
 
                     })

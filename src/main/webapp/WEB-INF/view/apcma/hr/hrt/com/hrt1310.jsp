@@ -67,6 +67,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -80,6 +82,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">근무패턴</th>
@@ -169,9 +173,6 @@
 
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_YYYYMMDD_FR", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateLastYmd(new Date(new Date().getFullYear(), new Date().getMonth()+2, 1)));
-
         let rst = await Promise.all([
             // 근무패턴
             gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -385,7 +386,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -432,7 +433,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -487,7 +488,18 @@
         return columnList;
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_YYYYMMDD_FR", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateLastYmd(new Date(new Date().getFullYear(), new Date().getMonth()+2, 1)));
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         let YYYYMMDD_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
         let YYYYMMDD_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
         let WORK_PATTERN_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
@@ -594,12 +606,12 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createBandgvwInfoGrid();
         fn_createGvwColorGrid();
         fn_createGvwCheckGrid();
-        fn_search();
+        await fn_onload();
     });
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

@@ -57,7 +57,7 @@
                     <th scope="row" class="th_bg">서비스</th>
                     <td class="td_input">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -228,6 +228,10 @@
     }
 
     const fn_search = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         // 비즈니스 로직 정보
         let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
         let V_P_TXN_TYPE = gfn_nvl(SBUxMethod.get("SRCH_TXN_TYPE"));

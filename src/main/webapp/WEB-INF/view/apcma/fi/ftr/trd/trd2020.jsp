@@ -58,7 +58,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
@@ -75,7 +75,7 @@
 										id="SRCH_BASE_DATE"
 										name="SRCH_BASE_DATE"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
 										style="width:100%;"
                                         group-id="panHeader"
                                         required
@@ -2435,14 +2435,14 @@
     }
 
     const fnSET_P_TRD2010_S = async function (strWorkType) {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
-            return false;
-        }
-
-        if (!SBUxMethod.validateRequired({group_id:'tabBase'}) || !SBUxMethod.validateRequired({group_id:'tabInfo'})
-            || !SBUxMethod.validateRequired({group_id:'tabAccount'}) || !SBUxMethod.validateRequired({group_id:'tabPL'})
-            || !SBUxMethod.validateRequired({group_id:'tabTreasury'}) || !SBUxMethod.validateRequired({group_id:'tabTreasuryF'})
-            || !SBUxMethod.validateRequired({group_id:'tabDept'}))
+        if (!SBUxMethod.validateRequired({group_id:'panList'}) || !SBUxMethod.validateRequired({group_id:'panInfo'})
+            || !SBUxMethod.validateRequired({group_id:'panAccount'}) || !SBUxMethod.validateRequired({group_id:'panPL'})
+            || !SBUxMethod.validateRequired({group_id:'panTR'}) || !SBUxMethod.validateRequired({group_id:'panTRF'})
+            || !SBUxMethod.validateRequired({group_id:'panDept'})
+            || !validateRequired('panList') || !validateRequired('panInfo')
+            || !validateRequired('panAccount') || !validateRequired('panPL')
+            || !validateRequired('panTR') || !validateRequired('panTRF')
+            || !validateRequired('panDept'))
             return false;
 
         // 비즈니스 로직 정보

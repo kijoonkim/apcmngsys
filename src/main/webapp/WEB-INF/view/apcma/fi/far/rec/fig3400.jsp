@@ -111,7 +111,7 @@
 										name="SRCH_PERIOD_YYYYMM"
 										date-format="yyyy-mm"
 										datepicker-mode="month"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
 										style="width:100%;"
 								/>
 							</td>
@@ -176,6 +176,8 @@
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
+                                        group-id="panHeader"
+                                        required
 								/>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
@@ -189,6 +191,8 @@
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
+                                        group-id="panHeader"
+                                        required
 								/>
 							</td>
 							<th scope="row" class="th_bg">전표구분</th>
@@ -415,12 +419,6 @@
     ];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
-        SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-
         let rst = await Promise.all([
             // 사업단위
             gfnma_setComSelect(['gvwMaster', 'gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
@@ -1259,6 +1257,10 @@
     }
 
     const fn_searchApplyTab = async function (rowData) {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
         let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE"));
         let DOC_ID = gfn_nvl(rowData.DOC_ID) == "" ? 0 : parseInt(rowData.DOC_ID);
@@ -1582,6 +1584,10 @@
     }
 
     const fn_gvwMasterDblclick = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         var nRow = gvwMaster.getRow();
         var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
@@ -1788,7 +1794,7 @@
         fn_createGvwAccountGrid();
         fn_createGvwPaymentGrid();
         fn_createGvwApproveGrid();
-        await fn_search();
+        await fn_onload();
     });
 
     // 신규
@@ -1802,6 +1808,10 @@
     }
 
     const fn_create = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         var ht = {};
 
         ht["DOC_BATCH_NO"] = "";
@@ -1822,7 +1832,21 @@
         window.parent.postMessage(json);
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
+        SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+
+        await fn_search();
+    }
+
     const fn_search = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
         let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE"));
         let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
@@ -2135,7 +2159,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2202,7 +2226,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2261,7 +2285,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }

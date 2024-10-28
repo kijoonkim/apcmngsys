@@ -154,6 +154,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -167,6 +169,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                group-id="panHeader"
+                                required
                         />
                     </td>
                     <th scope="row" class="th_bg">구분</th>
@@ -260,12 +264,6 @@
     var jsonTimeShiftApplyList = []; 	// 그리드의 참조 데이터 주소 선언
 
     const fn_initSBSelect = async function() {
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-        SBUxMethod.set("SRCH_START_DATE",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_END_DATE", gfn_dateToYmd(new Date()));
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['bandgvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -1003,6 +1001,10 @@
 
     // 행추가
     const fn_addRow = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let rowVal = bandgvwInfo.getRow();
 
         let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
@@ -1090,10 +1092,10 @@
         fn_createBandgvwInfoGrid();
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createBandgvwInfoGrid();
-        fn_search();
+        await fn_onload();
     });
 
     // 파일첨부
@@ -1227,7 +1229,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1344,7 +1346,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1359,7 +1361,21 @@
         }
     }
 
+    const fn_onload = async function () {
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+        SBUxMethod.set("SRCH_START_DATE",gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_END_DATE", gfn_dateToYmd(new Date()));
+
+        await fn_search();
+    }
+
     const fn_search = async function() {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
         let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1580,6 +1596,10 @@
     }
 
     const fn_createList = async function() {
+        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+
         let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
         let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1793,7 +1813,7 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                     }
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1907,7 +1927,7 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                     }
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2020,7 +2040,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -2132,7 +2152,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }

@@ -207,7 +207,7 @@
                     <th scope="row" class="th_bg">FBS서비스</th>
                     <td class="td_input" style="border-right:hidden;">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -218,7 +218,7 @@
                     <th scope="row" class="th_bg">지급구분</th>
                     <td class="td_input" style="border-right:hidden;">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAY_GUBUN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAY_GUBUN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -814,14 +814,6 @@
             // 입금처
             gfnma_setComSelect([''], jsonPayerName, 'L_COMP_ID', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', ''),
         ]);
-
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-        SBUxMethod.set("FEE_CHARGER", "1");
-        SBUxMethod.set("FOREIGN_GB", "2");
-        SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
-        SBUxMethod.set("SRCH_MULTI_A_YN", "N");
-        gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SUB_CODE', 'CODE_NAME', "ECBANK");
-        gfnma_multiSelectSet('#SRCH_PAY_GUBUN', 'SUB_CODE', 'CODE_NAME', "10");
     }
 
     function fn_createGvwDetailGrid() {
@@ -1289,7 +1281,7 @@
                                 SBUxMethod.set("SRCH_TXN_TIME_RAW", strtxn_time_raw);
                                 SBUxMethod.set("SRCH_TXN_TIME", strtxn_time);
 
-                                fn_search();
+                                await fn_search();
                             } else {
                                 jsonFinancialTransferList.length = 0;
                                 jsonFinancialPlanList.length = 0;
@@ -1301,7 +1293,7 @@
                     jsonFinancialPlanList.length = 0;
                     gvwAct.rebuild();
 
-                    fn_search();
+                    await fn_search();
                 }
             }
         }
@@ -1362,6 +1354,14 @@
     }
 
     const fn_onload = async function (parentParameter) {
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        SBUxMethod.set("FEE_CHARGER", "1");
+        SBUxMethod.set("FOREIGN_GB", "2");
+        SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
+        SBUxMethod.set("SRCH_MULTI_A_YN", "N");
+        gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SUB_CODE', 'CODE_NAME', "ECBANK");
+        gfnma_multiSelectSet('#SRCH_PAY_GUBUN', 'SUB_CODE', 'CODE_NAME', "10");
+
         if (parentParameter) {
             bPopUpFlag = true;
 
@@ -1407,7 +1407,7 @@
                             if (_.isEqual("S", data.resultStatus)) {
                                 SBUxMethod.set("SRCH_TRANS_COUNT", Number(gfn_nvl(data.TRANS_COUNT)));
                                 gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SUB_CODE', 'CODE_NAME', "ECBANK");
-                                fn_search();
+                                await fn_search();
                             } else {
                                 alert(data.resultMessage);
                             }
@@ -1638,7 +1638,7 @@
                     SBUxMethod.set("SRCH_TXN_TIME_RAW", strtxn_time_raw);
                     SBUxMethod.set("SRCH_TXN_TIME", strtxn_time);
 
-                    fn_search();
+                    await fn_search();
                 } else {
                     jsonFinancialTransferList.length = 0;
                     jsonFinancialPlanList.length = 0;
@@ -1647,7 +1647,7 @@
                 }
             }
 
-            fn_search();
+            await fn_search();
         }
         fnSET_P_FBS2010_S1("U");
     }
@@ -1729,7 +1729,7 @@
 
     const fnQRY_P_FBS2010_Q = async function (strWorkType) {
         if (strWorkType == "Q") {
-            if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            if (!validateRequired("panHeader")) {
                 return false;
             }
         }
@@ -2018,6 +2018,10 @@
     }
 
     const fnQRY_P_FBSBANKTXN_Q = async function (strWorkType) {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         try {
             let arrfbs_no = "";
             let strFBS_WORK_TYPE = "";
@@ -2385,6 +2389,10 @@
     }
 
     const fn_fbsSend = async function() {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         SBUxMethod.attr("btnTxnComplete", "disabled", "true");
         // 이중클릭 방지 ( 처음 클릭 후 0.4초내 클릭은 무시)
         if (gvwDetail.getRow() < 0)
@@ -2471,7 +2479,7 @@
 
             SBUxMethod.set("LOG", strLog);
 
-            fn_search();
+            await fn_search();
 
             SBUxMethod.closeProgress(gv_loadingOptions);
         }
@@ -2659,6 +2667,10 @@
     }
 
     const fn_checkName = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         if (gvwDetail.getRow() < 0)
             return;
 
@@ -2709,6 +2721,10 @@
     }
 
     const fn_retry = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         if (gvwDetail.getRow() < 0)
             return;
 
@@ -2790,13 +2806,17 @@
 
             SBUxMethod.set("LOG", strLog);
 
-            fn_search();
+            await fn_search();
 
             SBUxMethod.closeProgress(gv_loadingOptions);
         }
     }
 
     const fn_txnComplete = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         SBUxMethod.attr("btnTxnComplete", "disabled", "true");
 
         if (gvwDetail.getRow() < 0)
@@ -2883,7 +2903,7 @@
 
             SBUxMethod.set("LOG", strLog);
 
-            fn_search();
+            await fn_search();
 
             SBUxMethod.closeProgress(gv_loadingOptions);
 
@@ -2892,6 +2912,10 @@
     }
 
     const fn_txnCancel = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         if (gvwDetail.getRow() < 0)
             return;
 
@@ -2974,13 +2998,17 @@
 
             SBUxMethod.set("LOG", strLog);
 
-            fn_search();
+            await fn_search();
 
             SBUxMethod.closeProgress(gv_loadingOptions);
         }
     }
 
     const fn_bankUniqueNo = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         if (gvwDetail.getRow() < 0)
             return;
 
@@ -3055,7 +3083,7 @@
 
             SBUxMethod.set("LOG", strLog);
 
-            fn_search();
+            await fn_search();
 
             SBUxMethod.closeProgress(gv_loadingOptions);
 
@@ -3063,6 +3091,10 @@
     }
 
     const fn_resultQuery = async function () {
+        if (!validateRequired("panHeader")) {
+            return false;
+        }
+
         if (gvwDetail.getRow() < 0)
             return;
 
@@ -3160,7 +3192,7 @@
             }
         }
 
-        fn_search();
+        await fn_search();
 
         SBUxMethod.closeProgress(gv_loadingOptions);
     }

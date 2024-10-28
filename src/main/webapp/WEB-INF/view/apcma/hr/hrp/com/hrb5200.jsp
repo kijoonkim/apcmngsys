@@ -111,7 +111,7 @@
                                     <tr>
                                         <th scope="row" class="th_bg">급여항목구분</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-select id="PAY_ITEM_CATEGORY" uitype="single" jsondata-ref="jsonPayItemCategory" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                                            <sbux-select id="PAY_ITEM_CATEGORY" uitype="single" jsondata-ref="jsonPayItemCategory" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                         </td>
                                         <td class="td_input" style="border-right:hidden;">
                                             <sbux-checkbox
@@ -137,17 +137,17 @@
                                         </td>
                                         <th scope="row" class="th_bg">급여항목특성</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-select id="PAY_ITEM_PROPERTY" uitype="single" jsondata-ref="jsonPayItemProperty" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                                            <sbux-select id="PAY_ITEM_PROPERTY" uitype="single" jsondata-ref="jsonPayItemProperty" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="th_bg">급여항목코드</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="PAY_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm" required></sbux-input>
+                                            <sbux-input id="PAY_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-input>
                                         </td>
                                         <th scope="row" class="th_bg">급여항목명</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="PAY_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm" required></sbux-input>
+                                            <sbux-input id="PAY_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-input>
                                         </td>
                                         <th scope="row" class="th_bg">원천징수항목구분</th>
                                         <td class="td_input" style="border-right:hidden;">
@@ -165,7 +165,7 @@
                                         <th scope="row" class="th_bg">집계방법구분</th>
                                         <td class="td_input" style="border-right:hidden;">
                                             <div class="dropdown">
-                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SUMMARY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SUMMARY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                     <font>선택</font>
                                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                 </button>
@@ -186,7 +186,7 @@
                                         </td>
                                         <th scope="row" class="th_bg">적용기준</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-select id="PAY_ITEM_RANGE_TYPE" uitype="single" jsondata-ref="jsonPayItemRangeType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                                            <sbux-select id="PAY_ITEM_RANGE_TYPE" uitype="single" jsondata-ref="jsonPayItemRangeType" unselected-text="선택" class="form-control input-sm" group-id="panInfo" required></sbux-select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -219,7 +219,7 @@
                                         <th scope="row" class="th_bg">끝전처리방법</th>
                                         <td class="td_input" style="border-right:hidden;">
                                             <div class="dropdown">
-                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ROUND_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="ROUND_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                     <font>선택</font>
                                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                 </button>
@@ -230,7 +230,7 @@
                                         <th scope="row" class="th_bg">끝전처리기준액</th>
                                         <td class="td_input" style="border-right:hidden;">
                                             <div class="dropdown">
-                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ROUND_TYPE_BASE_AMT" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="ROUND_TYPE_BASE_AMT" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                     <font>선택</font>
                                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                 </button>
@@ -242,7 +242,7 @@
                                     <tr>
                                         <th scope="row" class="th_bg">수습지급율</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="INTERN_EMP_PAY_RATE" uitype="text" placeholder="" class="form-control input-sm" required></sbux-input><label>%</label>
+                                            <sbux-input id="INTERN_EMP_PAY_RATE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-input><label>%</label>
                                         </td>
                                         <td class="td_input" style="border-right:hidden;">
                                             <sbux-checkbox
@@ -415,7 +415,7 @@
                                         <th scope="row" class="th_bg">계산기준일</th>
                                         <td class="td_input" style="border-right:hidden;">
                                             <div class="dropdown">
-                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SUMMARY_RULE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SUMMARY_RULE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                     <font>선택</font>
                                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                 </button>
@@ -1135,11 +1135,11 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwMasterGrid();
         fn_createGvwExceptGrid();
-        fn_search();
+        await fn_search();
     });
 
 
@@ -1186,7 +1186,7 @@
     }
 
     const fn_save = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) || !validateRequired("panInfo")) {
             return false;
         }
 
@@ -1352,6 +1352,10 @@
     }
 
     const fn_delete = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) || !validateRequired("panInfo")) {
+            return false;
+        }
+
         if(gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE")) == "") return;
 
         if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {

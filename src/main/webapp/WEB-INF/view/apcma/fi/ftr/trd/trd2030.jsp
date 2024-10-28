@@ -99,9 +99,11 @@
 										id="SRCH_PERIOD_YYYYMM"
 										name="SRCH_PERIOD_YYYYMM"
 										date-format="yyyy-mm"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
 										style="width:100%;"
                                         datepicker-mode="month"
+                                        group-id="panHeader"
+                                        required
 								/>
 							</td>
                             <th scope="row" class="th_bg">금융기관</th>

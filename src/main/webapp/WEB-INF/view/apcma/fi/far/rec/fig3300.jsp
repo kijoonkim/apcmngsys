@@ -68,7 +68,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
@@ -79,13 +79,13 @@
 							<th scope="row" class="th_bg">조회구분</th>
 							<td colspan="3" class="td_input inpt_data_reqed" style="border-right:hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo_norm1" name="SRCH_RIDGUBUN" uitype="normal" text="전체" value="99"></sbux-radio>
+									<sbux-radio id="rdo_norm1" name="SRCH_RIDGUBUN" uitype="normal" text="전체" value="99" group-id="panHeader" required></sbux-radio>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo_norm2" name="SRCH_RIDGUBUN" uitype="normal" text="세금계산서" value="20"></sbux-radio>
+									<sbux-radio id="rdo_norm2" name="SRCH_RIDGUBUN" uitype="normal" text="세금계산서" value="20" group-id="panHeader"></sbux-radio>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo_norm3" name="SRCH_RIDGUBUN" uitype="normal" text="계산서" value="10"></sbux-radio>
+									<sbux-radio id="rdo_norm3" name="SRCH_RIDGUBUN" uitype="normal" text="계산서" value="10" group-id="panHeader"></sbux-radio>
 								</p>
 								<sbux-input id="SRCH_AMT" name="SRCH_AMT" uitype="hidden"></sbux-input>
 								<sbux-input id="SRCH_APPROVAL_NO" name="SRCH_APPROVAL_NO" uitype="hidden"></sbux-input>
@@ -101,7 +101,7 @@
 										name="SRCH_PERIOD_YYYYMM"
 										date-format="yyyy-mm"
 										datepicker-mode="month"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
 										style="width:100%;"
 										onchange="fn_payDate"
 								/>
@@ -121,6 +121,8 @@
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
+										group-id="panHeader"
+										required
 								/>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
@@ -134,6 +136,8 @@
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
+										group-id="panHeader"
+										required
 								/>
 							</td>
 							<th scope="row" class="th_bg">상호</th>
@@ -239,13 +243,6 @@
 	var jsonItemList = [];
 
 	const fn_initSBSelect = async function() {
-		SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-		SBUxMethod.set("SRCH_DATE_FR",gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("SRCH_DATE_TO", gfn_dateLastYmd(new Date()));
-		SBUxMethod.set("SRCH_RIDGUBUN", "99");
-		gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-
-
 		let rst = await Promise.all([
 			// 사업단위
 			gfnma_multiSelectInit({
@@ -695,6 +692,10 @@
 	}
 
 	const fn_view = async function () {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
+			return false;
+		}
+
 		var nRow = gvwList.getRow();
 		var nCol = gvwList.getCol();
 		var rowData = gvwList.getRowData(nRow);
@@ -814,10 +815,11 @@
 		});
 	}
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_initSBSelect();
+	window.addEventListener('DOMContentLoaded', async function(e) {
+		await fn_initSBSelect();
 		fn_createGvwListGrid();
 		fn_createGvwItemGrid();
+		await fn_onload();
 		//fn_search();
 
 		document.getElementById('xmlFile').addEventListener('change', function(event) {
@@ -848,6 +850,9 @@
 
 		document.getElementById('excelFile').addEventListener('change', function(event) {
 			if(!window.FileReader) return;
+			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
+				return;
+			}
 
 			if (event.target.files[0].name.substring(0, 9) != "매입전자세금계산서") {
 				gfn_comAlert("E0000", "매입전자세금계산서만 가능합니다. 파일명은 '매입전자세금계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
@@ -970,6 +975,9 @@
 
 		document.getElementById('excelFile2').addEventListener('change', function(event) {
 			if(!window.FileReader) return;
+			if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
+				return;
+			}
 
 			if (event.target.files[0].name.substring(0, 7) != "매입전자계산서") {
 				gfn_comAlert("E0000", "매입전자계산서만 가능합니다. 파일명은 '매입전자계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
@@ -1358,7 +1366,19 @@
 		}
 	}
 
+	const fn_onload = async function () {
+		SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
+		SBUxMethod.set("SRCH_DATE_FR",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("SRCH_DATE_TO", gfn_dateLastYmd(new Date()));
+		SBUxMethod.set("SRCH_RIDGUBUN", "99");
+		gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+	}
+
 	const fn_search = async function () {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
+			return false;
+		}
+
 		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
 		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
@@ -1508,6 +1528,9 @@
 	}
 
 	const fn_uploadXml = async function (file) {
+		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
+			return false;
+		}
 		let parser = new DOMParser();
 		let xml = parser.parseFromString(file, "text/xml");
 		let parseXmlForJson = xmlToJson(xml);

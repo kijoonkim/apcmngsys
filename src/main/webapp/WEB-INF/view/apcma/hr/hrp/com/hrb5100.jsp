@@ -73,7 +73,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">급여체계코드</th>
                                     <td class="td_input">
-                                        <sbux-input id="PAY_GROUP_CODE" class="form-control input-sm data_required" uitype="text" style="width:100%" required></sbux-input>
+                                        <sbux-input id="PAY_GROUP_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">호봉유형</th>
                                     <td class="td_input">
@@ -87,7 +87,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">급여체계명</th>
                                     <td colspan="5" class="td_input">
-                                        <sbux-input id="PAY_GROUP_NAME" class="form-control input-sm data_required" uitype="text" style="width:100%" required></sbux-input>
+                                        <sbux-input id="PAY_GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -117,7 +117,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input">
-                                        <sbux-input id="SORT_SEQ" class="form-control input-sm data_required" uitype="text" style="width:100%" required></sbux-input>
+                                        <sbux-input id="SORT_SEQ" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">사용여부</th>
                                     <td class="td_input">
@@ -454,11 +454,11 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwMasterGrid();
         fn_createBandgvwDetailGrid();
-        fn_search();
+        await fn_search();
     });
 
     // 저장
@@ -482,6 +482,10 @@
     }
 
     const fn_save = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"})) {
+            return false;
+        }
+
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
         let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
         let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
@@ -570,7 +574,7 @@
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
                             gfn_comAlert("I0001");
-                            fn_search();
+                            await fn_search();
                         } else {
                             alert(data.resultMessage);
                         }
@@ -582,7 +586,7 @@
                         gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                     }
                 } else {
-                    fn_search();
+                    await fn_search();
                 }
             } else {
                 alert(data.resultMessage);
@@ -598,6 +602,10 @@
     }
 
     const fn_delete = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"})) {
+            return false;
+        }
+
         if(gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")) == "") return;
 
         if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {
@@ -644,7 +652,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search();
+                    await fn_search();
                 } else {
                     alert(data.resultMessage);
                 }

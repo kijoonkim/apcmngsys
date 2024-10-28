@@ -81,6 +81,7 @@
                                                 datepicker-mode="year"
                                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
                                                 onchange="fn_srchYyyy(SRCH_YYYY)"
+                                                group-id="panInfo"
                                                 required
                                         />
                                     </td>
@@ -96,6 +97,8 @@
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                 style="width:100%;"
+                                                group-id="panInfo"
+                                                required
                                         />
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
@@ -109,6 +112,8 @@
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                 style="width:100%;"
+                                                group-id="panInfo"
+                                                required
                                         />
                                     </td>
                                     <td colspan="2"></td>
@@ -302,10 +307,10 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
+    window.addEventListener('DOMContentLoaded', async function(e) {
         fn_createGvwMasterGrid();
         fn_createGvwDetailGrid();
-        fn_search();
+        await fn_search();
     });
 
     // 저장
@@ -329,6 +334,10 @@
     }
 
     const fn_save = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"})) {
+            return false;
+        }
+
         let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
         let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
         let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
@@ -426,6 +435,10 @@
     }
 
     const fn_delete = async function () {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"})) {
+            return false;
+        }
+
         let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
         let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
         let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
