@@ -203,6 +203,36 @@ const gfnma_date8 = function(str) {
 }
 
 /**
+ * @name 		gfnma_date9
+ * @description 현재 날짜에서 달을 차감함.
+ * @function
+ * @param 		{string} str : 차감 달 
+ * @returns 	{string}
+ */
+const gfnma_date9 = function(str) {
+	
+	var pad = function(number, length) {
+	  var str = '' + number;
+	  while (str.length < length) {
+	    str = '0' + str;
+	  }
+	  return str;
+	}
+	
+	var nowDate	= new Date();
+	var cha		= Number(str) + 1;
+	
+	var yyyy = nowDate.getFullYear().toString();
+	var MM = pad(nowDate.getMonth() + (cha),2);
+	var dd = pad(nowDate.getDate(), 2);
+	var hh = pad(nowDate.getHours(), 2);
+	var mm = pad(nowDate.getMinutes(), 2)
+	var ss = pad(nowDate.getSeconds(), 2)
+	rstr = yyyy + '-' + MM + '-' + dd;
+	return rstr;
+}
+
+/**
  * @name 		gfnma_nvl
  * @description undefined 를 '' 로 변환
  * @function
