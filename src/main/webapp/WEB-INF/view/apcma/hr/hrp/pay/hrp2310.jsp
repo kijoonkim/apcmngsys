@@ -693,7 +693,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
                 SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
             },

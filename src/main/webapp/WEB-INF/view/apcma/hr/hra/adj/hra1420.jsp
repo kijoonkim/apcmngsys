@@ -308,7 +308,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -342,7 +341,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -381,7 +379,6 @@
             , tableColumnNames      :   ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths     :   ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 gvwInfoGrid.setCellData(row, (col-4), data['DEPT_CODE']);
                 gvwInfoGrid.setCellData(row, (col-3), data['DEPT_NAME']);
@@ -712,9 +709,6 @@
      * 그리드내 팝업 조회
      */
     function fn_gridPopup(event, row, col) {
-
-        //console.log('grid popup row:', row);
-        //console.log('grid popup col:', col);
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);

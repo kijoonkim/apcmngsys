@@ -467,7 +467,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -501,7 +500,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -530,7 +528,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
@@ -564,7 +561,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
@@ -599,7 +595,6 @@
             , tableColumnNames      :   ["TAX_FREE_CODE"  , "TAX_FREE_NAME"  , "TAX_FREE_DESCR"]
             , tableColumnWidths     :   ["80px"      , "120px"      , "300px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 gvwTaxFreeGrid.setCellData(row, gvwTaxFreeGrid.getColRef('PREV_COM_NUM'), data['TAX_FREE_CODE']); //비과세코드
                 gvwTaxFreeGrid.setCellData(row, gvwTaxFreeGrid.getColRef('TAX_FREE_NAME'), data['TAX_FREE_NAME']); //비과세약칭
@@ -833,9 +828,6 @@
      * 그리드내 팝업 조회
      */
     function fn_gridPopup(event, row, col) {
-
-        console.log('grid popup row:', row);
-        console.log('grid popup col:', col);
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);

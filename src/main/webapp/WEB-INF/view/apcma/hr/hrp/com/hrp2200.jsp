@@ -525,7 +525,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_ENTRY_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_ENTRY_DEPT_CODE', data.DEPT_CODE);
             },
@@ -564,7 +563,6 @@
             , tableColumnNames      :   ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths     :   ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 gvwDetallGrid.setCellData(row, (col-2), data['DEPT_NAME']);
                 gvwDetallGrid.setCellData(row, (col-1), data['EMP_CODE']);
