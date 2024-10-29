@@ -1660,14 +1660,14 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix, _
 
 	for (let element of elements) {
 		let key = element.id.split('-').pop();
-		if(_ignore.includes(key)){
-			continue;
-		}
 		let formatKey = _preFix + gfnma_camelToSnakeUpper(key);
 
 		if (element.type === 'text' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
 			let sbValue = SBUxMethod.get(element.id);
 			if (gfn_isEmpty(sbValue)) {
+				if(_ignore.includes(key)){
+					continue;
+				}
 				let msg = searchMsg(element);
 				gfn_comAlert("W0005", msg);
 				return false;
