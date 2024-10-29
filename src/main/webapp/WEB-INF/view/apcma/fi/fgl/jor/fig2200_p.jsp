@@ -599,10 +599,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [10,11,12]
+                    sum : [11,12,13]
                 },
                 grandtotalrow : {
-                    titlecol 		: 9,
+                    titlecol 		: 10,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -621,7 +621,14 @@
             {caption: ["역발행승인"],    			ref: 'SIGN_YN', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["전표구분"],    				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            
             {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+   	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            
             {caption: ["적요"], 	   				ref: 'DESCRIPTION', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -2130,7 +2137,24 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    }       
+    }  
+    
+    /**
+     * 그리드내 전표번호 조회
+     */
+	function fn_gridPopup1(event, row, col) {
+		event.preventDefault();	
+        let rowData = Fig2200Grid.getRowData(row);
+        console.log('fn_gridPopup1 rowData:', rowData);
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: rowData['DOC_ID']
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
