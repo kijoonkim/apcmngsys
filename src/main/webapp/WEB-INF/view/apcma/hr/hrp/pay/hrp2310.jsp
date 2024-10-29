@@ -673,7 +673,7 @@
      */
     var fn_compopup1 = function() {
 
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("srch-dept_name"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -705,9 +705,9 @@
      */
     var fn_payDate = function() {
 
-        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
         let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
@@ -937,31 +937,31 @@
 
 
         if (_.isEqual(type, '1')) {
-            SBUxMethod.set("PAY_GROUP_CODE", "");
-            SBUxMethod.set("DEPT_CODE", "");
-            SBUxMethod.set("DEPT_NAME", "");
-            SBUxMethod.set("EMP_CODE", "");
-            SBUxMethod.set("EMP_NAME", "");
-            SBUxMethod.set("JOB_RANK", "");
-            SBUxMethod.set("DUTY_CODE", "");
-            SBUxMethod.set("ENTER_DATE", "");
-            SBUxMethod.set("RETIRE_DATE", "");
-            SBUxMethod.set("TEMP_END_DATE", "");
-            SBUxMethod.set("BONUS_APPLY_START_DATE", "");
-            SBUxMethod.set("BONUS_APPLY_START_DATE", "");
+            SBUxMethod.set("PAY_GROUP_CODE"         , "");
+            SBUxMethod.set("DEPT_CODE"              , "");
+            SBUxMethod.set("DEPT_NAME"              , "");
+            SBUxMethod.set("EMP_CODE"               , "");
+            SBUxMethod.set("EMP_NAME"               , "");
+            SBUxMethod.set("JOB_RANK"               , "");
+            SBUxMethod.set("DUTY_CODE"              , "");
+            SBUxMethod.set("ENTER_DATE"             , "");
+            SBUxMethod.set("RETIRE_DATE"            , "");
+            SBUxMethod.set("TEMP_END_DATE"          , "");
+            SBUxMethod.set("BONUS_APPLY_START_DATE" , "");
+            SBUxMethod.set("BONUS_APPLY_START_DATE" , "");
         }
 
-        SBUxMethod.set("PAY_DATE", 			"");
-        SBUxMethod.set("SALARY_BASE_AMT", 			"");
-        SBUxMethod.set("BONUS_BASE_AMT", 			"");
-        SBUxMethod.set("PAY_AMT", 			"");
-        SBUxMethod.set("BONUS_AMT", 			"");
-        SBUxMethod.set("TAX_FREE_AMT", 			"");
-        SBUxMethod.set("PAY_TOTAL_AMT", 			"");
-        SBUxMethod.set("PAY_DEDUCTION_AMT", 			"");
-        SBUxMethod.set("PAY_NET_AMT", 			"");
-        SBUxMethod.set("PAY_CASH_AMT", 			"");
-        SBUxMethod.set("TRANSFER_AMT", 			"");
+        SBUxMethod.set("PAY_DATE"           , 			"");
+        SBUxMethod.set("SALARY_BASE_AMT"    , 			"");
+        SBUxMethod.set("BONUS_BASE_AMT"     , 			"");
+        SBUxMethod.set("PAY_AMT"            , 			"");
+        SBUxMethod.set("BONUS_AMT"          , 			"");
+        SBUxMethod.set("TAX_FREE_AMT"       , 			"");
+        SBUxMethod.set("PAY_TOTAL_AMT"      , 			"");
+        SBUxMethod.set("PAY_DEDUCTION_AMT"  , 			"");
+        SBUxMethod.set("PAY_NET_AMT"        , 			"");
+        SBUxMethod.set("PAY_CASH_AMT"       , 			"");
+        SBUxMethod.set("TRANSFER_AMT"       , 			"");
 
 
     }
@@ -974,13 +974,13 @@
         fn_clearForm('1');
 
 
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
-        let EMP_NAME        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+        let EMP_NAME        = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
 
         if (!PAY_AREA_TYPE) {
             gfn_comAlert("W0002", "급여영역");
@@ -1039,18 +1039,18 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN          : gfnma_nvl(item.CHK_YN),
-                        SITE_CODE       : gfnma_nvl(item.SITE_CODE),
-                        EMP_CODE        : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME        : gfnma_nvl(item.EMP_NAME),
-                        DEPT_CODE       : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME       : gfnma_nvl(item.DEPT_NAME),
-                        PAY_CONFIRM_YN  : gfnma_nvl(item.PAY_CONFIRM_YN),
-                        POSITION_CODE   : gfnma_nvl(item.POSITION_CODE),
-                        DUTY_CODE       : gfnma_nvl(item.DUTY_CODE),
-                        EMP_STATE       : gfnma_nvl(item.EMP_STATE),
-                        PAY_APPLY_YN    : gfnma_nvl(item.PAY_APPLY_YN),
-                        PAY_APPLY_MONTH : gfnma_nvl(item.PAY_APPLY_MONTH)
+                        CHK_YN          : gfn_nvl(item.CHK_YN),
+                        SITE_CODE       : gfn_nvl(item.SITE_CODE),
+                        EMP_CODE        : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME        : gfn_nvl(item.EMP_NAME),
+                        DEPT_CODE       : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME       : gfn_nvl(item.DEPT_NAME),
+                        PAY_CONFIRM_YN  : gfn_nvl(item.PAY_CONFIRM_YN),
+                        POSITION_CODE   : gfn_nvl(item.POSITION_CODE),
+                        DUTY_CODE       : gfn_nvl(item.DUTY_CODE),
+                        EMP_STATE       : gfn_nvl(item.EMP_STATE),
+                        PAY_APPLY_YN    : gfn_nvl(item.PAY_APPLY_YN),
+                        PAY_APPLY_MONTH : gfn_nvl(item.PAY_APPLY_MONTH)
 
                     }
                     jsonGvwList.push(msg);
@@ -1087,13 +1087,13 @@
 
         fn_clearForm('');
 
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
-        let EMP_NAME        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+        let EMP_NAME        = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
 
         let nRow = gvwListGrid.getRow();
         let nCol = gvwListGrid.getCol();
@@ -1143,31 +1143,31 @@
 
                     data.cv_2.forEach((item, index) => {
 
-                        SBUxMethod.set("PAY_GROUP_CODE", gfnma_nvl(item.PAY_GROUP_CODE));
-                        SBUxMethod.set("DEPT_CODE", gfnma_nvl(item.DEPT_CODE));
-                        SBUxMethod.set("DEPT_NAME", gfnma_nvl(item.DEPT_NAME));
-                        SBUxMethod.set("EMP_CODE", gfnma_nvl(item.EMP_CODE));
-                        SBUxMethod.set("EMP_NAME", gfnma_nvl(item.EMP_NAME));
-                        SBUxMethod.set("JOB_RANK", gfnma_nvl(item.JOB_RANK));
-                        SBUxMethod.set("POSITION_CODE", gfnma_nvl(item.POSITION_CODE));
-                        SBUxMethod.set("DUTY_CODE", gfnma_nvl(item.DUTY_CODE));
-                        SBUxMethod.set("ENTER_DATE", gfnma_nvl(item.ENTER_DATE));
-                        SBUxMethod.set("RETIRE_DATE", gfnma_nvl(item.RETIRE_DATE));
-                        SBUxMethod.set("TEMP_END_DATE", gfnma_nvl(item.TEMP_END_DATE));
-                        SBUxMethod.set("BONUS_APPLY_START_DATE", gfnma_nvl(item.BONUS_APPLY_START_DATE));
-                        SBUxMethod.set("PAY_DATE", gfnma_nvl(item.PAY_DATE));
-                        SBUxMethod.set("PAY_AMT", gfnma_nvl(item.PAY_AMT));
-                        SBUxMethod.set("BONUS_AMT", gfnma_nvl(item.BONUS_AMT));
-                        SBUxMethod.set("TAX_FREE_AMT", gfnma_nvl(item.TAX_FREE_AMT));
-                        SBUxMethod.set("PAY_TOTAL_AMT", gfnma_nvl(item.PAY_TOTAL_AMT));
-                        SBUxMethod.set("PAY_DEDUCTION_AMT", gfnma_nvl(item.PAY_DEDUCTION_AMT));
-                        SBUxMethod.set("PAY_NET_AMT", gfnma_nvl(item.PAY_NET_AMT));
-                        SBUxMethod.set("PAY_CASH_AMT", gfnma_nvl(item.PAY_CASH_AMT));
-                        SBUxMethod.set("TRANSFER_AMT", gfnma_nvl(item.TRANSFER_AMT));
-                        SBUxMethod.set("SALARY_BASE_AMT", gfnma_nvl(item.SALARY_BASE_AMT));
-                        SBUxMethod.set("BONUS_BASE_AMT", gfnma_nvl(item.BONUS_BASE_AMT));
-                       /* SBUxMethod.set("INCENTIVE_BASE_AMT", gfnma_nvl(item.INCENTIVE_BASE_AMT));
-                        SBUxMethod.set("COMPETENCE_BASE_AMT", gfnma_nvl(item.COMPETENCE_BASE_AMT));*/
+                        SBUxMethod.set("PAY_GROUP_CODE"         , gfn_nvl(item.PAY_GROUP_CODE));
+                        SBUxMethod.set("DEPT_CODE"              , gfn_nvl(item.DEPT_CODE));
+                        SBUxMethod.set("DEPT_NAME"              , gfn_nvl(item.DEPT_NAME));
+                        SBUxMethod.set("EMP_CODE"               , gfn_nvl(item.EMP_CODE));
+                        SBUxMethod.set("EMP_NAME"               , gfn_nvl(item.EMP_NAME));
+                        SBUxMethod.set("JOB_RANK"               , gfn_nvl(item.JOB_RANK));
+                        SBUxMethod.set("POSITION_CODE"          , gfn_nvl(item.POSITION_CODE));
+                        SBUxMethod.set("DUTY_CODE"              , gfn_nvl(item.DUTY_CODE));
+                        SBUxMethod.set("ENTER_DATE"             , gfn_nvl(item.ENTER_DATE));
+                        SBUxMethod.set("RETIRE_DATE"            , gfn_nvl(item.RETIRE_DATE));
+                        SBUxMethod.set("TEMP_END_DATE"          , gfn_nvl(item.TEMP_END_DATE));
+                        SBUxMethod.set("BONUS_APPLY_START_DATE" , gfn_nvl(item.BONUS_APPLY_START_DATE));
+                        SBUxMethod.set("PAY_DATE"               , gfn_nvl(item.PAY_DATE));
+                        SBUxMethod.set("PAY_AMT"                , gfn_nvl(item.PAY_AMT));
+                        SBUxMethod.set("BONUS_AMT"              , gfn_nvl(item.BONUS_AMT));
+                        SBUxMethod.set("TAX_FREE_AMT"           , gfn_nvl(item.TAX_FREE_AMT));
+                        SBUxMethod.set("PAY_TOTAL_AMT"          , gfn_nvl(item.PAY_TOTAL_AMT));
+                        SBUxMethod.set("PAY_DEDUCTION_AMT"      , gfn_nvl(item.PAY_DEDUCTION_AMT));
+                        SBUxMethod.set("PAY_NET_AMT"            , gfn_nvl(item.PAY_NET_AMT));
+                        SBUxMethod.set("PAY_CASH_AMT"           , gfn_nvl(item.PAY_CASH_AMT));
+                        SBUxMethod.set("TRANSFER_AMT"           , gfn_nvl(item.TRANSFER_AMT));
+                        SBUxMethod.set("SALARY_BASE_AMT"        , gfn_nvl(item.SALARY_BASE_AMT));
+                        SBUxMethod.set("BONUS_BASE_AMT"         , gfn_nvl(item.BONUS_BASE_AMT));
+                       /* SBUxMethod.set("INCENTIVE_BASE_AMT", gfn_nvl(item.INCENTIVE_BASE_AMT));
+                        SBUxMethod.set("COMPETENCE_BASE_AMT", gfn_nvl(item.COMPETENCE_BASE_AMT));*/
 
                     });
 
@@ -1175,14 +1175,14 @@
                     jsonPayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT         : gfnma_nvl(item.PAY_AMT),
-                            TAX_FREE_AMT    : gfnma_nvl(item.TAX_FREE_AMT),
-                            PAY_QTY         : gfnma_nvl(item.PAY_QTY),
-                            RE_PAY_YYYYMM   : gfnma_nvl(item.RE_PAY_YYYYMM),
-                            RE_PAY_YYYYMM_P : gfnma_nvl(item.RE_PAY_YYYYMM_P),
-                            RE_PAY_DATE_P   : gfnma_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfnma_nvl(item.TAX_PAY_DATE),
+                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT         : gfn_nvl(item.PAY_AMT),
+                            TAX_FREE_AMT    : gfn_nvl(item.TAX_FREE_AMT),
+                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
+                            RE_PAY_YYYYMM   : gfn_nvl(item.RE_PAY_YYYYMM),
+                            RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
+                            RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
+                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE),
 
                         }
                         jsonPayList.push(msg);
@@ -1193,13 +1193,13 @@
                     jsonDeductList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT         : gfnma_nvl(item.PAY_AMT),
-                            PAY_QTY         : gfnma_nvl(item.PAY_QTY),
-                            RE_PAY_YYYYMM1  : gfnma_nvl(item.RE_PAY_YYYYMM1),
-                            RE_PAY_YYYYMM_P : gfnma_nvl(item.RE_PAY_YYYYMM_P),
-                            RE_PAY_DATE_P   : gfnma_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfnma_nvl(item.TAX_PAY_DATE)
+                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT         : gfn_nvl(item.PAY_AMT),
+                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
+                            RE_PAY_YYYYMM1  : gfn_nvl(item.RE_PAY_YYYYMM1),
+                            RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
+                            RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
+                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
                         }
                         jsonDeductList.push(msg);
                     });
@@ -1210,13 +1210,13 @@
                     jsonBasicList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT         : gfnma_nvl(item.PAY_AMT),
-                            PAY_QTY         : gfnma_nvl(item.PAY_QTY),
-                            RE_PAY_YYYYMM1  : gfnma_nvl(item.RE_PAY_YYYYMM1),
-                            RE_PAY_YYYYMM_P : gfnma_nvl(item.RE_PAY_YYYYMM_P),
-                            RE_PAY_DATE_P   : gfnma_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfnma_nvl(item.TAX_PAY_DATE)
+                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT         : gfn_nvl(item.PAY_AMT),
+                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
+                            RE_PAY_YYYYMM1  : gfn_nvl(item.RE_PAY_YYYYMM1),
+                            RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
+                            RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
+                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
                         }
                         jsonBasicList.push(msg);
                     });
@@ -1369,10 +1369,10 @@
     //퇴직자 정산세액 반영 저장
     const fn_btnApply = async function () {
 
-        let V_P_PAY_YYYYMM  = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let V_P_PAY_TYPE    = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let V_P_EMP_CODE    = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
+        let V_P_PAY_YYYYMM  = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let V_P_PAY_TYPE    = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let V_P_EMP_CODE    = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사번
 
         if (!V_P_PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -1442,10 +1442,10 @@
     //퇴직자 정산세액 반영 삭제
     const fn_btnApplyCancel = async function () {
 
-        let V_P_PAY_YYYYMM  = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let V_P_PAY_TYPE    = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let V_P_EMP_CODE    = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
+        let V_P_PAY_YYYYMM  = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let V_P_PAY_TYPE    = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let V_P_EMP_CODE    = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사번
 
         if (!V_P_PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -1612,13 +1612,13 @@
                 // 고정 수당항목 중복체크
                 dtSource2.forEach((item1, index1) => {
 
-                    let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
-                    let RE_PAY_YYYYMM_P1 = item1.data.RE_PAY_YYYYMM_P;
+                    let PAY_ITEM_CODE1      = item1.data.PAY_ITEM_CODE;
+                    let RE_PAY_YYYYMM_P1    = item1.data.RE_PAY_YYYYMM_P;
 
                     dtSource2.forEach((item2, index2) => {
 
-                        let PAY_ITEM_CODE2 = item2.data.PAY_ITEM_CODE;
-                        let RE_PAY_YYYYMM_P2 = item2.data.RE_PAY_YYYYMM_P;
+                        let PAY_ITEM_CODE2      = item2.data.PAY_ITEM_CODE;
+                        let RE_PAY_YYYYMM_P2    = item2.data.RE_PAY_YYYYMM_P;
 
                         let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
                         if (PAY_ITEM_CODE1 == PAY_ITEM_CODE2 && RE_PAY_YYYYMM_P1 == RE_PAY_YYYYMM_P2) {
@@ -1706,12 +1706,12 @@
         }
 
         let SITE_CODE;
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
-        let PAY_CASH_AMT    = gfnma_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현급지급액
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사번
+        let PAY_CASH_AMT    = gfn_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현급지급액
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
         let rowVal = gvwListGrid.getRow();
 
@@ -1849,8 +1849,8 @@
      */
     var fn_payCashAmt = function() {
 
-        let PAY_NET_AMT     = gfnma_nvl(SBUxMethod.get("PAY_NET_AMT")); //실지급액
-        let PAY_CASH_AMT    = gfnma_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현금지급액
+        let PAY_NET_AMT     = gfn_nvl((SBUxMethod.get("PAY_NET_AMT")); //실지급액
+        let PAY_CASH_AMT    = gfn_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현금지급액
 
         //이체액
         // 이체액 = 실지급액 - 현금지급액

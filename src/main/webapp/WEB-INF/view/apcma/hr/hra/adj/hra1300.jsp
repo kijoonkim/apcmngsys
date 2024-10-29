@@ -447,7 +447,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -476,7 +476,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -508,7 +508,7 @@
     }
 
     var fn_compopup4 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -537,7 +537,7 @@
 
     const fn_compopup5 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -846,20 +846,20 @@
             return;
         }
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
             return;
         }
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));//사업장
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));//부서
-        let RET_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RET_DATE_FR"));//퇴사일 S
-        let RET_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RET_DATE_TO"));//퇴사일 E
-        let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));//입사일 E
-        let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));//입사일 E
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));//사업장
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));//부서
+        let RET_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_FR"));//퇴사일 S
+        let RET_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_TO"));//퇴사일 E
+        let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));//입사일 E
+        let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));//입사일 E
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
 
 
         let rowData = gvwListGrid.getRowData(nRow);
@@ -909,33 +909,33 @@
                     jsonWorkComList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            WORK_COMPANY_TYPE       : gfnma_nvl(item.WORK_COMPANY_TYPE),
-                            TX_UNION_YN             : gfnma_nvl(item.TX_UNION_YN),
-                            PREV_COM_NAME           : gfnma_nvl(item.PREV_COM_NAME),
-                            PREV_COM_NUM            : gfnma_nvl(item.PREV_COM_NUM),
-                            PREV_WORK_ST_DAT        : gfnma_nvl(item.PREV_WORK_ST_DAT),
-                            PREV_WORK_END_DAT       : gfnma_nvl(item.PREV_WORK_END_DAT),
-                            PREV_REDUCT_ST_DAT      : gfnma_nvl(item.PREV_REDUCT_ST_DAT),
-                            PREV_REDUCT_END_DAT     : gfnma_nvl(item.PREV_REDUCT_END_DAT),
-                            PREV_PAY_AMT            : gfnma_nvl(item.PREV_PAY_AMT),
-                            PREV_BONUS_AMT          : gfnma_nvl(item.PREV_BONUS_AMT),
-                            PREV_ADD_BONUS_AMT      : gfnma_nvl(item.PREV_ADD_BONUS_AMT),
-                            PREV_STOCK_PROFIT_AMT   : gfnma_nvl(item.PREV_STOCK_PROFIT_AMT),
-                            PREV_EMP_STOCK_AMT      : gfnma_nvl(item.PREV_EMP_STOCK_AMT),
-                            PREV_EXEC_RET_LIM_OVER  : gfnma_nvl(item.PREV_EXEC_RET_LIM_OVER),
-                            PREV_PENS_AMT           : gfnma_nvl(item.PREV_PENS_AMT),
-                            PREV_OFFICIAL_PENS_AMT  : gfnma_nvl(item.PREV_OFFICIAL_PENS_AMT),
-                            PREV_MILITARY_PENS_AMT  : gfnma_nvl(item.PREV_MILITARY_PENS_AMT),
-                            PREV_SCHOOL_PENS_AMT    : gfnma_nvl(item.PREV_SCHOOL_PENS_AMT),
-                            PREV_POST_PENS_AMT      : gfnma_nvl(item.PREV_POST_PENS_AMT),
-                            PREV_SCNT_PENS_AMT      : gfnma_nvl(item.PREV_SCNT_PENS_AMT),
-                            PREV_RET_PENS_AMT       : gfnma_nvl(item.PREV_RET_PENS_AMT),
-                            PREV_PENS_SV_AMT        : gfnma_nvl(item.PREV_PENS_SV_AMT),
-                            PREV_HEALTH_INSURE_AMT  : gfnma_nvl(item.PREV_HEALTH_INSURE_AMT),
-                            PREV_EMP_INSURE_AMT     : gfnma_nvl(item.PREV_EMP_INSURE_AMT),
-                            PREV_INC_TX_AMT         : gfnma_nvl(item.PREV_INC_TX_AMT),
-                            PREV_LOCAL_TX_AMT       : gfnma_nvl(item.PREV_LOCAL_TX_AMT),
-                            PREV_SPEC_TX_AMT        : gfnma_nvl(item.PREV_SPEC_TX_AMT),
+                            WORK_COMPANY_TYPE       : gfn_nvl(item.WORK_COMPANY_TYPE),
+                            TX_UNION_YN             : gfn_nvl(item.TX_UNION_YN),
+                            PREV_COM_NAME           : gfn_nvl(item.PREV_COM_NAME),
+                            PREV_COM_NUM            : gfn_nvl(item.PREV_COM_NUM),
+                            PREV_WORK_ST_DAT        : gfn_nvl(item.PREV_WORK_ST_DAT),
+                            PREV_WORK_END_DAT       : gfn_nvl(item.PREV_WORK_END_DAT),
+                            PREV_REDUCT_ST_DAT      : gfn_nvl(item.PREV_REDUCT_ST_DAT),
+                            PREV_REDUCT_END_DAT     : gfn_nvl(item.PREV_REDUCT_END_DAT),
+                            PREV_PAY_AMT            : gfn_nvl(item.PREV_PAY_AMT),
+                            PREV_BONUS_AMT          : gfn_nvl(item.PREV_BONUS_AMT),
+                            PREV_ADD_BONUS_AMT      : gfn_nvl(item.PREV_ADD_BONUS_AMT),
+                            PREV_STOCK_PROFIT_AMT   : gfn_nvl(item.PREV_STOCK_PROFIT_AMT),
+                            PREV_EMP_STOCK_AMT      : gfn_nvl(item.PREV_EMP_STOCK_AMT),
+                            PREV_EXEC_RET_LIM_OVER  : gfn_nvl(item.PREV_EXEC_RET_LIM_OVER),
+                            PREV_PENS_AMT           : gfn_nvl(item.PREV_PENS_AMT),
+                            PREV_OFFICIAL_PENS_AMT  : gfn_nvl(item.PREV_OFFICIAL_PENS_AMT),
+                            PREV_MILITARY_PENS_AMT  : gfn_nvl(item.PREV_MILITARY_PENS_AMT),
+                            PREV_SCHOOL_PENS_AMT    : gfn_nvl(item.PREV_SCHOOL_PENS_AMT),
+                            PREV_POST_PENS_AMT      : gfn_nvl(item.PREV_POST_PENS_AMT),
+                            PREV_SCNT_PENS_AMT      : gfn_nvl(item.PREV_SCNT_PENS_AMT),
+                            PREV_RET_PENS_AMT       : gfn_nvl(item.PREV_RET_PENS_AMT),
+                            PREV_PENS_SV_AMT        : gfn_nvl(item.PREV_PENS_SV_AMT),
+                            PREV_HEALTH_INSURE_AMT  : gfn_nvl(item.PREV_HEALTH_INSURE_AMT),
+                            PREV_EMP_INSURE_AMT     : gfn_nvl(item.PREV_EMP_INSURE_AMT),
+                            PREV_INC_TX_AMT         : gfn_nvl(item.PREV_INC_TX_AMT),
+                            PREV_LOCAL_TX_AMT       : gfn_nvl(item.PREV_LOCAL_TX_AMT),
+                            PREV_SPEC_TX_AMT        : gfn_nvl(item.PREV_SPEC_TX_AMT),
                         }
                         jsonWorkComList.push(msg);
                     });
@@ -946,12 +946,12 @@
                     jsonTaxFreeList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            WORK_COMPANY_TYPE   : gfnma_nvl(item.WORK_COMPANY_TYPE),
-                            PREV_COM_NUM        : gfnma_nvl(item.PREV_COM_NUM),
-                            TXFREE_CODE         : gfnma_nvl(item.TXFREE_CODE),
-                            TX_RED_INC_YN       : gfnma_nvl(item.TX_RED_INC_YN),
-                            TAX_FREE_NAME       : gfnma_nvl(item.TAX_FREE_NAME),
-                            TXFREE_AMT          : gfnma_nvl(item.TXFREE_AMT)
+                            WORK_COMPANY_TYPE   : gfn_nvl(item.WORK_COMPANY_TYPE),
+                            PREV_COM_NUM        : gfn_nvl(item.PREV_COM_NUM),
+                            TXFREE_CODE         : gfn_nvl(item.TXFREE_CODE),
+                            TX_RED_INC_YN       : gfn_nvl(item.TX_RED_INC_YN),
+                            TAX_FREE_NAME       : gfn_nvl(item.TAX_FREE_NAME),
+                            TXFREE_AMT          : gfn_nvl(item.TXFREE_AMT)
 
                         }
                         jsonTaxFreeList.push(msg);
@@ -985,21 +985,21 @@
      */
     const fn_search = async function () {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
             return;
         }
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));//사업장
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));//부서
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));//사원
-        let RET_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RET_DATE_FR"));//퇴사일 S
-        let RET_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RET_DATE_TO"));//퇴사일 E
-        let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));//입사일 E
-        let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));//입사일 E
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));//사업장
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));//부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));//사원
+        let RET_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_FR"));//퇴사일 S
+        let RET_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_TO"));//퇴사일 E
+        let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));//입사일 E
+        let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));//입사일 E
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
 
 
         var paramObj = {
@@ -1043,14 +1043,14 @@
                 jsonList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN            : gfnma_nvl(item.CHK_YN),
-                        EMP_CODE          : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME          : gfnma_nvl(item.EMP_NAME),
-                        EMP_FULL_NAME     : gfnma_nvl(item.EMP_FULL_NAME),
-                        SITE_CODE         : gfnma_nvl(item.SITE_CODE),
-                        DEPT_CODE         : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME         : gfnma_nvl(item.DEPT_NAME),
-                        ENTER_DATE        : gfnma_nvl(item.ENTER_DATE),
+                        CHK_YN            : gfn_nvl(item.CHK_YN),
+                        EMP_CODE          : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME          : gfn_nvl(item.EMP_NAME),
+                        EMP_FULL_NAME     : gfn_nvl(item.EMP_FULL_NAME),
+                        SITE_CODE         : gfn_nvl(item.SITE_CODE),
+                        DEPT_CODE         : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME         : gfn_nvl(item.DEPT_NAME),
+                        ENTER_DATE        : gfn_nvl(item.ENTER_DATE),
                     }
                     jsonList.push(msg);
                     totalRecordCount++;
@@ -1200,14 +1200,14 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
             return;
         }
 
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사원
 
         updatedData.forEach((item, index) => {
 
@@ -1278,12 +1278,12 @@
         updatedData.forEach((item1, index) => {
 
             let WORK_COMPANY_TYPE_T = item1.data.WORK_COMPANY_TYPE;
-            let PREV_COM_NUM_T = item1.data.PREV_COM_NUM;
+            let PREV_COM_NUM_T      = item1.data.PREV_COM_NUM;
 
             workComData.forEach((item2, index) => {
 
                 let WORK_COMPANY_TYPE_W = item2.WORK_COMPANY_TYPE;
-                let PREV_COM_NUM_W = item2.PREV_COM_NUM;
+                let PREV_COM_NUM_W      = item2.PREV_COM_NUM;
 
                 if (_.isEqual(WORK_COMPANY_TYPE_T, WORK_COMPANY_TYPE_W)){
                     chkWork = WORK_COMPANY_TYPE_T + ','+WORK_COMPANY_TYPE_W;
@@ -1344,15 +1344,14 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
             return;
         }
 
-
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사원
 
         updatedData.forEach((item, index) => {
 

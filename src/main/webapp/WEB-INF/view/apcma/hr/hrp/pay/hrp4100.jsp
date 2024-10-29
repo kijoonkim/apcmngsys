@@ -9,6 +9,7 @@
      * @
      * @ 수정일       	수정자      수정내용
      * @ ----------		----------	---------------------------
+     * @ ----------		----------	---------------------------
      * @ 2024.06.20   	표주완		최초 생성
      * @see
      *
@@ -682,23 +683,23 @@
         var searchText 		= '';
 
         if (_.isEqual(type, '1')){
-            searchText = gfnma_nvl(SBUxMethod.get("SALES_COST_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("SALES_COST_ACC_NAME"));
         }else if (_.isEqual(type, '2')){
-            searchText = gfnma_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_NAME"));
         }else if (_.isEqual(type, '3')){
-            searchText = gfnma_nvl(SBUxMethod.get("ADMIN_COST_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("ADMIN_COST_ACC_NAME"));
         }else if (_.isEqual(type, '4')){
-            searchText = gfnma_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_NAME"));
         }else if (_.isEqual(type, '5')){
-            searchText = gfnma_nvl(SBUxMethod.get("MFG_COST_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("MFG_COST_ACC_NAME"));
         }else if (_.isEqual(type, '6')){
-            searchText = gfnma_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_NAME"));
         }else if (_.isEqual(type, '7')){
-            searchText = gfnma_nvl(SBUxMethod.get("RESEARCH_COST_ACC_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("RESEARCH_COST_ACC_NAME"));
         }else if (_.isEqual(type, '8')){
-            searchText = gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("AP_ACCOUNT_NAME"));
         }else if (_.isEqual(type, '9')){
-            searchText = gfnma_nvl(SBUxMethod.get("AR_ACCOUNT_NAME"));
+            searchText = gfn_nvl(SBUxMethod.get("AR_ACCOUNT_NAME"));
         }
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보 팝업');
@@ -719,7 +720,6 @@
             ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"     ]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if (_.isEqual(type, '1')){
                     SBUxMethod.set('SALES_COST_ACC_CODE', data.ACCOUNT_CODE);
                     SBUxMethod.set('SALES_COST_ACC_NAME', data.ACCOUNT_NAME);
@@ -758,13 +758,13 @@
         var searchText 		= '';
 
         if (_.isEqual(type, '1')){
-            searchText 		= gfnma_nvl(SBUxMethod.get("SALES_COST_CENTER_NAME"));
+            searchText 		= gfn_nvl(SBUxMethod.get("SALES_COST_CENTER_NAME"));
         }else if(_.isEqual(type, '2')){
-            searchText 		= gfnma_nvl(SBUxMethod.get("ADMIN_COST_CENTER_NAME"));
+            searchText 		= gfn_nvl(SBUxMethod.get("ADMIN_COST_CENTER_NAME"));
         }else if(_.isEqual(type, '3')){
-            searchText 		= gfnma_nvl(SBUxMethod.get("MFG_COST_CENTER_NAME"));
+            searchText 		= gfn_nvl(SBUxMethod.get("MFG_COST_CENTER_NAME"));
         }else if(_.isEqual(type, '4')){
-            searchText 		= gfnma_nvl(SBUxMethod.get("RESEARCH_COST_CENTER_NAME"));
+            searchText 		= gfn_nvl(SBUxMethod.get("RESEARCH_COST_CENTER_NAME"));
         }
         var replaceText0 	= "_CC_CODE_";
         var replaceText1 	= "_CC_NAME_";
@@ -785,8 +785,6 @@
             ,tableColumnNames		: ["CC_CODE"   , "CC_NAME" ]
             ,tableColumnWidths		: ["150px"     , "150px"   ]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
-
                 if (_.isEqual(type, '1')){
                     SBUxMethod.set('SALES_COST_CENTER_NAME', data.CC_NAME);
                     SBUxMethod.set('SALES_COST_CENTER', data.CC_CODE);
@@ -806,7 +804,7 @@
     }
 
     const fn_findCsCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("CS_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -827,7 +825,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('CS_CODE', data.CS_CODE);
             },
@@ -962,10 +959,10 @@
      */
     const fn_search = async function (type) {
 
-        let PAY_GROUP_CODE              = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
+        let PAY_GROUP_CODE              = gfn_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
         let HR_POSTING_TYPE			    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
-        /*let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_HR_POSTING_TYPE")); //전표구분*/
-        let TXTCORRESPONDING_ACCOUNT    = gfnma_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
+        /*let HR_POSTING_TYPE = gfn_nvl(SBUxMethod.get("SRCH_HR_POSTING_TYPE")); //전표구분*/
+        let TXTCORRESPONDING_ACCOUNT    = gfn_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
 
         //필수값 검증
         if(!SBUxMethod.validateRequired({
@@ -1009,46 +1006,46 @@
                 jsonBandgvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CATEGORY           : gfnma_nvl(item.PAY_ITEM_CATEGORY),
-                        HR_PAY_ACCOUNT_TYPE         : gfnma_nvl(item.HR_PAY_ACCOUNT_TYPE),
-                        POSTING_SUMMARY_TYPE        : gfnma_nvl(item.POSTING_SUMMARY_TYPE),
-                        SALES_COST_ACC_CODE         : gfnma_nvl(item.SALES_COST_ACC_CODE),
-                        SALES_COST_ACC_NAME         : gfnma_nvl(item.SALES_COST_ACC_NAME),
-                        MFG_COST_ACC_CODE           : gfnma_nvl(item.MFG_COST_ACC_CODE),
-                        MFG_COST_ACC_NAME           : gfnma_nvl(item.MFG_COST_ACC_NAME),
-                        RESEARCH_COST_ACC_CODE      : gfnma_nvl(item.RESEARCH_COST_ACC_CODE),
-                        RESEARCH_COST_ACC_NAME      : gfnma_nvl(item.RESEARCH_COST_ACC_NAME),
-                        SALES_COST_TEMP_ACC_CODE    : gfnma_nvl(item.SALES_COST_TEMP_ACC_CODE),
-                        SALES_COST_TEMP_ACC_NAME    : gfnma_nvl(item.SALES_COST_TEMP_ACC_NAME),
-                        MFG_COST_TEMP_ACC_CODE      : gfnma_nvl(item.MFG_COST_TEMP_ACC_CODE),
-                        MFG_COST_TEMP_ACC_NAME      : gfnma_nvl(item.MFG_COST_TEMP_ACC_NAME),
-                        SALES_COST_CENTER           : gfnma_nvl(item.SALES_COST_CENTER),
-                        SALES_COST_CENTER_NAME      : gfnma_nvl(item.SALES_COST_CENTER_NAME),
-                        MFG_COST_CENTER             : gfnma_nvl(item.MFG_COST_CENTER),
-                        MFG_COST_CENTER_NAME        : gfnma_nvl(item.MFG_COST_CENTER_NAME),
-                        RESEARCH_COST_CENTER        : gfnma_nvl(item.RESEARCH_COST_CENTER),
-                        RESEARCH_COST_CENTER_NAME   : gfnma_nvl(item.RESEARCH_COST_CENTER_NAME),
-                        NEED_EMP_CODE_YN            : gfnma_nvl(item.NEED_EMP_CODE_YN),
-                        POSTING_RESULT_ADJUST_YN    : gfnma_nvl(item.POSTING_RESULT_ADJUST_YN),
-                        CS_CODE                     : gfnma_nvl(item.CS_CODE),
-                        CS_NAME                     : gfnma_nvl(item.CS_NAME),
-                        ACCOUNTING_YN               : gfnma_nvl(item.ACCOUNTING_YN),
-                        DEBIT_CREDIT                : gfnma_nvl(item.DEBIT_CREDIT),
-                        ADMIN_COST_ACC_CODE         : gfnma_nvl(item.ADMIN_COST_ACC_CODE),
-                        ADMIN_COST_ACC_NAME         : gfnma_nvl(item.ADMIN_COST_ACC_NAME),
-                        ADMIN_COST_TEMP_ACC_CODE    : gfnma_nvl(item.ADMIN_COST_TEMP_ACC_CODE),
-                        ADMIN_COST_TEMP_ACC_NAME    : gfnma_nvl(item.ADMIN_COST_TEMP_ACC_NAME),
-                        ADMIN_COST_CENTER           : gfnma_nvl(item.ADMIN_COST_CENTER),
-                        ADMIN_COST_CENTER_NAME      : gfnma_nvl(item.ADMIN_COST_CENTER_NAME),
-                        PAY_GROUP_CODE              : gfnma_nvl(item.PAY_GROUP_CODE),
-                        PAY_GROUP_NAME              : gfnma_nvl(item.PAY_GROUP_NAME),
-                        AP_ACCOUNT_CODE             : gfnma_nvl(item.AP_ACCOUNT_CODE),
-                        AP_ACCOUNT_NAME             : gfnma_nvl(item.AP_ACCOUNT_NAME),
-                        AR_ACCOUNT_CODE             : gfnma_nvl(item.AR_ACCOUNT_CODE),
-                        AR_ACCOUNT_NAME             : gfnma_nvl(item.AR_ACCOUNT_NAME),
-                        PAY_ITEM_UNIT_YN            : gfnma_nvl(item.PAY_ITEM_UNIT_YN),
-                        ACCOUNT_PAY_ITEM            : gfnma_nvl(item.ACCOUNT_PAY_ITEM),
-                        ACCOUNT_PAY_ITEM_NAME       : gfnma_nvl(item.ACCOUNT_PAY_ITEM_NAME),
+                        PAY_ITEM_CATEGORY           : gfn_nvl(item.PAY_ITEM_CATEGORY),
+                        HR_PAY_ACCOUNT_TYPE         : gfn_nvl(item.HR_PAY_ACCOUNT_TYPE),
+                        POSTING_SUMMARY_TYPE        : gfn_nvl(item.POSTING_SUMMARY_TYPE),
+                        SALES_COST_ACC_CODE         : gfn_nvl(item.SALES_COST_ACC_CODE),
+                        SALES_COST_ACC_NAME         : gfn_nvl(item.SALES_COST_ACC_NAME),
+                        MFG_COST_ACC_CODE           : gfn_nvl(item.MFG_COST_ACC_CODE),
+                        MFG_COST_ACC_NAME           : gfn_nvl(item.MFG_COST_ACC_NAME),
+                        RESEARCH_COST_ACC_CODE      : gfn_nvl(item.RESEARCH_COST_ACC_CODE),
+                        RESEARCH_COST_ACC_NAME      : gfn_nvl(item.RESEARCH_COST_ACC_NAME),
+                        SALES_COST_TEMP_ACC_CODE    : gfn_nvl(item.SALES_COST_TEMP_ACC_CODE),
+                        SALES_COST_TEMP_ACC_NAME    : gfn_nvl(item.SALES_COST_TEMP_ACC_NAME),
+                        MFG_COST_TEMP_ACC_CODE      : gfn_nvl(item.MFG_COST_TEMP_ACC_CODE),
+                        MFG_COST_TEMP_ACC_NAME      : gfn_nvl(item.MFG_COST_TEMP_ACC_NAME),
+                        SALES_COST_CENTER           : gfn_nvl(item.SALES_COST_CENTER),
+                        SALES_COST_CENTER_NAME      : gfn_nvl(item.SALES_COST_CENTER_NAME),
+                        MFG_COST_CENTER             : gfn_nvl(item.MFG_COST_CENTER),
+                        MFG_COST_CENTER_NAME        : gfn_nvl(item.MFG_COST_CENTER_NAME),
+                        RESEARCH_COST_CENTER        : gfn_nvl(item.RESEARCH_COST_CENTER),
+                        RESEARCH_COST_CENTER_NAME   : gfn_nvl(item.RESEARCH_COST_CENTER_NAME),
+                        NEED_EMP_CODE_YN            : gfn_nvl(item.NEED_EMP_CODE_YN),
+                        POSTING_RESULT_ADJUST_YN    : gfn_nvl(item.POSTING_RESULT_ADJUST_YN),
+                        CS_CODE                     : gfn_nvl(item.CS_CODE),
+                        CS_NAME                     : gfn_nvl(item.CS_NAME),
+                        ACCOUNTING_YN               : gfn_nvl(item.ACCOUNTING_YN),
+                        DEBIT_CREDIT                : gfn_nvl(item.DEBIT_CREDIT),
+                        ADMIN_COST_ACC_CODE         : gfn_nvl(item.ADMIN_COST_ACC_CODE),
+                        ADMIN_COST_ACC_NAME         : gfn_nvl(item.ADMIN_COST_ACC_NAME),
+                        ADMIN_COST_TEMP_ACC_CODE    : gfn_nvl(item.ADMIN_COST_TEMP_ACC_CODE),
+                        ADMIN_COST_TEMP_ACC_NAME    : gfn_nvl(item.ADMIN_COST_TEMP_ACC_NAME),
+                        ADMIN_COST_CENTER           : gfn_nvl(item.ADMIN_COST_CENTER),
+                        ADMIN_COST_CENTER_NAME      : gfn_nvl(item.ADMIN_COST_CENTER_NAME),
+                        PAY_GROUP_CODE              : gfn_nvl(item.PAY_GROUP_CODE),
+                        PAY_GROUP_NAME              : gfn_nvl(item.PAY_GROUP_NAME),
+                        AP_ACCOUNT_CODE             : gfn_nvl(item.AP_ACCOUNT_CODE),
+                        AP_ACCOUNT_NAME             : gfn_nvl(item.AP_ACCOUNT_NAME),
+                        AR_ACCOUNT_CODE             : gfn_nvl(item.AR_ACCOUNT_CODE),
+                        AR_ACCOUNT_NAME             : gfn_nvl(item.AR_ACCOUNT_NAME),
+                        PAY_ITEM_UNIT_YN            : gfn_nvl(item.PAY_ITEM_UNIT_YN),
+                        ACCOUNT_PAY_ITEM            : gfn_nvl(item.ACCOUNT_PAY_ITEM),
+                        ACCOUNT_PAY_ITEM_NAME       : gfn_nvl(item.ACCOUNT_PAY_ITEM_NAME),
                     }
                     jsonBandgvwInfoList.push(msg);
                     totalRecordCount++;
@@ -1102,8 +1099,8 @@
 
             gfnma_uxDataSet('#dataArea2', rowData);
 
-            gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(rowData.POSTING_SUMMARY_TYPE));
-            gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(rowData.ACCOUNT_PAY_ITEM));
+            gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME'   , gfn_nvl(rowData.POSTING_SUMMARY_TYPE));
+            gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM'    , 'SUB_CODE', 'CODE_NAME'    , gfn_nvl(rowData.ACCOUNT_PAY_ITEM));
         }
 
 
@@ -1204,9 +1201,9 @@
 
     const getParamForm = async function(){
 
-        let PAY_GROUP_CODE      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
+        let PAY_GROUP_CODE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE")); //급여체계
         let HR_POSTING_TYPE	    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
-        //let TXTCORRESPONDING_ACCOUNT = gfnma_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
+        //let TXTCORRESPONDING_ACCOUNT = gfn_nvl(SBUxMethod.get("SRCH_TXTCORRESPONDING_ACCOUNT")); //상대계정(미지급금)
 
         if (!PAY_GROUP_CODE) {
             gfn_comAlert("W0002", "급여체계");
@@ -1217,47 +1214,47 @@
             return;
         }
 
-        let HR_PAY_ACCOUNT_TYPE         = gfnma_nvl(SBUxMethod.get("HR_PAY_ACCOUNT_TYPE"));         //급여항목
+        let HR_PAY_ACCOUNT_TYPE         = gfn_nvl(SBUxMethod.get("HR_PAY_ACCOUNT_TYPE"));         //급여항목
         let POSTING_SUMMARY_TYPE        = gfnma_multiSelectGet('#POSTING_SUMMARY_TYPE');//집계구분
-        //let POSTING_SUMMARY_TYPE      = gfnma_nvl(SBUxMethod.get("POSTING_SUMMARY_TYPE"));   //집계구분
+        //let POSTING_SUMMARY_TYPE      = gfn_nvl(SBUxMethod.get("POSTING_SUMMARY_TYPE"));   //집계구분
 
 
-        let NEED_EMP_CODE_YN            = gfnma_nvl(SBUxMethod.get("NEED_EMP_CODE_YN"));   //사원코드 필수입력
-        let ACCOUNTING_YN               = gfnma_nvl(SBUxMethod.get("ACCOUNTING_YN"));   //계정처리여부
-        let POSTING_RESULT_ADJUST_YN    = gfnma_nvl(SBUxMethod.get("POSTING_RESULT_ADJUST_YN"));   //회계집계데이터 조정가능
-        let SALES_COST_ACC_CODE         = gfnma_nvl(SBUxMethod.get("SALES_COST_ACC_CODE"));   //판매비 주계정
-        //let SALES_COST_ACC_NAME       = gfnma_nvl(SBUxMethod.get("SALES_COST_ACC_NAME"));   //판매비 주계정
-        let SALES_COST_TEMP_ACC_CODE    = gfnma_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_CODE"));   //판매비(일용직) 주계정
-        //let SALES_COST_TEMP_ACC_NAME  = gfnma_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_NAME"));   //판매비(일용직) 주계정
-        let SALES_COST_CENTER           = gfnma_nvl(SBUxMethod.get("SALES_COST_CENTER"));   //대표 원가중심점(판매)
-        //let SALES_COST_CENTER_NAME    = gfnma_nvl(SBUxMethod.get("SALES_COST_CENTER_NAME"));   //대표 원가중심점(판매)
-        let ADMIN_COST_ACC_CODE         = gfnma_nvl(SBUxMethod.get("ADMIN_COST_ACC_CODE"));   //관리비 주계정
-        //let ADMIN_COST_ACC_NAME       = gfnma_nvl(SBUxMethod.get("ADMIN_COST_ACC_NAME"));   //관리비 주계정
-        let ADMIN_COST_TEMP_ACC_CODE    = gfnma_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_CODE"));   //관리비(일용직) 주계정
-        //let ADMIN_COST_TEMP_ACC_NAME  = gfnma_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_NAME"));   //관리비(일용직) 주계정
-        let ADMIN_COST_CENTER           = gfnma_nvl(SBUxMethod.get("ADMIN_COST_CENTER"));   //대표 원가중심점(관리)
-        //let ADMIN_COST_CENTER_NAME    = gfnma_nvl(SBUxMethod.get("ADMIN_COST_CENTER_NAME"));   //대표 원가중심점(관리)
-        let MFG_COST_ACC_CODE           = gfnma_nvl(SBUxMethod.get("MFG_COST_ACC_CODE"));   //제조경비 주계정
-        //let MFG_COST_ACC_NAME         = gfnma_nvl(SBUxMethod.get("MFG_COST_ACC_NAME"));   //제조경비 주계정
-        let MFG_COST_TEMP_ACC_CODE      = gfnma_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_CODE"));   //제조경비(일용직) 주계정
-        //let MFG_COST_TEMP_ACC_NAME    = gfnma_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_NAME"));   //제조경비(일용직) 주계정
-        let MFG_COST_CENTER             = gfnma_nvl(SBUxMethod.get("MFG_COST_CENTER"));   //대표 원가중심점(제조)
-        //let MFG_COST_CENTER_NAME      = gfnma_nvl(SBUxMethod.get("MFG_COST_CENTER_NAME"));   //대표 원가중심점(제조)
-        let RESEARCH_COST_ACC_CODE      = gfnma_nvl(SBUxMethod.get("RESEARCH_COST_ACC_CODE"));   //경상연구개발비 주계정
-        //let RESEARCH_COST_ACC_NAME    = gfnma_nvl(SBUxMethod.get("RESEARCH_COST_ACC_NAME"));   //경상연구개발비 주계정
-        let AP_ACCOUNT_CODE             = gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_CODE"));   //미지급금계정
-        //let AP_ACCOUNT_NAME           = gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_NAME"));   //미지급금계정
-        let RESEARCH_COST_CENTER        = gfnma_nvl(SBUxMethod.get("RESEARCH_COST_CENTER"));   //대표 원가중심점(연구)
-        //let RESEARCH_COST_CENTER_NAME = gfnma_nvl(SBUxMethod.get("RESEARCH_COST_CENTER_NAME"));   //대표 원가중심점(연구)
-        let CS_CODE                     = gfnma_nvl(SBUxMethod.get("CS_CODE"));   //거래처
-        //let CS_NAME                   = gfnma_nvl(SBUxMethod.get("CS_NAME"));   //거래처
-        let AR_ACCOUNT_CODE             = gfnma_nvl(SBUxMethod.get("AR_ACCOUNT_CODE"));   //미수금계정
-        //let AR_ACCOUNT_NAME           = gfnma_nvl(SBUxMethod.get("AR_ACCOUNT_NAME"));   //미수금계정
-        let DEBIT_CREDIT                = gfnma_nvl(SBUxMethod.get("DEBIT_CREDIT"));   //차대구분
+        let NEED_EMP_CODE_YN            = gfn_nvl(SBUxMethod.get("NEED_EMP_CODE_YN"));   //사원코드 필수입력
+        let ACCOUNTING_YN               = gfn_nvl(SBUxMethod.get("ACCOUNTING_YN"));   //계정처리여부
+        let POSTING_RESULT_ADJUST_YN    = gfn_nvl(SBUxMethod.get("POSTING_RESULT_ADJUST_YN"));   //회계집계데이터 조정가능
+        let SALES_COST_ACC_CODE         = gfn_nvl(SBUxMethod.get("SALES_COST_ACC_CODE"));   //판매비 주계정
+        //let SALES_COST_ACC_NAME       = gfn_nvl(SBUxMethod.get("SALES_COST_ACC_NAME"));   //판매비 주계정
+        let SALES_COST_TEMP_ACC_CODE    = gfn_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_CODE"));   //판매비(일용직) 주계정
+        //let SALES_COST_TEMP_ACC_NAME  = gfn_nvl(SBUxMethod.get("SALES_COST_TEMP_ACC_NAME"));   //판매비(일용직) 주계정
+        let SALES_COST_CENTER           = gfn_nvl(SBUxMethod.get("SALES_COST_CENTER"));   //대표 원가중심점(판매)
+        //let SALES_COST_CENTER_NAME    = gfn_nvl(SBUxMethod.get("SALES_COST_CENTER_NAME"));   //대표 원가중심점(판매)
+        let ADMIN_COST_ACC_CODE         = gfn_nvl(SBUxMethod.get("ADMIN_COST_ACC_CODE"));   //관리비 주계정
+        //let ADMIN_COST_ACC_NAME       = gfn_nvl(SBUxMethod.get("ADMIN_COST_ACC_NAME"));   //관리비 주계정
+        let ADMIN_COST_TEMP_ACC_CODE    = gfn_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_CODE"));   //관리비(일용직) 주계정
+        //let ADMIN_COST_TEMP_ACC_NAME  = gfn_nvl(SBUxMethod.get("ADMIN_COST_TEMP_ACC_NAME"));   //관리비(일용직) 주계정
+        let ADMIN_COST_CENTER           = gfn_nvl(SBUxMethod.get("ADMIN_COST_CENTER"));   //대표 원가중심점(관리)
+        //let ADMIN_COST_CENTER_NAME    = gfn_nvl(SBUxMethod.get("ADMIN_COST_CENTER_NAME"));   //대표 원가중심점(관리)
+        let MFG_COST_ACC_CODE           = gfn_nvl(SBUxMethod.get("MFG_COST_ACC_CODE"));   //제조경비 주계정
+        //let MFG_COST_ACC_NAME         = gfn_nvl(SBUxMethod.get("MFG_COST_ACC_NAME"));   //제조경비 주계정
+        let MFG_COST_TEMP_ACC_CODE      = gfn_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_CODE"));   //제조경비(일용직) 주계정
+        //let MFG_COST_TEMP_ACC_NAME    = gfn_nvl(SBUxMethod.get("MFG_COST_TEMP_ACC_NAME"));   //제조경비(일용직) 주계정
+        let MFG_COST_CENTER             = gfn_nvl(SBUxMethod.get("MFG_COST_CENTER"));   //대표 원가중심점(제조)
+        //let MFG_COST_CENTER_NAME      = gfn_nvl(SBUxMethod.get("MFG_COST_CENTER_NAME"));   //대표 원가중심점(제조)
+        let RESEARCH_COST_ACC_CODE      = gfn_nvl(SBUxMethod.get("RESEARCH_COST_ACC_CODE"));   //경상연구개발비 주계정
+        //let RESEARCH_COST_ACC_NAME    = gfn_nvl(SBUxMethod.get("RESEARCH_COST_ACC_NAME"));   //경상연구개발비 주계정
+        let AP_ACCOUNT_CODE             = gfn_nvl(SBUxMethod.get("AP_ACCOUNT_CODE"));   //미지급금계정
+        //let AP_ACCOUNT_NAME           = gfn_nvl(SBUxMethod.get("AP_ACCOUNT_NAME"));   //미지급금계정
+        let RESEARCH_COST_CENTER        = gfn_nvl(SBUxMethod.get("RESEARCH_COST_CENTER"));   //대표 원가중심점(연구)
+        //let RESEARCH_COST_CENTER_NAME = gfn_nvl(SBUxMethod.get("RESEARCH_COST_CENTER_NAME"));   //대표 원가중심점(연구)
+        let CS_CODE                     = gfn_nvl(SBUxMethod.get("CS_CODE"));   //거래처
+        //let CS_NAME                   = gfn_nvl(SBUxMethod.get("CS_NAME"));   //거래처
+        let AR_ACCOUNT_CODE             = gfn_nvl(SBUxMethod.get("AR_ACCOUNT_CODE"));   //미수금계정
+        //let AR_ACCOUNT_NAME           = gfn_nvl(SBUxMethod.get("AR_ACCOUNT_NAME"));   //미수금계정
+        let DEBIT_CREDIT                = gfn_nvl(SBUxMethod.get("DEBIT_CREDIT"));   //차대구분
         let ACCOUNT_PAY_ITEM	        = gfnma_multiSelectGet('#ACCOUNT_PAY_ITEM');//전표급여항목
 
-        let ACCOUNT_PAY_ITEM_NAME       = gfnma_nvl(SBUxMethod.get("ACCOUNT_PAY_ITEM_NAME"));   //급여항목명
-        let PAY_ITEM_UNIT_YN            = gfnma_nvl(SBUxMethod.get("PAY_ITEM_UNIT_YN"));   //급여항목단위여부
+        let ACCOUNT_PAY_ITEM_NAME       = gfn_nvl(SBUxMethod.get("ACCOUNT_PAY_ITEM_NAME"));   //급여항목명
+        let PAY_ITEM_UNIT_YN            = gfn_nvl(SBUxMethod.get("PAY_ITEM_UNIT_YN"));   //급여항목단위여부
 
 
         //필수값 검증

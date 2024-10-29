@@ -231,21 +231,23 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
-        let DECIMAL_ID = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
-        let DECIMAL_NAME = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
+        let DECIMAL_ID      = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
+        let DECIMAL_NAME    = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
 
         var paramObj = {
-             V_P_DEBUG_MODE_YN: 'N'
-            , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '1000'
-            , V_P_CLIENT_CODE: '100'
-            , V_P_DECIMAL_ID: DECIMAL_ID
-            , V_P_DECIMAL_NAME: DECIMAL_NAME
-            , V_P_FORM_ID: p_formId
-            , V_P_MENU_ID: p_menuId
-            , V_P_PROC_ID: ''
-            , V_P_USERID: ''
-            , V_P_PC: ''
+             V_P_DEBUG_MODE_YN  : 'N'
+            , V_P_LANG_ID       : 'KOR'
+            , V_P_COMP_CODE     : '1000'
+            , V_P_CLIENT_CODE   : '100'
+
+            , V_P_DECIMAL_ID    : DECIMAL_ID
+            , V_P_DECIMAL_NAME  : DECIMAL_NAME
+
+            , V_P_FORM_ID       : p_formId
+            , V_P_MENU_ID       : p_menuId
+            , V_P_PROC_ID       : ''
+            , V_P_USERID        : ''
+            , V_P_PC            : ''
         };
 
 
@@ -267,11 +269,11 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        DECIMAL_ID: item.DECIMAL_ID,
-                        DECIMAL_NAME: item.DECIMAL_NAME,
-                        DECIMAL_LENGTH: item.DECIMAL_LENGTH,
-                        DESCR: item.DESCR,
-                        USE_YN: item.USE_YN
+                        DECIMAL_ID      : item.DECIMAL_ID,
+                        DECIMAL_NAME    : item.DECIMAL_NAME,
+                        DECIMAL_LENGTH  : item.DECIMAL_LENGTH,
+                        DESCR           : item.DESCR,
+                        USE_YN          : item.USE_YN
                     }
                     jsonGvwInfoList.push(msg);
                     totalRecordCount++;
@@ -374,11 +376,11 @@
         let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (_.isEmpty(rowData) == false) {
-            SBUxMethod.set("DECIMAL_ID", rowData.DECIMAL_ID);
-            SBUxMethod.set("DECIMAL_NAME", rowData.DECIMAL_NAME);
-            SBUxMethod.set("DECIMAL_LENGTH", rowData.DECIMAL_LENGTH);
-            SBUxMethod.set("DESCR", rowData.DESCR);
-            SBUxMethod.set("USE_YN", rowData.USE_YN);
+            SBUxMethod.set("DECIMAL_ID"     , rowData.DECIMAL_ID);
+            SBUxMethod.set("DECIMAL_NAME"   , rowData.DECIMAL_NAME);
+            SBUxMethod.set("DECIMAL_LENGTH" , rowData.DECIMAL_LENGTH);
+            SBUxMethod.set("DESCR"          , rowData.DESCR);
+            SBUxMethod.set("USE_YN"         , rowData.USE_YN);
         }
     }
 
@@ -387,11 +389,11 @@
 
         editType = "N";
 
-        SBUxMethod.set("DECIMAL_ID", "");
-        SBUxMethod.set("DECIMAL_NAME", "");
-        SBUxMethod.set("DECIMAL_LENGTH", "");
-        SBUxMethod.set("DESCR", "");
-        SBUxMethod.set("USE_YN", "");
+        SBUxMethod.set("DECIMAL_ID"     , "");
+        SBUxMethod.set("DECIMAL_NAME"   , "");
+        SBUxMethod.set("DECIMAL_LENGTH" , "");
+        SBUxMethod.set("DESCR"          , "");
+        SBUxMethod.set("USE_YN"         , "");
     }
 
     //저장
@@ -549,7 +551,7 @@
         let DECIMAL_NAME		= gfnma_nvl(SBUxMethod.get("DECIMAL_NAME"));
         let DECIMAL_LENGTH 		= gfnma_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
         let DESCR		        = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let USE_YN	            = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let USE_YN	            = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
 
         if(gfn_comConfirm("Q0001", "삭제")) {
             var paramObj = {
@@ -557,11 +559,13 @@
                 ,V_P_LANG_ID         : 'KOR'
                 ,V_P_COMP_CODE       : ''
                 ,V_P_CLIENT_CODE     : '100'
+
                 ,V_P_DECIMAL_ID      : DECIMAL_ID
                 ,V_P_DECIMAL_NAME    : DECIMAL_NAME
                 ,V_P_DECIMAL_LENGTH  : DECIMAL_LENGTH
                 ,V_P_DESCR           : DESCR
-                ,V_P_USE_YN          : USE_YN.USE_YN
+                ,V_P_USE_YN          : USE_YN
+
                 ,V_P_FORM_ID         : p_formId
                 ,V_P_MENU_ID         : p_menuId
                 ,V_P_PROC_ID         : ''

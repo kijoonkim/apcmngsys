@@ -802,7 +802,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -831,7 +831,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -863,7 +863,7 @@
     }
 
     var fn_compopup3 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -892,7 +892,7 @@
 
     const fn_compopup4 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        var searchText = gfn_nvl(SBUxMethod.get("EMP_CODE"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -1052,18 +1052,18 @@
      */
     const fn_search = async function () {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY 			= gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
         let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
-        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let DEPT_NAME 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
-        let EMP_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));//사원
-        let EMP_NAME 			= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
-        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
+        let PAY_AREA_TYPE 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let DEPT_CODE 			= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let DEPT_NAME 			= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        let EMP_CODE 			= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));//사원
+        let EMP_NAME 			= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let DATE_FR 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
+        let DATE_TO 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+        let UPDATE_YN 			= gfn_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
         let SITE_CODE 			= gfnma_multiSelectGet('#SRCH_SITE_CODE');//사 업 장
-        let RETIRE_MONTH 		= gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
+        let RETIRE_MONTH 		= gfn_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1115,15 +1115,15 @@
                 jsonEmpList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN          : gfnma_nvl(item.CHK_YN),
-                        EMP_CODE        : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME        : gfnma_nvl(item.EMP_NAME),
-                        EMP_FULL_NAME   : gfnma_nvl(item.EMP_FULL_NAME),
-                        SUMMARY_STEP    : gfnma_nvl(item.SUMMARY_STEP),
-                        DEPT_CODE       : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME       : gfnma_nvl(item.DEPT_NAME),
-                        RET_DAT         : gfnma_nvl(item.RET_DAT),
-                        SITE_CODE       : gfnma_nvl(item.SITE_CODE),
+                        CHK_YN          : gfn_nvl(item.CHK_YN),
+                        EMP_CODE        : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME        : gfn_nvl(item.EMP_NAME),
+                        EMP_FULL_NAME   : gfn_nvl(item.EMP_FULL_NAME),
+                        SUMMARY_STEP    : gfn_nvl(item.SUMMARY_STEP),
+                        DEPT_CODE       : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME       : gfn_nvl(item.DEPT_NAME),
+                        RET_DAT         : gfn_nvl(item.RET_DAT),
+                        SITE_CODE       : gfn_nvl(item.SITE_CODE),
 
                     }
                     jsonEmpList.push(msg);
@@ -1154,14 +1154,14 @@
     //상세정보 보기
     async function fn_view() {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY 			= gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
         let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let PAY_AREA_TYPE 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
-        let DEPT_CODE 			= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+        let PAY_AREA_TYPE 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));//급여영역
+        let DEPT_CODE 			= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let DATE_FR 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //퇴사일
+        let DATE_TO 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
         let SITE_CODE 			= gfnma_multiSelectGet('#SRCH_SITE_CODE');//사 업 장
-        let RETIRE_MONTH 			= gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
+        let RETIRE_MONTH 	    = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_MONTH"));//퇴직년월	---하이드처리 되어있음
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1225,71 +1225,71 @@
 
                     data.cv_2.forEach((item, index) => {
 
-                        SBUxMethod.set("YE_TX_YYYY", 	         gfnma_nvl(item.YE_TX_YYYY));
-                        SBUxMethod.set("EMP_CODE", 	             gfnma_nvl(item.EMP_CODE));
-                        SBUxMethod.set("EMP_NAME", 	             gfnma_nvl(item.EMP_NAME));
-                        //SBUxMethod.set("EMP_FULL_NAME", 	gfnma_nvl(item.EMP_FULL_NAME));
-                        SBUxMethod.set("SITE_CODE", 	         gfnma_nvl(item.SITE_CODE));
-                        SBUxMethod.set("DEPT_CODE", 	         gfnma_nvl(item.DEPT_CODE));
-                        SBUxMethod.set("DEPT_NAME", 	         gfnma_nvl(item.DEPT_NAME));
-                        SBUxMethod.set("ENTER_DATE", 	         gfnma_nvl(item.ENTER_DATE));
-                        SBUxMethod.set("RETIRE_DATE", 	         gfnma_nvl(item.RETIRE_DATE));
-                        SBUxMethod.set("PAY_AMT", 	             gfnma_nvl(item.PAY_AMT));
-                        SBUxMethod.set("PAY_ORIG_AMT", 	         gfnma_nvl(item.PAY_ORIG_AMT));
-                        SBUxMethod.set("BONUS_AMT", 	         gfnma_nvl(item.BONUS_AMT));
-                        SBUxMethod.set("BONUS_ORIG_AMT", 	     gfnma_nvl(item.BONUS_ORIG_AMT));
-                        SBUxMethod.set("ADD_BONUS_AMT", 	     gfnma_nvl(item.ADD_BONUS_AMT));
-                        SBUxMethod.set("ADD_BONUS_ORIG_AMT", 	 gfnma_nvl(item.ADD_BONUS_ORIG_AMT));
-                        SBUxMethod.set("INC_EXTRA1_AMT", 	     gfnma_nvl(item.INC_EXTRA1_AMT));
-                        SBUxMethod.set("INC_EXTRA1_ORIG_AMT", 	 gfnma_nvl(item.INC_EXTRA1_ORIG_AMT));
-                        SBUxMethod.set("INC_EXTRA2_AMT", 	     gfnma_nvl(item.INC_EXTRA2_AMT));
-                        SBUxMethod.set("INC_EXTRA2_ORIG_AMT", 	 gfnma_nvl(item.INC_EXTRA2_ORIG_AMT));
-                        SBUxMethod.set("EMPLOYEE_STOCK_AMT", 	 gfnma_nvl(item.EMPLOYEE_STOCK_AMT));
-                        SBUxMethod.set("EMPLOYEE_STOCK_ORIG_AMT",gfnma_nvl(item.EMPLOYEE_STOCK_ORIG_AMT));
-                        SBUxMethod.set("STOCK_PROFIT_AMT", 	     gfnma_nvl(item.STOCK_PROFIT_AMT));
-                        SBUxMethod.set("STOCK_PROFIT_ORIG_AMT",  gfnma_nvl(item.STOCK_PROFIT_ORIG_AMT));
-                        SBUxMethod.set("PENS_AMT", 	             gfnma_nvl(item.PENS_AMT));
-                        SBUxMethod.set("PENS_ORIG_AMT", 	     gfnma_nvl(item.PENS_ORIG_AMT));
-                        SBUxMethod.set("EMPLOY_INSURE_AMT", 	 gfnma_nvl(item.EMPLOY_INSURE_AMT));
-                        SBUxMethod.set("EMPLOY_INSURE_ORIG_AMT", gfnma_nvl(item.EMPLOY_INSURE_ORIG_AMT));
-                        SBUxMethod.set("HEALTH_INSURE_AMT", 	 gfnma_nvl(item.HEALTH_INSURE_AMT));
-                        SBUxMethod.set("HEALTH_INSURE_ORIG_AMT", gfnma_nvl(item.HEALTH_INSURE_ORIG_AMT));
+                        SBUxMethod.set("YE_TX_YYYY", 	         gfn_nvl(item.YE_TX_YYYY));
+                        SBUxMethod.set("EMP_CODE", 	             gfn_nvl(item.EMP_CODE));
+                        SBUxMethod.set("EMP_NAME", 	             gfn_nvl(item.EMP_NAME));
+                        //SBUxMethod.set("EMP_FULL_NAME", 	gfn_nvl(item.EMP_FULL_NAME));
+                        SBUxMethod.set("SITE_CODE", 	         gfn_nvl(item.SITE_CODE));
+                        SBUxMethod.set("DEPT_CODE", 	         gfn_nvl(item.DEPT_CODE));
+                        SBUxMethod.set("DEPT_NAME", 	         gfn_nvl(item.DEPT_NAME));
+                        SBUxMethod.set("ENTER_DATE", 	         gfn_nvl(item.ENTER_DATE));
+                        SBUxMethod.set("RETIRE_DATE", 	         gfn_nvl(item.RETIRE_DATE));
+                        SBUxMethod.set("PAY_AMT", 	             gfn_nvl(item.PAY_AMT));
+                        SBUxMethod.set("PAY_ORIG_AMT", 	         gfn_nvl(item.PAY_ORIG_AMT));
+                        SBUxMethod.set("BONUS_AMT", 	         gfn_nvl(item.BONUS_AMT));
+                        SBUxMethod.set("BONUS_ORIG_AMT", 	     gfn_nvl(item.BONUS_ORIG_AMT));
+                        SBUxMethod.set("ADD_BONUS_AMT", 	     gfn_nvl(item.ADD_BONUS_AMT));
+                        SBUxMethod.set("ADD_BONUS_ORIG_AMT", 	 gfn_nvl(item.ADD_BONUS_ORIG_AMT));
+                        SBUxMethod.set("INC_EXTRA1_AMT", 	     gfn_nvl(item.INC_EXTRA1_AMT));
+                        SBUxMethod.set("INC_EXTRA1_ORIG_AMT", 	 gfn_nvl(item.INC_EXTRA1_ORIG_AMT));
+                        SBUxMethod.set("INC_EXTRA2_AMT", 	     gfn_nvl(item.INC_EXTRA2_AMT));
+                        SBUxMethod.set("INC_EXTRA2_ORIG_AMT", 	 gfn_nvl(item.INC_EXTRA2_ORIG_AMT));
+                        SBUxMethod.set("EMPLOYEE_STOCK_AMT", 	 gfn_nvl(item.EMPLOYEE_STOCK_AMT));
+                        SBUxMethod.set("EMPLOYEE_STOCK_ORIG_AMT",gfn_nvl(item.EMPLOYEE_STOCK_ORIG_AMT));
+                        SBUxMethod.set("STOCK_PROFIT_AMT", 	     gfn_nvl(item.STOCK_PROFIT_AMT));
+                        SBUxMethod.set("STOCK_PROFIT_ORIG_AMT",  gfn_nvl(item.STOCK_PROFIT_ORIG_AMT));
+                        SBUxMethod.set("PENS_AMT", 	             gfn_nvl(item.PENS_AMT));
+                        SBUxMethod.set("PENS_ORIG_AMT", 	     gfn_nvl(item.PENS_ORIG_AMT));
+                        SBUxMethod.set("EMPLOY_INSURE_AMT", 	 gfn_nvl(item.EMPLOY_INSURE_AMT));
+                        SBUxMethod.set("EMPLOY_INSURE_ORIG_AMT", gfn_nvl(item.EMPLOY_INSURE_ORIG_AMT));
+                        SBUxMethod.set("HEALTH_INSURE_AMT", 	 gfn_nvl(item.HEALTH_INSURE_AMT));
+                        SBUxMethod.set("HEALTH_INSURE_ORIG_AMT", gfn_nvl(item.HEALTH_INSURE_ORIG_AMT));
                         //-- 2012-08-23  JIHOO  (*) 건강보험과 노인장기요양보험 분리
-                        SBUxMethod.set("SENIOR_INSURE_AMT", 	 gfnma_nvl(item.SENIOR_INSURE_AMT));
-                        SBUxMethod.set("SENIOR_INSURE_ORIG_AMT", gfnma_nvl(item.SENIOR_INSURE_ORIG_AMT));
-                        SBUxMethod.set("INC_TX_AMT", 	         gfnma_nvl(item.INC_TX_AMT));
-                        SBUxMethod.set("INC_TX_ORIG_AMT", 	     gfnma_nvl(item.INC_TX_ORIG_AMT));
-                        SBUxMethod.set("LOCAL_TX_AMT", 	         gfnma_nvl(item.LOCAL_TX_AMT));
-                        SBUxMethod.set("LOCAL_TX_ORIG_AMT", 	 gfnma_nvl(item.LOCAL_TX_ORIG_AMT));
-                        SBUxMethod.set("PAY_AMT_DESC", 	         gfnma_nvl(item.PAY_AMT_DESC));
-                        SBUxMethod.set("BONUS_AMT_DESC", 	     gfnma_nvl(item.BONUS_AMT_DESC));
-                        SBUxMethod.set("ADD_BONUS_AMT_DESC", 	 gfnma_nvl(item.ADD_BONUS_AMT_DESC));
-                        SBUxMethod.set("INC_EXTRA1_AMT_DESC", 	 gfnma_nvl(item.INC_EXTRA1_AMT_DESC));
-                        SBUxMethod.set("INC_EXTRA1_AMT_DESC", 	 gfnma_nvl(item.INC_EXTRA1_AMT_DESC));
-                        SBUxMethod.set("INC_EXTRA2_AMT_DESC", 	 gfnma_nvl(item.INC_EXTRA2_AMT_DESC));
-                        SBUxMethod.set("EMPLOYEE_STOCK_AMT_DESC",gfnma_nvl(item.EMPLOYEE_STOCK_AMT_DESC));
-                        SBUxMethod.set("STOCK_PROFIT_AMT_DESC",  gfnma_nvl(item.STOCK_PROFIT_AMT_DESC));
-                        SBUxMethod.set("PENS_AMT_DESC", 	     gfnma_nvl(item.PENS_AMT_DESC));
-                        SBUxMethod.set("EMPLOY_INSURE_AMT_DESC", gfnma_nvl(item.EMPLOY_INSURE_AMT_DESC));
-                        SBUxMethod.set("HEALTH_INSURE_AMT_DESC", gfnma_nvl(item.HEALTH_INSURE_AMT_DESC));
-                        SBUxMethod.set("SENIOR_INSURE_AMT_DESC", gfnma_nvl(item.SENIOR_INSURE_AMT_DESC));
-                        SBUxMethod.set("INC_TX_AMT_DESC", 	     gfnma_nvl(item.INC_TX_AMT_DESC));
-                        SBUxMethod.set("LOCAL_TX_AMT_DESC", 	 gfnma_nvl(item.LOCAL_TX_AMT_DESC));
-                        SBUxMethod.set("PAY_SUM_AMT", 	         gfnma_nvl(item.PAY_SUM_AMT));
-                        SBUxMethod.set("INSURE_SUM_AMT", 	     gfnma_nvl(item.INSURE_SUM_AMT));
-                        SBUxMethod.set("INC_TX_SUM_AMT", 	     gfnma_nvl(item.INC_TX_SUM_AMT));
+                        SBUxMethod.set("SENIOR_INSURE_AMT", 	 gfn_nvl(item.SENIOR_INSURE_AMT));
+                        SBUxMethod.set("SENIOR_INSURE_ORIG_AMT", gfn_nvl(item.SENIOR_INSURE_ORIG_AMT));
+                        SBUxMethod.set("INC_TX_AMT", 	         gfn_nvl(item.INC_TX_AMT));
+                        SBUxMethod.set("INC_TX_ORIG_AMT", 	     gfn_nvl(item.INC_TX_ORIG_AMT));
+                        SBUxMethod.set("LOCAL_TX_AMT", 	         gfn_nvl(item.LOCAL_TX_AMT));
+                        SBUxMethod.set("LOCAL_TX_ORIG_AMT", 	 gfn_nvl(item.LOCAL_TX_ORIG_AMT));
+                        SBUxMethod.set("PAY_AMT_DESC", 	         gfn_nvl(item.PAY_AMT_DESC));
+                        SBUxMethod.set("BONUS_AMT_DESC", 	     gfn_nvl(item.BONUS_AMT_DESC));
+                        SBUxMethod.set("ADD_BONUS_AMT_DESC", 	 gfn_nvl(item.ADD_BONUS_AMT_DESC));
+                        SBUxMethod.set("INC_EXTRA1_AMT_DESC", 	 gfn_nvl(item.INC_EXTRA1_AMT_DESC));
+                        SBUxMethod.set("INC_EXTRA1_AMT_DESC", 	 gfn_nvl(item.INC_EXTRA1_AMT_DESC));
+                        SBUxMethod.set("INC_EXTRA2_AMT_DESC", 	 gfn_nvl(item.INC_EXTRA2_AMT_DESC));
+                        SBUxMethod.set("EMPLOYEE_STOCK_AMT_DESC",gfn_nvl(item.EMPLOYEE_STOCK_AMT_DESC));
+                        SBUxMethod.set("STOCK_PROFIT_AMT_DESC",  gfn_nvl(item.STOCK_PROFIT_AMT_DESC));
+                        SBUxMethod.set("PENS_AMT_DESC", 	     gfn_nvl(item.PENS_AMT_DESC));
+                        SBUxMethod.set("EMPLOY_INSURE_AMT_DESC", gfn_nvl(item.EMPLOY_INSURE_AMT_DESC));
+                        SBUxMethod.set("HEALTH_INSURE_AMT_DESC", gfn_nvl(item.HEALTH_INSURE_AMT_DESC));
+                        SBUxMethod.set("SENIOR_INSURE_AMT_DESC", gfn_nvl(item.SENIOR_INSURE_AMT_DESC));
+                        SBUxMethod.set("INC_TX_AMT_DESC", 	     gfn_nvl(item.INC_TX_AMT_DESC));
+                        SBUxMethod.set("LOCAL_TX_AMT_DESC", 	 gfn_nvl(item.LOCAL_TX_AMT_DESC));
+                        SBUxMethod.set("PAY_SUM_AMT", 	         gfn_nvl(item.PAY_SUM_AMT));
+                        SBUxMethod.set("INSURE_SUM_AMT", 	     gfn_nvl(item.INSURE_SUM_AMT));
+                        SBUxMethod.set("INC_TX_SUM_AMT", 	     gfn_nvl(item.INC_TX_SUM_AMT));
 
                     });
 
                     jsonTaxFreeAmt.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            TXFREE_CODE          : gfnma_nvl(item.TXFREE_CODE),
-                            TAX_FREE_NAME        : gfnma_nvl(item.TAX_FREE_NAME),
-                            PAY_AMT              : gfnma_nvl(item.PAY_AMT),
-                            TAX_FREE_HISTORY_AMT : gfnma_nvl(item.TAX_FREE_HISTORY_AMT),
-                            TXFREE_AMT           : gfnma_nvl(item.TXFREE_AMT),
-                            TAX_FREE_DESCR       : gfnma_nvl(item.TAX_FREE_DESCR),
+                            TXFREE_CODE          : gfn_nvl(item.TXFREE_CODE),
+                            TAX_FREE_NAME        : gfn_nvl(item.TAX_FREE_NAME),
+                            PAY_AMT              : gfn_nvl(item.PAY_AMT),
+                            TAX_FREE_HISTORY_AMT : gfn_nvl(item.TAX_FREE_HISTORY_AMT),
+                            TXFREE_AMT           : gfn_nvl(item.TXFREE_AMT),
+                            TAX_FREE_DESCR       : gfn_nvl(item.TAX_FREE_DESCR),
 
 
                         }
@@ -1339,9 +1339,9 @@
     //저장
     const fn_save = async function (type) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY 			= gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
         let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let UPDATE_YN 			= gfnma_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
+        let UPDATE_YN 			= gfn_nvl(SBUxMethod.get("SRCH_UPDATE_YN"));//확정여부
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1352,36 +1352,36 @@
             return;
         }
 
-        let EMP_CODE 			    = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
-        let SITE_CODE 			    = gfnma_nvl(SBUxMethod.get("SITE_CODE"));//사 업 장
-        let DEPT_CODE 			    = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));//부서
-        let PAY_AMT 			    = gfnma_nvl(SBUxMethod.get("PAY_AMT"));//급    여
-        let BONUS_AMT 			    = gfnma_nvl(SBUxMethod.get("BONUS_AMT"));//상    여
-        let ADD_BONUS_AMT 	        = gfnma_nvl(SBUxMethod.get("ADD_BONUS_AMT"));//인정상여
-        let INC_EXTRA1_AMT 	        = gfnma_nvl(SBUxMethod.get("INC_EXTRA1_AMT"));//기타소득1
-        let INC_EXTRA2_AMT 	        = gfnma_nvl(SBUxMethod.get("INC_EXTRA2_AMT"));//기타소득2
-        let EMPLOYEE_STOCK_AMT 	    = gfnma_nvl(SBUxMethod.get("EMPLOYEE_STOCK_AMT"));//우리사주 조합 인출금
-        let STOCK_PROFIT_AMT 	    = gfnma_nvl(SBUxMethod.get("STOCK_PROFIT_AMT"));//주식매수 선택권 행사이익
-        let PENS_AMT 			    = gfnma_nvl(SBUxMethod.get("PENS_AMT"));//국민연금
-        let EMPLOY_INSURE_AMT 	    = gfnma_nvl(SBUxMethod.get("EMPLOY_INSURE_AMT"));//고용보험
-        let HEALTH_INSURE_AMT 	    = gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_AMT"));//건강보험
-        let SENIOR_INSURE_AMT 	    = gfnma_nvl(SBUxMethod.get("SENIOR_INSURE_AMT"));//노인장기요양보험
-        let INC_TX_AMT 			    = gfnma_nvl(SBUxMethod.get("INC_TX_AMT"));//소 득 세
-        let LOCAL_TX_AMT 		    = gfnma_nvl(SBUxMethod.get("LOCAL_TX_AMT"));//주 민 세
+        let EMP_CODE 			    = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사원
+        let SITE_CODE 			    = gfn_nvl(SBUxMethod.get("SITE_CODE"));//사 업 장
+        let DEPT_CODE 			    = gfn_nvl(SBUxMethod.get("DEPT_CODE"));//부서
+        let PAY_AMT 			    = gfn_nvl(SBUxMethod.get("PAY_AMT"));//급    여
+        let BONUS_AMT 			    = gfn_nvl(SBUxMethod.get("BONUS_AMT"));//상    여
+        let ADD_BONUS_AMT 	        = gfn_nvl(SBUxMethod.get("ADD_BONUS_AMT"));//인정상여
+        let INC_EXTRA1_AMT 	        = gfn_nvl(SBUxMethod.get("INC_EXTRA1_AMT"));//기타소득1
+        let INC_EXTRA2_AMT 	        = gfn_nvl(SBUxMethod.get("INC_EXTRA2_AMT"));//기타소득2
+        let EMPLOYEE_STOCK_AMT 	    = gfn_nvl(SBUxMethod.get("EMPLOYEE_STOCK_AMT"));//우리사주 조합 인출금
+        let STOCK_PROFIT_AMT 	    = gfn_nvl(SBUxMethod.get("STOCK_PROFIT_AMT"));//주식매수 선택권 행사이익
+        let PENS_AMT 			    = gfn_nvl(SBUxMethod.get("PENS_AMT"));//국민연금
+        let EMPLOY_INSURE_AMT 	    = gfn_nvl(SBUxMethod.get("EMPLOY_INSURE_AMT"));//고용보험
+        let HEALTH_INSURE_AMT 	    = gfn_nvl(SBUxMethod.get("HEALTH_INSURE_AMT"));//건강보험
+        let SENIOR_INSURE_AMT 	    = gfn_nvl(SBUxMethod.get("SENIOR_INSURE_AMT"));//노인장기요양보험
+        let INC_TX_AMT 			    = gfn_nvl(SBUxMethod.get("INC_TX_AMT"));//소 득 세
+        let LOCAL_TX_AMT 		    = gfn_nvl(SBUxMethod.get("LOCAL_TX_AMT"));//주 민 세
 
-        let PAY_AMT_DESC 			= gfnma_nvl(SBUxMethod.get("PAY_AMT_DESC"));//
-        let BONUS_AMT_DESC 			= gfnma_nvl(SBUxMethod.get("BONUS_AMT_DESC"));//
-        let ADD_BONUS_AMT_DESC 		= gfnma_nvl(SBUxMethod.get("ADD_BONUS_AMT_DESC"));//
-        let INC_EXTRA1_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("INC_EXTRA1_AMT_DESC"));//
-        let INC_EXTRA2_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("INC_EXTRA2_AMT_DESC"));//
-        let EMPLOYEE_STOCK_AMT_DESC = gfnma_nvl(SBUxMethod.get("EMPLOYEE_STOCK_AMT_DESC"));//
-        let STOCK_PROFIT_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("STOCK_PROFIT_AMT_DESC"));//
-        let PENS_AMT_DESC 			= gfnma_nvl(SBUxMethod.get("PENS_AMT_DESC"));//
-        let EMPLOY_INSURE_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("EMPLOY_INSURE_AMT_DESC"));//
-        let HEALTH_INSURE_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("HEALTH_INSURE_AMT_DESC"));//
-        let SENIOR_INSURE_AMT_DESC 	= gfnma_nvl(SBUxMethod.get("SENIOR_INSURE_AMT_DESC"));//
-        let INC_TX_AMT_DESC 		= gfnma_nvl(SBUxMethod.get("INC_TX_AMT_DESC"));//
-        let LOCAL_TX_AMT_DESC 		= gfnma_nvl(SBUxMethod.get("LOCAL_TX_AMT_DESC"));//
+        let PAY_AMT_DESC 			= gfn_nvl(SBUxMethod.get("PAY_AMT_DESC"));//
+        let BONUS_AMT_DESC 			= gfn_nvl(SBUxMethod.get("BONUS_AMT_DESC"));//
+        let ADD_BONUS_AMT_DESC 		= gfn_nvl(SBUxMethod.get("ADD_BONUS_AMT_DESC"));//
+        let INC_EXTRA1_AMT_DESC 	= gfn_nvl(SBUxMethod.get("INC_EXTRA1_AMT_DESC"));//
+        let INC_EXTRA2_AMT_DESC 	= gfn_nvl(SBUxMethod.get("INC_EXTRA2_AMT_DESC"));//
+        let EMPLOYEE_STOCK_AMT_DESC = gfn_nvl(SBUxMethod.get("EMPLOYEE_STOCK_AMT_DESC"));//
+        let STOCK_PROFIT_AMT_DESC 	= gfn_nvl(SBUxMethod.get("STOCK_PROFIT_AMT_DESC"));//
+        let PENS_AMT_DESC 			= gfn_nvl(SBUxMethod.get("PENS_AMT_DESC"));//
+        let EMPLOY_INSURE_AMT_DESC 	= gfn_nvl(SBUxMethod.get("EMPLOY_INSURE_AMT_DESC"));//
+        let HEALTH_INSURE_AMT_DESC 	= gfn_nvl(SBUxMethod.get("HEALTH_INSURE_AMT_DESC"));//
+        let SENIOR_INSURE_AMT_DESC 	= gfn_nvl(SBUxMethod.get("SENIOR_INSURE_AMT_DESC"));//
+        let INC_TX_AMT_DESC 		= gfn_nvl(SBUxMethod.get("INC_TX_AMT_DESC"));//
+        let LOCAL_TX_AMT_DESC 		= gfn_nvl(SBUxMethod.get("LOCAL_TX_AMT_DESC"));//
 
 
         var paramObj = {
@@ -1497,9 +1497,9 @@
 
     const getParamForm = async function (updatedData) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY 			= gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
         let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let EMP_CODE 			= gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
+        let EMP_CODE 			= gfn_nvl(SBUxMethod.get("EMP_CODE"));//사원
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1605,7 +1605,7 @@
      */
     const fn_batForm = async function (type) {
 
-        let YE_TX_YYYY 			= gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
+        let YE_TX_YYYY 			= gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY"));//정산연도
         let YE_TX_TYPE			= gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!YE_TX_YYYY) {
@@ -1649,7 +1649,7 @@
             ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
-            ,V_P_YE_TX_YYYY        : YE_TX_YYYY
+            ,V_P_YE_TX_YYYY         : YE_TX_YYYY
             ,V_P_YEAR_END_TX_TYPE   : YE_TX_TYPE
 
             //-- RETIRE:중도퇴사,  YEAREND:연말정산

@@ -353,7 +353,7 @@
     }
 
     var fn_compopup1 = function () {
-        var searchText = gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -382,7 +382,7 @@
 
     const fn_compopup2 = function () {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -414,8 +414,8 @@
     }
 
     var fn_compopup3 = function (type) {
-        var yyyymm_fr = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-        var pay_area_type = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        var yyyymm_fr = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        var pay_area_type = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
         if (yyyymm_fr == "") {
             gfn_comAlert("W0002", "보험년월");
@@ -480,11 +480,11 @@
         gvwListGrid.rebuild();
 
         //데이터검증 버튼 활성화
-        SBUxMethod.attr('btnDataCheck', 'disabled', false);
+        SBUxMethod.attr('btnDataCheck'  , 'disabled', false);
         //엑셀업로드 버튼 활성화
-        SBUxMethod.attr('btnUpload', 'disabled', false);
+        SBUxMethod.attr('btnUpload'     , 'disabled', false);
         //엑셀다운로드 버튼 활성화
-        SBUxMethod.attr('btnDownload', 'disabled', false);
+        SBUxMethod.attr('btnDownload'   , 'disabled', false);
 
         //신규작성시 그리드의 타입콤보박스 disabled : true로 콤보박스값 선택 가능하게 설정
         gvwListGrid.setColDisabled(6, false);
@@ -741,11 +741,11 @@
         pivotData.forEach((item, index) => {
 
             //분기 데이터
-            let DATE_QUARTER = gfnma_nvl(item.DATE_QUARTER);
-            DATE_QUARTER = DATE_QUARTER.trim();
+            let DATE_QUARTER    = gfn_nvl(item.DATE_QUARTER);
+            DATE_QUARTER        = DATE_QUARTER.trim();
             //분기별 년월 데이터
-            let DATE_MONTH = gfnma_nvl(item.DATE_MONTH);
-            DATE_MONTH = DATE_MONTH.trim();
+            let DATE_MONTH      = gfn_nvl(item.DATE_MONTH);
+            DATE_MONTH          = DATE_MONTH.trim();
 
             //분기 및 분기별 년월 데이터가 다르면 컬럼 추가.
             if (DATE_QUARTER_ARR.includes(DATE_QUARTER) == false || DATE_MONTH_ARR.includes(DATE_MONTH) == false) {
@@ -831,8 +831,8 @@
         jsonPivotList.length = 0
         pivotData.forEach((item, index) => {
 
-            let EMP_CODE = gfnma_nvl(item.EMP_CODE);            //사번
-            let EMP_NAME = gfnma_nvl(item.EMP_NAME);            //성명
+            let EMP_CODE = gfn_nvl(item.EMP_CODE);            //사번
+            let EMP_NAME = gfn_nvl(item.EMP_NAME);            //성명
 
             if (EMP_CODE_ARR.includes(EMP_CODE) == false || EMP_NAME_ARR.includes(EMP_NAME) == false) {
                 EMP_CODE_ARR.push(EMP_CODE);
@@ -857,14 +857,14 @@
 
             INCOME_NM.forEach((incomeItem, incomeIndex) => {
 
-                let totalVal = ''; // 분기별 총액 값
-                let DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref
-                let DATE_QUARTER_ARR = []; //분기검사 arr
-                let quarterTotal = ''; //값의 ref명
+                let totalVal            = ''; // 분기별 총액 값
+                let DATE_QUARTER_TOTAL  = ''; // 분기별 총액 로우 ref
+                let DATE_QUARTER_ARR    = []; //분기검사 arr
+                let quarterTotal        = ''; //값의 ref명
 
                 let msg = {
-                    EMP_CODE: gfnma_nvl(empItem.EMP_CODE),            //사번
-                    EMP_NAME: gfnma_nvl(empItem.EMP_NAME),            //성명
+                    EMP_CODE    : gfn_nvl(empItem.EMP_CODE),            //사번
+                    EMP_NAME    : gfn_nvl(empItem.EMP_NAME),            //성명
                 }
 
                 if (_.isEqual(incomeItem,'BASE_INCOME_AMT')){
@@ -879,38 +879,37 @@
 
                 DATE_QUARTER_MONTH_ARR.forEach((item1, index1) => { //컬럼리스트
 
-
                     pivotData.forEach((dataItem, dataIndex) => { //데이터
 
                         if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CODE) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NAME)) {
 
-                            let DATE_QUARTER = gfnma_nvl(dataItem.DATE_QUARTER);        //분기
-                            DATE_QUARTER = DATE_QUARTER.trim();
-                            let DATE_MONTH = gfnma_nvl(dataItem.DATE_MONTH);          //월
-                            DATE_MONTH = DATE_MONTH.trim();
-                            let DATE_QUARTER_MONTH = DATE_QUARTER + DATE_MONTH   //ref 명 조합
+                            let DATE_QUARTER         = gfn_nvl(dataItem.DATE_QUARTER);        //분기
+                            DATE_QUARTER             = DATE_QUARTER.trim();
+                            let DATE_MONTH           = gfn_nvl(dataItem.DATE_MONTH);          //월
+                            DATE_MONTH               = DATE_MONTH.trim();
+                            let DATE_QUARTER_MONTH   = DATE_QUARTER + DATE_MONTH   //ref 명 조합
 
 
                             if (_.isEqual(item1, DATE_QUARTER_MONTH)) { //컬럼 생성시 ref 명 조합과 return data의 분기+월 조합이 같으면 데이터 set
 
-                                msg[item1] = gfnma_nvl(dataItem[incomeItem]) ;  //액
-                                totalVal = Number(totalVal) + Number(gfnma_nvl(dataItem[incomeItem])); //총액값
+                                msg[item1]  = gfn_nvl(dataItem[incomeItem]) ;  //액
+                                totalVal    = Number(totalVal) + Number(gfn_nvl(dataItem[incomeItem])); //총액값
 
                                 //분기별로 총액값 set
                                 if (DATE_QUARTER_ARR.includes(DATE_QUARTER) == false){
 
                                     if (_.isEmpty(DATE_QUARTER_ARR) == false){
 
-                                        totalVal = Number(totalVal) - Number(gfnma_nvl(dataItem[incomeItem])); //다른 분기 값이기 때문에 빼주고 아래서 추가
+                                        totalVal            = Number(totalVal) - Number(gfn_nvl(dataItem[incomeItem])); //다른 분기 값이기 때문에 빼주고 아래서 추가
 
-                                        quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
-                                        msg[quarterTotal] = totalVal ;  //액
+                                        quarterTotal        = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+                                        msg[quarterTotal]   = totalVal ;  //액
 
-                                        totalVal = ''; // 분기별 총액 값 [초기화]
-                                        DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref [초기화]
-                                        quarterTotal = ''; //값의 ref명 [초기화]
+                                        totalVal            = ''; // 분기별 총액 값 [초기화]
+                                        DATE_QUARTER_TOTAL  = ''; // 분기별 총액 로우 ref [초기화]
+                                        quarterTotal        = ''; //값의 ref명 [초기화]
 
-                                        totalVal = Number(gfnma_nvl(dataItem[incomeItem]));//다른 분기 값이기 때문에 빼주고 아래서 추가
+                                        totalVal = Number(gfn_nvl(dataItem[incomeItem]));//다른 분기 값이기 때문에 빼주고 아래서 추가
 
                                     }
                                     DATE_QUARTER_ARR.push(DATE_QUARTER);//분기별 Total 확인 arr
@@ -921,15 +920,15 @@
                     });
                 });
 
-                quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
-                msg[quarterTotal] = totalVal ;  //액
+                quarterTotal        = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+                msg[quarterTotal]   = totalVal ;  //액
 
                 jsonPivotList.push(msg);
 
-                totalVal = ''; // 분기별 총액 값 [초기화]
-                DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref [초기화]
-                DATE_QUARTER_ARR = []; //분기검사 arr [초기화]
-                quarterTotal = ''; //값의 ref명 [초기화]
+                totalVal            = ''; // 분기별 총액 값 [초기화]
+                DATE_QUARTER_TOTAL  = ''; // 분기별 총액 로우 ref [초기화]
+                DATE_QUARTER_ARR    = []; //분기검사 arr [초기화]
+                quarterTotal        = ''; //값의 ref명 [초기화]
 
             });
 
@@ -944,9 +943,7 @@
     async function gridBeforePaste() {
 
         var nRow = gvwListGrid.getRow();
-
         var nCol = gvwListGrid.getCol();
-
 
         if (nCol < 1) {
             return;
@@ -981,10 +978,10 @@
 
         if (_.isEqual(workType, 'LIST')) { //국민연금내역 등록 조회시
 
-            YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-            PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
-            DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-            EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+            YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+            PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+            DEPT_CODE       = gfn_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+            EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
             YYYYMM_FR = '';
             YYYYMM_TO = '';
@@ -995,13 +992,13 @@
             }
         } else if (_.isEqual(workType, 'SUMMARY')) { //국민연금 내역 조회 시
 
-            YYYYMM = '';
-            PAY_AREA_TYPE = '';
-            DEPT_CODE = '';
-            EMP_CODE = '';
+            YYYYMM          = '';
+            PAY_AREA_TYPE   = '';
+            DEPT_CODE       = '';
+            EMP_CODE        = '';
 
-            YYYYMM_FR = gfnma_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
-            YYYYMM_TO = gfnma_nvl(SBUxMethod.get("YYYYMM_TO")); //기간
+            YYYYMM_FR = gfn_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
+            YYYYMM_TO = gfn_nvl(SBUxMethod.get("YYYYMM_TO")); //기간
 
 
             if (!YYYYMM_FR) {
@@ -1057,29 +1054,29 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHECK_YN            : gfnma_nvl(item.CHECK_YN),
-                        INSURE_YYYYMM       : gfnma_nvl(item.INSURE_YYYYMM),
-                        DEPT_CODE           : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME           : gfnma_nvl(item.DEPT_NAME),
-                        POSITION_CODE       : gfnma_nvl(item.POSITION_CODE),
-                        PAY_AREA_TYPE       : gfnma_nvl(item.PAY_AREA_TYPE),
-                        EMP_CODE            : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME            : gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO           : gfnma_nvl(item.SOCIAL_NO),
-                        BASE_INCOME_AMT     : gfnma_nvl(item.BASE_INCOME_AMT),
-                        TOTAL_INSURE_AMT    : gfnma_nvl(item.TOTAL_INSURE_AMT),
-                        EMP_INSURE_AMT      : gfnma_nvl(item.EMP_INSURE_AMT),
-                        COMP_INSURE_AMT     : gfnma_nvl(item.COMP_INSURE_AMT),
-                        MEMO                : gfnma_nvl(item.MEMO),
-                        PAY_YN              : gfnma_nvl(item.PAY_YN),
-                        PAY_YYYYMM          : gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE            : gfnma_nvl(item.PAY_DATE),
-                        EMP_PAY_ITEM        : gfnma_nvl(item.EMP_PAY_ITEM),
-                        EMP_PAY_AMT         : gfnma_nvl(item.EMP_PAY_AMT),
-                        COMP_PAY_ITEM       : gfnma_nvl(item.COMP_PAY_ITEM),
-                        COMP_PAY_AMT        : gfnma_nvl(item.COMP_PAY_AMT),
-                        DATA_YN             : gfnma_nvl(item.DATA_YN)
+                        CHECK_YN            : gfn_nvl(item.CHECK_YN),
+                        INSURE_YYYYMM       : gfn_nvl(item.INSURE_YYYYMM),
+                        DEPT_CODE           : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME           : gfn_nvl(item.DEPT_NAME),
+                        POSITION_CODE       : gfn_nvl(item.POSITION_CODE),
+                        PAY_AREA_TYPE       : gfn_nvl(item.PAY_AREA_TYPE),
+                        EMP_CODE            : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME            : gfn_nvl(item.EMP_NAME),
+                        SOCIAL_NO           : gfn_nvl(item.SOCIAL_NO),
+                        BASE_INCOME_AMT     : gfn_nvl(item.BASE_INCOME_AMT),
+                        TOTAL_INSURE_AMT    : gfn_nvl(item.TOTAL_INSURE_AMT),
+                        EMP_INSURE_AMT      : gfn_nvl(item.EMP_INSURE_AMT),
+                        COMP_INSURE_AMT     : gfn_nvl(item.COMP_INSURE_AMT),
+                        MEMO                : gfn_nvl(item.MEMO),
+                        PAY_YN              : gfn_nvl(item.PAY_YN),
+                        PAY_YYYYMM          : gfn_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE            : gfn_nvl(item.PAY_TYPE),
+                        PAY_DATE            : gfn_nvl(item.PAY_DATE),
+                        EMP_PAY_ITEM        : gfn_nvl(item.EMP_PAY_ITEM),
+                        EMP_PAY_AMT         : gfn_nvl(item.EMP_PAY_AMT),
+                        COMP_PAY_ITEM       : gfn_nvl(item.COMP_PAY_ITEM),
+                        COMP_PAY_AMT        : gfn_nvl(item.COMP_PAY_AMT),
+                        DATA_YN             : gfn_nvl(item.DATA_YN)
 
                     }
                     jsonGvwList.push(msg);
@@ -1098,14 +1095,14 @@
                 /* jsonPivotList.length = 0;
                  data.cv_3.forEach((item, index) => {
                      const msg = {
-                         EMP_CODE             : gfnma_nvl(item.EMP_CODE),            //사번
-                         EMP_NAME             : gfnma_nvl(item.EMP_NAME),            //성명
-                         DATE_QUARTER         : gfnma_nvl(item.DATE_QUARTER),        //분기
-                         DATE_MONTH           : gfnma_nvl(item.DATE_MONTH),          //월
-                         BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),     //기준소득월액
-                         TOTAL_INSURE_AMT     : gfnma_nvl(item.TOTAL_INSURE_AMT),    //월보험료(계)
-                         EMP_INSURE_AMT       : gfnma_nvl(item.EMP_INSURE_AMT),      //본인기여금
-                         COMP_INSURE_AMT      : gfnma_nvl(item.COMP_INSURE_AMT)      //사용자부담금
+                         EMP_CODE             : gfn_nvl(item.EMP_CODE),            //사번
+                         EMP_NAME             : gfn_nvl(item.EMP_NAME),            //성명
+                         DATE_QUARTER         : gfn_nvl(item.DATE_QUARTER),        //분기
+                         DATE_MONTH           : gfn_nvl(item.DATE_MONTH),          //월
+                         BASE_INCOME_AMT      : gfn_nvl(item.BASE_INCOME_AMT),     //기준소득월액
+                         TOTAL_INSURE_AMT     : gfn_nvl(item.TOTAL_INSURE_AMT),    //월보험료(계)
+                         EMP_INSURE_AMT       : gfn_nvl(item.EMP_INSURE_AMT),      //본인기여금
+                         COMP_INSURE_AMT      : gfn_nvl(item.COMP_INSURE_AMT)      //사용자부담금
                      }
                      jsonPivotList.push(msg);
                  });
@@ -1178,17 +1175,17 @@
     //급여반영,취소
     const fn_btnApply = async function (reData, type) {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
 
-        let pay_yyyymm = reData.pay_yyyymm;
-        let pay_type = reData.pay_type;
-        let pay_date = reData.pay_date;
+        let pay_yyyymm  = reData.pay_yyyymm;
+        let pay_type    = reData.pay_type;
+        let pay_date    = reData.pay_date;
 
         let grdList = gvwListGrid.getGridDataAll();
 
-        let isChecked = false;
-        let stremp_code_d = '';
+        let isChecked       = false;
+        let stremp_code_d   = '';
 
         grdList.forEach((item, index) => {
 
@@ -1267,10 +1264,10 @@
     //데이터 검증
     const fn_btnDataCheck = async function () {
 
-        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
@@ -1344,9 +1341,9 @@
 
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE    : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME    : gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO   : gfnma_nvl(item.SOCIAL_NO)
+                        EMP_CODE    : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME    : gfn_nvl(item.EMP_NAME),
+                        SOCIAL_NO   : gfn_nvl(item.SOCIAL_NO)
 
                     }
                 });
@@ -1391,10 +1388,7 @@
     //저장 전 년월로 저장한 정보 체크
     const fn_check = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-        /*let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드*/
+        let YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
@@ -1452,13 +1446,13 @@
     //저장
     const fn_save = async function () {
 
-        let YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //지급구분
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("DEPT_CODE")); //부서코드
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
 
-        /*  let YYYYMM_FR = gfnma_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
-          let YYYYMM_TO = gfnma_nvl(SBUxMethod.get("YYYYMM_TO")); //기간*/
+        /*  let YYYYMM_FR = gfn_nvl(SBUxMethod.get("YYYYMM_FR")); //기간
+          let YYYYMM_TO = gfn_nvl(SBUxMethod.get("YYYYMM_TO")); //기간*/
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");
@@ -1476,7 +1470,7 @@
 
         updateData.forEach((item, index) => {
 
-            if (!_.isEqual(gfnma_nvl(item.EMP_CODE), '')) {
+            if (!_.isEqual(gfn_nvl(item.EMP_CODE), '')) {
                 stremp_code_d           += item.EMP_CODE + '|';
                 strbase_income_amt_d    += item.BASE_INCOME_AMT + '|';
                 strtotal_insure_amt_d   += item.TOTAL_INSURE_AMT + '|';
@@ -1548,7 +1542,7 @@
     //삭제
     const fn_del = async function () {
 
-        let YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
+        let YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YYYYMM_FR")); //보험년월
 
         if (!YYYYMM) {
             gfn_comAlert("W0002", "보험년월");

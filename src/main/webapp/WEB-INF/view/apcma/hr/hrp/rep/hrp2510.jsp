@@ -323,7 +323,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -343,7 +343,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -353,7 +352,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -377,7 +376,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -497,13 +495,13 @@
      */
     const fn_search = async function () {
 
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM_FR   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속기간
-        let PAY_YYYYMM_FR2  = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속기간
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속기간
+        let PAY_YYYYMM_FR2  = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속기간
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
 
         if (!PAY_YYYYMM_FR) {
             gfn_comAlert("W0002", "귀속기간");
@@ -555,13 +553,13 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        DEPT_CODE		        : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME		        : gfnma_nvl(item.DEPT_NAME),
-                        EMP_CODE		        : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME		        : gfnma_nvl(item.EMP_NAME),
-                        POSITION_CODE		    : gfnma_nvl(item.POSITION_CODE),
-                        EMP_STATE		        : gfnma_nvl(item.EMP_STATE),
-                        SALARY_CLASS		    : gfnma_nvl(item.SALARY_CLASS)
+                        DEPT_CODE		        : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME		        : gfn_nvl(item.DEPT_NAME),
+                        EMP_CODE		        : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME		        : gfn_nvl(item.EMP_NAME),
+                        POSITION_CODE		    : gfn_nvl(item.POSITION_CODE),
+                        EMP_STATE		        : gfn_nvl(item.EMP_STATE),
+                        SALARY_CLASS		    : gfn_nvl(item.SALARY_CLASS)
 
                     }
                     jsonInfoList.push(msg);
@@ -609,9 +607,9 @@
         let rowData = gvwInfoGrid.getRowData(nRow);
 
 
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_YYYYMM_FR   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속기간
-        let PAY_YYYYMM_FR2  = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속기간
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속기간
+        let PAY_YYYYMM_FR2  = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속기간
 
 
         if (!_.isEmpty(rowData)) {

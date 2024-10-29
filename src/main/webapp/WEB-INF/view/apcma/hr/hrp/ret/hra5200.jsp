@@ -317,7 +317,7 @@
      */
     var fn_compopup1 = function() {
 
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -346,7 +346,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("EMP_FULL_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
