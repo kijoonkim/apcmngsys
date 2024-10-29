@@ -40,9 +40,9 @@
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="취득자산 가져오기"  	class="btn btn-sm btn-outline-danger" onclick="fn_btnInterface"></sbux-button>
                     <font style="margin-right:5px"></font>
-                    <sbux-button uitype="normal" text="자산지정취소"  		class="btn btn-sm btn-outline-danger" onclick="fn_btnCancel"></sbux-button>
+                    <sbux-button id="BTN_CANCEL" uitype="normal" text="자산지정취소"  		class="btn btn-sm btn-outline-danger" onclick="fn_btnCancel"></sbux-button>
                     <font style="margin-right:5px"></font>
-                    <sbux-button uitype="normal" text="자산등록"  			class="btn btn-sm btn-outline-danger" onclick="fn_btnAsset"></sbux-button>
+                    <sbux-button id="BTN_ASSET" uitype="normal" text="자산등록"  			class="btn btn-sm btn-outline-danger" onclick="fn_btnAsset"></sbux-button>
                     <font style="margin-right:15px"></font>
                     <sbux-button uitype="normal" text="일괄등록"  			class="btn btn-sm btn-outline-danger" onclick="fn_btnInterfaceBth"></sbux-button>
                 </div>
@@ -73,6 +73,10 @@
                     </colgroup>
                     <tbody>
                     
+                      	<!-- hidden  -->
+  						<sbux-input style="display:none" id="SCH_ASSET_CATEGORY" uitype="text" class="form-control input-sm"></sbux-input>
+                  		<!-- /hidden -->
+                    
                         <tr>
                             <th scope="row" class="th_bg">사업단위</th>
                             <td colspan="3" class="td_input" >
@@ -86,7 +90,7 @@
                         
                             <th scope="row" class="th_bg">실적구분</th>
                             <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-select style="width:150px" id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                         </tr>
                         
@@ -231,18 +235,21 @@
 				                           	<!-- hidden  -->
 				  							<sbux-input  id="FM_FI_ORG_CODE"  		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				  							<sbux-input  id="FM_DOC_BATCH_NO"  		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_ASSET_CATEGORY"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_ASSET_LEVEL2"  		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_ASSET_LEVEL3"  		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_LOCATION_CODE" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_LOCATION_NAME" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				  							<sbux-input  id="FM_INVOICE_ID" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				  							<sbux-input  id="FM_INVOICE_SEQ" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				  							<sbux-input  id="FM_DOC_NUM" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				  							
-				  							<sbux-input  id="FM_ASSET_CATEGORY2"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_ASSET_LEVEL2_1"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-				  							<sbux-input  id="FM_ASSET_LEVEL3_1" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							<sbux-input  id="FM_ASSET_CATEGORY"  		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							<sbux-input  id="FM_ASSET_CATEGORY_NAME"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							
+				  							<sbux-input  id="FM_ASSET_LEVEL2"  			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							<sbux-input  id="FM_ASSET_LEVEL2_NAME"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							
+				  							<sbux-input  id="FM_ASSET_LEVEL3"  			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							<sbux-input  id="FM_ASSET_LEVEL3_NAME" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							
+				  							<sbux-input  id="FM_LOCATION_CODE"  	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+				  							<sbux-input  id="FM_LOCATION_NAME" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 				                       		<!-- /hidden -->
 		                       					                    
 			                                <tr>
@@ -277,7 +284,7 @@
 			                                    <th scope="row" class="th_bg">취득처</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_CS_CODE2" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP4" 
@@ -287,13 +294,14 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup4()"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_CS_NAME2" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
 			                                    <th scope="row" class="th_bg">취득구분</th>
 			                                    <td colspan="2" class="td_input">
-			                            			<sbux-select id="FM_TACQUIRE_TYPE" uitype="single" jsondata-ref="jsonSacquireType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+			                            			<sbux-select id="FM_ACQUIRE_TYPE" name="FM_ACQUIRE_TYPE" uitype="single" jsondata-ref="jsonSacquireType" unselected-text="선택" class="form-control input-sm" 
+			                            			onchange="fn_CngAcquireType(FM_ACQUIRE_TYPE)"></sbux-select>
 			                                    </td>
 			                                    
 			                                    <th scope="row" class="th_bg">환율</th>
@@ -304,7 +312,7 @@
 			                                    <th scope="row" class="th_bg">부가세유형</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:40px" id="FM_VAT_TYPE_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:60px" id="FM_VAT_TYPE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP5" 
@@ -340,7 +348,7 @@
 			                                    <th scope="row" class="th_bg">자산번호</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_ASSET_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_ASSET_NO" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP7" 
@@ -517,11 +525,15 @@
 				                                </colgroup>
 							                    <tbody>
 							                    
+						                      	<!-- hidden  -->
+						  						<sbux-input style="display:none" id="FM2_ASSET_ACC_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
+						                  		<!-- /hidden -->
+							                    
 					                                <tr>
 					                                    <th scope="row" class="th_bg">자산구분</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM_ASSET_CATEGORY_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_ASSET_CATEGORY_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP12" 
@@ -531,7 +543,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup12"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="display:none;" id="FM_ASSET_CATEGORY_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="display:none;" id="FM2_ASSET_CATEGORY_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>
 					                                
@@ -543,7 +555,7 @@
 					                                    <th scope="row" class="th_bg">자산계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_ASSET_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_ASSET_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP13" 
@@ -553,7 +565,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup13"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -562,7 +574,7 @@
 					                                    <th scope="row" class="th_bg">중분류</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP14" 
@@ -572,7 +584,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup14"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="display:none;" id="FM_ASSET_LEVEL2_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="display:none;" id="FM2_ASSET_LEVEL2_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>
 					                                
@@ -591,7 +603,7 @@
 					                                    <th scope="row" class="th_bg">최초취득처</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_CS_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_CS_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP15" 
@@ -601,14 +613,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup15"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_CS_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_CS_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각비계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_DEPR_EXP_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_DEPR_EXP_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP16" 
@@ -618,7 +630,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -627,7 +639,7 @@
 					                                    <th scope="row" class="th_bg">소분류</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP17" 
@@ -637,7 +649,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup16"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="display:none;" id="FM_ASSET_LEVEL3_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="display:none;" id="FM2_ASSET_LEVEL3_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>
 					                                
@@ -656,7 +668,7 @@
 					                                    <th scope="row" class="th_bg">담당부서</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_DEPT_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_DEPT_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP18" 
@@ -666,14 +678,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup6('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_DEPT_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_DEPT_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각누계계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP19" 
@@ -683,7 +695,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('3')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -692,7 +704,7 @@
 					                                    <th scope="row" class="th_bg">최초취득일</th>
 					                                    <td colspan="2" class="td_input">
 														    <sbux-datepicker
-														            id="FM_ACQUIRE_DATE_A"
+														            id="FM2_ACQUIRE_DATE_A"
 														            uitype="popup"
 														            date-format="yyyy-mm-dd"
 														            class="form-control input-sm input-sm-ast inpt_data_reqed">
@@ -701,13 +713,13 @@
 					                                
 					                                    <th scope="row" class="th_bg">통화</th>
 					                                    <td colspan="2" class="td_input">
-							                                <sbux-select id="FM_CURRENCY_CODE_A" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+							                                <sbux-select id="FM2_CURRENCY_CODE_A" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">원가중심점</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_COST_CENTER_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP20" 
@@ -717,14 +729,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup9('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_COST_CENTER_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">보조금계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_SUBSIDIES_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP21" 
@@ -734,7 +746,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('4')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -742,18 +754,18 @@
 					                                <tr>
 					                                    <th scope="row" class="th_bg">사업장</th>
 					                                    <td colspan="2" class="td_input">
-							                            	<sbux-select id="SCH_SITE_CODE1_A" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+							                            	<sbux-select id="FM2_SITE_CODE1_A" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">취득금액</th>
 					                                    <td colspan="2" class="td_input">
-				  											<sbux-input style="width:100%" id="FM_FUNCTIONAL_AMOUNT_A" uitype="text" class="form-control input-sm"></sbux-input>
+				  											<sbux-input style="width:100%" id="FM2_FUNCTIONAL_AMOUNT_A" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">프로젝트</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_PROJECT_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_PROJECT_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP22" 
@@ -763,14 +775,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup10('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_PROJECT_NAME_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_PROJECT_NAME_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">보조금상각비</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_SUBSIDIES_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP23" 
@@ -780,7 +792,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('5')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -788,18 +800,18 @@
 					                                <tr>
 					                                    <th scope="row" class="th_bg">상각여부</th>
 					                                    <td colspan="2" class="td_input">
-							                            	<sbux-checkbox id="FM_DEPRECIATE_YN" uitype="normal" text="예" true-value="Y" false-value="N" onchange="fn_cngChkReportYn(SCH_CHKREPORT_YN)"></sbux-checkbox>
+							                            	<sbux-checkbox id="FM2_DEPRECIATE_YN" uitype="normal" text="예" true-value="Y" false-value="N" onchange="fn_cngChkReportYn(SCH_CHKREPORT_YN)"></sbux-checkbox>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">자본적지출</th>
 					                                    <td colspan="2" class="td_input">
-				  											<sbux-input style="width:100%" id="FM_CAPITAL_EXPENDITURE" uitype="text" class="form-control input-sm"></sbux-input>
+				  											<sbux-input style="width:100%" id="FM2_CAPITAL_EXPENDITURE" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">위치코드</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP24" 
@@ -809,14 +821,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup17()"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">보조금상각누계액</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP25" 
@@ -826,7 +838,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('6')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -864,85 +876,85 @@
 					                                <tr>
 					                                    <th scope="row" class="th_bg">감가상각방법</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_METHOD_GAAP" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_METHOD_GAAP" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">감가상각방법</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_METHOD_TAX" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_METHOD_TAX" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각방법</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_METHOD_IFRS" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_METHOD_IFRS" uitype="single" jsondata-ref="jsonDepreMethodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>								
 													</tr>
 							                    
 					                                <tr>
 					                                    <th scope="row" class="th_bg">감가상각주기</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_PERIOD_GAAP" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_PERIOD_GAAP" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">감가상각주기</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_PERIOD_TAX" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_PERIOD_TAX" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각주기</th>
 					                                    <td colspan="2" class="td_input">
-					                            			<sbux-select style="width:150px" id="FM_DEPRECIATION_PERIOD_IFRS" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                            			<sbux-select style="width:150px" id="FM2_DEPRECIATION_PERIOD_IFRS" uitype="single" jsondata-ref="jsonDeprePeriodCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                                    </td>								
 													</tr>
 							                    
 					                                <tr>
 					                                    <th scope="row" class="th_bg">내용년수</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_USEFUL_LIFE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_USEFUL_LIFE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">내용년수</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_USEFUL_LIFE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_USEFUL_LIFE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">내용년수</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_USEFUL_LIFE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_USEFUL_LIFE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 													</tr>
 							                    
 					                                <tr>
 					                                    <th scope="row" class="th_bg">잔존가액</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_VALUE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_VALUE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">잔존가액</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_VALUE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_VALUE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">잔존가액</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_VALUE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_VALUE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 													</tr>
 							                    
 					                                <tr>
 					                                    <th scope="row" class="th_bg">잔존율</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_RATE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_RATE_GAAP" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>
 					                                
 					                                    <th scope="row" class="th_bg">잔존율</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_RATE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_RATE_TAX" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">잔존율</th>
 					                                    <td colspan="2" class="td_input">
-						  									<sbux-input style="width:150px" id="FM_SALVAGE_RATE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
+						  									<sbux-input style="width:150px" id="FM2_SALVAGE_RATE_IFRS" uitype="text" class="form-control input-sm"></sbux-input>
 					                                    </td>								
 													</tr>
 													
@@ -1015,10 +1027,16 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	
-	var p_ss_languageID	= '${loginVO.maLanguageID}';
+	var p_ss_languageID			= '${loginVO.maLanguageID}';
+	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
+	var p_ss_siteCode			= '${loginVO.maSiteCode}';
+	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
+	
 	//-----------------------------------------------------------
 
 	var p_sel_rowData =  null;
+	
+    var p_menu_param	= null;
 	
     //grid 초기화
     var Fia2500GridMast; 			// 그리드를 담기위한 객체 선언
@@ -1040,23 +1058,23 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],								jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],									jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE','SCH_SITE_CODE1_A'],	jsonSiteCode, 	'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE','FM2_SITE_CODE1_A'],	jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],							jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],								jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 취득구분
-            gfnma_setComSelect(['SCH_SACQUIRE_TYPE','FM_TACQUIRE_TYPE'],		jsonSacquireType,	'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SACQUIRE_TYPE','FM_ACQUIRE_TYPE'],				jsonSacquireType,	'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],		jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 신고사업장
-            gfnma_setComSelect(['FM_TAX_SITE_CODE'],							jsonTaxSiteCode,	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_TAX_SITE_CODE'],								jsonTaxSiteCode,	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['FM_CURRENCY_CODE_A'],							jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_CURRENCY_CODE_A'],								jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 감가상각방법
-            gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP','FM_DEPRECIATION_METHOD_TAX','FM_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_DEPRECIATION_METHOD_GAAP','FM2_DEPRECIATION_METHOD_TAX','FM2_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 감가상각주기
-            gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP','FM_DEPRECIATION_PERIOD_TAX','FM_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_DEPRECIATION_PERIOD_GAAP','FM2_DEPRECIATION_PERIOD_TAX','FM2_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -1082,49 +1100,156 @@
 		fn_createFia2500GridMast();
 		fn_createFia2500GridDetail();
 		//cfn_search();
-	} 
-	
+	} 	
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
+    	//메뉴 파라미터 받기 -----------------------------
+    	p_menu_param = localStorage.getItem("callMain");
+    	if(p_menu_param){
+    		p_menu_param = JSON.parse(p_menu_param);
+    	}
+    	localStorage.removeItem("callMain");
+    	//-------------------------------------------------
+    	
     	fn_init();
     });
-
+    
     /**
      * 초기화
      */
     var cfn_init = function() {
     	gfnma_uxDataClear('#srchArea1');
-    }
+    }	
     
     /**
      * 화면 state 변경
      */
     function fn_state(type) {
     
-// 		SBUxMethod.attr('FM_VAT_TYPE_CODE', 	'readonly', true);
-    	
-//     	if(type=='L'){
-// 			$('#main-btn-new', parent.document).attr('disabled', true);
-// 			$('#main-btn-save', parent.document).attr('disabled', true);
-// 			$('#main-btn-del', 	parent.document).attr('disabled', true);
-// 			//fn_fmDisabled(true);
-//     	} else if(type=='N'){
-//     		SBUxMethod.attr('SCH_DEPRECIATION_METHOD2', 		'readonly', false);
-//     		$('#main-btn-save', parent.document).attr('disabled', false);
-//     		$('#main-btn-del', 	parent.document).attr('disabled', false);
-// 			//fn_fmDisabled(false);
-//     	}
-    }    
+       	SBUxMethod.hideTab('idxTab_norm1','SB_TOP_TAB2');
+       	
+    	if(type=='L'){
+    		
+			$('#main-btn-new', 	parent.document).attr('disabled', true);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			$('#main-btn-del', 	parent.document).attr('disabled', true);
+			
+			SBUxMethod.set('SCH_FI_ORG_CODE', 			p_ss_fiOrgCode);
+			SBUxMethod.set('SCH_SITE_CODE', 			p_ss_siteCode);
+			SBUxMethod.set('FM2_SITE_CODE1_A', 			p_ss_siteCode);
+			SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_ss_defaultAcctRule);
+			SBUxMethod.set('SCH_ACQUIRE_DATE_FR', 		gfnma_date9(-1));
+			SBUxMethod.set('SCH_ACQUIRE_DATE_TO', 		gfnma_date4());
+			
+			SBUxMethod.set('SCH_ASSET_CATEGORY', 		p_ss_languageID);
+			
+    		SBUxMethod.attr('FM_ASSET_NO', 			'disabled', true);
+    		SBUxMethod.attr('FM_ASSET_NAME', 		'disabled', true);
+			
+    		SBUxMethod.hide('BTN_CANCEL');
+    		SBUxMethod.hide('BTN_ASSET');
+    		
+			if(p_menu_param){
+	            var strparam_info = p_menu_param['ParameterInfo'];
+	    		if(strparam_info){
+					SBUxMethod.set('SCH_ACTUAL_FLAG_P', 	strparam_info); 
+		    		SBUxMethod.attr('SCH_ACTUAL_FLAG_P', 	'disabled', true);
+	    		}
+			}
+    		
+			//fn_fmDisabled(true);
+    	} else if(type=='N'){
+    		
+    	}
+    }     
     
     /**
      * 목록 조회
      */
  	function cfn_search() {
- 		fn_state('L');
-    	//fn_setFia2500GridMast('LIST');
+    	
+    	var SaveButton =  $('#main-btn-save', parent.document).prop('disabled');
+    	if(!SaveButton){
+			if(gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?")){
+				if(fn_validation()){
+					fn_subInsert();
+				}
+			} 
+    	}
+    	fn_setFig2500GridMast('HEADER');
     }
     
+    /**
+     * 저장
+     */   
+    const fn_subInsert = async function (){
+    	
+    }    
+    
+    /**
+     * 입력사항 벨리데이션 check
+     */
+    function fn_validation(){
+    	
+    	var bol = true;
+    	var p_fm_acquire_date 		= SBUxMethod.set('FM_ACQUIRE_DATE'); 
+    	var p_fm_currency_code 		= SBUxMethod.set('FM_CURRENCY_CODE'); 
+    	var p_fm_cs_code2 			= SBUxMethod.set('FM_CS_CODE'); 
+    	var p_fm_tacquire_type 		= SBUxMethod.set('FM_ACQUIRE_TYPE'); 
+    	var p_fm_exchange_rate 		= SBUxMethod.set('FM_EXCHANGE_RATE'); 
+    	var p_fm_dept_code 			= SBUxMethod.set('FM_DEPT_CODE'); 
+    	var p_fm_asset_code 		= SBUxMethod.set('FM_ASSET_NO'); 
+    	var p_fm_emp_code 			= SBUxMethod.set('FM_EMP_CODE'); 
+    	var p_fm_site_code 			= SBUxMethod.set('FM_SITE_CODE'); 
+    	var p_fm_cost_center_code 	= SBUxMethod.set('FM_COST_CENTER_CODE'); 
+    	var p_fm_acct_rule_code 	= SBUxMethod.set('FM_ACCT_RULE_CODE'); 
+    	var p_fm_account_code 		= SBUxMethod.set('FM_ACCOUNT_CODE'); 
+    	
+    	if(!p_fm_acquire_date){
+    		gfn_comAlert("E0000","취득내역 탭의 취득일은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_currency_code){
+    		gfn_comAlert("E0000","취득내역 탭의 통화는 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_cs_code2){
+    		gfn_comAlert("E0000","취득내역 탭의 취득처는 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_tacquire_type){
+    		gfn_comAlert("E0000","취득내역 탭의 취득구분은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_exchange_rate){
+    		gfn_comAlert("E0000","취득내역 탭의 환율은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_dept_code){
+    		gfn_comAlert("E0000","취득내역 탭의 담당부서는 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_asset_code){
+    		gfn_comAlert("E0000","취득내역 탭의 자산번호는 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_emp_code){
+    		gfn_comAlert("E0000","취득내역 탭의 담당자는 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_site_code){
+    		gfn_comAlert("E0000","취득내역 탭의 사업장은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_cost_center_code){
+    		gfn_comAlert("E0000","취득내역 탭의 원가중심점은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_acct_rule_code){
+    		gfn_comAlert("E0000","취득내역 탭의 회계기준은 필수입력입니다.");
+    		bol = false;
+    	} else if(!p_fm_account_code){
+    		gfn_comAlert("E0000","취득내역 탭의 자산계정은 필수입력입니다.");
+    		bol = false;
+    	}
+    	return bol;
+    }    
+    
+    /**
+     * 그리드 셋팅
+     */
     function fn_createFia2500GridMast() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid1';
@@ -1140,10 +1265,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [13,14,15]
+                    sum : [12,13,14]
                 },
                 grandtotalrow : {
-                    titlecol 		: 10,
+                    titlecol 		: 11,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -1152,13 +1277,13 @@
         };
         SBGridProperties.columns = [
             {caption: ["취득일"],			ref: 'ACQUIRE_DATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["취득구분"], 		ref: 'ACQUIRE_TYPE',  		  	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["취득구분"], 		ref: 'ACQUIRE_TYPE_NAME',  	  	type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["취득번호"], 		ref: 'ASSET_ACQUIRE_NO',    	type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["취득처"], 			ref: 'CS_NAME',    				type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["자산번호"],			ref: 'ASSET_NO',  			  	type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["자산명"],			ref: 'ASSET_NAME',    			type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption: ["회계기준"],			ref: 'ACCT_RULE_CODE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부가세유형"],		ref: 'VAT_TYPE',    			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["회계기준"],			ref: 'ACCT_RULE_NAME',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형"],		ref: 'VAT_TYPE_NAME',  			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["부가세율"],			ref: 'VAT_RATE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["통화"],				ref: 'CURRENCY_CODE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["환율"],				ref: 'EXCHANGE_RATE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -1174,8 +1299,310 @@
         ];
 
         Fia2500GridMast = _SBGrid.create(SBGridProperties);
-        //Fia2500GridMast.bind('click', 			'fn_viewFia2500GridMastEvent');
+        Fia2500GridMast.bind('click', 			'fn_viewFia2500GridMastEvent');
+    }    
+    
+    //상세정보 보기
+    function fn_viewFia2500GridMastEvent() {
+    	
+        var nRow = Fia2500GridMast.getRow();
+		if (nRow < 1) {
+            return;
+		}
+        let rowData = Fia2500GridMast.getRowData(nRow);
+		console.log(rowData);      
+		
+        fn_setFormFig2500GridMast(rowData);
+		fn_setFig2500GridDetail('DETAIL', rowData);
+    }    
+    
+    //상세정보 보기
+    function fn_viewFig2500GridMastReload(idx) {
+    	
+    	Fia2500GridMast.setRow(idx);
+        let rowData = Fia2500GridMast.getRowData(idx);
+		//console.log(rowData);        
+		
+        fn_setFormFig2500GridMast(rowData);
+		fn_setFig2500GridDetail('DETAIL', rowData);
     }
+    
+    //데이터를 폼에 셋팅
+    function fn_setFormFig2500GridMast(obj) {
+        
+    	gfnma_uxDataSet2('#dataArea1', obj, '', 'FM_', '');
+        if(obj['ACQUIRE_TYPE']!='CE' && obj['ACQUIRE_TYPE']!='SUBSIDIES'){
+        	SBUxMethod.attr('FM_ASSET_NO', 		'disabled', true);
+        	SBUxMethod.attr('FM_ASSET_NAME', 	'disabled', true);
+        	SBUxMethod.attr('BTN_POP7', 		'disabled', true);
+        } else {
+        	SBUxMethod.attr('FM_ASSET_NO', 		'disabled', false);
+        	SBUxMethod.attr('FM_ASSET_NAME', 	'disabled', false);
+        	SBUxMethod.attr('BTN_POP7', 		'disabled', false);
+        }
+    }    
+    
+    /**
+     * 취득구분 이벤트 
+     */    
+    function fn_CngAcquireType(val) {
+        console.log('val:', val);
+        
+        if(!val){
+        	return;
+        }
+        
+        if(val=='CE' || val=='SUBSIDIES'){
+        	SBUxMethod.attr('FM_ASSET_NO', 		'disabled', false);
+        	SBUxMethod.attr('FM_ASSET_NAME', 	'disabled', false);
+        	SBUxMethod.attr('BTN_POP7', 		'disabled', false);
+        	SBUxMethod.attr('BTN_ASSET', 		'visible',  false);
+        	
+        	SBUxMethod.hideTab('idxTab_norm1','SB_TOP_TAB2');
+        	
+        } else {
+        	SBUxMethod.set('FM_ASSET_NO', 		'');
+        	SBUxMethod.set('FM_ASSET_NAME', 	'');
+        	SBUxMethod.attr('FM_ASSET_NO', 		'disabled', true);
+        	SBUxMethod.attr('FM_ASSET_NAME', 	'disabled', true);
+        	SBUxMethod.attr('BTN_POP7', 		'disabled', true);
+        	
+        	SBUxMethod.showTab('idxTab_norm1',	'SB_TOP_TAB2');
+        	SBUxMethod.attr('BTN_ASSET', 		'visible',  true);
+        	
+        	SBUxMethod.set('FM2_ASSET_ACC_CODE', 			SBUxMethod.get('FM_ACCOUNT_CODE'));
+        	SBUxMethod.set('FM2_ASSET_ACC_NAME', 			SBUxMethod.get('FM_ACCOUNT_NAME'));
+        	
+        	SBUxMethod.set('FM2_DEPT_CODE1_A', 				SBUxMethod.get('FM_DEPT_CODE'));
+        	SBUxMethod.set('FM2_DEPT_NAME1_A', 				SBUxMethod.get('FM_DEPT_NAME'));
+        	
+        	SBUxMethod.set('FM2_COST_CENTER_CODE1_A', 		SBUxMethod.get('FM_COST_CENTER_CODE'));
+        	SBUxMethod.set('FM2_COST_CENTER_NAME1_A', 		SBUxMethod.get('FM_COST_CENTER_NAME'));
+        	
+        	SBUxMethod.set('FM2_PROJECT_CODE_A', 			SBUxMethod.get('FM_PROJECT_CODE'));
+        	SBUxMethod.set('FM2_PROJECT_NAME_A', 			SBUxMethod.get('FM_PROJECT_NAME'));
+        	
+        	SBUxMethod.set('FM2_CS_CODE1_A', 				SBUxMethod.get('FM_CS_CODE'));
+        	SBUxMethod.set('FM2_CS_NAME1_A', 				SBUxMethod.get('FM_CS_NAME'));
+        	
+        	SBUxMethod.set('FM2_LOCATION_CODE', 			SBUxMethod.get('FM_LOCATION_CODE'));
+        	SBUxMethod.set('FM2_LOCATION_NAME', 			SBUxMethod.get('FM_LOCATION_NAME'));
+        	
+        	SBUxMethod.set('FM2_CURRENCY_CODE_A', 			SBUxMethod.get('FM_CURRENCY_CODE'));
+        	SBUxMethod.set('FM2_SITE_CODE1_A', 				SBUxMethod.get('FM_SITE_CODE'));
+        	SBUxMethod.set('FM2_ACQUIRE_DATE_A', 			SBUxMethod.get('FM_ACQUIRE_DATE'));
+        	SBUxMethod.set('FM2_FUNCTIONAL_AMOUNT_A', 		SBUxMethod.get('FM_FUNCTIONAL_AMOUNT'));
+        	
+        	SBUxMethod.set('FM2_ASSET_CATEGORY_CODE', 		SBUxMethod.get('FM_ASSET_CATEGORY'));
+        	SBUxMethod.set('FM2_ASSET_CATEGORY_NAME', 		SBUxMethod.get('FM_ASSET_CATEGORY_NAME'));
+        	
+        	SBUxMethod.set('FM2_ASSET_LEVEL2_CODE', 		SBUxMethod.get('FM_ASSET_LEVEL2'));
+        	SBUxMethod.set('FM2_ASSET_LEVEL2_NAME', 		SBUxMethod.get('FM_ASSET_LEVEL2_NAME'));
+        	
+        	SBUxMethod.set('FM2_ASSET_LEVEL3_CODE', 		SBUxMethod.get('FM_ASSET_LEVEL3'));
+        	SBUxMethod.set('FM2_ASSET_LEVEL3_NAME', 		SBUxMethod.get('FM_ASSET_LEVEL3_NAME'));
+        	
+        	fn_setFia1100('Q');
+        	
+        }
+    }    
+    
+    /**
+     * 자산원장등록 가져오기
+     */
+    const fn_setFia1100 = async function(wtype) {
+    	
+		let p_fm2_asset_level2_code		= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL2_CODE"));
+		let p_fm2_asset_level3_code		= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_CODE"));
+		let p_fm2_asset_level3_name		= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_NAME"));
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_ASSET_LEVEL2       : p_fm2_asset_level2_code
+			,V_P_ASSET_LEVEL3       : p_fm2_asset_level3_code
+			,V_P_ASSET_LEVEL3_NAME  : p_fm2_asset_level3_name
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia1100.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '1',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }    	
+    	
+    }       
+    
+    /**
+     * 목록 가져오기
+     */
+    const fn_setFig2500GridMast = async function(wtype) {
+    	
+		Fia2500GridMast.clearStatus();
+
+		let p_sch_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let p_sch_site_code				= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_sch_actual_flag_p			= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
+		let p_sch_sacquire_type			= gfnma_nvl(SBUxMethod.get("SCH_SACQUIRE_TYPE"));
+		let p_sch_dept_code				= gfnma_nvl(SBUxMethod.get("SCH_DEPT_CODE"));
+		let p_sch_emp_code				= gfnma_nvl(SBUxMethod.get("SCH_EMP_CODE"));
+		let p_sch_cs_code				= gfnma_nvl(SBUxMethod.get("SCH_CS_CODE"));
+		let p_fm_asset_acquire_no		= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACQUIRE_NO"));
+		
+		let p_sch_acquire_date_fr		= gfnma_nvl(SBUxMethod.get("SCH_ACQUIRE_DATE_FR"));
+		let p_sch_acquire_date_to		= gfnma_nvl(SBUxMethod.get("SCH_ACQUIRE_DATE_TO"));
+		let p_sch_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		
+		if(!p_sch_acquire_date_fr){
+ 			gfn_comAlert("E0000","취득일(시작일)을 입력하세요");
+			return;      		 
+		}
+		if(!p_sch_acquire_date_to){
+ 			gfn_comAlert("E0000","취득일(종료일)을 입력하세요");
+			return;      		 
+		}
+		if(!p_sch_acct_rule_code){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
+			,V_P_SITE_CODE          : p_sch_site_code
+			,V_P_ACCT_RULE_CODE     : p_sch_acct_rule_code 
+			,V_P_ACTUAL_FLAG     	: p_sch_actual_flag_p 
+			,V_P_ACQUIRE_DATE_FR   	: p_sch_acquire_date_fr 
+			,V_P_ACQUIRE_DATE_TO   	: p_sch_acquire_date_to 
+			,V_P_ACQUIRE_TYPE   	: p_sch_sacquire_type 
+			,V_P_DEPT_CODE   		: p_sch_dept_code 
+			,V_P_EMP_CODE   		: p_sch_emp_code 
+			,V_P_CS_CODE   			: p_sch_cs_code 
+			,V_P_ASSET_ACQUIRE_NO	: p_fm_asset_acquire_no 
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia2500List.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	        	jsonFia2500Mast.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  						FOCUS					: gfnma_nvl(item.FOCUS),			
+  						ASSET_ACQUIRE_NO		: gfnma_nvl(item.ASSET_ACQUIRE_NO),			
+  						ASSET_NO				: gfnma_nvl(item.ASSET_NO),			
+  						ASSET_NAME				: gfnma_nvl(item.ASSET_NAME),			
+  						SITE_CODE				: gfnma_nvl(item.SITE_CODE),			
+  						ACQUIRE_DATE			: gfnma_nvl(item.ACQUIRE_DATE),			
+  						ACQUIRE_TYPE			: gfnma_nvl(item.ACQUIRE_TYPE),			
+  						ACQUIRE_TYPE_NAME		: gfnma_nvl(item.ACQUIRE_TYPE_NAME),			
+  						ASSET_CATEGORY			: gfnma_nvl(item.ASSET_CATEGORY),			
+  						ASSET_LEVEL2			: gfnma_nvl(item.ASSET_LEVEL2),			
+  						ASSET_LEVEL3			: gfnma_nvl(item.ASSET_LEVEL3),			
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
+  						EMP_CODE				: gfnma_nvl(item.EMP_CODE),			
+  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),			
+  						CS_CODE					: gfnma_nvl(item.CS_CODE),			
+  						CS_NAME					: gfnma_nvl(item.CS_NAME),			
+  						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),			
+  						COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),			
+  						PROJECT_CODE			: gfnma_nvl(item.PROJECT_CODE),			
+  						PROJECT_NAME			: gfnma_nvl(item.PROJECT_NAME),			
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),			
+  						TAX_SITE_CODE			: gfnma_nvl(item.TAX_SITE_CODE),			
+  						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),			
+  						VAT_TYPE_NAME			: gfnma_nvl(item.VAT_TYPE_NAME),			
+  						VAT_RATE				: gfnma_nvl(item.VAT_RATE),			
+  						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),			
+  						EXCHANGE_RATE			: gfnma_nvl(item.EXCHANGE_RATE),			
+  						ORIGINAL_AMOUNT			: gfnma_nvl(item.ORIGINAL_AMOUNT),			
+  						VAT_AMOUNT				: gfnma_nvl(item.VAT_AMOUNT),			
+  						FUNCTIONAL_AMOUNT		: gfnma_nvl(item.FUNCTIONAL_AMOUNT),			
+  						TOTAL_AMOUNT			: gfnma_nvl(item.TOTAL_AMOUNT),			
+  						INVOICE_ID				: gfnma_nvl(item.INVOICE_ID),			
+  						INVOICE_SEQ				: gfnma_nvl(item.INVOICE_SEQ),			
+  						SOURCE_TYPE				: gfnma_nvl(item.SOURCE_TYPE),			
+  						MEMO					: gfnma_nvl(item.MEMO),			
+  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
+  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
+  						SOURCE_NAME				: gfnma_nvl(item.SOURCE_NAME),
+  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCT_RULE_NAME			: gfnma_nvl(item.ACCT_RULE_NAME),
+  						ACQUISITION_QTY			: gfnma_nvl(item.ACQUISITION_QTY),
+  					}
+  					jsonFia2500Mast.push(msg);
+  					totalRecordCount ++;
+  				});
+
+        		Fia2500GridMast.rebuild();
+  	        	
+  	        	//deatil grid 첫번째 행 선택
+				if(jsonFia2500Mast.length>0){
+					fn_viewFig2500GridMastReload(1);					
+				}
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }    	
+    }    
     
     function fn_createFia2500GridDetail() {
         var SBGridProperties 				= {};
@@ -1187,6 +1614,21 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+                type 		: 'grand',
+                position	: 'bottom',
+                columns		: {
+                    standard : [0],
+                    sum : [3,6,7]
+                },
+                grandtotalrow : {
+                    titlecol 		: 2,
+                    titlevalue		: '합계',
+                    style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol	: 0
+                },
+                datasorting	: true,
+        };
         SBGridProperties.columns = [
             {caption: ["연번"],			ref: 'ACQUIRE_SEQ', 			type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["자산명"], 		ref: 'ASSET_NAME',  		  	type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -1203,8 +1645,113 @@
 
         Fia2500GridDetail = _SBGrid.create(SBGridProperties);
         //Fia2500GridDetail.bind('click', 			'fn_viewFia2500GridDetailEvent');
-    }
+    }    
     
+    /**
+     * 목록 가져오기
+     */
+    const fn_setFig2500GridDetail = async function(wtype, obj) {
+    	
+    	Fia2500GridDetail.clearStatus();
+
+		let p_sch_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let p_sch_site_code				= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_sch_actual_flag_p			= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
+		let p_sch_sacquire_type			= gfnma_nvl(SBUxMethod.get("SCH_SACQUIRE_TYPE"));
+		let p_sch_dept_code				= gfnma_nvl(SBUxMethod.get("SCH_DEPT_CODE"));
+		let p_sch_emp_code				= gfnma_nvl(SBUxMethod.get("SCH_EMP_CODE"));
+		let p_sch_cs_code				= gfnma_nvl(SBUxMethod.get("SCH_CS_CODE"));
+		let p_fm_asset_acquire_no		= gfnma_nvl(obj['ASSET_ACQUIRE_NO']);
+		
+		let p_sch_acquire_date_fr		= gfnma_nvl(SBUxMethod.get("SCH_ACQUIRE_DATE_FR"));
+		let p_sch_acquire_date_to		= gfnma_nvl(SBUxMethod.get("SCH_ACQUIRE_DATE_TO"));
+		let p_sch_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		
+		if(!p_sch_acquire_date_fr){
+ 			gfn_comAlert("E0000","취득일(시작일)을 입력하세요");
+			return;      		 
+		}
+		if(!p_sch_acquire_date_to){
+ 			gfn_comAlert("E0000","취득일(종료일)을 입력하세요");
+			return;      		 
+		}
+		if(!p_sch_acct_rule_code){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
+			,V_P_SITE_CODE          : p_sch_site_code
+			,V_P_ACCT_RULE_CODE     : p_sch_acct_rule_code 
+			,V_P_ACTUAL_FLAG     	: p_sch_actual_flag_p 
+			,V_P_ACQUIRE_DATE_FR   	: p_sch_acquire_date_fr 
+			,V_P_ACQUIRE_DATE_TO   	: p_sch_acquire_date_to 
+			,V_P_ACQUIRE_TYPE   	: p_sch_sacquire_type 
+			,V_P_DEPT_CODE   		: p_sch_dept_code 
+			,V_P_EMP_CODE   		: p_sch_emp_code 
+			,V_P_CS_CODE   			: p_sch_cs_code 
+			,V_P_ASSET_ACQUIRE_NO	: p_fm_asset_acquire_no 
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia2500List.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	    		jsonFia2500Detail.length = 0;
+  	        	data.cv_2.forEach((item, index) => {
+  					const msg = {
+  						ACQUIRE_SEQ				: gfnma_nvl(item.ACQUIRE_SEQ),			
+  						ASSET_NAME				: gfnma_nvl(item.ASSET_NAME),			
+  						ASSET_PRICE				: gfnma_nvl(item.ASSET_PRICE),			
+  						ASSET_QTY				: gfnma_nvl(item.ASSET_QTY),			
+  						ASSET_SPEC				: gfnma_nvl(item.ASSET_SPEC),			
+  						FUNCTIONAL_AMOUNT		: gfnma_nvl(item.FUNCTIONAL_AMOUNT),			
+  						MEMO					: gfnma_nvl(item.MEMO),			
+  						ORIGINAL_AMOUNT			: gfnma_nvl(item.ORIGINAL_AMOUNT),			
+  						UNIT_CODE				: gfnma_nvl(item.UNIT_CODE),			
+  					}
+  					jsonFia2500Detail.push(msg);
+  					totalRecordCount ++;
+  				});
+
+  	        	Fia2500GridDetail.rebuild();
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }    	
+    	
+    }        
     
     /**
      * 취득처 
@@ -1212,7 +1759,7 @@
     function fn_compopup1() {
     	
         var searchCode 		= gfnma_nvl(SBUxMethod.get('SCH_CS_CODE'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SCH_CS_NAME"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get('SCH_CS_NAME'));
         
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
@@ -1238,7 +1785,7 @@
 				SBUxMethod.set('SCH_CS_NAME', 	data.CS_NAME);
 			},
     	});
-    }   
+    }       
     
     /**
      * 담당부서 
@@ -1308,15 +1855,15 @@
 				SBUxMethod.set('SCH_EMP_NAME', 	data.EMP_NAME);
 			},
     	});
-    }   
+    }      
     
     /**
      * 취득처 2
      */
     function fn_compopup4() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('FM_CS_CODE2'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("FM_CS_NAME2"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get('FM_CS_CODE'));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("FM_CS_NAME"));
         
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
@@ -1338,8 +1885,8 @@
   			,tableColumnNames		: ["CS_CODE", 	 	"CS_NAME",	"BIZ_REGNO",	"CHIEF_NAME",	"BIZ_CATEGORY",	"BIZ_ITEMS",	"ADDRESS",	"TEL",		"FAX"]
   			,tableColumnWidths		: ["100px", 		 "250px",	"100px",		"100px",		"150px",		"200px",		"250px",	"150px",	"150px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('FM_CS_CODE2',	data.CS_CODE);
-				SBUxMethod.set('FM_CS_NAME2', 	data.CS_NAME);
+				SBUxMethod.set('FM_CS_CODE',	data.CS_CODE);
+				SBUxMethod.set('FM_CS_NAME', 	data.CS_NAME);
 			},
     	});
     }   
@@ -1370,7 +1917,7 @@
   			,tableColumnNames		: ["VAT_NAME", 	 	"VAT_TYPE_CODE",	"VAT_TYPE_NAME",	"VAT_RATE",		"LIMIT_PLUS_RATE",	"LIMIT_MINUS_RATE"]
   			,tableColumnWidths		: ["250px", 		 "80px",			"200px",			"50px",			"50px",				"50px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('FM_VAT_TYPE_CODE',	data.VAT_CODE);
+				SBUxMethod.set('FM_VAT_TYPE',		data.VAT_CODE);
 				SBUxMethod.set('FM_VAT_TYPE_NAME', 	data.VAT_NAME);
 			},
     	});
@@ -1387,8 +1934,8 @@
             searchText1		= gfnma_nvl(SBUxMethod.get("FM_DEPT_NAME"));
             searchText2		= gfnma_nvl(SBUxMethod.get("FM_DEPT_CODE"));
         } else if(type=='2'){
-            searchText1		= gfnma_nvl(SBUxMethod.get("FM_DEPT_NAME1_A"));
-            searchText2		= gfnma_nvl(SBUxMethod.get("FM_DEPT_CODE1_A"));
+            searchText1		= gfnma_nvl(SBUxMethod.get("FM2_DEPT_NAME1_A"));
+            searchText2		= gfnma_nvl(SBUxMethod.get("FM2_DEPT_CODE1_A"));
         }
         
         var param		 	= null;
@@ -1415,8 +1962,8 @@
 	                SBUxMethod.set('FM_DEPT_NAME', data.DEPT_NAME);
 	                SBUxMethod.set('FM_DEPT_CODE', data.DEPT_CODE);
                 } else if(type=='2'){
-	                SBUxMethod.set('FM_DEPT_NAME1_A', data.DEPT_NAME);
-	                SBUxMethod.set('FM_DEPT_CODE1_A', data.DEPT_CODE);
+	                SBUxMethod.set('FM2_DEPT_NAME1_A', data.DEPT_NAME);
+	                SBUxMethod.set('FM2_DEPT_CODE1_A', data.DEPT_CODE);
                 }
             },
         });
@@ -1427,7 +1974,7 @@
      */
     function fn_compopup7() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('FM_ASSET_CODE'));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get('FM_ASSET_NO'));
         var searchName 		= gfnma_nvl(SBUxMethod.get("FM_ASSET_NAME"));
         
         var replaceText0 	= "_ASSET_NO_";
@@ -1450,11 +1997,11 @@
   			,tableColumnNames		: ["ASSET_NO", 	"ASSET_NAME",	"SITE_CODE",	"ASSET_CATEGORY",	"ASSET_CATEGORY_NAME",	"ASSET_LEVEL2_NAME",	"ASSET_LEVEL3_NAME",	"DEPT_CODE",	"DEPT_NAME",	"COST_CENTER_CODE",	"COST_CENTER_NAME",	"PROJECT_CODE",	"PROJECT_NAME"]
   			,tableColumnWidths		: ["80px", 	 	"250px",		"100px",		"80px",				"80px",					"100px",				"100px",				"100px",		"200px",		"100px",			"150px",			"100px",		"250px",]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('FM_ASSET_CODE',	data.ASSET_NO);
+				SBUxMethod.set('FM_ASSET_NO',	data.ASSET_NO);
 				SBUxMethod.set('FM_ASSET_NAME',	data.ASSET_NAME);
 			},
     	});
-    }   
+    }       
     
     /**
      * 담당자 
@@ -1491,7 +2038,7 @@
 				SBUxMethod.set('FM_EMP_NAME', 	data.EMP_NAME);
 			},
     	});
-    }   
+    }     
     
     /**
      * 원가중심점코드
@@ -1504,8 +2051,8 @@
             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_CODE"));
             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_NAME"));
         } else if(type=='2'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_CODE1_A"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_NAME1_A"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_COST_CENTER_CODE1_A"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_COST_CENTER_NAME1_A"));
         }
         
         var replaceText0 	= "_COST_CENTER_CODE_";
@@ -1534,12 +2081,12 @@
 					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
 					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
 		        } else if(type=='2'){
-					SBUxMethod.set('FM_COST_CENTER_CODE1_A', 	data.COST_CENTER_CODE);
-					SBUxMethod.set('FM_COST_CENTER_NAME1_A', 	data.COST_CENTER_NAME);
+					SBUxMethod.set('FM2_COST_CENTER_CODE1_A', 	data.COST_CENTER_CODE);
+					SBUxMethod.set('FM2_COST_CENTER_NAME1_A', 	data.COST_CENTER_NAME);
 		        }
 			},
     	});
-    }     
+    }         
     
     /**
      * 프로젝트코드
@@ -1552,8 +2099,8 @@
             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PROJECT_CODE"));
             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PROJECT_NAME"));
         } else if(type=='2'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PROJECT_CODE_A"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PROJECT_NAME_A"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_PROJECT_CODE_A"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_PROJECT_NAME_A"));
         }
         
         var replaceText0 	= "_PROJECT_CODE_";
@@ -1582,8 +2129,8 @@
 					SBUxMethod.set('FM_PROJECT_CODE', 	data.PROJECT_CODE);
 					SBUxMethod.set('FM_PROJECT_NAME', 	data.PROJECT_NAME);
 		        } else if(type=='2'){
-					SBUxMethod.set('FM_PROJECT_CODE_A', 	data.PROJECT_CODE);
-					SBUxMethod.set('FM_PROJECT_NAME_A', 	data.PROJECT_NAME);
+					SBUxMethod.set('FM2_PROJECT_CODE_A', 	data.PROJECT_CODE);
+					SBUxMethod.set('FM2_PROJECT_NAME_A', 	data.PROJECT_NAME);
 		        }
 			},
     	});
@@ -1600,20 +2147,20 @@
             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ACCOUNT_CODE"));
             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ACCOUNT_NAME"));
         } else if(type=='2'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_DEPR_EXP_ACC_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_DEPR_EXP_ACC_NAME"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_DEPR_EXP_ACC_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_DEPR_EXP_ACC_NAME"));
         } else if(type=='3'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ACCUM_DEPR_ACC_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ACCUM_DEPR_ACC_NAME"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_ACCUM_DEPR_ACC_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_ACCUM_DEPR_ACC_NAME"));
         } else if(type=='4'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_ACC_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_ACC_NAME"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_ACC_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_ACC_NAME"));
         } else if(type=='5'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_DEPR_ACC_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_DEPR_ACC_NAME"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_DEPR_ACC_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_DEPR_ACC_NAME"));
         } else if(type=='6'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_ACCUM_DEPR_ACC_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME"));
         }
         
         var replaceText0 	= "_ACCOUNT_CODE_";
@@ -1642,32 +2189,32 @@
 					SBUxMethod.set('FM_ACCOUNT_CODE', 			data.ACCOUNT_CODE);
 					SBUxMethod.set('FM_ACCOUNT_NAME', 			data.ACCOUNT_NAME);
 		        } else if(type=='2'){
-					SBUxMethod.set('FM_DEPR_EXP_ACC_CODE', 		data.ACCOUNT_CODE);
-					SBUxMethod.set('FM_DEPR_EXP_ACC_NAME', 		data.ACCOUNT_NAME);
+					SBUxMethod.set('FM2_DEPR_EXP_ACC_CODE', 		data.ACCOUNT_CODE);
+					SBUxMethod.set('FM2_DEPR_EXP_ACC_NAME', 		data.ACCOUNT_NAME);
 		        } else if(type=='3'){
-					SBUxMethod.set('FM_ACCUM_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
-					SBUxMethod.set('FM_ACCUM_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
+					SBUxMethod.set('FM2_ACCUM_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
+					SBUxMethod.set('FM2_ACCUM_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
 		        } else if(type=='4'){
-					SBUxMethod.set('FM_SUBSIDIES_ACC_CODE', 	data.ACCOUNT_CODE);
-					SBUxMethod.set('FM_SUBSIDIES_ACC_NAME', 	data.ACCOUNT_NAME);
+					SBUxMethod.set('FM2_SUBSIDIES_ACC_CODE', 	data.ACCOUNT_CODE);
+					SBUxMethod.set('FM2_SUBSIDIES_ACC_NAME', 	data.ACCOUNT_NAME);
 		        } else if(type=='5'){
-					SBUxMethod.set('FM_SUBSIDIES_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
-					SBUxMethod.set('FM_SUBSIDIES_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
+					SBUxMethod.set('FM2_SUBSIDIES_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
+					SBUxMethod.set('FM2_SUBSIDIES_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
 		        } else if(type=='6'){
-					SBUxMethod.set('FM_SUBSIDIES_ACCUM_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
-					SBUxMethod.set('FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
+					SBUxMethod.set('FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE', 	data.ACCOUNT_CODE);
+					SBUxMethod.set('FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME', 	data.ACCOUNT_NAME);
 		        }
 			},
     	});
-    }     
+    }        
     
     /**
      * 자산구분
      */
     var fn_compopup12 = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_CATEGORY_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_CATEGORY_NAME"));
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_CATEGORY_CODE"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_CATEGORY_NAME"));
         
         var replaceText0 	= "_ASSET_CATEGORY_";
         var replaceText1 	= "_ASSET_CATEGORY_NAME_"; 
@@ -1691,8 +2238,8 @@
    			,tableColumnWidths		: ["100px", 			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_ASSET_CATEGORY_CODE', 	data.ASSET_CATEGORY);
-				SBUxMethod.set('FM_ASSET_CATEGORY_NAME', 	data.ASSET_CATEGORY_NAME);
+				SBUxMethod.set('FM2_ASSET_CATEGORY_CODE', 	data.ASSET_CATEGORY);
+				SBUxMethod.set('FM2_ASSET_CATEGORY_NAME', 	data.ASSET_CATEGORY_NAME);
 			},
     	});
     }     
@@ -1702,8 +2249,8 @@
      */
     var fn_compopup13 = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACC_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACC_NAME"));
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_ACC_CODE"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_ACC_NAME"));
         
         var replaceText0 	= "_ACCOUNT_CODE_";
         var replaceText1 	= "_ACCOUNT_NAME_"; 
@@ -1727,8 +2274,8 @@
    			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_ASSET_ACC_CODE', 	data.ACCOUNT_CODE);
-				SBUxMethod.set('FM_ASSET_ACC_NAME', 	data.ACCOUNT_NAME);
+				SBUxMethod.set('FM2_ASSET_ACC_CODE', 	data.ACCOUNT_CODE);
+				SBUxMethod.set('FM2_ASSET_ACC_NAME', 	data.ACCOUNT_NAME);
 			},
     	});
     }         
@@ -1738,8 +2285,8 @@
      */
     var fn_compopup14 = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2_NAME"));
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL2_CODE"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL2_NAME"));
         
         var replaceText0 	= "_ASSET_LEVEL2_";
         var replaceText1 	= "_ASSET_LEVEL2_NAME_"; 
@@ -1763,8 +2310,8 @@
    			,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",				"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_ASSET_LEVEL2_CODE', 	data.ASSET_LEVEL2);
-				SBUxMethod.set('FM_ASSET_LEVEL2_NAME', 	data.ASSET_LEVEL2_NAME);
+				SBUxMethod.set('FM2_ASSET_LEVEL2_CODE', 	data.ASSET_LEVEL2);
+				SBUxMethod.set('FM2_ASSET_LEVEL2_NAME', 	data.ASSET_LEVEL2_NAME);
 			},
     	});
     }         
@@ -1774,8 +2321,8 @@
      */
     var fn_compopup15 = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM_CS_CODE1_A"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM_CS_NAME1_A"));
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_CS_CODE1_A"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_CS_NAME1_A"));
         
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_"; 
@@ -1799,8 +2346,8 @@
    			,tableColumnWidths		: ["100px", 			"200px",		"150px",		"100px",		"120px",		"150px",		"350px",	"120px",	"120px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_CS_CODE1_A', 	data.CS_CODE);
-				SBUxMethod.set('FM_CS_NAME1_A', 	data.CS_NAME);
+				SBUxMethod.set('FM2_CS_CODE1_A', 	data.CS_CODE);
+				SBUxMethod.set('FM2_CS_NAME1_A', 	data.CS_NAME);
 			},
     	});
     }         
@@ -1813,9 +2360,9 @@
     	//type C 형 팝업
     	var p_find1	= p_ss_languageID;
     	var p_find2	= gv_ma_selectedApcCd;
-    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2_CODE"));
-   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_CODE"));
-		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_NAME"));
+    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL2_CODE"));
+   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_CODE"));
+		var p_find5	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_NAME"));
 		var p_find6	= "";
 		var p_find7	= "";
 
@@ -1841,8 +2388,8 @@
             ,tableColumnWidths		: ["100px", 		"200px",				"100px",		"100px",			"100px",			"100px",				"100px",		"150px",		"200px",				"100px",		"150px",				"150px",			"200px",				"100px",			"150px",				"150px",				"250px",					"150px",					"250px",							"150px",					"150px",					"150px",					"150px",					"150px",					"150px",					"150px",				"120px",				"120px",			"150px",				"150px",				"150px",				"150px",				"150px",			"150px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('FM_ASSET_LEVEL3_NAME', data.ASSET_LEVEL3_NAME);
-                SBUxMethod.set('FM_ASSET_LEVEL3_CODE', data.ASSET_LEVEL3);
+                SBUxMethod.set('FM2_ASSET_LEVEL3_NAME', data.ASSET_LEVEL3_NAME);
+                SBUxMethod.set('FM2_ASSET_LEVEL3_CODE', data.ASSET_LEVEL3);
             },
         });
     }       
@@ -1852,8 +2399,8 @@
      */
     var fn_compopup17 = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM_LOCATION_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM_LOCATION_NAME"));
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_LOCATION_CODE"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_LOCATION_NAME"));
         
         var replaceText0 	= "_LOCATION_CODE_";
         var replaceText1 	= "_LOCATION_NAME_"; 
@@ -1877,11 +2424,13 @@
    			,tableColumnWidths		: ["100px", 			"200px",			"100px",		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_LOCATION_CODE', 	data.CS_CODE);
-				SBUxMethod.set('FM_LOCATION_NAME', 	data.CS_NAME);
+				SBUxMethod.set('FM2_LOCATION_CODE', 	data.CS_CODE);
+				SBUxMethod.set('FM2_LOCATION_NAME', 	data.CS_NAME);
 			},
     	});
-    }         
+    }       
+    
+       
     
     
 </script>

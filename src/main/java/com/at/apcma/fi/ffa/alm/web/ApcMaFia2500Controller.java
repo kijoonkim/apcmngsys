@@ -45,7 +45,7 @@ public class ApcMaFia2500Controller extends BaseController {
     private ApcMaComService apcMaComService;
     
 	// 취득등록 조회
-	@PostMapping(value = "/fi/ffa/com/selectFia2500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/fi/ffa/alm/selectFia2500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectFia2500List(
     		@RequestBody Map<String, Object> param
 			,Model model
@@ -69,8 +69,33 @@ public class ApcMaFia2500Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
+	// 취득등록 디테일 조회
+	@PostMapping(value = "/fi/ffa/alm/selectFia1100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia1100(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============selectFia1100=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA1100_POPUP_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============selectFia1100=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
 	// 취득등록 신규
-    @PostMapping(value = "/fi/fgl/com/saveFia2500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/fi/fgl/alm/saveFia2500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> saveFia2500List(
     		@RequestBody Map<String, Object> param
     		, Model model

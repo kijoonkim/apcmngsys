@@ -316,7 +316,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -336,7 +336,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -346,7 +345,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -370,7 +369,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -439,7 +437,7 @@
      */
     var fn_changeDate = function() {
 
-        let DATE_TYPE 	= gfnma_nvl(SBUxMethod.get("CALC_DATE_TYPE"));
+        let DATE_TYPE 	= gfn_nvl(SBUxMethod.get("CALC_DATE_TYPE"));
 
         if (_.isEqual(DATE_TYPE, 'RETIRE'))
         {
@@ -532,15 +530,15 @@
     const fn_search = async function (/*tabMoveVal*/) {
 
         let SITE_CODE       = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let YE_TX_YYYY      = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let YE_TX_YYYY      = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE      = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let CALC_DATE_TYPE  = gfnma_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
-        let CALC_DAT        = gfnma_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let RETIRE_DATE_FR  = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
-        let RETIRE_DATE_TO  = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
+        let CALC_DATE_TYPE  = gfn_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
+        let CALC_DAT        = gfn_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let RETIRE_DATE_FR  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
+        let RETIRE_DATE_TO  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -597,19 +595,19 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			                : gfnma_nvl(item.CHK_YN)
-                        ,CALC_STATUS 			        : gfnma_nvl(item.CALC_STATUS)
-                        ,DEPT_CODE 			            : gfnma_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			            : gfnma_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			            : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			            : gfnma_nvl(item.EMP_NAME)
-                        ,EMP_FULL_NAME 			        : gfnma_nvl(item.EMP_FULL_NAME)
-                        ,ENTER_DATE 			        : gfnma_nvl(item.ENTER_DATE)
-                        ,RETIRE_DATE 			        : gfnma_nvl(item.RETIRE_DATE)
-                        ,CALC_DAT 			            : gfnma_nvl(item.CALC_DAT)
-                        ,STD_TX_DED_YN 			        : gfnma_nvl(item.STD_TX_DED_YN)
-                        ,CALC_INC_TX_AMT_STD_APPLY 		: gfnma_nvl(item.CALC_INC_TX_AMT_STD_APPLY)
-                        ,CALC_INC_TX_AMT_STD_NOAPY 		: gfnma_nvl(item.CALC_INC_TX_AMT_STD_NOAPY)
+                        CHK_YN 			                : gfn_nvl(item.CHK_YN)
+                        ,CALC_STATUS 			        : gfn_nvl(item.CALC_STATUS)
+                        ,DEPT_CODE 			            : gfn_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			            : gfn_nvl(item.DEPT_NAME)
+                        ,EMP_CODE 			            : gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			            : gfn_nvl(item.EMP_NAME)
+                        ,EMP_FULL_NAME 			        : gfn_nvl(item.EMP_FULL_NAME)
+                        ,ENTER_DATE 			        : gfn_nvl(item.ENTER_DATE)
+                        ,RETIRE_DATE 			        : gfn_nvl(item.RETIRE_DATE)
+                        ,CALC_DAT 			            : gfn_nvl(item.CALC_DAT)
+                        ,STD_TX_DED_YN 			        : gfn_nvl(item.STD_TX_DED_YN)
+                        ,CALC_INC_TX_AMT_STD_APPLY 		: gfn_nvl(item.CALC_INC_TX_AMT_STD_APPLY)
+                        ,CALC_INC_TX_AMT_STD_NOAPY 		: gfn_nvl(item.CALC_INC_TX_AMT_STD_NOAPY)
 
                     }
                     jsonInfoList.push(msg);
@@ -678,15 +676,15 @@
         let returnData = [];
 
         let SITE_CODE       = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let YE_TX_YYYY      = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let YE_TX_YYYY      = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE      = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let CALC_DATE_TYPE  = gfnma_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
-        let CALC_DAT        = gfnma_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let RETIRE_DATE_FR  = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
-        let RETIRE_DATE_TO  = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
+        let CALC_DATE_TYPE  = gfn_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
+        let CALC_DAT        = gfn_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let RETIRE_DATE_FR  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
+        let RETIRE_DATE_TO  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -704,13 +702,13 @@
 
         let infoGridData = gvwInfoGrid.getGridDataAll();
 
-        let stremp_code = '';
-        let strcalc_date = '';
-        let strstandard_tax_ded_yn = '';
+        let stremp_code             = '';
+        let strcalc_date            = '';
+        let strstandard_tax_ded_yn  = '';
 
-        let sendWorkType = 'N';
-        let IntRowCount = 0;
-        let IntChkCount = 0;
+        let sendWorkType    = 'N';
+        let IntRowCount     = 0;
+        let IntChkCount     = 0;
 
         if (_.isEqual(type, 'PREWORK')) {
             infoGridData.forEach((item, index) => {
@@ -729,13 +727,13 @@
                         IntChkCount++;
 
                         if (stremp_code != '') {
-                            stremp_code += "|";
-                            strstandard_tax_ded_yn += "|";
-                            strcalc_date += "|";
+                            stremp_code             += "|";
+                            strstandard_tax_ded_yn  += "|";
+                            strcalc_date            += "|";
                         }
 
-                        stremp_code += item.EMP_CODE;
-                        strstandard_tax_ded_yn += item.STD_TX_DED_YN;
+                        stremp_code             += item.EMP_CODE;
+                        strstandard_tax_ded_yn  += item.STD_TX_DED_YN;
 
                         if (CALC_DATE_TYPE == 'RETIRE') {
                             strcalc_date += item.RETIRE_DATE;
@@ -802,11 +800,11 @@
                     , V_P_COMP_CODE: gv_ma_selectedApcCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                    , V_P_YE_TX_YYYY: YE_TX_YYYY
-                    , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
-                    , V_P_EMP_CODE: stremp_code
-                    , V_P_CALC_DAT: strcalc_date
-                    , V_P_STD_TX_DED_YN: strstandard_tax_ded_yn
+                    , V_P_YE_TX_YYYY        : YE_TX_YYYY
+                    , V_P_YEAR_END_TX_TYPE  : YE_TX_TYPE
+                    , V_P_EMP_CODE          : stremp_code
+                    , V_P_CALC_DAT          : strcalc_date
+                    , V_P_STD_TX_DED_YN     : strstandard_tax_ded_yn
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId
@@ -826,16 +824,16 @@
     //저장
     const fn_saveS1 = async function (type) {
 
-        let SITE_CODE = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let CALC_DATE_TYPE = gfnma_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
-        let CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let RETIRE_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
-        let RETIRE_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
+        let SITE_CODE       = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let YE_TX_YYYY      = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_TYPE      = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+        let CALC_DATE_TYPE  = gfn_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
+        let CALC_DAT        = gfn_nvl(SBUxMethod.get("SRCH_CALC_DAT")); //계산일
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let RETIRE_DATE_FR  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //퇴사일
+        let RETIRE_DATE_TO  = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //퇴사일
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -860,10 +858,10 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_YE_TX_YYYY: YE_TX_YYYY
-            , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
-            , V_P_EMP_CODE: stremp_code
-            , V_P_CALC_DAT: strcalc_date
+            , V_P_YE_TX_YYYY        : YE_TX_YYYY
+            , V_P_YEAR_END_TX_TYPE  : YE_TX_TYPE
+            , V_P_EMP_CODE          : stremp_code
+            , V_P_CALC_DAT          : strcalc_date
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId

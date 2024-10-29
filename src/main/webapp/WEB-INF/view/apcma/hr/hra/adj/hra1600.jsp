@@ -418,7 +418,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -447,7 +447,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -633,16 +633,16 @@
         let stremp_code = '';
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let CHKENCRYPTION_YN    = gfnma_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let CHKENCRYPTION_YN    = gfn_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let PRINT_TYPE          = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
-        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let MULTI_YN            = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
-        let RETIRE_DATE_FR      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
-        let RETIRE_DATE_TO      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+        let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let MULTI_YN            = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+        let RETIRE_DATE_FR      = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+        let RETIRE_DATE_TO      = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -720,24 +720,24 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			                : gfnma_nvl(item.CHK_YN)
-                        , MAIL_SEND_YN 			        : gfnma_nvl(item.MAIL_SEND_YN)
-                        , MAIL_SEND_TIME 			    : gfnma_nvl(item.MAIL_SEND_TIME)
-                        , MAIL_SEND_MSG 			    : gfnma_nvl(item.MAIL_SEND_MSG)
-                        , IN_EMAIL 			            : gfnma_nvl(item.IN_EMAIL)
-                        , YE_TX_TYPE 			        : gfnma_nvl(item.YE_TX_TYPE)
-                        , DEPT_CODE 			        : gfnma_nvl(item.DEPT_CODE)
-                        , DEPT_NAME 			        : gfnma_nvl(item.DEPT_NAME)
-                        , DEPT_NAME 			        : gfnma_nvl(item.DEPT_NAME)
-                        , c 			                : gfnma_nvl(item.c)//PARENT_DEPT??
-                        , PARENT_DEPT_NAME 			    : gfnma_nvl(item.PARENT_DEPT_NAME)
-                        , EMP_CODE 			            : gfnma_nvl(item.EMP_CODE)
-                        , EMP_NAME 			            : gfnma_nvl(item.EMP_NAME)
-                        , ENTER_DATE 			        : gfnma_nvl(item.ENTER_DATE)
-                        , RETIRE_DATE 			        : gfnma_nvl(item.RETIRE_DATE)
-                        , CALC_DAT 			            : gfnma_nvl(item.CALC_DAT)
-                        , WORK_ST_DAT 			        : gfnma_nvl(item.WORK_ST_DAT)
-                        , WORK_END_DAT 			        : gfnma_nvl(item.WORK_END_DAT)
+                        CHK_YN 			                : gfn_nvl(item.CHK_YN)
+                        , MAIL_SEND_YN 			        : gfn_nvl(item.MAIL_SEND_YN)
+                        , MAIL_SEND_TIME 			    : gfn_nvl(item.MAIL_SEND_TIME)
+                        , MAIL_SEND_MSG 			    : gfn_nvl(item.MAIL_SEND_MSG)
+                        , IN_EMAIL 			            : gfn_nvl(item.IN_EMAIL)
+                        , YE_TX_TYPE 			        : gfn_nvl(item.YE_TX_TYPE)
+                        , DEPT_CODE 			        : gfn_nvl(item.DEPT_CODE)
+                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NAME)
+                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NAME)
+                        , c 			                : gfn_nvl(item.c)//PARENT_DEPT??
+                        , PARENT_DEPT_NAME 			    : gfn_nvl(item.PARENT_DEPT_NAME)
+                        , EMP_CODE 			            : gfn_nvl(item.EMP_CODE)
+                        , EMP_NAME 			            : gfn_nvl(item.EMP_NAME)
+                        , ENTER_DATE 			        : gfn_nvl(item.ENTER_DATE)
+                        , RETIRE_DATE 			        : gfn_nvl(item.RETIRE_DATE)
+                        , CALC_DAT 			            : gfn_nvl(item.CALC_DAT)
+                        , WORK_ST_DAT 			        : gfn_nvl(item.WORK_ST_DAT)
+                        , WORK_END_DAT 			        : gfn_nvl(item.WORK_END_DAT)
 
 
                     }
@@ -758,9 +758,9 @@
                 gfnma_uxDataClear('#dataArea2');
                 /*********  -- 3. 메일 정보**********/
                 data.cv_3.forEach((item, index) => {
-                    SBUxMethod.set("EMAIL_SUBJECT", 			item.EMAIL_SUBJECT);
-                    SBUxMethod.set("EMAIL_BODY", 			item.EMAIL_BODY);
-                    SBUxMethod.set("NOTICE_MEMO", 			item.NOTICE_MEMO);
+                    SBUxMethod.set("EMAIL_SUBJECT"  , 			item.EMAIL_SUBJECT);
+                    SBUxMethod.set("EMAIL_BODY"     , 			item.EMAIL_BODY);
+                    SBUxMethod.set("NOTICE_MEMO"    , 			item.NOTICE_MEMO);
 
                 });
 
@@ -794,16 +794,16 @@
 
 
             let SITE_CODE = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-            let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-            let CHKENCRYPTION_YN = gfnma_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
-            let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+            let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+            let CHKENCRYPTION_YN = gfn_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+            let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
             let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-            let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
-            let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-            let MULTI_YN = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
-            let RETIRE_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
-            let RETIRE_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+            let PRINT_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+            let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+            let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+            let MULTI_YN = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+            let RETIRE_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+            let RETIRE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
 
             if (!YE_TX_YYYY) {
                 gfn_comAlert("W0002", "정산연도");
@@ -844,7 +844,7 @@
                 , V_P_USERID: ''
                 , V_P_PC: ''
             };
-            console.log('paramObj:', paramObj);
+
 
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1600List.do", {
                 getType: 'json',
@@ -854,7 +854,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -897,9 +897,9 @@
 
         let emp_code = '';
 
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let PRINT_TYPE          = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -914,9 +914,9 @@
             return;
         }
 
-        let EMAIL_SUBJECT      = gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
-        let EMAIL_BODY      = gfnma_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
-        let NOTICE_MEMO      = gfnma_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
+        let EMAIL_SUBJECT      = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
+        let EMAIL_BODY      = gfn_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
+        let NOTICE_MEMO      = gfn_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
 
         if (!EMAIL_SUBJECT) {
             gfn_comAlert("W0002", "메일제목");
@@ -1007,16 +1007,16 @@
     const fn_btnSendEmail = async function () {
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let CHKENCRYPTION_YN    = gfnma_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let CHKENCRYPTION_YN    = gfn_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let PRINT_TYPE          = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
-        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let MULTI_YN            = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
-        let RETIRE_DATE_FR      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
-        let RETIRE_DATE_TO      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+        let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let MULTI_YN            = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+        let RETIRE_DATE_FR      = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+        let RETIRE_DATE_TO      = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -1031,9 +1031,9 @@
             return;
         }
 
-        let EMAIL_SUBJECT      = gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
-        let EMAIL_BODY      = gfnma_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
-        let NOTICE_MEMO      = gfnma_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
+        let EMAIL_SUBJECT       = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
+        let EMAIL_BODY          = gfn_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
+        let NOTICE_MEMO         = gfn_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
 
         if (!EMAIL_SUBJECT) {
             gfn_comAlert("W0002", "메일제목");

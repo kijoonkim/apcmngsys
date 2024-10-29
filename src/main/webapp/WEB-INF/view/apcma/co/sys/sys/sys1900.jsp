@@ -254,11 +254,11 @@
      */
     const fn_search = async function () {
 
-        let QUERY_TYPE      = gfnma_nvl(SBUxMethod.get("SRCH_QUERY_TYPE")); //조회구분
-        let LOG_DATE_FR     = gfnma_nvl(SBUxMethod.get("SRCH_LOG_DATE_FR")); //접속일자 (시작)
-        let LOG_DATE_TO     = gfnma_nvl(SBUxMethod.get("SRCH_LOG_DATE_TO")); //접속일자 (종료)
+        let QUERY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_QUERY_TYPE")); //조회구분
+        let LOG_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_LOG_DATE_FR")); //접속일자 (시작)
+        let LOG_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_LOG_DATE_TO")); //접속일자 (종료)
         let LOG_TYPE        = gfnma_multiSelectGet('#SRCH_LOG_TYPE'); //로그유형
-        let USER_ID     = gfnma_nvl(SBUxMethod.get("SRCH_USER_ID")); //사용자ID
+        let USER_ID         = gfn_nvl(SBUxMethod.get("SRCH_USER_ID")); //사용자ID
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -278,8 +278,6 @@
             , V_P_PC: ''
         };
 
-        console.log('--------paramObj--------', paramObj);
-
         const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200List.do", {
             getType: 'json',
             workType: QUERY_TYPE,
@@ -288,8 +286,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('--------data--------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -300,21 +296,21 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        KEY_FIELD           : item.KEY_FIELD,
-                        PARENT_KEY_FIELD    : item.PARENT_KEY_FIELD,
-                        USER_ID             : item.USER_ID,
-                        USER_NAME           : item.USER_NAME,
-                        LOG_TYPE            : item.LOG_TYPE,
-                        MEMO                : item.MEMO,
-                        LOGIN_TIME          : item.LOGIN_TIME,
-                        LOGOUT_TIME         : item.LOGOUT_TIME,
-                        FORM_ID             : item.FORM_ID,
-                        FORM_NAME           : item.FORM_NAME,
-                        LOG_DATE            : item.LOG_DATE,
-                        LOG_IP              : item.LOG_IP,
-                        LOG_PC              : item.LOG_PC,
-                        COMP_CODE           : item.COMP_CODE,
-                        CLIENT_CODE         : item.CLIENT_CODE,
+                        KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
+                        PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
+                        USER_ID             : gfn_nvl(item.USER_ID),
+                        USER_NAME           : gfn_nvl(item.USER_NAME),
+                        LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
+                        MEMO                : gfn_nvl(item.MEMO),
+                        LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
+                        LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                        FORM_ID             : gfn_nvl(item.FORM_ID),
+                        FORM_NAME           : gfn_nvl(item.FORM_NAME),
+                        LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                        LOG_IP              : gfn_nvl(item.LOG_IP),
+                        LOG_PC              : gfn_nvl(item.LOG_PC),
+                        COMP_CODE           : gfn_nvl(item.COMP_CODE),
+                        CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
 
 
                     }

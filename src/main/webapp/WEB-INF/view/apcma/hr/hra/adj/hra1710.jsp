@@ -224,7 +224,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -253,7 +253,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -422,11 +422,11 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let YE_TX_YYYY      = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let YE_TX_YYYY      = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -472,49 +472,49 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        ORDER_SEQ 			                : gfnma_nvl(item.ORDER_SEQ)
-                        ,SORT_SEQ 			                : gfnma_nvl(item.SORT_SEQ)
-                        ,SEQ 			                    : gfnma_nvl(item.SEQ)
-                        ,YE_TX_TYPE 			            : gfnma_nvl(item.YE_TX_TYPE)
-                        ,CLOSE_STATE 			            : gfnma_nvl(item.CLOSE_STATE)
-                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
-                        ,WORK_END_DAT 			            : gfnma_nvl(item.WORK_END_DAT)
-                        ,MIDWAY_TX_RETURN_YN 			    : gfnma_nvl(item.MIDWAY_TX_RETURN_YN)
+                        ORDER_SEQ 			                : gfn_nvl(item.ORDER_SEQ)
+                        ,SORT_SEQ 			                : gfn_nvl(item.SORT_SEQ)
+                        ,SEQ 			                    : gfn_nvl(item.SEQ)
+                        ,YE_TX_TYPE 			            : gfn_nvl(item.YE_TX_TYPE)
+                        ,CLOSE_STATE 			            : gfn_nvl(item.CLOSE_STATE)
+                        ,DEPT_NAME 			                : gfn_nvl(item.DEPT_NAME)
+                        ,EMP_CODE 			                : gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			                : gfn_nvl(item.EMP_NAME)
+                        ,WORK_END_DAT 			            : gfn_nvl(item.WORK_END_DAT)
+                        ,MIDWAY_TX_RETURN_YN 			    : gfn_nvl(item.MIDWAY_TX_RETURN_YN)
                         // -- A : 급여계 =  [총금액에서 수당(과세+비과세)을 뺀 부분만 표현]으로 기본급만 취한다.
-                        ,PAY_AMT 			                : gfnma_nvl(item.PAY_AMT)
+                        ,PAY_AMT 			                : gfn_nvl(item.PAY_AMT)
                         // -- B : 상여계(인정상여 포함, 그리고 상여에는 수당(과세 + 비과세)이 없다보고...)
-                        ,BONUS_AMT 			                : gfnma_nvl(item.BONUS_AMT)
+                        ,BONUS_AMT 			                : gfn_nvl(item.BONUS_AMT)
                         //-- C : 과세수당 = 총금액 - 기본급
-                        ,PAY_TAX_AMT 			            : gfnma_nvl(item.PAY_TAX_AMT)
-                        ,YE_PAY_AMT 			            : gfnma_nvl(item.YE_PAY_AMT)
-                        ,YE_BONUS_AMT 			            : gfnma_nvl(item.YE_BONUS_AMT)
-                        ,YE_ADD_BONUS_AMT 			        : gfnma_nvl(item.YE_ADD_BONUS_AMT)
-                        ,YE_INC_EXTRA_AMT 			        : gfnma_nvl(item.YE_INC_EXTRA_AMT)
+                        ,PAY_TAX_AMT 			            : gfn_nvl(item.PAY_TAX_AMT)
+                        ,YE_PAY_AMT 			            : gfn_nvl(item.YE_PAY_AMT)
+                        ,YE_BONUS_AMT 			            : gfn_nvl(item.YE_BONUS_AMT)
+                        ,YE_ADD_BONUS_AMT 			        : gfn_nvl(item.YE_ADD_BONUS_AMT)
+                        ,YE_INC_EXTRA_AMT 			        : gfn_nvl(item.YE_INC_EXTRA_AMT)
                         //-- D : 비과세수당(정산시 반영되는 비과세)
-                        ,TXFREE_AMT 			            : gfnma_nvl(item.TXFREE_AMT)
+                        ,TXFREE_AMT 			            : gfn_nvl(item.TXFREE_AMT)
                         //-- E : 과세계 ( 소득총액 - 비과세총액)
-                        ,PAY_TX_TOT_AMT 			        : gfnma_nvl(item.PAY_TX_TOT_AMT)
+                        ,PAY_TX_TOT_AMT 			        : gfn_nvl(item.PAY_TX_TOT_AMT)
                         // -- F : 비과세제외 = 비과세총액 - 비과세수당
-                        ,TAX_FREE_EXCEPT_AMT 			    : gfnma_nvl(item.TAX_FREE_EXCEPT_AMT)
-                        ,PAY_TOT_AMT 			            : gfnma_nvl(item.PAY_TOT_AMT)
-                        ,INC_TOT_AMT 			            : gfnma_nvl(item.INC_TOT_AMT)
-                        ,INC_DEAMT 			                : gfnma_nvl(item.INC_DEAMT)
-                        ,INC_AMT 			                : gfnma_nvl(item.INC_AMT)
-                        ,TOT_INC_TX_STD_AMT 			    : gfnma_nvl(item.TOT_INC_TX_STD_AMT)
-                        ,CALCULATE_TX_AMT 			        : gfnma_nvl(item.CALCULATE_TX_AMT)
-                        ,TX_DED_TOT_AMT 			        : gfnma_nvl(item.TX_DED_TOT_AMT)
-                        ,CALC_INC_TX_AMT 			        : gfnma_nvl(item.CALC_INC_TX_AMT)
-                        ,CALC_LOCAL_TX_AMT 			        : gfnma_nvl(item.CALC_LOCAL_TX_AMT)
-                        ,CALC_SPEC_TX_AMT 			        : gfnma_nvl(item.CALC_SPEC_TX_AMT)
-                        ,NOW_INC_TX_AMT 			        : gfnma_nvl(item.NOW_INC_TX_AMT)
-                        ,NOW_LOCAL_TX_AMT 			        : gfnma_nvl(item.NOW_LOCAL_TX_AMT)
-                        ,NOW_SPEC_TX_AMT 			        : gfnma_nvl(item.NOW_SPEC_TX_AMT)
-                        ,INC_TX_AMT 			            : gfnma_nvl(item.INC_TX_AMT)
-                        ,LOCAL_TX_AMT 			            : gfnma_nvl(item.LOCAL_TX_AMT)
-                        ,SPEC_TX_AMT 			            : gfnma_nvl(item.SPEC_TX_AMT)
-                        ,TX_TOT_AMT 			            : gfnma_nvl(item.TX_TOT_AMT)
+                        ,TAX_FREE_EXCEPT_AMT 			    : gfn_nvl(item.TAX_FREE_EXCEPT_AMT)
+                        ,PAY_TOT_AMT 			            : gfn_nvl(item.PAY_TOT_AMT)
+                        ,INC_TOT_AMT 			            : gfn_nvl(item.INC_TOT_AMT)
+                        ,INC_DEAMT 			                : gfn_nvl(item.INC_DEAMT)
+                        ,INC_AMT 			                : gfn_nvl(item.INC_AMT)
+                        ,TOT_INC_TX_STD_AMT 			    : gfn_nvl(item.TOT_INC_TX_STD_AMT)
+                        ,CALCULATE_TX_AMT 			        : gfn_nvl(item.CALCULATE_TX_AMT)
+                        ,TX_DED_TOT_AMT 			        : gfn_nvl(item.TX_DED_TOT_AMT)
+                        ,CALC_INC_TX_AMT 			        : gfn_nvl(item.CALC_INC_TX_AMT)
+                        ,CALC_LOCAL_TX_AMT 			        : gfn_nvl(item.CALC_LOCAL_TX_AMT)
+                        ,CALC_SPEC_TX_AMT 			        : gfn_nvl(item.CALC_SPEC_TX_AMT)
+                        ,NOW_INC_TX_AMT 			        : gfn_nvl(item.NOW_INC_TX_AMT)
+                        ,NOW_LOCAL_TX_AMT 			        : gfn_nvl(item.NOW_LOCAL_TX_AMT)
+                        ,NOW_SPEC_TX_AMT 			        : gfn_nvl(item.NOW_SPEC_TX_AMT)
+                        ,INC_TX_AMT 			            : gfn_nvl(item.INC_TX_AMT)
+                        ,LOCAL_TX_AMT 			            : gfn_nvl(item.LOCAL_TX_AMT)
+                        ,SPEC_TX_AMT 			            : gfn_nvl(item.SPEC_TX_AMT)
+                        ,TX_TOT_AMT 			            : gfn_nvl(item.TX_TOT_AMT)
 
 
                     }
@@ -590,7 +590,7 @@
         let returnData = [];
         let updateData = gvwInfoGrid.getUpdateData(true, 'all');
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -611,9 +611,9 @@
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     ,V_P_YE_TX_YYYY          : YE_TX_YYYY
-                    ,V_P_YEAR_END_TX_TYPE    : gfnma_nvl(item.data.YE_TX_TYPE)
-                    ,V_P_EMP_CODE            : gfnma_nvl(item.data.EMP_CODE)
-                    ,V_P_MIDWAY_TX_RETURN_YN : gfnma_nvl(item.data.MIDWAY_TX_RETURN_YN)
+                    ,V_P_YEAR_END_TX_TYPE    : gfn_nvl(item.data.YE_TX_TYPE)
+                    ,V_P_EMP_CODE            : gfn_nvl(item.data.EMP_CODE)
+                    ,V_P_MIDWAY_TX_RETURN_YN : gfn_nvl(item.data.MIDWAY_TX_RETURN_YN)
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId

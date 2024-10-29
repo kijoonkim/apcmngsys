@@ -426,7 +426,7 @@
         ]);
     }
     const fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("CS_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -455,7 +455,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText = gfn_nvl(SBUxMethod.get("srch-dept_name"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -690,10 +690,10 @@
         let rowData = gvwDocListGrid.getRowData(nRow);
 
 
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
         if (!_.isEmpty(rowData)){
 
@@ -730,49 +730,49 @@
 
                     data.cv_1.forEach((item, index) => {
 
-                        SBUxMethod.set("EXPECTED_PAY_DATE", item.EXPECTED_PAY_DATE);
-                        SBUxMethod.set("POSTING_DATE", item.POSTING_DATE);
-                        SBUxMethod.set("DOC_NAME", item.DOC_NAME);
-                        SBUxMethod.set("POSTING_STATUS", item.POSTING_STATUS);
-                        SBUxMethod.set("CS_CODE", item.CS_CODE);
-                        SBUxMethod.set("CS_NAME", item.CS_NAME);
-                        SBUxMethod.set("EMP_CODE", item.EMP_CODE);
-                        SBUxMethod.set("EMP_NAME", item.EMP_NAME);
-                        SBUxMethod.set("MEMO", item.MEMO);
-                        SBUxMethod.set("SOURCE_DOC", item.SOURCE_DOC);
-                        SBUxMethod.set("DOC_ID", item.DOC_ID);
+                        SBUxMethod.set("EXPECTED_PAY_DATE"  , item.EXPECTED_PAY_DATE);
+                        SBUxMethod.set("POSTING_DATE"       , item.POSTING_DATE);
+                        SBUxMethod.set("DOC_NAME"           , item.DOC_NAME);
+                        SBUxMethod.set("POSTING_STATUS"     , item.POSTING_STATUS);
+                        SBUxMethod.set("CS_CODE"            , item.CS_CODE);
+                        SBUxMethod.set("CS_NAME"            , item.CS_NAME);
+                        SBUxMethod.set("EMP_CODE"           , item.EMP_CODE);
+                        SBUxMethod.set("EMP_NAME"           , item.EMP_NAME);
+                        SBUxMethod.set("MEMO"               , item.MEMO);
+                        SBUxMethod.set("SOURCE_DOC"         , item.SOURCE_DOC);
+                        SBUxMethod.set("DOC_ID"             , item.DOC_ID);
 
                     });
 
                     jsonInfoList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_YYYYMM                : gfnma_nvl(item.PAY_YYYYMM),
-                            PAY_TYPE                  : gfnma_nvl(item.PAY_TYPE),
-                            PAY_DATE                  : gfnma_nvl(item.PAY_DATE),
-                            POSTING_SEQ               : gfnma_nvl(item.POSTING_SEQ),
-                            FI_ORG_CODE               : gfnma_nvl(item.FI_ORG_CODE),
-                            FI_ORG_NAME               : gfnma_nvl(item.FI_ORG_NAME),
-                            SITE_CODE                 : gfnma_nvl(item.SITE_CODE),
-                            SITE_NAME                 : gfnma_nvl(item.SITE_NAME),
-                            DEPT_CODE                 : gfnma_nvl(item.DEPT_CODE),
-                            DEPT_NAME                 : gfnma_nvl(item.DEPT_NAME),
-                            CC_CODE                   : gfnma_nvl(item.CC_CODE),
-                            CC_NAME                   : gfnma_nvl(item.CC_NAME),
-                            DEBIT_CREDIT              : gfnma_nvl(item.DEBIT_CREDIT),
-                            ACC_CODE                  : gfnma_nvl(item.ACC_CODE),
-                            ACC_NAME                  : gfnma_nvl(item.ACC_NAME),
-                            CURRENCY_CODE             : gfnma_nvl(item.CURRENCY_CODE),
-                            EMP_CODE                  : gfnma_nvl(item.EMP_CODE),
-                            EMP_NAME                  : gfnma_nvl(item.EMP_NAME),
-                            DEBIT_AMT                 : gfnma_nvl(item.DEBIT_AMT),
-                            CREDIT_AMT                : gfnma_nvl(item.CREDIT_AMT),
-                            CS_CODE                   : gfnma_nvl(item.CS_CODE),
-                            CS_NAME                   : gfnma_nvl(item.CS_NAME),
-                            MEMO                      : gfnma_nvl(item.MEMO),
-                            NEED_EMP_CODE_YN          : gfnma_nvl(item.NEED_EMP_CODE_YN),
-                            POSTING_RESULT_ADJUST_YN  : gfnma_nvl(item.POSTING_RESULT_ADJUST_YN),
-                            SOURCE_DOC                : gfnma_nvl(item.SOURCE_DOC)
+                            PAY_YYYYMM                : gfn_nvl(item.PAY_YYYYMM),
+                            PAY_TYPE                  : gfn_nvl(item.PAY_TYPE),
+                            PAY_DATE                  : gfn_nvl(item.PAY_DATE),
+                            POSTING_SEQ               : gfn_nvl(item.POSTING_SEQ),
+                            FI_ORG_CODE               : gfn_nvl(item.FI_ORG_CODE),
+                            FI_ORG_NAME               : gfn_nvl(item.FI_ORG_NAME),
+                            SITE_CODE                 : gfn_nvl(item.SITE_CODE),
+                            SITE_NAME                 : gfn_nvl(item.SITE_NAME),
+                            DEPT_CODE                 : gfn_nvl(item.DEPT_CODE),
+                            DEPT_NAME                 : gfn_nvl(item.DEPT_NAME),
+                            CC_CODE                   : gfn_nvl(item.CC_CODE),
+                            CC_NAME                   : gfn_nvl(item.CC_NAME),
+                            DEBIT_CREDIT              : gfn_nvl(item.DEBIT_CREDIT),
+                            ACC_CODE                  : gfn_nvl(item.ACC_CODE),
+                            ACC_NAME                  : gfn_nvl(item.ACC_NAME),
+                            CURRENCY_CODE             : gfn_nvl(item.CURRENCY_CODE),
+                            EMP_CODE                  : gfn_nvl(item.EMP_CODE),
+                            EMP_NAME                  : gfn_nvl(item.EMP_NAME),
+                            DEBIT_AMT                 : gfn_nvl(item.DEBIT_AMT),
+                            CREDIT_AMT                : gfn_nvl(item.CREDIT_AMT),
+                            CS_CODE                   : gfn_nvl(item.CS_CODE),
+                            CS_NAME                   : gfn_nvl(item.CS_NAME),
+                            MEMO                      : gfn_nvl(item.MEMO),
+                            NEED_EMP_CODE_YN          : gfn_nvl(item.NEED_EMP_CODE_YN),
+                            POSTING_RESULT_ADJUST_YN  : gfn_nvl(item.POSTING_RESULT_ADJUST_YN),
+                            SOURCE_DOC                : gfn_nvl(item.SOURCE_DOC)
 
                         }
                         jsonInfoList.push(msg);
@@ -800,9 +800,9 @@
      */
     var fn_payDate = function() {
 
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
         let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
@@ -816,10 +816,10 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
 
         if (!PAY_AREA_TYPE) {
@@ -884,17 +884,17 @@
                 jsonDocListList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_YYYYMM          : gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE            : gfnma_nvl(item.PAY_DATE),
-                        EXPECTED_PAY_DATE   : gfnma_nvl(item.EXPECTED_PAY_DATE),
-                        SOURCE_DOC          : gfnma_nvl(item.SOURCE_DOC),
-                        POSTING_DATE        : gfnma_nvl(item.POSTING_DATE),
-                        POSTING_STATUS      : gfnma_nvl(item.POSTING_STATUS),
-                        INVOICE_BATCH_NO    : gfnma_nvl(item.INVOICE_BATCH_NO),
-                        DOC_ID              : gfnma_nvl(item.DOC_ID),
-                        DOC_NAME            : gfnma_nvl(item.DOC_NAME),
-                        MEMO                : gfnma_nvl(item.MEMO)
+                        PAY_YYYYMM          : gfn_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE            : gfn_nvl(item.PAY_TYPE),
+                        PAY_DATE            : gfn_nvl(item.PAY_DATE),
+                        EXPECTED_PAY_DATE   : gfn_nvl(item.EXPECTED_PAY_DATE),
+                        SOURCE_DOC          : gfn_nvl(item.SOURCE_DOC),
+                        POSTING_DATE        : gfn_nvl(item.POSTING_DATE),
+                        POSTING_STATUS      : gfn_nvl(item.POSTING_STATUS),
+                        INVOICE_BATCH_NO    : gfn_nvl(item.INVOICE_BATCH_NO),
+                        DOC_ID              : gfn_nvl(item.DOC_ID),
+                        DOC_NAME            : gfn_nvl(item.DOC_NAME),
+                        MEMO                : gfn_nvl(item.MEMO)
 
                     }
                     jsonDocListList.push(msg);
@@ -1010,14 +1010,14 @@
 
     const getParamForm = async function(){
 
-        //let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        //let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
-        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE"));
-        let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let SOURCE_DOC          = gfnma_nvl(SBUxMethod.get("SOURCE_DOC"));
+        let EXPECTED_PAY_DATE   = gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE"));
+        let MEMO                = gfn_nvl(SBUxMethod.get("MEMO"));
+        let SOURCE_DOC          = gfn_nvl(SBUxMethod.get("SOURCE_DOC"));
 
 
        /* if (!PAY_AREA_TYPE) {
@@ -1117,10 +1117,10 @@
 
     const getParamFormS2 = async function(){
 
-        let PAY_YYYYMM      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-        let SOURCE_DOC      = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //지급일자
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let SOURCE_DOC      = gfn_nvl(SBUxMethod.get("SOURCE_DOC")); //지급일자
 
         if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -1151,28 +1151,28 @@
                     return false;
                 }
 
-                if ((gfnma_nvl(item.DEBIT_AMT) == '' || Number(gfnma_nvl(item.DEBIT_AMT)) == 0) &&
-                    (gfnma_nvl(item.CREDIT_AMT) == '' || Number(gfnma_nvl(item.CREDIT_AMT)) == 0)) {
+                if ((gfn_nvl(item.DEBIT_AMT) == '' || Number(gfn_nvl(item.DEBIT_AMT)) == 0) &&
+                    (gfn_nvl(item.CREDIT_AMT) == '' || Number(gfn_nvl(item.CREDIT_AMT)) == 0)) {
                     gfn_comConfirm("Q0000", "차변/대변 금액 중 하나는 0이 아니어야 합니다.");
                     /*SetMessageBox("차변/대변 금액 중 하나는 0이 아니어야 합니다.");
                     this.gvwInfo.FocusedRowHandle = i;*/
                     return false;
                 }
 
-                if ((!(gfnma_nvl(item.DEBIT_AMT) == '') && Number(gfnma_nvl(item.DEBIT_AMT)) != 0) &&
-                    (!(gfnma_nvl(item.CREDIT_AMT) == '') && Number(gfnma_nvl(item.CREDIT_AMT)) != 0)) {
+                if ((!(gfn_nvl(item.DEBIT_AMT) == '') && Number(gfn_nvl(item.DEBIT_AMT)) != 0) &&
+                    (!(gfn_nvl(item.CREDIT_AMT) == '') && Number(gfn_nvl(item.CREDIT_AMT)) != 0)) {
                     gfn_comConfirm("Q0000", "차변/대변 금액 중 하나는 0 이어야 합니다.");
                     /*SetMessageBox("차변/대변 금액 중 하나는 0 이어야 합니다.");
                     this.gvwInfo.FocusedRowHandle = i;*/
                     return false;
                 }
 
-                if (!(gfnma_nvl(item.DEBIT_AMT) == '')) {
-                    dDebitAmt = parseFloat(dDebitAmt) + parseFloat(gfnma_nvl(item.DEBIT_AMT));
+                if (!(gfn_nvl(item.DEBIT_AMT) == '')) {
+                    dDebitAmt = parseFloat(dDebitAmt) + parseFloat(gfn_nvl(item.DEBIT_AMT));
                 }
 
-                if (!(gfnma_nvl(item.CREDIT_AMT) == '')) {
-                    dCreditAmt = parseFloat(dCreditAmt) + parseFloat(gfnma_nvl(item.CREDIT_AMT));
+                if (!(gfn_nvl(item.CREDIT_AMT) == '')) {
+                    dCreditAmt = parseFloat(dCreditAmt) + parseFloat(gfn_nvl(item.CREDIT_AMT));
                 }
             }
 
@@ -1193,8 +1193,8 @@
 
         updatedData.forEach((item, index) => {
 
-            let DEBIT_AMT = gfnma_nvl(item.data.DEBIT_AMT);
-            let CREDIT_AMT = gfnma_nvl(item.data.CREDIT_AMT);
+            let DEBIT_AMT = gfn_nvl(item.data.DEBIT_AMT);
+            let CREDIT_AMT = gfn_nvl(item.data.CREDIT_AMT);
 
             let DEBIT_CREDIT =  (DEBIT_AMT != null && DEBIT_AMT != 0) ? 'D' : 'C';
             let POSTING_AMT =  (DEBIT_AMT != null && DEBIT_AMT != 0) ? DEBIT_AMT : CREDIT_AMT;
@@ -1214,13 +1214,13 @@
                     ,V_P_PAY_YYYYMM   : PAY_YYYYMM
                     ,V_P_PAY_TYPE     : PAY_TYPE
                     ,V_P_PAY_DATE     : PAY_DATE
-                    ,IV_P_POSTING_SEQ : gfnma_nvl(item.data.POSTING_SEQ)
-                    ,V_P_CC_CODE      : gfnma_nvl(item.data.CC_CODE)
+                    ,IV_P_POSTING_SEQ : gfn_nvl(item.data.POSTING_SEQ)
+                    ,V_P_CC_CODE      : gfn_nvl(item.data.CC_CODE)
                     ,V_P_DEBIT_CREDIT : DEBIT_CREDIT
-                    ,V_P_ACC_CODE     : gfnma_nvl(item.data.ACC_CODE)
+                    ,V_P_ACC_CODE     : gfn_nvl(item.data.ACC_CODE)
                     ,V_P_POSTING_AMT  : POSTING_AMT
-                    ,V_P_EMP_CODE     : gfnma_nvl(item.data.EMP_CODE)
-                    ,V_P_MEMO         : gfnma_nvl(item.data.MEMO)
+                    ,V_P_EMP_CODE     : gfn_nvl(item.data.EMP_CODE)
+                    ,V_P_MEMO         : gfn_nvl(item.data.MEMO)
                     ,V_P_SOURCE_DOC   : SOURCE_DOC
 
                     ,V_P_FORM_ID: p_formId
@@ -1241,9 +1241,9 @@
     //전표처리내역 집계
     const fn_btnPosting = async function () {
 
-        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
-        let POSTING_DATE        = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
-        let CS_CODE             = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
+        let EXPECTED_PAY_DATE   = gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
+        let POSTING_DATE        = gfn_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
+        let CS_CODE             = gfn_nvl(SBUxMethod.get("CS_CODE")); //거래처
 
         if (!EXPECTED_PAY_DATE) {
             gfn_comAlert("W0002", "지급일");
@@ -1290,18 +1290,18 @@
 
     const getParamFormBatch = async function(type){
 
-        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
-        let POSTING_DATE        = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
-        let CS_CODE             = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
+        let EXPECTED_PAY_DATE   = gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
+        let POSTING_DATE        = gfn_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
+        let CS_CODE             = gfn_nvl(SBUxMethod.get("CS_CODE")); //거래처
 
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
-        let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO")); //사원코드
-        let SOURCE_DOC          = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+        let MEMO                = gfn_nvl(SBUxMethod.get("MEMO")); //사원코드
+        let SOURCE_DOC          = gfn_nvl(SBUxMethod.get("SOURCE_DOC")); //
 
         if (!PAY_AREA_TYPE) {
             gfn_comAlert("W0002", "급여영역");
@@ -1369,18 +1369,18 @@
                         , V_P_COMP_CODE: gv_ma_selectedApcCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                        , V_P_PAY_YYYYMM: PAY_YYYYMM
-                        , V_P_PAY_TYPE: PAY_TYPE
-                        , V_P_PAY_DATE: PAY_DATE
-                        , V_P_POSTING_DATE: POSTING_DATE
-                        , V_P_PAY_AREA: PAY_AREA_TYPE     //급여영역
-                        , V_P_CS_CODE: CS_CODE
-                        , V_P_EMP_CODE: EMP_CODE     // 사원개별전표를 위해 20181218 추가
-                        , V_P_SOURCE_DOC: SOURCE_DOC    // 개별전표순번 20181218 추가
-                        , IV_P_MEMO: MEMO     //신규
-                        , V_P_POSTING_SEQ: item.POSTING_SEQ
-                        , V_P_MEMO_DETAIL: item.MEMO
-                        , V_P_EXPECTED_PAY_DATE: EXPECTED_PAY_DATE
+                        , V_P_PAY_YYYYMM        : PAY_YYYYMM
+                        , V_P_PAY_TYPE          : PAY_TYPE
+                        , V_P_PAY_DATE          : PAY_DATE
+                        , V_P_POSTING_DATE      : POSTING_DATE
+                        , V_P_PAY_AREA          : PAY_AREA_TYPE     //급여영역
+                        , V_P_CS_CODE           : CS_CODE
+                        , V_P_EMP_CODE          : EMP_CODE     // 사원개별전표를 위해 20181218 추가
+                        , V_P_SOURCE_DOC        : SOURCE_DOC    // 개별전표순번 20181218 추가
+                        , IV_P_MEMO             : MEMO     //신규
+                        , V_P_POSTING_SEQ       : item.POSTING_SEQ
+                        , V_P_MEMO_DETAIL       : item.MEMO
+                        , V_P_EXPECTED_PAY_DATE : EXPECTED_PAY_DATE
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -1403,8 +1403,8 @@
     //전표처리내역 취소
     const fn_btnCancel = async function () {
         /*
-        let POSTING_DATE = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
-        let CS_CODE = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
+        let POSTING_DATE = gfn_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
+        let CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE")); //거래처
 
         if (!POSTING_DATE) {
             gfn_comAlert("W0002", "회계일자");
@@ -1446,14 +1446,14 @@
     //회계반영  [프로시저 변경 : P_Z_IF_PayResult_S = 'N'  -> P_HRP4200_S1 = 'PayRollN']
     const fn_btnPayResult = async function (type) {
 
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
-        let POSTING_DATE        = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
-        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
-        let SOURCE_DOC          = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //SOURCE_DOC
+        let POSTING_DATE        = gfn_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
+        let EXPECTED_PAY_DATE   = gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
+        let SOURCE_DOC          = gfn_nvl(SBUxMethod.get("SOURCE_DOC")); //SOURCE_DOC
 
         if (!PAY_AREA_TYPE) {
             gfn_comAlert("W0002", "급여영역");
@@ -1476,7 +1476,7 @@
 
         grdData.forEach((item, index) => {
 
-            if (_.isEqual(item.NEED_EMP_CODE_YN, 'Y') && gfnma_nvl(item.EMP_CODE) == '' ){
+            if (_.isEqual(item.NEED_EMP_CODE_YN, 'Y') && gfn_nvl(item.EMP_CODE) == '' ){
                 gfn_comAlert("Q0000", "사원코드 필수입력 항목입니다.");
                 return false;
             }
@@ -1535,7 +1535,7 @@
         if (_.isEmpty(infoGrid)){
             return;
         }
-        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID")); //
+        let DOC_ID = gfn_nvl(SBUxMethod.get("DOC_ID")); //
         if (DOC_ID == ''){
 
             gfn_comAlert("Q0000", "생성된 전표번호가 없습니다."); //HRP4200_004

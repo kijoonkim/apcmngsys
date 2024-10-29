@@ -707,9 +707,9 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
-        let V_P_NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_GROUP"));
-        let V_P_NUMBERING_ID = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_ID"));
-        let V_P_NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("SRCH_NUMBERING_NAME"));
+        let V_P_NUMBERING_GROUP     = gfn_nvl(SBUxMethod.get("SRCH_NUMBERING_GROUP"));
+        let V_P_NUMBERING_ID        = gfn_nvl(SBUxMethod.get("SRCH_NUMBERING_ID"));
+        let V_P_NUMBERING_NAME      = gfn_nvl(SBUxMethod.get("SRCH_NUMBERING_NAME"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -717,9 +717,9 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_NUMBERING_GROUP: V_P_NUMBERING_GROUP
-            , V_P_NUMBERING_ID: V_P_NUMBERING_ID
-            , V_P_NUMBERING_NAME: V_P_NUMBERING_NAME
+            , V_P_NUMBERING_GROUP   : V_P_NUMBERING_GROUP
+            , V_P_NUMBERING_ID      : V_P_NUMBERING_ID
+            , V_P_NUMBERING_NAME    : V_P_NUMBERING_NAME
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -746,34 +746,34 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        NUMBERING_ID: item.NUMBERING_ID,
-                        NUMBERING_GROUP: item.NUMBERING_GROUP,
-                        USE_YN: item.USE_YN,
-                        NUMBERING_NAME: item.NUMBERING_NAME,
-                        NUMBER_LENGTH: item.NUMBER_LENGTH,
-                        DESCR: item.DESCR,
-                        AUTO_NUM_YN: item.AUTO_NUM_YN,
-                        NUMBER_ELEMENT1: item.NUMBER_ELEMENT1,
-                        NUMBER_VALUE1: item.NUMBER_VALUE1,
-                        SURFIX_ELEMENT1: item.SURFIX_ELEMENT1,
-                        SURFIX_VALUE1: item.SURFIX_VALUE1,
-                        NUMBER_ELEMENT2: item.NUMBER_ELEMENT2,
-                        NUMBER_VALUE2: item.NUMBER_VALUE2,
-                        SURFIX_ELEMENT2: item.SURFIX_ELEMENT2,
-                        SURFIX_VALUE2: item.SURFIX_VALUE2,
-                        NUMBER_ELEMENT3: item.NUMBER_ELEMENT3,
-                        NUMBER_VALUE3: item.NUMBER_VALUE3,
-                        SURFIX_ELEMENT3: item.SURFIX_ELEMENT3,
-                        SURFIX_VALUE3: item.SURFIX_VALUE3,
-                        NUMBER_ELEMENT4: item.NUMBER_ELEMENT4,
-                        NUMBER_VALUE4: item.NUMBER_VALUE4,
-                        SURFIX_ELEMENT4: item.SURFIX_ELEMENT4,
-                        SURFIX_VALUE4: item.SURFIX_VALUE4,
-                        NUMBER_ELEMENT5: item.NUMBER_ELEMENT5,
-                        NUMBER_VALUE5: item.NUMBER_VALUE5,
-                        SURFIX_ELEMENT5: item.SURFIX_ELEMENT5,
-                        START_SERNO: item.START_SERNO,
-                        UNIQUE_YN: item.UNIQUE_YN,
+                        NUMBERING_ID        : gfn_nvl(item.NUMBERING_ID),
+                        NUMBERING_GROUP     : gfn_nvl(item.NUMBERING_GROUP),
+                        USE_YN              : gfn_nvl(item.USE_YN),
+                        NUMBERING_NAME      : gfn_nvl(item.NUMBERING_NAME),
+                        NUMBER_LENGTH       : gfn_nvl(item.NUMBER_LENGTH),
+                        DESCR               : gfn_nvl(item.DESCR),
+                        AUTO_NUM_YN         : gfn_nvl(item.AUTO_NUM_YN),
+                        NUMBER_ELEMENT1     : gfn_nvl(item.NUMBER_ELEMENT1),
+                        NUMBER_VALUE1       : gfn_nvl(item.NUMBER_VALUE1),
+                        SURFIX_ELEMENT1     : gfn_nvl(item.SURFIX_ELEMENT1),
+                        SURFIX_VALUE1       : gfn_nvl(item.SURFIX_VALUE1),
+                        NUMBER_ELEMENT2     : gfn_nvl(item.NUMBER_ELEMENT2),
+                        NUMBER_VALUE2       : gfn_nvl(item.NUMBER_VALUE2),
+                        SURFIX_ELEMENT2     : gfn_nvl(item.SURFIX_ELEMENT2),
+                        SURFIX_VALUE2       : gfn_nvl(item.SURFIX_VALUE2),
+                        NUMBER_ELEMENT3     : gfn_nvl(item.NUMBER_ELEMENT3),
+                        NUMBER_VALUE3       : gfn_nvl(item.NUMBER_VALUE3),
+                        SURFIX_ELEMENT3     : gfn_nvl(item.SURFIX_ELEMENT3),
+                        SURFIX_VALUE3       : gfn_nvl(item.SURFIX_VALUE3),
+                        NUMBER_ELEMENT4     : gfn_nvl(item.NUMBER_ELEMENT4),
+                        NUMBER_VALUE4       : gfn_nvl(item.NUMBER_VALUE4),
+                        SURFIX_ELEMENT4     : gfn_nvl(item.SURFIX_ELEMENT4),
+                        SURFIX_VALUE4       : gfn_nvl(item.SURFIX_VALUE4),
+                        NUMBER_ELEMENT5     : gfn_nvl(item.NUMBER_ELEMENT5),
+                        NUMBER_VALUE5       : gfn_nvl(item.NUMBER_VALUE5),
+                        SURFIX_ELEMENT5     : gfn_nvl(item.SURFIX_ELEMENT5),
+                        START_SERNO         : gfn_nvl(item.START_SERNO),
+                        UNIQUE_YN           : gfn_nvl(item.UNIQUE_YN),
                         /* NUMBER_SAMPLE: item.NUMBER_SAMPLE*/
                     }
                     jsonGvwInfoList.push(msg);
@@ -823,13 +823,13 @@
 
         if (_.isEmpty(rowData) == false) {
 
-            SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
+            SBUxMethod.set("NUMBERING_ID"   , rowData.NUMBERING_ID);
             SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
-            SBUxMethod.set("USE_YN", rowData.USE_YN);
-            SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
-            SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
-            SBUxMethod.set("DESCR", rowData.DESCR);
-            SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
+            SBUxMethod.set("USE_YN"         , rowData.USE_YN);
+            SBUxMethod.set("NUMBERING_NAME" , rowData.NUMBERING_NAME);
+            SBUxMethod.set("NUMBER_LENGTH"  , rowData.NUMBER_LENGTH);
+            SBUxMethod.set("DESCR"          , rowData.DESCR);
+            SBUxMethod.set("AUTO_NUM_YN"    , rowData.AUTO_NUM_YN);
 
 
             /*SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);*/
@@ -869,13 +869,13 @@
 
 
     const fn_clearForm = function () {
-        SBUxMethod.set("NUMBERING_ID", "");
+        SBUxMethod.set("NUMBERING_ID"   , "");
         SBUxMethod.set("NUMBERING_GROUP", "");
-        SBUxMethod.set("USE_YN", "");
-        SBUxMethod.set("NUMBERING_NAME", "");
-        SBUxMethod.set("NUMBER_LENGTH", 20);
-        SBUxMethod.set("DESCR", "");
-        SBUxMethod.set("AUTO_NUM_YN", "");
+        SBUxMethod.set("USE_YN"         , "");
+        SBUxMethod.set("NUMBERING_NAME" , "");
+        SBUxMethod.set("NUMBER_LENGTH"  , 20);
+        SBUxMethod.set("DESCR"          , "");
+        SBUxMethod.set("AUTO_NUM_YN"    , "");
 
 
         gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', '');
@@ -928,9 +928,11 @@
                 , V_P_LANG_ID: ''
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-                , V_P_NUMBERING_GROUP: rowData.NUMBERING_GROUP
-                , V_P_NUMBERING_ID: rowData.NUMBERING_ID
-                , V_P_NUMBERING_NAME: rowData.NUMBERING_NAME
+
+                , V_P_NUMBERING_GROUP   : rowData.NUMBERING_GROUP
+                , V_P_NUMBERING_ID      : rowData.NUMBERING_ID
+                , V_P_NUMBERING_NAME    : rowData.NUMBERING_NAME
+
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
                 , V_P_PROC_ID: ''
@@ -956,8 +958,8 @@
                     jsonGvwHistoryList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const hisMsg = {
-                            NUMBER_PREFIX: item.NUMBER_PREFIX,
-                            LAST_SERNO: item.LAST_SERNO
+                            NUMBER_PREFIX   : item.NUMBER_PREFIX,
+                            LAST_SERNO      : item.LAST_SERNO
                         }
                         jsonGvwHistoryList.push(hisMsg);
                         totalRecordCount++;
@@ -1025,13 +1027,13 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
+        SBUxMethod.set("NUMBERING_ID"   , rowData.NUMBERING_ID);
         SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
-        SBUxMethod.set("USE_YN", rowData.USE_YN);
-        SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
-        SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
-        SBUxMethod.set("DESCR", rowData.DESCR);
-        SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
+        SBUxMethod.set("USE_YN"         , rowData.USE_YN);
+        SBUxMethod.set("NUMBERING_NAME" , rowData.NUMBERING_NAME);
+        SBUxMethod.set("NUMBER_LENGTH"  , rowData.NUMBER_LENGTH);
+        SBUxMethod.set("DESCR"          , rowData.DESCR);
+        SBUxMethod.set("AUTO_NUM_YN"    , rowData.AUTO_NUM_YN);
 
 
         gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
@@ -1111,43 +1113,43 @@
     //저장
     const fn_save = async function () {
 
-        let NUMBERING_ID = gfnma_nvl(SBUxMethod.get("NUMBERING_ID"));
-        let NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("NUMBERING_GROUP"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
-        let NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("NUMBERING_NAME"));
-        let NUMBER_LENGTH = gfnma_nvl(SBUxMethod.get("NUMBER_LENGTH"));
-        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
+        let NUMBERING_ID    = gfn_nvl(SBUxMethod.get("NUMBERING_ID"));
+        let NUMBERING_GROUP = gfn_nvl(SBUxMethod.get("NUMBERING_GROUP"));
+        let USE_YN          = gfn_nvl(SBUxMethod.get("USE_YN"));
+        let NUMBERING_NAME  = gfn_nvl(SBUxMethod.get("NUMBERING_NAME"));
+        let NUMBER_LENGTH   = gfn_nvl(SBUxMethod.get("NUMBER_LENGTH"));
+        let DESCR           = gfn_nvl(SBUxMethod.get("DESCR"));
+        let AUTO_NUM_YN     = gfn_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
         let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
-        let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
+        let NUMBER_VALUE1   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE1"));
         let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
-        let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
+        let SURFIX_VALUE1   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE1"));
 
         let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
-        let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
+        let NUMBER_VALUE2   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE2"));
         let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
-        let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
+        let SURFIX_VALUE2   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE2"));
 
         let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
-        let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
+        let NUMBER_VALUE3   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE3"));
         let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
-        let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
+        let SURFIX_VALUE3   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE3"));
 
         let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
-        let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
+        let NUMBER_VALUE4   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE4"));
         let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
-        let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
+        let SURFIX_VALUE4   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE4"));
 
         let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
-        let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
+        let NUMBER_VALUE5   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE5"));
         let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
-        let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+        let SURFIX_VALUE5   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE5"));
 
-        let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
-        let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
+        let START_SERNO     = gfn_nvl(SBUxMethod.get("START_SERNO"));
+        let UNIQUE_YN       = gfn_nvl(SBUxMethod.get("UNIQUE_YN"));
 
-        let NUMBER_SAMPLE = gfnma_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
+        let NUMBER_SAMPLE = gfn_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
 
 
         if (!NUMBERING_ID) {
@@ -1163,35 +1165,35 @@
             // 신규 등록
             if (gfn_comConfirm("Q0001", "신규 등록")) {
                 var obj = {
-                    NUMBERING_ID: NUMBERING_ID
-                    , NUMBERING_NAME: NUMBERING_NAME
-                    , NUMBERING_GROUP: NUMBERING_GROUP
-                    , NUMBER_LENGTH: NUMBER_LENGTH
-                    , DESCR: DESCR
-                    , NUMBER_ELEMENT1: NUMBER_ELEMENT1
-                    , NUMBER_VALUE1: NUMBER_VALUE1
-                    , NUMBER_ELEMENT2: NUMBER_ELEMENT2
-                    , NUMBER_VALUE2: NUMBER_VALUE2
-                    , NUMBER_ELEMENT3: NUMBER_ELEMENT3
-                    , NUMBER_VALUE3: NUMBER_VALUE3
-                    , NUMBER_ELEMENT4: NUMBER_ELEMENT4
-                    , NUMBER_VALUE4: NUMBER_VALUE4
-                    , NUMBER_ELEMENT5: NUMBER_ELEMENT5
-                    , NUMBER_VALUE5: NUMBER_VALUE5
-                    , SURFIX_ELEMENT1: SURFIX_ELEMENT1
-                    , SURFIX_VALUE1: SURFIX_VALUE1
-                    , SURFIX_ELEMENT2: SURFIX_ELEMENT2
-                    , SURFIX_VALUE2: SURFIX_VALUE2
-                    , SURFIX_ELEMENT3: SURFIX_ELEMENT3
-                    , SURFIX_VALUE3: SURFIX_VALUE3
-                    , SURFIX_ELEMENT4: SURFIX_ELEMENT4
-                    , SURFIX_VALUE4: SURFIX_VALUE4
-                    , SURFIX_ELEMENT5: SURFIX_ELEMENT5
-                    , SURFIX_VALUE5: SURFIX_VALUE5
-                    , START_SERNO: START_SERNO
-                    , USE_YN: USE_YN.USE_YN
-                    , UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
-                    , AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+                    NUMBERING_ID        : NUMBERING_ID
+                    , NUMBERING_NAME    : NUMBERING_NAME
+                    , NUMBERING_GROUP   : NUMBERING_GROUP
+                    , NUMBER_LENGTH     : NUMBER_LENGTH
+                    , DESCR             : DESCR
+                    , NUMBER_ELEMENT1   : NUMBER_ELEMENT1
+                    , NUMBER_VALUE1     : NUMBER_VALUE1
+                    , NUMBER_ELEMENT2   : NUMBER_ELEMENT2
+                    , NUMBER_VALUE2     : NUMBER_VALUE2
+                    , NUMBER_ELEMENT3   : NUMBER_ELEMENT3
+                    , NUMBER_VALUE3     : NUMBER_VALUE3
+                    , NUMBER_ELEMENT4   : NUMBER_ELEMENT4
+                    , NUMBER_VALUE4     : NUMBER_VALUE4
+                    , NUMBER_ELEMENT5   : NUMBER_ELEMENT5
+                    , NUMBER_VALUE5     : NUMBER_VALUE5
+                    , SURFIX_ELEMENT1   : SURFIX_ELEMENT1
+                    , SURFIX_VALUE1     : SURFIX_VALUE1
+                    , SURFIX_ELEMENT2   : SURFIX_ELEMENT2
+                    , SURFIX_VALUE2     : SURFIX_VALUE2
+                    , SURFIX_ELEMENT3   : SURFIX_ELEMENT3
+                    , SURFIX_VALUE3     : SURFIX_VALUE3
+                    , SURFIX_ELEMENT4   : SURFIX_ELEMENT4
+                    , SURFIX_VALUE4     : SURFIX_VALUE4
+                    , SURFIX_ELEMENT5   : SURFIX_ELEMENT5
+                    , SURFIX_VALUE5     : SURFIX_VALUE5
+                    , START_SERNO       : START_SERNO
+                    , USE_YN            : USE_YN.USE_YN
+                    , UNIQUE_YN         : UNIQUE_YN.UNIQUE_YN
+                    , AUTO_NUM_YN       : AUTO_NUM_YN.AUTO_NUM_YN
 
                 }
                 fn_subInsert(obj);
@@ -1200,35 +1202,35 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
                 var obj = {
-                    NUMBERING_ID: NUMBERING_ID
-                    , NUMBERING_NAME: NUMBERING_NAME
-                    , NUMBERING_GROUP: NUMBERING_GROUP
-                    , NUMBER_LENGTH: NUMBER_LENGTH
-                    , DESCR: DESCR
-                    , NUMBER_ELEMENT1: NUMBER_ELEMENT1
-                    , NUMBER_VALUE1: NUMBER_VALUE1
-                    , NUMBER_ELEMENT2: NUMBER_ELEMENT2
-                    , NUMBER_VALUE2: NUMBER_VALUE2
-                    , NUMBER_ELEMENT3: NUMBER_ELEMENT3
-                    , NUMBER_VALUE3: NUMBER_VALUE3
-                    , NUMBER_ELEMENT4: NUMBER_ELEMENT4
-                    , NUMBER_VALUE4: NUMBER_VALUE4
-                    , NUMBER_ELEMENT5: NUMBER_ELEMENT5
-                    , NUMBER_VALUE5: NUMBER_VALUE5
-                    , SURFIX_ELEMENT1: SURFIX_ELEMENT1
-                    , SURFIX_VALUE1: SURFIX_VALUE1
-                    , SURFIX_ELEMENT2: SURFIX_ELEMENT2
-                    , SURFIX_VALUE2: SURFIX_VALUE2
-                    , SURFIX_ELEMENT3: SURFIX_ELEMENT3
-                    , SURFIX_VALUE3: SURFIX_VALUE3
-                    , SURFIX_ELEMENT4: SURFIX_ELEMENT4
-                    , SURFIX_VALUE4: SURFIX_VALUE4
-                    , SURFIX_ELEMENT5: SURFIX_ELEMENT5
-                    , SURFIX_VALUE5: SURFIX_VALUE5
-                    , START_SERNO: START_SERNO
-                    , USE_YN: USE_YN.USE_YN
-                    , UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
-                    , AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+                    NUMBERING_ID        : NUMBERING_ID
+                    , NUMBERING_NAME    : NUMBERING_NAME
+                    , NUMBERING_GROUP   : NUMBERING_GROUP
+                    , NUMBER_LENGTH     : NUMBER_LENGTH
+                    , DESCR             : DESCR
+                    , NUMBER_ELEMENT1   : NUMBER_ELEMENT1
+                    , NUMBER_VALUE1     : NUMBER_VALUE1
+                    , NUMBER_ELEMENT2   : NUMBER_ELEMENT2
+                    , NUMBER_VALUE2     : NUMBER_VALUE2
+                    , NUMBER_ELEMENT3   : NUMBER_ELEMENT3
+                    , NUMBER_VALUE3     : NUMBER_VALUE3
+                    , NUMBER_ELEMENT4   : NUMBER_ELEMENT4
+                    , NUMBER_VALUE4     : NUMBER_VALUE4
+                    , NUMBER_ELEMENT5   : NUMBER_ELEMENT5
+                    , NUMBER_VALUE5     : NUMBER_VALUE5
+                    , SURFIX_ELEMENT1   : SURFIX_ELEMENT1
+                    , SURFIX_VALUE1     : SURFIX_VALUE1
+                    , SURFIX_ELEMENT2   : SURFIX_ELEMENT2
+                    , SURFIX_VALUE2     : SURFIX_VALUE2
+                    , SURFIX_ELEMENT3   : SURFIX_ELEMENT3
+                    , SURFIX_VALUE3     : SURFIX_VALUE3
+                    , SURFIX_ELEMENT4   : SURFIX_ELEMENT4
+                    , SURFIX_VALUE4     : SURFIX_VALUE4
+                    , SURFIX_ELEMENT5   : SURFIX_ELEMENT5
+                    , SURFIX_VALUE5     : SURFIX_VALUE5
+                    , START_SERNO       : START_SERNO
+                    , USE_YN            : USE_YN.USE_YN
+                    , UNIQUE_YN         : UNIQUE_YN.UNIQUE_YN
+                    , AUTO_NUM_YN       : AUTO_NUM_YN.AUTO_NUM_YN
                     //, NUMBER_SAMPLE: NUMBER_SAMPLE
                 }
 
@@ -1249,35 +1251,35 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_NUMBERING_ID: obj.NUMBERING_ID
-            , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
-            , V_P_NUMBERING_GROUP: obj.NUMBERING_GROUP
-            , V_P_NUMBER_LENGTH: obj.NUMBER_LENGTH
-            , V_P_DESCR: obj.DESCR
-            , V_P_NUMBER_ELEMENT1: obj.NUMBER_ELEMENT1
-            , V_P_NUMBER_VALUE1: obj.NUMBER_VALUE1
-            , V_P_NUMBER_ELEMENT2: obj.NUMBER_ELEMENT2
-            , V_P_NUMBER_VALUE2: obj.NUMBER_VALUE2
-            , V_P_NUMBER_ELEMENT3: obj.NUMBER_ELEMENT3
-            , V_P_NUMBER_VALUE3: obj.NUMBER_VALUE3
-            , V_P_NUMBER_ELEMENT4: obj.NUMBER_ELEMENT4
-            , V_P_NUMBER_VALUE4: obj.NUMBER_VALUE4
-            , V_P_NUMBER_ELEMENT5: obj.NUMBER_ELEMENT5
-            , V_P_NUMBER_VALUE5: obj.NUMBER_VALUE5
-            , V_P_SURFIX_ELEMENT1: obj.SURFIX_ELEMENT1
-            , V_P_SURFIX_VALUE1: obj.SURFIX_VALUE1
-            , V_P_SURFIX_ELEMENT2: obj.SURFIX_ELEMENT2
-            , V_P_SURFIX_VALUE2: obj.SURFIX_VALUE2
-            , V_P_SURFIX_ELEMENT3: obj.SURFIX_ELEMENT3
-            , V_P_SURFIX_VALUE3: obj.SURFIX_VALUE3
-            , V_P_SURFIX_ELEMENT4: obj.SURFIX_ELEMENT4
-            , V_P_SURFIX_VALUE4: obj.SURFIX_VALUE4
-            , V_P_SURFIX_ELEMENT5: obj.SURFIX_ELEMENT5
-            , V_P_SURFIX_VALUE5: obj.SURFIX_VALUE5
-            , V_P_START_SERNO: obj.START_SERNO
-            , V_P_USE_YN: obj.USE_YN
-            , V_P_UNIQUE_YN: obj.UNIQUE_YN
-            , V_P_AUTO_NUM_YN: obj.AUTO_NUM_YN
+            , V_P_NUMBERING_ID      : obj.NUMBERING_ID
+            , V_P_NUMBERING_NAME    : obj.NUMBERING_NAME
+            , V_P_NUMBERING_GROUP   : obj.NUMBERING_GROUP
+            , V_P_NUMBER_LENGTH     : obj.NUMBER_LENGTH
+            , V_P_DESCR             : obj.DESCR
+            , V_P_NUMBER_ELEMENT1   : obj.NUMBER_ELEMENT1
+            , V_P_NUMBER_VALUE1     : obj.NUMBER_VALUE1
+            , V_P_NUMBER_ELEMENT2   : obj.NUMBER_ELEMENT2
+            , V_P_NUMBER_VALUE2     : obj.NUMBER_VALUE2
+            , V_P_NUMBER_ELEMENT3   : obj.NUMBER_ELEMENT3
+            , V_P_NUMBER_VALUE3     : obj.NUMBER_VALUE3
+            , V_P_NUMBER_ELEMENT4   : obj.NUMBER_ELEMENT4
+            , V_P_NUMBER_VALUE4     : obj.NUMBER_VALUE4
+            , V_P_NUMBER_ELEMENT5   : obj.NUMBER_ELEMENT5
+            , V_P_NUMBER_VALUE5     : obj.NUMBER_VALUE5
+            , V_P_SURFIX_ELEMENT1   : obj.SURFIX_ELEMENT1
+            , V_P_SURFIX_VALUE1     : obj.SURFIX_VALUE1
+            , V_P_SURFIX_ELEMENT2   : obj.SURFIX_ELEMENT2
+            , V_P_SURFIX_VALUE2     : obj.SURFIX_VALUE2
+            , V_P_SURFIX_ELEMENT3   : obj.SURFIX_ELEMENT3
+            , V_P_SURFIX_VALUE3     : obj.SURFIX_VALUE3
+            , V_P_SURFIX_ELEMENT4   : obj.SURFIX_ELEMENT4
+            , V_P_SURFIX_VALUE4     : obj.SURFIX_VALUE4
+            , V_P_SURFIX_ELEMENT5   : obj.SURFIX_ELEMENT5
+            , V_P_SURFIX_VALUE5     : obj.SURFIX_VALUE5
+            , V_P_START_SERNO       : obj.START_SERNO
+            , V_P_USE_YN            : obj.USE_YN
+            , V_P_UNIQUE_YN         : obj.UNIQUE_YN
+            , V_P_AUTO_NUM_YN       : obj.AUTO_NUM_YN
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1331,9 +1333,9 @@
                     , V_P_COMP_CODE: gv_ma_selectedApcCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                    ,V_P_NUMBERING_ID: numberId
-                    ,V_P_NUMBER_PREFIX: item.data.NUMBER_PREFIX
-                    ,V_P_LAST_SERNO: item.data.LAST_SERNO
+                    ,V_P_NUMBERING_ID   : numberId
+                    ,V_P_NUMBER_PREFIX  : item.data.NUMBER_PREFIX
+                    ,V_P_LAST_SERNO     : item.data.LAST_SERNO
 
                     ,V_P_FORM_ID: p_formId
                     ,V_P_MENU_ID: p_menuId
@@ -1398,35 +1400,35 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_NUMBERING_ID: obj.NUMBERING_ID
-            , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
-            , V_P_NUMBERING_GROUP: obj.NUMBERING_GROUP
-            , V_P_NUMBER_LENGTH: obj.NUMBER_LENGTH
-            , V_P_DESCR: obj.DESCR
-            , V_P_NUMBER_ELEMENT1: obj.NUMBER_ELEMENT1
-            , V_P_NUMBER_VALUE1: obj.NUMBER_VALUE1
-            , V_P_NUMBER_ELEMENT2: obj.NUMBER_ELEMENT2
-            , V_P_NUMBER_VALUE2: obj.NUMBER_VALUE2
-            , V_P_NUMBER_ELEMENT3: obj.NUMBER_ELEMENT3
-            , V_P_NUMBER_VALUE3: obj.NUMBER_VALUE3
-            , V_P_NUMBER_ELEMENT4: obj.NUMBER_ELEMENT4
-            , V_P_NUMBER_VALUE4: obj.NUMBER_VALUE4
-            , V_P_NUMBER_ELEMENT5: obj.NUMBER_ELEMENT5
-            , V_P_NUMBER_VALUE5: obj.NUMBER_VALUE5
-            , V_P_SURFIX_ELEMENT1: obj.SURFIX_ELEMENT1
-            , V_P_SURFIX_VALUE1: obj.SURFIX_VALUE1
-            , V_P_SURFIX_ELEMENT2: obj.SURFIX_ELEMENT2
-            , V_P_SURFIX_VALUE2: obj.SURFIX_VALUE2
-            , V_P_SURFIX_ELEMENT3: obj.SURFIX_ELEMENT3
-            , V_P_SURFIX_VALUE3: obj.SURFIX_VALUE3
-            , V_P_SURFIX_ELEMENT4: obj.SURFIX_ELEMENT4
-            , V_P_SURFIX_VALUE4: obj.SURFIX_VALUE4
-            , V_P_SURFIX_ELEMENT5: obj.SURFIX_ELEMENT5
-            , V_P_SURFIX_VALUE5: obj.SURFIX_VALUE5
-            , V_P_START_SERNO: obj.START_SERNO
-            , V_P_USE_YN: obj.USE_YN
-            , V_P_UNIQUE_YN: obj.UNIQUE_YN
-            , V_P_AUTO_NUM_YN: obj.AUTO_NUM_YN
+            , V_P_NUMBERING_ID      : obj.NUMBERING_ID
+            , V_P_NUMBERING_NAME    : obj.NUMBERING_NAME
+            , V_P_NUMBERING_GROUP   : obj.NUMBERING_GROUP
+            , V_P_NUMBER_LENGTH     : obj.NUMBER_LENGTH
+            , V_P_DESCR             : obj.DESCR
+            , V_P_NUMBER_ELEMENT1   : obj.NUMBER_ELEMENT1
+            , V_P_NUMBER_VALUE1     : obj.NUMBER_VALUE1
+            , V_P_NUMBER_ELEMENT2   : obj.NUMBER_ELEMENT2
+            , V_P_NUMBER_VALUE2     : obj.NUMBER_VALUE2
+            , V_P_NUMBER_ELEMENT3   : obj.NUMBER_ELEMENT3
+            , V_P_NUMBER_VALUE3     : obj.NUMBER_VALUE3
+            , V_P_NUMBER_ELEMENT4   : obj.NUMBER_ELEMENT4
+            , V_P_NUMBER_VALUE4     : obj.NUMBER_VALUE4
+            , V_P_NUMBER_ELEMENT5   : obj.NUMBER_ELEMENT5
+            , V_P_NUMBER_VALUE5     : obj.NUMBER_VALUE5
+            , V_P_SURFIX_ELEMENT1   : obj.SURFIX_ELEMENT1
+            , V_P_SURFIX_VALUE1     : obj.SURFIX_VALUE1
+            , V_P_SURFIX_ELEMENT2   : obj.SURFIX_ELEMENT2
+            , V_P_SURFIX_VALUE2     : obj.SURFIX_VALUE2
+            , V_P_SURFIX_ELEMENT3   : obj.SURFIX_ELEMENT3
+            , V_P_SURFIX_VALUE3     : obj.SURFIX_VALUE3
+            , V_P_SURFIX_ELEMENT4   : obj.SURFIX_ELEMENT4
+            , V_P_SURFIX_VALUE4     : obj.SURFIX_VALUE4
+            , V_P_SURFIX_ELEMENT5   : obj.SURFIX_ELEMENT5
+            , V_P_SURFIX_VALUE5     : obj.SURFIX_VALUE5
+            , V_P_START_SERNO       : obj.START_SERNO
+            , V_P_USE_YN            : obj.USE_YN
+            , V_P_UNIQUE_YN         : obj.UNIQUE_YN
+            , V_P_AUTO_NUM_YN       : obj.AUTO_NUM_YN
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -1467,39 +1469,39 @@
     //삭제
     const fn_delete = async function () {
 
-        let NUMBERING_ID = gfnma_nvl(SBUxMethod.get("NUMBERING_ID"));
-        let NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("NUMBERING_GROUP"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
-        let NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("NUMBERING_NAME"));
-        let NUMBER_LENGTH = gfnma_nvl(SBUxMethod.get("NUMBER_LENGTH"));
-        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
+        let NUMBERING_ID    = gfn_nvl(SBUxMethod.get("NUMBERING_ID"));
+        let NUMBERING_GROUP = gfn_nvl(SBUxMethod.get("NUMBERING_GROUP"));
+        let USE_YN          = gfn_nvl(SBUxMethod.get("USE_YN"));
+        let NUMBERING_NAME  = gfn_nvl(SBUxMethod.get("NUMBERING_NAME"));
+        let NUMBER_LENGTH   = gfn_nvl(SBUxMethod.get("NUMBER_LENGTH"));
+        let DESCR           = gfn_nvl(SBUxMethod.get("DESCR"));
+        let AUTO_NUM_YN     = gfn_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
         let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
-        let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
+        let NUMBER_VALUE1   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE1"));
         let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
-        let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
+        let SURFIX_VALUE1   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE1"));
         let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
-        let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
+        let NUMBER_VALUE2   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE2"));
         let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
-        let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
+        let SURFIX_VALUE2   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE2"));
         let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
-        let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
+        let NUMBER_VALUE3   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE3"));
         let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
-        let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
+        let SURFIX_VALUE3   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE3"));
         let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
-        let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
+        let NUMBER_VALUE4   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE4"));
         let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
-        let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
+        let SURFIX_VALUE4   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE4"));
         let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
-        let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
+        let NUMBER_VALUE5   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE5"));
         let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
-        let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+        let SURFIX_VALUE5   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE5"));
 
-        let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
-        let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
+        let START_SERNO     = gfn_nvl(SBUxMethod.get("START_SERNO"));
+        let UNIQUE_YN       = gfn_nvl(SBUxMethod.get("UNIQUE_YN"));
 
-        let NUMBER_SAMPLE = gfnma_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
+        let NUMBER_SAMPLE = gfn_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
 
         if (gfn_comConfirm("Q0001", "삭제")) {
             var paramObj = {
@@ -1508,35 +1510,35 @@
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                , V_P_NUMBERING_ID: NUMBERING_ID
-                , V_P_NUMBERING_NAME: NUMBERING_NAME
-                , V_P_NUMBERING_GROUP: NUMBERING_GROUP
-                , V_P_NUMBER_LENGTH: NUMBER_LENGTH
-                , V_P_DESCR: DESCR
-                , V_P_NUMBER_ELEMENT1: NUMBER_ELEMENT1
-                , V_P_NUMBER_VALUE1: NUMBER_VALUE1
-                , V_P_NUMBER_ELEMENT2: NUMBER_ELEMENT2
-                , V_P_NUMBER_VALUE2: NUMBER_VALUE2
-                , V_P_NUMBER_ELEMENT3: NUMBER_ELEMENT3
-                , V_P_NUMBER_VALUE3: NUMBER_VALUE3
-                , V_P_NUMBER_ELEMENT4: NUMBER_ELEMENT4
-                , V_P_NUMBER_VALUE4: NUMBER_VALUE4
-                , V_P_NUMBER_ELEMENT5: NUMBER_ELEMENT5
-                , V_P_NUMBER_VALUE5: NUMBER_VALUE5
-                , V_P_SURFIX_ELEMENT1: SURFIX_ELEMENT1
-                , V_P_SURFIX_VALUE1: SURFIX_VALUE1
-                , V_P_SURFIX_ELEMENT2: SURFIX_ELEMENT2
-                , V_P_SURFIX_VALUE2: SURFIX_VALUE2
-                , V_P_SURFIX_ELEMENT3: SURFIX_ELEMENT3
-                , V_P_SURFIX_VALUE3: SURFIX_VALUE3
-                , V_P_SURFIX_ELEMENT4: SURFIX_ELEMENT4
-                , V_P_SURFIX_VALUE4: SURFIX_VALUE4
-                , V_P_SURFIX_ELEMENT5: SURFIX_ELEMENT5
-                , V_P_SURFIX_VALUE5: SURFIX_VALUE5
-                , V_P_START_SERNO: START_SERNO
-                , V_P_USE_YN: USE_YN.USE_YN
-                , V_P_UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
-                , V_P_AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+                , V_P_NUMBERING_ID      : NUMBERING_ID
+                , V_P_NUMBERING_NAME    : NUMBERING_NAME
+                , V_P_NUMBERING_GROUP   : NUMBERING_GROUP
+                , V_P_NUMBER_LENGTH     : NUMBER_LENGTH
+                , V_P_DESCR             : DESCR
+                , V_P_NUMBER_ELEMENT1   : NUMBER_ELEMENT1
+                , V_P_NUMBER_VALUE1     : NUMBER_VALUE1
+                , V_P_NUMBER_ELEMENT2   : NUMBER_ELEMENT2
+                , V_P_NUMBER_VALUE2     : NUMBER_VALUE2
+                , V_P_NUMBER_ELEMENT3   : NUMBER_ELEMENT3
+                , V_P_NUMBER_VALUE3     : NUMBER_VALUE3
+                , V_P_NUMBER_ELEMENT4   : NUMBER_ELEMENT4
+                , V_P_NUMBER_VALUE4     : NUMBER_VALUE4
+                , V_P_NUMBER_ELEMENT5   : NUMBER_ELEMENT5
+                , V_P_NUMBER_VALUE5     : NUMBER_VALUE5
+                , V_P_SURFIX_ELEMENT1   : SURFIX_ELEMENT1
+                , V_P_SURFIX_VALUE1     : SURFIX_VALUE1
+                , V_P_SURFIX_ELEMENT2   : SURFIX_ELEMENT2
+                , V_P_SURFIX_VALUE2     : SURFIX_VALUE2
+                , V_P_SURFIX_ELEMENT3   : SURFIX_ELEMENT3
+                , V_P_SURFIX_VALUE3     : SURFIX_VALUE3
+                , V_P_SURFIX_ELEMENT4   : SURFIX_ELEMENT4
+                , V_P_SURFIX_VALUE4     : SURFIX_VALUE4
+                , V_P_SURFIX_ELEMENT5   : SURFIX_ELEMENT5
+                , V_P_SURFIX_VALUE5     : SURFIX_VALUE5
+                , V_P_START_SERNO       : START_SERNO
+                , V_P_USE_YN            : USE_YN.USE_YN
+                , V_P_UNIQUE_YN         : UNIQUE_YN.UNIQUE_YN
+                , V_P_AUTO_NUM_YN       : AUTO_NUM_YN.AUTO_NUM_YN
 
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
@@ -1575,37 +1577,37 @@
     //샘플채번 등록
     const fn_SearchNumSP = async function () {
 
-        let NUMBERING_ID = gfnma_nvl(SBUxMethod.get("NUMBERING_ID"));
-        let NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("NUMBERING_GROUP"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
-        let NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("NUMBERING_NAME"));
-        let NUMBER_LENGTH = gfnma_nvl(SBUxMethod.get("NUMBER_LENGTH"));
-        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
+        let NUMBERING_ID        = gfn_nvl(SBUxMethod.get("NUMBERING_ID"));
+        let NUMBERING_GROUP     = gfn_nvl(SBUxMethod.get("NUMBERING_GROUP"));
+        let USE_YN              = gfn_nvl(SBUxMethod.get("USE_YN"));
+        let NUMBERING_NAME      = gfn_nvl(SBUxMethod.get("NUMBERING_NAME"));
+        let NUMBER_LENGTH       = gfn_nvl(SBUxMethod.get("NUMBER_LENGTH"));
+        let DESCR               = gfn_nvl(SBUxMethod.get("DESCR"));
+        let AUTO_NUM_YN         = gfn_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
         let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
-        let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
+        let NUMBER_VALUE1   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE1"));
         let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
-        let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
+        let SURFIX_VALUE1   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE1"));
         let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
-        let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
+        let NUMBER_VALUE2   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE2"));
         let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
-        let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
+        let SURFIX_VALUE2   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE2"));
         let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
-        let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
+        let NUMBER_VALUE3   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE3"));
         let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
-        let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
+        let SURFIX_VALUE3   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE3"));
         let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
-        let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
+        let NUMBER_VALUE4   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE4"));
         let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
-        let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
+        let SURFIX_VALUE4   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE4"));
         let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
-        let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
+        let NUMBER_VALUE5   = gfn_nvl(SBUxMethod.get("NUMBER_VALUE5"));
         let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
-        let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+        let SURFIX_VALUE5   = gfn_nvl(SBUxMethod.get("SURFIX_VALUE5"));
 
-        let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
-        let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
+        let START_SERNO     = gfn_nvl(SBUxMethod.get("START_SERNO"));
+        let UNIQUE_YN       = gfn_nvl(SBUxMethod.get("UNIQUE_YN"));
 
 
         var paramObj = {
@@ -1614,35 +1616,35 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_NUMBERING_ID: NUMBERING_ID
-            , V_P_NUMBERING_NAME: NUMBERING_NAME
-            , V_P_NUMBERING_GROUP: NUMBERING_GROUP
-            , V_P_NUMBER_LENGTH: NUMBER_LENGTH
-            , V_P_DESCR: DESCR
-            , V_P_NUMBER_ELEMENT1: NUMBER_ELEMENT1
-            , V_P_NUMBER_VALUE1: NUMBER_VALUE1
-            , V_P_NUMBER_ELEMENT2: NUMBER_ELEMENT2
-            , V_P_NUMBER_VALUE2: NUMBER_VALUE2
-            , V_P_NUMBER_ELEMENT3: NUMBER_ELEMENT3
-            , V_P_NUMBER_VALUE3: NUMBER_VALUE3
-            , V_P_NUMBER_ELEMENT4: NUMBER_ELEMENT4
-            , V_P_NUMBER_VALUE4: NUMBER_VALUE4
-            , V_P_NUMBER_ELEMENT5: NUMBER_ELEMENT5
-            , V_P_NUMBER_VALUE5: NUMBER_VALUE5
-            , V_P_SURFIX_ELEMENT1: SURFIX_ELEMENT1
-            , V_P_SURFIX_VALUE1: SURFIX_VALUE1
-            , V_P_SURFIX_ELEMENT2: SURFIX_ELEMENT2
-            , V_P_SURFIX_VALUE2: SURFIX_VALUE2
-            , V_P_SURFIX_ELEMENT3: SURFIX_ELEMENT3
-            , V_P_SURFIX_VALUE3: SURFIX_VALUE3
-            , V_P_SURFIX_ELEMENT4: SURFIX_ELEMENT4
-            , V_P_SURFIX_VALUE4: SURFIX_VALUE4
-            , V_P_SURFIX_ELEMENT5: SURFIX_ELEMENT5
-            , V_P_SURFIX_VALUE5: SURFIX_VALUE5
-            , V_P_START_SERNO: START_SERNO
-            , V_P_USE_YN: USE_YN.USE_YN
-            , V_P_UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
-            , V_P_AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+            , V_P_NUMBERING_ID      : NUMBERING_ID
+            , V_P_NUMBERING_NAME    : NUMBERING_NAME
+            , V_P_NUMBERING_GROUP   : NUMBERING_GROUP
+            , V_P_NUMBER_LENGTH     : NUMBER_LENGTH
+            , V_P_DESCR             : DESCR
+            , V_P_NUMBER_ELEMENT1   : NUMBER_ELEMENT1
+            , V_P_NUMBER_VALUE1     : NUMBER_VALUE1
+            , V_P_NUMBER_ELEMENT2   : NUMBER_ELEMENT2
+            , V_P_NUMBER_VALUE2     : NUMBER_VALUE2
+            , V_P_NUMBER_ELEMENT3   : NUMBER_ELEMENT3
+            , V_P_NUMBER_VALUE3     : NUMBER_VALUE3
+            , V_P_NUMBER_ELEMENT4   : NUMBER_ELEMENT4
+            , V_P_NUMBER_VALUE4     : NUMBER_VALUE4
+            , V_P_NUMBER_ELEMENT5   : NUMBER_ELEMENT5
+            , V_P_NUMBER_VALUE5     : NUMBER_VALUE5
+            , V_P_SURFIX_ELEMENT1   : SURFIX_ELEMENT1
+            , V_P_SURFIX_VALUE1     : SURFIX_VALUE1
+            , V_P_SURFIX_ELEMENT2   : SURFIX_ELEMENT2
+            , V_P_SURFIX_VALUE2     : SURFIX_VALUE2
+            , V_P_SURFIX_ELEMENT3   : SURFIX_ELEMENT3
+            , V_P_SURFIX_VALUE3     : SURFIX_VALUE3
+            , V_P_SURFIX_ELEMENT4   : SURFIX_ELEMENT4
+            , V_P_SURFIX_VALUE4     : SURFIX_VALUE4
+            , V_P_SURFIX_ELEMENT5   : SURFIX_ELEMENT5
+            , V_P_SURFIX_VALUE5     : SURFIX_VALUE5
+            , V_P_START_SERNO       : START_SERNO
+            , V_P_USE_YN            : USE_YN.USE_YN
+            , V_P_UNIQUE_YN         : UNIQUE_YN.UNIQUE_YN
+            , V_P_AUTO_NUM_YN       : AUTO_NUM_YN.AUTO_NUM_YN
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId

@@ -669,7 +669,7 @@
     //조회
     async function fn_search() {
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY")); //사업장
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY")); //사업장
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -705,10 +705,10 @@
                 jsonMasterList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY : gfnma_nvl(item.YYYY),
-                        APPLY_START_DATE : gfnma_nvl(item.APPLY_START_DATE),
-                        APPLY_END_DATE : gfnma_nvl(item.APPLY_END_DATE),
-                        MEMO : gfnma_nvl(item.MEMO)
+                        YYYY                : gfn_nvl(item.YYYY),
+                        APPLY_START_DATE    : gfn_nvl(item.APPLY_START_DATE),
+                        APPLY_END_DATE      : gfn_nvl(item.APPLY_END_DATE),
+                        MEMO                : gfn_nvl(item.MEMO)
                     }
                     jsonMasterList.push(msg);
                     totalRecordCount ++;
@@ -755,10 +755,10 @@
 
         if (!_.isEmpty(rowData)) {
 
-            SBUxMethod.set("YYYY", gfnma_nvl(rowData.YYYY));
-            SBUxMethod.set("APPLY_START_DATE", gfnma_nvl(rowData.APPLY_START_DATE));
-            SBUxMethod.set("APPLY_END_DATE", gfnma_nvl(rowData.APPLY_END_DATE));
-            SBUxMethod.set("MEMO", gfnma_nvl(rowData.MEMO));
+            SBUxMethod.set("YYYY"               , gfn_nvl(rowData.YYYY));
+            SBUxMethod.set("APPLY_START_DATE"   , gfn_nvl(rowData.APPLY_START_DATE));
+            SBUxMethod.set("APPLY_END_DATE"     , gfn_nvl(rowData.APPLY_END_DATE));
+            SBUxMethod.set("MEMO"               , gfn_nvl(rowData.MEMO));
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
@@ -766,7 +766,7 @@
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                , V_P_YYYY: gfnma_nvl(rowData.YYYY)
+                , V_P_YYYY  : gfn_nvl(rowData.YYYY)
 
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
@@ -792,30 +792,30 @@
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_AMT_FR: gfnma_nvl(item.PAY_AMT_FR),
-                            PAY_AMT_TO: gfnma_nvl(item.PAY_AMT_TO),
-                            SUPPORTEE1: gfnma_nvl(item.SUPPORTEE1),
-                            SUPPORTEE2: gfnma_nvl(item.SUPPORTEE2),
-                            SUPPORTEE3: gfnma_nvl(item.SUPPORTEE3),
-                            SUPPORTEE3_CHILDREN: gfnma_nvl(item.SUPPORTEE3_CHILDREN),
-                            SUPPORTEE4: gfnma_nvl(item.SUPPORTEE4),
-                            SUPPORTEE4_CHILDREN: gfnma_nvl(item.SUPPORTEE4_CHILDREN),
-                            SUPPORTEE5: gfnma_nvl(item.SUPPORTEE5),
-                            SUPPORTEE5_CHILDREN: gfnma_nvl(item.SUPPORTEE5_CHILDREN),
-                            SUPPORTEE6: gfnma_nvl(item.SUPPORTEE6),
-                            SUPPORTEE6_CHILDREN: gfnma_nvl(item.SUPPORTEE6_CHILDREN),
-                            SUPPORTEE7: gfnma_nvl(item.SUPPORTEE7),
-                            SUPPORTEE7_CHILDREN: gfnma_nvl(item.SUPPORTEE7_CHILDREN),
-                            SUPPORTEE8: gfnma_nvl(item.SUPPORTEE8),
-                            SUPPORTEE8_CHILDREN: gfnma_nvl(item.SUPPORTEE8_CHILDREN),
-                            SUPPORTEE9: gfnma_nvl(item.SUPPORTEE9),
-                            SUPPORTEE9_CHILDREN: gfnma_nvl(item.SUPPORTEE9_CHILDREN),
-                            SUPPORTEE10: gfnma_nvl(item.SUPPORTEE10),
-                            SUPPORTEE10_CHILDREN: gfnma_nvl(item.SUPPORTEE10_CHILDREN),
-                            SUPPORTEE11: gfnma_nvl(item.SUPPORTEE11),
-                            SUPPORTEE11_CHILDREN: gfnma_nvl(item.SUPPORTEE11_CHILDREN),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE)
+                            PAY_AMT_FR          : gfn_nvl(item.PAY_AMT_FR),
+                            PAY_AMT_TO          : gfn_nvl(item.PAY_AMT_TO),
+                            SUPPORTEE1          : gfn_nvl(item.SUPPORTEE1),
+                            SUPPORTEE2          : gfn_nvl(item.SUPPORTEE2),
+                            SUPPORTEE3          : gfn_nvl(item.SUPPORTEE3),
+                            SUPPORTEE3_CHILDREN : gfn_nvl(item.SUPPORTEE3_CHILDREN),
+                            SUPPORTEE4          : gfn_nvl(item.SUPPORTEE4),
+                            SUPPORTEE4_CHILDREN : gfn_nvl(item.SUPPORTEE4_CHILDREN),
+                            SUPPORTEE5          : gfn_nvl(item.SUPPORTEE5),
+                            SUPPORTEE5_CHILDREN : gfn_nvl(item.SUPPORTEE5_CHILDREN),
+                            SUPPORTEE6          : gfn_nvl(item.SUPPORTEE6),
+                            SUPPORTEE6_CHILDREN : gfn_nvl(item.SUPPORTEE6_CHILDREN),
+                            SUPPORTEE7          : gfn_nvl(item.SUPPORTEE7),
+                            SUPPORTEE7_CHILDREN : gfn_nvl(item.SUPPORTEE7_CHILDREN),
+                            SUPPORTEE8          : gfn_nvl(item.SUPPORTEE8),
+                            SUPPORTEE8_CHILDREN : gfn_nvl(item.SUPPORTEE8_CHILDREN),
+                            SUPPORTEE9          : gfn_nvl(item.SUPPORTEE9),
+                            SUPPORTEE9_CHILDREN : gfn_nvl(item.SUPPORTEE9_CHILDREN),
+                            SUPPORTEE10         : gfn_nvl(item.SUPPORTEE10),
+                            SUPPORTEE10_CHILDREN: gfn_nvl(item.SUPPORTEE10_CHILDREN),
+                            SUPPORTEE11         : gfn_nvl(item.SUPPORTEE11),
+                            SUPPORTEE11_CHILDREN: gfn_nvl(item.SUPPORTEE11_CHILDREN),
+                            APPLY_START_DATE    : gfn_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE      : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonDetailList.push(msg);
                     });
@@ -826,13 +826,13 @@
                     jsonItemList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_AMT_FR: gfnma_nvl(item.PAY_AMT_FR),
-                            PAY_AMT_TO: gfnma_nvl(item.PAY_AMT_TO),
-                            TAX_RATE: gfnma_nvl(item.TAX_RATE),
-                            TAX_RATE2: gfnma_nvl(item.TAX_RATE2),
-                            CUMULATIVE_TAX_DED_AMT: gfnma_nvl(item.CUMULATIVE_TAX_DED_AMT),
-                            APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-                            APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE)
+                            PAY_AMT_FR              : gfn_nvl(item.PAY_AMT_FR),
+                            PAY_AMT_TO              : gfn_nvl(item.PAY_AMT_TO),
+                            TAX_RATE                : gfn_nvl(item.TAX_RATE),
+                            TAX_RATE2               : gfn_nvl(item.TAX_RATE2),
+                            CUMULATIVE_TAX_DED_AMT  : gfn_nvl(item.CUMULATIVE_TAX_DED_AMT),
+                            APPLY_START_DATE        : gfn_nvl(item.APPLY_START_DATE),
+                            APPLY_END_DATE          : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonItemList.push(msg);
                     });
@@ -877,10 +877,10 @@
     //저장
     const fn_save = async function () {
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
-        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
+        let YYYY                = gfn_nvl(SBUxMethod.get("YYYY"));
+        let APPLY_START_DATE    = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE      = gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let MEMO                = gfn_nvl(SBUxMethod.get("MEMO"));
 
         if (!YYYY) {
             gfn_comAlert("W0002", "기준년도");
@@ -1025,7 +1025,7 @@
 
     const getParamFormS1 = async function (updatedData) {
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
 
         let returnData = [];
 
@@ -1126,7 +1126,7 @@
 
     const getParamFormS2 = async function (updatedData) {
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
 
         let returnData = [];
 

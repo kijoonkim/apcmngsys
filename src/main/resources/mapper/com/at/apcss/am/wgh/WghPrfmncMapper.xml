@@ -78,6 +78,8 @@
 				, INV.WRHS_SE_CD    AS WRHS_SE_CD
 				, INV.TRSPRT_SE_CD  AS TRSPRT_SE_CD
 				, INV.PRDCTN_YR		AS PRDCTN_YR
+				, WC.FCLT_CD		AS FCLT_CD
+				, WC.WRHS_SPMT_TYPE AS WRHS_SPMT_TYPE
 			  FROM
 			  	  TB_WGH_PRFMNC_COM WC
 			  	, TB_WGH_PRFMNC_DTL WD
@@ -263,6 +265,8 @@
 					, RDCD_WGHT
 					, WRHS_WGHT
 					, RMRK
+					, FCLT_CD
+					, WRHS_SPMT_TYPE
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -283,6 +287,8 @@
 					, #{rdcdWght}
 					, #{wrhsWght}
 					, #{rmrk}
+					, #{fcltCd}
+					, #{wrhsSpmtType}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -611,6 +617,132 @@
 			 WHERE APC_CD = #{apcCd}
 			   AND WGHNO = #{wghno}
 			   AND WGH_SN = #{wghSn}
+		]]>
+	</update>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
+	<!-- DESC : 계량관리정보 목록 조회.		                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghInfoMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
+			       pt0.*
+			     , (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) 												AS APC_NM
+			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
+			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+			     , pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT AS ACTL_WGHT
+			     , ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+			  FROM (SELECT
+			               WC.APC_CD		    AS APC_CD
+			             , WC.WGHNO		        AS WGHNO
+			             , WD.WGH_SN			AS WGH_SN
+			             , WD.WRHSNO		    AS WRHSNO
+			             , WC.WGH_YMD           AS WGH_YMD
+			             , WC.VHCLNO            AS VHCLNO
+			             , WC.PRDCR_CD	        AS PRDCR_CD
+			             , WC.WHOL_WGHT         AS WHOL_WGHT
+			             , WC.EMPT_VHCL_WGHT    AS EMPT_VHCL_WGHT
+			             , WC.RDCD_RT           AS RDCD_RT
+			             , WC.RDCD_WGHT         AS RDCD_WGHT
+			             , WC.WRHS_WGHT         AS WRHS_WGHT
+			             , WC.RMRK              AS RMRK
+			             , WD.GRD_CD            AS GRD_CD
+			             , WD.PLT_KND		    AS PLT_KND
+			             , WD.PLT_WGHT          AS PLT_WGHT
+			             , WD.BX_KND			AS BX_KND
+			             , WD.BX_QNTT           AS BX_QNTT
+			             , WD.BX_WGHT           AS BX_WGHT
+			             , WP.WRHS_WGHT		    AS INVNTR_WGHT
+			             , INV.WAREHOUSE_SE_CD  AS WAREHOUSE_SE_CD
+			             , INV.ITEM_CD          AS ITEM_CD
+			             , INV.VRTY_CD          AS VRTY_CD
+			             , INV.PRDCTN_YR		AS PRDCTN_YR
+			             , INV.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+			             , SUBSTR(INV.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
+			             , SUBSTR(INV.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL
+			             , SUBSTR(INV.STRG_LOCTN_CD, 4, 2)  AS STRG_LOCTN_LVL
+			          FROM TB_WGH_PRFMNC_COM WC
+			             , TB_WGH_PRFMNC_DTL WD
+			             , TB_RAW_MTR_WRHS_PRFMNC WP
+			             , TB_RAW_MTR_INVNTR INV
+			         WHERE WC.APC_CD = WD.APC_CD
+			           AND WC.WGHNO = WD.WGHNO
+			           AND WC.APC_CD = WP.APC_CD
+			           AND WC.WGHNO = WP.WGHNO
+			           AND WD.WRHSNO = WP.WRHSNO
+			           AND WP.APC_CD = INV.APC_CD
+			           AND WP.WRHSNO = INV.WRHSNO
+			           AND WC.DEL_YN = 'N'
+			           AND WD.DEL_YN = 'N'
+			           AND WP.DEL_YN = 'N'
+			           AND INV.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+			           AND WC.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd !=""'>
+			           AND INV.ITEM_CD = #{itemCd}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+			           AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+			           AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<![CDATA[
+			       ) pt0
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
+	<!-- DESC : 계량관리정보 변경.		                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="updateStrgLoctnCd" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			UPDATE TB_RAW_MTR_INVNTR
+			   SET STRG_LOCTN_CD 			= #{strgLoctnCd}
+			     , WAREHOUSE_SE_CD 			= #{warehouseSeCd}
+			     , WRHS_WGHT 				= #{wrhsWght}
+			     , SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WRHSNO  					= #{wrhsno}
+		]]>
+	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
+	<!-- DESC : 계량감량율 변경.		                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="updateRdcdRt" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			UPDATE TB_WGH_PRFMNC_COM
+			   SET RDCD_RT  				= #{rdcdRt}
+			     , RDCD_WGHT				= #{rdcdWght}
+			     , WRHS_WGHT				= #{wrhsWght}
+			     , SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WGHNO   					= #{wghno}
 		]]>
 	</update>
 

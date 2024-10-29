@@ -435,7 +435,7 @@
         ]);
     }
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -464,7 +464,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -537,8 +537,8 @@
      */
     var fn_payDate = function() {
 
-        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+        let PAY_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'";
@@ -689,20 +689,18 @@
      */
     const fn_search = async function () {
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let SENDTYPE = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        let PAY_YYYYMM_FR = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-      /*  let PAY_YYYYMM_FR2 = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월*/
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let MULTI_YN = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //연간누계 출력여부
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let PAY_DATE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let SENDTYPE        = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+      /*  let PAY_YYYYMM_FR2 = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월*/
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let MULTI_YN        = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //연간누계 출력여부
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
-        let CODELIST = gfnma_nvl(SBUxMethod.get("strCsCodeList")); //사원복수선택
-
-
+        let CODELIST = gfn_nvl(SBUxMethod.get("strCsCodeList")); //사원복수선택
 
         if (!PAY_YYYYMM_FR) {
             gfn_comAlert("W0002", "귀속년월");
@@ -767,30 +765,30 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN		        : gfnma_nvl(item.CHK_YN),
-                        MAIL_SEND_YN		: gfnma_nvl(item.MAIL_SEND_YN),
-                        MAIL_SEND_TIME		: gfnma_nvl(item.MAIL_SEND_TIME),
-                        MAIL_SEND_MSG		: gfnma_nvl(item.MAIL_SEND_MSG),
-                        MAIL_SEND_YN1		: gfnma_nvl(item.MAIL_SEND_YN1),
-                        MAIL_SEND_TIME1		: gfnma_nvl(item.MAIL_SEND_TIME1),
-                        MAIL_SEND_MSG1		: gfnma_nvl(item.MAIL_SEND_MSG1),
-                        SITE_CODE		    : gfnma_nvl(item.SITE_CODE),
-                        DEPT_CODE		    : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME		    : gfnma_nvl(item.DEPT_NAME),
-                        POSITION_CODE		: gfnma_nvl(item.POSITION_CODE),
-                        POSITION_NAME		: gfnma_nvl(item.POSITION_NAME),
-                        EMP_CODE		    : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME		    : gfnma_nvl(item.EMP_NAME),
-                        IN_EMAIL		    : gfnma_nvl(item.IN_EMAIL),
-                        PAY_YYYYMM		    : gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE		    : gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE		    : gfnma_nvl(item.PAY_DATE),
-                        PAY_TOTAL_AMT		: gfnma_nvl(item.PAY_TOTAL_AMT),
-                        TAX_FREE_AMT		: gfnma_nvl(item.TAX_FREE_AMT),
-                        PAY_DEDUCTION_AMT   : gfnma_nvl(item.PAY_DEDUCTION_AMT),
-                        PAY_NET_AMT		    : gfnma_nvl(item.PAY_NET_AMT),
-                        DEPT_CODE_SEQ		: gfnma_nvl(item.DEPT_CODE_SEQ),
-                        POSITION_CODE_SEQ   : gfnma_nvl(item.POSITION_CODE_SEQ)
+                        CHK_YN		        : gfn_nvl(item.CHK_YN),
+                        MAIL_SEND_YN		: gfn_nvl(item.MAIL_SEND_YN),
+                        MAIL_SEND_TIME		: gfn_nvl(item.MAIL_SEND_TIME),
+                        MAIL_SEND_MSG		: gfn_nvl(item.MAIL_SEND_MSG),
+                        MAIL_SEND_YN1		: gfn_nvl(item.MAIL_SEND_YN1),
+                        MAIL_SEND_TIME1		: gfn_nvl(item.MAIL_SEND_TIME1),
+                        MAIL_SEND_MSG1		: gfn_nvl(item.MAIL_SEND_MSG1),
+                        SITE_CODE		    : gfn_nvl(item.SITE_CODE),
+                        DEPT_CODE		    : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME		    : gfn_nvl(item.DEPT_NAME),
+                        POSITION_CODE		: gfn_nvl(item.POSITION_CODE),
+                        POSITION_NAME		: gfn_nvl(item.POSITION_NAME),
+                        EMP_CODE		    : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME		    : gfn_nvl(item.EMP_NAME),
+                        IN_EMAIL		    : gfn_nvl(item.IN_EMAIL),
+                        PAY_YYYYMM		    : gfn_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE		    : gfn_nvl(item.PAY_TYPE),
+                        PAY_DATE		    : gfn_nvl(item.PAY_DATE),
+                        PAY_TOTAL_AMT		: gfn_nvl(item.PAY_TOTAL_AMT),
+                        TAX_FREE_AMT		: gfn_nvl(item.TAX_FREE_AMT),
+                        PAY_DEDUCTION_AMT   : gfn_nvl(item.PAY_DEDUCTION_AMT),
+                        PAY_NET_AMT		    : gfn_nvl(item.PAY_NET_AMT),
+                        DEPT_CODE_SEQ		: gfn_nvl(item.DEPT_CODE_SEQ),
+                        POSITION_CODE_SEQ   : gfn_nvl(item.POSITION_CODE_SEQ)
 
                     }
                     jsonInfoList.push(msg);
@@ -835,18 +833,18 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let SENDTYPE        = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        let PAY_YYYYMM_FR   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-        /*  let PAY_YYYYMM_FR2 = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월*/
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let MULTI_YN        = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN")); //연간누계 출력여부
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let PAY_DATE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let SENDTYPE        = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+        /*  let PAY_YYYYMM_FR2 = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월*/
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let MULTI_YN        = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN")); //연간누계 출력여부
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let PAY_DATE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
-        let CODELIST = gfnma_nvl(SBUxMethod.get("strCsCodeList")); //사원복수선택
+        let CODELIST = gfn_nvl(SBUxMethod.get("strCsCodeList")); //사원복수선택
 
         if (!_.isEmpty(rowData)) {
 
@@ -893,11 +891,11 @@
 
                     data.cv_4.forEach((item, index) => {
 
-                        SBUxMethod.set("EMAIL_SUBJECT", 	gfnma_nvl(item.EMAIL_SUBJECT));
-                        SBUxMethod.set("EMAIL_BODY", 	gfnma_nvl(item.EMAIL_BODY));
-                        SBUxMethod.set("NOTICE_MEMO", 	gfnma_nvl(item.NOTICE_MEMO));
-                        /*SBUxMethod.set("NOTICE_MEMO2", 	gfnma_nvl(item.NOTICE_MEMO2),);*/
-                        SBUxMethod.set("PAY_CALCULATE_MEMO", 	gfnma_nvl(item.PAY_CALCULATE_MEMO));
+                        SBUxMethod.set("EMAIL_SUBJECT"      , 	gfn_nvl(item.EMAIL_SUBJECT));
+                        SBUxMethod.set("EMAIL_BODY"         , 	gfn_nvl(item.EMAIL_BODY));
+                        SBUxMethod.set("NOTICE_MEMO"        , 	gfn_nvl(item.NOTICE_MEMO));
+                        /*SBUxMethod.set("NOTICE_MEMO2", 	gfn_nvl(item.NOTICE_MEMO2),);*/
+                        SBUxMethod.set("PAY_CALCULATE_MEMO" , 	gfn_nvl(item.PAY_CALCULATE_MEMO));
 
                     });
 
@@ -922,9 +920,9 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            let PAY_YYYYMM_FR = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-            let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-            let PAY_DATE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+            let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+            let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+            let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
             if (!PAY_YYYYMM_FR) {
                 gfn_comAlert("W0002", "귀속년월");
@@ -939,10 +937,10 @@
                 return;
             }
 
-            let EMAIL_SUBJECT 		= gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
-            let EMAIL_BODY 			= gfnma_nvl(SBUxMethod.get("EMAIL_BODY"));
-            let PAY_CALCULATE_MEMO  = gfnma_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
-            let NOTICE_MEMO 		= gfnma_nvl(SBUxMethod.get("NOTICE_MEMO"));
+            let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
+            let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+            let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
+            let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
 
             if (!EMAIL_SUBJECT) {
                 gfn_comAlert("W0002", "메일제목");
@@ -1011,9 +1009,9 @@
     const fn_del = async function () {
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let PAY_YYYYMM_FR = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-            let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-            let PAY_DATE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+            let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+            let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+            let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
 
             if (!PAY_YYYYMM_FR) {
                 gfn_comAlert("W0002", "귀속년월");
@@ -1028,10 +1026,10 @@
                 return;
             }
 
-            let EMAIL_SUBJECT 		= gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
-            let EMAIL_BODY 			= gfnma_nvl(SBUxMethod.get("EMAIL_BODY"));
-            let PAY_CALCULATE_MEMO  = gfnma_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
-            let NOTICE_MEMO 		= gfnma_nvl(SBUxMethod.get("NOTICE_MEMO"));
+            let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
+            let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+            let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
+            let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
 
             if (!EMAIL_SUBJECT) {
                 gfn_comAlert("W0002", "메일제목");

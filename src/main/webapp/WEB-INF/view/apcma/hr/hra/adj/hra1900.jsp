@@ -356,7 +356,7 @@
     ];
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -385,7 +385,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -628,17 +628,17 @@
      */
     const fn_search = async function (strWorkType) {
 
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
 
-        let TX_SITE_CODE        = gfnma_nvl(SBUxMethod.get("TX_SITE_CODE")); //제출신고사업장
-        let HOME_TAX_ID         = gfnma_nvl(SBUxMethod.get("HOME_TAX_ID")); //홈택스ID
-        let SUBMIT_DATE         = gfnma_nvl(SBUxMethod.get("SUBMIT_DATE")); //제출일
-        let DEPT_NAME           = gfnma_nvl(SBUxMethod.get("DEPT_NAME")); //담당자 부서
-        let EMP_NAME            = gfnma_nvl(SBUxMethod.get("EMP_NAME")); //담당자 성명
-        let TEL                 = gfnma_nvl(SBUxMethod.get("TEL")); //담당자 전화번호
-        let FILE_PATH           = gfnma_nvl(SBUxMethod.get("FILE_PATH")); //파일생성경로
-        let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO")); //비고
+        let TX_SITE_CODE        = gfn_nvl(SBUxMethod.get("TX_SITE_CODE")); //제출신고사업장
+        let HOME_TAX_ID         = gfn_nvl(SBUxMethod.get("HOME_TAX_ID")); //홈택스ID
+        let SUBMIT_DATE         = gfn_nvl(SBUxMethod.get("SUBMIT_DATE")); //제출일
+        let DEPT_NAME           = gfn_nvl(SBUxMethod.get("DEPT_NAME")); //담당자 부서
+        let EMP_NAME            = gfn_nvl(SBUxMethod.get("EMP_NAME")); //담당자 성명
+        let TEL                 = gfn_nvl(SBUxMethod.get("TEL")); //담당자 전화번호
+        let FILE_PATH           = gfn_nvl(SBUxMethod.get("FILE_PATH")); //파일생성경로
+        let MEMO                = gfn_nvl(SBUxMethod.get("MEMO")); //비고
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -687,16 +687,16 @@
                 jsonCList.length = 0;
                 data.cv_2.forEach((item, index) => {
                     const msg = {
-                        YE_TX_TYPE 			                : gfnma_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			                : gfnma_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			                : gfnma_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
-                        ,INC_TOT_AMT 			            : gfnma_nvl(item.INC_TOT_AMT)
-                        ,CALC_INC_TX_AMT 			        : gfnma_nvl(item.CALC_INC_TX_AMT)
-                        ,NOW_INC_TX_AMT 			        : gfnma_nvl(item.NOW_INC_TX_AMT)
-                        ,INC_TX_AMT 			            : gfnma_nvl(item.INC_TX_AMT)
+                        YE_TX_TYPE 			: gfn_nvl(item.YE_TX_TYPE)
+                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
+                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
+                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
+                        ,INC_TOT_AMT 		: gfn_nvl(item.INC_TOT_AMT)
+                        ,CALC_INC_TX_AMT 	: gfn_nvl(item.CALC_INC_TX_AMT)
+                        ,NOW_INC_TX_AMT 	: gfn_nvl(item.NOW_INC_TX_AMT)
+                        ,INC_TX_AMT 		: gfn_nvl(item.INC_TX_AMT)
 
                     }
                     jsonCList.push(msg);
@@ -708,19 +708,19 @@
                 jsonCAList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        YE_TX_TYPE 			                : gfnma_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			                : gfnma_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			                : gfnma_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
-                        ,MED_SOCNO 			                : gfnma_nvl(item.MED_SOCNO)
-                        ,MED_SOCIAL_NO_REAL 			    : gfnma_nvl(item.MED_SOCIAL_NO_REAL)
-                        ,MED_COM_NUM 			            : gfnma_nvl(item.MED_COM_NUM)
-                        ,MED_NAME 			                : gfnma_nvl(item.MED_NAME)
-                        ,MED_CERTIFICATE_CODE 			    : gfnma_nvl(item.MED_CERTIFICATE_CODE)
-                        ,MED_COUNT 			                : gfnma_nvl(item.MED_COUNT)
-                        ,MED_EXP_AMT 			            : gfnma_nvl(item.MED_EXP_AMT)
+                        YE_TX_TYPE 			    : gfn_nvl(item.YE_TX_TYPE)
+                        ,SITE_CODE 			    : gfn_nvl(item.SITE_CODE)
+                        ,DEPT_CODE 			    : gfn_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			    : gfn_nvl(item.DEPT_NAME)
+                        ,EMP_CODE 			    : gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			    : gfn_nvl(item.EMP_NAME)
+                        ,MED_SOCNO 			    : gfn_nvl(item.MED_SOCNO)
+                        ,MED_SOCIAL_NO_REAL 	: gfn_nvl(item.MED_SOCIAL_NO_REAL)
+                        ,MED_COM_NUM 			: gfn_nvl(item.MED_COM_NUM)
+                        ,MED_NAME 			    : gfn_nvl(item.MED_NAME)
+                        ,MED_CERTIFICATE_CODE 	: gfn_nvl(item.MED_CERTIFICATE_CODE)
+                        ,MED_COUNT 			    : gfn_nvl(item.MED_COUNT)
+                        ,MED_EXP_AMT 			: gfn_nvl(item.MED_EXP_AMT)
 
                     }
                     jsonCAList.push(msg);
@@ -731,14 +731,14 @@
                 jsonHList.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        YE_TX_TYPE 			                : gfnma_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			                : gfnma_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			                : gfnma_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
-                        ,DON_COUNT 			                : gfnma_nvl(item.DON_COUNT)
-                        ,DON_AMT 			                : gfnma_nvl(item.DON_AMT)
+                        YE_TX_TYPE 			: gfn_nvl(item.YE_TX_TYPE)
+                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
+                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
+                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
+                        ,DON_COUNT 			: gfn_nvl(item.DON_COUNT)
+                        ,DON_AMT 			: gfn_nvl(item.DON_AMT)
 
                     }
                     jsonHList.push(msg);

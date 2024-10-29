@@ -848,6 +848,7 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
+    	//메뉴 파라미터
     	p_menu_param = localStorage.getItem("callMain");
     	if(p_menu_param){
     		p_menu_param = JSON.parse(p_menu_param);
@@ -860,6 +861,7 @@
 		}
 // 		console.log('1 pg_state:', pg_state);			
 // 		console.log('1 p_menu_param:', p_menu_param);
+		//-------------------------------
     	
     	fn_init(true);
 

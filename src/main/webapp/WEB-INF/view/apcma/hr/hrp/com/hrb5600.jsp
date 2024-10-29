@@ -491,9 +491,9 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let APPLY_DATE      = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let APPLY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
+        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         if (!APPLY_DATE) {
             gfn_comAlert("W0002", "기준일");
@@ -538,12 +538,12 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CODE           : gfnma_nvl(item.PAY_ITEM_CODE),
-                        PAY_TYPE                : gfnma_nvl(item.PAY_TYPE),
-                        APPLY_START_DATE        : gfnma_nvl(item.APPLY_START_DATE),
-                        PAY_ITEM_RANGE_TYPE1    : gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1),
-                        PAY_ITEM_RANGE_TYPE2    : gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2),
-                        KEYFIELD                : gfnma_nvl(item.KEYFIELD)
+                        PAY_ITEM_CODE           : gfn_nvl(item.PAY_ITEM_CODE),
+                        PAY_TYPE                : gfn_nvl(item.PAY_TYPE),
+                        APPLY_START_DATE        : gfn_nvl(item.APPLY_START_DATE),
+                        PAY_ITEM_RANGE_TYPE1    : gfn_nvl(item.PAY_ITEM_RANGE_TYPE1),
+                        PAY_ITEM_RANGE_TYPE2    : gfn_nvl(item.PAY_ITEM_RANGE_TYPE2),
+                        KEYFIELD                : gfn_nvl(item.KEYFIELD)
 
                     }
                     jsonGvwList.push(msg);
@@ -591,9 +591,9 @@
 
         let rowData = gvwListGrid.getRowData(nRow);
 
-        let APPLY_DATE      = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let APPLY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
+        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         if (!_.isEmpty(rowData)) {
             var paramObj = {
@@ -630,17 +630,17 @@
 
                     data.cv_2.forEach((item, index) => {
 
-                        SBUxMethod.set("PAY_ITEM_CODE", gfnma_nvl(item.PAY_ITEM_CODE));
-                        SBUxMethod.set("PAY_TYPE", gfnma_nvl(item.PAY_TYPE));
-                        SBUxMethod.set("ALL_YN", gfnma_nvl(item.ALL_YN));
-                        SBUxMethod.set("APPLY_START_DATE", gfnma_nvl(item.APPLY_START_DATE));
-                        SBUxMethod.set("APPLY_END_DATE", gfnma_nvl(item.APPLY_END_DATE));
-                       /* SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
-                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));*/
-                        SBUxMethod.set("MEMO", gfnma_nvl(item.MEMO));
+                        SBUxMethod.set("PAY_ITEM_CODE"      , gfn_nvl(item.PAY_ITEM_CODE));
+                        SBUxMethod.set("PAY_TYPE"           , gfn_nvl(item.PAY_TYPE));
+                        SBUxMethod.set("ALL_YN"             , gfn_nvl(item.ALL_YN));
+                        SBUxMethod.set("APPLY_START_DATE"   , gfn_nvl(item.APPLY_START_DATE));
+                        SBUxMethod.set("APPLY_END_DATE"     , gfn_nvl(item.APPLY_END_DATE));
+                       /* SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfn_nvl(item.PAY_ITEM_RANGE_TYPE1));
+                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfn_nvl(item.PAY_ITEM_RANGE_TYPE2));*/
+                        SBUxMethod.set("MEMO"               , gfn_nvl(item.MEMO));
 
-                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
-                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(item.PAY_ITEM_RANGE_TYPE1));
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', 'SUB_CODE', 'CODE_NAME', gfn_nvl(item.PAY_ITEM_RANGE_TYPE2));
 
                     });
 
@@ -648,12 +648,12 @@
                     jsonBandgvwDetailList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_RANGE_CODE1    : gfnma_nvl(item.PAY_ITEM_RANGE_CODE1),
-                            PAY_ITEM_RANGE_NAME1    : gfnma_nvl(item.PAY_ITEM_RANGE_NAME1),
-                            PAY_ITEM_RANGE_CODE2    : gfnma_nvl(item.PAY_ITEM_RANGE_CODE2),
-                            PAY_ITEM_RANGE_NAME2    : gfnma_nvl(item.PAY_ITEM_RANGE_NAME2),
-                            PAY_ITEM_RANGE_AMT      : gfnma_nvl(item.PAY_ITEM_RANGE_AMT),
-                            MEMO                    : gfnma_nvl(item.MEMO)
+                            PAY_ITEM_RANGE_CODE1    : gfn_nvl(item.PAY_ITEM_RANGE_CODE1),
+                            PAY_ITEM_RANGE_NAME1    : gfn_nvl(item.PAY_ITEM_RANGE_NAME1),
+                            PAY_ITEM_RANGE_CODE2    : gfn_nvl(item.PAY_ITEM_RANGE_CODE2),
+                            PAY_ITEM_RANGE_NAME2    : gfn_nvl(item.PAY_ITEM_RANGE_NAME2),
+                            PAY_ITEM_RANGE_AMT      : gfn_nvl(item.PAY_ITEM_RANGE_AMT),
+                            MEMO                    : gfn_nvl(item.MEMO)
 
                         }
                         jsonBandgvwDetailList.push(msg);
@@ -681,14 +681,14 @@
     //저장
     const fn_item = async function () {
 
-        let APPLY_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let APPLY_DATE          = gfn_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
+        let PAY_ITEM_CODE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
-        let APPLY_START_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_START_DATE    = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
 
-        let PAY_ITEM_RANGE_TYPE1 = gfnma_nvl(CHk_PAY_ITEM_RANGE_TYPE1);
-        let PAY_ITEM_RANGE_TYPE2 = gfnma_nvl(CHk_PAY_ITEM_RANGE_TYPE2);
+        let PAY_ITEM_RANGE_TYPE1 = gfn_nvl(CHk_PAY_ITEM_RANGE_TYPE1);
+        let PAY_ITEM_RANGE_TYPE2 = gfn_nvl(CHk_PAY_ITEM_RANGE_TYPE2);
 
 
         var paramObj = {
@@ -727,12 +727,12 @@
                 jsonBandgvwDetailList.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_RANGE_CODE1    : gfnma_nvl(item.PAY_ITEM_RANGE_CODE1),
-                        PAY_ITEM_RANGE_NAME1    : gfnma_nvl(item.PAY_ITEM_RANGE_NAME1),
-                        PAY_ITEM_RANGE_CODE2    : gfnma_nvl(item.PAY_ITEM_RANGE_CODE2),
-                        PAY_ITEM_RANGE_NAME2    : gfnma_nvl(item.PAY_ITEM_RANGE_NAME2),
-                        PAY_ITEM_RANGE_AMT      : gfnma_nvl(item.PAY_ITEM_RANGE_AMT),
-                        MEMO                    : gfnma_nvl(item.MEMO)
+                        PAY_ITEM_RANGE_CODE1    : gfn_nvl(item.PAY_ITEM_RANGE_CODE1),
+                        PAY_ITEM_RANGE_NAME1    : gfn_nvl(item.PAY_ITEM_RANGE_NAME1),
+                        PAY_ITEM_RANGE_CODE2    : gfn_nvl(item.PAY_ITEM_RANGE_CODE2),
+                        PAY_ITEM_RANGE_NAME2    : gfn_nvl(item.PAY_ITEM_RANGE_NAME2),
+                        PAY_ITEM_RANGE_AMT      : gfn_nvl(item.PAY_ITEM_RANGE_AMT),
+                        MEMO                    : gfn_nvl(item.MEMO)
 
                     }
                     jsonBandgvwDetailList.push(msg);
@@ -766,9 +766,9 @@
         var CHk_PAY_ITEM_RANGE_TYPE1 = '';
         var CHk_PAY_ITEM_RANGE_TYPE2 = '';
 
-        SBUxMethod.set("PAY_ITEM_CODE", 			"");
-        SBUxMethod.set("PAY_TYPE", 			"");
-        SBUxMethod.set("ALL_YN", 			"N");
+        SBUxMethod.set("PAY_ITEM_CODE"  , 			"");
+        SBUxMethod.set("PAY_TYPE"       , 			"");
+        SBUxMethod.set("ALL_YN"         , 			"N");
 
         let openDate = gfn_dateToYmd(new Date());
 
@@ -781,9 +781,9 @@
 
         //fn_settings('false');
 
-        SBUxMethod.attr('PAY_ITEM_CODE','readonly',false);
-        SBUxMethod.attr('PAY_TYPE','readonly',false);
-        SBUxMethod.attr('APPLY_START_DATE','readonly',false);
+        SBUxMethod.attr('PAY_ITEM_CODE'     ,'readonly',false);
+        SBUxMethod.attr('PAY_TYPE'          ,'readonly',false);
+        SBUxMethod.attr('APPLY_START_DATE'  ,'readonly',false);
         /*SBUxMethod.attr('APPLY_END_DATE','readonly',true);*/
         $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',false);
         $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',false);
@@ -798,10 +798,10 @@
     //저장
     function fn_settings(type) {
 
-        SBUxMethod.attr('PAY_ITEM_CODE','readonly',type);
-        SBUxMethod.attr('PAY_TYPE','readonly',type);
-        SBUxMethod.attr('APPLY_START_DATE','readonly',type);
-        SBUxMethod.attr('APPLY_END_DATE','readonly',type);
+        SBUxMethod.attr('PAY_ITEM_CODE'     ,'readonly',type);
+        SBUxMethod.attr('PAY_TYPE'          ,'readonly',type);
+        SBUxMethod.attr('APPLY_START_DATE'  ,'readonly',type);
+        SBUxMethod.attr('APPLY_END_DATE'    ,'readonly',type);
         $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',type);
         $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',type);
         /*SBUxMethod.attr('PAY_ITEM_RANGE_TYPE1','disabled',true);*/
@@ -813,14 +813,14 @@
     //저장
     const fn_save = async function () {
 
-        let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-        let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
-        let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
-        let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-        let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let PAY_ITEM_CODE 			= gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_TYPE 			    = gfn_nvl(SBUxMethod.get("PAY_TYPE"));
+        let ALL_YN 			        = gfn_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
+        let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
         let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
         let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
-        let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));
+        let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));
 
 
         if (Number(APPLY_START_DATE) >= Number(APPLY_END_DATE)){
@@ -983,14 +983,12 @@
 
     const getParamForm = async function () {
 
-        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
-        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-
+        let PAY_ITEM_CODE       = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("PAY_TYPE"));
+        let APPLY_START_DATE    = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
 
         let updatedData;
         let returnData = [];
-
 
         updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
 
@@ -1012,7 +1010,7 @@
                     , V_P_APPLY_START_DATE      : APPLY_START_DATE
                     , V_P_PAY_ITEM_RANGE_CODE1  : item.data.PAY_ITEM_RANGE_CODE1
                     , V_P_PAY_ITEM_RANGE_CODE2  : item.data.PAY_ITEM_RANGE_CODE2
-                    , V_P_PAY_ITEM_RANGE_AMT    : gfnma_nvl(item.data.PAY_ITEM_RANGE_AMT) == '' ? 0 : item.data.PAY_ITEM_RANGE_AMT
+                    , V_P_PAY_ITEM_RANGE_AMT    : gfn_nvl(item.data.PAY_ITEM_RANGE_AMT) == '' ? 0 : item.data.PAY_ITEM_RANGE_AMT
                     , V_P_MEMO                  : item.data.MEMO
 
                     , V_P_FORM_ID: p_formId
@@ -1042,7 +1040,7 @@
 
         // 변경 감지 시 실행할 콜백 함수
         const callback = (mutationList, observer) => {
-            let type1Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
+            let type1Chk = gfn_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
             let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
 
             if (_.isEmpty(type1Chk)){
@@ -1057,7 +1055,7 @@
                 }
             }
 
-            let type2Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE2').attr('disabled'));
+            let type2Chk = gfn_nvl($('#PAY_ITEM_RANGE_TYPE2').attr('disabled'));
             let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
             if (_.isEmpty(type2Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
@@ -1086,14 +1084,14 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-            let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
-            let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
-            let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-            let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
+            let PAY_ITEM_CODE 			= gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+            let PAY_TYPE 			    = gfn_nvl(SBUxMethod.get("PAY_TYPE"));
+            let ALL_YN 			        = gfn_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
+            let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+            let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
             let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
             let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
-            let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));
+            let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));
 
 
             if (Number(APPLY_START_DATE) >= Number(APPLY_END_DATE)){
