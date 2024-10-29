@@ -357,8 +357,15 @@ function compopup1(options) {
 	$(modalId).find('.cu-btn-close-compopup1').click(function(){
 	 	//SBUxMethod.closeModal(modalDivId);
 		gfnma_uxDataClear('.cu-search-area');
-	});	
-	
+	});
+
+	$(modalId).find('input').off('keypress');
+	$(modalId).find('input').keypress(function(e){
+		if(e.keyCode && e.keyCode == 13){
+			getData();
+		}
+	});
+
 	//start
 	getData();
 	
