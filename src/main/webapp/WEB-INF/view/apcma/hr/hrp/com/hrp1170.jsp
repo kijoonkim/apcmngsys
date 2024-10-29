@@ -308,7 +308,7 @@
 
     const fn_compopup1 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText = gfn_nvl(SBUxMethod.get("srch-dept_name"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -625,12 +625,12 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let SITE_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_TYPE        = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_YYYYMM_FR   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); // 귀속년월 시작
-        let PAY_YYYYMM_TO   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_TO")); // 귀속년월 종료
-        let PAY_ITEM_CODE   = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원코드
+        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); // 귀속년월 시작
+        let PAY_YYYYMM_TO   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_TO")); // 귀속년월 종료
+        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원코드
 
         if (!PAY_YYYYMM_FR) {
             gfn_comAlert("W0002", "귀속년월");
@@ -678,16 +678,16 @@
                 jsonExceptionList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_TYPE		: gfnma_nvl(item.PAY_TYPE),
-                        EMP_CODE		: gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME		: gfnma_nvl(item.EMP_NAME),
-                        PAY_ITEM_CODE   : gfnma_nvl(item.PAY_ITEM_CODE),
-                        PAY_YYYYMM_FR	: gfnma_nvl(item.PAY_YYYYMM_FR),
-                        PAY_YYYYMM_TO	: gfnma_nvl(item.PAY_YYYYMM_TO),
-                        PAY_APPLY_TYPE	: gfnma_nvl(item.PAY_APPLY_TYPE),
-                        PAY_APPLY_RATE	: gfnma_nvl(item.PAY_APPLY_RATE),
-                        PAY_APPLY_AMT	: gfnma_nvl(item.PAY_APPLY_AMT),
-                        MEMO 			: gfnma_nvl(item.MEMO)
+                        PAY_TYPE		: gfn_nvl(item.PAY_TYPE),
+                        EMP_CODE		: gfn_nvl(item.EMP_CODE),
+                        EMP_NAME		: gfn_nvl(item.EMP_NAME),
+                        PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                        PAY_YYYYMM_FR	: gfn_nvl(item.PAY_YYYYMM_FR),
+                        PAY_YYYYMM_TO	: gfn_nvl(item.PAY_YYYYMM_TO),
+                        PAY_APPLY_TYPE	: gfn_nvl(item.PAY_APPLY_TYPE),
+                        PAY_APPLY_RATE	: gfn_nvl(item.PAY_APPLY_RATE),
+                        PAY_APPLY_AMT	: gfn_nvl(item.PAY_APPLY_AMT),
+                        MEMO 			: gfn_nvl(item.MEMO)
                     }
                     jsonExceptionList.push(msg);
                     totalRecordCount ++;
@@ -788,15 +788,15 @@
                         , V_P_COMP_CODE: gv_ma_selectedApcCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                        , V_P_PAY_TYPE          : gfnma_nvl(item.data.PAY_TYPE)
-                        , V_P_EMP_CODE          : gfnma_nvl(item.data.EMP_CODE)
-                        , V_P_PAY_ITEM_CODE     : gfnma_nvl(item.data.PAY_ITEM_CODE)
-                        , V_P_PAY_YYYYMM_FR     : gfnma_nvl(item.data.PAY_YYYYMM_FR)
-                        , V_P_PAY_YYYYMM_TO     : gfnma_nvl(item.data.PAY_YYYYMM_TO)
-                        , V_P_PAY_APPLY_TYPE    : gfnma_nvl(item.data.PAY_APPLY_TYPE)
-                        , V_P_PAY_APPLY_RATE    : gfnma_nvl(item.data.PAY_APPLY_RATE) == '' ? 0 : item.data.PAY_APPLY_RATE
-                        , V_P_PAY_APPLY_AMT     : gfnma_nvl(item.data.PAY_APPLY_AMT) == '' ? 0 : item.data.PAY_APPLY_AMT
-                        , V_P_MEMO              : gfnma_nvl(item.data.MEMO)
+                        , V_P_PAY_TYPE          : gfn_nvl(item.data.PAY_TYPE)
+                        , V_P_EMP_CODE          : gfn_nvl(item.data.EMP_CODE)
+                        , V_P_PAY_ITEM_CODE     : gfn_nvl(item.data.PAY_ITEM_CODE)
+                        , V_P_PAY_YYYYMM_FR     : gfn_nvl(item.data.PAY_YYYYMM_FR)
+                        , V_P_PAY_YYYYMM_TO     : gfn_nvl(item.data.PAY_YYYYMM_TO)
+                        , V_P_PAY_APPLY_TYPE    : gfn_nvl(item.data.PAY_APPLY_TYPE)
+                        , V_P_PAY_APPLY_RATE    : gfn_nvl(item.data.PAY_APPLY_RATE) == '' ? 0 : item.data.PAY_APPLY_RATE
+                        , V_P_PAY_APPLY_AMT     : gfn_nvl(item.data.PAY_APPLY_AMT) == '' ? 0 : item.data.PAY_APPLY_AMT
+                        , V_P_MEMO              : gfn_nvl(item.data.MEMO)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId

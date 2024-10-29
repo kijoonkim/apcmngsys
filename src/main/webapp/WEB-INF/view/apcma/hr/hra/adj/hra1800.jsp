@@ -247,7 +247,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -276,7 +276,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -403,11 +403,11 @@
         let stremp_code = '';
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let EMP_STATE           = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let EMP_STATE           = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -454,13 +454,13 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			                : gfnma_nvl(item.CHK_YN)
-                        , SITE_CODE 			        : gfnma_nvl(item.SITE_CODE)
-                        , EMP_STATE 			        : gfnma_nvl(item.EMP_STATE)
-                        , DEPT_CODE 			        : gfnma_nvl(item.DEPT_CODE)
-                        , DEPT_NAME 			        : gfnma_nvl(item.DEPT_NAME)
-                        , EMP_CODE 			            : gfnma_nvl(item.EMP_CODE)
-                        , EMP_NAME 			            : gfnma_nvl(item.EMP_NAME)
+                        CHK_YN 			: gfn_nvl(item.CHK_YN)
+                        , SITE_CODE 	: gfn_nvl(item.SITE_CODE)
+                        , EMP_STATE 	: gfn_nvl(item.EMP_STATE)
+                        , DEPT_CODE 	: gfn_nvl(item.DEPT_CODE)
+                        , DEPT_NAME 	: gfn_nvl(item.DEPT_NAME)
+                        , EMP_CODE 		: gfn_nvl(item.EMP_CODE)
+                        , EMP_NAME 		: gfn_nvl(item.EMP_NAME)
 
                     }
                     jsonInfoList.push(msg);

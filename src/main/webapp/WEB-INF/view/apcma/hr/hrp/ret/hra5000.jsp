@@ -625,10 +625,10 @@
         let rowVal = gvwConvertGrid.getRow();
 
         const msg = {
-            PAY_AMT_FR          : 0,
-            PAY_AMT_TO            : 0,
-            TX_R      : 0,
-            CUMULATIVE_TAX_DED_AMT      : 0,
+            PAY_AMT_FR              : 0,
+            PAY_AMT_TO              : 0,
+            TX_R                    : 0,
+            CUMULATIVE_TAX_DED_AMT  : 0,
 
             status: 'i'
         }
@@ -661,7 +661,7 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //기준년도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //기준년도
 
         /*if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "기준년도");
@@ -702,12 +702,12 @@
                 jsonMasterList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY 			        : gfnma_nvl(item.YYYY),
-                        APPLY_START_DATE 	    : gfnma_nvl(item.APPLY_START_DATE),
-                        APPLY_END_DATE 			: gfnma_nvl(item.APPLY_END_DATE),
-                        RETIRE_INCOME_DED_RATE 	: gfnma_nvl(item.RETIRE_INCOME_DED_RATE),
-                        EXECUTIVE_PAY_MULTIPLE 	: gfnma_nvl(item.EXECUTIVE_PAY_MULTIPLE),
-                        MEMO 			        : gfnma_nvl(item.MEMO),
+                        YYYY 			        : gfn_nvl(item.YYYY),
+                        APPLY_START_DATE 	    : gfn_nvl(item.APPLY_START_DATE),
+                        APPLY_END_DATE 			: gfn_nvl(item.APPLY_END_DATE),
+                        RETIRE_INCOME_DED_RATE 	: gfn_nvl(item.RETIRE_INCOME_DED_RATE),
+                        EXECUTIVE_PAY_MULTIPLE 	: gfn_nvl(item.EXECUTIVE_PAY_MULTIPLE),
+                        MEMO 			        : gfn_nvl(item.MEMO),
                     }
                     jsonMasterList.push(msg);
                     totalRecordCount ++;
@@ -798,10 +798,10 @@
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            WORK_YEAR_FR		    : gfnma_nvl(item.WORK_YEAR_FR),
-                            WORK_YEAR_TO		    : gfnma_nvl(item.WORK_YEAR_TO),
-                            CUMULATIVE_TAX_DED_AMT	: gfnma_nvl(item.CUMULATIVE_TAX_DED_AMT),
-                            MAX_AMT		            : gfnma_nvl(item.MAX_AMT),
+                            WORK_YEAR_FR		    : gfn_nvl(item.WORK_YEAR_FR),
+                            WORK_YEAR_TO		    : gfn_nvl(item.WORK_YEAR_TO),
+                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.CUMULATIVE_TAX_DED_AMT),
+                            MAX_AMT		            : gfn_nvl(item.MAX_AMT),
 
                         }
                         jsonDetailList.push(msg);
@@ -818,10 +818,10 @@
                     jsonDayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            YYYY		        : gfnma_nvl(item.YYYY),
-                            WORK_YEAR_FROM		: gfnma_nvl(item.WORK_YEAR_FROM),
-                            WORK_YEAR_TO		: gfnma_nvl(item.WORK_YEAR_TO),
-                            CUMULATIVE_DAY_CNT	: gfnma_nvl(item.CUMULATIVE_DAY_CNT),
+                            YYYY		        : gfn_nvl(item.YYYY),
+                            WORK_YEAR_FROM		: gfn_nvl(item.WORK_YEAR_FROM),
+                            WORK_YEAR_TO		: gfn_nvl(item.WORK_YEAR_TO),
+                            CUMULATIVE_DAY_CNT	: gfn_nvl(item.CUMULATIVE_DAY_CNT),
 
                         }
                         jsonDayList.push(msg);
@@ -832,11 +832,11 @@
                     jsonConvertList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            YYYY		            : gfnma_nvl(item.YYYY),
-                            PAY_AMT_FR		        : gfnma_nvl(item.PAY_AMT_FR),
-                            PAY_AMT_TO		        : gfnma_nvl(item.PAY_AMT_TO),
-                            TX_R		            : gfnma_nvl(item.TX_R),
-                            CUMULATIVE_TAX_DED_AMT	: gfnma_nvl(item.CUMULATIVE_TAX_DED_AMT),
+                            YYYY		            : gfn_nvl(item.YYYY),
+                            PAY_AMT_FR		        : gfn_nvl(item.PAY_AMT_FR),
+                            PAY_AMT_TO		        : gfn_nvl(item.PAY_AMT_TO),
+                            TX_R		            : gfn_nvl(item.TX_R),
+                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.CUMULATIVE_TAX_DED_AMT),
 
                         }
                         jsonConvertList.push(msg);
@@ -880,12 +880,12 @@
     //저장
     const fn_save = async function (workType) {
 
-        let YYYY 			        = gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
-        let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
-        let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
-        let RETIRE_INCOME_DED_RATE 	= gfnma_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
-        let EXECUTIVE_PAY_MULTIPLE 	= gfnma_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
-        let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));//메모
+        let YYYY 			        = gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
+        let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
+        let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
+        let RETIRE_INCOME_DED_RATE 	= gfn_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
+        let EXECUTIVE_PAY_MULTIPLE 	= gfn_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
+        let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));//메모
 
         if (!YYYY) {
             gfn_comAlert("W0002", "기준년도");
@@ -1000,7 +1000,7 @@
 
         let returnData = [];
 
-        let YYYY 	= gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
+        let YYYY 	= gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
 
         updateData.forEach((item, index) => {
 
@@ -1075,7 +1075,7 @@
 
         let returnData = [];
 
-        let YYYY 	= gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
+        let YYYY 	= gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
 
         updateData.forEach((item, index) => {
 
@@ -1149,7 +1149,7 @@
 
         let returnData = [];
 
-        let YYYY 	= gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
+        let YYYY 	= gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
 
         updateData.forEach((item, index) => {
 
@@ -1190,12 +1190,12 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let YYYY 			        = gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
-            let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
-            let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
-            let RETIRE_INCOME_DED_RATE 	= gfnma_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
-            let EXECUTIVE_PAY_MULTIPLE 	= gfnma_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
-            let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));//메모
+            let YYYY 			        = gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
+            let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
+            let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
+            let RETIRE_INCOME_DED_RATE 	= gfn_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
+            let EXECUTIVE_PAY_MULTIPLE 	= gfn_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
+            let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));//메모
 
             if (!YYYY) {
                 gfn_comAlert("W0002", "기준년도");
@@ -1259,12 +1259,12 @@
     const fn_btnCopy = async function () {
         if (gfn_comConfirm("Q0001", "전년도 자료복사")) {
 
-            let YYYY 			        = gfnma_nvl(SBUxMethod.get("YYYY"));//기준년도
-            let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
-            let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
-            let RETIRE_INCOME_DED_RATE 	= gfnma_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
-            let EXECUTIVE_PAY_MULTIPLE 	= gfnma_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
-            let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));//메모
+            let YYYY 			        = gfn_nvl(SBUxMethod.get("YYYY"));//기준년도
+            let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));//적용기간
+            let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));//적용기간
+            let RETIRE_INCOME_DED_RATE 	= gfn_nvl(SBUxMethod.get("RETIRE_INCOME_DED_RATE"));//기본공제
+            let EXECUTIVE_PAY_MULTIPLE 	= gfn_nvl(SBUxMethod.get("EXECUTIVE_PAY_MULTIPLE"));//임원지급배수
+            let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));//메모
 
             if (!YYYY) {
                 gfn_comAlert("W0002", "기준년도");

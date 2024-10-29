@@ -2145,7 +2145,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -2165,7 +2165,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -2175,7 +2174,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -2199,7 +2198,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -2339,12 +2337,12 @@
         let stremp_code = '';
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-        let YE_TX_TYPE           = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let EMP_STATE           = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
+        let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let EMP_STATE           = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -2404,13 +2402,13 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
-                        ,SITE_CODE 			                : gfnma_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			                : gfnma_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
-                        ,PAY_APPLY_YN 			                : gfnma_nvl(item.PAY_APPLY_YN)
-                        ,PAY_APPLY_MM 			                : gfnma_nvl(item.PAY_APPLY_MM)
+                        EMP_CODE 			 : gfn_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			 : gfn_nvl(item.EMP_NAME)
+                        ,SITE_CODE 			 : gfn_nvl(item.SITE_CODE)
+                        ,DEPT_CODE 			 : gfn_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			 : gfn_nvl(item.DEPT_NAME)
+                        ,PAY_APPLY_YN        : gfn_nvl(item.PAY_APPLY_YN)
+                        ,PAY_APPLY_MM        : gfn_nvl(item.PAY_APPLY_MM)
 
                     }
                     jsonInfoList.push(msg);
@@ -2456,12 +2454,12 @@
         if (!_.isEmpty(rowData)) {
 
             let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-            let YE_TX_TYPE           = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-            let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-            let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-            let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-            let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-            let EMP_STATE           = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
+            let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+            let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+            let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+            let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+            let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+            let EMP_STATE           = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
 
             if (!YE_TX_YYYY) {
                 gfn_comAlert("W0002", "정산연도");
@@ -2477,15 +2475,6 @@
                 ,V_P_LANG_ID: ''
                 ,V_P_COMP_CODE: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                /*  ,V_P_YE_TX_YYYY     : YE_TX_YYYY
-                  ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
-                  ,V_P_SITE_CODE      : SITE_CODE
-                  ,V_P_DEPT_CODE      : DEPT_CODE
-                  ,V_P_EMP_CODE       : EMP_CODE
-                  ,V_P_EMP_STATE      : EMP_STATE
-                  ,V_P_EMP_CODE_LIST  : stremp_code
-                  ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE*/
 
                 ,V_P_YE_TX_YYYY       : YE_TX_YYYY
                 ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
@@ -2518,14 +2507,14 @@
                     jsonIncomeList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            COMP_NAME 			                : gfnma_nvl(item.COMP_NAME)
-                            ,PAY_AMT 			                : gfnma_nvl(item.PAY_AMT)
-                            ,BONUS_AMT 			                : gfnma_nvl(item.BONUS_AMT)
-                            ,ADD_BONUS_AMT 			            : gfnma_nvl(item.ADD_BONUS_AMT)
-                            ,STOCK_PROFIT_AMT 			        : gfnma_nvl(item.STOCK_PROFIT_AMT)
-                            ,EMP_STOCK_AMT 			            : gfnma_nvl(item.EMP_STOCK_AMT)
-                            ,EXEC_RET_LIM_OVER 			        : gfnma_nvl(item.EXEC_RET_LIM_OVER)
-                            ,TOTAL_AMT 			                : gfnma_nvl(item.TOTAL_AMT)
+                            COMP_NAME 			                : gfn_nvl(item.COMP_NAME)
+                            ,PAY_AMT 			                : gfn_nvl(item.PAY_AMT)
+                            ,BONUS_AMT 			                : gfn_nvl(item.BONUS_AMT)
+                            ,ADD_BONUS_AMT 			            : gfn_nvl(item.ADD_BONUS_AMT)
+                            ,STOCK_PROFIT_AMT 			        : gfn_nvl(item.STOCK_PROFIT_AMT)
+                            ,EMP_STOCK_AMT 			            : gfn_nvl(item.EMP_STOCK_AMT)
+                            ,EXEC_RET_LIM_OVER 			        : gfn_nvl(item.EXEC_RET_LIM_OVER)
+                            ,TOTAL_AMT 			                : gfn_nvl(item.TOTAL_AMT)
 
                         }
                         jsonIncomeList.push(msg);
@@ -2536,193 +2525,191 @@
 
                     // -- 정산명세
                     data.cv_3.forEach((item, index) => {
-                        SBUxMethod.set("PAY_TOT_AMT", 		item.PAY_TOT_AMT);
-                        SBUxMethod.set("TXFREE_TOT_AMT",    item.TXFREE_TOT_AMT);
-                        SBUxMethod.set("INC_TOT_AMT", 		item.INC_TOT_AMT);
-                        SBUxMethod.set("INC_DEAMT", 		item.INC_DEAMT);
-                        SBUxMethod.set("INC_AMT", 		    item.INC_AMT);
+                        SBUxMethod.set("PAY_TOT_AMT", 		gfn_nvl(item.PAY_TOT_AMT));
+                        SBUxMethod.set("TXFREE_TOT_AMT",    gfn_nvl(item.TXFREE_TOT_AMT));
+                        SBUxMethod.set("INC_TOT_AMT", 		gfn_nvl(item.INC_TOT_AMT));
+                        SBUxMethod.set("INC_DEAMT", 		gfn_nvl(item.INC_DEAMT));
+                        SBUxMethod.set("INC_AMT", 		    gfn_nvl(item.INC_AMT));
 
                         //-- 기본공제
-                        SBUxMethod.set("PERSONAL_DEAMT", 		item.PERSONAL_DEAMT);
-                        SBUxMethod.set("WIFE_DEAMT", 		    item.WIFE_DEAMT);
-                        SBUxMethod.set("SUPPORT_DED_COUNT", 	item.SUPPORT_DED_COUNT);
-                        SBUxMethod.set("SUPPORT_DEAMT", 		item.SUPPORT_DEAMT);
+                        SBUxMethod.set("PERSONAL_DEAMT", 		gfn_nvl(item.PERSONAL_DEAMT));
+                        SBUxMethod.set("WIFE_DEAMT", 		    gfn_nvl(item.WIFE_DEAMT));
+                        SBUxMethod.set("SUPPORT_DED_COUNT", 	gfn_nvl(item.SUPPORT_DED_COUNT));
+                        SBUxMethod.set("SUPPORT_DEAMT", 		gfn_nvl(item.SUPPORT_DEAMT));
 
                         // -- 추가공제
-                        SBUxMethod.set("SENIOR_DED_COUNT", 		    item.SENIOR_DED_COUNT);
-                        SBUxMethod.set("SENIOR_DEAMT", 		        item.SENIOR_DEAMT);
-                        SBUxMethod.set("HDCP_DED_COUNT", 		    item.HDCP_DED_COUNT);
-                        SBUxMethod.set("HDCP_DEAMT", 		        item.HDCP_DEAMT);
-                        SBUxMethod.set("WOMAN_DEAMT", 		        item.WOMAN_DEAMT);
-                        SBUxMethod.set("BRING_CHILD_DED_COUNT", 	item.BRING_CHILD_DED_COUNT);
-                        SBUxMethod.set("BRING_CHILD_DEAMT", 		item.BRING_CHILD_DEAMT);
-                        SBUxMethod.set("CHILDBIRTH_DED_COUNT", 		item.CHILDBIRTH_DED_COUNT);
-                        SBUxMethod.set("CHILDBIRTH_DEAMT", 		    item.CHILDBIRTH_DEAMT);
-                        SBUxMethod.set("SINGLE_PARENT_DEAMT", 		item.SINGLE_PARENT_DEAMT);
+                        SBUxMethod.set("SENIOR_DED_COUNT", 		    gfn_nvl(item.SENIOR_DED_COUNT));
+                        SBUxMethod.set("SENIOR_DEAMT", 		        gfn_nvl(item.SENIOR_DEAMT));
+                        SBUxMethod.set("HDCP_DED_COUNT", 		    gfn_nvl(item.HDCP_DED_COUNT));
+                        SBUxMethod.set("HDCP_DEAMT", 		        gfn_nvl(item.HDCP_DEAMT));
+                        SBUxMethod.set("WOMAN_DEAMT", 		        gfn_nvl(item.WOMAN_DEAMT));
+                        SBUxMethod.set("BRING_CHILD_DED_COUNT", 	gfn_nvl(item.BRING_CHILD_DED_COUNT));
+                        SBUxMethod.set("BRING_CHILD_DEAMT", 		gfn_nvl(item.BRING_CHILD_DEAMT));
+                        SBUxMethod.set("CHILDBIRTH_DED_COUNT", 		gfn_nvl(item.CHILDBIRTH_DED_COUNT));
+                        SBUxMethod.set("CHILDBIRTH_DEAMT", 		    gfn_nvl(item.CHILDBIRTH_DEAMT));
+                        SBUxMethod.set("SINGLE_PARENT_DEAMT", 		gfn_nvl(item.SINGLE_PARENT_DEAMT));
 
                         //-- 다자녀추가공제
-                        SBUxMethod.set("MANY_CHILD_DED_COUNT", 	item.MANY_CHILD_DED_COUNT);
-                        SBUxMethod.set("MANY_CHILD_DEAMT", 		item.MANY_CHILD_DEAMT);
+                        SBUxMethod.set("MANY_CHILD_DED_COUNT", 	gfn_nvl(item.MANY_CHILD_DED_COUNT));
+                        SBUxMethod.set("MANY_CHILD_DEAMT", 		gfn_nvl(item.MANY_CHILD_DEAMT));
 
                         //-- 연금보험료공제
-                        SBUxMethod.set("PENS_DEAMT", 		    item.PENS_DEAMT);
-                        SBUxMethod.set("OFFICIAL_PENS_DEAMT", 	item.OFFICIAL_PENS_DEAMT);
-                        SBUxMethod.set("MILITARY_PENS_DEAMT", 	item.MILITARY_PENS_DEAMT);
-                        SBUxMethod.set("SCHOOL_PENS_DEAMT", 	item.SCHOOL_PENS_DEAMT);
-                        SBUxMethod.set("POST_PENS_DEAMT", 		item.POST_PENS_DEAMT);
-                        SBUxMethod.set("SCNT_PENS_DEAMT", 		item.SCNT_PENS_DEAMT);
-                        SBUxMethod.set("RET_PENS_DEAMT", 		item.RET_PENS_DEAMT);
-                        SBUxMethod.set("PENS_SV_DEAMT", 		item.PENS_SV_DEAMT);
+                        SBUxMethod.set("PENS_DEAMT", 		    gfn_nvl(item.PENS_DEAMT));
+                        SBUxMethod.set("OFFICIAL_PENS_DEAMT", 	gfn_nvl(item.OFFICIAL_PENS_DEAMT));
+                        SBUxMethod.set("MILITARY_PENS_DEAMT", 	gfn_nvl(item.MILITARY_PENS_DEAMT));
+                        SBUxMethod.set("SCHOOL_PENS_DEAMT", 	gfn_nvl(item.SCHOOL_PENS_DEAMT));
+                        SBUxMethod.set("POST_PENS_DEAMT", 		gfn_nvl(item.POST_PENS_DEAMT));
+                        SBUxMethod.set("SCNT_PENS_DEAMT", 		gfn_nvl(item.SCNT_PENS_DEAMT));
+                        SBUxMethod.set("RET_PENS_DEAMT", 		gfn_nvl(item.RET_PENS_DEAMT));
+                        SBUxMethod.set("PENS_SV_DEAMT", 		gfn_nvl(item.PENS_SV_DEAMT));
 
                         //-- 특별공제
                         //-- 보험료
-                        SBUxMethod.set("HEALTH_INSURE_DEAMT", 		item.HEALTH_INSURE_DEAMT);
-                        SBUxMethod.set("EMP_INSURE_DEAMT", 		    item.EMP_INSURE_DEAMT);
-                        SBUxMethod.set("GENERAL_INSURE_DEAMT", 		item.GENERAL_INSURE_DEAMT);
-                        SBUxMethod.set("HDCP_INSURE_DEAMT", 		item.HDCP_INSURE_DEAMT);
-                        SBUxMethod.set("TOTAL_INSURE_DED_AMT", 		item.TOTAL_INSURE_DED_AMT);
+                        SBUxMethod.set("HEALTH_INSURE_DEAMT", 		gfn_nvl(item.HEALTH_INSURE_DEAMT));
+                        SBUxMethod.set("EMP_INSURE_DEAMT", 		    gfn_nvl(item.EMP_INSURE_DEAMT));
+                        SBUxMethod.set("GENERAL_INSURE_DEAMT", 		gfn_nvl(item.GENERAL_INSURE_DEAMT));
+                        SBUxMethod.set("HDCP_INSURE_DEAMT", 		gfn_nvl(item.HDCP_INSURE_DEAMT));
+                        SBUxMethod.set("TOTAL_INSURE_DED_AMT", 		gfn_nvl(item.TOTAL_INSURE_DED_AMT));
 
                         //-- 의료비
-                        SBUxMethod.set("HDCP_MED_DEAMT", 		item.HDCP_MED_DEAMT);
-                        SBUxMethod.set("ETC_MED_DEAMT", 		item.ETC_MED_DEAMT);
-                        SBUxMethod.set("TOTAL_MED_DED_AMT", 	item.TOTAL_MED_DED_AMT);
+                        SBUxMethod.set("HDCP_MED_DEAMT", 		gfn_nvl(item.HDCP_MED_DEAMT));
+                        SBUxMethod.set("ETC_MED_DEAMT", 		gfn_nvl(item.ETC_MED_DEAMT));
+                        SBUxMethod.set("TOTAL_MED_DED_AMT", 	gfn_nvl(item.TOTAL_MED_DED_AMT));
 
                         //-- 교육비
-                        SBUxMethod.set("HDCP_EDU_DEAMT", 		item.HDCP_EDU_DEAMT);
-                        SBUxMethod.set("ETC_EDU_DEAMT", 		item.ETC_EDU_DEAMT);
-                        SBUxMethod.set("TOTAL_EDU_DED_AMT", 	item.TOTAL_EDU_DED_AMT);
+                        SBUxMethod.set("HDCP_EDU_DEAMT", 		gfn_nvl(item.HDCP_EDU_DEAMT));
+                        SBUxMethod.set("ETC_EDU_DEAMT", 		gfn_nvl(item.ETC_EDU_DEAMT));
+                        SBUxMethod.set("TOTAL_EDU_DED_AMT", 	gfn_nvl(item.TOTAL_EDU_DED_AMT));
 
                         //-- 주택자금
-                        SBUxMethod.set("HSRENT_PRIN_DED_ORG_AMT", 	item.HSRENT_PRIN_DED_ORG_AMT);
-                        SBUxMethod.set("HSRENT_PRIN_DED_PERS_AMT", 	item.HSRENT_PRIN_DED_PERS_AMT);
-                        SBUxMethod.set("HS_MM_RENT_DEAMT", 		    item.HS_MM_RENT_DEAMT);
-                        SBUxMethod.set("HS_INT_DEAMT1", 		    item.HS_INT_DEAMT1);
-                        SBUxMethod.set("HS_INT_DEAMT2", 		    item.HS_INT_DEAMT2);
-                        SBUxMethod.set("HS_INT_DEAMT3", 		    item.HS_INT_DEAMT3);
-                        SBUxMethod.set("HS_INT_DEAMT4", 		    item.HS_INT_DEAMT4);
-                        SBUxMethod.set("HS_INT_DEAMT5", 		    item.HS_INT_DEAMT5);
-                        SBUxMethod.set("HS_INT_DEAMT6", 		    item.HS_INT_DEAMT6);
-                        SBUxMethod.set("HS_INT_DEAMT7", 		    item.HS_INT_DEAMT7);
-                        SBUxMethod.set("HS_INT_DEAMT8", 		    item.HS_INT_DEAMT8);
-                        SBUxMethod.set("HS_INT_DEAMT9", 		    item.HS_INT_DEAMT9);
-                        SBUxMethod.set("TOTAL_HOUSE_DED_AMT", 		item.TOTAL_HOUSE_DED_AMT);
+                        SBUxMethod.set("HSRENT_PRIN_DED_ORG_AMT", 	gfn_nvl(item.HSRENT_PRIN_DED_ORG_AMT));
+                        SBUxMethod.set("HSRENT_PRIN_DED_PERS_AMT", 	gfn_nvl(item.HSRENT_PRIN_DED_PERS_AMT));
+                        SBUxMethod.set("HS_MM_RENT_DEAMT", 		    gfn_nvl(item.HS_MM_RENT_DEAMT));
+                        SBUxMethod.set("HS_INT_DEAMT1", 		    gfn_nvl(item.HS_INT_DEAMT1));
+                        SBUxMethod.set("HS_INT_DEAMT2", 		    gfn_nvl(item.HS_INT_DEAMT2));
+                        SBUxMethod.set("HS_INT_DEAMT3", 		    gfn_nvl(item.HS_INT_DEAMT3));
+                        SBUxMethod.set("HS_INT_DEAMT4", 		    gfn_nvl(item.HS_INT_DEAMT4));
+                        SBUxMethod.set("HS_INT_DEAMT5", 		    gfn_nvl(item.HS_INT_DEAMT5));
+                        SBUxMethod.set("HS_INT_DEAMT6", 		    gfn_nvl(item.HS_INT_DEAMT6));
+                        SBUxMethod.set("HS_INT_DEAMT7", 		    gfn_nvl(item.HS_INT_DEAMT7));
+                        SBUxMethod.set("HS_INT_DEAMT8", 		    gfn_nvl(item.HS_INT_DEAMT8));
+                        SBUxMethod.set("HS_INT_DEAMT9", 		    gfn_nvl(item.HS_INT_DEAMT9));
+                        SBUxMethod.set("TOTAL_HOUSE_DED_AMT", 		gfn_nvl(item.TOTAL_HOUSE_DED_AMT));
 
                         //-- 기부금
-                        SBUxMethod.set("DON_POL_DEAMT", 		    item.DON_POL_DEAMT);
-                        SBUxMethod.set("DON_LGL_DEAMT", 		    item.DON_LGL_DEAMT);
-                        SBUxMethod.set("DON_EMP_STOCK_DEAMT", 		item.DON_EMP_STOCK_DEAMT);
-                        SBUxMethod.set("DON_DSIN_DEAMT", 		    item.DON_DSIN_DEAMT);
-                        SBUxMethod.set("TOTAL_DONATION_DED_AMT", 	item.TOTAL_DONATION_DED_AMT);
+                        SBUxMethod.set("DON_POL_DEAMT", 		    gfn_nvl(item.DON_POL_DEAMT));
+                        SBUxMethod.set("DON_LGL_DEAMT", 		    gfn_nvl(item.DON_LGL_DEAMT));
+                        SBUxMethod.set("DON_EMP_STOCK_DEAMT", 		gfn_nvl(item.DON_EMP_STOCK_DEAMT));
+                        SBUxMethod.set("DON_DSIN_DEAMT", 		    gfn_nvl(item.DON_DSIN_DEAMT));
+                        SBUxMethod.set("TOTAL_DONATION_DED_AMT", 	gfn_nvl(item.TOTAL_DONATION_DED_AMT));
 
                         //-- 특별공제 계
-                        SBUxMethod.set("SPEC_DED_TOT_AMT", 		    item.SPEC_DED_TOT_AMT);
+                        SBUxMethod.set("SPEC_DED_TOT_AMT", 		    gfn_nvl(item.SPEC_DED_TOT_AMT));
 
                         //-- 표준공제
-                        SBUxMethod.set("STD_DEAMT", 		        item.STD_DEAMT);
+                        SBUxMethod.set("STD_DEAMT", 		        gfn_nvl(item.STD_DEAMT));
 
                         //-- 차감소득금액
-                        SBUxMethod.set("DED_INC_AMT", 		        item.DED_INC_AMT);
+                        SBUxMethod.set("DED_INC_AMT", 		        gfn_nvl(item.DED_INC_AMT));
 
                         //-- 그밖의 소득공제
-                        SBUxMethod.set("PRIV_PENS_SV_DEAMT", 		        item.PRIV_PENS_SV_DEAMT);
-                        SBUxMethod.set("HS_SUBS_SV_DEAMT", 		            item.HS_SUBS_SV_DEAMT);
-                        SBUxMethod.set("HS_EMP_SV_DEAMT", 		            item.HS_EMP_SV_DEAMT);
-                        SBUxMethod.set("HS_TOT_SV_DEAMT", 		            item.HS_TOT_SV_DEAMT);
-                        SBUxMethod.set("TOTAL_HOUSE_SAVING_DED_AMT", 	    item.TOTAL_HOUSE_SAVING_DED_AMT);
-                        SBUxMethod.set("CD_USE_DEAMT", 		                item.CD_USE_DEAMT);
-                        SBUxMethod.set("SM_COM_DEAMT", 		                item.SM_COM_DEAMT);
-                        SBUxMethod.set("INVEST_DEAMT", 		                item.INVEST_DEAMT);
-                        SBUxMethod.set("EMP_STOCK_GIVE_DEAMT", 		        item.EMP_STOCK_GIVE_DEAMT);
-                        SBUxMethod.set("SALARY_DECREASE_DEAMT", 		    item.SALARY_DECREASE_DEAMT);
-                        SBUxMethod.set("LEASE_INT_RDM_DEAMT", 		        item.LEASE_INT_RDM_DEAMT);
-                        SBUxMethod.set("LONG_INVEST_STOCK_SAVE_DED_AMT", 	item.LONG_INVEST_STOCK_SAVE_DED_AMT);
-                        SBUxMethod.set("LT_COL_INV_SV_DEAMT", 		        item.LT_COL_INV_SV_DEAMT);
-                        SBUxMethod.set("ETC_DED_TOT_AMT", 		            item.ETC_DED_TOT_AMT);
+                        SBUxMethod.set("PRIV_PENS_SV_DEAMT", 		        gfn_nvl(item.PRIV_PENS_SV_DEAMT));
+                        SBUxMethod.set("HS_SUBS_SV_DEAMT", 		            gfn_nvl(item.HS_SUBS_SV_DEAMT));
+                        SBUxMethod.set("HS_EMP_SV_DEAMT", 		            gfn_nvl(item.HS_EMP_SV_DEAMT));
+                        SBUxMethod.set("HS_TOT_SV_DEAMT", 		            gfn_nvl(item.HS_TOT_SV_DEAMT));
+                        SBUxMethod.set("TOTAL_HOUSE_SAVING_DED_AMT", 	    gfn_nvl(item.TOTAL_HOUSE_SAVING_DED_AMT));
+                        SBUxMethod.set("CD_USE_DEAMT", 		                gfn_nvl(item.CD_USE_DEAMT));
+                        SBUxMethod.set("SM_COM_DEAMT", 		                gfn_nvl(item.SM_COM_DEAMT));
+                        SBUxMethod.set("INVEST_DEAMT", 		                gfn_nvl(item.INVEST_DEAMT));
+                        SBUxMethod.set("EMP_STOCK_GIVE_DEAMT", 		        gfn_nvl(item.EMP_STOCK_GIVE_DEAMT));
+                        SBUxMethod.set("SALARY_DECREASE_DEAMT", 		    gfn_nvl(item.SALARY_DECREASE_DEAMT));
+                        SBUxMethod.set("LEASE_INT_RDM_DEAMT", 		        gfn_nvl(item.LEASE_INT_RDM_DEAMT));
+                        SBUxMethod.set("LONG_INVEST_STOCK_SAVE_DED_AMT", 	gfn_nvl(item.LONG_INVEST_STOCK_SAVE_DED_AMT));
+                        SBUxMethod.set("LT_COL_INV_SV_DEAMT", 		        gfn_nvl(item.LT_COL_INV_SV_DEAMT));
+                        SBUxMethod.set("ETC_DED_TOT_AMT", 		            gfn_nvl(item.ETC_DED_TOT_AMT));
 
                         //-- 특별공제 종합한도 초과액
-                        SBUxMethod.set("SPEC_DED_TOT_OVER_AMT", 	item.SPEC_DED_TOT_OVER_AMT);
+                        SBUxMethod.set("SPEC_DED_TOT_OVER_AMT", 	gfn_nvl(item.SPEC_DED_TOT_OVER_AMT));
 
                         //-- 종합소득과세표준
-                        SBUxMethod.set("TOT_INC_TX_STD_AMT", 		item.TOT_INC_TX_STD_AMT);
+                        SBUxMethod.set("TOT_INC_TX_STD_AMT", 		gfn_nvl(item.TOT_INC_TX_STD_AMT));
 
                         //-- 산출세액
-                        SBUxMethod.set("CALCULATE_TX_AMT", 		    item.CALCULATE_TX_AMT);
+                        SBUxMethod.set("CALCULATE_TX_AMT", 		    gfn_nvl(item.CALCULATE_TX_AMT));
 
                         //-- 세액감면 및 세액공제
-                        SBUxMethod.set("INC_TX_LAW_DEAMT", 		    item.INC_TX_LAW_DEAMT);
-                        SBUxMethod.set("TX_SPEC_LAW_DEAMT", 		item.TX_SPEC_LAW_DEAMT);
-                        SBUxMethod.set("TX_SPEC_LAW_30_DEAMT", 		item.TX_SPEC_LAW_30_DEAMT);
-                        SBUxMethod.set("TX_TREATY_DEAMT", 		    item.TX_TREATY_DEAMT);
-                        SBUxMethod.set("TX_RED_TOT_AMT", 		    item.TX_RED_TOT_AMT);
-                        SBUxMethod.set("INC_TX_DEAMT", 		        item.INC_TX_DEAMT);
-                        SBUxMethod.set("CHILD_TX_DED_COUNT", 		item.CHILD_TX_DED_COUNT);
-                        SBUxMethod.set("CHILD_TX_DEAMT", 		    item.CHILD_TX_DEAMT);
-                        SBUxMethod.set("BRING_CHILD_TX_DED_COUNT", 	item.BRING_CHILD_TX_DED_COUNT);
-                        SBUxMethod.set("BRING_CHILD_TX_DEAMT", 		item.BRING_CHILD_TX_DEAMT);
-                        SBUxMethod.set("CHILDBIRTH_TX_DED_COUNT", 	item.CHILDBIRTH_TX_DED_COUNT);
-                        SBUxMethod.set("CHILDBIRTH_TX_DEAMT", 		item.CHILDBIRTH_TX_DEAMT);
-                        SBUxMethod.set("SCNT_PENS_DED_TGT_AMT", 	item.SCNT_PENS_DED_TGT_AMT);
-                        SBUxMethod.set("SCNT_PENS_TX_DEAMT", 		item.SCNT_PENS_TX_DEAMT);
-                        SBUxMethod.set("RET_PENS_DED_TGT_AMT", 		item.RET_PENS_DED_TGT_AMT);
-                        SBUxMethod.set("RET_PENS_TX_DEAMT", 		item.RET_PENS_TX_DEAMT);
-                        SBUxMethod.set("PENS_SV_DED_TGT_AMT", 		item.PENS_SV_DED_TGT_AMT);
-                        SBUxMethod.set("PENS_SV_TX_DEAMT", 		    item.PENS_SV_TX_DEAMT);
-                        SBUxMethod.set("PENS_ISA_TX_DEAMT", 		item.PENS_ISA_TX_DEAMT);
-                        SBUxMethod.set("PENS_ISA_DED_TGT_AMT", 		item.PENS_ISA_DED_TGT_AMT);
-                        SBUxMethod.set("INSURE_DED_TGT_AMT", 		item.INSURE_DED_TGT_AMT);
-                        SBUxMethod.set("INSURE_TX_DEAMT", 		    item.INSURE_TX_DEAMT);
-                        SBUxMethod.set("HDCP_INSURE_DED_TGT_AMT", 	item.HDCP_INSURE_DED_TGT_AMT);
-                        SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 		item.HDCP_INSURE_TX_DEAMT);
-                        SBUxMethod.set("MED_DED_TGT_AMT", 		    item.MED_DED_TGT_AMT);
-                        SBUxMethod.set("MED_TX_DEAMT", 		        item.MED_TX_DEAMT);
-                        SBUxMethod.set("EDU_DED_TGT_AMT", 		    item.EDU_DED_TGT_AMT);
-                        SBUxMethod.set("EDU_TX_DEAMT", 		        item.EDU_TX_DEAMT);
-                        SBUxMethod.set("DON_POL_DED_TGT_AMT", 		item.DON_POL_DED_TGT_AMT);
-                        SBUxMethod.set("DON_POL_TX_DEAMT", 		    item.DON_POL_TX_DEAMT);
-                        SBUxMethod.set("DON_POL_EXCS_DED_TGT_AMT", 	item.DON_POL_EXCS_DED_TGT_AMT);
-                        SBUxMethod.set("DON_POL_EXCS_TX_DEAMT", 	item.DON_POL_EXCS_TX_DEAMT);
+                        SBUxMethod.set("INC_TX_LAW_DEAMT", 		    gfn_nvl(item.INC_TX_LAW_DEAMT));
+                        SBUxMethod.set("TX_SPEC_LAW_DEAMT", 		gfn_nvl(item.TX_SPEC_LAW_DEAMT));
+                        SBUxMethod.set("TX_SPEC_LAW_30_DEAMT", 		gfn_nvl(item.TX_SPEC_LAW_30_DEAMT));
+                        SBUxMethod.set("TX_TREATY_DEAMT", 		    gfn_nvl(item.TX_TREATY_DEAMT));
+                        SBUxMethod.set("TX_RED_TOT_AMT", 		    gfn_nvl(item.TX_RED_TOT_AMT));
+                        SBUxMethod.set("INC_TX_DEAMT", 		        gfn_nvl(item.INC_TX_DEAMT));
+                        SBUxMethod.set("CHILD_TX_DED_COUNT", 		gfn_nvl(item.CHILD_TX_DED_COUNT));
+                        SBUxMethod.set("CHILD_TX_DEAMT", 		    gfn_nvl(item.CHILD_TX_DEAMT));
+                        SBUxMethod.set("BRING_CHILD_TX_DED_COUNT", 	gfn_nvl(item.BRING_CHILD_TX_DED_COUNT));
+                        SBUxMethod.set("BRING_CHILD_TX_DEAMT", 		gfn_nvl(item.BRING_CHILD_TX_DEAMT));
+                        SBUxMethod.set("CHILDBIRTH_TX_DED_COUNT", 	gfn_nvl(item.CHILDBIRTH_TX_DED_COUNT));
+                        SBUxMethod.set("CHILDBIRTH_TX_DEAMT", 		gfn_nvl(item.CHILDBIRTH_TX_DEAMT));
+                        SBUxMethod.set("SCNT_PENS_DED_TGT_AMT", 	gfn_nvl(item.SCNT_PENS_DED_TGT_AMT));
+                        SBUxMethod.set("SCNT_PENS_TX_DEAMT", 		gfn_nvl(item.SCNT_PENS_TX_DEAMT));
+                        SBUxMethod.set("RET_PENS_DED_TGT_AMT", 		gfn_nvl(item.RET_PENS_DED_TGT_AMT));
+                        SBUxMethod.set("RET_PENS_TX_DEAMT", 		gfn_nvl(item.RET_PENS_TX_DEAMT));
+                        SBUxMethod.set("PENS_SV_DED_TGT_AMT", 		gfn_nvl(item.PENS_SV_DED_TGT_AMT));
+                        SBUxMethod.set("PENS_SV_TX_DEAMT", 		    gfn_nvl(item.PENS_SV_TX_DEAMT));
+                        SBUxMethod.set("PENS_ISA_TX_DEAMT", 		gfn_nvl(item.PENS_ISA_TX_DEAMT));
+                        SBUxMethod.set("PENS_ISA_DED_TGT_AMT", 		gfn_nvl(item.PENS_ISA_DED_TGT_AMT));
+                        SBUxMethod.set("INSURE_DED_TGT_AMT", 		gfn_nvl(item.INSURE_DED_TGT_AMT));
+                        SBUxMethod.set("INSURE_TX_DEAMT", 		    gfn_nvl(item.INSURE_TX_DEAMT));
+                        SBUxMethod.set("HDCP_INSURE_DED_TGT_AMT", 	gfn_nvl(item.HDCP_INSURE_DED_TGT_AMT));
+                        SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 		gfn_nvl(item.HDCP_INSURE_TX_DEAMT));
+                        SBUxMethod.set("MED_DED_TGT_AMT", 		    gfn_nvl(item.MED_DED_TGT_AMT));
+                        SBUxMethod.set("MED_TX_DEAMT", 		        gfn_nvl(item.MED_TX_DEAMT));
+                        SBUxMethod.set("EDU_DED_TGT_AMT", 		    gfn_nvl(item.EDU_DED_TGT_AMT));
+                        SBUxMethod.set("EDU_TX_DEAMT", 		        gfn_nvl(item.EDU_TX_DEAMT));
+                        SBUxMethod.set("DON_POL_DED_TGT_AMT", 		gfn_nvl(item.DON_POL_DED_TGT_AMT));
+                        SBUxMethod.set("DON_POL_TX_DEAMT", 		    gfn_nvl(item.DON_POL_TX_DEAMT));
+                        SBUxMethod.set("DON_POL_EXCS_DED_TGT_AMT", 	gfn_nvl(item.DON_POL_EXCS_DED_TGT_AMT));
+                        SBUxMethod.set("DON_POL_EXCS_TX_DEAMT", 	gfn_nvl(item.DON_POL_EXCS_TX_DEAMT));
 
                         //--2023년 귀속
-                        SBUxMethod.set("DON_HLE_DED_TGT_AMT", 		item.DON_HLE_DED_TGT_AMT);
-                        SBUxMethod.set("DON_HLE_TX_DEAMT", 		    item.DON_HLE_TX_DEAMT);
-                        SBUxMethod.set("DON_HLE_EXCS_DED_TGT_AMT", 	item.DON_HLE_EXCS_DED_TGT_AMT);
-                        SBUxMethod.set("DON_HLE_EXCS_TX_DEAMT", 	item.DON_HLE_EXCS_TX_DEAMT);
+                        SBUxMethod.set("DON_HLE_DED_TGT_AMT", 		gfn_nvl(item.DON_HLE_DED_TGT_AMT));
+                        SBUxMethod.set("DON_HLE_TX_DEAMT", 		    gfn_nvl(item.DON_HLE_TX_DEAMT));
+                        SBUxMethod.set("DON_HLE_EXCS_DED_TGT_AMT", 	gfn_nvl(item.DON_HLE_EXCS_DED_TGT_AMT));
+                        SBUxMethod.set("DON_HLE_EXCS_TX_DEAMT", 	gfn_nvl(item.DON_HLE_EXCS_TX_DEAMT));
 
-                        SBUxMethod.set("DON_LGL_DED_TGT_AMT", 		item.DON_LGL_DED_TGT_AMT);
-                        SBUxMethod.set("DON_LGL_TX_DEAMT", 		    item.DON_LGL_TX_DEAMT);
-                        SBUxMethod.set("DON_EMP_STOCK_DED_TGT_AMT", item.DON_EMP_STOCK_DED_TGT_AMT);
-                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	item.DON_EMP_STOCK_TX_DEAMT);
-                        SBUxMethod.set("DON_DSIN_DED_TGT_AMT", 		item.DON_DSIN_DED_TGT_AMT);
-                        SBUxMethod.set("DON_DSIN_TX_DEAMT", 		item.DON_DSIN_TX_DEAMT);
-                        SBUxMethod.set("DON_DSIN_REL_DED_TGT_AMT", 	item.DON_DSIN_REL_DED_TGT_AMT);
-                        SBUxMethod.set("DON_DSIN_REL_TX_DEAMT", 	item.DON_DSIN_REL_TX_DEAMT);
-                        SBUxMethod.set("SPEC_TX_DED_TOT_AMT", 		item.SPEC_TX_DED_TOT_AMT);
-                        SBUxMethod.set("STD_TX_DEAMT", 		        item.STD_TX_DEAMT);
-                        SBUxMethod.set("TX_UNION_DEAMT", 		    item.TX_UNION_DEAMT);
-                        SBUxMethod.set("HSRENT_INT_RDM_DEAMT", 		item.HSRENT_INT_RDM_DEAMT);
+                        SBUxMethod.set("DON_LGL_DED_TGT_AMT", 		gfn_nvl(item.DON_LGL_DED_TGT_AMT));
+                        SBUxMethod.set("DON_LGL_TX_DEAMT", 		    gfn_nvl(item.DON_LGL_TX_DEAMT));
+                        SBUxMethod.set("DON_EMP_STOCK_DED_TGT_AMT", gfn_nvl(item.DON_EMP_STOCK_DED_TGT_AMT));
+                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	gfn_nvl(item.DON_EMP_STOCK_TX_DEAMT));
+                        SBUxMethod.set("DON_DSIN_DED_TGT_AMT", 		gfn_nvl(item.DON_DSIN_DED_TGT_AMT));
+                        SBUxMethod.set("DON_DSIN_TX_DEAMT", 		gfn_nvl(item.DON_DSIN_TX_DEAMT));
+                        SBUxMethod.set("DON_DSIN_REL_DED_TGT_AMT", 	gfn_nvl(item.DON_DSIN_REL_DED_TGT_AMT));
+                        SBUxMethod.set("DON_DSIN_REL_TX_DEAMT", 	gfn_nvl(item.DON_DSIN_REL_TX_DEAMT));
+                        SBUxMethod.set("SPEC_TX_DED_TOT_AMT", 		gfn_nvl(item.SPEC_TX_DED_TOT_AMT));
+                        SBUxMethod.set("STD_TX_DEAMT", 		        gfn_nvl(item.STD_TX_DEAMT));
+                        SBUxMethod.set("TX_UNION_DEAMT", 		    gfn_nvl(item.TX_UNION_DEAMT));
+                        SBUxMethod.set("HSRENT_INT_RDM_DEAMT", 		gfn_nvl(item.HSRENT_INT_RDM_DEAMT));
 
-                        SBUxMethod.set("FOREI_PAY_TX_DEAMT", 		item.FOREI_PAY_TX_DEAMT);
-                        SBUxMethod.set("HS_MM_RENT_DED_TGT_AMT", 	item.HS_MM_RENT_DED_TGT_AMT);
-                        SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 		item.HS_MM_RENT_TX_DEAMT);
-                        SBUxMethod.set("TX_DED_TOT_AMT", 		    item.TX_DED_TOT_AMT);
-                        SBUxMethod.set("CALC_INC_TX_AMT", 		    item.CALC_INC_TX_AMT);
-                        SBUxMethod.set("CALC_LOCAL_TX_AMT", 		item.CALC_LOCAL_TX_AMT);
-                        SBUxMethod.set("CALC_SPEC_TX_AMT", 		    item.CALC_SPEC_TX_AMT);
-                        SBUxMethod.set("CALC_TX_TOT_AMT", 		    item.CALC_TX_TOT_AMT);
-                        SBUxMethod.set("NOW_INC_TX_AMT", 		    item.NOW_INC_TX_AMT);
-                        SBUxMethod.set("NOW_LOCAL_TX_AMT", 		    item.NOW_LOCAL_TX_AMT);
-                        SBUxMethod.set("NOW_SPEC_TX_AMT", 		    item.NOW_SPEC_TX_AMT);
-                        SBUxMethod.set("NOW_TX_TOT_AMT", 		    item.NOW_TX_TOT_AMT);
+                        SBUxMethod.set("FOREI_PAY_TX_DEAMT", 		gfn_nvl(item.FOREI_PAY_TX_DEAMT));
+                        SBUxMethod.set("HS_MM_RENT_DED_TGT_AMT", 	gfn_nvl(item.HS_MM_RENT_DED_TGT_AMT));
+                        SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 		gfn_nvl(item.HS_MM_RENT_TX_DEAMT));
+                        SBUxMethod.set("TX_DED_TOT_AMT", 		    gfn_nvl(item.TX_DED_TOT_AMT));
+                        SBUxMethod.set("CALC_INC_TX_AMT", 		    gfn_nvl(item.CALC_INC_TX_AMT));
+                        SBUxMethod.set("CALC_LOCAL_TX_AMT", 		gfn_nvl(item.CALC_LOCAL_TX_AMT));
+                        SBUxMethod.set("CALC_SPEC_TX_AMT", 		    gfn_nvl(item.CALC_SPEC_TX_AMT));
+                        SBUxMethod.set("CALC_TX_TOT_AMT", 		    gfn_nvl(item.CALC_TX_TOT_AMT));
+                        SBUxMethod.set("NOW_INC_TX_AMT", 		    gfn_nvl(item.NOW_INC_TX_AMT));
+                        SBUxMethod.set("NOW_LOCAL_TX_AMT", 		    gfn_nvl(item.NOW_LOCAL_TX_AMT));
+                        SBUxMethod.set("NOW_SPEC_TX_AMT", 		    gfn_nvl(item.NOW_SPEC_TX_AMT));
+                        SBUxMethod.set("NOW_TX_TOT_AMT", 		    gfn_nvl(item.NOW_TX_TOT_AMT));
 
                         //-- 전 근무지 값이 감안된 값임
-                        SBUxMethod.set("INC_TX_AMT", 		item.INC_TX_AMT);
-                        SBUxMethod.set("LOCAL_TX_AMT", 		item.LOCAL_TX_AMT);
-                        SBUxMethod.set("SPEC_TX_AMT", 		item.SPEC_TX_AMT);
-                        SBUxMethod.set("TX_TOT_AMT", 		item.TX_TOT_AMT);
-
+                        SBUxMethod.set("INC_TX_AMT", 		gfn_nvl(item.INC_TX_AMT));
+                        SBUxMethod.set("LOCAL_TX_AMT", 		gfn_nvl(item.LOCAL_TX_AMT));
+                        SBUxMethod.set("SPEC_TX_AMT", 		gfn_nvl(item.SPEC_TX_AMT));
+                        SBUxMethod.set("TX_TOT_AMT", 		gfn_nvl(item.TX_TOT_AMT));
 
                     });
-
 
                 } else {
                     alert(data.resultMessage);
@@ -2742,12 +2729,12 @@
     //세액계산, 세액계산 취소
     const fn_btnCalculation = async function (type) {
 
-        let stremp_code = '';
+        let stremp_code  = '';
         let strcalc_date = '';
 
 
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -2764,10 +2751,10 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_YE_TX_YYYY: YE_TX_YYYY
-            , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
-            , V_P_EMP_CODE: stremp_code
-            , V_P_CALC_DAT: strcalc_date
+            , V_P_YE_TX_YYYY        : YE_TX_YYYY
+            , V_P_YEAR_END_TX_TYPE  : YE_TX_TYPE
+            , V_P_EMP_CODE          : stremp_code
+            , V_P_CALC_DAT          : strcalc_date
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -2775,9 +2762,7 @@
             , V_P_USERID: ''
             , V_P_PC: ''
 
-
         }
-
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1700S1.do", {
             getType: 'json',

@@ -608,29 +608,29 @@
                 jsonMasterList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN: gfnma_nvl(item.CHK_YN),
-                        PAY_ITEM_CATEGORY: gfnma_nvl(item.PAY_ITEM_CATEGORY),
-                        PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                        PAY_ITEM_NAME: gfnma_nvl(item.PAY_ITEM_NAME),
-                        CALCULATE_SEQ: gfnma_nvl(item.CALCULATE_SEQ),
-                        PAY_EXCLUDE_YN: gfnma_nvl(item.PAY_EXCLUDE_YN),
-                        SUMMARY_TYPE: gfnma_nvl(item.SUMMARY_TYPE),
-                        SUMMARY_RELATED_CODE: gfnma_nvl(item.SUMMARY_RELATED_CODE),
-                        APPLY_MAX_YN: gfnma_nvl(item.APPLY_MAX_YN),
-                        APPLY_MAX_AMT: gfnma_nvl(item.APPLY_MAX_AMT),
-                        APPLY_MIN_YN: gfnma_nvl(item.APPLY_MIN_YN),
-                        APPLY_MIN_AMT: gfnma_nvl(item.APPLY_MIN_AMT),
-                        DESCR: gfnma_nvl(item.DESCR),
-                        PAY_FORMULA: gfnma_nvl(item.PAY_FORMULA),
-                        PAY_FORMULA_TMP: gfnma_nvl(item.PAY_FORMULA_TMP),
-                        PAY_FORMULA_DESC: gfnma_nvl(item.PAY_FORMULA_DESC),
-                        RECALC_YN: gfnma_nvl(item.RECALC_YN),
-                        PARSING_YN: gfnma_nvl(item.PARSING_YN),
-                        QTY_FORMULA: gfnma_nvl(item.QTY_FORMULA),
-                        QTY_FORMULA_TMP: gfnma_nvl(item.QTY_FORMULA_TMP),
-                        QTY_FORMULA_DESC: gfnma_nvl(item.QTY_FORMULA_DESC),
-                        QTY_UNIT: gfnma_nvl(item.QTY_UNIT),
-                        PPTLCT_YN: gfnma_nvl(item.PPTLCT_YN)
+                        CHK_YN                  : gfn_nvl(item.CHK_YN),
+                        PAY_ITEM_CATEGORY       : gfn_nvl(item.PAY_ITEM_CATEGORY),
+                        PAY_ITEM_CODE           : gfn_nvl(item.PAY_ITEM_CODE),
+                        PAY_ITEM_NAME           : gfn_nvl(item.PAY_ITEM_NAME),
+                        CALCULATE_SEQ           : gfn_nvl(item.CALCULATE_SEQ),
+                        PAY_EXCLUDE_YN          : gfn_nvl(item.PAY_EXCLUDE_YN),
+                        SUMMARY_TYPE            : gfn_nvl(item.SUMMARY_TYPE),
+                        SUMMARY_RELATED_CODE    : gfn_nvl(item.SUMMARY_RELATED_CODE),
+                        APPLY_MAX_YN            : gfn_nvl(item.APPLY_MAX_YN),
+                        APPLY_MAX_AMT           : gfn_nvl(item.APPLY_MAX_AMT),
+                        APPLY_MIN_YN            : gfn_nvl(item.APPLY_MIN_YN),
+                        APPLY_MIN_AMT           : gfn_nvl(item.APPLY_MIN_AMT),
+                        DESCR                   : gfn_nvl(item.DESCR),
+                        PAY_FORMULA             : gfn_nvl(item.PAY_FORMULA),
+                        PAY_FORMULA_TMP         : gfn_nvl(item.PAY_FORMULA_TMP),
+                        PAY_FORMULA_DESC        : gfn_nvl(item.PAY_FORMULA_DESC),
+                        RECALC_YN               : gfn_nvl(item.RECALC_YN),
+                        PARSING_YN              : gfn_nvl(item.PARSING_YN),
+                        QTY_FORMULA             : gfn_nvl(item.QTY_FORMULA),
+                        QTY_FORMULA_TMP         : gfn_nvl(item.QTY_FORMULA_TMP),
+                        QTY_FORMULA_DESC        : gfn_nvl(item.QTY_FORMULA_DESC),
+                        QTY_UNIT                : gfn_nvl(item.QTY_UNIT),
+                        PPTLCT_YN               : gfn_nvl(item.PPTLCT_YN)
 
                     }
                     jsonMasterList.push(msg);
@@ -671,9 +671,9 @@
             return;
         }
 
-        let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
-        let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
-        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
+        let PAY_GROUP_CODE      = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
+        let PAY_TYPE            = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
+        let PAY_ITEM_CATEGORY   = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
 
         let rowData = gvwMasterGrid.getRowData(nRow);
 
@@ -700,10 +700,10 @@
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                , V_P_PAY_GROUP_CODE: PAY_GROUP_CODE
-                , V_P_PAY_TYPE: PAY_TYPE
-                , V_P_PAY_ITEM_CATEGORY: PAY_ITEM_CATEGORY
-                , V_P_PAY_ITEM_CODE: rowData.PAY_ITEM_CODE
+                , V_P_PAY_GROUP_CODE    : PAY_GROUP_CODE
+                , V_P_PAY_TYPE          : PAY_TYPE
+                , V_P_PAY_ITEM_CATEGORY : PAY_ITEM_CATEGORY
+                , V_P_PAY_ITEM_CODE     : rowData.PAY_ITEM_CODE
 
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
@@ -728,9 +728,9 @@
                     jsonSalaryList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CATEGORY: gfnma_nvl(item.PAY_ITEM_CATEGORY),
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME: gfnma_nvl(item.PAY_ITEM_NAME)
+                            PAY_ITEM_CATEGORY   : gfn_nvl(item.PAY_ITEM_CATEGORY),
+                            PAY_ITEM_CODE       : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_NAME       : gfn_nvl(item.PAY_ITEM_NAME)
                         }
                         jsonSalaryList.push(msg);
                     });
@@ -739,8 +739,8 @@
                     jsonWorkList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME: gfnma_nvl(item.PAY_ITEM_NAME)
+                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_NAME   : gfn_nvl(item.PAY_ITEM_NAME)
                         }
                         jsonWorkList.push(msg);
                     });
@@ -749,8 +749,8 @@
                     jsonSettingList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            ITEM_CODE: gfnma_nvl(item.ITEM_CODE),
-                            ITEM_NAME: gfnma_nvl(item.ITEM_NAME)
+                            ITEM_CODE   : gfn_nvl(item.ITEM_CODE),
+                            ITEM_NAME   : gfn_nvl(item.ITEM_NAME)
                         }
                         jsonSettingList.push(msg);
                     });
@@ -758,11 +758,11 @@
 
                     if (_.isEmpty(data.cv_5[0]) == false){
                         data.cv_5.forEach((item, index) => {
-                            SBUxMethod.set("PAY_FORMULA", gfnma_nvl(item.PAY_FORMULA));
-                            SBUxMethod.set("PAY_FORMULA_DESC", gfnma_nvl(item.PAY_FORMULA_DESC));
-                            SBUxMethod.set("QTY_FORMULA", gfnma_nvl(item.QTY_FORMULA));
-                            SBUxMethod.set("QTY_FORMULA_DESC", gfnma_nvl(item.QTY_FORMULA_DESC));
-                            SBUxMethod.set("QTY_UNIT", gfnma_nvl(item.QTY_UNIT));
+                            SBUxMethod.set("PAY_FORMULA"        , gfn_nvl(item.PAY_FORMULA));
+                            SBUxMethod.set("PAY_FORMULA_DESC"   , gfn_nvl(item.PAY_FORMULA_DESC));
+                            SBUxMethod.set("QTY_FORMULA"        , gfn_nvl(item.QTY_FORMULA));
+                            SBUxMethod.set("QTY_FORMULA_DESC"   , gfn_nvl(item.QTY_FORMULA_DESC));
+                            SBUxMethod.set("QTY_UNIT"           , gfn_nvl(item.QTY_UNIT));
                         });
                     }
 
@@ -831,11 +831,11 @@
             return;
         }
 
-        let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-        let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+        let PAY_FORMULA = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+        let PAY_FORMULA_DESC = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
-        SBUxMethod.set("PAY_FORMULA", 			PAY_FORMULA + '<'+ sRowData.PAY_ITEM_CODE +'>');
-        SBUxMethod.set("PAY_FORMULA_DESC", 		PAY_FORMULA_DESC + '<'+ sRowData.PAY_ITEM_NAME +'>');
+        SBUxMethod.set("PAY_FORMULA"        , 	PAY_FORMULA + '<'+ sRowData.PAY_ITEM_CODE +'>');
+        SBUxMethod.set("PAY_FORMULA_DESC"   , 	PAY_FORMULA_DESC + '<'+ sRowData.PAY_ITEM_NAME +'>');
 
     }
 
@@ -871,11 +871,11 @@
 
         if (!_.isEmpty(wRowData)) {
 
-            let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-            let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+            let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+            let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
-            SBUxMethod.set("PAY_FORMULA", PAY_FORMULA + '<' + wRowData.PAY_ITEM_CODE + '>');
-            SBUxMethod.set("PAY_FORMULA_DESC", PAY_FORMULA_DESC + '<' + wRowData.PAY_ITEM_NAME + '>');
+            SBUxMethod.set("PAY_FORMULA"        , PAY_FORMULA       + '<' + wRowData.PAY_ITEM_CODE + '>');
+            SBUxMethod.set("PAY_FORMULA_DESC"   , PAY_FORMULA_DESC  + '<' + wRowData.PAY_ITEM_NAME + '>');
 
         }
     }
@@ -912,8 +912,8 @@
 
         if (!_.isEmpty(seRowData)){
 
-            let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-            let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+            let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+            let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
             SBUxMethod.set("PAY_FORMULA", 			PAY_FORMULA + '<'+ seRowData.ITEM_CODE +'>');
             SBUxMethod.set("PAY_FORMULA_DESC", 		PAY_FORMULA_DESC + '<'+ seRowData.ITEM_NAME +'>');
@@ -941,15 +941,15 @@
             return;
         }
 
-        let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
-        let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
-        let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
+        let PAY_GROUP_CODE      = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
+        let PAY_TYPE            = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
+        let PAY_ITEM_CATEGORY   = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
 
-        let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-        let QTY_FORMULA = gfnma_nvl(SBUxMethod.get("QTY_FORMULA"));
-        let QTY_UNIT = gfnma_nvl(SBUxMethod.get("QTY_UNIT"));
-        let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
-        let QTY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("QTY_FORMULA_DESC"));
+        let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+        let QTY_FORMULA         = gfn_nvl(SBUxMethod.get("QTY_FORMULA"));
+        let QTY_UNIT            = gfn_nvl(SBUxMethod.get("QTY_UNIT"));
+        let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+        let QTY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("QTY_FORMULA_DESC"));
 
 
         // 수정 저장
@@ -961,24 +961,24 @@
                 ,V_P_COMP_CODE				: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
-                ,V_P_PAY_GROUP_CODE: PAY_GROUP_CODE
-                ,V_P_PAY_TYPE: PAY_TYPE
-                ,V_P_USE_CHECK_YN: rowData.CHK_YN
-                ,V_P_PAY_ITEM_CODE: rowData.PAY_ITEM_CODE
-                ,V_P_PAY_FORMULA: PAY_FORMULA
-                ,V_P_PAY_FORMULA_DESC: PAY_FORMULA_DESC
-                ,V_P_QTY_FORMULA: QTY_FORMULA
-                ,V_P_QTY_FORMULA_DESC: QTY_FORMULA_DESC
-                ,V_P_QTY_UNIT: QTY_UNIT
-                ,V_P_APPLY_MAX_YN: rowData.APPLY_MAX_YN
-                ,V_P_APPLY_MAX_AMT: rowData.APPLY_MAX_AMT
-                ,V_P_APPLY_MIN_YN: rowData.APPLY_MIN_YN
-                ,V_P_APPLY_MIN_AMT: rowData.APPLY_MIN_AMT
-                ,V_P_CALCULATE_SEQ: rowData.CALCULATE_SEQ
-                ,V_P_PAY_EXCLUDE_YN: rowData.PAY_EXCLUDE_YN
-                ,V_P_PPTLCT_YN: rowData.PPTLCT_YN
-                ,V_P_CALC_YN: rowData.CALC_YN
-                ,V_P_DESCR: rowData.DESCR
+                ,V_P_PAY_GROUP_CODE     : PAY_GROUP_CODE
+                ,V_P_PAY_TYPE           : PAY_TYPE
+                ,V_P_USE_CHECK_YN       : rowData.CHK_YN
+                ,V_P_PAY_ITEM_CODE      : rowData.PAY_ITEM_CODE
+                ,V_P_PAY_FORMULA        : PAY_FORMULA
+                ,V_P_PAY_FORMULA_DESC   : PAY_FORMULA_DESC
+                ,V_P_QTY_FORMULA        : QTY_FORMULA
+                ,V_P_QTY_FORMULA_DESC   : QTY_FORMULA_DESC
+                ,V_P_QTY_UNIT           : QTY_UNIT
+                ,V_P_APPLY_MAX_YN       : rowData.APPLY_MAX_YN
+                ,V_P_APPLY_MAX_AMT      : rowData.APPLY_MAX_AMT
+                ,V_P_APPLY_MIN_YN       : rowData.APPLY_MIN_YN
+                ,V_P_APPLY_MIN_AMT      : rowData.APPLY_MIN_AMT
+                ,V_P_CALCULATE_SEQ      : rowData.CALCULATE_SEQ
+                ,V_P_PAY_EXCLUDE_YN     : rowData.PAY_EXCLUDE_YN
+                ,V_P_PPTLCT_YN          : rowData.PPTLCT_YN
+                ,V_P_CALC_YN            : rowData.CALC_YN
+                ,V_P_DESCR              : rowData.DESCR
 
                 ,V_P_FORM_ID				: p_formId
                 ,V_P_MENU_ID				: p_menuId
@@ -1016,8 +1016,8 @@
 
     async function appendToDisplay(data) {
 
-        let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-        let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+        let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+        let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
         SBUxMethod.set("PAY_FORMULA", 			PAY_FORMULA + data);
         SBUxMethod.set("PAY_FORMULA_DESC", 		PAY_FORMULA_DESC + data);
@@ -1032,8 +1032,8 @@
 
     async function subToDisplay() {
 
-        let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-        let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+        let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+        let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
         SBUxMethod.set("PAY_FORMULA", 			PAY_FORMULA.slice(0, -1));
         SBUxMethod.set("PAY_FORMULA_DESC", 		PAY_FORMULA_DESC.slice(0, -1));
@@ -1041,19 +1041,19 @@
 
     const fn_btnCheck = async function () {
 
-        let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
-        let PAY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
+        let PAY_FORMULA         = gfn_nvl(SBUxMethod.get("PAY_FORMULA"));
+        let PAY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("PAY_FORMULA_DESC"));
 
-        let QTY_FORMULA = gfnma_nvl(SBUxMethod.get("QTY_FORMULA"));
-        let QTY_FORMULA_DESC = gfnma_nvl(SBUxMethod.get("QTY_FORMULA_DESC"));
+        let QTY_FORMULA         = gfn_nvl(SBUxMethod.get("QTY_FORMULA"));
+        let QTY_FORMULA_DESC    = gfn_nvl(SBUxMethod.get("QTY_FORMULA_DESC"));
 
 
         if (PAY_FORMULA == '' && PAY_FORMULA_DESC == '') {
             gfn_comAlert("Q0000", "급여산식은 필수항목입니다. [HRB5300_003]");
         }
 
-        let salary = gvwSalaryGrid.getGridDataAll();
-        let work = gvwWorkGrid.getGridDataAll();
+        let salary  = gvwSalaryGrid.getGridDataAll();
+        let work    = gvwWorkGrid.getGridDataAll();
         let setting = gvwSettingGrid.getGridDataAll();
 
         salary.forEach((item, index) => {
@@ -1061,13 +1061,13 @@
             let PAY_ITEM_CODE = '<' + item.PAY_ITEM_CODE + '>';
             let PAY_ITEM_NAME = '<' + item.PAY_ITEM_NAME + '>';
 
-            PAY_FORMULA = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            PAY_FORMULA         = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
-            QTY_FORMULA = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            QTY_FORMULA         = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
         });
 
@@ -1076,13 +1076,13 @@
             let PAY_ITEM_CODE = '<' + item.PAY_ITEM_CODE + '>';
             let PAY_ITEM_NAME = '<' + item.PAY_ITEM_NAME + '>';
 
-            PAY_FORMULA = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            PAY_FORMULA         = PAY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
-            QTY_FORMULA = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
+            QTY_FORMULA         = QTY_FORMULA.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace(PAY_ITEM_CODE, '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace(PAY_ITEM_NAME, '1');
 
         });
 
@@ -1091,22 +1091,22 @@
            /* let ITEM_CODE = '<' + item.ITEM_CODE + '>';
             let ITEM_NAME = '<' + item.ITEM_NAME + '>';*/
 
-            PAY_FORMULA = PAY_FORMULA.replace('<' + item.ITEM_CODE + '>', '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace('<' + item.ITEM_CODE + '>', '1');
-            PAY_FORMULA_DESC = PAY_FORMULA_DESC.replace('<' + item.ITEM_NAME + '>', '1');
+            PAY_FORMULA         = PAY_FORMULA.replace('<' + item.ITEM_CODE + '>', '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace('<' + item.ITEM_CODE + '>', '1');
+            PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace('<' + item.ITEM_NAME + '>', '1');
 
-            QTY_FORMULA = QTY_FORMULA.replace('<' + item.ITEM_CODE + '>', '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace('<' + item.ITEM_CODE + '>', '1');
-            QTY_FORMULA_DESC = QTY_FORMULA_DESC.replace('<' + item.ITEM_NAME + '>', '1');
+            QTY_FORMULA         = QTY_FORMULA.replace('<' + item.ITEM_CODE + '>', '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace('<' + item.ITEM_CODE + '>', '1');
+            QTY_FORMULA_DESC    = QTY_FORMULA_DESC.replace('<' + item.ITEM_NAME + '>', '1');
 
         });
 
 
         var paramObj = {
-            PAY_FORMULA: gfnma_nvl(PAY_FORMULA)
-          /*  , PAY_FORMULA_DESC: gfnma_nvl(PAY_FORMULA_DESC)*/
-            , QTY_FORMULA: gfnma_nvl(QTY_FORMULA)
-           /* , QTY_FORMULA_DESC: gfnma_nvl(QTY_FORMULA_DESC)*/
+            PAY_FORMULA: gfn_nvl(PAY_FORMULA)
+          /*  , PAY_FORMULA_DESC: gfn_nvl(PAY_FORMULA_DESC)*/
+            , QTY_FORMULA: gfn_nvl(QTY_FORMULA)
+           /* , QTY_FORMULA_DESC: gfn_nvl(QTY_FORMULA_DESC)*/
 
         }
 

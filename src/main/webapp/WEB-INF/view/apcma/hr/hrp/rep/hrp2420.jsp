@@ -356,7 +356,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -385,7 +385,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -647,16 +647,16 @@
      */
     const fn_search = async function () {
 
-        let SITE_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let SENDTYPE            = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        let PAY_YYYYMM_FR       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-        let PAY_YYYYMM_FR2      = gfnma_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월
-        let PAY_TYPE            = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let MULTI_YN            = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN")); //연간누계 출력여부
-        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("PAY_DATE")); //지급일자
+        let SITE_CODE           = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let SENDTYPE            = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+        let PAY_YYYYMM_FR       = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+        let PAY_YYYYMM_FR2      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let MULTI_YN            = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN")); //연간누계 출력여부
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("PAY_DATE")); //지급일자
 
 
         if (!PAY_YYYYMM_FR) {
@@ -718,24 +718,24 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN		        : gfnma_nvl(item.CHK_YN),
-                        SITE_CODE		    : gfnma_nvl(item.SITE_CODE),
-                        DEPT_CODE		    : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME		    : gfnma_nvl(item.DEPT_NAME),
-                        POSITION_CODE	    : gfnma_nvl(item.POSITION_CODE),
-                        POSITION_NAME	    : gfnma_nvl(item.POSITION_NAME),
-                        EMP_CODE		    : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME		    : gfnma_nvl(item.EMP_NAME),
-                        IN_EMAIL		    : gfnma_nvl(item.IN_EMAIL),
-                        PAY_YYYYMM		    : gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE		    : gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE		    : gfnma_nvl(item.PAY_DATE),
-                        PAY_TOTAL_AMT		: gfnma_nvl(item.PAY_TOTAL_AMT),
-                        TAX_FREE_AMT		: gfnma_nvl(item.TAX_FREE_AMT),
-                        PAY_DEDUCTION_AMT	: gfnma_nvl(item.PAY_DEDUCTION_AMT),
-                        PAY_NET_AMT		    : gfnma_nvl(item.PAY_NET_AMT),
-                        DEPT_CODE_SEQ		: gfnma_nvl(item.DEPT_CODE_SEQ),
-                        POSITION_CODE_SEQ	: gfnma_nvl(item.POSITION_CODE_SEQ),
+                        CHK_YN		        : gfn_nvl(item.CHK_YN),
+                        SITE_CODE		    : gfn_nvl(item.SITE_CODE),
+                        DEPT_CODE		    : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME		    : gfn_nvl(item.DEPT_NAME),
+                        POSITION_CODE	    : gfn_nvl(item.POSITION_CODE),
+                        POSITION_NAME	    : gfn_nvl(item.POSITION_NAME),
+                        EMP_CODE		    : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME		    : gfn_nvl(item.EMP_NAME),
+                        IN_EMAIL		    : gfn_nvl(item.IN_EMAIL),
+                        PAY_YYYYMM		    : gfn_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE		    : gfn_nvl(item.PAY_TYPE),
+                        PAY_DATE		    : gfn_nvl(item.PAY_DATE),
+                        PAY_TOTAL_AMT		: gfn_nvl(item.PAY_TOTAL_AMT),
+                        TAX_FREE_AMT		: gfn_nvl(item.TAX_FREE_AMT),
+                        PAY_DEDUCTION_AMT	: gfn_nvl(item.PAY_DEDUCTION_AMT),
+                        PAY_NET_AMT		    : gfn_nvl(item.PAY_NET_AMT),
+                        DEPT_CODE_SEQ		: gfn_nvl(item.DEPT_CODE_SEQ),
+                        POSITION_CODE_SEQ	: gfn_nvl(item.POSITION_CODE_SEQ),
 
                     }
                     jsonInfoList.push(msg);
@@ -823,9 +823,9 @@
                     jsonPayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE		: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT		        : gfnma_nvl(item.PAY_AMT),
-                            TAX_FREE_AMT		: gfnma_nvl(item.TAX_FREE_AMT),
+                            PAY_ITEM_CODE		: gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT		        : gfn_nvl(item.PAY_AMT),
+                            TAX_FREE_AMT		: gfn_nvl(item.TAX_FREE_AMT),
 
                         }
                         jsonPayList.push(msg);
@@ -836,8 +836,8 @@
                     jsonDedList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE		: gfnma_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT		        : gfnma_nvl(item.PAY_AMT)
+                            PAY_ITEM_CODE		: gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_AMT		        : gfn_nvl(item.PAY_AMT)
 
                         }
                         jsonDedList.push(msg);
@@ -873,7 +873,7 @@
     const fn_btnPrint = async function() {
         var nRow = gvwInfoGrid.getRow();
     	var conn = '';
-    	var SENDTYPE = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
     	if (nRow < 1) {
             return;
         }
@@ -895,7 +895,7 @@
         }
     }
     const fn_GetReportData = async function(workType, obj) {
-    	var SENDTYPE = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
@@ -904,15 +904,15 @@
             
             V_P_SITE_CODE 			: '',
             V_P_DEPT_CODE 			: '',
-            V_P_EMP_CODE     		: gfnma_nvl(obj.EMP_CODE),
-            V_P_PAY_YYYYMM    		: gfnma_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_YYYYMM1       	: gfnma_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_TYPE        	: gfnma_nvl(obj.PAY_TYPE),
-            V_P_PAY_DATE			: gfnma_nvl(obj.PAY_DATE),
-            V_P_EMP_CODE_LIST 		: gfnma_nvl(obj.EMP_CODE),
-            V_P_PAY_YYYYMM2 		: gfnma_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_TYPE1     		: gfnma_nvl(obj.PAY_TYPE),
-            V_P_PAY_DATE1    		: gfnma_nvl(obj.PAY_DATE),
+            V_P_EMP_CODE     		: gfn_nvl(obj.EMP_CODE),
+            V_P_PAY_YYYYMM    		: gfn_nvl(obj.PAY_YYYYMM),
+            V_P_PAY_YYYYMM1       	: gfn_nvl(obj.PAY_YYYYMM),
+            V_P_PAY_TYPE        	: gfn_nvl(obj.PAY_TYPE),
+            V_P_PAY_DATE			: gfn_nvl(obj.PAY_DATE),
+            V_P_EMP_CODE_LIST 		: gfn_nvl(obj.EMP_CODE),
+            V_P_PAY_YYYYMM2 		: gfn_nvl(obj.PAY_YYYYMM),
+            V_P_PAY_TYPE1     		: gfn_nvl(obj.PAY_TYPE),
+            V_P_PAY_DATE1    		: gfn_nvl(obj.PAY_DATE),
             V_P_PAY_AREA_TYPE       : '',
             V_P_REPORT_TYPE        	: SENDTYPE,
         	
@@ -935,19 +935,19 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_6.length > 0){
 					if(SENDTYPE == 'WORK'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}else if(SENDTYPE == 'PAY'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}else if(SENDTYPE == 'ALL'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}
                 }
                 if(data.cv_13.length > 0){
 					if(SENDTYPE == 'ALL'){
-    	                data.cv_13[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_13[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_13[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_13[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}
                 }
             } else {
