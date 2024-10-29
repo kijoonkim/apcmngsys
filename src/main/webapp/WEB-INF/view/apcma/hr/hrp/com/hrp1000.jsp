@@ -907,7 +907,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if (_.isEqual(type, 'srch')){
                     SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                     SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
@@ -953,7 +952,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 if (_.isEqual(type, 'srch')){
                     SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NAME);
                     SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
