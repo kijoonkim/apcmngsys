@@ -274,8 +274,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -470,19 +470,19 @@
      * 목록 조회
      */
     const fn_search = async function() {
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let DUTY_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_DUTY_CODE'));
-        let JOB_FAMILY	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
-        let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
-        let PAY_AREA_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
-        let EMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_NAME	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
-        let JOB_RANK	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
-        let JOB_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_CODE'));
-        let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
+        let SITE_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let DEPT_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let DUTY_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_DUTY_CODE'));
+        let JOB_FAMILY	    = gfn_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
+        let GENDER	        = gfn_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let PAY_AREA_TYPE	= gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let EMP_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_NAME	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let POSITION_CODE	= gfn_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
+        let JOB_RANK	    = gfn_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
+        let JOB_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_CODE'));
+        let INITIAL_DATE	= gfn_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''

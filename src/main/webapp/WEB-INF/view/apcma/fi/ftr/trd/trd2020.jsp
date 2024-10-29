@@ -2016,8 +2016,8 @@
     }
 
     const fn_findBankCsCode = function(elementId) {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
@@ -2045,8 +2045,8 @@
     }
 
     const fn_findBankCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("BANK_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("BANK_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME"));
         var replaceText0 	= "_BANK_CODE_";
         var replaceText1 	= "_BANK_NAME_";
         var strWhereClause 	= "AND a.BANK_CODE LIKE '%" + replaceText0 + "%' AND a.BANK_NAME LIKE '%" + replaceText1 + "%'";
@@ -2074,8 +2074,8 @@
     }
 
     const fn_findDepositCode = function(inOrOut) {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
         var replaceText0 	= "_DEPOSIT_CODE_";
         var replaceText1 	= "_DEPOSIT_NAME_";
         var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
@@ -2105,8 +2105,8 @@
     }
 
     const fn_findAccountCode = function(section) {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get(section));
-        var searchName 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get(section));
+        var searchName 		= gfn_nvl(SBUxMethod.get(section + "_NAME"));
         var replaceText0 	= "_ACCOUNT_CODE_";
         var replaceText1 	= "_ACCOUNT_NAME_";
         var strWhereClause 	= "AND a.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND a.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'";
@@ -2134,8 +2134,8 @@
     }
 
     const fn_findFundCode = function(section) {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get(section));
-        var searchName 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get(section));
+        var searchName 		= gfn_nvl(SBUxMethod.get(section + "_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND a.CODE LIKE '%" + replaceText0 + "%' AND a.NAME LIKE '%" + replaceText1 + "%'";
@@ -2163,8 +2163,8 @@
     }
 
     const fn_findDeptCode = function() {
-        var searchCode 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchName 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode 	= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName 	= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
         compopup1({
@@ -2190,8 +2190,8 @@
     }
 
     const fn_findCostCenterCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";

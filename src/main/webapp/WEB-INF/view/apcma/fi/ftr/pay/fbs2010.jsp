@@ -1066,8 +1066,8 @@
     }
 
     const fn_findCsCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";

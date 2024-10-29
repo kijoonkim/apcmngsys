@@ -705,14 +705,14 @@
 		if(gfn_nvl(rowData) == "") return;
 
 		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
-		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
-		let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
-		let APPROVAL_NO = gfnma_nvl(rowData.APPROVAL_NO);
-		let ITEM_TAXABLE_AMT = gfnma_nvl(SBUxMethod.get("SRCH_AMT"));
-		let CS_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME"));
-		let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-		let GUBUN = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
+		let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+		let CS_BIZ_REGNO = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
+		let APPROVAL_NO = gfn_nvl(rowData.APPROVAL_NO);
+		let ITEM_TAXABLE_AMT = gfn_nvl(SBUxMethod.get("SRCH_AMT"));
+		let CS_NAME = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME"));
+		let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+		let GUBUN = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
 		var paramObj = {
 			V_P_DEBUG_MODE_YN	: '',
@@ -784,8 +784,8 @@
 	}
 
 	const fn_findEmpCode = function() {
-		var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-		var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+		var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+		var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
 		var replaceText0 	= "_DEPT_NAME_";
 		var replaceText1 	= "_EMP_CODE_";
 		var replaceText2 	= "_EMP_NAME_";
@@ -860,8 +860,8 @@
 			}
 
 			var reader = new FileReader();
-			let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-			let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+			let strmindate = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+			let strmaxdate = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
 			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
 			reader.addEventListener(
@@ -985,8 +985,8 @@
 			}
 
 			var reader = new FileReader();
-			let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-			let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+			let strmindate = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+			let strmaxdate = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
 			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
 			reader.addEventListener(
@@ -1108,7 +1108,7 @@
 	 */
 	var fn_payDate = function() {
 
-		let NATION_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM"));
+		let NATION_CODE = gfn_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM"));
 
 		if (NATION_CODE == ''){
 
@@ -1380,14 +1380,14 @@
 		}
 
 		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
-		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
-		let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
-		let APPROVAL_NO = gfnma_nvl(SBUxMethod.get("SRCH_APPROVAL_NO"));
-		let ITEM_TAXABLE_AMT = gfnma_nvl(SBUxMethod.get("SRCH_AMT"));
-		let CS_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME"));
-		let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-		let GUBUN = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
+		let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+		let CS_BIZ_REGNO = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
+		let APPROVAL_NO = gfn_nvl(SBUxMethod.get("SRCH_APPROVAL_NO"));
+		let ITEM_TAXABLE_AMT = gfn_nvl(SBUxMethod.get("SRCH_AMT"));
+		let CS_NAME = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME"));
+		let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+		let GUBUN = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
 		if (!FI_ORG_CODE) {
 			gfn_comAlert("W0002", "사업단위");
@@ -1856,43 +1856,43 @@
 						V_P_LANG_ID				: '',
 						V_P_COMP_CODE 			: gv_ma_selectedApcCd,
 						V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
-						V_P_FI_ORG_CODE 		: gfnma_nvl(item.FI_ORG_CODE),
-						V_P_WRITE_DATE 			: gfnma_nvl(item.WRITE_DATE),
-						V_P_APPROVAL_NO 		: gfnma_nvl(item.APPROVAL_NO),
-						V_P_ISSUE_DATE 			: gfnma_nvl(item.ISSUE_DATE),
-						V_P_SEND_DATE 			: gfnma_nvl(item.SEND_DATE),
-						V_P_SELLER_REG_NO 		: gfnma_nvl(item.SELLER_REG_NO) == ''? '' : item.SELLER_REG_NO.replace(/-/gi, ""),
-						V_P_SELLER_SUB_REG_NO 	: gfnma_nvl(item.SELLER_SUB_REG_NO),
-						V_P_CS_CODE 			: gfnma_nvl(item.CS_CODE),
-						V_P_SELLER_NAME 		: gfnma_nvl(item.SELLER_NAME),
-						V_P_SELLER_OWNER 		: gfnma_nvl(item.SELLER_OWNER),
-						V_P_SELLER_ADDRESS 		: gfnma_nvl(item.SELLER_ADDRESS),
-						V_P_SELLER_BIZ_CATEGORY : gfnma_nvl(item.SELLER_BIZ_CATEGORY),
-						V_P_SELLER_BIZ_ITEM 	: gfnma_nvl(item.SELLER_BIZ_ITEM),
-						V_P_BUYER_REG_NO 		: gfnma_nvl(item.BUYER_REG_NO) == '' ? '' : item.BUYER_REG_NO.replace(/-/gi, ""),
-						V_P_BUYER_SUB_REG_NO 	: gfnma_nvl(item.BUYER_SUB_REG_NO),
-						V_P_BUYER_NAME 			: gfnma_nvl(item.BUYER_NAME),
-						V_P_BUYER_OWNER 		: gfnma_nvl(item.BUYER_OWNER),
-						V_P_BUYER_ADDRESS 		: gfnma_nvl(item.BUYER_ADDRESS),
-						V_P_BUYER_BIZ_CATEGORY 	: gfnma_nvl(item.BUYER_BIZ_CATEGORY),
-						V_P_BUYER_BIZ_ITEM 		: gfnma_nvl(item.BUYER_BIZ_ITEM),
-						V_P_BUYER_BIZ_TYPE 		: gfnma_nvl(item.BUYER_BIZ_TYPE),
+						V_P_FI_ORG_CODE 		: gfn_nvl(item.FI_ORG_CODE),
+						V_P_WRITE_DATE 			: gfn_nvl(item.WRITE_DATE),
+						V_P_APPROVAL_NO 		: gfn_nvl(item.APPROVAL_NO),
+						V_P_ISSUE_DATE 			: gfn_nvl(item.ISSUE_DATE),
+						V_P_SEND_DATE 			: gfn_nvl(item.SEND_DATE),
+						V_P_SELLER_REG_NO 		: gfn_nvl(item.SELLER_REG_NO) == ''? '' : item.SELLER_REG_NO.replace(/-/gi, ""),
+						V_P_SELLER_SUB_REG_NO 	: gfn_nvl(item.SELLER_SUB_REG_NO),
+						V_P_CS_CODE 			: gfn_nvl(item.CS_CODE),
+						V_P_SELLER_NAME 		: gfn_nvl(item.SELLER_NAME),
+						V_P_SELLER_OWNER 		: gfn_nvl(item.SELLER_OWNER),
+						V_P_SELLER_ADDRESS 		: gfn_nvl(item.SELLER_ADDRESS),
+						V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.SELLER_BIZ_CATEGORY),
+						V_P_SELLER_BIZ_ITEM 	: gfn_nvl(item.SELLER_BIZ_ITEM),
+						V_P_BUYER_REG_NO 		: gfn_nvl(item.BUYER_REG_NO) == '' ? '' : item.BUYER_REG_NO.replace(/-/gi, ""),
+						V_P_BUYER_SUB_REG_NO 	: gfn_nvl(item.BUYER_SUB_REG_NO),
+						V_P_BUYER_NAME 			: gfn_nvl(item.BUYER_NAME),
+						V_P_BUYER_OWNER 		: gfn_nvl(item.BUYER_OWNER),
+						V_P_BUYER_ADDRESS 		: gfn_nvl(item.BUYER_ADDRESS),
+						V_P_BUYER_BIZ_CATEGORY 	: gfn_nvl(item.BUYER_BIZ_CATEGORY),
+						V_P_BUYER_BIZ_ITEM 		: gfn_nvl(item.BUYER_BIZ_ITEM),
+						V_P_BUYER_BIZ_TYPE 		: gfn_nvl(item.BUYER_BIZ_TYPE),
 						V_P_TOTAL_AMT 			: parseInt(gfn_nvl(item.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.TOTAL_AMT)),
 						V_P_TOTAL_TAXABLE_AMT 	: parseInt(gfn_nvl(item.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.TOTAL_TAXABLE_AMT)),
 						V_P_TOTAL_VAT_AMT 		: parseInt(gfn_nvl(item.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.TOTAL_VAT_AMT)),
-						V_P_EINVOICE_CATEGORY 	: gfnma_nvl(item.EINVOICE_CATEGORY),
-						V_P_EINVOICE_TYPE 		: gfnma_nvl(item.EINVOICE_TYPE),
-						V_P_MATCH_METHOD 		: gfnma_nvl(item.MATCH_METHOD),
-						V_P_ISSUE_TYPE 			: gfnma_nvl(item.ISSUE_TYPE),
-						V_P_NOTE1 				: gfnma_nvl(item.NOTE1),
-						V_P_NOTE2 				: gfnma_nvl(item.NOTE2),
-						V_P_RECEIPT_OR_BILL 	: gfnma_nvl(item.RECEIPT_OR_BILL),
-						V_P_SELLER_EMAIL 		: gfnma_nvl(item.SELLER_EMAIL),
-						IV_P_BUYER_EMAIL1 		: gfnma_nvl(item.BUYER_EMAIL1),
-						V_P_BUYER_EMAIL2 		: gfnma_nvl(item.BUYER_EMAIL2),
-						V_P_ACCOUNT_EMP_CODE 	: gfnma_nvl(item.ACCOUNT_EMP_CODE),
-						V_P_TXN_DATE 			: gfnma_nvl(item.TXN_DATE) == '' ? '' : item.TXN_DATE.replace(/-/gi, ""),
-						V_P_DOC_ID 				: gfnma_nvl(item.DOC_ID),
+						V_P_EINVOICE_CATEGORY 	: gfn_nvl(item.EINVOICE_CATEGORY),
+						V_P_EINVOICE_TYPE 		: gfn_nvl(item.EINVOICE_TYPE),
+						V_P_MATCH_METHOD 		: gfn_nvl(item.MATCH_METHOD),
+						V_P_ISSUE_TYPE 			: gfn_nvl(item.ISSUE_TYPE),
+						V_P_NOTE1 				: gfn_nvl(item.NOTE1),
+						V_P_NOTE2 				: gfn_nvl(item.NOTE2),
+						V_P_RECEIPT_OR_BILL 	: gfn_nvl(item.RECEIPT_OR_BILL),
+						V_P_SELLER_EMAIL 		: gfn_nvl(item.SELLER_EMAIL),
+						IV_P_BUYER_EMAIL1 		: gfn_nvl(item.BUYER_EMAIL1),
+						V_P_BUYER_EMAIL2 		: gfn_nvl(item.BUYER_EMAIL2),
+						V_P_ACCOUNT_EMP_CODE 	: gfn_nvl(item.ACCOUNT_EMP_CODE),
+						V_P_TXN_DATE 			: gfn_nvl(item.TXN_DATE) == '' ? '' : item.TXN_DATE.replace(/-/gi, ""),
+						V_P_DOC_ID 				: gfn_nvl(item.DOC_ID),
 						V_P_FORM_ID 			: p_formId,
 						V_P_MENU_ID 			: p_menuId,
 						V_P_PROC_ID 			: '',
@@ -1927,8 +1927,8 @@
 	}
 
 	const fn_import = async function () {
-		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+		let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
 
 		var paramObj = {
 			V_P_DEBUG_MODE_YN	: '',
@@ -2123,7 +2123,7 @@
 
 	const fn_exclusion = async function () {
 		let EXCEPT_CODE = gfn_nvl(gfnma_multiSelectGet("#EXCEPT_CODE"));
-		let EXCEPT_REASON = gfnma_nvl(SBUxMethod.get("EXCEPT_REASON"));
+		let EXCEPT_REASON = gfn_nvl(SBUxMethod.get("EXCEPT_REASON"));
 		let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
 		let returnData = [];
 
@@ -2186,7 +2186,7 @@
 
 	const fn_cancel = async function () {
 		let EXCEPT_CODE = gfn_nvl(gfnma_multiSelectGet("#EXCEPT_CODE"));
-		let EXCEPT_REASON = gfnma_nvl(SBUxMethod.get("EXCEPT_REASON"));
+		let EXCEPT_REASON = gfn_nvl(SBUxMethod.get("EXCEPT_REASON"));
 		let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
 		let returnData = [];
 

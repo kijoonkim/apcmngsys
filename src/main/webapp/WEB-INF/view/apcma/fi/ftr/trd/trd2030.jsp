@@ -992,8 +992,8 @@
 
 
     const fn_findBankCsCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CS_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
@@ -1021,8 +1021,8 @@
     }
 
     const fn_findDepositCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_OUT_DEPOSIT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_OUT_ACCOUNT_NO"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_OUT_DEPOSIT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_OUT_ACCOUNT_NO"));
         var replaceText0 	= "_DEPOSIT_CODE_";
         var replaceText1 	= "_DEPOSIT_NAME_";
         var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";

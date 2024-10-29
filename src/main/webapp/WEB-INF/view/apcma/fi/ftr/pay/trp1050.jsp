@@ -1083,7 +1083,7 @@
     }
 
     const fn_findCsCode = function(flag) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME_"+flag));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_CS_NAME_"+flag));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -1111,8 +1111,8 @@
     }
 
     const fn_findPayCurrencyCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CURRENCY_CODE_";
         var replaceText1 	= "_CURRENCY_NAME_";
         var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
@@ -1139,7 +1139,7 @@
     }
 
     const fn_findBankCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("BANK_NAME_P"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("BANK_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
@@ -1166,7 +1166,7 @@
     }
 
     const fn_findDepositCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPOSIT_NAME_P"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPOSIT_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";

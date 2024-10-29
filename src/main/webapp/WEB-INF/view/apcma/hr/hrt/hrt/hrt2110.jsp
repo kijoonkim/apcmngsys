@@ -634,16 +634,16 @@
             if ((nCol == bandgvwInfo.getColRef("TIME_START_DATE") || nCol == bandgvwInfo.getColRef("EMP_CODE")) && bEventEnabled ) {
                 bEventEnabled = false;
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")) != "") {
-                    let TIME_START_DATE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")));
-                    let TIME_END_DATE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")));
-                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                    let DEPT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("DEPT_CODE")));
-                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                    let EMP_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")));
-                    let TIME_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
-                    let TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
-                    let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
-                    let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+                    let TIME_START_DATE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")));
+                    let TIME_END_DATE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")));
+                    let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("DEPT_CODE")));
+                    let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")));
+                    let TIME_CATEGORY = gfn_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
+                    let TIME_ITEM_CODE = gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+                    let REQUEST_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+                    let RESULT_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
 
                     var paramObj = {
                         V_P_DEBUG_MODE_YN	: '',
@@ -740,16 +740,16 @@
             if (nCol == bandgvwInfo.getColRef("TIME_ITEM_CODE") && bEventEnabled) {
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")) != "") {
                     if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")) != "") {
-                        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
-                        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
-                        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-                        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-                        let TIME_CATEGORY = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_CATEGORY")));
-                        let TIME_ITEM_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")));
-                        let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
-                        let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+                        let TIME_START_DATE = gfn_nvl(SBUxMethod.get("SRCH_START_DATE"));
+                        let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
+                        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                        let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+                        let TIME_CATEGORY = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_CATEGORY")));
+                        let TIME_ITEM_CODE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")));
+                        let REQUEST_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+                        let RESULT_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
 
                         var paramObj = {
                             V_P_DEBUG_MODE_YN	: '',
@@ -843,8 +843,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -872,10 +872,10 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
-        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let TIME_START_DATE = gfn_nvl(SBUxMethod.get("SRCH_START_DATE"));
+        let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
 
         //type B 형 팝업
         var addParams = [TIME_START_DATE, TIME_END_DATE, p_userId];	//bizcompId 의 파라미터에 따라 추가할것
@@ -910,8 +910,8 @@
     }
 
     const fn_findTimeItemCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
         var replaceText0 	= "_TIME_ITEM_CODE_";
         var replaceText1 	= "_TIME_ITEM_NAME_";
         var strWhereClause 	= "AND TIME_ITEM_CODE LIKE '%" + replaceText0 + "%' AND TIME_ITEM_NAME LIKE '%" + replaceText1 + "%'";
@@ -1006,16 +1006,16 @@
 
         let rowVal = bandgvwInfo.getRow();
 
-        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
-        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE2"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE2"));
-        let DEPT_NAME = gfnma_nvl(SBUxMethod.get("DEPT_NAME2"));
-        let POSITION_CODE = gfnma_nvl(SBUxMethod.get("POSITION_CODE2"));
-        let DUTY_CODE = gfnma_nvl(SBUxMethod.get("DUTY_CODE2"));
-        let JOB_RANK = gfnma_nvl(SBUxMethod.get("JOB_RANK2"));
+        let TIME_START_DATE = gfn_nvl(SBUxMethod.get("SRCH_START_DATE"));
+        let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_NAME = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let SITE_CODE = gfn_nvl(SBUxMethod.get("SITE_CODE2"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE2"));
+        let DEPT_NAME = gfn_nvl(SBUxMethod.get("DEPT_NAME2"));
+        let POSITION_CODE = gfn_nvl(SBUxMethod.get("POSITION_CODE2"));
+        let DUTY_CODE = gfn_nvl(SBUxMethod.get("DUTY_CODE2"));
+        let JOB_RANK = gfn_nvl(SBUxMethod.get("JOB_RANK2"));
 
         var data = {
             TIME_START_DATE: TIME_START_DATE,
@@ -1375,17 +1375,17 @@
             return false;
         }
 
-        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
-        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let TIME_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
-        let TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
-        let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SHIFT_CODE"));
-        let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
-        let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+        let TIME_START_DATE = gfn_nvl(SBUxMethod.get("SRCH_START_DATE"));
+        let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let TIME_CATEGORY = gfn_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
+        let TIME_ITEM_CODE = gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+        let SHIFT_CODE = gfn_nvl(SBUxMethod.get("SRCH_SHIFT_CODE"));
+        let REQUEST_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+        let RESULT_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1599,17 +1599,17 @@
             return false;
         }
 
-        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
-        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let TIME_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
-        let TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
-        let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SHIFT_CODE"));
-        let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
-        let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+        let TIME_START_DATE = gfn_nvl(SBUxMethod.get("SRCH_START_DATE"));
+        let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let TIME_CATEGORY = gfn_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
+        let TIME_ITEM_CODE = gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+        let SHIFT_CODE = gfn_nvl(SBUxMethod.get("SRCH_SHIFT_CODE"));
+        let REQUEST_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+        let RESULT_STATUS_CODE = gfn_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',

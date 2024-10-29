@@ -3094,9 +3094,9 @@
     }
 
     const fn_addRowForGvwTimeOffHistory = function() {
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        let DEPT_NAME = gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        let SITE_CODE = gfn_nvl(SBUxMethod.get("SITE_CODE"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        let DEPT_NAME = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         let rowVal = gvwTimeOffHistory.getRow();
 
@@ -3351,81 +3351,81 @@
     }
 
     const getParamForHri1000S1 = async function(empCode) {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let BLOOD_TYPE_RH = gfnma_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_RH'));
-        let BLOOD_TYPE_ABO = gfnma_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_ABO'));
-        let HEIGHT = gfnma_nvl(SBUxMethod.get("HEIGHT"));
-        let WEIGHT = gfnma_nvl(SBUxMethod.get("WEIGHT"));
-        let LEFT_EYE = gfnma_nvl(SBUxMethod.get("LEFT_EYE"));
-        let RIGHT_EYE = gfnma_nvl(SBUxMethod.get("RIGHT_EYE"));
-        let COLOR_BLIND_YN = gfnma_nvl(SBUxMethod.get("COLOR_BLIND_YN"));
-        let JACKET_SIZE = gfnma_nvl(SBUxMethod.get("JACKET_SIZE"));
-        let PANTS_SIZE = gfnma_nvl(SBUxMethod.get("PANTS_SIZE"));
-        let SHOE_SIZE = gfnma_nvl(SBUxMethod.get("SHOE_SIZE"));
-        let MARRIAGE_YN = gfnma_nvl(gfnma_multiSelectGet('#MARRIAGE_YN'));
-        let MARRIAGE_DATE = gfnma_nvl(SBUxMethod.get("MARRIAGE_DATE"));
-        let HOBBY = gfnma_nvl(SBUxMethod.get("HOBBY"));
-        let SPECIAL_ABILITY = gfnma_nvl(SBUxMethod.get("SPECIAL_ABILITY"));
-        let RELIGION_CODE = gfnma_nvl(gfnma_multiSelectGet('#RELIGION_CODE'));
-        let HOUSE_OWN_YN = gfnma_nvl(SBUxMethod.get("HOUSE_OWN_YN"));
-        let HOUSE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#HOUSE_TYPE'));
-        let HOUSE_KIND = gfnma_nvl(gfnma_multiSelectGet('#HOUSE_KIND'));
-        let CAR_OWN_YN = gfnma_nvl(SBUxMethod.get("CAR_OWN_YN"));
-        let CAR_KIND = gfnma_nvl(SBUxMethod.get("CAR_KIND"));
-        let CAR_NUM = gfnma_nvl(SBUxMethod.get("CAR_NUM"));
-        let ARMY_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_TYPE'));
-        let ARMY_INDUSTRY_YN = gfnma_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN").ARMY_INDUSTRY_YN);
-        let ARMY_KIND = gfnma_nvl(gfnma_multiSelectGet('#ARMY_KIND'));
-        let ARMY_PART = gfnma_nvl(gfnma_multiSelectGet('#ARMY_PART'));
-        let ARMY_GRADE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_GRADE'));
-        let ARMY_DISCHARGE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_DISCHARGE_TYPE'));
-        let ARMY_START_DATE = gfnma_nvl(SBUxMethod.get("ARMY_START_DATE"));
-        let ARMY_END_DATE = gfnma_nvl(SBUxMethod.get("ARMY_END_DATE"));
-        let ARMY_DESCR = gfnma_nvl(SBUxMethod.get("ARMY_DESCR"));
-        let ARMY_EXEMPTION_DESCR = gfnma_nvl(SBUxMethod.get("ARMY_EXEMPTION_DESCR"));
-        let GUARANTEE_TYPE = gfnma_nvl(SBUxMethod.get("GUARANTEE_TYPE"));
-        let INSURE_COMP_NAME = gfnma_nvl(SBUxMethod.get("INSURE_COMP_NAME"));
-        let INSURE_NAME = gfnma_nvl(SBUxMethod.get("INSURE_NAME"));
-        let INSURE_AMOUNT = gfnma_nvl(SBUxMethod.get("INSURE_AMOUNT"));
-        let INSURE_NUM = gfnma_nvl(SBUxMethod.get("INSURE_NUM"));
-        let INSURE_VALUE = gfnma_nvl(SBUxMethod.get("INSURE_VALUE"));
-        let INSURE_START_DATE = gfnma_nvl(SBUxMethod.get("INSURE_START_DATE"));
-        let INSURE_END_DATE = gfnma_nvl(SBUxMethod.get("INSURE_END_DATE"));
-        let GUARANTOR1_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_NAME"));
-        let GUARANTOR1_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR1_SOCIAL_NO"));
-        let GUARANTOR1_RELATION = gfnma_nvl(gfnma_multiSelectGet('#GUARANTOR1_RELATION'));
-        let GUARANTOR1_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_COMP_NAME"));
-        let GUARANTOR1_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR1_POSITION"));
-        let GUARANTOR1_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_ZIP_CODE"));
-        let GUARANTOR1_ADDRESS = gfnma_nvl(SBUxMethod.get("GUARANTOR1_ADDRESS"));
-        let GUARANTOR1_START_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_START_DATE"));
-        let GUARANTOR1_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_END_DATE"));
-        let GUARANTOR2_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_NAME"));
-        let GUARANTOR2_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR2_SOCIAL_NO"));
-        let GUARANTOR2_RELATION = gfnma_nvl(gfnma_multiSelectGet('#GUARANTOR2_RELATION'));
-        let GUARANTOR2_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_COMP_NAME"));
-        let GUARANTOR2_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR2_POSITION"));
-        let GUARANTOR2_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_ZIP_CODE"));
-        let GUARANTOR2_ADDRESS = gfnma_nvl(SBUxMethod.get("GUARANTOR2_ADDRESS"));
-        let GUARANTOR2_START_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_START_DATE"));
-        let GUARANTOR2_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_END_DATE"));
-        let VETERANS_YN = gfnma_nvl(SBUxMethod.get("VETERANS_YN"));
-        let VETERANS_GRADE = gfnma_nvl(gfnma_multiSelectGet('#VETERANS_GRADE'));
-        let VETERANS_MEMO = gfnma_nvl(SBUxMethod.get("VETERANS_MEMO"));
-        let VETERANS_RELATION = gfnma_nvl(gfnma_multiSelectGet('#VETERANS_RELATION'));
-        let VETERANS_NUM = gfnma_nvl(SBUxMethod.get("VETERANS_NUM"));
-        let VETERANS_ORDER_YN = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_YN"));
-        let VETERANS_ORDER_DATE = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_DATE"));
-        let PASSPORT_NUM = gfnma_nvl(SBUxMethod.get("PASSPORT_NUM"));
-        let PASSPORT_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("PASSPORT_ISSUE_DATE"));
-        let PASSPORT_EXPIRE_DATE = gfnma_nvl(SBUxMethod.get("PASSPORT_EXPIRE_DATE"));
-        let VISA_NUM = gfnma_nvl(SBUxMethod.get("VISA_NUM"));
-        let VISA_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("VISA_ISSUE_DATE"));
-        let VISA_EXPIRE_DATE = gfnma_nvl(SBUxMethod.get("VISA_EXPIRE_DATE"));
-        let HANDICAP_TYPE = gfnma_nvl(SBUxMethod.get("HANDICAP_TYPE"));
-        let HANDICAP_GRADE = gfnma_nvl(gfnma_multiSelectGet('#HANDICAP_GRADE'));
-        let HANDICAP_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("HANDICAP_ISSUE_DATE"));
-        let HANDICAP_REASON = gfnma_nvl(SBUxMethod.get("HANDICAP_REASON"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let BLOOD_TYPE_RH = gfn_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_RH'));
+        let BLOOD_TYPE_ABO = gfn_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_ABO'));
+        let HEIGHT = gfn_nvl(SBUxMethod.get("HEIGHT"));
+        let WEIGHT = gfn_nvl(SBUxMethod.get("WEIGHT"));
+        let LEFT_EYE = gfn_nvl(SBUxMethod.get("LEFT_EYE"));
+        let RIGHT_EYE = gfn_nvl(SBUxMethod.get("RIGHT_EYE"));
+        let COLOR_BLIND_YN = gfn_nvl(SBUxMethod.get("COLOR_BLIND_YN"));
+        let JACKET_SIZE = gfn_nvl(SBUxMethod.get("JACKET_SIZE"));
+        let PANTS_SIZE = gfn_nvl(SBUxMethod.get("PANTS_SIZE"));
+        let SHOE_SIZE = gfn_nvl(SBUxMethod.get("SHOE_SIZE"));
+        let MARRIAGE_YN = gfn_nvl(gfnma_multiSelectGet('#MARRIAGE_YN'));
+        let MARRIAGE_DATE = gfn_nvl(SBUxMethod.get("MARRIAGE_DATE"));
+        let HOBBY = gfn_nvl(SBUxMethod.get("HOBBY"));
+        let SPECIAL_ABILITY = gfn_nvl(SBUxMethod.get("SPECIAL_ABILITY"));
+        let RELIGION_CODE = gfn_nvl(gfnma_multiSelectGet('#RELIGION_CODE'));
+        let HOUSE_OWN_YN = gfn_nvl(SBUxMethod.get("HOUSE_OWN_YN"));
+        let HOUSE_TYPE = gfn_nvl(gfnma_multiSelectGet('#HOUSE_TYPE'));
+        let HOUSE_KIND = gfn_nvl(gfnma_multiSelectGet('#HOUSE_KIND'));
+        let CAR_OWN_YN = gfn_nvl(SBUxMethod.get("CAR_OWN_YN"));
+        let CAR_KIND = gfn_nvl(SBUxMethod.get("CAR_KIND"));
+        let CAR_NUM = gfn_nvl(SBUxMethod.get("CAR_NUM"));
+        let ARMY_TYPE = gfn_nvl(gfnma_multiSelectGet('#ARMY_TYPE'));
+        let ARMY_INDUSTRY_YN = gfn_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN").ARMY_INDUSTRY_YN);
+        let ARMY_KIND = gfn_nvl(gfnma_multiSelectGet('#ARMY_KIND'));
+        let ARMY_PART = gfn_nvl(gfnma_multiSelectGet('#ARMY_PART'));
+        let ARMY_GRADE = gfn_nvl(gfnma_multiSelectGet('#ARMY_GRADE'));
+        let ARMY_DISCHARGE_TYPE = gfn_nvl(gfnma_multiSelectGet('#ARMY_DISCHARGE_TYPE'));
+        let ARMY_START_DATE = gfn_nvl(SBUxMethod.get("ARMY_START_DATE"));
+        let ARMY_END_DATE = gfn_nvl(SBUxMethod.get("ARMY_END_DATE"));
+        let ARMY_DESCR = gfn_nvl(SBUxMethod.get("ARMY_DESCR"));
+        let ARMY_EXEMPTION_DESCR = gfn_nvl(SBUxMethod.get("ARMY_EXEMPTION_DESCR"));
+        let GUARANTEE_TYPE = gfn_nvl(SBUxMethod.get("GUARANTEE_TYPE"));
+        let INSURE_COMP_NAME = gfn_nvl(SBUxMethod.get("INSURE_COMP_NAME"));
+        let INSURE_NAME = gfn_nvl(SBUxMethod.get("INSURE_NAME"));
+        let INSURE_AMOUNT = gfn_nvl(SBUxMethod.get("INSURE_AMOUNT"));
+        let INSURE_NUM = gfn_nvl(SBUxMethod.get("INSURE_NUM"));
+        let INSURE_VALUE = gfn_nvl(SBUxMethod.get("INSURE_VALUE"));
+        let INSURE_START_DATE = gfn_nvl(SBUxMethod.get("INSURE_START_DATE"));
+        let INSURE_END_DATE = gfn_nvl(SBUxMethod.get("INSURE_END_DATE"));
+        let GUARANTOR1_NAME = gfn_nvl(SBUxMethod.get("GUARANTOR1_NAME"));
+        let GUARANTOR1_SOCIAL_NO = gfn_nvl(SBUxMethod.get("GUARANTOR1_SOCIAL_NO"));
+        let GUARANTOR1_RELATION = gfn_nvl(gfnma_multiSelectGet('#GUARANTOR1_RELATION'));
+        let GUARANTOR1_COMP_NAME = gfn_nvl(SBUxMethod.get("GUARANTOR1_COMP_NAME"));
+        let GUARANTOR1_POSITION = gfn_nvl(SBUxMethod.get("GUARANTOR1_POSITION"));
+        let GUARANTOR1_ZIP_CODE = gfn_nvl(SBUxMethod.get("GUARANTOR1_ZIP_CODE"));
+        let GUARANTOR1_ADDRESS = gfn_nvl(SBUxMethod.get("GUARANTOR1_ADDRESS"));
+        let GUARANTOR1_START_DATE = gfn_nvl(SBUxMethod.get("GUARANTOR1_START_DATE"));
+        let GUARANTOR1_END_DATE = gfn_nvl(SBUxMethod.get("GUARANTOR1_END_DATE"));
+        let GUARANTOR2_NAME = gfn_nvl(SBUxMethod.get("GUARANTOR2_NAME"));
+        let GUARANTOR2_SOCIAL_NO = gfn_nvl(SBUxMethod.get("GUARANTOR2_SOCIAL_NO"));
+        let GUARANTOR2_RELATION = gfn_nvl(gfnma_multiSelectGet('#GUARANTOR2_RELATION'));
+        let GUARANTOR2_COMP_NAME = gfn_nvl(SBUxMethod.get("GUARANTOR2_COMP_NAME"));
+        let GUARANTOR2_POSITION = gfn_nvl(SBUxMethod.get("GUARANTOR2_POSITION"));
+        let GUARANTOR2_ZIP_CODE = gfn_nvl(SBUxMethod.get("GUARANTOR2_ZIP_CODE"));
+        let GUARANTOR2_ADDRESS = gfn_nvl(SBUxMethod.get("GUARANTOR2_ADDRESS"));
+        let GUARANTOR2_START_DATE = gfn_nvl(SBUxMethod.get("GUARANTOR2_START_DATE"));
+        let GUARANTOR2_END_DATE = gfn_nvl(SBUxMethod.get("GUARANTOR2_END_DATE"));
+        let VETERANS_YN = gfn_nvl(SBUxMethod.get("VETERANS_YN"));
+        let VETERANS_GRADE = gfn_nvl(gfnma_multiSelectGet('#VETERANS_GRADE'));
+        let VETERANS_MEMO = gfn_nvl(SBUxMethod.get("VETERANS_MEMO"));
+        let VETERANS_RELATION = gfn_nvl(gfnma_multiSelectGet('#VETERANS_RELATION'));
+        let VETERANS_NUM = gfn_nvl(SBUxMethod.get("VETERANS_NUM"));
+        let VETERANS_ORDER_YN = gfn_nvl(SBUxMethod.get("VETERANS_ORDER_YN"));
+        let VETERANS_ORDER_DATE = gfn_nvl(SBUxMethod.get("VETERANS_ORDER_DATE"));
+        let PASSPORT_NUM = gfn_nvl(SBUxMethod.get("PASSPORT_NUM"));
+        let PASSPORT_ISSUE_DATE = gfn_nvl(SBUxMethod.get("PASSPORT_ISSUE_DATE"));
+        let PASSPORT_EXPIRE_DATE = gfn_nvl(SBUxMethod.get("PASSPORT_EXPIRE_DATE"));
+        let VISA_NUM = gfn_nvl(SBUxMethod.get("VISA_NUM"));
+        let VISA_ISSUE_DATE = gfn_nvl(SBUxMethod.get("VISA_ISSUE_DATE"));
+        let VISA_EXPIRE_DATE = gfn_nvl(SBUxMethod.get("VISA_EXPIRE_DATE"));
+        let HANDICAP_TYPE = gfn_nvl(SBUxMethod.get("HANDICAP_TYPE"));
+        let HANDICAP_GRADE = gfn_nvl(gfnma_multiSelectGet('#HANDICAP_GRADE'));
+        let HANDICAP_ISSUE_DATE = gfn_nvl(SBUxMethod.get("HANDICAP_ISSUE_DATE"));
+        let HANDICAP_REASON = gfn_nvl(SBUxMethod.get("HANDICAP_REASON"));
 
         return {
             V_P_DEBUG_MODE_YN : '',
@@ -3550,9 +3550,9 @@
     }
 
     const getParamForHri1000S3 = async function(strStatus, empCode) {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let EMP_PHOTO = gfnma_nvl(SBUxMethod.get("EMP_PHOTO"));
-        let SIGN_IMG = gfnma_nvl(SBUxMethod.get("SIGN_IMG"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_PHOTO = gfn_nvl(SBUxMethod.get("EMP_PHOTO"));
+        let SIGN_IMG = gfn_nvl(SBUxMethod.get("SIGN_IMG"));
         return {
             cv_count : '0',
             getType : 'json',
@@ -4199,16 +4199,16 @@
     }
 
     const getParamForHri1000S21 = async function(strStatus, empCode) {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let RESIDENCE_ZIP_CODE = gfnma_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
-        let RESIDENCE_ADDRESS = gfnma_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
-        let FAMILY_REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
-        let FAMILY_REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
-        let EMERGENCY_ZIP_CODE = gfnma_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
-        let EMERGENCY_ADDRESS = gfnma_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
-        let HOME_TEL_NUM = gfnma_nvl(SBUxMethod.get("HOME_TEL_NUM"));
-        let OFFICE_TEL_NUM = gfnma_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
-        let CELLPHONE_NUM = gfnma_nvl(SBUxMethod.get("CELLPHONE_NUM"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let RESIDENCE_ZIP_CODE = gfn_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
+        let RESIDENCE_ADDRESS = gfn_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
+        let FAMILY_REGISTER_ZIP_CODE = gfn_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
+        let FAMILY_REGISTER_ADDRESS = gfn_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
+        let EMERGENCY_ZIP_CODE = gfn_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
+        let EMERGENCY_ADDRESS = gfn_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
+        let HOME_TEL_NUM = gfn_nvl(SBUxMethod.get("HOME_TEL_NUM"));
+        let OFFICE_TEL_NUM = gfn_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
+        let CELLPHONE_NUM = gfn_nvl(SBUxMethod.get("CELLPHONE_NUM"));
 
         return {
             cv_count : '0',
@@ -4271,9 +4271,9 @@
     }
 
     const getParamForHri1000S23 = async function(strStatus, empCode) {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
-        let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let AGREE_YN = gfn_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
+        let AGREE_DATE = gfn_nvl(SBUxMethod.get("AGREE_DATE"));
 
         return {
             cv_count : '0',

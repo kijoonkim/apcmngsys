@@ -342,8 +342,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -372,8 +372,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -470,12 +470,12 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -579,17 +579,17 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP_NAME = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -651,17 +651,17 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP_NAME = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -718,17 +718,17 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP_NAME = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -785,17 +785,17 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP_NAME = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -852,17 +852,17 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
-        let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
-        let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
-        let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
+        let YYYY	    = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let BASE_DATE	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let SPECIAL_PERIOD	    = gfn_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP_NAME = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         if (PAID_VACATION_TYPE == "4050" && SPECIAL_PERIOD == "") {
             alert("특별연차대상기간 선택후 실행하십시요");

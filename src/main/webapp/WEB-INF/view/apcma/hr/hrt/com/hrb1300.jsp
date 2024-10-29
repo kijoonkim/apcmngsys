@@ -313,17 +313,17 @@
     }
 
     const fn_save = async function() {
-        let YYYYMMDD = gfnma_nvl(SBUxMethod.get("YYYYMMDD"));
-        let WORK_DAY_TYPE = gfnma_nvl(SBUxMethod.get("WORK_TYPE_CODE"));
-        let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SHIFT_CODE"));
-        let HOLIDAY_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_YN").HOLIDAY_YN);
-        let HOLIDAY_NAME = gfnma_nvl(SBUxMethod.get("HOLIDAY_NAME"));
-        let HOLIDAY2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY2_YN").HOLIDAY2_YN);
-        let LUNAR_DATE = gfnma_nvl(SBUxMethod.get("LUNAR_DATE"));
-        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
-        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let HOLIDAY_TYPE1_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE1_YN").HOLIDAY_TYPE1_YN);
-        let HOLIDAY_TYPE2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE2_YN").HOLIDAY_TYPE2_YN);
+        let YYYYMMDD = gfn_nvl(SBUxMethod.get("YYYYMMDD"));
+        let WORK_DAY_TYPE = gfn_nvl(SBUxMethod.get("WORK_TYPE_CODE"));
+        let SHIFT_CODE = gfn_nvl(SBUxMethod.get("SHIFT_CODE"));
+        let HOLIDAY_YN = gfn_nvl(SBUxMethod.get("HOLIDAY_YN").HOLIDAY_YN);
+        let HOLIDAY_NAME = gfn_nvl(SBUxMethod.get("HOLIDAY_NAME"));
+        let HOLIDAY2_YN = gfn_nvl(SBUxMethod.get("HOLIDAY2_YN").HOLIDAY2_YN);
+        let LUNAR_DATE = gfn_nvl(SBUxMethod.get("LUNAR_DATE"));
+        let LEAP_MONTH_YN = gfn_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
+        let DESCR = gfn_nvl(SBUxMethod.get("DESCR"));
+        let HOLIDAY_TYPE1_YN = gfn_nvl(SBUxMethod.get("HOLIDAY_TYPE1_YN").HOLIDAY_TYPE1_YN);
+        let HOLIDAY_TYPE2_YN = gfn_nvl(SBUxMethod.get("HOLIDAY_TYPE2_YN").HOLIDAY_TYPE2_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -379,7 +379,7 @@
     }
 
     const fn_search = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -444,9 +444,9 @@
 
     const fn_view = async function(date) {
         SBUxMethod.set("YYYYMMDD", date);
-        let YYYYMMDD = gfnma_nvl(SBUxMethod.get("YYYYMMDD"));
+        let YYYYMMDD = gfn_nvl(SBUxMethod.get("YYYYMMDD"));
         let YYYYMM = YYYYMMDD.substring(0.6);
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',

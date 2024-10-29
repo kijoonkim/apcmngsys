@@ -299,7 +299,7 @@
     }
 
     const fn_findBankCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
@@ -327,7 +327,7 @@
     }
 
     const fn_findBankAccount = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
         var replaceText0 	= "_BANK_CODE_";
         var replaceText1 	= "_BANK_NAME_";
         var strWhereClause 	= "AND BANK_CODE LIKE '%" + replaceText0 + "%' AND BANK_NAME LIKE '%" + replaceText1 + "%'";

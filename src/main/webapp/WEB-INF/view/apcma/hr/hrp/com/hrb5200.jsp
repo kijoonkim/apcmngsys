@@ -708,8 +708,8 @@
     }
 
     const fn_findTaxFreeCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("TAX_FREE_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("TAX_FREE_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("TAX_FREE_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("TAX_FREE_NAME"));
         var replaceText0 	= "_TAX_FREE_CODE_";
         var replaceText1 	= "_TAX_FREE_NAME_";
         var strWhereClause 	= "AND TAX_FREE_CODE LIKE '%" + replaceText0 + "%' AND TAX_FREE_NAME LIKE '%" + replaceText1 + "%'";
@@ -739,8 +739,8 @@
     }
 
     var fn_findEntryDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1025,8 +1025,8 @@
 
         editType = "U";
         let PAY_ITEM_CODE = gfn_nvl(rowData.PAY_ITEM_CODE)
-        let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_NAME"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
+        let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_NAME"));
+        let PAY_ITEM_CATEGORY = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1190,43 +1190,43 @@
             return false;
         }
 
-        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-        let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CATEGORY"));
-        let PAY_ITEM_PROPERTY = gfnma_nvl(SBUxMethod.get("PAY_ITEM_PROPERTY"));
-        let SUMMARY_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_TYPE'));
-        let SUMMARY_RELATED_CODE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_RELATED_CODE'));
-        let TAX_REPORT_ITEM_CODE = gfnma_nvl(gfnma_multiSelectGet('#TAX_REPORT_ITEM_CODE'));
-        let ENTRY_DEPT_CODE = gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
-        let TAX_FREE_YN = gfnma_nvl(SBUxMethod.get("TAX_FREE_YN").TAX_FREE_YN);
-        let TAX_FREE_CODE = gfnma_nvl(SBUxMethod.get("TAX_FREE_CODE"));
-        let ROUND_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ROUND_TYPE'));
-        let ROUND_TYPE_BASE_AMT = gfnma_nvl(gfnma_multiSelectGet('#ROUND_TYPE_BASE_AMT'));
-        let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
-        let BONUS_YN = gfnma_nvl(SBUxMethod.get("BONUS_YN").BONUS_YN);
-        let INTERN_EMP_PAY_RATE = gfnma_nvl(SBUxMethod.get("INTERN_EMP_PAY_RATE"));
-        let AVERAGE_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("AVERAGE_INCLUDE_YN").AVERAGE_INCLUDE_YN);
-        let ORDINARY_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("ORDINARY_INCLUDE_YN").ORDINARY_INCLUDE_YN);
-        let RETIRE_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("RETIRE_INCLUDE_YN").RETIRE_INCLUDE_YN);
-        let DAY_DISCOUNT_YN = gfnma_nvl(SBUxMethod.get("DAY_DISCOUNT_YN").DAY_DISCOUNT_YN);
-        let PRINT_YN = gfnma_nvl(SBUxMethod.get("PRINT_YN").PRINT_YN);
-        let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let PAY_ITEM_RANGE_TYPE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_RANGE_TYPE"));
-        let TAX_CALCULATE_YN = gfnma_nvl(SBUxMethod.get("TAX_CALCULATE_YN").TAX_CALCULATE_YN);
-        let BASE_ACCOUNTING_YN = gfnma_nvl(SBUxMethod.get("BASE_ACCOUNTING_YN").BASE_ACCOUNTING_YN);
-        let INSURE_ACCOUNTING_YN = gfnma_nvl(SBUxMethod.get("INSURE_ACCOUNTING_YN").INSURE_ACCOUNTING_YN);
-        let ITEM_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("ITEM_INCLUDE_YN").ITEM_INCLUDE_YN);
-        let DAILY_CALC_YN = gfnma_nvl(SBUxMethod.get("DAILY_CALC_YN").DAILY_CALC_YN);
-        let DAILY_SUM_YN = gfnma_nvl(SBUxMethod.get("DAILY_SUM_YN").DAILY_SUM_YN);
-        let DAILY_AVG_YN = gfnma_nvl(SBUxMethod.get("DAILY_AVG_YN").DAILY_AVG_YN);
-        let MINUS_APPLY_YN = gfnma_nvl(SBUxMethod.get("MINUS_APPLY_YN").MINUS_APPLY_YN);
-        let SHUTDOWN_AVG_YN = gfnma_nvl(SBUxMethod.get("SHUTDOWN_AVG_YN").SHUTDOWN_AVG_YN);
-        let SHUTDOWN_ORD_YN = gfnma_nvl(SBUxMethod.get("SHUTDOWN_ORD_YN").SHUTDOWN_ORD_YN);
-        let WORKSHOP_TAX_YN = gfnma_nvl(SBUxMethod.get("WORKSHOP_TAX_YN").WORKSHOP_TAX_YN);
-        let SUMMARY_RULE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_RULE'));
-        let RETIRE_DISCOUNT_YN = gfnma_nvl(SBUxMethod.get("RETIRE_DISCOUNT_YN").RETIRE_DISCOUNT_YN);
+        let PAY_ITEM_CODE = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME"));
+        let PAY_ITEM_CATEGORY = gfn_nvl(SBUxMethod.get("PAY_ITEM_CATEGORY"));
+        let PAY_ITEM_PROPERTY = gfn_nvl(SBUxMethod.get("PAY_ITEM_PROPERTY"));
+        let SUMMARY_TYPE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_TYPE'));
+        let SUMMARY_RELATED_CODE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_RELATED_CODE'));
+        let TAX_REPORT_ITEM_CODE = gfn_nvl(gfnma_multiSelectGet('#TAX_REPORT_ITEM_CODE'));
+        let ENTRY_DEPT_CODE = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
+        let TAX_FREE_YN = gfn_nvl(SBUxMethod.get("TAX_FREE_YN").TAX_FREE_YN);
+        let TAX_FREE_CODE = gfn_nvl(SBUxMethod.get("TAX_FREE_CODE"));
+        let ROUND_TYPE = gfn_nvl(gfnma_multiSelectGet('#ROUND_TYPE'));
+        let ROUND_TYPE_BASE_AMT = gfn_nvl(gfnma_multiSelectGet('#ROUND_TYPE_BASE_AMT'));
+        let PAY_YN = gfn_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
+        let BONUS_YN = gfn_nvl(SBUxMethod.get("BONUS_YN").BONUS_YN);
+        let INTERN_EMP_PAY_RATE = gfn_nvl(SBUxMethod.get("INTERN_EMP_PAY_RATE"));
+        let AVERAGE_INCLUDE_YN = gfn_nvl(SBUxMethod.get("AVERAGE_INCLUDE_YN").AVERAGE_INCLUDE_YN);
+        let ORDINARY_INCLUDE_YN = gfn_nvl(SBUxMethod.get("ORDINARY_INCLUDE_YN").ORDINARY_INCLUDE_YN);
+        let RETIRE_INCLUDE_YN = gfn_nvl(SBUxMethod.get("RETIRE_INCLUDE_YN").RETIRE_INCLUDE_YN);
+        let DAY_DISCOUNT_YN = gfn_nvl(SBUxMethod.get("DAY_DISCOUNT_YN").DAY_DISCOUNT_YN);
+        let PRINT_YN = gfn_nvl(SBUxMethod.get("PRINT_YN").PRINT_YN);
+        let SORT_SEQ = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+        let USE_YN = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+        let PAY_ITEM_RANGE_TYPE = gfn_nvl(SBUxMethod.get("PAY_ITEM_RANGE_TYPE"));
+        let TAX_CALCULATE_YN = gfn_nvl(SBUxMethod.get("TAX_CALCULATE_YN").TAX_CALCULATE_YN);
+        let BASE_ACCOUNTING_YN = gfn_nvl(SBUxMethod.get("BASE_ACCOUNTING_YN").BASE_ACCOUNTING_YN);
+        let INSURE_ACCOUNTING_YN = gfn_nvl(SBUxMethod.get("INSURE_ACCOUNTING_YN").INSURE_ACCOUNTING_YN);
+        let ITEM_INCLUDE_YN = gfn_nvl(SBUxMethod.get("ITEM_INCLUDE_YN").ITEM_INCLUDE_YN);
+        let DAILY_CALC_YN = gfn_nvl(SBUxMethod.get("DAILY_CALC_YN").DAILY_CALC_YN);
+        let DAILY_SUM_YN = gfn_nvl(SBUxMethod.get("DAILY_SUM_YN").DAILY_SUM_YN);
+        let DAILY_AVG_YN = gfn_nvl(SBUxMethod.get("DAILY_AVG_YN").DAILY_AVG_YN);
+        let MINUS_APPLY_YN = gfn_nvl(SBUxMethod.get("MINUS_APPLY_YN").MINUS_APPLY_YN);
+        let SHUTDOWN_AVG_YN = gfn_nvl(SBUxMethod.get("SHUTDOWN_AVG_YN").SHUTDOWN_AVG_YN);
+        let SHUTDOWN_ORD_YN = gfn_nvl(SBUxMethod.get("SHUTDOWN_ORD_YN").SHUTDOWN_ORD_YN);
+        let WORKSHOP_TAX_YN = gfn_nvl(SBUxMethod.get("WORKSHOP_TAX_YN").WORKSHOP_TAX_YN);
+        let SUMMARY_RULE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_RULE'));
+        let RETIRE_DISCOUNT_YN = gfn_nvl(SBUxMethod.get("RETIRE_DISCOUNT_YN").RETIRE_DISCOUNT_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1356,46 +1356,46 @@
             return false;
         }
 
-        if(gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE")) == "") return;
+        if(gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE")) == "") return;
 
         if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {
-            let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-            let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME"));
-            let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CATEGORY"));
-            let PAY_ITEM_PROPERTY = gfnma_nvl(SBUxMethod.get("PAY_ITEM_PROPERTY"));
-            let SUMMARY_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_TYPE'));
-            let SUMMARY_RELATED_CODE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_RELATED_CODE'));
-            let TAX_REPORT_ITEM_CODE = gfnma_nvl(gfnma_multiSelectGet('#TAX_REPORT_ITEM_CODE'));
-            let ENTRY_DEPT_CODE = gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
-            let TAX_FREE_YN = gfnma_nvl(SBUxMethod.get("TAX_FREE_YN").TAX_FREE_YN);
-            let TAX_FREE_CODE = gfnma_nvl(SBUxMethod.get("TAX_FREE_CODE"));
-            let ROUND_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ROUND_TYPE'));
-            let ROUND_TYPE_BASE_AMT = gfnma_nvl(gfnma_multiSelectGet('#ROUND_TYPE_BASE_AMT'));
-            let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
-            let BONUS_YN = gfnma_nvl(SBUxMethod.get("BONUS_YN").BONUS_YN);
-            let INTERN_EMP_PAY_RATE = gfnma_nvl(SBUxMethod.get("INTERN_EMP_PAY_RATE"));
-            let AVERAGE_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("AVERAGE_INCLUDE_YN").AVERAGE_INCLUDE_YN);
-            let ORDINARY_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("ORDINARY_INCLUDE_YN").ORDINARY_INCLUDE_YN);
-            let RETIRE_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("RETIRE_INCLUDE_YN").RETIRE_INCLUDE_YN);
-            let DAY_DISCOUNT_YN = gfnma_nvl(SBUxMethod.get("DAY_DISCOUNT_YN").DAY_DISCOUNT_YN);
-            let PRINT_YN = gfnma_nvl(SBUxMethod.get("PRINT_YN").PRINT_YN);
-            let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-            let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-            let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-            let PAY_ITEM_RANGE_TYPE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_RANGE_TYPE"));
-            let TAX_CALCULATE_YN = gfnma_nvl(SBUxMethod.get("TAX_CALCULATE_YN").TAX_CALCULATE_YN);
-            let BASE_ACCOUNTING_YN = gfnma_nvl(SBUxMethod.get("BASE_ACCOUNTING_YN").BASE_ACCOUNTING_YN);
-            let INSURE_ACCOUNTING_YN = gfnma_nvl(SBUxMethod.get("INSURE_ACCOUNTING_YN").INSURE_ACCOUNTING_YN);
-            let ITEM_INCLUDE_YN = gfnma_nvl(SBUxMethod.get("ITEM_INCLUDE_YN").ITEM_INCLUDE_YN);
-            let DAILY_CALC_YN = gfnma_nvl(SBUxMethod.get("DAILY_CALC_YN").DAILY_CALC_YN);
-            let DAILY_SUM_YN = gfnma_nvl(SBUxMethod.get("DAILY_SUM_YN").DAILY_SUM_YN);
-            let DAILY_AVG_YN = gfnma_nvl(SBUxMethod.get("DAILY_AVG_YN").DAILY_AVG_YN);
-            let MINUS_APPLY_YN = gfnma_nvl(SBUxMethod.get("MINUS_APPLY_YN").MINUS_APPLY_YN);
-            let SHUTDOWN_AVG_YN = gfnma_nvl(SBUxMethod.get("SHUTDOWN_AVG_YN").SHUTDOWN_AVG_YN);
-            let SHUTDOWN_ORD_YN = gfnma_nvl(SBUxMethod.get("SHUTDOWN_ORD_YN").SHUTDOWN_ORD_YN);
-            let WORKSHOP_TAX_YN = gfnma_nvl(SBUxMethod.get("WORKSHOP_TAX_YN").WORKSHOP_TAX_YN);
-            let SUMMARY_RULE = gfnma_nvl(gfnma_multiSelectGet('#SUMMARY_RULE'));
-            let RETIRE_DISCOUNT_YN = gfnma_nvl(SBUxMethod.get("RETIRE_DISCOUNT_YN").RETIRE_DISCOUNT_YN);
+            let PAY_ITEM_CODE = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+            let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME"));
+            let PAY_ITEM_CATEGORY = gfn_nvl(SBUxMethod.get("PAY_ITEM_CATEGORY"));
+            let PAY_ITEM_PROPERTY = gfn_nvl(SBUxMethod.get("PAY_ITEM_PROPERTY"));
+            let SUMMARY_TYPE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_TYPE'));
+            let SUMMARY_RELATED_CODE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_RELATED_CODE'));
+            let TAX_REPORT_ITEM_CODE = gfn_nvl(gfnma_multiSelectGet('#TAX_REPORT_ITEM_CODE'));
+            let ENTRY_DEPT_CODE = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
+            let TAX_FREE_YN = gfn_nvl(SBUxMethod.get("TAX_FREE_YN").TAX_FREE_YN);
+            let TAX_FREE_CODE = gfn_nvl(SBUxMethod.get("TAX_FREE_CODE"));
+            let ROUND_TYPE = gfn_nvl(gfnma_multiSelectGet('#ROUND_TYPE'));
+            let ROUND_TYPE_BASE_AMT = gfn_nvl(gfnma_multiSelectGet('#ROUND_TYPE_BASE_AMT'));
+            let PAY_YN = gfn_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
+            let BONUS_YN = gfn_nvl(SBUxMethod.get("BONUS_YN").BONUS_YN);
+            let INTERN_EMP_PAY_RATE = gfn_nvl(SBUxMethod.get("INTERN_EMP_PAY_RATE"));
+            let AVERAGE_INCLUDE_YN = gfn_nvl(SBUxMethod.get("AVERAGE_INCLUDE_YN").AVERAGE_INCLUDE_YN);
+            let ORDINARY_INCLUDE_YN = gfn_nvl(SBUxMethod.get("ORDINARY_INCLUDE_YN").ORDINARY_INCLUDE_YN);
+            let RETIRE_INCLUDE_YN = gfn_nvl(SBUxMethod.get("RETIRE_INCLUDE_YN").RETIRE_INCLUDE_YN);
+            let DAY_DISCOUNT_YN = gfn_nvl(SBUxMethod.get("DAY_DISCOUNT_YN").DAY_DISCOUNT_YN);
+            let PRINT_YN = gfn_nvl(SBUxMethod.get("PRINT_YN").PRINT_YN);
+            let SORT_SEQ = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+            let USE_YN = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+            let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+            let PAY_ITEM_RANGE_TYPE = gfn_nvl(SBUxMethod.get("PAY_ITEM_RANGE_TYPE"));
+            let TAX_CALCULATE_YN = gfn_nvl(SBUxMethod.get("TAX_CALCULATE_YN").TAX_CALCULATE_YN);
+            let BASE_ACCOUNTING_YN = gfn_nvl(SBUxMethod.get("BASE_ACCOUNTING_YN").BASE_ACCOUNTING_YN);
+            let INSURE_ACCOUNTING_YN = gfn_nvl(SBUxMethod.get("INSURE_ACCOUNTING_YN").INSURE_ACCOUNTING_YN);
+            let ITEM_INCLUDE_YN = gfn_nvl(SBUxMethod.get("ITEM_INCLUDE_YN").ITEM_INCLUDE_YN);
+            let DAILY_CALC_YN = gfn_nvl(SBUxMethod.get("DAILY_CALC_YN").DAILY_CALC_YN);
+            let DAILY_SUM_YN = gfn_nvl(SBUxMethod.get("DAILY_SUM_YN").DAILY_SUM_YN);
+            let DAILY_AVG_YN = gfn_nvl(SBUxMethod.get("DAILY_AVG_YN").DAILY_AVG_YN);
+            let MINUS_APPLY_YN = gfn_nvl(SBUxMethod.get("MINUS_APPLY_YN").MINUS_APPLY_YN);
+            let SHUTDOWN_AVG_YN = gfn_nvl(SBUxMethod.get("SHUTDOWN_AVG_YN").SHUTDOWN_AVG_YN);
+            let SHUTDOWN_ORD_YN = gfn_nvl(SBUxMethod.get("SHUTDOWN_ORD_YN").SHUTDOWN_ORD_YN);
+            let WORKSHOP_TAX_YN = gfn_nvl(SBUxMethod.get("WORKSHOP_TAX_YN").WORKSHOP_TAX_YN);
+            let SUMMARY_RULE = gfn_nvl(gfnma_multiSelectGet('#SUMMARY_RULE'));
+            let RETIRE_DISCOUNT_YN = gfn_nvl(SBUxMethod.get("RETIRE_DISCOUNT_YN").RETIRE_DISCOUNT_YN);
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
@@ -1477,9 +1477,9 @@
     const fn_search = async function() {
         editType = "N";
 
-        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE"));
-        let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_NAME"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
+        let PAY_ITEM_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE"));
+        let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_NAME"));
+        let PAY_ITEM_CATEGORY = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',

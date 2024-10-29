@@ -708,8 +708,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -741,8 +741,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -771,7 +771,7 @@
     }
 
     const fn_findAppointType = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
         var replaceText0 	= "_SUB_CODE_";
         var replaceText1 	= "_CODE_NAME_";
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
@@ -799,10 +799,10 @@
 
     const fn_findSrchAppointNum = function() {
         const getData = async function() {
-            let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#POP_APPOINT_TYPE'));
-            let APPLY_YN = gfnma_nvl(gfnma_multiSelectGet('#POP_APPLY_YN'));
-            let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
-            let APPOINT_DATE_TO = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
+            let APPOINT_TYPE = gfn_nvl(gfnma_multiSelectGet('#POP_APPOINT_TYPE'));
+            let APPLY_YN = gfn_nvl(gfnma_multiSelectGet('#POP_APPLY_YN'));
+            let APPOINT_DATE_FR = gfn_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
+            let APPOINT_DATE_TO = gfn_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
@@ -1118,15 +1118,15 @@
     }
 
     function fn_createBandgvwDetailGrid(disableOption) {
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
 
         let commonHiddenYn = (DEPT_APPOINT_YN == "N" && POSITION_APPOINT_YN == "N" &&
             DUTY_APPOINT_YN == "N" && JOB_RANK_APPOINT_YN == "N" &&
@@ -1436,13 +1436,13 @@
         if (nCol == bandgvwDetail.getColRef('TIME_OFF_TYPE')) {
             if (bandgvwDetail.getCellData(nRow, bandgvwDetail.getColRef('TIME_OFF_TYPE')) == "H0090") {
                 const getData = async function() {
-                    gfnma_multiSelectSet('#POP_APPOINT_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(SBUxMethod.get("APPOINT_TYPE")));
-                    let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+                    gfnma_multiSelectSet('#POP_APPOINT_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(SBUxMethod.get("APPOINT_TYPE")));
+                    let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
                     let APPLY_YN = "Y";
-                    let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
-                    let APPOINT_DATE_TO = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
+                    let APPOINT_DATE_FR = gfn_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
+                    let APPOINT_DATE_TO = gfn_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
                     let EMP_CODE = bandgvwDetail.getCellData(nRow, bandgvwDetail.getColRef('EMP_CODE'));
-                    let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
+                    let APPOINT_NUM = gfn_nvl(SBUxMethod.get("APPOINT_NUM"));
 
                     var paramObj = {
                         V_P_DEBUG_MODE_YN: ''
@@ -1535,15 +1535,15 @@
     }
 
     function fnDeptAppointYnChange(args){
-        let DEPT_APPOINT_YN = args ? args.DEPT_APPOINT_YN : gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let DEPT_APPOINT_YN = args ? args.DEPT_APPOINT_YN : gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
 
         if (DEPT_APPOINT_YN == "N" && POSITION_APPOINT_YN == "N" &&
             DUTY_APPOINT_YN == "N" && JOB_RANK_APPOINT_YN == "N" &&
@@ -1634,14 +1634,14 @@
     }
 
     function fnPositionAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = args ? args.POSITION_APPOINT_YN : gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = args ? args.POSITION_APPOINT_YN : gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -1712,14 +1712,14 @@
     }
 
     function fnDutyAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = args ? args.DUTY_APPOINT_YN : gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = args ? args.DUTY_APPOINT_YN : gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -1790,14 +1790,14 @@
     }
 
     function fnJobRankAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = args ? args.JOB_RANK_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = args ? args.JOB_RANK_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -1868,14 +1868,14 @@
     }
 
     function fnJobGroupAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = args ? args.JOB_GROUP_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = args ? args.JOB_GROUP_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -1946,14 +1946,14 @@
     }
 
     function fnJobAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = args ? args.JOB_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = args ? args.JOB_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -2024,14 +2024,14 @@
     }
 
     function fnJobFamilyAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = args ? args.JOB_FAMILY_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = args ? args.JOB_FAMILY_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -2102,14 +2102,14 @@
     }
 
     function fnRegionAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = args ? args.REGION_APPOINT_YN : gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let REGION_APPOINT_YN = args ? args.REGION_APPOINT_YN : gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -2180,7 +2180,7 @@
     }
 
     function fnParentingWorkTypeYnChange(args){
-        let PARENTING_WORK_TYPE_YN = args ? args.PARENTING_WORK_TYPE_YN : gfnma_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN)
+        let PARENTING_WORK_TYPE_YN = args ? args.PARENTING_WORK_TYPE_YN : gfn_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN)
         if (PARENTING_WORK_TYPE_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), false, true);
         } else {
@@ -2302,11 +2302,11 @@
      * 목록 조회
      */
     const fn_search = async function() {
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
-        let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
-        let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let APPOINT_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
+        let APPOINT_NUM = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
+        let APPOINT_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -2440,21 +2440,21 @@
             return false;
         }
 
-        let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
-        let APPOINT_TITLE = gfnma_nvl(SBUxMethod.get("APPOINT_TITLE"));
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let APPLY_YN = gfnma_nvl(SBUxMethod.get("APPLY_YN"));
-        let PARENTING_WORK_TYPE_YN = gfnma_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
+        let APPOINT_NUM = gfn_nvl(SBUxMethod.get("APPOINT_NUM"));
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("APPOINT_DATE"));
+        let APPOINT_TITLE = gfn_nvl(SBUxMethod.get("APPOINT_TITLE"));
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+        let APPLY_YN = gfn_nvl(SBUxMethod.get("APPLY_YN"));
+        let PARENTING_WORK_TYPE_YN = gfn_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
 
         var master = {
             V_P_DEBUG_MODE_YN : '',
@@ -2677,21 +2677,21 @@
 
     // 삭제
     const fn_delete = async function() {
-        let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
-        let APPOINT_TITLE = gfnma_nvl(SBUxMethod.get("APPOINT_TITLE"));
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let APPLY_YN = gfnma_nvl(SBUxMethod.get("APPLY_YN"));
-        let PARENTING_WORK_TYPE_YN = gfnma_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
+        let APPOINT_NUM = gfn_nvl(SBUxMethod.get("APPOINT_NUM"));
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("APPOINT_DATE"));
+        let APPOINT_TITLE = gfn_nvl(SBUxMethod.get("APPOINT_TITLE"));
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+        let APPLY_YN = gfn_nvl(SBUxMethod.get("APPLY_YN"));
+        let PARENTING_WORK_TYPE_YN = gfn_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
 
         if(APPOINT_NUM == '') {
             return;
@@ -2757,21 +2757,21 @@
 
     // 인사기록반영취소
     const fn_cancelReflectionInfo = async function () {
-        let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
-        let APPOINT_TITLE = gfnma_nvl(SBUxMethod.get("APPOINT_TITLE"));
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let APPLY_YN = gfnma_nvl(SBUxMethod.get("APPLY_YN"));
-        let PARENTING_WORK_TYPE_YN = gfnma_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
+        let APPOINT_NUM = gfn_nvl(SBUxMethod.get("APPOINT_NUM"));
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("APPOINT_DATE"));
+        let APPOINT_TITLE = gfn_nvl(SBUxMethod.get("APPOINT_TITLE"));
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+        let APPLY_YN = gfn_nvl(SBUxMethod.get("APPLY_YN"));
+        let PARENTING_WORK_TYPE_YN = gfn_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -2828,21 +2828,21 @@
 
     // 인사기록반영
     const fn_reflectionInfo = async function () {
-        let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
-        let APPOINT_TITLE = gfnma_nvl(SBUxMethod.get("APPOINT_TITLE"));
-        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
-        let APPLY_YN = gfnma_nvl(SBUxMethod.get("APPLY_YN"));
-        let PARENTING_WORK_TYPE_YN = gfnma_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
+        let APPOINT_NUM = gfn_nvl(SBUxMethod.get("APPOINT_NUM"));
+        let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("APPOINT_DATE"));
+        let APPOINT_TITLE = gfn_nvl(SBUxMethod.get("APPOINT_TITLE"));
+        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
+        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
+        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
+        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
+        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
+        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
+        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
+        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+        let APPLY_YN = gfn_nvl(SBUxMethod.get("APPLY_YN"));
+        let PARENTING_WORK_TYPE_YN = gfn_nvl(SBUxMethod.get("PARENTING_WORK_TYPE_YN").PARENTING_WORK_TYPE_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -2914,12 +2914,12 @@
 
         let rowData = gvwList.getRowData(nRow);
 
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = rowData.DEPT_CODE;
-        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
+        let APPOINT_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
         let APPOINT_NUM = rowData.APPOINT_NUM;
-        let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
+        let APPOINT_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -3099,19 +3099,19 @@
 
     // 일괄추가
     const fn_addAll = async function () {
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let POSITION_CODE = gfnma_nvl(SBUxMethod.get("POSITION_CODE"));
-        let DUTY_CODE = gfnma_nvl(gfnma_multiSelectGet('#DUTY_CODE'));
-        let JOB_RANK = gfnma_nvl(SBUxMethod.get("JOB_RANK"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("JOB_GROUP"));
-        let JOB_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_CODE'));
-        let WORK_REGION = gfnma_nvl(gfnma_multiSelectGet('#WORK_REGION'));
-        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let POSITION_CODE = gfn_nvl(SBUxMethod.get("POSITION_CODE"));
+        let DUTY_CODE = gfn_nvl(gfnma_multiSelectGet('#DUTY_CODE'));
+        let JOB_RANK = gfn_nvl(SBUxMethod.get("JOB_RANK"));
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("JOB_GROUP"));
+        let JOB_CODE = gfn_nvl(gfnma_multiSelectGet('#JOB_CODE'));
+        let WORK_REGION = gfn_nvl(gfnma_multiSelectGet('#WORK_REGION'));
+        let APPOINT_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
 
-        let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
-        let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
+        let APPOINT_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
+        let APPOINT_DATE = gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
 
 
         var paramObj = {

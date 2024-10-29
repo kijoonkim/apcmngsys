@@ -186,8 +186,8 @@
     }
 
     var fn_findSrchDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -216,8 +216,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -340,11 +340,11 @@
      * 목록 조회
      */
     const fn_search = async function() {
-        let SITE_CODE	= gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let EMP_STATE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
+        let SITE_CODE	= gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let EMP_STATE	= gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let DEPT_CODE	= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE	= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let POSITION_CODE	= gfn_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''

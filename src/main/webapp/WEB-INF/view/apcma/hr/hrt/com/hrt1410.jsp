@@ -397,7 +397,7 @@
     }
 
     var fn_findEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("EMP_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -425,7 +425,7 @@
     }
 
     const fn_findDeptLeaderEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_NAME_";
         var replaceText2 	= "_EMP_STATE_";
@@ -456,7 +456,7 @@
     }
 
     const fn_findParentDeptCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
         var replaceText0 	= "_CC_CODE_";
         var replaceText1 	= "_CC_NAME_";
         var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 + "%'";
@@ -487,7 +487,7 @@
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         SBUxMethod.openModal('modal-compopup1');
 
-        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
         var replaceText0 	= "_DEPT_CODE_";
         var replaceText1 	= "_DEPT_NAME_";
         var replaceText2 	= "_EMP_CODE_";
@@ -805,10 +805,10 @@
         }
 
         let rowData = treeMaster.getRowData(nRow);
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let BASE_YYYYMMDD = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(rowData.DEPT_CODE);
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let BASE_YYYYMMDD = gfn_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -940,9 +940,9 @@
         }
 
         editType = "N";
-        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let BASE_YYYYMMDD	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let BASE_YYYYMMDD	    = gfn_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1045,9 +1045,9 @@
         SBUxMethod.set("SORT_SEQ", rowData.SORT_SEQ);
         SBUxMethod.set("MEMO", rowData.MEMO);
 
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
-        let BASE_YYYYMMDD = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(rowData.DEPT_CODE);
+        let BASE_YYYYMMDD = gfn_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1175,7 +1175,7 @@
 
         updatedEmpData.forEach((item, index) => {
             if (item.data.EMP_BASE_FLAG == "Y") {
-                if (gfnma_nvl(item.data.WORK_PATTERN_CODE) == "" || gfnma_nvl(item.data.START_DATE) == "" || gfnma_nvl(item.data.END_DATE) == "") {
+                if (gfn_nvl(item.data.WORK_PATTERN_CODE) == "" || gfn_nvl(item.data.START_DATE) == "" || gfn_nvl(item.data.END_DATE) == "") {
                     gfn_comAlert("근무패턴과 기간을 지정하십시요");
                     return false;
                 }
@@ -1213,7 +1213,7 @@
         });
 
         updatedPatternData.forEach((item, index) => {
-            if (gfnma_nvl(item.data.WORK_PATTERN_CODE) == "" || gfnma_nvl(item.data.APPLY_START_DATE) == "" || gfnma_nvl(item.data.APPLY_END_DATE) == "") {
+            if (gfn_nvl(item.data.WORK_PATTERN_CODE) == "" || gfn_nvl(item.data.APPLY_START_DATE) == "" || gfn_nvl(item.data.APPLY_END_DATE) == "") {
                 gfn_comAlert("근무패턴과 기간을 지정하십시요");
                 return false;
             }

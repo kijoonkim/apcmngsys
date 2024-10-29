@@ -1618,7 +1618,7 @@
     }
 
     const fn_findPayerName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYER_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_PAYER_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -1650,7 +1650,7 @@
     }
 
     const fn_findCreatedDeptName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1678,7 +1678,7 @@
     }
 
     const fn_findPayeeDeptName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1706,7 +1706,7 @@
     }
 
     const fn_findCreatedByName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CREATED_BY_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_NAME"));
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_";
         var strWhereClause 	= "AND A.USER_ID LIKE '%" + replaceText0 + "%' AND A.USER_NAME LIKE '%" + replaceText1 + "%'";
@@ -1735,7 +1735,7 @@
     }
 
     const fn_findPayeeName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYEE_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_PAYEE_NAME"));
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_";
         var strWhereClause 	= "AND A.USER_ID LIKE '%" + replaceText0 + "%' AND A.USER_NAME LIKE '%" + replaceText1 + "%'";

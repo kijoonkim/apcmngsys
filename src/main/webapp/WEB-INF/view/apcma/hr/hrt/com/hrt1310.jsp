@@ -401,9 +401,9 @@
     }
 
     const fn_initCreate = async function() {
-        let YYYYMMDD_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-        let YYYYMMDD_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let WORK_PATTERN_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
+        let YYYYMMDD_FR	    = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+        let YYYYMMDD_TO	    = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+        let WORK_PATTERN_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
@@ -500,9 +500,9 @@
             return false;
         }
 
-        let YYYYMMDD_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-        let YYYYMMDD_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let WORK_PATTERN_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
+        let YYYYMMDD_FR	    = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+        let YYYYMMDD_TO	    = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+        let WORK_PATTERN_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',

@@ -354,7 +354,7 @@
         };
 
         const fn_findDepositCode = function() {
-            var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPOSIT_NAME_POP"));
+            var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_NAME_POP"));
             var replaceText0 	= "_DEPOSIT_CODE_";
             var replaceText1 	= "_DEPOSIT_NAME_";
             var replaceText2 	= "_CURRENCY_CODE_";

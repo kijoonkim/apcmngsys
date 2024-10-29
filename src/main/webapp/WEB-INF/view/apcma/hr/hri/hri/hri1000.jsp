@@ -1432,8 +1432,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -1465,8 +1465,8 @@
     }
 
     const fn_findOldEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("OLD_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("OLD_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("OLD_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("OLD_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -1498,8 +1498,8 @@
     }
 
     const fn_findIntroducerCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("INTRODUCER_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("INTRODUCER_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("INTRODUCER_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("INTRODUCER_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -1531,8 +1531,8 @@
     }
 
     var fn_findSrchDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1561,8 +1561,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1591,8 +1591,8 @@
     }
 
     const fn_findParentDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("PARENT_DEPT"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
         var replaceText0 	= "_CC_CODE_";
         var replaceText1 	= "_CC_NAME_";
         var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 + "%'";
@@ -1620,8 +1620,8 @@
     }
 
     const fn_findCostDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("COST_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("COST_DEPT_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
@@ -1649,8 +1649,8 @@
     }
 
     const fn_findDeptCode2 = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE2"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME2"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("DEPT_CODE2"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("DEPT_NAME2"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
@@ -2053,9 +2053,8 @@
         }
 
         const master = await getParamForHri1000S();
-        console.log(master)
-        if (new Date(master.V_P_UNION_JOIN_START_DATE) > new Date(master.V_P_UNION_JOIN_END_DATE))
-        {
+
+        if (new Date(master.V_P_UNION_JOIN_START_DATE) > new Date(master.V_P_UNION_JOIN_END_DATE)) {
             alert("노조탈퇴일이 노조가입일보다 빠를 수 없습니다.")
             return false;
         }
@@ -2070,7 +2069,7 @@
 
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
-                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
+                var empCode = editType == 'U' ? gfn_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
                 SBUxMethod.set("EMP_CODE", empCode);
                 if(empCode) {
                     const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
@@ -2157,8 +2156,8 @@
 
     //선택 삭제
     const fn_delete = async function() {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let EMP_NAME = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME"));
 
         if(EMP_NAME == '' || EMP_CODE == '') return;
 
@@ -2264,9 +2263,9 @@
             gfn_comAlert("E0000", "발령등록이 이미 처리되었습니다.")
             return;
         } else {
-            let EMP_STATE = gfnma_nvl(SBUxMethod.get("EMP_STATE"));
-            let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
-            let RETIRE_IN_REASON = gfnma_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
+            let EMP_STATE = gfn_nvl(SBUxMethod.get("EMP_STATE"));
+            let RETIRE_DATE = gfn_nvl(SBUxMethod.get("RETIRE_DATE"));
+            let RETIRE_IN_REASON = gfn_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
             //퇴사인경우
             if (EMP_STATE == "RETI") {
                 if (RETIRE_DATE == "") {
@@ -2283,18 +2282,18 @@
                     APPOINT_TYPE: gfnma_multiSelectGet('#RETIRE_IN_REASON'),
                     APPOINT_TYPE_NAME: gfnma_multiSelectGet('#RETIRE_IN_REASON', true)['CODE_NAME'],
                     APPOINT_DATE: gfn_addDate(RETIRE_DATE, 1),
-                    EMP_CODE: gfnma_nvl(SBUxMethod.get("EMP_CODE")),
-                    EMP_NAME: gfnma_nvl(SBUxMethod.get("EMP_NAME")),
-                    START_DATE: gfnma_nvl(SBUxMethod.get("RETIRE_DATE")),
+                    EMP_CODE: gfn_nvl(SBUxMethod.get("EMP_CODE")),
+                    EMP_NAME: gfn_nvl(SBUxMethod.get("EMP_NAME")),
+                    START_DATE: gfn_nvl(SBUxMethod.get("RETIRE_DATE")),
                     END_DATE: "",
-                    DEPT_CODE1: gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
-                    POSITION_CODE1: gfnma_nvl(SBUxMethod.get("POSITION_CODE")),
-                    DUTY_CODE1: gfnma_nvl(SBUxMethod.get("DUTY_CODE")),
-                    JOB_RANK1: gfnma_nvl(SBUxMethod.get("JOB_RANK")),
-                    JOB_GROUP1: gfnma_nvl(SBUxMethod.get("JOB_GROUP")),
-                    JOB_CODE1: gfnma_nvl(SBUxMethod.get("JOB_CODE")),
-                    REGION_CODE1: gfnma_nvl(SBUxMethod.get("WORK_REGION")),
-                    COST_DEPT1: gfnma_nvl(SBUxMethod.get("COST_DEPT_CODE")),
+                    DEPT_CODE1: gfn_nvl(SBUxMethod.get("DEPT_CODE")),
+                    POSITION_CODE1: gfn_nvl(SBUxMethod.get("POSITION_CODE")),
+                    DUTY_CODE1: gfn_nvl(SBUxMethod.get("DUTY_CODE")),
+                    JOB_RANK1: gfn_nvl(SBUxMethod.get("JOB_RANK")),
+                    JOB_GROUP1: gfn_nvl(SBUxMethod.get("JOB_GROUP")),
+                    JOB_CODE1: gfn_nvl(SBUxMethod.get("JOB_CODE")),
+                    REGION_CODE1: gfn_nvl(SBUxMethod.get("WORK_REGION")),
+                    COST_DEPT1: gfn_nvl(SBUxMethod.get("COST_DEPT_CODE")),
                     DEPT_CODE2: "",
                     POSITION_CODE2: "",
                     DUTY_CODE2: "",
@@ -2324,15 +2323,15 @@
     const fn_search = async function() {
         editType = "N";
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
-        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let EMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let ENTER_DATE_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
-        let ENTER_DATE_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
-        let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
+        let SITE_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let JOB_GROUP	    = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let GENDER	        = gfn_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let DEPT_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let ENTER_DATE_FR	    = gfn_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
+        let ENTER_DATE_TO	    = gfn_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
+        let INITIAL_DATE	= gfn_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''
@@ -2535,15 +2534,15 @@
 
         let rowData = gvwList.getRowData(nRow);
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
-        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let EMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let ENTER_DATE_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
-        let ENTER_DATE_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
-        let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
+        let SITE_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let JOB_GROUP	    = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let GENDER	        = gfn_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let DEPT_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let ENTER_DATE_FR	    = gfn_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
+        let ENTER_DATE_TO	    = gfn_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
+        let INITIAL_DATE	= gfn_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
 
         var paramObj = {
@@ -3022,97 +3021,97 @@
     }
 
     const getParamForHri1000S = async function() {
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let EMP_NAME = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
-        let EMP_NAME_CHN = gfnma_nvl(SBUxMethod.get("EMP_NAME_CHN"));
-        let EMP_NAME_ENG = gfnma_nvl(SBUxMethod.get("EMP_NAME_ENG"));
-        let SOCIAL_NUM = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM"));
-        let BIRTHDAY = gfnma_nvl(SBUxMethod.get("BIRTHDAY"));
-        let BIRTHDAY_TYPE = gfnma_nvl(SBUxMethod.get("BIRTHDAY_TYPE"));
-        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
-        let GENDER = gfnma_nvl(SBUxMethod.get("GENDER"));
-        let FAMILY_CLAN = gfnma_nvl(SBUxMethod.get("FAMILY_CLAN"));
-        let FOREIGNER_YN = gfnma_nvl(SBUxMethod.get("FOREIGNER_YN").FOREIGNER_YN);
-        let FAMILY_OWNER_YN = gfnma_nvl(SBUxMethod.get("FAMILY_OWNER_YN").FAMILY_OWNER_YN);
-        let GROUP_ENTER_DATE = gfnma_nvl(SBUxMethod.get("GROUP_ENTER_DATE"));
-        let ENTER_DATE = gfnma_nvl(SBUxMethod.get("ENTER_DATE"));
-        let ENTER_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ENTER_TYPE'));
-        let POSITION_CODE = gfnma_nvl(SBUxMethod.get("POSITION_CODE"));
-        let DUTY_CODE = gfnma_nvl(gfnma_multiSelectGet('#DUTY_CODE'));
-        let JOB_FAMILY = gfnma_nvl(SBUxMethod.get("JOB_FAMILY"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("JOB_GROUP"));
-        let JOB_RANK = gfnma_nvl(SBUxMethod.get("JOB_RANK"));
-        let JOB_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_CODE'));
-        let LABOR_COST_GROUP = gfnma_nvl(gfnma_multiSelectGet('#LABOR_COST_GROUP'));
-        let COST_DEPT_CODE = gfnma_nvl(SBUxMethod.get("COST_DEPT_CODE"));
-        let TIME_CHECK_YN = gfnma_nvl(SBUxMethod.get("TIME_CHECK_YN"));
-        let EMP_TYPE = gfnma_nvl(SBUxMethod.get("EMP_TYPE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("EMP_STATE"));
-        let SALARY_CLASS = gfnma_nvl(SBUxMethod.get("SALARY_CLASS"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        let SALES_EMP_YN = gfnma_nvl(SBUxMethod.get("SALES_EMP_YN").SALES_EMP_YN);
-        let TAX_SITE_CODE = gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"));
-        let NATION_CODE = gfnma_nvl(SBUxMethod.get("NATION_CODE"));
-        let REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("REGISTER_ZIP_CODE"));
-        let REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("REGISTER_ADDRESS"));
-        let RESIDENCE_ZIP_CODE = gfnma_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
-        let RESIDENCE_ADDRESS = gfnma_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
-        let OFFICE_TEL_NUM = gfnma_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
-        let FAX_NUM = gfnma_nvl(SBUxMethod.get("FAX_NUM"));
-        let INTER_PHONE = gfnma_nvl(SBUxMethod.get("INTER_PHONE"));
-        let CELLPHONE_NUM = gfnma_nvl(SBUxMethod.get("CELLPHONE_NUM"));
-        let HOME_TEL_NUM = gfnma_nvl(SBUxMethod.get("HOME_TEL_NUM"));
-        let IN_EMAIL = gfnma_nvl(SBUxMethod.get("IN_EMAIL"));
-        let OUT_EMAIL = gfnma_nvl(SBUxMethod.get("OUT_EMAIL"));
-        let TEMP_END_DATE = gfnma_nvl(SBUxMethod.get("TEMP_END_DATE"));
-        let BONUS_APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("BONUS_APPLY_START_DATE"));
-        let UNION_JOIN_YN = gfnma_nvl(SBUxMethod.get("UNION_JOIN_YN").UNION_JOIN_YN);
-        let UNION_JOIN_START_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_START_DATE"));
-        let UNION_JOIN_END_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_END_DATE"));
-        let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
-        let RETIRE_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_REASON"));
-        let RETIRE_IN_REASON = gfnma_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
-        let RETIRE_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_INITIAL_DATE"));
-        let RETIRE_PENSION_JOIN_YN = gfnma_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN").RETIRE_PENSION_JOIN_YN);
-        let CAREER_DATE = gfnma_nvl(SBUxMethod.get("CAREER_DATE"));
-        let PREMATURE_DATE = gfnma_nvl(SBUxMethod.get("PREMATURE_DATE"));
-        let WORK_REGION = gfnma_nvl(gfnma_multiSelectGet('#WORK_REGION'));
-        let EMP_MEMO = gfnma_nvl(SBUxMethod.get("EMP_MEMO"));
-        let TELEWORKING_YN = gfnma_nvl(SBUxMethod.get("TELEWORKING_YN").TELEWORKING_YN);
-        let TELEWORKING_ADDRESS = gfnma_nvl(SBUxMethod.get("TELEWORKING_ADDRESS"));
-        let ORDER_SEQ = gfnma_nvl(SBUxMethod.get("ORDER_SEQ"));
-        let EMP_PHOTO_PATH = gfnma_nvl(SBUxMethod.get("EMP_PHOTO_PATH"));
-        let EMP_PHOTO_NAME = gfnma_nvl(SBUxMethod.get("EMP_PHOTO_NAME"));
-        let SIGN_IMG_PATH = gfnma_nvl(SBUxMethod.get("SIGN_IMG_PATH"));
-        let SIGN_IMG_NAME = gfnma_nvl(SBUxMethod.get("SIGN_IMG_NAME"));
-        let START_POSITION_CODE = gfnma_nvl(SBUxMethod.get("START_POSITION_CODE"));
-        let CAREER_TRACK = gfnma_nvl(SBUxMethod.get("CAREER_TRACK"));
-        let BOARD_DIRECTOR_YN = gfnma_nvl(SBUxMethod.get("BOARD_DIRECTOR_YN").BOARD_DIRECTOR_YN);
-        let INTRODUCER_CODE = gfnma_nvl(SBUxMethod.get("INTRODUCER_CODE"));
-        let RE_ENTER_YN = gfnma_nvl(SBUxMethod.get("RE_ENTER_YN").RE_ENTER_YN);
-        let ANNUAL_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_INITIAL_DATE"));
-        let PARTNER_FIRM_EMP_YN = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_EMP_YN").PARTNER_FIRM_EMP_YN);
-        let PARTNER_FIRM_CODE = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_CODE"));
-        let SOCIAL_NUM_DATE = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_DATE"));
-        let SALARY_LEVEL = gfnma_nvl(SBUxMethod.get("SALARY_LEVEL"));
-        let FAMILY_REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
-        let FAMILY_REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
-        let EMERGENCY_ZIP_CODE = gfnma_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
-        let EMERGENCY_ADDRESS = gfnma_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
-        let EMERGENCY_TEL_NUM = gfnma_nvl(SBUxMethod.get("EMERGENCY_TEL_NUM"));
-        let OLD_EMP_CODE = gfnma_nvl(SBUxMethod.get("OLD_EMP_CODE"));
-        let COMP_ENTER_DATE = gfnma_nvl(SBUxMethod.get("COMP_ENTER_DATE"));
-        let PROMOTION_BASE_DATE = gfnma_nvl(SBUxMethod.get("PROMOTION_BASE_DATE"));
-        let RETIRE_BASE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_BASE_DATE"));
-        let RET_RENS_ST_DAT = gfnma_nvl(SBUxMethod.get("RET_RENS_ST_DAT"));
-        let ANNUAL_BASE_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_BASE_DATE"));
-        let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
-        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
-        let START_PAY_GRADE = gfnma_nvl(SBUxMethod.get("START_PAY_GRADE"));
-        let JOB_SUB_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_SUB_CODE'));
-        let JOB_DETAIL_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_DETAIL_CODE'));
-        let TO_YN = gfnma_nvl(SBUxMethod.get("TO_YN").TO_YN);
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME"));
+        let EMP_NAME_CHN = gfn_nvl(SBUxMethod.get("EMP_NAME_CHN"));
+        let EMP_NAME_ENG = gfn_nvl(SBUxMethod.get("EMP_NAME_ENG"));
+        let SOCIAL_NUM = gfn_nvl(SBUxMethod.get("SOCIAL_NUM"));
+        let BIRTHDAY = gfn_nvl(SBUxMethod.get("BIRTHDAY"));
+        let BIRTHDAY_TYPE = gfn_nvl(SBUxMethod.get("BIRTHDAY_TYPE"));
+        let LEAP_MONTH_YN = gfn_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
+        let GENDER = gfn_nvl(SBUxMethod.get("GENDER"));
+        let FAMILY_CLAN = gfn_nvl(SBUxMethod.get("FAMILY_CLAN"));
+        let FOREIGNER_YN = gfn_nvl(SBUxMethod.get("FOREIGNER_YN").FOREIGNER_YN);
+        let FAMILY_OWNER_YN = gfn_nvl(SBUxMethod.get("FAMILY_OWNER_YN").FAMILY_OWNER_YN);
+        let GROUP_ENTER_DATE = gfn_nvl(SBUxMethod.get("GROUP_ENTER_DATE"));
+        let ENTER_DATE = gfn_nvl(SBUxMethod.get("ENTER_DATE"));
+        let ENTER_TYPE = gfn_nvl(gfnma_multiSelectGet('#ENTER_TYPE'));
+        let POSITION_CODE = gfn_nvl(SBUxMethod.get("POSITION_CODE"));
+        let DUTY_CODE = gfn_nvl(gfnma_multiSelectGet('#DUTY_CODE'));
+        let JOB_FAMILY = gfn_nvl(SBUxMethod.get("JOB_FAMILY"));
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("JOB_GROUP"));
+        let JOB_RANK = gfn_nvl(SBUxMethod.get("JOB_RANK"));
+        let JOB_CODE = gfn_nvl(gfnma_multiSelectGet('#JOB_CODE'));
+        let LABOR_COST_GROUP = gfn_nvl(gfnma_multiSelectGet('#LABOR_COST_GROUP'));
+        let COST_DEPT_CODE = gfn_nvl(SBUxMethod.get("COST_DEPT_CODE"));
+        let TIME_CHECK_YN = gfn_nvl(SBUxMethod.get("TIME_CHECK_YN"));
+        let EMP_TYPE = gfn_nvl(SBUxMethod.get("EMP_TYPE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("EMP_STATE"));
+        let SALARY_CLASS = gfn_nvl(SBUxMethod.get("SALARY_CLASS"));
+        let SITE_CODE = gfn_nvl(SBUxMethod.get("SITE_CODE"));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        let SALES_EMP_YN = gfn_nvl(SBUxMethod.get("SALES_EMP_YN").SALES_EMP_YN);
+        let TAX_SITE_CODE = gfn_nvl(SBUxMethod.get("TAX_SITE_CODE"));
+        let NATION_CODE = gfn_nvl(SBUxMethod.get("NATION_CODE"));
+        let REGISTER_ZIP_CODE = gfn_nvl(SBUxMethod.get("REGISTER_ZIP_CODE"));
+        let REGISTER_ADDRESS = gfn_nvl(SBUxMethod.get("REGISTER_ADDRESS"));
+        let RESIDENCE_ZIP_CODE = gfn_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
+        let RESIDENCE_ADDRESS = gfn_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
+        let OFFICE_TEL_NUM = gfn_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
+        let FAX_NUM = gfn_nvl(SBUxMethod.get("FAX_NUM"));
+        let INTER_PHONE = gfn_nvl(SBUxMethod.get("INTER_PHONE"));
+        let CELLPHONE_NUM = gfn_nvl(SBUxMethod.get("CELLPHONE_NUM"));
+        let HOME_TEL_NUM = gfn_nvl(SBUxMethod.get("HOME_TEL_NUM"));
+        let IN_EMAIL = gfn_nvl(SBUxMethod.get("IN_EMAIL"));
+        let OUT_EMAIL = gfn_nvl(SBUxMethod.get("OUT_EMAIL"));
+        let TEMP_END_DATE = gfn_nvl(SBUxMethod.get("TEMP_END_DATE"));
+        let BONUS_APPLY_START_DATE = gfn_nvl(SBUxMethod.get("BONUS_APPLY_START_DATE"));
+        let UNION_JOIN_YN = gfn_nvl(SBUxMethod.get("UNION_JOIN_YN").UNION_JOIN_YN);
+        let UNION_JOIN_START_DATE = gfn_nvl(SBUxMethod.get("UNION_JOIN_START_DATE"));
+        let UNION_JOIN_END_DATE = gfn_nvl(SBUxMethod.get("UNION_JOIN_END_DATE"));
+        let RETIRE_DATE = gfn_nvl(SBUxMethod.get("RETIRE_DATE"));
+        let RETIRE_REASON = gfn_nvl(SBUxMethod.get("RETIRE_REASON"));
+        let RETIRE_IN_REASON = gfn_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
+        let RETIRE_INITIAL_DATE = gfn_nvl(SBUxMethod.get("RETIRE_INITIAL_DATE"));
+        let RETIRE_PENSION_JOIN_YN = gfn_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN").RETIRE_PENSION_JOIN_YN);
+        let CAREER_DATE = gfn_nvl(SBUxMethod.get("CAREER_DATE"));
+        let PREMATURE_DATE = gfn_nvl(SBUxMethod.get("PREMATURE_DATE"));
+        let WORK_REGION = gfn_nvl(gfnma_multiSelectGet('#WORK_REGION'));
+        let EMP_MEMO = gfn_nvl(SBUxMethod.get("EMP_MEMO"));
+        let TELEWORKING_YN = gfn_nvl(SBUxMethod.get("TELEWORKING_YN").TELEWORKING_YN);
+        let TELEWORKING_ADDRESS = gfn_nvl(SBUxMethod.get("TELEWORKING_ADDRESS"));
+        let ORDER_SEQ = gfn_nvl(SBUxMethod.get("ORDER_SEQ"));
+        let EMP_PHOTO_PATH = gfn_nvl(SBUxMethod.get("EMP_PHOTO_PATH"));
+        let EMP_PHOTO_NAME = gfn_nvl(SBUxMethod.get("EMP_PHOTO_NAME"));
+        let SIGN_IMG_PATH = gfn_nvl(SBUxMethod.get("SIGN_IMG_PATH"));
+        let SIGN_IMG_NAME = gfn_nvl(SBUxMethod.get("SIGN_IMG_NAME"));
+        let START_POSITION_CODE = gfn_nvl(SBUxMethod.get("START_POSITION_CODE"));
+        let CAREER_TRACK = gfn_nvl(SBUxMethod.get("CAREER_TRACK"));
+        let BOARD_DIRECTOR_YN = gfn_nvl(SBUxMethod.get("BOARD_DIRECTOR_YN").BOARD_DIRECTOR_YN);
+        let INTRODUCER_CODE = gfn_nvl(SBUxMethod.get("INTRODUCER_CODE"));
+        let RE_ENTER_YN = gfn_nvl(SBUxMethod.get("RE_ENTER_YN").RE_ENTER_YN);
+        let ANNUAL_INITIAL_DATE = gfn_nvl(SBUxMethod.get("ANNUAL_INITIAL_DATE"));
+        let PARTNER_FIRM_EMP_YN = gfn_nvl(SBUxMethod.get("PARTNER_FIRM_EMP_YN").PARTNER_FIRM_EMP_YN);
+        let PARTNER_FIRM_CODE = gfn_nvl(SBUxMethod.get("PARTNER_FIRM_CODE"));
+        let SOCIAL_NUM_DATE = gfn_nvl(SBUxMethod.get("SOCIAL_NUM_DATE"));
+        let SALARY_LEVEL = gfn_nvl(SBUxMethod.get("SALARY_LEVEL"));
+        let FAMILY_REGISTER_ZIP_CODE = gfn_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
+        let FAMILY_REGISTER_ADDRESS = gfn_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
+        let EMERGENCY_ZIP_CODE = gfn_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
+        let EMERGENCY_ADDRESS = gfn_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
+        let EMERGENCY_TEL_NUM = gfn_nvl(SBUxMethod.get("EMERGENCY_TEL_NUM"));
+        let OLD_EMP_CODE = gfn_nvl(SBUxMethod.get("OLD_EMP_CODE"));
+        let COMP_ENTER_DATE = gfn_nvl(SBUxMethod.get("COMP_ENTER_DATE"));
+        let PROMOTION_BASE_DATE = gfn_nvl(SBUxMethod.get("PROMOTION_BASE_DATE"));
+        let RETIRE_BASE_DATE = gfn_nvl(SBUxMethod.get("RETIRE_BASE_DATE"));
+        let RET_RENS_ST_DAT = gfn_nvl(SBUxMethod.get("RET_RENS_ST_DAT"));
+        let ANNUAL_BASE_DATE = gfn_nvl(SBUxMethod.get("ANNUAL_BASE_DATE"));
+        let AGREE_DATE = gfn_nvl(SBUxMethod.get("AGREE_DATE"));
+        let AGREE_YN = gfn_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
+        let START_PAY_GRADE = gfn_nvl(SBUxMethod.get("START_PAY_GRADE"));
+        let JOB_SUB_CODE = gfn_nvl(gfnma_multiSelectGet('#JOB_SUB_CODE'));
+        let JOB_DETAIL_CODE = gfn_nvl(gfnma_multiSelectGet('#JOB_DETAIL_CODE'));
+        let TO_YN = gfn_nvl(SBUxMethod.get("TO_YN").TO_YN);
 
         return {
             V_P_DEBUG_MODE_YN : '',
