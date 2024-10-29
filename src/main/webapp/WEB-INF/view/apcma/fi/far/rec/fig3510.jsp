@@ -1645,7 +1645,6 @@
             , tableColumnNames: ["START_DATE", "SITE_NAME", "DEPT_NAME", "SITE_CODE"]
             , tableColumnWidths: ["100px", "150px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
@@ -1676,7 +1675,6 @@
                 , "TOTAL_AMT", "TOTAL_TAXABLE_AMT", "TOTAL_VAT_AMT", "EINVOICE_CATEGORY", "EINVOICE_CATEGORY_NAME", "ACCOUNT_EMP_NAME", "VOUCHER_TYPE", "CS_CODE", "CS_NAME"]
             , tableColumnWidths: ["100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('APPROVAL_NO', data.APPROVAL_NO);
                 SBUxMethod.set('VOUCHER_TYPE', data.VOUCHER_TYPE);
             },
@@ -1711,7 +1709,6 @@
             , tableColumnWidths: ["90px", "150px", "130px", "70px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px"
                 , "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('CS_CODE', data.CS_CODE);
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
@@ -1757,7 +1754,6 @@
             , tableColumnNames: ["PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD_NAME"]
             , tableColumnWidths: ["80px", "250px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
                 SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
             },
@@ -1788,7 +1784,6 @@
             ,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CONTROL_TYPE"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('ACC_VALUE_NAME' + num, data.ACC_VALUE_NAME);
                 SBUxMethod.set('ACC_ITEM_VALUE' + num, data.ACC_ITEM_VALUE);
             },
@@ -1815,7 +1810,6 @@
             , tableColumnNames: ["VAT_CODE", "VAT_NAME", "VAT_TYPE_CODE"]
             , tableColumnWidths: ["100px", "200px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 gvwWFItem.setCellData(row, col, data.VAT_CODE);
                 gvwWFItem.setCellData(row, (col + 1), data.VAT_NAME);
             },
@@ -1843,7 +1837,6 @@
             , tableColumnNames: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
             , tableColumnWidths: ["100px", "200px", "200px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 gvwWFItem.setCellData(row, col, data.ACCOUNT_CODE);
                 gvwWFItem.setCellData(row, (col + 1), data.ACCOUNT_NAME);
             },
@@ -1888,7 +1881,6 @@
             , tableColumnNames: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "CREDIT_AREA"]
             , tableColumnWidths: ["100px", "150px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
                 gvwWFItem.setCellData(row, col, data.COST_CENTER_CODE);
                 gvwWFItem.setCellData(row, (col + 1), data.COST_CENTER_NAME);
@@ -3074,8 +3066,6 @@
     const fn_gvwWFItemDblclick = async function () {
         var nRow = gvwWFItem.getRow();
         var nCol = gvwWFItem.getCol();
-
-        console.log(nCol);
 
         if (nCol == 5) {
             fn_findVatTypeForGvwWFItem(nRow, nCol);
@@ -4849,7 +4839,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             bResult = false;
 
@@ -5020,7 +5009,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -5350,7 +5338,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -5593,7 +5580,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -5639,7 +5625,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -5726,7 +5711,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -5946,7 +5930,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
