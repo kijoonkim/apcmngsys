@@ -896,7 +896,6 @@
             , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log(data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
                 SBUxMethod.set('SITE_CODE2', data.SITE_CODE);

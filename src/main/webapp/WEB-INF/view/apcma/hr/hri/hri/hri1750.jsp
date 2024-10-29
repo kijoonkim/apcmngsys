@@ -1088,31 +1088,26 @@
     	if (rowData.REPORT_TYPE == "R_INCOME_C") {
             conn = await fn_GetReportDataIncomeC(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
     		gfn_popClipReportPost("근로소득 원천징수영수증", "ma/RPT_HRA1600_INCOME_C.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_CAREER") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
     		gfn_popClipReportPost("경력증명서", "ma/RPT_HRI1700_CAREER.crf", null, conn );
     		
         } else if(rowData.REPORT_TYPE == "R_RETIRE") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
     		gfn_popClipReportPost("퇴직증명서", "ma/RPT_HRI1700_RETIRE.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_WORK") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
     		gfn_popClipReportPost("재직증명서", "ma/RPT_HRI1700_WORK.crf", null, conn );	
     		
         } else if(rowData.REPORT_TYPE == "R_INCOME_D") {
             conn = await fn_GetReportDataIncomeD(rowData);
             conn = await gfnma_convertDataForReport(conn);
-            console.log('conn ==>', conn);
     		gfn_popClipReportPost("퇴직소득 원천징수영수증", "ma/RPT_HRI1700_WORK.crf", null, conn );	
         }
 
@@ -1316,7 +1311,6 @@
         });
         const data = await postJsonPromise;
 
-       	console.log('fn_GetReportData data => ', data);
         try { 
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
@@ -1383,8 +1377,9 @@
             cv_count			: '8',
             params				: gfnma_objectToString(paramObj)
         });
+
         const data = await postJsonPromise;
-       	console.log('fn_GetReportDataIncomeC data => ', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
@@ -1434,8 +1429,9 @@
             cv_count			: '2',
             params				: gfnma_objectToString(paramObj)
         });
+
         const data = await postJsonPromise;
-       	console.log('fn_GetReportDataIncomeD data => ', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
