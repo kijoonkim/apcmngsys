@@ -68,7 +68,7 @@ public class WghPrfmncVO extends ComVO {
 	 * 생산자명
 	 */
 	private String prdcrNm;
-	
+
 	/**
 	 * 생산자인식번호
 	 */
@@ -234,6 +234,29 @@ public class WghPrfmncVO extends ComVO {
 	 * 생산연도
 	 */
 	private String prdctnYr;
+
+	/*
+	 * 저장위치
+	 * */
+	private String strgLoctnCd;
+	private String strgLoctnRow;
+	private String strgLoctnCol;
+	private String strgLoctnLvl;
+
+	/*
+	 * 인수량
+	 * */
+	private int acptnWght;
+
+	/*
+	 * 설비
+	 * */
+	private String fcltCd;
+	/*
+	 * 입고출고유형
+	 * */
+	private String wrhsSpmtType;
+
 
 	/**
 	 * 계량상세리스트
