@@ -360,8 +360,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -392,8 +392,8 @@
     }
 
     var fn_findSrchDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -421,8 +421,8 @@
     }
 
     const fn_findSrchEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -679,12 +679,12 @@
             return false;
         }
 
-        let REQUEST_DATE_FR	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
-        let REQUEST_DATE_TO	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
-        let REPORT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
-        let CONFIRM_STEP	= gfnma_nvl(SBUxMethod.get("SRCH_CONFIRM_STEP"));
-        let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let REQUEST_DATE_FR	= gfn_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
+        let REQUEST_DATE_TO	= gfn_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
+        let REPORT_TYPE	= gfn_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
+        let CONFIRM_STEP	= gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_STEP"));
+        let DEPT_CODE	= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE	= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -831,20 +831,20 @@
             }
         }
 
-        let DOC_NUM = editType == "N" ? '' :gfnma_nvl(rowData.DOC_NUM);
-        let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
-        let SUBMIT_PLACE = gfnma_nvl(SBUxMethod.get("SUBMIT_PLACE"));
-        let USE_DESCR = gfnma_nvl(SBUxMethod.get("USE_DESCR"));
-        let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_YEAR")) : '';
-        let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_START_DATE")) : '';
-        let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_END_DATE")) : '';
-        let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("PRINT_TYPE"));
-        let CERTI_MEMO = gfnma_nvl(SBUxMethod.get("CERTI_MEMO"));
-        let SOURCE_SYS = gfnma_nvl(SBUxMethod.get("SOURCE_SYS"));
-        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
-        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
+        let DOC_NUM = editType == "N" ? '' :gfn_nvl(rowData.DOC_NUM);
+        let REQUEST_DATE = gfn_nvl(SBUxMethod.get("REQUEST_DATE"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let REPORT_TYPE = gfn_nvl(SBUxMethod.get("REPORT_TYPE"));
+        let SUBMIT_PLACE = gfn_nvl(SBUxMethod.get("SUBMIT_PLACE"));
+        let USE_DESCR = gfn_nvl(SBUxMethod.get("USE_DESCR"));
+        let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_YEAR")) : '';
+        let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_RECEIVE_START_DATE")) : '';
+        let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_RECEIVE_END_DATE")) : '';
+        let PRINT_TYPE = gfn_nvl(SBUxMethod.get("PRINT_TYPE"));
+        let CERTI_MEMO = gfn_nvl(SBUxMethod.get("CERTI_MEMO"));
+        let SOURCE_SYS = gfn_nvl(SBUxMethod.get("SOURCE_SYS"));
+        let SOCIAL_NUM_YN = gfn_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
+        let IMG_YN = gfn_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -900,20 +900,20 @@
         var nRow = bandgvwInfo.getRow();
         let rowData = bandgvwInfo.getRowData(nRow);
 
-        let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
-        let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
-        let SUBMIT_PLACE = gfnma_nvl(SBUxMethod.get("SUBMIT_PLACE"));
-        let USE_DESCR = gfnma_nvl(SBUxMethod.get("USE_DESCR"));
-        let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_YEAR")) : '';
-        let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_START_DATE")) : '';
-        let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_END_DATE")) : '';
-        let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("PRINT_TYPE"));
-        let CERTI_MEMO = gfnma_nvl(SBUxMethod.get("CERTI_MEMO"));
-        let SOURCE_SYS = gfnma_nvl(SBUxMethod.get("SOURCE_SYS"));
-        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
-        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
+        let DOC_NUM = gfn_nvl(rowData.DOC_NUM);
+        let REQUEST_DATE = gfn_nvl(SBUxMethod.get("REQUEST_DATE"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+        let REPORT_TYPE = gfn_nvl(SBUxMethod.get("REPORT_TYPE"));
+        let SUBMIT_PLACE = gfn_nvl(SBUxMethod.get("SUBMIT_PLACE"));
+        let USE_DESCR = gfn_nvl(SBUxMethod.get("USE_DESCR"));
+        let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_YEAR")) : '';
+        let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_RECEIVE_START_DATE")) : '';
+        let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(SBUxMethod.get("INCOME_RECEIVE_END_DATE")) : '';
+        let PRINT_TYPE = gfn_nvl(SBUxMethod.get("PRINT_TYPE"));
+        let CERTI_MEMO = gfn_nvl(SBUxMethod.get("CERTI_MEMO"));
+        let SOURCE_SYS = gfn_nvl(SBUxMethod.get("SOURCE_SYS"));
+        let SOCIAL_NUM_YN = gfn_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
+        let IMG_YN = gfn_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -972,18 +972,18 @@
         let rowData = bandgvwInfo.getRowData(nRow);
 
         if(gfn_comConfirm("Q0001", "선택한 건을 삭제")) {
-            let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
-            let REQUEST_DATE = gfnma_nvl(rowData.REQUEST_DATE);
-            let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
-            let REPORT_TYPE = gfnma_nvl(rowData.REPORT_TYPE);
-            let SUBMIT_PLACE = gfnma_nvl(rowData.SUBMIT_PLACE);
-            let USE_DESCR = gfnma_nvl(rowData.USE_DESCR);
-            let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_YEAR) : '';
-            let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_RECEIVE_START_DATE) : '';
-            let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_RECEIVE_END_DATE) : '';
-            let CERTI_MEMO = gfnma_nvl(rowData.CERTI_MEMO);
-            let SOCIAL_NUM_YN = gfnma_nvl(rowData.SOCIAL_NUM_YN);
-            let IMG_YN = gfnma_nvl(rowData.IMG_YN);
+            let DOC_NUM = gfn_nvl(rowData.DOC_NUM);
+            let REQUEST_DATE = gfn_nvl(rowData.REQUEST_DATE);
+            let EMP_CODE = gfn_nvl(rowData.EMP_CODE);
+            let REPORT_TYPE = gfn_nvl(rowData.REPORT_TYPE);
+            let SUBMIT_PLACE = gfn_nvl(rowData.SUBMIT_PLACE);
+            let USE_DESCR = gfn_nvl(rowData.USE_DESCR);
+            let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(rowData.INCOME_YEAR) : '';
+            let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(rowData.INCOME_RECEIVE_START_DATE) : '';
+            let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfn_nvl(rowData.INCOME_RECEIVE_END_DATE) : '';
+            let CERTI_MEMO = gfn_nvl(rowData.CERTI_MEMO);
+            let SOCIAL_NUM_YN = gfn_nvl(rowData.SOCIAL_NUM_YN);
+            let IMG_YN = gfn_nvl(rowData.IMG_YN);
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN : '',
@@ -1315,7 +1315,7 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
 	                if(data.cv_3[0].IMG_YN == 'N'){
-		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }else{
 	                	data.cv_3[0].IMG2 = '';
 	                }
@@ -1336,11 +1336,11 @@
     const fn_GetReportDataIncomeC = async function(obj) {
 		
 		let YEAR_END_TX_TYPE = '';
-		let EMP_CODE = gfnma_nvl(obj.EMP_CODE);
-		let INCOME_YEAR = gfnma_nvl(obj.INCOME_YEAR);
-		let INCOME_RECEIVE_START_DATE = gfnma_nvl(obj.INCOME_RECEIVE_START_DATE);
-		let INCOME_RECEIVE_END_DATE = gfnma_nvl(obj.INCOME_RECEIVE_END_DATE);
-		let RETIRE_YYYY = gfnma_nvl(obj.RETIRE_YYYY) == '' ? '' : obj.RETIRE_YYY.substring(0, 4);
+		let EMP_CODE = gfn_nvl(obj.EMP_CODE);
+		let INCOME_YEAR = gfn_nvl(obj.INCOME_YEAR);
+		let INCOME_RECEIVE_START_DATE = gfn_nvl(obj.INCOME_RECEIVE_START_DATE);
+		let INCOME_RECEIVE_END_DATE = gfn_nvl(obj.INCOME_RECEIVE_END_DATE);
+		let RETIRE_YYYY = gfn_nvl(obj.RETIRE_YYYY) == '' ? '' : obj.RETIRE_YYY.substring(0, 4);
 		
     	if(INCOME_YEAR == RETIRE_YYYY){
     		YEAR_END_TX_TYPE = 'RETIRE';
@@ -1383,7 +1383,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
-	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);
@@ -1435,7 +1435,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
-	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfnma_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);

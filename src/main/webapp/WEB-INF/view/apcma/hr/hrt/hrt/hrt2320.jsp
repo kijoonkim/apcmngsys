@@ -672,10 +672,10 @@
                 return;
             } else {
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")) != "") {
-                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                    let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-                    let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
-                    let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+                    let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                    let SHIFT_CODE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
+                    let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
                     var paramObj = {
                         V_P_DEBUG_MODE_YN	: '',
@@ -747,14 +747,14 @@
                 return;
             } else {
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")) != "") {
-                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                    let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-                    let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
-                    let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-                    let START_DAY_TYPE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")));
-                    let TIME_START_HHMM = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")));
-                    let END_DAY_TYPE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")));
-                    let TIME_END_HHMM = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")));
+                    let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                    let SHIFT_CODE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
+                    let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+                    let START_DAY_TYPE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")));
+                    let TIME_START_HHMM = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")));
+                    let END_DAY_TYPE = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")));
+                    let TIME_END_HHMM = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")));
 
                     var paramObj = {
                         V_P_DEBUG_MODE_YN	: '',
@@ -822,8 +822,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -851,8 +851,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_CODE_";
         var replaceText2 	= "_EMP_NAME_";
@@ -1148,13 +1148,13 @@
         if (gfn_comConfirm("Q0000", "선택된 사원의 일근태를 정말 삭제하시겠습니까?")) {
             if (gvwShiftCheckedList.length > 0) {
                 for (var i = 0; i < gvwShiftCheckedList.length; i++) {
-                    let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-                    let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                    let DEPT_CODE = gfnma_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("DEPT_CODE")));
-                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                    let EMP_CODE = gfnma_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("EMP_CODE")));
-                    let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+                    let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                    let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                    let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfn_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("DEPT_CODE")));
+                    let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfn_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("EMP_CODE")));
+                    let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
                     var paramObj = {
                         V_P_DEBUG_MODE_YN	: '',
@@ -1384,13 +1384,13 @@
             return false;
         }
 
-        let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-        let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+        let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1473,13 +1473,13 @@
         var nRow = gvwShift.getRow();
         var rowData = gvwShift.getRowData(nRow);
 
-        let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-        let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
-        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+        let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfn_nvl(rowData.DEPT_CODE);
+        let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let EMP_CODE = gfn_nvl(rowData.EMP_CODE);
+        let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1714,13 +1714,13 @@
 
         if (grdRows.length > 0) {
             for(var i = 0; i < grdRows.length; i++) {
-                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
-                let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
-                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+                let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                let DEPT_CODE = gfn_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
+                let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                let EMP_CODE = gfn_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
+                let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
                 var paramObj = {
                     V_P_DEBUG_MODE_YN	: '',
@@ -1957,13 +1957,13 @@
 
         if (grdRows.length > 0) {
             for(var i = 0; i < grdRows.length; i++) {
-                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
-                let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
-                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+                let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                let DEPT_CODE = gfn_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
+                let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                let EMP_CODE = gfn_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
+                let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
                 var paramObj = {
                     V_P_DEBUG_MODE_YN	: '',

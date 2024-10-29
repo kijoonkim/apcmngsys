@@ -314,7 +314,7 @@
             return false;
         }
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -396,7 +396,7 @@
     }
 
     const fn_save = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         jsonDayList.forEach((item, index) => {
             if(item.WORK_TYPE_CODE == "") {
@@ -411,27 +411,27 @@
             V_P_COMP_CODE : gv_ma_selectedApcCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
-            V_P_WORK_TYPE_SUN : gfnma_nvl(jsonDayList[0].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_MON : gfnma_nvl(jsonDayList[1].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_TUE : gfnma_nvl(jsonDayList[2].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_WED : gfnma_nvl(jsonDayList[3].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_THU : gfnma_nvl(jsonDayList[4].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_FRI : gfnma_nvl(jsonDayList[5].WORK_TYPE_CODE),
-            V_P_WORK_TYPE_SAT : gfnma_nvl(jsonDayList[6].WORK_TYPE_CODE),
-            V_P_SUN_HOLIDAY_YN : gfnma_nvl(jsonDayList[0].HOLIDAY_YN),
-            V_P_MON_HOLIDAY_YN : gfnma_nvl(jsonDayList[1].HOLIDAY_YN),
-            V_P_TUE_HOLIDAY_YN : gfnma_nvl(jsonDayList[2].HOLIDAY_YN),
-            V_P_WED_HOLIDAY_YN : gfnma_nvl(jsonDayList[3].HOLIDAY_YN),
-            V_P_THU_HOLIDAY_YN : gfnma_nvl(jsonDayList[4].HOLIDAY_YN),
-            V_P_FRI_HOLIDAY_YN : gfnma_nvl(jsonDayList[5].HOLIDAY_YN),
-            V_P_SAT_HOLIDAY_YN : gfnma_nvl(jsonDayList[6].HOLIDAY_YN),
-            V_P_SHIFT_SUN : gfnma_nvl(jsonDayList[0].SHIFT_CODE),
-            V_P_SHIFT_MON : gfnma_nvl(jsonDayList[1].SHIFT_CODE),
-            V_P_SHIFT_TUE : gfnma_nvl(jsonDayList[2].SHIFT_CODE),
-            V_P_SHIFT_WED : gfnma_nvl(jsonDayList[3].SHIFT_CODE),
-            V_P_SHIFT_THU : gfnma_nvl(jsonDayList[4].SHIFT_CODE),
-            V_P_SHIFT_FRI : gfnma_nvl(jsonDayList[5].SHIFT_CODE),
-            V_P_SHIFT_SAT : gfnma_nvl(jsonDayList[6].SHIFT_CODE),
+            V_P_WORK_TYPE_SUN : gfn_nvl(jsonDayList[0].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_MON : gfn_nvl(jsonDayList[1].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_TUE : gfn_nvl(jsonDayList[2].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_WED : gfn_nvl(jsonDayList[3].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_THU : gfn_nvl(jsonDayList[4].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_FRI : gfn_nvl(jsonDayList[5].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_SAT : gfn_nvl(jsonDayList[6].WORK_TYPE_CODE),
+            V_P_SUN_HOLIDAY_YN : gfn_nvl(jsonDayList[0].HOLIDAY_YN),
+            V_P_MON_HOLIDAY_YN : gfn_nvl(jsonDayList[1].HOLIDAY_YN),
+            V_P_TUE_HOLIDAY_YN : gfn_nvl(jsonDayList[2].HOLIDAY_YN),
+            V_P_WED_HOLIDAY_YN : gfn_nvl(jsonDayList[3].HOLIDAY_YN),
+            V_P_THU_HOLIDAY_YN : gfn_nvl(jsonDayList[4].HOLIDAY_YN),
+            V_P_FRI_HOLIDAY_YN : gfn_nvl(jsonDayList[5].HOLIDAY_YN),
+            V_P_SAT_HOLIDAY_YN : gfn_nvl(jsonDayList[6].HOLIDAY_YN),
+            V_P_SHIFT_SUN : gfn_nvl(jsonDayList[0].SHIFT_CODE),
+            V_P_SHIFT_MON : gfn_nvl(jsonDayList[1].SHIFT_CODE),
+            V_P_SHIFT_TUE : gfn_nvl(jsonDayList[2].SHIFT_CODE),
+            V_P_SHIFT_WED : gfn_nvl(jsonDayList[3].SHIFT_CODE),
+            V_P_SHIFT_THU : gfn_nvl(jsonDayList[4].SHIFT_CODE),
+            V_P_SHIFT_FRI : gfn_nvl(jsonDayList[5].SHIFT_CODE),
+            V_P_SHIFT_SAT : gfn_nvl(jsonDayList[6].SHIFT_CODE),
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
@@ -518,7 +518,7 @@
     }
 
     const fn_copyPrevYear = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         jsonDayList.forEach((item, index) => {
             if(item.WORK_TYPE_CODE == "") {
@@ -588,7 +588,7 @@
     const fn_createCalendar = async function() {
         await fn_save();
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -631,7 +631,7 @@
     const fn_reflectChangeCalendar = async function() {
         await fn_save();
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
+        let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',

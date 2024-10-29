@@ -209,8 +209,8 @@
     }
 
     const fn_search = async function () {
-        let TIME_SUMMARY_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_SUMMARY_CODE"));
-        let TIME_SUMMARY_NAME = gfnma_nvl(SBUxMethod.get("SRCH_TIME_SUMMARY_NAME"));
+        let TIME_SUMMARY_CODE = gfn_nvl(SBUxMethod.get("SRCH_TIME_SUMMARY_CODE"));
+        let TIME_SUMMARY_NAME = gfn_nvl(SBUxMethod.get("SRCH_TIME_SUMMARY_NAME"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',

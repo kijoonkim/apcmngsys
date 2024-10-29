@@ -486,15 +486,15 @@
             return false;
         }
 
-        let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
-        let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-        let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
-        let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
-        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
-        let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
+        let PAY_GROUP_CODE = gfn_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
+        let PAY_GROUP_NAME = gfn_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
+        let USE_YN = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+        let DESCR = gfn_nvl(SBUxMethod.get("DESCR"));
+        let SORT_SEQ = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+        let HOBONG_TYPE = gfn_nvl(SBUxMethod.get("HOBONG_TYPE"));
+        let PAY_YN = gfn_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
+        let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
+        let PAY_TOTAL_TBALE_TYPE = gfn_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -606,18 +606,18 @@
             return false;
         }
 
-        if(gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")) == "") return;
+        if(gfn_nvl(SBUxMethod.get("PAY_GROUP_CODE")) == "") return;
 
         if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {
-            let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
-            let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
-            let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-            let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-            let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-            let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
-            let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
-            let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
-            let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
+            let PAY_GROUP_CODE = gfn_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
+            let PAY_GROUP_NAME = gfn_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
+            let USE_YN = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+            let DESCR = gfn_nvl(SBUxMethod.get("DESCR"));
+            let SORT_SEQ = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+            let HOBONG_TYPE = gfn_nvl(SBUxMethod.get("HOBONG_TYPE"));
+            let PAY_YN = gfn_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
+            let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
+            let PAY_TOTAL_TBALE_TYPE = gfn_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',

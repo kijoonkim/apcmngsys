@@ -371,10 +371,10 @@
             return false;
         }
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
-        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
+        let APPLY_START_DATE = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE = gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -475,10 +475,10 @@
             return false;
         }
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
-        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
-        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
-        let MEMO = gfnma_nvl(SBUxMethod.get("MEMO"));
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
+        let APPLY_START_DATE = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE = gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
 
         if(YYYY == "") return;
 
