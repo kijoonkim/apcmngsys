@@ -355,7 +355,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
@@ -389,7 +388,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
@@ -422,7 +420,6 @@
             , code: "SUB_CODE"
             , name: "CODE_NAME"
             , itemSelectEvent: function (data){
-                console.log('callback data:', data);
                 fn_btnApply(data, type);
             },
         });
@@ -859,7 +856,7 @@
 
         });
 
-        /*  console.log('incomeItem', incomeItem);
+        /*
 
          msg.ITEM = incomeItem == 'BASE_INCOME_AMT' ? '기준소득월액' : (incomeItem == 'TOTAL_INSURE_AMT' ? '월보험료(계)' :
              (incomeItem == 'COMP_INSURE_AMT' ? '사용자부담금' : (incomeItem == 'EMP_INSURE_AMT' ? '본인기여금' : '')));*/

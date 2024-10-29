@@ -178,7 +178,7 @@
 
             <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
                        title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
-                       title-text-array="포장등록^실적조회"
+                       title-text-array="포장등록^실적조회" onclick="fn_changeTab()"
                        title-style-array="{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}">
@@ -335,6 +335,8 @@
 
     window.addEventListener("DOMContentLoaded",function(){
        fn_init();
+       /** 포장등록시 일일기준 강제처리 **/
+       fn_changeTab();
     });
     let carouselObj = {
         cnptInfoWrap : {
@@ -638,7 +640,7 @@
     }
     const fn_save = async function(){
         pckgObj.apcCd = gv_apcCd;
-        pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmd');
+        pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmdFrom');
         pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
         pckgObj.bxGdsQntt = parseInt($("div.tabBox_sm.active").text());
 
@@ -768,6 +770,16 @@
             SBUxMethod.show('srch-dtp-pckgYmdTo');
         }else{
             SBUxMethod.hide('srch-dtp-pckgYmdTo');
+        }
+    }
+    const fn_changeTab = function(){
+        let searchTab = SBUxMethod.get('tab_norm');
+        if(searchTab === 'tab_pckgPrfmncReg'){
+            SBUxMethod.hide('srch-dtp-pckgYmdTo');
+            SBUxMethod.attr('chkbox_norm','checked',true);
+            SBUxMethod.attr('chkbox_norm','readonly',true);
+        }else{
+            SBUxMethod.attr('chkbox_norm','readonly',false);
         }
     }
 

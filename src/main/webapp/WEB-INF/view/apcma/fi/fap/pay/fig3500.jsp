@@ -605,7 +605,6 @@
                 , "TEL", "FAX", "AR_ACC_CODE", "AR_ACC_NAME", "ADVANCE_ACC_CODE", "ADVANCE_ACC_NAME", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_PAYER_CODE', data.CS_CODE);
                 SBUxMethod.set('SRCH_PAYER_NAME', data.CS_NAME);
             },
@@ -633,7 +632,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CREATED_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_CREATED_DEPT_CODE', data.DEPT_CODE);
             },
@@ -662,7 +660,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_PAYEE_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_PAYEE_DEPT_CODE', data.DEPT_CODE);
             },
@@ -693,7 +690,6 @@
             ,tableColumnNames		: ["USER_ID", "USER_NAME",  "DEPT_CODE", "DEPT_NAME"]
             ,tableColumnWidths		: ["100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CREATED_BY_CODE', data.USER_ID);
                 SBUxMethod.set('SRCH_CREATED_BY_NAME', data.USER_NAME);
             },
@@ -723,7 +719,6 @@
             ,tableColumnNames		: ["USER_ID", "USER_NAME",  "DEPT_CODE", "DEPT_NAME"]
             ,tableColumnWidths		: ["100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_PAYEE_CODE', data.USER_ID);
                 SBUxMethod.set('SRCH_PAYEE_NAME', data.USER_NAME);
             },
@@ -1645,7 +1640,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1896,13 +1890,11 @@
                         })
                     }
 
-                    console.log("---------param--------- : ", param);
                     returnData.push(param);
 
                 }
             });
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -2031,7 +2023,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('ApplyTab data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -2101,7 +2092,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -2251,7 +2241,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -2349,7 +2338,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -2428,7 +2416,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {

@@ -407,7 +407,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
                 SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
             },
@@ -441,7 +440,6 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('srch-emp_name', data.EMP_NAME);
                 SBUxMethod.set('srch-emp_code', data.EMP_CODE);
             },
@@ -478,7 +476,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('CS_CODE'), data['CS_CODE']);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CS_NAME']);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CHIEF_NAME']);
@@ -508,7 +505,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwListGrid.setCellData(row, col, data.EMP_CODE);
                 gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
             },
@@ -538,7 +534,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_NAME'), data['DEPT_NAME']);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CODE']);
             },
@@ -566,7 +561,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwListGrid.setCellData(row, col, data.EMP_CODE);
                 gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
             },
@@ -625,7 +619,6 @@
             ,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
             ,tableColumnWidths		: ["150px", "250px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_CODE'), data.PROJECT_CODE);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_NAME'), data.PROJECT_NAME);
             },
@@ -653,7 +646,6 @@
             ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
             ,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_CODE'), data.ACCOUNT_CODE);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_NAME'), data.ACCOUNT_NAME);
             },
@@ -946,7 +938,7 @@
         let xml = parser.parseFromString(file, "text/xml");
         let parseXmlForJson = xmlToJson(xml);
         let taxInvoice = parseXmlForJson.TaxInvoice;
-        console.log(parseXmlForJson)
+        //console.log(parseXmlForJson)
         let nodeTaxInvoice = taxInvoice;
         let nodeExchangedDocument = taxInvoice.ExchangedDocument;
         let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;

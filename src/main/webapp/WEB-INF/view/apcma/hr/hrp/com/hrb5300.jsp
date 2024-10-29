@@ -438,7 +438,8 @@
             {caption : ["관련항목"], ref : 'SUMMARY_RELATED_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSummaryRelatedCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["계산순서"], ref: 'CALCULATE_SEQ', type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["계산순서"], ref: 'CALCULATE_SEQ', type: 'input', width: '100px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ['시작일자'], 		ref: 'START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['종료일자'], 		ref: 'END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
@@ -455,11 +456,13 @@
             {caption: ["최대한도 적용"], ref: 'APPLY_MAX_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
-            {caption: ["최대한도값"], ref: 'APPLY_MAX_AMT', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["최대한도값"], ref: 'APPLY_MAX_AMT', type: 'input', width: '100px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["최소한도 적용"], ref: 'APPLY_MIN_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
-            {caption: ["최소한도값"], ref: 'APPLY_MIN_AMT', type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["최소한도값"], ref: 'APPLY_MIN_AMT', type: 'input', width: '100px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["비    고"], ref: 'DESCR', type: 'input', width: '150px', style: 'text-align:left'},
             {caption: ["급여산식"], ref: 'PAY_FORMULA', type: 'output', width: '250px', style: 'text-align:left', hidden: true},
             {caption: ["급여산식"], ref: 'PAY_FORMULA_TMP', type: 'output', width: '250px', style: 'text-align:left'},
@@ -671,10 +674,6 @@
         let PAY_GROUP_CODE = gfnma_multiSelectGet("#SRCH_PAY_GROUP_CODE");
         let PAY_TYPE = gfnma_multiSelectGet("#SRCH_PAY_TYPE");
         let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#SRCH_PAY_ITEM_CATEGORY");
-      /*  let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_GROUP_CODE"));
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CATEGORY"));*/
-
 
         let rowData = gvwMasterGrid.getRowData(nRow);
 
@@ -694,7 +693,6 @@
                 $('.ma-btn').css("background-color", "#e0e0e0");
                 $('.ma-btn').css("color", "#000000");
             }
-
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'

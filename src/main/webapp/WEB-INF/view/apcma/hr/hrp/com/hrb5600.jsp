@@ -1042,14 +1042,6 @@
 
         // 변경 감지 시 실행할 콜백 함수
         const callback = (mutationList, observer) => {
-           /* console.log("----mutationList--- : ", mutationList);
-            for (const mutation of mutationList) {
-                if (mutation.type === "childList") {
-                    console.log("자식 노드가 추가되거나 제거됐습니다.");
-                } else if (mutation.type === "attributes") {
-                    console.log(`${mutation.attributeName} 특성이 변경됐습니다.`);
-                }
-            }*/
             let type1Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
             let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
 
