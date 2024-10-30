@@ -482,9 +482,26 @@
 			   SET
 			   	INQ_YN = #{inqYn}
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wrhsno}
+			   AND PLTNO = #{pltno}
 		]]>
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhsPltno		-->
+	<!-- DESC : 입고실적 삭제.		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteRawMtrWrhsPltno" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs */
+			  FROM TB_RAW_MTR_WRHS_PRFMNC
+			 WHERE APC_CD = #{apcCd}
+			   AND PLTNO = #{pltno}
+		]]>
+	</delete>
 
 
 	<!-- ==========================================================================	-->

@@ -367,6 +367,68 @@ public class RawMtrWrhsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wrhs/insertRawMtrWrhsListJiwoo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsListJiwoo(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsListJiwoo(rawMtrWrhsList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wrhs/deleteRawMtrWrhsListJiwoo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRawMtrWrhsListJiwoo(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.deleteRawMtrWrhsJiwoo(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 
 }

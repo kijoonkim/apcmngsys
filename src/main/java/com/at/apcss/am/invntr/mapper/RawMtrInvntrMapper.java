@@ -57,8 +57,8 @@ public interface RawMtrInvntrMapper {
 	 */
 	public List<RawMtrInvntrVO> selectRawMtrInvntrListForRslt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
-	
-	
+
+
 	/**
 	 * 원물재고 목록 집계조회
 	 * @param rawMtrInvntrVO
@@ -145,7 +145,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrSortInptRslt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 표준등급 등록
 	 * @param rawMtrStdGrdVO
@@ -226,6 +226,14 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	int rawMtrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 삭제 pltno
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrInvntrDelPltno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(@Param("vo")RawMtrInvntrVO rawMtrInvntrVO,@Param("wrhsno") List<String> wrhsno) throws Exception;
 }
