@@ -528,7 +528,7 @@
 		await fn_reset();
 	}
 	async function cfn_add() {
-	
+
 	}
 	async function cfn_del() {
 		await fn_delete();
@@ -1259,7 +1259,7 @@
   			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
   			if (!gfn_isEmpty(vrtyInfo)) {
   				const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
-  				const unitWght = parseInt(vrtyInfo.unitWght) || 0;
+  				const unitWght = parseFloat(vrtyInfo.unitWght) || 0;
   				SBUxMethod.set("srch-inp-wghtAvg", unitWght);
   			}
   		}
@@ -1370,7 +1370,7 @@
 	const fn_setStdGdsSelect = async function(_itemCd, _stdGrdObj, _isWght) {
 		await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, _itemCd, _stdGrdObj, _isWght);
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -1400,10 +1400,10 @@
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if(!gfn_isEmpty(vrtyCd)){
-			
+
 			SBUxMethod.set("srch-inp-wghtAvg", "");
 			fn_onChangeWghtAvg();
-			
+
 			if (itemCd != prvItemCd) {
 				SBUxMethod.set("srch-slt-itemCd", itemCd);
 				await fn_onChangeSrchItemCd({value: itemCd});
@@ -1417,8 +1417,8 @@
 		let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)});
 		if(!gfn_isEmpty(vrtyInfo)){
 			const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
-			const unitWght = parseInt(vrtyInfo.unitWght) || 0;
-			SBUxMethod.set("srch-inp-wghtAvg", unitWght);			
+			const unitWght = parseFloat(vrtyInfo.unitWght) || 0;
+			SBUxMethod.set("srch-inp-wghtAvg", unitWght);
 		}
 		fn_onChangeWghtAvg();
 	}
@@ -1461,7 +1461,7 @@
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 			fn_setPrdcrForm(prdcr);
-			
+
 		}
 	}
 
@@ -1634,7 +1634,7 @@
 
 	const fn_onChangeBxQntt = function(obj) {
 		let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
-		let wghtAvg = parseInt(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
+		let wghtAvg = parseFloat(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
 
 		if (wghtAvg > 0) {
 			let wrhsWght = Math.round(bxQntt * wghtAvg);
@@ -1645,7 +1645,7 @@
 	const fn_onChangeWghtAvg = function(obj) {
 
 		let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
-		let wghtAvg = parseInt(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
+		let wghtAvg = parseFloat(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
 
 		if (wghtAvg > 0) {
 			let wrhsWght = Math.round(bxQntt * wghtAvg);
@@ -1955,7 +1955,7 @@
 				style:'text-align:left'
 			}
 	    );
-		
+
 	    return _columns;
 	}
 
@@ -2305,7 +2305,7 @@
  		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
  			const rowData = _grdImp.getRowData(iRow);
- 			
+
  			// validation check
  	    	if (gfn_isEmpty(rowData.wrhsYmd)) {
  	    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
