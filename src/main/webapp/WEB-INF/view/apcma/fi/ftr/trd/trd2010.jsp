@@ -1349,7 +1349,7 @@
                 , compCode: gv_ma_selectedApcCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                , whereClause: "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''

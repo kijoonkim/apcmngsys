@@ -194,20 +194,19 @@
                         <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
-                                    <col style="width:15%">
-                                    <col style="width:8%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
                                     <col style="width:10%">
-                                    <col style="width:9%">
-                                    <col style="width:9%">
-                                    <col style="width:9%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
                                     <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
-                                    <col style="width:8%">
-                                    <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
                                 </colgroup>
                                 <tr>
@@ -219,7 +218,7 @@
                                         <input type="file" name="EMP_PHOTO_FILE" id="EMP_PHOTO_FILE" accept="image/*" style="display: none;">
                                     </td>
                                     <th scope="row" class="th_bg">사번</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                         <sbux-input id="EMP_PHOTO_PATH" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                         <sbux-input id="EMP_PHOTO_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
@@ -241,7 +240,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>이름</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>생년월일</th>
@@ -273,7 +272,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름(영문)</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME_ENG" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>성별</th>
@@ -294,7 +293,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름(한문)</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>직책</th>
@@ -352,7 +351,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>인건비분류</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="LABOR_COST_GROUP" uitype="single" jsondata-ref="jsonLaborCostGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LABOR_COST_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -420,7 +419,7 @@
                                 <tr>
                                     <td rowspan="8"></td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
@@ -456,7 +455,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>신고사업장</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>귀속부서</th>
@@ -492,7 +491,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>근무지</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -539,7 +538,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">종전사원</th>
@@ -562,13 +561,14 @@
                                         <sbux-select id="START_POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>인정경력</th>
-                                    <td class="td_input">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" style="display: flex; align-items: center;">
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사구분</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="ENTER_TYPE" uitype="single" jsondata-ref="jsonEnterType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ENTER_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -606,8 +606,9 @@
                                         />
                                     </td>
                                     <th scope="row" id="START_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
-                                    <td class="td_input" id="START_PAY_GRADE_TD">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" id="START_PAY_GRADE_TD" style="display: flex; align-items: center;">
+                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CAREER_TRACK_ENTER_DATE_TH" class="th_bg">기준일(PG)</th>
                                     <td class="td_input" id="CAREER_TRACK_ENTER_DATE_TD">
@@ -623,7 +624,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사일</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="ENTER_DATE"
@@ -659,8 +660,9 @@
                                         />
                                     </td>
                                     <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
-                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD" style="display: flex; align-items: center; gap:4px;">
+                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CURRENT_PAY_GRADE_DATE_TH" class="th_bg">기준일(PG)</th>
                                     <td class="td_input" id="CURRENT_PAY_GRADE_DATE_TD">
