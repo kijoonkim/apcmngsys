@@ -472,9 +472,6 @@
 		     , PD.DEL_YN            AS DEL_YN
 		     , PD.SPMT_CMNDNO       AS SPMT_CMNDNO
 		     , PD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
-			 , PD.CNPT_CD			AS CNPT_CD
-
-
 		  FROM TB_SPMT_PRFMNC_DTL PD
 		 WHERE PD.APC_CD = #{apcCd}
 		   AND PD.SPMTNO = #{spmtno}
