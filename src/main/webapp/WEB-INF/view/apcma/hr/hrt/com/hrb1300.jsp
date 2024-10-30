@@ -356,7 +356,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 fn_search();
@@ -401,7 +401,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 data.cv_1.forEach((item, index) => {
@@ -471,7 +471,7 @@
         });
 
         const detailData = await postJsonPromise;
-        console.log('data:', detailData);
+
         try {
             if (_.isEqual("S", detailData.resultStatus)) {
                 var responseData = detailData.cv_2[0];
@@ -514,7 +514,7 @@
                 });
 
                 const eventData = await postJsonPromise;
-                console.log('data:', eventData);
+
                 try {
                     if (_.isEqual("S", eventData.resultStatus)) {
 

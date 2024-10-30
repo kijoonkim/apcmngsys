@@ -597,7 +597,6 @@
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
                 ,callback : function (data) {
-                    console.log(data)
                     gfnma_multiSelectInit({
                         target			: ['#SUMMARY_RELATED_CODE']
                         ,compCode		: gv_ma_selectedApcCd
@@ -731,7 +730,6 @@
             ,tableColumnNames		: ["TAX_FREE_CODE", "TAX_FREE_NAME",  "TAX_FREE_DESCR"]
             ,tableColumnWidths		: ["80px", "120px", "300px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('TAX_FREE_CODE', data.TAX_FREE_CODE);
                 SBUxMethod.set('TAX_FREE_NAME', data.TAX_FREE_NAME);
             },
@@ -760,7 +758,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('ENTRY_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('ENTRY_DEPT_CODE', data.DEPT_CODE);
             },
@@ -1009,7 +1006,6 @@
             ,tableColumnNames		: ["PAY_ITEM_EXCEPT_GROUP_CODE", "PAY_ITEM_EXCEPT_GROUP_NAME"]
             ,tableColumnWidths		: ["100px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwExcept.setCellData(nRow, nCol, data['PAY_ITEM_EXCEPT_GROUP_CODE']);
                 gvwExcept.setCellData(nRow, (nCol+1), data['PAY_ITEM_EXCEPT_GROUP_NAME']);
             },
@@ -1051,7 +1047,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1285,7 +1280,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1454,7 +1448,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1504,7 +1497,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {

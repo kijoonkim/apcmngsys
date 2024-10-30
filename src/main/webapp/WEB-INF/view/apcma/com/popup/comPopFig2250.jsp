@@ -73,7 +73,6 @@ function compopfig2250(options) {
 		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
-	//console.log('settings:', settings);
 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
@@ -146,7 +145,6 @@ function compopfig2250(options) {
 		});
 
         const data = await postJsonPromise;
-		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {

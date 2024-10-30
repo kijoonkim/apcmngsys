@@ -434,7 +434,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["환율"],         ref: 'DOC_H_EXCHANGE_RATE',    type:'output',  	width:'70px',  style:'text-align:left',
+            {caption: ["환율"],         ref: 'DOC_H_EXCHANGE_RATE',    type:'output',  	width:'70px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
                 , hidden: true
@@ -844,11 +844,11 @@
             {caption: ["자금수지"],         ref: 'TR_ACTIVITY_NAME',    type:'output',  	width:'146px',  style:'text-align:left'},
             {caption: ["증빙번호"],         ref: 'VOUCHER_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["ORIGINAL_AMOUNT_BEFORE"],         ref: 'ORIGINAL_AMOUNT_BEFORE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["원화환산금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["원화환산금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -1067,7 +1067,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 let iCmpltCnt = 0;
@@ -1822,7 +1822,6 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', data);
 
                     bResult = false;
 
@@ -1910,7 +1909,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             bResult = false;
 
@@ -1958,7 +1956,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             bResult = false;
 

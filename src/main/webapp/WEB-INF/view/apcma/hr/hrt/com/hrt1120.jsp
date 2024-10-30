@@ -381,7 +381,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonNeglectOfDutyInfoList.length = 0;
@@ -512,7 +512,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1120List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
