@@ -359,10 +359,13 @@ function compopup1(options) {
 		gfnma_uxDataClear('.cu-search-area');
 	});
 
-	$(modalId).find('input').off('keypress');
-	$(modalId).find('input').keypress(function(e){
-		if(e.keyCode && e.keyCode == 13){
+	$(modalId).find('input').off('keydown');
+	$(modalId).find('input').keydown(function(e){
+		console.log(e);
+		if(e.keyCode && e.keyCode == 13) {
 			getData();
+		} else if(e.keyCode && (e.keyCode == 8 || e.keyCode == 46)) {
+			$(modalId).find('input').val("");
 		}
 	});
 
