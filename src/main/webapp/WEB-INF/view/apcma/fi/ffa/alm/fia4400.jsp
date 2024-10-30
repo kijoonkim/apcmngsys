@@ -989,13 +989,13 @@
 
 		 let acntgCrtr = SBUxMethod.get('srch-slt-acctRuleCode'); //회계기준
 		 let bizUnit = SBUxMethod.get('srch-slt-orgCode1'); //(회계)사업단위
-		 let bplc = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
 		 let clclnYmdFrom = SBUxMethod.get('srch-dtp-startDate');// 정산일자 from
 		 let clclnYmdTo = SBUxMethod.get('srch-dtp-endDate'); //정산일자to
-		 let acqsSe = gfnma_multiSelectGet('#srch-slt-acquireType') //취득구분
 		 let bizCd = SBUxMethod.get('srch-inp-projectCode'); //프로젝트코드
 		 let bizNm = SBUxMethod.get('srch-inp-projectName'); // 프로젝트명
 		 let clclnNo = SBUxMethod.get('srch-inp-cipTransferNo'); //정산번호
+		 let acqsSe = gfnma_multiSelectGet('#srch-slt-acquireType') //취득구분
+		 let bplc = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
 		  var paramObj = {
         			V_P_DEBUG_MODE_YN	: ''
         			,V_P_LANG_ID		: ''
@@ -1004,12 +1004,12 @@
         			,V_P_FI_ORG_CODE		: gfnma_nvl(bizUnit)
         			,V_P_ACCT_RULE_CODE	: gfnma_nvl(acntgCrtr)
         			,V_P_SITE_CODE		: gfnma_nvl(bplc)
-        			,V_P_START_DATE		: ''
-        			,V_P_END_DATE		: ''
+        			,V_P_START_DATE		: gfnma_nvl(clclnYmdFrom)
+        			,V_P_END_DATE		: gfnma_nvl(clclnYmdTo)
     			    ,V_P_CIP_TRANSFER_NO : gfnma_nvl(clclnNo)
     			    ,V_P_ACQUIRE_TYPE    : gfnma_nvl(acqsSe)
-    			    ,V_P_PROJECT_CODE    : ''
-    			    ,V_P_PROJECT_NAME    : ''
+    			    ,V_P_PROJECT_CODE    : gfnma_nvl(bizCd)
+    			    ,V_P_PROJECT_NAME    : gfnma_nvl(bizNm)
         			,V_P_FORM_ID		: p_formId
         			,V_P_MENU_ID		: p_menuId
         			,V_P_PROC_ID		: ''
@@ -1020,6 +1020,8 @@
 		    //paramObj.V_P_CIP_TRANSFER_NO = ;
 		    //paramObj.V_P_PROJECT_CODE = ;
 		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["projectCode","projectName","cipTransferNo"]);
+		    paramObj["V_P_ACQUIRE_TYPE"] = acqsSe;
+		    paramObj["V_P_SITE_CODE"] = bplc;
 		  	const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4400Q.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
@@ -1028,7 +1030,7 @@
      			});
 
           	const data = await postJsonPromise;
-          	console.log(data);
+
             // 비즈니스 로직 정보
             try {
 
