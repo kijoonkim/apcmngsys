@@ -26,6 +26,11 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
+    <style>
+        body{
+            zoom: 0.8 !important;
+        }
+    </style>
 </head>
 <body oncontextmenu="return false">
 <section>
