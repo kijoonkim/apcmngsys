@@ -1931,7 +1931,7 @@
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         }
 
-        SBGridProperties.frozencols = 10;
+        SBGridProperties.frozencols = 9;
         SBGridProperties.columns = [
             {
                 caption: ["ITEM_ID"],
@@ -3195,8 +3195,6 @@
             return;
         }
 
-        gvwWFItem.Columns["key_id"].FilterInfo = new DevExpress.XtraGrid.Columns.ColumnFilterInfo(DevExpress.XtraGrid.Columns.ColumnFilterType.Custom, null, "[key_id] = '" + txtkey_id.Text + "' OR IsNullOrEmpty([key_id])");  //OR IsNullOrEmpty([group_code])
-
         //버튼 활성화 제어
 
         let strDoc_status = gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')); //전표 상태로 변경
@@ -3252,7 +3250,7 @@
                     $("#main-btn-del").attr('disabled', 'false');
                 }
 
-            } else if (strDoc_status.Equals("3")) {
+            } else if (strDoc_status == "3") {
                 //승인중
                 $("#main-btn-appr").attr('disabled', 'true');
                 // TODO : PreviewButton = true;
@@ -3282,7 +3280,7 @@
                 if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "")
                     // TODO : btnConfirmHist.Enabled = true;
                     $("#main-btn-appr").attr('disabled', 'false');
-            } else if (strDoc_status.Equals("5")) {
+            } else if (strDoc_status == "5") {
                 //승인완료
                 $("#main-btn-del").attr('disabled', 'true');
                 $("#main-btn-appr").attr('disabled', 'true');
@@ -3689,6 +3687,16 @@
         fn_search();
     }
 
+    // 결재처리
+    function cfn_appr() {
+        fn_approval();
+    }
+
+    // 파일첨부
+    function cfn_attach() {
+        fn_attach();
+    }
+
     const fn_onload = async function (parentParameter) {
         $("#btnClearMode").show();
         $("#btnLineCopyMode").hide();
@@ -3912,7 +3920,7 @@
 
     const fn_create = async function () {
         if (editType != "Q" && gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
-            if (gfn_comConfirm("Q0000", "PROJECTBASE_003")) {
+            if (gfn_comConfirm("Q0000", "저장하지 않은 데이터가 있습니다. 계속 진행 하시겠습니까?")) {
                 return;
             }
         }
@@ -5535,7 +5543,8 @@
         if (editType != "Q")
             bNoCommitRow = true;
         if (!bNoCommitRow) {
-            if (jsonAccountLineList.length > 0)   //필수값을 입력 안한 경우
+            // TODO 필수값 체크 필요
+            if (jsonAccountLineList.length > 0)   // TODO 필수값을 입력 안한 경우
                 bNoCommitRow = true;
         }
 
@@ -6189,6 +6198,64 @@
         }
         else if (gfn_nvl(SBUxMethod.get("VOUCHER_TYPE")) == "C") {
             fn_report("REPORT", "FIG3180_REPORT");
+        }
+    }
+
+    const fn_approval = async function () {
+        if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "")
+            return;
+
+        if (fn_noCommitYN())
+            return;
+
+        let strApprId = gfn_nvl(SBUxMethod.get("APPR_ID"));
+        let sourceNo = gfn_nvl(SBUxMethod.get("DOC_ID"));
+        let sourceType = gfn_nvl(SBUxMethod.get("DOC_TYPE"));
+        let costCenterCode = gfn_nvl(SBUxMethod.get("HEADER_COST_CENTER"));
+        let apprStatus = gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS'));
+
+        compopappvmng({
+            workType		: strApprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+            ,compCode		: gv_ma_selectedApcCd
+            ,compCodeNm		: gv_ma_selectedApcNm
+            ,clientCode		: gv_ma_selectedClntCd
+            ,apprId			: strApprId
+            ,sourceNo		: sourceNo
+            ,sourceType		: sourceType
+            ,empCode		: p_empCode
+            ,formID			: p_formId
+            ,menuId			: p_menuId
+            ,costCenterCode : costCenterCode
+            ,apprStatus     : apprStatus
+            ,callback       : function(data) {
+                if (gfn_nvl(SBUxMethod.get("DOC_STATUS")) != "1") {
+                } else {
+                    fn_search(); //조회
+                }
+            }
+        });
+    }
+
+    const fn_attach = async function() {
+        if (gvwWFItem.getRow() < 0)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("DOC_ID")) == "" || gfn_nvl(SBUxMethod.get("DOC_ID")) == "0") {
+            gfn_comAlert("E0000", "전표저장후 파일등록가능합니다.");
+            return;
+        }
+
+        let strsource_code = gfn_nvl(SBUxMethod.get("DOC_ID"));
+
+        if (strsource_code != "") {
+            compopfilemng({
+                compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,sourceType		: strFileSourceType
+                ,sourceCode		: strsource_code
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+            });
         }
     }
 </script>
