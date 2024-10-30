@@ -549,7 +549,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'94px',  style:'text-align:left'},
+            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'94px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
             {caption: ["적요"],         ref: 'DESCRIPTION',    type:'output',  	width:'217px',  style:'text-align:left'},
             {caption: ["역분개"],			    ref: 'REVERSE_FLAG', 			        type:'checkbox',  	width:'46px',  	style:'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -708,7 +708,6 @@
         ];
 
         gvwMaster = _SBGrid.create(SBGridProperties);
-        gvwMaster.bind('dblclick', 'fn_gvwMasterDblclick');
         gvwMaster.bind('click', 'fn_view');
     }
 
@@ -1574,27 +1573,13 @@
         var nRow = gvwMaster.getRow();
         var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
-
-        if(nCol == gvwMaster.getColRef("DOC_NAME")) return false;
-        if(gfn_nvl(rowData) == "") return;
-
-        fn_searchApplyTab(rowData)
-        fn_searchAccountTab(rowData)
-        fn_searchApproveTab(rowData)
-    }
-
-    const fn_gvwMasterDblclick = async function () {
-        if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
-            return false;
-        }
-
-        var nRow = gvwMaster.getRow();
-        var nCol = gvwMaster.getCol();
-        var rowData = gvwMaster.getRowData(nRow);
-
         if(gfn_nvl(rowData) == "") return;
 
         if (nCol == gvwMaster.getColRef("DOC_NAME")) {
+            if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+                return false;
+            }
+
             if (gvwMaster.getCellData(nRow, gvwMaster.getColRef("DOC_BATCH_NO")) != "") {
                 var ht = {};
                 ht["DOC_BATCH_NO"] = gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("DOC_BATCH_NO")));
@@ -1614,6 +1599,10 @@
 
                 window.parent.cfn_openTabSearch(json);
             }
+        } else {
+            await fn_searchApplyTab(rowData);
+            await fn_searchAccountTab(rowData);
+            await fn_searchApproveTab(rowData);
         }
     }
 

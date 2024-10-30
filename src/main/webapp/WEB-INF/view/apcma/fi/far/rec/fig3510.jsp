@@ -505,7 +505,7 @@
 
                         </div>
                     </div>
-                    <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
+                    <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                         <div id="sb-area-gvwWFItem" style="height:300px;"></div>
                     </div>
                     <div>
@@ -4974,9 +4974,9 @@
     }
 
     const fn_search = async function () {
-        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop")) {
+        /*if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop")) {
             return false;
-        }
+        }*/
 
         let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
 
