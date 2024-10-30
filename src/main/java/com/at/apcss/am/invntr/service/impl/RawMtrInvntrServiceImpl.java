@@ -96,7 +96,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return resultList;
 	}
 
-	
+
 	@Override
 	public List<RawMtrInvntrVO> selectRawMtrInvntrTotalList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
@@ -394,7 +394,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		if (ComConstants.CON_YES.equals(rawMtrInvntrVO.getInptPrgrsYn())) {
-			
+
 			if (rawMtrInvntrVO.getInptWght() > invntrInfo.getInptPrgrsWght()) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "투입진행량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
@@ -402,7 +402,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			// 투입진행량
 			rawMtrInvntrVO.setInptPrgrsQntt(0);
 			rawMtrInvntrVO.setInptPrgrsWght(0);
-			
+
 			// 투입량
 			int inptQntt = invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt();
 			double inptWght = invntrInfo.getInptWght() + rawMtrInvntrVO.getInptWght();
@@ -420,7 +420,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 			rawMtrInvntrMapper.updateInvntrSortInptRslt(rawMtrInvntrVO);
 		} else {
-			
+
 			if (rawMtrInvntrVO.getInptWght() > invntrInfo.getInvntrWght() && !("RR".equals(rawMtrInvntrVO.getPrcsType()))) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
@@ -453,7 +453,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 			rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
 		}
-		
+
 		return null;
 	}
 
@@ -912,4 +912,11 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		List<String> wrhsno = Arrays.asList(rawMtrInvntrVO.getWrhsno().replace(" ", "").split(","));
 		return rawMtrInvntrMapper.selectRawMtrInvntrSumWrhsno(rawMtrInvntrVO,wrhsno);
 	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrInvntrDelPltno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		rawMtrInvntrMapper.deleteRawMtrInvntrDelPltno(rawMtrInvntrVO);
+		return null;
+	}
+
 }

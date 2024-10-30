@@ -522,6 +522,71 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return rtnObj;
 	}
 
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsListJiwoo(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
+
+		HashMap<String, Object> rtnObj;
+		String masterPltno = "";
+		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+
+			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+
+			if (!StringUtils.hasText(masterPltno)) {
+				masterPltno = cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+			}
+			rawMtrWrhsVO.setPltno(masterPltno);
+			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+
+			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+			rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+
+			rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhsJiwoo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		/*
+		 * // 원물재고 상태 확인 RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO); if
+		 * (wrhsInfo == null || !StringUtils.hasText(wrhsInfo.getWrhsno()) ||
+		 * ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) { return
+		 * ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보"); // W0005 {0}이/가
+		 * 없습니다. }
+		 */
+
+		// 마감확인
+		/*
+		 * String apcCd = wrhsInfo.getApcCd(); String wrhsYmd = wrhsInfo.getWrhsYmd();
+		 * String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, wrhsYmd); if
+		 * (!ComConstants.CON_NONE.equals(ddlnYn)) { return
+		 * ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "원물재고"); }
+		 */
+
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.deleteRawMtrInvntrDelPltno(invntrVO);
+
+
+		// 입고실적 삭제
+		rawMtrWrhsMapper.deleteRawMtrWrhsPltno(rawMtrWrhsVO);
+
+		return null;
+	}
+
 
 
 }

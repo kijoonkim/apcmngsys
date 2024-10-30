@@ -208,4 +208,12 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrWrhsInq(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 입고실적 pltno delete
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrWrhsPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

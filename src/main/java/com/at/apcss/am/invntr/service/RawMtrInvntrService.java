@@ -224,4 +224,12 @@ public interface RawMtrInvntrService {
 	public RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	public HashMap<String, Object> updateInvntrRePrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 delete pltno
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrInvntrDelPltno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

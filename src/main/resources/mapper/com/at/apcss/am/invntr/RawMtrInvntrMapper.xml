@@ -328,7 +328,7 @@
 	    	    , RI.PRCS_TYPE			AS PRCS_TYPE
 				, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS SORT_CMNDNO
 				, (SELECT MAX(X.FCLT_CD) KEEP (DENSE_RANK LAST ORDER BY X.SORT_CMNDNO, X.SORT_CMND_SN) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS FCLT_CD
- 
+
 			  FROM TB_RAW_MTR_INVNTR RI
 
 			 WHERE RI.DEL_YN = 'N'
@@ -1565,5 +1565,22 @@
 		 </foreach>
 		GROUP BY RI.APC_CD, RI.WRHS_YMD
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntrDelPltno	-->
+	<!-- DESC : 원물재고 삭제		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.30  	박승진        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteRawMtrInvntrDelPltno" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntrDelPltno */
+				FROM TB_RAW_MTR_INVNTR
+			 WHERE APC_CD = #{apcCd}
+			   AND PLTNO = #{pltno}
+		]]>
+	</delete>
 
 </mapper>

@@ -260,4 +260,7 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public int updateRawMtrWrhsInq(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	public HashMap<String, Object> insertRawMtrWrhsListJiwoo(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception;
+	public HashMap<String, Object> deleteRawMtrWrhsJiwoo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }
