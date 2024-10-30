@@ -239,6 +239,7 @@
     var jsonPositionCode = []; // 직위
     var jsonDutyCode = []; // 직책
     var jsonJobRank = []; // 직급
+    var jsonEmpState = []; // 재직구분
 
     //grid 초기화
     var gvwStatus; 			// 그리드를 담기위한 객체 선언
@@ -285,6 +286,8 @@
             gfnma_setComSelect(['gvwCheck'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직급
             gfnma_setComSelect(['gvwCheck'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 재직구분
+            gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -332,7 +335,6 @@
         SBGridProperties.id 				= 'gvwCheck';
         SBGridProperties.jsonref 			= 'jsonCheckList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.frozencols = 5;
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
@@ -407,7 +409,7 @@
             {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'200px',  style:'text-align:right'},
         ];
 
-        bandgvwInfo = _SBGrid.create(SBGridProperties);
+        gvwCheck = _SBGrid.create(SBGridProperties);
     }
 
     const fn_findDeptCode = function() {
@@ -432,7 +434,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -466,7 +467,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
