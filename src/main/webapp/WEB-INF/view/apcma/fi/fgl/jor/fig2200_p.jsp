@@ -599,10 +599,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [11,12,13]
+                    sum : [10,11,12]
                 },
                 grandtotalrow : {
-                    titlecol 		: 10,
+                    titlecol 		: 9,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -622,17 +622,23 @@
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["전표구분"],    				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            //{caption: ["전표번호"],    			ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-   	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+            			return "";
+            		}
             	}	
             },
             
             {caption: ["적요"], 	   				ref: 'DESCRIPTION', 			type:'output',  	width:'200px',  	style:'text-align:left'},
+            
             {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["부가세"],	   				ref: 'VAT_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
             {caption: ["거래처명"],	   				ref: 'CS_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["상신일자"],	   				ref: 'INSERT_DATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["청구자"],	   				ref: 'REQUEST_EMP', 			type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -1675,7 +1681,17 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            //{caption: ["전표번호"],    			ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["전표유형"],					ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["전표상태"], 				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 					ref: 'ITEM_SEQ', 				type:'output',		width:'60px',  		style:'text-align:left'},
@@ -2140,16 +2156,15 @@
     }  
     
     /**
-     * 그리드내 전표번호 조회
+     * 그리드내 링크(전표번호) 조회
      */
-	function fn_gridPopup1(event, row, col) {
+ 	function fn_gridPopup1(event, doc_id) {
 		event.preventDefault();	
-        let rowData = Fig2200Grid.getRowData(row);
-        console.log('fn_gridPopup1 rowData:', rowData);
+		console.log('doc_id:', doc_id);		
         
         var obj = {
         	'MENU_MOVE'		: 'Y'	
-        	,'DOC_ID' 		: rowData['DOC_ID']
+        	,'DOC_ID' 		: doc_id
         	,'target'		: 'MA_A20_030_020_150'
         }
         let json = JSON.stringify(obj);
