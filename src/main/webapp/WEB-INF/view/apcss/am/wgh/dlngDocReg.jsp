@@ -213,12 +213,12 @@
 							</div>
 						</div>
 						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdRawMtrWrhs" style="height:434px;"></div>
+							<div id="sb-area-grdRawMtrWrhs" style="height:280px;"></div>
 						</div>
 					</div>
 					<div id=listTab>
 						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdRegList" style="height:434px;"></div>
+							<div id="sb-area-grdRegList" style="height:280px;"></div>
 						</div>
 					</div>
 				</div>
@@ -450,7 +450,7 @@
 	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',   width : '10%',    style:'text-align:center'},
 	        //{caption: ["순번"],		ref: 'rowSeq',    type:'output'  ,  width:'17%',    style:'text-align:center', sortable: false},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'17%',    style:'text-align:center', sortable: false},
-	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'17%',    style:'text-align:center', sortable: false},
+	        //{caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'17%',    style:'text-align:center', sortable: false},
 	        {caption: ["수량"],	ref: 'wrhsQntt',    type:'input',  width:'17%',    style:'text-align:center', sortable: false,
 	        	dataType : 'number' ,format : {type:'number', rule:'#,###'}
 	        },
@@ -552,7 +552,8 @@
      * @description 초기화 버튼
      */
      const fn_reset = async function() {
-
+    	 grdRawMtrWrhs.destroy();
+    	 fn_createGrid();
 	}
 
      const fn_search = async function() {
@@ -600,7 +601,27 @@
 
        		jsonRegList.length = 0;
        		var jsonRegListTemp = [];
-           	data.resultList.forEach((item, index) => {
+
+
+
+
+       		const result = Object.values(
+       				data.resultList.reduce((acc, item) => {
+       			    const { pltno, bxQntt, wrhsWght,apcCd,apcNm,wrhsYmd,prdcrCd,prdcrNm,wrhsno,wghno,itemCd,itemNm,vrtyCd,vrtyNm,inqYn,wrhsQntt,invntrQntt,invntrWght } = item;
+
+       			    // acc에 pltno가 없으면 새로운 항목 추가, 있으면 bxQntt와 wrhsWght를 합산
+       			    if (!acc[pltno]) {
+       			      acc[pltno] = { pltno, bxQntt: 0, wrhsWght: 0, apcCd,apcNm,wrhsYmd,prdcrCd,prdcrNm,wrhsno,wghno,itemCd,itemNm,vrtyCd,vrtyNm,inqYn,wrhsQntt,invntrQntt,invntrWght };
+       			    }
+
+       			    acc[pltno].wrhsQntt += bxQntt;
+       			    acc[pltno].wrhsWght += wrhsWght;
+
+       			    return acc;
+       			  }, {})
+       			);
+
+           	/* data.resultList.forEach((item, index) => {
            		const rawMtrWrhs = {
    						rowSeq: item.rowSeq,
    						apcCd: item.apcCd,
@@ -611,43 +632,24 @@
    						wrhsno: item.wrhsno,
    						wghno: item.wghno,
    						pltno: item.pltno,
-
    						itemCd: item.itemCd,
    						itemNm: item.itemNm,
    						vrtyCd: item.vrtyCd,
    						vrtyNm: item.vrtyNm,
-
    						inqYn : item.inqYn,
-
-   						//gdsSeCd: item.gdsSeCd,
-   						//gdsSeNm: item.gdsSeNm,
-   						//wrhsSeCd: item.wrhsSeCd,
-   						//wrhsSeNm: item.wrhsSeNm,
-   						//trsprtSeCd: item.trsprtSeCd,
-   						//trsprtSeNm: item.trsprtSeNm,
-   						//grdCd: item.grdCd,
-   						//grdNm: item.grdNm,
-   						//vhclno: item.vhclno,
    						bxQntt: item.bxQntt,
    						wrhsWght: item.wrhsWght,
    						wrhsQntt: item.bxQntt,
-   						//bxKnd: item.bxKnd,
-   						//bxKndNm: item.bxKndNm,
-   						//warehouseSeCd: item.warehouseSeCd,
-   						//warehouseSeNm: item.warehouseSeNm,
-   						//rmrk: item.rmrk,
-   						//trsprtCst: item.trsprtCst,
-   						//prcsType: item.prcsType,
-   						//prcsTypeNm: item.prcsTypeNm,
    						invntrQntt: item.invntrQntt,
    						invntrWght: item.invntrWght,
    				}
            		jsonRegList.push(rawMtrWrhs);
 
-   			});
-
+   			});*/
+   			jsonRegList = result;
            	if (jsonRawMtrWrhs.length > 0) {
            		grdRegList.refresh();
+           		grdRegList.setRow(1);
            	} else {
            		grdRegList.rebuild();
           	}
@@ -709,6 +711,7 @@
  			item["wghno"] = "";
  			item["wrhsSeCd"] = wrhsSeCd;
  			item["trsprtSeCd"] = trsprtSeCd;
+ 			item["inqYn"] = "N";
  			//item["gdsSeCd"] = gdsSeCd; 이상한값이 들어와서 일단 뺌
 
  		})
@@ -732,7 +735,7 @@
 
 
     	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
-    	let postUrl = "/am/wrhs/insertRawMtrWrhsList.do";
+    	let postUrl = "/am/wrhs/insertRawMtrWrhsListJiwoo.do";
     	const filteredList = allData.filter(item => item.wrhsQntt !== "" || item.wrhsQntt === "undefined");
 
      	const postJsonPromise = gfn_postJSON(postUrl, filteredList);
@@ -932,7 +935,7 @@
      * @name fn_dlngDoc
      * @description 거래명세표 발행 버튼
      */
-	const fn_dlngDoc = async function(wrhsno) {
+	const fn_dlngDoc = async function(pltno) {
 		//let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
 		let wrhsYmd= SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고시작일자
@@ -941,7 +944,16 @@
 			gfn_comAlert("W0001", "생산자");		//	W0001	{0}을/를 선택하세요.
             return;
 		}
-		let wrhsNoList = [];
+
+
+		if(pltno === undefined){
+			let rowData = grdRegList.getRowData(grdRegList.getRow());
+			pltno = rowData.pltno;
+		}
+
+
+
+/* 		let wrhsNoList = [];
 		jsonRegList.forEach(item => {
 			if(item.wrhsno !== ""){
 				wrhsNoList.push(item.wrhsno);
@@ -952,27 +964,28 @@
 			return;
 		}
 
-		wrhsNoList = wrhsNoList.join("','");
+		wrhsNoList = wrhsNoList.join("','"); */
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
-		let obj = {apcCd: gv_selectedApcCd, prdcrCd: prdcrCd, wrhsYmd : wrhsYmd, wrhsno: gfn_nvl(wrhsNoList)};
-		if(wrhsno !== undefined){
+		//let obj = {apcCd: gv_selectedApcCd, prdcrCd: prdcrCd, wrhsYmd : wrhsYmd, wrhsno: gfn_nvl(wrhsNoList)};
+		let obj = {apcCd: gv_selectedApcCd, prdcrCd: prdcrCd, wrhsYmd : wrhsYmd, pltno : pltno};
+		/* if(wrhsno !== undefined){
 			obj['wrhsno'] = wrhsno;
-		}
+		} */
 
 		gfn_popClipReport("거래명세표", rptUrl, obj );
 
-		fn_inqUpdate(obj.wrhsno);
+		fn_inqUpdate(obj.pltno);
 
 	}
 
 	const fn_searchRow = async function(grd,nRow,nCol){
 		let rowData = grd.getRowData(nRow);
-		fn_dlngDoc(rowData.wrhsno);
+		fn_dlngDoc(rowData.pltno);
 	}
 
 	const fn_deleteRow = async function(grd,nRow,nCol){
 		let rowData = grd.getRowData(nRow);
-		fn_delete(rowData.wrhsno)
+		fn_delete(rowData.pltno)
 	}
 
 
@@ -980,12 +993,13 @@
      * @name fn_inqUpdate
      * @description 조회버튼 클릭 시 삭제 못하게 함(INQ_YN = "Y")
      */
-    const fn_inqUpdate = async function(wrhsno) {
+    const fn_inqUpdate = async function(pltno) {
 
 
 		let obj = {
 				apcCd : gv_apcCd
-				, wrhsno : wrhsno
+				, pltno : pltno
+				, inqYn : "Y"
 		}
 
 
@@ -999,7 +1013,6 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
@@ -1014,17 +1027,17 @@
 
 	}
 
-    const fn_delete = async function(wrhsno){
+    const fn_delete = async function(pltno){
     	let obj = {
 				apcCd : gv_apcCd
-				, wrhsno : wrhsno
+				, pltno : pltno
 		}
 
 
 
 
     	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
-    	let postUrl = "/am/wrhs/deleteRawMtrWrhs.do";
+    	let postUrl = "/am/wrhs/deleteRawMtrWrhsListJiwoo.do";
 
      	const postJsonPromise = gfn_postJSON(postUrl, obj);
 		const data = await postJsonPromise;

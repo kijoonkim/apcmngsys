@@ -424,12 +424,13 @@
 			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100')
 
-			//초기값 IFRS
-			SBUxMethod.set("srch-slt-acntgCrtr1","2");
-			SBUxMethod.set("srch-slt-acntgCrtr2","2");
+
 		]);
+		//초기값 IFRS
+		SBUxMethod.set("srch-slt-acntgCrtr1","2");
+		SBUxMethod.set("srch-slt-acntgCrtr2","2");
 
 
 	}
