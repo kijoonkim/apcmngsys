@@ -213,16 +213,16 @@
                		   ,V_P_LANG_ID              : ''
                		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
                		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-               		   ,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
-               		   ,V_P_CURRENCY_NAME        : gfnma_nvl(item.data.CURRENCY_NAME)
-               		   ,V_P_CURRENCY_NAME_CHN    : gfnma_nvl(item.data.CURRENCY_NAME_CHN)
-               		   ,V_P_CURR_SYMBOL          : gfnma_nvl(item.data.CURR_SYMBOL)
-               		   ,V_P_EXCHANGE_BASE_SCALE  : gfnma_nvl(item.data.EXCHANGE_BASE_SCALE) == "" ? 0 : gfnma_nvl(item.data.EXCHANGE_BASE_SCALE)
-               		   ,V_P_SORT_SEQ             : gfnma_nvl(item.data.SORT_SEQ) == "" ? 0 : gfnma_nvl(item.data.SORT_SEQ)
-               		   ,V_P_MEMO                 : gfnma_nvl(item.data.MEMO)
-               		   ,V_P_USE_YN               : gfnma_nvl(item.data.USE_YN)
-               		   ,V_P_FBS_YN               : gfnma_nvl(item.data.FBS_YN)
-               		   ,V_P_DECIMAL_LENGTH       : gfnma_nvl(item.data.DECIMAL_LENGTH) == "" ? 0 : gfnma_nvl(item.data.DECIMAL_LENGTH)
+               		   ,V_P_CURRENCY_CODE        : gfn_nvl(item.data.CURRENCY_CODE)
+               		   ,V_P_CURRENCY_NAME        : gfn_nvl(item.data.CURRENCY_NAME)
+               		   ,V_P_CURRENCY_NAME_CHN    : gfn_nvl(item.data.CURRENCY_NAME_CHN)
+               		   ,V_P_CURR_SYMBOL          : gfn_nvl(item.data.CURR_SYMBOL)
+               		   ,V_P_EXCHANGE_BASE_SCALE  : gfn_nvl(item.data.EXCHANGE_BASE_SCALE) == "" ? 0 : gfn_nvl(item.data.EXCHANGE_BASE_SCALE)
+               		   ,V_P_SORT_SEQ             : gfn_nvl(item.data.SORT_SEQ) == "" ? 0 : gfn_nvl(item.data.SORT_SEQ)
+               		   ,V_P_MEMO                 : gfn_nvl(item.data.MEMO)
+               		   ,V_P_USE_YN               : gfn_nvl(item.data.USE_YN)
+               		   ,V_P_FBS_YN               : gfn_nvl(item.data.FBS_YN)
+               		   ,V_P_DECIMAL_LENGTH       : gfn_nvl(item.data.DECIMAL_LENGTH) == "" ? 0 : gfn_nvl(item.data.DECIMAL_LENGTH)
                		   ,V_P_FORM_ID              : p_formId
                		   ,V_P_MENU_ID              : p_menuId
                		   ,V_P_PROC_ID              : ''
@@ -261,8 +261,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_CURRENCY_CODE = gfnma_nvl(SBUxMethod.get("SRCH_CURRENCY_CODE"));
-    	let SRCH_CURRENCY_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CURRENCY_NAME"));
+    	let SRCH_CURRENCY_CODE = gfn_nvl(SBUxMethod.get("SRCH_CURRENCY_CODE"));
+    	let SRCH_CURRENCY_NAME = gfn_nvl(SBUxMethod.get("SRCH_CURRENCY_NAME"));
     	
     	var paramObj = {
 	    	   V_P_DEBUG_MODE_YN         : ''

@@ -874,8 +874,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_ORG_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
-    	let SRCH_ORG_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
+    	let SRCH_ORG_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
+    	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
     	
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
@@ -908,29 +908,32 @@
 	    		masterTreeGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-			    			LEVEL						: gfnma_nvl(item.LVL),
-		    				KEYID						: gfnma_nvl(item.KEYID),
-		    				PARENTKEYID					: gfnma_nvl(item.PARENTKEYID),
-		    				COST_CENTER_CODE			: gfnma_nvl(item.COST_CENTER_CODE),
-		    				COST_CENTER_NAME			: gfnma_nvl(item.COST_CENTER_NAME),
-		    				COST_CLASS					: gfnma_nvl(item.COST_CLASS),
-		    				USE_YN						: gfnma_nvl(item.USE_YN),
-		    				COST_CENTER_NAME_CHN		: gfnma_nvl(item.COST_CENTER_NAME_CHN),
-		    				COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-		    				PARENT_YN					: gfnma_nvl(item.PARENT_YN),
-		    				PARENT_COST_CENTER			: gfnma_nvl(item.PARENT_COST_CENTER),
-		    				PARENT_COST_CENTER_NAME     : gfnma_nvl(item.PARENT_COST_CENTER_NAME),
-		    				COST_CENTER_LEADER			: gfnma_nvl(item.COST_CENTER_LEADER),
-		    				DEPT_CODE					: gfnma_nvl(item.DEPT_CODE),
-		    				DEPT_NAME					: gfnma_nvl(item.DEPT_NAME),
-		    				BUDGET_YN					: gfnma_nvl(item.BUDGET_YN),
-		    				BUDGET_COST_CENTER			: gfnma_nvl(item.BUDGET_COST_CENTER)
+			    			LEVEL						: gfn_nvl(item.LVL),
+		    				KEYID						: gfn_nvl(item.KEYID),
+		    				PARENTKEYID					: gfn_nvl(item.PARENTKEYID),
+		    				COST_CENTER_CODE			: gfn_nvl(item.COST_CENTER_CODE),
+		    				COST_CENTER_NAME			: gfn_nvl(item.COST_CENTER_NAME),
+		    				COST_CLASS					: gfn_nvl(item.COST_CLASS),
+		    				USE_YN						: gfn_nvl(item.USE_YN),
+		    				COST_CENTER_NAME_CHN		: gfn_nvl(item.COST_CENTER_NAME_CHN),
+		    				COMP_CODE					: gfn_nvl(item.COMP_CODE),
+		    				PARENT_YN					: gfn_nvl(item.PARENT_YN),
+		    				PARENT_COST_CENTER			: gfn_nvl(item.PARENT_COST_CENTER),
+		    				PARENT_COST_CENTER_NAME     : gfn_nvl(item.PARENT_COST_CENTER_NAME),
+		    				COST_CENTER_LEADER			: gfn_nvl(item.COST_CENTER_LEADER),
+		    				DEPT_CODE					: gfn_nvl(item.DEPT_CODE),
+		    				DEPT_NAME					: gfn_nvl(item.DEPT_NAME),
+		    				BUDGET_YN					: gfn_nvl(item.BUDGET_YN),
+		    				BUDGET_COST_CENTER			: gfn_nvl(item.BUDGET_COST_CENTER)
 		    		}
 		    		jsonMasterTreeList.push(msg);
 		    		totalRecordCount ++;
 		    	});
 	    	   	masterTreeGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
+                if(jsonMasterTreeList.length > 0) {
+                	masterTreeGrid.clickRow(1);
+                }
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -1020,27 +1023,27 @@
             gfn_comAlert("W0002", "사업부");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("COST_CENTER_CODE")) == "") {
             gfn_comAlert("W0002", "원가중심점코드");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("COST_CENTER_NAME")) == "") {
             gfn_comAlert("W0002", "원가중심점명");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("DEPT_CODE")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("DEPT_CODE")) == "") {
             gfn_comAlert("W0002", "부서");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
             gfn_comAlert("W0002", "부서");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("SITE_CODE")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("SITE_CODE")) == "") {
             gfn_comAlert("W0002", "사업장");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("SITE_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("SITE_NAME")) == "") {
             gfn_comAlert("W0002", "사업장");
             return;
     	}
@@ -1049,41 +1052,41 @@
    				,V_P_LANG_ID              : ""
    				,V_P_COMP_CODE            : gv_ma_selectedApcCd
    				,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-   				,V_P_COST_CENTER_CODE     : gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"))
-   				,V_P_COST_CENTER_NAME     : gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"))
-   				,V_P_COST_CENTER_NAME_CHN : gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME_CHN"))
+   				,V_P_COST_CENTER_CODE     : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
+   				,V_P_COST_CENTER_NAME     : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"))
+   				,V_P_COST_CENTER_NAME_CHN : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME_CHN"))
    				,V_P_COST_CLASS           : gfnma_multiSelectGet("#COST_CLASS")
    				,V_P_FI_ORG_CODE          : gfnma_multiSelectGet("#FI_ORG_CODE")
    				,V_P_DIV_CODE             : gfnma_multiSelectGet("#DIV_CODE")
-   				,V_P_DESCRIPTION          : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-   				,V_P_ORGANIZATION_ID      : gfnma_nvl(SBUxMethod.get("ORGANIZATION_ID"))
+   				,V_P_DESCRIPTION          : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+   				,V_P_ORGANIZATION_ID      : gfn_nvl(SBUxMethod.get("ORGANIZATION_ID"))
    				,V_P_PROD_RELATION_FLAG   : gfnma_multiSelectGet("#PROD_RELATION_FLAG")
    				,V_P_DEFAULT_DRIVER_CODE  : gfnma_multiSelectGet("#DEFAULT_DRIVER_CODE")
-   				,V_P_FINAL_FLAG           : gfnma_nvl(SBUxMethod.get("FINAL_FLAG").FINAL_FLAG)
-   				,V_P_PLANT_NAME           : gfnma_nvl(SBUxMethod.get("PLANT_NAME"))
-   				,V_P_USE_YN               : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
+   				,V_P_FINAL_FLAG           : gfn_nvl(SBUxMethod.get("FINAL_FLAG").FINAL_FLAG)
+   				,V_P_PLANT_NAME           : gfn_nvl(SBUxMethod.get("PLANT_NAME"))
+   				,V_P_USE_YN               : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
    				,V_P_MG_COST_CENTER       : gfnma_multiSelectGet("#MG_COST_CENTER")
-   				,V_P_DOC_INPUT_YN         : gfnma_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
+   				,V_P_DOC_INPUT_YN         : gfn_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
    				,V_P_PLANT_CODE           : gfnma_multiSelectGet("#PLANT_CODE")
-   				,V_P_SORT_SEQ             : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-   				,V_P_ATTR1                : gfnma_nvl(SBUxMethod.get("ATTR1"))
-   				,V_P_ATTR2                : gfnma_nvl(SBUxMethod.get("ATTR2"))
-   				,V_P_ATTR3                : gfnma_nvl(SBUxMethod.get("ATTR3"))
-   				,V_P_ATTR4                : gfnma_nvl(SBUxMethod.get("ATTR4"))
-   				,V_P_ATTR5                : gfnma_nvl(SBUxMethod.get("ATTR5"))
-   				,V_P_ATTR6                : gfnma_nvl(SBUxMethod.get("ATTR6"))
-   				,V_P_ATTR7                : gfnma_nvl(SBUxMethod.get("ATTR7"))
-   				,V_P_ATTR8                : gfnma_nvl(SBUxMethod.get("ATTR8"))
-   				,V_P_ATTR9                : gfnma_nvl(SBUxMethod.get("ATTR9"))
-   				,V_P_ATTR10               : gfnma_nvl(SBUxMethod.get("ATTR10"))
-   				,V_P_PARENT_YN            : gfnma_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
-   				,V_P_PARENT_COSTCENTER    : gfnma_nvl(SBUxMethod.get("PARENT_COSTCENTER"))
-   				,V_P_DEPT_CODE            : gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
-   				,V_P_TRANS_COST_CENTER    : gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER"))
-   				,V_P_SITE_CODE            : gfnma_nvl(SBUxMethod.get("SITE_CODE"))
-   				,V_P_COST_CENTER_LEADER   : gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER"))
-   				,V_P_BUDGET_YN            : gfnma_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
-   				,V_P_BUDGET_COST_CENTER   : gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER"))
+   				,V_P_SORT_SEQ             : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+   				,V_P_ATTR1                : gfn_nvl(SBUxMethod.get("ATTR1"))
+   				,V_P_ATTR2                : gfn_nvl(SBUxMethod.get("ATTR2"))
+   				,V_P_ATTR3                : gfn_nvl(SBUxMethod.get("ATTR3"))
+   				,V_P_ATTR4                : gfn_nvl(SBUxMethod.get("ATTR4"))
+   				,V_P_ATTR5                : gfn_nvl(SBUxMethod.get("ATTR5"))
+   				,V_P_ATTR6                : gfn_nvl(SBUxMethod.get("ATTR6"))
+   				,V_P_ATTR7                : gfn_nvl(SBUxMethod.get("ATTR7"))
+   				,V_P_ATTR8                : gfn_nvl(SBUxMethod.get("ATTR8"))
+   				,V_P_ATTR9                : gfn_nvl(SBUxMethod.get("ATTR9"))
+   				,V_P_ATTR10               : gfn_nvl(SBUxMethod.get("ATTR10"))
+   				,V_P_PARENT_YN            : gfn_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
+   				,V_P_PARENT_COSTCENTER    : gfn_nvl(SBUxMethod.get("PARENT_COSTCENTER"))
+   				,V_P_DEPT_CODE            : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
+   				,V_P_TRANS_COST_CENTER    : gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"))
+   				,V_P_SITE_CODE            : gfn_nvl(SBUxMethod.get("SITE_CODE"))
+   				,V_P_COST_CENTER_LEADER   : gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER"))
+   				,V_P_BUDGET_YN            : gfn_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
+   				,V_P_BUDGET_COST_CENTER   : gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"))
    				,V_P_FORM_ID              : p_formId
    				,V_P_MENU_ID              : p_menuId
    				,V_P_PROC_ID              : ''
@@ -1124,41 +1127,41 @@
    				,V_P_LANG_ID              : ""
    				,V_P_COMP_CODE            : gv_ma_selectedApcCd
    				,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-   				,V_P_COST_CENTER_CODE     : gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"))
-   				,V_P_COST_CENTER_NAME     : gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"))
-   				,V_P_COST_CENTER_NAME_CHN : gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME_CHN"))
+   				,V_P_COST_CENTER_CODE     : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
+   				,V_P_COST_CENTER_NAME     : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"))
+   				,V_P_COST_CENTER_NAME_CHN : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME_CHN"))
    				,V_P_COST_CLASS           : gfnma_multiSelectGet("#COST_CLASS")
    				,V_P_FI_ORG_CODE          : gfnma_multiSelectGet("#FI_ORG_CODE")
    				,V_P_DIV_CODE             : gfnma_multiSelectGet("#DIV_CODE")
-   				,V_P_DESCRIPTION          : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-   				,V_P_ORGANIZATION_ID      : gfnma_nvl(SBUxMethod.get("ORGANIZATION_ID"))
+   				,V_P_DESCRIPTION          : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+   				,V_P_ORGANIZATION_ID      : gfn_nvl(SBUxMethod.get("ORGANIZATION_ID"))
    				,V_P_PROD_RELATION_FLAG   : gfnma_multiSelectGet("#PROD_RELATION_FLAG")
    				,V_P_DEFAULT_DRIVER_CODE  : gfnma_multiSelectGet("#DEFAULT_DRIVER_CODE")
-   				,V_P_FINAL_FLAG           : gfnma_nvl(SBUxMethod.get("FINAL_FLAG").FINAL_FLAG)
-   				,V_P_PLANT_NAME           : gfnma_nvl(SBUxMethod.get("PLANT_NAME"))
-   				,V_P_USE_YN               : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
+   				,V_P_FINAL_FLAG           : gfn_nvl(SBUxMethod.get("FINAL_FLAG").FINAL_FLAG)
+   				,V_P_PLANT_NAME           : gfn_nvl(SBUxMethod.get("PLANT_NAME"))
+   				,V_P_USE_YN               : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
    				,V_P_MG_COST_CENTER       : gfnma_multiSelectGet("#MG_COST_CENTER")
-   				,V_P_DOC_INPUT_YN         : gfnma_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
+   				,V_P_DOC_INPUT_YN         : gfn_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
    				,V_P_PLANT_CODE           : gfnma_multiSelectGet("#PLANT_CODE")
-   				,V_P_SORT_SEQ             : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-   				,V_P_ATTR1                : gfnma_nvl(SBUxMethod.get("ATTR1"))
-   				,V_P_ATTR2                : gfnma_nvl(SBUxMethod.get("ATTR2"))
-   				,V_P_ATTR3                : gfnma_nvl(SBUxMethod.get("ATTR3"))
-   				,V_P_ATTR4                : gfnma_nvl(SBUxMethod.get("ATTR4"))
-   				,V_P_ATTR5                : gfnma_nvl(SBUxMethod.get("ATTR5"))
-   				,V_P_ATTR6                : gfnma_nvl(SBUxMethod.get("ATTR6"))
-   				,V_P_ATTR7                : gfnma_nvl(SBUxMethod.get("ATTR7"))
-   				,V_P_ATTR8                : gfnma_nvl(SBUxMethod.get("ATTR8"))
-   				,V_P_ATTR9                : gfnma_nvl(SBUxMethod.get("ATTR9"))
-   				,V_P_ATTR10               : gfnma_nvl(SBUxMethod.get("ATTR10"))
-   				,V_P_PARENT_YN            : gfnma_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
-   				,V_P_PARENT_COSTCENTER    : gfnma_nvl(SBUxMethod.get("PARENT_COSTCENTER"))
-   				,V_P_DEPT_CODE            : gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
-   				,V_P_TRANS_COST_CENTER    : gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER"))
-   				,V_P_SITE_CODE            : gfnma_nvl(SBUxMethod.get("SITE_CODE"))
-   				,V_P_COST_CENTER_LEADER   : gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER"))
-   				,V_P_BUDGET_YN            : gfnma_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
-   				,V_P_BUDGET_COST_CENTER   : gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER"))
+   				,V_P_SORT_SEQ             : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+   				,V_P_ATTR1                : gfn_nvl(SBUxMethod.get("ATTR1"))
+   				,V_P_ATTR2                : gfn_nvl(SBUxMethod.get("ATTR2"))
+   				,V_P_ATTR3                : gfn_nvl(SBUxMethod.get("ATTR3"))
+   				,V_P_ATTR4                : gfn_nvl(SBUxMethod.get("ATTR4"))
+   				,V_P_ATTR5                : gfn_nvl(SBUxMethod.get("ATTR5"))
+   				,V_P_ATTR6                : gfn_nvl(SBUxMethod.get("ATTR6"))
+   				,V_P_ATTR7                : gfn_nvl(SBUxMethod.get("ATTR7"))
+   				,V_P_ATTR8                : gfn_nvl(SBUxMethod.get("ATTR8"))
+   				,V_P_ATTR9                : gfn_nvl(SBUxMethod.get("ATTR9"))
+   				,V_P_ATTR10               : gfn_nvl(SBUxMethod.get("ATTR10"))
+   				,V_P_PARENT_YN            : gfn_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
+   				,V_P_PARENT_COSTCENTER    : gfn_nvl(SBUxMethod.get("PARENT_COSTCENTER"))
+   				,V_P_DEPT_CODE            : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
+   				,V_P_TRANS_COST_CENTER    : gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"))
+   				,V_P_SITE_CODE            : gfn_nvl(SBUxMethod.get("SITE_CODE"))
+   				,V_P_COST_CENTER_LEADER   : gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER"))
+   				,V_P_BUDGET_YN            : gfn_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
+   				,V_P_BUDGET_COST_CENTER   : gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"))
    				,V_P_FORM_ID              : p_formId
    				,V_P_MENU_ID              : p_menuId
    				,V_P_PROC_ID              : ''
@@ -1209,7 +1212,7 @@
 			  ,V_P_FI_ORG_CODE         : ''
 			  ,V_P_COST_CLASS          : ''
 			  ,V_P_PATH_TYPE           : ''
-			  ,V_P_COST_CENTER_CODE    : gfnma_nvl(selectRowVal.COST_CENTER_CODE)
+			  ,V_P_COST_CENTER_CODE    : gfn_nvl(selectRowVal.COST_CENTER_CODE)
 			  ,V_P_COST_CENTER_NAME    : ''
 			  ,V_P_FORM_ID             : p_formId
 			  ,V_P_MENU_ID             : p_menuId
@@ -1230,49 +1233,49 @@
 	    		
 	    		let obj = data.cv_2[0];
 	        	
-	        	SBUxMethod.set("COST_CENTER_CODE",			gfnma_nvl(obj.COST_CENTER_CODE));
-	        	SBUxMethod.set("COST_CENTER_NAME",		 	gfnma_nvl(obj.COST_CENTER_NAME ));
-	        	SBUxMethod.set("COST_CENTER_NAME_CHN",		gfnma_nvl(obj.COST_CENTER_NAME_CHN ));
-	        	SBUxMethod.set("PARENT_COST_CENTER",		gfnma_nvl(obj.PARENT_COST_CENTER));
-	        	SBUxMethod.set("PARENT_COST_CENTER_NAME",	gfnma_nvl(obj.PARENT_COST_CENTER_NAME));
-	        	SBUxMethod.set("PLANT_NAME",				gfnma_nvl(obj.PLANT_NAME));
-	        	SBUxMethod.set("SORT_SEQ",					gfnma_nvl(obj.SORT_SEQ));
-	        	SBUxMethod.set("DESCRIPTION",				gfnma_nvl(obj.DESCRIPTION));
-	        	SBUxMethod.set("DEPT_CODE",					gfnma_nvl(obj.DEPT_CODE));
-	        	SBUxMethod.set("DEPT_NAME",					gfnma_nvl(obj.DEPT_NAME));
-	        	SBUxMethod.set("SITE_CODE",					gfnma_nvl(obj.SITE_CODE));
-	        	SBUxMethod.set("SITE_NAME",					gfnma_nvl(obj.SITE_NAME));
-	        	SBUxMethod.set("TRANS_COST_CENTER",			gfnma_nvl(obj.TRANS_COST_CENTER));
-	        	SBUxMethod.set("TRANS_COST_CENTER_NAME",	gfnma_nvl(obj.TRANS_COST_CENTER_NAME));
-	        	SBUxMethod.set("COST_CENTER_LEADER",		gfnma_nvl(obj.COST_CENTER_LEADER));
-	        	SBUxMethod.set("COST_CENTER_LEADER_NAME",	gfnma_nvl(obj.COST_CENTER_LEADER_NAME));
-	        	SBUxMethod.set("BUDGET_COST_CENTER",		gfnma_nvl(obj.BUDGET_COST_CENTER));
-	        	SBUxMethod.set("BUDGET_COST_CENTER_NAME",	gfnma_nvl(obj.BUDGET_COST_CENTER_NAME));
-	        	SBUxMethod.set("ATTR1",						gfnma_nvl(obj.ATTR1));
-	        	SBUxMethod.set("ATTR2",						gfnma_nvl(obj.ATTR2));
-	        	SBUxMethod.set("ATTR3",						gfnma_nvl(obj.ATTR3));
-	        	SBUxMethod.set("ATTR4",						gfnma_nvl(obj.ATTR4));
-	        	SBUxMethod.set("ATTR5",						gfnma_nvl(obj.ATTR5));
-	        	SBUxMethod.set("ATTR6",						gfnma_nvl(obj.ATTR6));
-	        	SBUxMethod.set("ATTR7",						gfnma_nvl(obj.ATTR7));
-	        	SBUxMethod.set("ATTR8",						gfnma_nvl(obj.ATTR8));
-	        	SBUxMethod.set("ATTR9",						gfnma_nvl(obj.ATTR9));
-	        	SBUxMethod.set("ATTR10",					gfnma_nvl(obj.ATTR10));
+	        	SBUxMethod.set("COST_CENTER_CODE",			gfn_nvl(obj.COST_CENTER_CODE));
+	        	SBUxMethod.set("COST_CENTER_NAME",		 	gfn_nvl(obj.COST_CENTER_NAME ));
+	        	SBUxMethod.set("COST_CENTER_NAME_CHN",		gfn_nvl(obj.COST_CENTER_NAME_CHN ));
+	        	SBUxMethod.set("PARENT_COST_CENTER",		gfn_nvl(obj.PARENT_COST_CENTER));
+	        	SBUxMethod.set("PARENT_COST_CENTER_NAME",	gfn_nvl(obj.PARENT_COST_CENTER_NAME));
+	        	SBUxMethod.set("PLANT_NAME",				gfn_nvl(obj.PLANT_NAME));
+	        	SBUxMethod.set("SORT_SEQ",					gfn_nvl(obj.SORT_SEQ));
+	        	SBUxMethod.set("DESCRIPTION",				gfn_nvl(obj.DESCRIPTION));
+	        	SBUxMethod.set("DEPT_CODE",					gfn_nvl(obj.DEPT_CODE));
+	        	SBUxMethod.set("DEPT_NAME",					gfn_nvl(obj.DEPT_NAME));
+	        	SBUxMethod.set("SITE_CODE",					gfn_nvl(obj.SITE_CODE));
+	        	SBUxMethod.set("SITE_NAME",					gfn_nvl(obj.SITE_NAME));
+	        	SBUxMethod.set("TRANS_COST_CENTER",			gfn_nvl(obj.TRANS_COST_CENTER));
+	        	SBUxMethod.set("TRANS_COST_CENTER_NAME",	gfn_nvl(obj.TRANS_COST_CENTER_NAME));
+	        	SBUxMethod.set("COST_CENTER_LEADER",		gfn_nvl(obj.COST_CENTER_LEADER));
+	        	SBUxMethod.set("COST_CENTER_LEADER_NAME",	gfn_nvl(obj.COST_CENTER_LEADER_NAME));
+	        	SBUxMethod.set("BUDGET_COST_CENTER",		gfn_nvl(obj.BUDGET_COST_CENTER));
+	        	SBUxMethod.set("BUDGET_COST_CENTER_NAME",	gfn_nvl(obj.BUDGET_COST_CENTER_NAME));
+	        	SBUxMethod.set("ATTR1",						gfn_nvl(obj.ATTR1));
+	        	SBUxMethod.set("ATTR2",						gfn_nvl(obj.ATTR2));
+	        	SBUxMethod.set("ATTR3",						gfn_nvl(obj.ATTR3));
+	        	SBUxMethod.set("ATTR4",						gfn_nvl(obj.ATTR4));
+	        	SBUxMethod.set("ATTR5",						gfn_nvl(obj.ATTR5));
+	        	SBUxMethod.set("ATTR6",						gfn_nvl(obj.ATTR6));
+	        	SBUxMethod.set("ATTR7",						gfn_nvl(obj.ATTR7));
+	        	SBUxMethod.set("ATTR8",						gfn_nvl(obj.ATTR8));
+	        	SBUxMethod.set("ATTR9",						gfn_nvl(obj.ATTR9));
+	        	SBUxMethod.set("ATTR10",					gfn_nvl(obj.ATTR10));
 	        	
-	        	SBUxMethod.set("USE_YN", 					gfnma_nvl(obj.USE_YN));
-	        	SBUxMethod.set("PARENT_YN", 				gfnma_nvl(obj.PARENT_YN));
-	        	SBUxMethod.set("FINAL_FLAG", 				gfnma_nvl(obj.FINAL_FLAG));
-	        	SBUxMethod.set("BUDGET_YN", 				gfnma_nvl(obj.BUDGET_YN));
-	        	SBUxMethod.set("DOC_INPUT_YN", 				gfnma_nvl(obj.DOC_INPUT_YN));
+	        	SBUxMethod.set("USE_YN", 					gfn_nvl(obj.USE_YN));
+	        	SBUxMethod.set("PARENT_YN", 				gfn_nvl(obj.PARENT_YN));
+	        	SBUxMethod.set("FINAL_FLAG", 				gfn_nvl(obj.FINAL_FLAG));
+	        	SBUxMethod.set("BUDGET_YN", 				gfn_nvl(obj.BUDGET_YN));
+	        	SBUxMethod.set("DOC_INPUT_YN", 				gfn_nvl(obj.DOC_INPUT_YN));
 	        	
-	        	gfnma_multiSelectSet("#COMP_CODE", 			"COMP_CODE", "COMP_NAME", gfnma_nvl(obj.COMP_CODE));
-	        	gfnma_multiSelectSet("#FI_ORG_CODE", 		"FI_ORG_CODE", "FI_ORG_NAME", gfnma_nvl(obj.FI_ORG_CODE));
-	        	gfnma_multiSelectSet("#COST_CLASS", 		"SUB_CODE", "CODE_NAME", gfnma_nvl(obj.COST_CLASS));
-	        	gfnma_multiSelectSet("#DIV_CODE", 			"SUB_CODE", "CODE_NAME", gfnma_nvl(obj.DIV_CODE));
-	        	gfnma_multiSelectSet("#PLANT_CODE", 		"SUB_CODE", "CODE_NAME", gfnma_nvl(obj.PLANT_CODE));
-	        	gfnma_multiSelectSet("#PROD_RELATION_FLAG", "SUB_CODE", "CODE_NAME", gfnma_nvl(obj.PROD_RELATION_FLAG));
-	        	gfnma_multiSelectSet("#DEFAULT_DRIVER_CODE","COST_DRIVER_CODE", "COST_DRIVER_NAME", gfnma_nvl(obj.DEFAULT_DRIVER_CODE));
-	        	gfnma_multiSelectSet("#MG_COST_CENTER",		"COST_CENTER_CODE", "COST_DRIVER_NAME", gfnma_nvl(obj.MG_COST_CENTER));
+	        	gfnma_multiSelectSet("#COMP_CODE", 			"COMP_CODE", "COMP_NAME", gfn_nvl(obj.COMP_CODE));
+	        	gfnma_multiSelectSet("#FI_ORG_CODE", 		"FI_ORG_CODE", "FI_ORG_NAME", gfn_nvl(obj.FI_ORG_CODE));
+	        	gfnma_multiSelectSet("#COST_CLASS", 		"SUB_CODE", "CODE_NAME", gfn_nvl(obj.COST_CLASS));
+	        	gfnma_multiSelectSet("#DIV_CODE", 			"SUB_CODE", "CODE_NAME", gfn_nvl(obj.DIV_CODE));
+	        	gfnma_multiSelectSet("#PLANT_CODE", 		"SUB_CODE", "CODE_NAME", gfn_nvl(obj.PLANT_CODE));
+	        	gfnma_multiSelectSet("#PROD_RELATION_FLAG", "SUB_CODE", "CODE_NAME", gfn_nvl(obj.PROD_RELATION_FLAG));
+	        	gfnma_multiSelectSet("#DEFAULT_DRIVER_CODE","COST_DRIVER_CODE", "COST_DRIVER_NAME", gfn_nvl(obj.DEFAULT_DRIVER_CODE));
+	        	gfnma_multiSelectSet("#MG_COST_CENTER",		"COST_CENTER_CODE", "COST_DRIVER_NAME", gfn_nvl(obj.MG_COST_CENTER));
 	        	
 	        	
     		} else {
@@ -1292,8 +1295,8 @@
 	 * 상위원가중심점 공통팝업
 	 */
     var fn_compopupParent = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
+        var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
@@ -1326,8 +1329,8 @@
      */
     var fn_compopupDept = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
         var searchText3 	= gfnma_date4();
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
@@ -1358,8 +1361,8 @@
      */
     var fn_compopupSite = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("SITE_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("SITE_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("SITE_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("SITE_NAME"));
         var replaceText0 	= "_SITE_CODE_";
         var replaceText1 	= "_SITE_NAME_";
         var strWhereClause 	= "AND AA.SITE_CODE LIKE '%" + replaceText0 + "%' AND AA.SITE_NAME LIKE '%" + replaceText1 + "%' ";
@@ -1392,8 +1395,8 @@
      */
     var fn_compopupTrans = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
@@ -1425,8 +1428,8 @@
      */
     var fn_compopupLeader = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER_NAME"));
         var param		 	= [null];
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
@@ -1457,8 +1460,8 @@
      */
     var fn_compopupBudget = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";

@@ -600,8 +600,8 @@
 
 		NationInGrid.clearStatus();
 
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+		let NATION_CODE	= gfn_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
+		let NATION_NAME	= gfn_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
 		
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
@@ -673,7 +673,7 @@
     	
     	//type A 형 팝업
     	
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
@@ -791,19 +791,19 @@
     //저장
     function cfn_save() {
 
-    	let NATION_CODE 			= gfnma_nvl(SBUxMethod.get("NATION_CODE"));
-    	let NATION_CODE_ABBR		= gfnma_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
-    	let NATION_NAME 			= gfnma_nvl(SBUxMethod.get("NATION_NAME"));
-    	let NATION_FULL_NAME		= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME"));
-    	let NATION_FULL_NAME_CHN	= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME_CHN"));
-    	let REGION_CODE 			= gfnma_nvl(SBUxMethod.get("REGION_CODE"));
+    	let NATION_CODE 			= gfn_nvl(SBUxMethod.get("NATION_CODE"));
+    	let NATION_CODE_ABBR		= gfn_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
+    	let NATION_NAME 			= gfn_nvl(SBUxMethod.get("NATION_NAME"));
+    	let NATION_FULL_NAME		= gfn_nvl(SBUxMethod.get("NATION_FULL_NAME"));
+    	let NATION_FULL_NAME_CHN	= gfn_nvl(SBUxMethod.get("NATION_FULL_NAME_CHN"));
+    	let REGION_CODE 			= gfn_nvl(SBUxMethod.get("REGION_CODE"));
     	
-    	//let CURRENCY_CODE			= gfnma_nvl(SBUxMethod.get("CURRENCY_CODE"));
+    	//let CURRENCY_CODE			= gfn_nvl(SBUxMethod.get("CURRENCY_CODE"));
     	let CURRENCY_CODE			= gfnma_multiSelectGet('#CURRENCY_CODE');
     	
-    	let MEMO 					= gfnma_nvl(SBUxMethod.get("MEMO"));
-    	let SORT_SEQ 				= gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-    	let USE_YN 					= gfnma_nvl(SBUxMethod.get("USE_YN"));
+    	let MEMO 					= gfn_nvl(SBUxMethod.get("MEMO"));
+    	let SORT_SEQ 				= gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+    	let USE_YN 					= gfn_nvl(SBUxMethod.get("USE_YN"));
 
     	if (!NATION_CODE) {
             gfn_comAlert("W0002", "국가코드");

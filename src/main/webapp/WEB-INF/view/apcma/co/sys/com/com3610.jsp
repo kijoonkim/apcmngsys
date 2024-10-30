@@ -462,8 +462,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_ACC_ITEM_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_ACC_ITEM_CODE"));
-    	let SRCH_ACC_ITEM_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_ACC_ITEM_NAME"));
+    	let SRCH_ACC_ITEM_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ACC_ITEM_CODE"));
+    	let SRCH_ACC_ITEM_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ACC_ITEM_NAME"));
     	
     	var paramObj = {
 	    	   V_P_DEBUG_MODE_YN    : ''
@@ -512,6 +512,10 @@
 	    	   	MNGARTCLGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
 	
+                if(jsonMNGARTCLList.length > 0) {
+                	MNGARTCLGrid.clickRow(1);
+                }
+                
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -607,10 +611,10 @@
     
     // 그리드 삭제
     const fn_delete = async function(){
-    	let ACC_ITEM_CODE 	= gfnma_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
-    	let ACC_ITEM_NAME	= gfnma_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
-    	let DATA_LENGTH		= gfnma_nvl(SBUxMethod.get("DATA_LENGTH"));
-    	let DECIMAL_POINT	= gfnma_nvl(SBUxMethod.get("DECIMAL_POINT"));
+    	let ACC_ITEM_CODE 	= gfn_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
+    	let ACC_ITEM_NAME	= gfn_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
+    	let DATA_LENGTH		= gfn_nvl(SBUxMethod.get("DATA_LENGTH"));
+    	let DECIMAL_POINT	= gfn_nvl(SBUxMethod.get("DECIMAL_POINT"));
     	let DATA_TYPE 		= gfnma_multiSelectGet("#DATA_TYPE");
     	let CONTROL_TYPE	= gfnma_multiSelectGet("#CONTROL_TYPE");
     	let CREATE_TYPE		= gfnma_multiSelectGet("#CREATE_TYPE");
@@ -665,10 +669,10 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-    	let ACC_ITEM_CODE 	= gfnma_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
-    	let ACC_ITEM_NAME	= gfnma_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
-    	let DATA_LENGTH		= gfnma_nvl(SBUxMethod.get("DATA_LENGTH"));
-    	let DECIMAL_POINT	= gfnma_nvl(SBUxMethod.get("DECIMAL_POINT"));
+    	let ACC_ITEM_CODE 	= gfn_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
+    	let ACC_ITEM_NAME	= gfn_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
+    	let DATA_LENGTH		= gfn_nvl(SBUxMethod.get("DATA_LENGTH"));
+    	let DECIMAL_POINT	= gfn_nvl(SBUxMethod.get("DECIMAL_POINT"));
     	let DATA_TYPE 		= gfnma_multiSelectGet("#DATA_TYPE");
     	let CONTROL_TYPE	= gfnma_multiSelectGet("#CONTROL_TYPE");
     	let CREATE_TYPE		= gfnma_multiSelectGet("#CREATE_TYPE");
@@ -850,7 +854,7 @@
         gfnma_multiSelectSet('#DATA_TYPE', 		'SUB_CODE', 'CODE_NAME', rowData.DATA_TYPE);
         gfnma_multiSelectSet('#CONTROL_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CONTROL_TYPE);
         gfnma_multiSelectSet('#CREATE_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CREATE_TYPE);
-        if(gfnma_nvl(rowData.POPUP_DATA) != '') {
+        if(gfn_nvl(rowData.POPUP_DATA) != '') {
         	$('#popupTh').show();
         	$('#popupTd').show();
 	        gfnma_multiSelectSet('#POPUP_DATA', 	'SUB_CODE', 'CODE_NAME', rowData.POPUP_DATA);

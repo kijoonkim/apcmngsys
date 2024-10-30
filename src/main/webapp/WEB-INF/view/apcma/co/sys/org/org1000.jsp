@@ -421,7 +421,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		
         document.getElementById('btnChangeCompLogo').addEventListener('click', function() {
-        	let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"));
+        	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
     		if(COMP_CODE == ''){
     			gfn_comAlert("W0005", "선택한 법인");
     			return;
@@ -432,7 +432,7 @@
         });
 
         document.getElementById('btnChangeCompStamp').addEventListener('click', function() {
-        	let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"));
+        	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
     		if(COMP_CODE == ''){ 
     			gfn_comAlert("W0005", "선택한 법인");
     			return;
@@ -443,7 +443,7 @@
         });
         document.getElementById('COMP_LOGO_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"));
+            let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
             COMP_CODE = COMP_CODE + "_LOGO";
             if(COMP_CODE != "") {
                 fn_imgUpload(COMP_CODE, file, "3");
@@ -451,7 +451,7 @@
         });
         document.getElementById('COMP_STAMP_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"));
+            let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
             COMP_CODE = COMP_CODE + "_STAMP"
             if(COMP_CODE != "") {
                 fn_imgUpload(COMP_CODE, file, "4");
@@ -514,8 +514,8 @@
     const fn_search = async function() {
        // 법인 리스트 그리드 초기화
        fn_clearForm();
-       let COMP_CODE_P	    = gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE_P"));
-       let COMP_NAME_P	    = gfnma_nvl(SBUxMethod.get("SRCH_COMP_NAME_P"));
+       let COMP_CODE_P	    = gfn_nvl(SBUxMethod.get("SRCH_COMP_CODE_P"));
+       let COMP_NAME_P	    = gfn_nvl(SBUxMethod.get("SRCH_COMP_NAME_P"));
        var paramObj = {
     		   V_P_DEBUG_MODE_YN        : ""
 			  ,V_P_LANG_ID              : ""
@@ -545,15 +545,21 @@ console.log('data ==> ', data);
 				masterGrid.length = 0;
 				data.cv_1.forEach((item, index) => {
 					const msg = {
-							COMP_CODE			: gfnma_nvl(item.COMP_CODE),
-							COMP_NAME			: gfnma_nvl(item.COMP_NAME),
-							CLIENT_CODE			: gfnma_nvl(item.CLIENT_CODE)
+							COMP_CODE			: gfn_nvl(item.COMP_CODE),
+							COMP_NAME			: gfn_nvl(item.COMP_NAME),
+							CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
 				 	}
 					jsonMasterList.push(msg);
 					totalRecordCount++;
+
 				});
 				masterGrid.rebuild();
 				document.querySelector('#listCount').innerText = totalRecordCount;
+				
+                if(jsonMasterList.length > 0) {
+                	masterGrid.clickRow(1);
+                }
+                
     	    } else {
     		    alert(data.resultMessage);
     	    }
@@ -581,10 +587,10 @@ console.log('data ==> ', data);
        var paramObj = {
     		   V_P_DEBUG_MODE_YN        : ""
 			  ,V_P_LANG_ID              : ""
-			  ,V_P_COMP_CODE            : gfnma_nvl(selectRowVal.COMP_CODE)
+			  ,V_P_COMP_CODE            : gfn_nvl(selectRowVal.COMP_CODE)
 			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-			  ,V_P_COMP_CODE_P          : gfnma_nvl(selectRowVal.COMP_CODE)
-			  ,V_P_COMP_NAME            : gfnma_nvl(selectRowVal.COMP_NAME)
+			  ,V_P_COMP_CODE_P          : gfn_nvl(selectRowVal.COMP_CODE)
+			  ,V_P_COMP_NAME            : gfn_nvl(selectRowVal.COMP_NAME)
 			  ,V_P_FORM_ID              : p_formId
 			  ,V_P_MENU_ID              : p_menuId
 			  ,V_P_PROC_ID              : ""
@@ -602,7 +608,7 @@ console.log('data ==> ', data);
        console.log('fn_searchSubTable data ==>', data);
        try {
     	   if (_.isEqual("S", data.resultStatus)) {
-// 				await fn_setAcctRuleCode( gfnma_nvl(data.cv_1[0].COMP_CODE) );
+// 				await fn_setAcctRuleCode( gfn_nvl(data.cv_1[0].COMP_CODE) );
 				await fn_setSubTable( data.cv_1[0] );
     	    } else {
     		    alert(data.resultMessage);
@@ -646,43 +652,43 @@ console.log('data ==> ', data);
     		return;
     	}
     	console.log('obj ==>', obj);
-    	SBUxMethod.set('COMP_CODE', 		gfnma_nvl(obj.COMP_CODE) );
-    	SBUxMethod.set('COMP_NAME', 		gfnma_nvl(obj.COMP_NAME) );
-    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(obj.COMP_NAME_CHN) );
-    	SBUxMethod.set('COMP_NAME_ENG', 	gfnma_nvl(obj.COMP_NAME_ENG) );
-    	SBUxMethod.set('COMP_REGNO', 		gfnma_nvl(obj.COMP_REGNO) );
-    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(obj.ESTABLISH_DATE) );
-    	SBUxMethod.set('CEO_NAME', 			gfnma_nvl(obj.CEO_NAME) );
-    	SBUxMethod.set('ZIP_CODE', 			gfnma_nvl(obj.ZIP_CODE) );
-    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(obj.ESTABLISH_DATE) );
-    	SBUxMethod.set('ADDRESS', 			gfnma_nvl(obj.ADDRESS) );
-    	SBUxMethod.set('ADDRESS_ENG', 		gfnma_nvl(obj.ADDRESS_ENG) );
-    	SBUxMethod.set('TEL', 				gfnma_nvl(obj.TEL) );
-    	SBUxMethod.set('FAX', 				gfnma_nvl(obj.FAX) );
-    	SBUxMethod.set('WEB_URL', 			gfnma_nvl(obj.WEB_URL) );
-    	SBUxMethod.set('STOCK_COUNT', 		addComma(gfnma_nvl(obj.STOCK_COUNT)) );
-    	SBUxMethod.set('STOCK_AMOUNT', 		addComma(gfnma_nvl(obj.STOCK_AMOUNT)) );
-    	SBUxMethod.set('PRE_STOCK_COUNT1', 	addComma(gfnma_nvl(obj.PRE_STOCK_COUNT1)) );
-    	SBUxMethod.set('PRE_STOCK_AMOUNT1', addComma(gfnma_nvl(obj.PRE_STOCK_AMOUNT1)) );
-    	SBUxMethod.set('PRE_STOCK_COUNT2', 	addComma(gfnma_nvl(obj.PRE_STOCK_COUNT2)) );
-    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	addComma(gfnma_nvl(obj.PRE_STOCK_AMOUNT2)) );
-    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(obj.COMP_NAME_CHN) );
-    	SBUxMethod.set('COMP_CODE_ABBR', 	gfnma_nvl(obj.COMP_CODE_ABBR) );
-    	SBUxMethod.set('CLIENT_CODE', 		gfnma_nvl(obj.CLIENT_CODE) );
-    	SBUxMethod.set('FISCAL_START_MMDD', gfnma_nvl(obj.FISCAL_START_MMDD) );
-    	SBUxMethod.set('FISCAL_END_MMDD',   gfnma_nvl(obj.FISCAL_END_MMDD) );
+    	SBUxMethod.set('COMP_CODE', 		gfn_nvl(obj.COMP_CODE) );
+    	SBUxMethod.set('COMP_NAME', 		gfn_nvl(obj.COMP_NAME) );
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
+    	SBUxMethod.set('COMP_NAME_ENG', 	gfn_nvl(obj.COMP_NAME_ENG) );
+    	SBUxMethod.set('COMP_REGNO', 		gfn_nvl(obj.COMP_REGNO) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.ESTABLISH_DATE) );
+    	SBUxMethod.set('CEO_NAME', 			gfn_nvl(obj.CEO_NAME) );
+    	SBUxMethod.set('ZIP_CODE', 			gfn_nvl(obj.ZIP_CODE) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.ESTABLISH_DATE) );
+    	SBUxMethod.set('ADDRESS', 			gfn_nvl(obj.ADDRESS) );
+    	SBUxMethod.set('ADDRESS_ENG', 		gfn_nvl(obj.ADDRESS_ENG) );
+    	SBUxMethod.set('TEL', 				gfn_nvl(obj.TEL) );
+    	SBUxMethod.set('FAX', 				gfn_nvl(obj.FAX) );
+    	SBUxMethod.set('WEB_URL', 			gfn_nvl(obj.WEB_URL) );
+    	SBUxMethod.set('STOCK_COUNT', 		addComma(gfn_nvl(obj.STOCK_COUNT)) );
+    	SBUxMethod.set('STOCK_AMOUNT', 		addComma(gfn_nvl(obj.STOCK_AMOUNT)) );
+    	SBUxMethod.set('PRE_STOCK_COUNT1', 	addComma(gfn_nvl(obj.PRE_STOCK_COUNT1)) );
+    	SBUxMethod.set('PRE_STOCK_AMOUNT1', addComma(gfn_nvl(obj.PRE_STOCK_AMOUNT1)) );
+    	SBUxMethod.set('PRE_STOCK_COUNT2', 	addComma(gfn_nvl(obj.PRE_STOCK_COUNT2)) );
+    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	addComma(gfn_nvl(obj.PRE_STOCK_AMOUNT2)) );
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
+    	SBUxMethod.set('COMP_CODE_ABBR', 	gfn_nvl(obj.COMP_CODE_ABBR) );
+    	SBUxMethod.set('CLIENT_CODE', 		gfn_nvl(obj.CLIENT_CODE) );
+    	SBUxMethod.set('FISCAL_START_MMDD', gfn_nvl(obj.FISCAL_START_MMDD) );
+    	SBUxMethod.set('FISCAL_END_MMDD',   gfn_nvl(obj.FISCAL_END_MMDD) );
     	
-    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	gfnma_nvl(obj.CURRENCY_CODE));
-    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		gfnma_nvl(obj.NATION_CODE));
+    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	gfn_nvl(obj.CURRENCY_CODE));
+    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		gfn_nvl(obj.NATION_CODE));
         setTimeout(function () {
-	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 			gfnma_nvl(obj.ACCT_RULE_CODE));
+	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 			gfn_nvl(obj.ACCT_RULE_CODE));
         }, 200); 	
     	
-    	if(gfnma_nvl(obj.LOGO_FILE_NAME) != ''){
-            $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ obj.LOGO_FILE_NAME +"&comp_code="+gfnma_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+    	if(gfn_nvl(obj.LOGO_FILE_NAME) != ''){
+            $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ obj.LOGO_FILE_NAME +"&comp_code="+gfn_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
     	}
-    	if(gfnma_nvl(obj.STAMP_FILE_NAME) != ''){
-            $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ obj.STAMP_FILE_NAME +"&comp_code="+gfnma_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+    	if(gfn_nvl(obj.STAMP_FILE_NAME) != ''){
+            $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ obj.STAMP_FILE_NAME +"&comp_code="+gfn_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
     	}
     	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 변경'); 
     	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 변경');
@@ -744,55 +750,55 @@ console.log('data ==> ', data);
 	    	if(txt == '직인 변경'){
 	    		workType = 'U';
 	    	}
-	        if (gfnma_nvl(SBUxMethod.get("COMP_CODE")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("COMP_CODE")) == "") {
 	            gfn_comAlert("W0002", "법인코드");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("COMP_CODE")).length != 4) {
+	        if (gfn_nvl(SBUxMethod.get("COMP_CODE")).length != 4) {
 	            gfn_comAlert("E0000", "법인코드는 4자리로 설정해야합니다.");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("COMP_NAME")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("COMP_NAME")) == "") {
 	            gfn_comAlert("W0002", "법인명");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("COMP_NAME_ENG")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("COMP_NAME_ENG")) == "") {
 	            gfn_comAlert("W0002", "법인영문명");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("COMP_REGNO")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("COMP_REGNO")) == "") {
 	            gfn_comAlert("W0002", "법인등록번호");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("ESTABLISH_DATE")) == "") {
 	            gfn_comAlert("W0002", "법인설립일");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("CEO_NAME")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("CEO_NAME")) == "") {
 	            gfn_comAlert("W0002", "법인대표");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("ZIP_CODE")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("ZIP_CODE")) == "") {
 	            gfn_comAlert("W0002", "우편번호");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("ADDRESS")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("ADDRESS")) == "") {
 	            gfn_comAlert("W0002", "주소");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("TEL")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("TEL")) == "") {
 	            gfn_comAlert("W0002", "전화번호");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("FISCAL_START_MMDD")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD")) == "") {
 	            gfn_comAlert("W0002", "회기시작월일");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("FISCAL_END_MMDD")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD")) == "") {
 	            gfn_comAlert("W0002", "회기종료월일");
 	            return;
 	        }
-	        if (gfnma_nvl(SBUxMethod.get("COMP_CODE_ABBR")) == "") {
+	        if (gfn_nvl(SBUxMethod.get("COMP_CODE_ABBR")) == "") {
 	            gfn_comAlert("W0002", "법인코드약칭");
 	            return;
 	        }
@@ -811,34 +817,34 @@ console.log('data ==> ', data);
 	        var paramObj = {
         		   V_P_DEBUG_MODE_YN        : ''
        			  ,V_P_LANG_ID              : ''
-       			  ,V_P_COMP_CODE            : gfnma_nvl(SBUxMethod.get("COMP_CODE"))
+       			  ,V_P_COMP_CODE            : gfn_nvl(SBUxMethod.get("COMP_CODE"))
        			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-       			  ,V_P_COMP_CODE_P          : gfnma_nvl(SBUxMethod.get("COMP_CODE"))
-       			  ,V_P_COMP_NAME            : gfnma_nvl(SBUxMethod.get("COMP_NAME"))
-       			  ,V_P_COMP_NAME_CHN        : gfnma_nvl(SBUxMethod.get("COMP_NAME_CHN"))
-       			  ,V_P_COMP_NAME_ENG        : gfnma_nvl(SBUxMethod.get("COMP_NAME_ENG"))
-       			  ,V_P_COMP_REGNO           : gfnma_nvl(SBUxMethod.get("COMP_REGNO"))
-       			  ,V_P_ESTABLISH_DATE       : gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE"))
+       			  ,V_P_COMP_CODE_P          : gfn_nvl(SBUxMethod.get("COMP_CODE"))
+       			  ,V_P_COMP_NAME            : gfn_nvl(SBUxMethod.get("COMP_NAME"))
+       			  ,V_P_COMP_NAME_CHN        : gfn_nvl(SBUxMethod.get("COMP_NAME_CHN"))
+       			  ,V_P_COMP_NAME_ENG        : gfn_nvl(SBUxMethod.get("COMP_NAME_ENG"))
+       			  ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO"))
+       			  ,V_P_ESTABLISH_DATE       : gfn_nvl(SBUxMethod.get("ESTABLISH_DATE"))
        			  ,V_P_COMP_LOGO            : ''
        			  ,V_P_COMP_STAMP           : ''
-       			  ,V_P_CEO_NAME             : gfnma_nvl(SBUxMethod.get("CEO_NAME"))
-       			  ,V_P_ZIP_CODE             : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-       			  ,V_P_ADDRESS              : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-       			  ,V_P_ADDRESS_ENG          : gfnma_nvl(SBUxMethod.get("ADDRESS_ENG")).replace(/,/gi, '')
-       			  ,V_P_TEL                  : gfnma_nvl(SBUxMethod.get("TEL"))
-       			  ,V_P_FAX                  : gfnma_nvl(SBUxMethod.get("FAX"))
-       			  ,V_P_WEB_URL              : gfnma_nvl(SBUxMethod.get("WEB_URL"))
-       			  ,V_P_STOCK_COUNT          : removeComma(gfnma_nvl(SBUxMethod.get("STOCK_COUNT")))
-       			  ,V_P_STOCK_AMOUNT         : removeComma(gfnma_nvl(SBUxMethod.get("STOCK_AMOUNT")))
-       			  ,V_P_PRE_STOCK_COUNT1     : removeComma(gfnma_nvl(SBUxMethod.get("PRE_STOCK_COUNT1")))
-       			  ,V_P_PRE_STOCK_AMOUNT1    : removeComma(gfnma_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT1")))
-       			  ,V_P_PRE_STOCK_COUNT2     : removeComma(gfnma_nvl(SBUxMethod.get("PRE_STOCK_COUNT2")))
-       			  ,V_P_PRE_STOCK_AMOUNT2    : removeComma(gfnma_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT2")))
-       			  ,V_P_FISCAL_START_MMDD    : gfnma_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
-       			  ,V_P_FISCAL_END_MMDD      : gfnma_nvl(SBUxMethod.get("FISCAL_END_MMDD"))
+       			  ,V_P_CEO_NAME             : gfn_nvl(SBUxMethod.get("CEO_NAME"))
+       			  ,V_P_ZIP_CODE             : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
+       			  ,V_P_ADDRESS              : gfn_nvl(SBUxMethod.get("ADDRESS"))
+       			  ,V_P_ADDRESS_ENG          : gfn_nvl(SBUxMethod.get("ADDRESS_ENG")).replace(/,/gi, '')
+       			  ,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
+       			  ,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
+       			  ,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
+       			  ,V_P_STOCK_COUNT          : removeComma(gfn_nvl(SBUxMethod.get("STOCK_COUNT")))
+       			  ,V_P_STOCK_AMOUNT         : removeComma(gfn_nvl(SBUxMethod.get("STOCK_AMOUNT")))
+       			  ,V_P_PRE_STOCK_COUNT1     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT1")))
+       			  ,V_P_PRE_STOCK_AMOUNT1    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT1")))
+       			  ,V_P_PRE_STOCK_COUNT2     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT2")))
+       			  ,V_P_PRE_STOCK_AMOUNT2    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT2")))
+       			  ,V_P_FISCAL_START_MMDD    : gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
+       			  ,V_P_FISCAL_END_MMDD      : gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD"))
        			  ,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
        			  ,V_P_ACCT_RULE_CODE       : gfnma_multiSelectGet("#ACCT_RULE_CODE")
-       			  ,V_P_COMP_CODE_ABBR       : gfnma_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
+       			  ,V_P_COMP_CODE_ABBR       : gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
        			  ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE") 
        			  ,V_P_FORM_ID              : p_formId
        			  ,V_P_MENU_ID              : p_menuId
@@ -875,14 +881,14 @@ console.log('save data ==>', data);
 	    
 	    
 	    const fn_changeCompLogo = async function() {
-	    	let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"))
+	    	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"))
 	    	if(COMP_CODE != ''){
 		    	$('#COMP_LOGO_FILE').trigger('change');
 	    	}
 	    }
 	    
 	    const fn_changeCompStamp = async function() {
-	    	let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"))
+	    	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"))
 	    	if(COMP_CODE != ''){
 		    	$('#COMP_STAMP_FILE').trigger('change');
 	    	}

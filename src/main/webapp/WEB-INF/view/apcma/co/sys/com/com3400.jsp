@@ -1856,7 +1856,7 @@
 	    const selectRowVal = masterGrid.getRowData(nRow);
         // 파일첨부시 필요 변수
 		var sourceType = 'COMCUSTOMER';	 						// 화면(업무)마다 소스타입이 다르다.
-		var sourceCode = gfnma_nvl(selectRowVal.CS_CODE);     	// 소스코드는 신규 저장 후 리턴되는 값을 지정하여야 한다.
+		var sourceCode = gfn_nvl(selectRowVal.CS_CODE);     	// 소스코드는 신규 저장 후 리턴되는 값을 지정하여야 한다.
     	
     	if( (sourceType) && (sourceCode) ){
 			compopfilemng({
@@ -1878,8 +1878,8 @@
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
         // 결재처리 필요 변수
-    	var apprId		= gfnma_nvl(selectRowVal.APPR_ID) == "" ? "0" : gfnma_nvl(selectRowVal.APPR_ID);    	// 상신시:0, 승인(반려): 부모에서 온 값
-    	var sourceNo	= gfnma_nvl(selectRowVal.CS_CODE);    	// 부모에서 온값
+    	var apprId		= gfn_nvl(selectRowVal.APPR_ID) == "" ? "0" : gfn_nvl(selectRowVal.APPR_ID);    	// 상신시:0, 승인(반려): 부모에서 온 값
+    	var sourceNo	= gfn_nvl(selectRowVal.CS_CODE);    	// 부모에서 온값
     	var sourceType 	= "CUSTOMER";							// 부모에서 온값
     	var p_empCd 	= '${loginVO.empCd}';	
     	//본인이 상신하는 경우
@@ -1909,8 +1909,8 @@
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
 
-    	var apprId		= gfnma_nvl(selectRowVal.APPR_ID) == "" ? "0" : gfnma_nvl(selectRowVal.APPR_ID);    	// 상신시:0, 승인(반려): 부모에서 온 값
-    	var docId		= gfnma_nvl(selectRowVal.CS_CODE);    	// 부모에서 온값
+    	var apprId		= gfn_nvl(selectRowVal.APPR_ID) == "" ? "0" : gfn_nvl(selectRowVal.APPR_ID);    	// 상신시:0, 승인(반려): 부모에서 온 값
+    	var docId		= gfn_nvl(selectRowVal.CS_CODE);    	// 부모에서 온값
     	var docType 	= "CUSTOMER";							// 부모에서 온값
 
     	
@@ -2048,7 +2048,6 @@
 	function cfn_search() {
 		workType = 'N';
 		fn_search();
-		console.log('after multiSelectData ==> ', multiSelectData);
 	}
 
     var masterGrid; 			// 거래처 리스트 그리드를 담기위한 객체 선언
@@ -2521,17 +2520,17 @@
     	await fn_clearForm();
     	await fn_clearSubForm();
     	
-    	let SRCH_MULTI_YN 		= gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
+    	let SRCH_MULTI_YN 		= gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
     	let SRCH_CS_GROUP_P		= gfnma_multiSelectGet("#SRCH_CS_GROUP_P");
-    	let SRCH_BIZ_REGNO1 	= gfnma_nvl(SBUxMethod.get("SRCH_BIZ_REGNO1"));
-    	let SRCH_CHIEF_NAME1 	= gfnma_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
+    	let SRCH_BIZ_REGNO1 	= gfn_nvl(SBUxMethod.get("SRCH_BIZ_REGNO1"));
+    	let SRCH_CHIEF_NAME1 	= gfn_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
     	let SRCH_CS_TYPE 		= gfnma_multiSelectGet("#SRCH_CS_TYPE");
-    	let SRCH_CS_CODE_FR 	= gfnma_nvl(SBUxMethod.get("SRCH_CS_CODE_FR"));
-    	let SRCH_CS_CODE_TO 	= gfnma_nvl(SBUxMethod.get("SRCH_CS_CODE_TO"));
-    	let SRCH_CS_NAME1 		= gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME1"));
-    	let SRCH_USE_YN1 		= gfnma_nvl(SBUxMethod.get("SRCH_USE_YN1"));
-    	let SRCH_USE_YN2 		= gfnma_nvl(SBUxMethod.get("SRCH_USE_YN2"));
-    	let SRCH_DELETE_YN 		= gfnma_nvl(SBUxMethod.get("SRCH_DELETE_YN"));
+    	let SRCH_CS_CODE_FR 	= gfn_nvl(SBUxMethod.get("SRCH_CS_CODE_FR"));
+    	let SRCH_CS_CODE_TO 	= gfn_nvl(SBUxMethod.get("SRCH_CS_CODE_TO"));
+    	let SRCH_CS_NAME1 		= gfn_nvl(SBUxMethod.get("SRCH_CS_NAME1"));
+    	let SRCH_USE_YN1 		= gfn_nvl(SBUxMethod.get("SRCH_USE_YN1"));
+    	let SRCH_USE_YN2 		= gfn_nvl(SBUxMethod.get("SRCH_USE_YN2"));
+    	let SRCH_DELETE_YN 		= gfn_nvl(SBUxMethod.get("SRCH_DELETE_YN"));
     	if(SRCH_CS_CODE_TO == ''){
     		SBUxMethod.set("SRCH_CS_CODE_TO", SRCH_CS_CODE_FR);
     		SRCH_CS_CODE_TO = SRCH_CS_CODE_FR;
@@ -2576,31 +2575,31 @@ console.log('data ==>', data);
 	    		masterGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-			    			APPR_ID					: gfnma_nvl(item.APPR_ID),
-			    			BEFORE_APPR_EMP			: gfnma_nvl(item.BEFORE_APPR_EMP),
-			    			BEFORE_PROXY_EMP		: gfnma_nvl(item.BEFORE_PROXY_EMP),
-			    			BIZ_REGNO				: gfnma_nvl(item.BIZ_REGNO),
-			    			CHECK_YN				: gfnma_nvl(item.CHECK_YN),
-		    				USE_YN					: gfnma_nvl(item.USE_YN),
-		    				CONFIRM_EMP_CODE		: gfnma_nvl(item.CONFIRM_EMP_CODE),
-		    				CS_CODE					: gfnma_nvl(item.CS_CODE),
-		    				CS_NAME					: gfnma_nvl(item.CS_NAME),
-		    				DELETE_YN				: gfnma_nvl(item.DELETE_YN),
-		    				FILE_UPLOAD_YN     		: gfnma_nvl(item.FILE_UPLOAD_YN),
-		    				INSERT_TIME				: gfnma_nvl(item.INSERT_TIME),
-		    				INSERT_USERID			: gfnma_nvl(item.INSERT_USERID),
-		    				NEXT_APPR_EMP			: gfnma_nvl(item.NEXT_APPR_EMP),
-		    				NEXT_PROXY_EMP			: gfnma_nvl(item.NEXT_PROXY_EMP),
-		    				PROXY_EMP_CODE			: gfnma_nvl(item.PROXY_EMP_CODE),
-		    				PURCHASE_YN				: gfnma_nvl(item.PURCHASE_YN),
-		    				REQUEST_EMP				: gfnma_nvl(item.REQUEST_EMP),
-		    				SALE_YN					: gfnma_nvl(item.SALE_YN),
-		    				SAP_CUSTOMER_CODE		: gfnma_nvl(item.SAP_CUSTOMER_CODE),
-		    				SAP_VENDOR_CODE			: gfnma_nvl(item.SAP_VENDOR_CODE),
-		    				STATUS_CODE				: gfnma_nvl(item.STATUS_CODE),
-		    				TXN_STOP_YN				: gfnma_nvl(item.TXN_STOP_YN),
-		    				UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
-		    				UPDATE_USERID			: gfnma_nvl(item.UPDATE_USERID)
+			    			APPR_ID					: gfn_nvl(item.APPR_ID),
+			    			BEFORE_APPR_EMP			: gfn_nvl(item.BEFORE_APPR_EMP),
+			    			BEFORE_PROXY_EMP		: gfn_nvl(item.BEFORE_PROXY_EMP),
+			    			BIZ_REGNO				: gfn_nvl(item.BIZ_REGNO),
+			    			CHECK_YN				: gfn_nvl(item.CHECK_YN),
+		    				USE_YN					: gfn_nvl(item.USE_YN),
+		    				CONFIRM_EMP_CODE		: gfn_nvl(item.CONFIRM_EMP_CODE),
+		    				CS_CODE					: gfn_nvl(item.CS_CODE),
+		    				CS_NAME					: gfn_nvl(item.CS_NAME),
+		    				DELETE_YN				: gfn_nvl(item.DELETE_YN),
+		    				FILE_UPLOAD_YN     		: gfn_nvl(item.FILE_UPLOAD_YN),
+		    				INSERT_TIME				: gfn_nvl(item.INSERT_TIME),
+		    				INSERT_USERID			: gfn_nvl(item.INSERT_USERID),
+		    				NEXT_APPR_EMP			: gfn_nvl(item.NEXT_APPR_EMP),
+		    				NEXT_PROXY_EMP			: gfn_nvl(item.NEXT_PROXY_EMP),
+		    				PROXY_EMP_CODE			: gfn_nvl(item.PROXY_EMP_CODE),
+		    				PURCHASE_YN				: gfn_nvl(item.PURCHASE_YN),
+		    				REQUEST_EMP				: gfn_nvl(item.REQUEST_EMP),
+		    				SALE_YN					: gfn_nvl(item.SALE_YN),
+		    				SAP_CUSTOMER_CODE		: gfn_nvl(item.SAP_CUSTOMER_CODE),
+		    				SAP_VENDOR_CODE			: gfn_nvl(item.SAP_VENDOR_CODE),
+		    				STATUS_CODE				: gfn_nvl(item.STATUS_CODE),
+		    				TXN_STOP_YN				: gfn_nvl(item.TXN_STOP_YN),
+		    				UPDATE_TIME				: gfn_nvl(item.UPDATE_TIME),
+		    				UPDATE_USERID			: gfn_nvl(item.UPDATE_USERID)
 		    		}
 		    		jsonMasterList.push(msg);
 		    		totalRecordCount ++;
@@ -2608,6 +2607,11 @@ console.log('data ==>', data);
 	    	   	
 	    	   	fn_setMasterGridStyle(jsonMasterList);
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
+	    	   	
+                if(jsonMasterList.length > 0) {
+  	                	masterGrid.clickRow(1);
+                }
+	                
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -2646,14 +2650,14 @@ console.log('data ==>', data);
 	    const selectRowVal = masterGrid.getRowData(nRow);
 	    console.log('selectRowVal', selectRowVal);
     	
-    	let SRCH_MULTI_YN 		= gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
-    	let SRCH_CHIEF_NAME1 	= gfnma_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
-    	let SRCH_BIZ_REGNO1 	= gfnma_nvl(SBUxMethod.get("SRCH_BIZ_REGNO1"));
-    	let SRCH_CS_CODE_FR 	= gfnma_nvl(SBUxMethod.get("SRCH_CS_CODE_FR"));
-    	let SRCH_CS_CODE_TO 	= gfnma_nvl(SBUxMethod.get("SRCH_CS_CODE_TO"));
-    	let SRCH_USE_YN1 		= gfnma_nvl(SBUxMethod.get("SRCH_USE_YN1"));
-    	let SRCH_USE_YN2 		= gfnma_nvl(SBUxMethod.get("SRCH_USE_YN2"));
-    	let SRCH_DELETE_YN 		= gfnma_nvl(SBUxMethod.get("SRCH_DELETE_YN"));
+    	let SRCH_MULTI_YN 		= gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
+    	let SRCH_CHIEF_NAME1 	= gfn_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
+    	let SRCH_BIZ_REGNO1 	= gfn_nvl(SBUxMethod.get("SRCH_BIZ_REGNO1"));
+    	let SRCH_CS_CODE_FR 	= gfn_nvl(SBUxMethod.get("SRCH_CS_CODE_FR"));
+    	let SRCH_CS_CODE_TO 	= gfn_nvl(SBUxMethod.get("SRCH_CS_CODE_TO"));
+    	let SRCH_USE_YN1 		= gfn_nvl(SBUxMethod.get("SRCH_USE_YN1"));
+    	let SRCH_USE_YN2 		= gfn_nvl(SBUxMethod.get("SRCH_USE_YN2"));
+    	let SRCH_DELETE_YN 		= gfn_nvl(SBUxMethod.get("SRCH_DELETE_YN"));
     	let SRCH_CS_GROUP_P		= gfnma_multiSelectGet("#SRCH_CS_GROUP_P");
     	let SRCH_CS_TYPE 		= gfnma_multiSelectGet("#SRCH_CS_TYPE");
     	var paramObj = {
@@ -2661,10 +2665,10 @@ console.log('data ==>', data);
    				  ,V_P_LANG_ID            : ''
    				  ,V_P_COMP_CODE          : gv_ma_selectedApcCd
    				  ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-   				  ,V_P_CS_CODE_FR         : gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
-   				  ,V_P_CS_CODE_TO         : gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
-   				  ,V_P_CS_CODE            : gfnma_nvl(selectRowVal.CS_CODE)
-   				  ,V_P_CS_NAME            : gfnma_nvl(selectRowVal.CS_NAME)
+   				  ,V_P_CS_CODE_FR         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
+   				  ,V_P_CS_CODE_TO         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
+   				  ,V_P_CS_CODE            : gfn_nvl(selectRowVal.CS_CODE)
+   				  ,V_P_CS_NAME            : gfn_nvl(selectRowVal.CS_NAME)
    				  ,V_P_CS_GROUP_P         : SRCH_CS_GROUP_P
    				  ,V_P_BIZ_REGNO          : SRCH_BIZ_REGNO1
    				  ,V_P_USE_YN1            : SRCH_USE_YN1
@@ -2700,51 +2704,51 @@ console.log('fn_viewSubTable data ==>', data);
 	    		
 	    		//거래처 기본정보 편집 데이터 입력
 	    		if(data.cv_1.length > 0) {
-		        	SBUxMethod.set("CS_CODE",					gfnma_nvl(cv_1.CS_CODE));
-		        	SBUxMethod.set("CS_ABBR_NAME",		 		gfnma_nvl(cv_1.CS_ABBR_NAME));
-		        	SBUxMethod.set("REF_CS_CODE",				gfnma_nvl(cv_1.REF_CS_CODE));
-		        	SBUxMethod.set("CS_NAME",					gfnma_nvl(cv_1.CS_NAME));
-		        	SBUxMethod.set("CS_FULLNAME",				gfnma_nvl(cv_1.CS_FULLNAME));
-		        	SBUxMethod.set("CS_NAME_ENG",				gfnma_nvl(cv_1.CS_NAME_ENG));
-		        	SBUxMethod.set("BANK_NO_H",					gfnma_nvl(cv_1.BANK_NO_H));
-		        	SBUxMethod.set("BANK_NAME_H",				gfnma_nvl(cv_1.BANK_NAME_H));
-		        	SBUxMethod.set("COMP_REGNO",				gfnma_nvl(cv_1.COMP_REGNO));
-		        	SBUxMethod.set("SUB_NO",					gfnma_nvl(cv_1.SUB_NO));
-		        	SBUxMethod.set("CHIEF_NAME",				gfnma_nvl(cv_1.CHIEF_NAME));
-		        	SBUxMethod.set("CHIEF_SOCIALNO",			gfnma_nvl(cv_1.CHIEF_SOCIALNO));
-		        	SBUxMethod.set("BIZ_CATEGORY",				gfnma_nvl(cv_1.BIZ_CATEGORY));
-		        	SBUxMethod.set("BIZ_ITEMS",					gfnma_nvl(cv_1.BIZ_ITEMS));
-		        	SBUxMethod.set("TXN_STOP_DATE",				gfnma_nvl(cv_1.TXN_STOP_DATE));
-		        	SBUxMethod.set("USE_YN", 					gfnma_nvl(cv_1.USE_YN));
-		        	SBUxMethod.set("FOREIGN_YN", 				gfnma_nvl(cv_1.FOREIGN_YN));
-		        	SBUxMethod.set("PURCHASE_YN", 				gfnma_nvl(cv_1.PURCHASE_YN));
-		        	SBUxMethod.set("SALE_YN", 					gfnma_nvl(cv_1.SALE_YN));
-		        	SBUxMethod.set("RESIDENT_YN", 				gfnma_nvl(cv_1.RESIDENT_YN));
-		        	SBUxMethod.set("OSP_YN", 					gfnma_nvl(cv_1.OSP_YN));
-		        	SBUxMethod.set("OSP_YN1", 					gfnma_nvl(cv_1.OSP_YN1));
-		        	SBUxMethod.set("OSP_YN2", 					gfnma_nvl(cv_1.OSP_YN2));
-		        	SBUxMethod.set("OSP_YN3", 					gfnma_nvl(cv_1.OSP_YN3));
-		        	SBUxMethod.set("SHIPPING_YN", 				gfnma_nvl(cv_1.SHIPPING_YN));
-		        	SBUxMethod.set("TRANSPORT_YN", 				gfnma_nvl(cv_1.TRANSPORT_YN));
-		        	SBUxMethod.set("CARGO_YN", 					gfnma_nvl(cv_1.CARGO_YN));
-		        	SBUxMethod.set("STEEL_SCRAP_PAY_YN", 		gfnma_nvl(cv_1.STEEL_SCRAP_PAY_YN));
-		        	SBUxMethod.set("BANKRUPTCY_YN", 			gfnma_nvl(cv_1.BANKRUPTCY_YN));
-		        	SBUxMethod.set("EXPECTED_CUSTOMER_YN", 		gfnma_nvl(cv_1.EXPECTED_CUSTOMER_YN));
-		        	SBUxMethod.set("DEFER_YN", 					gfnma_nvl(cv_1.DEFER_YN));
-		        	SBUxMethod.set("TXN_STOP_YN",				gfnma_nvl(cv_1.TXN_STOP_YN));
-		        	SBUxMethod.set("BIZ_TYPE",					gfnma_nvl(cv_1.BIZ_TYPE));
-		        	gfnma_multiSelectSet("#CS_GROUP", 			"SUB_CODE", 		"CODE_NAME",	gfnma_nvl(cv_1.CS_GROUP));
-		        	gfnma_multiSelectSet("#REGION_CODE", 		"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.REGION_CODE));
-		        	gfnma_multiSelectSet("#COM_TYPE", 			"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.COM_TYPE));
-		        	gfnma_multiSelectSet("#TAX_TYPE", 			"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.TAX_TYPE));
-		        	gfnma_multiSelectSet("#CS_CATEGORY",		"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.CS_CATEGORY));
-		        	gfnma_multiSelectSet("#DEFER_REASON",		"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.DEFER_REASON));
-		        	gfnma_multiSelectSet("#STATUS_CODE",		"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.STATUS_CODE));
-		        	gfnma_multiSelectSet("#TXN_STOP_REASON",	"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(cv_1.TXN_STOP_REASON));
-		        	gfnma_multiSelectSet("#NATION_CODE", 		"NATION_CODE", 		"NATION_NAME", 	gfnma_nvl(cv_1.NATION_CODE));
-		        	gfnma_multiSelectSet("#CURRENCY_CODE", 		"CURRENCY_CODE", 	"CURRENCY_NAME",gfnma_nvl(cv_1.CURRENCY_CODE));
+		        	SBUxMethod.set("CS_CODE",					gfn_nvl(cv_1.CS_CODE));
+		        	SBUxMethod.set("CS_ABBR_NAME",		 		gfn_nvl(cv_1.CS_ABBR_NAME));
+		        	SBUxMethod.set("REF_CS_CODE",				gfn_nvl(cv_1.REF_CS_CODE));
+		        	SBUxMethod.set("CS_NAME",					gfn_nvl(cv_1.CS_NAME));
+		        	SBUxMethod.set("CS_FULLNAME",				gfn_nvl(cv_1.CS_FULLNAME));
+		        	SBUxMethod.set("CS_NAME_ENG",				gfn_nvl(cv_1.CS_NAME_ENG));
+		        	SBUxMethod.set("BANK_NO_H",					gfn_nvl(cv_1.BANK_NO_H));
+		        	SBUxMethod.set("BANK_NAME_H",				gfn_nvl(cv_1.BANK_NAME_H));
+		        	SBUxMethod.set("COMP_REGNO",				gfn_nvl(cv_1.COMP_REGNO));
+		        	SBUxMethod.set("SUB_NO",					gfn_nvl(cv_1.SUB_NO));
+		        	SBUxMethod.set("CHIEF_NAME",				gfn_nvl(cv_1.CHIEF_NAME));
+		        	SBUxMethod.set("CHIEF_SOCIALNO",			gfn_nvl(cv_1.CHIEF_SOCIALNO));
+		        	SBUxMethod.set("BIZ_CATEGORY",				gfn_nvl(cv_1.BIZ_CATEGORY));
+		        	SBUxMethod.set("BIZ_ITEMS",					gfn_nvl(cv_1.BIZ_ITEMS));
+		        	SBUxMethod.set("TXN_STOP_DATE",				gfn_nvl(cv_1.TXN_STOP_DATE));
+		        	SBUxMethod.set("USE_YN", 					gfn_nvl(cv_1.USE_YN));
+		        	SBUxMethod.set("FOREIGN_YN", 				gfn_nvl(cv_1.FOREIGN_YN));
+		        	SBUxMethod.set("PURCHASE_YN", 				gfn_nvl(cv_1.PURCHASE_YN));
+		        	SBUxMethod.set("SALE_YN", 					gfn_nvl(cv_1.SALE_YN));
+		        	SBUxMethod.set("RESIDENT_YN", 				gfn_nvl(cv_1.RESIDENT_YN));
+		        	SBUxMethod.set("OSP_YN", 					gfn_nvl(cv_1.OSP_YN));
+		        	SBUxMethod.set("OSP_YN1", 					gfn_nvl(cv_1.OSP_YN1));
+		        	SBUxMethod.set("OSP_YN2", 					gfn_nvl(cv_1.OSP_YN2));
+		        	SBUxMethod.set("OSP_YN3", 					gfn_nvl(cv_1.OSP_YN3));
+		        	SBUxMethod.set("SHIPPING_YN", 				gfn_nvl(cv_1.SHIPPING_YN));
+		        	SBUxMethod.set("TRANSPORT_YN", 				gfn_nvl(cv_1.TRANSPORT_YN));
+		        	SBUxMethod.set("CARGO_YN", 					gfn_nvl(cv_1.CARGO_YN));
+		        	SBUxMethod.set("STEEL_SCRAP_PAY_YN", 		gfn_nvl(cv_1.STEEL_SCRAP_PAY_YN));
+		        	SBUxMethod.set("BANKRUPTCY_YN", 			gfn_nvl(cv_1.BANKRUPTCY_YN));
+		        	SBUxMethod.set("EXPECTED_CUSTOMER_YN", 		gfn_nvl(cv_1.EXPECTED_CUSTOMER_YN));
+		        	SBUxMethod.set("DEFER_YN", 					gfn_nvl(cv_1.DEFER_YN));
+		        	SBUxMethod.set("TXN_STOP_YN",				gfn_nvl(cv_1.TXN_STOP_YN));
+		        	SBUxMethod.set("BIZ_TYPE",					gfn_nvl(cv_1.BIZ_TYPE));
+		        	gfnma_multiSelectSet("#CS_GROUP", 			"SUB_CODE", 		"CODE_NAME",	gfn_nvl(cv_1.CS_GROUP));
+		        	gfnma_multiSelectSet("#REGION_CODE", 		"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.REGION_CODE));
+		        	gfnma_multiSelectSet("#COM_TYPE", 			"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.COM_TYPE));
+		        	gfnma_multiSelectSet("#TAX_TYPE", 			"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.TAX_TYPE));
+		        	gfnma_multiSelectSet("#CS_CATEGORY",		"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.CS_CATEGORY));
+		        	gfnma_multiSelectSet("#DEFER_REASON",		"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.DEFER_REASON));
+		        	gfnma_multiSelectSet("#STATUS_CODE",		"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.STATUS_CODE));
+		        	gfnma_multiSelectSet("#TXN_STOP_REASON",	"SUB_CODE", 		"CODE_NAME", 	gfn_nvl(cv_1.TXN_STOP_REASON));
+		        	gfnma_multiSelectSet("#NATION_CODE", 		"NATION_CODE", 		"NATION_NAME", 	gfn_nvl(cv_1.NATION_CODE));
+		        	gfnma_multiSelectSet("#CURRENCY_CODE", 		"CURRENCY_CODE", 	"CURRENCY_NAME",gfn_nvl(cv_1.CURRENCY_CODE));
 		        	
-		            if(gfnma_nvl(cv_1.STATUS_CODE) == '5'){
+		            if(gfn_nvl(cv_1.STATUS_CODE) == '5'){
 		            	$('#btnSubmit').show();
 		            }else{
 		            	$('#btnSubmit').hide();
@@ -2752,50 +2756,50 @@ console.log('fn_viewSubTable data ==>', data);
 		        	
 		        	//거래처 상세정보 편집 - 구매정보 -> 업체전표마감구분 데이터
 		        	// 구매정보 탭은 cv_4에서 데이터 가져오는데 SLIP_CLS는 CV_1에서 데이터 가져옴
-		        	gfnma_multiSelectSet("#SLIP_CLS", 			"SUB_CODE", 		"SUB_CODE",		gfnma_nvl(cv_1.SLIP_CLS));
+		        	gfnma_multiSelectSet("#SLIP_CLS", 			"SUB_CODE", 		"SUB_CODE",		gfn_nvl(cv_1.SLIP_CLS));
 	    		}
 	    		if(data.cv_2.length > 0) {
 		        	//거래처 상세정보 편집 - 주소/연락처
-		        	SBUxMethod.set("ZIP_CODE", 				gfnma_nvl(cv_2.ZIP_CODE));
-		        	SBUxMethod.set("START_DATE", 			gfnma_nvl(cv_2.START_DATE));
-		        	SBUxMethod.set("END_DATE", 				gfnma_nvl(cv_2.END_DATE));
-		        	SBUxMethod.set("ADDRESS", 				gfnma_nvl(cv_2.ADDRESS));
-		        	SBUxMethod.set("TEL", 					gfnma_nvl(cv_2.TEL));
-		        	SBUxMethod.set("FAX", 					gfnma_nvl(cv_2.FAX));
-		        	SBUxMethod.set("EMAIL_ID", 				gfnma_nvl(cv_2.EMAIL_ID));
-		        	SBUxMethod.set("WEB_URL", 				gfnma_nvl(cv_2.WEB_URL));
-		        	SBUxMethod.set("RESULT1", 				gfnma_nvl(cv_2.RESULT1));
-		        	SBUxMethod.set("MEMO", 					gfnma_nvl(cv_2.MEMO));
-		        	SBUxMethod.set("SAP_CUSTOMER_CODE", 	gfnma_nvl(cv_2.SAP_CUSTOMER_CODE));
-		        	SBUxMethod.set("SAP_VENDOR_CODE", 		gfnma_nvl(cv_2.SAP_VENDOR_CODE));
+		        	SBUxMethod.set("ZIP_CODE", 				gfn_nvl(cv_2.ZIP_CODE));
+		        	SBUxMethod.set("START_DATE", 			gfn_nvl(cv_2.START_DATE));
+		        	SBUxMethod.set("END_DATE", 				gfn_nvl(cv_2.END_DATE));
+		        	SBUxMethod.set("ADDRESS", 				gfn_nvl(cv_2.ADDRESS));
+		        	SBUxMethod.set("TEL", 					gfn_nvl(cv_2.TEL));
+		        	SBUxMethod.set("FAX", 					gfn_nvl(cv_2.FAX));
+		        	SBUxMethod.set("EMAIL_ID", 				gfn_nvl(cv_2.EMAIL_ID));
+		        	SBUxMethod.set("WEB_URL", 				gfn_nvl(cv_2.WEB_URL));
+		        	SBUxMethod.set("RESULT1", 				gfn_nvl(cv_2.RESULT1));
+		        	SBUxMethod.set("MEMO", 					gfn_nvl(cv_2.MEMO));
+		        	SBUxMethod.set("SAP_CUSTOMER_CODE", 	gfn_nvl(cv_2.SAP_CUSTOMER_CODE));
+		        	SBUxMethod.set("SAP_VENDOR_CODE", 		gfn_nvl(cv_2.SAP_VENDOR_CODE));
 	    		}
 	        	
 	        	//거래처 상세정보 편집 - 자금정보
 	    	   	data.cv_3.forEach((item, index) => {
 		    		const cv3_data = {
-		    				MAIN_FLAG				: gfnma_nvl(item.MAIN_FLAG),
-		    				SEQ						: gfnma_nvl(item.SEQ),
-		    				BANK_CODE				: gfnma_nvl(item.BANK_CODE),
-		    				BANK_NAME				: gfnma_nvl(item.BANK_NAME),
-		    				BANK_ACCOUNT_NO			: gfnma_nvl(item.BANK_ACCOUNT_NO),
-		    				BANK_ACCOUNT_OWNER		: gfnma_nvl(item.BANK_ACCOUNT_OWNER),
-		    				NOTE_TYPE				: gfnma_nvl(item.NOTE_TYPE),
-		    				BTB_CODE				: gfnma_nvl(item.BTB_CODE),
-		    				CMS_CODE				: gfnma_nvl(item.CMS_CODE),
-		    				PAYER_SWIFT_BIC			: gfnma_nvl(item.PAYER_SWIFT_BIC),
-		    				PAYER_BANK_INFO			: gfnma_nvl(item.PAYER_BANK_INFO),
-		    				PAY_REASON				: gfnma_nvl(item.PAY_REASON),
-		    				SEND_REASON				: gfnma_nvl(item.SEND_REASON),
-		    				FEE_CHARGER				: gfnma_nvl(item.FEE_CHARGER),
-		    				CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
-		    				EFFECT_START_DATE		: gfnma_nvl(item.EFFECT_START_DATE),
-		    				EFFECT_END_DATE			: gfnma_nvl(item.EFFECT_END_DATE),
-		    				VAT_ACCOUNT_YN			: gfnma_nvl(item.VAT_ACCOUNT_YN),
-		    				FIRM_PAYEE_DATE			: gfnma_nvl(item.FIRM_PAYEE_DATE),
-		    				FIRM_PAYEE_TRF_NO		: gfnma_nvl(item.FIRM_PAYEE_TRF_NO),
-		    				RESULT_CODE				: gfnma_nvl(item.RESULT_CODE),
-		    				RESULT_NAME				: gfnma_nvl(item.RESULT_NAME),
-		    				DESCRIPTION				: gfnma_nvl(item.DESCRIPTION)
+		    				MAIN_FLAG				: gfn_nvl(item.MAIN_FLAG),
+		    				SEQ						: gfn_nvl(item.SEQ),
+		    				BANK_CODE				: gfn_nvl(item.BANK_CODE),
+		    				BANK_NAME				: gfn_nvl(item.BANK_NAME),
+		    				BANK_ACCOUNT_NO			: gfn_nvl(item.BANK_ACCOUNT_NO),
+		    				BANK_ACCOUNT_OWNER		: gfn_nvl(item.BANK_ACCOUNT_OWNER),
+		    				NOTE_TYPE				: gfn_nvl(item.NOTE_TYPE),
+		    				BTB_CODE				: gfn_nvl(item.BTB_CODE),
+		    				CMS_CODE				: gfn_nvl(item.CMS_CODE),
+		    				PAYER_SWIFT_BIC			: gfn_nvl(item.PAYER_SWIFT_BIC),
+		    				PAYER_BANK_INFO			: gfn_nvl(item.PAYER_BANK_INFO),
+		    				PAY_REASON				: gfn_nvl(item.PAY_REASON),
+		    				SEND_REASON				: gfn_nvl(item.SEND_REASON),
+		    				FEE_CHARGER				: gfn_nvl(item.FEE_CHARGER),
+		    				CURRENCY_CODE			: gfn_nvl(item.CURRENCY_CODE),
+		    				EFFECT_START_DATE		: gfn_nvl(item.EFFECT_START_DATE),
+		    				EFFECT_END_DATE			: gfn_nvl(item.EFFECT_END_DATE),
+		    				VAT_ACCOUNT_YN			: gfn_nvl(item.VAT_ACCOUNT_YN),
+		    				FIRM_PAYEE_DATE			: gfn_nvl(item.FIRM_PAYEE_DATE),
+		    				FIRM_PAYEE_TRF_NO		: gfn_nvl(item.FIRM_PAYEE_TRF_NO),
+		    				RESULT_CODE				: gfn_nvl(item.RESULT_CODE),
+		    				RESULT_NAME				: gfn_nvl(item.RESULT_NAME),
+		    				DESCRIPTION				: gfn_nvl(item.DESCRIPTION)
 		    		}
 		    		jsonFinanceList.push(cv3_data);
 		    	});
@@ -2803,32 +2807,32 @@ console.log('fn_viewSubTable data ==>', data);
 	    	   	
 	    		if(data.cv_4.length > 0) {
 		    	   	//거래처 상세정보 편집 - 구매정보
-		    	   	SBUxMethod.set("TAX_SEND", 					gfnma_nvl(cv_4.TAX_SEND));
-		    	   	SBUxMethod.set("INTERNAL_PAY_RULE_YN", 		gfnma_nvl(cv_4.INTERNAL_PAY_RULE_YN));
-		    	   	SBUxMethod.set("RCPT_CHK_RANGE", 			gfnma_nvl(cv_4.RCPT_CHK_RANGE));
-		    	   	SBUxMethod.set("AP_ACC_CODE", 				gfnma_nvl(cv_4.AP_ACC_CODE));
-		    	   	SBUxMethod.set("AP_ACC_NAME", 				gfnma_nvl(cv_4.AP_ACC_NAME));
-		    	   	SBUxMethod.set("AP_CLR_ACC", 				gfnma_nvl(cv_4.AP_CLR_ACC));
-		    	   	SBUxMethod.set("AP_CLR_ACC_NAME", 			gfnma_nvl(cv_4.AP_CLR_ACC_NAME));
-		    	   	SBUxMethod.set("AP_ACC_CODE_FOREIGN", 		gfnma_nvl(cv_4.AP_ACC_CODE_FOREIGN));
-		    	   	SBUxMethod.set("AP_ACC_NAME_FOREIGN", 		gfnma_nvl(cv_4.AP_ACC_NAME_FOREIGN));
-		    	   	SBUxMethod.set("PREPAY_ACC_CODE", 			gfnma_nvl(cv_4.PREPAY_ACC_CODE));
-		    	   	SBUxMethod.set("PREPAY_ACC_NAME", 			gfnma_nvl(cv_4.PREPAY_ACC_NAME));
-		        	gfnma_multiSelectSet("#TAX_CODE", 			"VAT_CODE", 		"VAT_NAME",		gfnma_nvl(cv_4.TAX_CODE));
-		        	gfnma_multiSelectSet("#PUR_HANDOV_CNDT_CD", "SUB_CODE", 		"CODE_NAME",	gfnma_nvl(cv_4.PUR_HANDOV_CNDT_CD));
-		        	gfnma_multiSelectSet("#PAY_DATE_RULE", 		"PAY_TERM_CODE", 	"PAY_TERM_NAME",gfnma_nvl(cv_4.PAY_DATE_RULE));
+		    	   	SBUxMethod.set("TAX_SEND", 					gfn_nvl(cv_4.TAX_SEND));
+		    	   	SBUxMethod.set("INTERNAL_PAY_RULE_YN", 		gfn_nvl(cv_4.INTERNAL_PAY_RULE_YN));
+		    	   	SBUxMethod.set("RCPT_CHK_RANGE", 			gfn_nvl(cv_4.RCPT_CHK_RANGE));
+		    	   	SBUxMethod.set("AP_ACC_CODE", 				gfn_nvl(cv_4.AP_ACC_CODE));
+		    	   	SBUxMethod.set("AP_ACC_NAME", 				gfn_nvl(cv_4.AP_ACC_NAME));
+		    	   	SBUxMethod.set("AP_CLR_ACC", 				gfn_nvl(cv_4.AP_CLR_ACC));
+		    	   	SBUxMethod.set("AP_CLR_ACC_NAME", 			gfn_nvl(cv_4.AP_CLR_ACC_NAME));
+		    	   	SBUxMethod.set("AP_ACC_CODE_FOREIGN", 		gfn_nvl(cv_4.AP_ACC_CODE_FOREIGN));
+		    	   	SBUxMethod.set("AP_ACC_NAME_FOREIGN", 		gfn_nvl(cv_4.AP_ACC_NAME_FOREIGN));
+		    	   	SBUxMethod.set("PREPAY_ACC_CODE", 			gfn_nvl(cv_4.PREPAY_ACC_CODE));
+		    	   	SBUxMethod.set("PREPAY_ACC_NAME", 			gfn_nvl(cv_4.PREPAY_ACC_NAME));
+		        	gfnma_multiSelectSet("#TAX_CODE", 			"VAT_CODE", 		"VAT_NAME",		gfn_nvl(cv_4.TAX_CODE));
+		        	gfnma_multiSelectSet("#PUR_HANDOV_CNDT_CD", "SUB_CODE", 		"CODE_NAME",	gfn_nvl(cv_4.PUR_HANDOV_CNDT_CD));
+		        	gfnma_multiSelectSet("#PAY_DATE_RULE", 		"PAY_TERM_CODE", 	"PAY_TERM_NAME",gfn_nvl(cv_4.PAY_DATE_RULE));
 	    		}
 	    	   	
 	        	data.cv_11.forEach((item, index) => {
 		    		const cv11_data = {
-		    				PUR_CONTACT_TYPE	: gfnma_nvl(item.PUR_CONTACT_TYPE),
-		    				PUR_DEPT_NAME		: gfnma_nvl(item.PUR_DEPT_NAME),
-		    				PUR_CONTACT_NAME	: gfnma_nvl(item.PUR_CONTACT_NAME),
-		    				PUR_CONTACT_TEL		: gfnma_nvl(item.PUR_CONTACT_TEL),
-		    				PUR_CONTACT_MOBILE	: gfnma_nvl(item.PUR_CONTACT_MOBILE),
-		    				PUR_CONTACT_EMAIL	: gfnma_nvl(item.PUR_CONTACT_EMAIL),
-		    				PUR_CONTACT_FAX		: gfnma_nvl(item.PUR_CONTACT_FAX),
-		    				PUR_ADDRESS			: gfnma_nvl(item.PUR_ADDRESS)
+		    				PUR_CONTACT_TYPE	: gfn_nvl(item.PUR_CONTACT_TYPE),
+		    				PUR_DEPT_NAME		: gfn_nvl(item.PUR_DEPT_NAME),
+		    				PUR_CONTACT_NAME	: gfn_nvl(item.PUR_CONTACT_NAME),
+		    				PUR_CONTACT_TEL		: gfn_nvl(item.PUR_CONTACT_TEL),
+		    				PUR_CONTACT_MOBILE	: gfn_nvl(item.PUR_CONTACT_MOBILE),
+		    				PUR_CONTACT_EMAIL	: gfn_nvl(item.PUR_CONTACT_EMAIL),
+		    				PUR_CONTACT_FAX		: gfn_nvl(item.PUR_CONTACT_FAX),
+		    				PUR_ADDRESS			: gfn_nvl(item.PUR_ADDRESS)
 		    		}
 		    		jsonPurchaseList.push(cv11_data);
 		    	});
@@ -2836,23 +2840,23 @@ console.log('fn_viewSubTable data ==>', data);
 	    	
 	    		if(data.cv_5.length > 0) {
 		        	//거래처 상세정보 편집 - 판매정보
-		        	SBUxMethod.set("SALES_TAX_SEND", 				gfnma_nvl(cv_4.SALES_TAX_SEND));
-		        	gfnma_multiSelectSet("#DELIVERY_TYPE", 			"SUB_CODE", 		"CODE_NAME",		gfnma_nvl(cv_5.DELIVERY_TYPE));
-		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"SUB_CODE", 		"CODE_NAME",		gfnma_nvl(cv_5.RECEIPT_DATE_RULE));
-		        	gfnma_multiSelectSet("#VAT_ISSUE_COND", 		"SUB_CODE", 		"CODE_NAME",		gfnma_nvl(cv_5.VAT_ISSUE_COND));
-		        	gfnma_multiSelectSet("#SHIPPING_TYPE", 			"SUB_CODE", 		"CODE_NAME",		gfnma_nvl(cv_5.SHIPPING_TYPE));
+		        	SBUxMethod.set("SALES_TAX_SEND", 				gfn_nvl(cv_4.SALES_TAX_SEND));
+		        	gfnma_multiSelectSet("#DELIVERY_TYPE", 			"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.DELIVERY_TYPE));
+		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.RECEIPT_DATE_RULE));
+		        	gfnma_multiSelectSet("#VAT_ISSUE_COND", 		"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.VAT_ISSUE_COND));
+		        	gfnma_multiSelectSet("#SHIPPING_TYPE", 			"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.SHIPPING_TYPE));
 	    		}
 	    	   	
 	        	data.cv_12.forEach((item, index) => {
 		    		const cv12_data = {
-		    				SALE_CONTACT_TYPE		: gfnma_nvl(item.SALE_CONTACT_TYPE),
-		    				SALE_DEPT_NAME			: gfnma_nvl(item.SALE_DEPT_NAME),
-		    				SALE_CONTACT_NAME		: gfnma_nvl(item.SALE_CONTACT_NAME),
-		    				SALE_CONTACT_TEL		: gfnma_nvl(item.SALE_CONTACT_TEL),
-		    				SALE_CONTACT_MOBILE		: gfnma_nvl(item.SALE_CONTACT_MOBILE),
-		    				SALE_CONTACT_EMAIL		: gfnma_nvl(item.SALE_CONTACT_EMAIL),
-		    				SALE_CONTACT_FAX		: gfnma_nvl(item.SALE_CONTACT_FAX),
-		    				SALE_ADDRESS			: gfnma_nvl(item.SALE_ADDRESS)
+		    				SALE_CONTACT_TYPE		: gfn_nvl(item.SALE_CONTACT_TYPE),
+		    				SALE_DEPT_NAME			: gfn_nvl(item.SALE_DEPT_NAME),
+		    				SALE_CONTACT_NAME		: gfn_nvl(item.SALE_CONTACT_NAME),
+		    				SALE_CONTACT_TEL		: gfn_nvl(item.SALE_CONTACT_TEL),
+		    				SALE_CONTACT_MOBILE		: gfn_nvl(item.SALE_CONTACT_MOBILE),
+		    				SALE_CONTACT_EMAIL		: gfn_nvl(item.SALE_CONTACT_EMAIL),
+		    				SALE_CONTACT_FAX		: gfn_nvl(item.SALE_CONTACT_FAX),
+		    				SALE_ADDRESS			: gfn_nvl(item.SALE_ADDRESS)
 		    		}
 		    		jsonSalesList.push(cv12_data);
 		    	});
@@ -2861,16 +2865,16 @@ console.log('fn_viewSubTable data ==>', data);
 	        	//거래처 상세정보 편집 - 판매납품처
 	        	data.cv_6.forEach((item, index) => {
 		    		const cv6_data = {
-		    				SHIP_TO_CODE		: gfnma_nvl(item.SHIP_TO_CODE),
-		    				SHIP_TO_NAME		: gfnma_nvl(item.SHIP_TO_NAME),
-		    				ZIP_CODE			: gfnma_nvl(item.ZIP_CODE),
-		    				ADDRESS				: gfnma_nvl(item.ADDRESS),
-		    				SHIP_TO_TEL			: gfnma_nvl(item.SHIP_TO_TEL),
-		    				CREDIT_AREA			: gfnma_nvl(item.CREDIT_AREA),
-		    				SALES_PERSON_NAME	: gfnma_nvl(item.SALES_PERSON_NAME),
-		    				DEST_CD				: gfnma_nvl(item.DEST_CD),
-		    				DEST_NM				: gfnma_nvl(item.DEST_NM),
-		    				SHIP_ORD_CODE		: gfnma_nvl(item.SHIP_ORD_CODE)
+		    				SHIP_TO_CODE		: gfn_nvl(item.SHIP_TO_CODE),
+		    				SHIP_TO_NAME		: gfn_nvl(item.SHIP_TO_NAME),
+		    				ZIP_CODE			: gfn_nvl(item.ZIP_CODE),
+		    				ADDRESS				: gfn_nvl(item.ADDRESS),
+		    				SHIP_TO_TEL			: gfn_nvl(item.SHIP_TO_TEL),
+		    				CREDIT_AREA			: gfn_nvl(item.CREDIT_AREA),
+		    				SALES_PERSON_NAME	: gfn_nvl(item.SALES_PERSON_NAME),
+		    				DEST_CD				: gfn_nvl(item.DEST_CD),
+		    				DEST_NM				: gfn_nvl(item.DEST_NM),
+		    				SHIP_ORD_CODE		: gfn_nvl(item.SHIP_ORD_CODE)
 		    		}
 		    		jsonSalesShipToList.push(cv5_data);
 		    	});
@@ -2878,27 +2882,27 @@ console.log('fn_viewSubTable data ==>', data);
 	        	
 	        	if(data.cv_7.length > 0) {
 		        	//거래처 상세정보 편집 - 판매처분류
-		        	SBUxMethod.set("AR_ACC_CODE",				gfnma_nvl(cv_7.AR_ACC_CODE));
-		        	SBUxMethod.set("AR_ACC_NAME",				gfnma_nvl(cv_7.AR_ACC_NAME));
-		        	SBUxMethod.set("AR_ACC_CODE_FOREIGN",		gfnma_nvl(cv_7.AR_ACC_CODE_FOREIGN));
-		        	SBUxMethod.set("AR_ACC_NAME_FOREIGN",		gfnma_nvl(cv_7.AR_ACC_NAME_FOREIGN));
-		        	SBUxMethod.set("ADVANCE_ACC_CODE",			gfnma_nvl(cv_7.ADVANCE_ACC_CODE));
-		        	SBUxMethod.set("ADVANCE_ACC_NAME",			gfnma_nvl(cv_7.ADVANCE_ACC_NAME));
+		        	SBUxMethod.set("AR_ACC_CODE",				gfn_nvl(cv_7.AR_ACC_CODE));
+		        	SBUxMethod.set("AR_ACC_NAME",				gfn_nvl(cv_7.AR_ACC_NAME));
+		        	SBUxMethod.set("AR_ACC_CODE_FOREIGN",		gfn_nvl(cv_7.AR_ACC_CODE_FOREIGN));
+		        	SBUxMethod.set("AR_ACC_NAME_FOREIGN",		gfn_nvl(cv_7.AR_ACC_NAME_FOREIGN));
+		        	SBUxMethod.set("ADVANCE_ACC_CODE",			gfn_nvl(cv_7.ADVANCE_ACC_CODE));
+		        	SBUxMethod.set("ADVANCE_ACC_NAME",			gfn_nvl(cv_7.ADVANCE_ACC_NAME));
 	        	}
 	        	data.cv_13.forEach((item, index) => {
 		    		const cv13_data = {
-		    				CREDIT_AREA			: gfnma_nvl(item.CREDIT_AREA),
-		    				CS_CATEGORY_GROUP	: gfnma_nvl(item.CS_CATEGORY_GROUP),
-		    				CS_CATEGORY1		: gfnma_nvl(item.CS_CATEGORY1),
-		    				CS_CATEGORY2		: gfnma_nvl(item.CS_CATEGORY2),
-		    				CS_CATEGORY3		: gfnma_nvl(item.CS_CATEGORY3),
-		    				CS_CATEGORY4		: gfnma_nvl(item.CS_CATEGORY4),
-		    				CS_CATEGORY5		: gfnma_nvl(item.CS_CATEGORY5),
-		    				CS_CATEGORY6		: gfnma_nvl(item.CS_CATEGORY6),
-		    				CS_CATEGORY7		: gfnma_nvl(item.CS_CATEGORY7),
-		    				CS_CATEGORY8		: gfnma_nvl(item.CS_CATEGORY8),
-		    				CS_CATEGORY9		: gfnma_nvl(item.CS_CATEGORY9),
-		    				CS_CATEGORY10		: gfnma_nvl(item.CS_CATEGORY10)
+		    				CREDIT_AREA			: gfn_nvl(item.CREDIT_AREA),
+		    				CS_CATEGORY_GROUP	: gfn_nvl(item.CS_CATEGORY_GROUP),
+		    				CS_CATEGORY1		: gfn_nvl(item.CS_CATEGORY1),
+		    				CS_CATEGORY2		: gfn_nvl(item.CS_CATEGORY2),
+		    				CS_CATEGORY3		: gfn_nvl(item.CS_CATEGORY3),
+		    				CS_CATEGORY4		: gfn_nvl(item.CS_CATEGORY4),
+		    				CS_CATEGORY5		: gfn_nvl(item.CS_CATEGORY5),
+		    				CS_CATEGORY6		: gfn_nvl(item.CS_CATEGORY6),
+		    				CS_CATEGORY7		: gfn_nvl(item.CS_CATEGORY7),
+		    				CS_CATEGORY8		: gfn_nvl(item.CS_CATEGORY8),
+		    				CS_CATEGORY9		: gfn_nvl(item.CS_CATEGORY9),
+		    				CS_CATEGORY10		: gfn_nvl(item.CS_CATEGORY10)
 		    		}
 		    		jsonSalesCategoryList.push(cv13_data);
 		    	});
@@ -2906,21 +2910,21 @@ console.log('fn_viewSubTable data ==>', data);
 	        	
 	        	//거래처 상세정보 편집 - 세금 등
 	        	if(data.cv_8.length > 0) {
-		        	SBUxMethod.set("WITHHOLD_TAX_YN",	gfnma_nvl(cv_8.WITHHOLD_TAX_YN));
-		        	SBUxMethod.set("TAX_RATE",			gfnma_nvl(cv_8.TAX_RATE));
-		        	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE", 	"SUB_CODE", "CODE_NAME", gfnma_nvl(cv_8.WITHHOLD_TAX_OFFICE));
-		        	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE2", 	"SUB_CODE", "CODE_NAME", gfnma_nvl(cv_8.WITHHOLD_TAX_OFFICE2));
-		        	gfnma_multiSelectSet("#WITHHOLD_TAX_TYPE", 		"SUB_CODE", "CODE_NAME", gfnma_nvl(cv_8.WITHHOLD_TAX_TYPE));
+		        	SBUxMethod.set("WITHHOLD_TAX_YN",	gfn_nvl(cv_8.WITHHOLD_TAX_YN));
+		        	SBUxMethod.set("TAX_RATE",			gfn_nvl(cv_8.TAX_RATE));
+		        	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE", 	"SUB_CODE", "CODE_NAME", gfn_nvl(cv_8.WITHHOLD_TAX_OFFICE));
+		        	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE2", 	"SUB_CODE", "CODE_NAME", gfn_nvl(cv_8.WITHHOLD_TAX_OFFICE2));
+		        	gfnma_multiSelectSet("#WITHHOLD_TAX_TYPE", 		"SUB_CODE", "CODE_NAME", gfn_nvl(cv_8.WITHHOLD_TAX_TYPE));
 	        	}
 	        	
 	        	//거래처 상세정보 편집 - 변경이력관리
 	        	data.cv_9.forEach((item, index) => {
 		    		const cv9_data = {
-		    				START_DATE		: gfnma_nvl(item.START_DATE),
-		    				END_DATE		: gfnma_nvl(item.END_DATE),
-		    				BIZ_REGNO		: gfnma_nvl(item.BIZ_REGNO),
-		    				BIZ_ITEMS		: gfnma_nvl(item.BIZ_ITEMS),
-		    				CHIEF_NAME		: gfnma_nvl(item.CHIEF_NAME)
+		    				START_DATE		: gfn_nvl(item.START_DATE),
+		    				END_DATE		: gfn_nvl(item.END_DATE),
+		    				BIZ_REGNO		: gfn_nvl(item.BIZ_REGNO),
+		    				BIZ_ITEMS		: gfn_nvl(item.BIZ_ITEMS),
+		    				CHIEF_NAME		: gfn_nvl(item.CHIEF_NAME)
 		    		}
 		    		jsonHistoryList.push(cv9_data);
 		    	});
@@ -2929,11 +2933,11 @@ console.log('fn_viewSubTable data ==>', data);
 	        	//거래처 상세정보 편집 - 매핑이력
 	        	data.cv_10.forEach((item, index) => {
 		    		const cv10_data = {
-		    				MAP_TYPE		: gfnma_nvl(item.MAP_TYPE),
-		    				ASIS_CS_CODE	: gfnma_nvl(item.ASIS_CS_CODE),
-		    				CS_CODE			: gfnma_nvl(item.CS_CODE),
-		    				CS_NAME			: gfnma_nvl(item.CS_NAME),
-		    				BIZ_REGNO		: gfnma_nvl(item.BIZ_REGNO)
+		    				MAP_TYPE		: gfn_nvl(item.MAP_TYPE),
+		    				ASIS_CS_CODE	: gfn_nvl(item.ASIS_CS_CODE),
+		    				CS_CODE			: gfn_nvl(item.CS_CODE),
+		    				CS_NAME			: gfn_nvl(item.CS_NAME),
+		    				BIZ_REGNO		: gfn_nvl(item.BIZ_REGNO)
 		    		}
 		    		jsonMappingList.push(cv10_data);
 		    	});
@@ -3099,28 +3103,28 @@ console.log('fn_viewSubTable data ==>', data);
             let PAY_DATE_RULE = '';
             let PREPAY_ACC_CODE = '';
             let PREPAY_ACC_NAME = '';
-            let CS_CODE = gfnma_nvl(SBUxMethod.get('CS_CODE'));
-            let USE_YN = gfnma_nvl(SBUxMethod.get('USE_YN').USE_YN);
+            let CS_CODE = gfn_nvl(SBUxMethod.get('CS_CODE'));
+            let USE_YN = gfn_nvl(SBUxMethod.get('USE_YN').USE_YN);
 
             for(var i=0; jsonCOM011.length > i; i++){
             	if(CS_GROUP == jsonCOM011[i].SUB_CODE){
-            		ADVANCE_ACC_CODE = gfnma_nvl(jsonCOM011[i].ADVANCE_ACC_CODE);
-            		ADVANCE_ACC_NAME = gfnma_nvl(jsonCOM011[i].ADVANCE_ACC_NAME);
-            		AP_ACC_CODE = gfnma_nvl(jsonCOM011[i].AP_ACC_CODE);
-            		AP_ACC_CODE_FOREIGN = gfnma_nvl(jsonCOM011[i].AP_ACC_CODE_FOREIGN);
-            		AP_ACC_NAME = gfnma_nvl(jsonCOM011[i].AP_ACC_NAME);
-            		AP_ACC_NAME_FOREIGN = gfnma_nvl(jsonCOM011[i].AP_ACC_NAME_FOREIGN);
-            		AR_ACC_CODE = gfnma_nvl(jsonCOM011[i].AR_ACC_CODE);
-            		AR_ACC_CODE_FOREIGN = gfnma_nvl(jsonCOM011[i].AR_ACC_CODE_FOREIGN);
-            		AR_ACC_NAME = gfnma_nvl(jsonCOM011[i].AR_ACC_NAME);
-            		AR_ACC_NAME_FOREIGN = gfnma_nvl(jsonCOM011[i].AR_ACC_NAME_FOREIGN);
-            		CODE_NAME = gfnma_nvl(jsonCOM011[i].CODE_NAME);
-            		EXTRA_FIELD2 = gfnma_nvl(jsonCOM011[i].EXTRA_FIELD2);
-            		EXTRA_FIELD3 = gfnma_nvl(jsonCOM011[i].EXTRA_FIELD3);
-            		NATION_CODE = gfnma_nvl(jsonCOM011[i].NATION_CODE);
-            		PAY_DATE_RULE = gfnma_nvl(jsonCOM011[i].PAY_DATE_RULE);
-            		PREPAY_ACC_CODE = gfnma_nvl(jsonCOM011[i].PREPAY_ACC_CODE);
-            		PREPAY_ACC_NAME = gfnma_nvl(jsonCOM011[i].PREPAY_ACC_NAME);
+            		ADVANCE_ACC_CODE = gfn_nvl(jsonCOM011[i].ADVANCE_ACC_CODE);
+            		ADVANCE_ACC_NAME = gfn_nvl(jsonCOM011[i].ADVANCE_ACC_NAME);
+            		AP_ACC_CODE = gfn_nvl(jsonCOM011[i].AP_ACC_CODE);
+            		AP_ACC_CODE_FOREIGN = gfn_nvl(jsonCOM011[i].AP_ACC_CODE_FOREIGN);
+            		AP_ACC_NAME = gfn_nvl(jsonCOM011[i].AP_ACC_NAME);
+            		AP_ACC_NAME_FOREIGN = gfn_nvl(jsonCOM011[i].AP_ACC_NAME_FOREIGN);
+            		AR_ACC_CODE = gfn_nvl(jsonCOM011[i].AR_ACC_CODE);
+            		AR_ACC_CODE_FOREIGN = gfn_nvl(jsonCOM011[i].AR_ACC_CODE_FOREIGN);
+            		AR_ACC_NAME = gfn_nvl(jsonCOM011[i].AR_ACC_NAME);
+            		AR_ACC_NAME_FOREIGN = gfn_nvl(jsonCOM011[i].AR_ACC_NAME_FOREIGN);
+            		CODE_NAME = gfn_nvl(jsonCOM011[i].CODE_NAME);
+            		EXTRA_FIELD2 = gfn_nvl(jsonCOM011[i].EXTRA_FIELD2);
+            		EXTRA_FIELD3 = gfn_nvl(jsonCOM011[i].EXTRA_FIELD3);
+            		NATION_CODE = gfn_nvl(jsonCOM011[i].NATION_CODE);
+            		PAY_DATE_RULE = gfn_nvl(jsonCOM011[i].PAY_DATE_RULE);
+            		PREPAY_ACC_CODE = gfn_nvl(jsonCOM011[i].PREPAY_ACC_CODE);
+            		PREPAY_ACC_NAME = gfn_nvl(jsonCOM011[i].PREPAY_ACC_NAME);
             	}
             }
             console.log('CS_GROUP =>', CS_GROUP);
@@ -3435,86 +3439,86 @@ console.log('fn_viewSubTable data ==>', data);
    			   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
    			   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 			   ///////////////////////////////////////////////////////////////////////////
-			   ,IV_P_CS_CODE             : gfnma_nvl(SBUxMethod.get("CS_CODE"))
-			   ,V_P_CS_NAME              : gfnma_nvl(SBUxMethod.get("CS_NAME"))
-			   ,V_P_CS_FULLNAME          : gfnma_nvl(SBUxMethod.get("CS_FULLNAME"))
-			   ,V_P_CS_ABBR_NAME         : gfnma_nvl(SBUxMethod.get("CS_ABBR_NAME"))
-			   ,V_P_CS_NAME_ENG          : gfnma_nvl(SBUxMethod.get("CS_NAME_ENG"))
+			   ,IV_P_CS_CODE             : gfn_nvl(SBUxMethod.get("CS_CODE"))
+			   ,V_P_CS_NAME              : gfn_nvl(SBUxMethod.get("CS_NAME"))
+			   ,V_P_CS_FULLNAME          : gfn_nvl(SBUxMethod.get("CS_FULLNAME"))
+			   ,V_P_CS_ABBR_NAME         : gfn_nvl(SBUxMethod.get("CS_ABBR_NAME"))
+			   ,V_P_CS_NAME_ENG          : gfn_nvl(SBUxMethod.get("CS_NAME_ENG"))
 			   ,V_P_CS_GROUP             : gfnma_multiSelectGet("#CS_GROUP")
-			   ,V_P_BANK_NO              : gfnma_nvl(SBUxMethod.get("BANK_NO"))
-			   ,IV_P_FOREIGN_YN          : gfnma_nvl(SBUxMethod.get("FOREIGN_YN").FOREIGN_YN)
+			   ,V_P_BANK_NO              : gfn_nvl(SBUxMethod.get("BANK_NO"))
+			   ,IV_P_FOREIGN_YN          : gfn_nvl(SBUxMethod.get("FOREIGN_YN").FOREIGN_YN)
 			   ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE")
 			   ,V_P_REGION_CODE          : gfnma_multiSelectGet("#REGION_CODE")
-			   ,V_P_BIZ_REGNO            : gfnma_nvl(SBUxMethod.get("BIZ_REGNO")).replaceAll('-', '')
+			   ,V_P_BIZ_REGNO            : gfn_nvl(SBUxMethod.get("BIZ_REGNO")).replaceAll('-', '')
 			   ,V_P_TAX_TYPE             : gfnma_multiSelectGet("#TAX_TYPE")
 			   ,V_P_COM_TYPE             : gfnma_multiSelectGet("#COM_TYPE")
-			   ,V_P_BIZ_TYPE             : gfnma_nvl(SBUxMethod.get("BIZ_TYPE"))
-			   ,V_P_COMP_REGNO           : gfnma_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
-			   ,V_P_CHIEF_NAME           : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-			   ,V_P_CHIEF_SOCIALNO       : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
-			   ,V_P_RESIDENT_YN          : gfnma_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
-			   ,V_P_BIZ_CATEGORY         : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
-			   ,V_P_BIZ_ITEMS            : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
-			   ,V_P_PURCHASE_YN          : gfnma_nvl(SBUxMethod.get("PURCHASE_YN").PURCHASE_YN)
-			   ,V_P_SALE_YN              : gfnma_nvl(SBUxMethod.get("SALE_YN").SALE_YN)
-			   ,V_P_TRANSPORT_YN         : gfnma_nvl(SBUxMethod.get("TRANSPORT_YN").TRANSPORT_YN)
-			   ,V_P_CARGO_YN             : gfnma_nvl(SBUxMethod.get("CARGO_YN").CARGO_YN)
-			   ,V_P_SHIPPING_YN          : gfnma_nvl(SBUxMethod.get("SHIPPING_YN").SHIPPING_YN)
+			   ,V_P_BIZ_TYPE             : gfn_nvl(SBUxMethod.get("BIZ_TYPE"))
+			   ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
+			   ,V_P_CHIEF_NAME           : gfn_nvl(SBUxMethod.get("CHIEF_NAME"))
+			   ,V_P_CHIEF_SOCIALNO       : gfn_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
+			   ,V_P_RESIDENT_YN          : gfn_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
+			   ,V_P_BIZ_CATEGORY         : gfn_nvl(SBUxMethod.get("BIZ_CATEGORY"))
+			   ,V_P_BIZ_ITEMS            : gfn_nvl(SBUxMethod.get("BIZ_ITEMS"))
+			   ,V_P_PURCHASE_YN          : gfn_nvl(SBUxMethod.get("PURCHASE_YN").PURCHASE_YN)
+			   ,V_P_SALE_YN              : gfn_nvl(SBUxMethod.get("SALE_YN").SALE_YN)
+			   ,V_P_TRANSPORT_YN         : gfn_nvl(SBUxMethod.get("TRANSPORT_YN").TRANSPORT_YN)
+			   ,V_P_CARGO_YN             : gfn_nvl(SBUxMethod.get("CARGO_YN").CARGO_YN)
+			   ,V_P_SHIPPING_YN          : gfn_nvl(SBUxMethod.get("SHIPPING_YN").SHIPPING_YN)
 			   ,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
-			   ,V_P_SUB_NO               : gfnma_nvl(SBUxMethod.get("SUB_NO"))
-			   ,V_P_USE_YN               : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-			   ,V_P_LIQUOR_YN            : gfnma_nvl(SBUxMethod.get("LIQUOR_YN").LIQUOR_YN)
-			   ,V_P_OSP_YN               : gfnma_nvl(SBUxMethod.get("OSP_YN").OSP_YN)
-			   ,V_P_OSP_YN1              : gfnma_nvl(SBUxMethod.get("OSP_YN1").OSP_YN1)
-			   ,V_P_OSP_YN2              : gfnma_nvl(SBUxMethod.get("OSP_YN2").OSP_YN2)
-			   ,V_P_OSP_YN3              : gfnma_nvl(SBUxMethod.get("OSP_YN3").OSP_YN3)
-			   ,V_P_REF_CS_CODE          : gfnma_nvl(SBUxMethod.get("REF_CS_CODE"))
-			   ,V_P_ZIP_CODE             : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-			   ,V_P_ADDRESS              : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-			   ,V_P_TEL                  : gfnma_nvl(SBUxMethod.get("TEL"))
-			   ,V_P_FAX                  : gfnma_nvl(SBUxMethod.get("FAX"))
-			   ,V_P_WEB_URL              : gfnma_nvl(SBUxMethod.get("WEB_URL"))
-			   ,V_P_START_DATE           : gfnma_nvl(SBUxMethod.get("START_DATE"))
-			   ,V_P_END_DATE             : gfnma_nvl(SBUxMethod.get("END_DATE"))
-			   ,V_P_MEMO                 : gfnma_nvl(SBUxMethod.get("MEMO"))
-			   ,V_P_DEFER_YN             : gfnma_nvl(SBUxMethod.get("DEFER_YN").DEFER_YN)
-			   ,IV_P_AP_ACC_CODE         : gfnma_nvl(SBUxMethod.get("AP_ACC_CODE"))
-			   ,IV_P_AR_ACC_CODE         : gfnma_nvl(SBUxMethod.get("AR_ACC_CODE"))
-			   ,V_P_EMP_CODE             : gfnma_nvl(SBUxMethod.get("EMP_CODE"))
-			   ,V_P_TXN_STOP_YN          : gfnma_nvl(SBUxMethod.get("TXN_STOP_YN").TXN_STOP_YN)
+			   ,V_P_SUB_NO               : gfn_nvl(SBUxMethod.get("SUB_NO"))
+			   ,V_P_USE_YN               : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
+			   ,V_P_LIQUOR_YN            : gfn_nvl(SBUxMethod.get("LIQUOR_YN").LIQUOR_YN)
+			   ,V_P_OSP_YN               : gfn_nvl(SBUxMethod.get("OSP_YN").OSP_YN)
+			   ,V_P_OSP_YN1              : gfn_nvl(SBUxMethod.get("OSP_YN1").OSP_YN1)
+			   ,V_P_OSP_YN2              : gfn_nvl(SBUxMethod.get("OSP_YN2").OSP_YN2)
+			   ,V_P_OSP_YN3              : gfn_nvl(SBUxMethod.get("OSP_YN3").OSP_YN3)
+			   ,V_P_REF_CS_CODE          : gfn_nvl(SBUxMethod.get("REF_CS_CODE"))
+			   ,V_P_ZIP_CODE             : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
+			   ,V_P_ADDRESS              : gfn_nvl(SBUxMethod.get("ADDRESS"))
+			   ,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
+			   ,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
+			   ,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
+			   ,V_P_START_DATE           : gfn_nvl(SBUxMethod.get("START_DATE"))
+			   ,V_P_END_DATE             : gfn_nvl(SBUxMethod.get("END_DATE"))
+			   ,V_P_MEMO                 : gfn_nvl(SBUxMethod.get("MEMO"))
+			   ,V_P_DEFER_YN             : gfn_nvl(SBUxMethod.get("DEFER_YN").DEFER_YN)
+			   ,IV_P_AP_ACC_CODE         : gfn_nvl(SBUxMethod.get("AP_ACC_CODE"))
+			   ,IV_P_AR_ACC_CODE         : gfn_nvl(SBUxMethod.get("AR_ACC_CODE"))
+			   ,V_P_EMP_CODE             : gfn_nvl(SBUxMethod.get("EMP_CODE"))
+			   ,V_P_TXN_STOP_YN          : gfn_nvl(SBUxMethod.get("TXN_STOP_YN").TXN_STOP_YN)
 			   ,V_P_TXN_STOP_REASON      : gfnma_multiSelectGet("#TXN_STOP_REASON")
-			   ,V_P_TXN_STOP_DATE        : gfnma_nvl(SBUxMethod.get("TXN_STOP_DATE"))
-			   ,V_P_BANKRUPTCY_YN        : gfnma_nvl(SBUxMethod.get("BANKRUPTCY_YN").BANKRUPTCY_YN)
-			   ,IV_P_PREPAY_ACC_CODE     : gfnma_nvl(SBUxMethod.get("PREPAY_ACC_CODE"))
-			   ,IV_P_ADVANCE_ACC_CODE    : gfnma_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"))
+			   ,V_P_TXN_STOP_DATE        : gfn_nvl(SBUxMethod.get("TXN_STOP_DATE"))
+			   ,V_P_BANKRUPTCY_YN        : gfn_nvl(SBUxMethod.get("BANKRUPTCY_YN").BANKRUPTCY_YN)
+			   ,IV_P_PREPAY_ACC_CODE     : gfn_nvl(SBUxMethod.get("PREPAY_ACC_CODE"))
+			   ,IV_P_ADVANCE_ACC_CODE    : gfn_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"))
 			   ,V_P_DELIVERY_TYPE        : gfnma_multiSelectGet("#DELIVERY_TYPE")
 			   ,V_P_PAY_DATE_RULE        : gfnma_multiSelectGet("#PAY_DATE_RULE")
 			   ,V_P_SHIPPING_TYPE        : gfnma_multiSelectGet("#SHIPPING_TYPE")
 			   ,V_P_TRANSPORT_ROUTE      : gfnma_multiSelectGet("#TRANSPORT_ROUTE")
-			   ,V_P_EMAIL_ID             : gfnma_nvl(SBUxMethod.get("EMAIL_ID"))
+			   ,V_P_EMAIL_ID             : gfn_nvl(SBUxMethod.get("EMAIL_ID"))
 			   ,V_P_RECEIPT_DATE_RULE    : gfnma_multiSelectGet("#RECEIPT_DATE_RULE")
 			   ,V_P_DEFER_REASON         : gfnma_multiSelectGet("#DEFER_REASON")
 			   ,V_P_PUR_HANDOV_CNDT_CD   : gfnma_multiSelectGet("#PUR_HANDOV_CNDT_CD")
-			   ,IV_P_AP_ACC_CODE_FOREIGN : gfnma_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"))
-			   ,IV_P_AR_ACC_CODE_FOREIGN : gfnma_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"))
-			   ,V_P_AP_CLR_ACC           : gfnma_nvl(SBUxMethod.get("AP_CLR_ACC"))
-			   ,V_P_EXPECTED_CUSTOMER_YN : gfnma_nvl(SBUxMethod.get("EXPECTED_CUSTOMER_YN").EXPECTED_CUSTOMER_YN)
-			   ,V_P_WITHHOLD_TAX_YN      : gfnma_nvl(SBUxMethod.get("WITHHOLD_TAX_YN").WITHHOLD_TAX_YN)
+			   ,IV_P_AP_ACC_CODE_FOREIGN : gfn_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"))
+			   ,IV_P_AR_ACC_CODE_FOREIGN : gfn_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"))
+			   ,V_P_AP_CLR_ACC           : gfn_nvl(SBUxMethod.get("AP_CLR_ACC"))
+			   ,V_P_EXPECTED_CUSTOMER_YN : gfn_nvl(SBUxMethod.get("EXPECTED_CUSTOMER_YN").EXPECTED_CUSTOMER_YN)
+			   ,V_P_WITHHOLD_TAX_YN      : gfn_nvl(SBUxMethod.get("WITHHOLD_TAX_YN").WITHHOLD_TAX_YN)
 			   ,V_P_WITHHOLD_TAX_OFFICE  : gfnma_multiSelectGet("#WITHHOLD_TAX_OFFICE")
 			   ,V_P_WITHHOLD_TAX_OFFICE2 : gfnma_multiSelectGet("#WITHHOLD_TAX_OFFICE2")
 			   ,V_P_WITHHOLD_TAX_TYPE    : gfnma_multiSelectGet("#WITHHOLD_TAX_TYPE")
 			   ,V_P_TAX_CODE             : gfnma_multiSelectGet("#TAX_CODE")
-			   ,V_P_TAX_SEND             : gfnma_nvl(SBUxMethod.get("TAX_SEND").TAX_SEND)
-			   ,V_P_INTERNAL_PAY_RULE_YN : gfnma_nvl(SBUxMethod.get("INTERNAL_PAY_RULE_YN").INTERNAL_PAY_RULE_YN)
+			   ,V_P_TAX_SEND             : gfn_nvl(SBUxMethod.get("TAX_SEND").TAX_SEND)
+			   ,V_P_INTERNAL_PAY_RULE_YN : gfn_nvl(SBUxMethod.get("INTERNAL_PAY_RULE_YN").INTERNAL_PAY_RULE_YN)
 			   ,V_P_LOAN_LIMIT_DAY       : 0
 			   ,V_P_CREDIT_LIMIT_DAY     : 0
 			   ,V_P_BILL_LIMIT_DAY       : 0
-			   ,V_P_SALES_TAX_SEND       : gfnma_nvl(SBUxMethod.get("SALES_TAX_SEND").SALES_TAX_SEND)
-			   ,V_P_SAP_CUSTOMER_CODE    : gfnma_nvl(SBUxMethod.get("SAP_CUSTOMER_CODE"))
-			   ,V_P_SAP_VENDOR_CODE      : gfnma_nvl(SBUxMethod.get("SAP_VENDOR_CODE"))
-			   ,V_P_RCPT_CHK_RANGE       : gfnma_nvl(SBUxMethod.get("RCPT_CHK_RANGE"))
-			   ,V_P_STEEL_SCRAP_PAY_YN   : gfnma_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN").STEEL_SCRAP_PAY_YN)
-			   ,V_P_RESULT1              : gfnma_nvl(SBUxMethod.get("RESULT1"))
+			   ,V_P_SALES_TAX_SEND       : gfn_nvl(SBUxMethod.get("SALES_TAX_SEND").SALES_TAX_SEND)
+			   ,V_P_SAP_CUSTOMER_CODE    : gfn_nvl(SBUxMethod.get("SAP_CUSTOMER_CODE"))
+			   ,V_P_SAP_VENDOR_CODE      : gfn_nvl(SBUxMethod.get("SAP_VENDOR_CODE"))
+			   ,V_P_RCPT_CHK_RANGE       : gfn_nvl(SBUxMethod.get("RCPT_CHK_RANGE"))
+			   ,V_P_STEEL_SCRAP_PAY_YN   : gfn_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN").STEEL_SCRAP_PAY_YN)
+			   ,V_P_RESULT1              : gfn_nvl(SBUxMethod.get("RESULT1"))
 			   ,V_P_VAT_ISSUE_COND       : gfnma_multiSelectGet("#VAT_ISSUE_COND")
 			   ,V_P_SLIP_CLS       		 : gfnma_multiSelectGet("#SLIP_CLS")
 			   ,V_P_CS_CATEGORY          : gfnma_multiSelectGet("#CS_CATEGORY")
@@ -3560,86 +3564,86 @@ console.log('fn_delete data => ' , data);
    			   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
    			   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 			   ///////////////////////////////////////////////////////////////////////////
-			   ,IV_P_CS_CODE             : gfnma_nvl(SBUxMethod.get("CS_CODE"))
-			   ,V_P_CS_NAME              : gfnma_nvl(SBUxMethod.get("CS_NAME"))
-			   ,V_P_CS_FULLNAME          : gfnma_nvl(SBUxMethod.get("CS_FULLNAME"))
-			   ,V_P_CS_ABBR_NAME         : gfnma_nvl(SBUxMethod.get("CS_ABBR_NAME"))
-			   ,V_P_CS_NAME_ENG          : gfnma_nvl(SBUxMethod.get("CS_NAME_ENG"))
+			   ,IV_P_CS_CODE             : gfn_nvl(SBUxMethod.get("CS_CODE"))
+			   ,V_P_CS_NAME              : gfn_nvl(SBUxMethod.get("CS_NAME"))
+			   ,V_P_CS_FULLNAME          : gfn_nvl(SBUxMethod.get("CS_FULLNAME"))
+			   ,V_P_CS_ABBR_NAME         : gfn_nvl(SBUxMethod.get("CS_ABBR_NAME"))
+			   ,V_P_CS_NAME_ENG          : gfn_nvl(SBUxMethod.get("CS_NAME_ENG"))
 			   ,V_P_CS_GROUP             : gfnma_multiSelectGet("#CS_GROUP")
-			   ,V_P_BANK_NO              : gfnma_nvl(SBUxMethod.get("BANK_NO"))
-			   ,IV_P_FOREIGN_YN          : gfnma_nvl(SBUxMethod.get("FOREIGN_YN").FOREIGN_YN)
+			   ,V_P_BANK_NO              : gfn_nvl(SBUxMethod.get("BANK_NO"))
+			   ,IV_P_FOREIGN_YN          : gfn_nvl(SBUxMethod.get("FOREIGN_YN").FOREIGN_YN)
 			   ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE")
 			   ,V_P_REGION_CODE          : gfnma_multiSelectGet("#REGION_CODE")
-			   ,V_P_BIZ_REGNO            : gfnma_nvl(SBUxMethod.get("BIZ_REGNO")).replaceAll('-', '')
+			   ,V_P_BIZ_REGNO            : gfn_nvl(SBUxMethod.get("BIZ_REGNO")).replaceAll('-', '')
 			   ,V_P_TAX_TYPE             : gfnma_multiSelectGet("#TAX_TYPE")
 			   ,V_P_COM_TYPE             : gfnma_multiSelectGet("#COM_TYPE")
-			   ,V_P_BIZ_TYPE             : gfnma_nvl(SBUxMethod.get("BIZ_TYPE"))
-			   ,V_P_COMP_REGNO           : gfnma_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
-			   ,V_P_CHIEF_NAME           : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-			   ,V_P_CHIEF_SOCIALNO       : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
-			   ,V_P_RESIDENT_YN          : gfnma_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
-			   ,V_P_BIZ_CATEGORY         : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
-			   ,V_P_BIZ_ITEMS            : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
-			   ,V_P_PURCHASE_YN          : gfnma_nvl(SBUxMethod.get("PURCHASE_YN").PURCHASE_YN)
-			   ,V_P_SALE_YN              : gfnma_nvl(SBUxMethod.get("SALE_YN").SALE_YN)
-			   ,V_P_TRANSPORT_YN         : gfnma_nvl(SBUxMethod.get("TRANSPORT_YN").TRANSPORT_YN)
-			   ,V_P_CARGO_YN             : gfnma_nvl(SBUxMethod.get("CARGO_YN").CARGO_YN)
-			   ,V_P_SHIPPING_YN          : gfnma_nvl(SBUxMethod.get("SHIPPING_YN").SHIPPING_YN)
+			   ,V_P_BIZ_TYPE             : gfn_nvl(SBUxMethod.get("BIZ_TYPE"))
+			   ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
+			   ,V_P_CHIEF_NAME           : gfn_nvl(SBUxMethod.get("CHIEF_NAME"))
+			   ,V_P_CHIEF_SOCIALNO       : gfn_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
+			   ,V_P_RESIDENT_YN          : gfn_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
+			   ,V_P_BIZ_CATEGORY         : gfn_nvl(SBUxMethod.get("BIZ_CATEGORY"))
+			   ,V_P_BIZ_ITEMS            : gfn_nvl(SBUxMethod.get("BIZ_ITEMS"))
+			   ,V_P_PURCHASE_YN          : gfn_nvl(SBUxMethod.get("PURCHASE_YN").PURCHASE_YN)
+			   ,V_P_SALE_YN              : gfn_nvl(SBUxMethod.get("SALE_YN").SALE_YN)
+			   ,V_P_TRANSPORT_YN         : gfn_nvl(SBUxMethod.get("TRANSPORT_YN").TRANSPORT_YN)
+			   ,V_P_CARGO_YN             : gfn_nvl(SBUxMethod.get("CARGO_YN").CARGO_YN)
+			   ,V_P_SHIPPING_YN          : gfn_nvl(SBUxMethod.get("SHIPPING_YN").SHIPPING_YN)
 			   ,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
-			   ,V_P_SUB_NO               : gfnma_nvl(SBUxMethod.get("SUB_NO"))
-			   ,V_P_USE_YN               : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-			   ,V_P_LIQUOR_YN            : gfnma_nvl(SBUxMethod.get("LIQUOR_YN").LIQUOR_YN)
-			   ,V_P_OSP_YN               : gfnma_nvl(SBUxMethod.get("OSP_YN").OSP_YN)
-			   ,V_P_OSP_YN1              : gfnma_nvl(SBUxMethod.get("OSP_YN1").OSP_YN1)
-			   ,V_P_OSP_YN2              : gfnma_nvl(SBUxMethod.get("OSP_YN2").OSP_YN2)
-			   ,V_P_OSP_YN3              : gfnma_nvl(SBUxMethod.get("OSP_YN3").OSP_YN3)
-			   ,V_P_REF_CS_CODE          : gfnma_nvl(SBUxMethod.get("REF_CS_CODE"))
-			   ,V_P_ZIP_CODE             : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-			   ,V_P_ADDRESS              : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-			   ,V_P_TEL                  : gfnma_nvl(SBUxMethod.get("TEL"))
-			   ,V_P_FAX                  : gfnma_nvl(SBUxMethod.get("FAX"))
-			   ,V_P_WEB_URL              : gfnma_nvl(SBUxMethod.get("WEB_URL"))
-			   ,V_P_START_DATE           : gfnma_nvl(SBUxMethod.get("START_DATE"))
-			   ,V_P_END_DATE             : gfnma_nvl(SBUxMethod.get("END_DATE"))
-			   ,V_P_MEMO                 : gfnma_nvl(SBUxMethod.get("MEMO"))
-			   ,V_P_DEFER_YN             : gfnma_nvl(SBUxMethod.get("DEFER_YN").DEFER_YN)
-			   ,IV_P_AP_ACC_CODE         : gfnma_nvl(SBUxMethod.get("AP_ACC_CODE"))
-			   ,IV_P_AR_ACC_CODE         : gfnma_nvl(SBUxMethod.get("AR_ACC_CODE"))
-			   ,V_P_EMP_CODE             : gfnma_nvl(SBUxMethod.get("EMP_CODE"))
-			   ,V_P_TXN_STOP_YN          : gfnma_nvl(SBUxMethod.get("TXN_STOP_YN").TXN_STOP_YN)
+			   ,V_P_SUB_NO               : gfn_nvl(SBUxMethod.get("SUB_NO"))
+			   ,V_P_USE_YN               : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
+			   ,V_P_LIQUOR_YN            : gfn_nvl(SBUxMethod.get("LIQUOR_YN").LIQUOR_YN)
+			   ,V_P_OSP_YN               : gfn_nvl(SBUxMethod.get("OSP_YN").OSP_YN)
+			   ,V_P_OSP_YN1              : gfn_nvl(SBUxMethod.get("OSP_YN1").OSP_YN1)
+			   ,V_P_OSP_YN2              : gfn_nvl(SBUxMethod.get("OSP_YN2").OSP_YN2)
+			   ,V_P_OSP_YN3              : gfn_nvl(SBUxMethod.get("OSP_YN3").OSP_YN3)
+			   ,V_P_REF_CS_CODE          : gfn_nvl(SBUxMethod.get("REF_CS_CODE"))
+			   ,V_P_ZIP_CODE             : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
+			   ,V_P_ADDRESS              : gfn_nvl(SBUxMethod.get("ADDRESS"))
+			   ,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
+			   ,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
+			   ,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
+			   ,V_P_START_DATE           : gfn_nvl(SBUxMethod.get("START_DATE"))
+			   ,V_P_END_DATE             : gfn_nvl(SBUxMethod.get("END_DATE"))
+			   ,V_P_MEMO                 : gfn_nvl(SBUxMethod.get("MEMO"))
+			   ,V_P_DEFER_YN             : gfn_nvl(SBUxMethod.get("DEFER_YN").DEFER_YN)
+			   ,IV_P_AP_ACC_CODE         : gfn_nvl(SBUxMethod.get("AP_ACC_CODE"))
+			   ,IV_P_AR_ACC_CODE         : gfn_nvl(SBUxMethod.get("AR_ACC_CODE"))
+			   ,V_P_EMP_CODE             : gfn_nvl(SBUxMethod.get("EMP_CODE"))
+			   ,V_P_TXN_STOP_YN          : gfn_nvl(SBUxMethod.get("TXN_STOP_YN").TXN_STOP_YN)
 			   ,V_P_TXN_STOP_REASON      : gfnma_multiSelectGet("#TXN_STOP_REASON")
-			   ,V_P_TXN_STOP_DATE        : gfnma_nvl(SBUxMethod.get("TXN_STOP_DATE"))
-			   ,V_P_BANKRUPTCY_YN        : gfnma_nvl(SBUxMethod.get("BANKRUPTCY_YN").BANKRUPTCY_YN)
-			   ,IV_P_PREPAY_ACC_CODE     : gfnma_nvl(SBUxMethod.get("PREPAY_ACC_CODE"))
-			   ,IV_P_ADVANCE_ACC_CODE    : gfnma_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"))
+			   ,V_P_TXN_STOP_DATE        : gfn_nvl(SBUxMethod.get("TXN_STOP_DATE"))
+			   ,V_P_BANKRUPTCY_YN        : gfn_nvl(SBUxMethod.get("BANKRUPTCY_YN").BANKRUPTCY_YN)
+			   ,IV_P_PREPAY_ACC_CODE     : gfn_nvl(SBUxMethod.get("PREPAY_ACC_CODE"))
+			   ,IV_P_ADVANCE_ACC_CODE    : gfn_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"))
 			   ,V_P_DELIVERY_TYPE        : gfnma_multiSelectGet("#DELIVERY_TYPE")
 			   ,V_P_PAY_DATE_RULE        : gfnma_multiSelectGet("#PAY_DATE_RULE")
 			   ,V_P_SHIPPING_TYPE        : gfnma_multiSelectGet("#SHIPPING_TYPE")
 			   ,V_P_TRANSPORT_ROUTE      : gfnma_multiSelectGet("#TRANSPORT_ROUTE")
-			   ,V_P_EMAIL_ID             : gfnma_nvl(SBUxMethod.get("EMAIL_ID"))
+			   ,V_P_EMAIL_ID             : gfn_nvl(SBUxMethod.get("EMAIL_ID"))
 			   ,V_P_RECEIPT_DATE_RULE    : gfnma_multiSelectGet("#RECEIPT_DATE_RULE")
 			   ,V_P_DEFER_REASON         : gfnma_multiSelectGet("#DEFER_REASON")
 			   ,V_P_PUR_HANDOV_CNDT_CD   : gfnma_multiSelectGet("#PUR_HANDOV_CNDT_CD")
-			   ,IV_P_AP_ACC_CODE_FOREIGN : gfnma_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"))
-			   ,IV_P_AR_ACC_CODE_FOREIGN : gfnma_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"))
-			   ,V_P_AP_CLR_ACC           : gfnma_nvl(SBUxMethod.get("AP_CLR_ACC"))
-			   ,V_P_EXPECTED_CUSTOMER_YN : gfnma_nvl(SBUxMethod.get("EXPECTED_CUSTOMER_YN").EXPECTED_CUSTOMER_YN)
-			   ,V_P_WITHHOLD_TAX_YN      : gfnma_nvl(SBUxMethod.get("WITHHOLD_TAX_YN").WITHHOLD_TAX_YN)
+			   ,IV_P_AP_ACC_CODE_FOREIGN : gfn_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"))
+			   ,IV_P_AR_ACC_CODE_FOREIGN : gfn_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"))
+			   ,V_P_AP_CLR_ACC           : gfn_nvl(SBUxMethod.get("AP_CLR_ACC"))
+			   ,V_P_EXPECTED_CUSTOMER_YN : gfn_nvl(SBUxMethod.get("EXPECTED_CUSTOMER_YN").EXPECTED_CUSTOMER_YN)
+			   ,V_P_WITHHOLD_TAX_YN      : gfn_nvl(SBUxMethod.get("WITHHOLD_TAX_YN").WITHHOLD_TAX_YN)
 			   ,V_P_WITHHOLD_TAX_OFFICE  : gfnma_multiSelectGet("#WITHHOLD_TAX_OFFICE")
 			   ,V_P_WITHHOLD_TAX_OFFICE2 : gfnma_multiSelectGet("#WITHHOLD_TAX_OFFICE2")
 			   ,V_P_WITHHOLD_TAX_TYPE    : gfnma_multiSelectGet("#WITHHOLD_TAX_TYPE")
 			   ,V_P_TAX_CODE             : gfnma_multiSelectGet("#TAX_CODE")
-			   ,V_P_TAX_SEND             : gfnma_nvl(SBUxMethod.get("TAX_SEND").TAX_SEND)
-			   ,V_P_INTERNAL_PAY_RULE_YN : gfnma_nvl(SBUxMethod.get("INTERNAL_PAY_RULE_YN").INTERNAL_PAY_RULE_YN)
+			   ,V_P_TAX_SEND             : gfn_nvl(SBUxMethod.get("TAX_SEND").TAX_SEND)
+			   ,V_P_INTERNAL_PAY_RULE_YN : gfn_nvl(SBUxMethod.get("INTERNAL_PAY_RULE_YN").INTERNAL_PAY_RULE_YN)
 			   ,V_P_LOAN_LIMIT_DAY       : 0
 			   ,V_P_CREDIT_LIMIT_DAY     : 0
 			   ,V_P_BILL_LIMIT_DAY       : 0
-			   ,V_P_SALES_TAX_SEND       : gfnma_nvl(SBUxMethod.get("SALES_TAX_SEND").SALES_TAX_SEND)
-			   ,V_P_SAP_CUSTOMER_CODE    : gfnma_nvl(SBUxMethod.get("SAP_CUSTOMER_CODE"))
-			   ,V_P_SAP_VENDOR_CODE      : gfnma_nvl(SBUxMethod.get("SAP_VENDOR_CODE"))
-			   ,V_P_RCPT_CHK_RANGE       : gfnma_nvl(SBUxMethod.get("RCPT_CHK_RANGE"))
-			   ,V_P_STEEL_SCRAP_PAY_YN   : gfnma_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN").STEEL_SCRAP_PAY_YN)
-			   ,V_P_RESULT1              : gfnma_nvl(SBUxMethod.get("RESULT1"))
+			   ,V_P_SALES_TAX_SEND       : gfn_nvl(SBUxMethod.get("SALES_TAX_SEND").SALES_TAX_SEND)
+			   ,V_P_SAP_CUSTOMER_CODE    : gfn_nvl(SBUxMethod.get("SAP_CUSTOMER_CODE"))
+			   ,V_P_SAP_VENDOR_CODE      : gfn_nvl(SBUxMethod.get("SAP_VENDOR_CODE"))
+			   ,V_P_RCPT_CHK_RANGE       : gfn_nvl(SBUxMethod.get("RCPT_CHK_RANGE"))
+			   ,V_P_STEEL_SCRAP_PAY_YN   : gfn_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN").STEEL_SCRAP_PAY_YN)
+			   ,V_P_RESULT1              : gfn_nvl(SBUxMethod.get("RESULT1"))
 			   ,V_P_VAT_ISSUE_COND       : gfnma_multiSelectGet("#VAT_ISSUE_COND")
 			   ,V_P_SLIP_CLS       		 : gfnma_multiSelectGet("#SLIP_CLS")
 			   ,V_P_CS_CATEGORY          : gfnma_multiSelectGet("#CS_CATEGORY")
@@ -3716,9 +3720,9 @@ console.log('data fn_emp_Q =>', data);
 	       		strBankCode_d 		= "";
 	       		strBankAccount_d 	= "";
 	    	   	data.cv_1.forEach((item, index) => {
-	                strEmpCode_d 		+= gfnma_nvl(item.EMP_CODE) + "|";
-	                strBankCode_d 		+= gfnma_nvl(item.BANK_CODE) + "|";
-	                strBankAccount_d	+= gfnma_nvl(item.BANK_ACCOUNT) + "|"; 
+	                strEmpCode_d 		+= gfn_nvl(item.EMP_CODE) + "|";
+	                strBankCode_d 		+= gfn_nvl(item.BANK_CODE) + "|";
+	                strBankAccount_d	+= gfn_nvl(item.BANK_ACCOUNT) + "|"; 
 	    	   	});
 	    	   	strEmpCode_d 		= strEmpCode_d.substring(0, strEmpCode_d.length -1);
 	    	   	strBankCode_d 		= strBankCode_d.substring(0, strBankCode_d.length -1);
@@ -3783,8 +3787,8 @@ console.log('data fn_emp_S =>', data);
 	 * 상위거래처 공통팝업
 	 */
     var fn_compopupBank = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('BANK_NO_H'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("BANK_NAME_H"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get('BANK_NO_H'));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME_H"));
         var replaceText0 	= "_SUB_CODE_";
         var replaceText1 	= "_CODE_NAME_";
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
@@ -3816,8 +3820,8 @@ console.log('data fn_emp_S =>', data);
 	 * 상위거래처 공통팝업
 	 */
     var fn_compopupParent = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
+        var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
@@ -3850,8 +3854,8 @@ console.log('data fn_emp_S =>', data);
      */
     var fn_compopupDept = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
         var searchText3 	= gfnma_date4();
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
@@ -3882,8 +3886,8 @@ console.log('data fn_emp_S =>', data);
      */
     var fn_compopupSite = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("SITE_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("SITE_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("SITE_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("SITE_NAME"));
         var replaceText0 	= "_SITE_CODE_";
         var replaceText1 	= "_SITE_NAME_";
         var strWhereClause 	= "AND AA.SITE_CODE LIKE '%" + replaceText0 + "%' AND AA.SITE_NAME LIKE '%" + replaceText1 + "%' ";
@@ -3916,8 +3920,8 @@ console.log('data fn_emp_S =>', data);
      */
     var fn_compopupTrans = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
@@ -3949,8 +3953,8 @@ console.log('data fn_emp_S =>', data);
      */
     var fn_compopupLeader = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("COST_CENTER_LEADER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("COST_CENTER_LEADER_NAME"));
         var param		 	= [null];
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
@@ -3981,8 +3985,8 @@ console.log('data fn_emp_S =>', data);
      */
     var fn_compopupBudget = function() {
     	
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
@@ -4134,7 +4138,7 @@ console.log('data fn_emp_S =>', data);
     
     
     var fn_compopupEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("EMP_CODE"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -4173,26 +4177,26 @@ console.log('data fn_emp_S =>', data);
         var searchText1		= "";
         
         if(type == 'AP_ACC' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("AP_ACC_CODE"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("AP_ACC_NAME"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("AP_ACC_CODE"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("AP_ACC_NAME"));
         }else if(type == 'AP_CLR' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("AP_CLR_ACC"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("AP_CLR_NAME"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("AP_CLR_ACC"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("AP_CLR_NAME"));
         }else if(type == 'FOREIGN' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("AP_ACC_NAME_FOREIGN"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("AP_ACC_CODE_FOREIGN"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("AP_ACC_NAME_FOREIGN"));
         }else if(type == 'PREPAY' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("PREPAY_ACC_CODE"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("PREPAY_ACC_NAME"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("PREPAY_ACC_CODE"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("PREPAY_ACC_NAME"));
         }else if(type == 'AR_ACC' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("AR_ACC_CODE"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("AR_ACC_NAME"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("AR_ACC_CODE"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("AR_ACC_NAME"));
         }else if(type == 'AR_ACC_FOREIGN' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("AR_ACC_NAME_FOREIGN"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("AR_ACC_CODE_FOREIGN"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("AR_ACC_NAME_FOREIGN"));
         }else if(type == 'ADVANCE_ACC' ){
-        	searchText0 = gfnma_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"));
-        	searchText1 = gfnma_nvl(SBUxMethod.get("ADVANCE_ACC_NAME"));
+        	searchText0 = gfn_nvl(SBUxMethod.get("ADVANCE_ACC_CODE"));
+        	searchText1 = gfn_nvl(SBUxMethod.get("ADVANCE_ACC_NAME"));
         }
         
         var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
@@ -4216,26 +4220,26 @@ console.log('data fn_emp_S =>', data);
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
 		        if(type == 'AP_ACC' ){
-					SBUxMethod.set("AP_ACC_CODE", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("AP_ACC_NAME", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("AP_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("AP_ACC_NAME", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'AP_CLR' ){
-					SBUxMethod.set("AP_CLR_ACC", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("AP_CLR_ACC_NAME", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("AP_CLR_ACC", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("AP_CLR_ACC_NAME", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'FOREIGN' ){
-					SBUxMethod.set("AP_ACC_CODE_FOREIGN", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("AP_ACC_NAME_FOREIGN", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("AP_ACC_CODE_FOREIGN", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("AP_ACC_NAME_FOREIGN", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'PREPAY' ){
-					SBUxMethod.set("PREPAY_ACC_CODE", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("PREPAY_ACC_NAME", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("PREPAY_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("PREPAY_ACC_NAME", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'AR_ACC' ){
-					SBUxMethod.set("AR_ACC_CODE", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("AR_ACC_NAME", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("AR_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("AR_ACC_NAME", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'AR_ACC_FOREIGN' ){
-					SBUxMethod.set("AR_ACC_CODE_FOREIGN", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("AR_ACC_NAME_FOREIGN", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("AR_ACC_CODE_FOREIGN", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("AR_ACC_NAME_FOREIGN", gfn_nvl(data.ACCOUNT_NAME));
 		        }else if(type == 'ADVANCE_ACC' ){
-					SBUxMethod.set("ADVANCE_ACC_CODE", gfnma_nvl(data.ACCOUNT_CODE));
-					SBUxMethod.set("ADVANCE_ACC_NAME", gfnma_nvl(data.ACCOUNT_NAME));
+					SBUxMethod.set("ADVANCE_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
+					SBUxMethod.set("ADVANCE_ACC_NAME", gfn_nvl(data.ACCOUNT_NAME));
 		        }
 			}
     	});
@@ -4308,11 +4312,11 @@ console.log('data fn_emp_S =>', data);
         let financeGridRowData = financeGrid.getRowData(financeGridRowVal);
         let fbsService				= "";
         let socialNum 				= "";
-        let payerBankCode			= gfnma_nvl(financeGridRowData.BANK_CODE);
-        let payerBankAccount		= gfnma_nvl(financeGridRowData.BANK_ACCOUNT_NO);
-        let payerBankAccountOwner	= gfnma_nvl(financeGridRowData.BANK_ACCOUNT_OWNER);
-        let currencyCode 			= gfnma_nvl(financeGridRowData.CURRENCY_CODE);
-        let fbsNo 					= gfnma_nvl(financeGridRowData.SEQ);
+        let payerBankCode			= gfn_nvl(financeGridRowData.BANK_CODE);
+        let payerBankAccount		= gfn_nvl(financeGridRowData.BANK_ACCOUNT_NO);
+        let payerBankAccountOwner	= gfn_nvl(financeGridRowData.BANK_ACCOUNT_OWNER);
+        let currencyCode 			= gfn_nvl(financeGridRowData.CURRENCY_CODE);
+        let fbsNo 					= gfn_nvl(financeGridRowData.SEQ);
 
         if(currencyCode == 'KRW'){
         	fbsService = 'ECBANK';
@@ -4489,12 +4493,12 @@ console.log('fn_confirm masterGridChkRow =>', masterGridChkRow);
                		,V_P_LANG_ID            : ''
                		,V_P_COMP_CODE          : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-               		,IV_P_CS_CODE           : gfnma_nvl(item.data.CS_CODE)
+               		,IV_P_CS_CODE           : gfn_nvl(item.data.CS_CODE)
                		,V_P_DEFER_YN           : ''
                		,V_P_DEFER_REASON       : ''
-               		,V_P_TXN_STOP_YN        : gfnma_nvl(item.data.TXN_STOP_YN)
+               		,V_P_TXN_STOP_YN        : gfn_nvl(item.data.TXN_STOP_YN)
                		,V_P_TXN_STOP_REASON    : ''
-               		,V_P_USE_YN             : gfnma_nvl(item.data.USE_YN)
+               		,V_P_USE_YN             : gfn_nvl(item.data.USE_YN)
                		,V_P_FORM_ID            : p_formId
                		,V_P_MENU_ID            : p_menuId
                		,V_P_PROC_ID            : ''
@@ -4554,12 +4558,12 @@ console.log('fn_unconfirm masterGridChkRow =>', masterGridChkRow);
                		,V_P_LANG_ID            : ''
                		,V_P_COMP_CODE          : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-               		,IV_P_CS_CODE           : gfnma_nvl(item.data.CS_CODE)
+               		,IV_P_CS_CODE           : gfn_nvl(item.data.CS_CODE)
                		,V_P_DEFER_YN           : ''
                		,V_P_DEFER_REASON       : ''
-               		,V_P_TXN_STOP_YN        : gfnma_nvl(item.data.TXN_STOP_YN)
+               		,V_P_TXN_STOP_YN        : gfn_nvl(item.data.TXN_STOP_YN)
                		,V_P_TXN_STOP_REASON    : ''
-               		,V_P_USE_YN             : gfnma_nvl(item.data.USE_YN)
+               		,V_P_USE_YN             : gfn_nvl(item.data.USE_YN)
                		,V_P_FORM_ID            : p_formId
                		,V_P_MENU_ID            : p_menuId
                		,V_P_PROC_ID            : ''
@@ -4609,14 +4613,14 @@ console.log('fn_save_S3 historyGridUpdateData =>', historyGridUpdateData);
                		,V_P_LANG_ID            : ''
                		,V_P_COMP_CODE          : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-               		,V_P_CS_CODE           	: gfnma_nvl(SBUxMethod.get('CS_CODE'))
-               		,V_P_START_DATE         : gfnma_nvl(item.data.START_DATE).replaceAll('-', '')
-               		,V_P_END_DATE       	: gfnma_nvl(item.data.END_DATE).replaceAll('-', '')
-               		,V_P_CS_NAME        	: gfnma_nvl(item.data.CS_NAME)
-               		,V_P_BIZ_REGNO    		: gfnma_nvl(item.data.BIZ_REGNO)
-               		,V_P_BIZ_CATEGORY       : gfnma_nvl(item.data.BIZ_CATEGORY)
-               		,V_P_BIZ_ITEMS          : gfnma_nvl(item.data.BIZ_ITEMS)
-               		,V_P_CHIEF_NAME         : gfnma_nvl(item.data.CHIEF_NAME)
+               		,V_P_CS_CODE           	: gfn_nvl(SBUxMethod.get('CS_CODE'))
+               		,V_P_START_DATE         : gfn_nvl(item.data.START_DATE).replaceAll('-', '')
+               		,V_P_END_DATE       	: gfn_nvl(item.data.END_DATE).replaceAll('-', '')
+               		,V_P_CS_NAME        	: gfn_nvl(item.data.CS_NAME)
+               		,V_P_BIZ_REGNO    		: gfn_nvl(item.data.BIZ_REGNO)
+               		,V_P_BIZ_CATEGORY       : gfn_nvl(item.data.BIZ_CATEGORY)
+               		,V_P_BIZ_ITEMS          : gfn_nvl(item.data.BIZ_ITEMS)
+               		,V_P_CHIEF_NAME         : gfn_nvl(item.data.CHIEF_NAME)
                		,V_P_FORM_ID            : p_formId
                		,V_P_MENU_ID            : p_menuId
                		,V_P_PROC_ID            : ''
@@ -4668,25 +4672,25 @@ console.log('fn_save_S4 financeGridUpdateData =>', financeGridUpdateData);
                		,V_P_LANG_ID            : ''
                		,V_P_COMP_CODE          : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-				    ,V_P_CS_CODE            : gfnma_nvl(SBUxMethod.get('CS_CODE'))
-				    ,V_P_MAIN_FLAG          : gfnma_nvl(item.data.MAIN_FLAG)
-				    ,V_P_SEQ                : gfnma_nvl(item.data.SEQ)
-				    ,V_P_BANK_CODE          : gfnma_nvl(item.data.BANK_CODE)
-				    ,V_P_BANK_ACCOUNT_NO    : gfnma_nvl(item.data.BANK_ACCOUNT_NO)
-				    ,V_P_BANK_ACCOUNT_OWNER : gfnma_nvl(item.data.BANK_ACCOUNT_OWNER)
-				    ,V_P_NOTE_TYPE          : gfnma_nvl(item.data.NOTE_TYPE)
-				    ,V_P_BTB_CODE           : gfnma_nvl(item.data.BTB_CODE)
-				    ,V_P_CMS_CODE           : gfnma_nvl(item.data.CMS_CODE)
-				    ,V_P_PAYER_SWIFT_BIC    : gfnma_nvl(item.data.PAYER_SWIFT_BIC)
-				    ,V_P_PAYER_BANK_INFO    : gfnma_nvl(item.data.PAYER_BANK_INFO)
-				    ,V_P_PAY_REASON    	    : gfnma_nvl(item.data.PAY_REASON)
-				    ,V_P_SEND_REASON    	: gfnma_nvl(item.data.SEND_REASON)
-				    ,V_P_FEE_CHARGER    	: gfnma_nvl(item.data.FEE_CHARGER)
-				    ,V_P_VAT_ACCOUNT_YN     : gfnma_nvl(item.data.VAT_ACCOUNT_YN)
-				    ,V_P_DESCRIPTION        : gfnma_nvl(item.data.DESCRIPTION)
-				    ,V_P_EFFECT_START_DATE  : gfnma_nvl(item.data.EFFECT_START_DATE).replaceAll('-', '')
-				    ,V_P_EFFECT_END_DATE    : gfnma_nvl(item.data.EFFECT_END_DATE).replaceAll('-', '')
-				    ,V_P_CURRENCY_CODE	   	: gfnma_nvl(item.data.CURRENCY_CODE)
+				    ,V_P_CS_CODE            : gfn_nvl(SBUxMethod.get('CS_CODE'))
+				    ,V_P_MAIN_FLAG          : gfn_nvl(item.data.MAIN_FLAG)
+				    ,V_P_SEQ                : gfn_nvl(item.data.SEQ)
+				    ,V_P_BANK_CODE          : gfn_nvl(item.data.BANK_CODE)
+				    ,V_P_BANK_ACCOUNT_NO    : gfn_nvl(item.data.BANK_ACCOUNT_NO)
+				    ,V_P_BANK_ACCOUNT_OWNER : gfn_nvl(item.data.BANK_ACCOUNT_OWNER)
+				    ,V_P_NOTE_TYPE          : gfn_nvl(item.data.NOTE_TYPE)
+				    ,V_P_BTB_CODE           : gfn_nvl(item.data.BTB_CODE)
+				    ,V_P_CMS_CODE           : gfn_nvl(item.data.CMS_CODE)
+				    ,V_P_PAYER_SWIFT_BIC    : gfn_nvl(item.data.PAYER_SWIFT_BIC)
+				    ,V_P_PAYER_BANK_INFO    : gfn_nvl(item.data.PAYER_BANK_INFO)
+				    ,V_P_PAY_REASON    	    : gfn_nvl(item.data.PAY_REASON)
+				    ,V_P_SEND_REASON    	: gfn_nvl(item.data.SEND_REASON)
+				    ,V_P_FEE_CHARGER    	: gfn_nvl(item.data.FEE_CHARGER)
+				    ,V_P_VAT_ACCOUNT_YN     : gfn_nvl(item.data.VAT_ACCOUNT_YN)
+				    ,V_P_DESCRIPTION        : gfn_nvl(item.data.DESCRIPTION)
+				    ,V_P_EFFECT_START_DATE  : gfn_nvl(item.data.EFFECT_START_DATE).replaceAll('-', '')
+				    ,V_P_EFFECT_END_DATE    : gfn_nvl(item.data.EFFECT_END_DATE).replaceAll('-', '')
+				    ,V_P_CURRENCY_CODE	   	: gfn_nvl(item.data.CURRENCY_CODE)
                		,V_P_FORM_ID            : p_formId
                		,V_P_MENU_ID            : p_menuId
                		,V_P_PROC_ID            : ''
@@ -4738,15 +4742,15 @@ console.log('fn_save_S5 purchaseGridUpdateData =>', purchaseGridUpdateData);
                		,V_P_LANG_ID            : ''
                		,V_P_COMP_CODE          : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-				    ,V_P_CS_CODE            : gfnma_nvl(SBUxMethod.get('CS_CODE'))
-				    ,V_P_PUR_CONTACT_TYPE   : gfnma_nvl(item.data.PUR_CONTACT_TYPE)
-				    ,V_P_PUR_DEPT_NAME    	: gfnma_nvl(item.data.PUR_DEPT_NAME)
-				    ,V_P_PUR_ADDRESS    	: gfnma_nvl(item.data.PUR_ADDRESS)
-				    ,V_P_PUR_CONTACT_NAME   : gfnma_nvl(item.data.PUR_CONTACT_NAME)
-				    ,V_P_PUR_CONTACT_TEL    : gfnma_nvl(item.data.PUR_CONTACT_TEL)
-				    ,V_P_PUR_CONTACT_EMAIL  : gfnma_nvl(item.data.PUR_CONTACT_EMAIL)
-				    ,V_P_PUR_CONTACT_MOBILE : gfnma_nvl(item.data.PUR_CONTACT_MOBILE)
-				    ,V_P_PUR_CONTACT_FAX	: gfnma_nvl(item.data.PUR_CONTACT_FAX)
+				    ,V_P_CS_CODE            : gfn_nvl(SBUxMethod.get('CS_CODE'))
+				    ,V_P_PUR_CONTACT_TYPE   : gfn_nvl(item.data.PUR_CONTACT_TYPE)
+				    ,V_P_PUR_DEPT_NAME    	: gfn_nvl(item.data.PUR_DEPT_NAME)
+				    ,V_P_PUR_ADDRESS    	: gfn_nvl(item.data.PUR_ADDRESS)
+				    ,V_P_PUR_CONTACT_NAME   : gfn_nvl(item.data.PUR_CONTACT_NAME)
+				    ,V_P_PUR_CONTACT_TEL    : gfn_nvl(item.data.PUR_CONTACT_TEL)
+				    ,V_P_PUR_CONTACT_EMAIL  : gfn_nvl(item.data.PUR_CONTACT_EMAIL)
+				    ,V_P_PUR_CONTACT_MOBILE : gfn_nvl(item.data.PUR_CONTACT_MOBILE)
+				    ,V_P_PUR_CONTACT_FAX	: gfn_nvl(item.data.PUR_CONTACT_FAX)
                		,V_P_FORM_ID            : p_formId
                		,V_P_MENU_ID            : p_menuId
                		,V_P_PROC_ID            : ''
@@ -4795,18 +4799,18 @@ console.log('fn_save_S6 salesGridUpdateData =>', salesGridUpdateData);
                		,V_P_LANG_ID            		: ''
                		,V_P_COMP_CODE          		: gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        		: gv_ma_selectedClntCd
-				    ,V_P_CS_CODE            		: gfnma_nvl(SBUxMethod.get('CS_CODE'))
-				    ,V_P_SALE_CONTACT_TYPE   		: gfnma_nvl(item.data.SALE_CONTACT_TYPE)
-				    ,V_P_SALE_DEPT_NAME    			: gfnma_nvl(item.data.SALE_DEPT_NAME)
-				    ,V_P_SALE_ADDRESS    			: gfnma_nvl(item.data.SALE_ADDRESS)
-				    ,V_P_SALE_CONTACT_NAME   		: gfnma_nvl(item.data.SALE_CONTACT_NAME)
-				    ,V_P_SALE_CONTACT_TEL    		: gfnma_nvl(item.data.SALE_CONTACT_TEL)
-				    ,V_P_SALE_CONTACT_EMAIL  		: gfnma_nvl(item.data.SALE_CONTACT_EMAIL)
-				    ,V_P_SALE_CONTACT_MOBILE 		: gfnma_nvl(item.data.SALE_CONTACT_MOBILE)
-				    ,V_P_SALE_CONTACT_FAX			: gfnma_nvl(item.data.SALE_CONTACT_FAX)
-				    ,V_P_KEY_SALE_CONTACT_TYPE		: gfnma_nvl(item.data.KEY_SALE_CONTACT_TYPE)
-				    ,V_P_KEY_SALE_DEPT_NAME			: gfnma_nvl(item.data.KEY_SALE_DEPT_NAME)
-				    ,V_P_KEY_SALE_CONTACT_EMAIL		: gfnma_nvl(item.data.KEY_SALE_CONTACT_EMAIL)
+				    ,V_P_CS_CODE            		: gfn_nvl(SBUxMethod.get('CS_CODE'))
+				    ,V_P_SALE_CONTACT_TYPE   		: gfn_nvl(item.data.SALE_CONTACT_TYPE)
+				    ,V_P_SALE_DEPT_NAME    			: gfn_nvl(item.data.SALE_DEPT_NAME)
+				    ,V_P_SALE_ADDRESS    			: gfn_nvl(item.data.SALE_ADDRESS)
+				    ,V_P_SALE_CONTACT_NAME   		: gfn_nvl(item.data.SALE_CONTACT_NAME)
+				    ,V_P_SALE_CONTACT_TEL    		: gfn_nvl(item.data.SALE_CONTACT_TEL)
+				    ,V_P_SALE_CONTACT_EMAIL  		: gfn_nvl(item.data.SALE_CONTACT_EMAIL)
+				    ,V_P_SALE_CONTACT_MOBILE 		: gfn_nvl(item.data.SALE_CONTACT_MOBILE)
+				    ,V_P_SALE_CONTACT_FAX			: gfn_nvl(item.data.SALE_CONTACT_FAX)
+				    ,V_P_KEY_SALE_CONTACT_TYPE		: gfn_nvl(item.data.KEY_SALE_CONTACT_TYPE)
+				    ,V_P_KEY_SALE_DEPT_NAME			: gfn_nvl(item.data.KEY_SALE_DEPT_NAME)
+				    ,V_P_KEY_SALE_CONTACT_EMAIL		: gfn_nvl(item.data.KEY_SALE_CONTACT_EMAIL)
                		,V_P_FORM_ID            		: p_formId
                		,V_P_MENU_ID            		: p_menuId
                		,V_P_PROC_ID            		: ''
@@ -4855,19 +4859,19 @@ console.log('fn_save_S7 salesCategoryGridUpdateData =>', salesCategoryGridUpdate
                		,V_P_LANG_ID            	: ''
                		,V_P_COMP_CODE          	: gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        	: gv_ma_selectedClntCd
-				    ,V_P_CS_CODE            	: gfnma_nvl(SBUxMethod.get('CS_CODE'))
-				    ,V_P_CREDIT_AREA   			: gfnma_nvl(item.data.CREDIT_AREA)
-				    ,V_P_CS_CATEGORY_GROUP    	: gfnma_nvl(item.data.CS_CATEGORY_GROUP)
-				    ,V_P_CS_CATEGORY1    		: gfnma_nvl(item.data.CS_CATEGORY1)
-				    ,V_P_CS_CATEGORY2   		: gfnma_nvl(item.data.CS_CATEGORY2)
-				    ,V_P_CS_CATEGORY3    		: gfnma_nvl(item.data.CS_CATEGORY3)
-				    ,V_P_CS_CATEGORY4  			: gfnma_nvl(item.data.CS_CATEGORY4)
-				    ,V_P_CS_CATEGORY5 			: gfnma_nvl(item.data.CS_CATEGORY5)
-				    ,V_P_CS_CATEGORY6			: gfnma_nvl(item.data.CS_CATEGORY6)
-				    ,V_P_CS_CATEGORY7			: gfnma_nvl(item.data.CS_CATEGORY7)
-				    ,V_P_CS_CATEGORY8			: gfnma_nvl(item.data.CS_CATEGORY8)
-				    ,V_P_CS_CATEGORY9			: gfnma_nvl(item.data.CS_CATEGORY9)
-				    ,V_P_CS_CATEGORY10			: gfnma_nvl(item.data.CS_CATEGORY10)
+				    ,V_P_CS_CODE            	: gfn_nvl(SBUxMethod.get('CS_CODE'))
+				    ,V_P_CREDIT_AREA   			: gfn_nvl(item.data.CREDIT_AREA)
+				    ,V_P_CS_CATEGORY_GROUP    	: gfn_nvl(item.data.CS_CATEGORY_GROUP)
+				    ,V_P_CS_CATEGORY1    		: gfn_nvl(item.data.CS_CATEGORY1)
+				    ,V_P_CS_CATEGORY2   		: gfn_nvl(item.data.CS_CATEGORY2)
+				    ,V_P_CS_CATEGORY3    		: gfn_nvl(item.data.CS_CATEGORY3)
+				    ,V_P_CS_CATEGORY4  			: gfn_nvl(item.data.CS_CATEGORY4)
+				    ,V_P_CS_CATEGORY5 			: gfn_nvl(item.data.CS_CATEGORY5)
+				    ,V_P_CS_CATEGORY6			: gfn_nvl(item.data.CS_CATEGORY6)
+				    ,V_P_CS_CATEGORY7			: gfn_nvl(item.data.CS_CATEGORY7)
+				    ,V_P_CS_CATEGORY8			: gfn_nvl(item.data.CS_CATEGORY8)
+				    ,V_P_CS_CATEGORY9			: gfn_nvl(item.data.CS_CATEGORY9)
+				    ,V_P_CS_CATEGORY10			: gfn_nvl(item.data.CS_CATEGORY10)
                		,V_P_FORM_ID            	: p_formId
                		,V_P_MENU_ID            	: p_menuId
                		,V_P_PROC_ID            	: ''
@@ -4916,17 +4920,17 @@ console.log('fn_save_S8 salesShipToGridUpdateData =>', salesShipToGridUpdateData
                		,V_P_LANG_ID            	: ''
                		,V_P_COMP_CODE          	: gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        	: gv_ma_selectedClntCd
-				    ,V_P_CS_CODE            	: gfnma_nvl(SBUxMethod.get('CS_CODE'))
-				    ,IV_P_SHIP_TO_CODE   		: gfnma_nvl(item.data.SHIP_TO_CODE)
-				    ,V_P_SHIP_TO_NAME    		: gfnma_nvl(item.data.SHIP_TO_NAME)
-				    ,V_P_CREDIT_AREA    		: gfnma_nvl(item.data.CREDIT_AREA)
-				    ,V_P_SALES_PERSON   		: gfnma_nvl(item.data.SALES_PERSON)
-				    ,V_P_ZIP_CODE    			: gfnma_nvl(item.data.ZIP_CODE)
-				    ,V_P_ADDRESS  				: gfnma_nvl(item.data.ADDRESS)
-				    ,V_P_SHIP_TO_TEL 			: gfnma_nvl(item.data.SHIP_TO_TEL)
-				    ,V_P_TRANS_PATH_CD			: gfnma_nvl(item.data.TRANS_PATH_CD)
-				    ,V_P_DEST_CD				: gfnma_nvl(item.data.DEST_CD)
-				    ,IV_P_SHIP_ORD_CODE			: gfnma_nvl(item.data.SHIP_ORD_CODE)
+				    ,V_P_CS_CODE            	: gfn_nvl(SBUxMethod.get('CS_CODE'))
+				    ,IV_P_SHIP_TO_CODE   		: gfn_nvl(item.data.SHIP_TO_CODE)
+				    ,V_P_SHIP_TO_NAME    		: gfn_nvl(item.data.SHIP_TO_NAME)
+				    ,V_P_CREDIT_AREA    		: gfn_nvl(item.data.CREDIT_AREA)
+				    ,V_P_SALES_PERSON   		: gfn_nvl(item.data.SALES_PERSON)
+				    ,V_P_ZIP_CODE    			: gfn_nvl(item.data.ZIP_CODE)
+				    ,V_P_ADDRESS  				: gfn_nvl(item.data.ADDRESS)
+				    ,V_P_SHIP_TO_TEL 			: gfn_nvl(item.data.SHIP_TO_TEL)
+				    ,V_P_TRANS_PATH_CD			: gfn_nvl(item.data.TRANS_PATH_CD)
+				    ,V_P_DEST_CD				: gfn_nvl(item.data.DEST_CD)
+				    ,IV_P_SHIP_ORD_CODE			: gfn_nvl(item.data.SHIP_ORD_CODE)
                		,V_P_FORM_ID            	: p_formId
                		,V_P_MENU_ID            	: p_menuId
                		,V_P_PROC_ID            	: ''
@@ -4975,11 +4979,11 @@ console.log('fn_save_S9 mappingGridUpdateData =>', mappingGridUpdateData);
                		,V_P_LANG_ID            	: ''
                		,V_P_COMP_CODE          	: gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE        	: gv_ma_selectedClntCd
-				    ,V_P_MAP_TYPE   			: gfnma_nvl(item.data.MAP_TYPE)
-				    ,V_P_ASIS_CS_CODE    		: gfnma_nvl(item.data.ASIS_CS_CODE)
-				    ,V_P_CS_CODE    			: gfnma_nvl(item.data.CS_CODE)
-				    ,V_P_CS_NAME   				: gfnma_nvl(item.data.CS_NAME)
-				    ,V_P_BIZ_REGNO    			: gfnma_nvl(item.data.BIZ_REGNO)
+				    ,V_P_MAP_TYPE   			: gfn_nvl(item.data.MAP_TYPE)
+				    ,V_P_ASIS_CS_CODE    		: gfn_nvl(item.data.ASIS_CS_CODE)
+				    ,V_P_CS_CODE    			: gfn_nvl(item.data.CS_CODE)
+				    ,V_P_CS_NAME   				: gfn_nvl(item.data.CS_NAME)
+				    ,V_P_BIZ_REGNO    			: gfn_nvl(item.data.BIZ_REGNO)
                		,V_P_FORM_ID            	: p_formId
                		,V_P_MENU_ID            	: p_menuId
                		,V_P_PROC_ID            	: ''

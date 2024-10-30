@@ -418,8 +418,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_GROUP_CODE		= gfnma_nvl(SBUxMethod.get("SRCH_GROUP_CODE"));
-    	let SRCH_GROUP_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_GROUP_NAME"));
+    	let SRCH_GROUP_CODE		= gfn_nvl(SBUxMethod.get("SRCH_GROUP_CODE"));
+    	let SRCH_GROUP_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_GROUP_NAME"));
     	
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
@@ -464,6 +464,10 @@
    	  	        	masterGrid.rebuild();
    	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
 
+   	                if(jsonMasterList.length > 0) {
+   	                	masterGrid.clickRow(1);
+   	                }
+   	                
    	        	} else {
    	          		alert(data.resultMessage);
    	        	}
@@ -479,16 +483,16 @@
 	
     //세부코드 정보
     const fn_drawSubGrid = async function(mod, cv_3, copymod) {
-		let FIELD_CAPTION1    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION1")) == "" ? "여유필드1" : SBUxMethod.get("FIELD_CAPTION1");
-		let FIELD_CAPTION2    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION2")) == "" ? "여유필드2" : SBUxMethod.get("FIELD_CAPTION2");
-		let FIELD_CAPTION3    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION3")) == "" ? "여유필드3" : SBUxMethod.get("FIELD_CAPTION3");
-		let FIELD_CAPTION4    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION4")) == "" ? "여유필드4" : SBUxMethod.get("FIELD_CAPTION4");
-		let FIELD_CAPTION5    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION5")) == "" ? "여유필드5" : SBUxMethod.get("FIELD_CAPTION5");
-		let FIELD_CAPTION6    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION6")) == "" ? "여유필드6" : SBUxMethod.get("FIELD_CAPTION6");
-		let FIELD_CAPTION7    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION7")) == "" ? "여유필드7" : SBUxMethod.get("FIELD_CAPTION7");
-		let FIELD_CAPTION8    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION8")) == "" ? "여유필드8" : SBUxMethod.get("FIELD_CAPTION8");
-		let FIELD_CAPTION9    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION9")) == "" ? "여유필드9" : SBUxMethod.get("FIELD_CAPTION9");
-		let FIELD_CAPTION10    	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION10")) == "" ? "여유필드10" : SBUxMethod.get("FIELD_CAPTION10");
+		let FIELD_CAPTION1    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")) == "" ? "여유필드1" : SBUxMethod.get("FIELD_CAPTION1");
+		let FIELD_CAPTION2    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")) == "" ? "여유필드2" : SBUxMethod.get("FIELD_CAPTION2");
+		let FIELD_CAPTION3    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")) == "" ? "여유필드3" : SBUxMethod.get("FIELD_CAPTION3");
+		let FIELD_CAPTION4    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")) == "" ? "여유필드4" : SBUxMethod.get("FIELD_CAPTION4");
+		let FIELD_CAPTION5    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")) == "" ? "여유필드5" : SBUxMethod.get("FIELD_CAPTION5");
+		let FIELD_CAPTION6    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")) == "" ? "여유필드6" : SBUxMethod.get("FIELD_CAPTION6");
+		let FIELD_CAPTION7    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")) == "" ? "여유필드7" : SBUxMethod.get("FIELD_CAPTION7");
+		let FIELD_CAPTION8    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")) == "" ? "여유필드8" : SBUxMethod.get("FIELD_CAPTION8");
+		let FIELD_CAPTION9    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")) == "" ? "여유필드9" : SBUxMethod.get("FIELD_CAPTION9");
+		let FIELD_CAPTION10    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10")) == "" ? "여유필드10" : SBUxMethod.get("FIELD_CAPTION10");
 		
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
@@ -584,26 +588,26 @@
     
     // 그리드 삭제
     const fn_delete = async function(){
-    	let GROUP_CODE 			= gfnma_nvl(SBUxMethod.get("GROUP_CODE"));
-    	let GROUP_NAME			= gfnma_nvl(SBUxMethod.get("GROUP_NAME"));
-    	let USE_YN				= gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-    	let NUMBER_YN			= gfnma_nvl(SBUxMethod.get("NUMBER_YN").NUMBER_YN);
-    	let DESCR 				= gfnma_nvl(SBUxMethod.get("DESCR"));
-    	let CODE_LENGTH			= gfnma_nvl(SBUxMethod.get("CODE_LENGTH"));
-    	let BIZCOMPONENT_ID 	= gfnma_nvl(SBUxMethod.get("BIZCOMPONENT_ID"));
-    	let SEGMENT_FIELD_NAME 	= gfnma_nvl(SBUxMethod.get("SEGMENT_FIELD_NAME"));
-    	let SQL_WHERE_CODE 		= gfnma_nvl(SBUxMethod.get("SQL_WHERE_CODE"));
+    	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
+    	let GROUP_NAME			= gfn_nvl(SBUxMethod.get("GROUP_NAME"));
+    	let USE_YN				= gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+    	let NUMBER_YN			= gfn_nvl(SBUxMethod.get("NUMBER_YN").NUMBER_YN);
+    	let DESCR 				= gfn_nvl(SBUxMethod.get("DESCR"));
+    	let CODE_LENGTH			= gfn_nvl(SBUxMethod.get("CODE_LENGTH"));
+    	let BIZCOMPONENT_ID 	= gfn_nvl(SBUxMethod.get("BIZCOMPONENT_ID"));
+    	let SEGMENT_FIELD_NAME 	= gfn_nvl(SBUxMethod.get("SEGMENT_FIELD_NAME"));
+    	let SQL_WHERE_CODE 		= gfn_nvl(SBUxMethod.get("SQL_WHERE_CODE"));
 
-    	let FIELD_CAPTION1 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION1"));
-    	let FIELD_CAPTION2 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION2"));
-    	let FIELD_CAPTION3 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION3"));
-    	let FIELD_CAPTION4 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION4"));
-    	let FIELD_CAPTION5 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION5"));
-    	let FIELD_CAPTION6 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION6"));
-    	let FIELD_CAPTION7 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION7"));
-    	let FIELD_CAPTION8 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION8"));
-    	let FIELD_CAPTION9 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION9"));
-    	let FIELD_CAPTION10 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION10"));
+    	let FIELD_CAPTION1 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION1"));
+    	let FIELD_CAPTION2 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION2"));
+    	let FIELD_CAPTION3 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION3"));
+    	let FIELD_CAPTION4 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION4"));
+    	let FIELD_CAPTION5 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION5"));
+    	let FIELD_CAPTION6 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION6"));
+    	let FIELD_CAPTION7 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION7"));
+    	let FIELD_CAPTION8 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION8"));
+    	let FIELD_CAPTION9 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9"));
+    	let FIELD_CAPTION10 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"));
     	
   	    var paramObj = {
   	    	    V_P_DEBUG_MODE_YN       : ''
@@ -665,26 +669,26 @@
     //그룹코드 내역 저장
     const fn_saveFieldCaption = async function() {
 
-    	let GROUP_CODE 			= gfnma_nvl(SBUxMethod.get("GROUP_CODE"));
-    	let GROUP_NAME			= gfnma_nvl(SBUxMethod.get("GROUP_NAME"));
-    	let USE_YN				= gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
-    	let NUMBER_YN			= gfnma_nvl(SBUxMethod.get("NUMBER_YN").NUMBER_YN);
-    	let DESCR 				= gfnma_nvl(SBUxMethod.get("DESCR"));
-    	let CODE_LENGTH			= gfnma_nvl(SBUxMethod.get("CODE_LENGTH"));
-    	let BIZCOMPONENT_ID 	= gfnma_nvl(SBUxMethod.get("BIZCOMPONENT_ID"));
-    	let SEGMENT_FIELD_NAME 	= gfnma_nvl(SBUxMethod.get("SEGMENT_FIELD_NAME"));
-    	let SQL_WHERE_CODE 		= gfnma_nvl(SBUxMethod.get("SQL_WHERE_CODE"));
+    	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
+    	let GROUP_NAME			= gfn_nvl(SBUxMethod.get("GROUP_NAME"));
+    	let USE_YN				= gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+    	let NUMBER_YN			= gfn_nvl(SBUxMethod.get("NUMBER_YN").NUMBER_YN);
+    	let DESCR 				= gfn_nvl(SBUxMethod.get("DESCR"));
+    	let CODE_LENGTH			= gfn_nvl(SBUxMethod.get("CODE_LENGTH"));
+    	let BIZCOMPONENT_ID 	= gfn_nvl(SBUxMethod.get("BIZCOMPONENT_ID"));
+    	let SEGMENT_FIELD_NAME 	= gfn_nvl(SBUxMethod.get("SEGMENT_FIELD_NAME"));
+    	let SQL_WHERE_CODE 		= gfn_nvl(SBUxMethod.get("SQL_WHERE_CODE"));
 
-    	let FIELD_CAPTION1 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION1"));
-    	let FIELD_CAPTION2 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION2"));
-    	let FIELD_CAPTION3 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION3"));
-    	let FIELD_CAPTION4 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION4"));
-    	let FIELD_CAPTION5 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION5"));
-    	let FIELD_CAPTION6 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION6"));
-    	let FIELD_CAPTION7 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION7"));
-    	let FIELD_CAPTION8 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION8"));
-    	let FIELD_CAPTION9 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION9"));
-    	let FIELD_CAPTION10 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION10"));
+    	let FIELD_CAPTION1 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION1"));
+    	let FIELD_CAPTION2 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION2"));
+    	let FIELD_CAPTION3 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION3"));
+    	let FIELD_CAPTION4 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION4"));
+    	let FIELD_CAPTION5 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION5"));
+    	let FIELD_CAPTION6 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION6"));
+    	let FIELD_CAPTION7 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION7"));
+    	let FIELD_CAPTION8 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION8"));
+    	let FIELD_CAPTION9 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9"));
+    	let FIELD_CAPTION10 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"));
     	
     	if(GROUP_CODE == "") {
             gfn_comAlert("W0002", "그룹코드");
@@ -757,10 +761,10 @@
         		            var P_USE_YN 		= '';
         		            var P_SYSTEM_YN 	= '';
         	    			
-        	    			if(gfnma_nvl(rowVal[i].data.USE_YN) == ""){
+        	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
         	    				P_USE_YN = 'N';
         	    			}
-        	    			if(gfnma_nvl(rowVal[i].data.SYSTEM_YN) == ""){
+        	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
         	    				P_SYSTEM_YN = 'N';
         	    			}
         	    			var paramObj = {
@@ -770,21 +774,21 @@
   	    						   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
   	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
   	    						   ,V_P_GROUP_CODE          : GROUP_CODE
-  	    						   ,V_P_SUB_CODE            : gfnma_nvl(rowVal[i].data.SUB_CODE)
-  	    						   ,V_P_CODE_NAME           : gfnma_nvl(rowVal[i].data.CODE_NAME)
-  	    						   ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-  	    						   ,V_P_EXTRA_FIELD1        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD1)
-  	    						   ,V_P_EXTRA_FIELD2        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD2)
-  	    						   ,V_P_EXTRA_FIELD3        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD3)
-  	    						   ,V_P_EXTRA_FIELD4        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD4)
-  	    						   ,V_P_EXTRA_FIELD5        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD5)
-  	    						   ,V_P_EXTRA_FIELD6        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD6)
-  	    						   ,V_P_EXTRA_FIELD7        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD7)
-  	    						   ,V_P_EXTRA_FIELD8        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD8)
-  	    						   ,V_P_EXTRA_FIELD9        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD9)
-  	    						   ,V_P_EXTRA_FIELD10       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD10)
-  	    						   ,V_P_SORT_SEQ            : gfnma_nvl(rowVal[i].data.SORT_SEQ)
-  	    						   ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
+  	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
+  	    						   ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
+  	    						   ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+  	    						   ,V_P_EXTRA_FIELD1        : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
+  	    						   ,V_P_EXTRA_FIELD2        : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
+  	    						   ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
+  	    						   ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
+  	    						   ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
+  	    						   ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
+  	    						   ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
+  	    						   ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
+  	    						   ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
+  	    						   ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
+  	    						   ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
+  	    						   ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
   	    						   ,V_P_FORM_ID             : p_formId
   	    						   ,V_P_MENU_ID             : p_menuId
   	    						   ,V_P_PROC_ID             : ''

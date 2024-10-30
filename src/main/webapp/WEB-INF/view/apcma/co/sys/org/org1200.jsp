@@ -462,8 +462,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_ORG_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
-    	let SRCH_ORG_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
+    	let SRCH_ORG_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
+    	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
     	
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
@@ -497,21 +497,24 @@
 	    		masterGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				COMP_CODE			: gfnma_nvl(item.COMP_CODE),
-		    				COMP_NAME			: gfnma_nvl(item.COMP_NAME),
-		    				FI_ORG_CODE			: gfnma_nvl(item.FI_ORG_CODE),
-		    				FI_ORG_NAME			: gfnma_nvl(item.FI_ORG_NAME),
-		    				FI_ORG_NAME_CHN		: gfnma_nvl(item.FI_ORG_NAME_CHN),
-		    				GROUP_MASTER		: gfnma_nvl(item.GROUP_MASTER),
-		    				SITE_ACC_CODE		: gfnma_nvl(item.SITE_ACC_CODE),
-		    				SITE_ACC_NAME		: gfnma_nvl(item.SITE_ACC_NAME),
-		    				USE_YN				: gfnma_nvl(item.USE_YN)
+		    				COMP_CODE			: gfn_nvl(item.COMP_CODE),
+		    				COMP_NAME			: gfn_nvl(item.COMP_NAME),
+		    				FI_ORG_CODE			: gfn_nvl(item.FI_ORG_CODE),
+		    				FI_ORG_NAME			: gfn_nvl(item.FI_ORG_NAME),
+		    				FI_ORG_NAME_CHN		: gfn_nvl(item.FI_ORG_NAME_CHN),
+		    				GROUP_MASTER		: gfn_nvl(item.GROUP_MASTER),
+		    				SITE_ACC_CODE		: gfn_nvl(item.SITE_ACC_CODE),
+		    				SITE_ACC_NAME		: gfn_nvl(item.SITE_ACC_NAME),
+		    				USE_YN				: gfn_nvl(item.USE_YN)
 		    		}
 		    		jsonMasterList.push(msg);
 		    		totalRecordCount ++;
 		    	});
 	    	   	masterGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
+                if(jsonMasterList.length > 0) {
+                	masterGrid.clickRow(1);
+                }
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -560,11 +563,11 @@
     const fn_save = async function(type) {
 
     	//필수 데이터 입력하지 않았을 경우 리턴
-    	if(gfnma_nvl(SBUxMethod.get("FI_ORG_CODE")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("FI_ORG_CODE")) == "") {
             gfn_comAlert("W0002", "사업단위");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("FI_ORG_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("FI_ORG_NAME")) == "") {
             gfn_comAlert("W0002", "사업단위명");
             return;
     	}
@@ -635,12 +638,12 @@
        		  ,V_P_LANG_ID             : ""
        		  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
        		  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-       		  ,V_P_FI_ORG_CODE         : gfnma_nvl(SBUxMethod.get("FI_ORG_CODE"))
-       		  ,V_P_FI_ORG_NAME         : gfnma_nvl(SBUxMethod.get("FI_ORG_NAME"))
+       		  ,V_P_FI_ORG_CODE         : gfn_nvl(SBUxMethod.get("FI_ORG_CODE"))
+       		  ,V_P_FI_ORG_NAME         : gfn_nvl(SBUxMethod.get("FI_ORG_NAME"))
        		  ,V_P_FI_ORG_NAME_CHN     : ""
-       		  ,V_P_SITE_ACC_CODE       : gfnma_nvl(SBUxMethod.get("SITE_ACC_CODE"))
-       		  ,V_P_COMP_CODE_P         : gfnma_nvl(SBUxMethod.get("COMP_CODE"))
-       		  ,V_P_USE_YN              : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
+       		  ,V_P_SITE_ACC_CODE       : gfn_nvl(SBUxMethod.get("SITE_ACC_CODE"))
+       		  ,V_P_COMP_CODE_P         : gfn_nvl(SBUxMethod.get("COMP_CODE"))
+       		  ,V_P_USE_YN              : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
        		  ,V_P_SITE_CODE           : strSiteCode
        		  ,V_P_WORK_TYPE2          : strWorkType2
        		  ,V_P_USER_ID             : strUserId
@@ -696,8 +699,8 @@
    				  ,V_P_LANG_ID             : ''
    				  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
    				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   				  ,V_P_FI_ORG_CODE         : gfnma_nvl(selectRowVal.FI_ORG_CODE)
-   				  ,V_P_FI_ORG_NAME         : gfnma_nvl(selectRowVal.FI_ORG_NAME)
+   				  ,V_P_FI_ORG_CODE         : gfn_nvl(selectRowVal.FI_ORG_CODE)
+   				  ,V_P_FI_ORG_NAME         : gfn_nvl(selectRowVal.FI_ORG_NAME)
    				  ,V_P_USER_ID_P           : ''
    				  ,V_P_SITE_CODE           : ''
    				  ,V_P_FORM_ID             : p_formId
@@ -716,33 +719,33 @@
     	const data = await postJsonPromise;
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	        	SBUxMethod.set("FI_ORG_CODE"	, gfnma_nvl(selectRowVal.FI_ORG_CODE) );
-	        	SBUxMethod.set("FI_ORG_NAME"	, gfnma_nvl(selectRowVal.FI_ORG_NAME) );
-	        	SBUxMethod.set("SITE_ACC_CODE"	, gfnma_nvl(selectRowVal.SITE_ACC_CODE) );
-	        	SBUxMethod.set("SITE_ACC_NAME"	, gfnma_nvl(selectRowVal.SITE_ACC_NAME) );
-	        	SBUxMethod.set("COMP_CODE"		, gfnma_nvl(selectRowVal.COMP_CODE) );
-	        	SBUxMethod.set("COMP_NAME"		, gfnma_nvl(selectRowVal.COMP_NAME) );
-	        	SBUxMethod.set("USE_YN"			, gfnma_nvl(selectRowVal.USE_YN) );
+	        	SBUxMethod.set("FI_ORG_CODE"	, gfn_nvl(selectRowVal.FI_ORG_CODE) );
+	        	SBUxMethod.set("FI_ORG_NAME"	, gfn_nvl(selectRowVal.FI_ORG_NAME) );
+	        	SBUxMethod.set("SITE_ACC_CODE"	, gfn_nvl(selectRowVal.SITE_ACC_CODE) );
+	        	SBUxMethod.set("SITE_ACC_NAME"	, gfn_nvl(selectRowVal.SITE_ACC_NAME) );
+	        	SBUxMethod.set("COMP_CODE"		, gfn_nvl(selectRowVal.COMP_CODE) );
+	        	SBUxMethod.set("COMP_NAME"		, gfn_nvl(selectRowVal.COMP_NAME) );
+	        	SBUxMethod.set("USE_YN"			, gfn_nvl(selectRowVal.USE_YN) );
 	    	   	data.cv_2.forEach((item, index) => {
 		    		const msg = {
-		    				CHECK_YN			: gfnma_nvl(item.CHECK_YN),
-		    				SITE_CODE			: gfnma_nvl(item.SITE_CODE),
-		    				SITE_NAME			: gfnma_nvl(item.SITE_NAME),
-		    				CLIENT_CODE			: gfnma_nvl(item.CLIENT_CODE),
-		    				FI_ORG_NAME_CHN		: gfnma_nvl(item.FI_ORG_NAME_CHN),
-		    				COMP_CODE			: gfnma_nvl(item.COMP_CODE)
+		    				CHECK_YN			: gfn_nvl(item.CHECK_YN),
+		    				SITE_CODE			: gfn_nvl(item.SITE_CODE),
+		    				SITE_NAME			: gfn_nvl(item.SITE_NAME),
+		    				CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE),
+		    				FI_ORG_NAME_CHN		: gfn_nvl(item.FI_ORG_NAME_CHN),
+		    				COMP_CODE			: gfn_nvl(item.COMP_CODE)
 		    		}
 		    		jsonDetailList.push(msg);
 		    	});
 	    	   	data.cv_3.forEach((item, index) => {
 		    		const msg = {
-		    				FI_ORG_CODE		: gfnma_nvl(item.FI_ORG_CODE),
-		    				USER_ID			: gfnma_nvl(item.USER_ID),
-		    				USER_NAME		: gfnma_nvl(item.USER_NAME),
-		    				START_DATE		: gfnma_nvl(item.START_DATE),
-		    				END_DATE		: gfnma_nvl(item.END_DATE),
-		    				CLIENT_CODE		: gfnma_nvl(item.CLIENT_CODE),
-		    				COMP_CODE		: gfnma_nvl(item.COMP_CODE)
+		    				FI_ORG_CODE		: gfn_nvl(item.FI_ORG_CODE),
+		    				USER_ID			: gfn_nvl(item.USER_ID),
+		    				USER_NAME		: gfn_nvl(item.USER_NAME),
+		    				START_DATE		: gfn_nvl(item.START_DATE),
+		    				END_DATE		: gfn_nvl(item.END_DATE),
+		    				CLIENT_CODE		: gfn_nvl(item.CLIENT_CODE),
+		    				COMP_CODE		: gfn_nvl(item.COMP_CODE)
 		    		}
 		    		jsonAuthorityList.push(msg);
 		    	});
@@ -765,8 +768,8 @@
 	 * 본지점계정 공통팝업
 	 */
     var fn_compopupAcc = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('SITE_ACC_CODE'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("SITE_ACC_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get('SITE_ACC_CODE'));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SITE_ACC_NAME"));
         var replaceText0 	= "_ACCOUNT_CODE_";
         var replaceText1 	= "_ACCOUNT_NAME_";
         var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME  LIKE '%" + replaceText1 + "%' ";
@@ -798,8 +801,8 @@
      */
     var fn_compopupComp = function() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get('COMP_CODE'));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COMP_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get('COMP_CODE'));
+        var searchName 		= gfn_nvl(SBUxMethod.get("COMP_NAME"));
         var replaceText0 	= "_COMP_CODE_";
         var replaceText1 	= "_COMP_NAME_";
         var strWhereClause 	= "AND COMP_CODE LIKE '%" + replaceText0 + "%' AND COMP_NAME  LIKE '%" + replaceText1 + "%' ";

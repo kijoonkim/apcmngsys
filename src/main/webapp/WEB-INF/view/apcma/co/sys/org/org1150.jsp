@@ -208,12 +208,12 @@
                		  ,V_P_LANG_ID              : ""
                		  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
                		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-               		  ,V_P_SITE_CODE            : gfnma_nvl(item.data.SITE_CODE)
-               		  ,V_P_SITE_NAME            : gfnma_nvl(item.data.SITE_NAME)
-               		  ,V_P_SITE_NAME_CHN        : gfnma_nvl(item.data.SITE_NAME_CHN)
-               		  ,V_P_HR_SITE_CODE         : gfnma_nvl(item.data.HR_SITE_CODE)
-               		  ,V_P_DESCR                : gfnma_nvl(item.data.DESCR)
-               		  ,V_P_USE_YN               : gfnma_nvl(item.data.USE_YN)
+               		  ,V_P_SITE_CODE            : gfn_nvl(item.data.SITE_CODE)
+               		  ,V_P_SITE_NAME            : gfn_nvl(item.data.SITE_NAME)
+               		  ,V_P_SITE_NAME_CHN        : gfn_nvl(item.data.SITE_NAME_CHN)
+               		  ,V_P_HR_SITE_CODE         : gfn_nvl(item.data.HR_SITE_CODE)
+               		  ,V_P_DESCR                : gfn_nvl(item.data.DESCR)
+               		  ,V_P_USE_YN               : gfn_nvl(item.data.USE_YN)
                		  ,V_P_FORM_ID              : p_formId
                		  ,V_P_MENU_ID              : p_menuId
                		  ,V_P_PROC_ID              : ""
@@ -251,8 +251,8 @@
 
     	// 코드목록 그리드 초기화
     	fn_clearForm();
-    	let SRCH_SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-    	let SRCH_SITE_NAME = gfnma_nvl(SBUxMethod.get("SRCH_SITE_NAME"));
+    	let SRCH_SITE_CODE = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+    	let SRCH_SITE_NAME = gfn_nvl(SBUxMethod.get("SRCH_SITE_NAME"));
     	
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN        : ""
