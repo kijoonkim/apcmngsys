@@ -182,7 +182,7 @@
             <!--[APC] END -->
             <!--[pp] 검색 -->
 
-            <table class="table table-bordered tbl_fixed tbl_mbl">
+            <table id="saveTable" class="table table-bordered tbl_fixed tbl_mbl">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 20%">
@@ -198,6 +198,17 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>생산자</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="srch-inp-prdcrIdentno"
+                                name="srch-inp-prdcrIdentno"
+                                class="inpt-mbl"
+                                maxlength="2"
+                                autocomplete="off"
+                                onchange="fn_onChangeSrchPrdcrIdentno(this)">
+                        </sbux-input>
+                    </td>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
@@ -212,17 +223,6 @@
                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                         ></sbux-input>
                         <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="srch-inp-prdcrIdentno"
-                                name="srch-inp-prdcrIdentno"
-                                class="inpt-mbl"
-                                maxlength="2"
-                                autocomplete="off"
-                                onchange="fn_onChangeSrchPrdcrIdentno(this)"
-                        />
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <sbux-button
@@ -268,11 +268,10 @@
                             <input
                                     style="width:20px;height:20px;"
                                     type="checkbox"
-                                    id="srch-chk-fxngItem"
-                                    name="srch-chk-fxngItem"
+                                    id="fxngItem"
                                     checked
                             />
-                            <label for="srch-chk-fxngItem">고정</label>
+                            <label for="fxngItem">고정</label>
                         </p>
                     </td>
                     <td colspan="2" style="border-left: hidden;">
@@ -288,134 +287,26 @@
                                 name="srch-dtp-wrhsYmd"
                                 date-format="yyyy-mm-dd"
                                 class="pull-right sbux-pik-group-apc inpt-mbl inpt_data_reqed input-sm-ast"
-                                style="width:100%;"
-                        />
+                                style="width:100%;">
+                        </sbux-datepicker>
                     </td>
                     <td colspan="5" style="border-left: hidden;">&nbsp;</td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>C/T수량</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <input type="number" id="srch-inp-bxQntt" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeBxQntt(this)" >
-                    </td>
-<%--                    <td class="td_input" style="border-right: hidden;">--%>
-<%--                        <sbux-input--%>
-<%--                                uitype="text"--%>
-<%--                                id="srch-inp-wghtAvg"--%>
-<%--                                name="srch-inp-wghtAvg"--%>
-<%--                                class="inpt-mbl dsp-wght"--%>
-<%--                                placeholder="평균"--%>
-<%--                                maxlength="6"--%>
-<%--                                autocomplete="off"--%>
-<%--                                mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"--%>
-<%--                                onchange="fn_onChangeWghtAvg(this)"--%>
-<%--                        />--%>
-<%--                    </td>--%>
-<%--                    <td colspan="2" class="td_input" style="border-right: hidden;">--%>
-<%--                        &lt;%&ndash;								<sbux-input&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									uitype="text"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									id="srch-inp-wrhsWght"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									name="srch-inp-wrhsWght"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									maxlength="7"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									autocomplete="off"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;									onchange="fn_onChangeWrhsWght(this)"&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;								/>&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;								<input id="srch-inp-wrhsWght" class="">&ndash;%&gt;--%>
-<%--                        <input type="number" id="srch-inp-wrhsWght" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeWrhsWght(this)" >--%>
-<%--                        <input type="text" id="_srch-inp-wrhsWght" style="display: none;text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onclick="fn_numberFmt(this)" >--%>
-<%--                    </td>--%>
-<%--                    <td style="border-right: hidden;">--%>
-<%--                        <label class="bold fs-30 dsp-wght">Kg</label>--%>
-<%--                    </td>--%>
-<%--                    <td colspan="3" class="td_input" style="border-right: hidden;">--%>
-
-<%--                    </td>--%>
-                </tr>
-                <!--
-                <tr>
-                    <th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
-                    <td colspan="11" class="td_input">
-                        <p class="ad_input_row">
-                            <sbux-radio
-                                id="srch-rdo-wrhsSeCd"
-                                name="srch-rdo-wrhsSeCd"
-                                uitype="normal"
-                                class="radio_label"
-                                text-right-padding="10px"
-                                jsondata-ref="jsonComWrhsSeCd"
-                                jsondata-text="cdVlNm"
-                                jsondata-value="cdVl"
-                            />
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
-                    <td colspan="11" class="td_input">
-                        <p class="ad_input_row">
-                            <sbux-radio
-                                id="srch-rdo-gdsSeCd"
-                                name="srch-rdo-gdsSeCd"
-                                uitype="normal"
-                                class="radio_label"
-                                text-right-padding="10px"
-                                jsondata-ref="jsonComGdsSeCd"
-                                jsondata-text="cdVlNm"
-                                jsondata-value="cdVl"
-                            />
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>운송구분</th>
-                    <td colspan="11" class="td_input">
-                        <p class="ad_input_row">
-                            <sbux-radio
-                                id="srch-rdo-trsprtSeCd"
-                                name="srch-rdo-trsprtSeCd"
-                                uitype="normal"
-                                class="radio_label"
-                                text-right-padding="10px"
-                                jsondata-ref="jsonComTrsprtSeCd"
-                                jsondata-text="cdVlNm"
-                                jsondata-value="cdVl"
-                            />
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">박스종류</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
-                        <div class="fl_group fl_rpgroup">
-                            <div class="dp_inline wd_180 va_m">
-                                <sbux-select
-                                    unselected-text="선택"
+                    <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>규격/수량</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div style="display: flex; gap: 10px">
+                            <sbux-select
                                     uitype="single"
-                                    id="srch-slt-bxKnd"
-                                    name="srch-slt-bxKnd"
-                                    class="form-control input-sm"
-                                    jsondata-ref="jsonApcBx"
-                                />
-                            </div>
+                                    id="srch-slt-warehou1seSeCd"
+                                    name="srch-slt-warehou1seSeCd"
+                                    class="input-sm-ast inpt_data_reqed inpt-mbl"
+                                    jsondata-ref="jsonComWarehouse">
+                            </sbux-select>
+                            <input type="number" id="srch-inp-bxQntt" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeBxQntt(this)" >
                         </div>
                     </td>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <p class="ad_input_row">
-                            <sbux-checkbox
-                                uitype="normal"
-                                id="srch-chk-fxngBxKnd"
-                                name="srch-chk-fxngBxKnd"
-                                uitype="normal"
-                                class="form-control input-sm check"
-                                text="고정"
-                            />
-                        </p>
-                    </td>
-                    <td colspan="6">&nbsp;</td>
                 </tr>
-                -->
                 <tr>
                     <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>입고창고</th>
                     <td colspan="4" class="td_input" style="border-right: hidden;">
@@ -424,38 +315,47 @@
                                 id="srch-slt-warehouseSeCd"
                                 name="srch-slt-warehouseSeCd"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonComWarehouse"
-                        />
+                                jsondata-ref="jsonComWarehouse">
+                        </sbux-select>
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
                             <input
                                     style="width:20px;height:20px;"
                                     type="checkbox"
-                                    id="srch-chk-fxngWarehouseSeCd"
-                                    name="srch-chk-fxngWarehouseSeCd"
+                                    id="fxngWarehouseSeCd"
                                     checked
                             />
-                            <label for="srch-chk-fxngWarehouseSeCd">고정</label>
+                            <label for="fxngWarehouseSeCd">고정</label>
                         </p>
                     </td>
                     <td colspan="3">&nbsp;</td>
                 </tr>
-<%--                <tr>--%>
-<%--                    <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>생산연도</th>--%>
-<%--                    <td colspan="3"class="td_input" style="border-right: hidden;">--%>
-<%--                        <sbux-datepicker--%>
-<%--                                uitype="popup"--%>
-<%--                                id="srch-dtp-prdctnYr"--%>
-<%--                                name="srch-dtp-prdctnYr"--%>
-<%--                                date-format="yyyy"--%>
-<%--                                datepicker-mode="year"--%>
-<%--                                style="width:100%;"--%>
-<%--                                class="pull-right sbux-pik-group-apc input-sm-ast inpt_data_reqed inpt-mbl"--%>
-<%--                        />--%>
-<%--                    </td>--%>
-<%--                    <td colspan="6" style="border-left: hidden;">&nbsp;</td>--%>
-<%--                </tr>--%>
+                <tr>
+                    <th scope="row" class="th_bg th-mbl">검수자</th>
+                    <td class="td_input" colspan="8">
+                        <div style="display: flex;">
+                            <sbux-select
+                                    id="srch-slt-itemCd1"
+                                    name="srch-slt-itemCd1"
+                                    uitype="single"
+                                    wrap-style="flex-basis:40%"
+                                    jsondata-ref="jsonApcItem"
+                                    unselected-text="전체"
+                                    class="input-sm-ast inpt_data_reqed inpt-mbl"
+                            ></sbux-select>
+                            <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
+                                <input
+                                        style="width:20px;height:20px;"
+                                        type="checkbox"
+                                        id="fxngWarehouseSeCd1"
+                                        checked
+                                />
+                                <label for="fxngWarehouseSeCd1">고정</label>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row" class="th_bg th-mbl">팔레트번호</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
@@ -479,13 +379,13 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>생산자명</th>
-                    <th>번호</th>
+                    <th>처리</th>
+                    <th>생산자</th>
                     <th>팔레트 번호</th>
-                    <th>품목</th>
-                    <th>품종</th>
-                    <th>입고 수량</th>
-                    <th>입고 일자</th>
+                    <th>품목/품종</th>
+                    <th>규격</th>
+                    <th>수량</th>
+                    <th>입고일자</th>
                     <th>등록일시</th>
                 </tr>
                 </thead>
@@ -495,31 +395,6 @@
 
             </table>
         </div>
-
-        <!--
-        <div class="ad_tbl_top">
-            <ul class="ad_tbl_count">
-                <li>
-                    <span>입고등록 내역</span>
-                    <span style="font-size:12px">(기준일자 :
-                        <sbux-label
-                            id="crtr-ymd"
-                            name="crtr-ymd"
-                            uitype="normal"
-                            text=""
-                            class="bold"
-                            mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-                        ></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)
-                    </span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="table-responsive tbl_scroll_sm">
-            <div id="sb-area-grdRawMtrWrhs" style="height:165px;"></div>
-        </div>
-        -->
-
     </div>
 </section>
 
@@ -805,55 +680,15 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-        //입고번호 유무에 따라 수정판단
-        let wrhsno = SBUxMethod.get("srch-inp-wrhsno"); 		// 입고번호
-        let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
-        //let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");	// 입고구분
-        //let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
-        //let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
-        let itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
-        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
-        if (!gfn_isEmpty(vrtyCd)) {
-            vrtyCd = vrtyCd.substring(4);
+        let check = gfn_getTableElement("saveTable","srch-");
+        if(check){
+            console.log("머가안댓다고");
         }
-        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
-        // let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
-        // let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
-
-        let bxQntt = $("#srch-inp-bxQntt").val();
-        let wrhsWght = bxQntt * 18;
-
-        //let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
-        let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
-        // let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
-
+        return;
         let wrhsSeCd = "2";			// 입고구분 : 수탁
         let gdsSeCd = "1";			// 상품구분
         let trsprtSeCd = "1";		// 운송구분
 
-        // validation check
-        if (gfn_isEmpty(wrhsYmd)) {
-            gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
-            return;
-        }
-
-        if (gfn_isEmpty(itemCd)) {
-            gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
-            return;
-        }
-        if (gfn_isEmpty(vrtyCd)) {
-            gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
-            return;
-        }
-        if (gfn_isEmpty(prdcrCd)) {
-            gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
-            return;
-        }
-
-        if (gfn_isEmpty(warehouseSeCd)) {
-            gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
-            return;
-        }
 
         // 등급 설정
         const stdGrdList = [];
