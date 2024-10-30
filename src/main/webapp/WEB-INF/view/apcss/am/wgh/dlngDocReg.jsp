@@ -71,7 +71,7 @@
 						uitype="normal"
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_search"
-						text="종료"
+						text="조회"
 					></sbux-button>
 				</div>
 			</div>
@@ -461,7 +461,12 @@
                 }},
             {caption: ["처리"], 		ref: 'delete', 		type:'button', width:'5%', style: 'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                   return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_deleteRow(grdRegList," + nRow + ", " + nCol + ")'>삭제</button>";
+                   if (objRowData.inqYn === "N"){
+                	   return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_deleteRow(grdRegList," + nRow + ", " + nCol + ")'>삭제</button>";
+                   }else{
+                	   return "<button type='button' class='btn btn-xs btn-outline-danger' disabled>삭제</button>";
+                   }
+
                 }},
 	        ];
 
@@ -556,6 +561,11 @@
    		// optional
    		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
 
+   		if (gfn_isEmpty(prdcrCd)) {
+    		gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+
   	    try{
   	    	let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
   			const postJsonPromise = gfn_postJSON(postUrl, {
@@ -606,6 +616,8 @@
    						itemNm: item.itemNm,
    						vrtyCd: item.vrtyCd,
    						vrtyNm: item.vrtyNm,
+
+   						inqYn : item.inqYn,
 
    						//gdsSeCd: item.gdsSeCd,
    						//gdsSeNm: item.gdsSeNm,
@@ -948,13 +960,90 @@
 		}
 
 		gfn_popClipReport("거래명세표", rptUrl, obj );
+
+		fn_inqUpdate(obj.wrhsno);
+
 	}
 
 	const fn_searchRow = async function(grd,nRow,nCol){
 		let rowData = grd.getRowData(nRow);
-
 		fn_dlngDoc(rowData.wrhsno);
 	}
+
+	const fn_deleteRow = async function(grd,nRow,nCol){
+		let rowData = grd.getRowData(nRow);
+		fn_delete(rowData.wrhsno)
+	}
+
+
+    /**
+     * @name fn_inqUpdate
+     * @description 조회버튼 클릭 시 삭제 못하게 함(INQ_YN = "Y")
+     */
+    const fn_inqUpdate = async function(wrhsno) {
+
+
+		let obj = {
+				apcCd : gv_apcCd
+				, wrhsno : wrhsno
+		}
+
+
+
+
+    	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
+    	let postUrl = "/am/wrhs/updateRawMtrWrhsInq.do";
+
+     	const postJsonPromise = gfn_postJSON(postUrl, obj);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+	}
+
+    const fn_delete = async function(wrhsno){
+    	let obj = {
+				apcCd : gv_apcCd
+				, wrhsno : wrhsno
+		}
+
+
+
+
+    	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
+    	let postUrl = "/am/wrhs/deleteRawMtrWrhs.do";
+
+     	const postJsonPromise = gfn_postJSON(postUrl, obj);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 
 
 
