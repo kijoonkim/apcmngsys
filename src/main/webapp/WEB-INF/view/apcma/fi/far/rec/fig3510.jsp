@@ -1977,9 +1977,48 @@
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
+            {
+                caption: ["통화"], ref: 'CURRENCY_CODE', type: 'combo', style: 'text-align:left', width: '80px',
+                typeinfo: {
+                    ref: 'jsonCurrencyCode',
+                    label: 'label',
+                    value: 'value',
+                    itemcount: 10
+                }
+                , disabled: true
+            },
+            {
+                caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
+                , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
+            },
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
+            {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
+            {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["사업장"], ref: 'SITE_CODE', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["적요"], ref: 'DESCRIPTION', type: 'output', width: '300px', style: 'text-align:left'},
+            {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["단위"], ref: 'UOM', type: 'output', width: '60px', style: 'text-align:left'},
             {caption: ["수량"], ref: 'TXN_QTY', type: 'output', width: '60px', style: 'text-align:left'},
+            {
+                caption: ["건수"],
+                ref: 'SOURCE_RECORD_COUNT',
+                type: 'output',
+                width: '75px',
+                style: 'text-align:left'
+            },
+            {
+                caption: ["여신관리영역"], ref: 'CREDIT_AREA', type: 'combo', style: 'text-align:left', width: '79px',
+                typeinfo: {
+                    ref: 'jsonCreditArea',
+                    label: 'label',
+                    value: 'value',
+                    itemcount: 10
+                }
+            },
+            {caption: ["사업자번호"], ref: 'REG_NO', type: 'output', width: '90px', style: 'text-align:left'},
             {
                 caption: ["귀속부서코드"],
                 ref: 'DEPT_CODE',
@@ -1988,12 +2027,6 @@
                 style: 'text-align:left',
                 hidden: true
             },
-            {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
-            {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["사업장"], ref: 'SITE_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
-            {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
             {
                 caption: ["관리항목1"], ref: 'ACC_ITEM_CODE1', type: 'output', width: '100px', style: 'text-align:left',
                 typeinfo: {
@@ -2586,24 +2619,7 @@
                 style: 'text-align:left',
                 hidden: true
             },
-            {caption: ["적요"], ref: 'DESCRIPTION', type: 'output', width: '300px', style: 'text-align:left'},
-            {
-                caption: ["통화코드"], ref: 'CURRENCY_CODE', type: 'combo', style: 'text-align:left', width: '80px',
-                typeinfo: {
-                    ref: 'jsonCurrencyCode',
-                    label: 'label',
-                    value: 'value',
-                    itemcount: 10
-                }
-                , disabled: true
-            },
-            {
-                caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:right',
-                typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
-                , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
-            },
             {caption: ["환산단위"], ref: 'BASE_SCALE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["사업자번호"], ref: 'REG_NO', type: 'output', width: '90px', style: 'text-align:left'},
             {caption: ["계정분류"], ref: 'ACC_CATEGORY', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["부가세유형"], ref: 'VAT_TYPE_CODE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["원천소스"], ref: 'ITEM_SOURCE_TYPE', type: 'output', width: '75px', style: 'text-align:left'},
@@ -2618,14 +2634,6 @@
             {
                 caption: ["원천라인ID"],
                 ref: 'ITEM_SOURCE_ID',
-                type: 'output',
-                width: '75px',
-                style: 'text-align:left',
-                hidden: true
-            },
-            {
-                caption: ["건수"],
-                ref: 'SOURCE_RECORD_COUNT',
                 type: 'output',
                 width: '75px',
                 style: 'text-align:left',
@@ -2938,16 +2946,6 @@
                 width: '75px',
                 style: 'text-align:left',
                 hidden: true
-            },
-            {
-                caption: ["여신관리영역"], ref: 'CREDIT_AREA', type: 'combo', style: 'text-align:left', width: '79px',
-                typeinfo: {
-                    ref: 'jsonCreditArea',
-                    label: 'label',
-                    value: 'value',
-                    itemcount: 10
-                }
-                , disabled: true
             },
             {
                 caption: ["보류여부"],
