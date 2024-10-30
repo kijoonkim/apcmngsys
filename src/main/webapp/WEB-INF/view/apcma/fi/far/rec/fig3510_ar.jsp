@@ -25,6 +25,7 @@
     <title>title : 매출송장등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 
 <jsp:include page="./fig3510.jsp">
