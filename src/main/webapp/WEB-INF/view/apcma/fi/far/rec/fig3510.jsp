@@ -1968,12 +1968,12 @@
             {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'}, // TODO : P_FIM045
             {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'}, // TODO : P_FIM045
             {
-                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'output', width: '126px', style: 'text-align:left',
+                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'output', width: '126px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
             {
-                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'output', width: '135px', style: 'text-align:left',
+                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'output', width: '135px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
@@ -2598,7 +2598,7 @@
                 , disabled: true
             },
             {
-                caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:left',
+                caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },

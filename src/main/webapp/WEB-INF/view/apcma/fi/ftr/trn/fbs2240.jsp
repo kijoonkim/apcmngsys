@@ -378,12 +378,12 @@
             {caption: ["계좌번호"],         ref: 'BANK_ACCOUNT_REAL',    type:'output',  	width:'115px',  style:'text-align:left'},
             {caption: ["예금주"],         ref: 'BANK_DEPOSITOR',    type:'output',  	width:'65px',  style:'text-align:left'},
             {caption: ["주민번호"],         ref: 'SOCIAL_NUM_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
-            {caption: ["지급액"],         ref: 'PAY_NET_AMT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["지급액"],         ref: 'PAY_NET_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
             {caption: ["급여계좌(인사)"],         ref: 'BANK_ACCOUNT_REAL_HRP',    type:'output',  	width:'143px',  style:'text-align:left'},
-            {caption: ["지급액(인사)"],         ref: 'PAY_NET_AMT_HRP',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["지급액(인사)"],         ref: 'PAY_NET_AMT_HRP',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -626,7 +626,7 @@
             const postJsonPromise = gfn_postJSON("/fi/ftr/trn/insertFbs2240List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     return true;
@@ -745,7 +745,7 @@
                 });
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         // 변수 초기화
@@ -839,7 +839,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 dtFirmbanking = data.cv_1;
@@ -898,7 +898,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonTransferDetailList.legnth = 0;
@@ -1348,7 +1348,7 @@
         });
 
         const uploadData = await postJsonPromise;
-        console.log('data:', uploadData);
+
         try {
             if (_.isEqual("S", uploadData.resultStatus)) {
                 //전송상태 업데이트
@@ -1381,7 +1381,7 @@
                 });
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         fn_search();
@@ -1427,7 +1427,7 @@
         });
 
         const uploadData = await postJsonPromise;
-        console.log('data:', uploadData);
+
         try {
             if (_.isEqual("S", uploadData.resultStatus)) {
                 gfn_comAlert("E0000", "파일이 생성되었습니다.");
@@ -1534,7 +1534,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");

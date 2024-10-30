@@ -457,39 +457,39 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'input',  	width:'67px',  style:'text-align:left',
+            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'input',  	width:'67px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["이체금액(통화)"],         ref: 'ORIGINAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:left',
+            {caption: ["이체금액(통화)"],         ref: 'ORIGINAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["이체금액(전표)"],         ref: 'FUNCTIONAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:left',
+            {caption: ["이체금액(전표)"],         ref: 'FUNCTIONAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["이자율"],         ref: 'INTEREST_RATE',    type:'input',  	width:'75px',  style:'text-align:left',
+            {caption: ["이자율"],         ref: 'INTEREST_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
             },
-            {caption: ["이자수익"],         ref: 'INTEREST_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:left',
+            {caption: ["이자수익"],         ref: 'INTEREST_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["법인세율"],         ref: 'CTAX_RATE',    type:'input',  	width:'75px',  style:'text-align:left',
+            {caption: ["법인세율"],         ref: 'CTAX_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
             },
-            {caption: ["법인세원천징수"],         ref: 'CTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:left',
+            {caption: ["법인세원천징수"],         ref: 'CTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["지방소득세율"],         ref: 'PTAX_RATE',    type:'input',  	width:'120px',  style:'text-align:left',
+            {caption: ["지방소득세율"],         ref: 'PTAX_RATE',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
             },
-            {caption: ["지방소득세원천징수"],         ref: 'PTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:left',
+            {caption: ["지방소득세원천징수"],         ref: 'PTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
@@ -793,19 +793,19 @@
             {caption: ["부가세유형"], 	        ref: 'VAT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
             {caption: ["계정코드"], 	        ref: 'ACCOUNT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'}, // TODO : P_FIM045
             {caption: ["계정과목명"], 	        ref: 'ACCOUNT_NAME',    	        type:'output',  	width:'170px',  	style:'text-align:left'}, // TODO : P_FIM045
-            {caption: ["차변(통화)"],         ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["차변(통화)"],         ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },

@@ -534,7 +534,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -574,7 +573,7 @@
         }
 
         const checkData = await postJsonPromiseForCheck;
-        console.log('data:', checkData);
+
         try {
             if (_.isEqual("S", checkData.resultStatus)) {
 
