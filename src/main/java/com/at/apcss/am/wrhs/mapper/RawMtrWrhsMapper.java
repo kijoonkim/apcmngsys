@@ -141,7 +141,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public RawMtrWrhsSmmryVO selectRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
-	
+
 	/**
 	 * 원물입고요약 목록 조회
 	 * @param rawMtrWrhsSmmryVO
@@ -149,7 +149,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
-	
+
 	/**
 	 * 원물입고요약 집계 목록 조회
 	 * @param rawMtrWrhsSmmryVO
@@ -157,7 +157,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryTotalList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
-	
+
 	/**
 	 * 원물입고요약 등록
 	 * @param rawMtrWrhsSmmryVO
@@ -165,7 +165,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int insertRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
-	
+
 	/**
 	 * 원물입고요약 변경
 	 * @param rawMtrWrhsSmmryVO
@@ -181,8 +181,8 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrWrhsSmmryQntt(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 원물입고요약 삭제
 	 * @param rawMtrWrhsSmmryVO
@@ -200,4 +200,12 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectMblRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 지우농업법인 거래명세표 조회여부 확인.
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrWrhsInq(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }
