@@ -496,7 +496,8 @@
 
 	// 신규
 	function cfn_add() {
-	    fn_clearForm();
+	    fn_clearFormNew();
+	    SBUxMethod.attr('DEPT_CODE', 'readonly', 'false');
 	}
 
 	// 저장
@@ -832,6 +833,50 @@
 	        SBUxMethod.set("SORT_SEQ", 				"");
 	        SBUxMethod.set("USE_YN", 				"N");
 	    }
+	    /**
+	     * @name fn_clearForm
+	     * @description 신규버튼 그리드 및 화면 초기화
+	     * @param 
+	     */
+	    const fn_clearFormNew = function() {
+	    	
+	    	//조직도 변경
+	        SBUxMethod.set("CHANGE_DATE_KEY",		"");
+	        SBUxMethod.set("CHANGE_DATE",			"");
+	        SBUxMethod.attr('CHANGE_DATE', 'readonly', 'false');	        
+	        SBUxMethod.set("MEMO1",					"");
+	    	
+	        //코드목록 
+	        jsonSubTreeList = [];
+	        subTreeGrid.rebuild();;
+	        
+	        SBUxMethod.set("SITE_CODE1",			"");
+	        SBUxMethod.set("DEPT_CODE",				"");
+	        SBUxMethod.set("DEPT_NAME",				"");
+	        SBUxMethod.set("DEPT_ABBR_NAME", 		"");
+	        SBUxMethod.set("DEPT_NAME_ENG", 		"");
+	        SBUxMethod.set("DEPT_NAME_FOR",			"");
+	        SBUxMethod.set("PARENT_DEPT", 			"");
+	        SBUxMethod.set("PARENT_DEPT_NAME", 		"");
+	        SBUxMethod.set("DEPT_LEADER", 			"");
+	        SBUxMethod.set("DEPT_LEADER_NAME", 		"");
+	        SBUxMethod.set("DEPT_CATEGORY", 		"");
+	        SBUxMethod.set("DEPT_GUBUN", 			"");
+	        SBUxMethod.set("LABOR_COST_GROUP", 		"");
+	        SBUxMethod.set("SALES_DEPT_YN", 		"N");
+	        SBUxMethod.set("MARKETING_DEPT_YN", 	"N");
+	        SBUxMethod.set("PRODUCTION_DEPT_YN", 	"N");
+	        SBUxMethod.set("FINANCE_DEPT_YN", 		"N");
+	        
+	        SBUxMethod.set("CC_CODE", 				"");
+	        SBUxMethod.set("CC_NAME", 				"");
+	        SBUxMethod.set("ZIP_CODE", 				"");
+	        SBUxMethod.set("ADDRESS", 				"");
+	        SBUxMethod.set("FIXED_NUMBER", 			"");
+	        SBUxMethod.set("MEMO", 					"");
+	        SBUxMethod.set("SORT_SEQ", 				"");
+	        SBUxMethod.set("USE_YN", 				"N");
+	    }
 
 	    //그룹코드 내역 저장
 	    const fn_save = async function(workType) {
@@ -865,7 +910,6 @@
 	                if (data.resultMessage) {
 	                    alert(data.resultMessage);
 	                }
-	                gfn_comAlert("I0001");
 	                cfn_search();
 	            } else {
 	                alert(data.resultMessage);
@@ -954,7 +998,6 @@
 	                if (data.resultMessage) {
 	                    alert(data.resultMessage);
 	                }
-	                gfn_comAlert("I0001");
 	                fn_search('CHANGE');
 	            } else {
 	                alert(data.resultMessage);
