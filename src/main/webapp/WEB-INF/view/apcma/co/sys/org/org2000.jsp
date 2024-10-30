@@ -603,9 +603,9 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-    	let SRCH_DEPT_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
-    	let SRCH_BASE_DATE 	= gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+    	let SRCH_DEPT_CODE	= gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+    	let SRCH_DEPT_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+    	let SRCH_BASE_DATE 	= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
     	
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
@@ -639,53 +639,57 @@
 	    		masterTreeGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				LEVEL				: gfnma_nvl(item.LVL),
-		    				KEYID				: gfnma_nvl(item.KEYID),
-		    				PARENTKEYID			: gfnma_nvl(item.PARENTKEYID),
-		    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
-		    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
-		    				DEPT_ABBR_NAME		: gfnma_nvl(item.DEPT_ABBR_NAME),
-		    				SITE_CODE			: gfnma_nvl(item.SITE_CODE),
-		    				SITE_NAME			: gfnma_nvl(item.SITE_NAME),
-		    				DEPT_NAME_ENG		: gfnma_nvl(item.DEPT_NAME_ENG),
-		    				DEPT_NAME_FOR		: gfnma_nvl(item.DEPT_NAME_FOR),
-		    				PARENT_DEPT			: gfnma_nvl(item.PARENT_DEPT),
-		    				PARENT_DEPT_NAME	: gfnma_nvl(item.PARENT_DEPT_NAME),
-		    				DEPT_LEADER			: gfnma_nvl(item.DEPT_LEADER),
-		    				DEPT_LEADER_NAME	: gfnma_nvl(item.DEPT_LEADER_NAME),
-		    				DEPT_CATEGORY		: gfnma_nvl(item.DEPT_CATEGORY),
-		    				LABOR_COST_GROUP	: gfnma_nvl(item.LABOR_COST_GROUP),
-		    				FINANCE_DEPT_YN		: gfnma_nvl(item.FINANCE_DEPT_YN),
-		    				SALES_DEPT_YN		: gfnma_nvl(item.SALES_DEPT_YN),
-		    				MARKETING_DEPT_YN	: gfnma_nvl(item.MARKETING_DEPT_YN),
-		    				PRODUCTION_DEPT_YN	: gfnma_nvl(item.PRODUCTION_DEPT_YN),
-		    				CC_CODE				: gfnma_nvl(item.CC_CODE),
-		    				CC_NAME				: gfnma_nvl(item.CC_NAME),
-		    				START_DATE			: gfnma_nvl(item.START_DATE),
-		    				END_DATE			: gfnma_nvl(item.END_DATE),
-		    				ZIP_CODE			: gfnma_nvl(item.ZIP_CODE),
-		    				ADDRESS				: gfnma_nvl(item.ADDRESS),
-		    				FIXED_NUMBER		: gfnma_nvl(item.FIXED_NUMBER),
-		    				MEMO				: gfnma_nvl(item.MEMO),
-		    				SORT_SEQ			: gfnma_nvl(item.SORT_SEQ),
-		    				WORK_TIME_YN		: gfnma_nvl(item.WORK_TIME_YN),
-		    				WORK_PATTERN_CODE	: gfnma_nvl(item.WORK_PATTERN_CODE),
-		    				ATTR1				: gfnma_nvl(item.ATTR1),
-		    				ATTR2				: gfnma_nvl(item.ATTR2),
-		    				ATTR3				: gfnma_nvl(item.ATTR3),
-		    				ATTR4				: gfnma_nvl(item.ATTR4),
-		    				ATTR5				: gfnma_nvl(item.ATTR5),
-		    				ATTR6				: gfnma_nvl(item.ATTR6),
-		    				ATTR7				: gfnma_nvl(item.ATTR7),
-		    				ATTR8				: gfnma_nvl(item.ATTR8),
-		    				ATTR9				: gfnma_nvl(item.ATTR9),
-		    				ATTR10				: gfnma_nvl(item.ATTR10)
+		    				LEVEL				: gfn_nvl(item.LVL),
+		    				KEYID				: gfn_nvl(item.KEYID),
+		    				PARENTKEYID			: gfn_nvl(item.PARENTKEYID),
+		    				DEPT_CODE			: gfn_nvl(item.DEPT_CODE),
+		    				DEPT_NAME			: gfn_nvl(item.DEPT_NAME),
+		    				DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NAME),
+		    				SITE_CODE			: gfn_nvl(item.SITE_CODE),
+		    				SITE_NAME			: gfn_nvl(item.SITE_NAME),
+		    				DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NAME_ENG),
+		    				DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NAME_FOR),
+		    				PARENT_DEPT			: gfn_nvl(item.PARENT_DEPT),
+		    				PARENT_DEPT_NAME	: gfn_nvl(item.PARENT_DEPT_NAME),
+		    				DEPT_LEADER			: gfn_nvl(item.DEPT_LEADER),
+		    				DEPT_LEADER_NAME	: gfn_nvl(item.DEPT_LEADER_NAME),
+		    				DEPT_CATEGORY		: gfn_nvl(item.DEPT_CATEGORY),
+		    				LABOR_COST_GROUP	: gfn_nvl(item.LABOR_COST_GROUP),
+		    				FINANCE_DEPT_YN		: gfn_nvl(item.FINANCE_DEPT_YN),
+		    				SALES_DEPT_YN		: gfn_nvl(item.SALES_DEPT_YN),
+		    				MARKETING_DEPT_YN	: gfn_nvl(item.MARKETING_DEPT_YN),
+		    				PRODUCTION_DEPT_YN	: gfn_nvl(item.PRODUCTION_DEPT_YN),
+		    				CC_CODE				: gfn_nvl(item.CC_CODE),
+		    				CC_NAME				: gfn_nvl(item.CC_NAME),
+		    				START_DATE			: gfn_nvl(item.START_DATE),
+		    				END_DATE			: gfn_nvl(item.END_DATE),
+		    				ZIP_CODE			: gfn_nvl(item.ZIP_CODE),
+		    				ADDRESS				: gfn_nvl(item.ADDRESS),
+		    				FIXED_NUMBER		: gfn_nvl(item.FIXED_NUMBER),
+		    				MEMO				: gfn_nvl(item.MEMO),
+		    				SORT_SEQ			: gfn_nvl(item.SORT_SEQ),
+		    				WORK_TIME_YN		: gfn_nvl(item.WORK_TIME_YN),
+		    				WORK_PATTERN_CODE	: gfn_nvl(item.WORK_PATTERN_CODE),
+		    				ATTR1				: gfn_nvl(item.ATTR1),
+		    				ATTR2				: gfn_nvl(item.ATTR2),
+		    				ATTR3				: gfn_nvl(item.ATTR3),
+		    				ATTR4				: gfn_nvl(item.ATTR4),
+		    				ATTR5				: gfn_nvl(item.ATTR5),
+		    				ATTR6				: gfn_nvl(item.ATTR6),
+		    				ATTR7				: gfn_nvl(item.ATTR7),
+		    				ATTR8				: gfn_nvl(item.ATTR8),
+		    				ATTR9				: gfn_nvl(item.ATTR9),
+		    				ATTR10				: gfn_nvl(item.ATTR10)
 		    		}
 		    		jsonMasterTreeList.push(msg);
 		    		totalRecordCount ++;
 		    	});
 	    	   	masterTreeGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
+	    	   	
+                if(jsonMasterTreeList.length > 0) {
+                	masterTreeGrid.clickRow(1);
+                }
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -767,11 +771,11 @@
             gfn_comAlert("W0002", "부서구분");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("SORT_SEQ")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("SORT_SEQ")) == "") {
             gfn_comAlert("W0002", "정렬순서");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
             gfn_comAlert("W0002", "부서명");
             return;
     	}
@@ -781,40 +785,40 @@
     			,V_P_LANG_ID             : ''
     			,V_P_COMP_CODE           : gv_ma_selectedApcCd
     			,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-    			,V_P_DEPT_CODE           : gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
-    			,V_P_DEPT_NAME           : gfnma_nvl(SBUxMethod.get("DEPT_NAME"))
-    			,V_P_DEPT_NAME_ENG       : gfnma_nvl(SBUxMethod.get("DEPT_NAME_ENG"))
-    			,V_P_DEPT_NAME_FOR       : gfnma_nvl(SBUxMethod.get("DEPT_NAME_FOR"))
-    			,V_P_DEPT_ABBR_NAME      : gfnma_nvl(SBUxMethod.get("DEPT_ABBR_NAME"))
+    			,V_P_DEPT_CODE           : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
+    			,V_P_DEPT_NAME           : gfn_nvl(SBUxMethod.get("DEPT_NAME"))
+    			,V_P_DEPT_NAME_ENG       : gfn_nvl(SBUxMethod.get("DEPT_NAME_ENG"))
+    			,V_P_DEPT_NAME_FOR       : gfn_nvl(SBUxMethod.get("DEPT_NAME_FOR"))
+    			,V_P_DEPT_ABBR_NAME      : gfn_nvl(SBUxMethod.get("DEPT_ABBR_NAME"))
     			,V_P_SITE_CODE           : gfnma_multiSelectGet('#SITE_CODE')
-    			,V_P_PARENT_DEPT         : gfnma_nvl(SBUxMethod.get("PARENT_DEPT"))
-    			,V_P_DEPT_LEADER         : gfnma_nvl(SBUxMethod.get("DEPT_LEADER"))
+    			,V_P_PARENT_DEPT         : gfn_nvl(SBUxMethod.get("PARENT_DEPT"))
+    			,V_P_DEPT_LEADER         : gfn_nvl(SBUxMethod.get("DEPT_LEADER"))
     			,V_P_DEPT_CATEGORY       : gfnma_multiSelectGet('#DEPT_CATEGORY')
-    			,V_P_LABOR_COST_GROUP    : gfnma_nvl(SBUxMethod.get("LABOR_COST_GROUP"))
-    			,V_P_SALES_DEPT_YN       : gfnma_nvl(SBUxMethod.get("SALES_DEPT_YN").SALES_DEPT_YN)
-    			,V_P_MARKETING_DEPT_YN   : gfnma_nvl(SBUxMethod.get("MARKETING_DEPT_YN").MARKETING_DEPT_YN)
-    			,V_P_PRODUCTION_DEPT_YN  : gfnma_nvl(SBUxMethod.get("PRODUCTION_DEPT_YN").PRODUCTION_DEPT_YN)
-    			,V_P_FINANCE_DEPT_YN     : gfnma_nvl(SBUxMethod.get("FINANCE_DEPT_YN").FINANCE_DEPT_YN)
+    			,V_P_LABOR_COST_GROUP    : gfn_nvl(SBUxMethod.get("LABOR_COST_GROUP"))
+    			,V_P_SALES_DEPT_YN       : gfn_nvl(SBUxMethod.get("SALES_DEPT_YN").SALES_DEPT_YN)
+    			,V_P_MARKETING_DEPT_YN   : gfn_nvl(SBUxMethod.get("MARKETING_DEPT_YN").MARKETING_DEPT_YN)
+    			,V_P_PRODUCTION_DEPT_YN  : gfn_nvl(SBUxMethod.get("PRODUCTION_DEPT_YN").PRODUCTION_DEPT_YN)
+    			,V_P_FINANCE_DEPT_YN     : gfn_nvl(SBUxMethod.get("FINANCE_DEPT_YN").FINANCE_DEPT_YN)
     			,V_P_CC_CODE             : gfnma_multiSelectGet('#CC_CODE')
-    			,V_P_START_DATE          : gfnma_nvl(SBUxMethod.get("START_DATE"))
-    			,V_P_END_DATE            : gfnma_nvl(SBUxMethod.get("END_DATE"))
-    			,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-    			,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-    			,V_P_FIXED_NUMBER        : gfnma_nvl(SBUxMethod.get("FIXED_NUMBER"))
-    			,V_P_MEMO                : gfnma_nvl(SBUxMethod.get("MEMO"))
-    			,V_P_SORT_SEQ            : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-    			,V_P_WORK_TIME_YN        : gfnma_nvl(SBUxMethod.get("WORK_TIME_YN").WORK_TIME_YN)
+    			,V_P_START_DATE          : gfn_nvl(SBUxMethod.get("START_DATE"))
+    			,V_P_END_DATE            : gfn_nvl(SBUxMethod.get("END_DATE"))
+    			,V_P_ZIP_CODE            : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
+    			,V_P_ADDRESS             : gfn_nvl(SBUxMethod.get("ADDRESS"))
+    			,V_P_FIXED_NUMBER        : gfn_nvl(SBUxMethod.get("FIXED_NUMBER"))
+    			,V_P_MEMO                : gfn_nvl(SBUxMethod.get("MEMO"))
+    			,V_P_SORT_SEQ            : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+    			,V_P_WORK_TIME_YN        : gfn_nvl(SBUxMethod.get("WORK_TIME_YN").WORK_TIME_YN)
     			,V_P_WORK_PATTERN_CODE   : gfnma_multiSelectGet('#WORK_PATTERN_CODE')
     			,V_P_ATTR1               : gfnma_multiSelectGet('#ATTR1')
-    			,V_P_ATTR2               : gfnma_nvl(SBUxMethod.get("ATTR2"))
-    			,V_P_ATTR3               : gfnma_nvl(SBUxMethod.get("ATTR3"))
-    			,V_P_ATTR4               : gfnma_nvl(SBUxMethod.get("ATTR4"))
-    			,V_P_ATTR5               : gfnma_nvl(SBUxMethod.get("ATTR5"))
-    			,V_P_ATTR6               : gfnma_nvl(SBUxMethod.get("ATTR6"))
-    			,V_P_ATTR7               : gfnma_nvl(SBUxMethod.get("ATTR7"))
-    			,V_P_ATTR8               : gfnma_nvl(SBUxMethod.get("ATTR8"))
-    			,V_P_ATTR9               : gfnma_nvl(SBUxMethod.get("ATTR9"))
-    			,V_P_ATTR10              : gfnma_nvl(SBUxMethod.get("ATTR10"))
+    			,V_P_ATTR2               : gfn_nvl(SBUxMethod.get("ATTR2"))
+    			,V_P_ATTR3               : gfn_nvl(SBUxMethod.get("ATTR3"))
+    			,V_P_ATTR4               : gfn_nvl(SBUxMethod.get("ATTR4"))
+    			,V_P_ATTR5               : gfn_nvl(SBUxMethod.get("ATTR5"))
+    			,V_P_ATTR6               : gfn_nvl(SBUxMethod.get("ATTR6"))
+    			,V_P_ATTR7               : gfn_nvl(SBUxMethod.get("ATTR7"))
+    			,V_P_ATTR8               : gfn_nvl(SBUxMethod.get("ATTR8"))
+    			,V_P_ATTR9               : gfn_nvl(SBUxMethod.get("ATTR9"))
+    			,V_P_ATTR10              : gfn_nvl(SBUxMethod.get("ATTR10"))
     			,V_P_FORM_ID             : p_formId
     			,V_P_MENU_ID             : p_menuId
     			,V_P_PROC_ID             : ''
@@ -858,46 +862,46 @@
 	    }
 	    const selectRowVal = masterTreeGrid.getRowData(nRow);
 
-    	SBUxMethod.set("DEPT_CODE"			, gfnma_nvl(selectRowVal.DEPT_CODE) );
-    	SBUxMethod.set("DEPT_NAME"			, gfnma_nvl(selectRowVal.DEPT_NAME) );
-    	SBUxMethod.set("DEPT_ABBR_NAME"		, gfnma_nvl(selectRowVal.DEPT_ABBR_NAME) );
-    	SBUxMethod.set("SITE_CODE"			, gfnma_nvl(selectRowVal.SITE_CODE) );
-    	SBUxMethod.set("SITE_NAME"			, gfnma_nvl(selectRowVal.SITE_NAME) );
-    	SBUxMethod.set("DEPT_NAME_ENG"		, gfnma_nvl(selectRowVal.DEPT_NAME_ENG) );
-    	SBUxMethod.set("DEPT_NAME_FOR"		, gfnma_nvl(selectRowVal.DEPT_NAME_FOR) );
-    	SBUxMethod.set("PARENT_DEPT"		, gfnma_nvl(selectRowVal.PARENT_DEPT) );
-    	SBUxMethod.set("PARENT_DEPT_NAME"	, gfnma_nvl(selectRowVal.PARENT_DEPT_NAME) );
-    	SBUxMethod.set("DEPT_LEADER"		, gfnma_nvl(selectRowVal.DEPT_LEADER) );
-    	SBUxMethod.set("DEPT_LEADER_NAME"	, gfnma_nvl(selectRowVal.DEPT_LEADER_NAME) );
-    	SBUxMethod.set("FINANCE_DEPT_YN"	, gfnma_nvl(selectRowVal.FINANCE_DEPT_YN) );
-    	SBUxMethod.set("SALES_DEPT_YN"		, gfnma_nvl(selectRowVal.SALES_DEPT_YN) );
-    	SBUxMethod.set("MARKETING_DEPT_YN"	, gfnma_nvl(selectRowVal.MARKETING_DEPT_YN) );
-    	SBUxMethod.set("PRODUCTION_DEPT_YN"	, gfnma_nvl(selectRowVal.PRODUCTION_DEPT_YN) );
-    	SBUxMethod.set("CC_CODE"			, gfnma_nvl(selectRowVal.CC_CODE) );
-    	SBUxMethod.set("CC_NAME"			, gfnma_nvl(selectRowVal.CC_NAME) );
-    	SBUxMethod.set("START_DATE"			, gfnma_nvl(selectRowVal.START_DATE) );
-    	SBUxMethod.set("END_DATE"			, gfnma_nvl(selectRowVal.END_DATE) );
-    	SBUxMethod.set("ZIP_CODE"			, gfnma_nvl(selectRowVal.ZIP_CODE) );
-    	SBUxMethod.set("ADDRESS"			, gfnma_nvl(selectRowVal.ADDRESS) );
-    	SBUxMethod.set("FIXED_NUMBER"		, gfnma_nvl(selectRowVal.FIXED_NUMBER) );
-    	SBUxMethod.set("MEMO"				, gfnma_nvl(selectRowVal.MEMO) );
-    	SBUxMethod.set("SORT_SEQ"			, gfnma_nvl(selectRowVal.SORT_SEQ) );
-    	SBUxMethod.set("WORK_TIME_YN"		, gfnma_nvl(selectRowVal.WORK_TIME_YN) );
-    	SBUxMethod.set("ATTR2"				, gfnma_nvl(selectRowVal.ATTR2) );
-    	SBUxMethod.set("ATTR3"				, gfnma_nvl(selectRowVal.ATTR3) );
-    	SBUxMethod.set("ATTR4"				, gfnma_nvl(selectRowVal.ATTR4) );
-    	SBUxMethod.set("ATTR5"				, gfnma_nvl(selectRowVal.ATTR5) );
-    	SBUxMethod.set("ATTR6"				, gfnma_nvl(selectRowVal.ATTR6) );
-    	SBUxMethod.set("ATTR7"				, gfnma_nvl(selectRowVal.ATTR7) );
-    	SBUxMethod.set("ATTR8"				, gfnma_nvl(selectRowVal.ATTR8) );
-    	SBUxMethod.set("ATTR9"				, gfnma_nvl(selectRowVal.ATTR9) );
-    	SBUxMethod.set("ATTR10"				, gfnma_nvl(selectRowVal.ATTR10) );
+    	SBUxMethod.set("DEPT_CODE"			, gfn_nvl(selectRowVal.DEPT_CODE) );
+    	SBUxMethod.set("DEPT_NAME"			, gfn_nvl(selectRowVal.DEPT_NAME) );
+    	SBUxMethod.set("DEPT_ABBR_NAME"		, gfn_nvl(selectRowVal.DEPT_ABBR_NAME) );
+    	SBUxMethod.set("SITE_CODE"			, gfn_nvl(selectRowVal.SITE_CODE) );
+    	SBUxMethod.set("SITE_NAME"			, gfn_nvl(selectRowVal.SITE_NAME) );
+    	SBUxMethod.set("DEPT_NAME_ENG"		, gfn_nvl(selectRowVal.DEPT_NAME_ENG) );
+    	SBUxMethod.set("DEPT_NAME_FOR"		, gfn_nvl(selectRowVal.DEPT_NAME_FOR) );
+    	SBUxMethod.set("PARENT_DEPT"		, gfn_nvl(selectRowVal.PARENT_DEPT) );
+    	SBUxMethod.set("PARENT_DEPT_NAME"	, gfn_nvl(selectRowVal.PARENT_DEPT_NAME) );
+    	SBUxMethod.set("DEPT_LEADER"		, gfn_nvl(selectRowVal.DEPT_LEADER) );
+    	SBUxMethod.set("DEPT_LEADER_NAME"	, gfn_nvl(selectRowVal.DEPT_LEADER_NAME) );
+    	SBUxMethod.set("FINANCE_DEPT_YN"	, gfn_nvl(selectRowVal.FINANCE_DEPT_YN) );
+    	SBUxMethod.set("SALES_DEPT_YN"		, gfn_nvl(selectRowVal.SALES_DEPT_YN) );
+    	SBUxMethod.set("MARKETING_DEPT_YN"	, gfn_nvl(selectRowVal.MARKETING_DEPT_YN) );
+    	SBUxMethod.set("PRODUCTION_DEPT_YN"	, gfn_nvl(selectRowVal.PRODUCTION_DEPT_YN) );
+    	SBUxMethod.set("CC_CODE"			, gfn_nvl(selectRowVal.CC_CODE) );
+    	SBUxMethod.set("CC_NAME"			, gfn_nvl(selectRowVal.CC_NAME) );
+    	SBUxMethod.set("START_DATE"			, gfn_nvl(selectRowVal.START_DATE) );
+    	SBUxMethod.set("END_DATE"			, gfn_nvl(selectRowVal.END_DATE) );
+    	SBUxMethod.set("ZIP_CODE"			, gfn_nvl(selectRowVal.ZIP_CODE) );
+    	SBUxMethod.set("ADDRESS"			, gfn_nvl(selectRowVal.ADDRESS) );
+    	SBUxMethod.set("FIXED_NUMBER"		, gfn_nvl(selectRowVal.FIXED_NUMBER) );
+    	SBUxMethod.set("MEMO"				, gfn_nvl(selectRowVal.MEMO) );
+    	SBUxMethod.set("SORT_SEQ"			, gfn_nvl(selectRowVal.SORT_SEQ) );
+    	SBUxMethod.set("WORK_TIME_YN"		, gfn_nvl(selectRowVal.WORK_TIME_YN) );
+    	SBUxMethod.set("ATTR2"				, gfn_nvl(selectRowVal.ATTR2) );
+    	SBUxMethod.set("ATTR3"				, gfn_nvl(selectRowVal.ATTR3) );
+    	SBUxMethod.set("ATTR4"				, gfn_nvl(selectRowVal.ATTR4) );
+    	SBUxMethod.set("ATTR5"				, gfn_nvl(selectRowVal.ATTR5) );
+    	SBUxMethod.set("ATTR6"				, gfn_nvl(selectRowVal.ATTR6) );
+    	SBUxMethod.set("ATTR7"				, gfn_nvl(selectRowVal.ATTR7) );
+    	SBUxMethod.set("ATTR8"				, gfn_nvl(selectRowVal.ATTR8) );
+    	SBUxMethod.set("ATTR9"				, gfn_nvl(selectRowVal.ATTR9) );
+    	SBUxMethod.set("ATTR10"				, gfn_nvl(selectRowVal.ATTR10) );
     	
-    	gfnma_multiSelectSet('#SITE_CODE', 			'SITE_CODE', 	'SITE_NAME', gfnma_nvl(selectRowVal.SITE_CODE) );
-    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE', 	'CODE_NAME', gfnma_nvl(selectRowVal.DEPT_CATEGORY) );
-    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE', 	'CODE_NAME', gfnma_nvl(selectRowVal.LABOR_COST_GROUP) );
-    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'SUB_CODE', 	'CODE_NAME', gfnma_nvl(selectRowVal.WORK_PATTERN_CODE) );
-    	gfnma_multiSelectSet('#ATTR1', 				'SUB_CODE', 	'CODE_NAME', gfnma_nvl(selectRowVal.ATTR1) );
+    	gfnma_multiSelectSet('#SITE_CODE', 			'SITE_CODE', 	'SITE_NAME', gfn_nvl(selectRowVal.SITE_CODE) );
+    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.DEPT_CATEGORY) );
+    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.LABOR_COST_GROUP) );
+    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.WORK_PATTERN_CODE) );
+    	gfnma_multiSelectSet('#ATTR1', 				'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.ATTR1) );
     	
     }
     
@@ -934,8 +938,8 @@
      * 부서장
      */
     var fn_compopupDeptLeader = function() {
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_LEADER"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_LEADER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
         var replaceText2 	= "_EMP_STATE_";
@@ -969,8 +973,8 @@
      * 원가조직
      */
     var fn_compopupCcCode = function() {
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("CC_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("CC_NAME"));
+        var searchText1 	= gfn_nvl(SBUxMethod.get("CC_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("CC_NAME"));
         var replaceText0 	= "_CC_CODE_";
         var replaceText1 	= "_CC_NAME_";
         var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 +  "%'";

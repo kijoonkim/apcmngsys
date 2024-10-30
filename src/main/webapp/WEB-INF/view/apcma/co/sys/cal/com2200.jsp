@@ -585,7 +585,6 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_initSBSelect();
-    	fn_createGrid();
     	cfn_search()
     });
 	// 신규
@@ -603,9 +602,9 @@
  
 	// 조회
 	function cfn_search() {
-		fn_search();
-		fn_clearForm();
 		fn_createGrid();
+		fn_clearForm();
+		fn_search();
 	}
 
     //grid 초기화
@@ -619,7 +618,7 @@
 	    SBGridProperties.id 				= 'masterGrid';
 	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'free';
+        SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -645,7 +644,7 @@
      */
     const fn_workPeriodOpen = async function(){
     	
-    	if( gfnma_nvl(SBUxMethod.get("WORKPERIODFROM")) == '' || gfnma_nvl(SBUxMethod.get("WORKPERIODTO")) == '' ){
+    	if( gfn_nvl(SBUxMethod.get("WORKPERIODFROM")) == '' || gfn_nvl(SBUxMethod.get("WORKPERIODTO")) == '' ){
     		gfn_comAlert("W0002", "기간정보");
     		return;
     	}
@@ -662,7 +661,7 @@
      */
     const fn_ContractPeriodOpen = async function(){
     	
-    	if( gfnma_nvl(SBUxMethod.get("CONTRACTPERIODFROM")) == '' || gfnma_nvl(SBUxMethod.get("CONTRACTPERIODTO")) == '' ){
+    	if( gfn_nvl(SBUxMethod.get("CONTRACTPERIODFROM")) == '' || gfn_nvl(SBUxMethod.get("CONTRACTPERIODTO")) == '' ){
     		gfn_comAlert("W0002", "기간정보");
     		return;
     	}
@@ -753,8 +752,8 @@
 		
 		var targetColor	= $('#' + target).css('color');
 		var workType 	= '';
-    	var startDate	= gfnma_nvl(SBUxMethod.get("START_DATE"));
-    	var endDate		= gfnma_nvl(SBUxMethod.get("END_DATE"));
+    	var startDate	= gfn_nvl(SBUxMethod.get("START_DATE"));
+    	var endDate		= gfn_nvl(SBUxMethod.get("END_DATE"));
     	
     	if(targetColor == 'rgb(0, 0, 255)'){
     		workType = 'WORK_CLOSE';
@@ -764,8 +763,8 @@
 		
     	if(type == '2'){
     		workType 	= 'WORK_OPEN_P';
-    		startDate	= gfnma_nvl(SBUxMethod.get("WORKPERIODFROM"));
-    		endDate		= gfnma_nvl(SBUxMethod.get("WORKPERIODTO"));
+    		startDate	= gfn_nvl(SBUxMethod.get("WORKPERIODFROM"));
+    		endDate		= gfn_nvl(SBUxMethod.get("WORKPERIODTO"));
     	}
     	
     	var saveParamObj = {
@@ -773,15 +772,15 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedApcCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfnma_nvl(SBUxMethod.get("PERIOD_CODE1"))
-   				,V_P_PERIOD_NAME       : gfnma_nvl(SBUxMethod.get("PERIOD_NAME1"))
-   				,V_P_PERIOD_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
-   				,V_P_FISCAL_NO         : gfnma_nvl(SBUxMethod.get("FISCAL_NO1"))
-   				,V_P_PERIOD_STATUS     : gfnma_nvl(SBUxMethod.get("PERIOD_STATUS"))
-   				,V_P_DESCRIPTION       : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-   				,V_P_PERIOD_YYYY       : gfnma_nvl(SBUxMethod.get("PERIOD_YYYY"))
-   				,V_P_PERIOD_QUARTER    : gfnma_nvl(SBUxMethod.get("PERIOD_QUARTER"))
-   				,V_P_SORT_SEQ          : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
+   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
+   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
+   				,V_P_PERIOD_STATUS     : gfn_nvl(SBUxMethod.get("PERIOD_STATUS"))
+   				,V_P_DESCRIPTION       : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+   				,V_P_PERIOD_YYYY       : gfn_nvl(SBUxMethod.get("PERIOD_YYYY"))
+   				,V_P_PERIOD_QUARTER    : gfn_nvl(SBUxMethod.get("PERIOD_QUARTER"))
+   				,V_P_SORT_SEQ          : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
    				,V_P_START_DATE        : startDate
    				,V_P_END_DATE          : endDate
    				,V_P_ATTR1             : ''
@@ -923,8 +922,8 @@
 		var rowData 	= masterGrid.getRowData(nRow);
 		var targetColor	= $('#' + target).css('color');
 		var workType 	= '';
-		var startDate 	= gfnma_nvl(SBUxMethod.get("START_DATE"));
-		var endDate 	= gfnma_nvl(SBUxMethod.get("END_DATE"));
+		var startDate 	= gfn_nvl(SBUxMethod.get("START_DATE"));
+		var endDate 	= gfn_nvl(SBUxMethod.get("END_DATE"));
     	
     	if(targetColor == 'rgb(0, 0, 255)'){
     		workType = 'CLOSE';
@@ -934,8 +933,8 @@
     	
     	if(type == '2'){
     		workType 	= 'OPEN_P';
-    		startDate	= gfnma_nvl(SBUxMethod.get("CONTRACTPERIODFROM"));
-    		endDate		= gfnma_nvl(SBUxMethod.get("CONTRACTPERIODTO"));
+    		startDate	= gfn_nvl(SBUxMethod.get("CONTRACTPERIODFROM"));
+    		endDate		= gfn_nvl(SBUxMethod.get("CONTRACTPERIODTO"));
     	}
     	
 		if(targetColor == 'rgb(0, 0, 255)' && 
@@ -951,15 +950,15 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedApcCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfnma_nvl(SBUxMethod.get("PERIOD_CODE1"))
-   				,V_P_PERIOD_NAME       : gfnma_nvl(SBUxMethod.get("PERIOD_NAME1"))
-   				,V_P_PERIOD_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
-   				,V_P_FISCAL_NO         : gfnma_nvl(SBUxMethod.get("FISCAL_NO1"))
-   				,V_P_PERIOD_STATUS     : gfnma_nvl(SBUxMethod.get("PERIOD_STATUS"))
-   				,V_P_DESCRIPTION       : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-   				,V_P_PERIOD_YYYY       : gfnma_nvl(SBUxMethod.get("PERIOD_YYYY"))
-   				,V_P_PERIOD_QUARTER    : gfnma_nvl(SBUxMethod.get("PERIOD_QUARTER"))
-   				,V_P_SORT_SEQ          : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
+   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
+   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
+   				,V_P_PERIOD_STATUS     : gfn_nvl(SBUxMethod.get("PERIOD_STATUS"))
+   				,V_P_DESCRIPTION       : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+   				,V_P_PERIOD_YYYY       : gfn_nvl(SBUxMethod.get("PERIOD_YYYY"))
+   				,V_P_PERIOD_QUARTER    : gfn_nvl(SBUxMethod.get("PERIOD_QUARTER"))
+   				,V_P_SORT_SEQ          : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
    				,V_P_START_DATE        : startDate
    				,V_P_END_DATE          : endDate
    				,V_P_ATTR1             : ''
@@ -1013,8 +1012,8 @@
 		var rowData 	= masterGrid.getRowData(nRow);
 		var targetColor	= $('#' + target).css('color');
 		var workType 	= '';
-		var startDate 	= gfnma_nvl(SBUxMethod.get("START_DATE"));
-		var endDate 	= gfnma_nvl(SBUxMethod.get("END_DATE"));
+		var startDate 	= gfn_nvl(SBUxMethod.get("START_DATE"));
+		var endDate 	= gfn_nvl(SBUxMethod.get("END_DATE"));
     	
     	if(targetColor == 'rgb(0, 0, 255)'){
     		workType = 'CLOSE';
@@ -1027,15 +1026,15 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedApcCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfnma_nvl(SBUxMethod.get("PERIOD_CODE1"))
-   				,V_P_PERIOD_NAME       : gfnma_nvl(SBUxMethod.get("PERIOD_NAME1"))
-   				,V_P_PERIOD_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
-   				,V_P_FISCAL_NO         : gfnma_nvl(SBUxMethod.get("FISCAL_NO1"))
-   				,V_P_PERIOD_STATUS     : gfnma_nvl(SBUxMethod.get("PERIOD_STATUS"))
-   				,V_P_DESCRIPTION       : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-   				,V_P_PERIOD_YYYY       : gfnma_nvl(SBUxMethod.get("PERIOD_YYYY"))
-   				,V_P_PERIOD_QUARTER    : gfnma_nvl(SBUxMethod.get("PERIOD_QUARTER"))
-   				,V_P_SORT_SEQ          : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
+   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
+   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
+   				,V_P_PERIOD_STATUS     : gfn_nvl(SBUxMethod.get("PERIOD_STATUS"))
+   				,V_P_DESCRIPTION       : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+   				,V_P_PERIOD_YYYY       : gfn_nvl(SBUxMethod.get("PERIOD_YYYY"))
+   				,V_P_PERIOD_QUARTER    : gfn_nvl(SBUxMethod.get("PERIOD_QUARTER"))
+   				,V_P_SORT_SEQ          : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
    				,V_P_START_DATE        : startDate
    				,V_P_END_DATE          : endDate
    				,V_P_ATTR1             : ''
@@ -1094,8 +1093,8 @@
     	fn_clearForm();
     	
     	let SRCH_FISCAL_NO		= gfnma_multiSelectGet('#SRCH_FISCAL_NO') 
-    	let SRCH_PERIOD_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_PERIOD_CODE"));
-    	let SRCH_PERIOD_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_PERIOD_NAME"));
+    	let SRCH_PERIOD_CODE	= gfn_nvl(SBUxMethod.get("SRCH_PERIOD_CODE"));
+    	let SRCH_PERIOD_NAME	= gfn_nvl(SBUxMethod.get("SRCH_PERIOD_NAME"));
     	
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
@@ -1153,7 +1152,11 @@
 		    	});
 	    	   	masterGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
-	
+	    	   	
+                if(jsonMasterList.length > 0) {
+               		masterGrid.clickRow(2);
+                }
+                
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -1226,7 +1229,7 @@
     // 그리드 삭제
     const fn_delete = async function(){
 
-    	if(gfnma_nvl(SBUxMethod.get("PERIOD_CODE1")) == ''){
+    	if(gfn_nvl(SBUxMethod.get("PERIOD_CODE1")) == ''){
     		gfn_comAlert("W0001", "삭제할 기간정보"); 
     		return;
     	}
@@ -1236,17 +1239,17 @@
 	   				,V_P_LANG_ID           : ''
 	   				,V_P_COMP_CODE         : gv_ma_selectedApcCd
 	   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-	   				,V_P_PERIOD_CODE       : gfnma_nvl(SBUxMethod.get("PERIOD_CODE1"))
-	   				,V_P_PERIOD_NAME       : gfnma_nvl(SBUxMethod.get("PERIOD_NAME1"))
-	   				,V_P_PERIOD_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
-	   				,V_P_FISCAL_NO         : gfnma_nvl(SBUxMethod.get("FISCAL_NO1"))
-	   				,V_P_PERIOD_STATUS     : gfnma_nvl(SBUxMethod.get("PERIOD_STATUS"))
-	   				,V_P_DESCRIPTION       : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-	   				,V_P_PERIOD_YYYY       : gfnma_nvl(SBUxMethod.get("PERIOD_YYYY"))
-	   				,V_P_PERIOD_QUARTER    : gfnma_nvl(SBUxMethod.get("PERIOD_QUARTER"))
-	   				,V_P_SORT_SEQ          : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-	   				,V_P_START_DATE        : gfnma_nvl(SBUxMethod.get("START_DATE"))
-	   				,V_P_END_DATE          : gfnma_nvl(SBUxMethod.get("END_DATE"))
+	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+	   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
+	   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
+	   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
+	   				,V_P_PERIOD_STATUS     : gfn_nvl(SBUxMethod.get("PERIOD_STATUS"))
+	   				,V_P_DESCRIPTION       : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+	   				,V_P_PERIOD_YYYY       : gfn_nvl(SBUxMethod.get("PERIOD_YYYY"))
+	   				,V_P_PERIOD_QUARTER    : gfn_nvl(SBUxMethod.get("PERIOD_QUARTER"))
+	   				,V_P_SORT_SEQ          : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+	   				,V_P_START_DATE        : gfn_nvl(SBUxMethod.get("START_DATE"))
+	   				,V_P_END_DATE          : gfn_nvl(SBUxMethod.get("END_DATE"))
 	   				,V_P_ATTR1             : ''
 	   				,V_P_ATTR2             : ''
 	   				,V_P_ATTR3             : ''
@@ -1366,34 +1369,34 @@
 					
 					if(subData.cv_2[i].SCM_YN =='Y'){
 						
-						strbtntxt += "FCM : " + gfnma_nvl(subData.cv_2[i].F_PERIOD_STATUS);
+						strbtntxt += "FCM : " + gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS);
 						strbtntxt += "\n";
-						strbtntxt += "SCM : " + gfnma_nvl(subData.cv_2[i].PERIOD_STATUS);
+						strbtntxt += "SCM : " + gfn_nvl(subData.cv_2[i].PERIOD_STATUS);
 					}else{
 						strbtntxt1 += strbtntxt;
-						strbtntxt1 += "Due : " + gfnma_nvl(subData.cv_2[i].PLAN_CLOSE_DATE_FIELD);;
+						strbtntxt1 += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_CLOSE_DATE_FIELD);;
 						strbtntxt1 += "\n";
-						strbtntxt1 += gfnma_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD);;
-						strbtntxt += "Due : " + gfnma_nvl(subData.cv_2[i].PLAN_CLOSE_DATE);
+						strbtntxt1 += gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD);;
+						strbtntxt += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_CLOSE_DATE);
 						strbtntxt += "\n";
-						strbtntxt += gfnma_nvl(subData.cv_2[i].PERIOD_STATUS);
+						strbtntxt += gfn_nvl(subData.cv_2[i].PERIOD_STATUS);
 						
 					}
 					
 					if(subData.cv_2[i].SCM_YN =='Y'){
 						
-						if(gfnma_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'CLOSE'){
+						if(gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'CLOSE'){
 							$('#' + strsubmodule).css('color','red')
-						}else if(gfnma_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'FUTURE'){
+						}else if(gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'FUTURE'){
 							$('#' + strsubmodule).css('color','green')
 						}else{
 							$('#' + strsubmodule).css('color','blue')
 						}
 						
 					}else{
-						if(gfnma_nvl(subData.cv_2[i].PERIOD_STATUS) == 'CLOSE'){
+						if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS) == 'CLOSE'){
 							$('#' + strsubmodule).css('color','red')
-						}else if(gfnma_nvl(subData.cv_2[i].PERIOD_STATUS) == 'FUTURE'){
+						}else if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS) == 'FUTURE'){
 							$('#' + strsubmodule).css('color','green')
 						}else{
 							$('#' + strsubmodule).css('color','blue')
@@ -1405,16 +1408,16 @@
                         		strsubmodule == "BG" || 
                         		strsubmodule == "GL"
                         	){
-    						if(gfnma_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'CLOSE'){
+    						if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'CLOSE'){
     							$('#WORK' + strsubmodule).css('color','red')
-    						}else if(gfnma_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'FUTURE'){
+    						}else if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'FUTURE'){
     							$('#WORK' + strsubmodule).css('color','green')
     						}else{
     							$('#WORK' + strsubmodule).css('color','blue')
     						}
-    						if(gfnma_nvl(subData.cv_2[i].CLOSE_DATE_FIELD) != ''){
+    						if(gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD) != ''){
                                 strbtntxt1 += "\n";
-                                strbtntxt1 += gfnma_nvl(subData.cv_2[i].CLOSE_DATE_FIELD);
+                                strbtntxt1 += gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD);
 
     						}
     						//초기화
@@ -1426,9 +1429,9 @@
     						
                         }
 					}
-					if(gfnma_nvl(subData.cv_2[i].CLOSE_DATE) != ''){
+					if(gfn_nvl(subData.cv_2[i].CLOSE_DATE) != ''){
 						strbtntxt += "\n";
-						strbtntxt += gfnma_nvl(subData.cv_2[i].CLOSE_DATE);
+						strbtntxt += gfn_nvl(subData.cv_2[i].CLOSE_DATE);
 					}
 					//초기화
 					$('#' + strsubmodule).html("");

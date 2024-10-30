@@ -635,7 +635,7 @@
     	$("#PROJECT_CODE" ).prop('readonly', true);
     	fn_getBizcomponent();
     	fn_initSBSelect();
-    	fn_createGrid();
+    	cfn_search();
     });
     
 	// 신규
@@ -660,9 +660,9 @@
 	// 조회
 	function cfn_search() {
 		editType = 'N';
-		fn_search();
-		fn_clearForm();
 		fn_createGrid();
+		fn_clearForm();
+		fn_search();
 	}
 
     //grid 초기화
@@ -769,8 +769,8 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_PROJECT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_PROJECT_CODE_P"));
-    	let SRCH_PROJECT_NAME 	= gfnma_nvl(SBUxMethod.get("SRCH_PROJECT_NAME_P"));
+    	let SRCH_PROJECT_CODE	= gfn_nvl(SBUxMethod.get("SRCH_PROJECT_CODE_P"));
+    	let SRCH_PROJECT_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_PROJECT_NAME_P"));
     	
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
@@ -831,6 +831,10 @@
 	    	   	masterTreeGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
 	
+                if(jsonMasterTreeList.length > 0) {
+                	masterTreeGrid.clickRow(1);
+                }
+                
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -1066,35 +1070,35 @@
     		   ,V_P_LANG_ID            : ""
     		   ,V_P_COMP_CODE          : gv_ma_selectedApcCd
     		   ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-    		   ,IV_P_PROJECT_CODE      : gfnma_nvl(SBUxMethod.get("PROJECT_CODE"))
-    		   ,V_P_PROJECT_NAME       : gfnma_nvl(SBUxMethod.get("PROJECT_NAME"))
-    		   ,V_P_PROJECT_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PROJECT_NAME_CHN"))
-    		   ,V_P_DESCRIPTION        : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-    		   ,V_P_PROJECT_ABBR       : gfnma_nvl(SBUxMethod.get("PROJECT_ABBR"))
+    		   ,IV_P_PROJECT_CODE      : gfn_nvl(SBUxMethod.get("PROJECT_CODE"))
+    		   ,V_P_PROJECT_NAME       : gfn_nvl(SBUxMethod.get("PROJECT_NAME"))
+    		   ,V_P_PROJECT_NAME_CHN   : gfn_nvl(SBUxMethod.get("PROJECT_NAME_CHN"))
+    		   ,V_P_DESCRIPTION        : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+    		   ,V_P_PROJECT_ABBR       : gfn_nvl(SBUxMethod.get("PROJECT_ABBR"))
     		   ,V_P_PROJECT_TYPE       : gfnma_multiSelectGet('#PROJECT_TYPE')
-    		   ,V_P_PARENT_PROJECT     : gfnma_nvl(SBUxMethod.get("PARENT_CODE"))
-    		   ,V_P_PARENT_YN          : gfnma_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
-    		   ,V_P_PROJECT_CATEGORY   : gfnma_nvl(SBUxMethod.get("PROJECT_CATEGORY"))
+    		   ,V_P_PARENT_PROJECT     : gfn_nvl(SBUxMethod.get("PARENT_CODE"))
+    		   ,V_P_PARENT_YN          : gfn_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
+    		   ,V_P_PROJECT_CATEGORY   : gfn_nvl(SBUxMethod.get("PROJECT_CATEGORY"))
     		   ,V_P_FI_ORG_CODE        : gfnma_multiSelectGet('#FI_ORG_CODE')
-    		   ,V_P_DEPT_CODE          : gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
-    		   ,V_P_COST_CENTER_CODE   : gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"))
-    		   ,V_P_ACCOUNT_CODE       : gfnma_nvl(SBUxMethod.get("ACCOUNT_CODE"))
-    		   ,V_P_DATE_CLOSED        : gfnma_nvl(SBUxMethod.get("DATE_CLOSED"))
-    		   ,V_P_USE_YN             : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-    		   ,V_P_DOC_INPUT_YN       : gfnma_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
-    		   ,V_P_BUDGET_YN          : gfnma_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
-    		   ,V_P_ACCT_LEVEL_YN      : gfnma_nvl(SBUxMethod.get("ACCT_LEVEL_YN").ACCT_LEVEL_YN)
-    		   ,V_P_SORT_SEQ           : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-    		   ,V_P_ATTR1              : gfnma_nvl(SBUxMethod.get("ATTR1"))
-    		   ,V_P_ATTR2              : gfnma_nvl(SBUxMethod.get("ATTR2"))
-    		   ,V_P_ATTR3              : gfnma_nvl(SBUxMethod.get("ATTR3"))
-    		   ,V_P_ATTR4              : gfnma_nvl(SBUxMethod.get("ATTR4"))
-    		   ,V_P_ATTR5              : gfnma_nvl(SBUxMethod.get("ATTR5"))
-    		   ,V_P_ATTR6              : gfnma_nvl(SBUxMethod.get("ATTR6"))
-    		   ,V_P_ATTR7              : gfnma_nvl(SBUxMethod.get("ATTR7"))
-    		   ,V_P_ATTR8              : gfnma_nvl(SBUxMethod.get("ATTR8"))
-    		   ,V_P_ATTR9              : gfnma_nvl(SBUxMethod.get("ATTR9"))
-    		   ,V_P_ATTR10             : gfnma_nvl(SBUxMethod.get("ATTR10"))
+    		   ,V_P_DEPT_CODE          : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
+    		   ,V_P_COST_CENTER_CODE   : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
+    		   ,V_P_ACCOUNT_CODE       : gfn_nvl(SBUxMethod.get("ACCOUNT_CODE"))
+    		   ,V_P_DATE_CLOSED        : gfn_nvl(SBUxMethod.get("DATE_CLOSED"))
+    		   ,V_P_USE_YN             : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
+    		   ,V_P_DOC_INPUT_YN       : gfn_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
+    		   ,V_P_BUDGET_YN          : gfn_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
+    		   ,V_P_ACCT_LEVEL_YN      : gfn_nvl(SBUxMethod.get("ACCT_LEVEL_YN").ACCT_LEVEL_YN)
+    		   ,V_P_SORT_SEQ           : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+    		   ,V_P_ATTR1              : gfn_nvl(SBUxMethod.get("ATTR1"))
+    		   ,V_P_ATTR2              : gfn_nvl(SBUxMethod.get("ATTR2"))
+    		   ,V_P_ATTR3              : gfn_nvl(SBUxMethod.get("ATTR3"))
+    		   ,V_P_ATTR4              : gfn_nvl(SBUxMethod.get("ATTR4"))
+    		   ,V_P_ATTR5              : gfn_nvl(SBUxMethod.get("ATTR5"))
+    		   ,V_P_ATTR6              : gfn_nvl(SBUxMethod.get("ATTR6"))
+    		   ,V_P_ATTR7              : gfn_nvl(SBUxMethod.get("ATTR7"))
+    		   ,V_P_ATTR8              : gfn_nvl(SBUxMethod.get("ATTR8"))
+    		   ,V_P_ATTR9              : gfn_nvl(SBUxMethod.get("ATTR9"))
+    		   ,V_P_ATTR10             : gfn_nvl(SBUxMethod.get("ATTR10"))
     		   ,V_P_CODE_SEG01         : gfnma_multiSelectGet('#CODE_SEG01')
     		   ,V_P_CODE_SEG02         : gfnma_multiSelectGet("#CODE_SEG02")
     		   ,V_P_CODE_SEG03         : gfnma_multiSelectGet("#CODE_SEG03")
@@ -1105,8 +1109,8 @@
     		   ,V_P_CODE_SEG08         : gfnma_multiSelectGet("#CODE_SEG08")
     		   ,V_P_CODE_SEG09         : gfnma_multiSelectGet("#CODE_SEG09")
     		   ,V_P_CODE_SEG10         : gfnma_multiSelectGet("#CODE_SEG10")
-    		   ,V_P_CIP_ACCOUNT_CODE   : gfnma_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
-    		   ,V_P_ASSET_ACCOUNT_CODE : gfnma_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
+    		   ,V_P_CIP_ACCOUNT_CODE   : gfn_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
+    		   ,V_P_ASSET_ACCOUNT_CODE : gfn_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
     		   ,V_P_FORM_ID            : p_formId
     		   ,V_P_MENU_ID            : p_menuId
     		   ,V_P_PROC_ID            : ""
@@ -1151,11 +1155,11 @@
             gfn_comAlert("W0002", "프로젝트유형");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("PROJECT_NAME")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("PROJECT_NAME")) == "") {
             gfn_comAlert("W0002", "프로젝트명");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("PROJECT_CATEGORY")) == "") {
+    	if(gfn_nvl(SBUxMethod.get("PROJECT_CATEGORY")) == "") {
             gfn_comAlert("W0002", "카테고리");
             return;
     	}
@@ -1177,35 +1181,35 @@
     		   ,V_P_LANG_ID            : ""
     		   ,V_P_COMP_CODE          : gv_ma_selectedApcCd
     		   ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-    		   ,IV_P_PROJECT_CODE      : gfnma_nvl(SBUxMethod.get("PROJECT_CODE"))
-    		   ,V_P_PROJECT_NAME       : gfnma_nvl(SBUxMethod.get("PROJECT_NAME"))
-    		   ,V_P_PROJECT_NAME_CHN   : gfnma_nvl(SBUxMethod.get("PROJECT_NAME_CHN"))
-    		   ,V_P_DESCRIPTION        : gfnma_nvl(SBUxMethod.get("DESCRIPTION"))
-    		   ,V_P_PROJECT_ABBR       : gfnma_nvl(SBUxMethod.get("PROJECT_ABBR"))
+    		   ,IV_P_PROJECT_CODE      : gfn_nvl(SBUxMethod.get("PROJECT_CODE"))
+    		   ,V_P_PROJECT_NAME       : gfn_nvl(SBUxMethod.get("PROJECT_NAME"))
+    		   ,V_P_PROJECT_NAME_CHN   : gfn_nvl(SBUxMethod.get("PROJECT_NAME_CHN"))
+    		   ,V_P_DESCRIPTION        : gfn_nvl(SBUxMethod.get("DESCRIPTION"))
+    		   ,V_P_PROJECT_ABBR       : gfn_nvl(SBUxMethod.get("PROJECT_ABBR"))
     		   ,V_P_PROJECT_TYPE       : gfnma_multiSelectGet('#PROJECT_TYPE')
-    		   ,V_P_PARENT_PROJECT     : gfnma_nvl(SBUxMethod.get("PARENT_CODE"))
-    		   ,V_P_PARENT_YN          : gfnma_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
-    		   ,V_P_PROJECT_CATEGORY   : gfnma_nvl(SBUxMethod.get("PROJECT_CATEGORY"))
+    		   ,V_P_PARENT_PROJECT     : gfn_nvl(SBUxMethod.get("PARENT_CODE"))
+    		   ,V_P_PARENT_YN          : gfn_nvl(SBUxMethod.get("PARENT_YN").PARENT_YN)
+    		   ,V_P_PROJECT_CATEGORY   : gfn_nvl(SBUxMethod.get("PROJECT_CATEGORY"))
     		   ,V_P_FI_ORG_CODE        : gfnma_multiSelectGet('#FI_ORG_CODE')
-    		   ,V_P_DEPT_CODE          : gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
-    		   ,V_P_COST_CENTER_CODE   : gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"))
-    		   ,V_P_ACCOUNT_CODE       : gfnma_nvl(SBUxMethod.get("ACCOUNT_CODE"))
-    		   ,V_P_DATE_CLOSED        : gfnma_nvl(SBUxMethod.get("DATE_CLOSED"))
-    		   ,V_P_USE_YN             : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-    		   ,V_P_DOC_INPUT_YN       : gfnma_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
-    		   ,V_P_BUDGET_YN          : gfnma_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
-    		   ,V_P_ACCT_LEVEL_YN      : gfnma_nvl(SBUxMethod.get("ACCT_LEVEL_YN").ACCT_LEVEL_YN)
-    		   ,V_P_SORT_SEQ           : gfnma_nvl(SBUxMethod.get("SORT_SEQ"))
-    		   ,V_P_ATTR1              : gfnma_nvl(SBUxMethod.get("ATTR1"))
-    		   ,V_P_ATTR2              : gfnma_nvl(SBUxMethod.get("ATTR2"))
-    		   ,V_P_ATTR3              : gfnma_nvl(SBUxMethod.get("ATTR3"))
-    		   ,V_P_ATTR4              : gfnma_nvl(SBUxMethod.get("ATTR4"))
-    		   ,V_P_ATTR5              : gfnma_nvl(SBUxMethod.get("ATTR5"))
-    		   ,V_P_ATTR6              : gfnma_nvl(SBUxMethod.get("ATTR6"))
-    		   ,V_P_ATTR7              : gfnma_nvl(SBUxMethod.get("ATTR7"))
-    		   ,V_P_ATTR8              : gfnma_nvl(SBUxMethod.get("ATTR8"))
-    		   ,V_P_ATTR9              : gfnma_nvl(SBUxMethod.get("ATTR9"))
-    		   ,V_P_ATTR10             : gfnma_nvl(SBUxMethod.get("ATTR10"))
+    		   ,V_P_DEPT_CODE          : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
+    		   ,V_P_COST_CENTER_CODE   : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
+    		   ,V_P_ACCOUNT_CODE       : gfn_nvl(SBUxMethod.get("ACCOUNT_CODE"))
+    		   ,V_P_DATE_CLOSED        : gfn_nvl(SBUxMethod.get("DATE_CLOSED"))
+    		   ,V_P_USE_YN             : gfn_nvl(SBUxMethod.get("USE_YN").USE_YN)
+    		   ,V_P_DOC_INPUT_YN       : gfn_nvl(SBUxMethod.get("DOC_INPUT_YN").DOC_INPUT_YN)
+    		   ,V_P_BUDGET_YN          : gfn_nvl(SBUxMethod.get("BUDGET_YN").BUDGET_YN)
+    		   ,V_P_ACCT_LEVEL_YN      : gfn_nvl(SBUxMethod.get("ACCT_LEVEL_YN").ACCT_LEVEL_YN)
+    		   ,V_P_SORT_SEQ           : gfn_nvl(SBUxMethod.get("SORT_SEQ"))
+    		   ,V_P_ATTR1              : gfn_nvl(SBUxMethod.get("ATTR1"))
+    		   ,V_P_ATTR2              : gfn_nvl(SBUxMethod.get("ATTR2"))
+    		   ,V_P_ATTR3              : gfn_nvl(SBUxMethod.get("ATTR3"))
+    		   ,V_P_ATTR4              : gfn_nvl(SBUxMethod.get("ATTR4"))
+    		   ,V_P_ATTR5              : gfn_nvl(SBUxMethod.get("ATTR5"))
+    		   ,V_P_ATTR6              : gfn_nvl(SBUxMethod.get("ATTR6"))
+    		   ,V_P_ATTR7              : gfn_nvl(SBUxMethod.get("ATTR7"))
+    		   ,V_P_ATTR8              : gfn_nvl(SBUxMethod.get("ATTR8"))
+    		   ,V_P_ATTR9              : gfn_nvl(SBUxMethod.get("ATTR9"))
+    		   ,V_P_ATTR10             : gfn_nvl(SBUxMethod.get("ATTR10"))
     		   ,V_P_CODE_SEG01         : gfnma_multiSelectGet('#CODE_SEG01')
     		   ,V_P_CODE_SEG02         : gfnma_multiSelectGet("#CODE_SEG02")
     		   ,V_P_CODE_SEG03         : gfnma_multiSelectGet("#CODE_SEG03")
@@ -1216,8 +1220,8 @@
     		   ,V_P_CODE_SEG08         : gfnma_multiSelectGet("#CODE_SEG08")
     		   ,V_P_CODE_SEG09         : gfnma_multiSelectGet("#CODE_SEG09")
     		   ,V_P_CODE_SEG10         : gfnma_multiSelectGet("#CODE_SEG10")
-    		   ,V_P_CIP_ACCOUNT_CODE   : gfnma_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
-    		   ,V_P_ASSET_ACCOUNT_CODE : gfnma_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
+    		   ,V_P_CIP_ACCOUNT_CODE   : gfn_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
+    		   ,V_P_ASSET_ACCOUNT_CODE : gfn_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
     		   ,V_P_FORM_ID            : p_formId
     		   ,V_P_MENU_ID            : p_menuId
     		   ,V_P_PROC_ID            : ""
@@ -1358,8 +1362,8 @@
      */
     var fn_compopupParent = function() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("PARENT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("PARENT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("PARENT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_NAME"));
         var replaceText0 	= "_PARENT_CODE_";
         var replaceText1 	= "_PARENT_NAME_";
         var strWhereClause 	= "AND A.PROJECT_CODE  LIKE '%" + replaceText0 + "%' AND A.PROJECT_NAME  LIKE '%" + replaceText1 + "%'";
@@ -1391,8 +1395,8 @@
      */
     var fn_compopupDept = function() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
         var replaceText0 	= "_DEPT_CODE_";
         var replaceText1 	= "_DEPT_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
@@ -1425,8 +1429,8 @@
      */
     var fn_compopupCostCenter = function() {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
@@ -1458,8 +1462,8 @@
      */ 
     var fn_compopupAccount = function(target) {
     	
-        var searchCode 		= gfnma_nvl(SBUxMethod.get(target + "_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get(target + "_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get(target + "_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get(target + "_NAME"));
         var replaceText0 	= "_" + target + "_CODE_";
         var replaceText1 	= "_" + target + "_NAME_";        
         var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + searchCode + "%' AND ACCOUNT_NAME LIKE '%" + searchName + "%'";

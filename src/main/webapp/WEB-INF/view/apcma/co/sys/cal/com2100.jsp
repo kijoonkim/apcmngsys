@@ -52,6 +52,7 @@
                         <col style="width: 6%">
                         <col style="width: 6%">
                         <col style="width: 3%">
+                        
                         <col style="width: 7%">
                         <col style="width: 6%">
                         <col style="width: 6%">
@@ -256,9 +257,9 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [ 
-            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:right'},
-            {caption : ['시작일'],       ref: 'START_DATE',      type:'datepicker' ,   typeinfo : {dateformat :"yy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption : ['종료일'],       ref: 'END_DATE',        type:'datepicker' ,   typeinfo : {dateformat :"yy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {oneclickedit : true} },
+            {caption: ['시작일'],       ref: 'START_DATE',      type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일'],       ref: 'END_DATE',        type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'100px',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonFiscalStatus',
@@ -268,7 +269,7 @@
 					oneclickedit: true
             	}
             },
-            {caption: ["적요"],			ref: 'DESCR',    		type:'input',  	width:'350px',  	style:'text-align:left'}
+            {caption: ["적요"],			ref: 'DESCR',    		type:'input',  	width:'350px',  	style:'text-align:left', typeinfo : {oneclickedit : true}}
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
     }
@@ -284,11 +285,11 @@
 	    						,V_P_LANG_ID           : ''
 	    						,V_P_COMP_CODE         : gv_ma_selectedApcCd
 	    						,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-	    						,V_P_FISCAL_NO         : gfnma_nvl(rowVal[i].data.FISCAL_NO)
-	    						,V_P_START_DATE        : gfnma_nvl(rowVal[i].data.START_DATE)
-	    						,V_P_END_DATE          : gfnma_nvl(rowVal[i].data.END_DATE)
-	    						,V_P_FISCAL_STATUS     : gfnma_nvl(rowVal[i].data.FISCAL_STATUS)
-	    						,V_P_DESCR             : gfnma_nvl(rowVal[i].data.DESCR)
+	    						,V_P_FISCAL_NO         : gfn_nvl(rowVal[i].data.FISCAL_NO)
+	    						,V_P_START_DATE        : gfn_nvl(rowVal[i].data.START_DATE)
+	    						,V_P_END_DATE          : gfn_nvl(rowVal[i].data.END_DATE)
+	    						,V_P_FISCAL_STATUS     : gfn_nvl(rowVal[i].data.FISCAL_STATUS)
+	    						,V_P_DESCR             : gfn_nvl(rowVal[i].data.DESCR)
 	    						,V_P_DESCR_CHN         : ''
 	    						,V_P_FORM_ID           : p_formId
 	    						,V_P_MENU_ID           : p_menuId
@@ -322,7 +323,7 @@
 	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    	        }
 	    		}
-		 }
+		}
     	
     }
     /**
@@ -366,12 +367,12 @@
     	  	    		masterGrid.length = 0;
     	  	        	data.cv_1.forEach((item, index) => {
     	  					const msg = {
-    	  							FISCAL_NO		: item.FISCAL_NO,
-    	  							START_DATE		: item.START_DATE,
-    	  							END_DATE		: item.END_DATE,
-    	  							FISCAL_STATUS	: item.FISCAL_STATUS,
-    	  							DESCR			: item.DESCR,
-    	  							DESCR_CHN		: item.DESCR_CHN
+    	  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
+    	  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+    	  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+    	  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
+    	  							DESCR			: gfn_nvl(item.DESCR),
+    	  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
     	  					}
     	  					jsonMasterList.push(msg);
     	  					totalRecordCount ++;

@@ -731,6 +731,11 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	            });
 	            masterGrid.rebuild();
 	            document.querySelector('#listCount').innerText = totalRecordCount;
+	            
+                if(jsonMasterList.length > 0) {
+                	masterGrid.clickRow(1);
+                }
+                
 	        } else {
 	            alert(data.resultMessage);
 	        }

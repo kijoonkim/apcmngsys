@@ -406,11 +406,11 @@
                		,V_P_LANG_ID              : ''
                		,V_P_COMP_CODE            : gv_ma_selectedApcCd
                		,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-               		,V_P_PERIOD               : gfnma_nvl(item.data.BASE_MONTH)
-               		,V_P_EX_RATE_DIV          : gfnma_nvl(item.data.EX_RATE_DIV)
-               		,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
-               		,V_P_EX_RATE              : gfnma_nvl(item.data.EX_RATE)
-               		,V_P_REMARK               : gfnma_nvl(item.data.REMARK)
+               		,V_P_PERIOD               : gfn_nvl(item.data.BASE_MONTH)
+               		,V_P_EX_RATE_DIV          : gfn_nvl(item.data.EX_RATE_DIV)
+               		,V_P_CURRENCY_CODE        : gfn_nvl(item.data.CURRENCY_CODE)
+               		,V_P_EX_RATE              : gfn_nvl(item.data.EX_RATE)
+               		,V_P_REMARK               : gfn_nvl(item.data.REMARK)
                		,V_P_FORM_ID              : p_formId
                		,V_P_MENU_ID              : p_menuId
                		,V_P_PROC_ID              : ''
@@ -462,32 +462,32 @@
            		   ,V_P_LANG_ID              : ""
            		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
            		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-           		   ,V_P_BASE_CURRENCY        : gfnma_nvl(item.data.BASE_CURRENCY)
-           		   ,V_P_BASE_DATE            : gfnma_nvl(item.data.BASE_DATE.replace(/-/g, ""))
-           		   ,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
-           		   ,V_P_EXCHANGE_SEQ         : gfnma_nvl(item.data.EXCHANGE_SEQ)
-           		   ,V_P_RCV_EX_RATE          : gfnma_nvl(item.data.RCV_EX_RATE)
-           		   ,V_P_SND_EX_RATE          : gfnma_nvl(item.data.SND_EX_RATE)
-           		   ,V_P_SLE_EX_RATE          : gfnma_nvl(item.data.SLE_EX_RATE)
-           		   ,V_P_BUY_EX_RATE          : gfnma_nvl(item.data.BUY_EX_RATE)
-           		   ,V_P_TC_SLE_EX_RATE       : gfnma_nvl(item.data.TT_SLE_EX_RATE)
-           		   ,V_P_SLE_BSE_EX_RATE      : gfnma_nvl(item.data.SLE_BSE_EX_RATE)
-           		   ,V_P_USA_EX_RATE          : gfnma_nvl(item.data.USA_EX_RATE)
-           		   ,V_P_AVG_EX_RATE          : gfnma_nvl(item.data.AVG_EX_RATE)
-           		   ,V_P_USER_EXCHANGE_RATE1  : gfnma_nvl(item.data.USER_EXCHANGE_RATE1)
-           		   ,V_P_USER_EXCHANGE_RATE2  : gfnma_nvl(item.data.USER_EXCHANGE_RATE2)
-           		   ,V_P_USER_EXCHANGE_RATE3  : gfnma_nvl(item.data.USER_EXCHANGE_RATE3)
-           		   ,V_P_TT_BUY_EX_RATE       : gfnma_nvl(item.data.TT_BUY_EX_RATE)
-           		   ,V_P_TT_SLE_EX_RATE       : gfnma_nvl(item.data.TT_SLE_EX_RATE)
-           		   ,V_P_TT_BUY_PRM_EX_RATE   : gfnma_nvl(item.data.TT_BUY_PRM_EX_RATE)
-           		   ,V_P_TT_SLE_PRM_EX_RATE   : gfnma_nvl(item.data.TT_SLE_PRM_EX_RATE)
-           		   ,V_P_LIBOR_M1_EX_RATE     : gfnma_nvl(item.data.LIBOR_M1_EX_RATE)
-           		   ,V_P_LIBOR_M3_EX_RATE     : gfnma_nvl(item.data.LIBOR_M3_EX_RATE)
-           		   ,V_P_LIBOR_Y1_EX_RATE     : gfnma_nvl(item.data.LIBOR_Y1_EX_RATE)
-           		   ,V_P_EX_COM_Y1_EX_RATE    : gfnma_nvl(item.data.EX_COM_Y1_EX_RATE)
-           		   ,V_P_EX_COM_M1_EX_RATE    : gfnma_nvl(item.data.EX_COM_M1_EX_RATE)
-           		   ,V_P_EX_COM_M3_EX_RATE    : gfnma_nvl(item.data.EX_COM_M3_EX_RATE)
-           		   ,V_P_REMARK               : gfnma_nvl(item.data.REMARK)
+           		   ,V_P_BASE_CURRENCY        : gfn_nvl(item.data.BASE_CURRENCY)
+           		   ,V_P_BASE_DATE            : gfn_nvl(item.data.BASE_DATE.replace(/-/g, ""))
+           		   ,V_P_CURRENCY_CODE        : gfn_nvl(item.data.CURRENCY_CODE)
+           		   ,V_P_EXCHANGE_SEQ         : gfn_nvl(item.data.EXCHANGE_SEQ)
+           		   ,V_P_RCV_EX_RATE          : gfn_nvl(item.data.RCV_EX_RATE)
+           		   ,V_P_SND_EX_RATE          : gfn_nvl(item.data.SND_EX_RATE)
+           		   ,V_P_SLE_EX_RATE          : gfn_nvl(item.data.SLE_EX_RATE)
+           		   ,V_P_BUY_EX_RATE          : gfn_nvl(item.data.BUY_EX_RATE)
+           		   ,V_P_TC_SLE_EX_RATE       : gfn_nvl(item.data.TT_SLE_EX_RATE)
+           		   ,V_P_SLE_BSE_EX_RATE      : gfn_nvl(item.data.SLE_BSE_EX_RATE)
+           		   ,V_P_USA_EX_RATE          : gfn_nvl(item.data.USA_EX_RATE)
+           		   ,V_P_AVG_EX_RATE          : gfn_nvl(item.data.AVG_EX_RATE)
+           		   ,V_P_USER_EXCHANGE_RATE1  : gfn_nvl(item.data.USER_EXCHANGE_RATE1)
+           		   ,V_P_USER_EXCHANGE_RATE2  : gfn_nvl(item.data.USER_EXCHANGE_RATE2)
+           		   ,V_P_USER_EXCHANGE_RATE3  : gfn_nvl(item.data.USER_EXCHANGE_RATE3)
+           		   ,V_P_TT_BUY_EX_RATE       : gfn_nvl(item.data.TT_BUY_EX_RATE)
+           		   ,V_P_TT_SLE_EX_RATE       : gfn_nvl(item.data.TT_SLE_EX_RATE)
+           		   ,V_P_TT_BUY_PRM_EX_RATE   : gfn_nvl(item.data.TT_BUY_PRM_EX_RATE)
+           		   ,V_P_TT_SLE_PRM_EX_RATE   : gfn_nvl(item.data.TT_SLE_PRM_EX_RATE)
+           		   ,V_P_LIBOR_M1_EX_RATE     : gfn_nvl(item.data.LIBOR_M1_EX_RATE)
+           		   ,V_P_LIBOR_M3_EX_RATE     : gfn_nvl(item.data.LIBOR_M3_EX_RATE)
+           		   ,V_P_LIBOR_Y1_EX_RATE     : gfn_nvl(item.data.LIBOR_Y1_EX_RATE)
+           		   ,V_P_EX_COM_Y1_EX_RATE    : gfn_nvl(item.data.EX_COM_Y1_EX_RATE)
+           		   ,V_P_EX_COM_M1_EX_RATE    : gfn_nvl(item.data.EX_COM_M1_EX_RATE)
+           		   ,V_P_EX_COM_M3_EX_RATE    : gfn_nvl(item.data.EX_COM_M3_EX_RATE)
+           		   ,V_P_REMARK               : gfn_nvl(item.data.REMARK)
            		   ,V_P_FORM_ID              : p_formId
            		   ,V_P_MENU_ID              : p_menuId
            		   ,V_P_PROC_ID              : ""
@@ -562,14 +562,14 @@
         	SRCH_FBS_SERVICE		= gfnma_multiSelectGet('#SRCH_FBS_SERVICE');
         	SRCH_FBS_YN				= gfnma_multiSelectGet('#SRCH_FBS_YN');
         	SRCH_USE_YN				= gfnma_multiSelectGet('#SRCH_USE_YN');
-        	SRCH_BASE_DATE_FR		= gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE_FR"));
-        	SRCH_BASE_DATE_TO		= gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE_TO"));
-        	SRCH_EXCHANGE_SEQ_P		= gfnma_nvl($('#SRCH_EXCHANGE_SEQ_P').val());
+        	SRCH_BASE_DATE_FR		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_FR"));
+        	SRCH_BASE_DATE_TO		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_TO"));
+        	SRCH_EXCHANGE_SEQ_P		= gfn_nvl($('#SRCH_EXCHANGE_SEQ_P').val());
         	workType 				= 'DAY';
     	}else if(tabId == 'TAB_AVERAGE'){
         	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE2');
-        	SRCH_BASE_DATE_FR		= gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
-        	SRCH_BASE_DATE_TO		= gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
+        	SRCH_BASE_DATE_FR		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
+        	SRCH_BASE_DATE_TO		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
         	workType 				= 'AVERAGE';
     	}else if(tabId == 'TAB_MONTH'){
         	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE1');
@@ -623,7 +623,7 @@
 		    	   		
 			    		const msg = {
 			    				IMG						: IMG,
-			    				BASE_DATE				: item.BASE_DATE,
+			    				BASE_DATE				: item.BASE_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 			    				CURRENCY_CODE			: item.CURRENCY_CODE,
 			    				BASE_CURRENCY			: item.BASE_CURRENCY,
 			    				EXCHANGE_BASE_SCALE		: item.EXCHANGE_BASE_SCALE,
@@ -724,8 +724,8 @@
 	    	   ,V_P_LANG_ID              : ''
 	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
 	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-	    	   ,V_P_BASE_DATE_FR         : gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
-	    	   ,V_P_BASE_DATE_TO         : gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
+	    	   ,V_P_BASE_DATE_FR         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
+	    	   ,V_P_BASE_DATE_TO         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
 	    	   ,V_P_CURRENCY_CODE        : rowData.CURRENCY_CODE
 	    	   ,V_P_EXCHANGE_SEQ         : ''
 	    	   ,V_P_ACCOUNT_CODE         : rowData.ACCOUNT_CODE
@@ -784,8 +784,8 @@
  	    	   ,V_P_LANG_ID              : ''
  	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
  	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
- 	    	   ,V_P_BASE_DATE_FR         : gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE_FR1"))
- 	    	   ,V_P_BASE_DATE_TO         : gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE_TO1"))
+ 	    	   ,V_P_BASE_DATE_FR         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_FR1"))
+ 	    	   ,V_P_BASE_DATE_TO         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_TO1"))
  	    	   ,V_P_CURRENCY_CODE        : rowData.sub_code
  	    	   ,V_P_EXCHANGE_SEQ         : ''
  	    	   ,V_P_ACCOUNT_CODE         : ''
@@ -1387,7 +1387,7 @@
     }
     
     function fn_drawdailyDayGrid(mod, data, copymod, editType){
-    	if (gfnma_nvl(editType) == ''){
+    	if (gfn_nvl(editType) == ''){
     		editType = 'output'
     	}
     	//일별환율탭 - 환율 정보
@@ -1505,7 +1505,7 @@
         data.forEach((item, index) => {
     		const msg = {
     				IMG						: item.IMG,
-    				BASE_DATE				: item.BASE_DATE,
+    				BASE_DATE				: item.BASE_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
     				CURRENCY_CODE			: item.CURRENCY_CODE,
     				BASE_CURRENCY			: item.BASE_CURRENCY,
     				EXCHANGE_BASE_SCALE		: item.EXCHANGE_BASE_SCALE,
@@ -1593,32 +1593,32 @@
 	                    		   ,V_P_LANG_ID              : ""
 	                    		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
 	                    		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-	                    		   ,V_P_BASE_CURRENCY        : gfnma_nvl(dayGridData[i].BASE_CURRENCY)
-	                    		   ,V_P_BASE_DATE            : gfnma_nvl(dayGridData[i].BASE_DATE)
-	                    		   ,V_P_CURRENCY_CODE        : gfnma_nvl(data[j].CUR_UNIT)
-	                    		   ,V_P_EXCHANGE_SEQ         : gfnma_nvl(dayGridData[i].EXCHANGE_SEQ) == "" ? $('#SRCH_EXCHANGE_SEQ_P').val() : gfnma_nvl(dayGridData[i].EXCHANGE_SEQ)
-	                    		   ,V_P_RCV_EX_RATE          : gfnma_nvl(dayGridData[i].RCV_EX_RATE)
-	                    		   ,V_P_SND_EX_RATE          : gfnma_nvl(dayGridData[i].SND_EX_RATE)
-	                    		   ,V_P_SLE_EX_RATE          : gfnma_nvl(dayGridData[i].SLE_EX_RATE)
-	                    		   ,V_P_BUY_EX_RATE          : gfnma_nvl(dayGridData[i].BUY_EX_RATE)
-	                    		   ,V_P_TC_SLE_EX_RATE       : gfnma_nvl(dayGridData[i].TT_SLE_EX_RATE)
-	                    		   ,V_P_SLE_BSE_EX_RATE      : gfnma_nvl(data[j].KFTC_DEAL_BAS_R.replace(/,/g, "&&&"))
-	                    		   ,V_P_USA_EX_RATE          : gfnma_nvl(dayGridData[i].USA_EX_RATE)
-	                    		   ,V_P_AVG_EX_RATE          : gfnma_nvl(dayGridData[i].AVG_EX_RATE)
-	                    		   ,V_P_USER_EXCHANGE_RATE1  : gfnma_nvl(dayGridData[i].USER_EXCHANGE_RATE1)
-	                    		   ,V_P_USER_EXCHANGE_RATE2  : gfnma_nvl(dayGridData[i].USER_EXCHANGE_RATE2)
-	                    		   ,V_P_USER_EXCHANGE_RATE3  : gfnma_nvl(dayGridData[i].USER_EXCHANGE_RATE3)
-	                    		   ,V_P_TT_BUY_EX_RATE       : gfnma_nvl(data[j].TTB.replace(/,/g, "&&&"))
-	                    		   ,V_P_TT_SLE_EX_RATE       : gfnma_nvl(data[j].TTS.replace(/,/g, "&&&"))
-	                    		   ,V_P_TT_BUY_PRM_EX_RATE   : gfnma_nvl(dayGridData[i].TT_BUY_PRM_EX_RATE)
-	                    		   ,V_P_TT_SLE_PRM_EX_RATE   : gfnma_nvl(dayGridData[i].TT_SLE_PRM_EX_RATE)
-	                    		   ,V_P_LIBOR_M1_EX_RATE     : gfnma_nvl(dayGridData[i].LIBOR_M1_EX_RATE)
-	                    		   ,V_P_LIBOR_M3_EX_RATE     : gfnma_nvl(dayGridData[i].LIBOR_M3_EX_RATE)
-	                    		   ,V_P_LIBOR_Y1_EX_RATE     : gfnma_nvl(dayGridData[i].LIBOR_Y1_EX_RATE)
-	                    		   ,V_P_EX_COM_Y1_EX_RATE    : gfnma_nvl(data[j].YY_EFEE_R.replace(/,/g, "&&&"))
-	                    		   ,V_P_EX_COM_M1_EX_RATE    : gfnma_nvl(data[j].MM_EFEE_R.replace(/,/g, "&&&"))
-	                    		   ,V_P_EX_COM_M3_EX_RATE    : gfnma_nvl(dayGridData[i].EX_COM_M3_EX_RATE)
-	                    		   ,V_P_REMARK               : gfnma_nvl(dayGridData[i].REMARK)
+	                    		   ,V_P_BASE_CURRENCY        : gfn_nvl(dayGridData[i].BASE_CURRENCY)
+	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE)
+	                    		   ,V_P_CURRENCY_CODE        : gfn_nvl(data[j].CUR_UNIT)
+	                    		   ,V_P_EXCHANGE_SEQ         : gfn_nvl(dayGridData[i].EXCHANGE_SEQ) == "" ? $('#SRCH_EXCHANGE_SEQ_P').val() : gfn_nvl(dayGridData[i].EXCHANGE_SEQ)
+	                    		   ,V_P_RCV_EX_RATE          : gfn_nvl(dayGridData[i].RCV_EX_RATE)
+	                    		   ,V_P_SND_EX_RATE          : gfn_nvl(dayGridData[i].SND_EX_RATE)
+	                    		   ,V_P_SLE_EX_RATE          : gfn_nvl(dayGridData[i].SLE_EX_RATE)
+	                    		   ,V_P_BUY_EX_RATE          : gfn_nvl(dayGridData[i].BUY_EX_RATE)
+	                    		   ,V_P_TC_SLE_EX_RATE       : gfn_nvl(dayGridData[i].TT_SLE_EX_RATE)
+	                    		   ,V_P_SLE_BSE_EX_RATE      : gfn_nvl(data[j].KFTC_DEAL_BAS_R.replace(/,/g, "&&&"))
+	                    		   ,V_P_USA_EX_RATE          : gfn_nvl(dayGridData[i].USA_EX_RATE)
+	                    		   ,V_P_AVG_EX_RATE          : gfn_nvl(dayGridData[i].AVG_EX_RATE)
+	                    		   ,V_P_USER_EXCHANGE_RATE1  : gfn_nvl(dayGridData[i].USER_EXCHANGE_RATE1)
+	                    		   ,V_P_USER_EXCHANGE_RATE2  : gfn_nvl(dayGridData[i].USER_EXCHANGE_RATE2)
+	                    		   ,V_P_USER_EXCHANGE_RATE3  : gfn_nvl(dayGridData[i].USER_EXCHANGE_RATE3)
+	                    		   ,V_P_TT_BUY_EX_RATE       : gfn_nvl(data[j].TTB.replace(/,/g, "&&&"))
+	                    		   ,V_P_TT_SLE_EX_RATE       : gfn_nvl(data[j].TTS.replace(/,/g, "&&&"))
+	                    		   ,V_P_TT_BUY_PRM_EX_RATE   : gfn_nvl(dayGridData[i].TT_BUY_PRM_EX_RATE)
+	                    		   ,V_P_TT_SLE_PRM_EX_RATE   : gfn_nvl(dayGridData[i].TT_SLE_PRM_EX_RATE)
+	                    		   ,V_P_LIBOR_M1_EX_RATE     : gfn_nvl(dayGridData[i].LIBOR_M1_EX_RATE)
+	                    		   ,V_P_LIBOR_M3_EX_RATE     : gfn_nvl(dayGridData[i].LIBOR_M3_EX_RATE)
+	                    		   ,V_P_LIBOR_Y1_EX_RATE     : gfn_nvl(dayGridData[i].LIBOR_Y1_EX_RATE)
+	                    		   ,V_P_EX_COM_Y1_EX_RATE    : gfn_nvl(data[j].YY_EFEE_R.replace(/,/g, "&&&"))
+	                    		   ,V_P_EX_COM_M1_EX_RATE    : gfn_nvl(data[j].MM_EFEE_R.replace(/,/g, "&&&"))
+	                    		   ,V_P_EX_COM_M3_EX_RATE    : gfn_nvl(dayGridData[i].EX_COM_M3_EX_RATE)
+	                    		   ,V_P_REMARK               : gfn_nvl(dayGridData[i].REMARK)
 	                    		   ,V_P_FORM_ID              : p_formId
 	                    		   ,V_P_MENU_ID              : p_menuId
 	                    		   ,V_P_PROC_ID              : ""
