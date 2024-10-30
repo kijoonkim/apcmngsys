@@ -1641,6 +1641,56 @@ const gfn_comboValidation = function(_jsondataRef, _code){
 			}
 		}
 	}
+/**
+ * @name gfn_getTableElement
+ * @description Table 내부 sb요소 일괄 GET
+ * 필수 : table Id 필수, table 내부 td 요소들 id값 개발표준 준수
+ * ex) reg[등록] srch[검색조건] dtl[상세]
+ * @function
+ * @param {String} _tableId
+ * @param {String} _pattern
+ * @param {String} _preFix
+ * @returns
+ */
+const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
+	let param = {};
+	let table = document.getElementById(_tableId);
+	let elements = table.querySelectorAll(`[id^=${_pattern}]`);
+	elements = Array.from(elements);
+
+	function searchMsg(_el) {
+		let $closestTd = $(_el).closest('td');
+		let $closestTh = $closestTd.closest('tr').find('th').filter(function () {
+			return $(this).index() < $closestTd.index();
+		}).last();
+		return $closestTh.html();
+
+	}
+
+	for (let element of elements) {
+		let key = element.id.split('-').pop();
+
+		if (element.type === 'text' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+			let sbValue = SBUxMethod.get(element.id);
+			if (gfn_isEmpty(sbValue)) {
+				if(_ignore.includes(key)){
+					continue;
+				}
+				let msg = searchMsg(element);
+				msg = msg.replace(/<[^>]*>/g, '');
+				gfn_comAlert("W0005", msg);
+				return false;
+			} else {
+				 param[key] = sbValue;
+			}
+		} else if (element.type === 'checkbox') {
+			console.log(element,"??");
+			let sbValue = SBUxMethod.getCheckbox(element.id)[element.id];
+			param[key] = sbValue;
+		}
+	}
+	return param;
+}
 
 /**
  * @name gfn_cloneJson
