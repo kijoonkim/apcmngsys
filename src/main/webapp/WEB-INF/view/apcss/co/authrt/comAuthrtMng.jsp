@@ -341,7 +341,7 @@
     			break;
     		case "10":
     			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
-    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM","CO"]);
+    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM", "MA", "CO"]);
 
     			break;
     		default:
