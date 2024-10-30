@@ -1,16 +1,28 @@
 package com.at.apcma.hr.hra.web;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -65,6 +77,32 @@ public class ApcMaHra8400Controller extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}
 
+	// 공통코드 정보 조회
+		@PostMapping(value = "/hr/hra/selectHra8400Q2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectHra8400Q2(
+	    		@RequestBody Map<String, Object> param
+				,Model model
+				,HttpSession session
+				,HttpServletRequest request) throws Exception{
+
+			logger.info("=============selectHra8400Q2=====start========");
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			try {
+
+				param.put("procedure", 		"P_HRA8400_Q2");
+				resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+
+			logger.info("=============selectHra8400Q2=====end========");
+			return getSuccessResponseEntityMa(resultMap);
+		}
+
+
 
 
 
@@ -95,14 +133,58 @@ public class ApcMaHra8400Controller extends BaseController {
 	}
 
 	// 공통코드 정보 - 그룹코드 내역 신규
-		@PostMapping(value = "/hr/hra/insertHra8400S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertHra8400S1(
+		@PostMapping(value = "/hr/hra/insertHra8400S1.do" ,  consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> insertHra8400S1(
 				@RequestBody Map<String, Object> param
+				,Model model
+				,HttpSession session
+				,HttpServletRequest request
+				) throws Exception{
+
+			logger.info("=============insertHra8400S1=====start========");
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			String test = (String) param.get("params");
+
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.TEXT_PLAIN);
+	        headers.setContentDispositionFormData("attachment", "output.txt");
+
+
+
+			try {
+
+
+
+
+				//param.put("procedure", 		"P_HRA8400_S1");
+				//resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+//				return getErrorResponseEntity(e);
+			}
+
+			logger.info("=============insertHra8400S1=====end========");
+//			return getSuccessResponseEntityMa(resultMap);
+	        // ResponseEntity 객체 반환
+	        return new ResponseEntity<>(test, headers, HttpStatus.OK);
+
+		}
+
+
+
+
+		// 공통코드 정보 조회
+		@PostMapping(value = "/hr/hra/selectHra8400S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectHra8400S1(
+	    		@RequestBody Map<String, Object> param
 				,Model model
 				,HttpSession session
 				,HttpServletRequest request) throws Exception{
 
-			logger.info("=============insertHra8400=====start========");
+			logger.info("=============selectHra8400S1=====start========");
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			try {
@@ -115,7 +197,7 @@ public class ApcMaHra8400Controller extends BaseController {
 				return getErrorResponseEntity(e);
 			}
 
-			logger.info("=============insertHra8400=====end========");
+			logger.info("=============selectHra8400S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		}
 
