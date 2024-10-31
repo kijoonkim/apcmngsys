@@ -511,7 +511,7 @@
 
 <!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false"  callback-after-close="fn_search"></sbux-modal>
     </div>
     <div id="body-modal-compopfim3420">
     	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
@@ -1758,9 +1758,6 @@
                 ,p_doc_id	: gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE1")) + gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME1"))		//'584'
                 ,p_doc_type	: "TRF"	//'AP'
             }
-            ,callbackEvent	: function (data){
-                fn_search();
-            },
         });
     }
 
