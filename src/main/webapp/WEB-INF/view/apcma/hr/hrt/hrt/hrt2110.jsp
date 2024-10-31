@@ -52,7 +52,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
@@ -1096,6 +1096,11 @@
         fn_createBandgvwInfoGrid();
         await fn_onload();
     });
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
 
     // 파일첨부
     function cfn_attach() {
