@@ -54,6 +54,13 @@ public interface BbsMapper {
 	public int updateBbs(BbsVO bbsVO);
 
 	/**
+	 * 게시글 답변 정보를 저장한다.
+	 * @param bbsVO
+	 * @return int
+	 */
+	public int updateBbsAns(BbsVO bbsVO);
+
+	/**
 	 * 메시지정보를 삭제한다.
 	 * @param bbsVO
 	 * @return

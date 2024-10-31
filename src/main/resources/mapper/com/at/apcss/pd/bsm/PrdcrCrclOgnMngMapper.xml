@@ -607,7 +607,7 @@
 		MERGE INTO TB_EV_APO_HSTRY EAH  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMngHstry */
 		USING DUAL
 			ON (
-				EAH.APO_CD  = #{apoCd}
+				EAH.BRNO  = #{brno}
 				AND EAH.YR  = TO_CHAR(SYSDATE,'YYYY')
 				)
 		WHEN MATCHED THEN

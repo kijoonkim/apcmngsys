@@ -25,74 +25,70 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 	<div class="sbt-A-wrap">
-        <div class="box box-solid">
-            <!--main content-->
-        <div class="box-header" style="display:flex; justify-content: flex-start;">
-        	<div>
-				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC게시판 -->
-			</div>
-			<div style="margin-left: auto;">
+		<div class="box box-solid">
+			<!--main content-->
+			<div class="box-header" style="display:flex; justify-content: flex-start;">
+				<div>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC게시판 -->
+				</div>
+				<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
 						<c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22' && loginVO.userType ne '02'}">
-			              <sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
-			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
+						<sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
+						<sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+						<sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 						</c:if>
+						<sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
+					</div>
+				</div>
+			</div>
+			<!--조회 영역-->
+			<div class="box-body">
+				<table class="table table-bordered tbl_fixed">
+					<colgroup>
+						<col style="width:10%">
+						<col style="width:20%">
+						<col style="width:10%">
+						<col style="width:20%">
+						<col style="width:40%">
+					</colgroup>
+					<tr>
+						<th scope="row" class="th_bg">구분</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select class="form-control input-sm" id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
+								jsondata-ref="jsonComBbsSeCd"
+								unselected-text="전체"
+								style="width:120px;"
+							></sbux-select>
+						</td>
+						<th scope="row" class="th_bg">제목</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input class="form-control input-sm" id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
+								style="width:400px"
+								placeholder=""
+							></sbux-input>
+						</td>
+					</tr>
+				</table>
 
-			              <sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-			              <sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
-	               </div>
-            </div>
-        </div>
-                    <!--조회 영역-->
-			        <div class="box-body">
-			        	<table class="table table-bordered tbl_fixed">
-											<colgroup>
-												<col style="width:10%">
-												<col style="width:20%">
-												<col style="width:10%">
-												<col style="width:20%">
-												<col style="width:40%">
-											</colgroup>
-											<tr>
-
-												<th scope="row" class="th_bg">구분</th>
-												<td class="td_input" style="border-right: hidden;">
-					                            	<sbux-select class="form-control input-sm" id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
-                                                    jsondata-ref="jsonComBbsSeCd"
-                                                    unselected-text="전체"
-                                                    style="width:120px;"
-                                                ></sbux-select>
-
-												</td>
-												<th scope="row" class="th_bg">제목</th>
-												<td class="td_input" style="border-right: hidden;">
-					                            	<sbux-input class="form-control input-sm" id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
-                                                    style="width:400px"
-                                                    placeholder=""
-                                                ></sbux-input>
-												</td>
-											</tr>
-										</table>
-
-
-
-                <div class="row">
-                	<div class="col-sm-5">
-		                    <div class="sbt-grid-wrap">
-		                        <div class="ad_tbl_top">
-										<ul class="ad_tbl_count">
-											<li>
-												<span style="font-size:14px">게시판목록</span>
-												<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-											</li>
-										</ul>
-								</div>
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="sbt-grid-wrap">
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li>
+										<span style="font-size:14px">게시판목록</span>
+										<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+									</li>
+								</ul>
+							</div>
 		                        <div class="sbt-wrap-body" >
 		                            <div class="sbt-grid" >
 		                                <!-- SBGrid를 호출합니다. -->
@@ -891,11 +887,11 @@
 //          console.log("update result", data);
     }
 
- 	//파일다운로드
-    const downloadFile = async function (atchflno){
- 		var url = "/download/"+atchflno;
- 		window.open(url);
-    }
+	//파일다운로드
+	const downloadFile = async function (atchflno){
+		var url = "/download/"+atchflno;
+		window.open(url);
+	}
 </script>
 	<!-- 첨부파일 스타일 추가 -->
 	<style>
