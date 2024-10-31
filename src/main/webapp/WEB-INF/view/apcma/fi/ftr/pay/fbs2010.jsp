@@ -55,8 +55,8 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="panHeader" class="table table-bordered tbl_fixed">
-                <caption>실시간 이체</caption>
+            <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
                     <col style="width: 8%">
@@ -1327,6 +1327,11 @@
                 }
             });
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 신규

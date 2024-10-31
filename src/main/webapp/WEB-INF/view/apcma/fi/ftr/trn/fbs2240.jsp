@@ -55,8 +55,8 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="panHeader" class="table table-bordered tbl_fixed">
-                <caption>지급프로그램</caption>
+            <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 11%">
                     <col style="width: 11%">
@@ -540,6 +540,11 @@
         fn_createGvwInfoGrid();
         await fn_onload();
     });
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
 
     // 조회
     function cfn_search() {

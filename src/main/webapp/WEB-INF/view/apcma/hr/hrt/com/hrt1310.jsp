@@ -46,7 +46,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 10%">
@@ -323,6 +323,11 @@
             gvwColor.setCellStyle('background-color', i+1, 0, i+1, 0, rowData.COLOR_CODE);
             gvwColor.setCellData(i+1, 0, '');
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 저장
