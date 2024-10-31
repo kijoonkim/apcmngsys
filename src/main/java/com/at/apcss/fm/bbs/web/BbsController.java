@@ -20,7 +20,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -83,12 +82,37 @@ public class BbsController extends BaseController {
 		return "apcss/fm/bbs/bbs";
 	}
 
+	// 게시글 조회
+	@PostMapping(value = "/fm/bbs/selectBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectBbs(Model model, @RequestBody BbsVO bbsVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		BbsVO result = new BbsVO();
+
+		bbsVO.setUserId(getUserId());
+		bbsVO.setUserType(getUserType());
+
+		try {
+			result = bbsService.selectBbs(bbsVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 게시판 조회
 	@PostMapping(value = "/fm/bbs/selectBbsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody BbsVO bbsVO, HttpServletRequest request) throws Exception{
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<BbsVO> resultList = new ArrayList<>();
+
+		bbsVO.setUserId(getUserId());
+		bbsVO.setUserType(getUserType());
 
 		try {
 			 resultList = bbsService.selectBbsList(bbsVO);
@@ -101,6 +125,7 @@ public class BbsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
 	// 게시판 등록
 	@PostMapping(value = "/fm/bbs/insertBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertBbs(@RequestBody BbsVO bbsVO, HttpServletRequest requset) throws Exception{
@@ -114,15 +139,19 @@ public class BbsController extends BaseController {
 		bbsVO.setSysLastChgUserId(getUserId());
 		bbsVO.setSysLastChgPrgrmId(getPrgrmId());
 
-		int insertedCnt = 0;
+		String bbsNo = "";
 
 		try {
-			insertedCnt = bbsService.insertBbs(bbsVO);
+			bbsNo = bbsService.insertBbs(bbsVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
+		int insertedCnt = 0;
+		if(!bbsNo.equals("")) {
+			resultMap.put("bbsNo", bbsNo);
+			insertedCnt = 1;
+		}
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
@@ -143,6 +172,32 @@ public class BbsController extends BaseController {
 
 		try {
 			updatedCnt = bbsService.updateBbs(bbsVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 게시판 변경
+	@PostMapping(value = "/fm/bbs/updateBbsAns.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateBbsAns(@RequestBody BbsVO bbsVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		bbsVO.setSysLastChgUserId(getUserId());
+		bbsVO.setSysLastChgPrgrmId(getPrgrmId());
+		bbsVO.setUserId(getUserId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = bbsService.updateBbsAns(bbsVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -209,8 +264,7 @@ public class BbsController extends BaseController {
 	// 게시판 화면이동
 	@GetMapping("/fm/bbs/xmlParshing.do")
 	public String xmlParshing(@RequestBody List<BbsVO> bbsList, HttpServletRequest requset) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
+		//HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=xml&frmerSn=\r\n"
 				+ "AGUN47";
@@ -337,8 +391,8 @@ public class BbsController extends BaseController {
 		//System.out.println("현재 작업 폴더 : " + curWorkingDir);
 		//System.out.println("폴더 : " + uploadPath1);
 
-    	String projectDir = System.getProperty("user.dir");
-        String uploadDir = projectDir + "/upload";
+    	//String projectDir = System.getProperty("user.dir");
+        //String uploadDir = projectDir + "/upload";
 
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -431,6 +485,8 @@ public class BbsController extends BaseController {
 		int deletedCnt = 0;
 
 		try {
+			//BbsFileVO result = bbsService.selectBbsAttaches(bbsFileVO);
+
 			deletedCnt = bbsService.deleteBbsAttache(bbsFileVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

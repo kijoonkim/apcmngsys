@@ -960,7 +960,6 @@
 		let pageNo = 1;
 		//입력폼 초기화
 		fn_clearForm();
-
 		fn_searchApcList(pageSize, pageNo);
 	}
 
@@ -1028,9 +1027,7 @@
 			if(totalRecordCount < data.resultList.length){
 				totalRecordCount = data.resultList.length;
 			}
-
 			if (jsonFcltApcInfo.length > 0) {
-
 				if(grdFcltApcInfo.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdFcltApcInfo.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdFcltApcInfo.rebuild();
@@ -1132,7 +1129,6 @@
 			{caption: ["일반저장 비고"],			ref:'strgPlcGnrlStrgRmrk',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기타사항 면적"],			ref:'strgPlcEtcArea',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기타사항 비고"],			ref:'strgPlcEtcRmrk',		type:'output',width:'70px',style:'text-align:center'},
-
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);

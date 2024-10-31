@@ -54,7 +54,7 @@ public interface BbsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertBbs(BbsVO bbsVO) throws Exception;
+	public String insertBbs(BbsVO bbsVO) throws Exception;
 
 	/**
 	 * 게시판정보를 변경한다.
@@ -63,6 +63,14 @@ public interface BbsService {
 	 * @throws Exception
 	 */
 	public int updateBbs(BbsVO bbsVO) throws Exception;
+
+	/**
+	 * 게시글 답변을 저장 한다
+	 * @param bbsVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateBbsAns(BbsVO bbsVO) throws Exception;
 
 	/**
 	 * 게시판정보를 삭제한다.
