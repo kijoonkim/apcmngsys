@@ -219,6 +219,12 @@ const gfnma_date9 = function(str) {
 	  return str;
 	}
 	
+	//윤년 check
+	var leapYear = function(year)
+	{
+	    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+	}	
+	
 	var nowDate	= new Date();
 	var cha		= Number(str) + 1;
 	
@@ -228,6 +234,29 @@ const gfnma_date9 = function(str) {
 	var hh = pad(nowDate.getHours(), 2);
 	var mm = pad(nowDate.getMinutes(), 2)
 	var ss = pad(nowDate.getSeconds(), 2)
+	
+	//js 날짜계산 오류 수정
+	if(MM=='01'||MM=='03'||MM=='05'||MM=='07'||MM=='08'||MM=='10'||MM=='12'){
+		if(Number(dd)>31){
+			dd = 31;
+		}
+	} else if(MM=='04'||MM=='06'||MM=='09'||MM=='11'){
+		if(Number(dd)>30){
+			dd = 30;
+		}
+	} else {
+		if(leapYear(Number(yyyy))){
+			//29
+			if(Number(dd)>29){
+				dd = 29;
+			}
+		} else {
+			//28
+			if(Number(dd)>28){
+				dd = 28;
+			}
+		}
+	}
 	rstr = yyyy + '-' + MM + '-' + dd;
 	return rstr;
 }
