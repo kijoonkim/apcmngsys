@@ -29,165 +29,173 @@
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
-<section>
-    <div class="box box-solid">
-        <div class="box-header" style="display:flex; justify-content: flex-start;">
-            <div>
-                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3>
+    <section>
+        <div class="box box-solid">
+            <div class="box-header" style="display:flex; justify-content: flex-start;">
+                <div>
+                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                    </h3>
+                </div>
+                <div style="margin-left: auto;">
+                    <%--<sbux-button id="btnResult" name="btnResult" uitype="normal" text="결과조회" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
+                    <sbux-button id="btnTrans" name="btnTrans" uitype="normal" text="이체처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_trans"></sbux-button>--%>
+                    <%--<sbux-button id="btnBatchResult" name="btnBatchResult" uitype="normal" text="급여이체결과 확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_batchResult"></sbux-button>--%>
+                    <sbux-button id="btnConfirmHist" name="btnConfirmHist" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confimHist"></sbux-button>
+                    <sbux-button id="btnTrfCancel" name="btnTrfCancel" uitype="normal" text="급여이체파일 전송취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_trfCancel"></sbux-button>
+                    <sbux-button id="btnSend" name="btnSend" uitype="normal" text="급여이체파일 전송" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_send"></sbux-button>
+                    <sbux-button id="btnDownload" name="btnDownload" uitype="normal" text="급여이체파일 저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_download"></sbux-button>
+                    <sbux-button id="btnName" name="btnName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_name"></sbux-button>
+                    <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_create"></sbux-button>
+                    <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
+                </div>
             </div>
-            <div style="margin-left: auto;">
-                <%--<sbux-button id="btnResult" name="btnResult" uitype="normal" text="결과조회" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnTrans" name="btnTrans" uitype="normal" text="이체처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_trans"></sbux-button>--%>
-                <%--<sbux-button id="btnBatchResult" name="btnBatchResult" uitype="normal" text="급여이체결과 확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_batchResult"></sbux-button>--%>
-                <sbux-button id="btnTrfCancel" name="btnTrfCancel" uitype="normal" text="급여이체파일 전송취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_trfCancel"></sbux-button>
-                <sbux-button id="btnSend" name="btnSend" uitype="normal" text="급여이체파일 전송" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_send"></sbux-button>
-                <sbux-button id="btnDownload" name="btnDownload" uitype="normal" text="급여이체파일 저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_download"></sbux-button>
-                <sbux-button id="btnName" name="btnName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_name"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_create"></sbux-button>
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
-            </div>
-        </div>
-        <div class="box-body">
+            <div class="box-body">
 
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table  id="srchArea" class="table table-bordered tbl_fixed">
-                <caption>검색 조건 설정</caption>
-                <colgroup>
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">사업장</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                <!--[pp] 검색 -->
+                <!--[APC] START -->
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <!--[APC] END -->
+                <table  id="srchArea" class="table table-bordered tbl_fixed">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="th_bg">사업장</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <th scope="row" class="th_bg">예적금</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_DEPOSIT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </td>
+                        <th scope="row" class="th_bg">예적금</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="SRCH_DEPOSIT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_BANK_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_BANK_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_BANK_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="SRCH_BANK_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <th scope="row" class="th_bg">FBS서비스</th>
-                    <td class="td_input">
-                        <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_FBS_SERVICE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </td>
+                        <th scope="row" class="th_bg">FBS서비스</th>
+                        <td class="td_input">
+                            <div class="dropdown">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="SRCH_FBS_SERVICE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="th_bg">귀속년월</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-datepicker
+                                    uitype="popup"
+                                    id="SRCH_PAY_YYYYMM"
+                                    name="SRCH_PAY_YYYYMM"
+                                    datepicker-mode="month"
+                                    date-format="yyyy-mm"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    style="width:100%;"
+                                    group-id="panHeader"
+                                    required
+                            />
+                        </td>
+                        <th scope="row" class="th_bg">급여구분</th>
+                        <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <sbux-select id="SRCH_PAY_TYPE" uitype="single" jsondata-ref="jsonPayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
+                        </td>
+                        <th scope="row" class="th_bg">귀속일자</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-select id="SRCH_PAY_DATE" uitype="single" jsondata-ref="jsonPayDate" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
+                        </td>
+                        <th scope="row" class="th_bg">실지급일자</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-datepicker
+                                    uitype="popup"
+                                    id="SRCH_ACTUAL_PAY_DATE"
+                                    name="SRCH_ACTUAL_PAY_DATE"
+                                    date-format="yyyy-mm-dd"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    style="width:100%;"
+                                    group-id="panHeader"
+                                    required
+                            />
+                            <sbux-input id="SRCH_PASSWORD" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="SRCH_APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>이체 리스트</span>
+                            </li>
+                        </ul>
+                        <div class="ad_tbl_toplist">
+                            <sbux-input id="PAY_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;" readonly></sbux-input>
+                            <label style="float: right; padding-top: 7px;">이체금액합계</label>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">귀속년월</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-datepicker
-                                uitype="popup"
-                                id="SRCH_PAY_YYYYMM"
-                                name="SRCH_PAY_YYYYMM"
-                                datepicker-mode="month"
-                                date-format="yyyy-mm"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                                style="width:100%;"
-                                group-id="panHeader"
-                                required
-                        />
-                    </td>
-                    <th scope="row" class="th_bg">급여구분</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAY_TYPE" uitype="single" jsondata-ref="jsonPayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
-                    </td>
-                    <th scope="row" class="th_bg">귀속일자</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAY_DATE" uitype="single" jsondata-ref="jsonPayDate" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
-                    </td>
-                    <th scope="row" class="th_bg">실지급일자</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-datepicker
-                                uitype="popup"
-                                id="SRCH_ACTUAL_PAY_DATE"
-                                name="SRCH_ACTUAL_PAY_DATE"
-                                date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                                style="width:100%;"
-                                group-id="panHeader"
-                                required
-                        />
-                        <sbux-input id="SRCH_PASSWORD" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                        <sbux-input id="SRCH_APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="ad_tbl_top">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>이체 리스트</span>
-                        </li>
-                    </ul>
-                    <div class="ad_tbl_toplist">
-                        <sbux-input id="PAY_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;" readonly></sbux-input>
-                        <label style="float: right; padding-top: 7px;">이체금액합계</label>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                        <div id="sb-area-gvwInfo" style="height:650px;"></div>
                     </div>
                 </div>
-                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                    <div id="sb-area-gvwInfo" style="height:650px;"></div>
-                </div>
             </div>
         </div>
+    </section>
+    <!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
-</section>
-<!-- 팝업 Modal -->
-<div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopup1">
-    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-</div>
+    <div id="body-modal-compopup1">
+        <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
 
-<div>
-    <sbux-modal style="width:600px" id="modal-compopfbspassword" name="modal-compopfbspassword" uitype="middle" header-title="" body-html-id="body-modal-compopfbspassword" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopfbspassword">
-    <jsp:include page="../../../com/popup/comPopFbsPassword.jsp"></jsp:include>
-</div>
+    <div>
+        <sbux-modal style="width:600px" id="modal-compopfbspassword" name="modal-compopfbspassword" uitype="middle" header-title="" body-html-id="body-modal-compopfbspassword" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopfbspassword">
+        <jsp:include page="../../../com/popup/comPopFbsPassword.jsp"></jsp:include>
+    </div>
+<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopfim3420">
+    	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
+    </div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -995,6 +1003,23 @@
                     fn_search();
                 }
             }
+        });
+    }
+
+    const fn_confimHist = async function () {
+        SBUxMethod.attr('modal-compopfim3420', 'header-title', '승인결과조회');
+        SBUxMethod.openModal('modal-compopfim3420');
+
+        compopfim3420({
+            height			: '600px'
+            ,param			: {
+                p_appr_id	: numApprId
+                ,p_doc_id	: gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE"))
+                ,p_doc_type	: "HR"
+            }
+            ,callbackEvent	: function (data){
+                fn_search();
+            },
         });
     }
 
