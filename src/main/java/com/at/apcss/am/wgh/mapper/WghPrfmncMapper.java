@@ -23,8 +23,8 @@ import com.at.apcss.am.wgh.vo.WghPrfmncVO;
  */
 @Mapper
 public interface WghPrfmncMapper {
-	
-	
+
+
 	/**
 	 * 계량실적정보 목록 조회
 	 * @param wghPrfmncVO
@@ -32,7 +32,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<WghPrfmncVO> selectWghPrfmncList(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 공통 단건 조회
 	 * @param wghPrfmncVO
@@ -40,7 +40,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public WghPrfmncVO selectWghPrfmncCom(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 공통 목록 조회
 	 * @param wghPrfmncVO
@@ -48,7 +48,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<WghPrfmncVO> selectWghPrfmncComList(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 공통 등록
 	 * @param wghPrfmncVO
@@ -56,7 +56,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int insertWghPrfmncCom(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 공통변경
 	 * @param wghPrfmncVO
@@ -64,7 +64,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateWghPrfmncCom(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 공통 삭제
 	 * @param wghPrfmncVO
@@ -72,11 +72,11 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteWghPrfmncCom(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
-	
-	
+
+
+
 	/** 상세 **/
-	
+
 	/**
 	 * 계량실적 상세 단건 조회
 	 * @param wghPrfmncDtlVO
@@ -84,7 +84,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public WghPrfmncDtlVO selectWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 상세 목록 조회
 	 * @param wghPrfmncDtlVO
@@ -92,7 +92,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<WghPrfmncDtlVO> selectWghPrfmncDtlList(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 상세 등록
 	 * @param wghPrfmncDtlVO
@@ -100,7 +100,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int insertWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 상세 변경
 	 * @param wghPrfmncDtlVO
@@ -108,7 +108,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 상세 삭제
 	 * @param wghPrfmncDtlVO
@@ -116,8 +116,8 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 계량실적 공통 삭제 : set delYn 'Y'
 	 * @param wghPrfmncVO
@@ -125,7 +125,7 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateWghPrfmncComForDelY(WghPrfmncVO wghPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 계량실적 상세 삭제 : set delYn 'Y'
 	 * @param wghPrfmncDtlVO
@@ -133,6 +133,37 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateWghPrfmncDtlForDelY(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
-	
-	
+
+	/**
+	 * 계량정보관리 목록 조회
+	 * @param wghPrfmncVO
+	 * @return List<WghPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghInfoMngList(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 저장위치 변경
+	 * @param WghPrfmncVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateStrgLoctnCd(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 감량율변경 변경
+	 * @param WghPrfmncVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateRdcdRt(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량접수등록 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghRcptList(WghPrfmncVO wghPrfmncVO) throws Exception;
+
 }
