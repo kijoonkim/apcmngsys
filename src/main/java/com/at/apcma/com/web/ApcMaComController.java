@@ -850,4 +850,38 @@ public class ApcMaComController extends BaseController {
 		logger.info("=============selectReportFilePath=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	//전표 리포트 출력 리스트
+	@PostMapping(value = "/com/selectFig1000Report.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFig1000Report(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============selectFig1000Report=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIG1000_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+    		//self url 편집
+    		String f_path1 = request.getRequestURL().toString();
+    		String f_path2 = request.getRequestURI().toString();
+    		String f_path3 = f_path1.replaceAll(f_path2, "");
+    		resultMap.put("SERVER_ROOT_PATH", f_path3);
+    		
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============selectFig1000Report=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}
+	
+	
 }
