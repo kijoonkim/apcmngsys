@@ -35,12 +35,6 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <%--<div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add" ></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>
-            </div>--%>
         </div>
         <div class="box-body">
 
@@ -48,7 +42,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 14%">
@@ -733,7 +727,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
@@ -762,7 +755,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
@@ -790,7 +782,6 @@
             ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('APPOINT_TYPE_NAME', data.CODE_NAME);
                 SBUxMethod.set('APPOINT_TYPE', data.SUB_CODE);
             },
@@ -830,7 +821,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     //create td
@@ -1470,7 +1461,7 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', data);
+
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
                             //create td
@@ -2293,6 +2284,11 @@
         }
     }
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 조회
     function cfn_search() {
         fn_search();
@@ -2341,7 +2337,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -2954,7 +2950,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 fn_setMasterData(data.cv_1[0]);
@@ -3147,7 +3143,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -3276,7 +3272,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {listData: returnData});
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {

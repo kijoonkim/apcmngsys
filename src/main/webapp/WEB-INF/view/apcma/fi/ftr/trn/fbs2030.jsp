@@ -45,8 +45,8 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="panHeader" class="table table-bordered tbl_fixed">
-                <caption>지급프로그램</caption>
+            <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 10%">
                     <col style="width: 10%">
@@ -375,7 +375,7 @@
             },
             {caption: ["입금은행명"],         ref: 'PAYER_BANK_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["입금계좌"],         ref: 'PAYER_BANK_ACCOUNT',    type:'output',  	width:'114px',  style:'text-align:left'},
-            {caption: ["이체금액"],         ref: 'TXN_AMT',    type:'input',  	width:'108px',  style:'text-align:left',
+            {caption: ["이체금액"],         ref: 'TXN_AMT',    type:'input',  	width:'108px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -384,7 +384,7 @@
             {caption: ["입금적요"],         ref: 'IN_PRINT',    type:'output',  	width:'118px',  style:'text-align:left'},
             {caption: ["출금적요"],         ref: 'OUT_PRINT',    type:'output',  	width:'118px',  style:'text-align:left'},
             {caption: ["거래ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["수수료"],         ref: 'FEE_AMT',    type:'input',  	width:'75px',  style:'text-align:left',
+            {caption: ["수수료"],         ref: 'FEE_AMT',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -581,7 +581,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CUSTOMER_CS_NAME', data.CS_NAME);
                 SBUxMethod.set('SRCH_CUSTOMER_CS_CODE', data.CS_CODE);
             },
@@ -610,7 +609,6 @@
             ,tableColumnNames		: ["CODE" , "NAME"]
             ,tableColumnWidths		: ["90px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_NAME', data.NAME);
                 SBUxMethod.set('SRCH_BANK_CODE', data.CODE);
             },
@@ -639,7 +637,6 @@
             ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["110px", "210px", "130px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NAME', data.NAME);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NO', data.CODE);
             },
@@ -730,7 +727,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (strWorkType == "MASTER") {
@@ -848,6 +845,11 @@
         fn_createGvwActGrid();
         await fn_onload();
     });
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
 
     // 신규
     function cfn_add() {

@@ -50,8 +50,8 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="panHeader" class="table table-bordered tbl_fixed">
-                <caption>지급프로그램</caption>
+            <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
                     <col style="width: 8%">
@@ -650,32 +650,32 @@
                 }
                 , disabled: true
             },
-            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'80px',  style:'text-align:left',
+            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'80px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
             {caption: ["지급(통화)"],         ref: 'PAY_ORIGINAL_AMOUNT',    type:'output',  	width:'129px',  style:'text-align:left'},
-            {caption: ["지급(환산전)"],         ref: 'PAY_FUNCTIONAL_AMOUNT',    type:'output',  	width:'112px',  style:'text-align:left',
+            {caption: ["지급(환산전)"],         ref: 'PAY_FUNCTIONAL_AMOUNT',    type:'output',  	width:'112px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["지급환율(채무기준)"],         ref: 'EXCHANGE_RATE_AP',    type:'output',  	width:'112px',  style:'text-align:left',
+            {caption: ["지급환율(채무기준)"],         ref: 'EXCHANGE_RATE_AP',    type:'output',  	width:'112px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["지급액(통화-채무)"],         ref: 'PAY_ORIGINAL_AMOUNT_AP',    type:'output',  	width:'128px',  style:'text-align:left',
+            {caption: ["지급액(통화-채무)"],         ref: 'PAY_ORIGINAL_AMOUNT_AP',    type:'output',  	width:'128px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["지급액(환산-채무)"],         ref: 'PAY_FUNCTIONAL_AMOUNT_AP',    type:'output',  	width:'128px',  style:'text-align:left',
+            {caption: ["지급액(환산-채무)"],         ref: 'PAY_FUNCTIONAL_AMOUNT_AP',    type:'output',  	width:'128px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["지급액(환산후)"],         ref: 'PAY_FUNCTIONAL_AMT_CONV',    type:'output',  	width:'132px',  style:'text-align:left',
+            {caption: ["지급액(환산후)"],         ref: 'PAY_FUNCTIONAL_AMT_CONV',    type:'output',  	width:'132px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["환차손익"],         ref: 'PAY_EXCHANGE_PL_AMT',    type:'output',  	width:'130px',  style:'text-align:left',
+            {caption: ["환차손익"],         ref: 'PAY_EXCHANGE_PL_AMT',    type:'output',  	width:'130px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -699,27 +699,27 @@
                 }
                 , disabled: true
             },
-            {caption: ["당초환율(채무)"],         ref: 'EXCHANGE_RATE_ORIG',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["당초환율(채무)"],         ref: 'EXCHANGE_RATE_ORIG',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["잔액(통화)"],         ref: 'REMAIN_ORIGINAL_AMOUNT',    type:'output',  	width:'130px',  style:'text-align:left',
+            {caption: ["잔액(통화)"],         ref: 'REMAIN_ORIGINAL_AMOUNT',    type:'output',  	width:'130px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["잔액(환산전)"],         ref: 'REMAIN_FUNCTIONAL_AMOUNT',    type:'output',  	width:'122px',  style:'text-align:left',
+            {caption: ["잔액(환산전)"],         ref: 'REMAIN_FUNCTIONAL_AMOUNT',    type:'output',  	width:'122px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["잔액(환산후)"],         ref: 'REMAIN_FUNCTIONAL_AMT_CONV',    type:'output',  	width:'119px',  style:'text-align:left',
+            {caption: ["잔액(환산후)"],         ref: 'REMAIN_FUNCTIONAL_AMT_CONV',    type:'output',  	width:'119px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["총금액(통화)"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'131px',  style:'text-align:left',
+            {caption: ["총금액(통화)"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'131px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["총금액(환산)"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'138px',  style:'text-align:left',
+            {caption: ["총금액(환산)"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'138px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -1351,6 +1351,11 @@
             await fn_onload();
         }
     });
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
 
     // 조회
     function cfn_search() {

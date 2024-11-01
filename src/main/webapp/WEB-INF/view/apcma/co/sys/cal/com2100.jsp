@@ -128,6 +128,15 @@
                                     onclick="fn_addRow"
                                     style="float: right;"
                             ></sbux-button>
+                            <sbux-button
+                                    id="btnAuto"
+                                    name="btnAuto"
+                                    uitype="normal"
+                                    text="차기 생성"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="fn_btnAuto"
+                                    style="float: right;margin-right:1rem;"
+                            ></sbux-button>
                         </div>                        
                         <div>
                             <div id="sb-area-grdCom2100" style="height:616px; width:100%;"></div>
@@ -398,17 +407,61 @@
     	//코드목록
     	jsonMasterList = [];
     }
+     // 차기 생성
+     const fn_btnAuto = async function () {
+		var paramObj = {
+				 V_P_DEBUG_MODE_YN     : ''
+				,V_P_LANG_ID           : ''
+				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+				,V_P_FISCAL_NO         : '0'
+				,V_P_START_DATE        : ''
+				,V_P_END_DATE          : ''
+				,V_P_FISCAL_STATUS     : ''
+				,V_P_DESCR             : ''
+				,V_P_DESCR_CHN         : ''
+				,V_P_FORM_ID           : p_formId
+				,V_P_MENU_ID           : p_menuId
+				,V_P_PROC_ID           : ''
+				,V_P_USERID            : p_userId
+				,V_P_PC                : ''
+	    };		
+		
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {
+	       	getType				: 'json',
+	       	workType			: 'AUTO',
+	       	cv_count			: '0',
+	       	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+        try {
+	       	if (_.isEqual("S", data.resultStatus)) {
+	       		if(data.resultMessage){
+	          		alert(data.resultMessage);
+	       		}
+	       		cfn_search();
+	       	} else {
+	         		alert(data.resultMessage);
+	       	}
+        } catch (e) {
+	   		if (!(e instanceof Error)) {
+	   			e = new Error(e);
+	   		}
+	   		console.error("failed", e.message);
+	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
      // 행 추가
      const fn_addRow = function () {
-         const rowVal = masterGrid.getGridDataAll();
+        const rowVal = masterGrid.getGridDataAll();
          
 		if(rowVal[rowVal.length - 1].FISCAL_NO != ''){
-	    	let fiscalNo 			= rowVal[rowVal.length - 1].FISCAL_NO+1;
+	    	let fiscalNo 		= rowVal[rowVal.length - 1].FISCAL_NO+1;
 	    	let startDate 		= rowVal[rowVal.length - 1].START_DATE;
-	    	let endDate 			= rowVal[rowVal.length - 1].END_DATE;
-	    	let fiscalStatus 		= rowVal[rowVal.length - 1].FISCAL_STATUS;
-			startDate = (Number(startDate.slice(0, 4)) + 1) + '0101';
-			endDate	= (Number(endDate.slice(0, 4)) + 1) + '1231';
+	    	let endDate 		= rowVal[rowVal.length - 1].END_DATE;
+	    	let fiscalStatus 	= rowVal[rowVal.length - 1].FISCAL_STATUS;
+			startDate 	= (Number(startDate.slice(0, 4)) + 1) + '0101';
+			endDate		= (Number(endDate.slice(0, 4)) + 1) + '1231';
 			
 			masterGrid.addRows([{
 				FISCAL_NO				: fiscalNo, 
@@ -420,8 +473,6 @@
 		}else{
 			masterGrid.addRow(true);
 		}
-
-    	
      }
 
      // 행 삭제

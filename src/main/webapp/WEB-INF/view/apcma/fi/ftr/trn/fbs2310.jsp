@@ -55,8 +55,8 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="panHeader" class="table table-bordered tbl_fixed">
-                <caption>지급프로그램</caption>
+            <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 13%">
                     <col style="width: 13%">
@@ -319,7 +319,6 @@
             ,tableColumnNames		: ["CODE" , "NAME"]
             ,tableColumnWidths		: ["90px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_NAME', data.NAME);
                 SBUxMethod.set('SRCH_BANK_CODE', data.CODE);
             },
@@ -347,7 +346,6 @@
             ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["110px", "210px", "130px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NAME', data.NAME);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NO', data.CODE);
             },
@@ -393,31 +391,31 @@
             {caption: ["예적금코드"],         ref: 'DEPOSIT_CODE',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["예금계좌명"],         ref: 'DEPOSIT_NAME',    type:'output',  	width:'160px',  style:'text-align:left'},
             {caption: ["통화"],         ref: 'CURRENCY_CODE',    type:'output',  	width:'40px',  style:'text-align:left'},
-            {caption: ["계정잔액"],         ref: 'BALANCE_AMT_NOW',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["계정잔액"],         ref: 'BALANCE_AMT_NOW',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["인출가능잔액(펌뱅킹)"],         ref: 'USABLE_BALANCE_AMT_NOW',    type:'output',  	width:'155px',  style:'text-align:left',
+            {caption: ["인출가능잔액(펌뱅킹)"],         ref: 'USABLE_BALANCE_AMT_NOW',    type:'output',  	width:'155px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["차이금액[장부-가용]"],         ref: 'DIFF_BALANCE_AMT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["차이금액[장부-가용]"],         ref: 'DIFF_BALANCE_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["기초"],         ref: 'BEGIN_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["기초"],         ref: 'BEGIN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["입금"],         ref: 'IN_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["입금"],         ref: 'IN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["출금"],         ref: 'OUT_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["출금"],         ref: 'OUT_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["예금잔액"],         ref: 'BALANCE_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["예금잔액"],         ref: 'BALANCE_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -600,6 +598,11 @@
         await fn_onload();
     });
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 저장
     function cfn_save() {
         fn_save();
@@ -644,7 +647,7 @@
                 const postJsonPromise = gfn_postJSON("/fi/ftr/trn/insertFbs2310List.do", {listData: listData});
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         return true;
@@ -707,7 +710,7 @@
                 const postJsonPromise = gfn_postJSON("/fi/ftr/trn/insertFbs2310Sub.do", {listData: listData});
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         return true;
@@ -763,7 +766,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -834,7 +837,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -912,7 +915,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (strWorkType == "MASTER") {
@@ -1027,7 +1030,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0) {
@@ -1101,7 +1104,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0) {

@@ -436,14 +436,14 @@
     }
 	
     //세부코드 정보
-    const fn_drawSubGrid = async function(mod, data,copymod) {
+    const fn_drawSubGrid = async function(mode, data,copymod) {
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
         SBSubGridProperties.parentid 			= 'sb-area-subGrdCom2300';
         SBSubGridProperties.id 					= 'subGrid';
         SBSubGridProperties.jsonref 			= 'jsonSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBSubGridProperties.selectmode 			= mod;
+        SBSubGridProperties.selectmode 			= mode;
         SBSubGridProperties.allowcopy 			= copymod;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
@@ -765,8 +765,8 @@
 
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
-		 let mod = 'byrow'; //행 단위 단일  선택
-         fn_drawSubGrid(mod, data, true);
+		 let mode = 'byrow'; //행 단위 단일  선택
+         fn_drawSubGrid(mode, data, true);
 
      }
      
@@ -779,8 +779,8 @@
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
 
-		 let mod = 'byrows'; //행 단위 다중 선택
-         fn_drawSubGrid(mod, data, true);
+		 let mode = 'byrows'; //행 단위 다중 선택
+         fn_drawSubGrid(mode, data, true);
 
      }
      
@@ -793,8 +793,8 @@
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
 	 
-         let mod = 'free'; //셀 단위 다중 선택
-         fn_drawSubGrid(mod, data, true);
+         let mode = 'free'; //셀 단위 다중 선택
+         fn_drawSubGrid(mode, data, true);
      }
      
      //전년도 자료 복사

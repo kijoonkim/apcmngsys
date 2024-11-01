@@ -42,7 +42,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 10%">
@@ -416,7 +416,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_FULL_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME", "POSITION_CODE", "DUTY_CODE", "JOB_RANK"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
@@ -448,7 +447,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_LEADER_NAME', data.EMP_NAME);
                 SBUxMethod.set('DEPT_LEADER', data.EMP_CODE);
             },
@@ -476,7 +474,6 @@
             ,tableColumnNames		: ["CC_CODE", "CC_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('PARENT_DEPT_NAME', data.CC_NAME);
                 SBUxMethod.set('PARENT_DEPT', data.CC_CODE);
             },
@@ -511,8 +508,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "POSITION_CODE", "JOB_RANK", "ENTER_DATE", "JOB_GROUP", "JOB_FAMILY"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
-
                 gvwEmp.setRowData(nRow, {
                     DEPT_CODE: data['DEPT_CODE'],
                     DEPT_NAME: data['DEPT_NAME'],
@@ -834,7 +829,7 @@
         });
 
         const empData = await postJsonPromiseEmp;
-        console.log('data:', empData);
+
         try {
             if (_.isEqual("S", empData.resultStatus)) {
 
@@ -875,6 +870,11 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 신규
@@ -968,7 +968,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -1064,7 +1064,7 @@
             V_P_USERID			: '',
             V_P_PC				: ''
         };
-        console.log(paramObj)
+
         const postJsonPromisePatten = gfn_postJSON("/hr/hrt/com/selectHrt1410List.do", {
             getType				: 'json',
             workType			: 'PATTERN',
@@ -1080,7 +1080,7 @@
         });
 
         const pattenData = await postJsonPromisePatten;
-        console.log('data:', pattenData);
+
         try {
             if (_.isEqual("S", pattenData.resultStatus)) {
 
@@ -1112,7 +1112,7 @@
         }
 
         const empData = await postJsonPromiseEmp;
-        console.log('data:', empData);
+
         try {
             if (_.isEqual("S", empData.resultStatus)) {
 
@@ -1180,7 +1180,7 @@
                     return false;
                 }
             }
-            console.log(item)
+
             const param = {
                 cv_count : '0',
                 getType : 'json',
@@ -1217,7 +1217,7 @@
                 gfn_comAlert("근무패턴과 기간을 지정하십시요");
                 return false;
             }
-            console.log(item);
+
             const param = {
                 cv_count : '0',
                 getType : 'json',

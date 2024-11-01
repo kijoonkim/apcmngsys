@@ -29,284 +29,288 @@
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
-<section>
-    <div class="box box-solid" style="border-radius:0px">
-        <div class="box-header" style="display:flex; justify-content: flex-start;">
-            <div>
-                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3>
+    <section>
+        <div class="box box-solid" style="border-radius:0px">
+            <div class="box-header" style="display:flex; justify-content: flex-start;">
+                <div>
+                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                    </h3>
+                </div>
+                <div style="margin-left: auto;">
+                    <sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confimHist"></sbux-button>
+                    <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
+                    <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
+                </div>
             </div>
-            <div style="margin-left: auto;">
-<%--                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
-                <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
-                <%--<sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
-                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>--%>
-            </div>
-        </div>
-        <div class="box-body">
+            <div class="box-body">
 
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
-                <caption>검색 조건 설정</caption>
-                <colgroup>
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 1%">
-                    <col style="width: 10%">
-                    <col style="width: 3%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">신청일</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-datepicker
-                                uitype="popup"
-                                id="SRCH_REQUEST_DATE_FR"
-                                name="SRCH_REQUEST_DATE_FR"
-                                date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                style="width:100%;"
-                                group-id="panHeader"
-                                required
-                        />
-                    </td>
-                    <td class="td_input" style="border-right:hidden;">
-                        <span> ~ </span>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-datepicker
-                                uitype="popup"
-                                id="SRCH_REQUEST_DATE_TO"
-                                name="SRCH_REQUEST_DATE_TO"
-                                date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                style="width:100%;"
-                                group-id="panHeader"
-                                required
-                        />
-                    </td>
-                    <th scope="row" class="th_bg">증명서유형</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                    <th scope="row" class="th_bg">진행상태</th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_CONFIRM_STEP" uitype="single" jsondata-ref="jsonConfirmStep" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
-                                target-id="modal-compopup1"
-                                onclick="fn_findSrchDeptCode"
-                        ></sbux-button>
-                    </td>
-                    <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
-                                target-id="modal-compopup1"
-                                onclick="fn_findSrchEmpCode"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="ad_tbl_top">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>증명서발급</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-bandgvwInfo" style="height:443px;"></div>
-                </div>
-                <div class="ad_tbl_top2">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>증명서발급 신청</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="table-responsive tbl_scroll_sm">
-                    <table class="table table-bordered tbl_fixed">
-                        <caption>증명서발급 신청</caption>
-                        <colgroup>
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 1%">
-                            <col style="width: 8%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                            <col style="width: 9%">
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">신청일</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="REQUEST_DATE"
-                                        name="REQUEST_DATE"
-                                        date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                        style="width:100%;"
-                                        group-id="panBottom"
-                                        required
-                                />
-                            </td>
-                            <th scope="row" class="th_bg">사원</th>
-                            <td class="td_input" data-group="EMP">
-                                <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" data-group="EMP">
-                                <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                            </td>
-                            <td class="td_input" style="border-right:hidden;" data-group="EMP">
-                                <sbux-button
-                                        class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
-                                        target-id="modal-compopup1"
-                                        onclick="fn_findEmpCode"
-                                ></sbux-button>
-                            </td>
-                            <td class="td_input">
-                                <p class="ad_input_row">
-                                    <sbux-checkbox
-                                            uitype="normal"
-                                            id="SOCIAL_NUM_YN"
-                                            name="SOCIAL_NUM_YN"
-                                            uitype="normal"
-                                            class="form-control input-sm check"
-                                            text="주민번호 출력"
-                                            true-value="Y" false-value="N"
+                <!--[pp] 검색 -->
+                <!--[APC] START -->
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <!--[APC] END -->
+                <table id="srchArea" class="table table-bordered tbl_fixed">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 1%">
+                        <col style="width: 10%">
+                        <col style="width: 3%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="th_bg">신청일</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-datepicker
+                                    uitype="popup"
+                                    id="SRCH_REQUEST_DATE_FR"
+                                    name="SRCH_REQUEST_DATE_FR"
+                                    date-format="yyyy-mm-dd"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                    style="width:100%;"
+                                    group-id="panHeader"
+                                    required
+                            />
+                        </td>
+                        <td class="td_input" style="border-right:hidden;">
+                            <span> ~ </span>
+                        </td>
+                        <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <sbux-datepicker
+                                    uitype="popup"
+                                    id="SRCH_REQUEST_DATE_TO"
+                                    name="SRCH_REQUEST_DATE_TO"
+                                    date-format="yyyy-mm-dd"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                    style="width:100%;"
+                                    group-id="panHeader"
+                                    required
+                            />
+                        </td>
+                        <th scope="row" class="th_bg">증명서유형</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-select id="SRCH_REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        </td>
+                        <th scope="row" class="th_bg">진행상태</th>
+                        <td class="td_input" style="border-right:hidden;">
+                            <sbux-select id="SRCH_CONFIRM_STEP" uitype="single" jsondata-ref="jsonConfirmStep" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="th_bg">부서</th>
+                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
+                            <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
+                            <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
+                            <sbux-button
+                                    class="btn btn-xs btn-outline-dark"
+                                    text="찾기" uitype="modal"
+                                    target-id="modal-compopup1"
+                                    onclick="fn_findSrchDeptCode"
+                            ></sbux-button>
+                        </td>
+                        <th scope="row" class="th_bg">사원</th>
+                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                            <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                            <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                            <sbux-button
+                                    class="btn btn-xs btn-outline-dark"
+                                    text="찾기" uitype="modal"
+                                    target-id="modal-compopup1"
+                                    onclick="fn_findSrchEmpCode"
+                            ></sbux-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>증명서발급</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-bandgvwInfo" style="height:443px;"></div>
+                    </div>
+                    <div class="ad_tbl_top2">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>증명서발급 신청</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <table class="table table-bordered tbl_fixed">
+                            <caption>증명서발급 신청</caption>
+                            <colgroup>
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 1%">
+                                <col style="width: 8%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                                <col style="width: 9%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="th_bg">신청일</th>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-datepicker
+                                            uitype="popup"
+                                            id="REQUEST_DATE"
+                                            name="REQUEST_DATE"
+                                            date-format="yyyy-mm-dd"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                            style="width:100%;"
+                                            group-id="panBottom"
+                                            required
                                     />
-                                </p>
-                            </td>
-                            <td class="td_input">
-                                <p class="ad_input_row">
-                                    <sbux-checkbox
-                                            uitype="normal"
-                                            id="IMG_YN"
-                                            name="IMG_YN"
-                                            uitype="normal"
-                                            class="form-control input-sm check"
-                                            text="직인삭제"
-                                            true-value="Y" false-value="N"
+                                </td>
+                                <th scope="row" class="th_bg">사원</th>
+                                <td class="td_input" data-group="EMP">
+                                    <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+                                </td>
+                                <td colspan="2" class="td_input" data-group="EMP">
+                                    <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                </td>
+                                <td class="td_input" style="border-right:hidden;" data-group="EMP">
+                                    <sbux-button
+                                            class="btn btn-xs btn-outline-dark"
+                                            text="찾기" uitype="modal"
+                                            target-id="modal-compopup1"
+                                            onclick="fn_findEmpCode"
+                                    ></sbux-button>
+                                </td>
+                                <td class="td_input">
+                                    <p class="ad_input_row">
+                                        <sbux-checkbox
+                                                uitype="normal"
+                                                id="SOCIAL_NUM_YN"
+                                                name="SOCIAL_NUM_YN"
+                                                uitype="normal"
+                                                class="form-control input-sm check"
+                                                text="주민번호 출력"
+                                                true-value="Y" false-value="N"
+                                        />
+                                    </p>
+                                </td>
+                                <td class="td_input">
+                                    <p class="ad_input_row">
+                                        <sbux-checkbox
+                                                uitype="normal"
+                                                id="IMG_YN"
+                                                name="IMG_YN"
+                                                uitype="normal"
+                                                class="form-control input-sm check"
+                                                text="직인삭제"
+                                                true-value="Y" false-value="N"
+                                        />
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="th_bg">증명서유형</th>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" group-id="panBottom" required></sbux-select>
+                                </td>
+                                <th scope="row" class="th_bg">제출처</th>
+                                <td colspan="3" class="td_input" style="border-right:hidden;">
+                                    <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
+                                </td>
+                                <th scope="row" class="th_bg">사용용도</th>
+                                <td colspan="2" class="td_input" style="border-right:hidden;">
+                                    <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
+                                </td>
+                                <th id="certiMemoTh" scope="row" class="th_bg">담당업무</th>
+                                <td id="certiMemoTd" class="td_input" style="border-right:hidden;">
+                                    <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
+                                </td>
+                            </tr>
+                            <tr id="incomeTr">
+                                <th scope="row" class="th_bg">귀속년도</th>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-datepicker
+                                            uitype="popup"
+                                            id="INCOME_YEAR"
+                                            name="INCOME_YEAR"
+                                            date-format="yyyy"
+                                            datepicker-mode="year"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            style="width:100%;"
+                                            group-id="panBottom"
                                     />
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">증명서유형</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_changeReportType(REPORT_TYPE)" group-id="panBottom" required></sbux-select>
-                            </td>
-                            <th scope="row" class="th_bg">제출처</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="SUBMIT_PLACE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
-                            </td>
-                            <th scope="row" class="th_bg">사용용도</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="USE_DESCR" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
-                            </td>
-                            <th id="certiMemoTh" scope="row" class="th_bg">담당업무</th>
-                            <td id="certiMemoTd" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="CERTI_MEMO" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panBottom" required></sbux-input>
-                            </td>
-                        </tr>
-                        <tr id="incomeTr">
-                            <th scope="row" class="th_bg">귀속년도</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="INCOME_YEAR"
-                                        name="INCOME_YEAR"
-                                        date-format="yyyy"
-                                        datepicker-mode="year"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                        style="width:100%;"
-                                        group-id="panBottom"
-                                />
-                            </td>
-                            <th scope="row" class="th_bg">기간</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="INCOME_RECEIVE_START_DATE"
-                                        name="INCOME_RECEIVE_START_DATE"
-                                        date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                        style="width:100%;"
-                                        group-id="panBottom"
-                                />
-                            </td>
-                            <td class="td_input" style="border-right:hidden;">
-                                <span> ~ </span>
-                            </td>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="INCOME_RECEIVE_END_DATE"
-                                        name="INCOME_RECEIVE_END_DATE"
-                                        date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                        style="width:100%;"
-                                        group-id="panBottom"
-                                />
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </td>
+                                <th scope="row" class="th_bg">기간</th>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-datepicker
+                                            uitype="popup"
+                                            id="INCOME_RECEIVE_START_DATE"
+                                            name="INCOME_RECEIVE_START_DATE"
+                                            date-format="yyyy-mm-dd"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            style="width:100%;"
+                                            group-id="panBottom"
+                                    />
+                                </td>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <span> ~ </span>
+                                </td>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-datepicker
+                                            uitype="popup"
+                                            id="INCOME_RECEIVE_END_DATE"
+                                            name="INCOME_RECEIVE_END_DATE"
+                                            date-format="yyyy-mm-dd"
+                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                            style="width:100%;"
+                                            group-id="panBottom"
+                                    />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
-</section>
+    <div id="body-modal-compopup1">
+        <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
 
 <!-- 팝업 Modal -->
-<div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopup1">
-    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-</div>
+    <div>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" callback-after-close="fn_search"></sbux-modal>
+    </div>
+    <div id="body-modal-compopfim3420">
+    	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
+    </div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -660,6 +664,11 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('click', 'fn_view');
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 조회
@@ -1277,6 +1286,33 @@
                     if(data && data.result == "Y") {
                         fn_search();
                     }
+                }
+            });
+        }
+    }
+
+    const fn_confimHist = async function () {
+        var nRow = bandgvwInfo.getRow();
+
+        if (nRow < 0) {
+            gfn_comAlert("E0000", "결재조회할 건이 없습니다.");
+            return;
+        } else {
+            if (gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM"))) == ""
+                || gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID"))) == "0") {
+                gfn_comAlert("E0000", "결재조회할 건이 없습니다.");
+                return;
+            }
+
+            SBUxMethod.attr('modal-compopfim3420', 'header-title', '승인결과조회');
+            SBUxMethod.openModal('modal-compopfim3420');
+
+            compopfim3420({
+                height			: '600px'
+                ,param			: {
+                    p_appr_id	: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID")))
+                    ,p_doc_id	: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")))
+                    ,p_doc_type	: sourceType
                 }
             });
         }

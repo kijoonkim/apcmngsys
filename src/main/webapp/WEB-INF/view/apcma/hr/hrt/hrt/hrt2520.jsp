@@ -46,7 +46,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 12%">
@@ -679,7 +679,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -713,11 +712,15 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 저장
@@ -863,7 +866,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt5200List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     let updatedDetailData = grdDetail.getUpdateData(true, 'all');
@@ -999,7 +1002,7 @@
                         const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt2520DetailList.do", {listData: detailListData});
 
                         const data = await postJsonPromise;
-                        console.log('data:', data);
+
                         try {
                             if (_.isEqual("S", data.resultStatus)) {
                                 gfn_comAlert("I0001");
@@ -1075,7 +1078,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1303,7 +1305,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1657,7 +1658,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1817,7 +1817,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {

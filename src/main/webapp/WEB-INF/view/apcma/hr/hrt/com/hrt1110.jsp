@@ -42,7 +42,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 10%">
@@ -198,6 +198,11 @@
         fn_search();
     });
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 조회
     function cfn_search() {
         fn_search();
@@ -234,7 +239,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonNeglectOfDutyInfoList.length = 0;
@@ -319,7 +324,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1110List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");

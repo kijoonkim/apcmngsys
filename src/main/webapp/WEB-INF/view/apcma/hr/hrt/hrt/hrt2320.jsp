@@ -36,8 +36,6 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <%--<sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>--%>
                 <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정/승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
                 <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정/승인처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
                 <sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_allSave"></sbux-button>
@@ -50,7 +48,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
@@ -1017,6 +1015,11 @@
                 bEventEnabled = true;
             }
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 저장

@@ -42,7 +42,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 10%">
@@ -980,14 +980,21 @@
         fn_search();
     });
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 신규
     function cfn_add() {
         fn_create();
     }
+
     // 저장
     function cfn_save() {
         fn_save();
     }
+
     // 삭제
     function cfn_del() {
         fn_delete();
@@ -1360,7 +1367,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 

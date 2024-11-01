@@ -36,8 +36,9 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
+                <%--<sbux-button id="btnConfirmHist" name="btnConfirmHist" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confimHist"></sbux-button>--%>
+                <%--<sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
+                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>--%>
                 <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
                 <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
                 <sbux-button id="btnManagerAppr" name="btnManagerAppr" uitype="normal" text="관리자승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_managerAppr"></sbux-button>
@@ -51,7 +52,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
@@ -714,7 +715,6 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', data);
 
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
@@ -794,7 +794,6 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', data);
 
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
@@ -877,7 +876,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -911,7 +909,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -1053,6 +1050,11 @@
                 bEventEnabled = true;
             }
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 저장
@@ -1226,7 +1228,6 @@
                     });
 
                     const listData = await postJsonPromiseForList;
-                    console.log('data:', listData);
 
                     try {
                         if (_.isEqual("S", listData.resultStatus)) {
@@ -1302,7 +1303,6 @@
                                 });
 
                                 const data = await postJsonPromise;
-                                console.log('data:', data);
 
                                 if (_.isEqual("S", data.resultStatus)) {
                                 } else {
@@ -1396,7 +1396,6 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', data);
 
                     if (_.isEqual("S", data.resultStatus)) {
                     } else {
@@ -1465,7 +1464,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1555,7 +1553,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1713,7 +1710,6 @@
                     });
 
                     const listData = await postJsonPromiseForList;
-                    console.log('data:', listData);
 
                     try {
                         if (_.isEqual("S", listData.resultStatus)) {
@@ -1791,7 +1787,6 @@
                                 });
 
                                 const data = await postJsonPromise;
-                                console.log('data:', data);
 
                                 if (_.isEqual("S", data.resultStatus)) {
                                     if (data.resultMessage) {
@@ -1897,7 +1892,6 @@
                         });
 
                         const data = await postJsonPromise;
-                        console.log('data:', data);
 
                         if (_.isEqual("S", data.resultStatus)) {
                             if (data.resultMessage) {
@@ -1961,7 +1955,6 @@
                     });
 
                     const listData = await postJsonPromiseForList;
-                    console.log('data:', listData);
 
                     try {
                         if (_.isEqual("S", listData.resultStatus)) {
@@ -2039,7 +2032,6 @@
                                 });
 
                                 const data = await postJsonPromise;
-                                console.log('data:', data);
 
                                 if (_.isEqual("S", data.resultStatus)) {
                                     if (data.resultMessage) {
@@ -2145,7 +2137,6 @@
                         });
 
                         const data = await postJsonPromise;
-                        console.log('data:', data);
 
                         if (_.isEqual("S", data.resultStatus)) {
                             if (data.resultMessage) {
@@ -2256,7 +2247,6 @@
                 });
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
 
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -2355,7 +2345,6 @@
                 });
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
 
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -2370,6 +2359,10 @@
     }
 
     const fn_approval = async function() {
+        // TODO : 원래 소스에서 기능구현 안되어있음
+    }
+
+    const fn_confimHist = async function () {
         // TODO : 원래 소스에서 기능구현 안되어있음
     }
 

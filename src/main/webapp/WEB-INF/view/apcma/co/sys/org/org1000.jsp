@@ -666,12 +666,12 @@ console.log('data ==> ', data);
     	SBUxMethod.set('TEL', 				gfn_nvl(obj.TEL) );
     	SBUxMethod.set('FAX', 				gfn_nvl(obj.FAX) );
     	SBUxMethod.set('WEB_URL', 			gfn_nvl(obj.WEB_URL) );
-    	SBUxMethod.set('STOCK_COUNT', 		addComma(gfn_nvl(obj.STOCK_COUNT)) );
-    	SBUxMethod.set('STOCK_AMOUNT', 		addComma(gfn_nvl(obj.STOCK_AMOUNT)) );
-    	SBUxMethod.set('PRE_STOCK_COUNT1', 	addComma(gfn_nvl(obj.PRE_STOCK_COUNT1)) );
-    	SBUxMethod.set('PRE_STOCK_AMOUNT1', addComma(gfn_nvl(obj.PRE_STOCK_AMOUNT1)) );
-    	SBUxMethod.set('PRE_STOCK_COUNT2', 	addComma(gfn_nvl(obj.PRE_STOCK_COUNT2)) );
-    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	addComma(gfn_nvl(obj.PRE_STOCK_AMOUNT2)) );
+    	SBUxMethod.set('STOCK_COUNT', 		gfn_nvl(addComma(obj.STOCK_COUNT)));
+    	SBUxMethod.set('STOCK_AMOUNT', 		gfn_nvl(addComma(obj.STOCK_AMOUNT)));
+    	SBUxMethod.set('PRE_STOCK_COUNT1', 	gfn_nvl(addComma(obj.PRE_STOCK_COUNT1)));
+    	SBUxMethod.set('PRE_STOCK_AMOUNT1', gfn_nvl(addComma(obj.PRE_STOCK_AMOUNT1)));
+    	SBUxMethod.set('PRE_STOCK_COUNT2', 	gfn_nvl(addComma(obj.PRE_STOCK_COUNT2)));
+    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	gfn_nvl(addComma(obj.PRE_STOCK_AMOUNT2)));
     	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
     	SBUxMethod.set('COMP_CODE_ABBR', 	gfn_nvl(obj.COMP_CODE_ABBR) );
     	SBUxMethod.set('CLIENT_CODE', 		gfn_nvl(obj.CLIENT_CODE) );
@@ -834,7 +834,7 @@ console.log('data ==> ', data);
        			  ,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
        			  ,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
        			  ,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
-       			  ,V_P_STOCK_COUNT          : removeComma(gfn_nvl(SBUxMethod.get("STOCK_COUNT")))
+       			  ,V_P_STOCK_COUNT          : removeComma(gfn_nvl(SBUxMethod.get("STOCK_COUNT")) )
        			  ,V_P_STOCK_AMOUNT         : removeComma(gfn_nvl(SBUxMethod.get("STOCK_AMOUNT")))
        			  ,V_P_PRE_STOCK_COUNT1     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT1")))
        			  ,V_P_PRE_STOCK_AMOUNT1    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT1")))
@@ -928,16 +928,16 @@ console.log('save data ==>', data);
 	    }
 	    
 	    function addComma(val){
-	    	if(!val){
-	    		return;
+	    	if(gfn_isEmpty(val) || val.toString().length < 3){
+	    		return val.toString();
 	    	}
 	    	let str = val.toString();
 	    	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	    }
 	    
 	    function removeComma(val){
-	    	if(!val){
-	    		return;
+	    	if( gfn_isEmpty(val) || val.toString().length < 3){
+	    		return val;
 	    	}
 	    	let str = val.toString();
 	    	return str.replace(/,/gi, '');

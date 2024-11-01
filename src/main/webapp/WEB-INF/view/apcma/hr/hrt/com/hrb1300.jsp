@@ -67,7 +67,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 42%">
@@ -356,7 +356,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 fn_search();
@@ -371,6 +371,11 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 조회
@@ -401,7 +406,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 data.cv_1.forEach((item, index) => {
@@ -471,7 +476,7 @@
         });
 
         const detailData = await postJsonPromise;
-        console.log('data:', detailData);
+
         try {
             if (_.isEqual("S", detailData.resultStatus)) {
                 var responseData = detailData.cv_2[0];
@@ -514,7 +519,7 @@
                 });
 
                 const eventData = await postJsonPromise;
-                console.log('data:', eventData);
+
                 try {
                     if (_.isEqual("S", eventData.resultStatus)) {
 

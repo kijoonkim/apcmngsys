@@ -231,4 +231,43 @@ public class ApcMaHri1000Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
+    
+    // 인사정보 등록 리포트
+    @PostMapping(value = "/hr/hri/hri/selectHri1000ReportList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHri1000ReportList(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1000ReportList=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRI1000_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    		//self url 편집
+    		String f_path1 = request.getRequestURL().toString();
+    		String f_path2 = request.getRequestURI().toString();
+    		String f_path3 = f_path1.replaceAll(f_path2, "");
+    		resultMap.put("SERVER_ROOT_PATH", f_path3);
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1000ReportList=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+    
+    
 }

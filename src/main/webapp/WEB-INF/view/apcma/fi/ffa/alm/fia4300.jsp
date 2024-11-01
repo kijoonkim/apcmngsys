@@ -207,12 +207,12 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">처분번호</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-assetDisposalNo" name="srch-ast-assetDisposalNo" class="form-control input-sm" uitype="text" group-id="ast1" onchange="fn_dspsNoChange(srch-ast-assetDisposalNo)"></sbux-input>
+											<sbux-input id="srch-ast-assetDisposalNo" name="srch-ast-assetDisposalNo" class="form-control input-sm" uitype="text" onchange="fn_dspsNoChange(srch-ast-assetDisposalNo)"></sbux-input>
 		                            </td>
 
 		                            <th scope="row" class="th_bg">회계기준</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-select id="srch-ast-acctRuleCode" name="srch-slt-acctRuleCode" class="form-control input-sm inpt_data_reqed" uitype="single" jsondata-ref="jsonAcntgCrtr" group-id="ast1"  ></sbux-input>
+											<sbux-select id="srch-ast-acctRuleCode" name="srch-ast-acctRuleCode" class="form-control input-sm inpt_data_reqed" uitype="single" jsondata-ref="jsonAcntgCrtr" group-id="ast1"  ></sbux-input>
 		                            </td>
 		                            <th scope="row" class="th_bg acqsAmt1">취득가액</th>
 		                            <td  class="td_input acqsAmt1" style="border-right:hidden;">
@@ -318,7 +318,21 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">사업장</th>
 		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-siteCode" name="srch-ast-siteCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="ast1" ></sbux-input>
+											<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-ast-siteCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-ast-siteCode" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 		                            </td>
 
 		                            <th scope="row" class="th_bg intlDspsNo">당초처분번호</th>
@@ -412,10 +426,10 @@
 		                    	<tr>
 		                        	<th scope="row" class="th_bg">거래처</th>
 		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-csCode" name="srch-dsps-csCode" class="form-control input-sm " uitype="text" group-id="dsps1" ></sbux-input>
+											<sbux-input id="srch-dsps-csCode" name="srch-dsps-csCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1" ></sbux-input>
 		                            </td>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-csName" name="srch-dsps-csName" class="form-control input-sm " uitype="search" button-back-text="···" button-back-event="fn_cnptPopup('srch-dsps-csName')" group-id="dsps1" ></sbux-input>
+											<sbux-input id="srch-dsps-csName" name="srch-dsps-csName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_cnptPopup('srch-dsps-csName')" group-id="dsps1" ></sbux-input>
 		                            </td>
 
 		                            <th scope="row" class="th_bg">통화</th>
@@ -445,7 +459,7 @@
 
 		                            <th scope="row" class="th_bg">장부가액</th>
 		                            	<td colspan="3" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-bookValueCopy" name="srch-dsps-bookValueCopy" class="form-control input-sm" uitype="text" group-id="dsps1" ></sbux-input>
+		                            		<sbux-input id="srch-dsps-bookValueCopy" name="srch-dsps-bookValueCopy" class="form-control input-sm" uitype="text" ></sbux-input>
 		                            	</td>
 		                        </tr>
 
@@ -508,7 +522,7 @@
 
 		                            <th scope="row" class="th_bg">부가세</th>
 		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-vatAmount" name="srch-dsps-vatAmount" class="form-control input-sm inpt_data_reqed" uitype="input" group-id="dsps1"></sbux-select>
+		                            		<sbux-input id="srch-dsps-vatAmount" name="srch-dsps-vatAmount" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
 		                            	</td>
 
 		                            <th scope="row" class="th_bg">처분수량</th>
@@ -686,14 +700,14 @@
 	      // 클릭 가능한 행에 대해 클릭 이벤트를 바인딩합니다.
 	      $('.dropdown-menu.vat').on('click', '.clickable-row', function () {
 	        const vatRate = $(this).find('td[cu-code="VAT_RATE"]').text();
-	        SBUxMethod.set("srch-inp-dspsTab-vatType2",vatRate);
+	        SBUxMethod.set("srch-dsps-vatRate",vatRate);
 	      });
 
 	      $('.dropdown-menu.cstVat').on('click', '.clickable-row', function () {
 		        //let dropdownMenu = document.querySelector('.dropdown-menu.c');
 				//let ariaLabelledBy = dropdownMenu.getAttribute('aria-labelledby');
 		        const vatRate = $(this).find('td[cu-code="VAT_RATE"]').text();
-		        SBUxMethod.set("srch-dsps-dspsTab-cstVatType2",vatRate);
+		        SBUxMethod.set("srch-dsps-expenseVatRate",vatRate);
 		      });
 	    });
 
@@ -738,13 +752,13 @@
 			//법인
 			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//회계기준
-			gfnma_setComSelect(['srch-slt-acctRuleCodeP','srch-slt-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acctRuleCodeP','srch-ast-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['srch-slt-siteCode'], jsonBplc, 'L_FIT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//신고사업장
 			gfnma_setComSelect(['srch-dsps-taxSiteCode'], jsonDclrBplc, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-siteCode']
+				target			: ['#srch-slt-siteCode','#srch-ast-siteCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
@@ -931,8 +945,8 @@
     	var corp = gfnma_nvl(SBUxMethod.get("srch-slt-compCode")); //법인 cbocomp_code1
     	var acntgUnit = gfnma_nvl(SBUxMethod.get("srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
     	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acctRuleCodeP")); // 회계기준 cboacct_rule_code_p
-    	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-intlDspsNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
-    	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-inp-assetDisposalNo"));  // 자산내역 : 처분번호 txtasset_disposal_no
+    	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-originalAssetDispNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
+    	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-assetDisposalNo"));  // 자산내역 : 처분번호 txtasset_disposal_no
     	var dspsYmdFrom = gfnma_nvl(SBUxMethod.get("srch-dtp-disposalDateFrom")); //처분일 from ymddisposal_date_fr
     	var dspsYmdTo = gfnma_nvl(SBUxMethod.get("srch-dtp-disposalDateTo")); //처분일 to ymddisposal_date_to
     	var tkcgdept = gfnma_nvl(SBUxMethod.get("srch-inp-deptCode")); // 담당부서 txtdept_code1
@@ -1502,11 +1516,11 @@
         if (saveButton){
             //DialogResult dr = SetYesNoMessageBox(GetFormMessage("FIA4300_002"), IconType.Question);    // 작업 중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?
             if (gfn_comConfirm("Q0001", "작업 중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?")){
-                if (fnDataValidation()){
+               /*  if (fnDataValidation()){
                 	saveClick();
                 }else{
                 	e.Allow = false;
-                }
+                } */
             }
         }
     }
@@ -1533,7 +1547,7 @@
 
     const txtasset_no_EditValueChanged = function(args){
     	let assetNo = SBUxMethod.get("srch-inp-assetNo");
-    	let assetDisposalNo = SBUxMethod.get("srch-inp-assetDisposalNo");
+    	let assetDisposalNo = SBUxMethod.get("srch-ast-assetDisposalNo");
         if (assetNo != "" && assetDisposalNo === ""){
             fnQRY_P_FIA4300_Q("ASSETLIST");
         }
@@ -1755,7 +1769,27 @@
 
             object objResult = OpenChildForm("FIG3510_AR", ht, OpenType.Tab);
  			*/
-        	//FIG3510_AR : 매출송장등록으로 이동
+        	//FIG3510_AR :
+
+
+    		var data = {
+				docBatchNo : ''
+				, sourceType : 'AP'
+				, txnFromDate : ''
+				, txnToDate : ''
+				, compCode : compCode
+				, fiOrgCode : ''
+				, voucherType : ''
+				, voucherNo : ''
+				, asave : ''
+				, aprint : ''
+
+		    };
+    		/** 전달하고자하는 TAB의 아이디를 객체 필드에 담아서 전달 **/
+    		data.target = 'MA_A20_010_010_030' //FIG3510_AR 매출송장등록으로 이동
+    		let json = JSON.stringify(data);
+    		/** main에 선언되어있는 fn **/
+    		window.parent.cfn_openTabSearch(json);
         }
         else if (disposalType === "DISUSE"){ //폐기
             /* Hashtable htparam = new Hashtable();
@@ -1763,6 +1797,29 @@
             htparam.Add("doc_id", txtsource_id.Text);
             object objResult = OpenChildForm("FIG2210_92", htparam, OpenType.Tab);*/
             //FIG2210_92 : 전표전기처리로 이동
+
+
+    		var data = {
+				docBatchNo : ''
+				, sourceType : 'AP'
+				, txnFromDate : ''
+				, txnToDate : ''
+				, compCode : compCode
+				, fiOrgCode : ''
+				, voucherType : ''
+				, voucherNo : ''
+				, asave : ''
+				, aprint : ''
+
+		    };
+    		/** 전달하고자하는 TAB의 아이디를 객체 필드에 담아서 전달 **/
+    		data.target = '' //FIG2210_92 전표전기처리 이동
+    		let json = JSON.stringify(data);
+    		/** main에 선언되어있는 fn **/
+    		//window.parent.cfn_openTabSearch(json);
+
+
+
         }
     }
 
@@ -1770,11 +1827,11 @@
 		// saveButton은 처분일자가 닫히면서 true로 바뀜...?
 		if(saveButton){
 			if(gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장")){
-				if(fnDataValidation()){
+				/* if(fnDataValidation()){
 					saveClick()
 				}else{
 					return;
-				}
+				} */
 			}
 		}
 
@@ -1843,21 +1900,43 @@
     	var rowNo    = grdAstDsps.getRow();
     	var rowData = grdAstDsps.getRowData(rowNo);
 
-    	var dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo");// 처분번호
-		var rmrk = SBUxMethod.get("srch-inp-astTab-rmrk1"); //비고
-		var astNm = SBUxMethod.get("srch-inp-assetName"); //자산명
-		var astQntt = SBUxMethod.get("srch-inp-dspsTab-dspsQntt"); //처분수량
+    	var dspsNo = SBUxMethod.get("srch-ast-assetDisposalNo");// 처분번호
+		var rmrk = SBUxMethod.get("srch-ast-memomemo"); //비고
+		var astNm = SBUxMethod.get("srch-ast-assetName"); //자산명
+		var astQntt = SBUxMethod.get("srch-dsps-disposalQty"); //처분수량
 		var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acctRuleCodeP")); // 회계기준 cboacct_rule_code_p
-		var bplc = gfnma_nvl(SBUxMethod.get("srch-slt-siteCode"));//cbosite_code1 검색조건 사업장
+		var bplc = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-siteCode"));//cbosite_code1 검색조건 사업장
 		var dspsYmdFrom = gfnma_nvl(SBUxMethod.get("srch-dtp-disposalDateFrom")); //처분일 from ymddisposal_date_fr
     	var dspsYmdTo = gfnma_nvl(SBUxMethod.get("srch-dtp-disposalDateTo")); //처분일 to ymddisposal_date_to
-    	var astno = gfnma_nvl(SBUxMethod.get("srch-inp-assetNo"));//자산내역 자산 txtasset_no
+    	var astno = gfnma_nvl(SBUxMethod.get("srch-ast-assetNo"));//자산내역 자산 txtasset_no
     	var cnpt = gfnma_nvl(SBUxMethod.get("srch-inp-csCode")); //거래처 txtcs_code1
     	var tkcgdept = gfnma_nvl(SBUxMethod.get("srch-inp-deptCode")); // 담당부서 txtdept_code1
     	var pic = gfnma_nvl(SBUxMethod.get("srch-inp-empCode")); // 담당자 txtemp_code1
-    	var costCenter = gfnma_nvl(SBUxMethod.get("srch-inp-dspsTab-costCenter1")); // 원가중심점
-    	var acqsAmt = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-acqsAmt1")); // 원가중심점
-    	var ntAsstncAmt = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-ntAsstncAmt2")); // 원가중심점
+    	var costCenter = gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterCode")); // 원가중심점
+    	var acqsAmt = gfnma_nvl(SBUxMethod.get("srch-ast-acquisitionAmount")); //
+    	var ntAsstncAmt = gfnma_nvl(SBUxMethod.get("srch-num-subsidiesAmount")); // 원가중심점
+    	var bookValue = gfnma_nvl(SBUxMethod.get("srch-ast-bookValue")); //장부가액
+    	var disposalPl = gfnma_nvl(SBUxMethod.get("srch-dsps-disposalPl"));//처분손익
+    	var taxSiteCode = gfnma_nvl(SBUxMethod.get("srch-dsps-taxSiteCode"));//장부가액
+    	var vatType = gfnma_nvl(gfnma_multiSelectGet("#srch-dsps-vatType")) ;//부가세유형
+    	var vatRate = gfnma_nvl(SBUxMethod.get("srch-dsps-vatRate")); // 부가세비율
+    	var exchangeRate = gfnma_nvl(SBUxMethod.get("srch-dsps-exchangeRate")); //환율
+    	var disposalOriginalAmount = gfnma_nvl(SBUxMethod.get("srch-dsps-disposalOriginalAmount")); //매각금액
+    	var dispFunctionalAmt = gfnma_nvl(SBUxMethod.get("srch-dsps-dispFunctionalAmt"));//환산금액
+    	var vatAmount = gfnma_nvl(SBUxMethod.get("srch-dsps-vatAmount")); //부가세
+    	var expenseCsCode = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseCsCode"));//비용거래처
+    	var expenseVatType = gfnma_nvl(gfnma_multiSelectGet("#srch-dsps-expenseVatType")) ;//비용부가세유형
+    	var expenseVatRate = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseVatRate")); // 비용부가세비율
+    	var expenseAccount = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseAccount")); //
+    	var expenseCurrencyCode = gfnma_nvl(gfnma_multiSelectGet("#srch-dsps-expenseCurrencyCode")); //통화
+    	var expenseExchangeRate = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseExchangeRate")); //환율 //
+    	var expenseAmount = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseAmount")); //
+    	var expenseVatAmount = gfnma_nvl(SBUxMethod.get("srch-dsps-expenseVatAmount")); //
+    	var memomemo = gfnma_nvl(SBUxMethod.get("srch-ast-memomemo")); //비고
+    	var currencyCode = gfnma_nvl(gfnma_multiSelectGet("#srch-dsps-currencyCode"))
+    	var originalAssetDispNo = gfnma_nvl(SBUxMethod.get("srch-ast-originalAssetDispNo")); //
+    	var disposalQty = gfnma_nvl(SBUxMethod.get("srch-dsps-disposalQty")); //
+    	//var  = gfnma_nvl(SBUxMethod.get("")); //
 
 		var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
@@ -1875,33 +1954,33 @@
     		    ,V_P_DEPT_CODE       : tkcgdept
     		    ,V_P_EMP_CODE        : pic
     		    ,V_P_COST_CENTER_CODE  : costCenter
-    		    ,V_P_OUT_ACQUISITION_AMOUNT : acqsAmt
-    		    ,V_P_OUT_SUBSIDIES_AMOUNT   : ntAsstncAmt
-    		    ,V_P_OUT_DEPRECIATION_AMOUNT : ''
-    		    ,V_P_OUT_SUBSIDIES_DEPR      : ''
-    		    ,V_P_OUT_ACCUM_DEPR          : ''
-    		    ,V_P_OUT_SUBSIDIES_ACC_DEPR  : ''
-    		    ,V_P_BOOK_VALUE              : ''
-    		    ,V_P_DISPOSAL_PL             : ''
-    		    ,V_P_TAX_SITE_CODE           : ''
-    		    ,V_P_VAT_TYPE                : ''
-    		    ,V_P_VAT_RATE                : ''
-    		    ,V_P_CURRENCY_CODE           : ''
-    		    ,V_P_EXCHANGE_RATE           : ''
-    		    ,V_P_DISPOSAL_ORIGINAL_AMOUNT: ''
-    		    ,V_P_DISP_FUNCTIONAL_AMT     : ''
-    		    ,V_P_VAT_AMOUNT              : ''
-    		    ,V_P_EXPENSE_CS_CODE         : ''
-    		    ,V_P_EXPENSE_VAT_TYPE        : ''
-    		    ,V_P_EXPENSE_VAT_RATE        : ''
-    		    ,V_P_EXPENSE_ACCOUNT         : ''
-    		    ,V_P_EXPENSE_CURRENCY_CODE   : ''
-    		    ,V_P_EXPENSE_EXCHANGE_RATE   : ''
-    		    ,V_P_EXPENSE_AMOUNT          : ''
-    		    ,V_P_EXPENSE_VAT_AMOUNT      : ''
-    		    ,V_P_MEMO                    : ''
-    		    ,V_P_ORIG_ASSET_DISP_NO      :  ''
-    		    ,V_P_DISPOSAL_QTY            : ''
+    		    ,V_P_OUT_ACQUISITION_AMOUNT : rowData.outAcquisitionAmount
+    		    ,V_P_OUT_SUBSIDIES_AMOUNT   : rowData.outSubsidiesAmount
+    		    ,V_P_OUT_DEPRECIATION_AMOUNT : rowData.outDepreciationAmount
+    		    ,V_P_OUT_SUBSIDIES_DEPR      : rowData.outSubsidiesDepr
+    		    ,V_P_OUT_ACCUM_DEPR          : rowData.outAccumDepr
+    		    ,V_P_OUT_SUBSIDIES_ACC_DEPR  : rowData.outSubsidiesAccDepr
+    		    ,V_P_BOOK_VALUE              : bookValue
+    		    ,V_P_DISPOSAL_PL             : disposalPl
+    		    ,V_P_TAX_SITE_CODE           : taxSiteCode
+    		    ,V_P_VAT_TYPE                : vatType
+    		    ,V_P_VAT_RATE                : vatRate
+    		    ,V_P_CURRENCY_CODE           : currencyCode
+    		    ,V_P_EXCHANGE_RATE           : exchangeRate
+    		    ,V_P_DISPOSAL_ORIGINAL_AMOUNT: disposalOriginalAmount
+    		    ,V_P_DISP_FUNCTIONAL_AMT     : dispFunctionalAmt
+    		    ,V_P_VAT_AMOUNT              : vatAmount
+    		    ,V_P_EXPENSE_CS_CODE         : expenseCsCode
+    		    ,V_P_EXPENSE_VAT_TYPE        : expenseVatType
+    		    ,V_P_EXPENSE_VAT_RATE        : expenseVatRate
+    		    ,V_P_EXPENSE_ACCOUNT         : expenseAccount
+    		    ,V_P_EXPENSE_CURRENCY_CODE   : expenseCurrencyCode
+    		    ,V_P_EXPENSE_EXCHANGE_RATE   : expenseExchangeRate
+    		    ,V_P_EXPENSE_AMOUNT          : expenseAmount
+    		    ,V_P_EXPENSE_VAT_AMOUNT      : expenseVatAmount
+    		    ,V_P_MEMO                    : memomemo
+    		    ,V_P_ORIG_ASSET_DISP_NO      : originalAssetDispNo
+    		    ,V_P_DISPOSAL_QTY            : disposalQty
 
     		    ,V_P_FORM_ID      : p_formId
     		    ,V_P_MENU_ID     :  p_menuId
@@ -1937,11 +2016,16 @@
     	var rowNo    = grdAstDsps.getRow();
     	var rowData = grdAstDsps.getRowData(rowNo);
 
-    	var dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo");// 처분번호
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
-		var rmrk = SBUxMethod.get("srch-inp-astTab-rmrk1"); //비고
-		var astNm = SBUxMethod.get("srch-inp-assetName"); //자산명
-		var astQntt = SBUxMethod.get("srch-inp-dspsTab-dspsQntt"); //처분수량
+    	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-assetDisposalNo"));// 처분번호
+    	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-ast-acctRuleCode")); //회계기준
+		var rmrk = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-rmrk1")); //비고
+		var astNm = gfnma_nvl(SBUxMethod.get("srch-ast-assetName")); //자산명
+		var astQntt = gfnma_nvl(SBUxMethod.get("srch-dsps-disposalQty")); //처분수량
+		var bookValue = gfnma_nvl(SBUxMethod.get("srch-ast-bookValue"));
+		var memomemo = gfnma_nvl(SBUxMethod.get("srch-ast-memomemo"));
+		var acquisitionAmount = gfnma_nvl(SBUxMethod.get("srch-dsps-acquisitionAmount"));
+		var accumulatedDepreciation = gfnma_nvl(SBUxMethod.get("srch-ast-accumulatedDepreciation"));
+
 		var paramObj = {
     		    V_P_WORK_TYPE         : workType
     		    ,V_P_DEBUG_MODE_YN  : 'N'
@@ -1954,11 +2038,11 @@
     		    ,V_P_ASSET_SPEC               : ''
     		    ,V_P_ASSET_QTY                : astQntt
     		    ,V_P_UNIT_CODE                : ''
-    		    ,V_P_ACQUISITION_AMOUNT       : ''
+    		    ,V_P_ACQUISITION_AMOUNT       : acquisitionAmount
     		    ,V_P_GOVERNMENT_SUBSIDIES    : ''
-    		    ,V_P_ACCUMULATED_DEPRECIATION : ''
-    		    ,V_P_BOOK_VALUE               : rowData.abAmt
-    		    ,V_P_MEMO                     : rowData.rmrk
+    		    ,V_P_ACCUMULATED_DEPRECIATION :  accumulatedDepreciation
+    		    ,V_P_BOOK_VALUE               : bookValue
+    		    ,V_P_MEMO                     : memomemo
     		    ,V_P_FORM_ID      : p_formId
     		    ,V_P_MENU_ID     :  p_menuId
     		    ,V_P_PROC_ID     :   ''
@@ -1993,19 +2077,19 @@
     	var rowNo    = grdAstDsps.getRow();
     	var rowData = grdAstDsps.getRowData(rowNo);
 
-    	var dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo");// 처분번호
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
+    	var dspsNo = SBUxMethod.get("srch-ast-assetDisposalNo");// 처분번호
+    	var acntgCrtr = SBUxMethod.get("srch-ast-acctRuleCode"); //회계기준
 		var bResult = true;
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID            :     ''
     		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
-    		    ,V_P_ACCT_RULE_CODE  : acntgCrtr
-    		    ,V_P_ASSET_DISPOSAL_NO : rowData.assetDisposalNo
-    		    ,V_P_ASSET_NO : rowData.assetNo
-    		    ,V_P_DISPOSAL_TYPE     : rowData.disposalType
-    		    ,V_P_DISPOSAL_DATE  : rowData.disposalDate
+    		    ,V_P_ACCT_RULE_CODE  : gfnma_nvl(acntgCrtr)
+    		    ,V_P_ASSET_DISPOSAL_NO : gfnma_nvl(rowData.assetDisposalNo)
+    		    ,V_P_ASSET_NO : gfnma_nvl(rowData.assetNo)
+    		    ,V_P_DISPOSAL_TYPE     : gfnma_nvl(rowData.disposalType)
+    		    ,V_P_DISPOSAL_DATE  : gfnma_nvl(rowData.disposalDate)
     		    ,V_P_FORM_ID      : p_formId
     		    ,V_P_MENU_ID     :  p_menuId
     		    ,V_P_PROC_ID     :   ''
@@ -2130,7 +2214,7 @@
 
 
             let strStatus = "";
-			let dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo")
+			let dspsNo = SBUxMethod.get("srch-ast-assetDisposalNo")
             if (dspsNo  == ""){
             	strStatus = "N";
             }else{
@@ -2141,7 +2225,7 @@
                 return;
 
             if (fnSET_P_FIA4300_S1("")){
-                let strFocus = txtasset_disposal_no.Text;
+                //let strFocus = txtasset_disposal_no.Text;
                 queryClick();
                 //gvwHeader.FocusedRowHandle = GetGridRowIndex(grdHeader, "asset_disposal_no", strFocus);
             }
@@ -2160,7 +2244,7 @@
 		//txtasset_no.Properties.ReadOnly = bReadOnly;
         //txtasset_name.Properties.ReadOnly = bReadOnly;
         SBUxMethod.attr('srch-inp-assetNo', 'readonly', 'true');
-        SBUxMethod.attr('srch-inp-assetName', 'readonly', 'true');
+        SBUxMethod.attr('srch-ast-assetName', 'readonly', 'true');
 
         //cbodisposal_type.Properties.ReadOnly = bReadOnly;
         //ymddisposal_date.Properties.ReadOnly = bReadOnly;
@@ -2198,7 +2282,7 @@
 
     const fn_dspsCloseAfter = async function(){
     	var ast = SBUxMethod.get("srch-inp-assetNo"); //자산내역 자산 ->
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");// 회계기준
+    	var acntgCrtr = SBUxMethod.get("srch-ast-acctRuleCode");// 회계기준
     	var strWrkType = "";
     	if( ast != ""){
     		strWrkType = "ASSET";
@@ -2209,7 +2293,6 @@
     		fnQRY_P_FIA4300_Q1(strWrkType,"");
     	}
     	saveButton = true;
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");// 회계기준
     	var strWrkType = "";
     	if( ast != ""){
     		strWrkType = "ASSET";
@@ -2224,7 +2307,7 @@
     }
 
     const fn_dspsNoChange = async function(){
-    	var dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo"); //처분번호
+    	var dspsNo = SBUxMethod.get("srch-ast-assetDisposalNo"); //처분번호
     	var astNo = SBUxMethod.get("srch-inp-assetNo"); // 자산번호
     	if( dspsNo === "" & astNo != ""){
     		fn_fia4300Q("ASSETLIST");

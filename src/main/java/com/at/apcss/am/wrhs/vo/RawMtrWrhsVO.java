@@ -285,6 +285,20 @@ public class RawMtrWrhsVO extends ComVO {
 	private String stdGrdCd;
 	private String stdGrdType;
 
+	/**
+	 * 단가
+	 */
+	private int untPrc;
+
+	/**
+	 * 공급가
+	 */
+	private int splyPrc;
+
+	/**
+	 * 조회여부
+	 */
+	private String inqYn;
 
 	/*
 	 * 생산자그룹여부

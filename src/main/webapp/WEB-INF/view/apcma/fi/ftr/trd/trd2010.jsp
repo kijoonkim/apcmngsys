@@ -46,7 +46,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 10%">
@@ -1349,7 +1349,7 @@
                 , compCode: gv_ma_selectedApcCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                , whereClause: "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
@@ -1400,7 +1400,6 @@
                     {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
-                    console.log(value)
                     if(value == "KRW") {
                         $("#EXCHANGE_GAIN_ACC").attr("required", false);
                         $("#EXCHANGE_GAIN_ACC_NAME").attr("required", false);
@@ -1980,7 +1979,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
             ,tableColumnWidths		: ["100px", "200px", "100px", "100px", "120px", "300px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set(elementId + 'BANK_CS_NAME', data.CS_NAME);
                 SBUxMethod.set(elementId + 'BANK_CS_CODE', data.CS_CODE);
             },
@@ -2009,7 +2007,6 @@
             ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
             ,tableColumnWidths		: ["80px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('BANK_NAME', data.BANK_NAME);
                 SBUxMethod.set('BANK_CODE', data.BANK_CODE);
             },
@@ -2038,7 +2035,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE", "DEPOSIT_NAME", "DEPOSIT_TYPE_NAME", "ACCOUNT_NUM", "BANK_CODE", "BANK_NAME", "OPEN_DATE", "EXPIRE_DATE"]
             ,tableColumnWidths		: ["120px", "160px", "100px", "120px", "100px", "140px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set(inOrOut + '_DEPOSIT_NAME', data.DEPOSIT_NAME);
                 SBUxMethod.set(inOrOut + '_DEPOSIT_CODE', data.DEPOSIT_CODE);
                 SBUxMethod.set(inOrOut + '_ACCOUNT_NUM', data.ACCOUNT_NUM);
@@ -2069,7 +2065,6 @@
             ,tableColumnNames		: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
             ,tableColumnWidths		: ["100px", "200px", "200px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set(section + '_NAME', data.ACCOUNT_NAME);
                 SBUxMethod.set(section, data.ACCOUNT_CODE);
             },
@@ -2098,7 +2093,6 @@
             ,tableColumnNames		: ["CODE", "NAME", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
             ,tableColumnWidths		: ["100px", "200px", "100px", "150px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set(section + '_NAME', data.NAME);
                 SBUxMethod.set(section + '_TYPE', data.CODE);
             },
@@ -2207,7 +2201,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (strWorkType == "LIST") {
@@ -2485,7 +2479,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (strWorkType == "N") {
@@ -2550,7 +2544,7 @@
             const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010ForHistory.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -2629,6 +2623,11 @@
             return;
 
         gfnma_multiSelectSet('#INTEREST_IN_DD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(val).substring(6,8));
+    }
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
     }
 
     // 신규

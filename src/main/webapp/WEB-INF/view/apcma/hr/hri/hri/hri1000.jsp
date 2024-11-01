@@ -42,11 +42,6 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-<%--                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add" ></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
-                <%--<sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>--%>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print()"></sbux-button>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
@@ -59,7 +54,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 6.25%">
@@ -194,20 +189,19 @@
                         <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
-                                    <col style="width:15%">
-                                    <col style="width:8%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
                                     <col style="width:10%">
-                                    <col style="width:9%">
-                                    <col style="width:9%">
-                                    <col style="width:9%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
                                     <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
-                                    <col style="width:8%">
-                                    <col style="width:8%">
+                                    <col style="width:7%">
+                                    <col style="width:7%">
                                     <col style="width:8%">
                                 </colgroup>
                                 <tr>
@@ -219,7 +213,7 @@
                                         <input type="file" name="EMP_PHOTO_FILE" id="EMP_PHOTO_FILE" accept="image/*" style="display: none;">
                                     </td>
                                     <th scope="row" class="th_bg">사번</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                         <sbux-input id="EMP_PHOTO_PATH" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                         <sbux-input id="EMP_PHOTO_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
@@ -241,7 +235,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>이름</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>생년월일</th>
@@ -273,7 +267,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름(영문)</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME_ENG" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>성별</th>
@@ -294,7 +288,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름(한문)</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="EMP_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>직책</th>
@@ -352,7 +346,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>인건비분류</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="LABOR_COST_GROUP" uitype="single" jsondata-ref="jsonLaborCostGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LABOR_COST_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -420,7 +414,7 @@
                                 <tr>
                                     <td rowspan="8"></td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
@@ -456,7 +450,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>신고사업장</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>귀속부서</th>
@@ -492,7 +486,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>근무지</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -539,7 +533,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">종전사원</th>
@@ -562,13 +556,14 @@
                                         <sbux-select id="START_POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>인정경력</th>
-                                    <td class="td_input">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" style="display: flex; align-items: center;">
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사구분</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <%--<sbux-select id="ENTER_TYPE" uitype="single" jsondata-ref="jsonEnterType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
                                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ENTER_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -606,8 +601,9 @@
                                         />
                                     </td>
                                     <th scope="row" id="START_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
-                                    <td class="td_input" id="START_PAY_GRADE_TD">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" id="START_PAY_GRADE_TD" style="display: flex; align-items: center;">
+                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CAREER_TRACK_ENTER_DATE_TH" class="th_bg">기준일(PG)</th>
                                     <td class="td_input" id="CAREER_TRACK_ENTER_DATE_TD">
@@ -623,7 +619,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사일</th>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="ENTER_DATE"
@@ -659,8 +655,9 @@
                                         />
                                     </td>
                                     <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
-                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
+                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD" style="display: flex; align-items: center; gap:4px;">
+                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CURRENT_PAY_GRADE_DATE_TH" class="th_bg">기준일(PG)</th>
                                     <td class="td_input" id="CURRENT_PAY_GRADE_DATE_TD">
@@ -1462,7 +1459,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -1495,7 +1491,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('OLD_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('OLD_EMP_CODE', data.EMP_CODE);
             },
@@ -1528,7 +1523,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('INTRODUCER_NAME', data.EMP_NAME);
                 SBUxMethod.set('INTRODUCER_CODE', data.EMP_CODE);
             },
@@ -1557,7 +1551,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -1587,7 +1580,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
@@ -1617,7 +1609,6 @@
             ,tableColumnNames		: ["CC_CODE", "CC_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('PARENT_DEPT_NAME', data.CC_NAME);
                 SBUxMethod.set('PARENT_DEPT', data.CC_CODE);
             },
@@ -1646,7 +1637,6 @@
             ,tableColumnNames		: ["CODE", "NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('COST_DEPT_NAME', data.NAME);
                 SBUxMethod.set('COST_DEPT_CODE', data.CODE);
             },
@@ -1675,7 +1665,6 @@
             ,tableColumnNames		: ["CODE", "NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPT_NAME2', data.NAME);
                 SBUxMethod.set('DEPT_CODE2', data.CODE);
             },
@@ -1915,7 +1904,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwCareer.setCellData(row, col, data['DEPT_NAME']);
             },
         });
@@ -1943,7 +1931,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 gvwTimeOffHistory.setCellData(row, (col-1), data['DEPT_CODE']);
                 gvwTimeOffHistory.setCellData(row, col, data['DEPT_NAME']);
             },
@@ -2241,7 +2228,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");
@@ -2317,6 +2304,11 @@
 
     }
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 조회
     function cfn_search() {
         fn_search();
@@ -2369,7 +2361,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -3248,7 +3240,6 @@
                     $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.imgKey+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
                     $("#DIV_SIGN_IMG").hide();
                 }
-                console.log('result =====>>>>>>>', data);
             } else {
                 alert(data.resultMessage);
             }
@@ -3267,23 +3258,27 @@
 
     const fn_print = async function() {
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
-        let stremp_code_list = "";
+        let gvwListCheckedRowsData = gvwList.getCheckedRowData(gvwList.getColRef("CHK_YN"));
 
-        if (gvwListCheckedList.length < 1) {
+        var conn = '';
+        
+        if (gvwListCheckedRowsData.length < 1) {
             gfn_comAlert("E0000", "사원을 선택해주세요.");
             return;
+        }else if(gvwListCheckedRowsData.length == 1){
+            conn = await fn_GetReportData(gvwListCheckedRowsData[0].data);
+            conn = await gfnma_convertDataForReport(conn);
+            await gfn_popClipReportPost("인사기록카드", "ma/RPT_HRI1000.crf", null, conn );	
+        }else{
+            for(var i=0; gvwListCheckedRowsData.length > i; i++){
+                conn = await fn_GetReportData(gvwListCheckedRowsData[i].data);
+                conn = await gfnma_convertDataForReport(conn);
+                await gfn_popClipReportPost("인사기록카드" + i, "ma/RPT_HRI1000.crf", null, conn );
+            }
         }
+    }
 
-        gvwListCheckedList.forEach((item, index) => {
-            stremp_code_list += gfn_nvl(gvwList.getCellData(item, gvwList.getColRef("EMP_CODE"))) + "|"
-        });
-
-        if (stremp_code_list.length > 0) {
-            stremp_code_list = stremp_code_list.substring(0, stremp_code_list.length - 1);
-        }
-
-        var reportFilePath = await gfnma_findReportFilePath("R_PERSON");
-
+    const fn_GetReportData = async function(obj) {
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
@@ -3297,7 +3292,7 @@
             ,V_P_GENDER         : ''
             ,IV_P_ENTER_DATE_FR : ''
             ,IV_P_ENTER_DATE_TO : ''
-            ,V_P_EMP_CODE1      : stremp_code_list
+            ,V_P_EMP_CODE1      : obj.EMP_CODE
             ,V_P_INITIAL_DATE   : ''
             ,V_P_EMP_STATE2     : ''
             ,V_P_FORM_ID		: p_formId
@@ -3306,209 +3301,22 @@
             ,V_P_USERID			: ''
             ,V_P_PC				: ''
         };
-
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000ReportList.do", {
             getType				: 'json',
             workType			: 'REPORT',
             cv_count			: '39',
             params				: gfnma_objectToString(paramObj)
         });
-
         const data = await postJsonPromise;
-        console.log('data:', data);
         try {
-            if (_.isEqual("S", data.resultStatus)) {
-                gfn_popClipReportPost(
-                    "인사기록카드",
-                    reportFilePath,
-                    null,
-                    await gfnma_convertDataForReport(data)
-                );
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-        /*        SBUxMethod.attr('modal-comPopHri1000Report', 'header-title', '인사기록카드 출력');
-                SBUxMethod.openModal('modal-comPopHri1000Report');
-
-                comPopHri1000Report({
-                    height			: '400px'
-                    ,callbackEvent	: async function (data) {
-                        $.extend(param, data);
-
-                        var emp_codes = param["EMP_CODE_LIST"].split('|');
-
-                        for (var k = 0; k < emp_codes.length; k++){
-                            let emp_code = "";                   //초기화
-                            emp_code = emp_codes[k];
-
-                            var paramObj = {
-                                V_P_DEBUG_MODE_YN	: ''
-                                ,V_P_LANG_ID		: ''
-                                ,V_P_COMP_CODE		: gv_ma_selectedApcCd
-                                ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-                                ,V_P_SITE_CODE      : ''
-                                ,V_P_DEPT_CODE      : ''
-                                ,V_P_EMP_CODE       : emp_code
-                                ,V_P_EMP_STATE      : ''
-                                ,V_P_JOB_GROUP      : ''
-                                ,V_P_GENDER         : ''
-                                ,IV_P_ENTER_DATE_FR : ''
-                                ,IV_P_ENTER_DATE_TO : ''
-                                ,V_P_EMP_CODE1      : ''
-                                ,V_P_INITIAL_DATE   : ''
-                                ,V_P_EMP_STATE2     : ''
-                                ,V_P_FORM_ID		: p_formId
-                                ,V_P_MENU_ID		: p_menuId
-                                ,V_P_PROC_ID		: ''
-                                ,V_P_USERID			: ''
-                                ,V_P_PC				: ''
-                            };
-
-                            const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
-                                getType				: 'json',
-                                workType			: param["WORK_TYPE"],
-                                cv_count			: '39',
-                                params				: gfnma_objectToString(paramObj)
-                            });
-
-                            const data = await postJsonPromise;
-                            console.log('data:', data);
-                            try {
+        	
                                 if (_.isEqual("S", data.resultStatus)) {
-                                    let strsocial_num = "";
-
-                                    for (var i = 0; i < data.cv_1.length; i++) {
-                                        if (gfn_nvl(data.cv_1[i]["SOCIAL_NUM"]) != "") {
-                                            strsocial_num = data.cv_1[i]["SOCIAL_NUM"];
-                                        }
-
-                                        if (strsocial_num.length > 0) {
-                                            if (strsocial_num.length == 13) {
-                                                let yyyy_yy = "20";
-
-                                                if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2"
-                                                    || strsocial_num.substring(6, 7) == "5" || strsocial_num.substring(6, 7) == "6") {
-                                                    yyyy_yy = "19";
-                                                }
-
-                                                let birthYear = yyyy_yy + "-" + strsocial_num.substring(0, 2); // 2자리 연도 가져와서 19XX년으로 만들기
-                                                let birthMonth = strsocial_num.substring(2, 4); // 달 가져오기
-                                                let birthDay = strsocial_num.substring(4, 6); // 날짜 가져오기
-                                                let dateTime = new Date(parseInt(birthYear), parseInt(birthMonth), parseInt(birthDay)); // 생년월일로 DateTime 객체 초기화
-                                                let dateToday = new Date(); // 오늘 날짜
-
-                                                let age = dateToday.getFullYear() - dateTime.getFullYear(); // 오늘 날짜에서 생년월일 빼서 몇 년이 되는지 구함. 만나이로 출력
-
-                                                if(dateToday >= new Date(dateToday.getFullYear(), birthMonth, birthDay)) {
-                                                    age++
-                                                }
-
-                                                data.cv_1[i]["SOCIAL_NUM_REAL"] = birthYear + "-" + birthMonth + "-" + birthDay + "(만" + age + "세)";
-                                            }
-                                        } else {
-                                            data.cv_1[i]["SOCIAL_NUM_REAL"] = " 세";
-                                        }
-
-                                        // 조합가입여부 옵션
-                                        if (param["UNION_JOIN_YN"] != "Y") {
-                                            data.cv_1[i]["UNION_JOIN_YN_STR"] = "";
-                                        }
-                                    }
-
-                                    for (var i = 0; i < data.cv_5.length; i++) {
-                                        strsocial_num = "";
-                                        if (gfn_nvl(data.cv_5[i]["SOCIAL_NO"]) != "") {
-                                            strsocial_num = data.cv_5[i]["SOCIAL_NO"];
-                                        }
-
-                                        var dt1;
-
-                                        if (strsocial_num.length > 0) {
-                                            if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2"
-                                                || strsocial_num.substring(6, 7) == "5" || strsocial_num.substring(6, 7) == "6") {
-                                                dt1 = new Date("19" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
-                                            } else {
-                                                dt1 = new Date("20" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
-                                            }
-
-                                            let dtDate1 = new Date();
-                                            let currYear = parseInt(dtDate1.getFullYear());
-                                            let currMonth = parseInt(dtDate1.getMonth().toString().padStart(2, '0'));
-                                            let currDay = parseInt(dtDate1.getDay().toString().padStart(2, '0'));
-
-                                            let iyyyy1 = currYear - dt1.getFullYear();
-                                            let imonth1 = currMonth - dt1.getMonth();
-
-                                            if (currMonth < parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
-                                                data.cv_5[i]["AGE"] = iyyyy1 - 1;
-                                            } else if (currMonth == parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
-                                                if (currDay <= parseInt(dt1.getDay().toString().padStart(2, '0'))) {
-                                                    data.cv_5[i]["AGE"] = iyyyy1 - 1;
-                                                } else {
-                                                    data.cv_5[i]["AGE"] = iyyyy1;
-                                                }
-                                            } else {
-                                                data.cv_5[i]["AGE"] = iyyyy1;
-                                            }
-
-                                            // 가족나이
-                                            if (strsocial_num.length > 9) {
-                                                data.cv_5[i]["SOCIAL_NO_REAL"] = strsocial_num;
-                                            }
-                                        } else {
-                                            dt1 = new Date(gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(0, 4) + "-"
-                                                + gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(4, 6) + "-"
-                                                + gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(6, 8));
-
-                                            let dtDate1 = new Date();
-                                            let currYear = parseInt(dtDate1.getFullYear());
-                                            let currMonth = parseInt(dtDate1.getMonth().toString().padStart(2, '0'));
-                                            let currDay = parseInt(dtDate1.getDay().toString().padStart(2, '0'));
-                                            let iyyyy1 = currYear - dt1.getFullYear();
-
-                                            if (currMonth < parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
-                                                data.cv_5[i]["AGE"] = iyyyy1 - 1;
-                                            } else if (currMonth == parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
-                                                if (currDay <= parseInt(dt1.getDay().toString().padStart(2, '0'))) {
-                                                    data.cv_5[i]["AGE"] = iyyyy1 - 1;
-                                                } else {
-                                                    data.cv_5[i]["AGE"] = iyyyy1;
-                                                }
-                                            } else {
-                                                data.cv_5[i]["AGE"] = iyyyy1;
-                                            }
-
-                                            data.cv_5[i]["SOCIAL_NO_REAL"] = strsocial_num;
-                                        }
-
-                                        // 부양가족 옵션(동거)
-                                        if (param["FAMILY_WITH_YN"] != "Y") {
-                                            data.cv_5[i]["SUPPORT_YN"] = "";
-                                        }
-
-                                        // 부양가족 옵션(사망포함)
-                                        if (param["FAMILY_LIFE_YN"] != "Y" && gfn_nvl(data.cv_5[i]["LIFE_YN"]) == "N") {
-                                            data.cv_5.splice(i, 1);
-                                        }
-                                    }
-
-                                    // 경력사항 옵션
-                                    if (param["CAREER"] != "Y") {
-                                        data.cv_4.length = 0;
+                    if(data.cv_1.length > 0){
+       	                data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
                                     }
                                 } else {
                                     alert(data.resultMessage);
                                 }
-
                             } catch (e) {
                                 if (!(e instanceof Error)) {
                                     e = new Error(e);
@@ -3516,12 +3324,7 @@
                                 console.error("failed", e.message);
                                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                             }
-                        }
-
-                        gfn_popClipReport("인사기록카드", reportFilePath, param);
-                    }
-                });*/
-
+        return data;
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

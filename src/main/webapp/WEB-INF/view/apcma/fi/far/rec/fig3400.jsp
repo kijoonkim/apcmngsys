@@ -46,7 +46,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 10%">
@@ -570,19 +570,19 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["부가세(￦)"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["부가세(￦)"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:left',
+            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -632,7 +632,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'75px',  style:'text-align:left',
+            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -663,7 +663,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["지급금액"],         ref: 'PAY_AMOUNT',    type:'output',  	width:'138px',  style:'text-align:left',
+            {caption: ["지급금액"],         ref: 'PAY_AMOUNT',    type:'output',  	width:'138px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
                 , hidden: true
@@ -796,23 +796,23 @@
                 }
                 , disabled: true
             },
-            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'61px',  style:'text-align:left',
+            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'61px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'130px',  style:'text-align:left',
+            {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'130px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["부가세"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'100px',  style:'text-align:left',
+            {caption: ["부가세"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'100px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
                 , hidden: true
@@ -920,19 +920,19 @@
             {caption: ["부가세유형"], 	        ref: 'VAT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
             {caption: ["계정코드"], 	        ref: 'ACCOUNT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'}, // TODO : P_FIM045
             {caption: ["계정과목명"], 	        ref: 'ACCOUNT_NAME',    	        type:'output',  	width:'170px',  	style:'text-align:left'}, // TODO : P_FIM045
-            {caption: ["차변(통화)"],         ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["차변(통화)"],         ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:left',
+            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
@@ -1176,11 +1176,11 @@
                 }
                 , disabled: true
             },
-            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left',
+            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left',
+            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             }
@@ -1785,6 +1785,11 @@
         fn_createGvwApproveGrid();
         await fn_onload();
     });
+
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
 
     // 신규
     function cfn_add() {

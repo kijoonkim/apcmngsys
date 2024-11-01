@@ -61,17 +61,28 @@ public class BbsServiceImpl extends BaseServiceImpl implements BbsService{
 
 
 	@Override
-	public int insertBbs(BbsVO bbsVO) throws Exception {
+	public String insertBbs(BbsVO bbsVO) throws Exception {
 
 		int insertedCnt = bbsMapper.insertBbs(bbsVO);
-
-		return insertedCnt;
+		String bbsNo = "";
+		if(insertedCnt == 1) {
+			bbsNo = bbsVO.getBbsNo();
+		}
+		return bbsNo;
 	}
 
 	@Override
 	public int updateBbs(BbsVO bbsVO) throws Exception {
 
 		int updatedCnt = bbsMapper.updateBbs(bbsVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int updateBbsAns(BbsVO bbsVO) throws Exception {
+
+		int updatedCnt = bbsMapper.updateBbsAns(bbsVO);
 
 		return updatedCnt;
 	}

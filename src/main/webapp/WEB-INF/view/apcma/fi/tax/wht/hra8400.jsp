@@ -1,5 +1,4 @@
-\<%
-/**
+\<%/**
  * @Class Name 		: hra8400.jsp
  * @Description 	: 간이지급명세서
  * @author 			:
@@ -12,126 +11,123 @@
  * @ 2024.07.10   	장성주		최초 생성
  * @see
  *
- */
-%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+ */%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 간이지급명세서</title>
-	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+<title>title : 간이지급명세서</title>
+<%@ include file="../../../../frame/inc/headerMeta.jsp"%>
+<%@ include file="../../../../frame/inc/headerScript.jsp"%>
+<%@ include file="../../../../frame/inc/headerScriptMa.jsp"%>
 </head>
 <body oncontextmenu="return false">
-    <section>
-        <div class="box box-solid">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
-                <div>
-                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 간이지급명세서-->
-                </div>
-                <div style="margin-left: auto;">
-                	<sbux-button id="btnFileCrt" name="btnFileCrt" 	uitype="normal" text="파일생성" class="btn btn-sm btn-outline-danger" onclick="fnSET_P_HRA8400_S1"></sbux-button>
-                </div>
-            </div>
-            <div class="box-body">
+	<section>
+		<div class="box box-solid">
+			<div class="box-header"
+				style="display: flex; justify-content: flex-start;">
+				<div>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title">
+						▶
+						<c:out value='${menuNm}'></c:out>
+					</h3>
+					<!-- 간이지급명세서-->
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnFileCrt" name="btnFileCrt" uitype="normal"
+						text="파일생성" class="btn btn-sm btn-outline-danger"
+						onclick="btnFileCreateClick"></sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
 
 
-                <table id="searchTable" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+				<table id="searchTable" class="table table-bordered tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
-                            </td>
-							<td></td>
-                            <th scope="row" class="th_bg">급여영역</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType"></sbux-select>
-                            </td>
-							<td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">귀속연도</th>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg">법인</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-jobYyyy"
-									name="srch-dtp-jobYyyy"
-									uitype="popup"
-									date-format="yyyy"
-									datepicker-mode="year"
+								<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode"
+									class="form-control input-sm" uitype="single"
+									jsondata-ref="jsonCorp"></sbux-select>
+							</td>
+							<td></td>
+							<th scope="row" class="th_bg">급여영역</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-payAreaType"
+									name="srch-slt-payAreaType" class="form-control input-sm"
+									uitype="single" jsondata-ref="jsonPayAreaType"></sbux-select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">귀속연도</th>
+					ㅁ		<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-jobYyyy" name="srch-dtp-jobYyyy"
+									uitype="popup" date-format="yyyy" datepicker-mode="year"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-jobYyyy)"
-								></sbux-datepicker>
+									onchange="fn_dtpChange(srch-dtp-jobYyyy)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 
 							<th scope="row" class="th_bg">근무시기</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-select id="srch-slt-harfyearlyType" name="srch-slt-harfyearlyType" class="form-control input-sm" uitype="single" jsondata-ref="jsonWorkEr"></sbux-select>
-                            </td>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-harfyearlyType"
+									name="srch-slt-harfyearlyType" class="form-control input-sm"
+									uitype="single" jsondata-ref="jsonWorkEr"></sbux-select>
+							</td>
 							<td style="border-right: hidden;"></td>
-                            <th scope="row" class="th_bg">귀속연월</th>
+							<th scope="row" class="th_bg">귀속연월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-jobYyyymmFr"
-									name="srch-dtp-jobYyyymmFr"
-									uitype="popup"
-									date-format="yyyymm"
+								<sbux-datepicker id="srch-dtp-jobYyyymmFr"
+									name="srch-dtp-jobYyyymmFr" uitype="popup" date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									readonly
-								></sbux-datepicker>
+									readonly></sbux-datepicker>
 							</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-jobYyyymmTo"
-									name="srch-dtp-jobYyyymmTo"
-									uitype="popup"
-									date-format="yyyymm"
+								<sbux-datepicker id="srch-dtp-jobYyyymmTo"
+									name="srch-dtp-jobYyyymmTo" uitype="popup" date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									readonly
-								></sbux-datepicker>
+									readonly></sbux-datepicker>
 							</td>
-                        </tr>
-                    </tbody>
-                </table>
+						</tr>
+					</tbody>
+				</table>
 
 
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
-								<li>
-									<span>신고리스트</span>
-								</li>
+								<li><span>신고리스트</span></li>
 							</ul>
 						</div>
-						<div id="sb-area-grdDclrList" style="height:498px;width:100%"></div>
+						<div id="sb-area-grdDclrList" style="height: 498px; width: 100%"></div>
 					</div>
 
 
@@ -139,106 +135,111 @@
 
 
 
-					<div class="col-sm-9" style="height:100%">
+					<div class="col-sm-9" style="height: 100%">
 
-								<div class="ad_tbl_top">
-									<ul class="ad_tbl_count">
-										<li>
-											<span>파일생성정보</span>
-										</li>
-									</ul>
-								</div>
-								<table class="table table-bordered tbl_fixed">
-								<caption>검색 조건 설정</caption>
-								<colgroup>
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row" class="th_bg">홈택스ID</th>
-										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<sbux-input uitype="text" id="srch-inp-homeTaxId" name="srch-inp-homeTaxId" class="form-control input-sm"></sbux-input>
-										</td>
-										<td style="border-right: hidden;"></td>
-										<th scope="row" class="th_bg">제출일</th>
-										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<sbux-datepicker
-												id="srch-inp-submitDate"
-												name="srch-inp-submitDate"
-												uitype="popup"
-												date-format="yyyy-mm-dd"
-												class="form-control input-sm input-sm-ast inpt_data_reqed"
-												onchange="fn_dtpChange(srch-inp-submitDate)"
-											></sbux-datepicker>
-										</td>
-										<td style="border-right: hidden;"></td>
-									</tr>
-									<tr>
-										<th scope="row" class="th_bg">담당자 부서</th>
-										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<sbux-input uitype="text" id="srch-inp-deptName" name="srch-inp-deptName" class="form-control input-sm"></sbux-input>
-										</td>
-										<td style="border-right: hidden;"></td>
-										<th scope="row" class="th_bg">담당자 성명</th>
-										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<sbux-input uitype="text" id="srch-inp-empName" name="srch-inp-empName" class="form-control input-sm"></sbux-input>
-										</td>
-										<td style="border-right: hidden;"></td>
-										<th scope="row" class="th_bg">담당자 전화번호</th>
-										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<sbux-input uitype="text" id="srch-inp-tel" name="srch-inp-tel" class="form-control input-sm"></sbux-input>
-										</td>
-										<td style="border-right: hidden;"></td>
-									</tr>
-
-									<tr>
-										<th scope="row" class="th_bg">비고</th>
-			                            <td colspan="9" style="border-right:hidden;">
-											<sbux-input uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo" class="form-control input-sm" ></sbux-textarea>
-			                            </td>
-									</tr>
-									  <tr>
-			                        	<th scope="row" class="th_bg">파일생성경로</th>
-			                            <td colspan="2" class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-inp-filePath" name="srch-inp-filePath" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_fileCrtPathPopup" wrap-style="width:100%"></sbux-input>
-			                            </td>
-			                        </tr>
-
-								</tbody>
-								</table>
-
-
-
-
-								<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-								</sbux-tabs>
-								<div id="simpleTab">
-									<div id="sb-area-grdSimpleGiveSpcfct" style="height:298px;width:100%"></div>
-								</div>
-								<div id="lbrTab">
-									<div id="sb-area-grdEricmGiveSpcfct" style="height:298px;width:100%"></div>
-								</div>
-
-
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>파일생성정보</span></li>
+							</ul>
 						</div>
+						<table class="table table-bordered tbl_fixed">
+							<caption>검색 조건 설정</caption>
+							<colgroup>
+								<col style="width: 7%">
+								<col style="width: 6%">
+								<col style="width: 6%">
+								<col style="width: 3%">
+								<col style="width: 7%">
+								<col style="width: 6%">
+								<col style="width: 6%">
+								<col style="width: 3%">
+								<col style="width: 7%">
+								<col style="width: 6%">
+								<col style="width: 6%">
+								<col style="width: 3%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row" class="th_bg">홈택스ID</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input uitype="text" id="srch-inp-homeTaxId"
+											name="srch-inp-homeTaxId" class="form-control input-sm"></sbux-input>
+									</td>
+									<td style="border-right: hidden;"></td>
+									<th scope="row" class="th_bg">제출일</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-datepicker id="srch-inp-submitDate"
+											name="srch-inp-submitDate" uitype="popup"
+											date-format="yyyy-mm-dd"
+											class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
+									</td>
+									<td style="border-right: hidden;"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">담당자 부서</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input uitype="text" id="srch-inp-deptName"
+											name="srch-inp-deptName" class="form-control input-sm"></sbux-input>
+									</td>
+									<td style="border-right: hidden;"></td>
+									<th scope="row" class="th_bg">담당자 성명</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input uitype="text" id="srch-inp-empName"
+											name="srch-inp-empName" class="form-control input-sm"></sbux-input>
+									</td>
+									<td style="border-right: hidden;"></td>
+									<th scope="row" class="th_bg">담당자 전화번호</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input uitype="text" id="srch-inp-tel"
+											name="srch-inp-tel" class="form-control input-sm"></sbux-input>
+									</td>
+									<td style="border-right: hidden;"></td>
+								</tr>
+
+								<tr>
+									<th scope="row" class="th_bg">비고</th>
+									<td colspan="9" style="border-right: hidden;"><sbux-input
+											uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo"
+											class="form-control input-sm">
+										</sbux-textarea></td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">파일생성경로</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath"
+											class="form-control input-sm" uitype="search"
+											button-back-text="···"
+											button-back-event="fn_fileCrtPathPopup"
+											wrap-style="width:100%"></sbux-input>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+
+
+
+						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc"
+							is-scrollable="false" jsondata-ref="tabJsonData"> </sbux-tabs>
+						<div id="simpleTab">
+							<div id="sb-area-grdSimpleGiveSpcfct"
+								style="height: 298px; width: 100%"></div>
+						</div>
+						<div id="lbrTab">
+							<div id="sb-area-grdEricmGiveSpcfct"
+								style="height: 298px; width: 100%"></div>
+						</div>
+
+
 					</div>
 				</div>
-				</div>
+			</div>
+		</div>
 
 
 
-    </section>
+	</section>
 
 	<!-- 팝업 Modal -->
 
@@ -305,6 +306,9 @@
 
          // 급여영역
             gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //사업장
+            gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
 		]);
 
 		//SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -315,26 +319,23 @@
 		SBUxMethod.set("srch-dtp-jobYyyy",yyyy);
 		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
     	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
+    	SBUxMethod.set("srch-inp-submitDate",gfnma_date2());
+
+    	grdSimpleGiveSpcfct.rebuild();
+    	grdEricmGiveSpcfct.rebuild();
 
 	}
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
-    	fn_initSBSelect();
+
     	fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
-    	//fn_search();
 
-		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
-		//	function(list){
-		//		$('#SRCH_EMP_BTN').click(function(){
-		//			fn_compopup1(list);
-		//		});
-		//	}
-		//)
+    	fn_initSBSelect();
+
     });
 
     //grid 초기화
@@ -357,6 +358,8 @@
 	var jsonAcntgCrtr = []; // 회계기준
 	var jsonPayAreaType = []; //급여영역
 	var jsonWorkEr = []; //근무시기
+	var jsonTaxSite = []; //사업장
+
 
 	//fnQRY_P_HRA8400_Q2 결과값 저장 공간
 	let dt = [];
@@ -396,7 +399,7 @@
         SBGridProperties.columns = [
         	{caption: ["귀속년도"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["근무시기"], ref: 'halfyearlyType', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["급여영역"], ref: 'payAreaType', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["급여영역"], ref: 'payAreaType', 				type:'combo',	typeinfo : {ref:'jsonPayAreaType', label:'label', value:'value', oneclickedit: true},	width:'80px',		style:'text-align:center', disable:true},
         	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -448,7 +451,7 @@
         	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'combo',	typeinfo : {ref:'jsonTaxSite', label:'label', value:'value', oneclickedit: true},		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["주민등록번호"], ref: 'socialNum', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -626,12 +629,12 @@
 			,V_P_PAY_AREA_TYPE     : ''
 			,V_P_JOB_YYYYMM_FR     : ''
 			,V_P_JOB_YYYYMM_TO     : ''
-			,V_P_FILE_PATH         : filePath
-			,V_P_MEMO              : memomemo
-			,V_P_HOMETAXID         : homeTaxId
-			,V_P_EMP_NAME          : empName
-			,V_P_TEL               : tel
-			,V_P_DEPT_NAME         : deptName
+			,V_P_FILE_PATH         : gfnma_nvl(filePath)
+			,V_P_MEMO              : gfnma_nvl(memomemo)
+			,V_P_HOMETAXID         : gfnma_nvl(homeTaxId)
+			,V_P_EMP_NAME          : gfnma_nvl(empName)
+			,V_P_TEL               : gfnma_nvl(tel)
+			,V_P_DEPT_NAME         : gfnma_nvl(deptName)
 			,V_P_INC_TYPE          : '77'
 			,V_P_EMP_CODE_LIST     : ''   // 사번
 			,V_P_SOCIAL_NUM_LIST   : ''  // 복호화된 주민번호
@@ -649,7 +652,7 @@
 	 	    return;
 	 	 }
 
-        const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q2.do", {
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '6',
@@ -662,9 +665,9 @@
   			if (_.isEqual("S", data.resultStatus)) {
   				console.log(data);
   				if(workType === "SOCIALNO"){
-					dt = data;
+					dt = data.cv_1;
   				}else if(workType === "FILE"){
-					ds = data;
+					ds = data.cv_4;
   				}
 
         	} else {
@@ -679,6 +682,88 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+
+    /**
+     * 목록 가져오기
+     */
+    const fnQRY_P_HRA8400_S1 = async function(workType,empCodeList,socialNumList) {
+
+    	let rowId = grdDclrList.getRow();
+    	let dclrRow = grdDclrList.getRowData(rowId);
+    	let memo = SBUxMethod.get("srch-inp-memomemo");
+    	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
+    	let empName = SBUxMethod.get("srch-inp-empName");
+    	let tel = SBUxMethod.get("srch-inp-tel");
+    	let deptName = SBUxMethod.get("srch-inp-deptName");
+    	let filePath = SBUxMethod.get("srch-inp-filePath")
+
+	    var paramObj = {
+			V_P_DEBUG_MODE_YN	: ''
+			,V_P_LANG_ID		: languageID
+			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+
+			,V_P_JOB_YYYY          : ''
+			,V_P_DATA_HANDOUT_DATE : ''
+			,V_P_HALFYEARLY_TYPE   : ''
+			,V_P_PAY_AREA_TYPE     : ''
+
+			,V_P_JOB_YYYYMM_FR     : ''
+			,V_P_JOB_YYYYMM_TO     : ''
+
+			,V_P_FILE_PATH         : filePath
+			,V_P_MEMO              : memo
+			,V_P_HOMETAXID         : homeTaxId
+			,V_P_EMP_NAME          : empName
+			,V_P_TEL               : tel
+			,V_P_DEPT_NAME         : deptName
+			,V_P_INC_TYPE          : ''  //DEFAULT '77'   --소득종류
+			,V_P_EMP_CODE_LIST     : empCodeList
+			,V_P_SOCIAL_NUM_LIST   : socialNumList
+
+
+			,V_P_FORM_ID		: p_formId
+			,V_P_MENU_ID		: p_menuId
+			,V_P_PROC_ID		: ''
+			,V_P_USERID			: ''
+			,V_P_PC				: ''
+	    };
+
+	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400S1.do", {
+        	getType				: 'json',
+        	workType			: workType,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  				console.log(data);
+				//data를 ds에 저장한 다음에 해당내용으로 파일의 content를 채움
+
+
+
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
 
     const grdDclrListClick = function(){
     	let rowId = grdDclrList.getRow();
@@ -751,7 +836,7 @@
     }
 
 
-    const fnSET_P_HRA8400_S1 = async function(){
+    const btnFileCreateClick = async function(){
 
     	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
 		let submitDate = SBUxMethod.get("srch-inp-submitDate");
@@ -772,16 +857,19 @@
 
     	let grd2 = grdSimpleGiveSpcfct.getGridDataAll();
     	grd2.forEach(row => {
+
+    		//socialNumReal Setting 해주는 부분 확인 필요
     		empCodeList += row.empCode + "|"
-    		socialNumList += row.socialNumReal.replace("-","") + "|";
-    		inChkCount++;
+    		//socialNumList += row.socialNumReal.replace("-","") + "|";
+    		socialNumList += "1111111111111" + "|";
+    		intChkCount++;
     		if(intChkCount % 1000 == 0 || intChkCount + 1 > grd2.length){
     			if(empCodeList > 0){
     				empCodeList = empCodeList.substring(0,empCodeList.length-1);
     				socialNumList = socialNumList.substring(0,socialNumList.length-1);
     			}
-    			fnQRY_P_HRA8400_S1(sendWorkType, emp_code_list, social_num_list);
-                sendWorkType = sendWorkType + (intChkCount / 1000).ToString();
+    			fnQRY_P_HRA8400_S1(sendWorkType, empCodeList, socialNumList);
+                sendWorkType = sendWorkType + (intChkCount / 1000).toString();
                 empCodeList = "";
                 socialNumList = "";
     		}
@@ -803,32 +891,47 @@
 
 			})
     	}
+
+    	// 여기서 fnQRY_P_HRA8400_Q2("FILE") -> ds에 저장된 content를 서버에 보내면됨
+    	let resultString = ds.filter(item => item.content) // content가 있는 항목만 필터링
+        					 .map(item => item.content)     // content 값만 추출
+        					 .join("|");
+
+
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
 
-         const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8400S1.do", {
-          	getType				: 'json',
-          	workType			:  strWorkType,
-          	cv_count			: '0',
-          	params				: gfnma_objectToString(paramObj)
-  			});
 
-       	const data = await postJsonPromise;
-       	console.log('data:', data);
-         // 비즈니스 로직 정보
-          try {
-	          if (_.isEqual("S", data.resultStatus)) {
+         const data = {
+        		    params: resultString
+        		};
 
-	          } else {
-	              alert(data.resultMessage);
-	          }
+     	  fetch('/hr/hra/insertHra8400S1.do', {
+     		    method: 'POST',
+     		    headers: {
+     		        'Content-Type': 'application/json'
+     		    },
+     		    body: JSON.stringify(data) // JSON 문자열로 변환하여 요청 본문에 포함
+     		})
+     		.then(response => {
+     		    if (response.ok) {
+     		        return response.text(); // 텍스트로 응답 변환
+     		    }
+     		    throw new Error('Network response was not ok.');
+     		})
+     		.then(text => {
+     		    const blob = new Blob([text], { type: 'text/plain' }); // Blob 객체 생성
+     		    const url = URL.createObjectURL(blob); // Blob URL 생성
+     		    const a = document.createElement('a'); // 가상의 앵커 요소 생성
+     		    a.href = url; // Blob URL 설정
+     		    a.download = 'output.txt'; // 다운로드할 파일 이름
+     		    document.body.appendChild(a); // 문서에 앵커 추가
+     		    a.click(); // 앵커 클릭하여 다운로드 실행
+     		    document.body.removeChild(a); // 앵커 요소 제거
+     		    URL.revokeObjectURL(url); // Blob URL 해제
+     		})
+     		.catch(error => console.error('Error:', error)); // 오류 처리
 
-	        } catch (e) {
-	            if (!(e instanceof Error)) {
-	                e = new Error(e);
-	            }
-	            console.error("failed", e.message);
-	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
+
     }
 
 	const fn_compopup1 = function(list) {
@@ -882,6 +985,8 @@
     	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
      }
 
+
+
     /** camelCase FN **/
     function toCamelCase(snakeStr) {
         return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
@@ -901,5 +1006,5 @@
 
 
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+<%@ include file="../../../../frame/inc/bottomScript.jsp"%>
 </html>

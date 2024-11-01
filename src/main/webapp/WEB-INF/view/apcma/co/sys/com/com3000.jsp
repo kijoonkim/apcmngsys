@@ -175,91 +175,91 @@
                                 <tr>
                                     <th scope="row" class="th_bg">여유필드캡션1</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION1" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION1" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션6</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION6" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION6" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션11</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION11" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION11" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션16</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION16" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION16" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">여유필드캡션2</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION2" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션7</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION7" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION7" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션12</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION12" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION12" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션17</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION17" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION17" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">여유필드캡션3</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION3" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION3" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션8</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION8" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION8" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션13</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION13" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION13" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션18</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION18" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION18" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">여유필드캡션4</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION4" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION4" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션9</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION9" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION9" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션14</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION14" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION14" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션19</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION19" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION19" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">여유필드캡션5</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION5" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION5" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션10</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION10" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION10" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션15</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION15" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION15" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션20</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION20" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION20" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                             </table>
@@ -349,6 +349,7 @@
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
 	var editType 		= 'N';
+	var mode 			= 'byrows';
 	var jsonGroupCode	= [];	// 유형분류
 	
 	const fn_initSBSelect = async function() {
@@ -376,7 +377,7 @@
 			
 			//그룹코드 내역 - 유형분류
 			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
+			
 		]);
 	}	
 
@@ -386,15 +387,18 @@
     	await fn_initSBSelect();
     	fn_createGrid();
     	fn_createSubGrid();
-
         if(!gfn_isEmpty(initObject)){
             initObject = JSON.parse(initObject);
             localStorage.removeItem("callMain");
-
             await fn_onload(initObject);
         } else {
             await cfn_search();
         }
+        
+		$('.field-caption').focusout(function() {
+			fn_changeFieldCaption();
+		})
+	    
     });
 
     window.addEventListener('message', async function(event){
@@ -405,7 +409,6 @@
             await cfn_search();
         }
     });
-    
 	// 신규
 	function cfn_add() {
 		fn_clearForm();
@@ -491,11 +494,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  		style:'text-align:left'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['시스템코드'],     	ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['사용여부'],    	 	ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["여유필드1"],			ref: 'EXTRA_FIELD1',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드2"],			ref: 'EXTRA_FIELD2',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드3"],			ref: 'EXTRA_FIELD3',    type:'input',       width:'100px',  	style:'text-align:left'},
@@ -667,7 +670,7 @@
   	      			$('#USE_YN').prop('checked', false);
   	      		}
   	      		
-  	      		fn_drawCMNSCDSubGrid(obj, cv_4);
+  	      		fn_drawCMNSCDSubGrid(mode, obj, cv_4);
   	      		
         	} else {
           		alert(data.resultMessage);
@@ -683,7 +686,7 @@
     }
 	
     //세부코드 정보
-    const fn_drawCMNSCDSubGrid = async function(cv_3, cv_4) {
+    const fn_drawCMNSCDSubGrid = async function(mode, cv_3, cv_4) {
 		let FIELD_CAPTION1    	= gfn_nvl(cv_3.FIELD_CAPTION1)  == "" ? "여유필드1"  : cv_3.FIELD_CAPTION1;
 		let FIELD_CAPTION2	    = gfn_nvl(cv_3.FIELD_CAPTION2)  == "" ? "여유필드2"  : cv_3.FIELD_CAPTION2;
 		let FIELD_CAPTION3	    = gfn_nvl(cv_3.FIELD_CAPTION3)  == "" ? "여유필드3"  : cv_3.FIELD_CAPTION3;
@@ -711,18 +714,18 @@
         SBSubGridProperties.id 					= 'CMNSCDSubGrid';
         SBSubGridProperties.jsonref 			= 'jsonCMNSCDSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBSubGridProperties.selectmode 			= 'byrow';
+        SBSubGridProperties.selectmode 			= mode;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
         SBSubGridProperties.rowheadercaption 	= {seq: 'No'};
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'100px',  		style:'text-align:left'},
+            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["코드명"],					ref: 'CODE_NAME',    	type:'input',  	width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     		ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['시스템코드'],     		ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  	width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],     			ref : 'USE_YN',			type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['사용여부'],     			ref: 'USE_YN',			type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: [FIELD_CAPTION1],			ref: 'EXTRA_FIELD1',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION2],			ref: 'EXTRA_FIELD2',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION3],			ref: 'EXTRA_FIELD3',    type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -746,7 +749,7 @@
         ];                                                                   
 
 		// 이전에 그렸던 그리드 삭제 후 다시 그리기
-        _SBGrid.destroy('CMNSCDSubGrid');
+        jsonCMNSCDSubList = [];
         CMNSCDSubGrid = _SBGrid.create(SBSubGridProperties);
         
       	cv_4.forEach((item, index) => {
@@ -1138,49 +1141,85 @@
          }
 
      }
+     /*필드캡션 데이터*/
+    const fn_fieldCaption = async function (){
+    	let field_data = {
+    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
+    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
+    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
+    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
+    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
+    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
+    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
+    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
+    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
+    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10")),
+    	    	FIELD_CAPTION11 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION11")),
+    	    	FIELD_CAPTION12 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION12")),
+    	    	FIELD_CAPTION13 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION13")),
+    	    	FIELD_CAPTION14 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION14")),
+    	    	FIELD_CAPTION15 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION15")),
+    	    	FIELD_CAPTION16 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION16")),
+    	    	FIELD_CAPTION17 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION17")),
+    	    	FIELD_CAPTION18 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION18")),
+    	    	FIELD_CAPTION19 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION19")),
+    	    	FIELD_CAPTION20 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION20"))
+    	};
+    	return field_data;
+    }
+     
      /*셀복사 해제 (복사모드해제)*/
-     const fn_gridCopyClear = function (){ 
+    const fn_gridCopyClear = async function (){ 
          $('#btnCopyClear').hide();
          $('#btnCopyLine').show();
          $('#btnCopyCell').hide();
-
-         /*grdFimList.bind('selectmode', 'free');*/
-
-         let datas = grdFimList.getGridDataAll();
-         _SBGrid.destroy('grdFimList');
-
-         let line = 'line'; //그리드 프로퍼티스 라인모드
-
-         fn_createSubGrid(line, datas);
-
-
-     }
+         
+        let gridData = CMNSCDSubGrid.getGridDataAll();
+		console.log('gridData ==>', gridData);
+		jsonCMNSCDSubList = [];
+        mode = 'byrow'; //그리드 프로퍼티스 라인모드
+         let fieldData = await fn_fieldCaption(); 
+         fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
+    }
      /*행 복사 (행복사모드)*/
-     const fn_gridCopyLine = function () { 
+     const fn_gridCopyLine = async function () { 
          $('#btnCopyClear').hide();
          $('#btnCopyLine').hide();
          $('#btnCopyCell').show();
+         let gridData = CMNSCDSubGrid.getGridDataAll();
+ 		console.log('gridData ==>', gridData);
+         jsonCMNSCDSubList = [];
+         let fieldData = await fn_fieldCaption(); 
 
-         let datas = grdFimList.getGridDataAll();
-         _SBGrid.destroy('grdFimList');
+        mode = 'byrows'; //그리드 프로퍼티스 셀모드
 
-         let cell = 'cell'; //그리드 프로퍼티스 셀모드
-
-         fn_createSubGrid(cell, datas);
+         fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
 
      }
-     /*셀 복사 (셀복사모드)*/
-     const fn_gridCopyCell = function () { 
-         $('#btnCopyClear').show();
-         $('#btnCopyLine').hide();
-         $('#btnCopyCell').hide();
+    /*셀 복사 (셀복사모드)*/
+    const fn_gridCopyCell = async function () { 
+        $('#btnCopyClear').show();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').hide();
 
-         let datas = grdFimList.getGridDataAll();
-         _SBGrid.destroy('grdFimList');
+        let gridData = CMNSCDSubGrid.getGridDataAll();
+ 		console.log('gridData ==>', gridData);
+        jsonCMNSCDSubList = [];
+        let fieldData = await fn_fieldCaption(); 
 
-         let clear = 'clear'; //그리드 프로퍼티스 클리어모드
+        mode = 'free'; //그리드 프로퍼티스 클리어모드
 
-         fn_createSubGrid(clear, datas);
+    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
+    }
+     
+     /*여유필드 캡션1~20 수정 시 그리드에 적용되게 */
+     const fn_changeFieldCaption = async function () { 
+
+        let gridData = CMNSCDSubGrid.getGridDataAll();
+        jsonCMNSCDSubList = [];
+        let fieldData = await fn_fieldCaption(); 
+        
+        fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
      }
      
     //그룹코드 내역 보기

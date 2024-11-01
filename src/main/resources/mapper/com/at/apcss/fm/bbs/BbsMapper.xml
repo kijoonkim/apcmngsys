@@ -20,59 +20,92 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO" resultType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs */
-				  CM.BBS_NO	AS BBS_NO
-				, CM.BBS_TTL		AS BBS_TTL
-				, CM.BBS_SE_CD	AS BBS_SE_CD
-				, CM.BBS_SBJT		AS BBS_SBJT
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-				, (SELECT COUNT(*) FROM TB_APC_ATTACH WHERE ATCHFL_PRNTSNO = CM.BBS_NO) AS ATT_CNT
-			  FROM TB_BBS CM
-			 WHERE 1=1
-			 AND CM.BBS_NO = #{bbsNo}
-			 ORDER BY CM.SYS_LAST_CHG_DT DESC
-    	]]>
-    </select>
-
-
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectBbsList" parameterType="com.at.apcss.fm.bbs.vo.BbsVO" resultType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
+	<select id="selectBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO" resultType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList */
 				  CM.BBS_NO	AS BBS_NO
 				, CM.BBS_TTL		AS BBS_TTL
 				, CM.BBS_SE_CD	AS BBS_SE_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
 				, CM.BBS_SBJT		AS BBS_SBJT
+
+				, DECODE(CM.SYS_FRST_INPT_USER_ID , #{userId} , '1' , '') AS BBS_EIDT_CHK
+
+				, ANS_STTS
+				, (SELECT FN_GET_COM_CD_VL_NM('ANS_STTS', CM.ANS_STTS) FROM DUAL) AS ANS_STTS_NM
+				, ANS_SBJT
+				, ANS_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.ANS_USER_ID) AS ANS_USER_NM
+				, TO_CHAR(CM.ANS_DT,'YYYY-MM-DD') AS ANS_DT
+
+				, PRVT_PST_YN
+
 				, CM.DEL_YN		AS DEL_YN
+
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+				, (SELECT COUNT(*) FROM TB_APC_ATTACH WHERE ATCHFL_PRNTSNO = CM.BBS_NO) AS ATT_CNT
+
+			  FROM TB_BBS CM
+			  WHERE 1=1
+			    AND CM.DEL_YN = 'N'
+			    AND CM.BBS_NO = #{bbsNo}
+				AND 1 = (CASE WHEN CM.PRVT_PST_YN = 'Y' AND #{userType} in ('00','01','02') THEN 1
+							WHEN CM.PRVT_PST_YN = 'Y' AND #{userId} = CM.SYS_FRST_INPT_USER_ID THEN 1
+							WHEN CM.PRVT_PST_YN = 'N' OR CM.PRVT_PST_YN IS NULL THEN 1
+							ELSE 2
+							END)
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList				-->
+	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectBbsList" parameterType="com.at.apcss.fm.bbs.vo.BbsVO" resultType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList */
+				  CM.BBS_NO		AS BBS_NO
+				, CM.BBS_SE_CD	AS BBS_SE_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
+
+				, (CASE WHEN CM.PRVT_PST_YN = 'Y' AND #{userType} in ('00','01','02') THEN CM.BBS_TTL
+						WHEN CM.PRVT_PST_YN = 'Y' AND #{userId} = CM.SYS_FRST_INPT_USER_ID THEN CM.BBS_TTL
+						WHEN CM.PRVT_PST_YN = 'N' OR CM.PRVT_PST_YN IS NULL THEN CM.BBS_TTL
+						ELSE '비밀글입니다'
+						END
+				) AS BBS_TTL
+
+				, ANS_STTS
+				, TO_CHAR(CM.ANS_DT,'YYYY-MM-DD') AS ANS_DT
+
+				, PRVT_PST_YN
+
+				, DECODE(CM.SYS_FRST_INPT_USER_ID , #{userId} , '1' , '') AS BBS_EIDT_CHK
+
+				, CM.DEL_YN		AS DEL_YN
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -85,14 +118,30 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 				, (SELECT COUNT(*) FROM TB_APC_ATTACH WHERE ATCHFL_PRNTSNO = CM.BBS_NO) AS ATT_CNT
 			  FROM TB_BBS CM
-    	]]>
-    	<where>
+			  WHERE 1=1
+			    AND CM.DEL_YN = 'N'
+		]]>
 			<if test='bbsNo != null and bbsNo != ""'>
-				AND CM.BBS_NO LIKE #{bbsNo} || '%'
+				AND CM.BBS_NO = #{bbsNo}
 			</if>
 
 			<if test='bbsTtl != null and bbsTtl != ""'>
 				AND CM.BBS_TTL LIKE '%' || #{bbsTtl} || '%'
+			</if>
+
+			<if test='bbsUserNm != null and bbsUserNm != ""'>
+				AND (
+						CM.SYS_FRST_INPT_USER_ID IN (SELECT USER_ID
+													FROM TB_COM_USER
+													WHERE 1=1
+													  AND USER_NM LIKE '%' || #{bbsUserNm} || '%')
+						OR
+
+						CM.SYS_LAST_CHG_USER_ID IN (SELECT USER_ID
+													FROM TB_COM_USER
+													WHERE 1=1
+													  AND USER_NM LIKE '%' || #{bbsUserNm} || '%')
+					)
 			</if>
 
 			<if test='bbsSeCd != null and bbsSeCd != ""'>
@@ -102,17 +151,17 @@
 			<if test='delYn != null and delYn != ""'>
 				AND CM.DEL_YN = #{delYn}
 			</if>
-		</where>
 		<!-- Start 페이징 -->
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		ORDER BY CM.BBS_NO DESC
+
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
+		</if>
 
-    	<!-- End 페이징 -->
-    </select>
+		<!-- End 페이징 -->
+	</select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertBbs				-->
@@ -122,37 +171,44 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertBbs */
-	    	  INTO TB_BBS
-	    		(
-	    			BBS_NO
-	    		  , BBS_TTL
-	    		  , BBS_SE_CD
-	    		  , BBS_SBJT
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_BBS)
-	   			  , #{bbsTtl}
-	   			  , #{bbsSeCd}
-	   			  , #{bbsSbjt}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
+	<insert id="insertBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertBbs */
+			  INTO TB_BBS
+				(
+					BBS_NO
+				  , BBS_TTL
+				  , BBS_SE_CD
+				  , BBS_SBJT
+				  , PRVT_PST_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+				    (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_BBS)
+				  , #{bbsTtl}
+				  , #{bbsSeCd}
+				  , #{bbsSbjt}
+				  , #{prvtPstYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+		]]>
+		<selectKey resultType="java.lang.String" keyProperty="bbsNo" order="AFTER">
+			SELECT NVL(MAX(BBS_NO),0) FROM TB_BBS
+		</selectKey>
+	</insert>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbs				-->
@@ -162,27 +218,57 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbs */
-	    		TB_BBS
+	<update id="updateBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbs */
+				TB_BBS
 			   SET
-			 	  BBS_TTL	= #{bbsTtl}
+			 	  BBS_TTL		= #{bbsTtl}
 			 	, BBS_SE_CD 	= #{bbsSeCd}
 			 	, BBS_SBJT 		= #{bbsSbjt}
-    	]]>
+			 	, PRVT_PST_YN	= #{prvtPstYn}
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 			 WHERE 1=1
 			   AND BBS_NO	= #{bbsNo}
-    	]]>
-    </update>
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbsAns				-->
+	<!-- DESC : 게시판 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.31  	ljw	        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateBbsAns" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbsAns */
+				TB_BBS
+			   SET
+			 	  ANS_STTS		= '2'
+			 	, ANS_USER_ID 	= #{userId}
+			 	, ANS_DT	 	= SYSDATE
+			 	, ANS_SBJT 		= #{bbsSbjt}
+		]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs				-->
@@ -192,16 +278,31 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs */
-	    		TB_BBS
+	<update id="deleteBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs */
+				TB_BBS
+			   SET
+				  DEL_YN 				= 'Y'
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 			 WHERE 1=1
-			   AND BBS_NO	= #{bbsNo}
-    	]]>
-    </delete>
+			   AND BBS_NO = #{bbsNo}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs */
+				TB_BBS
+			 WHERE 1=1
+			   AND BBS_NO = #{bbsNo}
+		]]>
+	</delete>
+	-->
 
-    	<!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsAttachesList			-->
 	<!-- DESC : 첨부파일 조회.                                             		-->
 	<!-- ==========================================================================	-->
@@ -246,14 +347,14 @@
 				,ATCHFL_EXTN_TYPE
 				,ATCHFL_PATH
 				FROM USRAM.TB_APC_ATTACH
-    	]]>
-    	<where>
-    			AND DEL_YN = 'N'
+		]]>
+		<where>
+				AND DEL_YN = 'N'
 			<if test='bbsNo != null and bbsNo != ""'>
-				AND ATCHFL_PRNTSNO LIKE #{bbsNo} || '%'
+				AND ATCHFL_PRNTSNO = #{bbsNo}
 			</if>
 		</where>
-    </select>
+	</select>
 
 
 	<!-- ==========================================================================	-->
@@ -264,58 +365,73 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAttach" parameterType="com.at.apcss.fm.bbs.vo.BbsFileVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertAttach */
-	    	  INTO TB_APC_ATTACH
-	    		(
+	<insert id="insertAttach" parameterType="com.at.apcss.fm.bbs.vo.BbsFileVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertAttach */
+			  INTO TB_APC_ATTACH
+				(
 					ATCHFLNO
 				  , ATCHFL_PRNTSNO
-			      , ATCHFL_NM
-			      , ATCHFL_ORGN_NM
-			      , ATCHFL_SZ
-			      , ATCHFL_EXTN_TYPE
-			      , ATCHFL_PATH
-			      , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    SQ_APC_ATTACH.nextval
-	   			  , #{atchflno}
+				  , ATCHFL_NM
+				  , ATCHFL_ORGN_NM
+				  , ATCHFL_SZ
+				  , ATCHFL_EXTN_TYPE
+				  , ATCHFL_PATH
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+				    SQ_APC_ATTACH.nextval
+				  , #{atchflno}
 				  , #{atchflNm}
 				  , #{atchflOrgnNm}
 				  , #{atchflSz}
 				  , #{atchflExtnType}
 				  , #{atchflPath}
 				  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			)
-    	]]>
-    </insert>
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				)
+		]]>
+	</insert>
 
-    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbsAttache				-->
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbsAttache			-->
 	<!-- DESC : 첨부파일 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbsAttache" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbsAttache */
-	    		TB_APC_ATTACH
+	<!--
+	<delete id="deleteBbsAttache" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbsAttache */
+				TB_APC_ATTACH
 			 WHERE 1=1
 			   AND ATCHFLNO	= #{atchflno}
-    	]]>
-    </delete>
+		]]>
+	</delete>
+	-->
+	<update id="deleteBbsAttache" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbsAttache */
+				TB_APC_ATTACH
+			   SET
+				  DEL_YN 				= 'Y'
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE 1=1
+			   AND ATCHFLNO	= #{atchflno}
+		]]>
+	</update>
 </mapper>
