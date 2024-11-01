@@ -2069,7 +2069,7 @@
                 window.parent.postMessage(json);
 
             }
-            return false;
+            return;
         }
 
         fn_searchApplyTab(rowData)
@@ -2565,7 +2565,6 @@
      */
     function fn_gridPopup1(event, doc_id) {
         event.preventDefault();
-        console.log('doc_id:', doc_id);
 
         var obj = {
             'MENU_MOVE'		: 'Y'

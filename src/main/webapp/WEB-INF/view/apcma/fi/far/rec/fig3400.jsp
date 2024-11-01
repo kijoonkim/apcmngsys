@@ -2396,7 +2396,6 @@
      */
     function fn_gridPopup1(event, doc_id) {
         event.preventDefault();
-        console.log('doc_id:', doc_id);
 
         var obj = {
             'MENU_MOVE'		: 'Y'

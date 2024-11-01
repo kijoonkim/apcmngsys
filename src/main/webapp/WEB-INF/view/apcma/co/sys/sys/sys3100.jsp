@@ -231,8 +231,8 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
-        let DECIMAL_ID      = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
-        let DECIMAL_NAME    = gfnma_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
+        let DECIMAL_ID      = gfn_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
+        let DECIMAL_NAME    = gfn_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
 
         var paramObj = {
              V_P_DEBUG_MODE_YN  : 'N'
@@ -399,11 +399,11 @@
     //저장
     const fn_save = async function() {
 
-        let DECIMAL_ID 			= gfnma_nvl(SBUxMethod.get("DECIMAL_ID"));
-        let DECIMAL_NAME		= gfnma_nvl(SBUxMethod.get("DECIMAL_NAME"));
-        let DECIMAL_LENGTH 		= gfnma_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
-        let DESCR		        = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let USE_YN	            = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DECIMAL_ID"));
+        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DECIMAL_NAME"));
+        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
+        let DESCR		        = gfn_nvl(SBUxMethod.get("DESCR"));
+        let USE_YN	            = gfn_nvl(SBUxMethod.get("USE_YN"));
 
 
         if (!DECIMAL_ID) {
@@ -547,11 +547,11 @@
     //삭제
     const fn_delete = async function() {
 
-        let DECIMAL_ID 			= gfnma_nvl(SBUxMethod.get("DECIMAL_ID"));
-        let DECIMAL_NAME		= gfnma_nvl(SBUxMethod.get("DECIMAL_NAME"));
-        let DECIMAL_LENGTH 		= gfnma_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
-        let DESCR		        = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let USE_YN	            = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
+        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DECIMAL_ID"));
+        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DECIMAL_NAME"));
+        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
+        let DESCR		        = gfn_nvl(SBUxMethod.get("DESCR"));
+        let USE_YN	            = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
 
         if(gfn_comConfirm("Q0001", "삭제")) {
             var paramObj = {
