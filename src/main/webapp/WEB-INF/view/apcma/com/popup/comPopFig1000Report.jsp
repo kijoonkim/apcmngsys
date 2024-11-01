@@ -24,11 +24,11 @@
 								<th scope="row" class="th_bg">◎ 합계여부</th>
 								<td class="td_input " colspan="2" id="rdotd">
 									<p class="ad_input_row">
-										<sbux-radio id="RDO_TOTAL1" name="RDO_TOTAL" uitype="normal" value="N" class="radio_label" checked></sbux-radio>
+										<sbux-radio id="RDO_TOTAL1" name="FIG1000_RDO" uitype="normal" value="N" class="radio_label" checked></sbux-radio>
 										<label class="radio_label" for-id="RDO_TOTAL1">개별</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="RDO_TOTAL2" name="RDO_TOTAL" uitype="normal" value="Y" class="radio_label"></sbux-radio>
+										<sbux-radio id="RDO_TOTAL2" name="FIG1000_RDO" uitype="normal" value="Y" class="radio_label"></sbux-radio>
 										<label class="radio_label" for-id="RDO_TOTAL2">합계</label>
 									</p>
 								</td>									
@@ -87,6 +87,7 @@ function comPopFig1000Report(options) {
 	}
     
 	const fn_getPopReportData = async function(DOC_ID, COMP_CODE, CLIENT_CODE) {
+		let TOTAL_YN = $('[name=FIG1000_RDO]:checked').val();
 	    var paramObj = {
 	        V_P_DEBUG_MODE_YN	: ''
 	        ,V_P_LANG_ID		: ''
@@ -95,7 +96,7 @@ function comPopFig1000Report(options) {
 	        ,V_P_INVOICE_ID     : ''
 	        ,V_P_DOC_BATCH_NO   : ''
 	        ,V_P_DOC_ID			: DOC_ID
-	        ,V_P_TOTAL_YN      	: SBUxMethod.get('RDO_TOTAL')
+	        ,V_P_TOTAL_YN      	: TOTAL_YN
 	        ,V_P_FORM_ID		: p_formId
 	        ,V_P_MENU_ID		: p_menuId
 	        ,V_P_PROC_ID		: ''
