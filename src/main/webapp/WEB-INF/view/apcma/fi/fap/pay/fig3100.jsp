@@ -75,11 +75,11 @@
                     <th scope="row" class="th_bg">년월</th>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
-                                id="srch-ymdperiod_yyyymm"
-                                name="srch-ymdperiod_yyyymm"
+                                id="SRCH_YMDPERIOD_YYYYMM"
+                                name="SRCH_YMDPERIOD_YYYYMM"
                                 uitype="popup"
                                 datepicker-mode="month"
-                                date-format="yyyymm"
+                                date-format="yyyy-mm"
                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                 required
                                 onchange="fn_payDate"
@@ -100,13 +100,13 @@
                     <td colspan="2" style="border-right: hidden;"></td>
                     <th scope="row" class="th_bg">조회구분</th>
                     <td colspan="3" class="td_input inpt_data_reqed">
-                        <sbux-radio id="ALL" name="srch-ridgubun" uitype="normal"
+                        <sbux-radio id="ALL" name="SRCH_RIDGUBUN" uitype="normal"
                                     text="전체" value="99" checked>
                         </sbux-radio>
-                        <sbux-radio id="TAX" name="srch-ridgubun" uitype="normal"
+                        <sbux-radio id="TAX" name="SRCH_RIDGUBUN" uitype="normal"
                                     text="세금계산서" value="20">
                         </sbux-radio>
-                        <sbux-radio id="BILL" name="srch-ridgubun" uitype="normal"
+                        <sbux-radio id="BILL" name="SRCH_RIDGUBUN" uitype="normal"
                                     text="계산서" value="10">
                         </sbux-radio>
                     </td>
@@ -115,10 +115,10 @@
                     <th scope="row" class="th_bg">작성일자</th>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
-                                id="srch-date_fr"
-                                name="srch-date_fr"
+                                id="SRCH_DATE_FR"
+                                name="SRCH_DATE_FR"
                                 uitype="popup"
-                                date-format="yyyymmdd"
+                                date-format="yyyy-mm-dd"
                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                 ></sbux-datepicker>
                     </td>
@@ -127,10 +127,10 @@
                     </td>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
-                                id="srch-date_to"
-                                name="srch-date_to"
+                                id="SRCH_DATE_TO"
+                                name="SRCH_DATE_TO"
                                 uitype="popup"
-                                date-format="yyyymmdd"
+                                date-format="yyyy-mm-dd"
                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                 ></sbux-datepicker>
                     </td>
@@ -139,7 +139,7 @@
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-cs_biz_regno"
+                                id="SRCH_CS_BIZ_REGNO"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -148,7 +148,7 @@
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-cs_name"
+                                id="SRCH_CS_NAME"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -159,7 +159,7 @@
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-dept_code"
+                                id="SRCH_DEPT_CODE"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -167,7 +167,7 @@
                         <sbux-input
                         <%-- uitype="hidden"--%>
                                 uitype="text"
-                                id="srch-dept_name"
+                                id="SRCH_DEPT_NAME"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -183,7 +183,7 @@
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-emp_code"
+                                id="SRCH_EMP_CODE"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -191,7 +191,7 @@
                         <sbux-input
                         <%-- uitype="hidden"--%>
                                 uitype="text"
-                                id="srch-emp_name"
+                                id="SRCH_EMP_NAME"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -208,21 +208,21 @@
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-txtAmt"
+                                id="SRCH_TXTAMT"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-txtApproval_no"
+                                id="SRCH_TXTAPPROVAL_NO"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
-                                id="srch-numRow_cnt"
+                                id="SRCH_NUMROW_CNT"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
@@ -387,7 +387,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -407,8 +407,8 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -416,7 +416,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-emp_name"));
+        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -440,8 +440,8 @@
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('srch-emp_name', data.EMP_NAME);
-                SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
 
@@ -693,8 +693,8 @@
             }
 
             var reader = new FileReader();
-            let strmindate = gfnma_nvl(SBUxMethod.get("srch-date_fr"));
-            let strmaxdate = gfnma_nvl(SBUxMethod.get("srch-date_to"));
+            let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
             let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
             reader.addEventListener(
@@ -815,8 +815,8 @@
             }
 
             var reader = new FileReader();
-            let strmindate = gfnma_nvl(SBUxMethod.get("srch-date_fr"));
-            let strmaxdate = gfnma_nvl(SBUxMethod.get("srch-date_to"));
+            let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
             let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
             reader.addEventListener(
@@ -1236,13 +1236,13 @@
         let openDate = gfn_dateToYm(new Date());
         let openDateFR = gfn_dateToYmd(new Date());
 
-        SBUxMethod.set('srch-ymdperiod_yyyymm', openDate);
-        SBUxMethod.set('srch-date_fr', openDate+'01');
+        SBUxMethod.set('SRCH_YMDPERIOD_YYYYMM', openDate);
+        SBUxMethod.set('SRCH_DATE_FR', openDate+'01');
 
         //월별로 말일 구하기
         let lastDate = new Date(openDateFR.slice(0,4),openDateFR.slice(4,6),0);
         let DATE_TO = gfn_dateToYmd(lastDate);
-        SBUxMethod.set("srch-date_to", 			DATE_TO);
+        SBUxMethod.set("SRCH_DATE_TO", 			DATE_TO);
 
         fn_createGrid();
         fn_createItemGrid();
@@ -1253,20 +1253,20 @@
      */
     var fn_payDate = function() {
 
-        let NATION_CODE = gfnma_nvl(SBUxMethod.get("srch-ymdperiod_yyyymm"));
+        let NATION_CODE = gfnma_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM"));
 
         if (NATION_CODE == ''){
 
-            SBUxMethod.set("srch-date_fr", 			"");
-            SBUxMethod.set("srch-date_to", 			"");
+            SBUxMethod.set("SRCH_DATE_FR", 			"");
+            SBUxMethod.set("SRCH_DATE_TO", 			"");
         }
 
-        SBUxMethod.set("srch-date_fr", 			NATION_CODE + '01');
+        SBUxMethod.set("SRCH_DATE_FR", 			NATION_CODE + '01');
 
         //월별로 말일 구하기
         let lastDate = new Date(NATION_CODE.slice(0,4),NATION_CODE.slice(4,6),0);
         let DATE_TO = gfn_dateToYmd(lastDate);
-        SBUxMethod.set("srch-date_to", 			DATE_TO);
+        SBUxMethod.set("SRCH_DATE_TO", 			DATE_TO);
 
     }
 
@@ -1358,7 +1358,7 @@
         gfnma_uxDataClear('#dataArea1');
 
         //라디오버튼 초기화시 리플레시 해줘야함
-        SBUxMethod.refresh('srch-ridgubun')
+        SBUxMethod.refresh('SRCH_RIDGUBUN')
     }
 
     //조회 리스트
@@ -1415,7 +1415,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
@@ -1425,6 +1425,15 @@
             {caption: ["구분"], ref: 'RID_GUBUN', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["DOC_ID"], ref: 'DOC_ID', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["전표번호"], ref: 'DOC_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            /*{caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if(objRowData['DOC_ID']){
+                        return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+                    } else {
+                        return "";
+                    }
+                }
+            },*/
             {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'output', width: '140px', style: 'text-align:left'},
@@ -1448,17 +1457,17 @@
             {caption: ["구매자유형"], ref: 'BUYER_BIZ_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자주소"], ref: 'BUYER_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["합계금액"], ref: 'TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["세액"], ref: 'TOTAL_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["공급가액"], ref: 'TOTAL_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["전표총금액"], ref: 'DOC_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["전표공급가액"], ref: 'DOC_SUPPLY_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["전표부가세"], ref: 'DOC_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["차이여부"], ref: 'DIFF_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
@@ -1493,24 +1502,24 @@
             {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
             },*/
-            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["상태"], ref: 'ROW_STATUS', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["회계단위"], ref: 'FI_ORG_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["조회시공급사코드"], ref: 'CS_CODE_ORG', type: 'output', width: '140px', style: 'text-align:left'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목비고"], ref: 'ITEM_DESC', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["상태"], ref: 'ROW_STATUS', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["회계단위"], ref: 'FI_ORG_CODE', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["조회시공급사코드"], ref: 'CS_CODE_ORG', type: 'input', width: '140px', style: 'text-align:left'},
 
         ];
 
@@ -1562,29 +1571,29 @@
             usedecimal : false,
         };*/
         SBGridProperties.columns = [
-            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목공급가액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목세액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption : ["원가중심점코드"], ref : 'COST_CENTER_CODE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["규격"], ref: 'ITEM_SPEC', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '170px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' , emptyvalue:'0'}},
+            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '170px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목공급가액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '170px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["품목세액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '170px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+            {caption: ["비고"], ref: 'ITEM_DESC', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption : ["원가중심점코드"], ref : 'COST_CENTER_CODE', width : '160px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonCostCenterCode', displayui : true, label : 'label', value : 'value'}
             },
             /*{caption : ["부서코드"], ref : 'DEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptCode', displayui : true, label : 'label', value : 'value'}, hidden : true
             },*/
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["부서 조회"], ref: 'DEPT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '160px', style: 'text-align:left', hidden : true},
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
+            {caption: ["부서 조회"], ref: 'DEPT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
@@ -1595,9 +1604,9 @@
             {caption : ["프로젝트"], ref : 'PROJECT_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonProjectCode', displayui : true, label : 'label', value : 'value'}
             },*/
-            {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["프로젝트"], ref: 'PROJECT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["프로젝트 조회"], ref: 'PROJECT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '160px', style: 'text-align:left', hidden : true},
+            {caption: ["프로젝트"], ref: 'PROJECT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
+            {caption: ["프로젝트 조회"], ref: 'PROJECT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
@@ -1608,15 +1617,13 @@
             {caption : ["계정과목"], ref : 'ACCOUNT_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonAccount', displayui : true, label : 'label', value : 'value'}
             },*/
-            {caption: ["계정과목코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["계정과목"], ref: 'ACCOUNT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["계정과목 조회"], ref: 'ACCOUNT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["계정과목코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '160px', style: 'text-align:left', hidden : true},
+            {caption: ["계정과목"], ref: 'ACCOUNT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
+            {caption: ["계정과목 조회"], ref: 'ACCOUNT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-
-
         ];
 
         gvwItemGrid = _SBGrid.create(SBGridProperties);
@@ -1664,19 +1671,19 @@
      */
     const fn_search = async function () {
 
-       /* let YMDPERIOD_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-ymdperiod_yyyymm")); //년월*/
+       /* let YMDPERIOD_YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
         //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
         let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
-        let DATE_FR         = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
-        let DATE_TO         = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
-        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
-        let CS_NAME         = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
-        let AMT             = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
+        let DATE_FR         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
+        let DATE_TO         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
+        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
+        let CS_NAME         = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let AMT             = gfnma_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");
@@ -1809,7 +1816,15 @@
                 gvwListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if (jsonList.length > 0){
+                    jsonList.forEach((item, index) => {
+                        gvwListGrid.setCellDisabled(index+1, 1, index+1, gvwListGrid.getColRef("CS_CODE_ORG"), true, false, true);
+                    })
+                }
+
+                if(jsonList.length > 0) {
+                    gvwListGrid.clickRow(1);
+                }
 
 
             } else {
@@ -1832,7 +1847,7 @@
         let nRow = gvwListGrid.getRow();
         let nCol = gvwListGrid.getCol();
 
-        if(nCol == 14 || nCol == 48 || nCol == 49) return;
+        if (nCol == 14 || nCol == 48 || nCol == 49) return;
 
 
         if (nRow < 1) {
@@ -1841,121 +1856,134 @@
 
         let rowData = gvwListGrid.getRowData(nRow);
 
-        if (!_.isEmpty(rowData)) {
+        if(gfn_nvl(rowData) == "") return;
 
-            //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-            let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-            let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
-            let DATE_FR         = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
-            let DATE_TO         = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
-            let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
-            let CS_NAME         = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
-            let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
-            let EMP_CODE        = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
-            let AMT             = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
-            let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
-            let ROW_CNT         = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        if(nCol == gvwListGrid.getColRef("DOC_NAME")){
 
-            if (!FI_ORG_CODE) {
-                gfn_comAlert("W0002", "회계단위");
-                return;
+            var obj = {
+                'MENU_MOVE'		: 'Y'
+                ,'DOC_ID' 		: gfn_nvl(rowData.DOC_ID)
+                ,'target'		: 'MA_A20_030_020_150'
             }
-            if (!DATE_FR) {
-                gfn_comAlert("W0002", "작성일자");
-                return;
-            }
-            if (!DATE_TO) {
-                gfn_comAlert("W0002", "작성일자");
-                return;
-            }
-            if (!RIDGUBUN) {
-                gfn_comAlert("W0002", "조회구분");
-                return;
-            }
+            let json = JSON.stringify(obj);
+            window.parent.cfn_openTabSearch(json);
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN: ''
-                ,V_P_LANG_ID: ''
-                ,V_P_COMP_CODE: gv_ma_selectedApcCd
-                ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                ,V_P_FI_ORG_CODE      : FI_ORG_CODE
-                ,V_P_DATE_FR          : DATE_FR
-                ,V_P_DATE_TO          : DATE_TO
-                ,V_P_CS_BIZ_REGNO     : CS_BIZ_REGNO
-                ,V_P_APPROVAL_NO      : gfnma_nvl(rowData.APPROVAL_NO) == '' ? '' : gfnma_nvl(rowData.APPROVAL_NO)
-                ,V_P_ITEM_TAXABLE_AMT : AMT
-                ,V_P_CS_NAME          : CS_NAME
-                ,V_P_DEPT_CODE        : DEPT_CODE
-                ,V_P_EMP_CODE         : EMP_CODE
-                ,V_P_GUBUN            : RIDGUBUN
-
-                ,V_P_FORM_ID: p_formId
-                ,V_P_MENU_ID: p_menuId
-                ,V_P_PROC_ID: ''
-                ,V_P_USERID: ''
-                ,V_P_PC: ''
-            };
-
-            const postJsonPromise = gfn_postJSON("/fi/fap/pay/selectFig3100List.do", {
-                getType				: 'json',
-                workType			: 'ITEM',
-                cv_count			: '3',
-                params				: gfnma_objectToString(paramObj)
-            });
-
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-
-
-                    /** @type {number} **/
-                    let totalRecordCount = 0;
-
-                    jsonItemList.length = 0;
-                    data.cv_3.forEach((item, index) => {
-                        const msg = {
-                            ROW_STATUS		        : gfnma_nvl(item.ROW_STATUS),
-                            APPROVAL_NO		        : gfnma_nvl(item.APPROVAL_NO),
-                            SEQ		                : gfnma_nvl(item.SEQ),
-                            ITEM_NAME		        : gfnma_nvl(item.ITEM_NAME),
-                            ITEM_SPEC		        : gfnma_nvl(item.ITEM_SPEC),
-                            ITEM_QTY		        : gfnma_nvl(item.ITEM_QTY),
-                            ITEM_UNIT_PRICE		    : gfnma_nvl(item.ITEM_UNIT_PRICE),
-                            ITEM_TAXABLE_AMT		: gfnma_nvl(item.ITEM_TAXABLE_AMT),
-                            ITEM_VAT_AMT		    : gfnma_nvl(item.ITEM_VAT_AMT),
-                            ITEM_DESC		        : gfnma_nvl(item.ITEM_DESC),
-                            COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),
-                            DEPT_CODE		        : gfnma_nvl(item.DEPT_CODE),
-                            DEPT_NAME		        : gfnma_nvl(item.DEPT_NAME),
-                            PROJECT_CODE		    : gfnma_nvl(item.PROJECT_CODE),
-                            PROJECT_NAME		    : gfnma_nvl(item.PROJECT_NAME),
-                            ACCOUNT_CODE		    : gfnma_nvl(item.ACCOUNT_CODE),
-                            ACCOUNT_NAME		    : gfnma_nvl(item.ACCOUNT_NAME),
-
-                        }
-                        jsonItemList.push(msg);
-                        totalRecordCount ++;
-                    });
-
-                    gvwItemGrid.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount;
-
-
-                } else {
-                    alert(data.resultMessage);
-                }
-
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
+            return;
 
         }
+
+        //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
+        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
+        let DATE_FR         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
+        let DATE_TO         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
+        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
+        let CS_NAME         = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let AMT             = gfnma_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+
+        if (!FI_ORG_CODE) {
+            gfn_comAlert("W0002", "회계단위");
+            return;
+        }
+        if (!DATE_FR) {
+            gfn_comAlert("W0002", "작성일자");
+            return;
+        }
+        if (!DATE_TO) {
+            gfn_comAlert("W0002", "작성일자");
+            return;
+        }
+        if (!RIDGUBUN) {
+            gfn_comAlert("W0002", "조회구분");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            , V_P_FI_ORG_CODE       : FI_ORG_CODE
+            , V_P_DATE_FR           : DATE_FR
+            , V_P_DATE_TO           : DATE_TO
+            , V_P_CS_BIZ_REGNO      : CS_BIZ_REGNO
+            , V_P_APPROVAL_NO       : gfnma_nvl(rowData.APPROVAL_NO) == '' ? '' : gfnma_nvl(rowData.APPROVAL_NO)
+            , V_P_ITEM_TAXABLE_AMT  : AMT
+            , V_P_CS_NAME           : CS_NAME
+            , V_P_DEPT_CODE         : DEPT_CODE
+            , V_P_EMP_CODE          : EMP_CODE
+            , V_P_GUBUN             : RIDGUBUN
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/fap/pay/selectFig3100List.do", {
+            getType: 'json',
+            workType: 'ITEM',
+            cv_count: '3',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+
+                /** @type {number} **/
+                let totalRecordCount = 0;
+
+                jsonItemList.length = 0;
+                data.cv_3.forEach((item, index) => {
+                    const msg = {
+                        ROW_STATUS      : gfnma_nvl(item.ROW_STATUS),
+                        APPROVAL_NO     : gfnma_nvl(item.APPROVAL_NO),
+                        SEQ             : gfnma_nvl(item.SEQ),
+                        ITEM_NAME       : gfnma_nvl(item.ITEM_NAME),
+                        ITEM_SPEC       : gfnma_nvl(item.ITEM_SPEC),
+                        ITEM_QTY        : gfnma_nvl(item.ITEM_QTY),
+                        ITEM_UNIT_PRICE : gfnma_nvl(item.ITEM_UNIT_PRICE),
+                        ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_VAT_AMT    : gfnma_nvl(item.ITEM_VAT_AMT),
+                        ITEM_DESC       : gfnma_nvl(item.ITEM_DESC),
+                        COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE),
+                        DEPT_CODE       : gfnma_nvl(item.DEPT_CODE),
+                        DEPT_NAME       : gfnma_nvl(item.DEPT_NAME),
+                        PROJECT_CODE    : gfnma_nvl(item.PROJECT_CODE),
+                        PROJECT_NAME    : gfnma_nvl(item.PROJECT_NAME),
+                        ACCOUNT_CODE    : gfnma_nvl(item.ACCOUNT_CODE),
+                        ACCOUNT_NAME    : gfnma_nvl(item.ACCOUNT_NAME),
+
+                    }
+                    jsonItemList.push(msg);
+                    totalRecordCount++;
+                });
+
+                gvwItemGrid.rebuild();
+                document.querySelector('#listCount2').innerText = totalRecordCount;
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
     }
 
     // 세금계산서 항목 프로시저(조회결과) 저장
@@ -2467,8 +2495,8 @@
     // 배치프로그램 실행  프로시저
     const fn_set_p_common_job_run = async function (workType, jobName) {
 
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("srch-date_fr"));
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("srch-date_to"));
+        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
 
 
         var paramObj = {

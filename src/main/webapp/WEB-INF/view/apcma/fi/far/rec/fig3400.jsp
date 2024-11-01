@@ -78,7 +78,7 @@
 									</div>
 								</div>
 							</td>
-                            <th scope="row" class="th_bg">자금상태</th>
+                            <th scope="row" class="th_bg">상태</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,6 +113,7 @@
 										datepicker-mode="month"
 										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
 										style="width:100%;"
+                                        onchange="fn_payDate"
 								/>
 							</td>
                             <th scope="row" class="th_bg">거래처</th>
@@ -313,7 +314,7 @@
                                         <div id="tpgApprove">
                                             <div class="ad_tbl_top2">
                                                 <ul class="ad_tbl_count">
-                                                    <li><span>결재내역</span></li>
+                                                    <li><span>결재이력</span></li>
                                                 </ul>
                                             </div>
                                             <div>
@@ -414,7 +415,7 @@
     // Tab Data
     var jsonSubTabData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "회계처리", "targetid" : "tpgAccount", "targetvalue" : "회계처리"},
-        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "반제실적", "targetid" : "tpgApply", "targetvalue" : "반제실적" },
+        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "반제/역분개 내역", "targetid" : "tpgApply", "targetvalue" : "반제/역분개 내역" },
         { "id" : "2", "pid" : "-1", "order" : "3", "text" : "결재이력", "targetid" : "tpgApprove", "targetvalue" : "결재이력" },
     ];
 
@@ -564,7 +565,7 @@
                 , disabled: true
             },
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'182px',  style:'text-align:left'},
-            {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:left'},
+            {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
             {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'97px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -572,19 +573,19 @@
             },
             {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["부가세(￦)"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -665,7 +666,7 @@
             },
             {caption: ["지급금액"],         ref: 'PAY_AMOUNT',    type:'output',  	width:'138px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
                 , hidden: true
             },
             {caption: ["증빙유형"], 		ref: 'VOUCHER_TYPE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -758,7 +759,7 @@
             },
             {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'128px',  style:'text-align:left'},
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'177px',  style:'text-align:left'},
-            {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:left'},
+            {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
             {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
@@ -802,19 +803,19 @@
             },
             {caption: ["공급가액"],         ref: 'SUPPLY_AMOUNT',    type:'output',  	width:'130px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["부가세"],         ref: 'VAT_AMOUNT',    type:'output',  	width:'100px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
                 , hidden: true
             },
             {caption: ["실사용자"],         ref: 'PAYEE_CODE',    type:'output',  	width:'100px',  style:'text-align:left'},
@@ -873,13 +874,50 @@
         SBGridProperties.jsonref 			= 'jsonAccountList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [0],
+                sum : [13,14,15,16]
+            },
+            subtotalrow : {
+                1: {
+                    titlecol: 0,
+                    titlevalue: '합계',
+                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol: 0
+                },
+            },
+            grandtotalrow : {
+                titlecol 		: 12,
+                titlevalue		: '합계',
+                style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: true,
+        };
         SBGridProperties.columns = [
             {caption: ["ITEM_ID"], 	        ref: 'ITEM_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["KEY_ID"], 	        ref: 'KEY_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["전표유형"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '83px',
+            //{caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if(objRowData['DOC_ID']){
+                        return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+                    } else {
+                        return "";
+                    }
+                }
+            },
+            {caption: ["전표유형"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '150px',
                 typeinfo: {
                     ref			: 'jsonDocType',
                     label		: 'label',
@@ -888,7 +926,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '79px',
+            {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '100px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
                     label		: 'label',
@@ -897,8 +935,8 @@
                 }
                 , disabled: true
             },
-            {caption: ["순번"], 	        ref: 'ITEM_SEQ',    	        type:'output',  	width:'50px',  	style:'text-align:left'},
-            {caption: ["TYPE"],           ref: 'LINE_TYPE', 		        type:'combo',  	width:'75px', style:'text-align:left',
+            {caption: ["순번"], 	        ref: 'ITEM_SEQ',    	        type:'output',  	width:'60px',  	style:'text-align:right'},
+            {caption: ["TYPE"],           ref: 'LINE_TYPE', 		        type:'combo',  	width:'80px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonLineType',
                     label		: 'label',
@@ -907,7 +945,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["차/대"],           ref: 'DEBIT_CREDIT', 		        type:'combo',  	width:'50px', style:'text-align:left',
+            {caption: ["차/대"],           ref: 'DEBIT_CREDIT', 		        type:'combo',  	width:'70px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDebitCredit',
                     label		: 'label',
@@ -916,28 +954,28 @@
                 }
                 , disabled: true
             },
-            {caption: ["부가세유형코드"], 	        ref: 'VAT_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true}, // TODO : P_ACCOUNT_POPUP_Q
-            {caption: ["부가세유형"], 	        ref: 'VAT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
-            {caption: ["계정코드"], 	        ref: 'ACCOUNT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'}, // TODO : P_FIM045
-            {caption: ["계정과목명"], 	        ref: 'ACCOUNT_NAME',    	        type:'output',  	width:'170px',  	style:'text-align:left'}, // TODO : P_FIM045
-            {caption: ["차변(통화)"],         ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
+            {caption: ["부가세유형코드"], 	    ref: 'VAT_TYPE',    	   type:'output',  	width:'150px',  	style:'text-align:left', hidden: true}, // TODO : P_ACCOUNT_POPUP_Q
+            {caption: ["계정코드"], 	        ref: 'ACCOUNT_CODE',       type:'output',  	width:'100px',  	style:'text-align:left'}, // TODO : P_FIM045
+            {caption: ["부가세유형"], 	    ref: 'VAT_NAME',    	   type:'output',  	width:'150px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
+            {caption: ["계정과목명"], 	    ref: 'ACCOUNT_NAME',       type:'output',  	width:'200px',  	style:'text-align:left'}, // TODO : P_FIM045
+            {caption: ["차변(통화)"],        ref: 'ORIGINAL_DR_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
+            {caption: ["대변(통화)"],         ref: 'ORIGINAL_CR_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
+            {caption: ["차변(전표)"],         ref: 'FUNCTIONAL_DR_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
+            {caption: ["대변(전표)"],         ref: 'FUNCTIONAL_CR_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["부서"], 	        ref: 'DEPT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["원가중심점"],           ref: 'COST_CENTER_CODE', 		        type:'combo',  	width:'150px', style:'text-align:left',
+            {caption: ["부서"], 	        ref: 'DEPT_NAME',    	        type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["원가중심점"],           ref: 'COST_CENTER_CODE', 		        type:'combo',  	width:'100px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonCostCenterCode',
                     label		: 'label',
@@ -946,7 +984,8 @@
                 }
                 , disabled: true
             },
-            {caption: ["적요"], 	        ref: 'DESCRIPTION',    	        type:'output',  	width:'300px',  	style:'text-align:left'},
+            {caption: ["적요"], 	        ref: 'DESCRIPTION',    	        type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["비고"],			ref: 'ETC',			            type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["품목"], 	        ref: 'ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["단위"],           ref: 'UOM', 		        type:'combo',  	width:'75px', style:'text-align:left',
                 typeinfo: {
@@ -1121,8 +1160,36 @@
         SBGridProperties.jsonref 			= 'jsonPaymentList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [0],
+                sum : [12,13]
+            },
+            subtotalrow : {
+                1: {
+                    titlecol: 0,
+                    titlevalue: '합계',
+                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol: 0
+                },
+            },
+            grandtotalrow : {
+                titlecol 		: 6,
+                titlevalue		: '합계',
+                style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: true,
+        };
         SBGridProperties.columns = [
             {caption: ["자금id"], 	        ref: 'TREASURY_ID',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
             {caption: ["자금상태"],           ref: 'STATUS_CODE', 		        type:'combo',  	width:'69px', style:'text-align:left',
@@ -1133,12 +1200,13 @@
                     itemcount	: 10
                 }
                 , disabled: true
+                , hidden: true
             },
-            {caption: ["자금번호"], 	        ref: 'TREASURY_BATCH_NO',    	        type:'output',  	width:'186px',  	style:'text-align:left'},
+            {caption: ["자금번호"], 	        ref: 'TREASURY_BATCH_NO',    	        type:'output',  	width:'186px',  	style:'text-align:left', hidden: true},
             {caption: ["송장번호"], 	        ref: 'INVOICE_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["라인번호"], 	        ref: 'TREASURY_LINE_NUM',    	        type:'output',  	width:'66px',  	style:'text-align:left'},
+            {caption: ["라인번호"], 	        ref: 'TREASURY_LINE_NUM',    	        type:'output',  	width:'66px',  	style:'text-align:left', hidden: true},
             {caption: ["전표id"], 	        ref: 'DOC_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["전표구분"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+            {caption: ["전표유형"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '200px',
                 typeinfo: {
                     ref			: 'jsonDocType',
                     label		: 'label',
@@ -1147,8 +1215,8 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'144px',  	style:'text-align:left'},
-            {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '200px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
                     label		: 'label',
@@ -1157,17 +1225,17 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'108px',  	style:'text-align:left',
+            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'104px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["통화"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
+            {caption: ["통화"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '200px',
                 typeinfo: {
                     ref			: 'jsonCurrencyCode',
                     label		: 'label',
@@ -1176,14 +1244,15 @@
                 }
                 , disabled: true
             },
-            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:right',
+            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'220px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:right',
+            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'220px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
-            }
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["비고"], 		ref: 'ETC', 			type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
         gvwPayment = _SBGrid.create(SBGridProperties);
@@ -1196,12 +1265,16 @@
         SBGridProperties.jsonref 			= 'jsonDetailList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["APPR_ID"], 	        ref: 'APPR_ID',    	        type:'output',  	width:'60px',  	style:'text-align:left', hidden: true},
-            {caption: ["순번"], 	        ref: 'STEP_SEQ',    	        type:'output',  	width:'61px',  	style:'text-align:left'},
-            {caption: ["구분"],           ref: 'APPR_TYPE', 		        type:'combo',  	width:'60px', style:'text-align:left',
+            {caption: ["순번"], 	        ref: 'STEP_SEQ',    	        type:'output',  	width:'61px',  	style:'text-align:right'},
+            {caption: ["구분"],           ref: 'APPR_TYPE', 		        type:'combo',  	width:'200px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonApprType',
                     label		: 'label',
@@ -1210,7 +1283,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["결재구분"],           ref: 'APPR_CATEGORY', 		        type:'combo',  	width:'101px', style:'text-align:left',
+            {caption: ["결재구분"],           ref: 'APPR_CATEGORY', 		        type:'combo',  	width:'200px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonApprCategory',
                     label		: 'label',
@@ -1219,8 +1292,8 @@
                 }
                 , disabled: true
             },
-            {caption: ["부서코드"], 	        ref: 'DEPT_CODE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true}, // TODO : P_ORG004
-            {caption: ["부서명"], 	        ref: 'DEPT_NAME',    	        type:'output',  	width:'100px',  	style:'text-align:left'}, // TODO : P_ORG001
+            {caption: ["부서코드"], 	        ref: 'DEPT_CODE',    	        type:'output',  	width:'200px',  	style:'text-align:left', hidden: true}, // TODO : P_ORG004
+            {caption: ["부서명"], 	        ref: 'DEPT_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'}, // TODO : P_ORG001
             {caption: ["직책"],           ref: 'DUTY_CODE', 		        type:'combo',  	width:'76px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
@@ -1231,11 +1304,11 @@
                 , disabled: true
             },
             {caption: ["사번"], 	        ref: 'EMP_CODE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true}, // TODO : P_HRI0001
-            {caption: ["이름"], 	        ref: 'EMP_NAME',    	        type:'output',  	width:'86px',  	style:'text-align:left'}, // TODO : P_HRI0001
+            {caption: ["이름"], 	        ref: 'EMP_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'}, // TODO : P_HRI0001
             {caption: ["수임자사번"], 	        ref: 'PROXY_EMP_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["수임자명"], 	        ref: 'PROXY_EMP_NAME',    	        type:'output',  	width:'147px',  	style:'text-align:left'},
-            {caption: ["결재자명"], 	        ref: 'UPDATE_EMP_NAME',    	        type:'output',  	width:'184px',  	style:'text-align:left'},
-            {caption: ["승인결과"],           ref: 'APPR_STATUS', 		        type:'combo',  	width:'85px', style:'text-align:left',
+            {caption: ["수임자명"], 	        ref: 'PROXY_EMP_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["결재자명"], 	        ref: 'UPDATE_EMP_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["승인결과"],           ref: 'APPR_STATUS', 		        type:'combo',  	width:'200px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonApprStatus',
                     label		: 'label',
@@ -1248,8 +1321,11 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
+                , hidden: true
             },
             {caption: ["결재의견"], 	        ref: 'APPR_OPINION',    	        type:'output',  	width:'345px',  	style:'text-align:left'},
+            {caption: ["비고"], 					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
+
         ];
 
         gvwApprove = _SBGrid.create(SBGridProperties);
@@ -2291,6 +2367,43 @@
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
+    }
+
+    /**
+     * 지급일자 조회
+     */
+    var fn_payDate = function() {
+
+        let NATION_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM"));
+
+        if (NATION_CODE == ''){
+
+            SBUxMethod.set("SRCH_TXN_DATE_FROM", 			'');
+            SBUxMethod.set("SRCH_TXN_DATE_TO", 			'');
+        }
+
+        SBUxMethod.set("SRCH_TXN_DATE_FROM", 			NATION_CODE + '01');
+
+        //월별로 말일 구하기
+        let lastDate = new Date(NATION_CODE.slice(0,4),NATION_CODE.slice(4,6),0);
+        let DATE_TO = gfn_dateToYmd(lastDate);
+        SBUxMethod.set("SRCH_TXN_DATE_TO", 			DATE_TO);
+
+    }
+
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+    function fn_gridPopup1(event, doc_id) {
+        event.preventDefault();
+
+        var obj = {
+            'MENU_MOVE'		: 'Y'
+            ,'DOC_ID' 		: doc_id
+            ,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
     }
 
 </script>
