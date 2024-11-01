@@ -412,6 +412,13 @@
     	<jsp:include page="../../../com/popup/comPopFig2250.jsp"></jsp:include>
     </div>
     
+	<!-- 리포트 출력 팝업 -->
+	<div>
+		<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-comPopFig1000Report">
+		<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+	</div>	
 </body>
 
 <!-- inline scripts related to this page -->
@@ -1051,13 +1058,6 @@
   	}       
         
     /**
-     * 전표출력
-     */
-    var fn_btnPrint = function() {
-    	alert('전표출력 레포트 미작업');
-  	}       
-        
-    /**
      * 지급변경이력
      */
     var fn_btnPayLog = function() {
@@ -1088,13 +1088,6 @@
    				console.log('callback data:', data);
    			},
     	});
-  	}       
-        
-    /**
-     * 전표출력
-     */
-    var fn_btnPrint = function() {
-    	alert('전표출력 레포트 미작업');
   	}       
         
     /**
@@ -2171,6 +2164,31 @@
         window.parent.cfn_openTabSearch(json);
 	}    
     
+    /**
+     * 전표출력
+     */
+ 	const fn_btnPrint = async function() {
+ 		let Fig2200GridCheckedList = Fig2200Grid.getCheckedRows(Fig2200Grid.getColRef("CHECK_YN"), true);
+ 		let Fig2200GridCheckedRowsData = Fig2200Grid.getCheckedRowData(Fig2200Grid.getColRef("CHECK_YN"));
+
+ 		if (Fig2200GridCheckedRowsData.length < 1) {
+ 			gfn_comAlert("E0000", "전표를 선택해주세요.");
+ 			return;
+ 		}else if(Fig2200GridCheckedRowsData.length == 1){
+ 			
+ 			SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+ 			SBUxMethod.openModal('modal-comPopFig1000Report');
+ 			comPopFig1000Report({
+ 				height			: '200px'
+ 				,width			: '400px'
+ 				,param			: {
+ 					P_DOC_ID		: Fig2200GridCheckedRowsData[0].data.DOC_ID
+ 					,P_COMP_CODE	: Fig2200GridCheckedRowsData[0].data.COMP_CODE
+ 					,P_CLIENT_CODE	: gv_ma_selectedClntCd
+ 				}
+ 			});
+ 		}
+ 	}
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
