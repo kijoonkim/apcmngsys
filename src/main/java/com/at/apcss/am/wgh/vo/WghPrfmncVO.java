@@ -257,7 +257,44 @@ public class WghPrfmncVO extends ComVO {
 	 * */
 	private String wrhsSpmtType;
 
+	/*
+	 * 등급's
+	 * */
+	private String grdCd1;
+	private String grdCd2;
+	private String grdCd3;
+	private String grdCd4;
 
+	/*
+	 * 등급별수량
+	 * */
+	private int grdQntt1;
+	private int grdQntt2;
+	private int grdQntt3;
+	private int grdQntt4;
+
+	/*
+	 * 등급별입고번호
+	 * */
+	private String grdWrhsno1;
+	private String grdWrhsno2;
+	private String grdWrhsno3;
+	private String grdWrhsno4;
+	/*
+	 * 등급별입고순번
+	 * */
+	private String grdWghSn1;
+	private String grdWghSn2;
+	private String grdWghSn3;
+	private String grdWghSn4;
+	/*
+	 * 팔레트수량
+	 * */
+	private int pltQntt;
+	/*
+	 * 입고수량
+	 * */
+	private int bxQntt;
 	/**
 	 * 계량상세리스트
 	 */

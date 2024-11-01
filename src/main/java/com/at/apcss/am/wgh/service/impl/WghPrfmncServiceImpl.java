@@ -187,7 +187,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
 		BeanUtils.copyProperties(wghPrfmncVO, wrhsVO);
 		rtnObj = rawMtrWrhsService.deleteRawMtrWrhsByWghno(wrhsVO);
-		
+
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
@@ -331,5 +331,57 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghInfoMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoMngList(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> updateStrgLoctnCd(WghPrfmncVO wghPrfmncVO) throws Exception {
+		int updatedCnt = wghPrfmncMapper.updateStrgLoctnCd(wghPrfmncVO);
+		if (updatedCnt != 1) {
+			throw new EgovBizException(getMessage("E0003", "계량정보변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+		}
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateStrgLoctnCdList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
+
+		for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
+
+			HashMap<String, Object> rtnObj = new HashMap<>();
+
+			rtnObj = updateStrgLoctnCd(wghPrfmncVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			rtnObj = updateRdcdRt(wghPrfmncVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateRdcdRt(WghPrfmncVO wghPrfmncVO) throws Exception {
+		int updatedCnt = wghPrfmncMapper.updateRdcdRt(wghPrfmncVO);
+		if (updatedCnt != 1) {
+			throw new EgovBizException(getMessage("E0003", "계량정보변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+		}
+		return null;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghRcptList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptList(wghPrfmncVO);
+		return resultList;
 	}
 }
