@@ -619,8 +619,8 @@
                 , disabled: true
             },
             {caption: ["사업자번호"],         ref: 'PAYER_BIZ_REGNO',    type:'output',  	width:'107px',  style:'text-align:left',
-                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 10}
-                , format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+                , format : {type:'number', rule:'###-##-#####', emptyvalue:''}
             },
             {caption: ["거래처"],         ref: 'PAYER_NAME',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["통화코드"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
@@ -784,8 +784,8 @@
             },
             {caption: ["거래처"],         ref: 'PAYER_NAME',    type:'output',  	width:'151px',  style:'text-align:left'},
             {caption: ["사업자번호"],         ref: 'PAYER_BIZ_REGNO',    type:'output',  	width:'94px',  style:'text-align:left',
-                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 10}
-                , format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+                , format : {type:'number', rule:'###-##-#####', emptyvalue:''}
             },
             {caption: ["통화"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '74px',
                 typeinfo: {

@@ -176,6 +176,7 @@
                                                 uitype="popup"
                                                 id="APPOINT_DATE"
                                                 name="APPOINT_DATE"
+                                                date-format="yyyy-mm-dd"
                                                 class="input-sm inpt_data_reqed"
                                                 autocomplete="off"
                                                 group-id="panAppoint"

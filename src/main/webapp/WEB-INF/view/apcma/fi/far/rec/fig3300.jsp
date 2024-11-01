@@ -170,6 +170,8 @@
 							</li>
 						</ul>
 						<div class="ad_tbl_toplist">
+							<sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right; margin-right: 3px;"></sbux-button>
+							<sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right; margin-right: 3px;"></sbux-button>
 							<sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="제외처리 취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancel" style="float: right;"></sbux-button>
 							<sbux-button id="btnExclusion" name="btnExclusion" uitype="normal" text="제외처리" class="btn btn-sm btn-outline-danger" onclick="fn_exclusion" style="float: right;"></sbux-button>
 							<sbux-input id="EXCEPT_REASON" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
@@ -181,7 +183,7 @@
 								<div class="dropdown-menu" aria-labelledby="EXCEPT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
 								</div>
 							</div>
-							<span style="float: right;">제외사유</span>
+							<span style="float: right; padding-top: 7px;">제외사유</span>
 						</div>
 					</div>
 					<div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
@@ -327,76 +329,86 @@
 			{caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-				, disabled: true
+
 			},
-			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'output',  	width:'189px',  style:'text-align:left'},
+			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'input',  	width:'189px',  style:'text-align:left'},
 			{caption: ["발급일자"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-				, disabled: true
+
 			},
 			{caption: ["전송일자"],       ref: 'SEND_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-				, disabled: true
+
 				, hidden: true
 			},
-			{caption: ["공급자사업자번호"],         ref: 'SELLER_REG_NO',    type:'output',  	width:'120px',  style:'text-align:left',
-				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 10}
-				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			{caption: ["공급자사업자번호"],         ref: 'SELLER_REG_NO',    type:'input',  	width:'120px',  style:'text-align:left',
+				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
+
 			},
-			{caption: ["종사업장번호"],         ref: 'SELLER_SUB_REG_NO',    type:'output',  	width:'88px',  style:'text-align:left'},
-			{caption: ["구분"],         ref: 'RID_GUBUN',    type:'output',  	width:'80px',  style:'text-align:left'},
+			{caption: ["종사업장번호"],         ref: 'SELLER_SUB_REG_NO',    type:'input',  	width:'88px',  style:'text-align:left'},
+			{caption: ["구분"],         ref: 'RID_GUBUN',    type:'input',  	width:'80px',  style:'text-align:left'},
 			{caption: ["DOC_ID"],         ref: 'DOC_ID',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
-			{caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'120px',  style:'text-align:left'},
+			{caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'120px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
 			{caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'160px',  style:'text-align:left'},
-			{caption: ["거래처코드"],         ref: 'CS_CODE',    type:'output',  	width:'90px',  style:'text-align:left'},
-			{caption: ["상호"],         ref: 'SELLER_NAME',    type:'output',  	width:'106px',  style:'text-align:left'},
-			{caption: ["대표자명"],         ref: 'SELLER_OWNER',    type:'output',  	width:'75px',  style:'text-align:left'},
-			{caption: ["공급자주소"],         ref: 'SELLER_ADDRESS',    type:'output',  	width:'138px',  style:'text-align:left'},
-			{caption: ["공급받는자사업자번호"],         ref: 'BUYER_REG_NO',    type:'output',  	width:'150px',  style:'text-align:left',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}
-				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			{caption: ["거래처코드"],         ref: 'CS_CODE',    type:'input',  	width:'90px',  style:'text-align:left'},
+			{caption: ["상호"],         ref: 'SELLER_NAME',    type:'input',  	width:'106px',  style:'text-align:left'},
+			{caption: ["대표자명"],         ref: 'SELLER_OWNER',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["공급자주소"],         ref: 'SELLER_ADDRESS',    type:'input',  	width:'138px',  style:'text-align:left'},
+			{caption: ["공급받는자사업자번호"],         ref: 'BUYER_REG_NO',    type:'input',  	width:'150px',  style:'text-align:left',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 12}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
+
 			},
-			{caption: ["종사업자번호"],         ref: 'BUYER_SUB_REG_NO',    type:'output',  	width:'88px',  style:'text-align:left',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}
-				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			{caption: ["종사업자번호"],         ref: 'BUYER_SUB_REG_NO',    type:'input',  	width:'88px',  style:'text-align:left',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 12}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
+
 			},
-			{caption: ["구매자상호"],         ref: 'BUYER_NAME',    type:'output',  	width:'112px',  style:'text-align:left'},
-			{caption: ["공급자업종"],         ref: 'SELLER_BIZ_CATEGORY',    type:'output',  	width:'75px',  style:'text-align:left'},
-			{caption: ["공급자업태"],         ref: 'SELLER_BIZ_ITEM',    type:'output',  	width:'75px',  style:'text-align:left'},
-			{caption: ["구매자대표자명"],         ref: 'BUYER_OWNER',    type:'output',  	width:'101px',  style:'text-align:left'},
-			{caption: ["구매자주소"],         ref: 'BUYER_ADDRESS',    type:'output',  	width:'174px',  style:'text-align:left'},
-			{caption: ["합계금액"],         ref: 'TOTAL_AMT',    type:'output',  	width:'116px',  style:'text-align:right',
+			{caption: ["구매자상호"],         ref: 'BUYER_NAME',    type:'input',  	width:'112px',  style:'text-align:left'},
+			{caption: ["공급자업종"],         ref: 'SELLER_BIZ_CATEGORY',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["공급자업태"],         ref: 'SELLER_BIZ_ITEM',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["구매자대표자명"],         ref: 'BUYER_OWNER',    type:'input',  	width:'101px',  style:'text-align:left'},
+			{caption: ["구매자주소"],         ref: 'BUYER_ADDRESS',    type:'input',  	width:'174px',  style:'text-align:left'},
+			{caption: ["합계금액"],         ref: 'TOTAL_AMT',    type:'input',  	width:'116px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["공급가액"],         ref: 'TOTAL_TAXABLE_AMT',    type:'output',  	width:'105px',  style:'text-align:right',
+			{caption: ["공급가액"],         ref: 'TOTAL_TAXABLE_AMT',    type:'input',  	width:'105px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["세액"],         ref: 'TOTAL_VAT_AMT',    type:'output',  	width:'106px',  style:'text-align:right',
+			{caption: ["세액"],         ref: 'TOTAL_VAT_AMT',    type:'input',  	width:'106px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["전표총금액"],         ref: 'DOC_TOTAL_AMT',    type:'output',  	width:'111px',  style:'text-align:right',
+			{caption: ["전표총금액"],         ref: 'DOC_TOTAL_AMT',    type:'input',  	width:'111px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["전표공급가액"],         ref: 'DOC_SUPPLY_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
+			{caption: ["전표공급가액"],         ref: 'DOC_SUPPLY_AMT',    type:'input',  	width:'102px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["전표부가세"],         ref: 'DOC_VAT_AMT',    type:'output',  	width:'105px',  style:'text-align:right',
+			{caption: ["전표부가세"],         ref: 'DOC_VAT_AMT',    type:'input',  	width:'105px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
 			{caption: ["차이여부"],			    ref: 'DIFF_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
 				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+
 			},
-			{caption: ["구매자업종"],         ref: 'BUYER_BIZ_CATEGORY',    type:'output',  	width:'114px',  style:'text-align:left'},
-			{caption: ["구매자업태"],         ref: 'BUYER_BIZ_ITEM',    type:'output',  	width:'111px',  style:'text-align:left'},
-			{caption: ["구매자유형"],         ref: 'BUYER_BIZ_TYPE',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["구매자업종"],         ref: 'BUYER_BIZ_CATEGORY',    type:'input',  	width:'114px',  style:'text-align:left'},
+			{caption: ["구매자업태"],         ref: 'BUYER_BIZ_ITEM',    type:'input',  	width:'111px',  style:'text-align:left'},
+			{caption: ["구매자유형"],         ref: 'BUYER_BIZ_TYPE',    type:'input',  	width:'75px',  style:'text-align:left'},
 			{caption: ["제외코드"], 		ref: 'EXCEPT_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
 				typeinfo: {
 					ref			: 'jsonExceptCode',
@@ -404,9 +416,9 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
-			{caption: ["제외사유"],         ref: 'EXCEPT_REASON',    type:'output',  	width:'130px',  style:'text-align:left'},
+			{caption: ["제외사유"],         ref: 'EXCEPT_REASON',    type:'input',  	width:'130px',  style:'text-align:left'},
 			{caption: ["전자세금계산서분류"], 		ref: 'EINVOICE_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '120px',
 				typeinfo: {
 					ref			: 'jsonEinvoiceCategory',
@@ -414,7 +426,7 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
 			{caption: ["전자세금계산서종류"], 		ref: 'EINVOICE_TYPE',   	    type:'combo', style:'text-align:left' ,width: '120px',
 				typeinfo: {
@@ -423,7 +435,7 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
 			{caption: ["정발행/역발행"], 		ref: 'MATCH_METHOD',   	    type:'combo', style:'text-align:left' ,width: '120px',
 				typeinfo: {
@@ -432,10 +444,10 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
-			{caption: ["발급유형"],         ref: 'ISSUE_TYPE',    type:'output',  	width:'75px',  style:'text-align:left'},
-			{caption: ["비고"],         ref: 'NOTE1',    type:'output',  	width:'155px',  style:'text-align:left'},
+			{caption: ["발급유형"],         ref: 'ISSUE_TYPE',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["비고"],         ref: 'NOTE1',    type:'input',  	width:'155px',  style:'text-align:left'},
 			{caption: ["OTHER_DESC"],         ref: 'NOTE2',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["영수/청구 구분"], 		ref: 'RECEIPT_OR_BILL',   	    type:'combo', style:'text-align:left' ,width: '90px',
 				typeinfo: {
@@ -444,32 +456,32 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
-			{caption: ["공급자이메일"],         ref: 'SELLER_EMAIL',    type:'output',  	width:'125px',  style:'text-align:left'},
-			{caption: ["구매자이메일1"],         ref: 'BUYER_EMAIL1',    type:'output',  	width:'121px',  style:'text-align:left'},
-			{caption: ["구매자이메일2"],         ref: 'BUYER_EMAIL2',    type:'output',  	width:'109px',  style:'text-align:left'},
+			{caption: ["공급자이메일"],         ref: 'SELLER_EMAIL',    type:'input',  	width:'125px',  style:'text-align:left'},
+			{caption: ["구매자이메일1"],         ref: 'BUYER_EMAIL1',    type:'input',  	width:'121px',  style:'text-align:left'},
+			{caption: ["구매자이메일2"],         ref: 'BUYER_EMAIL2',    type:'input',  	width:'109px',  style:'text-align:left'},
 			{caption: ["품목일자"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-				, disabled: true
+
 			},
 			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'output',  	width:'157px',  style:'text-align:left', hidden: true},
 			{caption: ["품목규격"],         ref: 'ITEM_SPEC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'output',  	width:'86px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
 				, hidden: true
 			},
 			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'output',  	width:'93px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
 				, hidden: true
 			},
 			{caption: ["품목가액"],         ref: 'ITEM_VAT_AMT',    type:'output',  	width:'93px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
 				, hidden: true
 			},
 			{caption: ["품목비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -496,27 +508,31 @@
 		SBGridProperties.allowcopy = true; //복사
 		SBGridProperties.extendlastcol 		= 'scroll';
 		SBGridProperties.columns = [
-			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'output',  	width:'190px',  style:'text-align:left'},
-			{caption: ["품목순번"],         ref: 'SEQ',    type:'output',  	width:'60px',  style:'text-align:left'},
-			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'output',  	width:'150px',  style:'text-align:left'},
-			{caption: ["규격"],         ref: 'ITEM_SPEC',    type:'output',  	width:'100px',  style:'text-align:left'},
-			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'output',  	width:'70px',  style:'text-align:right',
+			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'input',  	width:'190px',  style:'text-align:left'},
+			{caption: ["품목순번"],         ref: 'SEQ',    type:'input',  	width:'60px',  style:'text-align:left'},
+			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'input',  	width:'150px',  style:'text-align:left'},
+			{caption: ["규격"],         ref: 'ITEM_SPEC',    type:'input',  	width:'100px',  style:'text-align:left'},
+			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'input',  	width:'70px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'output',  	width:'70px',  style:'text-align:right',
+			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'input',  	width:'70px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'output',  	width:'100px',  style:'text-align:right',
+			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'input',  	width:'100px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["품목세액"],         ref: 'ITEM_VAT_AMT',    type:'output',  	width:'100px',  style:'text-align:right',
+			{caption: ["품목세액"],         ref: 'ITEM_VAT_AMT',    type:'input',  	width:'100px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, format : {type:'number', rule:'#,###'}
+
 			},
-			{caption: ["비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'100px',  style:'text-align:left'},
+			{caption: ["비고"],         ref: 'ITEM_DESC',    type:'input',  	width:'100px',  style:'text-align:left'},
 			{caption: ["원가중심점코드"], 		ref: 'COST_CENTER_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
 				typeinfo: {
 					ref			: 'jsonCostCenterCode',
@@ -524,14 +540,14 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-				, disabled: true
+
 			},
 			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'output',  	width:'75px',  	style:'text-align:left'},
+			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'input',  	width:'75px',  	style:'text-align:left'},
 			{caption: ["프로젝트코드"],         ref: 'PROJECT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
 			{caption: ["계정과목코드"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
 		];
 
 		gvwItem = _SBGrid.create(SBGridProperties);
@@ -553,6 +569,12 @@
 	const fn_gvwListDblclick = async function() {
 		var nRow = gvwList.getRow();
 		var nCol = gvwList.getCol();
+		var rowStatus = gvwList.getRowStatus(nRow);
+
+		if((rowStatus == 1 || rowStatus == 3) && (nCol != 53 || nCol != 54)) {
+			console.log(nRow, nCol, rowStatus);
+			gvwList.editCell();
+		}
 
 		if(nCol == 53) {
 			fn_findEmpCodeForGvwList(nRow, nCol);
@@ -699,87 +721,100 @@
 		var nRow = gvwList.getRow();
 		var nCol = gvwList.getCol();
 		var rowData = gvwList.getRowData(nRow);
+		var rowStatus = gvwList.getRowStatus(nRow);
 
 		if(nCol == 53 || nCol == 54) return;
+		if(rowStatus == 1 || rowStatus == 3) return;
 
 		if(gfn_nvl(rowData) == "") return;
 
-		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
-		let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-		let DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
-		let CS_BIZ_REGNO = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
-		let APPROVAL_NO = gfn_nvl(rowData.APPROVAL_NO);
-		let ITEM_TAXABLE_AMT = gfn_nvl(SBUxMethod.get("SRCH_AMT"));
-		let CS_NAME = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME"));
-		let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-		let GUBUN = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
+		if(nCol == gvwList.getColRef("DOC_NAME")) {
+			var param = {
+				WORK_TYPE : "VIEW",
+				DOC_ID : gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID")),
+				target : "MA_A20_030_020_150"
+			};
 
-		var paramObj = {
-			V_P_DEBUG_MODE_YN	: '',
-			V_P_LANG_ID		: '',
-			V_P_COMP_CODE		: gv_ma_selectedApcCd,
-			V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-			V_P_FI_ORG_CODE : FI_ORG_CODE,
-			V_P_DATE_FR : DATE_FR,
-			V_P_DATE_TO : DATE_TO,
-			V_P_CS_BIZ_REGNO : CS_BIZ_REGNO,
-			V_P_APPROVAL_NO : APPROVAL_NO,
-			V_P_ITEM_TAXABLE_AMT : ITEM_TAXABLE_AMT,
-			V_P_CS_NAME : CS_NAME,
-			V_P_EMP_CODE : EMP_CODE,
-			V_P_GUBUN : GUBUN,
-			V_P_FORM_ID		: p_formId,
-			V_P_MENU_ID		: p_menuId,
-			V_P_PROC_ID		: '',
-			V_P_USERID			: '',
-			V_P_PC				: ''
-		};
+			let json = JSON.stringify(param);
+			window.parent.cfn_openTabSearch(json);
+		} else {
+			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+			let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+			let DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+			let CS_BIZ_REGNO = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
+			let APPROVAL_NO = gfn_nvl(rowData.APPROVAL_NO);
+			let ITEM_TAXABLE_AMT = gfn_nvl(SBUxMethod.get("SRCH_AMT"));
+			let CS_NAME = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME"));
+			let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+			let GUBUN = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
-		const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3300List.do", {
-			getType				: 'json',
-			workType			: 'ITEM',
-			cv_count			: '3',
-			params				: gfnma_objectToString(paramObj)
-		});
+			var paramObj = {
+				V_P_DEBUG_MODE_YN: '',
+				V_P_LANG_ID: '',
+				V_P_COMP_CODE: gv_ma_selectedApcCd,
+				V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+				V_P_FI_ORG_CODE: FI_ORG_CODE,
+				V_P_DATE_FR: DATE_FR,
+				V_P_DATE_TO: DATE_TO,
+				V_P_CS_BIZ_REGNO: CS_BIZ_REGNO,
+				V_P_APPROVAL_NO: APPROVAL_NO,
+				V_P_ITEM_TAXABLE_AMT: ITEM_TAXABLE_AMT,
+				V_P_CS_NAME: CS_NAME,
+				V_P_EMP_CODE: EMP_CODE,
+				V_P_GUBUN: GUBUN,
+				V_P_FORM_ID: p_formId,
+				V_P_MENU_ID: p_menuId,
+				V_P_PROC_ID: '',
+				V_P_USERID: '',
+				V_P_PC: ''
+			};
 
-		const listData = await postJsonPromiseForList;
+			const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3300List.do", {
+				getType: 'json',
+				workType: 'ITEM',
+				cv_count: '3',
+				params: gfnma_objectToString(paramObj)
+			});
 
-		try {
-			if (_.isEqual("S", listData.resultStatus)) {
-				jsonItemList.length = 0;
-				listData.cv_3.forEach((item, index) => {
-					const msg = {
-						ROW_STATUS : item.ROW_STATUS,
-						APPROVAL_NO : item.APPROVAL_NO,
-						SEQ : item.SEQ,
-						ITEM_NAME : item.ITEM_NAME,
-						ITEM_SPEC : item.ITEM_SPEC,
-						ITEM_QTY : item.ITEM_QTY,
-						ITEM_UNIT_PRICE : item.ITEM_UNIT_PRICE,
-						ITEM_TAXABLE_AMT : item.ITEM_TAXABLE_AMT,
-						ITEM_VAT_AMT : item.ITEM_VAT_AMT,
-						ITEM_DESC : item.ITEM_DESC,
-						COST_CENTER_CODE : item.COST_CENTER_CODE,
-						DEPT_CODE : item.DEPT_CODE,
-						DEPT_NAME : item.DEPT_NAME,
-						PROJECT_CODE : item.PROJECT_CODE,
-						PROJECT_NAME : item.PROJECT_NAME,
-						ACCOUNT_CODE : item.ACCOUNT_CODE,
-						ACCOUNT_NAME : item.ACCOUNT_NAME,
-					}
-					jsonItemList.push(msg);
-				});
-				gvwItem.rebuild();
-			} else {
-				alert(listData.resultMessage);
+			const listData = await postJsonPromiseForList;
+
+			try {
+				if (_.isEqual("S", listData.resultStatus)) {
+					jsonItemList.length = 0;
+					listData.cv_3.forEach((item, index) => {
+						const msg = {
+							ROW_STATUS: item.ROW_STATUS,
+							APPROVAL_NO: item.APPROVAL_NO,
+							SEQ: item.SEQ,
+							ITEM_NAME: item.ITEM_NAME,
+							ITEM_SPEC: item.ITEM_SPEC,
+							ITEM_QTY: item.ITEM_QTY,
+							ITEM_UNIT_PRICE: item.ITEM_UNIT_PRICE,
+							ITEM_TAXABLE_AMT: item.ITEM_TAXABLE_AMT,
+							ITEM_VAT_AMT: item.ITEM_VAT_AMT,
+							ITEM_DESC: item.ITEM_DESC,
+							COST_CENTER_CODE: item.COST_CENTER_CODE,
+							DEPT_CODE: item.DEPT_CODE,
+							DEPT_NAME: item.DEPT_NAME,
+							PROJECT_CODE: item.PROJECT_CODE,
+							PROJECT_NAME: item.PROJECT_NAME,
+							ACCOUNT_CODE: item.ACCOUNT_CODE,
+							ACCOUNT_NAME: item.ACCOUNT_NAME,
+						}
+						jsonItemList.push(msg);
+					});
+					gvwItem.rebuild();
+				} else {
+					alert(listData.resultMessage);
+				}
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
-
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -1032,18 +1067,18 @@
 
 								list.forEach((item, index) => {
 									if(gfn_nvl(item.APPROVAL_NO) != "") {
-										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
-											strmindate = item.ISSUE_DATE.replaceAll("-", "");
+										if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) < parseInt(strmindate)) {
+											strmindate = item.ISSUE_DATE.replace(/-/gi, "");
 										}
 
-										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
-											strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+										if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) > parseInt(strmaxdate)) {
+											strmaxdate = item.ISSUE_DATE.replace(/-/gi, "");
 										}
 
-										item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
-										item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
-										item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
-										item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+										item["WRITE_DATE"] = item.WRITE_DATE.replace(/-/gi, "");
+										item["ISSUE_DATE"] = item.ISSUE_DATE.replace(/-/gi, "");
+										item["SEND_DATE"] = item.SEND_DATE.replace(/-/gi, "");
+										item["TXN_DATE"] = item.TXN_DATE.replace(/-/gi, "");
 										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
 										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
 
@@ -1135,11 +1170,6 @@
 		fn_save();
 	}
 
-	// 삭제
-	function cfn_del() {
-		fn_delete();
-	}
-
 	// 조회
 	function cfn_search() {
 		fn_search();
@@ -1165,7 +1195,7 @@
 					V_P_APPROVAL_NO : item.data.APPROVAL_NO,
 					V_P_ISSUE_DATE : item.data.ISSUE_DATE,
 					V_P_SEND_DATE : item.data.SEND_DATE,
-					V_P_SELLER_REG_NO : item.data.SELLER_REG_NO.replaceAll("-", ""),
+					V_P_SELLER_REG_NO : item.data.SELLER_REG_NO.replace(/-/gi, ""),
 					V_P_SELLER_SUB_REG_NO : item.data.SELLER_SUB_REG_NO,
 					V_P_CS_CODE : item.data.CS_CODE,
 					V_P_SELLER_NAME : item.data.SELLER_NAME,
@@ -1173,7 +1203,7 @@
 					V_P_SELLER_ADDRESS : item.data.SELLER_ADDRESS,
 					V_P_SELLER_BIZ_CATEGORY : item.data.SELLER_BIZ_CATEGORY,
 					V_P_SELLER_BIZ_ITEM : item.data.SELLER_BIZ_ITEM,
-					V_P_BUYER_REG_NO : item.data.BUYER_REG_NO.replaceAll("-", ""),
+					V_P_BUYER_REG_NO : item.data.BUYER_REG_NO.replace(/-/gi, ""),
 					V_P_BUYER_SUB_REG_NO : item.data.BUYER_SUB_REG_NO,
 					V_P_BUYER_NAME : item.data.BUYER_NAME,
 					V_P_BUYER_OWNER : item.data.BUYER_OWNER,
@@ -1195,7 +1225,7 @@
 					IV_P_BUYER_EMAIL1 : item.data._BUYER_EMAIL1,
 					V_P_BUYER_EMAIL2 : item.data.BUYER_EMAIL2,
 					V_P_ACCOUNT_EMP_CODE : item.data.ACCOUNT_EMP_CODE,
-					V_P_TXN_DATE : item.data.TXN_DATE.replaceAll("-", ""),
+					V_P_TXN_DATE : item.data.TXN_DATE.replace(/-/gi, ""),
 					V_P_DOC_ID : item.data.DOC_ID,
 					V_P_FORM_ID : p_formId,
 					V_P_MENU_ID : p_menuId,
@@ -1308,7 +1338,7 @@
 					V_P_APPROVAL_NO : data.APPROVAL_NO,
 					V_P_ISSUE_DATE : data.ISSUE_DATE,
 					V_P_SEND_DATE : data.SEND_DATE,
-					V_P_SELLER_REG_NO : data.SELLER_REG_NO.replaceAll("-", ""),
+					V_P_SELLER_REG_NO : data.SELLER_REG_NO.replace(/-/gi, ""),
 					V_P_SELLER_SUB_REG_NO : data.SELLER_SUB_REG_NO,
 					V_P_CS_CODE : data.CS_CODE,
 					V_P_SELLER_NAME : data.SELLER_NAME,
@@ -1316,7 +1346,7 @@
 					V_P_SELLER_ADDRESS : data.SELLER_ADDRESS,
 					V_P_SELLER_BIZ_CATEGORY : data.SELLER_BIZ_CATEGORY,
 					V_P_SELLER_BIZ_ITEM : data.SELLER_BIZ_ITEM,
-					V_P_BUYER_REG_NO : data.BUYER_REG_NO.replaceAll("-", ""),
+					V_P_BUYER_REG_NO : data.BUYER_REG_NO.replace(/-/gi, ""),
 					V_P_BUYER_SUB_REG_NO : data.BUYER_SUB_REG_NO,
 					V_P_BUYER_NAME : data.BUYER_NAME,
 					V_P_BUYER_OWNER : data.BUYER_OWNER,
@@ -1338,7 +1368,7 @@
 					IV_P_BUYER_EMAIL1 : data._BUYER_EMAIL1,
 					V_P_BUYER_EMAIL2 : data.BUYER_EMAIL2,
 					V_P_ACCOUNT_EMP_CODE : data.ACCOUNT_EMP_CODE,
-					V_P_TXN_DATE : data.TXN_DATE.replaceAll("-", ""),
+					V_P_TXN_DATE : data.TXN_DATE.replace(/-/gi, ""),
 					V_P_DOC_ID : data.DOC_ID,
 					V_P_FORM_ID : p_formId,
 					V_P_MENU_ID : p_menuId,
@@ -1675,7 +1705,7 @@
 					V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
 					V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
 					V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
-					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replace(/-/gi, "")),
 					V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
 					V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
 					V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
@@ -1683,7 +1713,7 @@
 					V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
 					V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
 					V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
-					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replace(/-/gi, "")),
 					V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
 					V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
 					V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
@@ -1705,7 +1735,7 @@
 					IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
 					V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
 					V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
-					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replace(/-/gi, "")),
 					V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
 					V_P_FORM_ID : p_formId,
 					V_P_MENU_ID : p_menuId,
@@ -2008,7 +2038,7 @@
 					V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
 					V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
 					V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
-					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replace(/-/gi, "")),
 					V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
 					V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
 					V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
@@ -2016,7 +2046,7 @@
 					V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
 					V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
 					V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
-					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replace(/-/gi, "")),
 					V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
 					V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
 					V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
@@ -2038,7 +2068,7 @@
 					IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
 					V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
 					V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
-					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replace(/-/gi, "")),
 					V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
 					V_P_FORM_ID : p_formId,
 					V_P_MENU_ID : p_menuId,
@@ -2186,6 +2216,88 @@
 				console.error("failed", e.message);
 				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
+		}
+	}
+
+	// 행 추가
+	const fn_addRow = async function() {
+		let rowVal = gvwList.getRow();
+
+		var paramObj = {
+			V_P_DEBUG_MODE_YN			: '',
+			V_P_LANG_ID					: '',
+			V_P_COMP_CODE				: gv_ma_selectedApcCd,
+			V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
+			V_P_TAX_SITE_CODE			: '',
+			V_P_TAX_SITE_NAME			: '',
+			V_P_BIZ_REGNO				: '',
+			V_P_FORM_ID					: p_formId,
+			V_P_MENU_ID					: p_menuId,
+			V_P_PROC_ID					: '',
+			V_P_USERID					: '',
+			V_P_PC						: ''
+		};
+		const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1100.do", {
+			getType: 'json',
+			workType: 'Q',
+			cv_count: '2',
+			params: gfnma_objectToString(paramObj)
+		});
+		const data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				let dateTime = gfn_getDateTime().replace(/[-: ]/g, '');
+				let guid = gfnma_generateUUID().replace(/-/g, '').slice(-5);
+
+				if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+					gvwList.addRow(true, {
+						FI_ORG_CODE : gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")),
+						APPROVAL_NO : 'tmp' + dateTime + guid + '01',
+						WRITE_DATE : gfn_dateToYmd(new Date()),
+						ISSUE_DATE : gfn_dateToYmd(new Date()),
+						SEND_DATE : gfn_dateToYmd(new Date()),
+						RECEIPT_OR_BILL : '01',
+						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
+						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
+						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
+						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replaceAll("\,", "&#44;"),
+					});
+				}else{
+					gvwList.insertRow(rowVal, 'below', {
+						FI_ORG_CODE : gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")),
+						APPROVAL_NO : 'tmp' + dateTime + guid + '01',
+						WRITE_DATE : gfn_dateToYmd(new Date()),
+						ISSUE_DATE : gfn_dateToYmd(new Date()),
+						SEND_DATE : gfn_dateToYmd(new Date()),
+						RECEIPT_OR_BILL : '01',
+						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
+						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
+						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
+						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replaceAll("\,", "&#44;"),
+					});
+				}
+			} else {
+				alert(data.resultMessage);
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001"); //	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	// 행삭제
+	const fn_deleteRow = async function () {
+		let rowVal = gvwList.getRow();
+
+		if (rowVal == -1) {
+			gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+			return;
+		} else {
+			gvwList.deleteRow(rowVal);
 		}
 	}
 
