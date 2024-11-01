@@ -172,12 +172,9 @@
 			if(gv_userType == "00" || gv_userType == "01" || gv_userType == "02"){
 				SBUxMethod.show("bbsDtl-btn-btnDelete");//삭제버튼
 				SBUxMethod.show("bbsDtl-btn-btnEdit");//수정버튼
-				SBUxMethod.show("bbsDtl-btn-btnSaveAns");//답변저장 버튼
-				this.fn_editAns();
 			}else{
 				SBUxMethod.hide("bbsDtl-btn-btnDelete");//삭제버튼
 				SBUxMethod.hide("bbsDtl-btn-btnEdit");//수정버튼
-				SBUxMethod.hide("bbsDtl-btn-btnSaveAns");//답변저장 버튼
 			}
 
 			//게시글 구분
