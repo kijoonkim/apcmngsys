@@ -191,7 +191,7 @@
     </div>
 <!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" callback-after-close="fn_search"></sbux-modal>
     </div>
     <div id="body-modal-compopfim3420">
     	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
@@ -1017,9 +1017,6 @@
                 ,p_doc_id	: gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE"))
                 ,p_doc_type	: "HR"
             }
-            ,callbackEvent	: function (data){
-                fn_search();
-            },
         });
     }
 

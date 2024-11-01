@@ -991,7 +991,7 @@
 
     <!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" callback-after-close="fn_search"></sbux-modal>
     </div>
     <div id="body-modal-compopfim3420">
         <jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
@@ -1677,8 +1677,26 @@
                 , "TOTAL_AMT", "TOTAL_TAXABLE_AMT", "TOTAL_VAT_AMT", "EINVOICE_CATEGORY", "EINVOICE_CATEGORY_NAME", "ACCOUNT_EMP_NAME", "VOUCHER_TYPE", "CS_CODE", "CS_NAME"]
             , tableColumnWidths: ["100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('APPROVAL_NO', data.APPROVAL_NO);
-                SBUxMethod.set('VOUCHER_TYPE', data.VOUCHER_TYPE);
+                SBUxMethod.set('WRITE_DATE', gfn_nvl(data.WRITE_DATE));
+                SBUxMethod.set('APPROVAL_NO', gfn_nvl(data.APPROVAL_NO));
+                SBUxMethod.set('BIZ_REGNO', gfn_nvl(data.BUYER_REG_NO));
+                SBUxMethod.set('DOC_AMT', gfn_nvl(data.TOTAL_AMT));
+                SBUxMethod.set('SUPPLY_AMT', gfn_nvl(data.TOTAL_TAXABLE_AMT, 0));
+                SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOTAL_VAT_AMT, 0));
+                SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOTAL_VAT_AMT, 0));
+                SBUxMethod.set('VOUCHER_TYPE', gfn_nvl(data.VOUCHER_TYPE));
+                SBUxMethod.set('CS_CODE', gfn_nvl(data.CS_CODE));
+                SBUxMethod.set('CS_NAME', gfn_nvl(data.CS_NAME));
+                SBUxMethod.set('TXN_STOP_YN', gfn_nvl(data.TXN_STOP_YN));
+                SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CODE));
+                SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NAME));
+                SBUxMethod.set('PAY_METHOD', gfn_nvl(data.PAY_METHOD));
+                SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CURRENCY_CODE));
+                SBUxMethod.set('BANK_ACCOUNT_SEQ', gfn_nvl(data.BANK_ACCOUNT_SEQ));
+                SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
+                SBUxMethod.set('WITHHOLD_TAX_YN', gfn_nvl(data.WITHHOLD_TAX_YN));
+                SBUxMethod.set('STEEL_SCRAP_PAY_YN', gfn_nvl(data.STEEL_SCRAP_PAY_YN));
+                SBUxMethod.set('TXN_STOP_REASON', gfn_nvl(data.TXN_STOP_REASON));
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
@@ -6258,9 +6276,6 @@
                 ,p_doc_id	: gfn_nvl(SBUxMethod.get("DOC_ID"))
                 ,p_doc_type	: gfn_nvl(SBUxMethod.get("DOC_TYPE"))
             }
-            ,callbackEvent	: function (data){
-                fn_search();
-            },
         });
     }
 
