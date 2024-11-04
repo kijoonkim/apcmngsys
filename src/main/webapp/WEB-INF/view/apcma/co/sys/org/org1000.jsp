@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -419,7 +419,7 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		
+		console.log('gv_selectedUserType ==>', gv_selectedUserType);
         document.getElementById('btnChangeCompLogo').addEventListener('click', function() {
         	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
     		if(COMP_CODE == ''){
@@ -536,26 +536,40 @@
     	   params	: gfnma_objectToString(paramObj)
        });
        const data = await postJsonPromise;
-console.log('paramObj ==> ', paramObj);       
-console.log('data ==> ', data);       
        try {
     	   if (_.isEqual("S", data.resultStatus)) {
 				/** @type {number} **/
 				let totalRecordCount = 0;
 				masterGrid.length = 0;
-				data.cv_1.forEach((item, index) => {
-					const msg = {
-							COMP_CODE			: gfn_nvl(item.COMP_CODE),
-							COMP_NAME			: gfn_nvl(item.COMP_NAME),
-							CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
-				 	}
-					jsonMasterList.push(msg);
-					totalRecordCount++;
-
-				});
+				
+				//전체 관리지라면 법인정보 전부 다 보이게
+				if(gv_selectedUserType == '00'){
+					data.cv_1.forEach((item, index) => {
+						const msg = {
+								COMP_CODE			: gfn_nvl(item.COMP_CODE),
+								COMP_NAME			: gfn_nvl(item.COMP_NAME),
+								CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
+					 	}
+						jsonMasterList.push(msg);
+						totalRecordCount++;
+					});
+				//전체 관리지가 아니라면 본인이 속한 법인정보만 보이게
+				}else{
+					data.cv_1.forEach((item, index) => {
+						if(gv_ma_selectedApcCd == item.COMP_CODE){
+							const msg = {
+									COMP_CODE			: gfn_nvl(item.COMP_CODE),
+									COMP_NAME			: gfn_nvl(item.COMP_NAME),
+									CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
+						 	}
+							jsonMasterList.push(msg);
+							totalRecordCount++;
+						}
+					});
+				}
+				
 				masterGrid.rebuild();
 				document.querySelector('#listCount').innerText = totalRecordCount;
-				
                 if(jsonMasterList.length > 0) {
                 	masterGrid.clickRow(1);
                 }
@@ -572,6 +586,15 @@ console.log('data ==> ', data);
     	   gfn_comAlert("E0001"); //	E0001	오류가 발생하였습니다.
     	}
     }
+    
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	console.log('gv_selectedUserType ==>', gv_selectedUserType);
+    	gfnma_uxDataClear('#srchArea1');
+    }
+    
     const fn_searchSubTable = async function() {
     	
        // 법인정보 테이블 초기화
@@ -604,8 +627,6 @@ console.log('data ==> ', data);
     	   params: gfnma_objectToString(paramObj)
        });
        const data = await postJsonPromise;
-       console.log('fn_searchSubTable paramObj ==>', paramObj);
-       console.log('fn_searchSubTable data ==>', data);
        try {
     	   if (_.isEqual("S", data.resultStatus)) {
 // 				await fn_setAcctRuleCode( gfn_nvl(data.cv_1[0].COMP_CODE) );
@@ -623,35 +644,34 @@ console.log('data ==> ', data);
     	}
     }
 
-    const fn_setAcctRuleCode = async function(compCode){
-    	if(compCode == ''){
-    		return;
-    	}
-        gfnma_multiSelectInit({
-            target			: ['#ACCT_RULE_CODE'],
-            compCode		: compCode,
-            clientCode		: gv_ma_selectedClntCd,
-            bizcompId		: 'L_FIM054',
-            whereClause		: '',
-            formId			: p_formId,
-            menuId			: p_menuId,
-            selectValue		: '',
-            dropType		: 'up', // up, down
-            dropAlign		: 'left', // left, right
-            colValue		: 'SUB_CODE',
-            colLabel		: 'CODE_NAME',
-            columns: [
-            	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
-                { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
-            ]
-        })
-    }
+//     const fn_setAcctRuleCode = async function(compCode){
+//     	if(compCode == ''){
+//     		return;
+//     	}
+//         gfnma_multiSelectInit({
+//             target			: ['#ACCT_RULE_CODE'],
+//             compCode		: compCode,
+//             clientCode		: gv_ma_selectedClntCd,
+//             bizcompId		: 'L_FIM054',
+//             whereClause		: '',
+//             formId			: p_formId,
+//             menuId			: p_menuId,
+//             selectValue		: '',
+//             dropType		: 'up', // up, down
+//             dropAlign		: 'left', // left, right
+//             colValue		: 'SUB_CODE',
+//             colLabel		: 'CODE_NAME',
+//             columns: [
+//             	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
+//                 { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
+//             ]
+//         })
+//     }
 
     const fn_setSubTable = async function(obj){
     	if(!obj){
     		return;
     	}
-    	console.log('obj ==>', obj);
     	SBUxMethod.set('COMP_CODE', 		gfn_nvl(obj.COMP_CODE) );
     	SBUxMethod.set('COMP_NAME', 		gfn_nvl(obj.COMP_NAME) );
     	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
@@ -859,8 +879,6 @@ console.log('data ==> ', data);
 	            params: gfnma_objectToString(paramObj)
 	        });
 	        const data = await postJsonPromise;
-console.log('save paramObj ==>', paramObj);	        
-console.log('save data ==>', data);	        
 	        try {
 	            if (_.isEqual("S", data.resultStatus)) {
 	                if (data.resultMessage) {
