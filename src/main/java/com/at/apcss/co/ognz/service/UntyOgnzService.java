@@ -3,6 +3,7 @@ package com.at.apcss.co.ognz.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
 import com.at.apcss.co.ognz.vo.UntyOgnzVO;
 
 /**
@@ -131,6 +132,38 @@ public interface UntyOgnzService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteApcAprvList(List<UntyOgnzVO> ognzApcList) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzVO> selectCorpApcList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzApcUserVO> selectCorpApcUserList(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 APC 사용자 등록
+	 * @param ognzApcList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertCorpApcUser(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 법인별 APC 사용자 삭제
+	 * @param ognzApcList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteCorpApcUser(UntyOgnzVO untyOgnzVO) throws Exception;
 	
 	
 }

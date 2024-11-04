@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.ognz.service.UntyOgnzService;
+import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
 import com.at.apcss.co.ognz.vo.UntyOgnzVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -293,6 +294,171 @@ public class UntyOgnzController extends BaseController {
 		
 	}	
 	
+	// 법인별 관리 APC 목록 조회
+	@PostMapping(value = "/co/ognz/selectCorpApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectCorpApcList(@RequestBody UntyOgnzVO untyOgnzVO, HttpServletRequest request) throws Exception{
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		untyOgnzVO.setSuperUserYn(null);
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			untyOgnzVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			untyOgnzVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			untyOgnzVO.setUntyOgnzCd(untyOgnzCd);
+			untyOgnzVO.setAuthrtMngrYn(authrtMngrYn);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		List<UntyOgnzVO> resultList = new ArrayList<UntyOgnzVO>();
+		try {
+			 resultList = untyOgnzService.selectCorpApcList(untyOgnzVO);	
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// APC별 사용자 목록 조회
+	@PostMapping(value = "/co/ognz/selectCorpApcUserList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectCorpApcUserList(@RequestBody UntyOgnzApcUserVO untyOgnzApcUserVO, HttpServletRequest request) throws Exception{
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		untyOgnzApcUserVO.setSuperUserYn(null);
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			untyOgnzApcUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			untyOgnzApcUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			untyOgnzApcUserVO.setUntyOgnzCd(untyOgnzCd);
+			untyOgnzApcUserVO.setAuthrtMngrYn(authrtMngrYn);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		List<UntyOgnzApcUserVO> resultList = new ArrayList<UntyOgnzApcUserVO>();
+		try {	
+			 resultList = untyOgnzService.selectCorpApcUserList(untyOgnzApcUserVO);	
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+
+	
+	// 관리APC 사용자 등록
+	@PostMapping(value = "/co/ognz/insertCorpApcUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertCorpApcUser(@RequestBody UntyOgnzVO untyOgnzVO, HttpServletRequest request) throws Exception{
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			untyOgnzVO.setAuthrtMngrYn(authrtMngrYn);
+			if (!ComUtil.nullToEmpty(untyOgnzCd).equals(untyOgnzVO.getUntyOgnzCd())) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+		}
+		
+		untyOgnzVO.setSysFrstInptUserId(getUserId());
+		untyOgnzVO.setSysFrstInptPrgrmId(getPrgrmId());
+		untyOgnzVO.setSysLastChgUserId(getUserId());
+		untyOgnzVO.setSysLastChgPrgrmId(getPrgrmId());
+		
+		try {
+			
+			HashMap<String, Object> rtnObj = untyOgnzService.insertCorpApcUser(untyOgnzVO);
+
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	// 관리APC 승인
+	@PostMapping(value = "/co/ognz/deleteCorpApcUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCorpApcUser(@RequestBody UntyOgnzVO untyOgnzVO, HttpServletRequest request) throws Exception{
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			untyOgnzVO.setAuthrtMngrYn(authrtMngrYn);
+			if (!ComUtil.nullToEmpty(untyOgnzCd).equals(untyOgnzVO.getUntyOgnzCd())) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+		}
+		
+		untyOgnzVO.setSysFrstInptUserId(getUserId());
+		untyOgnzVO.setSysFrstInptPrgrmId(getPrgrmId());
+		untyOgnzVO.setSysLastChgUserId(getUserId());
+		untyOgnzVO.setSysLastChgPrgrmId(getPrgrmId());
+		
+		try {
+			
+			HashMap<String, Object> rtnObj = untyOgnzService.deleteCorpApcUser(untyOgnzVO);
+
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	// 관리APC 승인
 	@PostMapping(value = "/co/ognz/insertApcAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertApcAprvList(@RequestBody List<UntyOgnzVO> apcAprvList, HttpServletRequest request) throws Exception{
@@ -354,5 +520,8 @@ public class UntyOgnzController extends BaseController {
 		
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	
 		
 }

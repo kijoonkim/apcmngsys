@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
 import com.at.apcss.co.ognz.vo.UntyOgnzVO;
 
 /**
@@ -182,5 +183,68 @@ public interface UntyOgnzMapper {
 	 */
 	public int deleteApcUserAprv(UntyOgnzVO untyOgnzVO) throws Exception;
 	
+	
+	/**
+	 * 법인별 관리APC 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzVO> selectCorpApcList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 사용자 목록 조회
+	 * @param untyOgnzApcUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzApcUserVO> selectCorpApcUserList(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 사용자 단건 조회
+	 * @param untyOgnzApcUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public UntyOgnzApcUserVO selectCorpApcUser(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 사용자 등록
+	 * @param untyOgnzApcUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertCorpApcUser(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 사용자 변경
+	 * @param untyOgnzApcUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateCorpApcUser(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 관리APC 사용자 삭제
+	 * @param untyOgnzApcUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteCorpApcUser(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	/**
+	 * 법인별 APC 사용자 승인
+	 * @param untyOgnzApcUserVO
+	 * @throws Exception
+	 */
+	public void insertSpCorpApcUserAprv(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
+	
+	
+	/**
+	 * 법인별 APC 사용자 삭제
+	 * @param untyOgnzApcUserVO
+	 * @throws Exception
+	 */
+	public void updateSpCorpApcUserDel(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception;
 	
 }

@@ -53,10 +53,12 @@ public class OrdrRcvController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			ordrRcvVO.setSysFrstInptPrgrmId(getPrgrmId());
+
 			ordrRcvVO.setSysFrstInptUserId(getUserId());
+			ordrRcvVO.setSysFrstInptPrgrmId(getPrgrmId());
+
+			ordrRcvVO.setSysLastChgUserId(getUserId());
 			ordrRcvVO.setSysLastChgPrgrmId(getPrgrmId());
-			ordrRcvVO.setSysLastChgUserId(getPrgrmId());
 
 			HashMap<String,Object> rtnObj = ordrRcvService.insertHomplusOrdr(ordrRcvVO);
 			if (rtnObj != null) {
@@ -77,12 +79,14 @@ public class OrdrRcvController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			ordrRcvVO.setSysFrstInptPrgrmId(getPrgrmId());
+			
 			ordrRcvVO.setSysFrstInptUserId(getUserId());
+			ordrRcvVO.setSysFrstInptPrgrmId(getPrgrmId());
+			ordrRcvVO.setSysLastChgUserId(getUserId());
 			ordrRcvVO.setSysLastChgPrgrmId(getPrgrmId());
-			ordrRcvVO.setSysLastChgUserId(getPrgrmId());
 
-			HashMap<String,Object> rtnObj = ordrRcvService.insertOutordrRcpt(ordrRcvVO);
+			//HashMap<String,Object> rtnObj = ordrRcvService.insertOutordrRcpt(ordrRcvVO);
+			HashMap<String,Object> rtnObj = ordrRcvService.insertMrktOrdrRcpt(ordrRcvVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

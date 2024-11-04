@@ -3,6 +3,7 @@ package com.at.apcss.co.ognz.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.ognz.mapper.UntyOgnzMapper;
 import com.at.apcss.co.ognz.service.UntyOgnzService;
+import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
 import com.at.apcss.co.ognz.vo.UntyOgnzVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -153,6 +155,10 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 		for ( UntyOgnzVO apc : ognzApcList ) {
 			untyOgnzMapper.insertApcAprv(apc);
 			untyOgnzMapper.insertApcUserAprv(apc);
+			
+			
+			// APC 관리자 승인 처리 (지정한 사용자에게 APC관리자 권한을 부여)
+			
 		}
 		return null;
 	}
@@ -164,6 +170,117 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 			untyOgnzMapper.deleteApcAprv(apc);
 			untyOgnzMapper.deleteApcUserAprv(apc);			
 		}
+		return null;
+	}
+
+	@Override
+	public List<UntyOgnzVO> selectCorpApcList(UntyOgnzVO untyOgnzVO) throws Exception {
+		List<UntyOgnzVO> resultList = untyOgnzMapper.selectCorpApcList(untyOgnzVO);
+		return resultList;
+	}
+
+	@Override
+	public List<UntyOgnzApcUserVO> selectCorpApcUserList(UntyOgnzApcUserVO untyOgnzApcUserVO) throws Exception {
+		List<UntyOgnzApcUserVO> resultList = untyOgnzMapper.selectCorpApcUserList(untyOgnzApcUserVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertCorpApcUser(UntyOgnzVO untyOgnzVO) throws Exception {
+
+		List<UntyOgnzApcUserVO> apcUserList = untyOgnzVO.getApcUserList();
+		
+		if (apcUserList == null || apcUserList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "사용등록");
+		}
+		
+		String untyOgnzId = untyOgnzVO.getUntyOgnzId();
+		String apcCd = untyOgnzVO.getApcCd();
+		
+		String sysUserId = untyOgnzVO.getSysLastChgUserId();
+		String sysPrgrmId = untyOgnzVO.getSysLastChgPrgrmId();
+		
+		for ( UntyOgnzApcUserVO apcUser : apcUserList ) {
+			
+			apcUser.setUntyOgnzId(untyOgnzId);
+			apcUser.setApcCd(apcCd);
+			
+			apcUser.setSysFrstInptUserId(sysUserId);
+			apcUser.setSysFrstInptPrgrmId(sysPrgrmId);
+			apcUser.setSysLastChgUserId(sysUserId);
+			apcUser.setSysLastChgPrgrmId(sysPrgrmId);
+			
+			apcUser.setAprvYn(ComConstants.CON_YES);
+			untyOgnzMapper.insertSpCorpApcUserAprv(apcUser);
+			
+			if (StringUtils.hasText(apcUser.getRtnCd())) {
+				throw new EgovBizException(
+						getMessageForMap(
+								ComUtil.getResultMap(
+										apcUser.getRtnCd(),
+										apcUser.getRtnMsg()
+									)
+							)
+					); 
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteCorpApcUser(UntyOgnzVO untyOgnzVO) throws Exception {
+		
+		List<UntyOgnzApcUserVO> apcUserList = untyOgnzVO.getApcUserList();
+		
+		if (apcUserList == null || apcUserList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+		}
+		
+		String untyOgnzId = untyOgnzVO.getUntyOgnzId();
+		String apcCd = untyOgnzVO.getApcCd();
+		
+		String sysUserId = untyOgnzVO.getSysLastChgUserId();
+		String sysPrgrmId = untyOgnzVO.getSysLastChgPrgrmId();
+		
+		for ( UntyOgnzApcUserVO apcUser : apcUserList ) {
+			
+			apcUser.setUntyOgnzId(untyOgnzId);
+			apcUser.setApcCd(apcCd);
+			
+			apcUser.setSysFrstInptUserId(sysUserId);
+			apcUser.setSysFrstInptPrgrmId(sysPrgrmId);
+			apcUser.setSysLastChgUserId(sysUserId);
+			apcUser.setSysLastChgPrgrmId(sysPrgrmId);
+			
+			apcUser.setAprvYn(ComConstants.CON_NONE);
+			untyOgnzMapper.insertSpCorpApcUserAprv(apcUser);
+			
+			if (StringUtils.hasText(apcUser.getRtnCd())) {
+				throw new EgovBizException(
+						getMessageForMap(
+								ComUtil.getResultMap(
+										apcUser.getRtnCd(),
+										apcUser.getRtnMsg()
+									)
+							)
+					); 
+			}
+			
+			untyOgnzMapper.updateSpCorpApcUserDel(apcUser);
+			
+			if (StringUtils.hasText(apcUser.getRtnCd())) {
+				throw new EgovBizException(
+						getMessageForMap(
+								ComUtil.getResultMap(
+										apcUser.getRtnCd(),
+										apcUser.getRtnMsg()
+									)
+							)
+					); 
+			}
+		}
+		
 		return null;
 	}
 	

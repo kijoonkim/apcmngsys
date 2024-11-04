@@ -113,5 +113,6 @@ public class ApcLinkVO  extends ComVO{
 	private String pckgLinkUseYn;
 	private String spmtLinkUseYn;
 
+	private String wrhsYmd;
 	
 }

@@ -924,6 +924,42 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/selectApcUserPopList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectApcUserPopList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		comUserVO.setSuperUserYn(null);
+		comUserVO.setUntyOgnzId(null);
+		comUserVO.setAuthrtMngrYn(null);
+
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			comUserVO.setUntyOgnzCd(untyOgnzCd);
+			comUserVO.setAuthrtMngrYn(authrtMngrYn);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		try {
+			resultList = comUserService.selectApcUserPopList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}	
+		
 	
 	@PostMapping(value = "/co/user/insertUserApcAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertUserApcAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {

@@ -310,26 +310,37 @@ public class LoginController extends BaseController {
 							if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 									|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 								resultVO.setApcAdminType(userType);
-							} else {
-								apcInfoVO.setApcCd(resultVO.getApcCd());
-							}
+								
+								List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+								for ( ApcInfoVO apc : apcInfoList ) {
 
-							List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
-							for ( ApcInfoVO apc : apcInfoList ) {
+									ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+									BeanUtils.copyProperties(apc, comApcJsonVO);
 
-								ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-								BeanUtils.copyProperties(apc, comApcJsonVO);
+									if (StringUtils.hasText(resultVO.getApcCd())
+											&& resultVO.getApcCd().equals(apc.getApcCd())) {
+										request.getSession().setAttribute("apcVO", comApcJsonVO);
+									}
 
-								if (StringUtils.hasText(resultVO.getApcCd())
-										&& resultVO.getApcCd().equals(apc.getApcCd())) {
-									request.getSession().setAttribute("apcVO", comApcJsonVO);
+									comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+									logger.debug(objMapper.writeValueAsString(comApcJsonVO));
+
 								}
-
-								comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
-								logger.debug(objMapper.writeValueAsString(comApcJsonVO));
-
+								
+							} else {
+								apcInfoVO.setUserId(userId);								
+								List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+								
+								if (apcInfoList != null && !apcInfoList.isEmpty()) {
+									for ( ApcInfoVO apc : apcInfoList ) {
+	
+										ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+										BeanUtils.copyProperties(apc, comApcJsonVO);	
+										comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+									}
+								}
 							}
-							
+
 							String loginInfo = objMapper.writeValueAsString(resultVO);
 							if (StringUtils.hasText(loginInfo)) {
 								request.getSession().setAttribute("loginInfo", loginInfo);
@@ -497,24 +508,34 @@ public class LoginController extends BaseController {
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 				resultVO.setApcAdminType(userType);
-			} else {
-				apcInfoVO.setApcCd(resultVO.getApcCd());
-			}
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+				for ( ApcInfoVO apc : apcInfoList ) {
 
-			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
-			for ( ApcInfoVO apc : apcInfoList ) {
+					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+					BeanUtils.copyProperties(apc, comApcJsonVO);
 
-				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-				BeanUtils.copyProperties(apc, comApcJsonVO);
+					if (StringUtils.hasText(resultVO.getApcCd())
+							&& resultVO.getApcCd().equals(apc.getApcCd())) {
+						request.getSession().setAttribute("apcVO", comApcJsonVO);
+					}
 
-				if (StringUtils.hasText(resultVO.getApcCd())
-						&& resultVO.getApcCd().equals(apc.getApcCd())) {
-					request.getSession().setAttribute("apcVO", comApcJsonVO);
+					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+					logger.debug(objMapper.writeValueAsString(comApcJsonVO));
+
 				}
+			} else {
+				//apcInfoVO.setApcCd(resultVO.getApcCd());
+				apcInfoVO.setUserId(userId);								
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+				
+				if (apcInfoList != null && !apcInfoList.isEmpty()) {
+					for ( ApcInfoVO apc : apcInfoList ) {
 
-				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
-				logger.debug(objMapper.writeValueAsString(comApcJsonVO));
-
+						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+						BeanUtils.copyProperties(apc, comApcJsonVO);	
+						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+					}
+				}
 			}
 
 			if (comApcList != null && !comApcList.isEmpty()) {
@@ -639,23 +660,36 @@ public class LoginController extends BaseController {
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 				resultVO.setApcAdminType(userType);
-			} else {
-				apcInfoVO.setApcCd(resultVO.getApcCd());
-			}
+				
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+				for ( ApcInfoVO apc : apcInfoList ) {
+					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+					BeanUtils.copyProperties(apc, comApcJsonVO);
 
-			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
-			for ( ApcInfoVO apc : apcInfoList ) {
-				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-				BeanUtils.copyProperties(apc, comApcJsonVO);
+					if (StringUtils.hasText(resultVO.getApcCd())
+							&& resultVO.getApcCd().equals(apc.getApcCd())) {
+						request.getSession().setAttribute("apcVO", comApcJsonVO);
+					}
 
-				if (StringUtils.hasText(resultVO.getApcCd())
-						&& resultVO.getApcCd().equals(apc.getApcCd())) {
-					request.getSession().setAttribute("apcVO", comApcJsonVO);
+					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 				}
 
-				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+			} else {
+				//apcInfoVO.setApcCd(resultVO.getApcCd());
+				apcInfoVO.setUserId(id);								
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+				
+				if (apcInfoList != null && !apcInfoList.isEmpty()) {
+					for ( ApcInfoVO apc : apcInfoList ) {
+
+						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+						BeanUtils.copyProperties(apc, comApcJsonVO);	
+						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+					}
+				}
 			}
 
+			
 			String loginInfo = objMapper.writeValueAsString(resultVO);
 			if (StringUtils.hasText(loginInfo)) {
 				request.getSession().setAttribute("loginInfo", loginInfo);
