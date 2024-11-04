@@ -42,6 +42,12 @@
             text-align: right;
             width: 100%;
         }
+        #dtlTable tr:nth-child(-n+4) td{
+            padding: 0px 5px!important;
+        }
+        #dtlTable tr:not(:nth-child(-n+4)) td{
+            padding: 0!important;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -109,11 +115,77 @@
                     <li><span>◎ 부가세 집계</span></li>
                 </ul>
             </div>
-            <div id="sb-area-grdListGrid" style="width: 100%; height: 500px"></div>
+            <table id="dtlTable"class="table table-bordered tbl_fixed">
+                <colgroup>
+                    <col style="width: 12%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td rowspan="4" class="td_input">
+                        사업장명
+                    </td>
+                    <td rowspan="4">
+                        총건수
+                    </td>
+                    <td rowspan="4">
+                        총공급가액
+                    </td>
+                    <td rowspan="4">
+                        총세액
+                    </td>
+                    <td rowspan="4">
+                        납부세액<br>(환급세액)
+                    </td>
+                    <td rowspan="4">
+                        부가세신고<br>서확정여부
+                    </td>
+                    <td colspan="6">
+                        부가가치세 부속서류 첨부여부
+                    </td>
+                </tr>
+                <tr>
+                    <td>매출세금계산서</td>
+                    <td>매출계산서</td>
+                    <td>영세율첨부</td>
+                    <td>신용카드매출</td>
+                    <td>수출실적명세</td>
+                    <td>내국신용장</td>
+                </tr>
+                <tr>
+                    <td>매입세금계산서</td>
+                    <td>매입계산서</td>
+                    <td>의제매입명세</td>
+                    <td>건물등감가상각</td>
+                    <td>불공제매입명세</td>
+                    <td>신용카드수령</td>
+                </tr>
+                <tr>
+                    <td>영세율매출명세</td>
+                    <td>대손세액공제</td>
+                    <td>사업장별납부</td>
+                    <td>단위과세사업장</td>
+                    <td>과표및세액경정</td>
+                    <td>과표및수정</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
 </body>
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+</html>
 <script type="text/javascript">
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
@@ -131,10 +203,6 @@
     var grdReCalc;
 
     window.addEventListener("DOMContentLoaded",function(){
-        fn_createGrid();
-        fn_createGridDivision();
-        fn_createGridCalc();
-        fn_createGridReCalc();
         fn_init();
 
         window.parent.document.getElementById("main-btn-save").style.display = "none";
@@ -174,24 +242,7 @@
             ,callback       : fn_choice
         })
     }
-
     async function fn_choice(_value){
-        /** reset **/
-        jsonGrdList.length = 0;
-        jsonGrdDivision.length = 0;
-        jsonGrdCalc.length = 0;
-        jsonGrdReCalc.length = 0;
-
-        grdListGrid.rebuild();
-        grdDivision.rebuild();
-        grdCalc.rebuild();
-        grdReCalc.rebuild();
-
-        const inputs = document.querySelectorAll('#panRightHeader input');
-        inputs.forEach(input => {
-            input.value = 0;
-        });
-
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -212,9 +263,6 @@
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
             ,V_P_YYYY               : ''
             ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
             ,V_P_FORM_ID            : p_formId
             ,V_P_MENU_ID            : p_menuId
             ,V_P_PROC_ID            : ''
@@ -224,114 +272,54 @@
 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
+        console.log(paramObj,"이새끼봐라");
 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit1300.do", {
             getType				: 'json',
-            cv_count			: '13',
-            workType            : 'LIST',
+            cv_count			: '1',
+            workType            : 'DETAIL',
             params				: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
+        console.log(data,"디테일");
         if(data.resultStatus === 'S'){
-            jsonGrdList = data.cv_1;
-            grdListGrid.rebuild();
-            if(grdListGrid.getRows() === 2){
-                grdListGrid.setRow(1);
-                let workType = 'Q';
-                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
-                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
-                    getType				: 'json',
-                    cv_count			: '13',
-                    workType            : workType,
-                    params				: gfnma_objectToString(paramObj)
-                });
-                const data = await postJsonPromise;
-
-                if(data.resultStatus === 'S'){
-                    let resultObj = data.cv_1[0];
-                    for(let key in resultObj){
-                        let elId = "#" + gfnma_snakeToCamel(key);
-                        $(elId).val(parseInt(resultObj[key]));
-                    }
-                }
-            }
+            data.cv_1.forEach(function(item){
+                let el = `
+              <tr style="text-align:center">
+                <td rowspan="3">${'${item.TAX_SITE_NAME}'}</td>
+                <td rowspan="3">${'${item.TOTAL_CNT}'}</td>
+                <td rowspan="3">${'${item.TOTAL_SUPPLY_AMT.toLocaleString()}'}</td>
+                <td rowspan="3">${'${item.TOTAL_VAT_AMT.toLocaleString()}'}</td>
+                <td rowspan="3">${'${item.PAY_VAT_AMT.toLocaleString()}'}</td>
+                <td rowspan="3">${'${item.REPORT_CONFIRM_YN}'}</td>
+                <td>${'${item.AR_TAX_BILL_YN}'}</td>
+                <td>${'${item.AR_BILL_YN}'}</td>
+                <td>${'${item.AR_ZERO_TAX_YN}'}</td>
+                <td>${'${item.AR_CARD_YN}'}</td>
+                <td>${'${item.AR_EXPORT_YN}'}</td>
+                <td>${'${item.AR_CREDIT_YN}'}</td>
+              </tr>
+              <tr style="text-align:center">
+                <td>${'${item.AP_TAX_BILL_YN}'}</td>
+                <td>${'${item.AP_BILL_YN}'}</td>
+                <td>${'${item.AP_DEEMED_YN}'}</td>
+                <td>${'${item.AP_ASSET_YN}'}</td>
+                <td>${'${item.AP_NONDED_YN}'}</td>
+                <td>${'${item.AP_CARD_YN}'}</td>
+              </tr>
+              <tr style="text-align:center">
+                <td>${'${item.AR_ZERO_SALES_YN}'}</td>
+                <td>${'${item.BADDEBT_YN}'}</td>
+                <td>${'${item.TAXSITE_BASE_YN}'}</td>
+                <td>${'${item.TAX_UNIT_YN}'}</td>
+                <td>${'${item.SUPPLEMENT_YN}'}</td>
+                <td>${'${item.AMENDED_YN}'}</td>
+              </tr>
+              `;
+                $("#dtlTable tbody").append(el);
+            })
         }
-    }
-
-    const fn_createGrid = function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdListGrid';
-        SBGridProperties.id = 'grdListGrid';
-        SBGridProperties.jsonref = 'jsonGrdList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
-        ];
-        grdListGrid = _SBGrid.create(SBGridProperties);
-        // grdListGrid.bind("click","fn_setSiteCode");
-    }
-    const fn_createGridDivision = function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdDivision';
-        SBGridProperties.id = 'grdDivision';
-        SBGridProperties.jsonref = 'jsonGrdDivision';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.columns = [
-            {caption : ['부동산 소재지'],ref : 'REAL_ESTATE_ADDR',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['임대인사업자등록번호'],ref : 'LESSOR_BIZ_REGNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['종사업자일련번호'],ref : 'BIZ_SUBNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['이자율'],ref : 'INTEREST_RATE', width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['총일수'],ref : 'LEAP_YEAR_TYPE', width : '20%',    style : 'text-align:center',    type : 'input'},
-        ];
-        grdDivision = _SBGrid.create(SBGridProperties);
-    }
-    const fn_createGridCalc = function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdCalc';
-        SBGridProperties.id = 'grdCalc';
-        SBGridProperties.jsonref = 'jsonGrdCalc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheight = '25';
-        SBGridProperties.columns = [
-            {caption : ['총공통매입세액','총공통매입세액'], ref : 'CALC_TOTAL_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXEMPTION_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOTAL_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXEMPTION_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'CALC_TOTAL_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPUT_TAX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
-        ];
-        grdCalc = _SBGrid.create(SBGridProperties);
-    }
-    const fn_createGridReCalc = function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdReCalc';
-        SBGridProperties.id = 'grdReCalc';
-        SBGridProperties.jsonref = 'jsonGrdReCalc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheight = '25';
-        SBGridProperties.columns = [
-            {caption : ['동'], ref : 'BUILDING_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['지상여부'], ref : 'GROUND_TYPE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['층'], ref : 'FLOOR_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['호'], ref : 'NUMBER_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대면적(㎡)'], ref : 'BUILDING_AREA', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['거래처코드'], ref : 'CS_CODE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['상호(성명)'], ref : 'TENANT_NAME', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['사업자(주민)등록번호'], ref : 'TENANT_BIZ_REGNO', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['갱신일'], ref : 'CHANGE_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['입주일'], ref : 'MOVE_IN_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['퇴거일'], ref : 'MOVE_OUT_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['경과일자'], ref : 'DAYS', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금'], ref : 'DEPOSIT_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료'], ref : 'CONTRACT_MONTH_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대수입합계(과세표준)'], ref : 'INCOME_SUM', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금이자(계)'], ref : 'INTEREST_AMT', width : '100px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료(계)'], ref : 'MONTH_AMT', width : '100px', style : 'text-align:center', type : 'input'}
-        ];
-        grdReCalc = _SBGrid.create(SBGridProperties);
     }
     const fn_addRow = async function(_id){
         window[_id].addRow(true,[0,0,0,0,0,0,0]);
@@ -365,7 +353,7 @@
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt1300.do", {
             getType				: 'json',
             cv_count			: '13',
             workType            : 'Q',
@@ -394,5 +382,3 @@
         await fn_choice(_value);
     }
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
-</html>

@@ -362,15 +362,15 @@
 
     async function fn_choice(_value){
         /** reset **/
-        jsonGrdList.length = 0;
-        jsonGrdDivision.length = 0;
-        jsonGrdCalc.length = 0;
-        jsonGrdReCalc.length = 0;
-
-        grdListGrid.rebuild();
-        grdDivision.rebuild();
-        grdCalc.rebuild();
-        grdReCalc.rebuild();
+        // jsonGrdList.length = 0;
+        // jsonGrdDivision.length = 0;
+        // jsonGrdCalc.length = 0;
+        // jsonGrdReCalc.length = 0;
+        //
+        // grdListGrid.rebuild();
+        // grdDivision.rebuild();
+        // grdCalc.rebuild();
+        // grdReCalc.rebuild();
 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
