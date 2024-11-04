@@ -830,8 +830,8 @@
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:left'},
             {caption: ["거래처명"],         ref: 'TRADER_NAME',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["거래처사업자번호"],         ref: 'CS_REG_NO',    type:'output',  	width:'110px',  style:'text-align:left',
-                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 10}
-                , format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+                , format : {type:'number', rule:'###-##-#####', emptyvalue:''}
             },
             {caption: ["계정과목"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'101px',  style:'text-align:left', hidden: true},
             {caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'170px',  style:'text-align:left'},

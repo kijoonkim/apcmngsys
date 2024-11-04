@@ -67,7 +67,55 @@ public class ApcMaTrl1010Controller extends BaseController {
 
 		logger.info("=============selectTrl1010List=====end========");
 		return getSuccessResponseEntity(resultMap);
-	}	
+	}
+
+	// 차입금원장등록 조회
+	@PostMapping(value = "/fi/ffa/alm/insertTrl1010.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertTrl1010(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+
+		logger.info("=============insertTrl1010=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			param.put("procedure", 		"P_TRL1010_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============insertTrl1010=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	// 수당기준 적용기준 상세 저장
+	@PostMapping(value = "/fi/ffa/alm/insertTrl1010S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertTrl1010S1(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============insertTrl1010S1=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRL1010_S1");
+
+			logger.info("=============insertTrl1010S1=====end========");
+			return getSuccessResponseEntityMa(resultMap);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+	}
 	
 	
 }
