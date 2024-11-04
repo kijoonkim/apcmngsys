@@ -260,7 +260,7 @@
                                 jsondata-value="itemVrtyCd"
                                 unselected-text="선택"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                onchange="fn_onChangeSrchVrtyCd(this)"
+<%--                                onchange="fn_onChangeSrchVrtyCd(this)"--%>
                         ></sbux-select>
                     </td>
                     <td colspan="2"class="td_input" style="border-right: hidden;">
@@ -298,10 +298,10 @@
                         <div style="display: flex; gap: 10px">
                             <sbux-select
                                     uitype="single"
-                                    id="srch-slt-warehou1seSeCd"
-                                    name="srch-slt-warehou1seSeCd"
+                                    id="srch-slt-spcfctCd"
+                                    name="srch-slt-spcfctCd"
                                     class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                    jsondata-ref="jsonComWarehouse">
+                                    jsondata-ref="jsonSpcfctCd">
                             </sbux-select>
                             <input type="number" id="srch-inp-bxQntt" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeBxQntt(this)" >
                         </div>
@@ -415,6 +415,7 @@
     var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
     var jsonComWarehouse	= [];	// 창고 		warehouse	검색
     var jsonApcBx			= [];	// 팔레트/박스 	검색
+    var jsonSpcfctCd        = [];   // 규격
 
     var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
     var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
@@ -972,8 +973,10 @@
      */
     const fn_onChangeSrchItemCd = async function(obj) {
         let itemCd = obj.value;
+        console.log(itemCd,"품목코드");
         let result = await Promise.all([
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
+            gfn_setMstSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfctCd,itemCd),			// 품종
             //stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
         ]);
 
