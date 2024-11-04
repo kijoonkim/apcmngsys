@@ -70,14 +70,14 @@ public class ApcMaFia3100Controller extends BaseController {
 	}	
 	
 	// 자산원장 신규
-    @PostMapping(value = "/fi/ffa/alm/saveFia3100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveFia3100List(
+    @PostMapping(value = "/fi/ffa/alm/saveFia3100S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFia3100S(
     		@RequestBody Map<String, Object> param
     		, Model model
     		, HttpSession session
     		, HttpServletRequest request) throws Exception{
     	
-    	logger.info("=============saveFia3100List=====start========");
+    	logger.info("=============saveFia3100S=====start========");
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
     	
     	try {
@@ -89,7 +89,7 @@ public class ApcMaFia3100Controller extends BaseController {
     		return getErrorResponseEntity(e);
     	}
     	
-    	logger.info("=============saveFia3100List=====end========");
+    	logger.info("=============saveFia3100S=====end========");
     	return getSuccessResponseEntityMa(resultMap);
     } 	
 	

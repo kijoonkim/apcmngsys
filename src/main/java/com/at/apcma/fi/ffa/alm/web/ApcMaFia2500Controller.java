@@ -94,28 +94,78 @@ public class ApcMaFia2500Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 취득등록 신규
-    @PostMapping(value = "/fi/fgl/alm/saveFia2500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveFia2500List(
+	// 취득등록 저장,삭제,취소
+	@PostMapping(value = "/fi/ffa/alm/modifyFia2500S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> modifyFia2500S(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============modifyFia2500S=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA2500_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============modifyFia2500S=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
+	// 취득등록 디테일
+    @PostMapping(value = "/fi/fgl/alm/saveFia2500S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFia2500S1(
     		@RequestBody Map<String, Object> param
     		, Model model
     		, HttpSession session
     		, HttpServletRequest request) throws Exception{
     	
-    	logger.info("=============saveFia2500List=====start========");
+    	logger.info("=============saveFia2500S1=====start========");
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA2500_S");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA2500_S1");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
     		return getErrorResponseEntity(e);
     	}
     	
-    	logger.info("=============saveFia2500List=====end========");
+    	logger.info("=============saveFia2500S1=====end========");
     	return getSuccessResponseEntityMa(resultMap);
     } 	
+	
+	// 자산취득 가져오기 조회
+	@PostMapping(value = "/fi/ffa/alm/selectFia2510.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia2510(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============selectFia2510=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA2510_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============selectFia2510=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	    
 	
 }
