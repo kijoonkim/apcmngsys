@@ -281,7 +281,7 @@
                                         <sbux-button id="btnReject" name="btnReject" uitype="normal" text="일괄반려" class="btn btn-sm btn-outline-danger" onclick="fn_reject" style="float: right;"></sbux-button>
                                         <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="일괄결재" class="btn btn-sm btn-outline-danger" onclick="fn_approve" style="float: right;"></sbux-button>
                                         <sbux-input id="APPR_OPINION" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
-                                        <span style="float: right;">결재의견</span>
+                                        <span style="float: right; padding-top: 7px; margin-right: 10px;">결재의견</span>
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">

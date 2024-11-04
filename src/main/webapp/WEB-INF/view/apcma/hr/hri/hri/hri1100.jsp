@@ -554,6 +554,7 @@
                         ,WORK_PATTERN_NAME              : item.WORK_PATTERN_NAME
                         ,AGE                            : item.AGE
                         ,AGE_YY                         : item.AGE_YY
+                        ,AGE_EE                         : item.AGE_EE
                         ,GENDER                         : item.GENDER
                         ,SOCIAL_NUM_REAL                : item.SOCIAL_NUM_REAL
                         ,BIRTHDAY                       : item.BIRTHDAY

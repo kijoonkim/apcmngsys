@@ -1183,7 +1183,7 @@
                 },
                 disabled: disableOption
             },
-            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'input', width: '75px', style: 'text-align:left', hidden: true, disabled: disableOption},
+            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'input', width: '75px', style: 'text-align:left', hidden: false, disabled: disableOption},
             {
                 caption: ["시작시각","시작구분"], ref: 'TIME_START_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -1192,10 +1192,10 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: false
                 , disabled: disableOption
             },
-            {caption: ["시작시각","시작시각"], ref: 'TIME_START_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
+            {caption: ["시작시각"," 시작시각"], ref: 'TIME_START_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: false, disabled: disableOption},
             {
                 caption: ["종료시각","종료구분"], ref: 'TIME_END_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -1204,10 +1204,10 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: false
                 , disabled: disableOption
             },
-            {caption: ["종료시각","종료시각"], ref: 'TIME_END_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
+            {caption: ["종료시각"," 종료시각"], ref: 'TIME_END_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: false, disabled: disableOption},
             {caption: ["현재정보","현부서"], ref: 'DEPT_CODE1', type: 'input', width: '80px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
             {caption: ["현재정보","현부서명"], ref: 'DEPT_NAME1', type: 'input', width: '120px', style: 'text-align:left'
                 , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
@@ -1215,7 +1215,7 @@
             {caption: ["현재정보","현원가중심점명"], ref: 'COST_DEPT1_NAME', type: 'input', width: '120px', style: 'text-align:left'
                 , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
             {
-                caption: ["현재정보","직위"], ref: 'POSITION_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
+                caption: ["현재정보"," 직위"], ref: 'POSITION_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonPositionCode',
                     label: 'label',
@@ -1226,7 +1226,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","직책"], ref: 'DUTY_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
+                caption: ["현재정보"," 직책"], ref: 'DUTY_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonDutyCode',
                     label: 'label',
@@ -1237,7 +1237,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","직급"], ref: 'JOB_RANK1', type: 'combo', width: '110px', style: 'text-align:left',
+                caption: ["현재정보"," 직급"], ref: 'JOB_RANK1', type: 'combo', width: '110px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobRank',
                     label: 'label',
@@ -1248,7 +1248,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","직군"], ref: 'JOB_GROUP1', type: 'combo', width: '80px', style: 'text-align:left',
+                caption: ["현재정보"," 직군"], ref: 'JOB_GROUP1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobGroup',
                     label: 'label',
@@ -1259,7 +1259,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","직무"], ref: 'JOB_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
+                caption: ["현재정보"," 직무"], ref: 'JOB_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobCode',
                     label: 'label',
@@ -1270,7 +1270,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","직원하위그룹"], ref: 'JOB_FAMILY1', type: 'combo', width: '103px', style: 'text-align:left',
+                caption: ["현재정보"," 직원하위그룹"], ref: 'JOB_FAMILY1', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobFamily',
                     label: 'label',
@@ -1281,7 +1281,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","현사업장"], ref: 'SITE_CODE1', type: 'combo', width: '111px', style: 'text-align:left',
+                caption: ["현재정보"," 현사업장"], ref: 'SITE_CODE1', type: 'combo', width: '111px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonSiteCode',
                     label: 'label',
@@ -1292,7 +1292,7 @@
                 , disabled: disableOption
             },
             {
-                caption: ["현재정보","현근무지"], ref: 'REGION_CODE1', type: 'combo', width: '100px', style: 'text-align:left',
+                caption: ["현재정보"," 현근무지"], ref: 'REGION_CODE1', type: 'combo', width: '100px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonWorkRegion',
                     label: 'label',
@@ -1528,73 +1528,7 @@
 
     function fnDeptAppointYnChange(args){
         let DEPT_APPOINT_YN = args ? args.DEPT_APPOINT_YN : gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
         let APPOINT_TYPE = gfn_nvl(SBUxMethod.get("APPOINT_TYPE"));
-
-        if (DEPT_APPOINT_YN == "N" && POSITION_APPOINT_YN == "N" &&
-            DUTY_APPOINT_YN == "N" && JOB_RANK_APPOINT_YN == "N" &&
-            JOB_GROUP_APPOINT_YN == "N" && JOB_APPOINT_YN == "N" &&
-            JOB_FAMILY_APPOINT_YN == "N" && REGION_APPOINT_YN == "N" ) {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        }
 
         if (DEPT_APPOINT_YN == "Y") {
             //소속부서
@@ -1626,73 +1560,7 @@
     }
 
     function fnPositionAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
         let POSITION_APPOINT_YN = args ? args.POSITION_APPOINT_YN : gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (POSITION_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
@@ -1704,73 +1572,7 @@
     }
 
     function fnDutyAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
         let DUTY_APPOINT_YN = args ? args.DUTY_APPOINT_YN : gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (DUTY_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
@@ -1782,73 +1584,7 @@
     }
 
     function fnJobRankAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
         let JOB_RANK_APPOINT_YN = args ? args.JOB_RANK_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (JOB_RANK_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
@@ -1860,73 +1596,7 @@
     }
 
     function fnJobGroupAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
         let JOB_GROUP_APPOINT_YN = args ? args.JOB_GROUP_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (JOB_GROUP_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
@@ -1938,73 +1608,7 @@
     }
 
     function fnJobAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
         let JOB_APPOINT_YN = args ? args.JOB_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (JOB_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
@@ -2016,73 +1620,7 @@
     }
 
     function fnJobFamilyAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
         let JOB_FAMILY_APPOINT_YN = args ? args.JOB_FAMILY_APPOINT_YN : gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
-        let REGION_APPOINT_YN = gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (JOB_FAMILY_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
@@ -2094,73 +1632,7 @@
     }
 
     function fnRegionAppointYnChange(args){
-        let DEPT_APPOINT_YN = gfn_nvl(SBUxMethod.get("DEPT_APPOINT_YN").DEPT_APPOINT_YN);
-        let POSITION_APPOINT_YN = gfn_nvl(SBUxMethod.get("POSITION_APPOINT_YN").POSITION_APPOINT_YN);
-        let DUTY_APPOINT_YN = gfn_nvl(SBUxMethod.get("DUTY_APPOINT_YN").DUTY_APPOINT_YN);
-        let JOB_RANK_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN").JOB_RANK_APPOINT_YN);
-        let JOB_GROUP_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN").JOB_GROUP_APPOINT_YN);
-        let JOB_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_APPOINT_YN").JOB_APPOINT_YN);
-        let JOB_FAMILY_APPOINT_YN = gfn_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN").JOB_FAMILY_APPOINT_YN);
         let REGION_APPOINT_YN = args ? args.REGION_APPOINT_YN : gfn_nvl(SBUxMethod.get("REGION_APPOINT_YN").REGION_APPOINT_YN);
-
-        if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
-            DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
-            JOB_GROUP_APPOINT_YN == "Y" || JOB_APPOINT_YN == "Y" ||
-            JOB_FAMILY_APPOINT_YN == "Y" || REGION_APPOINT_YN == "Y") {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), false, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
-        } else {
-            // 발령정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE2'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE2'), true, true);
-            // 현재정보
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('POSITION_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DUTY_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_RANK1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_GROUP1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('JOB_FAMILY1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
-            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), true, true);
-        }
 
         if (REGION_APPOINT_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('REGION_CODE1'), false, true);
@@ -2181,6 +1653,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', async function (e) {
+        let initObject = localStorage.getItem("callMain");
         await fn_initSBSelect();
         fn_createGvwListGrid();
         fn_createBandgvwDetailGrid(false);
@@ -3138,7 +2611,7 @@
 
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1300List.do", {
             getType: 'json',
-            workType: 'DETAIL',
+            workType: 'SEARCH',
             cv_count: '3',
             params: gfnma_objectToString(paramObj)
         });
@@ -3151,49 +2624,69 @@
                 /** @type {number} **/
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE: item.EMP_CODE,
-                        EMP_FULL_NAME: item.EMP_FULL_NAME,
-                        START_DATE: item.START_DATE,
-                        END_DATE: item.END_DATE,
-                        TIME_OFF_TYPE: item.TIME_OFF_TYPE,
-                        DEPT_CODE1: item.DEPT_CODE1,
-                        DEPT_NAME1: item.DEPT_NAME1,
-                        POSITION_CODE1: item.POSITION_CODE1,
-                        DUTY_CODE1: item.DUTY_CODE1,
-                        JOB_RANK1: item.JOB_RANK1,
-                        JOB_GROUP1: item.JOB_GROUP1,
-                        JOB_CODE1: item.JOB_CODE1,
-                        JOB_FAMILY1: item.JOB_FAMILY1,
-                        REGION_CODE1: item.REGION_CODE1,
-                        COST_DEPT1: item.COST_DEPT1,
-                        COST_DEPT1_NAME: item.COST_DEPT1_NAME,
-                        DEPT_CODE2: item.DEPT_CODE2,
-                        DEPT_NAME2: item.DEPT_NAME2,
-                        POSITION_CODE2: item.POSITION_CODE2,
-                        DUTY_CODE2: item.DUTY_CODE2,
-                        JOB_RANK2: item.JOB_RANK2,
-                        JOB_GROUP2: item.JOB_GROUP2,
-                        JOB_CODE2: item.JOB_CODE2,
-                        JOB_FAMILY2: item.JOB_FAMILY2,
-                        REGION_CODE2: item.REGION_CODE2,
-                        COST_DEPT2: item.COST_DEPT2,
-                        COST_DEPT2_NAME: item.COST_DEPT2_NAME,
-                        FIRST_APPOINT_NUM: item.FIRST_APPOINT_NUM,
-                        APPOINT_REASON: item.APPOINT_REASON,
-                        MEMO: item.MEMO,
-                        APPOINT_TYPE: item.APPOINT_TYPE,
-                        SITE_CODE1: item.SITE_CODE1,
-                        SITE_CODE2: item.SITE_CODE2,
-                        PARENTING_WORK_TYPE: item.PARENTING_WORK_TYPE,
-                        TIME_START_DAY_TYPE: item.TIME_START_DAY_TYPE,
-                        TIME_START_HHMM: item.TIME_START_HHMM,
-                        TIME_END_DAY_TYPE: item.TIME_END_DAY_TYPE,
-                        TIME_END_HHMM: item.TIME_END_HHMM
-                    }
+                        CHK_YN : item.CHK_YN,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_FULL_NAME : item.EMP_FULL_NAME,
+                        DEPT_CODE1 : item.DEPT_CODE1,
+                        DEPT_NAME1 : item.DEPT_NAME1,
+                        POSITION_CODE1 : item.POSITION_CODE1,
+                        DUTY_CODE1 : item.DUTY_CODE1,
+                        JOB_RANK1 : item.JOB_RANK1,
+                        JOB_GROUP1 : item.JOB_GROUP1,
+                        JOB_CODE1 : item.JOB_CODE1,
+                        REGION_CODE1 : item.REGION_CODE1,
+                        JOB_FAMILY1 : item.JOB_FAMILY1,
+                        COST_DEPT1 : item.COST_DEPT1,
+                        COST_DEPT1_NAME : item.COST_DEPT1_NAME,
+                        SITE_CODE1 : item.SITE_CODE1,
+                        DEPT_CODE2 : item.DEPT_CODE2,
+                        DEPT_NAME2 : item.DEPT_NAME2,
+                        POSITION_CODE2 : item.POSITION_CODE2,
+                        DUTY_CODE2 : item.DUTY_CODE2,
+                        JOB_RANK2 : item.JOB_RANK2,
+                        JOB_GROUP2 : item.JOB_GROUP2,
+                        JOB_CODE2 : item.JOB_CODE2,
+                        JOB_FAMILY2 : item.JOB_FAMILY2,
+                        REGION_CODE2 : item.REGION_CODE2,
+                        COST_DEPT2 : item.COST_DEPT2,
+                        COST_DEPT2_NAME : item.COST_DEPT2_NAME,
+                        FIRST_APPOINT_NUM : item.FIRST_APPOINT_NUM,
+                        APPOINT_REASON : item.APPOINT_REASON,
+                        MEMO : item.MEMO,
+                        APPOINT_NUM : item.APPOINT_NUM,
+                        TIME_OFF_TYPE : item.TIME_OFF_TYPE,
+                        APPOINT_TYPE : item.APPOINT_TYPE,
+                        DEPT_NAME2 : item.DEPT_NAME2,
+                        DEPT_NAME3 : item.DEPT_NAME3,
+                        SITE_CODE2 : item.SITE_CODE2,
+                        TIME_START_DAY_TYPE : item.TIME_START_DAY_TYPE,
+                        TIME_START_HHMM : item.TIME_START_HHMM,
+                        TIME_END_DAY_TYPE : item.TIME_END_DAY_TYPE,
+                        TIME_END_HHMM : item.TIME_END_HHMM,
+                        START_DATE : gfn_nvl(SBUxMethod.get("SRCH_APPOINT_DATE")),
+                        END_DATE : "99991231"
+                }
                     jsonBandgvwDetailList.push(msg);
                 });
 
                 bandgvwDetail.rebuild();
+
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_NAME1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("POSITION_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DUTY_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("JOB_RANK1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("COST_DEPT1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("COST_DEPT1_NAME"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("JOB_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("JOB_FAMILY1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("JOB_GROUP1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("REGION_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("SITE_CODE1"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_START_HHMM"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_START_DAY_TYPE"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_DAY_TYPE"), true);
+                bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_HHMM"), true);
             } else {
                 alert(data.resultMessage);
             }
