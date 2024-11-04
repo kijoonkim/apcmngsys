@@ -215,6 +215,7 @@
 			    , LM.LGSZ_MRKT_NM		AS LGSZ_MRKT_NM
 			    , LM.OUTORDR_INFO_URL	AS OUTORDR_INFO_URL
 			    , LM.USER_ID			AS USER_ID
+			    , LM.GROUP_ID			AS GROUP_ID
 			    , LM.PSWD				AS PSWD
 			    , LM.USE_YN				AS USE_YN
 			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
@@ -242,6 +243,7 @@
 			    , LM.USER_ID			AS USER_ID
 			    --, LM.PSWD				AS PSWD
 			    , NULL					AS PSWD
+			    , LM.GROUP_ID			AS GROUP_ID
 			    , LM.USE_YN				AS USE_YN
 			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
 			  FROM TB_LGSZ_MRKT_MNG LM
@@ -265,6 +267,7 @@
 	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		 , USER_ID 	= #{userId}
+	    		 , GROUP_ID = #{groupId}
 		]]>
 		<if test='pswd != null and pswd !=""'>
 	    		 , PSWD 	= #{pswd}
@@ -295,6 +298,7 @@
 					, LGSZ_MRKT_NM
 					, OUTORDR_INFO_URL
 					, USER_ID
+					, GROUP_ID
 					, PSWD
 					, LAST_PRCS_DT
 		    		, SYS_FRST_INPT_DT
@@ -311,6 +315,7 @@
 					, #{lgszMrktNm}
 					, #{outordrInfoUrl}
 					, #{userId}
+					, #{groupId}
 					, #{pswd}
 					, NULL
 		    		, SYSDATE

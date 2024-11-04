@@ -256,6 +256,16 @@ public interface ComUserMapper {
      */
     public int insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
  
+	/**
+	 * APC 사용자 선택 POPUP 목록 조회
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<ComUserVO> selectApcUserPopList(ComUserVO comUserVO) throws Exception;
+    
+    
+    
     
     public ComUserAtchflVO selectComUserAtchfl(ComUserVO comUserVO) throws Exception;
 }

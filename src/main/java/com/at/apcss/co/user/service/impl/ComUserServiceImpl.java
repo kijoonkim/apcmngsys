@@ -745,6 +745,18 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return null;
 	}
 
+
+	@Override
+	public List<ComUserVO> selectApcUserPopList(ComUserVO comUserVO) throws Exception {
+		
+		List<ComUserVO> resultList = comUserMapper.selectApcUserPopList(comUserVO);
+		
+		return resultList;
+	}
+
+
+	
+	
 	@Override
 	public HashMap<String, Object> insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception {
 		comUserMapper.insertUserApcHstry(comUserApcVO);
@@ -756,6 +768,5 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		ComUserAtchflVO returnVO = comUserMapper.selectComUserAtchfl(comUserVO);
 		return returnVO;
 	}
-
 
 }
