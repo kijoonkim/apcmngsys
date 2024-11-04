@@ -31,7 +31,7 @@
         .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd .sbux-tabs-content{
             padding: 16px 0px !important;
         }
-        #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
+        #tab_spmtPrfmncReg, #tab_spmtPrfmnc{
             border: 0 !important;
         }
         .btn{
@@ -54,7 +54,7 @@
                     </sbux-label>
                 </div>
                 <div style="margin-right: auto;">
-                    <sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="normal" class="btn btn-lg btn-primary" onclick="fn_docRawMtrWrhs" text="확인서 발행" ></sbux-button>
+                    <sbux-button id="btnCmndDocspmt" name="btnCmndDocspmt" uitype="normal" class="btn btn-lg btn-primary" onclick="fn_docRawMtrWrhs" text="확인서 발행" ></sbux-button>
                     <sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-lg btn-outline-danger" onclick="fn_reset" text="초기화" ></sbux-button>
                     <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-lg btn-outline-danger" onclick="fn_save" text="저장" ></sbux-button>
                     <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-lg btn-outline-danger" onclick="fn_search" text="조회" ></sbux-button>
@@ -62,14 +62,14 @@
             </div>
             <div class="box-body">
                 <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
-                           title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
+                           title-target-id-array="tab_spmtPrfmncReg^tab_spmtPrfmnc"
                            title-text-array="입고등록^입고내역" onclick="fn_changeTab()"
                            title-style-array="{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}">
                 </sbux-tabs>
                 <div class="tab-content">
-                    <div id="tab_pckgPrfmncReg">
+                    <div id="tab_spmtPrfmncReg">
                         <table class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 40%">
                             <colgroup>
                                 <col style="width: 30%">
@@ -81,7 +81,7 @@
                                     입고일자
                                 </th>
                                 <td class="td_input">
-                                    <sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+                                    <sbux-datepicker uitype="popup" id="reg-dtp-wrhsYmd" name="reg-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
                                 </td>
                             </tr>
                             <tr>
@@ -93,8 +93,8 @@
                                         <sbux-select
                                                 unselected-text="전체"
                                                 uitype="single"
-                                                id="srch-slt-itemCd"
-                                                name="srch-slt-itemCd"
+                                                id="reg-slt-itemCd"
+                                                name="reg-slt-itemCd"
                                                 class="form-control input-sm input-sm-ast"
                                                 jsondata-ref="jsonApcItem">
                                         </sbux-select>
@@ -109,8 +109,8 @@
                                     <div style="display: flex; gap: 5px">
                                         <sbux-input
                                                 uitype="text"
-                                                id="srch-inp-prdcrIdentno"
-                                                name="srch-inp-prdcrIdentno"
+                                                id="reg-inp-prdcrIdentno"
+                                                name="reg-inp-prdcrIdentno"
                                                 class="form-control input-sm"
                                                 wrap-style="flex-basis:10%"
                                                 maxlength="2"
@@ -119,8 +119,8 @@
                                         ></sbux-input>
                                         <sbux-input
                                                 uitype="text"
-                                                id="srch-inp-prdcrNm"
-                                                name="srch-inp-prdcrNm"
+                                                id="reg-inp-prdcrNm"
+                                                name="reg-inp-prdcrNm"
                                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                                 placeholder="초성검색 가능"
                                                 wrap-style="flex-basis:50%"
@@ -131,8 +131,8 @@
                                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                                         ></sbux-input>
                                         <sbux-button
-                                                id="btn-srch-prdcr"
-                                                name="btn-srch-prdcr"
+                                                id="btn-reg-prdcr"
+                                                name="btn-reg-prdcr"
                                                 class="btn btn-outline-dark"
                                                 text="찾기" uitype="modal"
                                                 target-id="modal-prdcr"
@@ -148,8 +148,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-plorCd"
-                                            name="srch-inp-prdcrIdentno"
+                                            id="reg-inp-plorCd"
+                                            name="reg-inp-prdcrIdentno"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             maxlength="2"
@@ -165,8 +165,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-vhclno"
-                                            name="srch-inp-vhclno"
+                                            id="reg-inp-vhclno"
+                                            name="reg-inp-vhclno"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             maxlength="2"
@@ -182,8 +182,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-wholWght"
-                                            name="srch-inp-wholWght"
+                                            id="reg-inp-wholWght"
+                                            name="reg-inp-wholWght"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             maxlength="2"
@@ -199,8 +199,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-emptVhclWght"
-                                            name="srch-inp-emptVhclWght"
+                                            id="reg-inp-emptVhclWght"
+                                            name="reg-inp-emptVhclWght"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             maxlength="2"
@@ -216,8 +216,8 @@
                                 <td style="padding :0!important;">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-actlWght"
-                                            name="srch-inp-actlWght"
+                                            id="reg-inp-actlWght"
+                                            name="reg-inp-actlWght"
                                             style="background-color: yellow !important; border-radius: 0"
                                             autocomplete="off"
                                             readonly
@@ -231,8 +231,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-bxQntt"
-                                            name="srch-inp-bxQntt"
+                                            id="reg-inp-bxQntt"
+                                            name="reg-inp-bxQntt"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             autocomplete="off"
@@ -251,8 +251,8 @@
                                         <div>
                                             <sbux-input
                                                     uitype="text"
-                                                    id="srch-inp-grdCd"
-                                                    name="srch-inp-grdCd"
+                                                    id="reg-inp-grdCd"
+                                                    name="reg-inp-grdCd"
                                                     wrap-style="margin-left:5px"
                                                     style="width: 50%"
                                                     autocomplete="off"
@@ -264,8 +264,8 @@
                                         <div>
                                             <sbux-input
                                                     uitype="text"
-                                                    id="srch-inp-NgrdCd"
-                                                    name="srch-inp-NgrdCd"
+                                                    id="reg-inp-NgrdCd"
+                                                    name="reg-inp-NgrdCd"
                                                     wrap-style="margin-left:5px"
                                                     style="width: 50%"
                                                     autocomplete="off"
@@ -282,8 +282,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-bxQntt"
-                                            name="srch-inp-bxQntt"
+                                            id="reg-inp-bxQntt"
+                                            name="reg-inp-bxQntt"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             autocomplete="off"
@@ -297,8 +297,8 @@
                                 <td style="padding: 0!important;">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-avgWght"
-                                            name="srch-inp-avgWght"
+                                            id="reg-inp-avgWght"
+                                            name="reg-inp-avgWght"
                                             style="background-color: yellow !important; border-radius: 0"
                                             autocomplete="off"
                                             readonly
@@ -312,8 +312,8 @@
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
-                                            id="srch-inp-bxQntt"
-                                            name="srch-inp-bxQntt"
+                                            id="reg-inp-bxQntt"
+                                            name="reg-inp-bxQntt"
                                             class="form-control input-sm"
                                             autocomplete="off"
                                     ></sbux-input>
@@ -322,7 +322,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="tab_pckgPrfmnc">
+                    <div id="tab_spmtPrfmnc">
                         <table class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 40%">
                             <colgroup>
                                 <col style="width: 30%">
@@ -388,8 +388,10 @@
         stdGrdSelect.init();
     });
     const fn_init = async function(){
+        console.log("TLqkffhadl");
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
-        await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),		// 품목
+        SBUxMethod.set("reg-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+        await gfn_setApcItemSBSelect('reg-slt-itemCd',jsonApcItem, gv_selectedApcCd);		// 품목
     }
     /**
      * @name fn_choicePrdcr
