@@ -1737,8 +1737,6 @@
 
         const listData = await postJsonPromiseForList;
 
-        console.log('--------listData----------', listData);
-
         try {
             if (_.isEqual("S", listData.resultStatus)) {
                 if(ACTIVE_MASTER_TAB == "Q") {
@@ -2040,8 +2038,6 @@
         var nRow = gvwMaster.getRow();
         var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
-
-        console.log()
 
         if(gfn_nvl(rowData) == "") return;
 
