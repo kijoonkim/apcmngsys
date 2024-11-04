@@ -112,17 +112,17 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrOgnCurntMngList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
+	<select id="selectPrdcrOgnCurntMngList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
 
-    	<![CDATA[
+		<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -177,8 +177,8 @@
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 
-    	]]>
-    		<if test='cmptnInst != null and cmptnInst != ""'>
+		]]>
+			<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
@@ -205,16 +205,16 @@
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    </select>
+		</if>
+	</select>
 
 
 	<insert id="insertPrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-    	<![CDATA[
-    	MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		<![CDATA[
+		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD  = #{apoCd}
@@ -995,6 +995,8 @@
 
 		WHERE 1=1
 		  AND FA.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr})
+		  AND FA.BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+		  AND FA.BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
 		  AND FA.YR = #{yr}
 
 		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
@@ -1056,8 +1058,10 @@
 				AND FPESS.YR = EAM.YR
 				AND FPESS.APO_SE = EAM.APO_SE
 		WHERE 1=1
-			AND FPESS.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr})
-			AND FPESS.YR = #{yr}
+		  AND FPESS.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr})
+		  AND FPESS.BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+		  AND FPESS.BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+		  AND FPESS.YR = #{yr}
 		ORDER BY YR , CORP_NM , UO_CORP_NM
 	</select>
 </mapper>
