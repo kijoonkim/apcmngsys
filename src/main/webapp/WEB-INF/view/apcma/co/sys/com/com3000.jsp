@@ -1175,7 +1175,6 @@
          $('#btnCopyCell').hide();
          
         let gridData = CMNSCDSubGrid.getGridDataAll();
-		console.log('gridData ==>', gridData);
 		jsonCMNSCDSubList = [];
         mode = 'byrow'; //그리드 프로퍼티스 라인모드
          let fieldData = await fn_fieldCaption(); 
@@ -1187,7 +1186,6 @@
          $('#btnCopyLine').hide();
          $('#btnCopyCell').show();
          let gridData = CMNSCDSubGrid.getGridDataAll();
- 		console.log('gridData ==>', gridData);
          jsonCMNSCDSubList = [];
          let fieldData = await fn_fieldCaption(); 
 
@@ -1203,7 +1201,6 @@
         $('#btnCopyCell').hide();
 
         let gridData = CMNSCDSubGrid.getGridDataAll();
- 		console.log('gridData ==>', gridData);
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 
 

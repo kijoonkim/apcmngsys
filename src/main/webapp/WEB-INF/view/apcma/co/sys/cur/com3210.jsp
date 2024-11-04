@@ -61,7 +61,7 @@
                     <!--[APC] START -->
                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
                     <!--[APC] END -->
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="srchArea1" class="table table-bordered tbl_fixed">
                         <colgroup>
 	                        <col style="width: 7%">
 							<col style="width: 6%">
@@ -100,10 +100,10 @@
                                 <th scope="row" class="th_bg">기준일자</th>
                                 <td class="td_output" style="border-right: hidden;">
                                     <div style="display: flex;align-items: center;">
-                                        <sbux-datepicker id="SRCH_BASE_DATE_FR" name="SRCH_BASE_DATE_FR" uitype="popup" date-format="yyyy/mm/dd" style="height:28px;width: 120px;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE_FR" name="SRCH_BASE_DATE_FR" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;">
                                         </sbux-datepicker>
                                         <span style="margin-left:1rem;margin-right:1rem;font-size:large;"> ~ </span>
-                                        <sbux-datepicker id="SRCH_BASE_DATE_TO" name="SRCH_BASE_DATE_TO" uitype="popup" date-format="yyyy/mm/dd" style="height:28px;width: 120px;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE_TO" name="SRCH_BASE_DATE_TO" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;">
                                         </sbux-datepicker>
                                     </div>
                                 </td>
@@ -182,7 +182,7 @@
                     <!--[APC] START -->
 <%--                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %> --%>
                     <!--[APC] END -->
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="srchArea2" class="table table-bordered tbl_fixed">
                         <caption>검색 조건 설정</caption>
                         <colgroup>
 	                        <col style="width: 7%">
@@ -261,7 +261,7 @@
                     <!--[APC] START -->
 <%--                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %> --%>
                     <!--[APC] END -->                
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="srchArea3" class="table table-bordered tbl_fixed">
 	                    <colgroup>
 							<col style="width: 7%">
 							<col style="width: 6%">
@@ -380,6 +380,16 @@
 	function cfn_add() {
 	}
 	
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+		gfnma_uxDataClear('#srchArea2');
+		gfnma_uxDataClear('#srchArea3');
+	}
+
+	
 	// 그룹코드 내역, 세부코드 정보 저장
 	function cfn_save() {
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
@@ -448,7 +458,6 @@
 			if(updatedDayData[i].data.EXCHANGE_SEQ == '' && updatedDayData[i].status != 'd'){
 				gfn_comAlert("W0002", "추가한 행의 고시회차"); 
 				return;
-				break;
 			}
 		}
 		updatedDayData.forEach((item, index) => {
@@ -1019,93 +1028,91 @@
             		imagewidth : '20'
             	}
             },
-            {caption : ["기준통화"], ref : 'BASE_CURRENCY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["기준통화"], ref : 'BASE_CURRENCY', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    displayui : true,
                     oneclickedit:true,
                     label : 'label',
                     value : 'value'
                 }
             },
             {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd'}},
-            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: 'output', width: '100px', style: 'text-align:right'},
-            {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: 'input', width: '100px', style: 'text-align:right'},
+            {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    displayui : true,
                     oneclickedit:true,
                     label : 'label',
                     value : 'value'
                 }
             },
-            {caption: ["비고"], 				ref: 'REMARK', 				type: 'output', width: '120px', style: 'text-align:left'},
-            {caption: ["환산기준"], 			ref: 'EXCHANGE_BASE_SCALE', type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["비고"], 				ref: 'REMARK', 				type: 'input', width: '120px', style: 'text-align:left'},
+            {caption: ["환산기준"], 			ref: 'EXCHANGE_BASE_SCALE', type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["매매기준율"], 		ref: 'SLE_BSE_EX_RATE', 	type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["매매기준율"], 		ref: 'SLE_BSE_EX_RATE', 	type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["송금받을때"], 		ref: 'RCV_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["송금받을때"], 		ref: 'RCV_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["송금보낼때"], 		ref: 'SND_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["송금보낼때"], 		ref: 'SND_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["현찰팔때"], 			ref: 'SLE_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["현찰팔때"], 			ref: 'SLE_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["현찰살때"], 			ref: 'BUY_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["현찰살때"], 			ref: 'BUY_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["T/C매도율"], 			ref: 'TC_SLE_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["T/C매도율"], 			ref: 'TC_SLE_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["대미환산율"], 		ref: 'USA_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["대미환산율"], 		ref: 'USA_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["전신환 매입율"], 		ref: 'TT_BUY_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["전신환 매입율"], 		ref: 'TT_BUY_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["전신환 매도율"], 		ref: 'TT_SLE_EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["전신환 매도율"], 		ref: 'TT_SLE_EX_RATE', 		type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["전신환 우대매입율"],	ref: 'TT_BUY_PRM_EX_RATE', 	type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["전신환 우대매입율"],	ref: 'TT_BUY_PRM_EX_RATE', 	type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["전신환 우대매도율"],	ref: 'TT_SLE_PRM_EX_RATE', 	type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["전신환 우대매도율"],	ref: 'TT_SLE_PRM_EX_RATE', 	type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["LIBOR 1개월"], 		ref: 'LIBOR_M1_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["LIBOR 1개월"], 		ref: 'LIBOR_M1_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["LIBOR 3개월"], 		ref: 'LIBOR_M3_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["LIBOR 3개월"], 		ref: 'LIBOR_M3_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["LIBOR 1년"], 		ref: 'LIBOR_Y1_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["LIBOR 1년"], 		ref: 'LIBOR_Y1_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["환가료 1년"], 		ref: 'EX_COM_Y1_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["환가료 1년"], 		ref: 'EX_COM_Y1_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["환가료 1개월"], 		ref: 'EX_COM_M1_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["환가료 1개월"], 		ref: 'EX_COM_M1_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["환가료 3개월"],		ref: 'EX_COM_M3_EX_RATE', 	type: 'output', width: '120px', style: 'text-align:right',
+            {caption: ["환가료 3개월"],		ref: 'EX_COM_M3_EX_RATE', 	type: 'input', width: '120px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.0000000'}	
             },
-            {caption: ["사용자 환율1"], 		ref: 'USER_EXCHANGE_RATE1', type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["사용자 환율1"], 		ref: 'USER_EXCHANGE_RATE1', type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["사용자 환율2"], 		ref: 'USER_EXCHANGE_RATE2', type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["사용자 환율2"], 		ref: 'USER_EXCHANGE_RATE2', type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}
             },
-            {caption: ["사용자 환율3"], 		ref: 'USER_EXCHANGE_RATE3', type: 'output', width: '100px', style: 'text-align:right',
+            {caption: ["사용자 환율3"], 		ref: 'USER_EXCHANGE_RATE3', type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["펌뱅킹서비스"],		ref: 'FBS_SERVICE', 		type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["은행코드"], 			ref: 'BANK_CODE', 			type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["펌뱅킹서비스"],		ref: 'FBS_SERVICE', 		type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["은행코드"], 			ref: 'BANK_CODE', 			type: 'input', width: '100px', style: 'text-align:left'}
         ];
         dailyDayGrid = _SBGrid.create(SBGridProperties);
         dailyDayGrid.bind('click', 'fndailyDayGridData');

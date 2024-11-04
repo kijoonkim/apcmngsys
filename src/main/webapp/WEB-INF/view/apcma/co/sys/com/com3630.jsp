@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -98,7 +98,6 @@
 						title-target-id-array="tab1^tab2^tab3^tab4^tab5"
 						title-text-array="기본정보^회계관리^예산관리^관리항목^외화관련계정">
 					</sbux-tabs>
-					
                     <div class="col-sm-6 tab-content">
                         <div id="tab1">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
@@ -1097,7 +1096,7 @@
 	const fn_initSBSelect = async function() {
 		
 		let rst = await Promise.all([
-			
+			SBUxMethod.hideTab('tab_norm','tab3'),
 			//계정그룹구분
 			gfnma_multiSelectInit({
 				target			: ['#ACC_GROUP_GUBUN']
@@ -1274,15 +1273,18 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
     	fn_initSBSelect();
-    	
     	fn_createGrid();
-    	
     	cfn_search();
-    	
     });
     
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	gfnma_uxDataClear('#srchArea1');
+    	editType = 'N';
+    }
 	// 신규
 	function cfn_add() {
 		fn_clearForm();

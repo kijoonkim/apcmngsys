@@ -1785,12 +1785,10 @@
 		            {caption: "구분명",			ref: 'TAX_GROUP_NAME',    	width:'150px',  	style:'text-align:left'}
 				]	
 	            ,callback	:function (data){
-	                console.log('L_WITHHOLD_TAX_TYPE data:', data);
 	                if(data == ''){
 	                	SBUxMethod.set("TAX_RATE", '0.0');
 	                	return;
 	                }
-	                console.log('jsonWithholdTaxType ==> ', jsonWithholdTaxType);
 					for(var i=0; jsonWithholdTaxType.length > i; i++){
 						if(data == jsonWithholdTaxType[i].value){
 						    const strData = jsonWithholdTaxType[i].TAX_RATE.toString();
@@ -1925,7 +1923,6 @@
     			,p_doc_type	: docType	//'AP'
     		}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			},
     	});
   	}     
@@ -1943,7 +1940,6 @@
     		,width			: '1000px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -1959,7 +1955,6 @@
     		,width			: '1400px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -1975,7 +1970,6 @@
     		,width			: '1400px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -2451,9 +2445,7 @@
                 }
             }        	
         ];
-        console.log('create jsonCsCategory1 before => ', jsonCsCategory1);
         salesCategoryGrid = _SBGrid.create(SBGridProperties);
-        console.log('create jsonCsCategory1 after=> ', jsonCsCategory1);
     }
 
     const fn_createHistoryGrid = async function() {
@@ -2566,8 +2558,6 @@
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-console.log('paramObj ==>', paramObj);
-console.log('data ==>', data);
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    	   	/** @type {number} **/
@@ -2648,7 +2638,6 @@ console.log('data ==>', data);
 	        return;
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
-	    console.log('selectRowVal', selectRowVal);
     	
     	let SRCH_MULTI_YN 		= gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
     	let SRCH_CHIEF_NAME1 	= gfn_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
@@ -2690,8 +2679,7 @@ console.log('data ==>', data);
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-console.log('fn_viewSubTable paramObj ==>', paramObj);
-console.log('fn_viewSubTable data ==>', data);
+    console.log('fn_viewSubTable data ==>', data);
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		workType = 'U';
@@ -2704,6 +2692,7 @@ console.log('fn_viewSubTable data ==>', data);
 	    		
 	    		//거래처 기본정보 편집 데이터 입력
 	    		if(data.cv_1.length > 0) {
+		        	SBUxMethod.set("BIZ_REGNO",					gfn_nvl(cv_1.BIZ_REGNO));
 		        	SBUxMethod.set("CS_CODE",					gfn_nvl(cv_1.CS_CODE));
 		        	SBUxMethod.set("CS_ABBR_NAME",		 		gfn_nvl(cv_1.CS_ABBR_NAME));
 		        	SBUxMethod.set("REF_CS_CODE",				gfn_nvl(cv_1.REF_CS_CODE));
@@ -2986,7 +2975,6 @@ console.log('fn_viewSubTable data ==>', data);
     	
     	$('#idxTab_detail').click(function(){
     		var tabID = SBUxMethod.get('idxTab_detail');
-    		console.log(tabID);
     	})
     	
     	//매입처여부 체크박스
@@ -3025,7 +3013,6 @@ console.log('fn_viewSubTable data ==>', data);
 		})
 		//법인구분 라디오 버튼
     	$('#rdotd').change(function(){
-    		console.log('this val', SBUxMethod.get('BIZ_TYPE') );
     		//법인
     		if(SBUxMethod.get('BIZ_TYPE') == 'C'){
     			SBUxMethod.attr('COMP_REGNO', 'readonly', 'false');
@@ -3127,26 +3114,6 @@ console.log('fn_viewSubTable data ==>', data);
             		PREPAY_ACC_NAME = gfn_nvl(jsonCOM011[i].PREPAY_ACC_NAME);
             	}
             }
-            console.log('CS_GROUP =>', CS_GROUP);
-            console.log('USE_YN =>', USE_YN);
-            console.log('jsonCOM011 =>', jsonCOM011);
-            console.log('ADVANCE_ACC_CODE =>', ADVANCE_ACC_CODE);
-            console.log('ADVANCE_ACC_NAME =>', ADVANCE_ACC_NAME);
-            console.log('AP_ACC_CODE =>', AP_ACC_CODE);
-            console.log('AP_ACC_CODE_FOREIGN =>', AP_ACC_CODE_FOREIGN);
-            console.log('AP_ACC_NAME =>', AP_ACC_NAME);
-            console.log('AP_ACC_NAME_FOREIGN =>', AP_ACC_NAME_FOREIGN);
-            console.log('AR_ACC_CODE =>', AR_ACC_CODE);
-            console.log('AR_ACC_CODE_FOREIGN =>', AR_ACC_CODE_FOREIGN);
-            console.log('AR_ACC_NAME =>', AR_ACC_NAME);
-            console.log('AR_ACC_NAME_FOREIGN =>', AR_ACC_NAME_FOREIGN);
-            console.log('CODE_NAME =>', CODE_NAME);
-            console.log('EXTRA_FIELD2 =>', EXTRA_FIELD2);
-            console.log('EXTRA_FIELD3 =>', EXTRA_FIELD3);
-            console.log('NATION_CODE =>', NATION_CODE);
-            console.log('PAY_DATE_RULE =>', PAY_DATE_RULE);
-            console.log('PREPAY_ACC_CODE =>', PREPAY_ACC_CODE);
-            console.log('PREPAY_ACC_NAME =>', PREPAY_ACC_NAME);
             
             if(EXTRA_FIELD2 == "N" || EXTRA_FIELD2 == ""){
                 SBUxMethod.set('FOREIGN_YN', 'N');
@@ -3336,6 +3303,7 @@ console.log('fn_viewSubTable data ==>', data);
         jsonMappingList			= []; 
     	
     	//거래처 기본정보 편집
+    	SBUxMethod.set("BIZ_REGNO",					"");
     	SBUxMethod.set("CS_CODE",					"");
     	SBUxMethod.set("CS_ABBR_NAME",		 		"");
     	SBUxMethod.set("REF_CS_CODE",				"");
@@ -3529,7 +3497,6 @@ console.log('fn_viewSubTable data ==>', data);
    			   ,V_P_USERID               : p_userId
    			   ,V_P_PC                   : ''
   	    };	
-  	    console.log('save workType =>', workType);
         const postJsonPromise = gfn_postJSON("/co/sys/com/deleteCom3400.do", {
         	getType				: 'json',
         	workType			: 'D',
@@ -3537,8 +3504,6 @@ console.log('fn_viewSubTable data ==>', data);
         	params				: gfnma_objectToString(paramObj)
 		});   
         const data = await postJsonPromise;
-console.log('fn_delete paramObj => ' , paramObj);
-console.log('fn_delete data => ' , data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -3654,7 +3619,6 @@ console.log('fn_delete data => ' , data);
    			   ,V_P_USERID               : p_userId
    			   ,V_P_PC                   : ''
   	    };	
-  	    console.log('save workType =>', workType);
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400.do", {
         	getType				: 'json',
         	workType			: workType,
@@ -3662,8 +3626,6 @@ console.log('fn_delete data => ' , data);
         	params				: gfnma_objectToString(paramObj)
 		});   
         const data = await postJsonPromise;
-console.log('fn_save paramObj => ' , paramObj);
-console.log('fn_save data => ' , data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -3709,13 +3671,8 @@ console.log('fn_save data => ' , data);
 		});    	 
        const data = await postJsonPromise;
        
-console.log('paramObj fn_emp_Q =>', paramObj);
-console.log('data fn_emp_Q =>', data);
 		try {
 	       	if (_.isEqual("S", data.resultStatus)) {
-// 	       		if(data.resultMessage){
-// 	          		alert(data.resultMessage);
-// 	       		}
 	       		strEmpCode_d 		= "";
 	       		strBankCode_d 		= "";
 	       		strBankAccount_d 	= "";
@@ -3727,9 +3684,6 @@ console.log('data fn_emp_Q =>', data);
 	    	   	strEmpCode_d 		= strEmpCode_d.substring(0, strEmpCode_d.length -1);
 	    	   	strBankCode_d 		= strBankCode_d.substring(0, strBankCode_d.length -1);
 	    	   	strBankAccount_d 	= strBankAccount_d.substring(0, strBankAccount_d.length -1);
-	    	   	console.log('strEmpCode_d', strEmpCode_d);
-	    	   	console.log('strBankCode_d', strBankCode_d);
-	    	   	console.log('strBankAccount_d', strBankAccount_d);
 	       	}
         } catch (e) {
 	   		if (!(e instanceof Error)) {
@@ -3764,8 +3718,6 @@ console.log('data fn_emp_Q =>', data);
 		});    	 
        const data = await postJsonPromise;
        
-console.log('paramObj fn_emp_S =>', paramObj);
-console.log('data fn_emp_S =>', data);
 		try {
 	       	if (_.isEqual("S", data.resultStatus)) {
 // 	       		if(data.resultMessage){
@@ -4036,7 +3988,6 @@ console.log('data fn_emp_S =>', data);
    				}
    			},
     	});
-    	console.log('multiSelectData =>', multiSelectData);
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
   	}    
     
@@ -4084,8 +4035,6 @@ console.log('data fn_emp_S =>', data);
      */
     function fn_gridPopupBank(event, row, col) {
 
-        console.log('fn_gridPopupBank row:', row);
-        console.log('fn_gridPopupBank col:', col);
         let rowData = financeGrid.getRowData(row);
         let rowStatus = financeGrid.getRowStatus(row);
         if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){
@@ -4126,7 +4075,6 @@ console.log('data fn_emp_S =>', data);
             ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('fn_gridPopupBank2 data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 financeGrid.setCellData(row, (col+1), data['SUB_CODE']);
                 financeGrid.setCellData(row, (col+2), data['CODE_NAME']);
@@ -4157,7 +4105,6 @@ console.log('data fn_emp_S =>', data);
             ,tableColumnNames		: ["EMP_CODE", "EMP_FULL_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME", "POSITION_CODE", "DUTY_CODE", "JOB_RANK"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
         });
@@ -4217,7 +4164,6 @@ console.log('data fn_emp_S =>', data);
    			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
    			,tableColumnWidths		: ["100px", 		"300px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
 		        if(type == 'AP_ACC' ){
 					SBUxMethod.set("AP_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
@@ -4249,7 +4195,6 @@ console.log('data fn_emp_S =>', data);
     // 행 추가
      const fn_addFinanceRow = function () {
          let rowLen = financeGrid.getRows();
-         console.log('rowLen', rowLen);
          financeGrid.addRow(true,
      			{
         	 MAIN_FLAG:""
@@ -4352,11 +4297,8 @@ console.log('data fn_emp_S =>', data);
 			params				: gfnma_objectToString(paramObj)
 		});
   		const data = await postJsonPromise;
-console.log('fn_FinanceName paramObj ==>', paramObj);
-console.log('fn_FinanceName data ==>', data);
 		try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		console.log('success');
 	            gfn_comAlert("I0001"); // I0001 처리 되었습니다.
 	    	}
 	  	} catch (e) {
@@ -4415,8 +4357,6 @@ console.log('fn_FinanceName data ==>', data);
     }
 	// 행 추가
     const fn_addSalesCategoryRow = function () {
-		console.log('salesCategoryGrid ==>', salesCategoryGrid);
-		console.log('historyGrid ==>', historyGrid);
 		salesCategoryGrid.refresh();
 		salesCategoryGrid.addRow(true);
     }
@@ -4481,7 +4421,6 @@ console.log('fn_FinanceName data ==>', data);
        		return;
        	}
         let listData = [];
-console.log('fn_confirm masterGridChkRow =>', masterGridChkRow);
 		masterGridChkRow.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4546,7 +4485,6 @@ console.log('fn_confirm masterGridChkRow =>', masterGridChkRow);
        		return;
        	}
         let listData = [];
-console.log('fn_unconfirm masterGridChkRow =>', masterGridChkRow);
 		masterGridChkRow.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4601,7 +4539,6 @@ console.log('fn_unconfirm masterGridChkRow =>', masterGridChkRow);
             return true;
         }
         let listData = [];
-console.log('fn_save_S3 historyGridUpdateData =>', historyGridUpdateData);
 		historyGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4632,8 +4569,6 @@ console.log('fn_save_S3 historyGridUpdateData =>', historyGridUpdateData);
         });
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400_S3.do", {listData: listData});
         const data = await postJsonPromise;
-console.log('fn_save_S3 listData =>', listData);        
-console.log('fn_save_S3 data =>', data);        
         try {
             if (_.isEqual("S", data.resultStatus)) {
 	        	return true;
@@ -4660,7 +4595,6 @@ console.log('fn_save_S3 data =>', data);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S4 financeGridUpdateData =>', financeGridUpdateData); 
 		financeGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4702,8 +4636,6 @@ console.log('fn_save_S4 financeGridUpdateData =>', financeGridUpdateData);
         });
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400_S4.do", {listData: listData});
         const data = await postJsonPromise;
-console.log('fn_save_S4 listData =>', listData);         
-console.log('fn_save_S4 data =>', data);         
         try {
             if (_.isEqual("S", data.resultStatus)) {
             	return true;
@@ -4730,7 +4662,6 @@ console.log('fn_save_S4 data =>', data);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S5 purchaseGridUpdateData =>', purchaseGridUpdateData); 
 		purchaseGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4787,8 +4718,7 @@ console.log('fn_save_S5 purchaseGridUpdateData =>', purchaseGridUpdateData);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S6 salesGridUpdateData =>', salesGridUpdateData); 
-		purchaseGridUpdateData.forEach((item, index) => {
+        salesGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',
@@ -4847,7 +4777,6 @@ console.log('fn_save_S6 salesGridUpdateData =>', salesGridUpdateData);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S7 salesCategoryGridUpdateData =>', salesCategoryGridUpdateData); 
 		salesCategoryGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4908,7 +4837,6 @@ console.log('fn_save_S7 salesCategoryGridUpdateData =>', salesCategoryGridUpdate
         	return true;
         }
         let listData = [];
-console.log('fn_save_S8 salesShipToGridUpdateData =>', salesShipToGridUpdateData); 
 		salesShipToGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4967,7 +4895,6 @@ console.log('fn_save_S8 salesShipToGridUpdateData =>', salesShipToGridUpdateData
         	return true;
         }
         let listData = [];
-console.log('fn_save_S9 mappingGridUpdateData =>', mappingGridUpdateData); 
 		salescategoryGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',

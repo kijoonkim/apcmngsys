@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -193,11 +193,11 @@
                                 <tr>
                                     <th scope="row" class="th_bg">시작일자</th>
 									<td class="td_input " style="border-right: hidden;">
-										<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" readonly></sbux-datepicker>
+										<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
                                     <th scope="row" class="th_bg">종료일자</th>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" readonly></sbux-datepicker>
+										<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
                                 </tr>
                                 <tr>
@@ -599,6 +599,13 @@
 	function cfn_del() {
 		fn_delete();
 	}
+	
+	/**
+	 * 초기화
+	 */
+	 function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+	}
  
 	// 조회
 	function cfn_search() {
@@ -625,15 +632,15 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["기간","년도"],					ref: 'PERIOD_YYYY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["기간","기간코드"],				ref: 'PERIOD_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["기간","기간명"],					ref: 'PERIOD_NAME',				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["FCM현업","FCMFCM현업마감모듈"],	ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["FCM현업","FCM현업마감여부"],		ref: 'WORK_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["FCM담당자","FCM담당자마감모듈"],	ref: 'CONTRACT_CLOSE_CNT',		type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["FCM담당자","FCM담당자마감여부"],	ref: 'CONTRACT_CLOSE_STATUS',	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["SCM","SCM마감모듈"],				ref: 'SCM_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["SCM","SCM마감여부"],				ref: 'SCM_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:left'}
+            {caption : ["기간","년도"],					ref: 'PERIOD_YYYY', 			type:'output',  	width:'100px',  	style:'text-align:center'},
+            {caption : ["기간","기간코드"],				ref: 'PERIOD_CODE', 			type:'output',  	width:'100px',  	style:'text-align:center'},
+            {caption : ["기간","기간명"],					ref: 'PERIOD_NAME',				type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM현업","FCMFCM현업마감모듈"],	ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM현업","FCM현업마감여부"],		ref: 'WORK_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM담당자","FCM담당자마감모듈"],	ref: 'CONTRACT_CLOSE_CNT',		type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM담당자","FCM담당자마감여부"],	ref: 'CONTRACT_CLOSE_STATUS',	type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["SCM","SCM마감모듈"],				ref: 'SCM_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["SCM","SCM마감여부"],				ref: 'SCM_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:center'}
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_view');
@@ -1129,7 +1136,7 @@
 	    		masterGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				PERIOD_CODE					: item.PERIOD_CODE,
+		    				PERIOD_CODE					: item.PERIOD_CODE.replace(/(\d{4})(\d{2})/, "$1-$2"),
 		    				PERIOD_NAME					: item.PERIOD_NAME,
 		    				FISCAL_NO					: item.FISCAL_NO,
 		    				PERIOD_STATUS				: item.PERIOD_STATUS,
@@ -1324,7 +1331,7 @@
 	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FISCAL_NO         	: ''
-	    	   ,V_P_PERIOD_CODE        	: rowData.PERIOD_CODE
+	    	   ,V_P_PERIOD_CODE        	: rowData.PERIOD_CODE.replace(/-/g, "")
 	    	   ,V_P_PERIOD_NAME        	: ''
 	    	   ,V_P_FORM_ID             : p_formId
 	    	   ,V_P_MENU_ID             : p_menuId
