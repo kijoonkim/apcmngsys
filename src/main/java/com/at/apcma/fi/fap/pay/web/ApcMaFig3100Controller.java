@@ -160,6 +160,32 @@ public class ApcMaFig3100Controller extends BaseController {
         }
     }
 
+    // 전자세금계산서 관리(매입) 그리드 정보 추가
+    @PostMapping(value = "/fi/fap/pay/selectFig3100ORG.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFig3100ORG(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectFig3100ORG=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_ORG1100_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectFig3100ORG=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
 }
 
 
