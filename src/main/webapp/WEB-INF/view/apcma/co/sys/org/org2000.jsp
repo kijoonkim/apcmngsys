@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -258,11 +258,11 @@
                                 <tr>
                                     <th scope="row" class="th_bg">적용시작일</th>
                                     <td class="td_input ">
-                                		<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class=""></sbux-datepicker>
+                                		<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
                                     <th scope="row" class="th_bg">적용종료일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                               			<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class=""></sbux-datepicker>
+                               			<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;"></td>
                                 </tr>
@@ -541,6 +541,13 @@
 	function cfn_add() {
 	}
 	
+	/**
+	* 초기화
+	*/
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+	}
+	
     // 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
@@ -661,8 +668,8 @@
 		    				PRODUCTION_DEPT_YN	: gfn_nvl(item.PRODUCTION_DEPT_YN),
 		    				CC_CODE				: gfn_nvl(item.CC_CODE),
 		    				CC_NAME				: gfn_nvl(item.CC_NAME),
-		    				START_DATE			: gfn_nvl(item.START_DATE),
-		    				END_DATE			: gfn_nvl(item.END_DATE),
+		    				START_DATE			: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				END_DATE			: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
 		    				ZIP_CODE			: gfn_nvl(item.ZIP_CODE),
 		    				ADDRESS				: gfn_nvl(item.ADDRESS),
 		    				FIXED_NUMBER		: gfn_nvl(item.FIXED_NUMBER),

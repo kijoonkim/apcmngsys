@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -235,6 +235,12 @@
 		}
     }
 	
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#srchArea1');
+    }
 	
 	// 마스터 그리드 삭제
 	function cfn_del() {
@@ -274,7 +280,6 @@
 					ref			: 'jsonFiscalStatus',
 					label		: 'label',
 					value		: 'value',
-					displayui :true, 
 					oneclickedit: true
             	}
             },
@@ -356,8 +361,6 @@
   				,V_P_PROC_ID           : ''
   				,V_P_USERID            : p_userId
   				,V_P_PC                : ''
-  	   		   
-  	   		   
   		    };		
     	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2100.do", {
     	        	getType				: 'json',

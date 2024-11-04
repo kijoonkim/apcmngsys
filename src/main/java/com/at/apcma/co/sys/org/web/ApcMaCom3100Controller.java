@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
@@ -39,21 +40,23 @@ public class ApcMaCom3100Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
-	
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+    
 	// 국가정보 조회
-	@PostMapping(value = "/co/sys/org/selectCom3100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectCom3100List(
+	@PostMapping(value = "/co/sys/org/selectCom3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectCom3100(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectCom3100List=====start========");
+		logger.info("=============selectCom3100=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			param.put("procedure", 		"SP_COM3100_Q");
+			param.put("procedure", 		"P_COM3100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -61,11 +64,11 @@ public class ApcMaCom3100Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectCom3100List=====end========");
+		logger.info("=============selectCom3100=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 국가정보 신규
+	// 국가정보 그리드 저장
 	@PostMapping(value = "/co/sys/org/insertCom3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertCom3100(
 			@RequestBody Map<String, Object> param
@@ -74,44 +77,21 @@ public class ApcMaCom3100Controller extends BaseController {
 			,HttpServletRequest request) throws Exception{
 		
 		logger.info("=============insertCom3100=====start========");
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"SP_COM3100_S");
-			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3100_S");
+			logger.info("=============insertCom3100=====end========");
+			return getSuccessResponseEntityMa(resultMap);
 			
 		} catch (Exception e) {
+			
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+			
 		}
-		
-		logger.info("=============insertCom3100=====end========");
-		return getSuccessResponseEntity(resultMap);
-	}	
+	}
 	
-	// 국가정보 수정
-	@PostMapping(value = "/co/sys/org/updateCom3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateCom3100(
-			@RequestBody Map<String, Object> param
-			,Model model
-			,HttpSession session
-			,HttpServletRequest request) throws Exception{
-		
-		logger.info("=============updateCom3100=====start========");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		try {
-			
-			param.put("procedure", 		"SP_COM3100_S");
-			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-			
-		} catch (Exception e) {
-			logger.debug(e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		
-		logger.info("=============updateCom3100=====end========");
-		return getSuccessResponseEntity(resultMap);
-	}	
 }

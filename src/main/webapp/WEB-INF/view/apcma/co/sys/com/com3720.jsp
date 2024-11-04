@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -117,11 +117,11 @@
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션1</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION1" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION1" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션6</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION6" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION6" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -131,11 +131,11 @@
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션2</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION2" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션7</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION7" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION7" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>                                    
                                 </tr>
                                 <tr>
@@ -145,11 +145,11 @@
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션3</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION3" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION3" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션8</th>
                                     <td class="td_input" >
-                                        <sbux-input id="FIELD_CAPTION8" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION8" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>   
                                 </tr>
                                 <tr>
@@ -159,11 +159,11 @@
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션4</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION4" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION4" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션9</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION9" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION9" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,11 +173,11 @@
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션5</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION5" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION5" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">여유필드캡션10</th>
                                     <td class="td_input">
-                                        <sbux-input id="FIELD_CAPTION10" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="FIELD_CAPTION10" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -302,22 +302,24 @@
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
 	var editType 		= 'N';
+	var mode 			= 'byrows';
 	var jsonGroupCode	= [];	// 유형분류
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			
-
 		]);
 	}	
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
     	fn_initSBSelect();
     	fn_createGrid();
     	fn_createSubGrid();
     	cfn_search();
+    	
+		$('.field-caption').focusout(function() {
+			fn_changeFieldCaption();
+		})
     });
     
 	// 신규
@@ -325,6 +327,13 @@
 		fn_clearForm();
 		fn_createSubGrid();
 		editType = 'N';
+	}
+	
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
 	}
 	
     // 저장
@@ -346,6 +355,32 @@
 		fn_createSubGrid();
 	}
 
+    /*여유필드 캡션1~20 수정 시 그리드에 적용되게 */
+    const fn_changeFieldCaption = async function () { 
+       let gridData = subGrid.getGridDataAll();
+       jsonSubList = [];
+       let fieldData = await fn_fieldCaption(); 
+       
+       fn_drawSubGrid(mode,fieldData, gridData, true);
+    }
+    
+    /*필드캡션 데이터*/
+    const fn_fieldCaption = async function (){
+    	let field_data = {
+    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
+    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
+    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
+    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
+    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
+    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
+    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
+    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
+    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
+    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"))
+    	};
+    	return field_data;
+    }
+    
     //grid 초기화
     var masterGrid; 			// 그리드를 담기위한 객체 선언
     var jsonMasterList 	= []; 	// 그리드의 참조 데이터 주소 선언
@@ -405,10 +440,8 @@
             {caption: ["여유필드9"],			ref: 'EXTRA_FIELD9',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드10"],			ref: 'EXTRA_FIELD10',   type:'input',       width:'100px',  	style:'text-align:left'},
         ];
-        
         subGrid	= _SBGrid.create(SBSubGridProperties);
     }
-
 
     /**
      * 코드목록 조회
@@ -482,17 +515,17 @@
     }
 	
     //세부코드 정보
-    const fn_drawSubGrid = async function(mod, cv_3, copymod) {
-		let FIELD_CAPTION1    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")) == "" ? "여유필드1" : SBUxMethod.get("FIELD_CAPTION1");
-		let FIELD_CAPTION2    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")) == "" ? "여유필드2" : SBUxMethod.get("FIELD_CAPTION2");
-		let FIELD_CAPTION3    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")) == "" ? "여유필드3" : SBUxMethod.get("FIELD_CAPTION3");
-		let FIELD_CAPTION4    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")) == "" ? "여유필드4" : SBUxMethod.get("FIELD_CAPTION4");
-		let FIELD_CAPTION5    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")) == "" ? "여유필드5" : SBUxMethod.get("FIELD_CAPTION5");
-		let FIELD_CAPTION6    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")) == "" ? "여유필드6" : SBUxMethod.get("FIELD_CAPTION6");
-		let FIELD_CAPTION7    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")) == "" ? "여유필드7" : SBUxMethod.get("FIELD_CAPTION7");
-		let FIELD_CAPTION8    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")) == "" ? "여유필드8" : SBUxMethod.get("FIELD_CAPTION8");
-		let FIELD_CAPTION9    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")) == "" ? "여유필드9" : SBUxMethod.get("FIELD_CAPTION9");
-		let FIELD_CAPTION10    	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10")) == "" ? "여유필드10" : SBUxMethod.get("FIELD_CAPTION10");
+    const fn_drawSubGrid = async function(mode, fieldData, gridData, copymod) {
+		let FIELD_CAPTION1    	= gfn_nvl(fieldData.FIELD_CAPTION1)  == "" ? "여유필드1"  : fieldData.FIELD_CAPTION1;
+		let FIELD_CAPTION2	    = gfn_nvl(fieldData.FIELD_CAPTION2)  == "" ? "여유필드2"  : fieldData.FIELD_CAPTION2;
+		let FIELD_CAPTION3	    = gfn_nvl(fieldData.FIELD_CAPTION3)  == "" ? "여유필드3"  : fieldData.FIELD_CAPTION3;
+		let FIELD_CAPTION4	    = gfn_nvl(fieldData.FIELD_CAPTION4)  == "" ? "여유필드4"  : fieldData.FIELD_CAPTION4;
+		let FIELD_CAPTION5	    = gfn_nvl(fieldData.FIELD_CAPTION5)  == "" ? "여유필드5"  : fieldData.FIELD_CAPTION5;
+		let FIELD_CAPTION6	    = gfn_nvl(fieldData.FIELD_CAPTION6)  == "" ? "여유필드6"  : fieldData.FIELD_CAPTION6;
+		let FIELD_CAPTION7	    = gfn_nvl(fieldData.FIELD_CAPTION7)  == "" ? "여유필드7"  : fieldData.FIELD_CAPTION7;
+		let FIELD_CAPTION8	    = gfn_nvl(fieldData.FIELD_CAPTION8)  == "" ? "여유필드8"  : fieldData.FIELD_CAPTION8;
+		let FIELD_CAPTION9	    = gfn_nvl(fieldData.FIELD_CAPTION9)  == "" ? "여유필드9"  : fieldData.FIELD_CAPTION9;
+		let FIELD_CAPTION10	    = gfn_nvl(fieldData.FIELD_CAPTION10) == "" ? "여유필드10" : fieldData.FIELD_CAPTION10;
 		
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
@@ -500,7 +533,7 @@
         SBSubGridProperties.id 					= 'subGrid';
         SBSubGridProperties.jsonref 			= 'jsonSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBSubGridProperties.selectmode 			= mod;
+        SBSubGridProperties.selectmode 			= mode;
         SBSubGridProperties.allowcopy 			= copymod;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
@@ -529,9 +562,8 @@
         _SBGrid.destroy('subGrid');
         subGrid = _SBGrid.create(SBSubGridProperties);
         
-        cv_3.forEach((item, index) => {
+        gridData.forEach((item, index) => {
 			const msg = {
-
 					SUB_CODE		: item.SUB_CODE,
 					CODE_NAME		: item.CODE_NAME,
 					SYSTEM_YN		: item.SYSTEM_YN,
@@ -862,41 +894,44 @@
      }
      
      
-     const fn_gridCopyClear = function (){ 
+     const fn_gridCopyClear = async function (){ 
          $('#btnCopyClear').hide();
          $('#btnCopyLine').show();
          $('#btnCopyCell').hide();
 
-         let data = subGrid.getGridDataAll();
+         let gridData = subGrid.getGridDataAll();
+         let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
-		 let mod = 'byrow'; //행 단위 단일  선택
-         fn_drawSubGrid(mod, data, true);
+		 mode = 'byrow'; //행 단위 단일  선택
+         fn_drawSubGrid(mode,fieldData, gridData, true);
 
      }
      
      /*행 복사 (행복사모드)*/
-     const fn_gridCopyLine = function () { 
+     const fn_gridCopyLine = async function () { 
          $('#btnCopyClear').hide();
          $('#btnCopyLine').hide();
          $('#btnCopyCell').show();
 
-         let data = subGrid.getGridDataAll();
+         let gridData = subGrid.getGridDataAll();
+         let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
-		 let mod = 'byrows'; //행 단위 다중 선택
-         fn_drawSubGrid(mod, data, true);
+		 mode = 'byrows'; //행 단위 다중 선택
+         fn_drawSubGrid(mode,fieldData, gridData, true);
 
      }
      
      /*셀 복사 (셀복사모드)*/
-     const fn_gridCopyCell = function () { 
+     const fn_gridCopyCell = async function () { 
          $('#btnCopyClear').show();
          $('#btnCopyLine').hide();
          $('#btnCopyCell').hide();
          
-         let data = subGrid.getGridDataAll();
+         let gridData = subGrid.getGridDataAll();
+         let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
-         let mod = 'free'; //셀 단위 다중 선택
-         fn_drawSubGrid(mod, data, true);
+         mode = 'free'; //셀 단위 다중 선택
+         fn_drawSubGrid(mode,fieldData, gridData, true);
      }
      
     //그룹코드 내역 보기
@@ -938,14 +973,13 @@
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
         const data = await postJsonPromise;
         try {
   			if (_.isEqual("S", data.resultStatus)) {
   	        	// 데이터를 #dataArea1 table에 입력
   	          	gfnma_uxDataSet('#dataArea1', data.cv_2[0]);
   	      		
-  	      		fn_drawSubGrid('byrow', data.cv_3, false);
+  	      		fn_drawSubGrid('byrow', data.cv_2[0], data.cv_3, false);
   	      		
         	} else {
           		alert(data.resultMessage);

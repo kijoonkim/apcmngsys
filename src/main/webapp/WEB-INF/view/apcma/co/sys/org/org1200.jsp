@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -362,6 +362,13 @@
 		fn_search();
 	}
 
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+	}
+	
     //grid 초기화
     var masterGrid; 					// 사업단위 그리드를 담기위한 객체 선언
     var detailGrid; 					// 대상사업장 그리드를 담기위한 객체 선언
@@ -413,9 +420,9 @@
            		style : 'text-align:center'
             },
             {caption: [''],ref: 'btn1',    				type:'button',  	width:'50px',  		style:'text-align:center', 
-            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:40px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>팝업</button>";
-            	}	
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        	}	
             },
             {caption : ["사업장코드"],	ref: 'SITE_CODE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption : ["사업장명"],		ref: 'SITE_NAME',		type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -438,18 +445,18 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [''],ref: 'btn2',    				type:'button',  	width:'50px',  		style:'text-align:center', 
-            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:40px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>팝업</button>";
-            	}
+            {caption: [''],ref: 'btn2',    				type:'button',  	width:'10%',  		style:'text-align:center', 
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        	}	
             },
-            {caption : ["사용자ID"],			ref: 'USER_ID', 	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["사용자명"],			ref: 'USER_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption : ["사용자ID"],			ref: 'USER_ID', 	type:'output',  	width:'25%',  	style:'text-align:left'},
+            {caption : ["사용자명"],			ref: 'USER_NAME', 	type:'output',  	width:'25%',  	style:'text-align:left'},
             {caption : ['적용시작일'],     	ref: 'START_DATE',      type:'datepicker' ,   
-            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'
+            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
             },
             {caption : ['적용종료일'],     	ref: 'END_DATE',      type:'datepicker' ,   
-            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'
+            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
             }
         ];
         authorityGrid	= _SBGrid.create(SBGridProperties);
@@ -615,8 +622,8 @@
 	           	}
 	           	strWorkType2 	+= "N" + "|";
 	           	strUserId 		+= updatedAuthorityData[i].USER_ID 		+ "|";
-	   	        strStartDate 	+= updatedAuthorityData[i].START_DATE 	+ "|";
-	   	        strEndDate 		+= updatedAuthorityData[i].END_DATE 	+ "|";
+	   	        strStartDate 	+= updatedAuthorityData[i].START_DATE.replace(/-/g, "") 	+ "|";
+	   	        strEndDate 		+= updatedAuthorityData[i].END_DATE.replace(/-/g, "") 	+ "|";
             }
             if (strUserId.length > 0){
            		strWorkType2 	= strWorkType2.substring(0, strWorkType2.length - 1);
@@ -742,8 +749,8 @@
 		    				FI_ORG_CODE		: gfn_nvl(item.FI_ORG_CODE),
 		    				USER_ID			: gfn_nvl(item.USER_ID),
 		    				USER_NAME		: gfn_nvl(item.USER_NAME),
-		    				START_DATE		: gfn_nvl(item.START_DATE),
-		    				END_DATE		: gfn_nvl(item.END_DATE),
+		    				START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
 		    				CLIENT_CODE		: gfn_nvl(item.CLIENT_CODE),
 		    				COMP_CODE		: gfn_nvl(item.COMP_CODE)
 		    		}

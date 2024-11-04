@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -795,7 +795,12 @@
 		workType = 'N';
 		fn_clearSubForm();
 	}
-	
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+	}
     // 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
