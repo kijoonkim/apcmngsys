@@ -965,7 +965,6 @@
         let xml = parser.parseFromString(file, "text/xml");
         let parseXmlForJson = xmlToJson(xml);
         let taxInvoice = parseXmlForJson.TaxInvoice;
-        //console.log(parseXmlForJson)
         let nodeTaxInvoice = taxInvoice;
         let nodeExchangedDocument = taxInvoice.ExchangedDocument;
         let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;
@@ -1397,7 +1396,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -1549,7 +1548,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -2021,8 +2020,6 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('-----------listData-------------', listData);
-
         if (listData.length > 0) {
 
             const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: listData});
@@ -2368,7 +2365,6 @@
                 });
             }else{
 
-                console.log('-------itemGridData--------', itemGridData);
                 /*********필수값 체크************/
                 itemGridData.forEach((item, index) => {
                     if (gfn_nvl(item.data.APPROVAL_NO) == ''){

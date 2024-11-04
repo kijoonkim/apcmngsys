@@ -261,8 +261,8 @@
         let USER_ID         = gfn_nvl(SBUxMethod.get("SRCH_USER_ID")); //사용자ID
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN: 'N'
-            , V_P_LANG_ID: 'KOR'
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
@@ -274,11 +274,11 @@
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
             , V_P_PROC_ID: ''
-            , V_P_USERID: p_userId
+            , V_P_USERID: ''
             , V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200List.do", {
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys1900List.do", {
             getType: 'json',
             workType: QUERY_TYPE,
             cv_count: '2',

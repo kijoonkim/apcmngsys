@@ -456,7 +456,7 @@
                             </th>
                             <td class="td_input">
                                 <sbux-input id="NUMBER_SAMPLE" class="form-control input-sm" uitype="text" required
-                                            style="width:100%" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            style="width:100%" ></sbux-input>
                             </td>
                         </tr>
                     </table>
@@ -999,8 +999,8 @@
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '300px', style: 'text-align:left'},
+            {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '300px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  /*format : {type:'number', rule:'#,###'}*/},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', disabled: true}//스타일상 빈값
 
@@ -1668,10 +1668,9 @@
                     alert(data.resultMessage);
                 }
 
-                let returnStr = data.v_returnStr;
-                if(returnStr != null){
-                    SBUxMethod.set("NUMBER_SAMPLE", returnStr);
-                }
+                SBUxMethod.set("NUMBER_SAMPLE", gfn_nvl(data.v_returnStr));
+
+
             } else {
                 alert(data.resultMessage);
             }
