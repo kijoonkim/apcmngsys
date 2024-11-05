@@ -1,5 +1,8 @@
 package com.at.apcss.co.ognz.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -8,6 +11,10 @@ import lombok.Setter;
 @Setter
 public class UntyOgnzVO extends ComVO {
 
+	
+	private String superUserYn;
+	private String authrtMngrYn;
+	
 	private String untyOgnzId;
 	private String untyOgnzType;
 	private String untyOgnzCd;
@@ -52,5 +59,15 @@ public class UntyOgnzVO extends ComVO {
 	private String coTelno;
 	private String eml;
 	
+
+	private List<UntyOgnzApcUserVO> apcUserList;
+
+	public List<UntyOgnzApcUserVO> getApcUserList() {
+		return apcUserList == null ? null : apcUserList.stream().collect(Collectors.toList());
+	}
+
+	public void setApcUserList(List<UntyOgnzApcUserVO> apcUserList) {
+		this.apcUserList = apcUserList == null ? null : apcUserList.stream().collect(Collectors.toList());
+	}
 	
 }

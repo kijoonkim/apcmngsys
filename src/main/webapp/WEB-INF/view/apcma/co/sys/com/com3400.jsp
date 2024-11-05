@@ -27,6 +27,11 @@
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+<!-- 	<style>     -->
+<!--  			body{  -->
+<!--  				zoom: 0.9 !important;      -->
+<!--  			}  -->
+<!-- 	</style> -->
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -199,7 +204,7 @@
 	                    <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal"
 							is-scrollable="false"
 							title-target-id-array="tabInfo^tabDetail"
-							title-text-array="거래처 기본정보 편집^거래처 상세정보 편집">
+							title-text-array="거래처 기본정보 편집^주소 ~ 매핑이력">
 						</sbux-tabs>
 						<div style="vertical-align:middle !important;margin-left:2rem;">
 							<span style="vertical-align:middle;font-weight:bolder;color:#149fff">공급사 / 고객사 연락처가 최신 데이터인지 필히 확인바랍니다.</span>
@@ -588,7 +593,7 @@
 								title-text-array="주소/연락처^자금정보^구매정보^판매정보^판매납품처^판매처분류^세금 등^변경이력관리^매핑이력">
 							</sbux-tabs>
 							<div class="col-sm-12 tab-content">
-							<!-- 거래처 상세정보 편집 - 주소/연락처 -->
+							<!-- 주소 ~ 매핑이력 - 주소/연락처 -->
 								<div id="tabAddress" style="height:350px;">
 									<table id="addressTable" class="table table-bordered tbl_fixed">
 										<colgroup>
@@ -668,7 +673,7 @@
 										</tr>    										   
 			                    	</table>									
 								</div>
-								<!-- 거래처 상세정보 편집 - 자금정보 -->
+								<!-- 주소 ~ 매핑이력 - 자금정보 -->
 								<div id="tabFinance" style="height:400px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:ruby;float: right;">
@@ -697,7 +702,7 @@
 			                            <div id="sb-area-grdFinance" style="height:315px; width:100%;"></div>
 			                        </div>
 								</div>
-								<!-- 거래처 상세정보 편집 - 구매정보 -->
+								<!-- 주소 ~ 매핑이력 - 구매정보 -->
 								<div id="tabPurchase" style="height:350px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -862,7 +867,7 @@
 			                            <div id="sb-area-grdPurchase" style="height:350px; width:100%;"></div>
 			                        </div>
 								</div>
-								<!-- 거래처 상세정보 편집 - 판매정보 -->
+								<!-- 주소 ~ 매핑이력 - 판매정보 -->
 								<div id="tabSales" style="height:350px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -964,7 +969,7 @@
 			                            <div id="sb-area-grdSales" style="height:350px; width:100%;"></div>
 			                        </div>									
 								</div>
-								<!-- 거래처 상세정보 편집 - 판매납품처 -->
+								<!-- 주소 ~ 매핑이력 - 판매납품처 -->
 								<div id="tabSalesShipTo" style="height:350px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -976,7 +981,7 @@
 			                            <div id="sb-area-grdSalesShipTo" style="height:315px; width:100%;"></div>
 			                        </div>										
 								</div>
-								<!-- 거래처 상세정보 편집 - 판매처분류 -->
+								<!-- 주소 ~ 매핑이력 - 판매처분류 -->
 								<div id="tabSalesCategory" style="height:430px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -1034,7 +1039,7 @@
 			                            <div id="sb-area-grdSalesCategory" style="height:250px; width:100%;"></div>
 			                        </div>										
 								</div>
-								<!-- 거래처 상세정보 편집 - 세금 등 -->
+								<!-- 주소 ~ 매핑이력 - 세금 등 -->
 								<div id="tabTax" style="height:350px;">
 									<table id="taxTable" class="table table-bordered tbl_fixed">
 										<colgroup>
@@ -1116,7 +1121,7 @@
 										</tr>  										
 			                    	</table>											
 								</div>
-								<!-- 거래처 상세정보 편집 - 변경이력관리 -->
+								<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
 								<div id="tabHistory" style="height:350px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -1128,7 +1133,7 @@
 			                            <div id="sb-area-grdHistory" style="height:315px; width:100%;"></div>
 			                        </div>										
 								</div>
-								<!-- 거래처 상세정보 편집 - 매핑이력 -->
+								<!-- 주소 ~ 매핑이력 - 매핑이력 -->
 								<div id="tabMapping" style="height:350px;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
@@ -1222,26 +1227,26 @@
 	var jsonWithholdTaxType		= []; // 원천세유형
 	var jsonUseYn				= []; //확정여부, 거래중지여부, 삭제여부
 	var jsonStatusCode			= []; // 거래처 리스트 - 상태
-	var jsonNoteType 			= []; // 거래처 상세정보 편집 - 자금정보 탭 어음상품종류
-	var jsonPayReason 			= []; // 거래처 상세정보 편집 - 자금정보 탭 지급사유
-	var jsonSendReason 			= []; // 거래처 상세정보 편집 - 자금정보 탭 송금사유
-	var jsonFeeCharger 			= []; // 거래처 상세정보 편집 - 자금정보 탭 수수료부담자
-	var jsonCurrencyCode 		= []; // 거래처 상세정보 편집 - 자금정보 탭 통화
-	var jsonVatAccountYN 		= []; // 거래처 상세정보 편집 - 자금정보 탭 부가세전용계좌여부
-	var jsonPurContactType 		= []; // 거래처 상세정보 편집 - 구매정보 탭 용도
-	var jsonSaleContactType 	= []; // 거래처 상세정보 편집 - 판매정보 탭 용도
-	var jsonCreditArea	 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 여신관리영역
-	var jsonCsCategory1 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류1
-	var jsonCsCategory2 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류2
-	var jsonCsCategory3 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류3
-	var jsonCsCategory4 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류4
-	var jsonCsCategory5 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류5
-	var jsonCsCategory6 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류6
-	var jsonCsCategory7 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류7
-	var jsonCsCategory8 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류8
-	var jsonCsCategory9 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류9
-	var jsonCsCategory10 		= []; // 거래처 상세정보 편집 - 판매처분류 탭 분류10
-	var jsonMapType 			= []; // 거래처 상세정보 편집 - 매핑이력 탭 매칭유형
+	var jsonNoteType 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
+	var jsonPayReason 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 지급사유
+	var jsonSendReason 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 송금사유
+	var jsonFeeCharger 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 수수료부담자
+	var jsonCurrencyCode 		= []; // 주소 ~ 매핑이력 - 자금정보 탭 통화
+	var jsonVatAccountYN 		= []; // 주소 ~ 매핑이력 - 자금정보 탭 부가세전용계좌여부
+	var jsonPurContactType 		= []; // 주소 ~ 매핑이력 - 구매정보 탭 용도
+	var jsonSaleContactType 	= []; // 주소 ~ 매핑이력 - 판매정보 탭 용도
+	var jsonCreditArea	 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 여신관리영역
+	var jsonCsCategory1 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류1
+	var jsonCsCategory2 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류2
+	var jsonCsCategory3 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류3
+	var jsonCsCategory4 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류4
+	var jsonCsCategory5 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류5
+	var jsonCsCategory6 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류6
+	var jsonCsCategory7 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류7
+	var jsonCsCategory8 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류8
+	var jsonCsCategory9 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류9
+	var jsonCsCategory10 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류10
+	var jsonMapType 			= []; // 주소 ~ 매핑이력 - 매핑이력 탭 매칭유형
 	var jsonEmpState				= [];
 	var jsonCOM011				= [];
 	const fn_initSBSelect = async function() {
@@ -1251,47 +1256,47 @@
             gfnma_setComSelect([], jsonCOM011, 'L_COM011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//원천세 유형
             gfnma_setComSelect([], jsonWithholdTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 어음상품종류
+			// 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
             gfnma_setComSelect(['masterGrid','STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 어음상품종류
+			// 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
             gfnma_setComSelect(['financeGrid','NOTE_TYPE'], jsonNoteType, 'L_FIF044', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 지급사유
+			// 주소 ~ 매핑이력 - 자금정보 탭 지급사유
             gfnma_setComSelect(['financeGrid','PAY_REASON'], jsonPayReason, 'L_COM062', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 송금사유
+			// 주소 ~ 매핑이력 - 자금정보 탭 송금사유
             gfnma_setComSelect(['financeGrid','SEND_REASON'], jsonSendReason, 'L_COM063', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 수수료부담자
+			// 주소 ~ 매핑이력 - 자금정보 탭 수수료부담자
             gfnma_setComSelect(['financeGrid','FEE_CHARGER'], jsonFeeCharger, 'L_COM064', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 통화
+			// 주소 ~ 매핑이력 - 자금정보 탭 통화
             gfnma_setComSelect(['financeGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 자금정보 탭 통화
+			// 주소 ~ 매핑이력 - 자금정보 탭 통화
             gfnma_setComSelect(['financeGrid','VAT_ACCOUNT_YN'], jsonVatAccountYN, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 구매정보 탭 용도
+			// 주소 ~ 매핑이력 - 구매정보 탭 용도
             gfnma_setComSelect(['purchaseGrid','PUR_CONTACT_TYPE'], jsonPurContactType, 'L_COM049', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 거래처 상세정보 편집 - 구매정보 탭 용도
+			// 주소 ~ 매핑이력 - 구매정보 탭 용도
             gfnma_setComSelect(['salesGrid','SALE_CONTACT_TYPE'], jsonSaleContactType, 'L_COM049', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 여신관리영역
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 여신관리영역
             gfnma_setComSelect(['salesCategoryGrid','CREDIT_AREA'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류1
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류1
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY1'], jsonCsCategory1, 'L_COM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류2
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류2
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY2'], jsonCsCategory2, 'L_COM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류3
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류3
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY3'], jsonCsCategory3, 'L_COM053', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류4
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류4
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY4'], jsonCsCategory4, 'L_COM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류5
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류5
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY5'], jsonCsCategory5, 'L_COM055', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류6
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류6
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY6'], jsonCsCategory6, 'L_COM056', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류7
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류7
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY7'], jsonCsCategory7, 'L_COM057', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류8
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류8
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY8'], jsonCsCategory8, 'L_COM058', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류9
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류9
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY9'], jsonCsCategory9, 'L_COM059', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 판매처분류 탭 분류10
+         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류10
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY10'], jsonCsCategory10,'L_COM060', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 거래처 상세정보 편집 - 매핑이력 탭 매칭유형
+         	// 주소 ~ 매핑이력 - 매핑이력 탭 매칭유형
             gfnma_setComSelect(['mappingGrid','MAP_TYPE'], jsonMapType	,'L_COM111_G', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'MAP_TYPE', 'MAP_TYPE_NAME', 'Y', ''),
 			//거래처유형
 			gfnma_multiSelectInit({
@@ -1785,12 +1790,10 @@
 		            {caption: "구분명",			ref: 'TAX_GROUP_NAME',    	width:'150px',  	style:'text-align:left'}
 				]	
 	            ,callback	:function (data){
-	                console.log('L_WITHHOLD_TAX_TYPE data:', data);
 	                if(data == ''){
 	                	SBUxMethod.set("TAX_RATE", '0.0');
 	                	return;
 	                }
-	                console.log('jsonWithholdTaxType ==> ', jsonWithholdTaxType);
 					for(var i=0; jsonWithholdTaxType.length > i; i++){
 						if(data == jsonWithholdTaxType[i].value){
 						    const strData = jsonWithholdTaxType[i].TAX_RATE.toString();
@@ -1925,7 +1928,6 @@
     			,p_doc_type	: docType	//'AP'
     		}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			},
     	});
   	}     
@@ -1943,7 +1945,6 @@
     		,width			: '1000px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -1959,7 +1960,6 @@
     		,width			: '1400px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -1975,7 +1975,6 @@
     		,width			: '1400px'
        		,param			: {}
    			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
    			}
     	});
   	}     
@@ -2021,15 +2020,26 @@
 				return;
 			}
 		}
-		await fn_save();
-		await fn_save_S3();
-		await fn_save_S4();
-		await fn_save_S5();
-		await fn_save_S6();
-		await fn_save_S7();
-		await fn_save_S8();
-		await fn_save_S9();
-    	await fn_search();
+		
+		if(await fn_save() == true){
+			if(await fn_save_S3() == true){
+				if(await fn_save_S4() == true){
+					if(await fn_save_S5() == true){
+						if(await fn_save_S6() == true){
+							if(await fn_save_S7() == true){
+								if(await fn_save_S8() == true){
+									if(await fn_save_S9() == true){
+										await fn_search();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
     }
     
     //마스터 그리드 삭제
@@ -2451,9 +2461,7 @@
                 }
             }        	
         ];
-        console.log('create jsonCsCategory1 before => ', jsonCsCategory1);
         salesCategoryGrid = _SBGrid.create(SBGridProperties);
-        console.log('create jsonCsCategory1 after=> ', jsonCsCategory1);
     }
 
     const fn_createHistoryGrid = async function() {
@@ -2566,8 +2574,6 @@
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-console.log('paramObj ==>', paramObj);
-console.log('data ==>', data);
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    	   	/** @type {number} **/
@@ -2648,7 +2654,6 @@ console.log('data ==>', data);
 	        return;
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
-	    console.log('selectRowVal', selectRowVal);
     	
     	let SRCH_MULTI_YN 		= gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN);
     	let SRCH_CHIEF_NAME1 	= gfn_nvl(SBUxMethod.get("SRCH_CHIEF_NAME1"));
@@ -2690,8 +2695,6 @@ console.log('data ==>', data);
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-console.log('fn_viewSubTable paramObj ==>', paramObj);
-console.log('fn_viewSubTable data ==>', data);
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		workType = 'U';
@@ -2704,6 +2707,7 @@ console.log('fn_viewSubTable data ==>', data);
 	    		
 	    		//거래처 기본정보 편집 데이터 입력
 	    		if(data.cv_1.length > 0) {
+		        	SBUxMethod.set("BIZ_REGNO",					gfn_nvl(cv_1.BIZ_REGNO));
 		        	SBUxMethod.set("CS_CODE",					gfn_nvl(cv_1.CS_CODE));
 		        	SBUxMethod.set("CS_ABBR_NAME",		 		gfn_nvl(cv_1.CS_ABBR_NAME));
 		        	SBUxMethod.set("REF_CS_CODE",				gfn_nvl(cv_1.REF_CS_CODE));
@@ -2754,12 +2758,12 @@ console.log('fn_viewSubTable data ==>', data);
 		            	$('#btnSubmit').hide();
 		            }
 		        	
-		        	//거래처 상세정보 편집 - 구매정보 -> 업체전표마감구분 데이터
+		        	//주소 ~ 매핑이력 - 구매정보 -> 업체전표마감구분 데이터
 		        	// 구매정보 탭은 cv_4에서 데이터 가져오는데 SLIP_CLS는 CV_1에서 데이터 가져옴
 		        	gfnma_multiSelectSet("#SLIP_CLS", 			"SUB_CODE", 		"SUB_CODE",		gfn_nvl(cv_1.SLIP_CLS));
 	    		}
 	    		if(data.cv_2.length > 0) {
-		        	//거래처 상세정보 편집 - 주소/연락처
+		        	//주소 ~ 매핑이력 - 주소/연락처
 		        	SBUxMethod.set("ZIP_CODE", 				gfn_nvl(cv_2.ZIP_CODE));
 		        	SBUxMethod.set("START_DATE", 			gfn_nvl(cv_2.START_DATE));
 		        	SBUxMethod.set("END_DATE", 				gfn_nvl(cv_2.END_DATE));
@@ -2774,7 +2778,7 @@ console.log('fn_viewSubTable data ==>', data);
 		        	SBUxMethod.set("SAP_VENDOR_CODE", 		gfn_nvl(cv_2.SAP_VENDOR_CODE));
 	    		}
 	        	
-	        	//거래처 상세정보 편집 - 자금정보
+	        	//주소 ~ 매핑이력 - 자금정보
 	    	   	data.cv_3.forEach((item, index) => {
 		    		const cv3_data = {
 		    				MAIN_FLAG				: gfn_nvl(item.MAIN_FLAG),
@@ -2806,7 +2810,7 @@ console.log('fn_viewSubTable data ==>', data);
 	    	   	financeGrid.rebuild();
 	    	   	
 	    		if(data.cv_4.length > 0) {
-		    	   	//거래처 상세정보 편집 - 구매정보
+		    	   	//주소 ~ 매핑이력 - 구매정보
 		    	   	SBUxMethod.set("TAX_SEND", 					gfn_nvl(cv_4.TAX_SEND));
 		    	   	SBUxMethod.set("INTERNAL_PAY_RULE_YN", 		gfn_nvl(cv_4.INTERNAL_PAY_RULE_YN));
 		    	   	SBUxMethod.set("RCPT_CHK_RANGE", 			gfn_nvl(cv_4.RCPT_CHK_RANGE));
@@ -2839,7 +2843,7 @@ console.log('fn_viewSubTable data ==>', data);
 	        	purchaseGrid.rebuild();
 	    	
 	    		if(data.cv_5.length > 0) {
-		        	//거래처 상세정보 편집 - 판매정보
+		        	//주소 ~ 매핑이력 - 판매정보
 		        	SBUxMethod.set("SALES_TAX_SEND", 				gfn_nvl(cv_4.SALES_TAX_SEND));
 		        	gfnma_multiSelectSet("#DELIVERY_TYPE", 			"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.DELIVERY_TYPE));
 		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"SUB_CODE", 		"CODE_NAME",		gfn_nvl(cv_5.RECEIPT_DATE_RULE));
@@ -2862,7 +2866,7 @@ console.log('fn_viewSubTable data ==>', data);
 		    	});
 	        	salesGrid.rebuild();
 	        	
-	        	//거래처 상세정보 편집 - 판매납품처
+	        	//주소 ~ 매핑이력 - 판매납품처
 	        	data.cv_6.forEach((item, index) => {
 		    		const cv6_data = {
 		    				SHIP_TO_CODE		: gfn_nvl(item.SHIP_TO_CODE),
@@ -2881,7 +2885,7 @@ console.log('fn_viewSubTable data ==>', data);
 	        	salesShipToGrid.rebuild();
 	        	
 	        	if(data.cv_7.length > 0) {
-		        	//거래처 상세정보 편집 - 판매처분류
+		        	//주소 ~ 매핑이력 - 판매처분류
 		        	SBUxMethod.set("AR_ACC_CODE",				gfn_nvl(cv_7.AR_ACC_CODE));
 		        	SBUxMethod.set("AR_ACC_NAME",				gfn_nvl(cv_7.AR_ACC_NAME));
 		        	SBUxMethod.set("AR_ACC_CODE_FOREIGN",		gfn_nvl(cv_7.AR_ACC_CODE_FOREIGN));
@@ -2908,7 +2912,7 @@ console.log('fn_viewSubTable data ==>', data);
 		    	});
 	        	salesCategoryGrid.rebuild();
 	        	
-	        	//거래처 상세정보 편집 - 세금 등
+	        	//주소 ~ 매핑이력 - 세금 등
 	        	if(data.cv_8.length > 0) {
 		        	SBUxMethod.set("WITHHOLD_TAX_YN",	gfn_nvl(cv_8.WITHHOLD_TAX_YN));
 		        	SBUxMethod.set("TAX_RATE",			gfn_nvl(cv_8.TAX_RATE));
@@ -2917,7 +2921,7 @@ console.log('fn_viewSubTable data ==>', data);
 		        	gfnma_multiSelectSet("#WITHHOLD_TAX_TYPE", 		"SUB_CODE", "CODE_NAME", gfn_nvl(cv_8.WITHHOLD_TAX_TYPE));
 	        	}
 	        	
-	        	//거래처 상세정보 편집 - 변경이력관리
+	        	//주소 ~ 매핑이력 - 변경이력관리
 	        	data.cv_9.forEach((item, index) => {
 		    		const cv9_data = {
 		    				START_DATE		: gfn_nvl(item.START_DATE),
@@ -2930,7 +2934,7 @@ console.log('fn_viewSubTable data ==>', data);
 		    	});
 	        	historyGrid.rebuild();
 	        	
-	        	//거래처 상세정보 편집 - 매핑이력
+	        	//주소 ~ 매핑이력 - 매핑이력
 	        	data.cv_10.forEach((item, index) => {
 		    		const cv10_data = {
 		    				MAP_TYPE		: gfn_nvl(item.MAP_TYPE),
@@ -2986,7 +2990,6 @@ console.log('fn_viewSubTable data ==>', data);
     	
     	$('#idxTab_detail').click(function(){
     		var tabID = SBUxMethod.get('idxTab_detail');
-    		console.log(tabID);
     	})
     	
     	//매입처여부 체크박스
@@ -3025,7 +3028,6 @@ console.log('fn_viewSubTable data ==>', data);
 		})
 		//법인구분 라디오 버튼
     	$('#rdotd').change(function(){
-    		console.log('this val', SBUxMethod.get('BIZ_TYPE') );
     		//법인
     		if(SBUxMethod.get('BIZ_TYPE') == 'C'){
     			SBUxMethod.attr('COMP_REGNO', 'readonly', 'false');
@@ -3127,26 +3129,6 @@ console.log('fn_viewSubTable data ==>', data);
             		PREPAY_ACC_NAME = gfn_nvl(jsonCOM011[i].PREPAY_ACC_NAME);
             	}
             }
-            console.log('CS_GROUP =>', CS_GROUP);
-            console.log('USE_YN =>', USE_YN);
-            console.log('jsonCOM011 =>', jsonCOM011);
-            console.log('ADVANCE_ACC_CODE =>', ADVANCE_ACC_CODE);
-            console.log('ADVANCE_ACC_NAME =>', ADVANCE_ACC_NAME);
-            console.log('AP_ACC_CODE =>', AP_ACC_CODE);
-            console.log('AP_ACC_CODE_FOREIGN =>', AP_ACC_CODE_FOREIGN);
-            console.log('AP_ACC_NAME =>', AP_ACC_NAME);
-            console.log('AP_ACC_NAME_FOREIGN =>', AP_ACC_NAME_FOREIGN);
-            console.log('AR_ACC_CODE =>', AR_ACC_CODE);
-            console.log('AR_ACC_CODE_FOREIGN =>', AR_ACC_CODE_FOREIGN);
-            console.log('AR_ACC_NAME =>', AR_ACC_NAME);
-            console.log('AR_ACC_NAME_FOREIGN =>', AR_ACC_NAME_FOREIGN);
-            console.log('CODE_NAME =>', CODE_NAME);
-            console.log('EXTRA_FIELD2 =>', EXTRA_FIELD2);
-            console.log('EXTRA_FIELD3 =>', EXTRA_FIELD3);
-            console.log('NATION_CODE =>', NATION_CODE);
-            console.log('PAY_DATE_RULE =>', PAY_DATE_RULE);
-            console.log('PREPAY_ACC_CODE =>', PREPAY_ACC_CODE);
-            console.log('PREPAY_ACC_NAME =>', PREPAY_ACC_NAME);
             
             if(EXTRA_FIELD2 == "N" || EXTRA_FIELD2 == ""){
                 SBUxMethod.set('FOREIGN_YN', 'N');
@@ -3322,7 +3304,7 @@ console.log('fn_viewSubTable data ==>', data);
     
     /**
      * @name fn_clearSubForm
-     * @description 거래처 기본정보 편집, 거래처 상세정보 편집 화면 초기화
+     * @description 거래처 기본정보 편집, 주소 ~ 매핑이력 화면 초기화
      * @param 
      */
     const fn_clearSubForm = async function() {
@@ -3336,6 +3318,7 @@ console.log('fn_viewSubTable data ==>', data);
         jsonMappingList			= []; 
     	
     	//거래처 기본정보 편집
+    	SBUxMethod.set("BIZ_REGNO",					"");
     	SBUxMethod.set("CS_CODE",					"");
     	SBUxMethod.set("CS_ABBR_NAME",		 		"");
     	SBUxMethod.set("REF_CS_CODE",				"");
@@ -3352,7 +3335,7 @@ console.log('fn_viewSubTable data ==>', data);
     	SBUxMethod.set("BIZ_CATEGORY",				"");
     	SBUxMethod.set("BIZ_ITEMS",					"");
     	SBUxMethod.set("TXN_STOP_DATE",				"");
-    	//거래처 상세정보 편집 - 주소/연락처 탭
+    	//주소 ~ 매핑이력 - 주소/연락처 탭
     	SBUxMethod.set("ZIP_CODE",					"");
     	SBUxMethod.set("START_DATE",				"");
     	SBUxMethod.set("END_DATE",					"");
@@ -3365,7 +3348,7 @@ console.log('fn_viewSubTable data ==>', data);
     	SBUxMethod.set("MEMO",						"");
     	SBUxMethod.set("SAP_CUSTOMER_CODE",			"");
     	SBUxMethod.set("SAP_VENDOR_CODE",			"");
-    	//거래처 상세정보 편집 - 구매정보
+    	//주소 ~ 매핑이력 - 구매정보
     	SBUxMethod.set("AP_ACC_CODE",				"");
     	SBUxMethod.set("AP_ACC_NAME",				"");
     	SBUxMethod.set("AP_CLR_ACC",				"");
@@ -3375,7 +3358,7 @@ console.log('fn_viewSubTable data ==>', data);
     	SBUxMethod.set("PREPAY_ACC_CODE",			"");
     	SBUxMethod.set("PREPAY_ACC_NAME",			"");
     	SBUxMethod.set("RCPT_CHK_RANGE",			"");
-    	//거래처 상세정보 편집 - 구매정보
+    	//주소 ~ 매핑이력 - 구매정보
     	SBUxMethod.set("AR_ACC_CODE",				"");
     	SBUxMethod.set("AR_ACC_NAME",				"");
     	SBUxMethod.set("AR_ACC_CODE_FOREIGN",		"");
@@ -3529,7 +3512,6 @@ console.log('fn_viewSubTable data ==>', data);
    			   ,V_P_USERID               : p_userId
    			   ,V_P_PC                   : ''
   	    };	
-  	    console.log('save workType =>', workType);
         const postJsonPromise = gfn_postJSON("/co/sys/com/deleteCom3400.do", {
         	getType				: 'json',
         	workType			: 'D',
@@ -3537,8 +3519,6 @@ console.log('fn_viewSubTable data ==>', data);
         	params				: gfnma_objectToString(paramObj)
 		});   
         const data = await postJsonPromise;
-console.log('fn_delete paramObj => ' , paramObj);
-console.log('fn_delete data => ' , data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -3654,7 +3634,6 @@ console.log('fn_delete data => ' , data);
    			   ,V_P_USERID               : p_userId
    			   ,V_P_PC                   : ''
   	    };	
-  	    console.log('save workType =>', workType);
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400.do", {
         	getType				: 'json',
         	workType			: workType,
@@ -3662,12 +3641,8 @@ console.log('fn_delete data => ' , data);
         	params				: gfnma_objectToString(paramObj)
 		});   
         const data = await postJsonPromise;
-console.log('fn_save paramObj => ' , paramObj);
-console.log('fn_save data => ' , data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-        		}
           		return true;
         	} else {
           		alert(data.resultMessage);
@@ -3701,21 +3676,16 @@ console.log('fn_save data => ' , data);
 	  			,V_P_USERID             : p_userId
 	  			,V_P_PC                 : ''
  	    };	
-       const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3400_IF_Q.do", {
-       	getType				: 'json',
-       	workType			: 'EMP',
-       	cv_count			: '1',
-       	params				: gfnma_objectToString(paramObj)
+        const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3400_IF_Q.do", {
+	        getType				: 'json',
+	        workType			: 'EMP',
+	        cv_count			: '1',
+	        params				: gfnma_objectToString(paramObj)
 		});    	 
-       const data = await postJsonPromise;
+        const data = await postJsonPromise;
        
-console.log('paramObj fn_emp_Q =>', paramObj);
-console.log('data fn_emp_Q =>', data);
 		try {
 	       	if (_.isEqual("S", data.resultStatus)) {
-// 	       		if(data.resultMessage){
-// 	          		alert(data.resultMessage);
-// 	       		}
 	       		strEmpCode_d 		= "";
 	       		strBankCode_d 		= "";
 	       		strBankAccount_d 	= "";
@@ -3727,9 +3697,6 @@ console.log('data fn_emp_Q =>', data);
 	    	   	strEmpCode_d 		= strEmpCode_d.substring(0, strEmpCode_d.length -1);
 	    	   	strBankCode_d 		= strBankCode_d.substring(0, strBankCode_d.length -1);
 	    	   	strBankAccount_d 	= strBankAccount_d.substring(0, strBankAccount_d.length -1);
-	    	   	console.log('strEmpCode_d', strEmpCode_d);
-	    	   	console.log('strBankCode_d', strBankCode_d);
-	    	   	console.log('strBankAccount_d', strBankAccount_d);
 	       	}
         } catch (e) {
 	   		if (!(e instanceof Error)) {
@@ -3764,13 +3731,8 @@ console.log('data fn_emp_Q =>', data);
 		});    	 
        const data = await postJsonPromise;
        
-console.log('paramObj fn_emp_S =>', paramObj);
-console.log('data fn_emp_S =>', data);
 		try {
 	       	if (_.isEqual("S", data.resultStatus)) {
-// 	       		if(data.resultMessage){
-// 	          		alert(data.resultMessage);
-// 	       		}
 	       		gfn_comAlert("I0002", '직원 거래처', '생성'); // {0}을/를 {1} 하였습니다.
 	       	}
        } catch (e) {
@@ -4036,7 +3998,6 @@ console.log('data fn_emp_S =>', data);
    				}
    			},
     	});
-    	console.log('multiSelectData =>', multiSelectData);
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
   	}    
     
@@ -4084,8 +4045,6 @@ console.log('data fn_emp_S =>', data);
      */
     function fn_gridPopupBank(event, row, col) {
 
-        console.log('fn_gridPopupBank row:', row);
-        console.log('fn_gridPopupBank col:', col);
         let rowData = financeGrid.getRowData(row);
         let rowStatus = financeGrid.getRowStatus(row);
         if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){
@@ -4126,7 +4085,6 @@ console.log('data fn_emp_S =>', data);
             ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('fn_gridPopupBank2 data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
                 financeGrid.setCellData(row, (col+1), data['SUB_CODE']);
                 financeGrid.setCellData(row, (col+2), data['CODE_NAME']);
@@ -4157,7 +4115,6 @@ console.log('data fn_emp_S =>', data);
             ,tableColumnNames		: ["EMP_CODE", "EMP_FULL_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME", "POSITION_CODE", "DUTY_CODE", "JOB_RANK"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
         });
@@ -4166,8 +4123,8 @@ console.log('data fn_emp_S =>', data);
     	
     
     /**
-     * 거래처 상세정보 편집 - 구매정보 채무계정코드, 채무정산계정, 채무계정 코드외화, 선급금계정 오픈
-     * 거래처 상세정보 편집 - 판매처분류 채권계정코드, 채권계정코드외화, 선수금계정 오픈
+     * 주소 ~ 매핑이력 - 구매정보 채무계정코드, 채무정산계정, 채무계정 코드외화, 선급금계정 오픈
+     * 주소 ~ 매핑이력 - 판매처분류 채권계정코드, 채권계정코드외화, 선수금계정 오픈
      */
     var fn_compopupAccountCode = function(type) {
     	
@@ -4217,7 +4174,6 @@ console.log('data fn_emp_S =>', data);
    			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
    			,tableColumnWidths		: ["100px", 		"300px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
 		        if(type == 'AP_ACC' ){
 					SBUxMethod.set("AP_ACC_CODE", gfn_nvl(data.ACCOUNT_CODE));
@@ -4249,7 +4205,6 @@ console.log('data fn_emp_S =>', data);
     // 행 추가
      const fn_addFinanceRow = function () {
          let rowLen = financeGrid.getRows();
-         console.log('rowLen', rowLen);
          financeGrid.addRow(true,
      			{
         	 MAIN_FLAG:""
@@ -4352,11 +4307,8 @@ console.log('data fn_emp_S =>', data);
 			params				: gfnma_objectToString(paramObj)
 		});
   		const data = await postJsonPromise;
-console.log('fn_FinanceName paramObj ==>', paramObj);
-console.log('fn_FinanceName data ==>', data);
 		try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		console.log('success');
 	            gfn_comAlert("I0001"); // I0001 처리 되었습니다.
 	    	}
 	  	} catch (e) {
@@ -4415,8 +4367,6 @@ console.log('fn_FinanceName data ==>', data);
     }
 	// 행 추가
     const fn_addSalesCategoryRow = function () {
-		console.log('salesCategoryGrid ==>', salesCategoryGrid);
-		console.log('historyGrid ==>', historyGrid);
 		salesCategoryGrid.refresh();
 		salesCategoryGrid.addRow(true);
     }
@@ -4448,8 +4398,8 @@ console.log('fn_FinanceName data ==>', data);
     }
 	// 행 추가
      const fn_addMappingRow = function () {
-    	 mappingGrid.addRow(true);
-     }
+   	    mappingGrid.addRows([{MAP_TYPE: "", ASIS_CS_CODE: "", CS_CODE: gfn_nvl(SBUxMethod.get("CS_CODE")), CS_NAME: "", BIZ_REGNO: "" }]);
+    }
 
     // 행삭제
     const fn_delMappingRow = async function() {
@@ -4481,7 +4431,6 @@ console.log('fn_FinanceName data ==>', data);
        		return;
        	}
         let listData = [];
-console.log('fn_confirm masterGridChkRow =>', masterGridChkRow);
 		masterGridChkRow.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4546,7 +4495,6 @@ console.log('fn_confirm masterGridChkRow =>', masterGridChkRow);
        		return;
        	}
         let listData = [];
-console.log('fn_unconfirm masterGridChkRow =>', masterGridChkRow);
 		masterGridChkRow.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4601,7 +4549,6 @@ console.log('fn_unconfirm masterGridChkRow =>', masterGridChkRow);
             return true;
         }
         let listData = [];
-console.log('fn_save_S3 historyGridUpdateData =>', historyGridUpdateData);
 		historyGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4632,8 +4579,6 @@ console.log('fn_save_S3 historyGridUpdateData =>', historyGridUpdateData);
         });
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400_S3.do", {listData: listData});
         const data = await postJsonPromise;
-console.log('fn_save_S3 listData =>', listData);        
-console.log('fn_save_S3 data =>', data);        
         try {
             if (_.isEqual("S", data.resultStatus)) {
 	        	return true;
@@ -4660,7 +4605,6 @@ console.log('fn_save_S3 data =>', data);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S4 financeGridUpdateData =>', financeGridUpdateData); 
 		financeGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4702,8 +4646,6 @@ console.log('fn_save_S4 financeGridUpdateData =>', financeGridUpdateData);
         });
         const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400_S4.do", {listData: listData});
         const data = await postJsonPromise;
-console.log('fn_save_S4 listData =>', listData);         
-console.log('fn_save_S4 data =>', data);         
         try {
             if (_.isEqual("S", data.resultStatus)) {
             	return true;
@@ -4730,7 +4672,6 @@ console.log('fn_save_S4 data =>', data);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S5 purchaseGridUpdateData =>', purchaseGridUpdateData); 
 		purchaseGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4787,8 +4728,7 @@ console.log('fn_save_S5 purchaseGridUpdateData =>', purchaseGridUpdateData);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S6 salesGridUpdateData =>', salesGridUpdateData); 
-		purchaseGridUpdateData.forEach((item, index) => {
+        salesGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',
@@ -4847,7 +4787,6 @@ console.log('fn_save_S6 salesGridUpdateData =>', salesGridUpdateData);
         	return true;
         }
         let listData = [];
-console.log('fn_save_S7 salesCategoryGridUpdateData =>', salesCategoryGridUpdateData); 
 		salesCategoryGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4908,7 +4847,6 @@ console.log('fn_save_S7 salesCategoryGridUpdateData =>', salesCategoryGridUpdate
         	return true;
         }
         let listData = [];
-console.log('fn_save_S8 salesShipToGridUpdateData =>', salesShipToGridUpdateData); 
 		salesShipToGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -4967,8 +4905,7 @@ console.log('fn_save_S8 salesShipToGridUpdateData =>', salesShipToGridUpdateData
         	return true;
         }
         let listData = [];
-console.log('fn_save_S9 mappingGridUpdateData =>', mappingGridUpdateData); 
-		salescategoryGridUpdateData.forEach((item, index) => {
+        mappingGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',

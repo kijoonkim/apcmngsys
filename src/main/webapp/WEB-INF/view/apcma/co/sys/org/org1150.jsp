@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -158,7 +158,12 @@
 	function cfn_search() {
 		fn_search();
 	}
-
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		gfnma_uxDataClear('#srchArea1');
+	}
     var masterGrid; 			// 그리드를 담기위한 객체 선언
     var jsonMasterList 	= []; 	// 그리드의 참조 데이터 주소 선언
     function fn_createGrid() {
@@ -178,7 +183,6 @@
             {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonCompCode',
-                    displayui : true,
                     oneclickedit : true,
                     label : 'label',
                     value : 'value'

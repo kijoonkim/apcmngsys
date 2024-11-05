@@ -1,25 +1,17 @@
 package com.at.apcss.am.ordr.service.impl;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.jasypt.commons.CommonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,6 +32,10 @@ import com.at.apcss.am.cmns.vo.LgszMrktVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
 import com.at.apcss.am.ordr.service.OrdrRcvService;
+import com.at.apcss.am.ordr.vo.MrktHomeplusDtlVO;
+import com.at.apcss.am.ordr.vo.MrktHomeplusVO;
+import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
+import com.at.apcss.am.ordr.vo.MrktOrdrVO;
 import com.at.apcss.am.ordr.vo.OrdrHomeplusMVO;
 import com.at.apcss.am.ordr.vo.OrdrHomeplusSVO;
 import com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO;
@@ -1373,6 +1369,1516 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertMrktOrdrRcpt(OrdrRcvVO ordrRcvVO) throws Exception {
 
+
+		String apcCd = ordrRcvVO.getApcCd();
+		String lgszMrktCd = ordrRcvVO.getLgszMrktCd();
+
+		String crtrYmdFrom = ordrRcvVO.getCrtrYmdFrom();
+		String crtrYmdTo = ordrRcvVO.getCrtrYmdTo();
+		String crtrYmd = ordrRcvVO.getCrtrYmd();
+
+		if (!StringUtils.hasText(crtrYmdFrom)) {
+			crtrYmdFrom = crtrYmd;			
+			ordrRcvVO.setCrtrYmdFrom(crtrYmdFrom);
+		}
+		
+		if (!StringUtils.hasText(crtrYmdTo)) {
+			crtrYmdTo = crtrYmd;
+			ordrRcvVO.setCrtrYmdTo(crtrYmdTo);
+		}
+		
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		if (!StringUtils.hasText(lgszMrktCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "대형마트구분");
+		}
+
+		if (!StringUtils.hasText(crtrYmdFrom)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "시작일자");
+		}
+		
+		if (!StringUtils.hasText(crtrYmdTo)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "종료일자");
+		}
+
+		if (AmConstants.CON_LGSZ_MRKT_CD_EMART.equals(lgszMrktCd)) {
+
+		} else if (AmConstants.CON_LGSZ_MRKT_CD_HOMEPLUS.equals(lgszMrktCd)) {
+			
+			//return insertHomplusOrdr(ordrRcvVO);
+			// 홈플러스
+			return insertMrktOrdrRcptHomeplus(ordrRcvVO);			
+			
+		} else if (AmConstants.CON_LGSZ_MRKT_CD_LOTTEMART.equals(lgszMrktCd)) {
+
+			return insertMrktOrdrRcptLotteSuper(ordrRcvVO);
+			
+		} else if (AmConstants.CON_LGSZ_MRKT_CD_LOTTESUPER.equals(lgszMrktCd)) {
+			
+			// 롯데슈퍼
+			return insertMrktOrdrRcptLotteSuper(ordrRcvVO);
+			
+		} else if (AmConstants.CON_LGSZ_MRKT_CD_GSRETAIL.equals(lgszMrktCd)) {
+			
+			
+		} else {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "대형마트구분");
+		}
+
+		return null;
+		
+	}
+
+	@Override
+	public HashMap<String, Object> insertMrktOrdrRcptHomeplus(OrdrRcvVO ordrRcvVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = null;
+
+		JSONParser jsonParser = new JSONParser();
+
+		String runOnceYn = ordrRcvVO.getRunOnceYn();
+		
+		
+		String originUrl = "https://activescm.co.kr/";
+		String welcomeUrl = originUrl + "Homeplus/welcome.do";
+		String indexUrl = originUrl + "Homeplus/index.do";
+
+		// 홈플러스 접속정보를 가져온다
+		LgszMrktVO lgszMrktVO = cnptService.selectLgszMrkt(ordrRcvVO.getApcCd(), ordrRcvVO.getLgszMrktCd());
+
+		if (lgszMrktVO == null
+				|| !StringUtils.hasText(lgszMrktVO.getLgszMrktCd())
+				|| !StringUtils.hasText(lgszMrktVO.getUserId())
+				|| !StringUtils.hasText(lgszMrktVO.getPswd())
+				|| !ComConstants.CON_YES.equals(lgszMrktVO.getUseYn())
+				) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "홈플러스 접속정보");
+		}
+
+
+		String pUserType = "S";	// 공급자
+		String pUserId = lgszMrktVO.getUserId();
+		String pUserPw = lgszMrktVO.getPswd();
+		String jsessionId = "";
+		
+		// 페이지 접속, 세션ID 취득
+		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
+                .timeout(30000)
+                .header("Origin", originUrl)
+                .header("Referer", welcomeUrl)
+                .header("Connection", "keep-alive")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .method(Connection.Method.GET)
+                .execute();
+		jsessionId = welcomeResponse.cookie("JSESSIONID");
+
+		Document welcomeDoc = Jsoup.parse(welcomeResponse.body());
+		logger.debug("@@@welcomeDoc");
+		logger.debug(welcomeDoc.toString());
+		
+		// login 처리 후 진행
+		// 취득한 SESSION ID 로 로그인 처리
+		Map<String, String> params = new HashMap<>();
+		params.put("USER_TYPE", pUserType);
+		params.put("USER_ID", pUserId);
+		params.put("PASSWORD", pUserPw);
+
+		// 로그인 페이지 접속
+		String loginUrl = originUrl + "Homeplus/login/checkUserIdPw.do;jsessionid=" + jsessionId;
+		Connection.Response loginPageResponse = Jsoup.connect(loginUrl)
+		                                                .timeout(3000)
+		                                                .header("Origin", originUrl)
+		                                                .header("Referer", loginUrl)
+		                                                .header("Connection", "keep-alive")
+		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		                                                .header("Accept-Encoding", "gzip, deflate, br")
+		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+		                                                .cookie("JSESSIONID", jsessionId)
+		                                                .data(params)
+		                                                .method(Connection.Method.POST)
+		                                                .execute();
+		
+		Document loginDoc = Jsoup.parse(loginPageResponse.body());
+		logger.debug("@@@loginDoc");
+		logger.debug(loginDoc.toString());
+		
+		//Object obj = jsonParser.parse(loginPageResponse.body());
+		//JSONObject jsonObj = (JSONObject) obj;
+
+		// 로그인 성공여부 확인
+		
+
+		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
+                .timeout(3000)
+                .header("Origin", originUrl)
+                .header("Referer", welcomeUrl)
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .cookie("JSESSIONID", jsessionId)
+                //.cookie("isLogined", "true")
+                .method(Connection.Method.GET)
+                .execute();
+
+		//logger.debug("indexResponse {}", indexResponse.body());
+		// 로그인 성공 시 진행
+
+
+                
+		// 주문서 목록 조회 post url
+		String cmndUrl = originUrl + "Homeplus/cmmn/command.do;jsessionid=" + jsessionId;
+
+		String pMode = "search";		// 고정
+		String pHouseCode = "100";		// 고정
+		String pCompanyCode = "100";	// 고정
+
+		String pQryIdOrdrList = "po.listOrderSql";				// 쿼리id: 주문서목록
+		String pQryIdOrdrDtl = "po.getOrderDetailPopupGoodSql";	// 쿼리id: 주문상세
+
+		String pYmdType = ordrRcvVO.getCrtrYmdType();	// "1";		// DATE_GUBUN		일자구분: 1 배달일자, 2 수신일자, 3 입고일자
+//		String pYmdFrom = ordrRcvVO.getCrtrYmdFrom();	// "20231128";		// FROM_DATE
+//		String pYmdTo = ordrRcvVO.getCrtrYmdTo();		// "20231128";			// TO_DATE
+		
+		String pYmdFrom = ordrRcvVO.getCrtrYmdFrom();
+		String pYmdTo = ordrRcvVO.getCrtrYmdTo();
+		
+		String pPoNo = "";			// PO_NO			구매번호
+		String pRecvStatus = "";	// EDI_RECV_STATUS 	수신구분: NULL, Y, N
+		String pVndrCd = "All";		// VENDOR_CODE		업체코드: 전체 ALL, 쉼표로 분리
+		String pDocCd = "ALL";		// EDI_DOC_CODE		수신여부: 전체 ALL 주문서 ORDER, 주문변경서 ORDCHG
+		String pUseMapYn = "Y";		// 고정
+
+		// 주문서 조회
+		Map<String, String> ordrParams = new HashMap<>();
+		ordrParams.put("mode", 				pMode);
+		ordrParams.put("HOUSE_CODE", 		pHouseCode);
+		ordrParams.put("COMPANY_CODE", 		pCompanyCode);
+		ordrParams.put("USER_ID", 			pUserId);
+		ordrParams.put("DATE_GUBUN", 		pYmdType);
+		ordrParams.put("FROM_DATE", 		pYmdFrom);
+		ordrParams.put("TO_DATE", 			pYmdTo);
+		ordrParams.put("PO_NO", 			pPoNo);
+		ordrParams.put("EDI_RECV_STATUS", 	pRecvStatus);
+		ordrParams.put("VENDOR_CODE", 		pVndrCd);
+		ordrParams.put("EDI_DOC_CODE", 		pDocCd);
+		ordrParams.put("IbatisSelQryID", 	pQryIdOrdrList);
+		ordrParams.put("USE_MAP_YN", 		pUseMapYn);
+
+		Connection.Response ordrResponse = Jsoup.connect(cmndUrl)
+	                                                .timeout(10000)
+	                                                .header("Origin", originUrl)
+	                                                .header("Referer", indexUrl)
+	                                                .header("Accept", "application/json, text/javascript, */*; q=0.01")
+	                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+	                                                .header("Accept-Encoding", "gzip, deflate, br")
+	                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+	                                                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
+	                                                .cookie("JSESSIONID", jsessionId)
+	                                                .data(ordrParams)
+	                                                .method(Connection.Method.POST)
+	                                                .execute();
+
+		logger.debug("@@@ordrResponse");
+		Object objOrdr = jsonParser.parse(ordrResponse.body());
+		JSONObject jsonObjOrdr = (JSONObject) objOrdr;
+
+		boolean isSuccess = (Boolean)jsonObjOrdr.get("resultCd");
+		String resultMsg = (String)jsonObjOrdr.get("resultMsg");
+
+		if (!isSuccess) {
+			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, resultMsg);
+			
+			// 로그아웃
+			logoutHomeplus(jsessionId);
+			
+			return rtnObj;
+		}
+
+		// 입고일자
+		String ordrApcCd = ordrRcvVO.getApcCd();
+
+		JSONArray ordrItems = (JSONArray)jsonObjOrdr.get("items");
+		if (ordrItems == null || ordrItems.isEmpty()) {
+			logger.debug("### 주문서정보 없음");
+			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "주문서정보");
+			
+			// 로그아웃
+			logoutHomeplus(jsessionId);
+			
+			return rtnObj;
+		}
+
+
+		List<MrktOrdrVO> ordrList = new ArrayList<>();
+
+		for ( int i = 0; i < ordrItems.size(); i++ ){
+			
+			JSONObject ordr = (JSONObject)ordrItems.get(i);
+
+			String wrhsYmd = (String)ordr.get("GR_DATE");
+			
+			if (!StringUtils.hasText(wrhsYmd)) {
+				rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고일자");
+			}
+			
+			String uniKey = (String)ordr.get("UNI_KEY");
+			String outordrno = (String)ordr.get("PO_NO");
+			long outordrAmt = NumberUtils.parseNumber((String)ordr.get("PO_AMT_SUM"), Long.class);
+			String outordrYmd = (String)ordr.get("PO_DATE");
+			String mrktWrhsKnd = (String)ordr.get("GR_KIND");
+			String mrktWrhsType = (String)ordr.get("GR_TYPE");
+			String trsmYmd = (String)ordr.get("EDI_SEND_DATE");
+			if (StringUtils.hasText(trsmYmd)) {
+				trsmYmd = trsmYmd.replace("/", "").substring(0, 8);
+			}					
+			String trsmTm = (String)ordr.get("EDI_SEND_TIME");
+			String rcptnYmd = (String)ordr.get("EDI_RECV_DATE");
+			if (StringUtils.hasText(rcptnYmd)) {
+				rcptnYmd = rcptnYmd.replace("/", "").substring(0, 8);
+			}
+			String rcptnTm = (String)ordr.get("EDI_RECV_TIME");
+			String rcptnYn = (String)ordr.get("EDI_RECV_STATUS");
+			String ordrr = (String)ordr.get("BUYER_NM");
+			String cntrCd = (String)ordr.get("WAREHOUSE_CODE");
+			String cntrNm = (String)ordr.get("WAREHOUSE_NM");
+			String splrCd = (String)ordr.get("VENDOR_CODE");
+			String splrNm = (String)ordr.get("VENDOR_NM");
+			String userId = (String)ordr.get("USER_ID");
+			String bplcCd = (String)ordr.get("HOUSE_CODE");
+			String coCd = (String)ordr.get("COMPANY_CODE");
+			String coNm = (String)ordr.get("COMPANY_NM");
+			String vrWarehouseCd = (String)ordr.get("VIRTUAL_WAREHOUSE_CODE");
+			String vrWarehouseTxt = (String)ordr.get("VIRTUAL_WAREHOUSE_TEXT");
+			String vrWarehouseNm = (String)ordr.get("VIRTUAL_WAREHOUSE_NM");
+			
+			MrktOrdrVO ordrVO = new MrktOrdrVO();
+			
+			ordrVO.setOrdrApcCd(ordrApcCd);				// 주문APC코드
+			ordrVO.setWrhsYmd(wrhsYmd);
+			
+			ordrVO.setUniKey(uniKey);
+			ordrVO.setOutordrno(outordrno);
+			ordrVO.setOutordrAmt(outordrAmt);
+			ordrVO.setOutordrYmd(outordrYmd);
+			ordrVO.setMrktWrhsKnd(mrktWrhsKnd);
+			ordrVO.setMrktWrhsType(mrktWrhsType);
+			ordrVO.setTrsmYmd(trsmYmd);
+			ordrVO.setTrsmTm(trsmTm);
+			ordrVO.setRcptnYmd(rcptnYmd);
+			ordrVO.setRcptnTm(rcptnTm);
+			ordrVO.setRcptnYn(rcptnYn);
+			ordrVO.setOrdrr(ordrr);
+			ordrVO.setCntrCd(cntrCd);
+			ordrVO.setCntrNm(cntrNm);
+			ordrVO.setSplrCd(splrCd);
+			ordrVO.setSplrNm(splrNm);
+			ordrVO.setUserId(userId);
+			ordrVO.setBplcCd(bplcCd);
+			ordrVO.setCoCd(coCd);
+			ordrVO.setCoNm(coNm);
+			ordrVO.setVrWarehouseCd(vrWarehouseCd);
+			ordrVO.setVrWarehouseTxt(vrWarehouseTxt);
+			ordrVO.setVrWarehouseNm(vrWarehouseNm);
+			
+			if (ComConstants.CON_YES.equals(runOnceYn)) {
+				// 주문정보 수신확인
+				MrktOrdrVO resultVO = ordrRcvMapper.selectMrktHomeplus(ordrVO);
+				
+				if (resultVO != null && StringUtils.hasText(resultVO.getOutordrno())) {
+					continue;
+				}
+			}
+			
+			ordrList.add(ordrVO);
+		}
+
+		if (rtnObj != null) {			
+			// 로그아웃
+			logoutHomeplus(jsessionId);
+			
+			return rtnObj;
+		}
+		
+		if (ordrList == null || ordrList.isEmpty()) {
+			
+			if (ComConstants.CON_YES.equals(runOnceYn)) {
+				return null;
+			}
+			
+			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "주문수신정보");
+		}
+		
+		for ( MrktOrdrVO ordr : ordrList ) {
+
+			Thread.sleep(1000); 	//	1초 대기
+
+			// 개별 주문에 대한 상세 정보 조회
+
+			// 주문서 조회
+			Map<String, String> dtlParams = new HashMap<>();
+			dtlParams.put("mode", 				pMode);
+			dtlParams.put("HOUSE_CODE", 		pHouseCode);
+			dtlParams.put("COMPANY_CODE", 		pCompanyCode);
+			dtlParams.put("USER_ID", 			ordr.getUserId());
+			dtlParams.put("UNI_KEY", 			ordr.getUniKey());
+			dtlParams.put("GR_DATE", 			ordr.getWrhsYmd());
+			dtlParams.put("WAREHOUSE_CODE", 	ordr.getCntrCd());
+			dtlParams.put("IbatisSelQryID", 	pQryIdOrdrDtl);
+
+			Connection.Response ordrDtlResponse = Jsoup.connect(cmndUrl)
+                    .timeout(10000)
+                    .header("Origin", originUrl)
+                    .header("Referer", indexUrl)
+                    .header("Accept", "application/json, text/javascript, */*; q=0.01")
+                    .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                    .header("Accept-Encoding", "gzip, deflate, br")
+                    .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
+                    .cookie("JSESSIONID", jsessionId)
+                    .data(dtlParams)
+                    .method(Connection.Method.POST)
+                    .execute();
+			logger.debug("### ordrDtl body");
+
+			Object objOrdrDtl = jsonParser.parse(ordrDtlResponse.body());
+			JSONObject jsonObjOrdrDtl = (JSONObject) objOrdrDtl;
+
+			isSuccess = (Boolean)jsonObjOrdrDtl.get("resultCd");
+			resultMsg = (String)jsonObjOrdrDtl.get("resultMsg");
+
+			if (!isSuccess) {
+				continue;
+			}
+
+			JSONArray ordrDtlItems = (JSONArray)jsonObjOrdrDtl.get("items");
+			
+			if (ordrDtlItems == null || ordrDtlItems.isEmpty()) {
+				continue;
+			}
+
+			List<MrktOrdrDtlVO> dtlList = new ArrayList<>();
+
+			String outordrno = ordr.getOutordrno();
+			String wrhsYmd = ordr.getWrhsYmd();
+			
+			for ( int i = 0; i < ordrDtlItems.size(); i++ ){
+				
+				JSONObject dtl = (JSONObject)ordrDtlItems.get(i);
+				
+				int dtlSeq = NumberUtils.parseNumber((String)dtl.get("SEQ"), Integer.class);
+				String mrktGdsCd = (String)dtl.get("ITEM_CODE");
+				String mrktGdsNm = (String)dtl.get("ITEM_NM");
+				String storCd = (String)dtl.get("STORE_CODE");
+				String storNm = (String)dtl.get("STORE_NM");
+				String mrktWrhsType = (String)dtl.get("GR_TYPE");
+				String mrktWrhsTypeNm = (String)dtl.get("GR_TYPE_NM");
+				String upGrdItem = (String)dtl.get("DIAMOND_ITEM");
+				int bxGdsQntt = NumberUtils.parseNumber((String)dtl.get("IBSU_QTY"), Integer.class);
+				int outordrQntt = NumberUtils.parseNumber((String)dtl.get("PO_QTY"), Integer.class);
+				String outordrUnit = (String)dtl.get("PO_UNIT");
+				int pieceQntt = NumberUtils.parseNumber((String)dtl.get("PO_EA_QTY"), Integer.class);
+				int zcstQntt = NumberUtils.parseNumber((String)dtl.get("FREE_QTY"), Integer.class);
+				double pieceUntprc = NumberUtils.parseNumber((String)dtl.get("PIECE_PRICE"), Double.class);
+				long txamt = NumberUtils.parseNumber((String)dtl.get("PRICE_TAX"), Long.class);
+				long outordrAmt = NumberUtils.parseNumber((String)dtl.get("PO_AMT"), Long.class);
+				double outordrUntprc = NumberUtils.parseNumber((String)dtl.get("PO_PRICE"), Double.class);
+				int wrhsQntt = NumberUtils.parseNumber((String)dtl.get("GR_QTY"), Integer.class);
+				
+				MrktOrdrDtlVO dtlVO = new MrktOrdrDtlVO();
+				
+				dtlVO.setOrdrApcCd(ordrApcCd);
+				dtlVO.setWrhsYmd(wrhsYmd);
+				dtlVO.setOutordrno(outordrno);	
+				dtlVO.setDtlSeq(dtlSeq);
+				dtlVO.setMrktGdsCd(mrktGdsCd);
+				dtlVO.setMrktGdsNm(mrktGdsNm);
+				dtlVO.setStorCd(storCd);
+				dtlVO.setStorNm(storNm);
+				dtlVO.setMrktWrhsType(mrktWrhsType);
+				dtlVO.setMrktWrhsTypeNm(mrktWrhsTypeNm);
+				dtlVO.setUpGrdItem(upGrdItem);
+				dtlVO.setBxGdsQntt(bxGdsQntt);
+				dtlVO.setOutordrQntt(outordrQntt);
+				dtlVO.setOutordrUnit(outordrUnit);
+				dtlVO.setPieceQntt(pieceQntt);
+				dtlVO.setZcstQntt(zcstQntt);
+				dtlVO.setPieceUntprc(pieceUntprc);
+				dtlVO.setTxamt(txamt);
+				dtlVO.setOutordrAmt(outordrAmt);
+				dtlVO.setOutordrUntprc(outordrUntprc);
+				dtlVO.setWrhsQntt(wrhsQntt);
+				
+				dtlList.add(dtlVO);
+			}
+
+			ordr.setDtlList(dtlList);
+		}
+
+		
+		Thread.sleep(2000); 	//	2초 대기
+
+		logoutHomeplus(jsessionId);
+		
+		
+		String sysUserId = ordrRcvVO.getSysLastChgUserId();
+		String sysPrgrmId = ordrRcvVO.getSysLastChgPrgrmId();
+
+		// insert
+		for ( MrktOrdrVO ordrVO : ordrList ) {
+			
+			List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+			
+			// insert ordr
+			ordrRcvMapper.insertSpMrktOrdrHpReg(ordrVO);
+			
+			if (StringUtils.hasText(ordrVO.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
+			long ordrSeq = ordrVO.getOrdrSeq();
+			
+			// insert ordr dtl
+			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
+				
+				dtlVO.setOrdrSeq(ordrSeq);
+				
+				ordrRcvMapper.insertSpMrktOrdrHpDtlReg(dtlVO);				
+				if (StringUtils.hasText(dtlVO.getRtnCd())) {
+					rtnObj = ComUtil.getResultMap(dtlVO.getRtnCd(), dtlVO.getRtnMsg());
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+			
+			ordrVO.setSysUserId(sysUserId);
+			ordrVO.setSysPrgrmId(sysPrgrmId);
+			
+			// ordr >> 발주정보
+			ordrRcvMapper.insertSpMrktOrdrRcvHmpls(ordrVO);
+			
+			if (StringUtils.hasText(ordrVO.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+
+		/*
+		// I/F TB >> ORDR TB 처
+		ordrRcvVO.setRcptnYmd(rcptnYmd);
+		ordrRcvMapper.insertSpOrdrRcvHmpls(ordrRcvVO);
+
+		if (StringUtils.hasText(ordrRcvVO.getRtnCd())) {
+			rtnObj = ComUtil.getResultMap(ordrRcvVO.getRtnCd(), ordrRcvVO.getRtnMsg());
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		 */
+		return null;
+	}
+
+	private void logoutHomeplus (String jsessionId) throws Exception {
+		
+		String originUrl = "https://activescm.co.kr/";
+		String indexUrl = originUrl + "Homeplus/index.do";
+		String logoutUrl = originUrl + "Homeplus/logout.do";
+		
+		Map<String, String> logoutParam = new HashMap<>();
+		logoutParam.put("logout", "TRUE");
+		
+		Connection.Response logoutResponse = Jsoup.connect(logoutUrl)
+                .timeout(3000)
+                .header("Origin", originUrl)
+                .header("Referer", indexUrl)
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .cookie("JSESSIONID", jsessionId)
+                .cookie("isLogined", "true")
+                .data(logoutParam)
+                .method(Connection.Method.POST)
+                .execute();
+		
+		Document logoutDoc = Jsoup.parse(logoutResponse.body());
+		logger.debug("@@@logoutDoc");
+		logger.debug(logoutDoc.toString());
+	}
+
+	@Override
+	public List<MrktHomeplusVO> selectOrdrListForHomeplus(MrktHomeplusVO mrktHomeplusVO) throws Exception {
+		
+		MrktHomeplusDtlVO param = new MrktHomeplusDtlVO();
+		
+		param.setOrdrApcCd(mrktHomeplusVO.getOrdrApcCd());
+		param.setWrhsYmd(mrktHomeplusVO.getWrhsYmd());
+		
+		//List<MrktHomeplusVO> ordrList = 
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd) throws Exception {
+		
+		List<HashMap<String, Object>> ordrList = new ArrayList<>();
+		
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+		
+		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrHomeplusDtl(param);
+		
+		String outordrno = "";
+		
+		HashMap<String, Object> ordr = new HashMap<>();
+		List<HashMap<String, Object>> dtlList = new ArrayList<>();
+		
+		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
+			
+			HashMap<String, Object> dtl = new HashMap<>();
+			
+			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
+				
+				if (dtlList.size() > 0) {
+					ordr.put("DTL_LIST", dtlList);
+					ordrList.add(ordr);
+				}
+				
+				ordr = new HashMap<>();
+				ordr.put("APC_CD", ordrApcCd);
+				ordr.put("GR_DATE", wrhsYmd);
+				ordr.put("UNI_KEY", dtlVO.getOutordrno());
+				ordr.put("PO_NO", dtlVO.getOutordrno());
+				ordr.put("PO_AMT_SUM", dtlVO.getTotOutordrAmt());
+				ordr.put("PO_DATE", dtlVO.getOutordrYmd());
+				ordr.put("GR_KIND", dtlVO.getMrktWrhsKnd());
+				ordr.put("GR_TYPE", dtlVO.getMrktWrhsType());
+				ordr.put("EDI_SEND_DATE", dtlVO.getTrsmYmd());
+				ordr.put("EDI_SEND_TIME", dtlVO.getTrsmTm());
+				ordr.put("EDI_RECV_DATE", dtlVO.getRcptnYmd());
+				ordr.put("EDI_RECV_TIME", dtlVO.getRcptnTm());
+				ordr.put("EDI_RECV_STATUS", dtlVO.getRcptnYn());
+				ordr.put("BUYER_NM", dtlVO.getOrdrr());
+				ordr.put("WAREHOUSE_CODE", dtlVO.getCntrCd());
+				ordr.put("WAREHOUSE_NM", dtlVO.getCntrNm());
+				ordr.put("VENDOR_CODE", dtlVO.getSplrCd());
+				ordr.put("VENDOR_NM", dtlVO.getSplrNm());
+				ordr.put("USER_ID", dtlVO.getUserId());
+				ordr.put("HOUSE_CODE", dtlVO.getBplcCd());
+				ordr.put("COMPANY_CODE", dtlVO.getCoCd());
+				ordr.put("COMPANY_NM", dtlVO.getCoNm());
+				ordr.put("VIRTUAL_WAREHOUSE_CODE", dtlVO.getVrWarehouseCd());
+				ordr.put("VIRTUAL_WAREHOUSE_TEXT", dtlVO.getVrWarehouseTxt());
+				ordr.put("VIRTUAL_WAREHOUSE_NM", dtlVO.getVrWarehouseNm());
+
+				dtlList = new ArrayList<>();
+			}
+			
+			dtl.put("PO_NO", dtlVO.getOutordrno());
+			dtl.put("SEQ", dtlVO.getDtlSeq());
+			dtl.put("GR_DATE", wrhsYmd);
+			dtl.put("ITEM_CODE", dtlVO.getMrktGdsCd());
+			dtl.put("ITEM_NM", dtlVO.getMrktGdsNm());
+			dtl.put("STORE_CODE", dtlVO.getStorCd());
+			dtl.put("STORE_NM", dtlVO.getStorNm());
+			dtl.put("GR_TYPE", dtlVO.getMrktWrhsType());
+			dtl.put("GR_TYPE_NM", dtlVO.getMrktWrhsTypeNm());
+			dtl.put("DIAMOND_ITEM", dtlVO.getUpGrdItem());
+			dtl.put("IBSU_QTY", dtlVO.getBxGdsQntt());
+			dtl.put("PO_QTY", dtlVO.getOutordrQntt());
+			dtl.put("PO_UNIT", dtlVO.getOutordrUnit());
+			dtl.put("PO_EA_QTY", dtlVO.getPieceQntt());
+			dtl.put("FREE_QTY", dtlVO.getZcstQntt());
+			dtl.put("PIECE_PRICE", dtlVO.getPieceUntprc());
+			dtl.put("PRICE_TAX", dtlVO.getPieceUntprc());
+			dtl.put("PO_AMT", dtlVO.getOutordrAmt());
+			dtl.put("PO_PRICE", dtlVO.getOutordrUntprc());
+			dtl.put("GR_QTY", dtlVO.getWrhsQntt());
+			
+			dtlList.add(dtl);
+			
+			outordrno = dtlVO.getOutordrno();
+		}
+		
+		if (dtlList.size() > 0) {
+			ordr.put("DTL_LIST", dtlList);
+			ordrList.add(ordr);
+		}
+		
+		return ordrList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertMrktOrdrRcptLotteSuper(OrdrRcvVO ordrRcvVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = null;
+
+		String ordrApcCd = ordrRcvVO.getApcCd();
+		String wrhsYmd = ordrRcvVO.getCrtrYmd();
+		String lgszMrktCd = ordrRcvVO.getLgszMrktCd();
+		
+	    SimpleDateFormat frmtYmd = new SimpleDateFormat("yyyyMMdd");
+	    SimpleDateFormat frmtYmdDash = new SimpleDateFormat("yyyy-MM-dd");
+
+	    Date frmtDate = frmtYmd.parse(wrhsYmd);
+
+	    String wrhsYmdDash =  frmtYmdDash.format(frmtDate);
+
+		JSONParser jsonParser = new JSONParser();
+
+		String runOnceYn = ordrRcvVO.getRunOnceYn();
+		long currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		
+		String originUrl = "https://www.lcn.co.kr/";
+		String indexUrl = originUrl + "session/login";
+		
+		String url = "";
+		Map<String, String> params;
+		
+		// 롯데슈퍼 접속정보를 가져온다
+		LgszMrktVO lgszMrktVO = cnptService.selectLgszMrkt(ordrRcvVO.getApcCd(), ordrRcvVO.getLgszMrktCd());
+
+		if (lgszMrktVO == null
+				|| !StringUtils.hasText(lgszMrktVO.getLgszMrktCd())
+				|| !StringUtils.hasText(lgszMrktVO.getUserId())
+				|| !StringUtils.hasText(lgszMrktVO.getPswd())
+				|| !ComConstants.CON_YES.equals(lgszMrktVO.getUseYn())
+				) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "롯데슈퍼 접속정보");
+		}
+
+		String jsessionId = "";
+		String jsessionId2 = "";
+		String jsessionId3 = "";
+		
+		String wmonId = "";
+		
+
+		String xGroupId = lgszMrktVO.getGroupId();
+		String xUserId = lgszMrktVO.getUserId();
+		String xPassword = lgszMrktVO.getPswd();
+		String xTimezoneKey = "GMT+9:00";	//GMT+9:00	GMT%2B9%3A00
+		
+		// 페이지 접속, 세션ID 취득
+		Connection.Response indexResponse = Jsoup.connect(indexUrl)
+                .timeout(30000)
+                .header("Origin", originUrl)
+                .header("Referer", indexUrl)
+                .header("Connection", "keep-alive")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .method(Connection.Method.GET)
+                .execute();
+		jsessionId = indexResponse.cookie("JSESSIONID");
+		logger.debug("@@@jsessionId {}", jsessionId);
+		
+		wmonId = indexResponse.cookie("WMONID");
+		logger.debug("@@@jsessionId", jsessionId);
+		
+		Document indexDoc = Jsoup.parse(indexResponse.body());
+		logger.debug("@@@indexDoc");
+		logger.debug(indexDoc.toString());
+
+		
+		
+		params = new HashMap<>();
+		params.put("userId", xGroupId	 + "@" + xUserId);
+		params.put("password", xPassword);
+		params.put("TIMEZONE_KEY", xTimezoneKey);
+		
+		// 로그인 페이지 접속
+		String loginUrl = originUrl + "j_spring_security_check";
+		Connection.Response loginPageResponse = Jsoup.connect(loginUrl)
+		                                                .timeout(3000)
+		                                                .header("Origin", originUrl)
+		                                                .header("Referer", indexUrl)
+		                                                .header("Connection", "keep-alive")
+		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		                                                .header("Accept-Encoding", "gzip, deflate, br")
+		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+		                                                .cookie("JSESSIONID", jsessionId)
+		                                                .cookie("WMONID", wmonId)
+		                                                .ignoreContentType(true)
+		                                                .data(params)
+		                                                .method(Connection.Method.POST)
+		                                                .execute();
+		
+		jsessionId2 = loginPageResponse.cookie("JSESSIONID");
+		
+		logger.debug("@@@jsessionId2 : {}", jsessionId2);
+		Document loginDoc = Jsoup.parse(loginPageResponse.body());
+		logger.debug("@@@loginDoc");
+		logger.debug(loginDoc.toString());
+		
+		Object obj = jsonParser.parse(loginPageResponse.body());
+		JSONObject jsonObj = (JSONObject) obj;
+
+		logger.debug("@@@jsonObj", jsonObj.toJSONString());
+		
+		
+		params = new HashMap<>();
+		params.put("groupId", xGroupId);
+		params.put("userId", xUserId);
+		
+		url = originUrl + "rest/user/otpCreate";
+		
+		Connection.Response otpResponse = Jsoup.connect(url)
+		                                                .timeout(3000)
+		                                                .header("Origin", originUrl)
+		                                                .header("Referer", "https://www.lcn.co.kr/main/main")
+		                                                .header("Connection", "keep-alive")
+		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		                                                .header("Accept-Encoding", "gzip, deflate, br")
+		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+		                                                .cookie("JSESSIONID", jsessionId2)
+		                                                .cookie("WMONID", wmonId)
+		                                                .ignoreContentType(true)
+		                                                .data(params)
+		                                                .method(Connection.Method.POST)
+		                                                .execute();
+		obj = jsonParser.parse(otpResponse.body());
+		jsonObj = (JSONObject) obj;
+		logger.debug("@@@otpObj");
+		logger.debug(jsonObj.toString());
+		
+		String otpKey = (String)jsonObj.get("data");
+		logger.debug("@@@otpKey {}", otpKey);
+		logger.debug("@@@otp jess {}", otpResponse.cookie("JSESSIONID"));
+		
+		if (!StringUtils.hasText(otpKey)) {
+			// 
+		}
+		
+		
+		
+		// 
+		url = originUrl + "scm/session/loginSSO";
+		params = new HashMap<>();
+		params.put("seq", "");
+		params.put("type", "");
+		params.put("islogin", "TRUE");
+		params.put("companyid", xGroupId);
+		params.put("statusNum", "");
+		params.put("groupId", xGroupId);
+		params.put("userId", xUserId);
+		params.put("userid", xUserId);
+		params.put("reJoinCheck", "Y");
+		params.put("otp", otpKey);
+		params.put("message", "");
+		
+		Connection.Response ssoResponse = Jsoup.connect(url)
+		                                                .timeout(3000)
+		                                                .header("Origin", originUrl)
+		                                                .header("Referer", "https://www.lcn.co.kr/main/main")
+		                                                .header("Connection", "keep-alive")
+		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		                                                .header("Accept-Encoding", "gzip, deflate, br")
+		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+		                                                .cookie("JSESSIONID", jsessionId2)
+		                                                .cookie("WMONID", wmonId)
+		                                                .ignoreContentType(true)
+		                                                .data(params)
+		                                                .method(Connection.Method.POST)
+		                                                .execute();
+		
+		Document ssoDoc = ssoResponse.parse();
+		logger.debug("@@@ssoDoc");
+		logger.debug(ssoDoc.toString());
+		
+		Element ssoEl = ssoDoc.select("input").first();
+		//Element ssoEl = ssoDoc.select("input[name='_'").first();
+		String ssoKey = ssoEl.attr("value");
+		
+		logger.debug("@@@ssoKey {}", ssoKey);
+		logger.debug("@@@ssoKey jess {}", ssoResponse.cookie("JSESSIONID"));
+		
+		
+		
+		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		
+		url = originUrl + "scm/sso_security_check?_=" + Long.toString(currentUnixTime);
+		params = new HashMap<>();
+		params.put("loginId", (xUserId + "@" + xGroupId).toLowerCase());
+		params.put("otp", otpKey);
+		params.put("LOCALE_KEY", "");
+		params.put("TIMEZONE_KEY", xTimezoneKey);
+		
+		Connection.Response ssoChkResponse = Jsoup.connect(url)
+		                                                .timeout(3000)
+		                                                .header("Origin", originUrl)
+		                                                .header("Referer", "https://www.lcn.co.kr/scm/session/loginSSO")
+		                                                .header("Connection", "keep-alive")
+		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		                                                .header("Accept-Encoding", "gzip, deflate, br")
+		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+		                                                .cookie("JSESSIONID", jsessionId2)
+		                                                .cookie("WMONID", wmonId)
+		                                                .ignoreContentType(true)
+		                                                .data(params)
+		                                                .method(Connection.Method.POST)
+		                                                .execute();
+		obj = jsonParser.parse(ssoChkResponse.body());
+		jsonObj = (JSONObject) obj;
+		logger.debug("@@@ssoChk");
+		logger.debug(jsonObj.toString());		
+		jsessionId3 = ssoChkResponse.cookie("JSESSIONID");
+		logger.debug("@@@ssoChk jsessionId3 {}", ssoChkResponse.cookie("JSESSIONID"));
+		
+		// main/main
+		
+		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		
+		url = originUrl + "scm/main/main";
+		logger.debug("@@@mainResponse {}", url);
+		params = new HashMap<>();
+		params.put("_", Long.toString(currentUnixTime));
+		logger.debug("@@@_ {}", Long.toString(currentUnixTime));
+
+		Connection.Response mainResponse = Jsoup.connect(url)
+										                .timeout(3000)
+										                .header("Origin", originUrl)
+										                .header("Referer", "https://www.lcn.co.kr/scm/session/loginSSO")
+										                .header("Connection", "keep-alive")
+										                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+										                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+										                .header("Accept-Encoding", "gzip, deflate, br")
+										                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+										                .cookie("JSESSIONID", jsessionId3)
+										                .cookie("WMONID", wmonId)
+										                //.ignoreContentType(true)
+										                .data(params)
+										                .method(Connection.Method.POST)
+										                .execute();
+		
+		logger.debug("@@@mainResponse {}", mainResponse.toString());
+		logger.debug("@@@mainResponse.body() {}", mainResponse.body());
+		
+		
+		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		
+		url = originUrl + "scm/main/main?_=" + Long.toString(currentUnixTime);
+		params = new HashMap<>();		
+		params.put("MAIN_VENDOR_TP_ID", "");
+		params.put("MAIN_BUYER_CODE", "LOSH01");
+		
+		Connection.Response main2Response = Jsoup.connect(url)
+                .timeout(3000)
+                .header("Origin", originUrl)
+                .header("Referer", "https://www.lcn.co.kr/scm/main/main")
+                .header("Connection", "keep-alive")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .cookie("JSESSIONID", jsessionId3)
+                .cookie("WMONID", wmonId)
+                .ignoreContentType(true)
+                .data(params)
+                .method(Connection.Method.POST)
+                .execute();
+		
+		logger.debug("@@@main2Response {}", main2Response.toString());
+		logger.debug("@@@main2Response.body() {}", main2Response.body());
+		
+		// ordr list
+		
+		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		
+		url = originUrl + "scm/rest/ediDoc/receive/docReceive";
+		params = new HashMap<>();
+		params.put("_dc", Long.toString(currentUnixTime));
+		params.put("sender", "");
+		params.put("startDt", wrhsYmdDash);
+		params.put("endDt", wrhsYmdDash);
+		params.put("docNm", "ORDERS");
+		params.put("searchDoc", "all");
+		params.put("orderGubn", "all");
+		params.put("vendorCd", "all");
+		params.put("dateGubn", "ip");
+		params.put("buBjjCd", "all");
+		params.put("dlvBjjCd", "all");
+		params.put("page", "1");
+		params.put("start", "NaN");
+		
+		// 페이지 접속, 세션ID 취득
+		Connection.Response ordrResponse = Jsoup.connect(url)
+                .timeout(30000)
+                .header("Origin", originUrl)
+                .header("Referer", "https://www.lcn.co.kr/scm/ediDoc/receive/orderReceive")
+                .header("Connection", "keep-alive")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .cookie("JSESSIONID", jsessionId3)
+                .cookie("WMONID", wmonId)
+                .ignoreContentType(true)
+                .data(params)
+                .method(Connection.Method.GET)
+                .execute();
+		
+		logger.debug("@@@ordrDoc sid", ordrResponse.cookie("JSESSIONID"));
+		
+		logger.debug("@@@ordrResponse {}", ordrResponse.toString());
+		logger.debug("@@@ordrResponse.body() {}", ordrResponse.body());
+		
+		Object objOrdr = jsonParser.parse(ordrResponse.body());
+		JSONObject jsonObjOrdr = (JSONObject) objOrdr;
+		
+		boolean hasError = (long)jsonObjOrdr.get("code") != 0;
+		
+		if (hasError) {
+			
+			String errorMessage = (String)jsonObjOrdr.get("message");
+			logger.debug("@@@ errorMessage : {}", errorMessage);
+			
+			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errorMessage);
+			
+			// logout 처리
+			
+			return rtnObj;
+		}
+		
+		//"totalCount": 0
+		
+		JSONArray ordrItems = (JSONArray)jsonObjOrdr.get("data");
+		
+		if (ordrItems == null || ordrItems.isEmpty()) {
+			logger.debug("### 주문서정보 없음");
+			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "주문서정보");
+			
+			// 로그아웃
+			logoutLotte(jsessionId3);
+			
+			return rtnObj;
+		}
+		
+		
+		String[] ordrCol = {
+				"OUTORDRNO", 			// 주문번호
+				"MRKT_WRHS_TYPE_NM",		// 배송구분
+				"OUTORDR_YMD",			// 주문일자
+				"WRHS_YMD",				// 납품요청일
+				"CNTR_NM",				// 주문처
+				"WAREHOUSE_NM",			// 입고처
+				"SPLR_NM",				// 공급처
+				"OUTORDR_AMT",			// 공급가액
+				"TXAMT",				// 세액
+				"TOT_AMT",				// 합계
+			};
+		
+		String[] dtlCol = {
+				"SEQ", 					// 번호
+				"MRKT_GDS_NM",			// 상품명
+				"MRKT_GDS_CD",			// 상품코드
+				"MRKT_NTSL_CD",			// 판매코드
+				"STOR_TXT",				// 최종납품장소
+				"BX_GDS_QNTT",			// 입수
+				"OUTORDR_QNTT_TXT",		// 주문수
+				"PIECE_QNTT",			// 주문수량
+				"PIECE_UNTPRC",			// 단가
+				"OUTORDR_AMT",			// 금액
+			};
+		
+		List<HashMap<String, String>> ordrMaps = new ArrayList<>();
+		
+		List<List<HashMap<String, String>>> dtlMapList = new ArrayList<>();
+		
+		for ( int i = 0; i < ordrItems.size(); i++ ){
+		
+
+			HashMap<String, String> ordrMap = new HashMap<>();
+			List<HashMap<String, String>> dtlMaps = new ArrayList<>();
+			
+			Thread.sleep(500); 	//	0.5초 대기
+			JSONObject ordr = (JSONObject)ordrItems.get(i);
+			String docNo = (String)ordr.get("docNo");
+			
+			String cntrCd = (String)ordr.get("buBjjCd");
+			//String cntrNm = (String)ordr.get("buBjjNm");
+			String ordrDsctn = (String)ordr.get("orderDescA");
+			String ordrr = (String)ordr.get("buyerNm");
+			String warehouseCd = (String)ordr.get("dlvBjjCd");
+			String warehouseNm = (String)ordr.get("dlvBjjNm");
+			//String coNm = (String)ordr.get("sender");
+			String coCd = (String)ordr.get("senderTpId");
+			String trsmDt = (String)ordr.get("docSearchDt");
+			
+			/*
+			long ordDt = (long)ordr.get("ordDt");
+			long reqDlvDt = (long)ordr.get("reqDlvDt");
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
+			Date dt = new Date();
+			
+			dt.setTime(ordDt); 
+			String outordrYmd = sdf.format(dt);
+			
+			dt.setTime(reqDlvDt);
+			String dlvYmd = sdf.format(dt);
+			 */
+			
+			String trsmYmd = "";
+			String trsmTm = "";
+			if (StringUtils.hasText(trsmDt)) {
+				trsmYmd = trsmDt.substring(0, 8);
+				trsmTm = trsmDt.substring(8);
+			}
+			
+			
+			/*
+			"ordDt": 1730041200000,             // 주문일시 : unix
+            "reqDlvDt": 1730214000000,          // 요청일시 : unix
+            "refNo": null,                      // 참조번호
+            "docNm": "ORDERS",                  // 문서명
+            "recverTpId": "m0037701",           // 수신자유형id
+            "docSearchDt": "20241028162832",    // 문서조회일시
+            "docNo": "241028C1110211514516",    // 문서번호
+            "linItemCnt": "4",                  // count
+            "docSearchGb": "W",                 // 조회구분
+            "buBjjCd": "C11102",                // 주문처코드
+            "logTime": "20241028162004284",     // 
+            "orderDescA": "통상",               // 비고
+            "buyerNm": "롯데슈퍼",              // 주문자
+            "buBjjNm": "광릉WET센터",           // 주문처명
+            "dlvBjjCd": "C11102",               // 납품처코드
+            "docStatCd": "1",                   // 
+            "sender": "롯데슈퍼",               // 발송자
+            "dlvBjjNm": "광릉WET센터",          // 납품처명
+            "docDiv": null,                     // 
+            "senderTpId": "LOSH01",             // 발송자유형ID
+			 */
+			
+			if (ComConstants.CON_YES.equals(runOnceYn)) {
+				
+				MrktOrdrVO param = new MrktOrdrVO();
+				param.setOrdrApcCd(ordrApcCd);
+				param.setWrhsYmd(wrhsYmd);
+				param.setOutordrno(docNo);
+				
+				// 주문정보 수신확인
+				MrktOrdrVO resultVO = ordrRcvMapper.selectMrktLotte(param);
+				
+				if (resultVO != null && StringUtils.hasText(resultVO.getOutordrno())) {
+					continue;
+				}
+			}
+			
+			url = originUrl + "scm/ediDoc/receive/orderReceiveDetailPop?docNo=" + docNo;
+			// 페이지 접속, 세션ID 취득
+			Connection.Response dtlPopResponse = Jsoup.connect(url)
+	                .timeout(30000)
+	                .header("Origin", originUrl)
+	                //.header("Referer", "https://www.lcn.co.kr/scm/ediDoc/receive/orderReceive")
+	                .header("Connection", "keep-alive")
+	                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	                .header("Content-Type", "application/x-www-form-urlencoded")
+	                .header("Accept-Encoding", "gzip, deflate, br")
+	                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+	                .cookie("JSESSIONID", jsessionId3)
+	                .cookie("WMONID", wmonId)
+	                //.ignoreContentType(true)
+	                //.data(params)
+	                .method(Connection.Method.GET)
+	                .execute();
+			
+			Document dtlPopDoc = dtlPopResponse.parse();
+			logger.debug("@@@dtlPopDoc");
+			logger.debug(dtlPopDoc.toString());
+						
+			Elements ordrEls = dtlPopDoc.select(".basic_table_area table tr td");
+			logger.debug("@@@ordrEls");
+			logger.debug(ordrEls.toString());
+			
+			int iOrdr = -1;
+			for( Element ordrEl : ordrEls ) {
+				iOrdr++;
+				ordrMap.put(ordrCol[iOrdr], ordrEl.text());
+				logger.debug("iOrdr {}, text {}", iOrdr, ordrEl.text());
+			}
+			
+			ordrMap.put("TRSM_YMD", trsmYmd);
+			ordrMap.put("TRSM_TM", trsmTm);
+			ordrMap.put("ORDRR", ordrr);
+			ordrMap.put("CNTR_CD", cntrCd);
+			ordrMap.put("CO_CD", coCd);
+			ordrMap.put("WAREHOUSE_CD", warehouseCd);
+			ordrMap.put("WAREHOUSE_NM", warehouseNm);
+			ordrMap.put("ORDR_DSCTN", ordrDsctn);
+			
+			Element dtlDiv = dtlPopDoc.selectFirst(".basic_list_area");
+			Elements listEls = dtlDiv.select("table tbody tr");
+			
+			
+			for( Element listEl : listEls ) {
+				
+				HashMap<String, String> dtlMap = new HashMap<>();
+				logger.debug("dtl tr ####");
+				
+				Elements dtls = listEl.select("td");
+				int iTd = -1;
+				for ( Element dtl : dtls ) {
+					iTd++;
+					dtlMap.put(dtlCol[iTd], dtl.text());
+					logger.debug("iTd {}, text {}", iTd, dtl.text());
+				}
+
+				dtlMaps.add(dtlMap);
+			}
+			
+			ordrMaps.add(ordrMap);
+			dtlMapList.add(dtlMaps);
+		}
+		
+		// logout
+		logoutLotte(jsessionId3);
+		
+		// map >> vo, insert
+		
+		List<MrktOrdrVO> ordrList = new ArrayList<>();
+		
+		for (int i=0; i<ordrMaps.size(); i++) {
+			
+			if (dtlMapList.size() < i + 1) {
+				break;
+			}
+			
+			HashMap<String, String> ordr = ordrMaps.get(i);
+			List<HashMap<String, String>> dtlMaps = dtlMapList.get(i);
+			
+			String outordrno = ordr.get("OUTORDRNO");
+			long totOutordrAmt = NumberUtils.parseNumber(
+					ComUtil
+						.nullToEmpty(ordr.get("OUTORDR_AMT"))
+						.replace(",", ""),
+						Long.class);
+			
+			String outordrYmd = ordr.get("OUTORDR_YMD");
+			if (StringUtils.hasText(outordrYmd)) {
+				outordrYmd = outordrYmd.replace("-", "");
+			}
+			String mrktWrhsTypeNm = ordr.get("MRKT_WRHS_TYPE_NM");
+			String trsmYmd = ordr.get("TRSM_YMD");
+			String trsmTm = ordr.get("TRSM_TM");
+			String ordrr = ordr.get("ORDRR");
+			String cntrCd = ordr.get("CNTR_CD");
+			String cntrNm = ordr.get("CNTR_NM");
+			//String splrCd = (String)ordr.get("SPLR_CD");
+			String splrNm = ordr.get("SPLR_NM");
+			String bplcCd = ordr.get("CO_CD");
+			String coCd = ordr.get("CO_CD");
+			String coNm = ordr.get("CO_NM");
+			String warehouseCd = ordr.get("WAREHOUSE_CD");
+			String warehouseNm = ordr.get("WAREHOUSE_NM");
+			String ordrDsctn = ordr.get("ORDR_DSCTN");
+			
+			MrktOrdrVO ordrVO = new MrktOrdrVO();
+			List<MrktOrdrDtlVO> dtlList = new ArrayList<>();
+			
+			ordrVO.setOrdrApcCd(ordrApcCd);				// 주문APC코드
+			ordrVO.setWrhsYmd(wrhsYmd);
+			
+			ordrVO.setLgszMrktCd(lgszMrktCd);
+			
+			ordrVO.setOutordrno(outordrno);
+			ordrVO.setOutordrAmt(totOutordrAmt);
+			ordrVO.setOutordrYmd(outordrYmd);
+			ordrVO.setTrsmYmd(trsmYmd);
+			ordrVO.setTrsmTm(trsmTm);
+			ordrVO.setOrdrr(ordrr);
+			ordrVO.setCntrCd(cntrCd);
+			ordrVO.setCntrNm(cntrNm);
+			ordrVO.setSplrNm(splrNm);
+			ordrVO.setBplcCd(bplcCd);
+			ordrVO.setCoCd(coCd);
+			ordrVO.setCoNm(coNm);
+			ordrVO.setWarehouseCd(warehouseCd);
+			ordrVO.setWarehouseNm(warehouseNm);
+			ordrVO.setOrdrDsctn(ordrDsctn);
+			
+			for ( HashMap<String, String> dtl : dtlMaps ) {
+				int dtlSeq = NumberUtils.parseNumber(
+							ComUtil
+								.nullToEmpty(dtl.get("SEQ"))
+								.replace(",", ""),
+								Integer.class);
+				String mrktGdsCd = (String)dtl.get("MRKT_GDS_CD");
+				String mrktGdsNm = (String)dtl.get("MRKT_GDS_NM");
+				String mrktNtslCd = (String)dtl.get("MRKT_NTSL_CD");
+				String storCd = "";
+				String storNm = "";
+				String storTxt = dtl.get("STOR_TXT");
+				if (StringUtils.hasText(storTxt)) {
+					int leftP = storTxt.indexOf("(");
+					int rightP = storTxt.indexOf(")");
+					
+					if (leftP >= 0 && rightP >= 0 && leftP > rightP) {
+						storCd = storTxt.substring(0, leftP);
+						storNm = storTxt.substring(leftP + 1, rightP);
+					}
+				}
+				
+				int bxGdsQntt = NumberUtils.parseNumber(
+						ComUtil
+						.nullToEmpty(dtl.get("BX_GDS_QNTT"))
+						.replace(",", ""),
+						Integer.class);
+				
+				int outordrQntt = 0;
+				String outordrUnit = "";
+				String qnttTxt = dtl.get("OUTORDR_QNTT_TXT");
+				
+				if (StringUtils.hasText(qnttTxt)) {
+					int leftP = qnttTxt.indexOf("(");
+					int rightP = qnttTxt.indexOf(")");
+					if (leftP >= 0) {;
+						outordrQntt = NumberUtils.parseNumber(
+										ComUtil
+										.nullToEmpty(qnttTxt.substring(0, leftP))
+										.replace(",", ""),
+										Integer.class);
+					}
+					
+					if (leftP >= 0 && rightP >= 0 && leftP > rightP) {
+						outordrUnit = qnttTxt.substring(leftP + 1, rightP);
+					}
+				}
+				
+				int pieceQntt = NumberUtils.parseNumber(
+									ComUtil
+									.nullToEmpty(dtl.get("PIECE_QNTT"))
+									.replace(",", ""),
+									Integer.class);
+				double pieceUntprc = NumberUtils.parseNumber(
+									ComUtil
+									.nullToEmpty(dtl.get("PIECE_UNTPRC"))
+									.replace(",", ""),
+									Double.class);
+				
+				long outordrAmt = NumberUtils.parseNumber(
+									ComUtil
+									.nullToEmpty(dtl.get("OUTORDR_AMT"))
+									.replace(",", ""),
+									Long.class);
+				double outordrUntprc = bxGdsQntt * pieceUntprc;
+				
+				MrktOrdrDtlVO dtlVO = new MrktOrdrDtlVO();
+				
+				dtlVO.setOrdrApcCd(ordrApcCd);
+				dtlVO.setWrhsYmd(wrhsYmd);
+				dtlVO.setOutordrno(outordrno);	
+				dtlVO.setDtlSeq(dtlSeq);
+				dtlVO.setMrktGdsCd(mrktGdsCd);
+				dtlVO.setMrktGdsNm(mrktGdsNm);
+				dtlVO.setMrktNtslCd(mrktNtslCd);
+				dtlVO.setStorCd(storCd);
+				dtlVO.setStorNm(storNm);
+				dtlVO.setMrktWrhsTypeNm(mrktWrhsTypeNm);
+				dtlVO.setBxGdsQntt(bxGdsQntt);
+				dtlVO.setOutordrQntt(outordrQntt);
+				dtlVO.setOutordrUnit(outordrUnit);
+				dtlVO.setPieceQntt(pieceQntt);
+				dtlVO.setPieceUntprc(pieceUntprc);
+				dtlVO.setOutordrAmt(outordrAmt);
+				dtlVO.setOutordrUntprc(outordrUntprc);
+				
+				dtlList.add(dtlVO);
+			}
+			
+			
+			ordrVO.setDtlList(dtlList);
+			
+			ordrList.add(ordrVO);
+			
+		}
+		
+		// 등록
+		
+		String sysUserId = ordrRcvVO.getSysLastChgUserId();
+		String sysPrgrmId = ordrRcvVO.getSysLastChgPrgrmId();
+		
+		for ( MrktOrdrVO ordrVO : ordrList ) {
+			
+			List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+			
+			// insert ordr
+			ordrRcvMapper.insertSpMrktOrdrLtReg(ordrVO);
+			
+			if (StringUtils.hasText(ordrVO.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
+			long ordrSeq = ordrVO.getOrdrSeq();
+			
+			// insert ordr dtl
+			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
+				
+				dtlVO.setOrdrSeq(ordrSeq);
+				
+				ordrRcvMapper.insertSpMrktOrdrLtDtlReg(dtlVO);				
+				if (StringUtils.hasText(dtlVO.getRtnCd())) {
+					rtnObj = ComUtil.getResultMap(dtlVO.getRtnCd(), dtlVO.getRtnMsg());
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+			
+			ordrVO.setSysUserId(sysUserId);
+			ordrVO.setSysPrgrmId(sysPrgrmId);
+			
+			// ordr >> 발주정보
+			ordrRcvMapper.insertSpMrktOrdrRcvLotte(ordrVO);
+			
+			if (StringUtils.hasText(ordrVO.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+	
+	private void logoutLotte (String jsessionId) throws Exception {
+		
+		
+		String originUrl = "https://www.lcn.co.kr/";
+		String logoutUrl = originUrl + "scm/j_spring_security_logout";
+		
+		long currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
+		Map<String, String> logoutParam = new HashMap<>();
+		logoutParam.put("_", Long.toString(currentUnixTime));
+		
+		Connection.Response logoutResponse = Jsoup.connect(logoutUrl)
+                .timeout(3000)
+                .header("Origin", originUrl)
+                .header("Referer", "https://www.lcn.co.kr/scm/main/main")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .header("Accept-Encoding", "gzip, deflate, br")
+                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+                .cookie("JSESSIONID", jsessionId)
+                .cookie("isLogined", "true")
+                .data(logoutParam)
+                .method(Connection.Method.POST)
+                .execute();
+		
+		Document logoutDoc = Jsoup.parse(logoutResponse.body());
+		logger.debug("@@@logoutDoc");
+		logger.debug(logoutDoc.toString());
+	}
+
+	@Override
+	public List<MrktOrdrVO> selectOrdrListForLotte(MrktOrdrVO mrktHomeplusVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd) throws Exception {
+		
+		List<HashMap<String, Object>> ordrList = new ArrayList<>();
+		
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+	
+		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrLotteDtl(param);
+		
+		String outordrno = "";
+		
+		HashMap<String, Object> ordr = new HashMap<>();
+		List<HashMap<String, Object>> dtlList = new ArrayList<>();
+		
+		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
+			
+			HashMap<String, Object> dtl = new HashMap<>();
+			
+			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
+				
+				if (dtlList.size() > 0) {
+					ordr.put("DTL_LIST", dtlList);
+					ordrList.add(ordr);
+				}
+				
+				ordr = new HashMap<>();
+				ordr.put("APC_CD", ordrApcCd);
+				ordr.put("WRHS_YMD", wrhsYmd);
+				ordr.put("DOC_NO", dtlVO.getOutordrno());
+				ordr.put("OUTORDR_AMT", dtlVO.getTotOutordrAmt());
+				ordr.put("OUTORDR_YMD", dtlVO.getOutordrYmd());
+				ordr.put("WRHS_KND", dtlVO.getMrktWrhsKnd());
+				ordr.put("WRHS_TYPE", dtlVO.getMrktWrhsType());
+				ordr.put("TRSM_YMD", dtlVO.getTrsmYmd());
+				ordr.put("TRSM_TM", dtlVO.getTrsmTm());
+				ordr.put("RCPTN_YMD", dtlVO.getRcptnYmd());
+				ordr.put("RCPTN_TM", dtlVO.getRcptnTm());
+				ordr.put("RCPTN_YN", dtlVO.getRcptnYn());
+				ordr.put("BUYER_NM", dtlVO.getOrdrr());
+				ordr.put("CNTR_CD", dtlVO.getCntrCd());
+				ordr.put("CNTR_NM", dtlVO.getCntrNm());
+				ordr.put("SPLR_CD", dtlVO.getSplrCd());
+				ordr.put("SPLR_NM", dtlVO.getSplrNm());
+				ordr.put("BPLC_CD", dtlVO.getBplcCd());
+				ordr.put("CO_CD", dtlVO.getCoCd());
+				ordr.put("CO_NM", dtlVO.getCoNm());
+				ordr.put("WAREHOUSE_CD", dtlVO.getWarehouseCd());
+				ordr.put("WAREHOUSE_NM", dtlVO.getWarehouseTxt());
+				ordr.put("ORDR_DSCTN", dtlVO.getOrdrDsctn());
+
+				dtlList = new ArrayList<>();
+			}
+			
+			dtl.put("DOC_NO", dtlVO.getOutordrno());
+			dtl.put("SEQ", dtlVO.getDtlSeq());
+			dtl.put("WRHS_YMD", wrhsYmd);
+			dtl.put("GDS_CD", dtlVO.getMrktGdsCd());
+			dtl.put("GDS_NM", dtlVO.getMrktGdsNm());
+			dtl.put("NTSL_CD", dtlVO.getMrktNtslCd());
+			dtl.put("STOR_CD", dtlVO.getStorCd());
+			dtl.put("STOR_NM", dtlVO.getStorNm());
+			dtl.put("WRHS_TYPE", dtlVO.getMrktWrhsType());
+			dtl.put("WRHS_TYPE_NM", dtlVO.getMrktWrhsTypeNm());
+			dtl.put("BX_GDS_QNTT", dtlVO.getBxGdsQntt());
+			dtl.put("OUTORDR_QNTT", dtlVO.getOutordrQntt());
+			dtl.put("OUTORDR_UNIT", dtlVO.getOutordrUnit());
+			dtl.put("PIECE_QNTT", dtlVO.getPieceQntt());
+			dtl.put("PIECE_PRICE", dtlVO.getPieceUntprc());
+			dtl.put("PIECE_UNTPRC", dtlVO.getPieceUntprc());
+			dtl.put("OUTORDR_AMT", dtlVO.getOutordrAmt());
+			dtl.put("OUTORDR_UNTPR", dtlVO.getOutordrUntprc());
+			dtl.put("WRHS_QNTT", dtlVO.getWrhsQntt());
+			
+			dtlList.add(dtl);
+			
+			outordrno = dtlVO.getOutordrno();
+		}
+		
+		if (dtlList.size() > 0) {
+			ordr.put("DTL_LIST", dtlList);
+			ordrList.add(ordr);
+		}
+		
+		return ordrList;
+	}	
+	
+	
 
 }

@@ -572,7 +572,6 @@
 		var rowStatus = gvwList.getRowStatus(nRow);
 
 		if((rowStatus == 1 || rowStatus == 3) && (nCol != 53 || nCol != 54)) {
-			console.log(nRow, nCol, rowStatus);
 			gvwList.editCell();
 		}
 
@@ -729,14 +728,16 @@
 		if(gfn_nvl(rowData) == "") return;
 
 		if(nCol == gvwList.getColRef("DOC_NAME")) {
-			var param = {
-				WORK_TYPE : "VIEW",
-				DOC_ID : gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID")),
-				target : "MA_A20_030_020_150"
-			};
+			if(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID"))) != "") {
+				var param = {
+					WORK_TYPE: "VIEW",
+					DOC_ID: gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID")),
+					target: "MA_A20_030_020_150"
+				};
 
-			let json = JSON.stringify(param);
-			window.parent.cfn_openTabSearch(json);
+				let json = JSON.stringify(param);
+				window.parent.cfn_openTabSearch(json);
+			}
 		} else {
 			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 			let DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));

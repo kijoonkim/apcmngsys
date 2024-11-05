@@ -165,24 +165,31 @@
 	<!-- ==========================================================================	-->
     <select id="selectUserApcList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectUserApcList */
-	    		  AE.APC_CD			AS APC_CD
-			    , AE.APC_NM         AS APC_NM
-		  	  FROM TB_APC_EVRMNT_STNG
-		 	 WHERE AE.DEL_YN = 'N'
-		 	   AND EXISTS (
-		 	   		SELECT 1
-		 	   		  FROM TB_COM_USER X
-		 	   		 WHERE X.APC_CD = AI.APC_CD
-		 	   		   AND X.DEL_YN = 'N'
-		 	   		   AND X.USER_ID = #{userId}
-		 	   		UNION ALL
-		 	   		SELECT
-		 	   		  FROM TB_COM_USER_APC X
-		 	   		 WHERE X.APC_CD = AI.APC_CD
-		 	   		   AND X.DEL_YN = 'N'
-		 	   		   AND X.USER_ID = #{userId}
-		 	   	)
+    	
+			SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectUserApcList */
+				  A.APC_CD		AS APC_CD
+				, A.SEQ			AS SEQ
+				, MAX(AE.APC_NM)	AS APC_NM
+			  FROM (
+				SELECT
+					  APC_CD	AS APC_CD
+					, CASE WHEN APC_CD = '0000' THEN 99 ELSE 1 END	AS SEQ
+				  FROM TB_COM_USER
+				 WHERE USER_ID = #{userId}
+				UNION ALL
+				SELECT
+					  APC_CD	AS APC_CD
+					, ROW_NUMBER() OVER(PARTITION BY APC_CD ORDER BY CASE WHEN BSC_APC_YN = 'Y' THEN 1 ELSE 9 END, APC_CD)	AS SEQ
+				  FROM TB_COM_USER_APC
+				 WHERE USER_ID = #{userId}
+				   AND APRV_YN = 'Y'
+				) A
+			  JOIN TB_APC_EVRMNT_STNG AE
+			    ON AE.APC_CD = A.APC_CD
+			   AND AE.DEL_YN = 'N'
+			   
+			 GROUP BY A.SEQ, A.APC_CD
+			 ORDER BY SEQ, APC_NM
 		]]>
 		
     </select>

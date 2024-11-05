@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
@@ -39,6 +40,8 @@ public class ApcMaCom3000Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
 	
 	// 공통코드 정보 조회
 	@PostMapping(value = "/co/sys/com/selectCom3000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -174,20 +177,21 @@ public class ApcMaCom3000Controller extends BaseController {
 			,HttpServletRequest request) throws Exception{
 		
 		logger.info("=============updateCom3000_S1=====start========");
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S1");
-			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3000_S1");
+			logger.info("=============updateCom3000_S1=====end========");
+			return getSuccessResponseEntityMa(resultMap);
 			
 		} catch (Exception e) {
+			
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+			
 		}
-		
-		logger.info("=============updateCom3000_S1=====end========");
-		return getSuccessResponseEntityMa(resultMap);
-	}	
+	}
 
 }

@@ -1019,90 +1019,76 @@
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-	          		alert(data.resultMessage);
-        		}
-        		
+          		gfn_comAlert('I0001');
         		//세부코드 정보  저장
-        		let rowLength = CMNSCDSubGrid.getUpdateData(true, 'all').length;
-        		let rowVal 	  = CMNSCDSubGrid.getUpdateData(true, 'all');
-        		if(rowLength >= 1 ){
-        	    		for(var i = 0; rowLength > i; i ++){
-        	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-        		            var P_USE_YN 		= '';
-        		            var P_SYSTEM_YN 	= '';
-        	    			
-        	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
-        	    				P_USE_YN = 'N';
-        	    			}
-        	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
-        	    				P_SYSTEM_YN = 'N';
-        	    			}
-        	    			var paramObj = {
-        	   	  	    	      V_P_DEBUG_MODE_YN        : ''
-        	   	  	    	      ,V_P_LANG_ID             : ''
-        	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
-        	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-        	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
-        	   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
-        	   	  	    	      ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
-        	   	  	    	      ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-        	   	  	    	      ,IV_P_EXTRA_FIELD1       : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
-        	   	  	    	      ,IV_P_EXTRA_FIELD2       : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
-        	   	  	    	      ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
-        	   	  	    	      ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
-        	   	  	    	      ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
-        	   	  	    	      ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
-        	   	  	    	      ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
-        	   	  	    	      ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
-        	   	  	    	      ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
-        	   	  	    	      ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
-        	   	  	    	      ,V_P_EXTRA_FIELD11       : gfn_nvl(rowVal[i].data.EXTRA_FIELD11)
-        	   	  	    	      ,V_P_EXTRA_FIELD12       : gfn_nvl(rowVal[i].data.EXTRA_FIELD12)
-        	   	  	    	      ,V_P_EXTRA_FIELD13       : gfn_nvl(rowVal[i].data.EXTRA_FIELD13)
-        	   	  	    	      ,V_P_EXTRA_FIELD14       : gfn_nvl(rowVal[i].data.EXTRA_FIELD14)
-        	   	  	    	      ,V_P_EXTRA_FIELD15       : gfn_nvl(rowVal[i].data.EXTRA_FIELD15)
-        	   	  	    	      ,V_P_EXTRA_FIELD16       : gfn_nvl(rowVal[i].data.EXTRA_FIELD16)
-        	   	  	    	      ,V_P_EXTRA_FIELD17       : gfn_nvl(rowVal[i].data.EXTRA_FIELD17)
-        	   	  	    	      ,V_P_EXTRA_FIELD18       : gfn_nvl(rowVal[i].data.EXTRA_FIELD18)
-        	   	  	    	      ,V_P_EXTRA_FIELD19       : gfn_nvl(rowVal[i].data.EXTRA_FIELD19)
-        	   	  	    	      ,V_P_EXTRA_FIELD20       : gfn_nvl(rowVal[i].data.EXTRA_FIELD20)
-        	   	  	    	      ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
-        	   	  	    	      ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
-        	   	  	    	      ,V_P_FORM_ID             : p_formId
-        	   	  	    	      ,V_P_MENU_ID             : p_menuId
-        	   	  	    	      ,V_P_PROC_ID             : ''
-        	   	  	    	      ,V_P_USERID              : p_userId
-        	   	  	    	      ,V_P_PC                  : ''
-        	    		    };		
-        	    			
-        	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {
-        	    	        	getType				: 'json',
-        	    	        	workType			: workType,
-        	    	        	cv_count			: '0',
-        	    	        	params				: gfnma_objectToString(paramObj)
-        	    			});    	 
-        	    	        const subdata = await postJsonPromise;
-
-        	    	        try {
-        	    	        	if (_.isEqual("S", subdata.resultStatus)) {
-        	    	        		if(subdata.resultMessage){
-        	    		          		alert(subdata.resultMessage);
-        	    	        		}
-        	    	        	} else {
-        	    	          		alert(subdata.resultMessage);
-        	    	        	}
-        	    	        } catch (e) {
-        	    	    		if (!(e instanceof Error)) {
-        	    	    			e = new Error(e);
-        	    	    		}
-        	    	    		console.error("failed", e.message);
-        	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	    	        }
-        	    		}
-        		}
-        		
-        		cfn_search();
+        		let CMNSCDSubGridLength	= CMNSCDSubGrid.getUpdateData(true, 'all').length;
+        		let CMNSCDSubGridData 	= CMNSCDSubGrid.getUpdateData(true, 'all');
+                if(CMNSCDSubGridLength <= 0){
+                	return;
+                }
+                let listData = [];
+                CMNSCDSubGridData.forEach((item, index) => {
+                    const param = {
+                        cv_count: '0',
+                        getType: 'json',
+                        rownum: item.rownum,
+                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        params: gfnma_objectToString({
+  	   	  	    	      V_P_DEBUG_MODE_YN        : ''
+    	   	  	    	      ,V_P_LANG_ID             : ''
+    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+    	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
+    	   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
+    	   	  	    	      ,V_P_CODE_NAME           : gfn_nvl(item.data.CODE_NAME)
+    	   	  	    	      ,V_P_SYSTEM_YN           : gfn_nvl(item.data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+    	   	  	    	      ,IV_P_EXTRA_FIELD1       : gfn_nvl(item.data.EXTRA_FIELD1)
+    	   	  	    	      ,IV_P_EXTRA_FIELD2       : gfn_nvl(item.data.EXTRA_FIELD2)
+    	   	  	    	      ,V_P_EXTRA_FIELD3        : gfn_nvl(item.data.EXTRA_FIELD3)
+    	   	  	    	      ,V_P_EXTRA_FIELD4        : gfn_nvl(item.data.EXTRA_FIELD4)
+    	   	  	    	      ,V_P_EXTRA_FIELD5        : gfn_nvl(item.data.EXTRA_FIELD5)
+    	   	  	    	      ,V_P_EXTRA_FIELD6        : gfn_nvl(item.data.EXTRA_FIELD6)
+    	   	  	    	      ,V_P_EXTRA_FIELD7        : gfn_nvl(item.data.EXTRA_FIELD7)
+    	   	  	    	      ,V_P_EXTRA_FIELD8        : gfn_nvl(item.data.EXTRA_FIELD8)
+    	   	  	    	      ,V_P_EXTRA_FIELD9        : gfn_nvl(item.data.EXTRA_FIELD9)
+    	   	  	    	      ,V_P_EXTRA_FIELD10       : gfn_nvl(item.data.EXTRA_FIELD10)
+    	   	  	    	      ,V_P_EXTRA_FIELD11       : gfn_nvl(item.data.EXTRA_FIELD11)
+    	   	  	    	      ,V_P_EXTRA_FIELD12       : gfn_nvl(item.data.EXTRA_FIELD12)
+    	   	  	    	      ,V_P_EXTRA_FIELD13       : gfn_nvl(item.data.EXTRA_FIELD13)
+    	   	  	    	      ,V_P_EXTRA_FIELD14       : gfn_nvl(item.data.EXTRA_FIELD14)
+    	   	  	    	      ,V_P_EXTRA_FIELD15       : gfn_nvl(item.data.EXTRA_FIELD15)
+    	   	  	    	      ,V_P_EXTRA_FIELD16       : gfn_nvl(item.data.EXTRA_FIELD16)
+    	   	  	    	      ,V_P_EXTRA_FIELD17       : gfn_nvl(item.data.EXTRA_FIELD17)
+    	   	  	    	      ,V_P_EXTRA_FIELD18       : gfn_nvl(item.data.EXTRA_FIELD18)
+    	   	  	    	      ,V_P_EXTRA_FIELD19       : gfn_nvl(item.data.EXTRA_FIELD19)
+    	   	  	    	      ,V_P_EXTRA_FIELD20       : gfn_nvl(item.data.EXTRA_FIELD20)
+    	   	  	    	      ,V_P_SORT_SEQ            : gfn_nvl(item.data.SORT_SEQ)
+    	   	  	    	      ,V_P_USE_YN              : gfn_nvl(item.data.USE_YN) == 'Y' ? 'Y' : 'N'
+    	   	  	    	      ,V_P_FORM_ID             : p_formId
+    	   	  	    	      ,V_P_MENU_ID             : p_menuId
+    	   	  	    	      ,V_P_PROC_ID             : ''
+    	   	  	    	      ,V_P_USERID              : p_userId
+    	   	  	    	      ,V_P_PC                  : ''
+                        })
+                    }
+                    listData.push(param);
+                });
+                const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: listData});
+                const updateData = await postJsonPromise;
+                try {
+                    if (_.isEqual("S", updateData.resultStatus)) {
+                    } else {
+                        alert(updateData.resultMessage);
+                        return false;
+                    }
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+	       		cfn_search();
         	} else {
           		alert(data.resultMessage);
         	}
@@ -1175,7 +1161,6 @@
          $('#btnCopyCell').hide();
          
         let gridData = CMNSCDSubGrid.getGridDataAll();
-		console.log('gridData ==>', gridData);
 		jsonCMNSCDSubList = [];
         mode = 'byrow'; //그리드 프로퍼티스 라인모드
          let fieldData = await fn_fieldCaption(); 
@@ -1187,7 +1172,6 @@
          $('#btnCopyLine').hide();
          $('#btnCopyCell').show();
          let gridData = CMNSCDSubGrid.getGridDataAll();
- 		console.log('gridData ==>', gridData);
          jsonCMNSCDSubList = [];
          let fieldData = await fn_fieldCaption(); 
 
@@ -1203,7 +1187,6 @@
         $('#btnCopyCell').hide();
 
         let gridData = CMNSCDSubGrid.getGridDataAll();
- 		console.log('gridData ==>', gridData);
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 
 

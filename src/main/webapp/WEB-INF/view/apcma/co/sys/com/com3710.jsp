@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -176,7 +176,7 @@
                             			<sbux-checkbox 
                             				id="PARENT_YN" 
                             				uitype="normal" 
-                            				text="사용" 
+                            				text="상위" 
                             				true-value="Y" 
                             				false-value="N" >
                             			</sbux-checkbox>
@@ -302,7 +302,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">마감일자</th>
                                     <td class="td_input" >
-										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" uitype="popup"></sbux-datepicker>
+										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" date-format="yyyy-mm-dd" uitype="popup" placement="top" style="width:120px;height:28px;"></sbux-datepicker>
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input" >
@@ -652,6 +652,13 @@
 		}
     }
 	
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	gfnma_uxDataClear('#srchArea1');
+    }
+    
 	// 마스터 그리드 삭제
 	function cfn_del() {
 		fn_delete();

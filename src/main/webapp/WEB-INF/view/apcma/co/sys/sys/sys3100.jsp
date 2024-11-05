@@ -376,6 +376,7 @@
         let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (_.isEmpty(rowData) == false) {
+            SBUxMethod.attr('DECIMAL_ID' ,'readonly',true);
             SBUxMethod.set("DECIMAL_ID"     , rowData.DECIMAL_ID);
             SBUxMethod.set("DECIMAL_NAME"   , rowData.DECIMAL_NAME);
             SBUxMethod.set("DECIMAL_LENGTH" , rowData.DECIMAL_LENGTH);
@@ -388,7 +389,7 @@
     function fn_create() {
 
         editType = "N";
-
+        SBUxMethod.attr('DECIMAL_ID' ,'readonly',false);
         SBUxMethod.set("DECIMAL_ID"     , "");
         SBUxMethod.set("DECIMAL_NAME"   , "");
         SBUxMethod.set("DECIMAL_LENGTH" , "");

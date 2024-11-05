@@ -247,13 +247,13 @@
                                  onclick="fn_btnExclusion('CANCEL')" style="float: right; margin-right: 3px;"></sbux-button>
                     <sbux-button id="btnExclusion" name="btnExclusion" uitype="normal" text="제외처리" class="btn btn-sm btn-outline-danger"
                                  onclick="fn_btnExclusion('EXCEPT')" style="float: right; margin-right: 3px;"></sbux-button>
-                    <sbux-input id="except_reason" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
+                    <sbux-input id="EXCEPT_REASON" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
                     <div class="dropdown" style="float: right; margin-right: 5px;">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="cboexcept_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCEPT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="cboexcept_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="EXCEPT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                     <span style="float: right; padding-top: 7px;">제외사유</span>
@@ -348,7 +348,7 @@
             // 제외사유
             gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
             gfnma_multiSelectInit({
-                target			: ['#cboexcept_code']
+                target			: ['#EXCEPT_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM251'
@@ -387,7 +387,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -416,7 +416,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -476,7 +476,7 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('CS_CODE'), data['CS_CODE']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('PO_DOC_NO'), data['CS_CODE']);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CS_NAME']);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CHIEF_NAME']);
                 gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_ADDRESS'), data['ADDRESS']);
@@ -652,6 +652,33 @@
         });
     }
 
+    var fn_compopup7 = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
+                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
+            },
+        });
+    }
+
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
 
@@ -693,8 +720,8 @@
             }
 
             var reader = new FileReader();
-            let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+            let strmindate = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+            let strmaxdate = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
             let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
             reader.addEventListener(
@@ -742,18 +769,18 @@
 
                             list.forEach((item, index) => {
                                 if(gfn_nvl(item.APPROVAL_NO) != "") {
-                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
-                                        strmindate = item.ISSUE_DATE.replaceAll("-", "");
+                                    if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) < parseInt(strmindate)) {
+                                        strmindate = item.ISSUE_DATE.replace(/-/gi, "");
                                     }
 
-                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
-                                        strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+                                    if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) > parseInt(strmaxdate)) {
+                                        strmaxdate = item.ISSUE_DATE.replace(/-/gi, "");
                                     }
 
-                                    item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
-                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
-                                    item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
-                                    item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+                                    item["WRITE_DATE"] = item.WRITE_DATE.replace(/-/gi, "");
+                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replace(/-/gi, "");
+                                    item["SEND_DATE"] = item.SEND_DATE.replace(/-/gi, "");
+                                    item["TXN_DATE"] = item.TXN_DATE.replace(/-/gi, "");
                                     item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
                                     item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
 
@@ -815,8 +842,8 @@
             }
 
             var reader = new FileReader();
-            let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+            let strmindate = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+            let strmaxdate = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
             let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
             reader.addEventListener(
@@ -862,18 +889,18 @@
 
                             list.forEach((item, index) => {
                                 if(gfn_nvl(item.APPROVAL_NO) != "") {
-                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
-                                        strmindate = item.ISSUE_DATE.replaceAll("-", "");
+                                    if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) < parseInt(strmindate)) {
+                                        strmindate = item.ISSUE_DATE.replace(/-/gi, "");
                                     }
 
-                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
-                                        strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+                                    if (parseInt(item.ISSUE_DATE.replace(/-/gi, "")) > parseInt(strmaxdate)) {
+                                        strmaxdate = item.ISSUE_DATE.replace(/-/gi, "");
                                     }
 
-                                    item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
-                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
-                                    item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
-                                    item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+                                    item["WRITE_DATE"] = item.WRITE_DATE.replace(/-/gi, "");
+                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replace(/-/gi, "");
+                                    item["SEND_DATE"] = item.SEND_DATE.replace(/-/gi, "");
+                                    item["TXN_DATE"] = item.TXN_DATE.replace(/-/gi, "");
                                     item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
                                     item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
 
@@ -938,7 +965,6 @@
         let xml = parser.parseFromString(file, "text/xml");
         let parseXmlForJson = xmlToJson(xml);
         let taxInvoice = parseXmlForJson.TaxInvoice;
-        //console.log(parseXmlForJson)
         let nodeTaxInvoice = taxInvoice;
         let nodeExchangedDocument = taxInvoice.ExchangedDocument;
         let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;
@@ -991,7 +1017,7 @@
             if (gfn_nvl(nodeInvoicerParty["DefinedContact"]) != "") {
                 rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DefinedContact"].URICommunication;
             }
-            rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+            rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].replace(/,/gi, "&#44;");
 
             //공급받는자
             rowHeader["BUYER_REG_NO"] = nodeInvoiceeParty["ID"];
@@ -1005,7 +1031,7 @@
                 rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SecondaryDefinedContact"].URICommunication;
             }
             if (gfn_nvl(nodeInvoiceeParty["SPECIFIEDADDRESS"]) != "") {
-                rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+                rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replace(/,/gi, "&#44;");
             }
 
             rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["ChargeTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["ChargeTotalAmount"];
@@ -1073,7 +1099,7 @@
                     V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
                     V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
                     V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
-                    V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+                    V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replace(/-/gi, "")),
                     V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
                     V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
                     V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
@@ -1081,7 +1107,7 @@
                     V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
                     V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
                     V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
-                    V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+                    V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replace(/-/gi, "")),
                     V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
                     V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
                     V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
@@ -1103,7 +1129,7 @@
                     IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
                     V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
                     V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
-                    V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+                    V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replace(/-/gi, "")),
                     V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
@@ -1253,7 +1279,7 @@
      */
     var fn_payDate = function() {
 
-        let NATION_CODE = gfnma_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM"));
+        let NATION_CODE = gfn_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM"));
 
         if (NATION_CODE == ''){
 
@@ -1275,7 +1301,7 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -1286,17 +1312,17 @@
 
                 if (_.isEmpty(listGridData) == false){
 
-                    if (fn_save(listGridData, 'N')){
+                    if (await fn_save(listGridData, 'N')){
                         return;
                     }
                 }
 
                 //let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
-                let itemGridData = gvwItemGrid.getGridDataAll();
+                let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
 
                 if (_.isEmpty(itemGridData) == false){
 
-                    if (fn_saveS1(itemGridData, 'N')){
+                    if (await fn_saveS1(itemGridData, 'N')){
                         return;
                     }
                 }
@@ -1309,7 +1335,7 @@
 
                     if (_.isEmpty(listGridData) == false){
 
-                        if (fn_save(listGridData, 'N')){
+                        if (await fn_save(listGridData, 'N')){
                             return;
                         }
                     }
@@ -1321,16 +1347,16 @@
 
                     if (_.isEmpty(listGridData) == false){
 
-                        if (fn_save(listGridData, 'U')){
+                        if ( await fn_save(listGridData, 'U')){
                             return;
                         }
                     }
 
                     //let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
-                    let itemGridData = gvwItemGrid.getGridDataAll();
+                    let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
                     if (_.isEmpty(itemGridData) == false){
 
-                        if (fn_saveS1(itemGridData, 'U1')){
+                        if (await fn_saveS1(itemGridData, 'U1')){
                             return;
                         }
                     }
@@ -1370,37 +1396,10 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
-        //그리드 총계 하단 고정
-        /*SBGridProperties.frozenbottomrows 	= 1;
-        SBGridProperties.rowheader = ['update'];
-        SBGridProperties.total = {
-            type 		: 'grand',
-            position	: 'bottom',
-            columns		: {
-                standard : [1],
-                sum : [29,30,31,32,33,34]
-            },
-            /!*subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
-            grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                stylestartcol	: 0
-            },*!/
-            datasorting	: true,
-            usedecimal : false
-        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1411,20 +1410,22 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                typeinfo: {dateformat: 'yyyy-mm-dd', oneclickedit: true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
-            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'input', width: '170px', style: 'text-align:left'},
             {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
             {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["종사업장번호"], ref: 'SELLER_SUB_REG_NO', type: 'output', width: '140px', style: 'text-align:left'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
+            {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type:'input',  width:'140px',  style:'text-align:left',
+                typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+                , format : {type:'string', rule:'###-##-#####', emptyvalue:'0'}
+            },
+            {caption: ["종사업장번호"], ref: 'SELLER_SUB_REG_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구분"], ref: 'RID_GUBUN', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["DOC_ID"], ref: 'DOC_ID', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["전표번호"], ref: 'DOC_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["DOC_ID"], ref: 'DOC_ID', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["전표번호"], ref: 'DOC_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             /*{caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if(objRowData['DOC_ID']){
@@ -1434,62 +1435,62 @@
                     }
                 }
             },*/
-            {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["공급사코드"], ref: 'CS_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-           /* {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["공급사코드"], ref: 'CS_CODE', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
-            },*/
-            {caption: ["상호"], ref: 'SELLER_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["대표자명"], ref: 'SELLER_OWNER', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["공급자주소"], ref: 'SELLER_ADDRESS', type: 'output', width: '140px', style: 'text-align:left'},
+            },
+            {caption: ["상호"], ref: 'SELLER_NAME', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["대표자명"], ref: 'SELLER_OWNER', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["공급자주소"], ref: 'SELLER_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급자업종"], ref: 'SELLER_BIZ_CATEGORY', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급자업태"], ref: 'SELLER_BIZ_ITEM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급자유형"], ref: 'SELLER_BIZ_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["공급받는자사업자번호"], ref: 'BUYER_REG_NO', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
-            {caption: ["종사업자번호"], ref: 'BUYER_SUB_REG_NO', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["구매자상호"], ref: 'BUYER_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["구매자대표자명"], ref: 'BUYER_OWNER', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["공급받는자사업자번호"], ref: 'BUYER_REG_NO', type: 'input', width: '140px', style: 'text-align:left', hidden: true},
+            {caption: ["종사업자번호"], ref: 'BUYER_SUB_REG_NO', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["구매자상호"], ref: 'BUYER_NAME', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["구매자대표자명"], ref: 'BUYER_OWNER', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자업종"], ref: 'BUYER_BIZ_CATEGORY', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자업태"], ref: 'BUYER_BIZ_ITEM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자유형"], ref: 'BUYER_BIZ_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자주소"], ref: 'BUYER_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["합계금액"], ref: 'TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["합계금액"], ref: 'TOTAL_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["세액"], ref: 'TOTAL_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["세액"], ref: 'TOTAL_TAXABLE_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["공급가액"], ref: 'TOTAL_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["공급가액"], ref: 'TOTAL_VAT_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["전표총금액"], ref: 'DOC_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["전표총금액"], ref: 'DOC_TOTAL_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["전표공급가액"], ref: 'DOC_SUPPLY_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["전표공급가액"], ref: 'DOC_SUPPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["전표부가세"], ref: 'DOC_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["전표부가세"], ref: 'DOC_VAT_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["차이여부"], ref: 'DIFF_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption : ["제외코드"], ref : 'EXCEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["제외코드"], ref : 'EXCEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonExceptCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["제외사유"], ref: 'EXCEPT_REASON', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["전자세금계산서분류"], ref : 'EINVOICE_CATEGORY', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["전자세금계산서분류"], ref : 'EINVOICE_CATEGORY', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonEinvoiceCategory', displayui : true, label : 'label', value : 'value'}
             },
-            {caption : ["전자세금계산서종류"], ref : 'EINVOICE_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["전자세금계산서종류"], ref : 'EINVOICE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonEinvoiceType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption : ["정발행/역발행"], ref : 'MATCH_METHOD', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["정발행/역발행"], ref : 'MATCH_METHOD', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonMatchMethod', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["발급유형"], ref: 'ISSUE_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'NOTE1', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["other_desc"], ref: 'note2', type: 'input', width: '140px', style: 'text-align:left', hidden: true},
-            {caption : ["영수/청구 구분"], ref : 'RECEIPT_OR_BILL', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption: ["other_desc"], ref: 'NOTE2', type: 'input', width: '140px', style: 'text-align:left', hidden: true},
+            {caption : ["영수/청구 구분"], ref : 'RECEIPT_OR_BILL', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonReceiptOrBill', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["공급자이메일"], ref: 'SELLER_EMAIL', type: 'input', width: '140px', style: 'text-align:left'},
@@ -1502,24 +1503,31 @@
             {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
             },*/
-            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["전표담당자 조회"], 			ref: 'ACCOUNT_EMP_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                }
+            },
             {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},
+
+
             {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'input', width: '140px', style: 'text-align:right'
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, hidden: true},
+            {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left' , hidden: true},
+            {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
-            {caption: ["품목비고"], ref: 'ITEM_DESC', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["상태"], ref: 'ROW_STATUS', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["회계단위"], ref: 'FI_ORG_CODE', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["조회시공급사코드"], ref: 'CS_CODE_ORG', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["품목비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+            {caption: ["상태"], ref: 'ROW_STATUS', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+            {caption: ["회계단위"], ref: 'FI_ORG_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+            {caption: ["조회시공급사코드"], ref: 'CS_CODE_ORG', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
 
         ];
 
@@ -1540,7 +1548,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -1667,23 +1675,32 @@
     }
 
     /**
+     * 전표담당자 팝업 조회
+     */
+    function fn_gridAccountEmpPopup(event, row, col) {
+
+        event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
+        fn_compopup7(row, col);
+    }
+
+    /**
      * 목록 조회
      */
     const fn_search = async function () {
 
-       /* let YMDPERIOD_YYYYMM = gfnma_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
-        //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
+       /* let YMDPERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
+        //let FI_ORG_CODE = gfn_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
         let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
-        let DATE_FR         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
-        let DATE_TO         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
-        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
-        let CS_NAME         = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let AMT             = gfnma_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let RIDGUBUN        = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
+        let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
+        let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
+        let CS_BIZ_REGNO    = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
+        let CS_NAME         = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let AMT             = gfn_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let APPROVAL_NO     = gfn_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let ROW_CNT         = gfn_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");
@@ -1745,69 +1762,69 @@
                 jsonList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        ROW_STATUS		        : gfnma_nvl(item.ROW_STATUS),
-                        CHECK_YN		        : gfnma_nvl(item.CHECK_YN),
-                        WRITE_DATE		        : gfnma_nvl(item.WRITE_DATE),
-                        APPROVAL_NO		        : gfnma_nvl(item.APPROVAL_NO),
-                        ISSUE_DATE		        : gfnma_nvl(item.ISSUE_DATE),
-                        SEND_DATE		        : gfnma_nvl(item.SEND_DATE),
-                        SELLER_REG_NO		    : gfnma_nvl(item.SELLER_REG_NO),
-                        SELLER_SUB_REG_NO		: gfnma_nvl(item.SELLER_SUB_REG_NO),
-                        CS_CODE		            : gfnma_nvl(item.CS_CODE),
-                        CS_CODE_ORG		        : gfnma_nvl(item.CS_CODE_ORG),
-                        SELLER_NAME		        : gfnma_nvl(item.SELLER_NAME),
-                        SELLER_OWNER		    : gfnma_nvl(item.SELLER_OWNER),
-                        SELLER_BIZ_CATEGORY		: gfnma_nvl(item.SELLER_BIZ_CATEGORY),
-                        SELLER_BIZ_ITEM		    : gfnma_nvl(item.SELLER_BIZ_ITEM),
-                        SELLER_BIZ_TYPE		    : gfnma_nvl(item.SELLER_BIZ_TYPE),
-                        BUYER_REG_NO		    : gfnma_nvl(item.BUYER_REG_NO),
-                        BUYER_SUB_REG_NO		: gfnma_nvl(item.BUYER_SUB_REG_NO),
-                        BUYER_NAME		        : gfnma_nvl(item.BUYER_NAME),
-                        BUYER_OWNER		        : gfnma_nvl(item.BUYER_OWNER),
-                        BUYER_BIZ_CATEGORY		: gfnma_nvl(item.BUYER_BIZ_CATEGORY),
-                        BUYER_BIZ_ITEM		    : gfnma_nvl(item.BUYER_BIZ_ITEM),
-                        BUYER_BIZ_TYPE		    : gfnma_nvl(item.BUYER_BIZ_TYPE),
-                        TOTAL_AMT		        : gfnma_nvl(item.TOTAL_AMT),
-                        TOTAL_TAXABLE_AMT		: gfnma_nvl(item.TOTAL_TAXABLE_AMT),
-                        TOTAL_VAT_AMT		    : gfnma_nvl(item.TOTAL_VAT_AMT),
-                        DOC_TOTAL_AMT		    : gfnma_nvl(item.DOC_TOTAL_AMT),
-                        DOC_SUPPLY_AMT		    : gfnma_nvl(item.DOC_SUPPLY_AMT),
-                        DOC_VAT_AMT		        : gfnma_nvl(item.DOC_VAT_AMT),
-                        DIFF_FLAG		        : gfnma_nvl(item.DIFF_FLAG),
-                        EINVOICE_CATEGORY		: gfnma_nvl(item.EINVOICE_CATEGORY),
-                        EINVOICE_TYPE		    : gfnma_nvl(item.EINVOICE_TYPE),
-                        MATCH_METHOD		    : gfnma_nvl(item.MATCH_METHOD),
-                        ISSUE_TYPE		        : gfnma_nvl(item.ISSUE_TYPE),
-                        NOTE1		            : gfnma_nvl(item.NOTE1),
-                        NOTE2		            : gfnma_nvl(item.NOTE2),
-                        NOTE3		            : gfnma_nvl(item.NOTE3),
-                        RECEIPT_OR_BILL		    : gfnma_nvl(item.RECEIPT_OR_BILL),
-                        SELLER_EMAIL		    : gfnma_nvl(item.SELLER_EMAIL),
-                        BUYER_EMAIL1		    : gfnma_nvl(item.BUYER_EMAIL1),
-                        BUYER_EMAIL2		    : gfnma_nvl(item.BUYER_EMAIL2),
-                        ACCOUNT_EMP_CODE		: gfnma_nvl(item.ACCOUNT_EMP_CODE),
-                        ACCOUNT_EMP_NAME		: gfnma_nvl(item.ACCOUNT_EMP_NAME),
-                        TXN_DATE		        : gfnma_nvl(item.TXN_DATE),
-                        ITEM_NAME		        : gfnma_nvl(item.ITEM_NAME),
-                        ITEM_SPEC		        : gfnma_nvl(item.ITEM_SPEC),
-                        ITEM_QTY		        : gfnma_nvl(item.ITEM_QTY),
-                        ITEM_UNIT_PRICE		    : gfnma_nvl(item.ITEM_UNIT_PRICE),
-                        ITEM_TAXABLE_AMT		: gfnma_nvl(item.ITEM_TAXABLE_AMT),
-                        ITEM_VAT_AMT		    : gfnma_nvl(item.ITEM_VAT_AMT),
-                        ITEM_DESC		        : gfnma_nvl(item.ITEM_DESC),
-                        INTERFACED_FLAG		    : gfnma_nvl(item.INTERFACED_FLAG),
-                        FI_ORG_CODE		        : gfnma_nvl(item.FI_ORG_CODE),
-                        SELLER_ADDRESS		    : gfnma_nvl(item.SELLER_ADDRESS),
-                        BUYER_ADDRESS		    : gfnma_nvl(item.BUYER_ADDRESS),
-                        DOC_ID		            : gfnma_nvl(item.DOC_ID),
-                        DOC_NAME		        : gfnma_nvl(item.DOC_NAME),
-                        DOC_BATCH_NO		    : gfnma_nvl(item.DOC_BATCH_NO),
-                        DOC_STATUS		        : gfnma_nvl(item.DOC_STATUS),
-                        RID_GUBUN		        : gfnma_nvl(item.RID_GUBUN),
-                        EXCEPT_CODE		        : gfnma_nvl(item.EXCEPT_CODE),
-                        EXCEPT_REASON		    : gfnma_nvl(item.EXCEPT_REASON),
-                        EXCEPT_AMOUNT		    : gfnma_nvl(item.EXCEPT_AMOUNT),
-                        PO_DOC_NO		        : gfnma_nvl(item.PO_DOC_NO),
+                        ROW_STATUS		        : gfn_nvl(item.ROW_STATUS),
+                        CHECK_YN		        : gfn_nvl(item.CHECK_YN),
+                        WRITE_DATE		        : gfn_nvl(item.WRITE_DATE),
+                        APPROVAL_NO		        : gfn_nvl(item.APPROVAL_NO),
+                        ISSUE_DATE		        : gfn_nvl(item.ISSUE_DATE),
+                        SEND_DATE		        : gfn_nvl(item.SEND_DATE),
+                        SELLER_REG_NO		    : gfn_nvl(item.SELLER_REG_NO),
+                        SELLER_SUB_REG_NO		: gfn_nvl(item.SELLER_SUB_REG_NO),
+                        CS_CODE		            : gfn_nvl(item.CS_CODE),
+                        CS_CODE_ORG		        : gfn_nvl(item.CS_CODE_ORG),
+                        SELLER_NAME		        : gfn_nvl(item.SELLER_NAME),
+                        SELLER_OWNER		    : gfn_nvl(item.SELLER_OWNER),
+                        SELLER_BIZ_CATEGORY		: gfn_nvl(item.SELLER_BIZ_CATEGORY),
+                        SELLER_BIZ_ITEM		    : gfn_nvl(item.SELLER_BIZ_ITEM),
+                        SELLER_BIZ_TYPE		    : gfn_nvl(item.SELLER_BIZ_TYPE),
+                        BUYER_REG_NO		    : gfn_nvl(item.BUYER_REG_NO),
+                        BUYER_SUB_REG_NO		: gfn_nvl(item.BUYER_SUB_REG_NO),
+                        BUYER_NAME		        : gfn_nvl(item.BUYER_NAME),
+                        BUYER_OWNER		        : gfn_nvl(item.BUYER_OWNER),
+                        BUYER_BIZ_CATEGORY		: gfn_nvl(item.BUYER_BIZ_CATEGORY),
+                        BUYER_BIZ_ITEM		    : gfn_nvl(item.BUYER_BIZ_ITEM),
+                        BUYER_BIZ_TYPE		    : gfn_nvl(item.BUYER_BIZ_TYPE),
+                        TOTAL_AMT		        : gfn_nvl(item.TOTAL_AMT),
+                        TOTAL_TAXABLE_AMT		: gfn_nvl(item.TOTAL_TAXABLE_AMT),
+                        TOTAL_VAT_AMT		    : gfn_nvl(item.TOTAL_VAT_AMT),
+                        DOC_TOTAL_AMT		    : gfn_nvl(item.DOC_TOTAL_AMT),
+                        DOC_SUPPLY_AMT		    : gfn_nvl(item.DOC_SUPPLY_AMT),
+                        DOC_VAT_AMT		        : gfn_nvl(item.DOC_VAT_AMT),
+                        DIFF_FLAG		        : gfn_nvl(item.DIFF_FLAG),
+                        EINVOICE_CATEGORY		: gfn_nvl(item.EINVOICE_CATEGORY),
+                        EINVOICE_TYPE		    : gfn_nvl(item.EINVOICE_TYPE),
+                        MATCH_METHOD		    : gfn_nvl(item.MATCH_METHOD),
+                        ISSUE_TYPE		        : gfn_nvl(item.ISSUE_TYPE),
+                        NOTE1		            : gfn_nvl(item.NOTE1),
+                        NOTE2		            : gfn_nvl(item.NOTE2),
+                        NOTE3		            : gfn_nvl(item.NOTE3),
+                        RECEIPT_OR_BILL		    : gfn_nvl(item.RECEIPT_OR_BILL),
+                        SELLER_EMAIL		    : gfn_nvl(item.SELLER_EMAIL),
+                        BUYER_EMAIL1		    : gfn_nvl(item.BUYER_EMAIL1),
+                        BUYER_EMAIL2		    : gfn_nvl(item.BUYER_EMAIL2),
+                        ACCOUNT_EMP_CODE		: gfn_nvl(item.ACCOUNT_EMP_CODE),
+                        ACCOUNT_EMP_NAME		: gfn_nvl(item.ACCOUNT_EMP_NAME),
+                        TXN_DATE		        : gfn_nvl(item.TXN_DATE),
+                        ITEM_NAME		        : gfn_nvl(item.ITEM_NAME),
+                        ITEM_SPEC		        : gfn_nvl(item.ITEM_SPEC),
+                        ITEM_QTY		        : gfn_nvl(item.ITEM_QTY),
+                        ITEM_UNIT_PRICE		    : gfn_nvl(item.ITEM_UNIT_PRICE),
+                        ITEM_TAXABLE_AMT		: gfn_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_VAT_AMT		    : gfn_nvl(item.ITEM_VAT_AMT),
+                        ITEM_DESC		        : gfn_nvl(item.ITEM_DESC),
+                        INTERFACED_FLAG		    : gfn_nvl(item.INTERFACED_FLAG),
+                        FI_ORG_CODE		        : gfn_nvl(item.FI_ORG_CODE),
+                        SELLER_ADDRESS		    : gfn_nvl(item.SELLER_ADDRESS),
+                        BUYER_ADDRESS		    : gfn_nvl(item.BUYER_ADDRESS),
+                        DOC_ID		            : gfn_nvl(item.DOC_ID),
+                        DOC_NAME		        : gfn_nvl(item.DOC_NAME),
+                        DOC_BATCH_NO		    : gfn_nvl(item.DOC_BATCH_NO),
+                        DOC_STATUS		        : gfn_nvl(item.DOC_STATUS),
+                        RID_GUBUN		        : gfn_nvl(item.RID_GUBUN),
+                        EXCEPT_CODE		        : gfn_nvl(item.EXCEPT_CODE),
+                        EXCEPT_REASON		    : gfn_nvl(item.EXCEPT_REASON),
+                        EXCEPT_AMOUNT		    : gfn_nvl(item.EXCEPT_AMOUNT),
+                        PO_DOC_NO		        : gfn_nvl(item.PO_DOC_NO),
                     }
                     jsonList.push(msg);
                     totalRecordCount ++;
@@ -1818,7 +1835,15 @@
 
                 if (jsonList.length > 0){
                     jsonList.forEach((item, index) => {
-                        gvwListGrid.setCellDisabled(index+1, 1, index+1, gvwListGrid.getColRef("CS_CODE_ORG"), true, false, true);
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("INTERFACED_FLAG"), index+1, gvwListGrid.getColRef("ISSUE_DATE"), true, false, true); //전표작성, 작성일자, 승인번호, 발급일자
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("SELLER_REG_NO"), index+1, gvwListGrid.getColRef("SELLER_SUB_REG_NO"), true, false, true); //공급자사업자번호, 종사업장번호
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("SELLER_NAME"), index+1, gvwListGrid.getColRef("SELLER_OWNER"), true, false, true); //상호, 대표자명
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("BUYER_REG_NO"), index+1, gvwListGrid.getColRef("BUYER_OWNER"), true, false, true); //공급받는자사업자번호, 종사업자번호, 구매자상호, 구매자대표자명
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("TOTAL_AMT"), index+1, gvwListGrid.getColRef("TOTAL_VAT_AMT"), true, false, true); //합계금액, 세액, 공급가액
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("EINVOICE_CATEGORY"), index+1, gvwListGrid.getColRef("EINVOICE_TYPE"), true, false, true); //전자세금계산서분류, 전자세금계산서종류
+                        gvwListGrid.setCellDisabled(index+1, gvwListGrid.getColRef("ISSUE_TYPE"), index+1, gvwListGrid.getColRef("SELLER_EMAIL"), true, false, true); // 발급유형, 비고, 영수/청구 구분, 공급자이메일
+
+
                     })
                 }
 
@@ -1843,7 +1868,6 @@
     //상세정보 보기
     async function fn_view() {
 
-
         let nRow = gvwListGrid.getRow();
         let nCol = gvwListGrid.getCol();
 
@@ -1851,7 +1875,7 @@
 
 
         if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+            return; //그리드 로우 첫번째값 셋팅
         }
 
         let rowData = gvwListGrid.getRowData(nRow);
@@ -1872,18 +1896,18 @@
 
         }
 
-        //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
+        //let FI_ORG_CODE = gfn_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
         let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
-        let DATE_FR         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
-        let DATE_TO         = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
-        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
-        let CS_NAME         = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
-        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
-        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let AMT             = gfnma_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let RIDGUBUN        = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
+        let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
+        let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
+        let CS_BIZ_REGNO    = gfn_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO")); //사업자번호
+        let CS_NAME         = gfn_nvl(SBUxMethod.get("SRCH_CS_NAME")); //상호
+        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //관련부서
+        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let AMT             = gfn_nvl(SBUxMethod.get("SRCH_TXTAMT")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let APPROVAL_NO     = gfn_nvl(SBUxMethod.get("SRCH_TXTAPPROVAL_NO")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let ROW_CNT         = gfn_nvl(SBUxMethod.get("SRCH_NUMROW_CNT")); //몬지도 모르겠는 숨겨져 있는 컬럼
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");
@@ -1912,7 +1936,7 @@
             , V_P_DATE_FR           : DATE_FR
             , V_P_DATE_TO           : DATE_TO
             , V_P_CS_BIZ_REGNO      : CS_BIZ_REGNO
-            , V_P_APPROVAL_NO       : gfnma_nvl(rowData.APPROVAL_NO) == '' ? '' : gfnma_nvl(rowData.APPROVAL_NO)
+            , V_P_APPROVAL_NO       : gfn_nvl(rowData.APPROVAL_NO) == '' ? '' : gfn_nvl(rowData.APPROVAL_NO)
             , V_P_ITEM_TAXABLE_AMT  : AMT
             , V_P_CS_NAME           : CS_NAME
             , V_P_DEPT_CODE         : DEPT_CODE
@@ -1945,23 +1969,23 @@
                 jsonItemList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        ROW_STATUS      : gfnma_nvl(item.ROW_STATUS),
-                        APPROVAL_NO     : gfnma_nvl(item.APPROVAL_NO),
-                        SEQ             : gfnma_nvl(item.SEQ),
-                        ITEM_NAME       : gfnma_nvl(item.ITEM_NAME),
-                        ITEM_SPEC       : gfnma_nvl(item.ITEM_SPEC),
-                        ITEM_QTY        : gfnma_nvl(item.ITEM_QTY),
-                        ITEM_UNIT_PRICE : gfnma_nvl(item.ITEM_UNIT_PRICE),
-                        ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT),
-                        ITEM_VAT_AMT    : gfnma_nvl(item.ITEM_VAT_AMT),
-                        ITEM_DESC       : gfnma_nvl(item.ITEM_DESC),
-                        COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE),
-                        DEPT_CODE       : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME       : gfnma_nvl(item.DEPT_NAME),
-                        PROJECT_CODE    : gfnma_nvl(item.PROJECT_CODE),
-                        PROJECT_NAME    : gfnma_nvl(item.PROJECT_NAME),
-                        ACCOUNT_CODE    : gfnma_nvl(item.ACCOUNT_CODE),
-                        ACCOUNT_NAME    : gfnma_nvl(item.ACCOUNT_NAME),
+                        ROW_STATUS      : gfn_nvl(item.ROW_STATUS),
+                        APPROVAL_NO     : gfn_nvl(item.APPROVAL_NO),
+                        SEQ             : gfn_nvl(item.SEQ),
+                        ITEM_NAME       : gfn_nvl(item.ITEM_NAME),
+                        ITEM_SPEC       : gfn_nvl(item.ITEM_SPEC),
+                        ITEM_QTY        : gfn_nvl(item.ITEM_QTY),
+                        ITEM_UNIT_PRICE : gfn_nvl(item.ITEM_UNIT_PRICE),
+                        ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_VAT_AMT    : gfn_nvl(item.ITEM_VAT_AMT),
+                        ITEM_DESC       : gfn_nvl(item.ITEM_DESC),
+                        COST_CENTER_CODE: gfn_nvl(item.COST_CENTER_CODE),
+                        DEPT_CODE       : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME       : gfn_nvl(item.DEPT_NAME),
+                        PROJECT_CODE    : gfn_nvl(item.PROJECT_CODE),
+                        PROJECT_NAME    : gfn_nvl(item.PROJECT_NAME),
+                        ACCOUNT_CODE    : gfn_nvl(item.ACCOUNT_CODE),
+                        ACCOUNT_NAME    : gfn_nvl(item.ACCOUNT_NAME),
 
                     }
                     jsonItemList.push(msg);
@@ -2072,44 +2096,44 @@
                                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                                     , V_P_FI_ORG_CODE: FI_ORG_CODE
-                                    , V_P_WRITE_DATE:           gfnma_nvl(item.WRITE_DATE)
-                                    , V_P_APPROVAL_NO:          gfnma_nvl(item.APPROVAL_NO)
-                                    , V_P_ISSUE_DATE:           gfnma_nvl(item.ISSUE_DATE)
-                                    , V_P_SEND_DATE:            gfnma_nvl(item.SEND_DATE)
-                                    , V_P_SELLER_REG_NO:        gfnma_nvl(item.SELLER_REG_NO)
-                                    , V_P_SELLER_SUB_REG_NO:    gfnma_nvl(item.SELLER_SUB_REG_NO)
-                                    , V_P_CS_CODE:              gfnma_nvl(item.CS_CODE)
-                                    , V_P_SELLER_NAME:          gfnma_nvl(item.SELLER_NAME)
-                                    , V_P_SELLER_OWNER:         gfnma_nvl(item.SELLER_OWNER)
-                                    , V_P_SELLER_ADDRESS:       gfnma_nvl(item.SELLER_ADDRESS)
-                                    , V_P_SELLER_BIZ_CATEGORY:  gfnma_nvl(item.SELLER_BIZ_CATEGORY)
-                                    , V_P_SELLER_BIZ_ITEM:      gfnma_nvl(item.SELLER_BIZ_ITEM)
-                                    , V_P_SELLER_BIZ_TYPE:      gfnma_nvl(item.SELLER_BIZ_TYPE)
-                                    , V_P_BUYER_REG_NO:         gfnma_nvl(item.BUYER_REG_NO)
-                                    , V_P_BUYER_SUB_REG_NO:     gfnma_nvl(item.BUYER_SUB_REG_NO)
-                                    , V_P_BUYER_NAME:           gfnma_nvl(item.BUYER_NAME)
-                                    , V_P_BUYER_OWNER:          gfnma_nvl(item.BUYER_OWNER)
-                                    , V_P_BUYER_ADDRESS:        gfnma_nvl(item.BUYER_ADDRESS)
-                                    , V_P_BUYER_BIZ_CATEGORY:   gfnma_nvl(item.BUYER_BIZ_CATEGORY)
-                                    , V_P_BUYER_BIZ_ITEM:       gfnma_nvl(item.BUYER_BIZ_ITEM)
-                                    , V_P_TOTAL_AMT:            gfnma_nvl(item.TOTAL_AMT)
-                                    , V_P_TOTAL_TAXABLE_AMT:    gfnma_nvl(item.TOTAL_TAXABLE_AMT)
-                                    , V_P_TOTAL_VAT_AMT:        gfnma_nvl(item.TOTAL_VAT_AMT)
-                                    , V_P_EINVOICE_CATEGORY:    gfnma_nvl(item.EINVOICE_CATEGORY)
-                                    , V_P_EINVOICE_TYPE:        gfnma_nvl(item.EINVOICE_TYPE)
-                                    , V_P_MATCH_METHOD:         gfnma_nvl(item.MATCH_METHOD)
-                                    , V_P_ISSUE_TYPE:           gfnma_nvl(item.ISSUE_TYPE)
-                                    , V_P_NOTE1:                gfnma_nvl(item.NOTE1)
-                                    , V_P_NOTE2:                gfnma_nvl(item.NOTE2)
+                                    , V_P_WRITE_DATE:           gfn_nvl(item.WRITE_DATE)
+                                    , V_P_APPROVAL_NO:          gfn_nvl(item.APPROVAL_NO)
+                                    , V_P_ISSUE_DATE:           gfn_nvl(item.ISSUE_DATE)
+                                    , V_P_SEND_DATE:            gfn_nvl(item.SEND_DATE)
+                                    , V_P_SELLER_REG_NO:        gfn_nvl(item.SELLER_REG_NO)
+                                    , V_P_SELLER_SUB_REG_NO:    gfn_nvl(item.SELLER_SUB_REG_NO)
+                                    , V_P_CS_CODE:              gfn_nvl(item.CS_CODE)
+                                    , V_P_SELLER_NAME:          gfn_nvl(item.SELLER_NAME)
+                                    , V_P_SELLER_OWNER:         gfn_nvl(item.SELLER_OWNER)
+                                    , V_P_SELLER_ADDRESS:       gfn_nvl(item.SELLER_ADDRESS)
+                                    , V_P_SELLER_BIZ_CATEGORY:  gfn_nvl(item.SELLER_BIZ_CATEGORY)
+                                    , V_P_SELLER_BIZ_ITEM:      gfn_nvl(item.SELLER_BIZ_ITEM)
+                                    , V_P_SELLER_BIZ_TYPE:      gfn_nvl(item.SELLER_BIZ_TYPE)
+                                    , V_P_BUYER_REG_NO:         gfn_nvl(item.BUYER_REG_NO)
+                                    , V_P_BUYER_SUB_REG_NO:     gfn_nvl(item.BUYER_SUB_REG_NO)
+                                    , V_P_BUYER_NAME:           gfn_nvl(item.BUYER_NAME)
+                                    , V_P_BUYER_OWNER:          gfn_nvl(item.BUYER_OWNER)
+                                    , V_P_BUYER_ADDRESS:        gfn_nvl(item.BUYER_ADDRESS)
+                                    , V_P_BUYER_BIZ_CATEGORY:   gfn_nvl(item.BUYER_BIZ_CATEGORY)
+                                    , V_P_BUYER_BIZ_ITEM:       gfn_nvl(item.BUYER_BIZ_ITEM)
+                                    , V_P_TOTAL_AMT:            gfn_nvl(item.TOTAL_AMT)
+                                    , V_P_TOTAL_TAXABLE_AMT:    gfn_nvl(item.TOTAL_TAXABLE_AMT)
+                                    , V_P_TOTAL_VAT_AMT:        gfn_nvl(item.TOTAL_VAT_AMT)
+                                    , V_P_EINVOICE_CATEGORY:    gfn_nvl(item.EINVOICE_CATEGORY)
+                                    , V_P_EINVOICE_TYPE:        gfn_nvl(item.EINVOICE_TYPE)
+                                    , V_P_MATCH_METHOD:         gfn_nvl(item.MATCH_METHOD)
+                                    , V_P_ISSUE_TYPE:           gfn_nvl(item.ISSUE_TYPE)
+                                    , V_P_NOTE1:                gfn_nvl(item.NOTE1)
+                                    , V_P_NOTE2:                gfn_nvl(item.NOTE2)
                                     //--,V_P_NOTE3             IN VARCHAR2
-                                    , V_P_RECEIPT_OR_BILL:      gfnma_nvl(item.RECEIPT_OR_BILL)
-                                    , V_P_SELLER_EMAIL:         gfnma_nvl(item.SELLER_EMAIL)
-                                    , IV_P_BUYER_EMAIL1:        gfnma_nvl(item.BUYER_EMAIL1)
-                                    , V_P_BUYER_EMAIL2:         gfnma_nvl(item.BUYER_EMAIL2)
-                                    , V_P_ACCOUNT_EMP_CODE:     gfnma_nvl(item.ACCOUNT_EMP_CODE)
-                                    , V_P_TXN_DATE:             gfnma_nvl(item.TXN_DATE)
+                                    , V_P_RECEIPT_OR_BILL:      gfn_nvl(item.RECEIPT_OR_BILL)
+                                    , V_P_SELLER_EMAIL:         gfn_nvl(item.SELLER_EMAIL)
+                                    , IV_P_BUYER_EMAIL1:        gfn_nvl(item.BUYER_EMAIL1)
+                                    , V_P_BUYER_EMAIL2:         gfn_nvl(item.BUYER_EMAIL2)
+                                    , V_P_ACCOUNT_EMP_CODE:     gfn_nvl(item.ACCOUNT_EMP_CODE)
+                                    , V_P_TXN_DATE:             gfn_nvl(item.TXN_DATE)
 
-                                    , V_P_DOC_ID:               gfnma_nvl(item.DOC_ID)
+                                    , V_P_DOC_ID:               gfn_nvl(item.DOC_ID)
                                     //--,V_P_DOC_BATCH_ID      IN VARCHAR2
 
                                     , V_P_FORM_ID: p_formId
@@ -2135,35 +2159,35 @@
                 /*********** 조회결과 리스트 필수값 체크 *************/
                 listGridData.forEach((item, index) => {
 
-                    if (gfnma_nvl(item.data.WRITE_DATE) == ''){
+                    if (gfn_nvl(item.data.WRITE_DATE) == ''){
                         gfn_comAlert("W0002", "작성일자");
                         return;
                     }
-                    if (gfnma_nvl(item.data.APPROVAL_NO) == ''){
+                    if (gfn_nvl(item.data.APPROVAL_NO) == ''){
                         gfn_comAlert("W0002", "승인번호");
                         return;
                     }
-                    if (gfnma_nvl(item.data.ISSUE_DATE) == ''){
+                    if (gfn_nvl(item.data.ISSUE_DATE) == ''){
                         gfn_comAlert("W0002", "발급일자");
                         return;
                     }
-                    if (gfnma_nvl(item.data.SEND_DATE) == ''){
+                    if (gfn_nvl(item.data.SEND_DATE) == ''){
                         gfn_comAlert("W0002", "전송일자");
                         return;
                     }
-                    if (gfnma_nvl(item.data.SELLER_REG_NO) == ''){
+                    if (gfn_nvl(item.data.SELLER_REG_NO) == ''){
                         gfn_comAlert("W0002", "공급자사업자번호");
                         return;
                     }
-                    if (gfnma_nvl(item.data.BUYER_REG_NO) == ''){
+                    if (gfn_nvl(item.data.BUYER_REG_NO) == ''){
                         gfn_comAlert("W0002", "공급받는자사업자번호");
                         return;
                     }
-                    if (gfnma_nvl(item.data.EINVOICE_CATEGORY) == ''){
+                    if (gfn_nvl(item.data.EINVOICE_CATEGORY) == ''){
                         gfn_comAlert("W0002", "전자세금계산서분류");
                         return;
                     }
-                    if (gfnma_nvl(item.data.RECEIPT_OR_BILL) == ''){
+                    if (gfn_nvl(item.data.RECEIPT_OR_BILL) == ''){
                         gfn_comAlert("W0002", "영수/청구 구분");
                         return;
                     }
@@ -2194,45 +2218,45 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_FI_ORG_CODE:          gfnma_nvl(item.data.FI_ORG_CODE)
-                            , V_P_WRITE_DATE:           gfnma_nvl(item.data.WRITE_DATE)
-                            , V_P_APPROVAL_NO:          gfnma_nvl(item.data.APPROVAL_NO)
-                            , V_P_ISSUE_DATE:           gfnma_nvl(item.data.ISSUE_DATE)
-                            , V_P_SEND_DATE:            gfnma_nvl(item.data.SEND_DATE)
-                            , V_P_SELLER_REG_NO:        gfnma_nvl(item.data.SELLER_REG_NO)
-                            , V_P_SELLER_SUB_REG_NO:    gfnma_nvl(item.data.SELLER_SUB_REG_NO)
-                            , V_P_CS_CODE:              gfnma_nvl(item.data.CS_CODE)
-                            , V_P_SELLER_NAME:          gfnma_nvl(item.data.SELLER_NAME)
-                            , V_P_SELLER_OWNER:         gfnma_nvl(item.data.SELLER_OWNER)
-                            , V_P_SELLER_ADDRESS:       gfnma_nvl(item.data.SELLER_ADDRESS)
-                            , V_P_SELLER_BIZ_CATEGORY:  gfnma_nvl(item.data.SELLER_BIZ_CATEGORY)
-                            , V_P_SELLER_BIZ_ITEM:      gfnma_nvl(item.data.SELLER_BIZ_ITEM)
-                            , V_P_SELLER_BIZ_TYPE:      gfnma_nvl(item.data.SELLER_BIZ_TYPE)
-                            , V_P_BUYER_REG_NO:         gfnma_nvl(item.data.BUYER_REG_NO)
-                            , V_P_BUYER_SUB_REG_NO:     gfnma_nvl(item.data.BUYER_SUB_REG_NO)
-                            , V_P_BUYER_NAME:           gfnma_nvl(item.data.BUYER_NAME)
-                            , V_P_BUYER_OWNER:          gfnma_nvl(item.data.BUYER_OWNER)
-                            , V_P_BUYER_ADDRESS:        gfnma_nvl(item.data.BUYER_ADDRESS)
-                            , V_P_BUYER_BIZ_CATEGORY:   gfnma_nvl(item.data.BUYER_BIZ_CATEGORY)
-                            , V_P_BUYER_BIZ_ITEM:       gfnma_nvl(item.data.BUYER_BIZ_ITEM)
-                            , V_P_TOTAL_AMT:            gfnma_nvl(item.data.TOTAL_AMT)
-                            , V_P_TOTAL_TAXABLE_AMT:    gfnma_nvl(item.data.TOTAL_TAXABLE_AMT)
-                            , V_P_TOTAL_VAT_AMT:        gfnma_nvl(item.data.TOTAL_VAT_AMT)
-                            , V_P_EINVOICE_CATEGORY:    gfnma_nvl(item.data.EINVOICE_CATEGORY)
-                            , V_P_EINVOICE_TYPE:        gfnma_nvl(item.data.EINVOICE_TYPE)
-                            , V_P_MATCH_METHOD:         gfnma_nvl(item.data.MATCH_METHOD)
-                            , V_P_ISSUE_TYPE:           gfnma_nvl(item.data.ISSUE_TYPE)
-                            , V_P_NOTE1:                gfnma_nvl(item.data.NOTE1)
-                            , V_P_NOTE2:                gfnma_nvl(item.data.NOTE2)
+                            , V_P_FI_ORG_CODE:          gfn_nvl(item.data.FI_ORG_CODE)
+                            , V_P_WRITE_DATE:           gfn_nvl(item.data.WRITE_DATE)
+                            , V_P_APPROVAL_NO:          gfn_nvl(item.data.APPROVAL_NO)
+                            , V_P_ISSUE_DATE:           gfn_nvl(item.data.ISSUE_DATE)
+                            , V_P_SEND_DATE:            gfn_nvl(item.data.SEND_DATE)
+                            , V_P_SELLER_REG_NO:        gfn_nvl(item.data.SELLER_REG_NO)
+                            , V_P_SELLER_SUB_REG_NO:    gfn_nvl(item.data.SELLER_SUB_REG_NO)
+                            , V_P_CS_CODE:              gfn_nvl(item.data.CS_CODE)
+                            , V_P_SELLER_NAME:          gfn_nvl(item.data.SELLER_NAME)
+                            , V_P_SELLER_OWNER:         gfn_nvl(item.data.SELLER_OWNER)
+                            , V_P_SELLER_ADDRESS:       gfn_nvl(item.data.SELLER_ADDRESS)
+                            , V_P_SELLER_BIZ_CATEGORY:  gfn_nvl(item.data.SELLER_BIZ_CATEGORY)
+                            , V_P_SELLER_BIZ_ITEM:      gfn_nvl(item.data.SELLER_BIZ_ITEM)
+                            , V_P_SELLER_BIZ_TYPE:      gfn_nvl(item.data.SELLER_BIZ_TYPE)
+                            , V_P_BUYER_REG_NO:         gfn_nvl(item.data.BUYER_REG_NO)
+                            , V_P_BUYER_SUB_REG_NO:     gfn_nvl(item.data.BUYER_SUB_REG_NO)
+                            , V_P_BUYER_NAME:           gfn_nvl(item.data.BUYER_NAME)
+                            , V_P_BUYER_OWNER:          gfn_nvl(item.data.BUYER_OWNER)
+                            , V_P_BUYER_ADDRESS:        gfn_nvl(item.data.BUYER_ADDRESS)
+                            , V_P_BUYER_BIZ_CATEGORY:   gfn_nvl(item.data.BUYER_BIZ_CATEGORY)
+                            , V_P_BUYER_BIZ_ITEM:       gfn_nvl(item.data.BUYER_BIZ_ITEM)
+                            , V_P_TOTAL_AMT:            gfn_nvl(item.data.TOTAL_AMT)
+                            , V_P_TOTAL_TAXABLE_AMT:    gfn_nvl(item.data.TOTAL_TAXABLE_AMT)
+                            , V_P_TOTAL_VAT_AMT:        gfn_nvl(item.data.TOTAL_VAT_AMT)
+                            , V_P_EINVOICE_CATEGORY:    gfn_nvl(item.data.EINVOICE_CATEGORY)
+                            , V_P_EINVOICE_TYPE:        gfn_nvl(item.data.EINVOICE_TYPE)
+                            , V_P_MATCH_METHOD:         gfn_nvl(item.data.MATCH_METHOD)
+                            , V_P_ISSUE_TYPE:           gfn_nvl(item.data.ISSUE_TYPE)
+                            , V_P_NOTE1:                gfn_nvl(item.data.NOTE1)
+                            , V_P_NOTE2:                gfn_nvl(item.data.NOTE2)
                             //--,V_P_NOTE3             IN VARCHAR2
-                            , V_P_RECEIPT_OR_BILL:      gfnma_nvl(item.data.RECEIPT_OR_BILL)
-                            , V_P_SELLER_EMAIL:         gfnma_nvl(item.data.SELLER_EMAIL)
-                            , IV_P_BUYER_EMAIL1:        gfnma_nvl(item.data.BUYER_EMAIL1)
-                            , V_P_BUYER_EMAIL2:         gfnma_nvl(item.data.BUYER_EMAIL2)
-                            , V_P_ACCOUNT_EMP_CODE:     gfnma_nvl(item.data.ACCOUNT_EMP_CODE)
-                            , V_P_TXN_DATE:             gfnma_nvl(item.data.TXN_DATE)
+                            , V_P_RECEIPT_OR_BILL:      gfn_nvl(item.data.RECEIPT_OR_BILL)
+                            , V_P_SELLER_EMAIL:         gfn_nvl(item.data.SELLER_EMAIL)
+                            , IV_P_BUYER_EMAIL1:        gfn_nvl(item.data.BUYER_EMAIL1)
+                            , V_P_BUYER_EMAIL2:         gfn_nvl(item.data.BUYER_EMAIL2)
+                            , V_P_ACCOUNT_EMP_CODE:     gfn_nvl(item.data.ACCOUNT_EMP_CODE)
+                            , V_P_TXN_DATE:             gfn_nvl(item.data.TXN_DATE)
 
-                            , V_P_DOC_ID:               gfnma_nvl(item.data.DOC_ID)
+                            , V_P_DOC_ID:               gfn_nvl(item.data.DOC_ID)
                             //--,V_P_DOC_BATCH_ID      IN VARCHAR2
 
                             , V_P_FORM_ID: p_formId
@@ -2314,19 +2338,19 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_APPROVAL_NO:      gfnma_nvl(item.APPROVAL_NO)
-                            , V_P_SEQ:              gfnma_nvl(item.SEQ)
-                            , V_P_ITEM_NAME:        gfnma_nvl(item.ITEM_NAME)
-                            , V_P_ITEM_SPEC:        gfnma_nvl(item.ITEM_SPEC)
-                            , V_P_ITEM_QTY:         gfnma_nvl(item.ITEM_QTY)
-                            , V_P_ITEM_UNIT_PRICE:  gfnma_nvl(item.ITEM_UNIT_PRICE)
-                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT)
-                            , V_P_ITEM_VAT_AMT:     gfnma_nvl(item.ITEM_VAT_AMT)
-                            , V_P_ITEM_DESC:        gfnma_nvl(item.ITEM_DESC)
-                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE)
-                            , V_P_DEPT_CODE:        gfnma_nvl(item.DEPT_CODE)
-                            , V_P_PROJECT_CODE:     gfnma_nvl(item.PROJECT_CODE)
-                            , V_P_ACCOUNT_CODE:     gfnma_nvl(item.ACCOUNT_CODE)
+                            , V_P_APPROVAL_NO:      gfn_nvl(item.APPROVAL_NO)
+                            , V_P_SEQ:              gfn_nvl(item.SEQ)
+                            , V_P_ITEM_NAME:        gfn_nvl(item.ITEM_NAME)
+                            , V_P_ITEM_SPEC:        gfn_nvl(item.ITEM_SPEC)
+                            , V_P_ITEM_QTY:         gfn_nvl(item.ITEM_QTY)
+                            , V_P_ITEM_UNIT_PRICE:  gfn_nvl(item.ITEM_UNIT_PRICE)
+                            , V_P_ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TAXABLE_AMT)
+                            , V_P_ITEM_VAT_AMT:     gfn_nvl(item.ITEM_VAT_AMT)
+                            , V_P_ITEM_DESC:        gfn_nvl(item.ITEM_DESC)
+                            , V_P_COST_CENTER_CODE: gfn_nvl(item.COST_CENTER_CODE)
+                            , V_P_DEPT_CODE:        gfn_nvl(item.DEPT_CODE)
+                            , V_P_PROJECT_CODE:     gfn_nvl(item.PROJECT_CODE)
+                            , V_P_ACCOUNT_CODE:     gfn_nvl(item.ACCOUNT_CODE)
 
                             , V_P_FORM_ID: p_formId
                             , V_P_MENU_ID: p_menuId
@@ -2340,17 +2364,18 @@
 
                 });
             }else{
+
                 /*********필수값 체크************/
                 itemGridData.forEach((item, index) => {
-                    if (gfnma_nvl(item.data.APPROVAL_NO) == ''){
+                    if (gfn_nvl(item.data.APPROVAL_NO) == ''){
                         gfn_comAlert("W0002", "승인번호");
                         return;
                     }
-                    if (gfnma_nvl(item.data.SEQ) == ''){
+                    if (gfn_nvl(item.data.SEQ) == ''){
                         gfn_comAlert("W0002", "품목순번");
                         return;
                     }
-                    if (gfnma_nvl(item.data.SEQ) == ''){
+                    if (gfn_nvl(item.data.SEQ) == ''){
                         gfn_comAlert("W0002", "품목순번");
                         return;
                     }
@@ -2370,19 +2395,19 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_APPROVAL_NO:      gfnma_nvl(item.APPROVAL_NO)
-                            , V_P_SEQ:              gfnma_nvl(item.SEQ)
-                            , V_P_ITEM_NAME:        gfnma_nvl(item.ITEM_NAME)
-                            , V_P_ITEM_SPEC:        gfnma_nvl(item.ITEM_SPEC)
-                            , V_P_ITEM_QTY:         gfnma_nvl(item.ITEM_QTY)
-                            , V_P_ITEM_UNIT_PRICE:  gfnma_nvl(item.ITEM_UNIT_PRICE)
-                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT)
-                            , V_P_ITEM_VAT_AMT:     gfnma_nvl(item.ITEM_VAT_AMT)
-                            , V_P_ITEM_DESC:        gfnma_nvl(item.ITEM_DESC)
-                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE)
-                            , V_P_DEPT_CODE:        gfnma_nvl(item.DEPT_CODE)
-                            , V_P_PROJECT_CODE:     gfnma_nvl(item.PROJECT_CODE)
-                            , V_P_ACCOUNT_CODE:     gfnma_nvl(item.ACCOUNT_CODE)
+                            , V_P_APPROVAL_NO:      gfn_nvl(item.APPROVAL_NO)
+                            , V_P_SEQ:              gfn_nvl(item.SEQ)
+                            , V_P_ITEM_NAME:        gfn_nvl(item.ITEM_NAME)
+                            , V_P_ITEM_SPEC:        gfn_nvl(item.ITEM_SPEC)
+                            , V_P_ITEM_QTY:         gfn_nvl(item.ITEM_QTY)
+                            , V_P_ITEM_UNIT_PRICE:  gfn_nvl(item.ITEM_UNIT_PRICE)
+                            , V_P_ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TAXABLE_AMT)
+                            , V_P_ITEM_VAT_AMT:     gfn_nvl(item.ITEM_VAT_AMT)
+                            , V_P_ITEM_DESC:        gfn_nvl(item.ITEM_DESC)
+                            , V_P_COST_CENTER_CODE: gfn_nvl(item.COST_CENTER_CODE)
+                            , V_P_DEPT_CODE:        gfn_nvl(item.DEPT_CODE)
+                            , V_P_PROJECT_CODE:     gfn_nvl(item.PROJECT_CODE)
+                            , V_P_ACCOUNT_CODE:     gfn_nvl(item.ACCOUNT_CODE)
 
                             , V_P_FORM_ID: p_formId
                             , V_P_MENU_ID: p_menuId
@@ -2495,8 +2520,8 @@
     // 배치프로그램 실행  프로시저
     const fn_set_p_common_job_run = async function (workType, jobName) {
 
-        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+        let DATE_FR 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+        let DATE_TO 			= gfn_nvl(SBUxMethod.get("SRCH_DATE_TO"));
 
 
         var paramObj = {
@@ -2605,8 +2630,8 @@
 
         let iCnt = 0;
 
-        let CBOEXCEPT_CODE = gfnma_multiSelectGet('#cboexcept_code');
-        let EXCEPT_REASON  = gfnma_nvl(SBUxMethod.get("except_reason"));
+        let CBOEXCEPT_CODE = gfnma_multiSelectGet('#EXCEPT_CODE');
+        let EXCEPT_REASON  = gfn_nvl(SBUxMethod.get("EXCEPT_REASON"));
 
         if (!CBOEXCEPT_CODE) {
             gfn_comAlert("W0002", "제외사유");
@@ -2694,14 +2719,154 @@
         }
     }
     // 행 추가
-    const fn_addRow = function() {
-        let rowVal = gvwListGrid.getRow();
+    const fn_addRow = async function() {
 
-        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwListGrid.addRow(true);
-        }else{
-            gvwListGrid.insertRow(rowVal);
+        let buyer_reg_no    = '';
+        let buyer_owner     = '';
+        let buyer_name      = '';
+        let buyer_address   = '';
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	    : ''
+            ,V_P_LANG_ID		    : ''
+            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
+
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/fap/pay/selectFig3100ORG.do", {
+            getType: 'json',
+            workType: 'Q',
+            cv_count: '2',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                /*if (data.resultMessage) {
+                    alert(data.resultMessage);
+                    return true;
+                }*/
+
+                let CBOEXCEPT_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');
+
+                data.cv_1.forEach((item, index) => {
+                    buyer_reg_no    = item.BIZ_REGNO;
+                    buyer_owner     = item.CHIEF_NAME;
+                    buyer_name      = item.TAX_SITE_NAME;
+                    buyer_address   = item.ADDRESS;
+                });
+
+                let date = new Date();
+                let year  = date.getFullYear();
+                let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                let day   = ('0' + date.getDate()).slice(-2);
+                let hours = ('0' + date.getHours()).slice(-2);
+                let minutes = ('0' + date.getMinutes()).slice(-2);
+                let seconds = ('0' + date.getSeconds()).slice(-2);
+
+                let curDate = gfn_dateToYmd(new Date());
+                let guid = gfnma_generateUUID().replace(/-/g, '').slice(-5);
+                let newApprovalNo = 'tmp' + year + month + day + hours + minutes + seconds + guid + '01';
+
+                let rowVal = gvwListGrid.getRow();
+
+                const msg = {
+                    CHECK_YN                : '',
+                    INTERFACED_FLAG         : '',
+                    WRITE_DATE              : curDate,
+                    APPROVAL_NO             : newApprovalNo,
+                    ISSUE_DATE              : curDate,
+                    SEND_DATE               : curDate,
+                    SELLER_REG_NO           : '',
+                    SELLER_SUB_REG_NO       : '',
+                    RID_GUBUN               : '',
+                    DOC_ID                  : '',
+                    DOC_NAME                : '',
+                    DOC_BATCH_NO            : '',
+                    PO_DOC_NO               : '',
+                    CS_CODE                 : '',
+                    SELLER_NAME             : '',
+                    SELLER_OWNER            : '',
+                    SELLER_ADDRESS          : '',
+                    SELLER_BIZ_CATEGORY     : '',
+                    SELLER_BIZ_ITEM         : '',
+                    SELLER_BIZ_TYPE         : '',
+                    BUYER_REG_NO            : buyer_reg_no,
+                    BUYER_SUB_REG_NO        : '',
+                    BUYER_NAME              : buyer_name,
+                    BUYER_OWNER             : buyer_owner,
+                    BUYER_BIZ_CATEGORY      : '',
+                    BUYER_BIZ_ITEM          : '',
+                    BUYER_BIZ_TYPE          : '',
+                    BUYER_ADDRESS           : buyer_address,
+                    TOTAL_AMT               : 0,
+                    TOTAL_TAXABLE_AMT       : 0,
+                    TOTAL_VAT_AMT           : 0,
+                    DOC_TOTAL_AMT           : 0,
+                    DOC_SUPPLY_AMT          : 0,
+                    DOC_VAT_AMT             : 0,
+                    DIFF_FLAG               : '',
+                    EXCEPT_CODE             : '',
+                    EXCEPT_REASON           : '',
+                    EINVOICE_CATEGORY       : '',
+                    EINVOICE_TYPE           : '',
+                    MATCH_METHOD            : '',
+                    ISSUE_TYPE              : '',
+                    NOTE1                   : '',
+                    NOTE2                   : '',
+                    RECEIPT_OR_BILL         : '',
+                    SELLER_EMAIL            : '',
+                    BUYER_EMAIL1            : '',
+                    BUYER_EMAIL2            : '',
+                    ACCOUNT_EMP_NAME        : '',
+                    ACCOUNT_EMP_CODE        : '',
+                    TXN_DATE                : '',
+                    ITEM_NAME               : '',
+                    ITEM_SPEC               : '',
+                    ITEM_QTY                : 0,
+                    ITEM_UNIT_PRICE         : 0,
+                    ITEM_TAXABLE_AMT        : 0,
+                    ITEM_VAT_AMT            : 0,
+                    ITEM_DESC               : '',
+                    ROW_STATUS              : '',
+                    FI_ORG_CODE             : CBOEXCEPT_CODE,
+                    CS_CODE_ORG             : '',
+
+                    status: 'i'
+                }
+
+                if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+                    gvwListGrid.addRow(true, msg);
+                }else{
+                    gvwListGrid.insertRow(rowVal, 'below', msg);
+                }
+
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+
     }
 
     // 행삭제

@@ -45,7 +45,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
 						<col style="width: 7%">
@@ -111,7 +111,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">기재항목코드</th>
                                     <td class="td_input">
-                                        <sbux-input id="ACC_ITEM_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"readonly>
+                                        <sbux-input id="ACC_ITEM_CODE" name="ACC_ITEM_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"readonly>
                                         </sbux-input>
                                     </td>
                                     <th></th>
@@ -121,7 +121,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">기재항목명</th>
                                     <td colspan="4" class="td_input" colspan="3">
-                                        <sbux-input id="ACC_ITEM_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="ACC_ITEM_NAME" name="ACC_ITEM_NAME"  class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -165,12 +165,12 @@
                                 <tr>
                                     <th scope="row" class="th_bg">데이터길이</th>
                                     <td class="td_input">
-                                        <sbux-input id="DATA_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="DATA_LENGTH" name="DATA_LENGTH"  class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg">소수자리수</th>
                                     <td class="td_input">
-                                        <sbux-input id="DECIMAL_POINT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="DECIMAL_POINT" name="DECIMAL_POINT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -279,6 +279,14 @@
 	//-----------------------------------------------------------
 	var editType = 'N';
 	
+	/**
+	 * 초기화
+	 */
+	function cfn_init() {
+		editType = 'N';
+		gfnma_uxDataClear('#srchArea1');
+	}
+	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
@@ -363,14 +371,8 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
     	fn_initSBSelect();
-    	
-    	fn_createGrid();
-    	fn_createSubGrid();
-    	
     	cfn_search();
-    	
     });
     
 	// 신규
@@ -395,10 +397,10 @@
  
 	// 조회
 	function cfn_search() {
-		fn_search();
 		fn_clearForm();
 		fn_createGrid();
 		fn_createSubGrid();
+		fn_search();
 	}
 
     //grid 초기화
@@ -677,7 +679,6 @@
     	let CONTROL_TYPE	= gfnma_multiSelectGet("#CONTROL_TYPE");
     	let CREATE_TYPE		= gfnma_multiSelectGet("#CREATE_TYPE");
     	let POPUP_DATA 		= gfnma_multiSelectGet("#POPUP_DATA");
-
     	if(ACC_ITEM_CODE == "") {
             gfn_comAlert("W0002", "기재항목코드");
             return;
@@ -830,7 +831,7 @@
 
      }
     //서브 그리드
-    function fn_view() {
+    const fn_view = async function () {
 		editType = 'U';
     	
     	var nCol = MNGARTCLGrid.getCol();
@@ -845,12 +846,12 @@
 		
 		let rowData = MNGARTCLGrid.getRowData(nRow);
 		//사용자정의 관리항목 데이터
-		fn_setMNGARTCLSubGrid(rowData.ACC_ITEM_CODE);
+		await fn_setMNGARTCLSubGrid(rowData.ACC_ITEM_CODE);
         //기초정보
    		SBUxMethod.set("ACC_ITEM_CODE", 	rowData.ACC_ITEM_CODE);
    		SBUxMethod.set("ACC_ITEM_NAME", 	rowData.ACC_ITEM_NAME);
-   		SBUxMethod.set("DATA_LENGTH", 		rowData.DATA_LENGTH);
-   		SBUxMethod.set("DECIMAL_POINT", 	rowData.DECIMAL_POINT);
+   		SBUxMethod.set("DATA_LENGTH", 		String(rowData.DATA_LENGTH));
+   		SBUxMethod.set("DECIMAL_POINT", 	String(rowData.DECIMAL_POINT));
         gfnma_multiSelectSet('#DATA_TYPE', 		'SUB_CODE', 'CODE_NAME', rowData.DATA_TYPE);
         gfnma_multiSelectSet('#CONTROL_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CONTROL_TYPE);
         gfnma_multiSelectSet('#CREATE_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CREATE_TYPE);

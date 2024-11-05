@@ -382,9 +382,17 @@
             	validate : gfn_chkByte.bind({byteLimit: 40}),
             	typeinfo : {maxlength : 256}
             },
+            {
+            	caption: ["그룹ID"], 		
+            	ref: 'groupId',  	
+            	type:'input',  
+            	width:'100px',    
+            	style:'text-align:center', 
+            	typeinfo : {maxlength : 20}
+            },
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'},
+            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'180px',    style:'text-align:center'},
             {
             	caption: ["패스워드"],
             	ref: 'pswd',
@@ -414,6 +422,7 @@
   						, lgszMrktNm 			: item.lgszMrktNm
   						, outordrInfoUrl 		: item.outordrInfoUrl
   						, userId 				: item.userId
+  						, groupId				: item.groupId
   						, pswd 					: ""
   						, pswdDisp				: "********"
   						, useYn 				: item.useYn

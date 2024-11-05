@@ -134,6 +134,7 @@
                                                 name="YYYYMMDD"
                                                 class="input-sm"
                                                 autocomplete="off"
+                                                date-format="yyyy-mm-dd"
                                                 readonly
                                         ></sbux-datepicker>
                                     </td>
@@ -145,6 +146,7 @@
                                                 name="LUNAR_DATE"
                                                 class="input-sm"
                                                 autocomplete="off"
+                                                date-format="yyyy-mm-dd"
                                                 readonly
                                         ></sbux-datepicker>
                                     </td>
@@ -384,6 +386,14 @@
         }
     }
 
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	//검색하는 기능이 없어 우선 주석처리
+//     	gfnma_uxDataClear('#srchArea1');
+    }
+    
     const fn_beforeYear = async function() {
         fn_search('before');
     }

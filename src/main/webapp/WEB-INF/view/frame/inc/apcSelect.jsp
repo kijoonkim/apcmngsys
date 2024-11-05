@@ -70,10 +70,24 @@
 				jsondata-value="apcCd"
 				class="form-control input-sm"
 				onchange="cfn_onChangeApc(this)"
-				style="max-width:150px;"
+				style="max-width:80%;"
 			></sbux-select>
 		</c:when>
 		<c:otherwise>
+		
+			<sbux-select
+				id="gsb-slt-apcCd"
+				name="gsb-slt-apcCd"
+				uitype="single"
+				jsondata-ref="cjsonApcList"
+				jsondata-text="apcNm"
+				jsondata-value="apcCd"
+				class="form-control input-sm"
+				onchange="cfn_onChangeApc(this)"
+				style="max-width:80%;"
+			></sbux-select>
+			
+			<!-- 
 			<c:set scope="request" var="apcNm" value="${loginVO.apcNm}"></c:set>
 			<sbux-input
 				id="gsb-slt-apcCd"
@@ -82,6 +96,7 @@
 				class="form-control input-sm"
 				readonly
 			><c:out value='${apcNm}'></c:out></sbux-input>
+			 -->
 		</c:otherwise>
 	</c:choose>
 							</td>
