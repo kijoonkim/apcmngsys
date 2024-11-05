@@ -30,6 +30,7 @@ public class LgszMrktVO extends ComVO {
 	private String outordrInfoUrl;
 	private String userId;
 	private String pswd;
+	private String groupId;
 	private String useYn;
 	private String lastPrcsDt;
 	private String sysFrstInptDt;

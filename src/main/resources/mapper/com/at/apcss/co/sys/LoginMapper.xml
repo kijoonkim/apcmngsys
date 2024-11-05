@@ -146,6 +146,13 @@
 						SELECT 1
 						  FROM TB_COM_UNTY_MNGR X
 						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.UNTY_OGNZ_CD =
+						   					CASE
+												WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
+												WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
+												WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
+												ELSE 'X'
+											END
 						   AND X.APRV_YN = 'Y'
 					) THEN 'Y'
 					ELSE 'N'
@@ -223,6 +230,13 @@
 						SELECT 1
 						  FROM TB_COM_UNTY_MNGR X
 						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.UNTY_OGNZ_CD =
+						   					CASE
+												WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
+												WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
+												WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
+												ELSE 'X'
+											END
 						   AND X.APRV_YN = 'Y'
 					) THEN 'Y'
 					ELSE 'N'

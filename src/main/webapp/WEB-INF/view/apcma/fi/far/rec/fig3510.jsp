@@ -60,6 +60,8 @@
                                     <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                                 </div>
+                				<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
+                                
                                 <sbux-button id="btnCreateInvoice" name="btnCreateInvoice" uitype="normal" text="세금계산서발행" class="btn btn-sm btn-outline-danger" onclick="fn_createInvoice" style="float: right;"></sbux-button>
                                 <sbux-button id="btnCancelInvoice" name="btnCancelInvoice" uitype="normal" text="발행취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancelInvoice" style="float: right;"></sbux-button>
                                 <%--<sbux-button id="btnScmInfo" name="btnScmInfo" uitype="normal" text="SCM정보" class="btn btn-sm btn-outline-danger" onclick="fn_scmInfo" style="float: right;"></sbux-button>--%>
@@ -996,6 +998,14 @@
     <div id="body-modal-compopfim3420">
         <jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
     </div>
+	    
+	<!-- 리포트 출력 팝업 -->
+	<div>
+		<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-comPopFig1000Report">
+		<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+	</div>	    
 </body>
 
 <!-- inline scripts related to this page -->
@@ -3223,8 +3233,7 @@
         if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
             $("#main-btn-del").attr('disabled', 'true');
             $("#main-btn-appr").attr('disabled', 'true');
-            // TODO : PreviewButton = false;
-            // TODO : PrintButton = false;
+            $("#btnPrint").attr('disabled', 'false');
 
             $("#btnAddRow").attr('disabled', 'true');
             $("#btnDeleteRow").attr('disabled', 'true');
@@ -3246,8 +3255,7 @@
                 //미승인
                 $("#main-btn-del").attr('disabled', 'false');
                 $("#main-btn-appr").attr('disabled', 'false');
-                // TODO : PreviewButton = true;
-                // TODO : PrintButton = true;
+                $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'false');
                 $("#btnDeleteRow").attr('disabled', 'false');
@@ -3271,8 +3279,7 @@
             } else if (strDoc_status == "3") {
                 //승인중
                 $("#main-btn-appr").attr('disabled', 'true');
-                // TODO : PreviewButton = true;
-                // TODO : PrintButton = true;
+                $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3302,8 +3309,7 @@
                 //승인완료
                 $("#main-btn-del").attr('disabled', 'true');
                 $("#main-btn-appr").attr('disabled', 'true');
-                // TODO : PreviewButton = true;
-                // TODO : PrintButton = true;
+                $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3328,8 +3334,7 @@
                 //최종완료, 반려
                 $("#main-btn-del").attr('disabled', 'true');
                 $("#main-btn-appr").attr('disabled', 'true');
-                // TODO : PreviewButton = true;
-                // TODO : PrintButton = true;
+                $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -6300,5 +6305,24 @@
                 ,menuId			: p_menuId
             });
         }
+    }
+    
+    const fn_btnPrint = async function () {
+        let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
+        if(DOC_BATCH_NO == ''){
+        	return;
+        }
+   		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+   		SBUxMethod.openModal('modal-comPopFig1000Report');
+   		comPopFig1000Report({
+   			height			: '200px'
+   			,width			: '400px'
+   			,param			: {
+   				P_WORK_TYPE		: "INVOICE"
+   				,P_DOC_BATCH_NO	: DOC_BATCH_NO
+   				,P_COMP_CODE	: gv_ma_selectedApcCd
+   				,P_CLIENT_CODE	: gv_ma_selectedClntCd
+   			}
+   		});
     }
 </script>

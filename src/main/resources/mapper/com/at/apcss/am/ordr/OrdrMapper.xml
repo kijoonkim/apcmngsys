@@ -51,6 +51,7 @@
     		  	 	WHEN '20' THEN '41'
     		  	 	WHEN '30' THEN '11'
     		  	 	WHEN '40' THEN '31'
+    		  	 	WHEN '41' THEN '32'
     		  	 	ELSE NULL
     		  	   END						AS LGSZ_MRKT_CD
     		  	 , OI.OUTORDR_TYPE			AS OUTORDR_TYPE
@@ -196,6 +197,11 @@
 		<if test='outordrType != null and outordrType != ""'>
 		   	   AND OI.OUTORDR_TYPE = #{outordrType}
 		</if>
+		
+		<if test='rcptnSeCd != null and rcptnSeCd != ""'>
+		   	   AND OI.RCPTN_SE_CD = #{rcptnSeCd}
+		</if>
+		
 		<if test='apcCnptNm != null and apcCnptNm != ""'>
 		       AND OI.APC_CNPT_NM LIKE '%' ||  #{apcCnptNm} || '%'
 		</if>

@@ -233,6 +233,10 @@ public class AmConstants {
      */
     public final static String CON_LGSZ_MRKT_CD_LOTTEMART = "31";
     /**
+     * 대형마트 코드: 32	롯데슈퍼
+     */
+    public final static String CON_LGSZ_MRKT_CD_LOTTESUPER = "32";
+    /**
      * 대형마트 코드: 41	GS리테일
      */
     public final static String CON_LGSZ_MRKT_CD_GSRETAIL = "41";

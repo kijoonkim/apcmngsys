@@ -51,6 +51,8 @@ public class OrdrRcvVO extends ComVO {
 	private String lgszMrktCd;
 	private String rcptnYmd;
 	
+	private String runOnceYn;
+	
 	private String rtnCd;
 	private String rtnMsg;
 }

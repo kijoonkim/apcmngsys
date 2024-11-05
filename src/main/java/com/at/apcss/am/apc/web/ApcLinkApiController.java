@@ -1,6 +1,9 @@
 package com.at.apcss.am.apc.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.at.apcss.am.apc.service.ApcLinkService;
 import com.at.apcss.am.apc.vo.ApcLinkIndctVO;
 import com.at.apcss.am.apc.vo.ApcLinkVO;
+import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.am.ordr.service.OrdrRcvService;
+import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -26,6 +32,9 @@ public class ApcLinkApiController extends BaseController {
 	@Resource(name = "apcLinkService")
 	private ApcLinkService apcLinkService;
 
+	// 발주정보수신
+	@Resource(name = "ordrRcvService")
+	private OrdrRcvService ordrRcvService;
 	
 	// APC 환경설정 - APC 정보 조회
 	@GetMapping(value = "/am/apc/apcLink/{apcCd}")
@@ -249,4 +258,155 @@ public class ApcLinkApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	
+	// 홈플러스 주문 조회
+	@PostMapping(value = "/am/apc/ordr/homeplus")
+	public ResponseEntity<HashMap<String, Object>> selectOrdrHomeplus(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<HashMap<String, Object>> ordrItems = new ArrayList<>();
+		
+		String apcKey = request.getHeader("API_KEY");
+		if (!StringUtils.hasText(apcKey)) {
+			return getErrorResponseEntity("E02", "인증키 누락");
+		}
+		
+
+		String apcCd = apcLinkVO.getApcCd();
+		String wrhsYmd = apcLinkVO.getWrhsYmd();
+		
+		if (!StringUtils.hasText(apcCd)) {
+			return getErrorResponseEntity("E01", "APC코드 누락");
+		}
+		
+		if (!StringUtils.hasText(wrhsYmd)) {
+			return getErrorResponseEntity("E04", "입고일자 누락");
+		}
+		
+		apcLinkVO.setApcKey(apcKey);
+		
+		try {
+			
+			/*
+			ApcLinkVO resultVO = new ApcLinkVO();
+			resultVO = apcLinkService.selectApcLink(apcLinkVO);
+			
+			if (resultVO == null 
+					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+				return getErrorResponseEntity("E20", "APC연계정보 없음");
+			}
+			
+			if (!apcKey.equals(resultVO.getApcKey())) {
+				return getErrorResponseEntity("E30", "인증 오류");
+			}
+			*/
+			
+			OrdrRcvVO ordrRcvVO = new OrdrRcvVO();
+
+			ordrRcvVO.setSysFrstInptUserId(apcCd);
+			ordrRcvVO.setSysFrstInptPrgrmId("RCPTN_HOMEPLUS");
+			ordrRcvVO.setSysLastChgUserId(apcCd);
+			ordrRcvVO.setSysLastChgPrgrmId("RCPTN_HOMEPLUS");
+			
+			ordrRcvVO.setApcCd(apcCd);
+			ordrRcvVO.setLgszMrktCd(AmConstants.CON_LGSZ_MRKT_CD_HOMEPLUS);
+			ordrRcvVO.setCrtrYmdType("3");	// 입고일자
+			ordrRcvVO.setCrtrYmd(wrhsYmd);
+			
+			ordrRcvVO.setRunOnceYn(ComConstants.CON_YES);	// 있는 주문은 재수신 없음
+			
+			HashMap<String, Object> rtnObj = ordrRcvService.insertMrktOrdrRcpt(ordrRcvVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity("E20", "APC연계정보 없음");
+			}
+			
+			ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, wrhsYmd); 
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("items", ordrItems);
+		resultMap.put("count", ordrItems.size());
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 롯데 주문 조회
+	@PostMapping(value = "/am/apc/ordr/lotteSuper")
+	public ResponseEntity<HashMap<String, Object>> selectOrdrLotteSuper(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<HashMap<String, Object>> ordrItems = new ArrayList<>();
+		
+		String apcKey = request.getHeader("API_KEY");
+		if (!StringUtils.hasText(apcKey)) {
+			return getErrorResponseEntity("E02", "인증키 누락");
+		}
+		
+
+		String apcCd = apcLinkVO.getApcCd();
+		String wrhsYmd = apcLinkVO.getWrhsYmd();
+		
+		if (!StringUtils.hasText(apcCd)) {
+			return getErrorResponseEntity("E01", "APC코드 누락");
+		}
+		
+		if (!StringUtils.hasText(wrhsYmd)) {
+			return getErrorResponseEntity("E04", "입고일자 누락");
+		}
+		
+		apcLinkVO.setApcKey(apcKey);
+		
+		try {
+			
+			/*
+			ApcLinkVO resultVO = new ApcLinkVO();
+			resultVO = apcLinkService.selectApcLink(apcLinkVO);
+			
+			if (resultVO == null 
+					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+				return getErrorResponseEntity("E20", "APC연계정보 없음");
+			}
+			
+			if (!apcKey.equals(resultVO.getApcKey())) {
+				return getErrorResponseEntity("E30", "인증 오류");
+			}
+			*/
+			
+			OrdrRcvVO ordrRcvVO = new OrdrRcvVO();
+
+			ordrRcvVO.setSysFrstInptUserId(apcCd);
+			ordrRcvVO.setSysFrstInptPrgrmId("RCPTN_LOTTESUPER");
+			ordrRcvVO.setSysLastChgUserId(apcCd);
+			ordrRcvVO.setSysLastChgPrgrmId("RCPTN_LOTTESUPER");
+			
+			ordrRcvVO.setApcCd(apcCd);
+			ordrRcvVO.setLgszMrktCd(AmConstants.CON_LGSZ_MRKT_CD_LOTTESUPER);
+			ordrRcvVO.setCrtrYmd(wrhsYmd);
+			
+			ordrRcvVO.setRunOnceYn(ComConstants.CON_YES);	// 있는 주문은 재수신 없음
+			
+			HashMap<String, Object> rtnObj = ordrRcvService.insertMrktOrdrRcpt(ordrRcvVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity("E20", "APC연계정보 없음");
+			}
+			
+			ordrItems = ordrRcvService.selectOrdrListForLottesuper(apcCd, wrhsYmd); 
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("items", ordrItems);
+		resultMap.put("count", ordrItems.size());
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	
 }

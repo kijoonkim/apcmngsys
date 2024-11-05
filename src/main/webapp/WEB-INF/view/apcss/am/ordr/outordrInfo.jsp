@@ -146,12 +146,30 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">상품명</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtPckgUnitNm" name="srch-inp-spmtPckgUnitNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
-							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input 
+									id="srch-inp-spmtPckgUnitNm" 
+									name="srch-inp-spmtPckgUnitNm" 
+									uitype="text" 
+									maxlength="33" 
+									class="form-control input-sm"
+								></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
 							</td>
+							<th scope="row" class="th_bg">거래처구분</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="전체"
+									uitype="single"
+									id="srch-slt-rcptnSeCd"
+									name="srch-slt-rcptnSeCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonRcptnSeCd"
+								/>
+							</td>
+							<td colspan="5"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -349,6 +367,7 @@
 	var jsonTrsprtCoCd		= [];															// 운송회사
 
 	var jsonComLgszMrkt		= [];
+	var jsonRcptnSeCd		= [];
 
 	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
 
@@ -364,7 +383,9 @@
 		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 	 	jsonApcVrty, 		gv_selectedApcCd),	// 품종
 			gfn_setComCdSBSelect('srch-slt-outordrType', 	jsonComOutordrType,	'OUTORDR_TYPE'),	// 발주유형
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonTrsprtCoCd, 	gv_selectedApcCd),	// 운송회사
-			gfn_setComCdSBSelect('slt-lgszMrktCd', 			jsonComLgszMrkt,	'LGSZ_MRKT_CD'),	// 발주유형
+			gfn_setComCdSBSelect('slt-lgszMrktCd', 			jsonComLgszMrkt,	'LGSZ_MRKT_CD'),	// 마켓구분
+			gfn_setComCdSBSelect('srch-slt-rcptnSeCd', 		jsonRcptnSeCd,		'RCPTN_SE_CD'),		// 거래처구분
+			
 		]);
 		SBUxMethod.refresh('srch-slt-rcptYn');
 		SBUxMethod.refresh('grdOutordr');	// 접수여부 (그리드)
@@ -467,12 +488,14 @@
      * @description 납기일자 validation
      */
 	const fn_dtpChangeDudt = function(){
+		/*
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		if (gfn_diffDate(gfn_dateToYmd(new Date()), dudtYmd) < 0){
 			gfn_comAlert("W0015", "납기일자", "금일");		//	W0015	{0}이/가 {1} 보다 작습니다.
 			SBUxMethod.set("srch-dtp-dudtYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
+		*/
 	}
 
 	/**
@@ -969,6 +992,7 @@
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
 		let outordrType = SBUxMethod.get("srch-slt-outordrType");
+		let rcptnSeCd = SBUxMethod.get("srch-slt-rcptnSeCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
@@ -986,7 +1010,7 @@
 					apcCnptNm 		: cnptNm,
 					wrhsYmd 		: dudtYmd,
 					spmtPckgUnitNm 	: spmtPckgUnitNm,
-
+					rcptnSeCd		: rcptnSeCd,
 					pagingYn 			: 'Y',
 					currentPageNo 		: currentPageNo,
 					recordCountPerPage 	: recordCountPerPage

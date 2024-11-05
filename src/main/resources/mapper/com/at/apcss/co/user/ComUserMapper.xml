@@ -2010,6 +2010,107 @@
     </insert>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectApcUserPopList           	-->
+	<!-- DESC : APC 사용자 선택 POPUP 목록 조회.	                                -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.28  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcUserPopList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
+    	
+		<![CDATA[
+    		SELECT /* com.at.apcss.co.user.ComUserMapper.selectApcUserPopList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, 
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			pt0.*    			
+    			, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', pt0.USER_STTS) FROM DUAL) AS USER_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('TYPE_CD', pt0.MBR_TYPE_CD) FROM DUAL) AS MBR_TYPE_NM
+    			
+    		  FROM (
+			SELECT
+			      CU.USER_ID            	AS USER_ID
+				, CU.USER_NM            	AS USER_NM
+				, CU.USER_STTS          	AS USER_STTS
+				, CU.TYPE_CD				AS MBR_TYPE_CD
+				, CU.EML                	AS EML
+				, CU.TELNO          	 	AS TELNO
+				, CU.MBL_TELNO              AS MBL_TELNO
+				, CU.CO_NM					AS CO_NM
+				, CU.CO_TELNO				AS CO_TELNO
+				, CU.JBPS					AS JBPS
+				, OI.OGNZ_CD				AS OGNZ_CD
+				, OI.OGNZ_NM				AS OGNZ_NM
+				, OI.CRNO					AS CRNO
+				, OI.BRNO					AS BRNO
+				
+			  FROM TB_COM_USER CU
+			  
+			  LEFT JOIN TB_APC_OGNZ_INFO OI
+			    ON OI.OGNZ_CD = CU.UNTY_OGNZ_CD
+			    
+			 WHERE CU.DEL_YN = 'N'
+    	]]>
+    	
+		<choose>
+    		<when test='superUserYn != null and superUserYn.equals("Y")'>
+				
+    		</when>
+    		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
+    			AND #{authrtMngrYn} = 'Y'
+				AND (
+					(
+						CU.TYPE_CD = '1'
+						AND
+						CU.UNTY_OGNZ_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
+					)
+					OR
+					CU.TYPE_CD = '3' 
+				)
+			</when>
+    		<otherwise>
+			   
+    		</otherwise>
+    	</choose>
+    	
+		<if test='mbrTypeCd != null and mbrTypeCd != ""'>
+			   AND CU.TYPE_CD = #{mbrTypeCd}
+		</if>
+		
+		<if test='ognzNm != null and ognzNm != ""'>
+			   AND OI.OGNZ_NM LIKE '%' || #{corpNm} || '%'
+		</if>
+		<if test='userId != null and userId != ""'>
+			   AND CU.USER_ID LIKE '%' || #{userId} || '%'
+		</if>
+		<if test='userNm != null and userNm != ""'>
+			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'
+		</if>		
+		<if test='crno != null and crno != ""'>
+			   AND OI.CRNO LIKE '%' || REPLACE(#{crno}, '-', '') || '%'
+		</if>
+				
+    	<![CDATA[
+    		 ORDER BY MBR_TYPE_CD, USER_NM, USER_ID
+    		  ) pt0
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserAtchfl              -->
 	<!-- DESC : 사용자 첨부파일 단건조회.                                             -->
 	<!-- ==========================================================================	-->

@@ -348,6 +348,15 @@ public interface ComUserService {
 	 */
 	public HashMap<String,Object> insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
 	
+
+	/**
+	 * APC 사용자 선택 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectApcUserPopList(ComUserVO comUserVO) throws Exception;
+	
+	
 	
 	public ComUserAtchflVO getUserAtchfl(ComUserVO comUserVO) throws Exception;
 	
