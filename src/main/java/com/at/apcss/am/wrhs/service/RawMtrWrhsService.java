@@ -263,4 +263,18 @@ public interface RawMtrWrhsService {
 
 	public HashMap<String, Object> insertRawMtrWrhsListJiwoo(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception;
 	public HashMap<String, Object> deleteRawMtrWrhsJiwoo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 입고번호 단순 발행.
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    String selectWrhsno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 팔레트번호 단순 발행.
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    String selectPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;;
 }

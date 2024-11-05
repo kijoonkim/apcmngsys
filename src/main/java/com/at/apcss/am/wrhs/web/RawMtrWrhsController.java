@@ -429,6 +429,32 @@ public class RawMtrWrhsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wrhs/selectWrhsno.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectWrhsno(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		String wrhsno;
+		String pltno = "";
+
+		try {
+			wrhsno = rawMtrWrhsService.selectWrhsno(rawMtrWrhsVO);
+			if(wrhsno != null){
+				rawMtrWrhsVO.setWrhsno(wrhsno);
+				pltno = rawMtrWrhsService.selectPltno(rawMtrWrhsVO);
+			}
+        } catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("wrhsno", wrhsno);
+		resultMap.put("pltno", pltno);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 
 }
