@@ -289,6 +289,7 @@
     /* SBGrid Data (JSON) */
 	var jsonRawMtrWrhs = [];
 	var jsonRegList = [];
+	var jsonRegListTemp = [];
 
     let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstrNm : null};
     var tabJsonData = [
@@ -461,20 +462,27 @@
                 }},
             {caption: ["처리"], 		ref: 'delete', 		type:'button', width:'5%', style: 'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                   if (objRowData.inqYn === "N"){
-                	   return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_deleteRow(grdRegList," + nRow + ", " + nCol + ")'>삭제</button>";
-                   }else{
-                	   return "<button type='button' class='btn btn-xs btn-outline-danger' disabled>삭제</button>";
-                   }
+                   //if (objRowData.inqYn === "N"){
+                   return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_deleteRow(grdRegList," + nRow + ", " + nCol + ")'>삭제</button>";
+                   //}else{
+                   //return "<button type='button' class='btn btn-xs btn-outline-danger' disabled>삭제</button>";
+                   //}
 
                 }},
 	        ];
 
 	    grdRegList = _SBGrid.create(SBGridProperties);
+	    grdRegList.bind('click','fn_gridRegClick');
 	    //grdRegList.bind('valuechanged','fn_grdValueChanged');
 
 
 
+	}
+
+	const fn_gridRegClick = function(){
+		jsonRawMtrWrhs = jsonRegListTemp;
+		SBUxMethod.selectTab('idxTab_norm', {tabId: 'regTab', changeIndex: 0, moveToFirst : true});
+		grdRawMtrWrhs.refresh()
 	}
 
 	const fn_bndlAplcn = function(){
@@ -600,8 +608,15 @@
        		let totalRecordCount = 0;
 
        		jsonRegList.length = 0;
-       		var jsonRegListTemp = [];
-
+       		jsonRegListTemp = data.resultList;
+       		jsonRegListTemp.forEach(item =>{
+       			if(item.wrhsWght == 0 || item.bxQntt == 0){
+       				return;
+       			}
+       			let spcfct = item.wrhsWght / item.bxQntt;
+       			let spcfctCd = jsonApcSpcfct.find(data2 => data2.wght === spcfct );
+       			item['spcfctCd'] = spcfctCd['spcfctCd'];
+       		})
 
 
 
@@ -650,6 +665,7 @@
            	if (jsonRawMtrWrhs.length > 0) {
            		grdRegList.refresh();
            		grdRegList.setRow(1);
+           		grdRawMtrWrhs.refresh()
            	} else {
            		grdRegList.rebuild();
           	}
@@ -704,7 +720,7 @@
  			item['wrhsYmd'] = wrhsYmd;
  			item['itemCd'] = '1326';
  			item['prdcrCd'] = prdcrCd;
- 			item['wrhsQntt'] = item['bxQntt'];
+ 			item['wrhsQntt'] = (item['bxQntt'] === "" || item['bxQntt'] === undefined) ? 0 : item['bxQntt'];
  			item['wrhsWght'] = parseInt(item['bxQntt']) * parseInt(spc);
  			item['vhclno'] = vhclno;
  			item['prdctnYr'] = wrhsYmd.substring(0,4)
@@ -712,7 +728,7 @@
  			item["wrhsSeCd"] = wrhsSeCd;
  			item["trsprtSeCd"] = trsprtSeCd;
  			item["inqYn"] = "N";
- 			//item["gdsSeCd"] = gdsSeCd; 이상한값이 들어와서 일단 뺌
+ 			item["gdsSeCd"] = gdsSeCd;
 
  		})
 
@@ -737,6 +753,7 @@
     	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
     	let postUrl = "/am/wrhs/insertRawMtrWrhsListJiwoo.do";
     	const filteredList = allData.filter(item => item.wrhsQntt !== "" || item.wrhsQntt === "undefined");
+
 
      	const postJsonPromise = gfn_postJSON(postUrl, filteredList);
 		const data = await postJsonPromise;
