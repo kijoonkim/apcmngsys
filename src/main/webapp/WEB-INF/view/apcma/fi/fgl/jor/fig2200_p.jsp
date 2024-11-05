@@ -2182,7 +2182,8 @@
  				height			: '200px'
  				,width			: '400px'
  				,param			: {
- 					P_DOC_ID		: Fig2200GridCheckedRowsData[0].data.DOC_ID
+ 					P_WORK_TYPE		: 'DOC'
+ 					,P_DOC_ID		: Fig2200GridCheckedRowsData[0].data.DOC_ID
  					,P_COMP_CODE	: Fig2200GridCheckedRowsData[0].data.COMP_CODE
  					,P_CLIENT_CODE	: gv_ma_selectedClntCd
  				}
