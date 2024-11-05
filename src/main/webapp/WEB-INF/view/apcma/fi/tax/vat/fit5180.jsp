@@ -550,7 +550,7 @@
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit5180.do", {
             getType				: 'json',
             cv_count			: '13',
             workType            : 'Q',

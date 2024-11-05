@@ -1670,7 +1670,7 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 	for (let element of elements) {
 		let key = element.id.split('-').pop();
 
-		if (element.type === 'text' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+		if (element.type === 'text' || element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
 			let sbValue = SBUxMethod.get(element.id);
 			if (gfn_isEmpty(sbValue)) {
 				if(_ignore.includes(key)){
@@ -1684,7 +1684,7 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 				 param[key] = sbValue;
 			}
 		} else if (element.type === 'checkbox') {
-			console.log(element,"??");
+
 			let sbValue = SBUxMethod.getCheckbox(element.id)[element.id];
 			param[key] = sbValue;
 		}
