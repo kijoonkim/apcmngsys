@@ -36,7 +36,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -409,7 +409,13 @@
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
-
+<!-- 리포트 출력 팝업 -->
+<div>
+	<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-comPopFig1000Report">
+	<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+</div>	
 </body>
 <script type="text/javascript">
 
@@ -1996,44 +2002,6 @@
         }
     }
 
-
-    const fn_print = async function (strprinttype) {
-        // TODO : 레포트 개발 필요
-        var param = {};
-
-        param["WORK_TYPE"] = "INVOICE";
-        param["PRINT_TYPE"] = strprinttype;
-
-        var strdoc_batch_no = "";
-        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwMaster.getColRef("CHECK_YN"), true);
-
-        if (gvwListCheckedList.length == 0) {
-            gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
-            return;
-        } else {
-            gvwListCheckedList.forEach((item, index) => {
-                let data = gvwMaster.getRowData(item);
-
-                if (strdoc_batch_no != "")
-                {
-                    strdoc_batch_no += "|";
-                }
-                strdoc_batch_no += data.DOC_BATCH_NO;
-            });
-
-            if (strdoc_batch_no == "") {
-                gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
-                return;
-            }
-        }
-
-        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
-            param["DOC_BATCH_NO"] = strdoc_batch_no;
-            gfn_popClipReport("", reportFilePath, param);
-            //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
-        }
-    }
-
     const fn_view = async function () {
         var nRow = gvwMaster.getRow();
         var nCol = gvwMaster.getCol();
@@ -2569,6 +2537,32 @@
         }
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
+    }
+    
+
+    const fn_btnPrint = async function () {
+        // TODO : 레포트 개발 필요
+        
+        let gvwListCheckedListData	= gvwMaster.getCheckedRowData(gvwMaster.getColRef("CHECK_YN"));
+        if (gvwListCheckedListData.length == 0) {
+            gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
+            return;
+        } else {
+            if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
+        		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+        		SBUxMethod.openModal('modal-comPopFig1000Report');
+        		comPopFig1000Report({
+        			height			: '200px'
+        			,width			: '400px'
+        			,param			: {
+        				P_WORK_TYPE		: "INVOICE"
+        				,P_DOC_BATCH_NO	: gvwListCheckedListData[0].data.DOC_BATCH_NO
+        				,P_COMP_CODE	: gv_ma_selectedApcCd
+        				,P_CLIENT_CODE	: gv_ma_selectedClntCd
+        			}
+        		});
+            }
+        }
     }
 
 </script>

@@ -3976,7 +3976,8 @@
     			height			: '200px'
     			,width			: '400px'
     			,param			: {
-    				P_DOC_ID		: DOC_ID
+    				P_WORK_TYPE		: 'DOC'
+    				,P_DOC_ID		: DOC_ID
     				,P_COMP_CODE	: gv_ma_selectedApcCd
     				,P_CLIENT_CODE	: gv_ma_selectedClntCd
     			}
