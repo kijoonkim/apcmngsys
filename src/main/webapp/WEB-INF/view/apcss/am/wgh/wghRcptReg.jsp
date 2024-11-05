@@ -424,11 +424,24 @@
 		if (grdQntt1Col = nCol || grdQntt2Col == nCol || grdQntt3Col == nCol || grdQntt3Col == nCol) {
 
 			let rowData = grdWghPrfmnc.getRowData(nRow);
-			let bxQntt = parseInt(rowData.grdQntt1) + parseInt(rowData.grdQntt2) + parseInt(rowData.grdQntt3) + parseInt(rowData.grdQntt4)
+			let bxQntt = fn_parseInt(rowData.grdQntt1) + fn_parseInt(rowData.grdQntt2) + fn_parseInt(rowData.grdQntt3) + fn_parseInt(rowData.grdQntt4);
 			grdWghPrfmnc.setCellData(nRow, bxQnttCol, bxQntt, true);
 		}
 
 	}
+
+	const fn_parseInt = function(val) {
+
+    	if (gfn_isEmpty(val)) {
+    		return 0;
+    	} else {
+    		if (val == 0) {
+    			return 0;
+    		} else {
+    			return parseInt(val);
+    		}
+    	}
+    }
 
 
 	/**
@@ -598,7 +611,7 @@
 	const fn_save = async function() {
 
 		let grdAllData = grdWghPrfmnc.getGridDataAll();
-		let mutiList = [];
+		let multiList = [];
 
 		for (var i=1; i<=grdAllData.length; i++) {
 
@@ -611,19 +624,19 @@
 				let addYn = rowData.addYn;
 				if (addYn == "Y") {
 
-					for (var j=1; j<=4; j++) {
-						let insertRow = rowData;
+					for (var j=1; j<=jsonApcGrd.length; j++) {
+						let insertRow = grdWghPrfmnc.getRowData(i);
 						let grdCdKey = "grdCd"+j
 						let grdQnttKey = "grdQntt"+j
 
-						let qntt = rowData[grdQnttKey];
+						let qntt = insertRow[grdQnttKey];
 						if (!(gfn_isEmpty(qntt) || parseInt(qntt) == 0)) {
 
 							insertRow.grdCd = jsonApcGrd[(j-1)].grdCd
-							insertRow.bxQntt = rowData[grdQnttKey];
-							insertRow.stts = "I";
+							insertRow.bxQntt = insertRow[grdQnttKey];
+							insertRow.rowSts = "I";
 							insertRow.groupId = i;
-							mutiList.push(insertRow)
+							multiList.push(insertRow)
 						} else {
 							continue;
 						}
@@ -631,10 +644,10 @@
 				} else if (addYn == "N") {
 
 					if (stts == 2) {
+						for (var k=1; k<=jsonApcGrd.length; k++) {
+							let updateRow = grdWghPrfmnc.getRowData(i);
+							updateRow.rowSts = "U";
 
-						for (var k=1; k<=4; k++) {
-
-							let updateRow = rowData;
 							let grdCdKey = "grdCd"+k;
 							let grdQnttKey = "grdQntt"+k;
 							let grdWrhsnoKey = "grdWrhsno"+k;
@@ -649,21 +662,40 @@
 							updateRow.bxQntt = bxQntt;
 							updateRow.wrhsno = wrhsno;
 							updateRow.wghSn = wghSn;
-							updateRow.stts = "U";
 
-							console.log("updateRow",updateRow)
+							if (!gfn_isEmpty(wghSn) || bxQntt > 0) {
+								multiList.push(updateRow);
+							} else {
+								continue;
+							}
 
-							console.log("i + k" , i + ", " + k );
-
-							mutiList.push(updateRow);
 						}
 					}
 				}
 			}
 		}
 
-		console.log("mutiList", mutiList);
+		console.log("multiList", multiList);
 
+
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
 	}
 
 	/**

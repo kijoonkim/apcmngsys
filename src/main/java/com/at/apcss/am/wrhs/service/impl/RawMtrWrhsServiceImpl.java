@@ -587,6 +587,18 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return null;
 	}
 
+	@Override
+	public String selectWrhsno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		String apcCd = rawMtrWrhsVO.getApcCd();
+		String wrhsYmd = rawMtrWrhsVO.getWrhsYmd();
+		return cmnsTaskNoService.selectWrhsno(apcCd, wrhsYmd);
+	}
+	@Override
+	public String selectPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		return cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+	}
+
+
 
 
 }

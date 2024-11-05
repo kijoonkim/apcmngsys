@@ -25,6 +25,7 @@
 	<title>title : 합계잔액시산표조회</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -122,7 +123,7 @@
                         
                         <tr>
                             <th scope="row" class="th_bg">조건</th>
-                            <td colspan="11" class="td_input" >
+                            <td colspan="7" class="td_input" >
                             	<div style="display:flex;float:left">
                             	
 	                            	<font>기초포함</font>
@@ -153,7 +154,10 @@
 								    <font style="padding-left:10px;"></font>  
 	                            	<sbux-checkbox id="SCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
                             	</div>
-                            </td>                            
+                            </td>   
+                            <td colspan="4" class="td_input" >
+								<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
+                            </td>                                                     
                         </tr>
                         
                     </tbody>
@@ -729,6 +733,70 @@
     	Fig5210Tree.closeTreeNodeAll();
   	}    
     
+    const fn_btnPrint = async function () {
+		let conn = '';
+	    conn = await fn_getReportData();
+	    conn = await gfnma_convertDataForReport(conn);
+	    await gfn_popClipReportPost("합계잔액시산표", "ma/RPT_FIG5210.crf", null, conn );
+	}
+    
+	const fn_getReportData = async function() {
+		
+		let ACCT_RULE_CODE		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let FI_ORG_CODE			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let SITE_CODE			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let YMDPERIOD_FR		= gfnma_nvl(SBUxMethod.get("SCH_YMDPERIOD_FR"));
+		let YMDPERIOD_TO		= gfnma_nvl(SBUxMethod.get("SCH_YMDPERIOD_TO"));
+		let ACCOUNT_GROUP		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_GROUP"));
+		let CURRENCY_CODE		= gfnma_nvl(SBUxMethod.get("SCH_CURRENCY_CODE"));
+		let BEGIN_INCLUDE_YN	= gfnma_nvl(SBUxMethod.get("SCH_CHKBEGIN_INCLUDE_YN")['SCH_CHKBEGIN_INCLUDE_YN']);
+		let PARENT_INCLUDE_YN	= gfnma_nvl(SBUxMethod.get("SCH_CHKPARENT_INCLUDE_YN")['SCH_CHKPARENT_INCLUDE_YN']);
+		let ZERO_INCLUDE_YN		= gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
+		
+	    var paramObj = {
+				V_P_DEBUG_MODE_YN		: ''
+				,V_P_LANG_ID			: ''
+				,V_P_COMP_CODE			: gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+				
+				,V_P_ACCT_RULE_CODE		: ACCT_RULE_CODE
+				,V_P_FI_ORG_CODE		: FI_ORG_CODE
+				,V_P_SITE_CODE			: SITE_CODE
+				,V_P_PERIOD_FR			: YMDPERIOD_FR
+				,V_P_PERIOD_TO			: YMDPERIOD_TO
+				,V_P_ACCOUNT_GROUP		: ACCOUNT_GROUP
+				,V_P_CURRENCY_CODE		: CURRENCY_CODE
+				,V_P_BEGIN_INCLUDE_YN	: BEGIN_INCLUDE_YN
+				,V_P_PARENT_INCLUDE_YN	: PARENT_INCLUDE_YN
+				,V_P_ZERO_INCLUDE_YN	: ZERO_INCLUDE_YN
+				
+				,V_P_FORM_ID			: p_formId
+				,V_P_MENU_ID			: p_menuId
+				,V_P_PROC_ID			: ''
+				,V_P_USERID				: p_userId
+				,V_P_PC					: '' 
+	    };
+	    const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210Report.do", {
+	        getType				: 'json',
+	        workType			: 'REPORT',
+	        cv_count			: '2',
+	        params				: gfnma_objectToString(paramObj)
+	    });
+	    const data = await postJsonPromise;
+	    try {
+	        if (_.isEqual("S", data.resultStatus)) {
+			} else {
+			    alert(data.resultMessage);
+			}
+	    } catch (e) {
+	        if (!(e instanceof Error)) {
+	            e = new Error(e);
+	        }
+	        console.error("failed", e.message);
+	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    }
+	    return data;
+	}
     
     
 </script>

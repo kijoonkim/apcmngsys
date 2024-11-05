@@ -1,5 +1,6 @@
 package com.at.apcss.am.wgh.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -383,5 +384,86 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<WghPrfmncVO> selectWghRcptList(WghPrfmncVO wghPrfmncVO) throws Exception {
 		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptList(wghPrfmncVO);
 		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
+
+		List<WghPrfmncVO> insertList = new ArrayList<>();
+		List<WghPrfmncVO> updateList = new ArrayList<>();
+
+
+		for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
+
+			if (ComConstants.ROW_STS_INSERT.equals(wghPrfmncVO.getRowSts())) {
+				insertList.add(wghPrfmncVO);
+			}
+
+			if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())) {
+				updateList.add(wghPrfmncVO);
+			}
+		}
+
+		if (insertList != null && insertList.size() > 0) {
+
+			int groupId = 0;
+			int start = 1;
+			String wghno = "";
+			int seq = 1;
+
+			for (WghPrfmncVO wghPrfmncVO : insertList) {
+
+				if (start == 1) {
+					groupId = wghPrfmncVO.getGroupId();
+					wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+					wghPrfmncVO.setWghno(wghno);
+
+					wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+				} else {
+					if (groupId != wghPrfmncVO.getGroupId()) {
+						seq = 1;
+						groupId = wghPrfmncVO.getGroupId();
+						wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+						wghPrfmncVO.setWghno(wghno);
+						wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+					} else {
+						wghPrfmncVO.setWghno(wghno);
+						wghPrfmncVO.setPltQntt(0);
+					}
+				}
+
+				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+				wghPrfmncDtlVO.setWghSn(seq);
+
+				RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+				BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+				rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+				rawMtrWrhsVO.setWghSn(seq);
+				rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+				rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+				rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+				rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+				rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+				rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
+
+
+				HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+				// 입고번호 설정
+				wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+
+				wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
+
+				wghPrfmncDtlVO.setWghSn(seq);
+
+				start++;
+				seq++;
+
+			}
+		}
+		return null;
 	}
 }
