@@ -1155,11 +1155,21 @@
     </div>
     
 	<!-- 팝업 Modal -->
+	<!-- 
     <div>
         <sbux-modal style="width:1400px" id="modal-compopfia2510" name="modal-compopfia2510" uitype="middle" header-title="" body-html-id="body-modal-compopfia2510" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopfia2510">
     	<jsp:include page="../../../com/popup/comPopFia2510.jsp"></jsp:include>
+    </div>
+	 -->
+    
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:1400px" id="modal-compopfia2520" name="modal-compopfia2520" uitype="middle" header-title="" body-html-id="body-modal-compopfia2520" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopfia2520">
+    	<jsp:include page="../../../com/popup/comPopFia2520.jsp"></jsp:include>
     </div>
     
 </body>
@@ -1343,6 +1353,7 @@
 				}
 			} 
     	}
+		$('#main-btn-save', parent.document).attr('disabled', true);
     	fn_setFia2500GridMast('HEADER');
     }
     
@@ -2624,7 +2635,7 @@
         var replaceText1 	= "_LOCATION_NAME_"; 
         var strWhereClause 	= "AND LOCATION_CODE LIKE '%" + replaceText0 + "%' AND LOCATION_NAME LIKE '%" + replaceText1 + "%' ";
         
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -2642,8 +2653,8 @@
    			,tableColumnWidths		: ["100px", 			"200px",			"100px",		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM2_LOCATION_CODE', 	data.CS_CODE);
-				SBUxMethod.set('FM2_LOCATION_NAME', 	data.CS_NAME);
+				SBUxMethod.set('FM2_LOCATION_CODE', 	data.LOCATION_CODE);
+				SBUxMethod.set('FM2_LOCATION_NAME', 	data.LOCATION_NAME);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2658,7 +2669,7 @@
         SBUxMethod.set("FM_CURRENCY_CODE",	p_ss_baseCurrCode);
         SBUxMethod.set("FM_ACQUIRE_DATE",	gfnma_date4());
 		
-		$('#main-btn-save', parent.document).attr('disabled', true);
+		$('#main-btn-save', parent.document).attr('disabled', false);
 		$('#main-btn-del', 	parent.document).attr('disabled', true);
     }
 	
@@ -3488,10 +3499,10 @@
      	let p_sch_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
      	let p_sch_actual_flag_p		= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
      	
-     	SBUxMethod.attr('modal-compopfia2510', 'header-title', '취득내역');
- 		SBUxMethod.openModal('modal-compopfia2510');
+     	SBUxMethod.attr('modal-compopfia2520', 'header-title', '취득내역');
+ 		SBUxMethod.openModal('modal-compopfia2520');
  		
- 		compopfia2510({
+ 		compopfia2520({
      		height			: '400px'
      		,param			: {
      			p_sch_acquire_date_fr	: p_sch_acquire_date_fr
@@ -3500,9 +3511,9 @@
      			,p_sch_acct_rule_code	: p_sch_acct_rule_code
      			,p_sch_actual_flag_p	: p_sch_actual_flag_p
      		}
-    			,callbackEvent	: function (data){
-    				console.log('callback data:', data);
-    			},
+   			,callbackEvent	: function (data){
+   				console.log('callback data:', data);
+   			},
      	});
      }          
      
