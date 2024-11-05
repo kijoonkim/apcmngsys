@@ -80,7 +80,7 @@
                     <sbux-button uitype="normal" text="보류지정"  		id="sch-btn-unrelease" 		class="btn btn-sm btn-outline-danger" onclick="fn_docUnRelease"></sbux-button>
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="역분개취소"  	id="sch-btn-reverseCancel" 	class="btn btn-sm btn-outline-danger" onclick="fn_docReverseCancel"></sbux-button>
-                    <sbux-button uitype="normal" text="출력"  			id="sch-btn-print" 			class="btn btn-sm btn-outline-danger" onclick="fn_docPrint"></sbux-button>
+                    <sbux-button uitype="normal" text="출력"  			id="sch-btn-print" 			class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -624,6 +624,13 @@
     	<jsp:include page="../../../com/popup/comPopup4.jsp"></jsp:include>
     </div>
     
+   	<!-- 리포트 출력 팝업 -->
+	<div>
+		<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-comPopFig1000Report">
+		<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+	</div>	
 </body>
 
 <!-- inline scripts related to this page -->
@@ -3707,7 +3714,7 @@
         var p_hold_reason_d = "";
       	var p_numhold_count	= 0;
       	
-      	var allList = Fig2200Grid.getGridDataAll()
+      	var allList = Fig2210Grid.getGridDataAll()
 		for (var i = 0; i < allList.length; i++) {
 			var obj = allList[i].data;
 			if(obj['CHECK_YN']=='Y'){
@@ -3742,7 +3749,7 @@
         var p_hold_reason_d = "";
       	var p_numnoreason_count	= 0;
       	
-      	var allList = Fig2200Grid.getGridDataAll()
+      	var allList = Fig2210Grid.getGridDataAll()
 		for (var i = 0; i < allList.length; i++) {
 			var obj = allList[i].data;
 			if(obj['CHECK_YN']=='Y'){
@@ -3953,6 +3960,28 @@
    			,formID			: p_formId
    			,menuId			: p_menuId    		
 		});
+    }
+    
+    /**
+     * 전표출력
+     */
+    const fn_btnPrint = async function() {
+    	let DOC_ID = gfn_nvl(SBUxMethod.get("sch-doc-id"));
+    	if (DOC_ID == 0 || DOC_ID == '0' || gfn_isEmpty(DOC_ID)) {
+    		return;
+    	}else{
+    		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+    		SBUxMethod.openModal('modal-comPopFig1000Report');
+    		comPopFig1000Report({
+    			height			: '200px'
+    			,width			: '400px'
+    			,param			: {
+    				P_DOC_ID		: DOC_ID
+    				,P_COMP_CODE	: gv_ma_selectedApcCd
+    				,P_CLIENT_CODE	: gv_ma_selectedClntCd
+    			}
+    		});
+    	}
     }
     
     
