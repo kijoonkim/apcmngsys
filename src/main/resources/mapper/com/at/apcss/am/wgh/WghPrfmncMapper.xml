@@ -539,21 +539,23 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-
-				, PLT_BX_SE_CD 	= #{pltBxSeCd}
-				, PLT_BX_KND	= #{pltBxKnd}
-				, GRD_CD 		= #{grdCd}
-				, UNIT_WGHT 	= #{unitWght}
-				, QNTT 			= #{qntt}
-				, WGHT 			= #{wght}
-
+				, GRD_CD 					= #{grdCd}
+				, PLTNO						= #{pltno}
+				, PLT_KND					= #{pltKnd}
+				, PLT_QNTT					= #{pltQntt}
+				, PLT_WGHT					= #{pltWght}
+				, BX_KND					= #{bxKnd}
+				, BX_QNTT					= #{bxQntt}
+				, BX_WGHT					= #{bxWght}
+		]]>
 			<if test='delYn != null and delYn != ""'>
-				, DEL_YN		= #{delYn}
+				, DEL_YN					= #{delYn}
 			</if>
+		<![CDATA[
 
-			 WHERE APC_CD = #{apcCd}
-			   AND WGHNO = #{wghno}
-			   AND WGH_SN = #{wghSn}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WGHNO 					= #{wghno}
+			   AND WGH_SN 					= #{wghSn}
 		]]>
 	</update>
 
@@ -857,6 +859,10 @@
 			                   AND WP.WRHSNO = INV.WRHSNO
 			                   AND WD.APC_CD = SG.APC_CD
 			                   AND WD.GRD_CD = SG.GRD_CD
+			                   AND WC.DEL_YN = 'N'
+			                   AND WD.DEL_YN = 'N'
+			                   AND WP.DEL_YN = 'N'
+			                   AND INV.DEL_YN = 'N'
 			                   AND WC.APC_CD = #{apcCd}
 		]]>
 		<if test='itemCd != null and itemCd !=""'>
