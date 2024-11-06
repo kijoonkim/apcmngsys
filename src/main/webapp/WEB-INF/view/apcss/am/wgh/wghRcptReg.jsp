@@ -636,6 +636,7 @@
 							insertRow.bxQntt = insertRow[grdQnttKey];
 							insertRow.rowSts = "I";
 							insertRow.groupId = i;
+							insertRow.wholWght = insertRow.actlWght;
 							multiList.push(insertRow)
 						} else {
 							continue;
@@ -662,6 +663,7 @@
 							updateRow.bxQntt = bxQntt;
 							updateRow.wrhsno = wrhsno;
 							updateRow.wghSn = wghSn;
+							updateRow.wholWght = updateRow.actlWght;
 
 							if (!gfn_isEmpty(wghSn) || bxQntt > 0) {
 								multiList.push(updateRow);
@@ -682,14 +684,14 @@
 			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
 	    	const data = await postJsonPromise;
 
-	    	try{
+	    	try {
 	    		if (_.isEqual("S", data.resultStatus)) {
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
-	        }catch (e) {
+	        } catch (e) {
 	        	if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}

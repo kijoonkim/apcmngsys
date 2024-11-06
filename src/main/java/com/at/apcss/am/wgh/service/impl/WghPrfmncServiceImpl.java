@@ -429,7 +429,24 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					} else {
 						wghPrfmncVO.setWghno(wghno);
 						wghPrfmncVO.setPltQntt(0);
+						wghPrfmncVO.setWholWght(0);
 					}
+				}
+
+				String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+				String gdsSecd = wghPrfmncVO.getGdsSeCd();
+				String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+				if (!StringUtils.hasText(wrhsSecd)) {
+					wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+				}
+
+				if (!StringUtils.hasText(gdsSecd)) {
+					wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+				}
+
+				if (!StringUtils.hasText(trsprtSecd)) {
+					wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
 				}
 
 				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
