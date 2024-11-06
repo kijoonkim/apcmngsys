@@ -72,7 +72,7 @@
                                         name="SRCH_YYYYMM_FR"
                                         uitype="popup"
                                         datepicker-mode="month"
-                                        date-format="yyyymm"
+                                        date-format="yyyy-mm"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>
@@ -80,7 +80,7 @@
                             </td>
                             <td style="border-right: hidden;"></td>
 
-                            <th scope="row" class="th_bg">지급구분</th>
+                            <th scope="row" class="th_bg">급여영역</th>
                             <td class="td_input">
                                 <sbux-select
                                         id="SRCH_PAY_AREA_TYPE"
@@ -674,9 +674,6 @@
             type: 'output',
             width: '100px',
             style: 'text-align:left'
-            ,
-            typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-            format: {type: 'number' /*, rule:'#' */}
         },
         {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
         {caption: ["항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left', merge : false},
@@ -724,8 +721,7 @@
     function fn_createPivot(pivotData) {
 
         columns1 = [
-            {caption: ["", "사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'
-                , typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number' /*, rule:'#' */}},
+            {caption: ["", "사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["", "성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["", "항목"], ref: 'ITEM', type: 'output', width: '140px', style: 'text-align:left', merge : false},];
 
@@ -767,7 +763,7 @@
                             width: '100px',
                             style: 'text-align:right'
                             , merge: false
-                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}
                         };
 
                         columns1.push(columns);
@@ -787,7 +783,7 @@
                     width: '100px',
                     style: 'text-align:right'
                     , merge : false
-                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}
                 };
 
                 columns1.push(columns);
@@ -806,7 +802,7 @@
                 width: '100px',
                 style: 'text-align:right'
                 , merge: false
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}
             };
 
             columns1.push(columns);

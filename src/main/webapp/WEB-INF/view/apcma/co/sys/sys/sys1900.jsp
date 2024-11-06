@@ -232,7 +232,7 @@
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.filtering = true;
+        //SBGridProperties.filtering = true;
         SBGridProperties.columns = [
             {caption: ["사용자ID"], ref: 'USER_ID', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["사용자명"], ref: 'USER_NAME', type: 'output', width: '200px', style: 'text-align:left'},

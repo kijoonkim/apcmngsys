@@ -201,7 +201,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금유형</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:150px" id="FM_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:150px" id="FM_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType" unselected-text="선택" class="form-control input-sm" onchange="fn_editValLoanType()"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">분류1</th>
@@ -267,12 +267,12 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">통화</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select id="FM_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select id="FM_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm" onchange="fn_editValCurrency()"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">환율</th>
 			                                    <td colspan="3" class="td_input">
-					  								<sbux-input id="FM_EXCHANGE_RATE" uitype="text" class="form-control input-sm"></sbux-input>
+					  								<sbux-input id="FM_EXCHANGE_RATE" uitype="text" class="form-control input-sm" onchange="fn_editValEx()"></sbux-input>
 			                                    </td>		
 			                                                            
 			                                    <th scope="row" class="th_bg"></th>
@@ -283,7 +283,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금액(통화)</th>
 			                                    <td colspan="3" class="td_input">
-					  								<sbux-input id="FM_LOAN_AMT" uitype="text" class="form-control input-sm"></sbux-input>
+					  								<sbux-input id="FM_LOAN_AMT" uitype="text" class="form-control input-sm" onchange="fn_editValLoan()"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">차입금액(전표)</th>
@@ -501,8 +501,8 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
+			                                    </td>
+
 			                                    <th scope="row" class="th_bg">이자상환</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
@@ -730,7 +730,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">기상환금액</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REPAY_AMT" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REPAY_AMT" uitype="text" class="form-control input-sm" onchange="fn_editValRepay()"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">미상환금액</th>
@@ -957,6 +957,24 @@
 		                            </ul>
 				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
 									</div>
+									<sbux-button
+											id="btnDelPlan"
+											name="btnDelPlan"
+											uitype="normal"
+											text="행삭제"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_btnDelPlan()"
+											style="float: right;"
+									></sbux-button>
+									<sbux-button
+											id="btnAddPlan"
+											name="btnAddPlan"
+											uitype="normal"
+											text="행추가"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_btnAddPlan()"
+											style="float: right;"
+									></sbux-button>
 		                        </div>
 		                        <div style="width:100%;">
 		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
@@ -1013,6 +1031,7 @@
 															class="btn btn-xs btn-outline-dark"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
+															id="FM_EXCHANGE_GAIN_ACC_BTN"
 															onclick="fn_compopup10('1')"></sbux-button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_EXCHANGE_GAIN_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -1030,6 +1049,7 @@
 															class="btn btn-xs btn-outline-dark"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
+															id="FM_EXCHANGE_LOSS_ACC_BTN"
 															onclick="fn_compopup10('2')"></sbux-button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_EXCHANGE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -1046,6 +1066,7 @@
 														<sbux-button
 															class="btn btn-xs btn-outline-dark"
 															text=".." uitype="modal"
+															id="FM_VAL_GAIN_ACC_BTN"
 															target-id="modal-compopup1"
 															onclick="fn_compopup10('3')"></sbux-button>
 					  									<font style="width:5px"></font>
@@ -1063,6 +1084,7 @@
 														<sbux-button
 															class="btn btn-xs btn-outline-dark"
 															text=".." uitype="modal"
+															id="FM_VAL_LOSS_ACC_BTN"
 															target-id="modal-compopup1"
 															onclick="fn_compopup10('4')"></sbux-button>
 					  									<font style="width:5px"></font>
@@ -1230,6 +1252,11 @@
 	//-----------------------------------------------------------
 
 	var p_sel_rowData =  null;
+
+	// 현재탭 [ 기본정보 = 1 , 계정과목정보 = 2, 상환정보 = 3, 이율변동정보 = 4, 상환계획 = 5, 현재가치관리 = 6, 손익계정 = 7, 햇지정보 = 8]
+	var p_sel_tab			= 1;
+	var bQuery = false;
+	var bfocuschange = false;
 	
     //grid 초기화
     var Trl1010GridTop; 			// 그리드를 담기위한 객체 선언
@@ -1240,7 +1267,6 @@
     
 	var jsonFiOrgCode		= [];	// 사업단위
 	var jsonAllYn			= [];	// 만기차입금포함여부
-	var jsonLoanType		= [];	// 차입금유형
 	
 	var jsonSiteCode		= [];	// 사업장
 	var jsonLoanType		= [];	// 차입금유형
@@ -1266,14 +1292,14 @@
             // 만기차입금포함여부
             gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차입금유형
-            gfnma_setComSelect(['SCH_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_LOAN_TYPE', 'FM_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 사업장
             gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 차입금유형
-            gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화
             gfnma_setComSelect(['FM_CURRENCY_CODE'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 년간이자일수
@@ -1337,7 +1363,6 @@
 						SBUxMethod.set('FM_REPAY_ACCOUNT_NUM', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
 						SBUxMethod.set('FM_REPAY_ACCOUNT_OWNER', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
 						//SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
-
 					}
 				}
 			}),
@@ -1515,7 +1540,8 @@
 	var cfn_init = function() {
 		gfnma_uxDataClear('#srchArea1');
 	}
-    
+
+	//차입금
     function fn_createTrl1010GridTop() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_top';
@@ -1579,7 +1605,8 @@
         Trl1010GridTop = _SBGrid.create(SBGridProperties);
         Trl1010GridTop.bind('click', 'fn_view');
     }
-    
+
+	//이율변동정보
     function fn_createTrl1010GridTab4() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap4';
@@ -1633,7 +1660,8 @@
         Trl1010GridTab4 = _SBGrid.create(SBGridProperties);
         //Trl1010GridTab4.bind('click', 			'fn_viewTrl1010GridTab4Event');
     }
-    
+
+	//상환계획
     function fn_createTrl1010GridTab5() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap5';
@@ -1680,7 +1708,8 @@
         Trl1010GridTab5 = _SBGrid.create(SBGridProperties);
         //Trl1010GridTab5.bind('click', 			'fn_viewTrl1010GridTab5Event');
     }
-    
+
+	//현재가치관리
     function fn_createTrl1010GridTab6() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap6';
@@ -1734,14 +1763,14 @@
         var searchText1 	= '';
         var searchText2 	= '';
         if(type=='1'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_NAME"));
+            searchText1 	= gfn_nvl(SBUxMethod.get("SCH_BANK_CS_CODE"));
+            searchText2 	= gfn_nvl(SBUxMethod.get("SCH_BANK_CS_NAME"));
         } else if(type=='2'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_NAME"));
+            searchText1 	= gfn_nvl(SBUxMethod.get("FM_BANK_CS_CODE"));
+            searchText2 	= gfn_nvl(SBUxMethod.get("FM_BANK_CS_NAME"));
         } else if(type=='3'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_HDG_CS_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_HDG_CS_NAME"));
+            searchText1 	= gfn_nvl(SBUxMethod.get("FM_HDG_CS_CODE"));
+            searchText2 	= gfn_nvl(SBUxMethod.get("FM_HDG_CS_NAME"));
         }        
         
         var replaceText0 	= "_CS_CODE_";
@@ -1782,8 +1811,8 @@
      * 은행 
      */
     function fn_compopup2() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("FM_BANK_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("FM_BANK_NAME"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("FM_BANK_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("FM_BANK_NAME"));
         var replaceText0 	= "_BANK_CODE_";
         var replaceText1 	= "_BANK_NAME_";
         var strWhereClause 	= "AND a.BANK_CODE LIKE '%" + replaceText0 + "%' AND a.BANK_NAME LIKE '%" + replaceText1 + "%'";
@@ -1817,11 +1846,11 @@
         var searchCode 		= '';
         var searchName 		= '';
         if(type=='1'){
-            searchCode 		= gfnma_nvl(SBUxMethod.get("FM_IN_DEPOSIT_CODE"));
-            searchName 		= gfnma_nvl(SBUxMethod.get("FM_IN_DEPOSIT_NAME"));
+            searchCode 		= gfn_nvl(SBUxMethod.get("FM_IN_DEPOSIT_CODE"));
+            searchName 		= gfn_nvl(SBUxMethod.get("FM_IN_DEPOSIT_NAME"));
         } else if (type=='2'){
-            searchCode 		= gfnma_nvl(SBUxMethod.get("FM_OUT_DEPOSIT_CODE"));
-            searchName 		= gfnma_nvl(SBUxMethod.get("FM_OUT_DEPOSIT_NAME"));
+            searchCode 		= gfn_nvl(SBUxMethod.get("FM_OUT_DEPOSIT_CODE"));
+            searchName 		= gfn_nvl(SBUxMethod.get("FM_OUT_DEPOSIT_NAME"));
         }
         var replaceText0 	= "_DEPOSIT_CODE_";
         var replaceText1 	= "_DEPOSIT_NAME_";
@@ -1862,8 +1891,8 @@
          var searchText1		= '';
          var searchText2		= '';
          if(type=='1'){
-             searchText1		= gfnma_nvl(SBUxMethod.get("FM_DEPOSIT_CODE"));
-             searchText2		= gfnma_nvl(SBUxMethod.get("FM_DEPOSIT_NAME"));
+             searchText1		= gfn_nvl(SBUxMethod.get("FM_DEPOSIT_CODE"));
+             searchText2		= gfn_nvl(SBUxMethod.get("FM_DEPOSIT_NAME"));
          } else if(type=='2'){
          }
          
@@ -1904,8 +1933,8 @@
          var searchText1 	= '';
          var searchText2 	= '';
          if(type=='1'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_COST_CENTER_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_COST_CENTER_NAME"));
          } else if(type=='2'){
          }
          
@@ -1948,14 +1977,14 @@
          var searchCode 	= '';
          var searchName 	= '';
          if(type=='1'){
-        	 searchCode 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_CODE"));
-        	 searchName 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_NAME"));
+        	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_CODE"));
+        	 searchName 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_NAME"));
          } else if(type=='2'){
-        	 searchCode 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_CODE"));
-        	 searchName 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_NAME"));
+        	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_CODE"));
+        	 searchName 	= gfn_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_NAME"));
          } else if(type=='3'){
-        	 searchCode 	= gfnma_nvl(SBUxMethod.get("FM_INTEREST_REPAY_TR_CODE"));
-        	 searchName 	= gfnma_nvl(SBUxMethod.get("FM_INTEREST_REPAY_TR_NAME"));
+        	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_INTEREST_REPAY_TR_CODE"));
+        	 searchName 	= gfn_nvl(SBUxMethod.get("FM_INTEREST_REPAY_TR_NAME"));
          }         
          
          var replaceText0 		= "_CODE_";
@@ -1999,38 +2028,38 @@
          var searchText1 	= '';
          var searchText2 	= '';
          if(type=='1'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_NAME"));
          } else if(type=='2'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_INTEREST_EXPENSE_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_INTEREST_EXPENSE_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_INTEREST_EXPENSE_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_INTEREST_EXPENSE_ACCOUNT_NAME"));
          } else if(type=='3'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PREPAID_ACC_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PREPAID_ACC_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_PREPAID_ACC_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_PREPAID_ACC_NAME"));
          } else if(type=='4'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_LONG_PREPAID_ACC_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_LONG_PREPAID_ACC_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_LONG_PREPAID_ACC_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_LONG_PREPAID_ACC_NAME"));
          } else if(type=='5'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_ACCRUED_EXPENSE_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_ACCRUED_EXPENSE_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_ACCRUED_EXPENSE_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_ACCRUED_EXPENSE_ACCOUNT_NAME"));
          } else if(type=='6'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_ACCOUNT_NAME"));
          } else if(type=='7'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_LIQUID_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_LOAN_LIQUID_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_LOAN_LIQUID_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_LOAN_LIQUID_ACCOUNT_NAME"));
          } else if(type=='8'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_LIQUID_ACCT_CD"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_LIQUID_ACCT_NM"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_LIQUID_ACCT_CD"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_LIQUID_ACCT_NM"));
          } else if(type=='9'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_INTEREST_ACCT_CD"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_PRESENT_VALUE_INTEREST_ACCT_NM"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_INTEREST_ACCT_CD"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_INTEREST_ACCT_NM"));
          } else if(type=='10'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_HDG_GAIN_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_HDG_GAIN_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_HDG_GAIN_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_HDG_GAIN_ACCOUNT_NAME"));
          } else if(type=='11'){
-             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_HDG_ACCOUNT_CODE"));
-             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_HDG_ACCOUNT_NAME"));
+             searchText1 	= gfn_nvl(SBUxMethod.get("FM_HDG_ACCOUNT_CODE"));
+             searchText2 	= gfn_nvl(SBUxMethod.get("FM_HDG_ACCOUNT_NAME"));
          }
          
          var replaceText0 	= "_ACCOUNT_CODE_";
@@ -2098,8 +2127,8 @@
       */ 
      var fn_compopup8 = function() {
     	 
-         var searchCode 		= gfnma_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_CODE"));
-         var searchName 		= gfnma_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_NAME"));
+         var searchCode 		= gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_CODE"));
+         var searchName 		= gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_NAME"));
          var replaceText0 		= "_CS_CODE_";
          var replaceText1 		= "_CS_NAME_";
          var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
@@ -2172,20 +2201,20 @@
           var searchText1 	= '';
           var searchText2 	= '';
           if(type=='1'){
-              searchText1 	= gfnma_nvl(SBUxMethod.get("FM_EXCHANGE_GAIN_ACC_CODE"));
-              searchText2 	= gfnma_nvl(SBUxMethod.get("FM_EXCHANGE_GAIN_ACC_NAME"));
+              searchText1 	= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_GAIN_ACC_CODE"));
+              searchText2 	= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_GAIN_ACC_NAME"));
           } else if(type=='2'){
-              searchText1 	= gfnma_nvl(SBUxMethod.get("FM_EXCHANGE_LOSS_ACC_CODE"));
-              searchText2 	= gfnma_nvl(SBUxMethod.get("FM_EXCHANGE_LOSS_ACC_NAME"));
+              searchText1 	= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_LOSS_ACC_CODE"));
+              searchText2 	= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_LOSS_ACC_NAME"));
           } else if(type=='3'){
-              searchText1 	= gfnma_nvl(SBUxMethod.get("FM_VAL_GAIN_ACC_CODE"));
-              searchText2 	= gfnma_nvl(SBUxMethod.get("FM_VAL_GAIN_ACC_NAME"));
+              searchText1 	= gfn_nvl(SBUxMethod.get("FM_VAL_GAIN_ACC_CODE"));
+              searchText2 	= gfn_nvl(SBUxMethod.get("FM_VAL_GAIN_ACC_NAME"));
           } else if(type=='4'){
-              searchText1 	= gfnma_nvl(SBUxMethod.get("FM_VAL_LOSS_ACC_CODE"));
-              searchText2 	= gfnma_nvl(SBUxMethod.get("FM_VAL_LOSS_ACC_NAME"));
+              searchText1 	= gfn_nvl(SBUxMethod.get("FM_VAL_LOSS_ACC_CODE"));
+              searchText2 	= gfn_nvl(SBUxMethod.get("FM_VAL_LOSS_ACC_NAME"));
           } else if(type=='5'){
-              searchText1 	= gfnma_nvl(SBUxMethod.get("FM_HDG_LOSS_ACCOUNT_CODE"));
-              searchText2 	= gfnma_nvl(SBUxMethod.get("FM_HDG_LOSS_ACCOUNT_NAME"));
+              searchText1 	= gfn_nvl(SBUxMethod.get("FM_HDG_LOSS_ACCOUNT_CODE"));
+              searchText2 	= gfn_nvl(SBUxMethod.get("FM_HDG_LOSS_ACCOUNT_NAME"));
           }
           
           var replaceText0 	= "_ACCOUNT_CODE_";
@@ -2230,18 +2259,33 @@
       	});
       }
 
-	// 행 추가
+	// 행 추가 [이율변동정보]
 	const fn_btnAdd = function() {
 		let rowVal = Trl1010GridTab4.getRow();
 
+		let LOAN_NUM 	= gfn_nvl(SBUxMethod.get("FM_LOAN_NUM")); //차입금번호
+
 		const msg = {
-			LOAN_NUM            : '',	//차입금번호
-			PLAN_SEQ            : '',	//순번
-			INTEREST_FROM_DATE  : '',	//적용시작일
-			INTEREST_TO_DATE    : '',	//적용종료일
-			INTEREST_RATE       : 0,	//이자율
-			CONFIRM_FLAG        : '',	//CONFIRM_FLAG
-			DESCR            	: '',	//적요
+			LOAN_NUM            : LOAN_NUM,	//차입금번호
+			PLAN_SEQ            : '',		//순번
+			INTEREST_FROM_DATE  : '',		//적용시작일
+			INTEREST_TO_DATE    : '',		//적용종료일
+			INTEREST_RATE       : 0,		//이자율
+			CONFIRM_FLAG        : 'N',		//CONFIRM_FLAG
+			DESCR            	: '',		//적요
+
+			/********** hidden : true 컬럼 **********/
+			REPAY_PLAN_DATE				: '',
+			CURRENCY_CODE				: '',
+			REPAY_TOTAL_AMT				: 0,
+			REPAY_TRANSFER_AMT			: 0,
+			REPAY_PLAN_AMT				: 0,
+			REMAIN_LOAN_AMT				: 0,
+			INTEREST_REPAY_PLAN_AMT		: 0,
+			INTEREST_DAY				: '',
+			INTERFACE_FLAG				: '',
+			COMPLETE_FLAG				: '',
+			TXN_ID						: '',
 
 			status: 'i'
 		}
@@ -2253,7 +2297,7 @@
 		}
 	}
 
-	// 행삭제
+	// 행삭제 [이율변동정보]
 	const fn_btnDel = async function () {
 
 		let rowVal = Trl1010GridTab4.getRow();
@@ -2263,6 +2307,56 @@
 			return;
 		} else {
 			Trl1010GridTab4.deleteRow(rowVal);
+		}
+
+	}
+
+	// 행 추가 [상황계횐]
+	const fn_btnAddPlan = function() {
+		let rowVal = Trl1010GridTab5.getRow();
+
+		let LOAN_NUM 	= gfn_nvl(SBUxMethod.get("FM_LOAN_NUM")); //차입금번호
+
+		const msg = {
+			LOAN_NUM            		: LOAN_NUM,	//차입금번호
+			PLAN_SEQ            		: '',		//순번
+			REPAY_PLAN_DATE  			: '',		//상환예정일
+			CURRENCY_CODE    			: '',		//통화
+			REPAY_TOTAL_AMT            	: 0,		//총상환액
+			REPAY_TRANSFER_AMT          : 0,		//차입금대체
+			REPAY_PLAN_AMT            	: 0,		//원금상환예정액
+			REMAIN_LOAN_AMT            	: 0,		//차입금잔액
+			INTEREST_REPAY_PLAN_AMT     : 0,		//이자상환예정액
+			INTEREST_RATE            	: 0,		//이자율
+			INTEREST_DAY            	: '',		//이자일수
+			INTEREST_FROM_DATE          : '',		//적용시작일
+			INTEREST_TO_DATE          	: '',		//적용종료일
+			CONFIRM_FLAG            	: 'N',		//확정여부
+			INTERFACE_FLAG            	: 'N',		//전송여부
+			COMPLETE_FLAG            	: 'N',		//완료여부
+			TXN_ID            			: '',		//id
+
+
+			status: 'i'
+		}
+
+		if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+			Trl1010GridTab5.addRow(true, msg);
+		}else{
+			Trl1010GridTab5.insertRow(rowVal, 'below', msg);
+		}
+	}
+
+	// 행삭제 [상황계횐]
+	const fn_btnDelPlan = async function () {
+
+		let rowVal = Trl1010GridTab5.getRow();
+
+		if (rowVal == -1) {
+			gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+			return;
+		} else {
+			Trl1010GridTab5.deleteRow(rowVal);
 		}
 
 	}
@@ -2328,7 +2422,9 @@
 			}
 		});
 
-		SBUxMethod.set("FM_REPAY_SEQ"      , tmpBankAcctSeq);
+		//SBUxMethod.set("FM_REPAY_SEQ"      , tmpBankAcctSeq);
+		gfnma_multiSelectSet('#FM_REPAY_SEQ', 'SUB_CODE', 'CODE_NAME', tmpBankAcctSeq);
+
 
 		fn_P_TRL1010_Q('DETAIL', gridData);
 
@@ -2392,6 +2488,8 @@
 		const data = await postJsonPromise;
 
 		try {
+			bQuery = true;
+
 			if (_.isEqual("S", data.resultStatus)) {
 
 				/*/!** @type {number} **!/
@@ -2445,6 +2543,8 @@
 			}
 			console.error("failed", e.message);
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}finally {
+			bQuery = false;
 		}
 
 	}
@@ -2508,6 +2608,8 @@
 		console.log('-----------data----------', data);
 
 		try {
+			bQuery = true;
+
 			if (_.isEqual("S", data.resultStatus)) {
 
 				/*/!** @type {number} **!/
@@ -2610,7 +2712,8 @@
 					SBUxMethod.set("FM_INTEREST_CALC_YEAR_TYPE"      			, gfn_nvl(item.INTEREST_CALC_YEAR_TYPE));
 					SBUxMethod.set("FM_INTEREST_CALC_BASE_DAY"      			, gfn_nvl(item.INTEREST_CALC_BASE_DAY));
 					SBUxMethod.set("FM_AMORTIZE_BASE_DATE"      				, gfn_nvl(item.AMORTIZE_BASE_DATE));
-					SBUxMethod.set("FM_REPAY_SEQ"      							, gfn_nvl(item.REPAY_SEQ));
+					//SBUxMethod.set("FM_REPAY_SEQ"      							, gfn_nvl(item.REPAY_SEQ));
+					gfnma_multiSelectSet('#FM_REPAY_SEQ', 'SUB_CODE', 'CODE_NAME', gfn_nvl(item.REPAY_SEQ));
 					SBUxMethod.set("FM_REPAY_PREAUTH_PAY_YN"      				, gfn_nvl(item.REPAY_PREAUTH_PAY_YN));
 					SBUxMethod.set("FM_INTEREST_PREAUTH_PAY_YN"      			, gfn_nvl(item.INTEREST_PREAUTH_PAY_YN));
 					SBUxMethod.set("FM_AMORTIZE_REPAY_CYCLE_MM"      			, gfn_nvl(item.AMORTIZE_REPAY_CYCLE_MM));
@@ -2690,6 +2793,8 @@
 			}
 			console.error("failed", e.message);
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}finally {
+			bQuery = false;
 		}
 
 	}
@@ -2760,7 +2865,8 @@
 		let AMORTIZE_BASE_DATE 				= gfn_nvl(SBUxMethod.get("FM_AMORTIZE_BASE_DATE"));				//상각기준일
 		let PRESENT_VALUE_LIQUID_ACCT 		= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_LIQUID_ACCT_CD"));	//현재가치할인차금유동성대체계정
 		let PRESENT_VALUE_INT_ACCT 			= gfn_nvl(SBUxMethod.get("FM_PRESENT_VALUE_INTEREST_ACCT_CD"));	//사채할인차금이자비용
-		let REPAY_SEQ 						= gfn_nvl(SBUxMethod.get("FM_REPAY_SEQ"));						//상환거래처계좌
+		//let REPAY_SEQ 						= gfn_nvl(SBUxMethod.get("FM_REPAY_SEQ"));						//상환거래처계좌
+		let REPAY_SEQ						= gfn_nvl(gfnma_multiSelectGet('#FM_REPAY_SEQ'));				//상환거래처계좌
 		let REPAY_BANK_CS_CODE 				= gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_CODE"));				//상환거래처
 		let REPAY_PREAUTH_PAY_YN 			= gfn_nvl(SBUxMethod.get("FM_REPAY_PREAUTH_PAY_YN"));			//원금지급기준
 		let INTEREST_PREAUTH_PAY_YN 		= gfn_nvl(SBUxMethod.get("FM_INTEREST_PREAUTH_PAY_YN"));		//이자지급기준
@@ -2958,7 +3064,7 @@
 					,V_P_TXN_ID           : gfn_nvl(item.data.TXN_ID) == '' ? 0 : item.data.TXN_ID
 					,V_P_APPLY_START_DATE : gfn_nvl(item.data.APPLY_START_DATE)
 					,V_P_APPLY_END_DATE   : gfn_nvl(item.data.APPLY_END_DATE)
-					,V_P_INTEREST_RATE    : gfn_nvl(item.data.INTEREST_RATE)
+					,V_P_INTEREST_RATE    : gfn_nvl(item.data.INTEREST_RATE) == '' ? 0 : item.data.INTEREST_RATE
 					,V_P_DESCR            : gfn_nvl(item.data.DESCR)
 					,V_P_CONFIRM_FLAG     : gfn_nvl(item.data.CONFIRM_FLAG)
 
@@ -2976,6 +3082,215 @@
 		});
 		return returnData;
 	}
+
+
+
+	/**
+	 * 탭클릭
+	 */
+	const fn_tabClick = function(val) {
+
+		console.log('--------jsonLoanType--------', jsonLoanType);
+		console.log('--------jsonSiteCode--------', jsonSiteCode);
+
+		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("FM_LOAN_TYPE"));	//차입금유형
+
+		console.log('--------LOAN_TYPE--------', LOAN_TYPE);
+
+		p_sel_tab = val;
+	}
+
+	/**
+	 * 차입금액(전표) 계산	[환율]
+	 */
+	var fn_editValEx = function() {
+
+		let EXCHANGE_RATE 		= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_RATE"));	//환율
+		let LOAN_AMT 			= gfn_nvl(SBUxMethod.get("FM_LOAN_AMT"));	//차입금액(통화)
+
+		let totalVal = Math.round(Number(LOAN_AMT) * Number(EXCHANGE_RATE));	//차입금액(통화) * 환율
+
+		//차입금액(전표)
+		SBUxMethod.set("FM_LOAN_AMT_KRW"    	, totalVal);
+
+
+	}
+
+	/**
+	 * 차입금액(전표) 계산	[차입금액(통화)]
+	 */
+	var fn_editValLoan = function() {
+
+		let EXCHANGE_RATE 		= gfn_nvl(SBUxMethod.get("FM_EXCHANGE_RATE"));	//환율
+		let LOAN_AMT 			= gfn_nvl(SBUxMethod.get("FM_LOAN_AMT"));	//차입금액(통화)
+
+		let totalVal = Math.round(Number(LOAN_AMT) * Number(EXCHANGE_RATE));	//차입금액(통화) * 환율
+
+		//차입금액(전표)
+		SBUxMethod.set("FM_LOAN_AMT_KRW"    	, totalVal);
+
+		let REPAY_AMT 		= gfn_nvl(SBUxMethod.get("FM_REPAY_AMT"));	//기상환금액
+
+		let dValue = Number(REPAY_AMT) - Number(LOAN_AMT);
+
+		if (dValue >= 0){
+			//미상환금액
+			SBUxMethod.set("FM_REMAIN_LOAN_AMT"    	, dValue);
+		}else{
+			//미상환금액
+			SBUxMethod.set("FM_REMAIN_LOAN_AMT"    	, Math.abs(dValue));
+		}
+
+	}
+
+
+	/**
+	 * 미상환금액 계산 [기상환금액]		numrepay_amt_EditValueChanged
+	 */
+	var fn_editValRepay = function() {
+
+		let REPAY_AMT 		= gfn_nvl(SBUxMethod.get("FM_REPAY_AMT"));	//기상환금액
+		let LOAN_AMT 		= gfn_nvl(SBUxMethod.get("FM_LOAN_AMT"));	//차입금액(통화)
+
+		let dValue = Number(REPAY_AMT) - Number(LOAN_AMT);
+
+		if (dValue >= 0){
+			//미상환금액
+			SBUxMethod.set("FM_REMAIN_LOAN_AMT"    	, dValue);
+		}else{
+			//미상환금액
+			SBUxMethod.set("FM_REMAIN_LOAN_AMT"    	, Math.abs(dValue));
+		}
+
+	}
+
+	/**
+	 * 통화
+	 */
+	var fn_editValCurrency = function() {
+
+		let CURRENCY_CODE 		= gfn_nvl(SBUxMethod.get("FM_CURRENCY_CODE"));	//통화
+
+		if (_.isEqual(CURRENCY_CODE, "KRW"))
+		{
+			fn_ExchangeEvalAcct(false);
+		}
+		else
+		{
+			fn_ExchangeEvalAcct(true);
+		}
+	}
+
+	/**
+	 * 통화
+	 */
+	var fn_ExchangeEvalAcct = function(bFlag) {
+
+		let strBgColor = "White";
+
+		if (bFlag)
+		{
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_CODE", "readonly"	, false);	//환차익계정
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_NAME", "readonly"	, false);	//환차익계정
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_BTN", "readonly"	, false);	//환차익계정 팝업버튼
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_CODE", "readonly"	, false);	//환자손계정
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_NAME", "readonly"	, false);	//환자손계정
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_BTN", "readonly"	, false);	//환자손계정 팝업버튼
+
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_CODE", "readonly"	, false);	//환평가이익계정
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_NAME", "readonly"	, false);	//환평가이익계정
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_BTN", "readonly"	, false);	//환평가이익계정 팝업버튼
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_CODE", "readonly"	, false);	//환평가손실계정
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_NAME", "readonly"	, false);	//환평가손실계정
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_BTN", "readonly"	, false);	//환평가손실계정 팝업버튼
+
+		}
+		else
+		{
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_CODE", "readonly", true);	//환차익계정
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_NAME", "readonly", true);	//환차익계정
+			SBUxMethod.attr("FM_EXCHANGE_GAIN_ACC_BTN", "readonly", true);	//환차익계정 팝업버튼
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_CODE", "readonly", true);	//환자손계정
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_NAME", "readonly", true);	//환자손계정
+			SBUxMethod.attr("FM_EXCHANGE_LOSS_ACC_BTN", "readonly", true);	//환자손계정 팝업버튼
+
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_CODE", "readonly"	, true);	//환평가이익계정
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_NAME", "readonly"	, true);	//환평가이익계정
+			SBUxMethod.attr("FM_VAL_GAIN_ACC_BTN", "readonly"	, true);	//환평가이익계정 팝업버튼
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_CODE", "readonly"	, true);	//환평가손실계정
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_NAME", "readonly"	, true);	//환평가손실계정
+			SBUxMethod.attr("FM_VAL_LOSS_ACC_BTN", "readonly"	, true);	//환평가손실계정 팝업버튼
+		}
+
+	}
+
+	/**
+	 * 차입금유형
+	 */
+	var fn_editValLoanType = function() {
+
+		if (bQuery){
+			return;
+		}
+
+		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("FM_LOAN_TYPE"));	//차입금유형
+
+		if (LOAN_TYPE == ''){
+			return;
+		}
+
+		jsonLoanType.forEach((item, index) => {
+
+
+			if (_.isEqual(item.SUB_CODE, LOAN_TYPE)) {
+
+				//차입금계정
+				SBUxMethod.set("FM_LOAN_ACCOUNT_CODE"    	, item.EXTRA_FIELD1);
+				SBUxMethod.set("FM_LOAN_ACCOUNT_NAME"    	, item.EXTRA_FIELD1_NM);
+
+				//이자비용계정
+				SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_CODE"    	, item.EXTRA_FIELD2);
+				SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_NAME"    	, item.EXTRA_FIELD2_NM);
+
+				//선급비용계정
+				SBUxMethod.set("FM_PREPAID_ACC_CODE"    	, item.EXTRA_FIELD3);
+				SBUxMethod.set("FM_PREPAID_ACC_NAME"    	, item.EXTRA_FIELD3_NM);
+
+				//미지급비용계정
+				SBUxMethod.set("FM_ACCRUED_EXPENSE_ACCOUNT_CODE"    	, item.EXTRA_FIELD4);
+				SBUxMethod.set("FM_ACCRUED_EXPENSE_ACCOUNT_NAME"    	, item.EXTRA_FIELD4_NM);
+
+				//환차익계정
+				SBUxMethod.set("FM_EXCHANGE_GAIN_ACC_CODE"    	, item.EXTRA_FIELD5);
+				SBUxMethod.set("FM_EXCHANGE_GAIN_ACC_NAME"    	, item.EXTRA_FIELD5_NM);
+
+				//환차손계정
+				SBUxMethod.set("FM_EXCHANGE_LOSS_ACC_CODE"    	, item.EXTRA_FIELD6);
+				SBUxMethod.set("FM_EXCHANGE_LOSS_ACC_NAME"    	, item.EXTRA_FIELD6_NM);
+
+				//환평가이익계정
+				SBUxMethod.set("FM_VAL_GAIN_ACC_CODE"    	, item.EXTRA_FIELD7);
+				SBUxMethod.set("FM_VAL_GAIN_ACC_NAME"    	, item.EXTRA_FIELD7_NM);
+
+				//환평가손실계정
+				SBUxMethod.set("FM_VAL_LOSS_ACC_CODE"    	, item.EXTRA_FIELD8);
+				SBUxMethod.set("FM_VAL_LOSS_ACC_NAME"    	, item.EXTRA_FIELD8_NM);
+
+				//부서
+				SBUxMethod.set("FM_DEPOSIT_CODE"    	, item.EXTRA_FIELD9);
+				SBUxMethod.set("FM_DEPOSIT_NAME"    	, item.EXTRA_FIELD9_NM);
+
+				//원가중심점
+				SBUxMethod.set("FM_COST_CENTER_CODE"    	, item.EXTRA_FIELD10);
+				SBUxMethod.set("FM_COST_CENTER_NAME"    	, item.EXTRA_FIELD10_NM);
+
+			}
+
+		});
+
+	}
+
+
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
