@@ -261,6 +261,7 @@
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnReport5" name="btnReport5" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+						<sbux-button id="btnReportIso" name="btnReportIso" uitype="normal" class="btn btn-sm btn-primary" text="소속 출자출하조직 총괄표 출력" onclick="fn_reportIso"></sbux-button>
 						<sbux-button id="btnReport6" name="btnReport6" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
 					</div>
 				</div>
@@ -602,8 +603,6 @@
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
 	}
 
-
-
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -872,6 +871,24 @@
 			, corpnm 	: gfn_nvl(reqCorpNm)
 			, buisno 	: gfn_nvl(reqBuisNo)
 			, corpno 	: gfn_nvl(reqCorpNo)
+		});
+	}
+
+	const fn_reportIso = async function() {
+		let reqBrno = SBUxMethod.get("dtl-input-brno");//
+		let reqYr = SBUxMethod.get("dtl-input-yr");//
+
+		if(!reqBrno){
+			alert("법인체를 선택하세요");
+			return false;
+		}
+
+		let reqCorpNm = SBUxMethod.get("dtl-input-corpNm");//
+
+		gfn_popClipReport("소속 출자출하조직 총괄표", "pd/docAll4.crf", {
+			uobrno 		: gfn_nvl(reqBrno)
+			, yr 		: gfn_nvl(reqYr)
+			, allgroup 	: gfn_nvl(reqCorpNm)
 		});
 	}
 
