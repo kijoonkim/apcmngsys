@@ -63,4 +63,35 @@ public class ApcMaFig5240Controller extends BaseController {
 		logger.info("=============selectFig5240List=====end========");
 		return getSuccessResponseEntity(resultMap);	
 	}	
+	
+	// 재무상태표조회 리포트 조회
+	@PostMapping(value = "/fi/fgl/sta/selectFig5240Report.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFig5240Report(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============selectFig5240Report=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIG5240_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+    		//self url 편집
+    		String f_path1 = request.getRequestURL().toString();
+    		String f_path2 = request.getRequestURI().toString();
+    		String f_path3 = f_path1.replaceAll(f_path2, "");
+    		resultMap.put("SERVER_ROOT_PATH", f_path3);
+    		
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============selectFig5240Report=====end========");
+		return getSuccessResponseEntity(resultMap);	
+	}	
 }
