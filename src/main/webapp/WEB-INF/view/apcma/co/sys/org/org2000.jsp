@@ -79,7 +79,7 @@
                             <td style="border-right: hidden;">&nbsp;</td>
                             <th scope="row" class="th_bg">기준일</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker id="SRCH_BASE_DATE" name="SRCH_BASE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class=""></sbux-datepicker>
+                                <sbux-datepicker id="SRCH_BASE_DATE" name="SRCH_BASE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
                            
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
