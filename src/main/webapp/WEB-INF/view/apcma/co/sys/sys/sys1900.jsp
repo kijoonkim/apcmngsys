@@ -76,7 +76,7 @@
                             id="SRCH_LOG_DATE_FR"
                             name="SRCH_LOG_DATE_FR"
                             uitype="popup"
-                            date-format="yyyymmdd"
+                            date-format="yyyy-mm-dd"
                             class="form-control input-sm input-sm-ast">
                     </sbux-datepicker>
                 </td>
@@ -86,7 +86,7 @@
                             id="SRCH_LOG_DATE_TO"
                             name="SRCH_LOG_DATE_TO"
                             uitype="popup"
-                            date-format="yyyymmdd"
+                            date-format="yyyy-mm-dd"
                             class="form-control input-sm input-sm-ast">
                     </sbux-datepicker>
                 </td>
