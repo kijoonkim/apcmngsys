@@ -222,10 +222,20 @@
 			     , CU.RMRK     			AS RMRK
 			     , CU.DEL_YN    		AS DEL_YN
 			  FROM TB_COM_USER CU
-			 WHERE USER_TYPE IN ('10', '11')
-			   AND USER_STTS IN ('01', '00')
-			   AND CU.APC_CD = #{apcCd}
+			 WHERE CU.USER_STTS IN ('01', '00')
+			   AND NVL(CU.TYPE_CD, '3') IN ('1', '3')
 			   AND CU.USER_ID != #{sysUserId}
+			   AND (
+			   		CU.APC_CD = #{apcCd}
+			   		OR
+			   		EXISTS (
+			   			SELECT 1
+			   			  FROM TB_COM_USER_APC X
+			   			 WHERE X.USER_ID = CU.USER_ID
+			   			   AND X.APC_CD = #{apcCd}
+			   			   AND X.APRV_YN = 'Y'
+			   		)
+				)
 		]]>
 		<if test='userNm != null and userNm != ""'>
 		   AND CU.USER_NM LIKE '%' ||  #{userNm} || '%'
