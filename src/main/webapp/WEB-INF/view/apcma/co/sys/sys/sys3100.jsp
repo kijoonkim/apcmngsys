@@ -320,7 +320,7 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.filtering = true;
+        //SBGridProperties.filtering = true;
         /* SBGridProperties.rowheader = 'seq';*/
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/

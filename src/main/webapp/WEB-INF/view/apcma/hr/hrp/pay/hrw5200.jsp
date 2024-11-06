@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrw5200.jsp
      * @Description       : 건강보험 내역 관리 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.01
@@ -72,7 +72,7 @@
                                         name="SRCH_YYYYMM_FR"
                                         uitype="popup"
                                         datepicker-mode="month"
-                                        date-format="yyyymm"
+                                        date-format="yyyy-mm"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>
@@ -80,7 +80,7 @@
                             </td>
                             <td style="border-right: hidden;"></td>
 
-                            <th scope="row" class="th_bg">지급구분</th>
+                            <th scope="row" class="th_bg">급여영역</th>
                             <td class="td_input">
                                 <sbux-select
                                         id="SRCH_PAY_AREA_TYPE"

@@ -87,7 +87,7 @@
                             name="SRCH_PAY_YYYYMM"
                             uitype="popup"
                             datepicker-mode="month"
-                            date-format="yyyymm"
+                            date-format="yyyy-mm"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             onchange="fn_payDate"
                             required>
@@ -222,7 +222,7 @@
                                         id="EXPECTED_PAY_DATE"
                                         name="EXPECTED_PAY_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast "
                                         >
                                 </sbux-datepicker>
@@ -234,7 +234,7 @@
                                         id="POSTING_DATE"
                                         name="POSTING_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast "
                                         >
                                 </sbux-datepicker>
@@ -557,7 +557,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true;
+        //SBGridProperties.filtering = true;
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -598,7 +598,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true;
+        //SBGridProperties.filtering = true;
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';

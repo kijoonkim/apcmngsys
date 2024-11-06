@@ -68,7 +68,7 @@
                             id="SRCH_APPLY_DATE"
                             name="SRCH_APPLY_DATE"
                             uitype="popup"
-                            date-format="yyyymmdd"
+                            date-format="yyyy-mm-dd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed">
                     </sbux-datepicker>
                 </td>
@@ -818,8 +818,8 @@
         let ALL_YN 			        = gfn_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
         let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
         let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
-        let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
-        let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+        let PAY_ITEM_RANGE_TYPE1	= gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1'));
+        let PAY_ITEM_RANGE_TYPE2	= gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2'));
         let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));
 
 
@@ -1041,7 +1041,7 @@
         // 변경 감지 시 실행할 콜백 함수
         const callback = (mutationList, observer) => {
             let type1Chk = gfn_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
-            let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+            let PAY_ITEM_RANGE_TYPE1 = gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1'));
 
             if (_.isEmpty(type1Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
@@ -1056,7 +1056,7 @@
             }
 
             let type2Chk = gfn_nvl($('#PAY_ITEM_RANGE_TYPE2').attr('disabled'));
-            let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+            let PAY_ITEM_RANGE_TYPE2 = gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2'));
             if (_.isEmpty(type2Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
                     if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
@@ -1089,8 +1089,8 @@
             let ALL_YN 			        = gfn_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
             let APPLY_START_DATE 		= gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
             let APPLY_END_DATE 			= gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
-            let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
-            let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+            let PAY_ITEM_RANGE_TYPE1	= gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1'));
+            let PAY_ITEM_RANGE_TYPE2	= gfn_nvl(gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2'));
             let MEMO 			        = gfn_nvl(SBUxMethod.get("MEMO"));
 
 
