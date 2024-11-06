@@ -471,16 +471,124 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				}
 				// 입고번호 설정
 				wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
-
 				wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 
-				wghPrfmncDtlVO.setWghSn(seq);
 
 				start++;
 				seq++;
 
 			}
+
 		}
+
+		if (updateList != null && updateList.size() > 0) {
+
+			int groupId = 0;
+			int start = 1;
+			for (WghPrfmncVO wghPrfmncVO : updateList) {
+
+				if (start == 1) {
+					groupId = wghPrfmncVO.getGroupId();
+
+					wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+				} else {
+
+					if (groupId != wghPrfmncVO.getGroupId()) {
+						groupId = wghPrfmncVO.getGroupId();
+						wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+					} else {
+						wghPrfmncVO.setPltQntt(0);
+						wghPrfmncVO.setWholWght(0);
+					}
+				}
+
+				if ("Y".equals(wghPrfmncVO.getNewYn())) {
+					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+					String gdsSecd = wghPrfmncVO.getGdsSeCd();
+					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+					if (!StringUtils.hasText(wrhsSecd)) {
+						wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(gdsSecd)) {
+						wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(trsprtSecd)) {
+						wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
+					}
+
+					WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+					BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+
+					RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+					rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+					rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+					rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+					rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+					rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
+
+
+					HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+					// 입고번호 설정
+					wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+					wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
+				} else {
+
+					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+					String gdsSecd = wghPrfmncVO.getGdsSeCd();
+					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+					if (!StringUtils.hasText(wrhsSecd)) {
+						wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(gdsSecd)) {
+						wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(trsprtSecd)) {
+						wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
+					}
+
+					WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+					BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+
+					HashMap<String, Object> rtnObj = updateWghPrfmncDtl(wghPrfmncDtlVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+					RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+					rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+					rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+					rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+					rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+					rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
+
+					HashMap<String, Object> rtnObjWrhs = rawMtrWrhsService.updateRawMtrWrhs(rawMtrWrhsVO);
+					if (rtnObjWrhs != null) {
+						throw new EgovBizException(getMessageForMap(rtnObjWrhs));
+					}
+
+				}
+
+				start++;
+
+			}
+
+		}
+
 		return null;
 	}
 }

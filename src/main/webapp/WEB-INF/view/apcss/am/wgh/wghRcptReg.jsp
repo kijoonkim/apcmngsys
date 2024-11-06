@@ -612,7 +612,7 @@
 
 		let grdAllData = grdWghPrfmnc.getGridDataAll();
 		let multiList = [];
-
+		let wghSnList = [];
 		for (var i=1; i<=grdAllData.length; i++) {
 
 			let rowData = grdWghPrfmnc.getRowData(i);
@@ -645,6 +645,18 @@
 				} else if (addYn == "N") {
 
 					if (stts == 2) {
+						wghSnList.length = 0;
+						for (var n=0; n<jsonApcGrd.length; n++) {
+
+							let snRowData = grdWghPrfmnc.getRowData(i);
+							let grdWghSnKey = "grdWghSn"+(n+1);
+							let wghSn = snRowData[grdWghSnKey];
+
+							if (!gfn_isEmpty(wghSn)) {
+								wghSnList.push(wghSn)
+							}
+						}
+
 						for (var k=1; k<=jsonApcGrd.length; k++) {
 							let updateRow = grdWghPrfmnc.getRowData(i);
 							updateRow.rowSts = "U";
@@ -662,8 +674,21 @@
 							updateRow.grdCd = grdCd;
 							updateRow.bxQntt = bxQntt;
 							updateRow.wrhsno = wrhsno;
-							updateRow.wghSn = wghSn;
+							updateRow.pltno = wrhsno;
+							if (gfn_isEmpty(wghSn)) {
+								updateRow.newYn = 'Y';
+								let max = Math.max(...wghSnList);
+								updateRow.wghSn = parseInt(max) + 1;
+								wghSnList.push(parseInt(max) +1);
+							} else {
+								updateRow.wghSn = wghSn;
+							}
+
+							if (gfn_isEmpty(grdCd)) {
+								updateRow.grdCd = jsonApcGrd[(k-1)].grdCd;
+							}
 							updateRow.wholWght = updateRow.actlWght;
+							updateRow.groupId = i;
 
 							if (!gfn_isEmpty(wghSn) || bxQntt > 0) {
 								multiList.push(updateRow);
@@ -676,9 +701,6 @@
 				}
 			}
 		}
-
-		console.log("multiList", multiList);
-
 
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
@@ -697,6 +719,32 @@
 	    		}
 	    		console.error("failed", e.message);
 			}
+		}
+	}
+
+	/**
+     * @name fn_deleteWghPrfmnc
+     * @description 계량실적 삭제
+     */
+	const fn_deleteWghPrfmnc = async function (wghPrfmncVO, nRow) {
+		const deleteList = [];
+		deleteList.push(wghPrfmncVO);
+
+		const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncList.do", deleteList);
+    	const data = await postJsonPromise;
+
+    	try {
+    		if (_.isEqual("S", data.resultStatus)) {
+       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+       			grdWghPrfmnc.deleteRow(nRow);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
 		}
 	}
 
@@ -720,7 +768,7 @@
      * @description form 초기화
      * @function
      */
-	const fn_clearForm = function() {
+	const fn_clearForm = function(wghPrfmncVO, nRow) {
 
 	}
 
@@ -813,6 +861,10 @@
   						grdWghSn2 : item.grdWghSn2,
   						grdWghSn3 : item.grdWghSn3,
   						grdWghSn4 : item.grdWghSn4,
+  						grdPltno1 : item.grdPltno1,
+  						grdPltno2 : item.grdPltno2,
+  						grdPltno3 : item.grdPltno3,
+  						grdPltno4 : item.grdPltno4,
   						pltQntt : item.pltQntt,
   						addYn : 'N',
   						delYn : 'N'

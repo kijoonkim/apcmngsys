@@ -192,6 +192,10 @@ public class WghPrfmncVO extends ComVO {
 	 * 팔레트종류
 	 */
 	private String pltKnd;
+	/**
+	 * 팔레트번호
+	 */
+	private String pltno;
 
 	/**
 	 * 박스종류
@@ -287,6 +291,7 @@ public class WghPrfmncVO extends ComVO {
 	private String grdWghSn2;
 	private String grdWghSn3;
 	private String grdWghSn4;
+
 	/*
 	 * 팔레트수량
 	 * */
@@ -300,6 +305,10 @@ public class WghPrfmncVO extends ComVO {
 	 * 그룹번호
 	 * */
 	private int groupId;
+	/*
+	 * 신규여부
+	 * */
+	private String newYn;
 	/**
 	 * 계량상세리스트
 	 */
