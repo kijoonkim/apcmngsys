@@ -216,21 +216,21 @@
 		                            </td>
 		                            <th scope="row" class="th_bg acqsAmt1">취득가액</th>
 		                            <td  class="td_input acqsAmt1" style="border-right:hidden;">
-											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="ast1" ></sbux-input>
+											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="ast1" ></sbux-input>
 		                            </td>
 
 		                            <th scope="row" class="th_bg">상각누계액</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-accumDepr" name="srch-ast-accumDepr" class="form-control input-sm" uitype="text" ></sbux-input>
+											<sbux-input id="srch-ast-accumDepr" name="srch-ast-accumDepr" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" ></sbux-input>
 		                            </td>
-                                    <th scope="row" class="th_bg acqsAmt2">취득가액</th>
-		                            <td  class="td_input acqsAmt2" style="border-right:hidden;">
-											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm" uitype="text" ></sbux-input>
+                                    <th scope="row" class="th_bg acqsAmt2" hidden>취득가액</th>
+		                            <td  class="td_input acqsAmt2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
 		                            </td>
 
-									<th scope="row" class="th_bg bssAcqsAmt">기초취득가액</th>
-		                            <td  class="td_input bssAcqsAmt" style="border-right:hidden;">
-											<sbux-input id="srch-ast-beginAcquisitionAmount" name="srch-ast-beginAcquisitionAmount" class="form-control input-sm" uitype="text" ></sbux-input>
+									<th scope="row" class="th_bg bssAcqsAmt" hidden>기초취득가액</th>
+		                            <td  class="td_input bssAcqsAmt" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-beginAcquisitionAmount" name="srch-ast-beginAcquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -265,23 +265,23 @@
 		                            </td>
 		                            <th scope="row" class="th_bg ntAsstncAmt2">국고보조금</th>
 		                            <td  class="td_input ntAsstncAmt2" style="border-right:hidden;">
-											<sbux-input id="srch-out-subsidiesAmount" name="srch-out-subsidiesAmount" class="form-control input-sm" uitype="text" ></sbux-input>
+											<sbux-input id="srch-out-subsidiesAmount" name="srch-out-subsidiesAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" ></sbux-input>
 		                            </td>
 
 		                            <th scope="row" class="th_bg asstncDprcAtAmt">보조금상각누계액</th>
 		                            <td  class="td_input asstncDprcAtAmt" style="border-right:hidden;">
 											<sbux-input id="srch-ast-subsidiesAccDepr"
 											name="srch-ast-subsidiesAccDepr"
-											class="form-control input-sm" uitype="text"></sbux-input>
+											class="form-control input-sm" uitype="text"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
 									</td>
-		                            <th scope="row" class="th_bg">국고보조금</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-num-subsidiesAmount" name="srch-num-subsidiesAmount" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <th scope="row" class="th_bg"hidden>국고보조금</th>
+		                            <td  class="td_input" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-num-subsidiesAmount" name="srch-num-subsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden"></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg">기초국고보조금</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-beginSubsidiesAmount" name="srch-ast-beginSubsidiesAmount" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <th scope="row" class="th_bg"hidden>기초국고보조금</th>
+		                            <td  class="td_input" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-beginSubsidiesAmount" name="srch-ast-beginSubsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -297,27 +297,27 @@
 
 		                            <th scope="row" class="th_bg">감가상각비</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-depreciationAmount" name="srch-ast-depreciationAmount" class="form-control input-sm" uitype="text"  ></sbux-input>
+											<sbux-input id="srch-ast-depreciationAmount" name="srch-ast-depreciationAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" ></sbux-input>
 		                            </td>
 		                            <th scope="row" class="th_bg">장부가액</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-bookValue" name="srch-ast-bookValue" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="ast1" required></sbux-input>
+											<sbux-input id="srch-ast-bookValue" name="srch-ast-bookValue" class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="ast1" required></sbux-input>
 		                            </td>
-								    <th scope="row" class="th_bg dprcAtAmt2">감가상각누계액</th>
-		                            <td  class="td_input dprcAtAmt2" style="border-right:hidden;">
-											<sbux-input id="srch-ast-accumulatedDepreciation" name="srch-ast-accumulatedDepreciation" class="form-control input-sm" uitype="text" ></sbux-input>
+								    <th scope="row" class="th_bg dprcAtAmt2"hidden>감가상각누계액</th>
+		                            <td  class="td_input dprcAtAmt2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-accumulatedDepreciation" name="srch-ast-accumulatedDepreciation" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden"></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg dspsRt">처분비율</th>
-		                            <td  class="td_input dspsRt" style="border-right:hidden;">
-											<sbux-input id="srch-ast-acquisitionRate" name="srch-ast-acquisitionRate" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <th scope="row" class="th_bg dspsRt"hidden>처분비율</th>
+		                            <td  class="td_input dspsRt" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionRate" name="srch-ast-acquisitionRate" class="form-control input-sm" uitype="hidden" ></sbux-input>
 		                            </td>
 
 		                        </tr>
 
 		                        <tr>
 		                            <th scope="row" class="th_bg">사업장</th>
-		                            <td class="td_input" style="border-right:hidden;">
+		                            <td colspan="2" class="td_input" style="border-right:hidden;">
 											<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -335,26 +335,27 @@
 										</div>
 		                            </td>
 
-		                            <th scope="row" class="th_bg intlDspsNo">당초처분번호</th>
-		                            <td  class="td_input intlDspsNo" style="border-right:hidden;">
-											<sbux-input id="srch-ast-originalAssetDispNo" name="srch-ast-originalAssetDispNo" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <th scope="row" class="th_bg intlDspsNo"hidden>당초처분번호</th>
+		                            <td  class="td_input intlDspsNo" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-originalAssetDispNo" name="srch-ast-originalAssetDispNo" class="form-control input-sm" uitype="hidden" ></sbux-input>
 		                            </td>
+
 		                            <th scope="row" class="th_bg">국고보조금상각</th>
 		                            <td  class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-ast-subsidiesDepr" name="srch-ast-subsidiesDepr" class="form-control input-sm" uitype="text" ></sbux-input>
 		                            </td>
-		                            <td colspan="2" class="td_input" style="border-right:hidden;">
-										<sbux-input id="srch-ast-subsidiesDeprName" name="srch-ast-subsidiesDeprName" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <td colspan="2" class="td_input" style="border-right:hidden;"hidden>
+										<sbux-input id="srch-ast-subsidiesDeprName" name="srch-ast-subsidiesDeprName" class="form-control input-sm" uitype="hidden" ></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg">보조금상각누계액</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-subsidiesAccDepreciation" name="srch-ast-subsidiesAccDepreciation" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            <th scope="row" class="th_bg"hidden>보조금상각누계액</th>
+		                            <td  class="td_input" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-subsidiesAccDepreciation" name="srch-ast-subsidiesAccDepreciation" class="form-control input-sm" uitype="hidden" ></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg dspsAmt">처분금액</th>
-		                            <td  class="td_input dspsAmt" style="border-right:hidden;">
-											<sbux-input id="srch-ast-acquisitionAmountEvent" name="srch-ast-acquisitionAmountEvent" class="form-control input-sm" uitype="text"
+		                            <th scope="row" class="th_bg dspsAmt"hidden>처분금액</th>
+		                            <td  class="td_input dspsAmt" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionAmountEvent" name="srch-ast-acquisitionAmountEvent" class="form-control input-sm" uitype="hidden"
 											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)"></sbux-input>
 		                            </td>
 
@@ -378,6 +379,10 @@
 		                            <td class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-ast-insetUserName" name="srch-ast-insetUserName" class="form-control input-sm" uitype="text"></sbux-input>
 		                            </td>
+		                            <th scope="row" class="th_bg"  hidden>전표명</th>
+		                            <td class="td_input" style="border-right:hidden;">
+											<sbux-input id="srch-ast-docBatchNo1" name="srch-ast-docBatchNo1" class="form-control input-sm" uitype="hidden"  ></sbux-input>
+		                            </td>
 
 		                        </tr>
                  		          <tr>
@@ -392,6 +397,10 @@
 		                            <th scope="row" class="th_bg">작성자</th>
 		                            <td class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-ast-insetUserNameDisposal" name="srch-ast-insetUserNameDisposal" class="form-control input-sm" uitype="text"></sbux-input>
+		                            </td>
+		                            <th scope="row" class="th_bg" hidden>전표명</th>
+		                            <td class="td_input" style="border-right:hidden;">
+											<sbux-input id="srch-ast-docBatchNo2" name="srch-ast-docBatchNo2" class="form-control input-sm" uitype="hidden"  ></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -474,7 +483,7 @@
 
 		                            <th scope="row" class="th_bg">환율</th>
 		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-exchangeRate" name="srch-dsps-exchangeRate" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1" onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)"></sbux-select>
+		                            		<sbux-input id="srch-dsps-exchangeRate" name="srch-dsps-exchangeRate" class="form-control input-sm inpt_data_reqed" uitype="text" mask = "{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true }" group-id="dsps1" onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)"></sbux-select>
 		                            	</td>
 
 
@@ -497,7 +506,7 @@
 										</div>
 		                            	</td>
 		                            	<td class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-vatRate" name="srch-dsps-vatRate" class="form-control input-sm" uitype="text" ></sbux-input>
+		                            		<sbux-input id="srch-dsps-vatRate" name="srch-dsps-vatRate" class="form-control input-sm" uitype="text" readonly></sbux-input>
 		                            	</td>
 
 		                            <th scope="row" class="th_bg">처분손익</th>
@@ -516,7 +525,7 @@
 
 		                            <th scope="row" class="th_bg">매각금액</th>
 		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-disposalOriginalAmount" name="srch-dsps-disposalOriginalAmount" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-select>
+		                            		<sbux-input id="srch-dsps-disposalOriginalAmount" name="srch-dsps-disposalOriginalAmount" class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"uitype="text" group-id="dsps1"></sbux-select>
 		                            	</td>
 
 
@@ -543,11 +552,11 @@
 
 		                        	<th scope="row" class="th_bg">환산금액</th>
 		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-dispFunctionalAmt" name="srch-dsps-dispFunctionalAmt" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
+		                            		<sbux-input id="srch-dsps-dispFunctionalAmt" name="srch-dsps-dispFunctionalAmt" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="dsps1"></sbux-input>
 	                            	</td>
 		                        	<th scope="row" class="th_bg">금액합계</th>
 		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-totalAmount" name="srch-dsps-totalAmount" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
+		                            		<sbux-input id="srch-dsps-totalAmount" name="srch-dsps-totalAmount" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="dsps1"></sbux-input>
 	                            	</td>
 		                        </tr>
 
@@ -597,7 +606,7 @@
 										</div>
 	                            	</td>
 	                            	<td class="td_input" style="border-right:hidden;">
-	                            		<sbux-input id="srch-dsps-expenseVatRate" name="srch-dsps-expenseVatRate" class="form-control input-sm" uitype="text" ></sbux-input>
+	                            		<sbux-input id="srch-dsps-expenseVatRate" name="srch-dsps-expenseVatRate" class="form-control input-sm" uitype="text" readonly></sbux-input>
 	                            	</td>
 		                        </tr>
 
@@ -756,6 +765,8 @@
 			//gfnma_setComSelect(['srch-slt-siteCode'], jsonBplc, 'L_FIT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//신고사업장
 			gfnma_setComSelect(['srch-dsps-taxSiteCode'], jsonDclrBplc, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+			//부가세유형
+			gfnma_setComSelect(['grdAstDsps'], jsonVatType, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode','#srch-ast-siteCode']
@@ -900,6 +911,38 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [7],
+					sum: [8,9,10,11,12,13,14,15,16,17,18,19,20]
+				},
+			grandtotalrow: {
+				titlecol: 7,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				8: '#,###',
+				9: '#,###',
+				10: '#,###',
+				11: '#,###',
+				12: '#,###',
+				13: '#,###',
+				14: '#,###',
+				15: '#,###',
+				16: '#,###',
+				17: '#,###',
+				16 : '#,###',
+				17 : '#,###',
+				18 : '#,###',
+				19 : '#,###',
+				20 : '#,###',
+
+			}
+		};
         SBGridProperties.columns = [
             {caption: ["처분일"],			ref: 'disposalDate', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["처분유형"], 		ref: 'disposalType',    	type : 'combo' , typeinfo : {ref:'jsonDspsUnit', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
@@ -907,20 +950,20 @@
             {caption: ["부가세율"],      	ref: 'vatType', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["통화"],			ref: 'currencyCode',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["환율"],			ref: 'exchangeRate',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["매각금액"],			ref: 'disposalOriginalAmount',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["환산금액"], 		ref: 'dispFunctionalAmt', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부가세"], 			ref: 'vatAmount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["금액합계"], 		ref: 'totalAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["취득가액"], 		ref: 'outAcquisitionAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금"], 		ref: 'outSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각비"], 		ref: 'outDepreciationAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금상각비"],ref: 'outSubsidiesDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각누계액"], 	ref: 'outAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금상각누계액"], 		ref: 'outSubsidiesAccDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["장부가액"], 		ref: 'bookValue', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["매각(폐기)손익"], 	ref: 'disposalPl', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분비용"], 		ref: 'expenseAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분비용부가세"], 	ref: 'expenseVatAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["매각금액"],			ref: 'disposalOriginalAmount',	type:'output',  	width:'100px',format : {type:'number', rule:'#,###'},  	style:'text-align:left'},
+            {caption: ["환산금액"], 		ref: 'dispFunctionalAmt', 				type:'output',  	width:'100px',format : {type:'number', rule:'#,###'},  	style:'text-align:left'},
+            {caption: ["부가세"], 			ref: 'vatAmount',  			type:'output',  	width:'100px',format : {type:'number', rule:'#,###'},  	style:'text-align:left'},
+        	{caption: ["금액합계"], 		ref: 'totalAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["취득가액"], 		ref: 'outAcquisitionAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["국고보조금"], 		ref: 'outSubsidiesAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["감가상각비"], 		ref: 'outDepreciationAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["국고보조금상각비"],ref: 'outSubsidiesDepr', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["감가상각누계액"], 	ref: 'outAccumDepr', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["국고보조금상각누계액"], 		ref: 'outSubsidiesAccDepr', 				type:'output',	format : {type:'number', rule:'#,###'},	width:'80px',		style:'text-align:center'},
+            {caption: ["장부가액"], 		ref: 'bookValue', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["매각(폐기)손익"], 	ref: 'disposalPl', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["처분비용"], 		ref: 'expenseAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["처분비용부가세"], 	ref: 'expenseVatAmount', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
             {caption: ["비용거래처"], 		ref: 'expenseCsCode', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비용거래처명"], 	ref: 'expenseCsName', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비용부가세유형"], 	ref: 'expenseVatType', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -1352,7 +1395,8 @@
     	SBUxMethod.set("srch-ast-assetNo",rowData.assetNo);
     	SBUxMethod.set("srch-ast-assetName",rowData.assetName);
     	SBUxMethod.set("srch-ast-siteCode",rowData.siteCode);
-
+    	SBUxMethod.set("srch-ast-acquisitionAmount",rowData.outAcquisitionAmount);
+    	SBUxMethod.set("srch-ast-bookValue",rowData.bookValue);
 
     	//처분내역
     	SBUxMethod.set("srch-dsps-csCode",rowData.csCode);
@@ -1361,10 +1405,18 @@
     	SBUxMethod.set("srch-dsps-deptCode",rowData.deptCode);
     	SBUxMethod.set("srch-dsps-deptName",rowData.deptName);
     	gfnma_multiSelectSet("#srch-dsps-vatType",		"VAT_CODE", 		"VAT_NAME", 	gfnma_nvl(rowData.vatType));//부가세유형
+    	SBUxMethod.set("srch-dsps-vatRate",gfnma_multiSelectGet("#srch-dsps-vatType","TYPE")["VAT_RATE"]);
     	SBUxMethod.set("srch-dsps-empCode",rowData.empCode);
     	SBUxMethod.set("srch-dsps-empName",rowData.empName);
     	SBUxMethod.set("srch-dsps-costCenterCode",rowData.costCenterCode);
     	SBUxMethod.set("srch-dsps-costCenterName",rowData.costCenterName);
+    	SBUxMethod.set("srch-dsps-exchangeRate",rowData.exchangeRate);
+    	SBUxMethod.set("srch-dsps-disposalOriginalAmount",rowData.disposalOriginalAmount);
+    	SBUxMethod.set("srch-dsps-dispFunctionalAmt",rowData.dispFunctionalAmt);
+    	SBUxMethod.set("srch-dsps-vatAmount",rowData.vatAmount);
+    	SBUxMethod.set("srch-dsps-totalAmount",rowData.totalAmount);
+    	//
+    	//SBUxMethod.set("srch-dsps-",rowData.);
 
     };
 
@@ -1742,8 +1794,10 @@
      * 처분 전표 조회
      */
     const btnDisposalClick = function(){
-    	let sourceId = SBUxMethod.get("srch-ast-sourceId");
+    	let sourceId = gfnma_nvl(SBUxMethod.get("srch-ast-sourceId"));
     	let disposalType = SBUxMethod.get("srch-slt-disposalType");
+    	let docBatchNo1 = SBUxMethod.get("srch-ast-docBatchNo1");
+    	let fiOrgCode = SBUxMethod.get("srch-slt-fiOrgCode");
         if (sourceId === ""){
             //SetMessageBox("전표생성후 사용하세요.");
             alert("전표생성후 사용하세요.");
@@ -1773,12 +1827,13 @@
 
 
     		var data = {
-				docBatchNo : ''
-				, sourceType : 'AP'
+				docBatchNo : docBatchNo1
+				, sourceType : 'AR'
+				, docNum : 0
 				, txnFromDate : ''
 				, txnToDate : ''
 				, compCode : compCode
-				, fiOrgCode : ''
+				, fiOrgCode : fiOrgCode
 				, voucherType : ''
 				, voucherNo : ''
 				, asave : ''
