@@ -346,9 +346,11 @@
 			{caption: ["공급자사업자번호"],         ref: 'SELLER_REG_NO',    type:'input',  	width:'120px',  style:'text-align:left',
 				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
 				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
-
 			},
-			{caption: ["종사업장번호"],         ref: 'SELLER_SUB_REG_NO',    type:'input',  	width:'88px',  style:'text-align:left'},
+			{caption: ["종사업장번호"],         ref: 'SELLER_SUB_REG_NO',    type:'input',  	width:'88px',  style:'text-align:left',
+				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
+			},
 			{caption: ["구분"],         ref: 'RID_GUBUN',    type:'input',  	width:'80px',  style:'text-align:left'},
 			{caption: ["DOC_ID"],         ref: 'DOC_ID',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
 			{caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'120px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
@@ -358,14 +360,12 @@
 			{caption: ["대표자명"],         ref: 'SELLER_OWNER',    type:'input',  	width:'75px',  style:'text-align:left'},
 			{caption: ["공급자주소"],         ref: 'SELLER_ADDRESS',    type:'input',  	width:'138px',  style:'text-align:left'},
 			{caption: ["공급받는자사업자번호"],         ref: 'BUYER_REG_NO',    type:'input',  	width:'150px',  style:'text-align:left',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 12}
+				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
 				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
-
 			},
 			{caption: ["종사업자번호"],         ref: 'BUYER_SUB_REG_NO',    type:'input',  	width:'88px',  style:'text-align:left',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 12}
 				, format : {type:'number', rule:'###-##-#####', emptyvalue:''}
-
 			},
 			{caption: ["구매자상호"],         ref: 'BUYER_NAME',    type:'input',  	width:'112px',  style:'text-align:left'},
 			{caption: ["공급자업종"],         ref: 'SELLER_BIZ_CATEGORY',    type:'input',  	width:'75px',  style:'text-align:left'},
@@ -375,36 +375,29 @@
 			{caption: ["합계금액"],         ref: 'TOTAL_AMT',    type:'input',  	width:'116px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["공급가액"],         ref: 'TOTAL_TAXABLE_AMT',    type:'input',  	width:'105px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["세액"],         ref: 'TOTAL_VAT_AMT',    type:'input',  	width:'106px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["전표총금액"],         ref: 'DOC_TOTAL_AMT',    type:'input',  	width:'111px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["전표공급가액"],         ref: 'DOC_SUPPLY_AMT',    type:'input',  	width:'102px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["전표부가세"],         ref: 'DOC_VAT_AMT',    type:'input',  	width:'105px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["차이여부"],			    ref: 'DIFF_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
 				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-
 			},
 			{caption: ["구매자업종"],         ref: 'BUYER_BIZ_CATEGORY',    type:'input',  	width:'114px',  style:'text-align:left'},
 			{caption: ["구매자업태"],         ref: 'BUYER_BIZ_ITEM',    type:'input',  	width:'111px',  style:'text-align:left'},
@@ -456,7 +449,6 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-
 			},
 			{caption: ["공급자이메일"],         ref: 'SELLER_EMAIL',    type:'input',  	width:'125px',  style:'text-align:left'},
 			{caption: ["구매자이메일1"],         ref: 'BUYER_EMAIL1',    type:'input',  	width:'121px',  style:'text-align:left'},
@@ -464,7 +456,6 @@
 			{caption: ["품목일자"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-
 			},
 			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'output',  	width:'157px',  style:'text-align:left', hidden: true},
 			{caption: ["품목규격"],         ref: 'ITEM_SPEC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -515,22 +506,18 @@
 			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'input',  	width:'70px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'input',  	width:'70px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'input',  	width:'100px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["품목세액"],         ref: 'ITEM_VAT_AMT',    type:'input',  	width:'100px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
 				, format : {type:'number', rule:'#,###'}
-
 			},
 			{caption: ["비고"],         ref: 'ITEM_DESC',    type:'input',  	width:'100px',  style:'text-align:left'},
 			{caption: ["원가중심점코드"], 		ref: 'COST_CENTER_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -540,7 +527,6 @@
 					value		: 'value',
 					itemcount	: 10
 				}
-
 			},
 			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'input',  	width:'75px',  	style:'text-align:left'},
@@ -1546,6 +1532,15 @@
 
 				if(jsonSearchResultList.length > 0) {
 					gvwList.clickRow(1);
+					jsonSearchResultList.forEach((item, index) => {
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("INTERFACED_FLAG"), index+1, gvwList.getColRef("ISSUE_DATE"), true, false, true); //전표작성, 작성일자, 승인번호, 발급일자
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("SELLER_REG_NO"), index+1, gvwList.getColRef("SELLER_SUB_REG_NO"), true, false, true); //공급자사업자번호, 종사업장번호
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("SELLER_NAME"), index+1, gvwList.getColRef("SELLER_OWNER"), true, false, true); //상호, 대표자명
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("BUYER_REG_NO"), index+1, gvwList.getColRef("BUYER_OWNER"), true, false, true); //공급받는자사업자번호, 종사업자번호, 구매자상호, 구매자대표자명
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("TOTAL_AMT"), index+1, gvwList.getColRef("TOTAL_VAT_AMT"), true, false, true); //합계금액, 세액, 공급가액
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("EINVOICE_CATEGORY"), index+1, gvwList.getColRef("EINVOICE_TYPE"), true, false, true); //전자세금계산서분류, 전자세금계산서종류
+						gvwList.setCellDisabled(index+1, gvwList.getColRef("ISSUE_TYPE"), index+1, gvwList.getColRef("SELLER_EMAIL"), true, false, true); // 발급유형, 비고, 영수/청구 구분, 공급자이메일
+					})
 				} else {
 					jsonItemList.length = 0;
 					gvwItem.rebuild();
@@ -1624,7 +1619,7 @@
 			if (gfn_nvl(nodeInvoicerParty["DefinedContact"]) != "") {
 				rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DefinedContact"].URICommunication;
 			}
-			rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+			rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].LineOneText.replace(/,/g, '&#44;');
 
 			//공급받는자
 			rowHeader["BUYER_REG_NO"] = nodeInvoiceeParty["ID"];
@@ -1638,7 +1633,7 @@
 				rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SecondaryDefinedContact"].URICommunication;
 			}
 			if (gfn_nvl(nodeInvoiceeParty["SPECIFIEDADDRESS"]) != "") {
-				rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+				rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replace(/,/g, '&#44;');
 			}
 
 			rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["ChargeTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["ChargeTotalAmount"];
@@ -2261,7 +2256,7 @@
 						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
 						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
 						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
-						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replaceAll("\,", "&#44;"),
+						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
 					});
 				}else{
 					gvwList.insertRow(rowVal, 'below', {
@@ -2274,7 +2269,7 @@
 						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
 						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
 						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
-						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replaceAll("\,", "&#44;"),
+						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
 					});
 				}
 			} else {
