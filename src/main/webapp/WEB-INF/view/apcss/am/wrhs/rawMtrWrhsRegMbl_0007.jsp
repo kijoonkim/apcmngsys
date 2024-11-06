@@ -502,7 +502,7 @@
 
                 //if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
 
-                fn_autoPrint(data.resultMap);
+                fn_autoPrint(jsonSave);
 
 
             } else {
@@ -566,14 +566,15 @@
      */
     const fn_autoPrint = async function(resultMap){
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+        const wrhsno = resultMap.map(item => item.wrhsno).join("','");
         if(document.querySelector('#srch-chk-autoPrint').checked){
             if(!document.querySelector('#srch-chk-exePrint').checked){
-                gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+                gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno,element : 'div-rpt-clipReportPrint'});
             }else{
-                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno,element : 'div-rpt-clipReportPrint'});
             }
         }else{
-            gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+            gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
         }
 
         //gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
