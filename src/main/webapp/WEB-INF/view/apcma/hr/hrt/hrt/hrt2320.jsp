@@ -93,6 +93,7 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_changePeriodYyyymm(SRCH_PERIOD_YYYYMM)"
                         />
                     </td>
                     <td colspan="2"></td>
@@ -878,6 +879,11 @@
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
+    }
+
+    const fn_changePeriodYyyymm = function(data) {
+        SBUxMethod.set("SRCH_YYYYMMDD_FR", data+"01");
+        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateLastYmd(new Date(data.substring(0,4)+"-"+data.substring(4,6)+"-01")));
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
