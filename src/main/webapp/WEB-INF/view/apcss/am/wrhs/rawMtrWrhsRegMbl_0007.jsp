@@ -498,13 +498,7 @@
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");	// I0001	처리 되었습니다.
                 fn_clearForm();
-                //fn_search();
-
-                //if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
-
-                fn_autoPrint(data.resultMap);
-
-
+                await fn_autoPrint(data.resultMap);
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }

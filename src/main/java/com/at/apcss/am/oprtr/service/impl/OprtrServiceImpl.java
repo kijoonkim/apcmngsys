@@ -3,6 +3,7 @@ package com.at.apcss.am.oprtr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,5 +116,10 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
+		return oprtrMapper.insertOprtrSortPrfmnc(oprtrprfmncvo);
 	}
 }

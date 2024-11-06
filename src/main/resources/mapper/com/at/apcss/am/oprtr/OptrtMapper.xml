@@ -202,7 +202,56 @@
 			 WHERE CNT > 0
 		]]>
     </select>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
+	<!-- DESC : 작업생산자 작업내역 생성			                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.06  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertOprtrSortPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+		INSERT INTO TB_OPRTR_SORT_PRFMNC
+		(
+		  APC_CD
+		, SORTNO
+		, PRFMNC_SN
+		, BRDT
+		, FLNM
+		, JOB_YMD
+		, JOB_BGNG_HR
+		, JOB_END_HR
+		, DEL_YN
+		, SYS_FRST_INPT_DT
+		, SYS_FRST_INPT_USER_ID
+		, SYS_FRST_INPT_PRGRM_ID
+		, SYS_LAST_CHG_DT
+		, SYS_LAST_CHG_USER_ID
+		, SYS_LAST_CHG_PRGRM_ID
+		, JOB_HR
+		)
+		VALUES
+			(
+			  #{apcCd}
+			, #{sortno}
+			, #{prfmncSn}
+			, #{brdt}
+			, #{flnm}
+			, #{jobYmd}
+			, #{jobBgngHr}
+			, #{jobEndHr}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+			, #{jobHr}
+			)
+		]]>
+	</insert>
 </mapper>
 
 

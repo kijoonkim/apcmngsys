@@ -97,7 +97,7 @@
                             uitype="normal"
                             style="margin-left: auto"
                             class="btn btn-sm btn-primary btn-mbl"
-                            onclick="fn_docRawMtrWrhs"
+                            onclick="fn_setJobHr"
                             text="작업시간 등록"
                     ></sbux-button>
                 </div>
@@ -120,6 +120,7 @@
                                     id="dtl-inp-pltno"
                                     name="dtl-inp-pltno"
                                     uitype="text"
+                                    wrap-style="flex-basis: 61%"
                                     class="input-sm-ast inpt_data_reqed inpt-mbl srch-pltno"
                                     autocomplete="off"
                                     onblur="fn_ipt_pltno"
@@ -145,7 +146,7 @@
                                     name="dtl-inp-itemNm"
                                     uitype="single"
                                     class="inpt-mbl"
-                                    style="width: 30%"
+                                    wrap-style="flex-basis: 30%"
                                     jsondata-ref="jsonApcItem"
                                     unselected-text="선택"
                                     onchange="fn_onchangeItemCd"
@@ -156,7 +157,7 @@
                                     name="dtl-inp-vrtyNm"
                                     uitype="single"
                                     class="inpt-mbl"
-                                    style="width: 30%"
+                                    wrap-style="flex-basis: 30%"
                                     jsondata-ref="jsonApcVrty"
                                     jsondata-value="itemVrtyCd"
                                     unselected-text="선택"
@@ -184,6 +185,7 @@
                                     id="dtl-inp-prdc1rNm"
                                     name="dtl-inp-prdc1rNm"
                                     uitype="text"
+                                    wrap-style="flex-basis: 30%"
                                     class="inpt-mbl"
                                     placeholder=""
                                     readonly
@@ -192,6 +194,7 @@
                                 id="dtl-inp-prdcr1Cd"
                                 name="dtl-inp-prdcr1Cd"
                                 uitype="text"
+                                wrap-style="flex-basis: 30%"
                                 class="inpt-mbl"
                                 placeholder=""
                                 readonly
@@ -206,6 +209,7 @@
                                     id="dtl-inp-prdcrNm"
                                     name="dtl-inp-prdcrNm"
                                     uitype="text"
+                                    wrap-style="flex-basis: 30%"
                                     class="inpt-mbl"
                                     placeholder=""
                                     readonly
@@ -214,6 +218,7 @@
                                     id="dtl-inp-prdcrCd"
                                     name="dtl-inp-prdcrCd"
                                     uitype="text"
+                                    wrap-style="flex-basis: 30%"
                                     class="inpt-mbl"
                                     placeholder=""
                                     readonly
@@ -228,7 +233,7 @@
                                     id="dtl-dtp-inptYmd"
                                     name="dtl-dtp-inptYmd"
                                     uitype="popup"
-                                    wrap-style="width:30%"
+                                    wrap-style="flex-basis: 30%"
                                     date-format="yyyy-mm-dd"
                                     class="sbux-pik-group-apc input-sm-ast inpt_data_reqed inpt-mbl"
                                     onchange="fn_dtpChange"
@@ -238,7 +243,7 @@
                                     uitype="single"
                                     id="dtl-slt-warehouseSeCd"
                                     name="dtl-slt-warehouseSeCd"
-                                    wrap-style="width:30%"
+                                    wrap-style="flex-basis: 30%"
                                     class="input-sm-ast inpt_data_reqed inpt-mbl"
                                     jsondata-ref="jsonComWarehouse">
                             </sbux-select>
@@ -253,7 +258,7 @@
                                     uitype="single"
                                     id="dtl-slt-warehouseSeCd1"
                                     name="dtl-slt-warehouseSeCd1"
-                                    wrap-style="width:30%"
+                                    wrap-style="flex-basis: 30%"
                                     class="input-sm-ast inpt_data_reqed inpt-mbl"
                                     jsondata-ref="jsonComWarehouse">
                             </sbux-select>
@@ -261,6 +266,7 @@
                                     id="dtl-inp-prdcrCd1"
                                     name="dtl-inp-prdcrCd1"
                                     uitype="text"
+                                    wrap-style="flex-basis: 30%"
                                     class="inpt-mbl"
                                     placeholder=""
                                     readonly
@@ -318,8 +324,21 @@
         document.querySelectorAll(".sbux-pik-icon").forEach((el) => {
             el.style.fontsize = "24px";
         });
-        // fn_init();
+
     });
+
+
+    const fn_search = async function(){
+
+    }
+    const fn_setJobHr = async function(){
+        let pltno = SBUxMethod.get("dtl-inp-pltno");
+        if(gfn_isEmpty(pltno)){
+            gfn_comAlert("W0005","팔레트번호");
+            return;
+        }
+        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno}));
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

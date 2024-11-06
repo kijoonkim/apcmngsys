@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -99,6 +100,31 @@ public class OprtrController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			HashMap<String, Object> rtnObj = oprtrService.deleteOprtr(oprtrVO);
+
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/oprtr/insertOprtrSortPrfmnc", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertOprtrSortPrfmnc(@RequestBody OprtrPrfmncVO oprtrprfmncvo, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			oprtrprfmncvo.setSysFrstInptPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysFrstInptUserId(getUserId());
+			oprtrprfmncvo.setSysLastChgPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysLastChgUserId(getUserId());
+			HashMap<String, Object> rtnObj = oprtrService.insertOprtrSortPrfmnc(oprtrprfmncvo);
 
 			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
