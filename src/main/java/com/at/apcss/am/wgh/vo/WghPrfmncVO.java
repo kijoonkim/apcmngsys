@@ -295,6 +295,11 @@ public class WghPrfmncVO extends ComVO {
 	 * 입고수량
 	 * */
 	private int bxQntt;
+
+	/*
+	 * 그룹번호
+	 * */
+	private int groupId;
 	/**
 	 * 계량상세리스트
 	 */

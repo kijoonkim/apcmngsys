@@ -25,6 +25,7 @@
 	<title>title : 재무상태표</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/clipreport.jsp" %>	
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -142,7 +143,7 @@
                             </td>
                         
                             <th scope="row" class="th_bg">조건</th>
-                            <td colspan="7" class="td_input" >
+                            <td colspan="4" class="td_input" >
                             	<div style="display:flex;float:left">
                             	
 	                            	<font>표준재무제표계정표시</font>
@@ -161,19 +162,23 @@
 								    <font style="padding-left:10px;"></font>  
 	                            	<sbux-checkbox id="SCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
                             	</div>
-                            </td>                            
+                            </td>     
+                            <td colspan="3" class="td_input" >
+                				<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>                            
+                            </td>                                                   
                         </tr>
                         
                     </tbody>
                 </table>
                 
 				<div class="table-responsive tbl_scroll_sm" style="padding-top:10px">
-				
-				    <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
-	                   title-target-id-array = "sb_area_tab1^sb_area_tab2^sb_area_tab3^sb_area_tab4"
-	                   title-text-array = "재무상태표(밴드)^재무상태표(트리)^(월)재무상태표^(월)재무상태표(트리)"
-	                   title-target-value-array="1^2^3^4"
-	                   onclick="fn_tabClick(tab_norm)"></sbux-tabs>					
+				    <sbux-tabs 
+				        id="idxTab_norm" name="tab_norm" uitype="normal"
+	                    title-target-id-array = "sb_area_tab1^sb_area_tab2^sb_area_tab3^sb_area_tab4"
+	                    title-text-array = "재무상태표(밴드)^재무상태표(트리)^(월)재무상태표^(월)재무상태표(트리)"
+	                    title-target-value-array="1^2^3^4"
+	                    onclick="fn_tabClick(tab_norm)">
+	                </sbux-tabs>   					
 					
 					<div class="tab-content">
 					
@@ -1502,6 +1507,123 @@
     var fn_treeClose2 = function() {
     	Fig5240Grid4.closeTreeNodeAll();
   	}    
+    
+    const fn_periodRetun = async function(obj, strType, iseq){
+    	let strperiod1			= "";
+		let YYMDSELECT_PERIOD1	= gfnma_nvl(SBUxMethod.get("SCH_YYMDSELECT_PERIOD1"));
+		let YYMDSELECT_PERIOD2	= gfnma_nvl(SBUxMethod.get("SCH_YYMDSELECT_PERIOD2"));
+		
+        if (strType == "BM"){    		//전월
+            strperiod1 = obj.BEFORE_MONTH_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+        }
+        else if (strType == "BBM"){ 	//전전월
+            strperiod1 = obj.BEFORE_BEFORE_MONTH_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+        }
+        else if (strType == "BE"){ 		//전기말
+            strperiod1 = obj.PREV_PERIOD_END.replace(/(\d{4})(\d{2})/, "$1-$2");
+        }
+        else if (strType == "BS"){ 		//전동기
+            strperiod1 = obj.PREV_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+        }
+        else{  							//특정기간
+            strperiod1 = iseq == '1' ? YYMDSELECT_PERIOD1 : YYMDSELECT_PERIOD2;
+        }
+        return strperiod1;
+    }
+    
+    const fn_btnPrint = async function () {
+		let conn = '';
+	    conn = await fn_getReportData();
+	    conn = await gfnma_convertDataForReport(conn);
+	    await gfn_popClipReportPost("재무상태표", "ma/RPT_FIG5240.crf", null, conn );
+	}
+    
+	const fn_getReportData = async function() {
+		
+		let ACCT_RULE_CODE	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let FI_ORG_CODE		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let SITE_CODE			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let YMDPERIOD_FR		= gfnma_nvl(SBUxMethod.get("SCH_YMDPERIOD_FR"));
+		let ACCOUNT_LEVEL		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_LEVEL"));
+		let CHKSUM_YN			= gfnma_nvl(SBUxMethod.get("SCH_CHKSUM_YN")['SCH_CHKSUM_YN']);
+		let YYMDSELECT_PERIOD1 = gfnma_nvl(SBUxMethod.get("SCH_YYMDSELECT_PERIOD1"));
+		let YYMDSELECT_PERIOD2 = gfnma_nvl(SBUxMethod.get("SCH_YYMDSELECT_PERIOD2"));
+		let ZERO_INCLUDE_YN	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
+		let DESCR1			= gfnma_nvl(SBUxMethod.get("SCH_CBODESCR1"));
+		let DESCR2			= gfnma_nvl(SBUxMethod.get("SCH_CBODESCR2"));
+		
+		if(!FI_ORG_CODE){
+ 			gfn_comAlert("E0000","사업단위를 선택하세요");
+			return;      		 
+		}
+		if(!ACCT_RULE_CODE){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		if(!YMDPERIOD_FR){
+ 			gfn_comAlert("E0000","기준년월을 선택하세요");
+			return;      		 
+		}
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_ACCT_RULE_CODE		: ACCT_RULE_CODE
+			,V_P_FI_ORG_CODE		: FI_ORG_CODE
+			,V_P_SITE_CODE			: SITE_CODE
+			,V_P_PERIOD_CODE		: YMDPERIOD_FR
+			,V_P_ACCOUNT_GROUP		: ACCOUNT_LEVEL
+			,V_P_SUM_YN				: CHKSUM_YN
+			,V_P_SELECT_PERIOD1		: YYMDSELECT_PERIOD1
+			,V_P_SELECT_PERIOD2		: YYMDSELECT_PERIOD2
+			,V_P_ZERO_INCLUDE_YN	: ZERO_INCLUDE_YN
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5240Report.do", {
+        	getType				: 'json',
+        	workType			: 'REPORT1',
+        	cv_count			: '4',
+        	params				: gfnma_objectToString(paramObj)
+		});
+	    const data = await postJsonPromise;
+	    try {
+	        if (_.isEqual("S", data.resultStatus)) {
+	        	if(data.cv_2.length > 0) {
+		        	data.cv_3 = data.cv_2
+		        	if(data.cv_1.length > 0){
+			        	data.cv_1[0].STRCON1 = DESCR1;
+			        	data.cv_1[0].STRCON2 = DESCR2;        		
+		        		data.cv_3[0].BEFORE_MONTH_PERIOD = data.cv_1[0].BEFORE_MONTH_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+		        		data.cv_3[0].BEFORE_BEFORE_MONTH_PERIOD = data.cv_1[0].BEFORE_BEFORE_MONTH_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+		        		data.cv_3[0].PREV_PERIOD_END = data.cv_1[0].PREV_PERIOD_END.replace(/(\d{4})(\d{2})/, "$1-$2");
+		        		data.cv_3[0].PREV_PERIOD = data.cv_1[0].PREV_PERIOD.replace(/(\d{4})(\d{2})/, "$1-$2");
+		        	}
+		        	data.cv_3[0].STRCON1 = DESCR1;
+		        	data.cv_3[0].STRCON2 = DESCR2;
+		        	data.cv_3[0].STRCONPERIOD1 = await fn_periodRetun(data.cv_1[0], DESCR1, '1');
+		        	data.cv_3[0].STRCONPERIOD2 = await fn_periodRetun(data.cv_1[0], DESCR2, '2');
+	        	}
+			} else {
+			    alert(data.resultMessage);
+			}
+	    } catch (e) {
+	        if (!(e instanceof Error)) {
+	            e = new Error(e);
+	        }
+	        console.error("failed", e.message);
+	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    }
+	    return data;
+	}
     
     
 </script>

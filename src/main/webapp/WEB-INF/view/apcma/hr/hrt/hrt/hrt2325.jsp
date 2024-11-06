@@ -97,6 +97,7 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_changePeriodYyyymm(SRCH_PERIOD_YYYYMM)"
                         />
                     </td>
                     <td colspan="2"></td>
@@ -280,7 +281,7 @@
             // 재직구분
             gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwShift'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직군
-            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047_03', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
             gfnma_setComSelect(['gvwShift', 'bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 교대조
@@ -913,6 +914,11 @@
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
+    }
+
+    const fn_changePeriodYyyymm = function(data) {
+        SBUxMethod.set("SRCH_YYYYMMDD_FR", data+"01");
+        SBUxMethod.set("SRCH_YYYYMMDD_TO", gfn_dateLastYmd(new Date(data.substring(0,4)+"-"+data.substring(4,6)+"-01")));
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {

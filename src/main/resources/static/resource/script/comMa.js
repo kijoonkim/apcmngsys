@@ -1172,7 +1172,6 @@ const validateRequired = function (target) {
 
 		if (!selectedValue) {
 			gfnma_showPopover(dropdownList[i]);
-			$(dropdownList[i]).click();
 			return false;
 		} else {
 			return true;

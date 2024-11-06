@@ -151,4 +151,12 @@ public interface WghPrfmncService {
 	 */
 	public List<WghPrfmncVO> selectWghRcptList(WghPrfmncVO wghPrfmncVO) throws Exception;
 
+	/**
+	 * 계량접수 다중 저장
+	 * @param List<WghPrfmncVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception;
+
 }
