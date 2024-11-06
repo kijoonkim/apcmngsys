@@ -266,7 +266,12 @@
                 }
             },
             {caption: ["성명"],	    ref: 'EMP_NAME', 		type:'output',  	width:'54px',    	style:'text-align:left'},
-            {caption: ["사원사진"],	ref: 'EMP_PHOTO',   	type:'output',  	width:'83px',   	style:'text-align:left'},
+            {caption: ["사원사진"],	ref: 'EMP_PHOTO',   	type:'output',  	width:'83px',   	style:'text-align:left',
+                renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
+                    console.log(objRowData)
+                    return '<img src="'+'/com/getFileImage.do?fkey='+objRowData.EMP_PHOTO_NAME+'&comp_code='+gv_ma_selectedApcCd+'&client_code=' + gv_ma_selectedClntCd+'" style="width: 100%; height: 100%">';
+                }
+            },
             {caption: ["생년월일"],   ref: 'BIRTHDAY', 		type:'output',  	width:'69px',    	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
@@ -309,7 +314,9 @@
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
-            }
+            },
+            {caption: ["EMP_PHOTO_NAME"],	ref: 'EMP_PHOTO_NAME',	    type:'output',  	width:'54px',   	style:'text-align:left', hidden: true},
+            {caption: ["EMP_PHOTO_PATH"],	ref: 'EMP_PHOTO_PATH',	    type:'output',  	width:'54px',   	style:'text-align:left', hidden: true},
         ];
 
         gridViewEx1 = _SBGrid.create(SBGridProperties);
@@ -387,6 +394,8 @@
                         POSITION_NAME   : item.POSITION_NAME,
                         EMP_NAME        : item.EMP_NAME,
                         EMP_PHOTO       : item.EMP_PHOTO,
+                        EMP_PHOTO_NAME  : item.EMP_PHOTO_NAME,
+                        EMP_PHOTO_PATH  : item.EMP_PHOTO_PATH,
                         BIRTHDAY        : item.BIRTHDAY,
                         ENTER_DATE      : item.ENTER_DATE,
                         ENTER_YEAR      : item.ENTER_YEAR,

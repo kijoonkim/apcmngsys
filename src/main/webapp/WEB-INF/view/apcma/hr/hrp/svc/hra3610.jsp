@@ -1175,6 +1175,11 @@
         await fn_search();
     });
 
+    // 초기화
+    function cfn_init() {
+        gfnma_uxDataClear('#srchArea');
+    }
+
     // 저장
     function cfn_save() {
         fn_save();
