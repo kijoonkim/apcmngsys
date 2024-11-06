@@ -705,9 +705,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-------paramObj-------', paramObj);
-
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420List.do", {
             getType				: 'json',
             workType			: type,
@@ -717,7 +714,6 @@
 
         const data = await postJsonPromise;
 
-        console.log('-------data-------', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
