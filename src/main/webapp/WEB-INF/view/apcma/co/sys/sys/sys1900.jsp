@@ -293,33 +293,61 @@
                 /** @type {number} **/
                 let totalRecordCount = 0;
 
-                jsonGvwInfoList.length = 0;
-                data.cv_1.forEach((item, index) => {
-                    const msg = {
-                        KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
-                        PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
-                        USER_ID             : gfn_nvl(item.USER_ID),
-                        USER_NAME           : gfn_nvl(item.USER_NAME),
-                        LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
-                        MEMO                : gfn_nvl(item.MEMO),
-                        LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
-                        LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
-                        FORM_ID             : gfn_nvl(item.FORM_ID),
-                        FORM_NAME           : gfn_nvl(item.FORM_NAME),
-                        LOG_DATE            : gfn_nvl(item.LOG_DATE),
-                        LOG_IP              : gfn_nvl(item.LOG_IP),
-                        LOG_PC              : gfn_nvl(item.LOG_PC),
-                        COMP_CODE           : gfn_nvl(item.COMP_CODE),
-                        CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                if (_.isEmpty(data.cv_1) == false){
+                    jsonGvwInfoList.length = 0;
+                    data.cv_1.forEach((item, index) => {
+                        const msg = {
+                            KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
+                            PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
+                            USER_ID             : gfn_nvl(item.USER_ID),
+                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
+                            MEMO                : gfn_nvl(item.MEMO),
+                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
+                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            FORM_ID             : gfn_nvl(item.FORM_ID),
+                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
+                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            LOG_IP              : gfn_nvl(item.LOG_IP),
+                            LOG_PC              : gfn_nvl(item.LOG_PC),
+                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
+                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                        }
+                        jsonGvwInfoList.push(msg);
+                        totalRecordCount++;
+                    });
 
+                    gvwInfoGrid.rebuild();
+                    document.querySelector('#listCount').innerText = totalRecordCount;
+                }
 
-                    }
-                    jsonGvwInfoList.push(msg);
-                    totalRecordCount++;
-                });
+                if (_.isEmpty(data.cv_2) == false){
+                    jsonGvwInfoList.length = 0;
+                    data.cv_2.forEach((item, index) => {
+                        const msg = {
+                            KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
+                            PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
+                            USER_ID             : gfn_nvl(item.USER_ID),
+                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
+                            MEMO                : gfn_nvl(item.MEMO),
+                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
+                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            FORM_ID             : gfn_nvl(item.FORM_ID),
+                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
+                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            LOG_IP              : gfn_nvl(item.LOG_IP),
+                            LOG_PC              : gfn_nvl(item.LOG_PC),
+                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
+                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                        }
+                        jsonGvwInfoList.push(msg);
+                        totalRecordCount++;
+                    });
 
-                gvwInfoGrid.rebuild();
-                document.querySelector('#listCount').innerText = totalRecordCount;
+                    gvwInfoGrid.rebuild();
+                    document.querySelector('#listCount').innerText = totalRecordCount;
+                }
 
                 /*if(jsonGvwInfoList.length > 0) {
                     gvwInfoGrid.clickRow(1);
