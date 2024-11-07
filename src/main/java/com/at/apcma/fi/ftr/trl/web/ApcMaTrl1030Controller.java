@@ -57,7 +57,7 @@ public class ApcMaTrl1030Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_TRL1030_Q");
+			param.put("procedure", 		"P_TRL1010_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
