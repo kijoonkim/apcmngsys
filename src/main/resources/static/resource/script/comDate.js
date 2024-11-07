@@ -140,6 +140,27 @@ const gfn_addDate = function(fromDate,addDate) {
 	return newDate;
 }
 
+/**
+ * @name gfn_addMonth
+ * @description
+ * @param {String} fromYm
+ * @param {String} addMonth
+ * @function
+ * @returns
+ */
+const gfn_addMonth = function(fromYm,addMonth) {
+
+	const from = new Date(fromYm.substr(0,4) + "-" + fromYm.substr(4,2) + "-01");
+
+	from.setMonth(from.getMonth()+addMonth);
+	// 원하는 형식으로 날짜를 출력
+	var year = from.getFullYear();
+	var month = (from.getMonth() + 1).toString().padStart(2, '0');
+	var day = from.getDate().toString().padStart(2, '0');
+	var newDate = `${year}${month}${day}`;
+
+	return newDate;
+}
 
 /**
  * @name gfn_excelSerialDateToJSDate
