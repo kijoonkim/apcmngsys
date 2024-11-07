@@ -30,6 +30,7 @@
 		     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
 		     , WV.DPSTR_NM          AS DPSTR_NM
 		     , WV.RMRK              AS RMRK
+		     , WV.TELNO				AS TELNO
 		     , WV.DEL_YN            AS DEL_YN
 		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
 		  FROM TB_WRHS_VHCL_INFO WV
@@ -69,6 +70,7 @@
 			     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
 			     , WV.DPSTR_NM          AS DPSTR_NM
 			     , WV.RMRK              AS RMRK
+			     , WV.TELNO				AS TELNO
 			     , WV.DEL_YN            AS DEL_YN
 			     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
 			  FROM TB_WRHS_VHCL_INFO WV
@@ -115,6 +117,7 @@
 			     --, (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
 			     , WV.DPSTR_NM          AS DPSTR_NM
 			     , WV.RMRK              AS RMRK
+			     , WV.TELNO				AS TELNO
 			     , WV.DEL_YN            AS DEL_YN
 			     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
 			  FROM TB_WRHS_VHCL_INFO WV
@@ -153,7 +156,7 @@
 	    		  , ACTNO
 	    		  , DPSTR_NM
 	    		  , RMRK
-	    		  , DEL_YN
+	    		  , TELNO
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -170,7 +173,7 @@
 	    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
 				  , #{dpstrNm}
 	    		  , #{rmrk}
-	    		  , #{delYn}
+	    		  , #{telno}
 	    		  , SYSDATE
 	    		  , #{sysFrstInptUserId}
 	    		  , #{sysFrstInptPrgrmId}
@@ -201,7 +204,7 @@
 	    		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
 	    		 , DPSTR_NM					= #{dpstrNm}
 	    		 , RMRK						= #{rmrk}
-	    		 , DEL_YN					= #{delYn}
+	    		 , TELNO					= #{telno}
 			 WHERE APC_CD 					= #{apcCd}
 			   AND VHCLNO 					= #{vhclno}
 		]]>
@@ -279,7 +282,7 @@
 		]]>
 
     </select>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateVhclInfo			-->
 	<!-- DESC : APC 기준정보 업데이트	                                       				-->
@@ -297,10 +300,78 @@
 	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		 , DRVR_NM					= #{drvrNm}
 	    		 , RMRK						= #{rmrk}
+	    		 , TELNO					= #{telNO}
 			 WHERE APC_CD 					= #{apcCd}
 			   AND VHCLNO 					= #{vhclno}
 		]]>
 	</update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertMergeWrhsVhcl		-->
+	<!-- DESC : 입고차량정보 등록 및 변경	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.07  	김 호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="insertMergeWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
+		<![CDATA[
+			MERGE /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertMergeWrhsVhcl */
+			 INTO TB_WRHS_VHCL_INFO A
+			USING DUAL
+			   ON (
+			       	   A.APC_CD 					= #{apcCd}
+			       AND A.VHCLNO 					= #{vhclno}
+			      )
+			 WHEN MATCHED THEN
+					UPDATE
+				       SET
+						   A.SYS_LAST_CHG_DT 		= SYSDATE
+			    		 , A.SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			    		 , A.SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+						 , A.DRVR_NM				= #{drvrNm}
+			    		 , A.TELNO					= #{telno}
+					 WHERE A.APC_CD					= #{apcCd}
+					   AND A.VHCLNO					= #{vhclno}
+		     WHEN NOT MATCHED THEN
+		     		INSERT
+					     (
+					       APC_CD
+			    		 , VHCLNO
+			    		 , DRVR_NM
+			    		 , BANK_CD
+			    		 , ACTNO
+			    		 , DPSTR_NM
+			    		 , RMRK
+			    		 , TELNO
+			    		 , SYS_FRST_INPT_DT
+			    		 , SYS_FRST_INPT_USER_ID
+			    		 , SYS_FRST_INPT_PRGRM_ID
+			    		 , SYS_LAST_CHG_DT
+			    		 , SYS_LAST_CHG_USER_ID
+			    		 , SYS_LAST_CHG_PRGRM_ID
+						 )
+					VALUES
+						 (
+						   #{apcCd}
+			    		 , #{vhclno}
+			    		 , #{drvrNm}
+			    		 , #{bankCd}
+			    		 , FN_UTL_ENCRYPT_ARIA(#{actno})
+						 , #{dpstrNm}
+			    		 , #{rmrk}
+			    		 , #{telno}
+			    		 , SYSDATE
+			    		 , #{sysFrstInptUserId}
+			    		 , #{sysFrstInptPrgrmId}
+			    		 , SYSDATE
+			    		 , #{sysLastChgUserId}
+			    		 , #{sysLastChgPrgrmId}
+						 )
+		]]>
+	</update>
+
+
 
 </mapper>
 
