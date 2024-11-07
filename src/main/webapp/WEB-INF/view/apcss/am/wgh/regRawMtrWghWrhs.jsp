@@ -400,6 +400,20 @@
     const fn_choicePrdcr = function() {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
     }
+
+
+    /**
+     * @name fn_docRawMtrWrhs
+     * @description 확인서 발행
+     */
+    const fn_docRawMtrWrhs = async function(){
+
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+
+ 		gfn_popClipReport("원물입고일지", rptUrl, {apcCd: gv_selectedApcCd});
+
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
