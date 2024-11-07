@@ -1697,7 +1697,7 @@
             {caption: ["대변(통화)"],				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["차변(전표)"],				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["대변(전표)"],				ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["부서"],	   					ref: 'DEBIT_CREDIT_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서"],	   					ref: 'DEPT_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점"],				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["적요"],						ref: 'DESCRIPTION',				type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["비고"],						ref: 'ETC',						type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -2190,6 +2190,19 @@
  			});
  		}
  	}
+    
+    /**
+     * 신규
+     */
+    function cfn_add() {
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+    }
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
