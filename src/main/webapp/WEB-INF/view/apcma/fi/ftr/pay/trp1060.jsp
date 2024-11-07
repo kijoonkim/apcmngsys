@@ -137,7 +137,7 @@
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                     <div id="sb-area-gvwWFItem" style="height:200px;"></div>
                 </div>
-                <div class="ad_tbl_top2">
+                <div class="ad_tbl_top2" style="display: none;">
                     <ul class="ad_tbl_count">
                         <li>
                             <span>송장내역</span>
@@ -148,7 +148,7 @@
                         <sbux-button id="btnAddRowForGvwAct" name="btnAddRowForGvwAct" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwAct" style="float: right;"></sbux-button>
                     </div>
                 </div>
-                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px; display: none;">
                     <div id="sb-area-gvwAct" style="height:300px;"></div>
                 </div>
             </div>

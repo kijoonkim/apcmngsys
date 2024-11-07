@@ -53,7 +53,7 @@
                     <th scope="row" class="th_bg">사업장</th>
                     <td class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -137,6 +137,7 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
+    var p_siteCode = "${loginVO.maSiteCode}";
     //-----------------------------------------------------------
 
     var jsonWorkGbn = []; // 작업구분
@@ -406,34 +407,124 @@
 
     // 행 추가
     const fn_addRow = function () {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
+            return false;
+        }
+
         let rowVal = gvwInfo.getRow();
+        let JOB_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_FR"));
+        let DECLARATION_YYYYMM = gfn_addMonth(JOB_YYYYMM, 1).substring(0, 6);
 
-        //데이터가 없고 행선택이 없을경우.
         if (rowVal == -1){
-
-            gvwInfo.addRow(true);
+            gvwInfo.addRow(true, {
+                JOB_YYYYMM : JOB_YYYYMM,
+                DECLARATION_YYYYMM : DECLARATION_YYYYMM,
+                FOREI_TYPE : "1",
+                NATION_CODE : "KR",
+                PAY_DATE : gfn_dateToYmd(new Date()),
+            });
         }else{
-            gvwInfo.insertRow(rowVal);
+            gvwInfo.insertRow(rowVal, 'below', {
+                JOB_YYYYMM : JOB_YYYYMM,
+                DECLARATION_YYYYMM : DECLARATION_YYYYMM,
+                FOREI_TYPE : "1",
+                NATION_CODE : "KR",
+                PAY_DATE : gfn_dateToYmd(new Date()),
+            });
         }
     }
 
     // 행 삭제
     const fn_delRow = async function () {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
+            return false;
+        }
 
-        let rowVal = gvwInfo.getRow();
+        var nRow 		= gvwInfo.getRow();
+        var rowData 	= gvwInfo.getRowData(nRow);
 
-        if (rowVal == -1) {
+        if (nRow == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-            gvwInfo.deleteRow(rowVal);
+            gvwInfo.deleteRow(nRow);
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_JOB_YYYYMM : rowData.JOB_YYYYMM,
+            V_P_SOCNO : rowData.EARNER_CODE,
+            V_P_WORK_ST_DAT : "",
+            V_P_EARNER_NAME : "",
+            V_P_SITE_CODE : "",
+            V_P_PAY_DATE : "",
+            V_P_WORK_END_DAT : "",
+            V_P_WORK_DAY : "",
+            V_P_DECLARATION_YYYYMM : "",
+            V_P_BANK_CODE : "",
+            V_P_BANK_ACC : "",
+            V_P_DAILY_PAY_AMT : "",
+            V_P_TOT_PAY_AMT : "",
+            V_P_WORK_PAY_AMT : "",
+            V_P_NON_TXABLE_AMT : "",
+            V_P_INC_AMT : "",
+            V_P_EARNED_INC_AMT : "",
+            V_P_INC_TX_AMT : "",
+            V_P_LOCAL_TX_AMT : "",
+            V_P_HEALTH_INSURE_AMT : "",
+            V_P_LONG_HEALTH_INSURE_AMT : "",
+            V_P_NATIONAL_PENS_AMT : "",
+            V_P_EMPLOY_INSURE_AMT : "",
+            V_P_ETC_DED_AMT : "",
+            V_P_TOT_DEDUCT_AMT : "",
+            V_P_ALLOWANCE_AMT : "",
+            V_P_MEMO : "",
+            V_P_REMARK : "",
+            V_P_FOREI_TYPE : "",
+            V_P_NATION_CODE : "",
+            V_P_TEL : "",
+            V_P_ADDRESS : "",
+            V_P_WORK_REGION : "",
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3610.do", {
+            getType				: 'json',
+            workType			: 'D',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_initSBSelect();
         fn_createGvwInfoGrid();
-        await fn_search();
+        await fn_onload();
     });
 
     // 초기화
@@ -459,6 +550,12 @@
     // 신규
     function cfn_add() {
         fn_create();
+    }
+
+    const fn_onload = async function() {
+        SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+        SBUxMethod.set("SRCH_JOB_YYYYMM_FR", gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_JOB_YYYYMM_TO", gfn_dateToYm(new Date()));
     }
 
     const fn_save = async function () {
@@ -638,19 +735,24 @@
     }
 
     const fn_search = async function () {
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
+            return false;
+        }
+
+        let JOB_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_FR"));
+        let JOB_YYYYMM_TO = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_TO"));
+        let SITE_CODE = gfn_nvl(gfnma_multiSelectGet("SRCH_SITE_CODE"));
         let EARNER_NAME = gfn_nvl(SBUxMethod.get("SRCH_EARNER_NAME"));
-        let BIZ_REGNO = enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SRCH_BIZ_REGNO")) : "";
-        let RESIDE_TYPE = enableTab == "tpgResident" ? "1" : "2";
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
             V_P_COMP_CODE		: gv_ma_selectedApcCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_JOB_YYYYMM_FR : JOB_YYYYMM_FR,
+            V_P_JOB_YYYYMM_TO : JOB_YYYYMM_TO,
+            V_P_SITE_CODE : SITE_CODE,
             V_P_EARNER_NAME : EARNER_NAME,
-            V_P_BIZ_REGNO : BIZ_REGNO,
-            V_P_RESIDE_TYPE : RESIDE_TYPE,
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
@@ -658,9 +760,9 @@
             V_P_PC				: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3610List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3620List.do", {
             getType				: 'json',
-            workType			: 'LIST',
+            workType			: 'Q',
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
@@ -669,96 +771,56 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if(enableTab == "tpgResident") {
-                    jsonResidentList.length = 0;
-                    data.cv_1.forEach((item, index) => {
-                        const msg = {
-                            CLIENT_CODE: item.CLIENT_CODE,
-                            COMP_CODE: item.COMP_CODE,
-                            EARNER_CODE: item.EARNER_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            TAX_SITE_CODE: item.TAX_SITE_CODE,
-                            EARNER_NAME: item.EARNER_NAME,
-                            SOCNO: item.SOCNO,
-                            SOCNO_REAL: item.SOCNO_REAL,
-                            BIZ_REGNO: item.BIZ_REGNO,
-                            COMP_NAME: item.COMP_NAME,
-                            NATION_CODE: item.NATION_CODE,
-                            FOREI_TYPE: item.FOREI_TYPE,
-                            WORK_REGION: item.WORK_REGION,
-                            INC_TYPE: item.INC_TYPE,
-                            INC_SEC: item.INC_SEC,
-                            SITE_ZIP_CODE: item.SITE_ZIP_CODE,
-                            SITE_ADDRESS: item.SITE_ADDRESS,
-                            ZIP_CODE: item.ZIP_CODE,
-                            ADDRESS: item.ADDRESS,
-                            BUSINESS_TYPE: item.BUSINESS_TYPE,
-                            BANK_CODE: item.BANK_CODE,
-                            BANK_NAME: item.BANK_NAME,
-                            BANK_ACC: item.BANK_ACC,
-                            BANK_ACC_REAL: item.BANK_ACC_REAL,
-                            TEL: item.TEL,
-                            BIRTHDAY: item.BIRTHDAY,
-                            MOBILE_PHONE: item.MOBILE_PHONE,
-                            EMAIL: item.EMAIL,
-                            PAY_CYCLE: item.PAY_CYCLE,
-                            MEMO: item.MEMO,
-                        }
-                        jsonResidentList.push(msg);
-                    });
-                    gvwResident.rebuild();
-                    gvwResident.sortColumn(0, 'desc');
-
-                    if (jsonResidentList.length > 0) {
-                        gvwResident.clickRow(1);
-                    } else {
-                        fn_create();
+                jsonServiceFeeList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        TXN_ID : item.TXN_ID,
+                        JOB_YYYYMM : item.JOB_YYYYMM,
+                        SOCNO : item.SOCNO,
+                        WORK_ST_DAT : item.WORK_ST_DAT,
+                        EARNER_CODE : item.EARNER_CODE,
+                        EARNER_NAME : item.EARNER_NAME,
+                        SITE_CODE : item.SITE_CODE,
+                        PAY_DATE : item.PAY_DATE,
+                        WORK_END_DAT : item.WORK_END_DAT,
+                        WORK_DAY : item.WORK_DAY,
+                        WORK_CNT : item.WORK_CNT,
+                        WORK_GBN : item.WORK_GBN,
+                        WORK_NAME : item.WORK_NAME,
+                        WORK_PLACE : item.WORK_PLACE,
+                        WORK_DTL_NAME : item.WORK_DTL_NAME,
+                        WORK_PLACE2 : item.WORK_PLACE2,
+                        BANK_CODE : item.BANK_CODE,
+                        BANK_NAME : item.BANK_NAME,
+                        BANK_ACC : item.BANK_ACC,
+                        DAILY_PAY_AMT : item.DAILY_PAY_AMT,
+                        TOT_PAY_AMT : item.TOT_PAY_AMT,
+                        WORK_PAY_AMT : item.WORK_PAY_AMT,
+                        NON_TXABLE_AMT : item.NON_TXABLE_AMT,
+                        INC_AMT : item.INC_AMT,
+                        EARNED_INC_AMT : item.EARNED_INC_AMT,
+                        INC_TX_AMT : item.INC_TX_AMT,
+                        LOCAL_TX_AMT : item.LOCAL_TX_AMT,
+                        HEALTH_INSURE_AMT : item.HEALTH_INSURE_AMT,
+                        LONG_HEALTH_INSURE_AMT : item.LONG_HEALTH_INSURE_AMT,
+                        NATIONAL_PENS_AMT : item.NATIONAL_PENS_AMT,
+                        EMPLOY_INSURE_AMT : item.EMPLOY_INSURE_AMT,
+                        ETC_DED_AMT : item.ETC_DED_AMT,
+                        TOT_DEDUCT_AMT : item.TOT_DEDUCT_AMT,
+                        ALLOWANCE_AMT : item.ALLOWANCE_AMT,
+                        MEMO : item.MEMO,
+                        REMARK : item.REMARK,
+                        FOREI_TYPE : item.FOREI_TYPE,
+                        NATION_CODE : item.NATION_CODE,
+                        TEL : item.TEL,
+                        MOBILE_PHONE : item.MOBILE_PHONE,
+                        EMAIL : item.EMAIL,
+                        ADDRESS : item.ADDRESS,
+                        WORK_REGION : item.WORK_REGION,
                     }
-                } else if(enableTab == "tpgNonresident") {
-                    jsonNonResidentList.length = 0;
-                    data.cv_1.forEach((item, index) => {
-                        const msg = {
-                            CLIENT_CODE: item.CLIENT_CODE,
-                            COMP_CODE: item.COMP_CODE,
-                            EARNER_CODE: item.EARNER_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            TAX_SITE_CODE: item.TAX_SITE_CODE,
-                            EARNER_NAME: item.EARNER_NAME,
-                            SOCNO: item.SOCNO,
-                            SOCNO_REAL: item.SOCNO_REAL,
-                            BIZ_REGNO: item.BIZ_REGNO,
-                            COMP_NAME: item.COMP_NAME,
-                            NATION_CODE: item.NATION_CODE,
-                            FOREI_TYPE: item.FOREI_TYPE,
-                            WORK_REGION: item.WORK_REGION,
-                            INC_TYPE: item.INC_TYPE,
-                            INC_SEC: item.INC_SEC,
-                            SITE_ZIP_CODE: item.SITE_ZIP_CODE,
-                            SITE_ADDRESS: item.SITE_ADDRESS,
-                            ZIP_CODE: item.ZIP_CODE,
-                            ADDRESS: item.ADDRESS,
-                            BUSINESS_TYPE: item.BUSINESS_TYPE,
-                            BANK_CODE: item.BANK_CODE,
-                            BANK_NAME: item.BANK_NAME,
-                            BANK_ACC: item.BANK_ACC,
-                            BANK_ACC_REAL: item.BANK_ACC_REAL,
-                            TEL: item.TEL,
-                            BIRTHDAY: item.BIRTHDAY,
-                            MOBILE_PHONE: item.MOBILE_PHONE,
-                            EMAIL: item.EMAIL,
-                            PAY_CYCLE: item.PAY_CYCLE,
-                            MEMO: item.MEMO,
-                        }
-                        jsonNonResidentList.push(msg);
-                    });
-                    gvwNonresident.rebuild();
-
-                    if (jsonNonResidentList.length > 0) {
-                        gvwNonresident.clickRow(1);
-                    } else {
-                        fn_create();
-                    }
-                }
+                    jsonServiceFeeList.push(msg);
+                });
+                gvwInfo.rebuild();
             } else {
                 alert(data.resultMessage);
             }
