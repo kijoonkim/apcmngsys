@@ -99,7 +99,7 @@
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             onchange="fn_dtpChangeClclnYmd"
                     ></sbux-datepicker>--%>
-                    <sbux-datepicker id="SRCH_PAY_YYYYMM" name="SRCH_PAY_YYYYMM" uitype="popup" datepicker-mode="month" date-format="yyyymm" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
+                    <sbux-datepicker id="SRCH_PAY_YYYYMM" name="SRCH_PAY_YYYYMM" uitype="popup" datepicker-mode="month" date-format="yyyy-mm" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td style="border-right: hidden;">&nbsp;</td>
@@ -622,11 +622,11 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
+            {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '170px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItemCategory', label : 'label', value : 'value'}
             },
-            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["급여항목명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["급여항목명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["입력부서 코드"], ref: 'ENTRY_DEPT_CODE', type: 'output', width: '100px', style: 'text-align:left', hidden: true},
             {caption: ["입력부서 명"], ref: 'ENTRY_DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left', hidden: true},
             {caption: ["수당기준"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', hidden: true,
@@ -719,7 +719,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function () {
+    const fn_search = async function (nRow) {
 
         let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
         let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
@@ -777,12 +777,12 @@
                     jsonMasterList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CATEGORY   : item.PAY_ITEM_CATEGORY,
-                            PAY_ITEM_CODE       : item.PAY_ITEM_CODE,
-                            PAY_ITEM_NAME       : item.PAY_ITEM_NAME,
-                            ENTRY_DEPT_CODE     : item.ENTRY_DEPT_CODE,
-                            ENTRY_DEPT_NAME     : item.ENTRY_DEPT_NAME,
-                            CHK_YN              : item.CHK_YN
+                            PAY_ITEM_CATEGORY   : gfn_nvl(item.PAY_ITEM_CATEGORY),
+                            PAY_ITEM_CODE       : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_NAME       : gfn_nvl(item.PAY_ITEM_NAME),
+                            ENTRY_DEPT_CODE     : gfn_nvl(item.ENTRY_DEPT_CODE),
+                            ENTRY_DEPT_NAME     : gfn_nvl(item.ENTRY_DEPT_NAME),
+                            CHK_YN              : gfn_nvl(item.CHK_YN),
                         }
                         jsonMasterList.push(msg);
                         totalRecordCount++;
@@ -792,7 +792,7 @@
                     document.querySelector('#listCount').innerText = totalRecordCount;
 
                     if(jsonMasterList.length > 0) {
-                        gvwMasterGrid.clickRow(1);
+                        gvwMasterGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
                     }
 
                     //fn_view();
@@ -1171,6 +1171,8 @@
     //저장
     const fn_save = async function () {
 
+        let nRow = gvwMasterGrid.getRow();
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -1189,7 +1191,7 @@
                             alert(data.resultMessage);
                         }else{
                             gfn_comAlert("I0001");
-                            fn_search();
+                            fn_search(nRow);
                         }
 
                     } else {
@@ -1401,11 +1403,11 @@
 
             if (strtxn_id != '')
             {
-                strtxn_id       = strtxn_id.slice(0, strtxn_id.Length - 1);
-                stremp_code     = stremp_code.Substring(0, stremp_code.Length - 1);
-                strpay_amt      = strpay_amt.Substring(0, strpay_amt.Length - 1);
-                strtax_pay_date = strtax_pay_date.Substring(0, strtax_pay_date.Length - 1);
-                strmemo         = strmemo.Substring(0, strmemo.Length - 1);
+                strtxn_id       = strtxn_id.slice(0, -1);
+                stremp_code     = stremp_code.slice(0, -1);
+                strpay_amt      = strpay_amt.slice(0, -1);
+                strtax_pay_date = strtax_pay_date.slice(0, -1);
+                strmemo         = strmemo.slice(0, -1);
             }
 
             var paramObj = {

@@ -37,12 +37,12 @@
             </div>
             <div style="margin-left: auto;">
                 <sbux-button
-                        id="btnConfirm" name="btnConfirm" uitype="normal" text="확정"
-                        class="btn btn-sm btn-outline-danger" onclick="fn_btnConfirm" style="float: right;"
-                ></sbux-button>
-                <sbux-button
                         id="btnCancel" name="btnCancel" uitype="normal" text="확정취소"
                         class="btn btn-sm btn-outline-danger" onclick="fn_btnCancel" style="float: right;"
+                ></sbux-button>
+                <sbux-button
+                        id="btnConfirm" name="btnConfirm" uitype="normal" text="확정"
+                        class="btn btn-sm btn-outline-danger" onclick="fn_btnConfirm" style="float: right;"
                 ></sbux-button>
             </div>
         </div>
@@ -83,7 +83,7 @@
                 <th scope="row" class="th_bg">급여영역</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-select
-                            unselected-text="전체"
+                            unselected-text="선택"
                             uitype="single"
                             id="SRCH_PAY_AREA_TYPE"
                             name="SRCH_PAY_AREA_TYPE"
@@ -110,7 +110,7 @@
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-select
-                            unselected-text="전체"
+                            unselected-text="선택"
                             uitype="single"
                             id="SRCH_PAY_TYPE"
                             name="SRCH_PAY_TYPE"
@@ -122,7 +122,7 @@
                 <th scope="row" class="th_bg">지급일자</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-select
-                            unselected-text="전체"
+                            unselected-text="선택"
                             uitype="single"
                             id="SRCH_PAY_DATE"
                             name="SRCH_PAY_DATE"
@@ -499,6 +499,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>지급항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount1">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -532,6 +533,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>공제항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -565,6 +567,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>기초정보</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
@@ -832,7 +835,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true
+        //SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -869,7 +872,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true
+        //SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -905,7 +908,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true
+        //SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -1171,7 +1174,6 @@
 
                     });
 
-
                     jsonPayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
@@ -1206,7 +1208,6 @@
 
                     gvwDeductGrid.rebuild();
 
-
                     jsonBasicList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
@@ -1222,8 +1223,6 @@
                     });
 
                     gvwBasicGrid.rebuild();
-
-
 
                     let PAY_CONFIRM_YN  = rowData.PAY_CONFIRM_YN;
                     let PAY_APPLY_MONTH = rowData.PAY_APPLY_MONTH;
@@ -1254,7 +1253,6 @@
 
                         /*grpPayApply.Visible = false;*/
                     }
-
 
                     /****************그리드 버튼 활성화****************/
                     if (PAY_CONFIRM_YN == 'Y'){
@@ -1849,7 +1847,7 @@
      */
     var fn_payCashAmt = function() {
 
-        let PAY_NET_AMT     = gfn_nvl((SBUxMethod.get("PAY_NET_AMT")); //실지급액
+        let PAY_NET_AMT     = gfn_nvl(SBUxMethod.get("PAY_NET_AMT")); //실지급액
         let PAY_CASH_AMT    = gfn_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현금지급액
 
         //이체액
