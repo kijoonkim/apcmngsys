@@ -887,11 +887,18 @@
     	let obj = e.data;
 		if(obj){
 			if(obj['MENU_MOVE']){
-				//console.log('2 message pg_state:', pg_state);			
-				//console.log('2 message obj:', obj);
-				pg_state 		= 'edit';			
+				//pg_state 		= 'edit';			
+				//p_menu_param 	= obj;
+		     	//fn_init(false);
+		     	
 				p_menu_param 	= obj;
-		     	fn_init(false);
+				if(p_menu_param){
+					pg_state = 'edit';			
+			     	fn_init(false);
+				} else {
+					pg_state = 'new';			
+			    	fn_init(true);
+				}		     	
 			}
 		}
     });
@@ -1013,57 +1020,62 @@
     		fn_setFig2210Grid('Q',function(data){
     			console.log('this===>>>:', data);
     			
-    			//조회부분
-    			SBUxMethod.set('sch-doc-batch-no', 				gfnma_nvl(data.cv_2[0]['DOC_BATCH_NO']));
-    			SBUxMethod.set('sch-acct-rule-code', 			gfnma_nvl(data.cv_2[0]['ACCT_RULE_CODE']));
-    			SBUxMethod.set('sch-dept-name', 				gfnma_nvl(data.cv_2[0]['DEPT_NAME']));
-    			SBUxMethod.set('sch-dept-code', 				gfnma_nvl(data.cv_2[0]['DEPT_CODE']));
-    			SBUxMethod.set('sch-doc-name', 					gfnma_nvl(data.cv_2[0]['DOC_NAME']));
-    			SBUxMethod.set('sch-doc-id', 					gfnma_nvl(data.cv_2[0]['DOC_ID']));
-    			SBUxMethod.set('sch-voucher-type', 				gfnma_nvl(data.cv_2[0]['VOUCHER_TYPE']));
-    			SBUxMethod.set('sch-voucher-no', 				gfnma_nvl(data.cv_2[0]['VOUCHER_NO']));
-    			SBUxMethod.set('sch-tax-site-code', 			gfnma_nvl(data.cv_2[0]['TAX_SITE_CODE']));
-    			SBUxMethod.set('sch-sub-tax-site-code', 		gfnma_nvl(data.cv_2[0]['SUB_TAX_SITE_CODE']));
-    			SBUxMethod.set('sch-bill-no', 					gfnma_nvl(data.cv_2[0]['BILL_NO']));
-    			SBUxMethod.set('sch-doc-type', 					gfnma_nvl(data.cv_2[0]['DOC_TYPE']));
-    			SBUxMethod.set('sch-doc-status', 				gfnma_nvl(data.cv_2[0]['DOC_STATUS']));
-    			SBUxMethod.set('sch-approve-date', 				gfnma_nvl(data.cv_2[0]['APPROVE_DATE']));
-    			SBUxMethod.set('sch-doc-date', 					gfnma_nvl(data.cv_2[0]['DOC_DATE']));
-    			SBUxMethod.set('sch-voucher-receipt-date', 		gfnma_nvl(data.cv_2[0]['VOUCHER_RECEIPT_DATE']));
-    			SBUxMethod.set('sch-posting-date', 				gfnma_nvl(data.cv_2[0]['POSTING_DATE']));
-    			SBUxMethod.set('sch-posting-user', 				gfnma_nvl(data.cv_2[0]['POSTING_USER']));
-    			SBUxMethod.set('sch-currency-code', 			gfnma_nvl(data.cv_2[0]['CURRENCY_CODE']));
-    			SBUxMethod.set('sch-exchange-type', 			gfnma_nvl(data.cv_2[0]['EXCHANGE_TYPE']));
-    			SBUxMethod.set('sch-exchange-rate', 			gfnma_nvl(data.cv_2[0]['EXCHANGE_RATE']));
-    			SBUxMethod.set('sch-unposting-date', 			gfnma_nvl(data.cv_2[0]['UNPOSTING_DATE']));
-    			SBUxMethod.set('sch-unposting-user', 			gfnma_nvl(data.cv_2[0]['UNPOSTING_USER']));
-    			SBUxMethod.set('sch-description', 				gfnma_nvl(data.cv_2[0]['DESCRIPTION']));
-    			SBUxMethod.set('sch-reverse-doc-name', 			gfnma_nvl(data.cv_2[0]['REVERSE_DOC_NAME']));
-    			SBUxMethod.set('sch-orig-doc-name', 			gfnma_nvl(data.cv_2[0]['ORIG_DOC_ID']));
+    			var tobj = {};
+    			if(data.cv_2.length > 0){
+    				tobj = data.cv_2[0];
+    			}
     			
-    			SBUxMethod.set('sch-hold-flag', 				gfnma_nvl(data.cv_2[0]['HOLD_FLAG']));
-    			SBUxMethod.set('sch-release-date', 				gfnma_nvl(data.cv_2[0]['RELEASE_DATE']));
-    			SBUxMethod.set('sch-insert-userid', 			gfnma_nvl(data.cv_2[0]['INSERT_USERID']));
-    			SBUxMethod.set('sch-reverse-flag', 				gfnma_nvl(data.cv_2[0]['REVERSE_FLAG']));
-    			SBUxMethod.set('sch-confirm-emp-code', 			gfnma_nvl(data.cv_2[0]['CONFIRM_EMP_CODE']));
-    			SBUxMethod.set('sch-temp-doc-num', 				gfnma_nvl(data.cv_2[0]['DOC_NUM']));
-    			SBUxMethod.set('sch-hold-date', 				gfnma_nvl(data.cv_2[0]['HOLD_DATE']));
-    			SBUxMethod.set('sch-release-user', 				gfnma_nvl(data.cv_2[0]['RELEASE_USER']));
-    			SBUxMethod.set('sch-hold-user', 				gfnma_nvl(data.cv_2[0]['HOLD_USER']));
-    			SBUxMethod.set('sch-hold-reason', 				gfnma_nvl(data.cv_2[0]['HOLD_REASON']));
-    			SBUxMethod.set('sch-proxy-emp-code', 			gfnma_nvl(data.cv_2[0]['PROXY_EMP_CODE']));
-    			SBUxMethod.set('sch-source-type', 				gfnma_nvl(data.cv_2[0]['SOURCE_TYPE']));
-    			SBUxMethod.set('sch-appr-id', 					gfnma_nvl(data.cv_2[0]['APPR_ID']));
-    			SBUxMethod.set('sch-entry-path', 				gfnma_nvl(data.cv_2[0]['ENTRY_PATH']));
-    			SBUxMethod.set('sch-source-id', 				gfnma_nvl(data.cv_2[0]['SOURCE_ID']));
-    			SBUxMethod.set('sch-appr-acount', 				gfnma_nvl(data.cv_2[0]['APPR_COUNT']));
-    			SBUxMethod.set('sch-fi-org-code', 				gfnma_nvl(data.cv_2[0]['FI_ORG_CODE']));
-    			SBUxMethod.set('sch-base-scale', 				gfnma_nvl(data.cv_2[0]['BASE_SCALE']));
-    			SBUxMethod.set('sch-request-emp-code', 			gfnma_nvl(data.cv_2[0]['REQUEST_EMP_CODE']));
-    			SBUxMethod.set('sch-before-appr-emp-code', 		gfnma_nvl(data.cv_2[0]['BEFORE_APPR_EMP_CODE']));
-    			SBUxMethod.set('sch-before-proxy-emp-code', 	gfnma_nvl(data.cv_2[0]['BEFORE_PROXY_EMP_CODE']));
-    			SBUxMethod.set('sch-next-appr-emp-code', 		gfnma_nvl(data.cv_2[0]['NEXT_APPR_EMP_CODE']));
-    			SBUxMethod.set('sch-site-code', 				gfnma_nvl(data.cv_2[0]['SITE_CODE']));
+    			//조회부분
+    			SBUxMethod.set('sch-doc-batch-no', 				gfnma_nvl(tobj['DOC_BATCH_NO']));
+    			SBUxMethod.set('sch-acct-rule-code', 			gfnma_nvl(tobj['ACCT_RULE_CODE']));
+    			SBUxMethod.set('sch-dept-name', 				gfnma_nvl(tobj['DEPT_NAME']));
+    			SBUxMethod.set('sch-dept-code', 				gfnma_nvl(tobj['DEPT_CODE']));
+    			SBUxMethod.set('sch-doc-name', 					gfnma_nvl(tobj['DOC_NAME']));
+    			SBUxMethod.set('sch-doc-id', 					gfnma_nvl(tobj['DOC_ID']));
+    			SBUxMethod.set('sch-voucher-type', 				gfnma_nvl(tobj['VOUCHER_TYPE']));
+    			SBUxMethod.set('sch-voucher-no', 				gfnma_nvl(tobj['VOUCHER_NO']));
+    			SBUxMethod.set('sch-tax-site-code', 			gfnma_nvl(tobj['TAX_SITE_CODE']));
+    			SBUxMethod.set('sch-sub-tax-site-code', 		gfnma_nvl(tobj['SUB_TAX_SITE_CODE']));
+    			SBUxMethod.set('sch-bill-no', 					gfnma_nvl(tobj['BILL_NO']));
+    			SBUxMethod.set('sch-doc-type', 					gfnma_nvl(tobj['DOC_TYPE']));
+    			SBUxMethod.set('sch-doc-status', 				gfnma_nvl(tobj['DOC_STATUS']));
+    			SBUxMethod.set('sch-approve-date', 				gfnma_nvl(tobj['APPROVE_DATE']));
+    			SBUxMethod.set('sch-doc-date', 					gfnma_nvl(tobj['DOC_DATE']));
+    			SBUxMethod.set('sch-voucher-receipt-date', 		gfnma_nvl(tobj['VOUCHER_RECEIPT_DATE']));
+    			SBUxMethod.set('sch-posting-date', 				gfnma_nvl(tobj['POSTING_DATE']));
+    			SBUxMethod.set('sch-posting-user', 				gfnma_nvl(tobj['POSTING_USER']));
+    			SBUxMethod.set('sch-currency-code', 			gfnma_nvl(tobj['CURRENCY_CODE']));
+    			SBUxMethod.set('sch-exchange-type', 			gfnma_nvl(tobj['EXCHANGE_TYPE']));
+    			SBUxMethod.set('sch-exchange-rate', 			gfnma_nvl(tobj['EXCHANGE_RATE']));
+    			SBUxMethod.set('sch-unposting-date', 			gfnma_nvl(tobj['UNPOSTING_DATE']));
+    			SBUxMethod.set('sch-unposting-user', 			gfnma_nvl(tobj['UNPOSTING_USER']));
+    			SBUxMethod.set('sch-description', 				gfnma_nvl(tobj['DESCRIPTION']));
+    			SBUxMethod.set('sch-reverse-doc-name', 			gfnma_nvl(tobj['REVERSE_DOC_NAME']));
+    			SBUxMethod.set('sch-orig-doc-name', 			gfnma_nvl(tobj['ORIG_DOC_ID']));
+    			
+    			SBUxMethod.set('sch-hold-flag', 				gfnma_nvl(tobj['HOLD_FLAG']));
+    			SBUxMethod.set('sch-release-date', 				gfnma_nvl(tobj['RELEASE_DATE']));
+    			SBUxMethod.set('sch-insert-userid', 			gfnma_nvl(tobj['INSERT_USERID']));
+    			SBUxMethod.set('sch-reverse-flag', 				gfnma_nvl(tobj['REVERSE_FLAG']));
+    			SBUxMethod.set('sch-confirm-emp-code', 			gfnma_nvl(tobj['CONFIRM_EMP_CODE']));
+    			SBUxMethod.set('sch-temp-doc-num', 				gfnma_nvl(tobj['DOC_NUM']));
+    			SBUxMethod.set('sch-hold-date', 				gfnma_nvl(tobj['HOLD_DATE']));
+    			SBUxMethod.set('sch-release-user', 				gfnma_nvl(tobj['RELEASE_USER']));
+    			SBUxMethod.set('sch-hold-user', 				gfnma_nvl(tobj['HOLD_USER']));
+    			SBUxMethod.set('sch-hold-reason', 				gfnma_nvl(tobj['HOLD_REASON']));
+    			SBUxMethod.set('sch-proxy-emp-code', 			gfnma_nvl(tobj['PROXY_EMP_CODE']));
+    			SBUxMethod.set('sch-source-type', 				gfnma_nvl(tobj['SOURCE_TYPE']));
+    			SBUxMethod.set('sch-appr-id', 					gfnma_nvl(tobj['APPR_ID']));
+    			SBUxMethod.set('sch-entry-path', 				gfnma_nvl(tobj['ENTRY_PATH']));
+    			SBUxMethod.set('sch-source-id', 				gfnma_nvl(tobj['SOURCE_ID']));
+    			SBUxMethod.set('sch-appr-acount', 				gfnma_nvl(tobj['APPR_COUNT']));
+    			SBUxMethod.set('sch-fi-org-code', 				gfnma_nvl(tobj['FI_ORG_CODE']));
+    			SBUxMethod.set('sch-base-scale', 				gfnma_nvl(tobj['BASE_SCALE']));
+    			SBUxMethod.set('sch-request-emp-code', 			gfnma_nvl(tobj['REQUEST_EMP_CODE']));
+    			SBUxMethod.set('sch-before-appr-emp-code', 		gfnma_nvl(tobj['BEFORE_APPR_EMP_CODE']));
+    			SBUxMethod.set('sch-before-proxy-emp-code', 	gfnma_nvl(tobj['BEFORE_PROXY_EMP_CODE']));
+    			SBUxMethod.set('sch-next-appr-emp-code', 		gfnma_nvl(tobj['NEXT_APPR_EMP_CODE']));
+    			SBUxMethod.set('sch-site-code', 				gfnma_nvl(tobj['SITE_CODE']));
 
     			//그리드합계
 				jsonGridSum = [];
