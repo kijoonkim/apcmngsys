@@ -1367,10 +1367,8 @@
     }
 
     const fn_search = async function () {
-        if (strWorkType == "Q") {
-            if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
-                return false;
-            }
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
+            return false;
         }
 
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));
