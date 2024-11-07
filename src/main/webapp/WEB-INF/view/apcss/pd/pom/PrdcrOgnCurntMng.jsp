@@ -1216,7 +1216,7 @@
 		//사용자인경우는 현재 올해 년도만 사용함
 		let now = new Date();
 		let year = now.getFullYear();
-		SBUxMethod.set('dtl-input-brno',year);
+		SBUxMethod.set('dtl-input-yr',year);
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
 		});
