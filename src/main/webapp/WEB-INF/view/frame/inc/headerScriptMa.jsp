@@ -27,3 +27,11 @@
 <div id="body-modal-comPopAppvMng">
 	<jsp:include page="../../../com/popup/comPopAppvMng.jsp"></jsp:include>
 </div>
+<script>
+    window.addEventListener('keydown', function(event) {
+        if (event.altKey && (event.key === 'F' || event.key === 'f' || event.key === 'ㄹ')) {
+            event.preventDefault();
+            cfn_search();
+        }
+    });
+</script>

@@ -79,7 +79,7 @@
 							            class="form-control input-sm input-sm-ast inpt_data_reqed">
 							    </sbux-datepicker>
                             </td>
-                        
+
                             <th scope="row" class="th_bg">만기차입금포함여부</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -119,7 +119,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>자산정산 리스트</span>
+                                    <span>차입금</span>
                                 </li>
                             </ul>
                         </div>
@@ -131,9 +131,9 @@
                     <div class="col-sm-6" style="width:100%;padding-top:10px">
 					
 					    <sbux-tabs id="idxTab_norm1" name="idxTab_norm1" uitype="normal"
-		                   title-target-id-array = "SB_TOP_TAB1^SB_TOP_TAB2^SB_TOP_TAB3^SB_TOP_TAB4^SB_TOP_TAB5^SB_TOP_TAB6^SB_TOP_TAB7^SB_TOP_TAB8"
-		                   title-text-array = "기본정보^계정과목정보^상환정보^이율변동정보^상환계획^현재가치관리^손익계정^햇지정보"
-		                   title-target-value-array="1^2^3^4^5^6^7^8"
+		                   title-target-id-array = "SB_TOP_TAB1^SB_TOP_TAB2^SB_TOP_TAB3^SB_TOP_TAB4<%--^SB_TOP_TAB5^SB_TOP_TAB6--%>^SB_TOP_TAB7^SB_TOP_TAB8"
+		                   title-text-array = "기본정보^계정과목정보^상환정보^이율변동정보<%--^상환계획^현재가치관리--%>^손익계정^햇지정보"
+		                   title-target-value-array="1^2^3^4<%--^5^6--%>^7^8"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
 						<div class="tab-content" style="height:330px;width:100%;padding-top:0px" >
@@ -173,7 +173,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">회계단위</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select id="FM_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select id="FM_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">차입금번호</th>
@@ -183,7 +183,7 @@
 			                                                            
 			                                    <th scope="row" class="th_bg">사업장</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select id="FM_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select id="FM_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -201,7 +201,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금유형</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:150px" id="FM_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType" unselected-text="선택" class="form-control input-sm" onchange="fn_editValLoanType()"></sbux-select>
+					                                <sbux-select style="width:150px" id="FM_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_editValLoanType()"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">분류1</th>
@@ -234,10 +234,10 @@
 			                                    <th scope="row" class="th_bg">차입기관</th>
 			                                    <td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_BANK_CS_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup1('2')"></sbux-button>
@@ -267,12 +267,12 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">통화</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select id="FM_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm" onchange="fn_editValCurrency()"></sbux-select>
+					                                <sbux-select id="FM_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_editValCurrency()"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">환율</th>
 			                                    <td colspan="3" class="td_input">
-					  								<sbux-input id="FM_EXCHANGE_RATE" uitype="text" class="form-control input-sm" onchange="fn_editValEx()"></sbux-input>
+					  								<sbux-input id="FM_EXCHANGE_RATE" uitype="text" class="form-control input-sm inpt_data_reqed" onchange="fn_editValEx()"></sbux-input>
 			                                    </td>		
 			                                                            
 			                                    <th scope="row" class="th_bg"></th>
@@ -283,12 +283,12 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금액(통화)</th>
 			                                    <td colspan="3" class="td_input">
-					  								<sbux-input id="FM_LOAN_AMT" uitype="text" class="form-control input-sm" onchange="fn_editValLoan()"></sbux-input>
+					  								<sbux-input id="FM_LOAN_AMT" uitype="text" class="form-control input-sm inpt_data_reqed" onchange="fn_editValLoan()"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">차입금액(전표)</th>
 			                                    <td colspan="3" class="td_input">
-					  								<sbux-input id="FM_LOAN_AMT_KRW" uitype="text" class="form-control input-sm"></sbux-input>
+					  								<sbux-input id="FM_LOAN_AMT_KRW" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 			                                                            
 			                                    <th scope="row" class="th_bg"></th>
@@ -300,15 +300,15 @@
 			                                    <th scope="row" class="th_bg">입금계좌</th>
 			                                    <td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_IN_DEPOSIT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_IN_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup3('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:200px" id="FM_IN_DEPOSIT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:200px" id="FM_IN_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 		                        			</tr>
@@ -317,15 +317,15 @@
 			                                    <th scope="row" class="th_bg">출금계좌</th>
 			                                    <td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_OUT_DEPOSIT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_OUT_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup3('2')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:200px" id="FM_OUT_DEPOSIT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:200px" id="FM_OUT_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 		                        			</tr>
@@ -337,7 +337,7 @@
 												            id="FM_LOAN_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="form-control input-sm input-sm-ast inpt_data_reqed ">
 												    </sbux-datepicker>
 			                                    </td>		                        
 			                                    
@@ -359,7 +359,7 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">년간이자일수</th>
 			                                    <td colspan="11" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_LOAN_STATUS" uitype="single" jsondata-ref="jsonLoanStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_LOAN_STATUS" uitype="single" jsondata-ref="jsonLoanStatus" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -406,15 +406,15 @@
 			                                    <th scope="row" class="th_bg">부서</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_DEPOSIT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup4('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_DEPOSIT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
@@ -427,30 +427,30 @@
 			                                    <th scope="row" class="th_bg">원가중심점</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup5('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">차입금차입</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_LOAN_START_TR_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_LOAN_START_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup6('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_LOAN_START_TR_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_LOAN_START_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 		                        			</tr>
@@ -459,30 +459,30 @@
 			                                    <th scope="row" class="th_bg">차입금계정</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_LOAN_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_LOAN_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_LOAN_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_LOAN_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">차입금상환</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_LOAN_REPAY_TR_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_LOAN_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup6('2')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_LOAN_REPAY_TR_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_LOAN_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		
 		                        			</tr>
@@ -491,30 +491,30 @@
 			                                    <th scope="row" class="th_bg">이자비용계정</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_INTEREST_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_INTEREST_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7('2')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>
 
 			                                    <th scope="row" class="th_bg">이자상환</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_INTEREST_REPAY_TR_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_INTEREST_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup6('3')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_INTEREST_REPAY_TR_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_INTEREST_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		
 		                        			</tr>
@@ -523,15 +523,15 @@
 			                                    <th scope="row" class="th_bg">선급비용계정</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7('3')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
@@ -555,15 +555,15 @@
 			                                    <th scope="row" class="th_bg">미지급비용계정</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_ACCRUED_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_ACCRUED_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7('5')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_ACCRUED_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_ACCRUED_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
@@ -597,15 +597,15 @@
 			                                    <th scope="row" class="th_bg">유동성대체계정(상환계정)</th>
 			                                    <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_LOAN_LIQUID_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" id="FM_LOAN_LIQUID_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
-															class="btn btn-xs btn-outline-dark"
+															class="btn btn-xs btn-outline-dark inpt_data_reqed"
 															text=".." uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7('7')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_LOAN_LIQUID_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" id="FM_LOAN_LIQUID_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
 			                                    </td>		                        
 			                                    
@@ -730,31 +730,31 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">기상환금액</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REPAY_AMT" uitype="text" class="form-control input-sm" onchange="fn_editValRepay()"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REPAY_AMT" uitype="text" class="form-control input-sm inpt_data_reqed" onchange="fn_editValRepay()"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">미상환금액</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REMAIN_LOAN_AMT" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REMAIN_LOAN_AMT" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원금상환조건</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_REPAY_TERM" uitype="single" jsondata-ref="jsonRepayTerm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_REPAY_TERM" uitype="single" jsondata-ref="jsonRepayTerm" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">원금거치기간(개월)</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_DEFERRED_MM" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_DEFERRED_MM" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원금상환주기(개월)</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REPAY_CYCLE_MM" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REPAY_CYCLE_MM" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">원금최초상환일</th>
@@ -771,60 +771,60 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">1회원금상환액</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REPAY_PER_AMT" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REPAY_PER_AMT" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">최초원금상환액</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_REPAY_FIRST_AMT" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_REPAY_FIRST_AMT" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원금상환일</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_REPAY_DD" uitype="single" jsondata-ref="jsonRepayDd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_REPAY_DD" uitype="single" jsondata-ref="jsonRepayDd" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">상환기준</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_REPAY_BASE" uitype="single" jsondata-ref="jsonRepayBase" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_REPAY_BASE" uitype="single" jsondata-ref="jsonRepayBase" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자율구분</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_INTEREST_TYPE" uitype="single" jsondata-ref="jsonInterestType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_INTEREST_TYPE" uitype="single" jsondata-ref="jsonInterestType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">약정이율</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_INTEREST_RATE" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_INTEREST_RATE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자지급기준</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_INTEREST_REPAY_TYPE" uitype="single" jsondata-ref="jsonInterestRepayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_INTEREST_REPAY_TYPE" uitype="single" jsondata-ref="jsonInterestRepayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">이자일수계산기준</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_DAYS_TYPE" uitype="single" jsondata-ref="jsonInterestCalcDaysType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_DAYS_TYPE" uitype="single" jsondata-ref="jsonInterestCalcDaysType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자거치기간(개월)</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_INTEREST_DEFERRED_MM" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_INTEREST_DEFERRED_MM" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">이자상환주기(개월)</th>
 			                                    <td colspan="3" class="td_input">
-				  									<sbux-input style="width:200px" id="FM_INTEREST_REPAY_CYCLE_MM" uitype="text" class="form-control input-sm"></sbux-input>
+				  									<sbux-input style="width:200px" id="FM_INTEREST_REPAY_CYCLE_MM" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
 		                        			
@@ -853,12 +853,12 @@
 			                                <tr>
 			                                    <th scope="row" class="th_bg">년간이자일수</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_YEAR_TYPE" uitype="single" jsondata-ref="jsonInterestCalcYearType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_YEAR_TYPE" uitype="single" jsondata-ref="jsonInterestCalcYearType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">이자기산일기준</th>
 			                                    <td colspan="3" class="td_input">
-					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_BASE_DAY" uitype="single" jsondata-ref="jsonInterestCalcBaseDay" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_BASE_DAY" uitype="single" jsondata-ref="jsonInterestCalcBaseDay" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		
 		                        			</tr>
 		                        			
@@ -948,7 +948,7 @@
 		                        </div>							
 							</div>
 						
-							<div id="SB_TOP_TAB5" >
+							<%--<div id="SB_TOP_TAB5" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -979,9 +979,9 @@
 		                        <div style="width:100%;">
 		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
 		                        </div>							
-							</div>
+							</div>--%>
 						
-							<div id="SB_TOP_TAB6" >
+							<%--<div id="SB_TOP_TAB6" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -994,7 +994,7 @@
 		                        <div style="width:100%;">
 		                            <div id="sb_area_grid_tap6" style="height:280px; width:100%;"></div>
 		                        </div>							
-							</div>
+							</div>--%>
 						
 							<div id="SB_TOP_TAB7" >
 		                        <div class="ad_tbl_top">
@@ -1379,8 +1379,8 @@
   		
 		fn_createTrl1010GridTop();
 		fn_createTrl1010GridTab4();
-		fn_createTrl1010GridTab5();
-		fn_createTrl1010GridTab6();
+		//fn_createTrl1010GridTab5();
+		//fn_createTrl1010GridTab6();
 		//cfn_search();
 
 		let openDate = gfn_dateToYmd(new Date());
@@ -1425,12 +1425,12 @@
 		Trl1010GridTab4.rebuild();
 
 		/*** 상환계획  그리드***/
-		jsonTrl1010Tab5.length = 0;
-		Trl1010GridTab5.rebuild();
+		//jsonTrl1010Tab5.length = 0;
+		//Trl1010GridTab5.rebuild();
 
 		/*** 현재가치관리  그리드***/
-		jsonTrl1010Tab6.length = 0;
-		Trl1010GridTab6.rebuild();
+		//jsonTrl1010Tab6.length = 0;
+		//Trl1010GridTab6.rebuild();
 
 
 	}
@@ -1449,7 +1449,7 @@
 			let INTEREST_PREAUTH_PAY_YN = gfn_nvl(SBUxMethod.get("FM_INTEREST_PREAUTH_PAY_YN")); //이자지급기준
 			let REPAY_SEQ = gfnma_multiSelectGet('#REPAY_SEQ');
 
-			if ((_.isEqual(FM_REPAY_PREAUTH_PAY_YN, 'N') || _.isEqual(INTEREST_PREAUTH_PAY_YN, 'N')) && REPAY_SEQ == '')
+			if ((_.isEqual(REPAY_PREAUTH_PAY_YN, 'N') || _.isEqual(INTEREST_PREAUTH_PAY_YN, 'N')) && REPAY_SEQ == '')
 			{
 				gfn_comConfirm("Q0000", "원금/이자지급 중 자동이체가 아닌건의 경우 상환거래처 계좌가 반드시 필요합니다.");
 				//SetMessageBox(GetFormMessage("TRL1010_005")); //원금/이자지급 중 자동이체가 아닌건의 경우 상환거래처 계좌가 반드시 필요합니다.
@@ -1511,12 +1511,12 @@
 					Trl1010GridTab4.rebuild();
 
 					/*** 상환계획  그리드***/
-					jsonTrl1010Tab5.length = 0;
-					Trl1010GridTab5.rebuild();
+					//jsonTrl1010Tab5.length = 0;
+					//Trl1010GridTab5.rebuild();
 
 					/*** 현재가치관리  그리드***/
-					jsonTrl1010Tab6.length = 0;
-					Trl1010GridTab6.rebuild();
+					//jsonTrl1010Tab6.length = 0;
+					//Trl1010GridTab6.rebuild();
 
 				}
 
@@ -1568,29 +1568,29 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["차입금번호"],	ref: 'LOAN_NUM', 	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["차입금번호"],	ref: 'LOAN_NUM', 	type:'output',  	width:'200px',  	style:'text-align:left'},
 			{caption : ["회계단위"], ref : 'FI_ORG_CODE', width : '200px', style : 'text-align:center', type : 'combo', hidden : true,
 				typeinfo : {ref : 'jsonFiOrgCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
 			},
 			{caption : ["금융기관"], ref : 'BANK_CS_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonBankCsCode', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
-			{caption : ["사업장"], ref : 'SITE_CODE', width : '150px', style : 'text-align:center', type : 'combo',
+			{caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
 			{caption : ["차입금유형"], ref : 'LOAN_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonLoanType', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
 			{caption: ["차입금명"],	ref: 'LOAN_NAME',	type:'output',  	width:'250px',  	style:'text-align:left'}, //P_FIM002 DBOBIZCOMPONENT 에 값이 없음.
-			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '100px', style : 'text-align:center', type : 'combo',
+			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
-			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
 			{caption: ["약정이율"],         ref: 'INTEREST_RATE',    type:'output',  	width:'150px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
@@ -1662,7 +1662,7 @@
     }
 
 	//상환계획
-    function fn_createTrl1010GridTab5() {
+    /*function fn_createTrl1010GridTab5() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap5';
 	    SBGridProperties.id 				= 'Trl1010GridTab5';
@@ -1707,10 +1707,10 @@
 
         Trl1010GridTab5 = _SBGrid.create(SBGridProperties);
         //Trl1010GridTab5.bind('click', 			'fn_viewTrl1010GridTab5Event');
-    }
+    }*/
 
 	//현재가치관리
-    function fn_createTrl1010GridTab6() {
+   /* function fn_createTrl1010GridTab6() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap6';
 	    SBGridProperties.id 				= 'Trl1010GridTab6';
@@ -1753,7 +1753,7 @@
 
         Trl1010GridTab6 = _SBGrid.create(SBGridProperties);
         //Trl1010GridTab6.bind('click', 			'fn_viewTrl1010GridTab6Event');
-    }
+    }*/
     
     /**
      * 차입기관 
@@ -1977,8 +1977,8 @@
          var searchCode 	= '';
          var searchName 	= '';
          if(type=='1'){
-        	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_CODE"));
-        	 searchName 	= gfn_nvl(SBUxMethod.get("FM_LOAN_ACCOUNT_NAME"));
+        	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_LOAN_START_TR_CODE"));
+        	 searchName 	= gfn_nvl(SBUxMethod.get("FM_LOAN_START_TR_NAME"));
          } else if(type=='2'){
         	 searchCode 	= gfn_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_CODE"));
         	 searchName 	= gfn_nvl(SBUxMethod.get("FM_LOAN_REPAY_TR_NAME"));
@@ -2311,7 +2311,7 @@
 
 	}
 
-	// 행 추가 [상황계횐]
+	/*// 행 추가 [상황계횐]
 	const fn_btnAddPlan = function() {
 		let rowVal = Trl1010GridTab5.getRow();
 
@@ -2359,7 +2359,7 @@
 			Trl1010GridTab5.deleteRow(rowVal);
 		}
 
-	}
+	}*/
 
 	//상세정보 보기
 	async function fn_view() {
@@ -2663,7 +2663,7 @@
 					SBUxMethod.set("FM_LOAN_LIQUID_ACCOUNT_NAME"      		, gfn_nvl(item.LOAN_LIQUID_ACCOUNT_NAME));
 					SBUxMethod.set("FM_LOAN_REPAY_TR_CODE"      			, gfn_nvl(item.LOAN_REPAY_TR_TYPE)); //--차입금상환 (신규))
 					SBUxMethod.set("FM_LOAN_REPAY_TR_NAME"      			, gfn_nvl(item.LOAN_REPAY_TR_NAME));
-					SBUxMethod.set("FM_INTEREST_REPAY_TR_TYPE"      		, gfn_nvl(item.INTEREST_REPAY_TR_TYPE)); // --이자상환 (신규))
+					SBUxMethod.set("FM_INTEREST_REPAY_TR_CODE"      		, gfn_nvl(item.INTEREST_REPAY_TR_TYPE)); // --이자상환 (신규))
 					SBUxMethod.set("FM_INTEREST_REPAY_TR_NAME"      		, gfn_nvl(item.INTEREST_REPAY_TR_NAME));
 					SBUxMethod.set("FM_LOAN_START_TR_CODE"      			, gfn_nvl(item.LOAN_START_TR_TYPE)); //--차입금차입 (신규))
 					SBUxMethod.set("FM_LOAN_START_TR_NAME"      			, gfn_nvl(item.LOAN_START_TR_NAME));
@@ -2753,7 +2753,7 @@
 				Trl1010GridTab4.rebuild();
 
 
-				/**************************** 상환계획 **********************************/
+				/*/!**************************** 상환계획 **********************************!/
 				jsonTrl1010Tab5.length = 0;
 				data.cv_4.forEach((item, index) => {
 					const msg = {
@@ -2780,7 +2780,7 @@
 					jsonTrl1010Tab5.push(msg);
 				});
 
-				Trl1010GridTab5.rebuild();
+				Trl1010GridTab5.rebuild();*/
 
 
 			} else {
@@ -2972,6 +2972,8 @@
 			, V_P_PC: ''
 		};
 
+		console.log('--------S paramObj----------', paramObj);
+
 
 		const postJsonPromise = gfn_postJSON("/fi/ffa/alm/insertTrl1010.do", {
 			getType: 'json',
@@ -3017,6 +3019,7 @@
 			const postJsonPromise = gfn_postJSON("/fi/ffa/alm/insertTrl1010S1.do", {listData: listData});
 			const data = await postJsonPromise;
 
+			console.log('--------S1 data----------', data);
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
 
@@ -3089,13 +3092,6 @@
 	 * 탭클릭
 	 */
 	const fn_tabClick = function(val) {
-
-		console.log('--------jsonLoanType--------', jsonLoanType);
-		console.log('--------jsonSiteCode--------', jsonSiteCode);
-
-		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("FM_LOAN_TYPE"));	//차입금유형
-
-		console.log('--------LOAN_TYPE--------', LOAN_TYPE);
 
 		p_sel_tab = val;
 	}

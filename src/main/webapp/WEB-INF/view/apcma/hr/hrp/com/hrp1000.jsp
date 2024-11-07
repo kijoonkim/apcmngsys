@@ -1673,16 +1673,16 @@
         if(_.isEmpty(rowData) == false) {
 
             var paramObj = {
-                V_P_DEBUG_MODE_YN: 'N'
-                , V_P_LANG_ID: 'KOR'
+                V_P_DEBUG_MODE_YN: ''
+                , V_P_LANG_ID: ''
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                , V_P_SITE_CODE     : rowData.SITE_CODE
-                , V_P_DEPT_CODE     : rowData.DEPT_CODE
-                , V_P_EMP_CODE      : rowData.EMP_CODE
-                , V_P_EMP_STATE     : rowData.EMP_STATE
-                , V_P_PAY_AREA_TYPE : rowData.PAY_AREA_TYPE
+                , V_P_SITE_CODE     : gfn_nvl(rowData.SITE_CODE)
+                , V_P_DEPT_CODE     : gfn_nvl(rowData.DEPT_CODE)
+                , V_P_EMP_CODE      : gfn_nvl(rowData.EMP_CODE)
+                , V_P_EMP_STATE     : gfn_nvl(rowData.EMP_STATE)
+                , V_P_PAY_AREA_TYPE : gfn_nvl(rowData.PAY_AREA_TYPE)
 
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
@@ -2017,14 +2017,14 @@
         if (gvwPayInfoGrid.getColRef('SALARY_BASE_AMT') == nCol || gvwPayInfoGrid.getColRef('JOB_BASE_AMT') == nCol || gvwPayInfoGrid.getColRef('OT_FIXED_BASE_AMT') == nCol ||
             gvwPayInfoGrid.getColRef('INCENTIVE_BASE_AMT') == nCol || gvwPayInfoGrid.getColRef('COMPETENCE_BASE_AMT') == nCol ){
 
-            let isalary_base_amt        = rowData.SALARY_BASE_AMT;          //급여기본급
-            let ijob_base_amt           = rowData.JOB_BASE_AMT;          //역할급
-            let iot_fixed_base_amt      = rowData.OT_FIXED_BASE_AMT;          //고정연장수당
-            let iincentive_base_amt     = rowData.INCENTIVE_BASE_AMT;      //성과급
-            let icompetence_base_amt    = rowData.COMPETENCE_BASE_AMT;    //역량가급
-            let iincentive_add_amt      = rowData.INCENTIVE_ADD_AMT;        //성과가급
-            let ipay_count              = rowData.PAY_COUNT;
-            let ibonus_count            = rowData.BONUS_COUNT;
+            let isalary_base_amt        = gfn_nvl(rowData.SALARY_BASE_AMT);          //급여기본급
+            let ijob_base_amt           = gfn_nvl(rowData.JOB_BASE_AMT);          //역할급
+            let iot_fixed_base_amt      = gfn_nvl(rowData.OT_FIXED_BASE_AMT);          //고정연장수당
+            let iincentive_base_amt     = gfn_nvl(rowData.INCENTIVE_BASE_AMT);      //성과급
+            let icompetence_base_amt    = gfn_nvl(rowData.COMPETENCE_BASE_AMT);    //역량가급
+            let iincentive_add_amt      = gfn_nvl(rowData.INCENTIVE_ADD_AMT);        //성과가급
+            let ipay_count              = gfn_nvl(rowData.PAY_COUNT);
+            let ibonus_count            = gfn_nvl(rowData.BONUS_COUNT);
 
             gvwPayInfoGrid.setCellData(nRow, gvwPayInfoGrid.getColRef('MONTHLY_SALARY_AMT'), Number(isalary_base_amt) + Number(iincentive_base_amt) + Number(icompetence_base_amt) + Number(ijob_base_amt) + Number(iot_fixed_base_amt));
 
@@ -2040,13 +2040,13 @@
 
         }else if (gvwPayInfoGrid.getColRef('PAY_COUNT') == nCol){
 
-            let isalary_base_amt     = rowData.SALARY_BASE_AMT;
-            let ijob_base_amt        = rowData.JOB_BASE_AMT;          //역할급
-            let iot_fixed_base_amt   = rowData.OT_FIXED_BASE_AMT;          //고정연장수당
-            let iincentive_base_amt  = rowData.INCENTIVE_BASE_AMT;
-            let icompetence_base_amt = rowData.COMPETENCE_BASE_AMT;
-            let ipay_count           = rowData.PAY_COUNT;
-            let ibonus_count         = rowData.BONUS_COUNT;
+            let isalary_base_amt     = gfn_nvl(rowData.SALARY_BASE_AMT);
+            let ijob_base_amt        = gfn_nvl(rowData.JOB_BASE_AMT);          //역할급
+            let iot_fixed_base_amt   = gfn_nvl(rowData.OT_FIXED_BASE_AMT);          //고정연장수당
+            let iincentive_base_amt  = gfn_nvl(rowData.INCENTIVE_BASE_AMT);
+            let icompetence_base_amt = gfn_nvl(rowData.COMPETENCE_BASE_AMT);
+            let ipay_count           = gfn_nvl(rowData.PAY_COUNT);
+            let ibonus_count         = gfn_nvl(rowData.BONUS_COUNT);
 
             // 연봉이나 지급횟수가 입력될 경우 급여기본급, 상여기본급을 넣어줌
             //gvwPayInfo.SetValue("annual_salary_amt", (iannual_salary_amt + iincentive_base_amt + icompetence_base_amt) * ipay_count);
@@ -2054,16 +2054,16 @@
 
         }else if (gvwPayInfoGrid.getColRef('INCENTIVE_ADD_AMT') == nCol || gvwPayInfoGrid.getColRef('BONUS_COUNT') == nCol){
 
-            let iincentive_add_amt      = rowData.INCENTIVE_ADD_AMT;        //성과가급
-            let iincentive_base_amt     = rowData.INCENTIVE_BASE_AMT;      //성과급       *
-            let isalary_base_amt        = rowData.SALARY_BASE_AMT;          //기본급 iannual_salary_amt ->    isalary_base_amt
+            let iincentive_add_amt      = gfn_nvl(rowData.INCENTIVE_ADD_AMT);        //성과가급
+            let iincentive_base_amt     = gfn_nvl(rowData.INCENTIVE_BASE_AMT);      //성과급       *
+            let isalary_base_amt        = gfn_nvl(rowData.SALARY_BASE_AMT);          //기본급 iannual_salary_amt ->    isalary_base_amt
 
-            let ijob_base_amt           = rowData.JOB_BASE_AMT;          //역할급
-            let iot_fixed_base_amt      = rowData.OT_FIXED_BASE_AMT;          //고정연장수당
-            let icompetence_base_amt    = rowData.COMPETENCE_BASE_AMT;    //역량가급
+            let ijob_base_amt           = gfn_nvl(rowData.JOB_BASE_AMT);          //역할급
+            let iot_fixed_base_amt      = gfn_nvl(rowData.OT_FIXED_BASE_AMT);          //고정연장수당
+            let icompetence_base_amt    = gfn_nvl(rowData.COMPETENCE_BASE_AMT);    //역량가급
 
-            let ipay_count              = rowData.PAY_COUNT;
-            let ibonus_count            = rowData.BONUS_COUNT;
+            let ipay_count              = gfn_nvl(rowData.PAY_COUNT);
+            let ibonus_count            = gfn_nvl(rowData.BONUS_COUNT);
 
             if (ipay_count > 1)
             {
@@ -2171,9 +2171,9 @@
 
         let today = new Date();
 
-        var year = today.getFullYear();
-        var month = ('0' + (today.getMonth() + 1)).slice(-2);
-        var day = ('0' + today.getDate()).slice(-2);
+        var year    = today.getFullYear();
+        var month   = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day     = ('0' + today.getDate()).slice(-2);
 
         var dateString = year + month + day;
 
@@ -2566,24 +2566,24 @@
                 if(rowcnt == 0)
                 {
                     strtype             = "PAY";
-                    strtxn_id           = item.data.TXN_ID; // 순번
-                    strpay_type         = item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    = item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date = item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   = item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          = item.data.PAY_AMT; // 금액
-                    strmemo             = item.data.MEMO; // 메모
+                    strtxn_id           = gfn_nvl(item.data.TXN_ID); // 순번
+                    strpay_type         = gfn_nvl(item.data.PAY_TYPE); // 지급구분
+                    strpay_item_code    = gfn_nvl(item.data.PAY_ITEM_CODE); // 급여항목
+                    strapply_start_date = gfn_nvl(item.data.APPLY_START_DATE); // 적용시작일
+                    strapply_end_date   = gfn_nvl(item.data.APPLY_END_DATE); // 적용종료일
+                    strpay_amt          = gfn_nvl(item.data.PAY_AMT); // 금액
+                    strmemo             = gfn_nvl(item.data.MEMO); // 메모
                 }
                 else
                 {
                     strtype             += "|" + "PAY";
-                    strtxn_id            = "|" + item.data.TXN_ID; // 순번
-                    strpay_type         += "|" + item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += "|" + item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += "|" + item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += "|" + item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += "|" + item.data.PAY_AMT; // 금액
-                    strmemo             += "|" + item.data.MEMO; // 금액
+                    strtxn_id            = "|" + gfn_nvl(item.data.TXN_ID); // 순번
+                    strpay_type         += "|" + gfn_nvl(item.data.PAY_TYPE); // 지급구분
+                    strpay_item_code    += "|" + gfn_nvl(item.data.PAY_ITEM_CODE); // 급여항목
+                    strapply_start_date += "|" + gfn_nvl(item.data.APPLY_START_DATE); // 적용시작일
+                    strapply_end_date   += "|" + gfn_nvl(item.data.APPLY_END_DATE); // 적용종료일
+                    strpay_amt          += "|" + gfn_nvl(item.data.PAY_AMT); // 금액
+                    strmemo             += "|" + gfn_nvl(item.data.MEMO); // 금액
                 }
 
                 rowcnt++;
@@ -2612,27 +2612,27 @@
                     }
 
 
-                    strtype             += item.data.PAY_ITEM_CATEGORY;
+                    strtype             += gfn_nvl(item.data.PAY_ITEM_CATEGORY);
 
-                    strtxn_id           += item.data.TXN_ID; // 순번
-                    strpay_type         += item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += item.data.PAY_AMT; // 금액
-                    strmemo             += item.data.MEMO; // 메모
+                    strtxn_id           += gfn_nvl(item.data.TXN_ID); // 순번
+                    strpay_type         += gfn_nvl(item.data.PAY_TYPE); // 지급구분
+                    strpay_item_code    += gfn_nvl(item.data.PAY_ITEM_CODE); // 급여항목
+                    strapply_start_date += gfn_nvl(item.data.APPLY_START_DATE); // 적용시작일
+                    strapply_end_date   += gfn_nvl(item.data.APPLY_END_DATE); // 적용종료일
+                    strpay_amt          += gfn_nvl(item.data.PAY_AMT); // 금액
+                    strmemo             += gfn_nvl(item.data.MEMO); // 메모
                 }
                 else
                 {
-                    strtype             += "|" + item.data.PAY_ITEM_CATEGORY;
+                    strtype             += "|" + gfn_nvl(item.data.PAY_ITEM_CATEGORY);
 
-                    strtxn_id           += "|" + item.data.TXN_ID; // 지급구분
-                    strpay_type         += "|" + item.data.PAY_TYPE; // 지급구분
-                    strpay_item_code    += "|" + item.data.PAY_ITEM_CODE; // 급여항목
-                    strapply_start_date += "|" + item.data.APPLY_START_DATE; // 적용시작일
-                    strapply_end_date   += "|" + item.data.APPLY_END_DATE; // 적용종료일
-                    strpay_amt          += "|" + item.data.PAY_AMT; // 금액
-                    strmemo             += "|" + item.data.MEMO; // 메모
+                    strtxn_id           += "|" + gfn_nvl(item.data.TXN_ID); // 지급구분
+                    strpay_type         += "|" + gfn_nvl(item.data.PAY_TYPE); // 지급구분
+                    strpay_item_code    += "|" + gfn_nvl(item.data.PAY_ITEM_CODE); // 급여항목
+                    strapply_start_date += "|" + gfn_nvl(item.data.APPLY_START_DATE); // 적용시작일
+                    strapply_end_date   += "|" + gfn_nvl(item.data.APPLY_END_DATE); // 적용종료일
+                    strpay_amt          += "|" + gfn_nvl(item.data.PAY_AMT); // 금액
+                    strmemo             += "|" + gfn_nvl(item.data.MEMO); // 메모
                 }
                 rowcnt++;
             }
@@ -2646,24 +2646,24 @@
                 if (rowcnt == 0)
                 {
                     strtype1             = "PAY";
-                    strtxn_id1           = gvwvarpay.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1         = gvwvarpay.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1    = gvwvarpay.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 = gvwvarpay.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1          = gvwvarpay.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1             = gvwvarpay.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1     = gvwvarpay.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
+                    strtxn_id1           = gfn_nvl(item.TXN_ID)               // txn_id
+                    strpay_type1         = gfn_nvl(item.PAY_TYPE)             // 지급구분
+                    strpay_item_code1    = gfn_nvl(item.PAY_ITEM_CODE)        // 급여항목
+                    strapply_start_date1 = gfn_nvl(item.APPLY_START_DATE)     // 적용시작일
+                    strpay_amt1          = gfn_nvl(item.PAY_AMT)              // 금액
+                    strmemo1             = gfn_nvl(item.MEMO)                 // 메모
+                    strtax_pay_date1     = gfn_nvl(item.TAX_PAY_DATE)         // 지급일(세무)
                 }
                 else
                 {
                     strtype1             += "|" + "PAY";
-                    strtxn_id1            = "|" + gvwvarpay.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1         += "|" + gvwvarpay.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1    += "|" + gvwvarpay.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += "|" + gvwvarpay.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1          += "|" + gvwvarpay.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1             += "|" + gvwvarpay.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1     = "|" + gvwvarpay.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
+                    strtxn_id1           += "|" + gfn_nvl(item.TXN_ID)                // txn_id
+                    strpay_type1         += "|" + gfn_nvl(item.PAY_TYPE)              // 지급구분
+                    strpay_item_code1    += "|" + gfn_nvl(item.PAY_ITEM_CODE)         // 급여항목
+                    strapply_start_date1 += "|" + gfn_nvl(item.APPLY_START_DATE)      // 적용시작일
+                    strpay_amt1          += "|" + gfn_nvl(item.PAY_AMT)               // 금액
+                    strmemo1             += "|" + gfn_nvl(item.MEMO)                  // 메모
+                    strtax_pay_date1     += "|" + gfn_nvl(item.TAX_PAY_DATE)          // 지급일(세무)
                 }
 
                 rowcnt++;
@@ -2692,24 +2692,24 @@
                     }
 
                     strtype1             += "DED";
-                    strtxn_id1           += gvwvarded.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1         += gvwvarded.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1    += gvwvarded.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += gvwvarded.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1          += gvwvarded.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1             += gvwvarded.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1     += gvwvarded.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
+                    strtxn_id1           += gfn_nvl(item.TXN_ID)                  // txn_id
+                    strpay_type1         += gfn_nvl(item.PAY_TYPE)                // 지급구분
+                    strpay_item_code1    += gfn_nvl(item.PAY_ITEM_CODE)           // 급여항목
+                    strapply_start_date1 += gfn_nvl(item.APPLY_START_DATE)        // 적용시작일
+                    strpay_amt1          += gfn_nvl(item.PAY_AMT)                 // 금액
+                    strmemo1             += gfn_nvl(item.MEMO)                    // 메모
+                    strtax_pay_date1     += gfn_nvl(item.TAX_PAY_DATE)            // 지급일(세무)
                 }
                 else
                 {
                     strtype1             += "|" + "DED";
-                    strtxn_id1           += "|" + gvwvarded.GetValue(i, "txn_id").ToString(); // txn_id
-                    strpay_type1         += "|" + gvwvarded.GetValue(i, "pay_type").ToString(); // 지급구분
-                    strpay_item_code1    += "|" + gvwvarded.GetValue(i, "pay_item_code").ToString(); // 급여항목
-                    strapply_start_date1 += "|" + gvwvarded.GetValue(i, "apply_start_date").ToString(); // 적용시작일
-                    strpay_amt1          += "|" + gvwvarded.GetValue(i, "pay_amt").ToString(); // 금액
-                    strmemo1             += "|" + gvwvarded.GetValue(i, "memo").ToString(); // 메모
-                    strtax_pay_date1     += "|" + gvwvarded.GetValue(i, "tax_pay_date").ToString(); // 지급일(세무)
+                    strtxn_id1           += "|" + gfn_nvl(item.TXN_ID)               // txn_id
+                    strpay_type1         += "|" + gfn_nvl(item.PAY_TYPE)             // 지급구분
+                    strpay_item_code1    += "|" + gfn_nvl(item.PAY_ITEM_CODE)        // 급여항목
+                    strapply_start_date1 += "|" + gfn_nvl(item.APPLY_START_DATE)     // 적용시작일
+                    strpay_amt1          += "|" + gfn_nvl(item.PAY_AMT)              // 금액
+                    strmemo1             += "|" + gfn_nvl(item.MEMO)                 // 메모
+                    strtax_pay_date1     += "|" + gfn_nvl(item.TAX_PAY_DATE)         // 지급일(세무)
                 }
                 rowcnt++;
             }
@@ -3041,8 +3041,8 @@
                         , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
 
                         , V_P_EMP_CODE              : EMP_CODE
-                        , V_P_APPLY_START_DATE      : item.data.APPLY_START_DATE
-                        , V_P_APPLY_END_DATE        : item.data.APPLY_END_DATE
+                        , V_P_APPLY_START_DATE      : gfn_nvl(item.data.APPLY_START_DATE)
+                        , V_P_APPLY_END_DATE        : gfn_nvl(item.data.APPLY_END_DATE)
                         , V_P_ANNUAL_SALARY_AMT     : gfn_nvl(item.data.ANNUAL_SALARY_AMT) == '' ? 0 : item.data.ANNUAL_SALARY_AMT // 연봉입력가능
                         , V_P_PAY_COUNT             : gfn_nvl(item.data.PAY_COUNT) == '' ? 0 : item.data.PAY_COUNT
                         , V_P_SALARY_BASE_AMT       : gfn_nvl(item.data.SALARY_BASE_AMT) == '' ? 0 : item.data.SALARY_BASE_AMT
@@ -3091,7 +3091,7 @@
                         , V_P_SALARY_AMT28          : ''
                         , V_P_SALARY_AMT29          : ''
                         , V_P_SALARY_AMT30          : ''
-                        , V_P_MEMO                  : item.data.MEMO
+                        , V_P_MEMO                  : gfn_nvl(item.data.MEMO)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -3141,10 +3141,10 @@
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_EMP_CODE          : EMP_CODE
-                        , V_P_APPLY_START_DATE  : item.data.APPLY_START_DATE
-                        , V_P_APPLY_END_DATE    : item.data.APPLY_END_DATE
+                        , V_P_APPLY_START_DATE  : gfn_nvl(item.data.APPLY_START_DATE)
+                        , V_P_APPLY_END_DATE    : gfn_nvl(item.data.APPLY_END_DATE)
                         , V_P_WITHHOLD_RATE     : gfn_nvl(item.data.WITHHOLD_RATE) == '' ? 0 : item.data.WITHHOLD_RATE
-                        , V_P_MEMO              : item.data.MEMO
+                        , V_P_MEMO              : gfn_nvl(item.data.MEMO)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -3183,18 +3183,18 @@
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     , V_P_EMP_CODE            : EMP_CODE
-                    , V_P_INSU_TYPE           : item.data.INSU_TYPE
-                    , V_P_START_DATE          : item.data.START_DATE
-                    , V_P_END_DATE            : item.data.END_DATE
+                    , V_P_INSU_TYPE           : gfn_nvl(item.data.INSU_TYPE)
+                    , V_P_START_DATE          : gfn_nvl(item.data.START_DATE)
+                    , V_P_END_DATE            : gfn_nvl(item.data.END_DATE)
                     , V_P_ORG_START_DATE      : null
-                    , V_P_INSU_REASON_TYPE    : item.data.INSU_REASON_TYPE
-                    , V_P_INSU_STATE_TYPE     : item.data.INSU_STATE_TYPE
-                    , V_P_INSU_REG_TYPE       : item.data.INSU_REG_TYPE
-                    , V_P_INSU_RATE           : item.data.INSU_RATE
-                    , V_P_INSU_AMT_YN         : item.data.INSU_AMT_YN
-                    , V_P_OVER_WORKER_YN      : item.data.OVER_WORKER_YN
-                    , V_P_AGE_65_OVER_YN      : item.data.AGE_65_OVER_YN
-                    , V_P_MEMO                : item.data.MEMO
+                    , V_P_INSU_REASON_TYPE    : gfn_nvl(item.data.INSU_REASON_TYPE)
+                    , V_P_INSU_STATE_TYPE     : gfn_nvl(item.data.INSU_STATE_TYPE)
+                    , V_P_INSU_REG_TYPE       : gfn_nvl(item.data.INSU_REG_TYPE)
+                    , V_P_INSU_RATE           : gfn_nvl(item.data.INSU_RATE)
+                    , V_P_INSU_AMT_YN         : gfn_nvl(item.data.INSU_AMT_YN)
+                    , V_P_OVER_WORKER_YN      : gfn_nvl(item.data.OVER_WORKER_YN)
+                    , V_P_AGE_65_OVER_YN      : gfn_nvl(item.data.AGE_65_OVER_YN)
+                    , V_P_MEMO                : gfn_nvl(item.data.MEMO)
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId
@@ -3230,13 +3230,13 @@
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     , V_P_EMP_CODE              : EMP_CODE
-                    , V_P_APPLY_TYPE            : item.data.APPLY_TYPE
-                    , V_P_LONG_APPLY_TYPE       : item.data.LONG_APPLY_TYPE
-                    , V_P_APPLY_START_DATE      : item.data.APPLY_START_DATE
-                    , V_P_APPLY_END_DATE        : item.data.APPLY_END_DATE
-                    , V_P_BASE_AMT              : item.data.BASE_AMT
-                    , V_P_LONG_APPLY_EXEM_AMT   : item.data.LONG_APPLY_EXEM_AMT
-                    , V_P_MEMO                  : item.data.MEMO
+                    , V_P_APPLY_TYPE            : gfn_nvl(item.data.APPLY_TYPE)
+                    , V_P_LONG_APPLY_TYPE       : gfn_nvl(item.data.LONG_APPLY_TYPE)
+                    , V_P_APPLY_START_DATE      : gfn_nvl(item.data.APPLY_START_DATE)
+                    , V_P_APPLY_END_DATE        : gfn_nvl(item.data.APPLY_END_DATE)
+                    , V_P_BASE_AMT              : gfn_nvl(item.data.BASE_AMT)
+                    , V_P_LONG_APPLY_EXEM_AMT   : gfn_nvl(item.data.LONG_APPLY_EXEM_AMT)
+                    , V_P_MEMO                  : gfn_nvl(item.data.MEMO)
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId

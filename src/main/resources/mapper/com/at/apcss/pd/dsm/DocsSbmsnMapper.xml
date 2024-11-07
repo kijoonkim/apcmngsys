@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : DocsSbmsnMapper.xml                                    		-->
+<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv	-->
+	<!-- DESC : 승인형 조직 단건조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnUoAprv" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv */
+			EAM.YR
+			, EAM.APO_CD
+			, EAM.APO_SE
+			, EAM.BRNO
+			, TEA.CRNO
+			, TEA.CORP_NM
+			, FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',TEA.APRV) AS APRV_NM
+			, TEA.APRV
+		FROM TB_EV_APLY_MNG EAM
+			, TB_EV_APO TEA
+		WHERE 1=1
+		  AND EAM.BRNO = TEA.BRNO(+)
+		  AND EAM.APO_SE = '1'
+		  AND EAM.YR = #{yr}
+		  AND EAM.BRNO = #{brno}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList-->
+	<!-- DESC : 승인형 조직 리스트                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnUoAprvList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+
+			SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList */
+				EAM.YR
+				, EAM.APO_CD
+				, EAM.APO_SE
+				, EAM.BRNO
+				, TEA.CRNO
+				, TEA.CORP_NM
+				, FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',TEA.APRV) AS APRV_NM
+				, TEA.APRV
+				, TEA.SLCTN_YR
+				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM)
+					FROM (SELECT
+								(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_APO_YR_GPC_CD YGC
+							WHERE 1=1
+							  AND STTG_UPBR_ITEM_SE IN ('1','2')
+							  AND APO_SE = '1'
+							  AND YR = EAM.YR
+							  AND BRNO = TEA.BRNO
+							)
+				) AS ITEM_NM_LIST
+			FROM TB_EV_APLY_MNG EAM
+				,TB_EV_APO TEA
+			WHERE 1=1
+			  AND EAM.BRNO = TEA.BRNO(+)
+			  AND EAM.APO_SE = '1'
+			  AND EAM.YR = #{yr}
+			<if test='brno != null and brno != ""'>
+			  AND EAM.BRNO = #{brno}
+			</if>
+			<if test='corpNm != null and corpNm != ""'>
+			  AND EAM.CORP_NM like '%' || #{corpNm} || '%'
+			</if>
+
+			ORDER BY EAM.CORP_NM
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList	-->
+	<!-- DESC : 통합조직 및 소속 출자출하조직 리스트                                             -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnBscList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList */
+			EAM.YR
+			, EAM.APO_CD
+			, EAM.APO_SE
+			, EAM.BRNO
+			, EAM.CRNO
+
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			, EAM.UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO) AS UO_CORP_NM
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM)
+				FROM (SELECT
+							(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+						FROM TB_EV_APO_YR_GPC_CD YGC
+						WHERE 1=1
+						  AND STTG_UPBR_ITEM_SE = '1'
+						  AND APO_SE = EAM.APO_SE
+						  AND YR = EAM.YR
+						  AND BRNO = EAM.BRNO
+						)
+			) AS ITEM_NM_LIST
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '1'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_1
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '1'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_1
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '2'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_2
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '2'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_2
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '3'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_3
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '3'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_3
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '4'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_4
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '4'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_4
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '5'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_5
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '5'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_5
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '6'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_6
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'BSC'
+				  AND SN = '6'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_6
+
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+		  AND EAM.YR = #{yr}
+		  AND (
+		  		(EAM.BRNO = #{brno})
+		  		OR
+		  			(
+		  				(EAM.BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno}))
+		  				AND
+		  				(EAM.UO_BRNO = #{brno})
+		  			)
+		  		)
+
+		ORDER BY EAM.CORP_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList-->
+	<!-- DESC : 소속 출자출하조직 리스트                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnDtlIsoList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList */
+			EAM.YR
+			, EAM.APO_CD
+			, EAM.APO_SE
+			, EAM.BRNO
+			, EAM.CRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			, EAM.UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO) AS UO_CORP_NM
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM)
+				FROM (SELECT
+							(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+						FROM TB_EV_APO_YR_GPC_CD YGC
+						WHERE 1=1
+						  AND STTG_UPBR_ITEM_SE = '1'
+						  AND APO_SE = EAM.APO_SE
+						  AND YR = EAM.YR
+						  AND BRNO = EAM.BRNO
+						)
+			) AS ITEM_NM_LIST
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '1'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_1
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '1'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_1
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '2'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_2
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '2'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_2
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '3'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_3
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '3'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_3
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '4'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_4
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '4'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_4
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '5'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS SBMSN_YN_5
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLI'
+				  AND SN = '5'
+				  AND YR = EAM.YR
+				  AND BRNO = EAM.BRNO
+				  AND APO_SE = EAM.APO_SE
+				  AND UO_BRNO = EAM.UO_BRNO
+			) AS STTS_NM_5
+
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+		  AND EAM.APO_SE = '2'
+		  AND EAM.YR = #{yr}
+		  AND EAM.UO_BRNO = #{brno}
+		  AND EAM.BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+
+		ORDER BY EAM.CORP_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList	-->
+	<!-- DESC : 소속 생산자조직 리스트                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnDtlPoList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList */
+			EFA.YR
+			, EFA.APO_CD
+			, EFA.APO_SE
+			, EFA.BRNO
+			, EFA.CRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EFA.BRNO) AS CORP_NM
+			, EFA.UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EFA.UO_BRNO) AS UO_CORP_NM
+
+			, EFA.PRDCR_OGNZ_SN
+			, EFA.PRDCR_OGNZ_NM
+
+			, EFA.ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = EFA.ITEM_CD) AS ITEM_NM
+
+			, (SELECT DECODE(FILE_SN,NULL,'N','Y')
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLP'
+				  AND SN = '1'
+				  AND YR = EFA.YR
+				  AND BRNO = EFA.BRNO
+				  AND APO_SE = EFA.APO_SE
+				  AND UO_BRNO = EFA.UO_BRNO
+				  AND PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN
+			) AS SBMSN_YN_1
+			, (SELECT FN_GET_COM_CD_VL_NM('DOC_STTS',STTS)
+				FROM TB_EV_SBMSN_DCMNT
+				WHERE 1=1
+				  AND DCMNT_KND = 'DTLP'
+				  AND SN = '1'
+				  AND YR = EFA.YR
+				  AND BRNO = EFA.BRNO
+				  AND APO_SE = EFA.APO_SE
+				  AND UO_BRNO = EFA.UO_BRNO
+				  AND PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN
+			) AS STTS_NM_1
+
+		FROM TB_EV_FRMHS_APO EFA
+		WHERE 1=1
+		  AND EFA.YR = #{yr}
+		  AND (
+		  		(EFA.BRNO = #{brno})
+		  		OR
+		  		(EFA.UO_BRNO = #{brno})
+		  		)
+		ORDER BY CORP_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList		-->
+	<!-- DESC : 소속 생산자조직 리스트                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectDocsSbmsnList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList */
+			ESD.YR
+			, (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ESD.BRNO) AS APO_CD
+			, ESD.APO_SE
+			, ESD.BRNO
+			, ESD.UO_BRNO
+			, ESD.PRDCR_OGNZ_SN
+
+			, ESD.DCMNT_KND
+			, ESD.SN
+			, ESD.FILE_SN
+			, FN_GET_COM_CD_VL_NM('DOC_STTS',STTS) AS STTS_NM
+			, ESD.STTS
+			, ESD.RMRK
+
+			, (SELECT ORG_FILE_NM FROM TB_EV_SBMSN_DCMNT_FILE WHERE FILE_SN = ESD.FILE_SN) AS ORG_FILE_NM
+
+		FROM TB_EV_SBMSN_DCMNT ESD
+		WHERE 1=1
+		  AND ESD.YR = #{yr}
+		  AND ESD.BRNO = #{brno}
+		  AND ESD.UO_BRNO = #{uoBrno}
+		  AND ESD.DCMNT_KND = #{dcmntKnd}
+		  AND ESD.PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+		ORDER BY SN
+	</select>
+
+	<insert id="insertSbmsnDcmnt" parameterType="com.at.apcss.pd.dsm.vo.DocsFileVO">
+		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmnt */
+		USING DUAL
+			ON (
+					CLT.YR					= #{yr}
+					AND CLT.BRNO			= #{brno}
+					AND CLT.UO_BRNO			= #{uoBrno}
+					AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+					AND CLT.DCMNT_KND		= #{dcmntKnd}
+					AND CLT.SN				= #{sn}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						  FILE_SN				= #{fileSn}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , APO_SE
+					  , APO_CD
+					  , BRNO
+					  , UO_BRNO
+					  , PRDCR_OGNZ_SN
+					  , DCMNT_KND
+					  , SN
+					  , STTS
+
+					  , FILE_SN
+
+					  , REG_USER_ID
+					  , REG_DT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					  #{yr}
+					  , (SELECT APO_SE FROM TB_EV_APLY_MNG WHERE BRNO = #{brno} AND YR = #{yr})
+					  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno} AND APO_SE ='1')
+					  , #{brno}
+					  , #{uoBrno}
+					  , #{prdcrOgnzSn}
+					  , #{dcmntKnd}
+					  , #{sn}
+					  , '1'
+
+					  , #{fileSn}
+
+					  , #{sysFrstInptUserId}
+					  , SYSDATE
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
+
+	<insert id="insertSbmsnDcmntRmrk" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntRmrk */
+		USING DUAL
+			ON (
+					CLT.YR					= #{yr}
+					AND CLT.BRNO			= #{brno}
+					AND CLT.UO_BRNO			= #{uoBrno}
+					AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+					AND CLT.DCMNT_KND		= #{dcmntKnd}
+					AND CLT.SN				= #{sn}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						  RMRK	= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , APO_SE
+					  , APO_CD
+					  , BRNO
+					  , UO_BRNO
+					  , PRDCR_OGNZ_SN
+					  , DCMNT_KND
+					  , SN
+					  , STTS
+
+					  , RMRK
+
+					  , REG_USER_ID
+					  , REG_DT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					  #{yr}
+					  , (SELECT APO_SE FROM TB_EV_APLY_MNG WHERE BRNO = #{brno} AND YR = #{yr})
+					  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno} AND APO_SE ='1')
+					  , #{brno}
+					  , #{uoBrno}
+					  , #{prdcrOgnzSn}
+					  , #{dcmntKnd}
+					  , #{sn}
+					  , '1'
+
+					  , #{rmrk}
+
+					  , #{sysFrstInptUserId}
+					  , SYSDATE
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
+
+	<insert id="insertSbmsnDcmntFile" parameterType="com.at.apcss.pd.dsm.vo.DocsFileVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntFile */
+				INTO TB_EV_SBMSN_DCMNT_FILE
+					(
+					  FILE_PATH_NM
+					  , ORG_FILE_NM
+					  , SRVR_FILE_NM
+					  , FILE_SZ
+					  , FILE_EXTN_NM
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+						#{filePathNm}
+					  , #{orgFileNm}
+					  , #{srvrFileNm}
+					  , #{fileSz}
+					  , #{fileExtnNm}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+		<selectKey resultType="java.lang.String" keyProperty="fileSn" order="AFTER">
+			SELECT SEQ_TB_EV_SBMSN_DCMNT_FILE_FILE_SN.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+
+	<update id="updateDocsSbmsnAprv" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+			UPDATE /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.updateDocsSbmsnAprv */
+				TB_EV_SBMSN_DCMNT
+			   SET
+				SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			<if test='dcmntAprvSe == "Y"'>
+				, STTS			= '2'
+				, APRV_USER_ID	= #{sysLastChgUserId}
+				, APRV_DT		= SYSDATE
+			</if>
+			<if test='dcmntAprvSe == "C"'>
+				, STTS			= '1'
+				, APRV_USER_ID	= #{sysLastChgUserId}
+				, APRV_DT		= SYSDATE
+			</if>
+			<if test='dcmntAprvSe == "N"'>
+				, STTS			= '3'
+				, RJCT_USER_ID	= #{sysLastChgUserId}
+				, RJCT_DT		= SYSDATE
+			</if>
+
+			WHERE 1=1
+			  AND YR			= #{yr}
+			  AND BRNO			= #{brno}
+			  AND UO_BRNO		= #{uoBrno}
+			  AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+			  AND DCMNT_KND		= #{dcmntKnd}
+			  AND SN			= #{sn}
+	</update>
+
+</mapper>

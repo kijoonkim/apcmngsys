@@ -69,7 +69,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 차입금원장등록 조회
+	// 차입금원장등록 저장
 	@PostMapping(value = "/fi/ffa/alm/insertTrl1010.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertTrl1010(
 			@RequestBody Map<String, Object> param
@@ -95,7 +95,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 	}
 
 
-	// 수당기준 적용기준 상세 저장
+	// 차입금원장등록 저장
 	@PostMapping(value = "/fi/ffa/alm/insertTrl1010S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertTrl1010S1(
 			@RequestBody Map<String, Object> param

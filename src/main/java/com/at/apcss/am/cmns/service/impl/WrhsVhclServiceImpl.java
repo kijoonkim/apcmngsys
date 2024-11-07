@@ -60,7 +60,7 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 
 		return resultList;
 	}
-	
+
 	@Override
 	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
 
@@ -155,6 +155,14 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 	public HashMap<String, Object> updateVhclInfoList(List<WrhsVhclVO> WrhsVhclList) throws Exception {
 		for (WrhsVhclVO wrhsVhclVO : WrhsVhclList) {
 			updateVhclInfo(wrhsVhclVO);
+		}
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertMergeWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+		if(0 == wrhsVhclMapper.insertMergeWrhsVhcl(wrhsVhclVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 		}
 		return null;
 	}

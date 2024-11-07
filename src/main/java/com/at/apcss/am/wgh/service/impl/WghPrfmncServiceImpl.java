@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.WrhsVhclService;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
@@ -50,6 +52,9 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Resource(name="rawMtrWrhsService")
 	private RawMtrWrhsService rawMtrWrhsService;
+
+	@Resource(name="wrhsVhclService")
+	private WrhsVhclService wrhsVhclService;
 
 	@Override
 	public WghPrfmncVO selectWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
@@ -419,6 +424,18 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					wghPrfmncVO.setWghno(wghno);
 
 					wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+
+					String vhclno = wghPrfmncVO.getVhclno();
+
+					if (StringUtils.hasText(vhclno)) {
+
+						WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+					}
+
 				} else {
 					if (groupId != wghPrfmncVO.getGroupId()) {
 						seq = 1;
@@ -426,6 +443,17 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
 						wghPrfmncVO.setWghno(wghno);
 						wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+
+						String vhclno = wghPrfmncVO.getVhclno();
+
+						if (StringUtils.hasText(vhclno)) {
+
+							WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+						}
 					} else {
 						wghPrfmncVO.setWghno(wghno);
 						wghPrfmncVO.setPltQntt(0);
@@ -491,11 +519,32 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					groupId = wghPrfmncVO.getGroupId();
 
 					wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+					String vhclno = wghPrfmncVO.getVhclno();
+
+					if (StringUtils.hasText(vhclno)) {
+
+						WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+					}
 				} else {
 
 					if (groupId != wghPrfmncVO.getGroupId()) {
 						groupId = wghPrfmncVO.getGroupId();
 						wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+
+						String vhclno = wghPrfmncVO.getVhclno();
+
+						if (StringUtils.hasText(vhclno)) {
+
+							WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+						}
 					} else {
 						wghPrfmncVO.setPltQntt(0);
 						wghPrfmncVO.setWholWght(0);

@@ -100,7 +100,7 @@
                                     id="APPLY_START_DATE"
                                     name="APPLY_START_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast inpt_data_reqed">
                             </sbux-datepicker>
                         </td>
@@ -110,7 +110,7 @@
                                     id="APPLY_END_DATE"
                                     name="APPLY_END_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast inpt_data_reqed">
                             </sbux-datepicker>
                         </td>
@@ -296,16 +296,33 @@
         fn_add();
     }
     // 저장
-    function cfn_save() {
-        fn_save()
+    async function cfn_save() {
+        let nRow = gvwMasterGrid.getRow();
+
+        if (fn_save()){
+
+            await fn_saveS1();
+            await fn_saveS2();
+        }
+
+        fn_search(nRow);
     }
     // 삭제
     function cfn_del() {
+        if(gfn_comConfirm("Q0001", "삭제")) { //{0} 하시겠습니까?
+            fn_delete();
+        }
     }
 
     // 조회
     function cfn_search() {
-        fn_search()
+        fn_search();
+    }
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
     }
 
     //기준년도
@@ -667,9 +684,9 @@
 
 
     //조회
-    async function fn_search() {
+    async function fn_search(nRow) {
 
-        let YYYY = gfn_nvl(SBUxMethod.get("YYYY")); //사업장
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -718,7 +735,7 @@
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if(jsonMasterList.length > 0) {
-                    gvwMasterGrid.clickRow(1);
+                    gvwMasterGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
                 }
 
                 //fn_view();
@@ -932,12 +949,13 @@
                         if (data.resultMessage) {
                             alert(data.resultMessage);
                         }
-
-                        fn_saveS1();
-                        fn_saveS2();
+                        //await fn_saveS1();
+                        //await fn_saveS2();
+                        return true;
 
                     } else {
                         alert(data.resultMessage);
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -964,11 +982,13 @@
                             alert(data.resultMessage);
                         }
 
-                        fn_saveS1();
+                        return true;
+                        //fn_saveS1();
 
 
                     } else {
                         alert(data.resultMessage);
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -987,10 +1007,10 @@
 
         let updatedData = grdDetail.getUpdateData(true, 'all');
 
-        if (_.isEmpty(updatedData)){
+       /* if (_.isEmpty(updatedData)){
             fn_saveS2();
             return;
-        }
+        }*/
 
         let listData = [];
         listData =  await getParamFormS1(updatedData);
@@ -1008,11 +1028,12 @@
                         /*fn_search();*/
                     }
 
-                    fn_saveS2();
-                    return;
+                    //fn_saveS2();
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -1107,13 +1128,15 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }else{
+                    }/*else{
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search();
-                    }
+                    }*/
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -1167,6 +1190,79 @@
         }
 
         return returnData;
+    }
+
+
+    //삭제
+    const fn_delete = async function () {
+
+        let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));
+        let APPLY_START_DATE = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE = gfn_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let MEMO = gfn_nvl(SBUxMethod.get("MEMO"));
+
+        if (!YYYY) {
+            gfn_comAlert("W0002", "기준년도");
+            return;
+        }
+        if (!APPLY_START_DATE) {
+            gfn_comAlert("W0002", "적용기간");
+            return;
+        }
+        if (!APPLY_END_DATE) {
+            gfn_comAlert("W0002", "적용기간");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            , V_P_YYYY: YYYY
+            , V_P_APPLY_START_DATE: APPLY_START_DATE
+            , V_P_APPLY_END_DATE: APPLY_END_DATE
+            , V_P_MEMO: MEMO
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+
+
+        };
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb6200.do", {
+            getType: 'json',
+            workType: 'D',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                    fn_search();
+                }else{
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
     }
 
     //상세정보 보기

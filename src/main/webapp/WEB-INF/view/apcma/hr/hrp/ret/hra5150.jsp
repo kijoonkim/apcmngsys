@@ -2438,7 +2438,7 @@
 
             if (!_.isEmpty(rowData)) {
 
-                fn_save(rowData);
+                fn_save();
 
                 let complateCode = true;
 
@@ -3547,7 +3547,7 @@
                     gfnma_multiSelectSet('#IRP_BANK_CODE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(item.IRP_BANK_CODE));
                     SBUxMethod.set("IRP_BANK_NAME"          , gfn_nvl(item.IRP_BANK_NAME));
                     SBUxMethod.set("IRP_BIZ_REGNO"          , gfn_nvl(item.IRP_BIZ_REGNO));
-                    SBUxMethod.set("IRP_BANK_ACC"           , gfn_nvl(item.IRP_BANK_ACC));
+                    SBUxMethod.set("IRP_BANK_ACCOUNT_REAL"           , gfn_nvl(item.IRP_BANK_ACC));
                     SBUxMethod.set("RET_PENS_END_DAT"       , gfn_nvl(item.RET_PENS_END_DAT));
                     SBUxMethod.set("RET_PENS_AMT"           , gfn_nvl(item.RET_PENS_AMT));
                     SBUxMethod.set("DEFER_RET_INC_AMT"      , gfn_nvl(item.DEFER_RET_INC_AMT));
@@ -3967,7 +3967,7 @@
             //let IRP_BANK_CODE = gfn_nvl(SBUxMethod.get("IRP_BANK_CODE")); //
             let IRP_BANK_CODE	        = gfnma_multiSelectGet('#IRP_BANK_CODE');//
             let IRP_BIZ_REGNO           = gfn_nvl(SBUxMethod.get("IRP_BIZ_REGNO")); //
-            let IRP_BANK_ACC            = gfn_nvl(SBUxMethod.get("IRP_BANK_ACC")); //
+            let IRP_BANK_ACC            = gfn_nvl(SBUxMethod.get("IRP_BANK_ACCOUNT_REAL")); //
             let RET_PENS_END_DAT        = gfn_nvl(SBUxMethod.get("RET_PENS_END_DAT")); //
             let RET_PENS_AMT            = gfn_nvl(SBUxMethod.get("RET_PENS_AMT")); //계좌입금금액
             let COM_PAY_AMT             = gfn_nvl(SBUxMethod.get("COM_PAY_AMT")); //
@@ -4054,7 +4054,7 @@
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150.do", {
                 getType: 'json',
-                workType: 'U',
+                workType: 'N',
                 cv_count: '0',
                 params: gfnma_objectToString(paramObj)
             });
@@ -5212,7 +5212,7 @@
                 if (gfn_nvl(rowData.POSITION_CODE) == '') {
                     gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), 1);
                 } else {
-                    if (gvwChange.DataRowCount > 0) {
+                    if (gvwChangeGrid.DataRowCount > 0) {
                         position_aa = gfn_nvl(rowData.POSITION_CODE);
 
 

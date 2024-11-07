@@ -456,7 +456,7 @@
         ];
 
         grdClclnList = _SBGrid.create(SBGridProperties);
-        //grdClclnList.bind('rowchanged','fn_focusedRowChanged');
+        grdClclnList.bind('click','fn_focusedRowChanged');
 
     }
 
@@ -473,14 +473,14 @@
         SBGridProperties.columns = [
             {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 			ref: 'transferSeq',    	type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'inputbutton', typeinfo : {callback: fn_bizPopupGrdClclnTrgt},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'inputbutton', typeinfo : {callback: fn_bizPopupGrd},  	width:'100px',  	style:'text-align:left'},
             {caption: ["프로젝트"],      	ref: 'projectName', 		type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["자산번호"],			ref: 'assetNo',			type:'inputbutton', typeinfo : {callback: fn_astPopup} ,	width:'100px',  	style:'text-align:left'},
             {caption: ["자산명"], 			ref: 'assetName', 				type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정산금액"], 		ref: 'transferAmount',  			type:'input',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["취득금액"], 		ref: 'assetAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["기정산금액"], 		ref: 'transferAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["잔액"], 			ref: 'netAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
+            {caption: ["정산금액"], 		ref: 'transferAmount',  			type:'input',  	width:'100px', format : {type:'number', rule:'#,###'}, 	style:'text-align:left'},
+        	{caption: ["취득금액"], 		ref: 'assetAmount', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["기정산금액"], 		ref: 'transferAmount2', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},	style:'text-align:center'},
+            {caption: ["잔액"], 			ref: 'netAmount', 				type:'input',		width:'80px',	format : {type:'number', rule:'#,###'},	style:'text-align:center'},
             {caption: ["비고"], 			ref: 'memo', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["대체수량"], 		ref: 'transferQty', 				type:'input',		width:'80px',		style:'text-align:center'}
         ];
@@ -501,16 +501,16 @@
         SBGridProperties.columns = [
             {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 		ref: 'transferSeq',    	type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산구분"],  		ref: 'assetCategory',   type:'combo', typeinfo : {ref:'jsonAssetCategory', label:'CODE_NAME', value:'SUB_CODE', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
-            {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'combo', typeinfo : {ref:'jsonAssetLevel2', label:'label', value:'value', oneclickedit: true},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'combo', typeinfo : {ref:'jsonAssetLevel3', label:'label', value:'value', oneclickedit: true},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부서"], 			ref: 'deptName', 				type:'combo',typeinfo : {ref:'jsonDept', label:'DEPT_NAME', value:'DEPT_CODE', oneclickedit: true} , 	width:'100px',  	style:'text-align:left'},
-            {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'combo', typeinfo : {ref:'jsonCostCenter', label:'COST_CENTER_NAME',value:'COST_CENTER_CODE'}, width:'100px',  	style:'text-align:left'},
-        	{caption: ["계정명"], 		ref: 'accountName', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["금액"], 		ref: 'transferAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'input',		width:'80px',		style:'text-align:center'},
+            {caption: ["자산구분"],  		ref: 'assetCategory',   type:'inputbutton', typeinfo : {callback:fn_astSePopup} ,  	width:'100px',  	style:'text-align:left'},
+            {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'inputbutton', typeinfo : {callback:fn_assetLevel2},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'inputbutton', typeinfo : {callback:fn_assetLevel3},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서"], 			ref: 'deptName', 				type:'inputbutton',typeinfo : {callback:fn_compopupDept} , 	width:'100px',  	style:'text-align:left'},
+            {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'inputbutton', typeinfo : {callback:fn_compopupCostCenter}, width:'100px',  	style:'text-align:left'},
+        	{caption: ["계정명"], 		ref: 'accountName', 				type:'inputbutton', typeinfo : {callback: fn_accountPopup},		width:'80px',		style:'text-align:center'},
+            {caption: ["금액"], 		ref: 'transferAmount', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
+            {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'inputbutton', typeinfo : {callback: fn_bizPopupGrd},		width:'80px',		style:'text-align:center'},
             {caption: ["프로젝트명"], 		ref: 'projectName', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["대체수량"], 		ref: 'colTransferQty', 				type:'input',		width:'80px',		style:'text-align:center'},
+            {caption: ["대체수량"], 		ref: 'transferQty', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'memo', 				type:'input',		width:'80px',		style:'text-align:center'},
 
         ];
@@ -800,7 +800,7 @@
                 strtransfer_seq2 += item["transferSeq"];
                 strasset_no += item["assetNo"];
                 strtransfer_amount2 += item["transferAmount"];
-                strbook_amt += item["bookAmt"];
+                strbook_amt += item["bookAmt"]; //장부가액 셋팅 어떻게하는지...?
                 strmemo2 += item["memo"];
                 strproject_code2 += item["projectCode"];
                 strtransfer_qty += item["transferQty"];
@@ -815,7 +815,7 @@
                 return false;
             }
 
-			dtData = {
+			let dtData = {
 					V_P_DEBUG_MODE_YN : ''
 						,V_P_LANG_ID : ''
 						,V_P_COMP_CODE : ''
@@ -847,6 +847,7 @@
 						,V_P_PROJECT_CODE_D1 : gfnma_nvl(strproject_code1)
 						,V_P_TRANSFER_QTY1 : gfnma_nvl(strtransfer_qty1)
 						,V_P_MEMO1 : gfnma_nvl(strmemo1)
+
 						,V_P_CIP_TRANSFER_NO2 : gfnma_nvl(strcip_transfer_no2)
 						,V_P_TRANSFER_SEQ2 : gfnma_nvl(strtransfer_seq2)
 						,V_P_ASSET_NO : gfnma_nvl(strasset_no)
@@ -855,6 +856,7 @@
 						,V_P_MEMO2 : gfnma_nvl(strmemo2)
 						,V_P_PROJECT_CODE_D2 : gfnma_nvl(strproject_code2)
 						,V_P_TRANSFER_QTY2 : gfnma_nvl(strtransfer_qty)
+
 						,V_P_FORM_ID : ''
 						,V_P_MENU_ID : ''
 						,V_P_PROC_ID : ''
@@ -984,7 +986,13 @@
     		return;
     	}
 		*/
-
+		let rowId = grdClclnList.getRow();
+		if(rowId === -1){
+			if(grdClclnList.getRows() > 0){
+				rowId = 1;
+			}
+		}
+		let rowData = grdClclnList.getRowData(rowId);
 
 
 		 let acntgCrtr = SBUxMethod.get('srch-slt-acctRuleCode'); //회계기준
@@ -1022,6 +1030,10 @@
 		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["projectCode","projectName","cipTransferNo"]);
 		    paramObj["V_P_ACQUIRE_TYPE"] = acqsSe;
 		    paramObj["V_P_SITE_CODE"] = bplc;
+		    if(strWorkType === "DETAIL"){
+		    	paramObj["V_P_CIP_TRANSFER_NO"] = rowData.cipTransferNo;
+		    }
+
 		  	const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4400Q.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
@@ -1151,37 +1163,8 @@
         }
     }
 
-	const fn_compopup1 = function(list) {
 
-		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
-     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-     	compopup1({
-     		compCode				: gv_ma_selectedApcCd
-     		,clientCode				: gv_ma_selectedClntCd
-     		,bizcompId				: 'P_HRI001'
-           	,popupType				: 'A'
-     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-   			,searchInputValues		: ["", 			searchText,		""]
-   			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-   			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
-     		,height					: '400px'
-   			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
-   			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
- 			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
- 			},
-     	});
-   	}
 
     //선택 삭제
     function fn_delete() {
@@ -1197,20 +1180,16 @@
 
     }
 
-    const fn_dtpChange = async function(){
-    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-startDate");
-    	let clclnYmdTo = SBUxMethod.get("srch-dtp-endDate");
 
-    	if(inptYmdFrom > inptYmdTo){
-    		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-    	}
-     }
+    const fn_bizPopupGrd = function(){
+    	let lastFocusGrid = _SBGrid.getLastFocusGrid();
+		if(lastFocusGrid ==="grdClclnTrgt"){
+			fn_bizPopup("grdClclnTrgt");
+		}else if(lastFocusGrid ==="grdClclnDsctn"){
+			fn_bizPopup("grdClclnDsctn");
+		}
 
-    const fn_bizPopupGrdClclnTrgt = function(){
-    	fn_bizPopup("grdClclnTrgt");
+
     }
 
     var fn_bizPopup = function(chk) {
@@ -1243,6 +1222,13 @@
             		rowData["projectCode"] = data.PROJECT_CODE;
             		rowData["projectName"] = data.PROJECT_NAME;
             		grdClclnTrgt.setRowData(rowIdx,rowData,true);
+            	}else if(chk === "grdClclnDsctn"){
+            		var rowIdx = grdClclnDsctn.getRow();
+            		var rowData = grdClclnDsctn.getRowData(rowIdx);
+            		rowData["projectCode"] = data.PROJECT_CODE;
+            		rowData["projectName"] = data.PROJECT_NAME;
+            		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+
             	}else{
             		SBUxMethod.set("srch-inp-projectCode", 		data.PROJECT_CODE);
     				SBUxMethod.set("srch-inp-projectName",		data.PROJECT_NAME);
@@ -1251,6 +1237,109 @@
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
+    }
+
+  //P_ASSET_LEVEL2
+    const fn_assetLevel2 = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_FIA005'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["중분류코드", 	"중분류명"]
+   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+
+				var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["assetLevel2"] = data.ASSET_GROUP_CODE;
+        		rowData["assetLevel2Name"] = data.ASSET_GROUP_NAME;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
+    }
+
+  	//P_ASSET_LEVEL3
+    const fn_assetLevel3 = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_FIA006'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["소분류코드", 	"소분류명"]
+   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["assetLevel3"] = data.ASSET_GROUP_CODE;
+        		rowData["assetLevel3Name"] = data.ASSET_GROUP_NAME;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
+    }
+    // P_ASSET_CATEGORY
+    const fn_astSePopup = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryName"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_FIA001'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["자산구분코드", 	"자산구분명"]
+   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["assetCategory"] = data.CODE_NAME;
+        		rowData["assetCategoryCode"] = data.SUB_CODE;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
     }
 
@@ -1288,6 +1377,113 @@
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
+  	}
+
+    /**
+     * 공통팝업
+     * 부서
+     */
+    var fn_compopupDept = function() {
+
+        var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText3 	= gfnma_date4();
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
+        SBUxMethod.openModal('modal-compopup1');
+
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_FI_DEPT'
+       		,popupType				: 'B'
+    		,whereClause			: ''
+       		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+    		,width					: '700px'
+    		,height					: '300px'
+   			,tableHeader			: ["부서코드", 		"부서명"]
+   			,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnWidths		: ["150px", 		"250px"]
+			,itemSelectEvent		: function (data){
+				var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["deptCode"] = data.DEPT_CODE;
+        		rowData["deptName"] = data.DEPT_NAME;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+			},
+    	});
+  	}
+
+    var fn_accountPopup = function() {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        var addParams = ['NULL'];
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FIM045'
+            ,popupType				: 'B'
+            ,whereClause			: addParams
+            ,searchCaptions			: ["코드", 		"코드명"]
+            ,searchInputFields		: ["V_P_ACCOUNT_CODE", 	"V_P_ACCOUNT_NAME"]
+            ,searchInputValues		: ["", 				searchText]
+            ,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
+            ,height					: '400px'
+            ,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
+            ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+            ,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
+            ,itemSelectEvent		: function (data){
+            	var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["accountCode"] = data.ACCOUNT_CODE;
+        		rowData["accountName"] = data.ACCOUNT_NAME;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+            },
+        });
+    }
+
+    /**
+     * 공통팝업
+     * 대체거래처
+     */
+    var fn_compopupCostCenter = function() {
+
+        var searchText1 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터 정보');
+    	SBUxMethod.openModal('modal-compopup1');
+
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_COST_CENTER'
+        	,popupType				: 'A'
+    		,whereClause			: strWhereClause
+  			,searchCaptions			: ["코드", 	"명칭"]
+  			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+  			,searchInputValues		: ["", 		""]
+    		,width					: '600px'
+    		,height					: '400px'
+  			,tableHeader			: ["코드", 		 "명칭"]
+  			,tableColumnNames		: ["COST_CENTER_CODE", 	 "COST_CENTER_NAME"]
+  			,tableColumnWidths		: ["80px", 			 "80px"]
+			,itemSelectEvent		: function (data){
+				var rowIdx = grdClclnDsctn.getRow();
+        		var rowData = grdClclnDsctn.getRowData(rowIdx);
+        		rowData["costCenterCode"] = data.COST_CENTER_CODE;
+        		rowData["costCenterName"] = data.COST_CENTER_NAME;
+        		grdClclnDsctn.setRowData(rowIdx,rowData,true);
+			},
+    	});
   	}
 
 
@@ -1329,7 +1525,7 @@
 
     const fn_clclnListDelRow = function(){
     	// row상태를 확인한 뒤 추가된 행인 경우 바로 삭제하고 아닌 경우는 DeleteClick
-    	let rowStauts = grdClclnList.getRowStatus(grdClclnList.getRow())
+    	let rowStatus = grdClclnList.getRowStatus(grdClclnList.getRow())
     	if(rowStatus === "3"){
     		grdClclnList.deleteRow(grdClclnList.getRows()-1)
     	}else{

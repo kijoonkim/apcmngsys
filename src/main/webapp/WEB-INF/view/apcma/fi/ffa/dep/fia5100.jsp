@@ -530,7 +530,7 @@
     const fnSET_P_FIA5100_S = async function(strStauts) {
     	let corp = SBUxMethod.get("srch-slt-corp")//법인
         let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
-        let bplc = SBUxMethod.get("srch-slt-bplc2")//사업장,site_code
+        let bplc = gfnma_multiSelectGet("#srch-slt-bplc2")//사업장,site_code
         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
         let stopEndYmd = SBUxMethod.get("srch-dtp-stopEndYmd"); //중지종료년월
@@ -548,17 +548,17 @@
      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
-     		    ,V_P_SITE_CODE      : bplc
-     		    ,V_P_ACCT_RULE_CODE : acntgCrtr
-     		    ,V_P_ASSET_NO       : astNo
-     		    ,V_P_HOLDING_DATE   : stopPrcsymd
-     		    ,V_P_HOLDING_START_YYYYMM : stopBgngYmd
-     		    ,V_P_HOLDING_END_YYYYMM   : stopEndYmd
-     		    ,V_P_MEMO           : rmrk
-     		    ,V_P_DEPT_CODE      : tckgDept
-     		    ,V_P_EMP_CODE       : pic
-     		    ,V_P_ACQUIRE_AMOUNT : acqsAmt
-     		    ,V_P_SUBSIDIES_AMOUNT : asstncAmt
+     		    ,V_P_SITE_CODE      : gfnma_nvl(bplc)
+     		    ,V_P_ACCT_RULE_CODE : gfnma_nvl(acntgCrtr)
+     		    ,V_P_ASSET_NO       : gfnma_nvl(astNo)
+     		    ,V_P_HOLDING_DATE   : gfnma_nvl(stopPrcsymd)
+     		    ,V_P_HOLDING_START_YYYYMM : gfnma_nvl(stopBgngYmd)
+     		    ,V_P_HOLDING_END_YYYYMM   : gfnma_nvl(stopEndYmd)
+     		    ,V_P_MEMO           : gfnma_nvl(rmrk)
+     		    ,V_P_DEPT_CODE      : gfnma_nvl(tckgDept)
+     		    ,V_P_EMP_CODE       : gfnma_nvl(pic)
+     		    ,V_P_ACQUIRE_AMOUNT : gfnma_nvl(acqsAmt)
+     		    ,V_P_SUBSIDIES_AMOUNT : gfnma_nvl(asstncAmt)
 
      			,V_P_FORM_ID		: p_formId
      			,V_P_MENU_ID		: p_menuId
@@ -569,7 +569,7 @@
 
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
           	getType				: 'json',
-          	workType			:  strWorkType,
+          	workType			:  strStauts,
           	cv_count			: '1',
           	params				: gfnma_objectToString(paramObj)
   			});
@@ -614,20 +614,20 @@
     	 		V_P_WORK_TYPE : strWorkType
      			,V_P_DEBUG_MODE_YN	: ''
      			,V_P_LANG_ID		: ''
-     			,V_P_COMP_CODE		: corp
+     			,V_P_COMP_CODE		: gv_ma_selectedApcCd
      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
-     			,V_P_FI_ORG_CODE    : bizUnit
-			    ,V_P_SITE_CODE      : bplc
-			    ,V_P_ACCT_RULE_CODE : acntgCrtr
-			    ,IV_P_HOLDING_START_FROM : stopBgngYmdFrom
-			    ,IV_P_HOLDING_START_TO   : stopBgngYmdTo
-			    ,IV_P_HOLDING_END_FROM   : stopEndYmdFrom
-			    ,IV_P_HOLDING_END_TO     : stopEndYmdTo
-			    ,V_P_DEPT_CODE           : tckgDept
-			    ,V_P_EMP_CODE            : pic
-			    ,V_P_HOLDING_DATE        : stopPrcsymd
-			    ,V_P_ASSET_NO            : astNo
+     			,V_P_FI_ORG_CODE    : gfnma_nvl(bizUnit)
+			    ,V_P_SITE_CODE      : gfnma_nvl(bplc)
+			    ,V_P_ACCT_RULE_CODE : gfnma_nvl(acntgCrtr)
+			    ,IV_P_HOLDING_START_FROM : gfnma_nvl(stopBgngYmdFrom)
+			    ,IV_P_HOLDING_START_TO   : gfnma_nvl(stopBgngYmdTo)
+			    ,IV_P_HOLDING_END_FROM   : gfnma_nvl(stopEndYmdFrom)
+			    ,IV_P_HOLDING_END_TO     : gfnma_nvl(stopEndYmdTo)
+			    ,V_P_DEPT_CODE           : gfnma_nvl(tckgDept)
+			    ,V_P_EMP_CODE            : gfnma_nvl(pic)
+			    ,V_P_HOLDING_DATE        : gfnma_nvl(stopPrcsymd)
+			    ,V_P_ASSET_NO            : gfnma_nvl(astNo)
 
      			,V_P_FORM_ID		: p_formId
      			,V_P_MENU_ID		: p_menuId
