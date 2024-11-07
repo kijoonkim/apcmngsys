@@ -1291,6 +1291,18 @@
 		});
     });
     
+    //메뉴가 이미 열려있을때..
+    window.addEventListener('message', async function(e) {
+    	let obj = e.data;
+		if(obj){
+			if(obj['MENU_MOVE']){
+				//console.log('2 message obj:', obj);
+				p_menu_param 	= obj;
+		     	fn_init();
+			}
+		}
+    });    
+    
     /**
      * 초기화
      */
@@ -1309,7 +1321,6 @@
     		
 			$('#main-btn-new', 	parent.document).attr('disabled', true);
 			$('#main-btn-save', parent.document).attr('disabled', true);
-			$('#main-btn-del', 	parent.document).attr('disabled', true);
 			
 			SBUxMethod.set('SCH_FI_ORG_CODE', 			p_ss_fiOrgCode);
 			SBUxMethod.set('SCH_SITE_CODE', 			p_ss_siteCode);
@@ -1345,15 +1356,16 @@
      */
  	function cfn_search() {
     	
-    	var SaveButton =  $('#main-btn-save', parent.document).prop('disabled');
-    	if(!SaveButton){
-			if(gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?")){
-				if(fn_validation()){
-					fn_subInsert1();
-				}
-			} 
-    	}
+//     	var SaveButton =  $('#main-btn-save', parent.document).prop('disabled');
+//     	if(!SaveButton){
+// 			if(gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?")){
+// 				if(fn_validation()){
+// 					cfn_save();
+// 				}
+// 			} 
+//     	}
 		$('#main-btn-save', parent.document).attr('disabled', true);
+		$('#main-btn-del', 	parent.document).attr('disabled', false);
     	fn_setFia2500GridMast('HEADER');
     }
     
@@ -2705,7 +2717,7 @@
     	
         var strStatus 				= "";
 		var p_fm_asset_acquire_no 	= SBUxMethod.get("FM_ASSET_ACQUIRE_NO");
-        if (!p_fm_asset_acquire_no.Text){
+        if (!p_fm_asset_acquire_no){
             strStatus = "N";
         } else {
             strStatus = "U";    	
