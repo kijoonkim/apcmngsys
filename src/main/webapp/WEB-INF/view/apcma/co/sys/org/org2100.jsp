@@ -67,16 +67,6 @@
                             <td class="td_input"  style="border-right:hidden;">
                                 <sbux-datepicker id="SRCH_TODAY_DATE" name="SRCH_TODAY_DATE" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;" readonly></sbux-datepicker>
                             </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1163,7 +1153,6 @@
     	await fn_clearSubTable();
     	SBUxMethod.set('USE_YN', "Y");
     	SBUxMethod.attr('DEPT_CODE', 'readonly', 'false');
-    	await fn_createSubGrid();
     }
     
     const fn_delRow = async function(){
