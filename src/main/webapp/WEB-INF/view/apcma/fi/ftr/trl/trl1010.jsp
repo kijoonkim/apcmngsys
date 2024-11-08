@@ -92,8 +92,18 @@
                             </td>
                         
                             <th scope="row" class="th_bg">차입기관</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+							<td class="td_input" data-group="SCH_BANK_CS_CODE">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input" data-group="SCH_BANK_CS_CODE">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+                            <td class="td_input" data-group="SCH_BANK_CS_CODE">
+								<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('1')">
+									<img src='../../../resource/images/find2.png' width='12px' />
+								</button>
+
+	                           	<%--<div style="display:flex;float:left;vertical-align:middle;width:100%">
   									<sbux-input style="width:80px" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
   									<font style="width:5px"></font>
 									<sbux-button
@@ -103,11 +113,10 @@
 										onclick="fn_compopup1('1')"></sbux-button>
   									<font style="width:5px"></font>
   									<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
+	                           	</div>--%>
                             </td>
-                        
-                            <th scope="row" class="th_bg"></th>
-                            <td colspan="3" class="td_input" >
+
+							<td colspan="4" style="border-right: hidden;">&nbsp;</td>
                             </td>
                         </tr>
                     </tbody>
@@ -120,6 +129,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>차입금</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
@@ -189,12 +199,11 @@
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금명</th>
-			                                    <td colspan="7" class="td_input">
-				  									<sbux-input id="FM_LOAN_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
 			                                    <td colspan="3" class="td_input">
+				  									<sbux-input id="FM_LOAN_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+			                                    </td>
+
+												<td colspan="8" style="border-right: hidden;">&nbsp;</td>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -207,10 +216,10 @@
 			                                    <th scope="row" class="th_bg">분류1</th>
 			                                    <td colspan="3" class="td_input">
 				  									<sbux-input id="FM_LOAN_CATEGORY1" uitype="text" class="form-control input-sm"></sbux-input>
-			                                    </td>		
-			                                                            
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>
+
+												<td colspan="4" style="border-right: hidden;">&nbsp;</td>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -223,16 +232,27 @@
 			                                    <th scope="row" class="th_bg">분류3</th>
 			                                    <td colspan="3" class="td_input">
 				  									<sbux-input id="FM_LOAN_CATEGORY3" uitype="text" class="form-control input-sm"></sbux-input>
-			                                    </td>		
-			                                                            
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>
+
+												<td colspan="4" style="border-right: hidden;">&nbsp;</td>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입기관</th>
-			                                    <td colspan="11" class="td_input">
+												<td class="td_input" data-group="FM_BANK_CS_CODE">
+													<sbux-input style="width:100%" id="FM_BANK_CS_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_BANK_CS_CODE">
+													<sbux-input style="width:100%" id="FM_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_BANK_CS_CODE">
+													<button id="BTN_POP3" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('2')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_BANK_CS_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -244,13 +264,23 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:200px" id="FM_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">은행</th>
-			                                    <td colspan="11" class="td_input">
-						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+												<td class="td_input" data-group="BANK_CODE">
+													<sbux-input style="width:100%" id="FM_BANK_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="BANK_CODE">
+													<sbux-input style="width:100%" id="FM_BANK_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+			                                    <td colspan="9" class="td_input" data-group="BANK_CODE">
+													<button id="BTN_POP2" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2()">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+
+						                           	<%--<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_BANK_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
@@ -260,7 +290,7 @@
 															onclick="fn_compopup2()"></sbux-button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:200px" id="FM_BANK_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-						                           	</div>
+						                           	</div>--%>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -273,10 +303,9 @@
 			                                    <th scope="row" class="th_bg">환율</th>
 			                                    <td colspan="3" class="td_input">
 					  								<sbux-input id="FM_EXCHANGE_RATE" uitype="text" class="form-control input-sm inpt_data_reqed" onchange="fn_editValEx()"></sbux-input>
-			                                    </td>		
-			                                                            
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>
+
+												<td colspan="4" style="border-right: hidden;">&nbsp;</td>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -289,16 +318,27 @@
 			                                    <th scope="row" class="th_bg">차입금액(전표)</th>
 			                                    <td colspan="3" class="td_input">
 					  								<sbux-input id="FM_LOAN_AMT_KRW" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
-			                                    </td>		
-			                                                            
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>
+
+												<td colspan="4" style="border-right: hidden;">&nbsp;</td>
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">입금계좌</th>
-			                                    <td colspan="11" class="td_input">
+												<td class="td_input" data-group="FM_IN_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_IN_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_IN_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_IN_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td colspan="9" class="td_input" data-group="FM_IN_DEPOSIT_CODE">
+													<button id="BTN_POP4" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup3('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_IN_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -310,12 +350,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:200px" id="FM_IN_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">출금계좌</th>
-			                                    <td colspan="11" class="td_input">
+												<td class="td_input" data-group="FM_OUT_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_OUT_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_OUT_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_OUT_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td colspan="9" class="td_input" data-group="FM_OUT_DEPOSIT_CODE">
+													<button id="BTN_POP5" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup3('2')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="11" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_OUT_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -327,7 +379,7 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:200px" id="FM_OUT_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
@@ -342,17 +394,15 @@
 			                                    </td>		                        
 			                                    
 			                                    <th scope="row" class="th_bg">만기일</th>
-			                                    <td colspan="3" class="td_input">
+			                                    <td colspan="7" class="td_input">
 												    <sbux-datepicker
 												            id="FM_EXPIRE_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
 												            class="form-control input-sm input-sm-ast inpt_data_reqed">
 												    </sbux-datepicker>
-			                                    </td>		
-			                                                            
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
@@ -365,9 +415,11 @@
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">적요</th>
-			                                    <td colspan="11" class="td_input">
+			                                    <td colspan="3" class="td_input">
 				  									<sbux-input id="FM_DESCR" uitype="text" class="form-control input-sm"></sbux-input>
-			                                    </td>		                        
+			                                    </td>
+
+												<td colspan="8" style="border-right: hidden;">&nbsp;</td>
 		                        			</tr>
 		                        			
 		                        		</tbody>
@@ -404,7 +456,20 @@
 					                    
 			                                <tr>
 			                                    <th scope="row" class="th_bg">부서</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_DEPOSIT_CODE">
+													<sbux-input style="width:100%" id="FM_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_DEPOSIT_CODE">
+													<button id="BTN_POP6" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup4('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_DEPOSIT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -416,16 +481,28 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_DEPOSIT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>--%>
+
+												<%--<td colspan="4" style="border-right: hidden;">&nbsp;</td>--%>
 			                                    </td>		
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원가중심점</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_COST_CENTER_CODE">
+													<sbux-input style="width:100%" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_COST_CENTER_CODE">
+													<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_COST_CENTER_CODE">
+													<button id="BTN_POP7" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup5('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -437,10 +514,22 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>--%>
 			                                    
 			                                    <th scope="row" class="th_bg">차입금차입</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_LOAN_START_TR_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_START_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_LOAN_START_TR_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_START_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_LOAN_START_TR_CODE">
+													<button id="BTN_POP8" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_LOAN_START_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -452,12 +541,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LOAN_START_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">차입금계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_LOAN_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_LOAN_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_LOAN_ACCOUNT_CODE">
+													<button id="BTN_POP9" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_LOAN_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -469,10 +570,23 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LOAN_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 			                                    
 			                                    <th scope="row" class="th_bg">차입금상환</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_LOAN_REPAY_TR_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_LOAN_REPAY_TR_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_LOAN_REPAY_TR_CODE">
+													<button id="BTN_POP10" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6('2')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_LOAN_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -484,12 +598,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LOAN_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자비용계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_INTEREST_EXPENSE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_INTEREST_EXPENSE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_INTEREST_EXPENSE_ACCOUNT_CODE">
+													<button id="BTN_POP11" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('2')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_INTEREST_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -501,10 +627,22 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_INTEREST_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>
+			                                    </td>--%>
 
 			                                    <th scope="row" class="th_bg">이자상환</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_INTEREST_REPAY_TR_CODE">
+													<sbux-input style="width:100%" id="FM_INTEREST_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_INTEREST_REPAY_TR_CODE">
+													<sbux-input style="width:100%" id="FM_INTEREST_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_INTEREST_REPAY_TR_CODE">
+													<button id="BTN_POP12" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6('3')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                   <%-- <td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_INTEREST_REPAY_TR_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -516,12 +654,25 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_INTEREST_REPAY_TR_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">선급비용계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_PREPAID_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_PREPAID_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_PREPAID_ACC_CODE">
+													<button id="BTN_POP13" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('3')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -533,10 +684,23 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 			                                    
 			                                    <th scope="row" class="th_bg">장기선급비용계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_LONG_PREPAID_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_LONG_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_LONG_PREPAID_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_LONG_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  class="td_input" data-group="FM_LONG_PREPAID_ACC_CODE">
+													<button id="BTN_POP14" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('4')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_LONG_PREPAID_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -548,12 +712,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LONG_PREPAID_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">미지급비용계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_ACCRUED_EXPENSE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_ACCRUED_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_ACCRUED_EXPENSE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_ACCRUED_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_ACCRUED_EXPENSE_ACCOUNT_CODE">
+													<button id="BTN_POP15" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('5')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_ACCRUED_EXPENSE_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -565,16 +741,26 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ACCRUED_EXPENSE_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>		--%>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">현재가치할인차금계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_PRESENT_VALUE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_PRESENT_VALUE_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_PRESENT_VALUE_ACCOUNT_CODE">
+													<button id="BTN_POP16" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('6')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_PRESENT_VALUE_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -586,16 +772,26 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PRESENT_VALUE_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>	--%>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">유동성대체계정(상환계정)</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_LOAN_LIQUID_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_LIQUID_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_LOAN_LIQUID_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_LOAN_LIQUID_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_LOAN_LIQUID_ACCOUNT_CODE">
+													<button id="BTN_POP17" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('7')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_LOAN_LIQUID_ACCOUNT_CODE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -607,16 +803,26 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LOAN_LIQUID_ACCOUNT_NAME" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>	--%>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">현재가치할인차금유동성대체계정</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_PRESENT_VALUE_LIQUID_ACCT_CD">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_LIQUID_ACCT_CD" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_PRESENT_VALUE_LIQUID_ACCT_CD">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_LIQUID_ACCT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_PRESENT_VALUE_LIQUID_ACCT_CD">
+													<button id="BTN_POP18" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('8')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_PRESENT_VALUE_LIQUID_ACCT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -628,16 +834,27 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PRESENT_VALUE_LIQUID_ACCT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>		--%>
+
 			                                    </td>		                        
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">사채할인차금이자비용</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_PRESENT_VALUE_INTEREST_ACCT_CD">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_INTEREST_ACCT_CD" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_PRESENT_VALUE_INTEREST_ACCT_CD">
+													<sbux-input style="width:100%" id="FM_PRESENT_VALUE_INTEREST_ACCT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_PRESENT_VALUE_INTEREST_ACCT_CD">
+													<button id="BTN_POP19" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('9')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_PRESENT_VALUE_INTEREST_ACCT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -649,10 +866,8 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PRESENT_VALUE_INTEREST_ACCT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>--%>
+
 			                                    </td>		                        
 		                        			</tr>
 
@@ -689,7 +904,19 @@
 					                    <tbody>
 			                                <tr>
 												<th scope="row" class="th_bg">상환거래처</th>
-			                                    <td colspan="3" class="td_input">
+												<td class="td_input" data-group="FM_REPAY_BANK_CS_CODE">
+													<sbux-input style="width:100%" id="FM_REPAY_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_REPAY_BANK_CS_CODE">
+													<sbux-input style="width:100%" id="FM_REPAY_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td colspan="5" class="td_input" data-group="FM_REPAY_BANK_CS_CODE">
+													<button id="BTN_POP20" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup8()">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="3" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_REPAY_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -701,10 +928,8 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_REPAY_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>
-			                                    
-			                                    <th scope="row" class="th_bg"></th>
-			                                    <td colspan="3" class="td_input">
+			                                    </td>--%>
+
 			                                    </td>		
 		                        			</tr>
 			                                <tr>
@@ -914,6 +1139,7 @@
 		                            <ul class="ad_tbl_count">
 		                                <li>
 		                                    <span>이율변동정보</span>
+											<span style="font-size:12px">(조회건수 <span id="listCoun2">0</span>건)</span>
 		                                </li>
 		                            </ul>
 				                    <%--<div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
@@ -1023,7 +1249,20 @@
 					                    <tbody>
 			                                <tr>
 			                                    <th scope="row" class="th_bg">환차익계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_EXCHANGE_GAIN_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_EXCHANGE_GAIN_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_EXCHANGE_GAIN_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_EXCHANGE_GAIN_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_EXCHANGE_GAIN_ACC_CODE">
+													<button id="BTN_POP21" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('1')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_EXCHANGE_GAIN_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1036,12 +1275,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_EXCHANGE_GAIN_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">환차손계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_EXCHANGE_LOSS_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_EXCHANGE_LOSS_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_EXCHANGE_LOSS_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_EXCHANGE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_EXCHANGE_LOSS_ACC_CODE">
+													<button id="BTN_POP22" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('2')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_EXCHANGE_LOSS_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1054,12 +1305,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_EXCHANGE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">환평가이익계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_VAL_GAIN_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_VAL_GAIN_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_VAL_GAIN_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_VAL_GAIN_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_VAL_GAIN_ACC_CODE">
+													<button id="BTN_POP23" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('3')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_VAL_GAIN_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1072,12 +1335,25 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_VAL_GAIN_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">환평가손실계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_VAL_LOSS_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_VAL_LOSS_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_VAL_LOSS_ACC_CODE">
+													<sbux-input style="width:100%" id="FM_VAL_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_VAL_LOSS_ACC_CODE">
+													<button id="BTN_POP24" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('4')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_VAL_LOSS_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1090,7 +1366,7 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_VAL_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 		                        			</tr>
 		                        		</tbody>	
 		                        	</table>
@@ -1132,7 +1408,19 @@
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품거래처</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_HDG_CS_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_HDG_CS_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_HDG_CS_CODE">
+													<button id="BTN_POP25" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('3')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_HDG_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1144,12 +1432,24 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_HDG_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>		--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품이익계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_HDG_GAIN_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_GAIN_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_HDG_GAIN_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_GAIN_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_HDG_GAIN_ACCOUNT_CODE">
+													<button id="BTN_POP26" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('10')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_HDG_GAIN_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1161,12 +1461,25 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_HDG_GAIN_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품손실계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_HDG_LOSS_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_LOSS_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_HDG_LOSS_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_LOSS_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_HDG_LOSS_ACCOUNT_CODE">
+													<button id="BTN_POP27" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('5')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_HDG_LOSS_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1178,12 +1491,25 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_HDG_LOSS_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품가계정</th>
-			                                    <td colspan="7" class="td_input">
+												<td class="td_input" data-group="FM_HDG_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td class="td_input" data-group="FM_HDG_ACCOUNT_CODE">
+													<sbux-input style="width:100%" id="FM_HDG_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+												</td>
+												<td  colspan="5" class="td_input" data-group="FM_HDG_ACCOUNT_CODE">
+													<button id="BTN_POP28" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('11')">
+														<img src='../../../resource/images/find2.png' width='12px' />
+													</button>
+												</td>
+
+
+			                                    <%--<td colspan="7" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_HDG_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
@@ -1195,7 +1521,7 @@
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:300px" id="FM_HDG_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
-			                                    </td>		                        
+			                                    </td>	--%>
 		                        			</tr>
 		                        			
 			                                <tr>
@@ -1585,13 +1911,13 @@
 			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
-			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption: ["약정이율"],         ref: 'INTEREST_RATE',    type:'output',  	width:'150px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
 			},
@@ -1620,9 +1946,9 @@
             {caption: ["차입금번호"],		ref: 'LOAN_NUM', 			type:'input',  	width:'250px',  	style:'text-align:left'},
             //TODO : 화면상에는 순번 컬럼이지만 C#코드에서는 계획연변으로 되어있는 것으로 추측
 			{caption: ["순번"], 			ref: 'PLAN_SEQ', 		 	type:'output',  	width:'100px',  	style:'text-align:left'},
-			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'datepicker',	width:'200px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'datepicker',	width:'200px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
 			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'150px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
@@ -1634,7 +1960,7 @@
 			{caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
 
 
-			{caption: ['상환예정일'], ref: 'REPAY_PLAN_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+			{caption: ['상환예정일'], ref: 'REPAY_PLAN_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}, hidden : true },
 			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '100px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, hidden : true
@@ -1805,6 +2131,7 @@
 		        }
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -1832,11 +2159,11 @@
             ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
             ,tableColumnWidths		: ["80px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
-                SBUxMethod.set('FM_BANK_CODE', data.BANK_NAME);
-                SBUxMethod.set('FM_BANK_NAME', data.BANK_CODE);
+                SBUxMethod.set('FM_BANK_CODE', data.BANK_CODE);
+                SBUxMethod.set('FM_BANK_NAME', data.BANK_NAME);
             },
         });
+		SBUxMethod.openModal('modal-compopup1');
     }    
     
     /**
@@ -1871,7 +2198,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE", 	"DEPOSIT_NAME", "DEPOSIT_TYPE_NAME","ACCOUNT_NUM", 	"BANK_CODE", 	"BANK_NAME", 	"OPEN_DATE", 	"EXPIRE_DATE"]
             ,tableColumnWidths		: ["120px", 		"160px", 		"100px", 			"200px", 		"100px", 		"140px", 		"100px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if(type=='1'){
 	                SBUxMethod.set('FM_IN_DEPOSIT_CODE', data.DEPOSIT_NAME);
 	                SBUxMethod.set('FM_IN_DEPOSIT_NAME', data.DEPOSIT_CODE);
@@ -1881,6 +2207,7 @@
                 }
             },
         });
+		SBUxMethod.openModal('modal-compopup1');
     }    
     
      /**
@@ -1915,7 +2242,6 @@
              ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
              ,tableColumnWidths		: ["100px", 		"200px" 		]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  if(type=='1'){
  	                SBUxMethod.set('FM_DEPOSIT_NAME', data.DEPT_NAME);
  	                SBUxMethod.set('FM_DEPOSIT_CODE', data.DEPT_CODE);
@@ -1923,6 +2249,7 @@
                  }
              },
          });
+		 SBUxMethod.openModal('modal-compopup1');
      }        
      
      /**
@@ -1959,7 +2286,6 @@
     		,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME",	"DEPT_CODE",	"DEPT_NAME",	"SITE_CODE"]	
     		,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
  					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
@@ -1967,6 +2293,7 @@
  		        }
  			},
      	});
+		 SBUxMethod.openModal('modal-compopup1');
      }          
      
      /**
@@ -2018,7 +2345,8 @@
  				}
  			},
      	});
-   	}
+		 SBUxMethod.openModal('modal-compopup1');
+	 }
     
      /**
       * 차입금계정
@@ -2083,7 +2411,6 @@
     		,tableColumnNames		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME",		"ACCOUNT_NAME_CHN"]	
     		,tableColumnWidths		: ["100px", 			"250px",			"250px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_LOAN_ACCOUNT_CODE', 				data.ACCOUNT_CODE);
  					SBUxMethod.set('FM_LOAN_ACCOUNT_NAME', 				data.ACCOUNT_NAME);
@@ -2120,6 +2447,7 @@
  		        }
  			},
      	});
+		 SBUxMethod.openModal('modal-compopup1');
      }       
     
      /**
@@ -2148,11 +2476,11 @@
              ,tableColumnNames		: ["CS_CODE" , 		"CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
              ,tableColumnWidths		: ["100px", 		"200px", "100px", "100px", "120px", "300px"]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  SBUxMethod.set('FM_REPAY_BANK_CS_CODE', data.CS_NAME);
                  SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CS_CODE);
              },
          });
+		 SBUxMethod.openModal('modal-compopup1');
      }
      
      /**
@@ -2189,11 +2517,11 @@
    			,tableColumnNames		: ["BANK_ACCOUNT_SEQ", 	"SEQ_NAME",		"BANK_CODE",		"BANK_NAME",		"BANK_ACCOUNT_NO",	"DESCRIPTION",	"BANK_ACCOUNT_OWNER",	"CS_CODE",			"EFFECT_START_DATE",	"EFFECT_END_DATE",	"BNKCNT"]
    			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
  			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
                 SBUxMethod.set('FM_REPAY_BANK_CS_CODE', 	data.CS_CODE);
                 SBUxMethod.set('FM_REPAY_BANK_CODE', 		data.BANK_CODE);
  			},
      	});
+		 SBUxMethod.openModal('modal-compopup1');
      }     
      
       var fn_compopup10 = function(type) {
@@ -2238,7 +2566,6 @@
      		,tableColumnNames		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME",		"ACCOUNT_NAME_CHN"]	
      		,tableColumnWidths		: ["100px", 			"250px",			"250px"]
   			,itemSelectEvent		: function (data){
-  				console.log('callback data:', data);
   		        if(type=='1'){
   					SBUxMethod.set('FM_EXCHANGE_GAIN_ACC_CODE', 	data.ACCOUNT_CODE);
   					SBUxMethod.set('FM_EXCHANGE_GAIN_ACC_NAME', 	data.ACCOUNT_NAME);
@@ -2257,6 +2584,7 @@
   		        }
   			},
       	});
+		  SBUxMethod.openModal('modal-compopup1');
       }
 
 	// 행 추가 [이율변동정보]
@@ -2492,8 +2820,8 @@
 
 			if (_.isEqual("S", data.resultStatus)) {
 
-				/*/!** @type {number} **!/
-                let totalRecordCount = 0;*/
+				/** @type {number} **/
+                let totalRecordCount = 0;
 
 				jsonTrl1010Top.length = 0;
 				data.cv_1.forEach((item, index) => {
@@ -2522,7 +2850,7 @@
 
 					}
 					jsonTrl1010Top.push(msg);
-					/* totalRecordCount++;*/
+					 totalRecordCount++;
 				});
 
 				Trl1010GridTop.rebuild();
@@ -2530,7 +2858,7 @@
 				if(jsonTrl1010Top.length > 0) {
 					Trl1010GridTop.clickRow(1);
 				}
-				/*document.querySelector('#listCount').innerText = totalRecordCount;*/
+				document.querySelector('#listCount').innerText = totalRecordCount;
 
 
 			} else {
@@ -2605,8 +2933,6 @@
 
 		const data = await postJsonPromise;
 
-		console.log('-----------data----------', data);
-
 		try {
 			bQuery = true;
 
@@ -2653,13 +2979,13 @@
 					SBUxMethod.set("FM_LOAN_ACCOUNT_NAME"      				, gfn_nvl(item.LOAN_ACCOUNT_NAME));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_CODE"      	, gfn_nvl(item.INTEREST_EXPENSE_ACCOUNT));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_NAME"      	, gfn_nvl(item.INTEREST_EXPENSE_ACCOUNT_NAME));
-					SBUxMethod.set("FM_PREPAID_ACC_CODE"      		, gfn_nvl(item.PREPAID_EXPENSE_ACCOUNT));
+					SBUxMethod.set("FM_PREPAID_ACC_CODE"      				, gfn_nvl(item.PREPAID_EXPENSE_ACCOUNT));
 					SBUxMethod.set("FM_PREPAID_ACC_NAME"      				, gfn_nvl(item.PREPAID_ACC_NAME));
-					SBUxMethod.set("FM_ACCRUED_EXPENSE_ACCOUNT_CODE"      		, gfn_nvl(item.ACCRUED_EXPENSE_ACCOUNT));
+					SBUxMethod.set("FM_ACCRUED_EXPENSE_ACCOUNT_CODE"      	, gfn_nvl(item.ACCRUED_EXPENSE_ACCOUNT));
 					SBUxMethod.set("FM_ACCRUED_EXPENSE_ACCOUNT_NAME"      	, gfn_nvl(item.ACCRUED_EXPENSE_ACCOUNT_NAME));
-					SBUxMethod.set("FM_PRESENT_VALUE_ACCOUNT_CODE"      			, gfn_nvl(item.PRESENT_VALUE_ACCOUNT));
+					SBUxMethod.set("FM_PRESENT_VALUE_ACCOUNT_CODE"      	, gfn_nvl(item.PRESENT_VALUE_ACCOUNT));
 					SBUxMethod.set("FM_PRESENT_VALUE_ACCOUNT_NAME"      	, gfn_nvl(item.PRESENT_VALUE_ACCOUNT_NAME));
-					SBUxMethod.set("FM_LOAN_LIQUID_ACCOUNT_CODE"      			, gfn_nvl(item.LOAN_LIQUID_ACCOUNT));
+					SBUxMethod.set("FM_LOAN_LIQUID_ACCOUNT_CODE"      		, gfn_nvl(item.LOAN_LIQUID_ACCOUNT));
 					SBUxMethod.set("FM_LOAN_LIQUID_ACCOUNT_NAME"      		, gfn_nvl(item.LOAN_LIQUID_ACCOUNT_NAME));
 					SBUxMethod.set("FM_LOAN_REPAY_TR_CODE"      			, gfn_nvl(item.LOAN_REPAY_TR_TYPE)); //--차입금상환 (신규))
 					SBUxMethod.set("FM_LOAN_REPAY_TR_NAME"      			, gfn_nvl(item.LOAN_REPAY_TR_NAME));
@@ -2667,13 +2993,13 @@
 					SBUxMethod.set("FM_INTEREST_REPAY_TR_NAME"      		, gfn_nvl(item.INTEREST_REPAY_TR_NAME));
 					SBUxMethod.set("FM_LOAN_START_TR_CODE"      			, gfn_nvl(item.LOAN_START_TR_TYPE)); //--차입금차입 (신규))
 					SBUxMethod.set("FM_LOAN_START_TR_NAME"      			, gfn_nvl(item.LOAN_START_TR_NAME));
-					SBUxMethod.set("FM_EXCHANGE_GAIN_ACC_CODE"     				, gfn_nvl(item.EXCHANGE_GAIN_ACC)); // -- ADD 20160804 외화환차익계)정
+					SBUxMethod.set("FM_EXCHANGE_GAIN_ACC_CODE"     			, gfn_nvl(item.EXCHANGE_GAIN_ACC)); // -- ADD 20160804 외화환차익계)정
 					SBUxMethod.set("FM_EXCHANGE_GAIN_ACC_NAME"      		, gfn_nvl(item.EXCHANGE_GAIN_ACC_NAME));
-					SBUxMethod.set("FM_EXCHANGE_LOSS_ACC_CODE"      				, gfn_nvl(item.EXCHANGE_LOSS_ACC)); //-- ADD 20160804 외화환차손계)정
+					SBUxMethod.set("FM_EXCHANGE_LOSS_ACC_CODE"      		, gfn_nvl(item.EXCHANGE_LOSS_ACC)); //-- ADD 20160804 외화환차손계)정
 					SBUxMethod.set("FM_EXCHANGE_LOSS_ACC_NAME"      		, gfn_nvl(item.EXCHANGE_LOSS_ACC_NAME));
-					SBUxMethod.set("FM_VAL_GAIN_ACC_CODE"      					, gfn_nvl(item.VAL_GAIN_ACC)); // -- ADD 20160804 외화평가이익계)정
+					SBUxMethod.set("FM_VAL_GAIN_ACC_CODE"      				, gfn_nvl(item.VAL_GAIN_ACC)); // -- ADD 20160804 외화평가이익계)정
 					SBUxMethod.set("FM_VAL_GAIN_ACC_NAME"      				, gfn_nvl(item.VAL_GAIN_ACC_NAME));
-					SBUxMethod.set("FM_VAL_LOSS_ACC_CODE"      					, gfn_nvl(item.VAL_LOSS_ACC)); // -- ADD 20160804 외화평가손실계)정
+					SBUxMethod.set("FM_VAL_LOSS_ACC_CODE"      				, gfn_nvl(item.VAL_LOSS_ACC)); // -- ADD 20160804 외화평가손실계)정
 					SBUxMethod.set("FM_VAL_LOSS_ACC_NAME"      				, gfn_nvl(item.VAL_LOSS_ACC_NAME));
 					SBUxMethod.set("FM_PRESENT_VALUE_LIQUID_ACCT_CD"      	, gfn_nvl(item.PRESENT_VALUE_LIQUID_ACCOUNT)); //-- 현재가치할인차금유동성계정 20170908AD)D
 					SBUxMethod.set("FM_PRESENT_VALUE_LIQUID_ACCT_NM"      	, gfn_nvl(item.PRESENT_VALUE_LIQUID_ACCT_NM));
@@ -2720,18 +3046,20 @@
 					SBUxMethod.set("FM_PRESENT_VALUE_INTEREST_ACCT_CD"      	, gfn_nvl(item.PRESENT_VALUE_INTEREST_ACCOUNT)); // --  사채할인차금이자비용 20190320 LJ)E
 					SBUxMethod.set("FM_PRESENT_VALUE_INTEREST_ACCT_NM"      	, gfn_nvl(item.PRESENT_VALUE_INTEREST_ACCT_NM)); // --  사채할인차금이자비용 20190320 LJ)E
 					SBUxMethod.set("FM_HDG_FLAG"      							, gfn_nvl(item.HDG_FLAG));
-					SBUxMethod.set("FM_HDG_GAIN_ACCOUNT_CODE"      						, gfn_nvl(item.HDG_GAIN_ACC));
+					SBUxMethod.set("FM_HDG_GAIN_ACCOUNT_CODE"      				, gfn_nvl(item.HDG_GAIN_ACC));
 					SBUxMethod.set("FM_HDG_GAIN_ACCOUNT_NAME"      				, gfn_nvl(item.HDG_GAIN_ACCOUNT_NAME));
-					SBUxMethod.set("FM_HDG_LOSS_ACCOUNT_CODE"      						, gfn_nvl(item.HDG_LOSS_ACC));
+					SBUxMethod.set("FM_HDG_LOSS_ACCOUNT_CODE"      				, gfn_nvl(item.HDG_LOSS_ACC));
 					SBUxMethod.set("FM_HDG_LOSS_ACCOUNT_NAME"      				, gfn_nvl(item.HDG_LOSS_ACCOUNT_NAME));
 					SBUxMethod.set("FM_HDG_CS_CODE"      						, gfn_nvl(item.HDG_CS_CODE));
 					SBUxMethod.set("FM_HDG_CS_NAME"      						, gfn_nvl(item.HDG_CS_NAME));
 					SBUxMethod.set("FM_HDG_DESCR"      							, gfn_nvl(item.HDG_DESCR));
-					SBUxMethod.set("FM_HDG_ACCOUNT_CODE"      							, gfn_nvl(item.HDG_ACC));
+					SBUxMethod.set("FM_HDG_ACCOUNT_CODE"      					, gfn_nvl(item.HDG_ACC));
 					SBUxMethod.set("FM_HDG_ACCOUNT_NAME"      					, gfn_nvl(item.HDG_ACCOUNT_NAME));
 
 				});
 
+				/** @type {number} **/
+				let totalRecordCount = 0;
 				/**************************** 이율변동정보 **********************************/
 				jsonTrl1010Tab4.length = 0;
 				data.cv_3.forEach((item, index) => {
@@ -2748,9 +3076,12 @@
 
 					}
 					jsonTrl1010Tab4.push(msg);
+					totalRecordCount++;
 				});
 
 				Trl1010GridTab4.rebuild();
+				document.querySelector('#listCoun2').innerText = totalRecordCount;
+
 
 
 				/*/!**************************** 상환계획 **********************************!/
@@ -2972,9 +3303,6 @@
 			, V_P_PC: ''
 		};
 
-		console.log('--------S paramObj----------', paramObj);
-
-
 		const postJsonPromise = gfn_postJSON("/fi/ffa/alm/insertTrl1010.do", {
 			getType: 'json',
 			workType: strWorkType,
@@ -2982,8 +3310,6 @@
 			params: gfnma_objectToString(paramObj)
 		});
 		const data = await postJsonPromise;
-
-		console.log('--------S data----------', data);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -3013,13 +3339,10 @@
 		let listData = [];
 		listData =  await getParamForm();
 
-		console.log('--------S1 listData----------', listData);
-
 		if (listData.length > 0) {
 			const postJsonPromise = gfn_postJSON("/fi/ffa/alm/insertTrl1010S1.do", {listData: listData});
 			const data = await postJsonPromise;
 
-			console.log('--------S1 data----------', data);
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
 

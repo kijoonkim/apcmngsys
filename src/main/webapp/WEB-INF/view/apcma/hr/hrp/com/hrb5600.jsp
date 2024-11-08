@@ -154,7 +154,7 @@
                                         jsondata-ref="jsonPayItemCode2"
                                 />
                             </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td colspan="8" style="border-right: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">지급구분</th>
@@ -180,6 +180,7 @@
                                         false-value="N"
                                 ></sbux-checkbox>
                             </td>
+                            <td colspan="7" style="border-right: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">적용기간</th>
@@ -203,6 +204,7 @@
                                         class="form-control input-sm input-sm-ast inpt_data_reqed">
                                 </sbux-datepicker>
                             </td>
+                            <td colspan="7" style="border-right: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">적용기준1</th>
@@ -230,10 +232,11 @@
                                 </div>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
+                            <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">비고</th>
-                            <td colspan="9" class="td_input" >
+                            <td colspan="10" class="td_input" >
                                 <sbux-textarea id="MEMO" name="MEMO" uitype="normal" cols="100"></sbux-textarea>
                             </td>
                         </tr>
@@ -414,13 +417,13 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'output', width: '200px', style: 'text-align:left'},
 
             {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 14},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
             {caption: ["적용금액","비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'}
         ];
@@ -489,7 +492,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function (/*tabMoveVal*/) {
+    const fn_search = async function (nRow) {
 
         let APPLY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
         let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
@@ -554,7 +557,7 @@
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if(jsonGvwList.length > 0) {
-                    gvwListGrid.clickRow(1);
+                    gvwListGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
                 }
 
                 //fn_view();
@@ -894,9 +897,9 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                       /* if (data.resultMessage) {
+                        if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }*/
+                        }
 
                         return true;
 
@@ -925,9 +928,9 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        /*if (data.resultMessage) {
+                        if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }*/
+                        }
 
                         return true;
 
@@ -959,12 +962,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
+                    let nRow = gvwListGrid.getRow();
+
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                         fn_search();
                     }else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
+                        //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search(nRow);
                     }
 
 
@@ -1008,10 +1013,10 @@
                     , V_P_PAY_ITEM_CODE         : PAY_ITEM_CODE
                     , V_P_PAY_TYPE              : PAY_TYPE
                     , V_P_APPLY_START_DATE      : APPLY_START_DATE
-                    , V_P_PAY_ITEM_RANGE_CODE1  : item.data.PAY_ITEM_RANGE_CODE1
-                    , V_P_PAY_ITEM_RANGE_CODE2  : item.data.PAY_ITEM_RANGE_CODE2
+                    , V_P_PAY_ITEM_RANGE_CODE1  : gfn_nvl(item.data.PAY_ITEM_RANGE_CODE1)
+                    , V_P_PAY_ITEM_RANGE_CODE2  : gfn_nvl(item.data.PAY_ITEM_RANGE_CODE2)
                     , V_P_PAY_ITEM_RANGE_AMT    : gfn_nvl(item.data.PAY_ITEM_RANGE_AMT) == '' ? 0 : item.data.PAY_ITEM_RANGE_AMT
-                    , V_P_MEMO                  : item.data.MEMO
+                    , V_P_MEMO                  : gfn_nvl(item.data.MEMO)
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId

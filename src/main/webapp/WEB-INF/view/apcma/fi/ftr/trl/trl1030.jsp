@@ -36,8 +36,6 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3><!-- 차입금상환스케줄 -->
                 </div>
-                <div style="margin-left: auto;">
-                </div>
             </div>
             <div class="box-body">
 
@@ -93,19 +91,24 @@
                             </td>
                         
                             <th scope="row" class="th_bg">차입기관</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-									<sbux-button
+							<td class="td_input" data-group="BANK_CS">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input" data-group="BANK_CS">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input" data-group="BANK_CS">
+								<%--<sbux-button
 										class="btn btn-xs btn-outline-dark"
-										text=".." uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup1('1')"></sbux-button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
+										type="button"
+										class='ma-btn1'
+										onclick="fn_compopup1('1')">
+									<img src='../../../resource/images/find2.png' width='12px' />
+								</sbux-button>--%>
+								<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('1')">
+									<img src='../../../resource/images/find2.png' width='12px' />
+								</button>
+							</td>
                         
                             <th scope="row" class="th_bg">거래일자</th>
                             <td colspan="3" class="td_input" >
@@ -136,6 +139,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>차입금</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
@@ -953,6 +957,7 @@
 		                            <ul class="ad_tbl_count">
 		                                <li>
 		                                    <span>상환계획</span>
+											<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
 		                                </li>
 		                            </ul>
 				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
@@ -1015,14 +1020,14 @@
         </div>
         			
     </section>
-    
+
 	<!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-    </div>
-    <div id="body-modal-compopup1">
-    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-compopup1">
+		<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+	</div>
     
 	<!-- 팝업 Modal -->
     <div>
@@ -1229,12 +1234,12 @@
 			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, disabled: true
 			},
-			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
 			{caption: ["약정이율"],         ref: 'INTEREST_RATE',    type:'output',  	width:'150px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
@@ -1334,24 +1339,24 @@
 		SBGridProperties.columns = [
 			{caption: ["차입금번호"], 		ref: 'LOAN_NUM', 			  	type:'output',  	width:'230px',  	style:'text-align:left'},
 			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'200px',  	style:'text-align:left'},
-			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}},
-			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
+			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
 			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center',
 				typeinfo : {ref : 'jsonRepayDd', displayui : true, label : 'label', value : 'value'}
 			},
-			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption: ["확정여부"], 	ref: 'CONFIRM_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
 				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
 			},
@@ -1448,6 +1453,7 @@
 		        }
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -1475,7 +1481,6 @@
             ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
             ,tableColumnWidths		: ["80px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('FM_BANK_CODE', data.BANK_NAME);
                 SBUxMethod.set('FM_BANK_NAME', data.BANK_CODE);
             },
@@ -1514,7 +1519,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE", 	"DEPOSIT_NAME", "DEPOSIT_TYPE_NAME","ACCOUNT_NUM", 	"BANK_CODE", 	"BANK_NAME", 	"OPEN_DATE", 	"EXPIRE_DATE"]
             ,tableColumnWidths		: ["120px", 		"160px", 		"100px", 			"200px", 		"100px", 		"140px", 		"100px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if(type=='1'){
 	                SBUxMethod.set('FM_IN_DEPOSIT_CODE', data.DEPOSIT_NAME);
 	                SBUxMethod.set('FM_IN_DEPOSIT_NAME', data.DEPOSIT_CODE);
@@ -1558,7 +1562,6 @@
              ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
              ,tableColumnWidths		: ["100px", 		"200px" 		]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  if(type=='1'){
  	                SBUxMethod.set('FM_DEPOSIT_NAME', data.DEPT_NAME);
  	                SBUxMethod.set('FM_DEPOSIT_CODE', data.DEPT_CODE);
@@ -1602,7 +1605,6 @@
     		,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME",	"DEPT_CODE",	"DEPT_NAME",	"SITE_CODE"]	
     		,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
  					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
@@ -1720,7 +1722,6 @@
     		,tableColumnNames		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME",		"ACCOUNT_NAME_CHN"]	
     		,tableColumnWidths		: ["100px", 			"250px",			"250px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_LOAN_ACCOUNT_CODE', 				data.ACCOUNT_CODE);
  					SBUxMethod.set('FM_LOAN_ACCOUNT_NAME', 				data.ACCOUNT_NAME);
@@ -1779,7 +1780,6 @@
              ,tableColumnNames		: ["CS_CODE" , 		"CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
              ,tableColumnWidths		: ["100px", 		"200px", "100px", "100px", "120px", "300px"]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  SBUxMethod.set('FM_REPAY_BANK_CS_CODE', data.CS_NAME);
                  SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CS_CODE);
              },
@@ -1820,7 +1820,6 @@
    			,tableColumnNames		: ["BANK_ACCOUNT_SEQ", 	"SEQ_NAME",		"BANK_CODE",		"BANK_NAME",		"BANK_ACCOUNT_NO",	"DESCRIPTION",	"BANK_ACCOUNT_OWNER",	"CS_CODE",			"EFFECT_START_DATE",	"EFFECT_END_DATE",	"BNKCNT"]
    			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
  			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
                 SBUxMethod.set('FM_REPAY_BANK_CS_CODE', 	data.CS_CODE);
                 SBUxMethod.set('FM_REPAY_BANK_CODE', 		data.BANK_CODE);
  			},
@@ -1883,14 +1882,12 @@
 
 		const data = await postJsonPromise;
 
-		console.log('-----dat11a-------', data);
-
 		try {
 
 			if (_.isEqual("S", data.resultStatus)) {
 
-				/*/!** @type {number} **!/
-                let totalRecordCount = 0;*/
+				/** @type {number} **/
+                let totalRecordCount = 0;
 
 				jsonTrl1030Top.length = 0;
 				data.cv_1.forEach((item, index) => {
@@ -1919,7 +1916,7 @@
 
 					}
 					jsonTrl1030Top.push(msg);
-					/* totalRecordCount++;*/
+					 totalRecordCount++;
 				});
 
 				Trl1030GridTop.rebuild();
@@ -1927,7 +1924,7 @@
 				if(jsonTrl1030Top.length > 0) {
 					Trl1030GridTop.clickRow(gfn_nvl(row) == '' ? 1 : row);
 				}
-				/*document.querySelector('#listCount').innerText = totalRecordCount;*/
+				document.querySelector('#listCount').innerText = totalRecordCount;
 
 
 			} else {
@@ -1999,14 +1996,12 @@
 
 		const data = await postJsonPromise;
 
-		console.log('-----------data----------', data);
-
 		try {
 
 			if (_.isEqual("S", data.resultStatus)) {
 
-				/*/!** @type {number} **!/
-                let totalRecordCount = 0;*/
+				/** @type {number} **/
+                let totalRecordCount = 0;
 
 				/**************************** 상환계획 **********************************/
 				jsonTrl1030Tab5.length = 0;
@@ -2033,9 +2028,11 @@
 
 					}
 					jsonTrl1030Tab5.push(msg);
+					totalRecordCount++;
 				});
 
 				Trl1030GridTab5.rebuild();
+				document.querySelector('#listCount2').innerText = totalRecordCount;
 
 
 			} else {
