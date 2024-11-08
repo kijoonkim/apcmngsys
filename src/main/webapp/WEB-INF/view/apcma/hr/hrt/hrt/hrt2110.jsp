@@ -952,7 +952,6 @@
         var addParams = [p_userId];	//bizcompId 의 파라미터에 따라 추가할것
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-        SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -977,6 +976,7 @@
                 bandgvwInfo.setCellData(nRow, (nCol-1), data['POSITION_CODE']);
             },
         });
+        SBUxMethod.openModal('modal-compopup1');
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
 

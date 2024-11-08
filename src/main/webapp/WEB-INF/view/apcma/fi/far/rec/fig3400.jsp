@@ -1222,7 +1222,15 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["전표번호"], 	        ref: 'link',    	        type:'button',  	width:'200px',  	style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if(objRowData['DOC_ID']){
+                        return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+                    } else {
+                        return "";
+                    }
+                }
+            },
             {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '200px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
