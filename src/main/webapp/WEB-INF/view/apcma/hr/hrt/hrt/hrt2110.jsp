@@ -368,6 +368,11 @@
             },
             {caption: ["신청자정보", "사번"],         ref: 'EMP_CODE',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["신청자정보", "이름"],         ref: 'EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["신청자정보", "이름"], 						ref: 'EMP_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findEmpCodeForBandgvwInfo(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["신청자정보", "직책"], 		ref: 'DUTY_CODE',   	    type:'combo', style:'text-align:left' ,width: '63px',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
@@ -436,6 +441,11 @@
             },
             {caption: ["근태항목", "항목코드"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'78px',  style:'text-align:left'},
             {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'149px',  style:'text-align:left'},
+            {caption: ["근태항목", "명칭"], 						ref: 'TIME_ITEM_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findTimeItemCodeForBandgvwInfo(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["시작시각", "구분"], 		ref: 'TIME_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '60px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
@@ -572,7 +582,7 @@
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrebuild','fn_bandgvwInfoAfterRebuild');
         bandgvwInfo.bind('afterrefresh','fn_bandgvwInfoAfterRefresh');
-        bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');
+        /*bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');*/
         bandgvwInfo.bind('valuechanged', 'fn_bandgvwInfoValueChanged');
     }
 
@@ -617,19 +627,19 @@
         var nCol = bandgvwInfo.getCol();
 
         if(nCol == 6) {
-            fn_findEmpCodeForBandgvwInfo(nRow, nCol);
+            fn_findEmpCodeForBandgvwInfo(nRow);
         }
 
         if(nCol == 7) {
-            fn_findEmpCodeForBandgvwInfo(nRow, (nCol-1));
+            fn_findEmpCodeForBandgvwInfo(nRow);
         }
 
         if(nCol == 22) {
-            fn_findTimeItemCodeForBandgvwInfo(nRow, nCol);
+            fn_findTimeItemCodeForBandgvwInfo(nRow);
         }
 
         if(nCol == 23) {
-            fn_findTimeItemCodeForBandgvwInfo(nRow, (nCol-1));
+            fn_findTimeItemCodeForBandgvwInfo(nRow);
         }
     }
 
@@ -949,7 +959,7 @@
         SBUxMethod.setModalCss('modal-compopup1', {width:'650px'});
     }
 
-    const fn_findEmpCodeForBandgvwInfo = function(nRow, nCol) {
+    const fn_findEmpCodeForBandgvwInfo = function(nRow) {
         var addParams = [p_userId];	//bizcompId 의 파라미터에 따라 추가할것
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
@@ -968,20 +978,20 @@
             , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                bandgvwInfo.setCellData(nRow, (nCol-3), data['DEPT_CODE']);
-                bandgvwInfo.setCellData(nRow, (nCol-2), data['DEPT_NAME']);
-                bandgvwInfo.setCellData(nRow, (nCol+2), data['DUTY_CODE']);
-                bandgvwInfo.setCellData(nRow, (nCol+3), data['JOB_RANK']);
-                bandgvwInfo.setCellData(nRow, nCol, data['EMP_CODE']);
-                bandgvwInfo.setCellData(nRow, (nCol+1), data['EMP_NAME']);
-                bandgvwInfo.setCellData(nRow, (nCol-1), data['POSITION_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), data['DEPT_NAME']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DUTY_CODE"), data['DUTY_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("JOB_RANK"), data['JOB_RANK']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_CODE"), data['EMP_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_NAME"), data['EMP_NAME']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), data['POSITION_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), data['DEPT_CODE']);
             },
         });
         SBUxMethod.openModal('modal-compopup1');
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
 
-    const fn_findTimeItemCodeForBandgvwInfo = function(nRow, nCol) {
+    const fn_findTimeItemCodeForBandgvwInfo = function(nRow) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '일근태항목');
         SBUxMethod.openModal('modal-compopup1');
         compopup1({
@@ -998,8 +1008,8 @@
             ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
             ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
             ,itemSelectEvent		: function (data){
-                bandgvwInfo.setCellData(nRow, nCol, data['TIME_ITEM_CODE']);
-                bandgvwInfo.setCellData(nRow, (nCol+1), data['TIME_ITEM_NAME']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), data['TIME_ITEM_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), data['TIME_ITEM_NAME']);
             },
         });
 

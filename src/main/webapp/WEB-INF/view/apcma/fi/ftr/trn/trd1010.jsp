@@ -434,12 +434,22 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["입금계좌코드"],         ref: 'IN_DEPOSIT_CODE',    type:'output',  	width:'118px',  style:'text-align:left'}, // TODO P_DEPOSIT
-            {caption: ["입금계좌번호"],         ref: 'IN_ACCOUNT_NO',    type:'output',  	width:'119px',  style:'text-align:left'}, // TODO P_DEPOSIT
+            {caption: ["입금계좌코드"],         ref: 'IN_DEPOSIT_CODE',    type:'output',  	width:'118px',  style:'text-align:left'},
+            {caption: ["입금계좌번호"],         ref: 'IN_ACCOUNT_NO',    type:'output',  	width:'119px',  style:'text-align:left'},
+            {caption: ["입금계좌번호"], 						ref: 'IN_ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 11)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["입금은행"],         ref: 'IN_BANK_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
-            {caption: ["회차(입금)"],         ref: 'IN_DEPOSIT_SEQ',    type:'output',  	width:'68px',  style:'text-align:left', hidden: true}, // TODO P_DEPOSIT
-            {caption: ["출금계좌코드"],         ref: 'OUT_DEPOSIT_CODE',    type:'output',  	width:'131px',  style:'text-align:left'}, // TODO P_DEPOSIT
-            {caption: ["출금계좌번호"],         ref: 'OUT_ACCOUNT_NO',    type:'output',  	width:'150px',  style:'text-align:left'}, // TODO P_DEPOSIT
+            {caption: ["회차(입금)"],         ref: 'IN_DEPOSIT_SEQ',    type:'output',  	width:'68px',  style:'text-align:left', hidden: true},
+            {caption: ["출금계좌코드"],         ref: 'OUT_DEPOSIT_CODE',    type:'output',  	width:'131px',  style:'text-align:left'},
+            {caption: ["출금계좌번호"],         ref: 'OUT_ACCOUNT_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
+            {caption: ["출금계좌번호"], 						ref: 'OUT_ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 16)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["출금은행"],         ref: 'OUT_BANK_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
             {caption: ["회차(출금)"],         ref: 'OUT_DEPOSIT_SEQ',    type:'output',  	width:'70px',  style:'text-align:left', hidden: true}, // TODO P_DEPOSIT
             {caption: ["출금방법(예금)"], 		ref: 'PAY_METHOD',   	    type:'combo', style:'text-align:left' ,width: '86px',
@@ -500,7 +510,7 @@
 
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
-        gvwList.bind('dblclick', 'fn_gvwListDblclick');
+        /*gvwList.bind('dblclick', 'fn_gvwListDblclick');*/
         gvwList.bind('valuechanged','fn_gvwListValueChanged');
         gvwList.bind('afterrebuild','fn_gvwListAfterRebuild');
         gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
@@ -1126,11 +1136,14 @@
             ,tableColumnWidths		: ["100px", "200px", "140px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
                 if(nCol == 10 || nCol == 11) {
+                    gvwList.setCellData(nRow, gvwList.getColRef("IN_BANK_NAME"), data.BANK_CS_NAME);
+                    gvwList.setCellData(nRow, gvwList.getColRef("IN_CURRENCY_CODE"), data.CURRENCY_CODE);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_ACCOUNT_NO"), data.ACCOUNT_NUM);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_DEPOSIT_CODE"), data.DEPOSIT_CODE);
                 } else {
                     gvwList.setCellData(nRow, gvwList.getColRef("OUT_ACCOUNT_NO"), data.ACCOUNT_NUM);
                     gvwList.setCellData(nRow, gvwList.getColRef("OUT_DEPOSIT_CODE"), data.DEPOSIT_CODE);
+                    gvwList.setCellData(nRow, gvwList.getColRef("OUT_BANK_NAME"), data.BANK_CS_NAME);
                 }
 
             },

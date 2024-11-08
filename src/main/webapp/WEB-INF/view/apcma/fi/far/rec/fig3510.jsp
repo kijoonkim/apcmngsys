@@ -1850,7 +1850,7 @@
         });
     }
 
-    var fn_findVatTypeForGvwWFItem = function (row, col) {
+    var fn_findVatTypeForGvwWFItem = function (row) {
         var addParam = [gfn_dateToYmd(new Date())];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부가세계정정보');
@@ -1870,14 +1870,14 @@
             , tableColumnNames: ["VAT_CODE", "VAT_NAME", "VAT_TYPE_CODE"]
             , tableColumnWidths: ["100px", "200px", "100px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, col, data.VAT_CODE);
-                gvwWFItem.setCellData(row, (col + 1), data.VAT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_CODE"), data.VAT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_NAME"), data.VAT_NAME);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '600px'})
     }
 
-    var fn_findAccountCodeForGvwWFItem = function (row, col) {
+    var fn_findAccountCodeForGvwWFItem = function (row) {
         var addParam = [null];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
@@ -1897,8 +1897,8 @@
             , tableColumnNames: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
             , tableColumnWidths: ["100px", "200px", "200px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, col, data.ACCOUNT_CODE);
-                gvwWFItem.setCellData(row, (col + 1), data.ACCOUNT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME);
             },
             returnDataFilter: function (data) {
                 if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {
@@ -1913,7 +1913,7 @@
         SBUxMethod.setModalCss('modal-compopup1', {width: '600px'})
     }
 
-    var fn_findCostCenterCodeForGvwWFItem = function (row, col) {
+    var fn_findCostCenterCodeForGvwWFItem = function (row) {
         var replaceText0 = "_COST_CENTER_CODE_";
         var replaceText1 = "_COST_CENTER_NAME_";
         var replaceText2 = "_COST_CLASS_";
@@ -1942,8 +1942,8 @@
             , tableColumnWidths: ["100px", "150px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
-                gvwWFItem.setCellData(row, col, data.COST_CENTER_CODE);
-                gvwWFItem.setCellData(row, (col + 1), data.COST_CENTER_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.COST_CENTER_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.COST_CENTER_NAME);
             },
         });
     }
@@ -1991,7 +1991,7 @@
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         }
 
-        SBGridProperties.frozencols = 9;
+        SBGridProperties.frozencols = 11;
         SBGridProperties.columns = [
             {
                 caption: ["ITEM_ID"],
@@ -2023,10 +2023,20 @@
                 }
                 , disabled: true
             },
-            {caption: ["부가세유형"], ref: 'VAT_TYPE', type: 'output', width: '72px', style: 'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
-            {caption: ["부가세유형명"], ref: 'VAT_NAME', type: 'output', width: '184px', style: 'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
-            {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'}, // TODO : P_FIM045
-            {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'}, // TODO : P_FIM045
+            {caption: ["부가세유형"], ref: 'VAT_TYPE', type: 'output', width: '72px', style: 'text-align:left'},
+            {caption: ["부가세유형명"], ref: 'VAT_NAME', type: 'output', width: '184px', style: 'text-align:left'},
+            {caption: ["부가세유형명"], 		ref: 'VAT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'},
+            {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["계정과목명"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {
                 caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'output', width: '126px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
@@ -2055,6 +2065,11 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["사업장"], ref: 'SITE_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["적요"], ref: 'DESCRIPTION', type: 'output', width: '300px', style: 'text-align:left'},
             {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
@@ -3116,7 +3131,7 @@
         ];
 
         gvwWFItem = _SBGrid.create(SBGridProperties);
-        gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');
+        /*gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');*/
         gvwWFItem.bind('valuechanged', 'fn_gvwWFItemValueChanged');
         gvwWFItem.bind('click', 'fn_view');
     }
@@ -3126,27 +3141,27 @@
         var nCol = gvwWFItem.getCol();
 
         if (nCol == 5) {
-            fn_findVatTypeForGvwWFItem(nRow, nCol);
+            fn_findVatTypeForGvwWFItem(nRow);
         }
 
         if (nCol == 6) {
-            fn_findVatTypeForGvwWFItem(nRow, (nCol - 1));
+            fn_findVatTypeForGvwWFItem(nRow);
         }
 
         if (nCol == 7) {
-            fn_findAccountCodeForGvwWFItem(nRow, nCol);
+            fn_findAccountCodeForGvwWFItem(nRow);
         }
 
         if (nCol == 8) {
-            fn_findAccountCodeForGvwWFItem(nRow, (nCol - 1));
+            fn_findAccountCodeForGvwWFItem(nRow);
         }
 
         if (nCol == 15) {
-            fn_findCostCenterCodeForGvwWFItem(nRow, nCol);
+            fn_findCostCenterCodeForGvwWFItem(nRow);
         }
 
         if (nCol == 16) {
-            fn_findCostCenterCodeForGvwWFItem(nRow, (nCol - 1));
+            fn_findCostCenterCodeForGvwWFItem(nRow);
         }
     }
 

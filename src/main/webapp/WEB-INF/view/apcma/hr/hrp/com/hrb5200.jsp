@@ -976,14 +976,19 @@
             },
             {caption: ["미적용대상코드"], 	        ref: 'PAY_ITEM_EXCEPT_GROUP_CODE',    	        type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["미적용대상코드명"], 	        ref: 'PAY_ITEM_EXCEPT_GROUP_NAME',    	        type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["미적용대상코드명"], 		ref: 'PAY_ITEM_EXCEPT_GROUP_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findPayItemExceptGroupCodeForGvwExcept(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["메모"], 	        ref: 'MEMO',    	        type:'input',  	width:'300px',  	style:'text-align:left'},
         ];
 
         gvwExcept = _SBGrid.create(SBGridProperties);
-        gvwExcept.bind('dblclick', 'fn_gvwExceptDblclick');
+        /*gvwExcept.bind('dblclick', 'fn_gvwExceptDblclick');*/
     }
 
-    const fn_findPayItemExceptGroupCodeForGvwExcept = function(nRow, nCol) {
+    const fn_findPayItemExceptGroupCodeForGvwExcept = function(nRow) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '미적용대상 정보');
         SBUxMethod.openModal('modal-compopup1');
 
@@ -1007,8 +1012,8 @@
             ,tableColumnNames		: ["PAY_ITEM_EXCEPT_GROUP_CODE", "PAY_ITEM_EXCEPT_GROUP_NAME"]
             ,tableColumnWidths		: ["100px", "150px"]
             ,itemSelectEvent		: function (data){
-                gvwExcept.setCellData(nRow, nCol, data['PAY_ITEM_EXCEPT_GROUP_CODE']);
-                gvwExcept.setCellData(nRow, (nCol+1), data['PAY_ITEM_EXCEPT_GROUP_NAME']);
+                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_CODE"), data['PAY_ITEM_EXCEPT_GROUP_CODE']);
+                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_NAME"), data['PAY_ITEM_EXCEPT_GROUP_NAME']);
             },
         });
     }
@@ -1123,11 +1128,11 @@
         var nCol = gvwExcept.getCol();
 
         if(nCol == 1) {
-            fn_findPayItemExceptGroupCodeForGvwExcept(nRow, nCol);
+            fn_findPayItemExceptGroupCodeForGvwExcept(nRow);
         }
 
         if(nCol == 2) {
-            fn_findPayItemExceptGroupCodeForGvwExcept(nRow, nCol-1);
+            fn_findPayItemExceptGroupCodeForGvwExcept(nRow);
         }
     }
 

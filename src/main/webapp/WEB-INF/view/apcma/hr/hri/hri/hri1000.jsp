@@ -1883,7 +1883,7 @@
         fn_create();
     }
 
-    var fn_findDeptCodeForGvwCareer = function(row, col) {
+    var fn_findDeptCodeForGvwCareer = function(row) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         SBUxMethod.openModal('modal-compopup1');
 
@@ -1905,12 +1905,13 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                gvwCareer.setCellData(row, col, data['DEPT_NAME']);
+                gvwCareer.setCellData(row, gvwCareer.getColRef("DEPT_CODE"), data['DEPT_CODE']);
+                gvwCareer.setCellData(row, gvwCareer.getColRef("DEPT_NAME"), data['DEPT_NAME']);
             },
         });
     }
 
-    var fn_findDeptCodeForGvwTimeOffHistory = function(row, col) {
+    var fn_findDeptCodeForGvwTimeOffHistory = function(row) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         SBUxMethod.openModal('modal-compopup1');
 
@@ -1932,8 +1933,8 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                gvwTimeOffHistory.setCellData(row, (col-1), data['DEPT_CODE']);
-                gvwTimeOffHistory.setCellData(row, col, data['DEPT_NAME']);
+                gvwTimeOffHistory.setCellData(row, gvwTimeOffHistory.getColRef("DEPT_CODE"), data['DEPT_CODE']);
+                gvwTimeOffHistory.setCellData(row, gvwTimeOffHistory.getColRef("DEPT_NAME"), data['DEPT_NAME']);
             },
         });
     }
