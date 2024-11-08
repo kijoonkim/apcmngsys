@@ -260,6 +260,7 @@
                                     	uitype="text" 
                                     	required 
                                     	style="width:100%"
+                                    	readonly
                                     ></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">예금주</th>
@@ -1878,11 +1879,11 @@
 		{"type": "string", "id": "branch", "col": "BRANCH", "elmt": "dtl-inp-branch"},
 		{"type": "string", "id": "depositStatus", "col": "DEPOSIT_STATUS", "elmt": "dtl-slt-depositStatus"},
 		{"type": "string", "id": "descr", "col": "DESCR", "elmt": "dtl-inp-descr"},
-		{"type": "string", "id": "withdrawAccYn", "col": "WITHDRAW_ACC_YN", "elmt": "dtl-chk-withdrawAccYn"},
-		{"type": "string", "id": "fbsYn", "col": "FBS_YN", "elmt": "dtl-chk-fbsYn"},
-		{"type": "string", "id": "seqYn", "col": "SEQ_YN", "elmt": "dtl-chk-seqYn"},
+		{"type": "string", "id": "withdrawAccYn", "col": "WITHDRAW_ACC_YN", "elmt": "dtl-chk-withdrawAccYn", "default": "N"},
+		{"type": "string", "id": "fbsYn", "col": "FBS_YN", "elmt": "dtl-chk-fbsYn", "default": "N"},
+		{"type": "string", "id": "seqYn", "col": "SEQ_YN", "elmt": "dtl-chk-seqYn", "default": "N"},
 		{"type": "string", "id": "withdrawType", "col": "WITHDRAW_TYPE", "elmt": "dtl-slt-withdrawType"},
-		{"type": "string", "id": "taxFbsYn", "col": "TAX_FBS_YN", "elmt": "dtl-chk-taxFbsYn"},
+		{"type": "string", "id": "taxFbsYn", "col": "TAX_FBS_YN", "elmt": "dtl-chk-taxFbsYn", "default": "N"},
 		{"type": "string", "id": "limit1", "col": "LIMIT1", "elmt": "dtl-inp-limit1"},
 		{"type": "string", "id": "limit2", "col": "LIMIT2", "elmt": "dtl-inp-limit2"},
 		{"type": "string", "id": "openDate", "col": "OPEN_DATE", "elmt": "estbl-dtp-openDate"},
@@ -1967,7 +1968,7 @@
 	
 	//초기화
 	function cfn_init() {
-	    
+   
 	}
 	
 	// 신규
@@ -2037,7 +2038,32 @@
 		// 그리드 생성
     	fn_createGridSvgGnlgr();
     	fn_createGridTngtrn();
+    	
+		fn_setElmtDisabled(true);
     }
+    
+    
+    const fn_create = async function() {
+    	
+    	fn_clearDetail();
+    	grdSvgGnlgr.refresh();
+    	grdSvgGnlgr.setRow(-1);
+    	
+    	fn_setElmtDisabled(false);
+    }
+    
+    const fn_copy = async function() {
+    	if (jsonDetail.length == 0) {
+    		gfn_comAlert("W0003", "복사");		//	W0003	{0}할 대상이 없습니다.
+			return;
+    	}
+    	
+    	fn_create();
+    	fn_setDetailElmt(jsonDetail[0]);
+    	SBUxMethod.set("dtl-inp-depositId", "");
+    	SBUxMethod.set("dtl-inp-depositCode", "");
+    }
+    
     
 	/**
      * @name fn_search
@@ -2141,6 +2167,133 @@
         
 	}
 	
+    /**
+     * @name fn_delete
+     * @description 삭제 버튼
+     */
+    const fn_delete = async function() {
+
+        let fiOrgCode = SBUxMethod.get("dtl-slt-fiOrgCode");
+        let depositCode = SBUxMethod.get("dtl-inp-depositCode");
+        
+        if (gfn_isEmpty(depositCode)) {
+        	gfn_comAlert("W0003", "삭제");		//	W0003	{0}할 대상이 없습니다.
+			return;
+        }
+		
+        if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+        
+        const paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID			: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+                
+                IV_P_DEPOSIT_CODE: depositCode,
+                V_P_FI_ORG_CODE: fiOrgCode,
+                V_P_DEPOSIT_NAME: '',
+                V_P_DEPOSIT_TYPE: '',
+                V_P_ACCOUNT_OWNER: '',
+                V_P_DEPOSIT_CATEGORY1: '',
+                V_P_DEPOSIT_CATEGORY2: '',
+                V_P_DEPOSIT_CATEGORY3: '',
+                V_P_ACCOUNT_NUM: '',
+                V_P_BANK_CS_CODE: '',
+                V_P_BANK_CODE: '',
+                V_P_BRANCH: '',
+                V_P_TXN_ACCOUNT_NUM: '',
+                V_P_TXN_BANK_CODE: '',
+                V_P_TXN_ACCOUNT_OWNER: '',
+                V_P_DEPT_CODE: '',
+                V_P_COST_CENTER_CODE: '',
+                V_P_DEPOSIT_ACCOUNT: '',
+                V_P_INTEREST_INCOME_ACCOUNT: '',
+                V_P_ADVANCED_INCOME_ACCOUNT: '',
+                V_P_ACCRUED_INCOME_ACCOUNT: '',
+                V_P_CTAX_WITHHOLD_ACCOUNT: '',
+                V_P_PTAX_WITHHOLD_ACCOUNT: '',
+                V_P_BILL_ACCOUNT: '',
+                V_P_DEPOSIT_IN_TR_TYPE: '',
+                V_P_DEPOSIT_OUT_TR_TYPE: '',
+                V_P_INTEREST_IN_TR_TYPE: '',
+                V_P_CTAX_WITHHOLD_TR_TYPE: '',
+                V_P_PTAX_WITHHOLD_TR_TYPE: '',
+                V_P_BILL_IN_TR_TYPE: '',
+                V_P_BILL_OUT_TR_TYPE: '',
+                V_P_OPEN_DATE: '',
+                V_P_EXPIRE_DATE: '',
+                V_P_CURRENCY_CODE: '',
+                V_P_EXCHANGE_RATE: '',
+                V_P_CONTRACT_AMT: '',
+                V_P_CONTRACT_AMT_KRW: '',
+                V_P_PAYIN_CYCLE: '',
+                V_P_PAYIN_DATE: '',
+                V_P_TOTAL_PAYIN_COUNT: '',
+                V_P_MONEY_PER_AMT: '',
+                V_P_INTEREST_RATE: '',
+                V_P_CORPORATE_TAX_RATE: '',
+                V_P_DEPOSIT_STATUS: '',
+                V_P_DESCR: '',
+                V_P_CANCEL_DATE: '',
+                V_P_CANCEL_REASON: '',
+                V_P_CANCEL_EXCHANGE_RATE: '',
+                V_P_CANCEL_AMT: '',
+                V_P_CANCEL_AMT_KRW: '',
+                V_P_CANCEL_INTEREST_AMT: '',
+                V_P_CANCEL_INTEREST_AMT_KRW: '',
+                V_P_LIMIT1: '',
+                V_P_LIMIT2: '',
+                V_P_WITHDRAW_ACC_YN: '',
+                V_P_WITHDRAW_TYPE: '',
+                V_P_FBS_YN: '',
+                V_P_SEQ_YN: '',
+                V_P_TAX_FBS_YN: '',
+                V_P_EXCHANGE_GAIN_ACCOUNT: '',
+                V_P_EXCHANGE_LOSS_ACCOUNT: '',
+                V_P_EXCHANGE_GAIN_TR_TYPE: '',
+                V_P_EXCHANGE_LOSS_TR_TYPE: '',
+                V_P_VAL_GAIN_ACCOUNT: '',
+                V_P_VAL_LOSS_ACCOUNT: '',
+                V_P_RECEIPT_TR_TYPE: '',
+                V_P_RECEIPT_ACCOUNT: '',
+                V_P_FEE_ACCOUNT: '',
+                V_P_FEE_TR_TYPE: '',
+                
+                V_P_FORM_ID			: p_formId,
+                V_P_MENU_ID			: p_menuId,
+                V_P_PROC_ID			: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+        	
+        const postJsonPromise = gfn_postJSON("/fi/ftr/tri/insertFim5300S.do", {
+            getType				: 'json',
+            workType			: 'D',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        
+        const resoponseData = await postJsonPromise;
+        
+        try {
+            if (_.isEqual("S", resoponseData.resultStatus)) {
+            	gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+            	fn_search();
+            } else {
+                alert(resoponseData.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
 	
 	/**
      * @name fn_save
@@ -2255,6 +2408,39 @@
 		let billAccount = SBUxMethod.get("acnt-inp-billAccount");
 		let billAccountName = SBUxMethod.get("acnt-inp-billAccountName");
 		
+		if (gfn_isEmpty(depositName)) {
+			gfn_comAlert("W0005", "계좌명");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if (gfn_isEmpty(depositType)) {
+			gfn_comAlert("W0005", "계좌유형");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if (gfn_isEmpty(accountNum)) {
+			gfn_comAlert("W0005", "계좌번호");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if (gfn_isEmpty(exchangeRate)) {
+			gfn_comAlert("W0005", "환율");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if (gfn_isEmpty(contractAmt)) {
+			gfn_comAlert("W0005", "계약금액");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if (gfn_isEmpty(contractAmt)) {
+			gfn_comAlert("W0005", "원화계약금액");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		
+		
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
+		const workType = gfn_isEmpty(SBUxMethod.get("dtl-inp-depositId")) ? "N" : "U";
+		
+		
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
@@ -2344,8 +2530,7 @@
         	});
         	
         	
-        const workType = gfn_isEmpty(SBUxMethod.get("dtl-inp-depositId")) ? "N" : "U";
-		
+        
         const postJsonPromise = gfn_postJSON("/fi/ftr/tri/insertFim5300S.do", {
             getType				: 'json',
             workType			: workType,
@@ -2688,6 +2873,19 @@
 		grdTngtrn.refresh();
 	}
 	
+	const fn_setElmtDisabled = function(bDisabled) {
+		
+		elements.forEach((el) => {
+			
+			if (_.isEqual(el.elmt, 'dtl-inp-depositCode')) {
+				return;
+			}
+			
+			const strDisabled = bDisabled ? 'true' : 'false';
+			SBUxMethod.attr(el.elmt, 'disabled', strDisabled)
+		});
+	}
+	
 	const fn_getElmtByCol = function(_col) {
 		
 		const elmt = _.find(elements, {col: _col});
@@ -2739,6 +2937,9 @@
 		
 		if (gfn_isEmpty(_data)) {
 			_data = {}
+			fn_setElmtDisabled(true);
+		} else {
+			fn_setElmtDisabled(false);
 		}
 		
 		SBUxMethod.set("dtl-inp-depositId", gfn_nvl(_data["depositCode"]));
@@ -2747,7 +2948,7 @@
 			const elType = el.type;
 			
 			if (_.isEqual(elType, "string")) {
-				SBUxMethod.set(el.elmt, gfn_nvl(_data[el.id]));
+				SBUxMethod.set(el.elmt, gfn_nvl(_data[el.id]), gfn_isEmpty(el['default']) ? "" : el['default']);
 			} else {
 				SBUxMethod.set(el.elmt, _data[el.id]);
 			}
