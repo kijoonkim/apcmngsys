@@ -175,7 +175,7 @@
 										<sbux-input uitype="text" id="PARENT_DEPT_NAME" class="form-control input-sm" readonly></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button id="BTN_PARENT" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
+										<sbux-button id="BTN_PARENT" class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
 		                            </td>
                                 </tr>                                
                                 <tr>
@@ -187,7 +187,7 @@
 										<sbux-input uitype="text" id="DEPT_LEADER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
 		                            </td>
                                 </tr>                                
                                 <tr>
@@ -252,7 +252,7 @@
 										<sbux-input uitype="text" id="CC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
