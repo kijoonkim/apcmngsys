@@ -196,6 +196,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>근태신청현황</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                             <div style="margin-left: 100px;">
@@ -414,11 +415,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["신청기간", "시작일"],       ref: 'TIME_START_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["신청기간", "시작일"],       ref: 'TIME_START_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["신청기간", "종료일"],       ref: 'TIME_END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["신청기간", "종료일"],       ref: 'TIME_END_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -503,19 +504,19 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["진행상태", "신청승인일자"],       ref: 'REQUEST_APPROVE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["진행상태", "신청승인일자"],       ref: 'REQUEST_APPROVE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["진행상태", "결과상태"],         ref: 'RESULT_STATUS_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["진행상태", "결과승인일자"],       ref: 'RESULT_APPROVE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["진행상태", "결과승인일자"],       ref: 'RESULT_APPROVE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["진행상태", "확정여부"],        ref: 'CONFIRM_YN', 		     type:'checkbox',  	width:'68px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["진행상태", "확정일"],       ref: 'TIME_CONFIRM_DATE', 		type:'datepicker',  	width:'94px',  	style:'text-align:left',
+            {caption: ["진행상태", "확정일"],       ref: 'TIME_CONFIRM_DATE', 		type:'inputdate',  	width:'94px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -525,7 +526,7 @@
             {caption: ["기타정보", "휴일근무일"],       ref: 'HOLIDAY_WORK_DATE', 		type:'input',  	width:'90px',  	style:'text-align:left'},
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'77px',  style:'text-align:left', hidden: true},
             {caption: ["이력순번"],         ref: 'HISTORY_SEQ',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["종료일"],       ref: 'TIME_END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일"],       ref: 'TIME_END_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , hidden: true
@@ -536,7 +537,7 @@
             {caption: ["신청현단계승인권자"],         ref: 'CURRENT_APPROVE_EMP_CODE1',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["신청현단계승인자"],         ref: 'CURRENT_APPROVE_EMP_NAME1',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["신청반려여부"],        ref: 'REQUEST_REJECT_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true, hidden: true},
-            {caption: ["신청반려일"],       ref: 'REQUEST_REJECT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["신청반려일"],       ref: 'REQUEST_REJECT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -545,7 +546,7 @@
             {caption: ["신청반려사유"],         ref: 'REQUEST_REJECT_REASON',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["결과승인여부"],        ref: 'RESULT_APPROVE_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true, hidden: true},
             {caption: ["결과반려여부"],        ref: 'RESULT_REJECT_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true, hidden: true},
-            {caption: ["결과반려일"],       ref: 'RESULT_REJECT_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["결과반려일"],       ref: 'RESULT_REJECT_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1538,6 +1539,8 @@
                 });
 
                 bandgvwInfo.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonTimeShiftApplyList.length;
 
                 let CurRowIndex = 0;
 

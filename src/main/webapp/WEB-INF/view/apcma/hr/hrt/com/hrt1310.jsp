@@ -257,7 +257,7 @@
             {caption: ["근무패턴코드"], 		ref: 'WORK_PATTERN_CODE',   	    type:'output', style:'text-align:left' ,width: '110px'},
             {caption: ["근무패턴명"],        ref: 'WORK_PATTERN_NAME', 		         type:'output',  	width:'156px',  	style:'text-align:left'},
             {caption: ["체크유형"],       ref: 'CHECK_TYPE', 		type:'output',  	width:'110px',  	style:'text-align:left'},
-            {caption: ["일자"],        ref: 'YYYYMMDD', 		         type:'datepicker',  	width:'101px',  	style:'text-align:left',
+            {caption: ["일자"],        ref: 'YYYYMMDD', 		         type:'inputdate',  	width:'101px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true

@@ -846,17 +846,17 @@
                 }
                 , disabled: true
             },
-            {caption: ["등록일"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'76px',  	style:'text-align:left',
+            {caption: ["등록일"],       ref: 'TXN_DATE', 		type:'inputdate',  	width:'76px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["처리일"],       ref: 'PROCESS_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["처리일"],       ref: 'PROCESS_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["등록시간"],       ref: 'TXN_TIME', 		type:'datepicker',  	width:'64px',  	style:'text-align:left',
+            {caption: ["등록시간"],       ref: 'TXN_TIME', 		type:'inputdate',  	width:'64px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -938,12 +938,12 @@
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
             {caption: ["EB여부"],         ref: 'EB_USED',    type:'output',  	width:'76px',  style:'text-align:left'},
-            {caption: ["입력시간"],       ref: 'INSERT_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+            {caption: ["입력시간"],       ref: 'INSERT_TIME', 		type:'inputdate',  	width:'160px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["수정시간"],       ref: 'UPDATE_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+            {caption: ["수정시간"],       ref: 'UPDATE_TIME', 		type:'inputdate',  	width:'160px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -951,7 +951,7 @@
             {caption: ["거래ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'76px',  style:'text-align:left'},
             {caption: ["거래번호"],         ref: 'FBS_NO',    type:'output',  	width:'101px',  style:'text-align:left'},
             {caption: ["수취인전문번호"],         ref: 'FIRM_PAYEE_TRF_NO',    type:'output',  	width:'115px',  style:'text-align:left'},
-            {caption: ["수취인전문일자"],       ref: 'FIRM_PAYEE_DATE', 		type:'datepicker',  	width:'106px',  	style:'text-align:left',
+            {caption: ["수취인전문일자"],       ref: 'FIRM_PAYEE_DATE', 		type:'inputdate',  	width:'106px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1012,7 +1012,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["품의번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'76px',  style:'text-align:left'},
-            {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true

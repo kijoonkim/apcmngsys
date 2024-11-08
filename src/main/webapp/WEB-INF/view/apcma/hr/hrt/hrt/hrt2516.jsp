@@ -190,6 +190,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>집계이력</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -563,6 +564,7 @@
                         jsonHistoryList.push(msg);
                     });
                     gvwStatus.rebuild();
+                    document.querySelector('#listCount').innerText = jsonHistoryList.length;
 
                     if(jsonHistoryList.length > 0) {
                         gvwStatus.clickRow(1);

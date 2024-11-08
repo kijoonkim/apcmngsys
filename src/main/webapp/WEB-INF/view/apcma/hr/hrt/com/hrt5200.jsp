@@ -178,6 +178,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>연차 현황(연차기산일기준)</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -496,7 +497,7 @@
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
-            {caption: ["확정일"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'105px',  	style:'text-align:left',
+            {caption: ["확정일"],       ref: 'CONFIRM_DATE', 		type:'inputdate',  	width:'105px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -568,17 +569,17 @@
                 }
                 , disabled: true
             },
-            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["연차기산일"],       ref: 'ANNUAL_INITIAL_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["연차기산일"],       ref: 'ANNUAL_INITIAL_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -592,22 +593,22 @@
             {caption: ["사용연차"],         ref: 'USE_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["보상일수"],         ref: 'CHARGE_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["잔여연차"],         ref: 'BALANCE_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["기준시작일"],       ref: 'BASIS_START_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["기준시작일"],       ref: 'BASIS_START_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["기준종료일"],       ref: 'BASIS_END_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["기준종료일"],       ref: 'BASIS_END_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["사용가능시작일"],       ref: 'ANNUAL_START_DATE', 		type:'datepicker',  	width:'108px',  	style:'text-align:left',
+            {caption: ["사용가능시작일"],       ref: 'ANNUAL_START_DATE', 		type:'inputdate',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["사용가능종료일"],       ref: 'ANNUAL_END_DATE', 		type:'datepicker',  	width:'108px',  	style:'text-align:left',
+            {caption: ["사용가능종료일"],       ref: 'ANNUAL_END_DATE', 		type:'inputdate',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -644,7 +645,7 @@
             usedecimal : false,
         };
         SBGridProperties.columns = [
-            {caption: ["사용일자"],       ref: 'YYYYMMDD', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["사용일자"],       ref: 'YYYYMMDD', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -955,6 +956,7 @@
                 });
 
                 gvwInfo.rebuild();
+                document.querySelector('#listCount').innerText = jsonInfoList.length;
             } else {
                 alert(data.resultMessage);
             }

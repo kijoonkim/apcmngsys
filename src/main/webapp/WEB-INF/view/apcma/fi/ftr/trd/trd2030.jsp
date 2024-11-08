@@ -140,6 +140,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>예적금</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -340,7 +341,7 @@
                 , disabled: true
             },
             {caption: ["기간"],         ref: 'PERIOD_CODE',    type:'input',  	width:'60px',  style:'text-align:left'},
-            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -432,11 +433,11 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일"],       ref: 'INTEREST_TO_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["종료일"],       ref: 'INTEREST_TO_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -615,12 +616,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
+            {caption: ["지급예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1147,6 +1148,8 @@
                     });
 
                     gvwList.rebuild();
+
+                    document.querySelector('#listCount').innerText = jsonDepositPaymentPlanList.length;
 
                     if (jsonDepositPaymentPlanList.length > 0) {
                         gvwList.clickRow(1);

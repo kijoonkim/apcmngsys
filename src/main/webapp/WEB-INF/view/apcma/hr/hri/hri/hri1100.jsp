@@ -160,6 +160,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>인사정보조회</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -631,7 +632,7 @@
                 });
 
                 gvwList.rebuild();
-
+                document.querySelector('#listCount').innerText = jsonHriList.length;
             } else {
                 alert(data.resultMessage);
             }

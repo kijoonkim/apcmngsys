@@ -68,6 +68,7 @@
                                 <ul class="ad_tbl_count">
                                     <li>
                                         <span>소득자 리스트</span>
+                                        <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                     </li>
                                 </ul>
                             </div>
@@ -1447,6 +1448,8 @@
                     });
                     gvwResident.rebuild();
                     gvwResident.sortColumn(0, 'desc');
+
+                    document.querySelector('#listCount').innerText = jsonResidentList.length;
 
                     if (jsonResidentList.length > 0) {
                         gvwResident.clickRow(1);

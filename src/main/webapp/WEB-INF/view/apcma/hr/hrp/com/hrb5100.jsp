@@ -44,6 +44,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>급여체계</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -250,13 +251,13 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["급여일", "시작월"],       ref: 'PERIOD_FR', 		type:'datepicker',  	width:'89px',  	style:'text-align:left',
+            {caption: ["급여일", "시작월"],       ref: 'PERIOD_FR', 		type:'inputdate',  	width:'89px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["급여일", "종료월"],       ref: 'PERIOD_TO', 		type:'datepicker',  	width:'89px',  	style:'text-align:left',
+            {caption: ["급여일", "종료월"],       ref: 'PERIOD_TO', 		type:'inputdate',  	width:'89px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
@@ -705,6 +706,8 @@
                     jsonPayGroupList.push(msg);
                 });
                 gvwMaster.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonPayGroupList.length;
 
                 if(jsonPayGroupList.length > 0) {
                     gvwMaster.clickRow(1);

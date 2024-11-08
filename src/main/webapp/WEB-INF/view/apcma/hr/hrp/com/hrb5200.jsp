@@ -75,6 +75,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>급여항목</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -1552,6 +1553,8 @@
                     jsonPayItemList.push(msg);
                 });
                 gvwMaster.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonPayItemList.length;
 
                 if(jsonPayItemList.length > 0) {
                     gvwMaster.clickRow(1);

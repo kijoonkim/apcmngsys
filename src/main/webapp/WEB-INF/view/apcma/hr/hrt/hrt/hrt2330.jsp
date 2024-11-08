@@ -172,6 +172,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>사원리스트</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -295,7 +296,7 @@
             },
             {caption: ["사번"],         ref: 'EMP_CODE',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["이름"],         ref: 'EMP_NAME',    type:'output',  	width:'92px',  style:'text-align:left'},
-            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -303,7 +304,7 @@
             {caption: ["작성일수"],         ref: 'CREATE_CNT',    type:'output',  	width:'75px',  style:'text-align:right', hidden: true},
             {caption: ["확정일수"],         ref: 'CONFIRM_CNT',    type:'output',  	width:'75px',  style:'text-align:right', hidden: true},
             {caption: ["승인일수"],         ref: 'APPR_CNT',    type:'output',  	width:'75px',  style:'text-align:right', hidden: true},
-            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -378,12 +379,12 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["일자"],       ref: 'YYYYMMDD', 		type:'datepicker',  	width:'101px',  	style:'text-align:left',
+            {caption: ["일자"],       ref: 'YYYYMMDD', 		type:'inputdate',  	width:'101px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'datepicker',  	width:'70px',  	style:'text-align:left',
+            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'inputdate',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
@@ -400,12 +401,12 @@
                 , hidden: true
             },
             {caption: ["확정"], 		ref: 'WORK_SUMMARY_CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '50px', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["소급월"],       ref: 'ACCT_YYYYMMDD', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["소급월"],       ref: 'ACCT_YYYYMMDD', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -860,6 +861,7 @@
                 });
 
                 gvwShift.rebuild();
+                document.querySelector('#listCount').innerText = jsonEmpList.length;
 
                 if(jsonEmpList.length > 0) {
                     gvwShift.clickRow(1);

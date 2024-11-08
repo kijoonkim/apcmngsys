@@ -173,6 +173,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>예금 거래내역</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -396,7 +397,7 @@
                 }
                 , hidden: true
             },
-            {caption: ["거래일"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'84px',  	style:'text-align:left',
+            {caption: ["거래일"],       ref: 'TXN_DATE', 		type:'inputdate',  	width:'84px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -612,12 +613,12 @@
             {caption: ["ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'52px',  style:'text-align:left'},
             {caption: ["자금배치번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'TREASURY_LINE_NUM',    type:'output',  	width:'42px',  style:'text-align:left'},
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
+            {caption: ["지급예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1251,6 +1252,8 @@
                     });
 
                     gvwList.rebuild();
+
+                    document.querySelector('#listCount').innerText = jsonDepositTransactionList.length;
 
                     if (jsonDepositTransactionList.length > 0) {
                         gvwList.clickRow(1);

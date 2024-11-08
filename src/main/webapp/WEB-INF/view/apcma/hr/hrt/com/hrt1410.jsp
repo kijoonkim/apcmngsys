@@ -99,6 +99,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>생산조직</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -546,12 +547,12 @@
             {caption: ["부서명"],        ref: 'DEPT_NAME', 		         type:'output',  	width:'180px',  	style:'text-align:left'},
             {caption: ["부서코드"],        ref: 'DEPT_CODE', 		         type:'output',  	width:'88px',  	style:'text-align:left'},
             {caption: ["정렬순서"],        ref: 'SORT_SEQ', 		         type:'output',  	width:'95px',  	style:'text-align:left'},
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -584,11 +585,11 @@
         SBGridProperties.rowheadercaption 	= {SEQ: 'No'};
         SBGridProperties.rowheaderwidth 	= {SEQ: '60'};
         SBGridProperties.columns = [
-            {caption: ["적용시작일"],        ref: 'APPLY_START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'APPLY_START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'APPLY_END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'APPLY_END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -669,18 +670,18 @@
                 }
             },
             {caption: ["비고"],        ref: 'MEMO', 		         type:'input',  	width:'218px',  	style:'text-align:left'},
-            {caption: ["시작일자"],        ref: 'START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'datepicker',  	width:'95px',  	style:'text-align:left',
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'inputdate',  	width:'95px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		         type:'datepicker',  	width:'106px',  	style:'text-align:left',
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		         type:'inputdate',  	width:'106px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -999,6 +1000,8 @@
                 });
 
                 treeMaster.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonDeptList.length;
 
                 if(jsonDeptList.length > 0) {
                     treeMaster.clickRow(1);

@@ -192,11 +192,11 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["시작일"], 		ref: 'START_DAY',   	type:'datepicker', style:'text-align:center' ,width: '90px',
+            {caption: ["시작일"], 		ref: 'START_DAY',   	type:'inputdate', style:'text-align:center' ,width: '90px',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일"], 		ref: 'END_DAY',   	type:'datepicker', style:'text-align:center' ,width: '90px',
+            {caption: ["종료일"], 		ref: 'END_DAY',   	type:'inputdate', style:'text-align:center' ,width: '90px',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -237,11 +237,11 @@
             },
             {caption: ["비고"],  		ref: 'MEMO',    			type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption: ["순번"],       ref: 'TXN_ID', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시작일(양)"],          ref: 'START_DAY_SOLAR', 		        type:'datepicker',  	width:'94px',  style:'text-align:left',
+            {caption: ["시작일(양)"],          ref: 'START_DAY_SOLAR', 		        type:'inputdate',  	width:'94px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일(양)"],          ref: 'END_DAY_SOLAR', 		        type:'datepicker',  	width:'91px',  style:'text-align:left',
+            {caption: ["종료일(양)"],          ref: 'END_DAY_SOLAR', 		        type:'inputdate',  	width:'91px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },

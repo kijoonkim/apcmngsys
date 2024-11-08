@@ -165,6 +165,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>잔고 현황</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -373,7 +374,7 @@
                 };*/
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["조회시간"],       ref: 'QUERY_TIME', 		type:'datepicker',  	width:'135px',  	style:'text-align:left',
+            {caption: ["조회시간"],       ref: 'QUERY_TIME', 		type:'inputdate',  	width:'135px',  	style:'text-align:left',
                 format : {type:'date', rule:'HH:mm:ss', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
                 , disabled: true
             },
@@ -480,12 +481,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["거래일자"],       ref: 'TRAN_DATE', 		type:'datepicker',  	width:'84px',  	style:'text-align:left',
+            {caption: ["거래일자"],       ref: 'TRAN_DATE', 		type:'inputdate',  	width:'84px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["거래시간"],       ref: 'TRAN_TIME', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["거래시간"],       ref: 'TRAN_TIME', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 format : {type:'date', rule:'HH:mm:ss', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
                 , disabled: true
             },
@@ -942,7 +943,9 @@
                         }
                         jsonBalanceStatusList.push(msg);
                     });
-                    gvwList.rebuild();
+                    gvwList.rebuild()
+
+                    document.querySelector('#listCount').innerText = jsonBalanceStatusList.length;
 
                     if (jsonBalanceStatusList.length > 0) {
                         gvwList.clickRow(1);

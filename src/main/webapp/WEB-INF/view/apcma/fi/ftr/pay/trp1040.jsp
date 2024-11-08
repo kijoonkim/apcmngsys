@@ -355,6 +355,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>지급예정내역</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -677,34 +678,34 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["기준일"],       ref: 'PAY_BASE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["기준일"],       ref: 'PAY_BASE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["승인일"],       ref: 'POSTING_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["승인일"],       ref: 'POSTING_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["지급조건"],         ref: 'PAY_TERM_CODE',    type:'output',  	width:'98px',  style:'text-align:left'}, // TODO : P_PAY_DATE_P
             {caption: ["지급조건명"],         ref: 'PAY_TERM_NAME',    type:'output',  	width:'171px',  style:'text-align:left'},
-            {caption: ["지급일"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'datepicker',  	width:'93px',  	style:'text-align:left',
+            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'inputdate',  	width:'93px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -792,7 +793,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["어음기일"],       ref: 'BILL_DUE_DAY', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+            {caption: ["어음기일"],       ref: 'BILL_DUE_DAY', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -813,7 +814,7 @@
             {caption: ["사업단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["작성자"],         ref: 'USER_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["법인번호"],         ref: 'COMP_REGNO',    type:'output',  	width:'110px',  style:'text-align:left'},
-            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -884,7 +885,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'datepicker',  	width:'153px',  	style:'text-align:left',
+            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'inputdate',  	width:'153px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1802,6 +1803,7 @@
                 });
 
                 gvwList.rebuild();
+                document.querySelector('#listCount').innerText = jsonPaymentScheduledList.length;
             } else {
                 alert(data.resultMessage);
             }
