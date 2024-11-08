@@ -215,13 +215,14 @@
 			gfn_setComCdGridSelect('userInfoChgGridId',		jsonUseYn, 				'REVERSE_YN'),	// 사용유무
 			gfn_setComCdSBSelect('userInfoChgGridId', 		jsonLckYn, 				'LCK_YN'),		// 잠김여부
 			gfn_setComCdSBSelect('srch-slt-comUserStts', 	jsonUserStts,			'USER_STTS'),	// 사용자상태
+			gfn_setComCdSBSelect('srch-slt-comUserType', 	jsonUserType,			'USER_TYPE'),	// 사용자상태
 		
 		]);
 		
 		jsonMbrTypeCd 	= result[0];
 	    jsonUntyCtpv 	= result[1];
 	    jsonUntySgg 	= result[2];
-		
+	    
 		SBUxMethod.refresh("srch-slt-mbrTypeCd");
 		SBUxMethod.refresh("srch-slt-untyCtpv");
 		SBUxMethod.refresh("srch-slt-untySgg");

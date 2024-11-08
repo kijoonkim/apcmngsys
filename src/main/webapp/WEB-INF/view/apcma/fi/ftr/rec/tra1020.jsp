@@ -253,7 +253,7 @@
     var jsonMasterTabData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "자금실적", "targetid" : "tp-fund", "targetvalue" : "자금실적" },
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "회계처리", "targetid" : "tp-acntg", "targetvalue" : "회계처리" },
-        { "id" : "2", "pid" : "-1", "order" : "2", "text" : "반제실적", "targetid" : "tp-retra", "targetvalue" : "반제실적" },
+        { "id" : "2", "pid" : "-1", "order" : "3", "text" : "반제실적", "targetid" : "tp-retra", "targetvalue" : "반제실적" },
     ];
 
 	let lv_prvTabId;
