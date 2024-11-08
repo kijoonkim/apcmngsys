@@ -123,11 +123,11 @@
 										<sbux-input uitype="text" id="CHANGE_DATE_KEY" class="form-control input-sm" readonly></sbux-input>	
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_changeDateKey" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_changeDateKey" ></sbux-button>
 		                            </td>
 		                            <th scope="row" class="th_bg">변경일자</th>
 		                            <td class="td_input"  style="border-right:hidden;" colspan="2">
-                                		<sbux-datepicker id="CHANGE_DATE" name="CHANGE_DATE" uitype="popup" date-format="yyyy/mm/dd" style="height:28px;width: 120px;" readonly ></sbux-datepicker>
+                                		<sbux-datepicker id="CHANGE_DATE" name="CHANGE_DATE" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;" readonly class="inpt_data_reqed"></sbux-datepicker>
 		                            </td>		                            
 		                        </tr>
 		                        <tr>
@@ -225,7 +225,7 @@
 											<sbux-input uitype="text" id="PARENT_DEPT_NAME" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
 			                            <td class="td_input">
-											<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParentDept" ></sbux-button>
+											<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParentDept" ></sbux-button>
 			                            </td>
 			                        </tr>
 			                        <tr>
@@ -237,7 +237,7 @@
 											<sbux-input uitype="text" id="DEPT_LEADER_NAME" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
 			                            <td class="td_input">
-											<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
+											<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
 			                            </td>
 			                        </tr>
 			                        <tr>
@@ -316,16 +316,17 @@
 											<sbux-input uitype="text" id="CC_NAME" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
 			                            <td class="td_input">
-											<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
+											<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
 			                            </td>
 			                        </tr>
+			                   
 			                        <tr>
 			                            <th scope="row" class="th_bg">우편번호</th>
 			                            <td class="td_input"  style="border-right:hidden;" colspan="3">
 											<sbux-input uitype="text" id="ZIP_CODE" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
 <!-- 			                            <td class="td_input"> -->
-<!-- 											<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupZipCode" ></sbux-button> -->
+<!-- 											<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupZipCode" ></sbux-button> -->
 <!-- 			                            </td> -->
 			                        </tr>
 			                        <tr>
@@ -397,9 +398,6 @@
 	//-----------------------------------------------------------
 	var jsonEmpState = []; // 재직구분
 	const fn_initSBSelect = async function() {
-	    $('#CHANGE_DATE').change(async function(){
-	    	await fn_search('CHANGE');
-	    });
 	    
 	    let rst = await Promise.all([
 		    SBUxMethod.set("SRCH_TODAY_DATE", gfn_dateToYmd(new Date())),
@@ -489,8 +487,12 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+	    $('#CHANGE_DATE').change(async function(){
+	    	await fn_search('CHANGE');
+	    });
 	    fn_initSBSelect();
 	    fn_createGrid();
+	    fn_createSubGrid();
 	    cfn_search();
 	});
 
@@ -564,7 +566,9 @@
 	        },
 	    ];
 	    masterTreeGrid = _SBGrid.create(SBGridProperties);
-	    
+	}
+	
+	const fn_createSubGrid = async function(){
 	    //조직도 편집 
 	    var SBSubGridProperties = {};
 	    SBSubGridProperties.parentid = 'sb-area-subGrdOrg2100';
@@ -605,13 +609,13 @@
 	    ];
 	    subTreeGrid = _SBGrid.create(SBSubGridProperties);
 	    subTreeGrid.bind('click', 'fn_viewSubTable');
+		
 	}
 
     /**
     * 코드목록 조회
     */
     const fn_search = async function(workType) {
-   	
 
        // 코드목록 그리드 초기화
        fn_clearForm();
@@ -737,8 +741,12 @@
     }
 
     const fn_viewSubTable = async function() {
+    	
     	await fn_clearSubTable();
         var nRow = subTreeGrid.getRow();
+		if(nRow == -1){
+			return;
+		}
         var rowData = subTreeGrid.getRowData(nRow);
     	SBUxMethod.set('DEPT_CODE', 		  gfn_nvl(rowData.DEPT_CODE ));
     	SBUxMethod.set('DEPT_NAME', 		  gfn_nvl(rowData.DEPT_NAME ));
@@ -769,6 +777,7 @@
     }
     
     const fn_clearSubTable = async function() {
+    	jsonSubTreeList = [];
     	SBUxMethod.set('DEPT_CODE', 		"");
     	SBUxMethod.set('DEPT_NAME', 		"");
     	SBUxMethod.set('DEPT_ABBR_NAME', 	"");
@@ -848,7 +857,7 @@
 	    	
 	        //코드목록 
 	        jsonSubTreeList = [];
-	        subTreeGrid.rebuild();;
+	        subTreeGrid.rebuild();
 	        
 	        SBUxMethod.set("SITE_CODE1",			"");
 	        SBUxMethod.set("DEPT_CODE",				"");
@@ -929,6 +938,7 @@
 	    	let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
 	    	let DEPT_NAME = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 	    	let SORT_SEQ  = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
+	    	let CHANGE_DATE  = gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
 	    	
 	    	if(SITE_CODE == ''){
 	    		gfn_comAlert("W0002", "사업장"); 
@@ -944,6 +954,10 @@
 	    	}
 	    	if(SORT_SEQ == ''){
 	    		gfn_comAlert("W0002", "정렬순서"); 
+	    		return;
+	    	}
+	    	if(CHANGE_DATE == ''){
+	    		gfn_comAlert("W0002", "변경일자"); 
 	    		return;
 	    	}
 	    	
@@ -1031,7 +1045,7 @@
 					SBUxMethod.set('CHANGE_DATE', 		data.CHANGE_DATE);
 					SBUxMethod.set('MEMO1',				data.MEMO);
 					if(gfn_nvl(data.CHANGE_DATE) != ""){
-						$('#CHANGE_DATE').trigger('change');
+						fn_search('CHANGE');
 					}
 				}
 	    	});
@@ -1118,7 +1132,7 @@
     	await fn_clearSubTable();
     	SBUxMethod.set('USE_YN', "Y");
     	SBUxMethod.attr('DEPT_CODE', 'readonly', 'false');
-    	
+    	await fn_createSubGrid();
     }
     
     const fn_delRow = async function(){
