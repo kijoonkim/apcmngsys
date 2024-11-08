@@ -146,17 +146,6 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">팔레트번호</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
-								<sbux-input
-										uitype="text"
-										id="srch-inp-pltno"
-										name="srch-inp-pltno"
-										class="form-control input-sm"
-										autocomplete="off"
-								/>
-							</td>
-							<td></td>
 							<th scope="row" class="th_bg">창고</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -168,7 +157,18 @@
 										jsondata-ref="jsonComWarehouse"
 								/>
 							</td>
-							<td colspan="5"></td>
+							<td></td>
+							<th scope="row" class="th_bg">팔레트번호</th>
+							<td colspan= "6" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-pltno"
+									name="srch-inp-pltno"
+									class="form-control input-sm"
+									autocomplete="off"
+								/>
+							</td>
+							<td>쉼표로 분리</td>
 						</tr>
 					</tbody>
 				</table>
