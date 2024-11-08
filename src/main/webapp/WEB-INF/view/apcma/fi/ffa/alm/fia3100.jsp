@@ -940,7 +940,7 @@
     function fn_state(type) {
     
     	if(type=='L'){
-			$('#main-btn-new', parent.document).attr('disabled', true);
+			$('#main-btn-add', parent.document).attr('disabled', false);
 			$('#main-btn-save', parent.document).attr('disabled', true);
 			
 			SBUxMethod.set('SCH_BASE_DATE', 		gfnma_date4());
