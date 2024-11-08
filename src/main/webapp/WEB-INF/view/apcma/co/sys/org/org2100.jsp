@@ -967,7 +967,7 @@
     		return;
     	}
     	
-        if ( gfn_nvl($('#DEPT_CODE').attr('readonly')) == 'readonly' && gfn_nvl(workType) == "") {
+        if ( gfn_nvl($('#DEPT_CODE').attr('readonly')) == 'readonly' && gfn_nvl(workType) == ""){
         	workType = 'U';
         } else if( gfn_nvl($('#DEPT_CODE').attr('readonly')) == "" && gfn_nvl(workType) == ""){
         	workType = 'N';
@@ -1043,13 +1043,15 @@
 	    SBUxMethod.attr('btnDelRow', 'disabled', 'false');
     }
     const fn_changeDateKey = async function() {
+    	//변경번호 법인별로 구분되게 where 추가
+    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedApcCd + "%'"
     	SBUxMethod.attr('modal-compopup1', 'header-title', '조직도변경번호 팝업');
     	await compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG007'
         	,popupType				: 'A'
-    		,whereClause			: ""
+    		,whereClause			: strwhereClause
    			,searchCaptions			: ["변경번호", 		"비고"]
    			,searchInputFields		: ["CHANGE_DATE", 	"MEMO"]
    			,searchInputValues		: ['', 				'']
@@ -1073,10 +1075,11 @@
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
   	}
     const fn_compopupParentDept = function() {
-    	var addParams = [ null ];
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
-    	var searchDeptName 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
-    	var searchDeptCode 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT"));
+    	let searchDeptCode 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT"));
+    	let searchDeptName 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
+    	let CHANGE_DATE 		= gfn_nvl(SBUxMethod.get("CHANGE_DATE"));
+    	let addParams = [ "'" + CHANGE_DATE + "'"];
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1086,11 +1089,11 @@
             ,searchCaptions			: ["부서코드", 		"부서명"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
             ,searchInputValues		: [searchDeptCode, 	searchDeptName]
-            ,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
+            ,searchInputTypes		: ["input", 		"input"]	//input, datepicker가 있는 경우
             ,height					: '400px'
-	   			,tableHeader			: ["부서코드", "부서명", "사업장코드", "사업장명"]
-	   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME", "SITE_CODE", "SITE_NAME"]
-	   			,tableColumnWidths		: ["120px", "120px", "120px", "120px"]
+   			,tableHeader			: ["부서코드", "부서명", "사업장코드", "사업장명"]
+   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME", "SITE_CODE", "SITE_NAME"]
+   			,tableColumnWidths		: ["120px", "120px", "120px", "120px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set('PARENT_DEPT',		data.DEPT_CODE);
                 SBUxMethod.set('PARENT_DEPT_NAME', 	data.DEPT_NAME);
@@ -1166,7 +1169,7 @@
     			return;
     		}
     	}
-        if (rowVal == -1) {
+        if (nRow == -1) {
             gfn_comAlert("W0003", "행삭제"); // W0003	{0}할 대상이 없습니다.
             return;
         } else {
