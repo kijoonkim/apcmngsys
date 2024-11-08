@@ -199,7 +199,7 @@
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
-                            <div style="margin-left: 100px;">
+                            <div style="margin-left: 15%">
                                 <span style="background-color: #FFB6C1; width: 70px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center;">미확정</span>
                                 <span style="background-color: #D3D3D3; width: 70px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center;">미승인</span>
                                 <span style="background-color: #ADD8E6; width: 70px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center;">승인중</span>
