@@ -211,8 +211,13 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'input',  	width:'75px',  style:'text-align:left'}, // TODO P_HRA060
-            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'}, // TODO P_HRA060
+            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["소득자 성명"], 						ref: 'EARNER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findEarnerCode(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -360,7 +365,7 @@
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
-        gvwInfo.bind('dblclick', 'fn_gvwListDblclick')
+        /*gvwInfo.bind('dblclick', 'fn_gvwListDblclick')*/
     }
 
     const fn_gvwListDblclick = async function() {
@@ -373,16 +378,17 @@
         }
 
         if(nCol == 53) {
-            fn_findEarnerCode(nRow, nCol);
+            fn_findEarnerCode(nRow);
         }
 
         if(nCol == 54) {
-            fn_findEarnerCode(nRow, (nCol - 1));
+            fn_findEarnerCode(nRow);
         }
     }
 
-    const fn_findEarnerCode = function(row, col) {
+    const fn_findEarnerCode = function(row) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
+
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -399,10 +405,12 @@
             ,tableColumnNames		: ["CS_CODE", "CS_NAME"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                gvwList.setCellData(row, col, data.CS_CODE);
-                gvwList.setCellData(row, (col+1), data.CS_NAME);
+                gvwList.setCellData(row, gvwList.getColRef("EARNER_CODE"), data.CS_CODE);
+                gvwList.setCellData(row, gvwList.getColRef("EARNER_NAME"), data.CS_NAME);
             },
         });
+
+        SBUxMethod.openModal('modal-compopup1');
     }
 
     // 행 추가

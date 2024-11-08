@@ -479,6 +479,11 @@
 			{caption: ["품목비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
 			{caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
+			{caption: ["전표담당자"], 		ref: 'ACCOUNT_EMP_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findEmpCodeForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+				}
+			},
 			{caption: ["상태"],         ref: 'ROW_STATUS',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["회계단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["조회시공급사코드"],         ref: 'CS_CODE_ORG',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -487,7 +492,7 @@
 		gvwList = _SBGrid.create(SBGridProperties);
 		gvwList.bind('afterrebuild','fn_gvwListAfterRebuild');
 		gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
-		gvwList.bind('dblclick', 'fn_gvwListDblclick');
+		/*gvwList.bind('dblclick', 'fn_gvwListDblclick');*/
 		gvwList.bind('click', 'fn_view');
 	}
 
@@ -530,15 +535,30 @@
 				}
 			},
 			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'input',  	width:'75px',  	style:'text-align:left'},
+			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'output',  	width:'150px',  	style:'text-align:left'},
+			{caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findDeptCodeForGvwItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+				}
+			},
 			{caption: ["프로젝트코드"],         ref: 'PROJECT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'output',  	width:'200px',  style:'text-align:left'},
+			{caption: ["프로젝트"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+				}
+			},
 			{caption: ["계정과목코드"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
+			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'200px',  style:'text-align:left'},
+			{caption: ["계정과목"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+				}
+			},
 		];
 
 		gvwItem = _SBGrid.create(SBGridProperties);
-		gvwItem.bind('dblclick', 'fn_gvwItemDblclick');
+		/*gvwItem.bind('dblclick', 'fn_gvwItemDblclick');*/
 	}
 
 	const fn_gvwListAfterRebuild = async function() {
@@ -576,19 +596,19 @@
 		var nCol = gvwItem.getCol();
 
 		if(nCol == 11) {
-			fn_findDeptCodeForGvwItem(nRow, nCol);
+			fn_findDeptCodeForGvwItem(nRow);
 		}
 
 		if(nCol == 13) {
-			fn_findProjectCodeForGvwList(nRow, nCol);
+			fn_findProjectCodeForGvwList(nRow);
 		}
 
 		if(nCol == 15) {
-			fn_findAccountCodeForGvwList(nRow, nCol);
+			fn_findAccountCodeForGvwList(nRow);
 		}
 	}
 
-	var fn_findEmpCodeForGvwList = function(row, col) {
+	var fn_findEmpCodeForGvwList = function(row) {
 		SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
 		SBUxMethod.openModal('modal-compopup1');
 
@@ -609,13 +629,13 @@
 			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
 			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
 			,itemSelectEvent		: function (data){
-				gvwList.setCellData(row, col, data.EMP_CODE);
-				gvwList.setCellData(row, (col+1), data.EMP_NAME);
+				gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_EMP_CODE"), data.EMP_CODE);
+				gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_EMP_NAME"), data.EMP_NAME);
 			},
 		});
 	}
 
-	var fn_findDeptCodeForGvwItem = function(row, col) {
+	var fn_findDeptCodeForGvwItem = function(row) {
 		SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 		SBUxMethod.openModal('modal-compopup1');
 
@@ -637,13 +657,13 @@
 			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
 			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				gvwItem.setCellData(row, (col-1), data.DEPT_CODE);
-				gvwItem.setCellData(row, col, data.DEPT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_CODE"), data.DEPT_CODE);
+				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_NAME"), data.DEPT_NAME);
 			},
 		});
 	}
 
-	var fn_findProjectCodeForGvwList = function(row, col) {
+	var fn_findProjectCodeForGvwList = function(row) {
 		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
 		SBUxMethod.openModal('modal-compopup1');
 
@@ -666,13 +686,13 @@
 			,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
 			,tableColumnWidths		: ["150px", "250px"]
 			,itemSelectEvent		: function (data){
-				gvwList.setCellData(row, (col-1), data.PROJECT_CODE);
-				gvwList.setCellData(row, col, data.PROJECT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE);
+				gvwItem.setCellData(row, gvwItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME);
 			},
 		});
 	}
 
-	var fn_findAccountCodeForGvwList = function(row, col) {
+	var fn_findAccountCodeForGvwList = function(row) {
 		SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
 		SBUxMethod.openModal('modal-compopup1');
 
@@ -693,8 +713,8 @@
 			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
 			,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
 			,itemSelectEvent		: function (data){
-				gvwItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
-				gvwItem.setCellData(row, col, data.ACCOUNT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE);
+				gvwItem.setCellData(row, gvwItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME);
 			},
 		});
 	}
