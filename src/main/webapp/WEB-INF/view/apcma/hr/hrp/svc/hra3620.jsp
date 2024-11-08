@@ -203,21 +203,21 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'datepicker',  	width:'67px',  	style:'text-align:left',
+            {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
             },
-            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'input',  	width:'75px',  style:'text-align:left'}, // TODO P_HRA060
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'}, // TODO P_HRA060
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },

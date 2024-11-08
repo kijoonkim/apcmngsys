@@ -1766,7 +1766,7 @@
             },
             {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left', typeinfo : {mask : {alias : '######-#######', unmaskvalue : true}}},
             {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left', hidden: true},
-            {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
+            {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'inputdate',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1779,11 +1779,11 @@
                 }
             },
             {caption: ["윤달"],      	ref: 'LEAP_MONTH_YN', 		        type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["시작일자"],     	ref: 'START_DATE', 		         type:'datepicker',  	width:'75px',  style:'text-align:left',
+            {caption: ["시작일자"],     	ref: 'START_DATE', 		         type:'inputdate',  	width:'75px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일자"],     	ref: 'END_DATE', 		         type:'datepicker',  	width:'75px',  style:'text-align:left',
+            {caption: ["종료일자"],     	ref: 'END_DATE', 		         type:'inputdate',  	width:'75px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1881,11 +1881,11 @@
             {caption: ["최종학력"],     	ref: 'LAST_SCHOOL_YN', 		         type:'checkbox',  	width:'70px',  style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ["이수학점"],        ref: 'COMPLE_POINT', 		         type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
             {caption: ["평점"],        ref: 'GPA_POINT', 		     type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
-            {caption: ["입학일"],  		ref: 'INTO_DATE',    			type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["입학일"],  		ref: 'INTO_DATE',    			type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["졸업일"],        ref: 'GRADUATE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["졸업일"],        ref: 'GRADUATE_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1918,11 +1918,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무시작일"],  		ref: 'START_DATE',    			type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["근무시작일"],  		ref: 'START_DATE',    			type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["근무종료일"],       ref: 'END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["근무종료일"],       ref: 'END_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1942,7 +1942,7 @@
                 }
             },
             {caption: ["연봉수준"],        ref: 'SALARY_LEVEL', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["퇴직사유"],  		ref: 'RETIRE_MEMO',    			type:'datepicker',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["퇴직사유"],  		ref: 'RETIRE_MEMO',    			type:'inputdate',  	width:'200px',  	style:'text-align:left'},
             {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
@@ -1984,11 +1984,11 @@
             {caption: ["자격등급"],     	ref: 'LICENSE_GRADE', 		         type:'input',  	width:'80px',  style:'text-align:left'},
             {caption: ["자격번호"],     	ref: 'LICENSE_NUM', 		         type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTE', 		         type:'input',  	width:'120px',  style:'text-align:left'},
-            {caption: ["취득일"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["취득일"],       ref: 'ISSUE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["갱신일"],       ref: 'RENEW_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["갱신일"],       ref: 'RENEW_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2010,11 +2010,11 @@
                 }
             },
             {caption: ["법정선임부서"],          ref: 'APPOINT_DEPT_CODE', 		        type:'input',  	width:'100px',  style:'text-align:left'},
-            {caption: ["법정선임시작일"],       ref: 'APPOINT_START_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["법정선임시작일"],       ref: 'APPOINT_START_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["법정선임종료일"],       ref: 'APPOINT_END_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["법정선임종료일"],       ref: 'APPOINT_END_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2046,11 +2046,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["시험일"],       ref: 'TEST_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시험일"],       ref: 'TEST_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["유효일"],       ref: 'AVAILABLE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["유효일"],       ref: 'AVAILABLE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2164,11 +2164,11 @@
                 }
             },
             {caption: ["교육기관"],        ref: 'EDU_INSTITUTE', 		     type:'input',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["교육시작일"],        ref: 'EDU_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["교육시작일"],        ref: 'EDU_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["교육종료일"],        ref: 'EDU_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["교육종료일"],        ref: 'EDU_END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2211,7 +2211,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }},
-            {caption: ["상벌일자"],        ref: 'PRIZE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["상벌일자"],        ref: 'PRIZE_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2243,11 +2243,11 @@
             {caption: ["상벌사유"],        ref: 'PRIZE_REASON', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
             {caption: ["상벌내용"],        ref: 'PRIZE_DETAIL', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
             {caption: ["시행기관"],        ref: 'PRIZE_MAKER', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["징계시작일"],        ref: 'PUNISH_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["징계시작일"],        ref: 'PUNISH_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["징계종료일"],        ref: 'PUNISH_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["징계종료일"],        ref: 'PUNISH_END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2281,7 +2281,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["검진일자"],        ref: 'CHECK_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["검진일자"],        ref: 'CHECK_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2305,15 +2305,15 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["발령일자"], 	        ref: 'APPOINT_DATE',    	 type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["발령일자"], 	        ref: 'APPOINT_DATE',    	 type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
@@ -2344,11 +2344,11 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["겸직발령일자"], 	        ref: 'START_DATE',    	        type:'datepicker',  	width:'104px',  	style:'text-align:left',
+            {caption: ["겸직발령일자"], 	        ref: 'START_DATE',    	        type:'inputdate',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["겸직해제일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'119px',  	style:'text-align:left',
+            {caption: ["겸직해제일자"],        ref: 'END_DATE', 		     type:'inputdate',  	width:'119px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
@@ -2415,11 +2415,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2464,15 +2464,15 @@
                 }
             },
             {caption: ["증권번호"],        ref: 'INSURE_NUM', 		     type:'input',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["보험가입일"],        ref: 'INSURE_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["보험가입일"],        ref: 'INSURE_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["보험만기일"],        ref: 'INSURE_DUE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["보험만기일"],        ref: 'INSURE_DUE_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["보험해지일"],        ref: 'INSURE_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["보험해지일"],        ref: 'INSURE_END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2506,24 +2506,24 @@
                 }
             },
             {caption: ["발생사유"],        ref: 'DISEASE_REASON', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["사고발생일"],        ref: 'DISEASE_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["사고발생일"],        ref: 'DISEASE_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["병가신청여부"],        ref: 'SICK_LEAVE_REQUEST_YN', 		     type:'checkbox',  	width:'80px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["병가일자(유료) 시작일"],        ref: 'SICK_LEAVE_CHARGE_DATE_FR', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(유료) 시작일"],        ref: 'SICK_LEAVE_CHARGE_DATE_FR', 		     type:'inputdate',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(유료) 종료일"],        ref: 'SICK_LEAVE_CHARGE_DATE_TO', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(유료) 종료일"],        ref: 'SICK_LEAVE_CHARGE_DATE_TO', 		     type:'inputdate',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(무료) 시작일"],        ref: 'SICK_LEAVE_FREE_DATE_FR', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(무료) 시작일"],        ref: 'SICK_LEAVE_FREE_DATE_FR', 		     type:'inputdate',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(무료) 종료일"],        ref: 'SICK_LEAVE_FREE_DATE_TO', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(무료) 종료일"],        ref: 'SICK_LEAVE_FREE_DATE_TO', 		     type:'inputdate',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2548,7 +2548,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'datepicker',  	width:'70px',  	style:'text-align:left',
+            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'inputdate',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
                 format : {type:'year', rule:'yyyy', origin:'YYYY'}
             },
@@ -2582,7 +2582,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["사고발생일"],        ref: 'OFFICIAL_INJURY_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["사고발생일"],        ref: 'OFFICIAL_INJURY_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2612,11 +2612,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["계약시작일"],        ref: 'CONTRACT_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계약시작일"],        ref: 'CONTRACT_START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["계약종료일"],        ref: 'CONTRACT_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계약종료일"],        ref: 'CONTRACT_END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2650,11 +2650,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2718,22 +2718,22 @@
                 , disabled: true
             },
             {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'218px',  	style:'text-align:left'},
-            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'122px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'inputdate',  	width:'122px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'108px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'inputdate',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'datepicker',  	width:'95px',  	style:'text-align:left',
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'inputdate',  	width:'95px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'106px',  	style:'text-align:left',
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'inputdate',  	width:'106px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -2766,12 +2766,12 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["경조일자"], 	        ref: 'WELFARE_DATE',    	        type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["경조일자"], 	        ref: 'WELFARE_DATE',    	        type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["신청년월"],        ref: 'REQUEST_YM', 		     type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["신청년월"],        ref: 'REQUEST_YM', 		     type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'month', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true

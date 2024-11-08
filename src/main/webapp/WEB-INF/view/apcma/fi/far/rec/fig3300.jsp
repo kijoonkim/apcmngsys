@@ -167,6 +167,7 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span>조회 결과</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
 						<div class="ad_tbl_toplist">
@@ -326,18 +327,18 @@
 			{caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
 				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 			},
-			{caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+			{caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
 
 			},
 			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'input',  	width:'189px',  style:'text-align:left'},
-			{caption: ["발급일자"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+			{caption: ["발급일자"],       ref: 'ISSUE_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
 
 			},
-			{caption: ["전송일자"],       ref: 'SEND_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+			{caption: ["전송일자"],       ref: 'SEND_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
 
@@ -453,7 +454,7 @@
 			{caption: ["공급자이메일"],         ref: 'SELLER_EMAIL',    type:'input',  	width:'125px',  style:'text-align:left'},
 			{caption: ["구매자이메일1"],         ref: 'BUYER_EMAIL1',    type:'input',  	width:'121px',  style:'text-align:left'},
 			{caption: ["구매자이메일2"],         ref: 'BUYER_EMAIL2',    type:'input',  	width:'109px',  style:'text-align:left'},
-			{caption: ["품목일자"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
+			{caption: ["품목일자"],       ref: 'TXN_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
 				typeinfo: {dateformat: 'yyyy-mm-dd'},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
 			},
@@ -1529,6 +1530,8 @@
 					jsonSearchResultList.push(msg);
 				});
 				gvwList.rebuild();
+
+				document.querySelector('#listCount').innerText = jsonSearchResultList.length;
 
 				if(jsonSearchResultList.length > 0) {
 					gvwList.clickRow(1);

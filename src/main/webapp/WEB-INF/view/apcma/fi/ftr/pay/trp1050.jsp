@@ -338,6 +338,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>지급상세내역</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist" style="display: flex; align-items: center; justify-content: flex-end;">
@@ -567,7 +568,7 @@
             {caption: ["입출계좌"],         ref: 'DEPOSIT_NAME',    type:'output',  	width:'155px',  style:'text-align:left'}, // TODO : P_DEPOSIT_OUT
             {caption: ["그룹"],         ref: 'GROUP_ID',    type:'output',  	width:'50px',  style:'text-align:left'},
             {caption: ["PAY_DATE_P"],         ref: 'PAY_DATE_P',    type:'output',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["지급일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -590,12 +591,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'94px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'94px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["승인일자"],       ref: 'POSTING_DATE', 		type:'datepicker',  	width:'94px',  	style:'text-align:left',
+            {caption: ["승인일자"],       ref: 'POSTING_DATE', 		type:'inputdate',  	width:'94px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -761,12 +762,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
+            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
+            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -775,7 +776,7 @@
             {caption: ["거래처 지급보류"],         ref: 'DEFER_YN',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["지급가능여부"],         ref: 'TR_ABLE_YN',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["지급불가사유"],         ref: 'TR_UNABLE_REASON',    type:'output',  	width:'200px',  style:'text-align:left'},
-            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1548,6 +1549,8 @@
                 });
 
                 gvwList.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonPaymentDetailList.length;
 
                 if (jsonPaymentDetailList.length <= 0) {
                     SBUxMethod.set("TOT_PAY_FUNCTIONAL_AMOUNT", 0);

@@ -130,6 +130,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>예적금</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -1730,12 +1731,12 @@
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
                 , hidden: true
             },
-            {caption: ["가입일"],       ref: 'DEPOSIT_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["가입일"],       ref: 'DEPOSIT_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["만기일"],       ref: 'DUE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["만기일"],       ref: 'DUE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1775,11 +1776,11 @@
         SBGridProperties.columns = [
             {caption: ["예적금번호"],         ref: 'DEPOSIT_NUM',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'SEQ',    type:'output',  	width:'46px',  style:'text-align:left'},
-            {caption: ["적용시작일"],       ref: 'APPLY_START_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["적용시작일"],       ref: 'APPLY_START_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],       ref: 'APPLY_END_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["적용종료일"],       ref: 'APPLY_END_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1809,7 +1810,7 @@
         SBGridProperties.columns = [
             {caption: ["예적금번호"],         ref: 'DEPOSIT_NUM',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["계획연번"],         ref: 'PLAN_SEQ',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1849,11 +1850,11 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["적용시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["적용시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],       ref: 'INTEREST_TO_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["적용종료일"],       ref: 'INTEREST_TO_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1883,7 +1884,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["계획연번"],         ref: 'PLAN_SEQ',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["불입예정일"],       ref: 'IN_PLAN_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -1935,11 +1936,11 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
             },
-            {caption: ["시작일자"],       ref: 'INTEREST_FROM_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["시작일자"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일자"],       ref: 'INTEREST_TO_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["종료일자"],       ref: 'INTEREST_TO_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2232,6 +2233,8 @@
                     });
 
                     gvwInfo.rebuild();
+
+                    document.querySelector('#listCount').innerText = jsonDepositList.length;
 
                     if (jsonDepositList.length > 0) {
                         gvwInfo.clickRow(1);

@@ -84,6 +84,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>교대조 리스트</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -1523,6 +1524,7 @@
                 });
 
                 bandgvwInfo.rebuild();
+                document.querySelector('#listCount').innerText = jsonShiftList.length;
             } else {
                 alert(data.resultMessage);
             }

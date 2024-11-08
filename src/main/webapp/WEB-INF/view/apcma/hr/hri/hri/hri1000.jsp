@@ -170,6 +170,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>사원 리스트</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -1861,12 +1862,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -2383,6 +2384,7 @@
                 });
 
                 gvwList.rebuild();
+                document.querySelector('#listCount').innerText = jsonEmpTotalList.length;
 
                 if(jsonEmpTotalList.length > 0) {
                     gvwList.clickRow(1);

@@ -119,6 +119,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>부서별 직원명부</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -412,6 +413,7 @@
                 });
 
                 gridViewEx1.rebuild();
+                document.querySelector('#listCount').innerText = jsonEmpList.length;
             } else {
                 alert(data.resultMessage);
             }

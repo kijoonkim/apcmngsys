@@ -142,6 +142,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>증명서발급</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -526,7 +527,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["문서번호"], 	        ref: 'DOC_NUM',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["신청일","신청일 "],  		ref: 'REQUEST_DATE',    			type:'datepicker',  	width:'108px',  	style:'text-align:left',
+            {caption: ["신청일","신청일 "],  		ref: 'REQUEST_DATE',    			type:'inputdate',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -553,17 +554,17 @@
                 , disabled: true
             },
             {caption: ["세부내용","담당업무"],         ref: 'CERTI_MEMO', 	type:'output',  	width:'200px',  style:'text-align:left'},
-            {caption: ["원천징수","귀속년도"],     	     ref: 'INCOME_YEAR', 		    type:'datepicker',  	width:'104px',  style:'text-align:left',
+            {caption: ["원천징수","귀속년도"],     	     ref: 'INCOME_YEAR', 		    type:'inputdate',  	width:'104px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
                 format : {type:'date', rule:'yyyy', origin:'YYYY'}
                 , disabled: true
             },
-            {caption: ["원천징수","기간(From)"],            ref: 'INCOME_RECEIVE_START_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:left',
+            {caption: ["원천징수","기간(From)"],            ref: 'INCOME_RECEIVE_START_DATE', 		type:'inputdate',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["원천징수","기간(To)"],            ref: 'INCOME_RECEIVE_END_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:left',
+            {caption: ["원천징수","기간(To)"],            ref: 'INCOME_RECEIVE_END_DATE', 		type:'inputdate',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -577,14 +578,14 @@
                 }
                 , disabled: true
             },
-            {caption: ["상태정보","승인일"],           ref: 'APPROVAL_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:center',
+            {caption: ["상태정보","승인일"],           ref: 'APPROVAL_DATE', 		type:'inputdate',  	width:'90px',  style:'text-align:center',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["상태정보","현단계승인권자"],       ref: 'CURRENT_APPROVE_EMP_NAME', 		        type:'output',  	width:'120px',  style:'text-align:left'},
             {caption: ["상태정보","수임자명"],       ref: 'PROXY_EMP_NAME', 		        type:'output',  	width:'101px',  style:'text-align:left'},
-            {caption: ["상태정보","반려일"],       ref: 'REJECT_DATE', 		        type:'datepicker',  	width:'90px',  style:'text-align:center',
+            {caption: ["상태정보","반려일"],       ref: 'REJECT_DATE', 		        type:'inputdate',  	width:'90px',  style:'text-align:center',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -620,7 +621,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["퇴직일"],       ref: 'RETIRE_DATE', 		        type:'datepicker',  	width:'90px',  style:'text-align:center',
+            {caption: ["퇴직일"],       ref: 'RETIRE_DATE', 		        type:'inputdate',  	width:'90px',  style:'text-align:center',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -641,13 +642,13 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["출력시작일자"],   ref: 'PRINT_START_DATE', 		    type:'datepicker',  	width:'80px',  style:'text-align:left',
+            {caption: ["출력시작일자"],   ref: 'PRINT_START_DATE', 		    type:'inputdate',  	width:'80px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["출력마감일자"],     ref: 'PRINT_END_DATE', 		    type:'datepicker',  	width:'80px',  style:'text-align:left',
+            {caption: ["출력마감일자"],     ref: 'PRINT_END_DATE', 		    type:'inputdate',  	width:'80px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -773,6 +774,7 @@
                 });
 
                 bandgvwInfo.rebuild();
+                document.querySelector('#listCount').innerText = jsonReportList.length;
 
                 if(jsonReportList.length > 0) {
                     bandgvwInfo.clickRow(1);

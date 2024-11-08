@@ -161,6 +161,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>이체 리스트</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                         <div class="ad_tbl_toplist">
@@ -350,7 +351,7 @@
                 };*/
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["연번"],       ref: 'TXN_ID', 		type:'datepicker',  	width:'88px',  	style:'text-align:left'},
+            {caption: ["연번"],       ref: 'TXN_ID', 		type:'inputdate',  	width:'88px',  	style:'text-align:left'},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '105px',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
@@ -400,7 +401,7 @@
             {caption: ["BANK_ACCOUNT"],         ref: 'BANK_ACCOUNT',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["응답코드"],         ref: 'FIRMBANK_ERROR_CODE',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["응답메시지"],         ref: 'FIRMBANK_ERROR_MESSAGE',    type:'output',  	width:'180px',  style:'text-align:left'},
-            {caption: ["결과수신시각"],       ref: 'FIRMBANK_RECEIVE_DATE', 		type:'datepicker',  	width:'136px',  	style:'text-align:left',
+            {caption: ["결과수신시각"],       ref: 'FIRMBANK_RECEIVE_DATE', 		type:'inputdate',  	width:'136px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -423,7 +424,7 @@
             },
             {caption: ["승인상태"],         ref: 'FIRMBANK_CONFIRM_STATUS',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["승인자"],         ref: 'CONFIRM_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["지급일자"],       ref: 'FIRMBANK_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'FIRMBANK_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -437,7 +438,7 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
                 disabled: true
             },
-            {caption: ["전송시간"],       ref: 'FIRMBANK_SEND_DATE', 		type:'datepicker',  	width:'141px',  	style:'text-align:left',
+            {caption: ["전송시간"],       ref: 'FIRMBANK_SEND_DATE', 		type:'inputdate',  	width:'141px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -965,6 +966,8 @@
                     jsonTransferDetailList.push(msg);
                 });
                 gvwInfo.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonTransferDetailList.length;
 
                 if (jsonTransferDetailList.length > 0) {
                     gvwInfo.clickRow(1);

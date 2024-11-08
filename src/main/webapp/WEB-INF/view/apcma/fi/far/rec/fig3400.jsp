@@ -275,6 +275,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>매출송장리스트</span>
+                                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                         </li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
@@ -573,7 +574,7 @@
             },
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'182px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'97px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'97px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -594,7 +595,7 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -653,19 +654,19 @@
                 }
                 , disabled: true
             },
-            {caption: ["수금요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
+            {caption: ["수금요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["수금예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["수금예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["수금일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["수금일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -730,7 +731,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["증빙수취일"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["증빙수취일"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -785,7 +786,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -835,24 +836,24 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'datepicker',  	width:'104px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-                , hidden: true
-            },
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'inputdate',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1240,12 +1241,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
+            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1332,7 +1333,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'datepicker',  	width:'153px',  	style:'text-align:left',
+            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'inputdate',  	width:'153px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -2060,6 +2061,8 @@
                         jsonSalesInvoiceList.push(msg);
                     });
                     gvwMaster.rebuild();
+
+                    document.querySelector('#listCount').innerText = jsonSalesInvoiceList.length;
 
                     if (jsonSalesInvoiceList.length > 0) {
                         gvwMaster.clickRow(1);
