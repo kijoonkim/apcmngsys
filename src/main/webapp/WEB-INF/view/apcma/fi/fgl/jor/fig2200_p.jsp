@@ -169,6 +169,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtcreated-dept"
 										class="btn btn-xs btn-outline-dark"
@@ -176,6 +177,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup1"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup1()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">청구부서</th>
@@ -190,10 +195,10 @@
 										uitype="text"
 										id="srch-txtpayee-dept-code"
 										class="form-control input-sm"
-										
 	   								></sbux-input>
 	                            </td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtpayee-dept"
 										class="btn btn-xs btn-outline-dark"
@@ -201,6 +206,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup2"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup2()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">작성자</th>
@@ -219,6 +228,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtcreated-by"
 										class="btn btn-xs btn-outline-dark"
@@ -226,6 +236,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup3"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup3()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">실사용자</th>
@@ -244,6 +258,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtpayee"
 										class="btn btn-xs btn-outline-dark"
@@ -251,6 +266,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup4"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup4()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>	                            
 	                            
 	                        </tr>
@@ -933,6 +952,7 @@
 				SBUxMethod.set('srch-txtcreated-dept-code', data.DEPT_CODE);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -966,6 +986,7 @@
 				SBUxMethod.set('srch-txtpayee-dept-code', data.DEPT_CODE);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -974,7 +995,6 @@
     var fn_compopup3 = function() {
     	
     	//type A 형 팝업
-    	
         var searchText 		= gfnma_nvl(SBUxMethod.get("srch-txtcreated-by-name"));
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_";
@@ -1001,6 +1021,7 @@
 				SBUxMethod.set('srch-txtcreated-by-code', data.USER_ID);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -1036,6 +1057,7 @@
 				SBUxMethod.set('srch-txtpayee-code', data.USER_ID);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
         
     /**

@@ -173,12 +173,17 @@
 	   								></sbux-input>
 	                            </td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										class="btn btn-xs btn-outline-dark"
 										text="찾기" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup1"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:35px' onClick='fn_compopup1()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <td colspan="4" rowspan="7" class="td_input" >
@@ -835,8 +840,7 @@
     		pg_rule_code_where		= "AND manual_doc_write_yn = 'Y'";
     		
     		pg_doc_type_bizId		= 'L_FIM051';
-    		pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
-			
+    		//pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
 		}
 		
 		if(type){
@@ -913,6 +917,9 @@
     		
 			SBUxMethod.selectTab('tab_norm','tab2');
     		
+			$('#main-btn-add', parent.document).attr('disabled', false);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			
     		//신규
     		$('#sch-lblalert').hide();
         	if(!pg_source_type){
@@ -1176,6 +1183,8 @@
      */
     var fn_enableSet = function(code) {
     	
+console.log('fn_enableSet(code):', code);
+
     	if(code=='0'){
     		
 			$('#main-btn-save', parent.document).attr('disabled', true);
@@ -1373,6 +1382,9 @@
     	fn_createGrid2210();	
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
+    	
+		$('#main-btn-add', parent.document).attr('disabled', 	true);
+		$('#main-btn-save', parent.document).attr('disabled', 	false);
     }
     
     /**
@@ -1409,9 +1421,9 @@
     			}
     			if(obj['VAT_TYPE']!='VZ' || obj['VAT_TYPE']!='AZ'){
     				if(!obj['STANDARD_DATE']){
-	            		gfn_comAlert("E0000","부가세 기타 유형이 아닌 경우 신고일자는 필수입력사항 입니다.");
-	            		chk = true;
-	            		break;
+// 	            		gfn_comAlert("E0000","부가세 기타 유형이 아닌 경우 신고일자는 필수입력사항 입니다.");
+// 	            		chk = true;
+// 	            		break;
     				}
     			}
     			if(obj['VAT_TYPE']!='VZ' || obj['VAT_TYPE']!='AZ'){
@@ -2240,6 +2252,7 @@
 				SBUxMethod.set('sch-dept-code', data.DEPT_CODE);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}   
     
     function fn_createGrid2210() {
@@ -3954,6 +3967,13 @@
      */
     var cfn_appr = function() {
     	
+    	var p_doc_id	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
+        if (p_doc_id == ""|| p_doc_id == "0")
+        {
+    		gfn_comAlert("E0000","전표저장후 결재처리 가능합니다.");
+            return;
+        }
+        
     	//본인이 상신하는 경우
     	compopappvmng({
     		compCode		: gv_ma_selectedApcCd
