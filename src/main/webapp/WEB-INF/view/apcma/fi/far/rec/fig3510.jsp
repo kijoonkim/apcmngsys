@@ -56,7 +56,7 @@
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
                                     <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
-                                    <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeApprovalNo(APPROVAL_NO)"></sbux-input>
+                                    <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                                 </div>
@@ -177,7 +177,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">거래처</th>
                                     <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                        <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeCsCode(this)" group-id="panWFTop" required></sbux-input>
+                                        <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;" data-group="CS">
                                         <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
@@ -196,7 +196,7 @@
                                     <td></td>
                                     <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                     <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                        <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop" required></sbux-input>
+                                        <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                         <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
@@ -301,7 +301,7 @@
                                         </div>
                                     </td>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_exchageUpdate" readonly></sbux-input>
+                                        <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
                                     <td class="td_input" style="border-right:hidden;">
@@ -316,7 +316,7 @@
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" readonly></sbux-input>
-                                        <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden" onchange="fn_changeBasisType(BASIS_TYPE)"></sbux-input>
+                                        <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden"></sbux-input>
                                     </td>
                                     <td colspan="2"></td>
                                     <th scope="row" class="th_bg">현업결재일</th>
@@ -439,7 +439,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">제목</th>
                                     <td colspan="5" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeDescription(DESCRIPTION)" required></sbux-input>
+                                        <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeDescription(DESCRIPTION)" group-id="panWFTop" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">계좌비고</th>
                                     <td colspan="4" class="td_input" style="border-right:hidden;">
@@ -1050,6 +1050,7 @@
     var jsonZeroType = []; // 영세율구분
     var jsonCreditArea = []; // 여신영역
     var jsonBankAccountSeq = []; // 계좌정보
+    var jsonVatCode = []; // 세금코드
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1196,7 +1197,7 @@
                     if(value == "KRW") {
                         $("#EXCHANGE_RATE").attr('disabled', 'true');
                     } else {
-                        $("#EXCHANGE_RATE").attr('disabled', 'false');
+                        $("#EXCHANGE_RATE").removeAttr('disabled');
                         gvwWFItem.setColDisabled(gvwWFItem.getColRef("FUNCTIONAL_AMT"), false, true);
                     }
 
@@ -1205,7 +1206,8 @@
                     fn_getExchange();
                 }
             }),
-            // 통화
+            // 세금코드
+            gfnma_setComSelect([''], jsonVatCode, 'L_VAT_INFO', "AND a.USE_YN = 'Y' AND b.AR_AP_TYPE = '" + strsourceType + "'", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#VAT_CODE']
                 , compCode: gv_ma_selectedApcCd
@@ -1228,6 +1230,19 @@
                     {caption: "상한비율", ref: 'LIMIT_PLUS_RATE', width: '50px', style: 'text-align:left'},
                     {caption: "하한비율", ref: 'LIMIT_MINUS_RATE', width: '50px', style: 'text-align:left'},
                 ]
+                , callback : function(value) {
+                    if(gfn_nvl(SBUxMethod.get("DOC_AMT")) != "") {
+                        let DOC_AMT = Number(gfn_nvl(SBUxMethod.get("DOC_AMT")).replace(/,/gi, ''));
+                        let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(value))[0];
+                        let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+
+                        let VAT_AMOUNT = Number(DOC_AMT) * (dcmvat_rate / 100);
+                        let SUPPLY_AMT = Number(DOC_AMT) - Number(VAT_AMOUNT);
+
+                        SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
+                        SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
+                    }
+                }
             }),
             // 전표템플릿
             gfnma_multiSelectInit({
@@ -1259,8 +1274,8 @@
 
                     //SBUxMethod.attr("DOC_TYPE", "readonly", "true");
 
-                    $("#btnAddRow").attr('disabled', 'false');
-                    $("#btnDeleteRow").attr('disabled', 'false');
+                    $("#btnAddRow").removeAttr('disabled');
+                    $("#btnDeleteRow").removeAttr('disabled');
                 }
             }),
             // 은행코드
@@ -1631,9 +1646,9 @@
         if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
             let ht1 = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
 
-            SBUxMethod.set("BILL_DUE_DATE", ht1[0].has("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
-            SBUxMethod.set("BILL_DUE_DAY", ht1[0].has("BILL_DUE_DAY") ? !gfn_nvl(ht1[0]["BILL_DUE_DAY"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DAY"]) : "" : "");
-            SBUxMethod.set("BILL_DUE_PAY_DATE", ht1[0].has("BILL_DUE_PAY_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) : "" : "");
+            SBUxMethod.set("BILL_DUE_DATE", ht1[0].hasOwnProperty("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
+            SBUxMethod.set("BILL_DUE_DAY", ht1[0].hasOwnProperty("BILL_DUE_DAY") ? !gfn_nvl(ht1[0]["BILL_DUE_DAY"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DAY"]) : "" : "");
+            SBUxMethod.set("BILL_DUE_PAY_DATE", ht1[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) : "" : "");
         }
     }
 
@@ -1693,7 +1708,6 @@
                 SBUxMethod.set('DOC_AMT', gfn_nvl(data.TOTAL_AMT));
                 SBUxMethod.set('SUPPLY_AMT', gfn_nvl(data.TOTAL_TAXABLE_AMT, 0));
                 SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOTAL_VAT_AMT, 0));
-                SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOTAL_VAT_AMT, 0));
                 SBUxMethod.set('VOUCHER_TYPE', gfn_nvl(data.VOUCHER_TYPE));
                 SBUxMethod.set('CS_CODE', gfn_nvl(data.CS_CODE));
                 SBUxMethod.set('CS_NAME', gfn_nvl(data.CS_NAME));
@@ -1707,6 +1721,7 @@
                 SBUxMethod.set('WITHHOLD_TAX_YN', gfn_nvl(data.WITHHOLD_TAX_YN));
                 SBUxMethod.set('STEEL_SCRAP_PAY_YN', gfn_nvl(data.STEEL_SCRAP_PAY_YN));
                 SBUxMethod.set('TXN_STOP_REASON', gfn_nvl(data.TXN_STOP_REASON));
+                fn_changeApprovalNo(gfn_nvl(data.APPROVAL_NO));
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
@@ -1743,12 +1758,25 @@
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
 
-                if (data.CS_CODE != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
+                if(gfn_nvl(data.PAY_TERM_CODE) != "") {
+                    SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
+                    SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
+                }
+
+                if(gfn_nvl(data.PAY_TERM_CODE) != "") {
+                    SBUxMethod.set('PAY_METHOD', data.PAY_METHOD);
+                }
+
+                if(gfn_nvl(data.CURRENCY_CODE) != "") {
+                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', data.CURRENCY_CODE);
+                }
+                
+                if (gfn_nvl(data.CS_CODE) != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
                     SBUxMethod.attr("DOC_TYPE", "readonly", "true");
 
-                    $("#btnAddRow").attr('disabled', 'false');
-                    $("#btnDeleteRow").attr('disabled', 'false');
-                    $("#btnCreateLine").attr('disabled', 'false');
+                    $("#btnAddRow").removeAttr('disabled');
+                    $("#btnDeleteRow").removeAttr('disabled');
+                    $("#btnCreateLine").removeAttr('disabled');
                 } else {
                     SBUxMethod.attr("DOC_TYPE", "readonly", "false");
 
@@ -1786,6 +1814,8 @@
             , itemSelectEvent: function (data) {
                 SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
                 SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
+
+                fn_payTermCodeOnchange(gfn_nvl(data.PAY_TERM_CODE));
             },
         });
     }
@@ -3205,13 +3235,13 @@
         } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "1") {
             SBUxMethod.disableTab('idxTab','tabPage2');
             SBUxMethod.setTab('idxTab','tabPage1');
-            $("#btnDeleteRow").attr('disabled', 'false');
+            $("#btnDeleteRow").removeAttr('disabled');
         } else {
             SBUxMethod.disableTab('idxTab','tabPage2');
             SBUxMethod.setTab('idxTab','tabPage1');
 
             if (gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')) == "1")
-                $("#btnDeleteRow").attr('disabled', 'false');
+                $("#btnDeleteRow").removeAttr('disabled');
         }
     }
 
@@ -3219,12 +3249,13 @@
         var nRow = gvwWFItem.getRow();
         var nCol = gvwWFItem.getCol();
 
+        fn_baseFocusedRowChanged(nRow, nCol);
+
         if (nCol == 5 || nCol == 6 || nCol == 7 || nCol == 8 || nCol == 15 || nCol == 16) {
             return;
         }
 
         //버튼 활성화 제어
-
         let strDoc_status = gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')); //전표 상태로 변경
 
         if (gfn_nvl(SBUxMethod.get('DOC_TYPE')) != "19" && gfn_nvl(SBUxMethod.get('DOC_TYPE')) != "39")
@@ -3233,7 +3264,7 @@
         if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
             $("#main-btn-del").attr('disabled', 'true');
             $("#main-btn-appr").attr('disabled', 'true');
-            $("#btnPrint").attr('disabled', 'false');
+            $("#btnPrint").removeAttr('disabled');
 
             $("#btnAddRow").attr('disabled', 'true');
             $("#btnDeleteRow").attr('disabled', 'true');
@@ -3249,19 +3280,19 @@
 
             if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                 // TODO : btnConfirmHist.Enabled = true;
-                $("#main-btn-appr").attr('disabled', 'false');
+                $("#main-btn-appr").removeAttr('disabled');
         } else {
             if (strDoc_status == "1") {
                 //미승인
-                $("#main-btn-del").attr('disabled', 'false');
-                $("#main-btn-appr").attr('disabled', 'false');
+                $("#main-btn-del").removeAttr('disabled');
+                $("#main-btn-appr").removeAttr('disabled');
                 $("#btnPrint").attr('disabled', 'true');
 
-                $("#btnAddRow").attr('disabled', 'false');
-                $("#btnDeleteRow").attr('disabled', 'false');
-                $("#btnCreateLine").attr('disabled', 'false');
+                $("#btnAddRow").removeAttr('disabled');
+                $("#btnDeleteRow").removeAttr('disabled');
+                $("#btnCreateLine").removeAttr('disabled');
 
-                $("#VAT_CODE").attr('disabled', 'false');
+                $("#VAT_CODE").removeAttr('disabled');
 
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
                     $("#main-btn-del").attr('disabled', 'true');
@@ -3273,7 +3304,7 @@
                 }
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").attr('disabled', 'false');
+                    $("#main-btn-del").removeAttr('disabled');
                 }
 
             } else if (strDoc_status == "3") {
@@ -3288,23 +3319,23 @@
                 $("#VAT_CODE").attr('disabled', 'true');
 
                 if (gfn_nvl(SBUxMethod.get('CONFIRM_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('PROXY_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd) {
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr").removeAttr('disabled');
                 }
 
                 if ((gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == gfn_nvl(SBUxMethod.get('REQUEST_EMP_CODE'))) && (gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd)) {
-                    $("#main-btn-del").attr('disabled', 'false');
+                    $("#main-btn-del").removeAttr('disabled');
                 } else {
                     $("#main-btn-del").attr('disabled', 'true');
                 }
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").attr('disabled', 'false');
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-del").removeAttr('disabled');
+                    $("#main-btn-appr").removeAttr('disabled');
                 }
 
                 if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "")
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr").removeAttr('disabled');
             } else if (strDoc_status == "5") {
                 //승인완료
                 $("#main-btn-del").attr('disabled', 'true');
@@ -3318,18 +3349,18 @@
                 $("#VAT_CODE").attr('disabled', 'true');
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").attr('disabled', 'false');
+                    $("#main-btn-del").removeAttr('disabled');
                 }
 
                 //본인이 등록했고 본인만 결제권자 였으면 반려 가능
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId && parseInt(gfn_nvl(SBUxMethod.get('APPR_COUNT')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_COUNT'))) == 1) {
-                    $("#main-btn-appr").attr('disabled', 'false');
-                    $("#main-btn-del").attr('disabled', 'false');
+                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-del").removeAttr('disabled');
                 }
 
                 if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr").removeAttr('disabled');
             } else {
                 //최종완료, 반려
                 $("#main-btn-del").attr('disabled', 'true');
@@ -3344,7 +3375,7 @@
 
                 if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr").removeAttr('disabled');
             }
         }
 
@@ -3358,8 +3389,6 @@
 
         if (nRow < 0)
             return;
-
-        fn_baseFocusedRowChanged(nRow, nCol);
     }
 
     const fn_getExchangeRate = async function (stryyyymmdd, strcurrency_code, strrate_type) {
@@ -3545,7 +3574,16 @@
         if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get("VAT_AMOUNT")) == "")
             return;
 
-        SBUxMethod.set("SUPPLY_AMT", (Number(value) - Number(SBUxMethod.get("VAT_AMOUNT"))));
+        if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != "") {
+            let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+            let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+
+            let VAT_AMOUNT = Number(value.replace(/,/gi, '')) * (dcmvat_rate/100);
+            let SUPPLY_AMT = Number(value.replace(/,/gi, '')) - Number(VAT_AMOUNT);
+
+            SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
+            SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
+        }
     }
 
     const fn_changeVatAmount = async function (value) {
@@ -3612,6 +3650,9 @@
 
     // 행추가
     const fn_addRow = async function () {
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ) || !validateRequired("panWFTop"))
+            return;
+
         let rowVal = gvwWFItem.getRow();
 
         if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
@@ -3628,8 +3669,8 @@
                 CURRENCY_CODE: gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
                 EXCHANGE_RATE: gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")),
                 CS_CODE: gfn_nvl(SBUxMethod.get("CS_CODE")),
-                VAT_TYPE: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
-                VAT_NAME: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
+                VAT_TYPE: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE','object')['value']),
+                VAT_NAME: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object')['label']),
                 DESCRIPTION: gfn_nvl(SBUxMethod.get("DESCRIPTION")),
             });
         } else {
@@ -3806,7 +3847,7 @@
                 $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
-                $("#btnScmInfo").attr('disabled', 'false');
+                $("#btnScmInfo").removeAttr('disabled');
 
                 SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
 
@@ -3816,7 +3857,7 @@
                 $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
                 $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
 
-                $("#btnScmInfo").attr('disabled', 'false');
+                $("#btnScmInfo").removeAttr('disabled');
 
                 $("#btnCreateInvoice").hide();
                 $("#btnCancelInvoice").hide();
@@ -3867,6 +3908,7 @@
                 $("#btnCreateInvoice").hide();
                 $("#btnCancelInvoice").hide();
             }
+            bnew = true;
         }
         if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
             fn_create();
@@ -4024,7 +4066,7 @@
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
-        $("#main-btn-save").attr("disabled", "false");
+        $("#main-btn-save").removeAttr("disabled");
         $("#main-btn-save").attr("disabled", "true");
         $("#main-btn-appr").attr("disabled", "true");
 
@@ -4411,7 +4453,7 @@
                     dSumCr_amt += gfn_nvl(thisdr["DEBIT_CREDIT"]) == "C" ? Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) : 0;
 
                     for (var j = 1; j <= 10; j++){
-                        if (gfn_nvl(thisdr["ACC_ITEM_YN" + j]) == "Y" && decimal.Parse(gfn_nvl(thisdr["ORIGINAL_AMT"])) != 0) {
+                        if (gfn_nvl(thisdr["ACC_ITEM_YN" + j]) == "Y" && Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) != 0) {
                             if (gfn_nvl(thisdr["ACC_ITEM_CODE" + j]) != "") {
                                 if (gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "" || gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "0") {
                                     return false;
@@ -5082,6 +5124,7 @@
                     SBUxMethod.set('PAY_BASE_DATE', formData.PAY_BASE_DATE);
                     SBUxMethod.set('EXPECTED_PAY_DATE', formData.EXPECTED_PAY_DATE);
                     SBUxMethod.set('BASIS_TYPE', formData.BASIS_TYPE);
+                    fn_changeBasisType();
                     SBUxMethod.set('DIFF_DAY', formData.DIFF_DAY);
                     SBUxMethod.set('BILL_DUE_DATE', formData.BILL_DUE_DATE);
                     SBUxMethod.set('BILL_DUE_DAY', formData.BILL_DUE_DAY);
@@ -5311,7 +5354,7 @@
                 });
 
                 if (gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
-                    $("#main-btn-attach").attr("disabled", "false");
+                    $("#main-btn-attach").removeAttr("disabled");
                     gvwWFItem.clickRow(1);
                     fn_summary();
                 } else {
@@ -5526,8 +5569,8 @@
 
     // 전표복사
     const fn_docCopy = async function () {
-        $("#btnCreateLine").attr("disabled", "false");
-        $("#btnAddRow").attr("disabled", "false");
+        $("#btnCreateLine").removeAttr("disabled");
+        $("#btnAddRow").removeAttr("disabled");
         $("#main-btn-attach").attr("disabled", "true");
         $("#main-btn-appr").attr("disabled", "true");
 
@@ -5562,7 +5605,7 @@
     }
 
     const fn_getExpectedPayDate = async function (strpay_term_code, strtxn_date) {
-        var retrunData = [];
+        var retrunData;
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
@@ -5583,7 +5626,7 @@
         const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
             getType: 'json',
             workType: 'Q2',
-            cv_count: '0',
+            cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
 
@@ -5591,17 +5634,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                data.cv_1.forEach((item, index) => {
-                    var msg = {
-                        EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
-                        PAY_BASE_DATE : item.PAY_BASE_DATE,
-                        BILL_DUE_DAY : item.BILL_DUE_DAY,
-                        BILL_DUE_DATE : item.BILL_DUE_DATE,
-                        BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE
-                    }
-
-                    retrunData.push(msg);
-                });
+                retrunData = data.cv_1[0];
 
                 return retrunData;
             } else {
@@ -5619,8 +5652,8 @@
     const fn_setExpectedPayDateReadOnly = async function () {
         let ht = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), gfn_nvl(SBUxMethod.get('DOC_DATE')));
 
-        if (ht.length > 0) {
-            if (ht[0].has("EXPECTED_PAY_DATE")) {
+        if (ht) {
+            if (ht.hasOwnProperty("EXPECTED_PAY_DATE")) {
                 if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) != "5") {
                     SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "true");
                 } else if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
@@ -5646,19 +5679,15 @@
             SBUxMethod.set("EXPECTED_PAY_DATE", "");
             SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "false");
         } else {
-            SBUxMethod.set("PAY_BASE_DATE", ht[0].has("PAY_BASE_DATE") ? !ht[0]["PAY_BASE_DATE"] == "" ? ht[0]["PAY_BASE_DATE"] : "" : "");
-            SBUxMethod.set("EXPECTED_PAY_DATE", ht[0].has("EXPECTED_PAY_DATE") ? !ht[0]["EXPECTED_PAY_DATE"] == "" ? ht[0]["EXPECTED_PAY_DATE"] : "" : "");
-            SBUxMethod.set("BILL_DUE_DATE", ht[0].has("BILL_DUE_DATE") ? !ht[0]["BILL_DUE_DATE"] == "" ? ht[0]["BILL_DUE_DATE"] : "" : "");
-            SBUxMethod.set("BILL_DUE_DAY", ht[0].has("BILL_DUE_DAY") ? !ht[0]["BILL_DUE_DAY"] == "" ? ht[0]["BILL_DUE_DAY"] : "" : "");
-            SBUxMethod.set("BILL_DUE_PAY_DATE", ht[0].has("BILL_DUE_PAY_DATE") ? !ht[0]["BILL_DUE_PAY_DATE"] == "" ? ht[0]["BILL_DUE_PAY_DATE"] : "" : "");
+            SBUxMethod.set("PAY_BASE_DATE", ht.hasOwnProperty("PAY_BASE_DATE") ? !ht["PAY_BASE_DATE"] == "" ? ht["PAY_BASE_DATE"] : "" : "");
+            SBUxMethod.set("EXPECTED_PAY_DATE", ht.hasOwnProperty("EXPECTED_PAY_DATE") ? !ht["EXPECTED_PAY_DATE"] == "" ? ht["EXPECTED_PAY_DATE"] : "" : "");
+            SBUxMethod.set("BILL_DUE_DATE", ht.hasOwnProperty("BILL_DUE_DATE") ? !ht["BILL_DUE_DATE"] == "" ? ht["BILL_DUE_DATE"] : "" : "");
+            SBUxMethod.set("BILL_DUE_DAY", ht.hasOwnProperty("BILL_DUE_DAY") ? !ht["BILL_DUE_DAY"] == "" ? ht["BILL_DUE_DAY"] : "" : "");
+            SBUxMethod.set("BILL_DUE_PAY_DATE", ht.hasOwnProperty("BILL_DUE_PAY_DATE") ? !ht["BILL_DUE_PAY_DATE"] == "" ? ht["BILL_DUE_PAY_DATE"] : "" : "");
             SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "true");
 
             // 지급만기일 - 지급기산일 = 일수
-            SBUxMethod.set("DIFF_DAY", gfn_diffDate(new Date(SBUxMethod.get("EXPECTED_PAY_DATE").substring(0, 4) + "-" + SBUxMethod.get("EXPECTED_PAY_DATE").substring(4, 6) + "-" + SBUxMethod.get("EXPECTED_PAY_DATE").substring(6, 8)),
-                new Date((gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")).substring(0, 4) + "-" +
-                    (gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")).substring(4, 6) + "-" +
-                    (gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")).substring(6, 8)
-                )));
+            SBUxMethod.set("DIFF_DAY", gfn_diffDate(SBUxMethod.get("EXPECTED_PAY_DATE"), (gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE"))));
         }
     }
 
@@ -5855,7 +5884,7 @@
 
             gvwWFItem.clickRow(1);
 
-            $("#main-btn-save").attr('disabled', 'false')
+            $("#main-btn-save").removeAttr('disabled');
         }
     }
 
@@ -5870,7 +5899,7 @@
             }
             gvwWFItem.clickRow(1);
 
-            $("#main-btn-save").attr("disabled", "false");
+            $("#main-btn-save").removeAttr("disabled");
         }
 
     }
@@ -5893,7 +5922,6 @@
             return;
         }
 
-        let iRowIndex = cbovat_type.Properties.GetDataSourceRowIndex("vat_code", cbovat_type.EditValue);
         let dcmvat_rate = 0;
         let dcmlimit_plus_rate = 0;
         let dcmlimit_minus_rate = 0;
@@ -5901,15 +5929,16 @@
         let dcmlimit_plus_amt = 0;
         let dcmlimit_minus_amt = 0;
 
-        dcmvat_rate = decimal.Parse(cbovat_type.Properties.GetDataSourceValue("vat_rate", iRowIndex).ToString() == "" ? "0" : cbovat_type.Properties.GetDataSourceValue("vat_rate", iRowIndex).ToString());
+        let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+        dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
 
-        dcmlimit_plus_rate = decimal.Parse(cbovat_type.Properties.GetDataSourceValue("limit_plus_rate", iRowIndex).ToString() == "" ? "0" : cbovat_type.Properties.GetDataSourceValue("limit_plus_rate", iRowIndex).ToString());
-        dcmlimit_minus_rate = decimal.Parse(cbovat_type.Properties.GetDataSourceValue("limit_minus_rate", iRowIndex).ToString() == "" ? "0" : cbovat_type.Properties.GetDataSourceValue("limit_minus_rate", iRowIndex).ToString());
+        dcmlimit_plus_rate = Number(gfn_nvl(vatInfo.LIMIT_PLUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_PLUS_RATE));
+        dcmlimit_minus_rate = Number(gfn_nvl(vatInfo.LIMIT_MINUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_MINUS_RATE));
 
-        dcmlimit_plus_amt = decimal.Parse(numsupply_amt.EditValue.ToString()) * (dcmvat_rate / 100) * (1 + (dcmlimit_plus_rate / 100));
-        dcmlimit_minus_amt = decimal.Parse(numsupply_amt.EditValue.ToString()) * (dcmvat_rate / 100) * (1 - (dcmlimit_minus_rate / 100));
+        dcmlimit_plus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 + (dcmlimit_plus_rate / 100));
+        dcmlimit_minus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 - (dcmlimit_minus_rate / 100));
 
-        if (decimal.Parse(numvat_amount.EditValue.ToString()) > dcmlimit_plus_amt || decimal.Parse(numvat_amount.EditValue.ToString()) < dcmlimit_minus_amt) {
+        if (Number(gfn_nvl(SBUxMethod.get("VAT_AMOUNT"))) > dcmlimit_plus_amt || Number(gfn_nvl(SBUxMethod.get("VAT_AMOUNT"))) < dcmlimit_minus_amt) {
             if (!gfn_comConfirm("Q0000", "부가세 상하한 비율을 벗어납니다. 계속 진행하겠습니까?")) {
                 return;
             }
