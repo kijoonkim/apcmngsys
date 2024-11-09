@@ -337,6 +337,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		String apcCd = sortMngVO.getApcCd();
 
+		String sortYmd = sortMngVO.getSortYmd();
+
 		String rawMtrVlType = sortMngVO.getRawMtrVlType();
 
 		if (!StringUtils.hasText(apcCd)) {
@@ -620,6 +622,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				sortInptVO.setQntt(inv.getInptQntt());
 				sortInptVO.setWght(inv.getInptWght());
+
+				if(!StringUtils.hasText(sortInptVO.getInptYmd())){
+					sortInptVO.setInptYmd(sortYmd);
+				}
 
 				// 투입실적 항목 set
 				sortInptPrfmncVOList.add(sortInptVO);

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -50,6 +51,9 @@ public class SortPrfmncController extends BaseController {
 
 	@Resource(name = "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
+
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
 
 	@PostMapping(value = "/am/sort/selectSortPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
@@ -663,5 +667,40 @@ public class SortPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/sort/selectSortno.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortno(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		String sortno = "";
+		try {
+			sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("sortno",sortno);
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/sort/selectSortPrfmncToPltno.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncToPltno(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
+		try {
+			resultList =sortPrfmncService.selectSortPrfmncToPltno(param);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 }

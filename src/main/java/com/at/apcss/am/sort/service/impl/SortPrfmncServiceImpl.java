@@ -450,6 +450,12 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
         return resultVO;
     }
 
+	@Override
+	public List<HashMap<String, Object>> selectSortPrfmncToPltno(HashMap<String, Object> param) throws Exception {
+		List<HashMap<String, Object>> resultList = sortPrfmncMapper.selectSortPrfmncToPltno(param);
+		return resultList;
+	}
+
 
 	@Override
 	public List<SortDsctnTotVO> selectSortDsctnDtlTotList(SortDsctnTotVO sortDsctnTotVO) throws Exception {

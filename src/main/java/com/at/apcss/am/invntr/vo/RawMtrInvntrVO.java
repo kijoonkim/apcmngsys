@@ -328,6 +328,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 규격
 	 */
 	private String spcfctCd;
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
 
 	/**
 	 * 생산자구분

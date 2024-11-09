@@ -153,23 +153,13 @@
           <td class="td_input">
             <div style="display: flex; gap: 15px; align-items: center">
               <sbux-datepicker
-                      id="srch-dtp-pckgYmdFrom"
-                      name="srch-dtp-pckgYmdFrom"
+                      id="srch-dtp-jobYmd"
+                      name="srch-dtp-jobYmd"
                       uitype="popup"
                       date-format="yyyy-mm-dd"
                       class="form-control input-sm input-sm-ast inpt_data_reqed"
                       style="height: 28px"
               ></sbux-datepicker>
-              <sbux-datepicker
-                      id="srch-dtp-pckgYmdTo"
-                      name="srch-dtp-pckgYmdTo"
-                      uitype="popup"
-                      date-format="yyyy-mm-dd"
-                      class="form-control input-sm input-sm-ast inpt_data_reqed"
-                      style="height: 28px"
-              ></sbux-datepicker>
-              <sbux-checkbox id="chkbox_norm" name="chkbox_norm" uitype="normal" text="일일기준" onclick="fn_oneDay()">
-              </sbux-checkbox>
             </div>
           </td>
         </tr>
@@ -193,51 +183,51 @@
             </colgroup>
             <tbody>
             <tr>
-              <th scope="row" class="th_bg" style="background: white;border-right: hidden;">작업구분</th>
-              <td id="cnptInfoWrap" class="td_input_mob">
-                <button class="carouselBtn" onclick="fn_left('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+              <th scope="row" class="th_bg" style="background: color(srgb 0.8854 0.9386 0.8524);border-right: hidden;">작업구분</th>
+              <td id="cnptInfoWrap" class="td_input_mob" style="background-color: color(srgb 0.8854 0.9386 0.8524)">
                 <div class="carousel_container" style="width: 100%; overflow: hidden">
-                  <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+                  <div class="carousel" style="display: grid; grid-template-columns: repeat(5,1fr); grid-gap: 5px;width: 100%;">
 
                   </div>
                 </div>
-                <button class="carouselBtn" onclick="fn_right('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
               </td>
             </tr>
             <tr>
               <th scope="row" class="th_bg">작업자</th>
               <td id="prdcrInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
-                <button class="carouselBtn" onclick="fn_left('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                 <div class="carousel_container" style="width: 100%; overflow: hidden">
-                  <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+                  <div class="carousel" style="display: grid; grid-template-columns: repeat(5,1fr); grid-gap: 5px;width: 100%;">
 
                   </div>
                 </div>
-                <button class="carouselBtn" onclick="fn_right('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
               </td>
             </tr>
             <tr>
-              <th scope="row" class="th_bg" style="background: white;border-right: hidden;">팔레트번호</th>
-              <td id="itemInfoWrap" class="td_input_mob">
-                <button class="carouselBtn" onclick="fn_left('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                  <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                  </div>
-                </div>
-                <button class="carouselBtn" onclick="fn_right('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+              <th scope="row" class="th_bg" style="background: #e8f1f9;border-right: hidden;">팔레트번호</th>
+              <td id="itemInfoWrap" class="td_input_mob" style="background-color: #e8f1f9">
+                <sbux-input
+                        id="dtl-inp-pltno"
+                        name="dtl-inp-pltno"
+                        uitype="text"
+                        wrap-style="flex-basis: 61%"
+                        style="background-color: #e8f1f9;font-weight: bold;font-size: 28px;text-align: center; height: 100%;border: 0!important;"
+                        class="input-sm-ast inpt_data_reqed inpt-mbl srch-pltno"
+                        autocomplete="off"
+                        onblur="fn_ipt_pltno"
+                        onclick="fn_ipt_init"
+                ></sbux-input>
+                <sbux-input
+                        id="dtl-inp-sortno"
+                        name="dtl-inp-sortno"
+                        uitype="text"
+                        wrap-style="display:none"
+                ></sbux-input>
               </td>
             </tr>
             <tr>
-              <th scope="row" class="th_bg">현재시간</th>
-              <td id="vrtyInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
-                <button class="carouselBtn" onclick="fn_left('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                  <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                  </div>
-                </div>
-                <button class="carouselBtn" onclick="fn_right('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+              <th scope="row" class="th_bg" style="background-color:color(srgb 0.9999 0.9492 0.8017)">현재시간</th>
+              <td id="vrtyInfoWrap" class="td_input_mob" style="background: color(srgb 0.9999 0.9492 0.8017);">
+                <div id="clock" style="padding: 20px 0px;font-size: 35px; font-weight: bold; text-align: center"></div>
               </td>
             </tr>
             </tbody>
@@ -245,90 +235,62 @@
         </div>
         <div id="tab_pckgPrfmnc">
           <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
-          <div style="display: flex; justify-content: flex-end">
-            <sbux-button
-                    id="btnExportExcel"
-                    name="btnExportExcel"
-                    uitype="normal"
-                    class="btn btn-sm btn-outline-danger"
-                    text="엑셀다운로드"
-                    onclick="fn_exportExcel"
-            ></sbux-button>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 </body>
 <script type="text/javascript">
+
   /** 포장실적 grid 변수 **/
   var jsonPckgPrfmnc = [];
   let gridPckgPrfmnc;
 
+  /** 작업구분 **/
+  var jsonApcJobClsfCd = [];
+
   /** 포장 실적 Obj **/
   let pckgObj = {};
 
+  /** 작업자 원본 **/
+  let jsonOprtr = [];
+
+  window.addEventListener('message', async function(e) {
+    let obj = e.data;
+    if(obj){
+      let pltno = obj.pltno;
+      let sortno = obj.sortno;
+      SBUxMethod.set("dtl-inp-pltno",pltno);
+      SBUxMethod.set("dtl-inp-sortno",sortno);
+      }
+  });
+
   window.addEventListener("DOMContentLoaded",function(){
+    let mainParam = localStorage.getItem("callMain");
+    if(mainParam){
+      mainParam = JSON.parse(mainParam);
+      let pltno = mainParam.pltno;
+      let sortno = mainParam.sortno;
+      SBUxMethod.set("dtl-inp-pltno",pltno);
+      SBUxMethod.set("dtl-inp-sortno",sortno);
+    }
+    localStorage.removeItem("callMain");
+
     fn_init();
     /** 포장등록시 일일기준 강제처리 **/
     fn_changeTab();
   });
-  let carouselObj = {
-    cnptInfoWrap : {
-      CAROUSEL_LENGTH : 0,
-      current : 0
-    },
-    prdcrInfoWrap : {
-      CAROUSEL_LENGTH : 0,
-      current : 0
-    },
-    itemInfoWrap : {
-      CAROUSEL_LENGTH : 0,
-      current : 0
-    },
-    vrtyInfoWrap : {
-      CAROUSEL_LENGTH : 0,
-      current : 0
-    }
-  };
-  let CAROUSEL_LENGTH = 0;
-  let current = 0;
-
-  function fn_left(_el){
-    let id = _el;
-
-    if (carouselObj[id].current !== 0) {
-      carouselObj[id].current--;
-      $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * -76.7}'}vw)`);
-    }
-  }
-  function fn_right(_el){
-    let id = _el;
-
-    if (carouselObj[id].current !== carouselObj[id].CAROUSEL_LENGTH) {
-      $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * -76.7}'}vw)`);
-      carouselObj[id].current++;
-    }
-  }
 
   const fn_init = async function(){
-    SBUxMethod.set('srch-dtp-pckgYmdFrom',gfn_dateToYmd(new Date()));
-    SBUxMethod.set('srch-dtp-pckgYmdTo',gfn_dateToYmd(new Date()));
-    /** 거래처 **/
+    SBUxMethod.set('srch-dtp-jobYmd',gfn_dateToYmd(new Date()));
+    /** 작업구분 **/
     await fn_search_cnpt();
-    /** 생산자 **/
+    /** 작업자 **/
     await fn_search_prdcr();
-    /** 품목 **/
-    await fn_search_item();
-
     /** 포장실적 grid 생성 **/
     await fn_create_pckgPrfmnc();
-    fn_addDragEvn("cnptInfoWrap");
-    fn_addDragEvn("prdcrInfoWrap");
-    fn_addDragEvn("vrtyInfoWrap");
-
+    return;
     await fn_search();
   }
   const fn_create_pckgPrfmnc = async function(){
@@ -338,221 +300,122 @@
     SBGridProperties.jsonref = 'jsonPckgPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.columns = [
-      {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
+      {caption: ["처리"], ref: 'apcCd', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
         renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
           return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
         }
       },
-      {caption: ["구분"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업자"],	ref: 'rprsPrdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["시작시간"],	ref: 'itemNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["종료시간"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업시간"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["팔레트번호"],	ref: 'bxGdsQntt',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업자"],	ref: 'oprtrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["팔레트번호"],	ref: 'pltno',		type:'output',  width:'30%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
     ]
     gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
   }
-
+  /** 작업구분 **/
   const fn_search_cnpt = async function(){
-    /** 거래처 **/
-    const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
-    const data = await postJsonPromise;
-    let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-    data.resultList = useYn;
-    await fn_append_button(data,"cnptInfoWrap","cnptNm","cnptCd");
-    carouselObj.cnptInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#cnptInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    let data = await gfn_getComCdDtls("JOB_CLSF_CD", gv_apcCd);
+    data = data.filter((item) => item.cdVl !== '12');
+    await fn_append_button(data,"cnptInfoWrap","cdVlNm","cdVl","job-clsf-cd");
   }
-  const fn_search_prdcr = async function(){
-    const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
-    const data = await postJsonPromise;
-    let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-    data.resultList = useYn;
-    await fn_append_button(data,"prdcrInfoWrap","prdcrNm","prdcrCd");
-    carouselObj.prdcrInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#prdcrInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+  /** 작업자 **/
+  const fn_search_prdcr = async function(_jobClsfCd = ''){
+    let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
+        apcCd 		: gv_selectedApcCd,
+      ...( _jobClsfCd ? { jobClsfCd: _jobClsfCd } : {} )
+    });
+    let data = await postJsonPromise;
+    jsonOprtr = [...data.resultList];
+    await fn_append_button(data.resultList,"prdcrInfoWrap","flnm","jobClsfCd","oprtr");
   }
-  const fn_search_item = async function(){
-    const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: gv_apcCd, delYn: "N"}, null, true);
-    const data = await postJsonPromise;
-    let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-    data.resultList = useYn;
-    await fn_append_button(data,"itemInfoWrap","itemNm","itemCd");
-    carouselObj.itemInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#itemInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
-  }
-  const fn_search_vrty = async function(_itemCd){
-    const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
-    const data = await postJsonPromise;
-    let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-    data.resultList = useYn;
-    await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
-    carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
-  }
-  const fn_search_spcfct = async function(_itemCd){
-    const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
-    const data = await postJsonPromise;
-    await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
-  }
-
-  const fn_append_button = async function(data, id, label, value, flag = false){
+  /** btn append **/
+  const fn_append_button = async function(data, id, label, value, dataName){
     if(gfn_isEmpty(data)) return;
-
     let targetId = "#" + id;
-
-    /** 다음페이지 필요하지않을 경우 **/
-    if(data.resultList.length < 11){
-      $(`${'${targetId}'} > button`).css('display','none');
-    }else{
-      $(`${'${targetId}'} > button`).css('display','block');
-    }
-
-    if(!flag){
-      if(data.resultList.length % 10 !== 0 && data.resultList.length > 5){
-        let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
-        let originLength = data.resultList.length;
-        data.resultList.length = cnt;
-        data.resultList.fill({cnptNm:'null'},originLength);
-      }
-      if(data.resultList.length < 5){
-        let cnt = (Math.floor(data.resultList.length / 5) + 1) * 5;
-        let originLength = data.resultList.length;
-        data.resultList.length = cnt;
-        data.resultList.fill({cnptNm:'null'},originLength);
-      }
-    }else{
-      /** 가변적 button clear **/
-      $(`${'${targetId}'} > div > div`).empty();
-
-      if(data.resultList.length == 0){
-        /** 규격이 없을떄 **/
-        data.resultList.push({
-          [label] : '없음',
-          [value] : 'empty'
-        });
-      }
-      if(data.resultList.length == 1){
-        /** option이 한개 뿐일떄 **/
-        data.resultList[0].active = 'active';
-      }
-
-      if(data.resultList.length % 10 !== 0 && data.resultList.length > 10 ){
-        let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
-        let originLength = data.resultList.length;
-        data.resultList.length = cnt;
-        data.resultList.fill({cnptNm:'null'},originLength);
-      }
-
-      if(data.resultList.length < 5){
-        let originLength = data.resultList.length;
-        data.resultList.length = 5;
-        data.resultList.fill({cnptNm:'null'},originLength);
-      }
-    }
-
-    for(let i = 0; i < data.resultList.length; i++){
-      if(i != 0 && i % 10 != 0){
-        let flag = data.resultList[i].cnptNm == 'null';
-        let style = flag ? 'visibility:hidden;' : '';
-
-        $(`${'${targetId}'} > .carousel_container > .carousel > :last-child`).append(`
-                <div class="tabBox" style="${'${style}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]}'}">
-                    ${'${data.resultList[i][label]}'}
+    for(let i = 0; i < data.length; i++){
+      let chk = `${'${data[i][value]}'}`;
+        $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
+                <div class="tabBox" onclick="fn_select_button(this)" data-${'${dataName}'}="${'${data[i][value]}'}">
+                    ${'${data[i][label]}'}
                 </div>
                 `);
-      }else{
-        let active = data.resultList[i].active || '';
-        $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
-                    <div class="cell">
-                        <div class="tabBox ${'${active}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]'}}">
-                            ${'${data.resultList[i][label]}'}
-                        </div>
-                    </div>
-                    `)
-      }
     }
   }
-
+  /** btn click **/
   const fn_select_button = async function(_el){
-    if($(_el).hasClass("active"))return;
-
-    $(_el).closest('div.carousel').find("div.active").removeClass("active");
-    $(_el).addClass("active");
     let dataObj = $(_el).data();
     /** 만약 정보 더 필요해서 data 추가되면 돌려서 집어야함 **/
     for(let key in dataObj){
-      if(key == 'itemcd'){
-        await fn_search_spcfct(dataObj[key]);
-        await fn_search_vrty(dataObj[key]);
-        /** 품목별 품종, 규격 셋팅시 active가 없으면 재고탭 refresh **/
-        /** 품종 **/
-        if(!$(`#vrtyInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
-          $("#vrtycd").html('');
-          if(pckgObj.hasOwnProperty("vrtyCd")|| pckgObj.hasOwnProperty("vrtyNm")){
-            delete pckgObj.vrtyCd;
-            delete pckgObj.vrtyNm;
+      if(key == 'jobClsfCd') {
+        if ($(_el).hasClass("active")) {
+          return;
+        } else {
+          $(_el).closest('div.carousel').find("div.active").removeClass("active");
+          $(_el).addClass("active");
+
+          let btns = document.querySelectorAll("#prdcrInfoWrap > .carousel_container > .carousel > div.tabBox");
+          let jobClsfCd = dataObj[key];
+          btns.forEach(function (item) {
+          if ($(item).data('oprtr') !== jobClsfCd) {
+            $(item).hide();
+          } else {
+            $(item).show();
           }
-        }
-        /** 규격 **/
-        if(!$(`#spcfctInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
-          $("#spcfctcd").html('');
-          if(pckgObj.hasOwnProperty("spcfctCd")|| pckgObj.hasOwnProperty("spcfctNm")){
-            delete pckgObj.spcfctCd;
-            delete pckgObj.spcfctNm;
+        });
+      }
+        // $("#prdcrInfoWrap > .carousel_container > .carousel").empty();
+        // await fn_search_prdcr(dataObj[key]);
+      }else if(key == 'oprtr'){
+        let jobClsfCd = $("#cnptInfoWrap > div > div > div.tabBox.active").data("jobClsfCd");
+        let jobClsfNm = $("#cnptInfoWrap > div > div > div.tabBox.active").text().trim();
+        let oprtrNm = $(_el).text().trim();
+        let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
+        let pltno = SBUxMethod.get('dtl-inp-pltno');
+        let jobBgngHr = $("#clock").text();
+        let sortno = SBUxMethod.get('dtl-inp-sortno');
+        jobBgngHr = formatTimeToKorean(jobBgngHr);
+
+        /** 작업 종료처리 **/
+        if($(_el).hasClass("active")){
+          const idx = jsonPckgPrfmnc.findIndex(obj =>
+                  obj.jobClsfCd === jobClsfCd && obj.oprtrNm === oprtrNm
+          );
+          if(idx !== -1){
+            jsonPckgPrfmnc[idx].jobEndHr = jobBgngHr;
+            jsonPckgPrfmnc[idx].jobHr = calculateTimeDifference(jsonPckgPrfmnc[idx].jobBgngHr,jobBgngHr);
+            gridPckgPrfmnc.rebuild();
+            let obj = {...jsonPckgPrfmnc[idx]};
+            obj.jobBgngHr = formatTime(obj.jobBgngHr);
+            obj.jobEndHr = formatTime(obj.jobEndHr);
+            obj.jobHr = parseAndFormatToHHmm(obj.jobHr);
+            obj.sortno = sortno;
+            obj.jobYmd = jobYmd;
+            obj.brdt = jsonOprtr.find(item => item.flnm === obj.flnm && item.jobClsfCd === obj.jobClsfCd)?.brdt;
+            /** 해당 실적 저장 반영 **/
+            let data = await gfn_postJSON("/am/oprtr/insertOprtrSortPrfmnc",obj);
           }
+          $(_el).removeClass("active");
+        }else{
+          $(_el).addClass("active");
+
+          let obj = {
+            apcCd : gv_selectedApcCd,
+            jobClsfCd : jobClsfCd,
+            jobClsfNm : jobClsfNm,
+            oprtrNm : oprtrNm,
+            pltno : pltno,
+            jobBgngHr : jobBgngHr,
+            flnm : oprtrNm
+          }
+          jsonPckgPrfmnc.push(obj);
+          gridPckgPrfmnc.rebuild();
         }
       }
-      let prefix = key.replace('cd','');
-      pckgObj[prefix + 'Cd'] = String(dataObj[key]);
-      pckgObj[prefix + 'Nm'] = String($(_el).text().trim());
+
     }
   }
-  const fn_cntAdd = function(_el){
-    let value = parseInt($(_el).text());
-    let originCnt = parseInt($("#pckgQntt").val()) || 0;
-    $("#pckgQntt").val(originCnt + value);
-  }
-  const fn_RegReset = function(){
-    $("#pckgQntt").val('');
-  }
-
-  const fn_addDragEvn = function(_id) {
-    let id = "#" + _id;
-    const element = $(`${'${id}'} > div.carousel_container > div.carousel`).get(0);
-
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    let threshold = 0;
-
-    // 터치 시작 이벤트
-    element.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].clientX;  // 터치 좌표는 e.touches 배열에서 가져옴
-      startY = e.touches[0].clientY;
-
-      threshold = element.offsetWidth * 0.4;  // 40% 넓이 임계값 설정
-    });
-
-    // 터치 이동 이벤트
-    element.addEventListener('touchmove', (e) => {
-      if (isDragging) {
-        const currentX = e.touches[0].clientX;  // 현재 터치 좌표
-        const deltaX = currentX - startX;       // 드래그 이동 거리
-
-        if (Math.abs(deltaX) > threshold) {     // 임계값 초과 시
-          isDragging = false;
-          if (deltaX > 0) {
-            fn_left(_id);                  // 오른쪽 드래그
-          } else if (deltaX < 0) {
-            fn_right(_id);                 // 왼쪽 드래그
-          }
-        }
-      }
-    });
-
-    // 터치 종료 이벤트
-    element.addEventListener('touchend', () => {
-      isDragging = false;   // 드래그 종료
-    });
-  };
 
   const fn_fullScreen =function(){
 
@@ -573,49 +436,6 @@
         document.msExitFullscreen();
       }
     }
-  }
-  const fn_save = async function(){
-    pckgObj.apcCd = gv_apcCd;
-    pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmdFrom');
-    pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
-    pckgObj.bxGdsQntt = parseInt($("div.tabBox_sm.active").text());
-
-    pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
-    delete pckgObj.prdcrCd;
-
-    let invntrObj = {...pckgObj};
-    let pckgPrfmncObj = {
-      apcCd : gv_apcCd,
-      pckgSn : 0,
-      pckgQntt : pckgObj.invntrQntt,
-      pckgYmd : pckgObj.pckgYmd
-    }
-    let param = {
-      pckgPrfmncVO : pckgPrfmncObj,
-      gdsInvntrVO : invntrObj,
-    }
-
-    if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-      if(!gfn_comConfirm("Q0001","저장")){
-        return;
-      }
-    }
-    const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncSc.do", param);
-    const data = await postJsonPromise;
-
-    try{
-      if(data.resultStatus === 'S'){
-        if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-          gfn_comAlert("I0001");
-        }
-      }
-    }catch (e) {
-      console.error(e);
-    }
-
-    await fn_search();
-    await fn_reset();
-    pckgObj = {};
   }
 
   const fn_search = async function(){
@@ -668,36 +488,6 @@
     fn_RegReset();
   }
 
-  const fn_exportExcel = function(){
-    if(jsonPckgPrfmnc.length == 0){
-      gfn_comAlert("W0005","다운로드 목록");
-      return;
-    }else{
-      gridPckgPrfmnc.deleteColumn(0);
-      gridPckgPrfmnc.insertColumn(0, {type:'output', caption:['포장일자'] ,ref:'pckgYmd', width:'150px', style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold'});
-      let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
-      const isEmpty = (obj) => Object.keys(obj).length === 0;
-
-      let title ="";
-      if(isEmpty(checked)){
-        let to = SBUxMethod.get("srch-dtp-pckgYmdTo");
-        let from = SBUxMethod.get("srch-dtp-pckgYmdFrom");
-        title = from + " ~ " + to + "_포장실적";
-      }else{
-        let from = SBUxMethod.get("srch-dtp-pckgYmdFrom");
-        title = from + "_포장실적";
-      }
-      gridPckgPrfmnc.exportLocalExcel(title);
-
-      if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-        gfn_comAlert("I0001");
-        jsonPckgPrfmnc.length = 0;
-        gridPckgPrfmnc.rebuild();
-        fn_search();
-      }
-    }
-  }
-
   const fn_oneDay = function(){
     let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
     const isEmpty = (obj) => Object.keys(obj).length === 0;
@@ -708,6 +498,7 @@
       SBUxMethod.hide('srch-dtp-pckgYmdTo');
     }
   }
+
   const fn_changeTab = function(){
     let searchTab = SBUxMethod.get('tab_norm');
     if(searchTab === 'tab_pckgPrfmncReg'){
@@ -718,6 +509,113 @@
       SBUxMethod.attr('chkbox_norm','readonly',false);
     }
   }
+
+  /** 시간관련 함수**/
+  function formatTime(time) {
+    const [period, timeStr] = time.split(' ');
+    let [hour, minute] = timeStr.split(':').map(Number);
+
+    // 오전/오후에 따른 시간 변환
+    if (period === '오후' && hour !== 12) {
+      hour += 12; // 오후는 12시가 아니면 12시간을 더해줌
+    }
+    if (period === '오전' && hour === 12) {
+      hour = 0; // 오전 12시는 00시로 변환
+    }
+
+    // HH:mm 포맷으로 반환
+    return `${'${String(hour).padStart(2, "0")}'}:${'${String(minute).padStart(2, "0")}'}`;
+  }
+
+  function parseAndFormatToHHmm(timeString) {
+    let hours = 0;
+    let minutes = 0;
+
+    // 시간과 분이 포함된 경우, 시간과 분을 추출
+    if (timeString.includes("시간") && timeString.includes("분")) {
+      const [hourPart, minutePart] = timeString.split("시간");
+      hours = parseInt(hourPart.trim(), 10);
+      minutes = parseInt(minutePart.replace("분", "").trim(), 10);
+    }
+    // 시간만 포함된 경우
+    else if (timeString.includes("시간")) {
+      hours = parseInt(timeString.replace("시간", "").trim(), 10);
+    }
+    // 분만 포함된 경우
+    else if (timeString.includes("분")) {
+      minutes = parseInt(timeString.replace("분", "").trim(), 10);
+    }
+
+    // 두 자리로 포맷
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+
+    // HHmm 형식으로 반환
+    return `${'${formattedHours}'}${'${formattedMinutes}'}`;
+  }
+
+  function calculateTimeDifference(time1, time2) {
+    // 시간을 Date 객체로 변환하기
+    const parseTime = (time) => {
+      const [period, hourMinute] = time.split(' ');
+      let [hour, minute] = hourMinute.split(':').map(Number);
+
+      // 오전/오후에 따라 시간 조정
+      if (period === '오후' && hour !== 12) hour += 12;
+      if (period === '오전' && hour === 12) hour = 0;
+
+      return new Date(0, 0, 0, hour, minute);
+    };
+
+    // Date 객체로 변환 후 시간 차이 계산 (밀리초 단위)
+    const date1 = parseTime(time1);
+    const date2 = parseTime(time2);
+    const diffMs = Math.abs(date2 - date1);
+
+    // 시간과 분으로 변환
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    // 조건에 따라 시간과 분 조합하여 반환
+    let result = "";
+    if (diffHours > 0) result += `${'${diffHours}'}시간`;
+    if (diffMinutes >= 0) result += (result ? " " : "") + `${'${diffMinutes}'}분`;
+
+    return result;
+  }
+
+  function formatTimeToKorean(time) {
+    const [hourStr, minuteStr] = time.split(":").map(part => part.trim());
+    let hour = parseInt(hourStr, 10);
+    const minute = parseInt(minuteStr, 10);
+    const period = hour < 12 ? "오전" : "오후";
+
+    // 12시간제로 변경
+    if (hour === 0) hour = 12;        // 자정
+    else if (hour > 12) hour -= 12;    // 오후 시간
+
+    // 두 자리 숫자로 포맷팅
+    const formattedHour = String(hour).padStart(2, "0");
+    const formattedMinute = String(minute).padStart(2, "0");
+
+    return `${'${period}'} ${'${formattedHour}'}:${'${formattedMinute}'}`;
+  }
+
+  function updateClock() {
+    var now = new Date();
+    var hours = now.getHours().toString().padStart(2, '0');
+    var minutes = now.getMinutes().toString().padStart(2, '0');
+    var seconds = now.getSeconds().toString().padStart(2, '0');
+
+    var timeString = `${'${hours}'} : ${'${minutes}'} : ${'${seconds}'}`;
+    document.getElementById('clock').textContent = timeString;
+  }
+
+  // 매 초마다 시계 업데이트
+  setInterval(updateClock, 1000);
+
+  // 페이지 로드 시에도 시계 업데이트
+  updateClock();
 
 
 

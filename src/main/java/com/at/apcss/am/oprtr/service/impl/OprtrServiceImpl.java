@@ -3,6 +3,7 @@ package com.at.apcss.am.oprtr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,6 +115,17 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 			return delible;
 		}
 
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
+		int prfmncSn = oprtrMapper.seletePrfmncSn(oprtrprfmncvo);
+		oprtrprfmncvo.setPrfmncSn(prfmncSn);
+		int insertCnt = oprtrMapper.insertOprtrSortPrfmnc(oprtrprfmncvo);
+		if(insertCnt < 1){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "실적 생성중 오류가 발생했습니다.")));
+		}
 		return null;
 	}
 }
