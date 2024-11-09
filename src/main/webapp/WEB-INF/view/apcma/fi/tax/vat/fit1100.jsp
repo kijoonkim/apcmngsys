@@ -51,6 +51,9 @@
         #panRightMiddle tbody td{
             border: 0 !important;
         }
+        .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd .sbux-tabs-content{
+            padding: 0!important;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -142,22 +145,54 @@
                                callback-after-select="fn_switchTab">
                     </sbux-tabs>
                     <div class="tab-content">
-                        <div id="grdAR_AP"></div>
-                        <div id="grdAR"></div>
-                        <div id="grdAP"></div>
-                        <div id="grdAR_TAX_BILL"></div>
-                        <div id="grdAR_BILL"></div>
-                        <div id="grdAR_ZERO_TAX"></div>
-                        <div id="grdAR_CARD"></div>
-                        <div id="grdAR_EXPORT"></div>
-                        <div id="grdAR_CREDIT"></div>
-                        <div id="grdAP_TAX_BILL"></div>
-                        <div id="grdAP_BILL"></div>
-                        <div id="grdAP_DEEMED"></div>
-                        <div id="grdAP_ASSET"></div>
-                        <div id="grdAP_NONDED"></div>
-                        <div id="grdAP_CARD"></div>
-                        <div id="tpgAR_ZERO_REPORT"></div>
+                        <div id="grdAR_AP">
+                            <div id="sb-area-grdArAp" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR">
+                            <div id="sb-area-grdAr" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP">
+                            <div id="sb-area-grdAp" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_TAX_BILL">
+                            <div id="sb-area-grdArTaxBill" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_BILL">
+                            <div id="sb-area-grdArBill" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_ZERO_TAX">
+                            <div id="sb-area-grdArZeroTax" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_CARD">
+                            <div id="sb-area-grdArCard" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_EXPORT">
+                            <div id="sb-area-grdArExport" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAR_CREDIT">
+                            <div id="sb-area-grdArCredit" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_TAX_BILL">
+                            <div id="sb-area-grdApTaxBill" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_BILL">
+                            <div id="sb-area-grdApBill" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_DEEMED">
+                            <div id="sb-area-grdApDeemed" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_ASSET">
+                            <div id="sb-area-grdApAsset" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_NONDED">
+                            <div id="sb-area-grdApNonded" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="grdAP_CARD">
+                            <div id="sb-area-grdApCard" style="width: 100%; height: 500px"></div>
+                        </div>
+                        <div id="tpgAR_ZERO_REPORT">
+                            <div id="sb-area-grdArZeroReport" style="width: 100%; height: 500px"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,22 +224,93 @@
         { "id" : "15", "pid" : "-1", "order" : "16", "text" : "신용카드수령금액명세","targetid" : "grdAP_CARD" , "targetvalue" : "grdAP_CARD" }
     ];
 
+    /** 신고 구분명 **/
     var jsonCorpNm = [];
-    var jsonGrdList = [];
-    var jsonGrdDivision = [];
-    var jsonGrdCalc = [];
-    var jsonGrdReCalc = [];
 
+    /** 신고 사업장 그리드 **/
+    var jsonGrdList = [];
     var grdListGrid;
-    var grdDivision;
-    var grdCalc;
-    var grdReCalc;
+
+    /** 전체 그리드 **/
+    var jsonGrdArAp = [];
+    var grdArAp;
+
+    /** 매출전체 **/
+    var jsonGrdAr = [];
+    var grdAr;
+
+    /** 매입전체 **/
+    var jsonGrdAp = [];
+    var grdAp;
+
+    /** 매출세금계산서 **/
+    var jsonGrdArTaxBill = [];
+    var grdArTaxBill;
+
+    /** 매출계산서 **/
+    var jsonGrdArBill = [];
+    var grdArBill;
+
+    /** 영세율 첨부서류제출명세 **/
+    var jsonGrdArZeroTax = [];
+    var grdArZeroTax;
+
+    /** 신용카드매출전표발행집계표 **/
+    var jsonGrdArCard = [];
+    var grdArCard;
+
+    /** 수출실적명세서 **/
+    var jsonGrdArExport = [];
+    var grdArExport;
+
+    /** 내국신용장 **/
+    var jsonGrdArCredit = [];
+    var grdArCredit;
+
+    /** 매입세금계산서 **/
+    var jsonGrdApTaxBill = [];
+    var grdApTaxBill;
+
+    /** 매입계산서 **/
+    var jsonGrdApBill = [];
+    var grdApBill;
+
+    /** 의제매입세액 **/
+    var jsonGrdApDeemed = [];
+    var grdApDeemed;
+
+    /** 건물등감가상각자산취득명세 **/
+    var jsonGrdApAsset = [];
+    var grdApAsset;
+
+    /** 공제받지못할매입세액명세 **/
+    var jsonGrdApNonded = [];
+    var grdApNonded;
+
+    /** 신용카드수령금액명세서 **/
+    var jsonGrdApCard = [];
+    var grdApCard;
+
 
     window.addEventListener("DOMContentLoaded",function(){
         fn_createGrid();
-        fn_createGridDivision();
-        fn_createGridCalc();
-        fn_createGridReCalc();
+        fn_createGridArAp();
+        fn_createGridAr();
+        fn_createGridAp();
+        fn_createGridArTaxBill();
+        fn_createGridArBill();
+        fn_createGridArZeroTax();
+        fn_createGridArCard();
+        fn_createGridArExport();
+        fn_createGridArExport();
+        fn_createGridArCredit();
+        fn_createGridApTaxBill();
+        fn_createGridApBill();
+        fn_createGridApDeemed();
+        fn_createGridApAsset();
+        fn_createGridApNonded();
+        fn_createGridApCard();
+
         fn_init();
 
         window.parent.document.getElementById("main-btn-save").style.display = "none";
@@ -221,6 +327,8 @@
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        /** tab 정렬 **/
+        SBUxMethod.selectTab('tabTopJson', 'grdAR_AP');
 
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
@@ -310,33 +418,62 @@
 
         const data = await postJsonPromise;
         console.log(data);
-        return;
         if(data.resultStatus === 'S'){
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
             if(grdListGrid.getRows() === 2){
                 grdListGrid.setRow(1);
-                let workType = 'Q';
+                let workType = 'DETAIL';
                 paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
-                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
+                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit1100.do", {
                     getType				: 'json',
-                    cv_count			: '13',
+                    cv_count			: '17',
                     workType            : workType,
                     params				: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
+                console.log(data,"두번쨰");
+
+
+
 
                 if(data.resultStatus === 'S'){
-                    let resultObj = data.cv_1[0];
-                    for(let key in resultObj){
-                        let elId = "#" + gfnma_snakeToCamel(key);
-                        $(elId).val(parseInt(resultObj[key]));
-                    }
+                  jsonGrdArAp = data.cv_2;
+                  grdArAp.rebuild();
+                  jsonGrdAr = data.cv_3;
+                  grdAr.rebuild();
+                  jsonGrdAp = data.cv_4;
+                  grdAp.rebuild();
+                  jsonGrdArTaxBill = data.cv_5;
+                  grdArTaxBill.rebuild();
+                  jsonGrdArBill = data.cv_6;
+                  grdArBill.rebuild();
+                  jsonGrdArZeroTax = data.cv_7;
+                  grdArZeroTax.rebuild();
+                  jsonGrdArCard = data.cv_8;
+                  grdArCard.rebuild();
+                  jsonGrdArExport = data.cv_9;
+                  grdArExport.rebuild();
+                  jsonGrdArCredit = data.cv_10;
+                  grdArCredit.rebuild();
+                  jsonGrdApTaxBill = data.cv_11;
+                  grdApTaxBill.rebuild();
+                  jsonGrdApBill = data.cv_12;
+                  grdApBill.rebuild();
+                  jsonGrdApDeemed = data.cv_13;
+                  grdApDeemed.rebuild();
+                  jsonGrdApAsset = data.cv_14;
+                  grdApAsset.rebuild();
+                  jsonGrdApNonded = data.cv_15;
+                  grdApNonded.rebuild();
+                  jsonGrdApCard = data.cv_16;
+                  grdApCard.rebuild();
                 }
             }
         }
     }
-
+    /** grid create  --S **/
+    /** 신고 사업장 **/
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -348,117 +485,564 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
-        grdListGrid.bind("click","fn_setSiteCode");
+        // grdListGrid.bind("click","fn_setSiteCode");
     }
-    const fn_createGridDivision = function(){
+    /** AR_AP 전체 **/
+    const fn_createGridArAp = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdDivision';
-        SBGridProperties.id = 'grdDivision';
-        SBGridProperties.jsonref = 'jsonGrdDivision';
+        SBGridProperties.parentid = 'sb-area-grdArAp';
+        SBGridProperties.id = 'grdArAp';
+        SBGridProperties.jsonref = 'jsonGrdArAp';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['부동산 소재지'],ref : 'REAL_ESTATE_ADDR',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['임대인사업자등록번호'],ref : 'LESSOR_BIZ_REGNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['종사업자일련번호'],ref : 'BIZ_SUBNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['이자율'],ref : 'INTEREST_RATE', width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['총일수'],ref : 'LEAP_YEAR_TYPE', width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['봉사료'],ref : 'SERV_CHARGE_CARD_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율첨부서류'],ref : 'ZERO_REPORT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['내국신용장구분'],ref : 'LOCAL_CREDIT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류명'],ref : 'DOCUMENT_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급자'],ref : 'ISSUE_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급일자'],ref : 'DOCUMENT_ISSUE_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출신고번호'],ref : 'EXPORT_LICENSE_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['선적일자'],ref : 'SHIPPING_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['통화코드'],ref : 'CURRENCY_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 외화'],ref : 'EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 원화'],ref : 'EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 외화'],ref : 'VAT_EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 원화'],ref : 'VAT_EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출외화 금액'],ref : 'FOREIGN_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출원화 금액'],ref : 'WON_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류번호'],ref : 'DOCUMENT_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율적용구분'],ref : 'ZERO_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['카드용도구분'],ref : 'CARD_USE_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['카드번호'],ref : 'CARD_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['불공제사유 유형'],ref : 'VAT_NOT_DED_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['감가상각자산유형'],ref : 'VAT_ASSET_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제매입구분'],ref : 'DEEMED_INPUT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제품명'],ref : 'GOODS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제수량'],ref : 'PURCHASE_QUANTITY', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입자납부'],ref : 'CS_PAY_VAT_FLAG', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['감가상각자산건수'],ref : 'ASSET_VAT_COUNT', width : '80px',style : 'text-align:center',type : 'output'},
         ];
-        grdDivision = _SBGrid.create(SBGridProperties);
+        grdArAp = _SBGrid.create(SBGridProperties);
     }
-    const fn_createGridCalc = function(){
+    /** AR **/
+    const fn_createGridAr = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdCalc';
-        SBGridProperties.id = 'grdCalc';
-        SBGridProperties.jsonref = 'jsonGrdCalc';
+        SBGridProperties.parentid = 'sb-area-grdAr';
+        SBGridProperties.id = 'grdAr';
+        SBGridProperties.jsonref = 'jsonGrdAr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['총공통매입세액','총공통매입세액'], ref : 'CALC_TOTAL_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXEMPTION_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOTAL_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXEMPTION_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'CALC_TOTAL_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPUT_TAX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['봉사료'],ref : 'SERV_CHARGE_CARD_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['내국신용장구분'],ref : 'LOCAL_CREDIT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율첨부서류'],ref : 'ZERO_REPORT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류명'],ref : 'DOCUMENT_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급자'],ref : 'ISSUE_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급일자'],ref : 'DOCUMENT_ISSUE_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출신고번호'],ref : 'EXPORT_LICENSE_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['선적일자'],ref : 'SHIPPING_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['통화코드'],ref : 'CURRENCY_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 외화'],ref : 'EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 원화'],ref : 'EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 외화'],ref : 'VAT_EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 원화'],ref : 'VAT_EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출외화 금액'],ref : 'FOREIGN_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출원화 금액'],ref : 'WON_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류번호'],ref : 'DOCUMENT_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율적용구분'],ref : 'ZERO_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입자납부'],ref : 'CS_PAY_VAT_FLAG', width : '80px',style : 'text-align:center',type : 'output'},
         ];
-        grdCalc = _SBGrid.create(SBGridProperties);
+        grdAr = _SBGrid.create(SBGridProperties);
     }
-    const fn_createGridReCalc = function(){
+    /** AP **/
+    const fn_createGridAp = function() {
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdReCalc';
-        SBGridProperties.id = 'grdReCalc';
-        SBGridProperties.jsonref = 'jsonGrdReCalc';
+        SBGridProperties.parentid = 'sb-area-grdAp';
+        SBGridProperties.id = 'grdAp';
+        SBGridProperties.jsonref = 'jsonGrdAp';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['동'], ref : 'BUILDING_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['지상여부'], ref : 'GROUND_TYPE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['층'], ref : 'FLOOR_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['호'], ref : 'NUMBER_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대면적(㎡)'], ref : 'BUILDING_AREA', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['거래처코드'], ref : 'CS_CODE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['상호(성명)'], ref : 'TENANT_NAME', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['사업자(주민)등록번호'], ref : 'TENANT_BIZ_REGNO', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['갱신일'], ref : 'CHANGE_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['입주일'], ref : 'MOVE_IN_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['퇴거일'], ref : 'MOVE_OUT_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['경과일자'], ref : 'DAYS', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금'], ref : 'DEPOSIT_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료'], ref : 'CONTRACT_MONTH_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대수입합계(과세표준)'], ref : 'INCOME_SUM', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금이자(계)'], ref : 'INTEREST_AMT', width : '100px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료(계)'], ref : 'MONTH_AMT', width : '100px', style : 'text-align:center', type : 'input'}
+            {caption: ['연번'], ref: 'BILL_SEQ', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['부가세유형'], ref: 'VAT_TYPE', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['회계전표번호'], ref: 'DOC_NUM', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['전표명'], ref: 'DOC_NAME', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['거래일자'], ref: 'BILL_DATE', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['신고기준일자'], ref: 'STANDARD_DATE', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['거래처명'], ref: 'CS_NAME', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['사업자(주민)번호'], ref: 'BIZ_REGNO', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['종사업장번호'], ref: 'SUB_REG_NO', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['공급가액'], ref: 'SUPPLY_AMT', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['세액'], ref: 'VAT_AMT', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption: ['전자발행구분'], ref: 'ETAX_TYPE', width: '80px', style: 'text-align:center', type: 'output'},
+            {
+                caption: ['11일외전송구분'],
+                ref: 'AFTER_DUE_DATE_YN',
+                width: '80px',
+                style: 'text-align:center',
+                type: 'output'
+            },
+            {caption: ['예정신고누락구분'], ref: 'REPORT_OMIT_YN', width: '80px', style: 'text-align:center', type: 'output'},
+            {caption : ['카드용도구분'],ref : 'CARD_USE_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['카드번호'],ref : 'CARD_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['불공제사유 유형'],ref : 'VAT_NOT_DED_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['감가상각자산유형'],ref : 'VAT_ASSET_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제매입구분'],ref : 'DEEMED_INPUT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제품명'],ref : 'GOODS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제수량'],ref : 'PURCHASE_QUANTITY', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입자납부'],ref : 'CS_PAY_VAT_FLAG', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['감가상각자산건수'],ref : 'ASSET_VAT_COUNT', width : '80px',style : 'text-align:center',type : 'output'},
         ];
-        grdReCalc = _SBGrid.create(SBGridProperties);
+        grdAp = _SBGrid.create(SBGridProperties);
     }
-    const fn_addRow = async function(_id){
-        window[_id].addRow(true,[0,0,0,0,0,0,0]);
+    /** AR_TAX_BILL **/
+    const fn_createGridArTaxBill = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArTaxBill';
+        SBGridProperties.id = 'grdArTaxBill';
+        SBGridProperties.jsonref = 'jsonGrdArTaxBill';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입자납부'],ref : 'CS_PAY_VAT_FLAG', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArTaxBill = _SBGrid.create(SBGridProperties);
     }
-    const fn_removeRow = async function(_id){
-        let idx = window[_id].getRow(true);
-        if(idx === -1){
-            return;
-        }
-        window[_id].deleteRow(idx);
+    /** AR_BILL **/
+    const fn_createGridArBill = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArBill';
+        SBGridProperties.id = 'grdArBill';
+        SBGridProperties.jsonref = 'jsonGrdArBill';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArBill = _SBGrid.create(SBGridProperties);
     }
-    async function fn_setSiteCode(){
-        var paramObj = {
-            V_P_DEBUG_MODE_YN      : ''
-            ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
-            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-        }
+    /** AR_ZERO_TAX **/
+    const fn_createGridArZeroTax = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArZeroTax';
+        SBGridProperties.id = 'grdArZeroTax';
+        SBGridProperties.jsonref = 'jsonGrdArZeroTax';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류명'],ref : 'DOCUMENT_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급자'],ref : 'ISSUE_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급일자'],ref : 'DOCUMENT_ISSUE_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['선적일자'],ref : 'SHIPPING_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['통화코드'],ref : 'CURRENCY_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 외화'],ref : 'EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출 원화'],ref : 'EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 외화'],ref : 'VAT_EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고 원화'],ref : 'VAT_EXPORT_AMT_KRW', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['내국신용장_서류번호'],ref : 'DOCUMENT_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출신고번호'],ref : 'EXPORT_LICENSE_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArZeroTax = _SBGrid.create(SBGridProperties);
+    }
+    /** AR_CARD **/
+    const fn_createGridArCard = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArCard';
+        SBGridProperties.id = 'grdArCard';
+        SBGridProperties.jsonref = 'jsonGrdArCard';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['중복발행구분'],ref : 'DUP_ISSUE_BILL_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['봉사료'],ref : 'SERV_CHARGE_CARD_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArCard = _SBGrid.create(SBGridProperties);
+    }
+    /** AR_EXPORT **/
+    const fn_createGridArExport = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArExport';
+        SBGridProperties.id = 'grdArExport';
+        SBGridProperties.jsonref = 'jsonGrdArExport';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출신고번호'],ref : 'EXPORT_LICENSE_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['선적일자'],ref : 'SHIPPING_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['통화코드'],ref : 'CURRENCY_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출외화 금액'],ref : 'FOREIGN_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출원화 금액'],ref : 'WON_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율적용구분'],ref : 'ZERO_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArExport = _SBGrid.create(SBGridProperties);
+    }
+    /** AR_CREDIT **/
+    const fn_createGridArCredit = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdArCredit';
+        SBGridProperties.id = 'grdArCredit';
+        SBGridProperties.jsonref = 'jsonGrdArCredit';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수입금액제외구분'],ref : 'EXCLUDE_REV_AMT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['내국신용장구분'],ref : 'LOCAL_CREDIT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류명'],ref : 'DOCUMENT_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['발급일자'],ref : 'DOCUMENT_ISSUE_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['서류번호'],ref : 'DOCUMENT_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['영세율적용구분'],ref : 'ZERO_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['선적일자'],ref : 'SHIPPING_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['통화코드'],ref : 'CURRENCY_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기제출금 외화'],ref : 'EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['당기신고해당분 외화'],ref : 'VAT_EXPORT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출 외화금액'],ref : 'FOREIGN_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출 원화금액'],ref : 'WON_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdArCredit = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_TAX_BILL **/
+    const fn_createGridApTaxBill = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApTaxBill';
+        SBGridProperties.id = 'grdApTaxBill';
+        SBGridProperties.jsonref = 'jsonGrdApTaxBill';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['내국신용장 서류번호'],ref : 'CS_PAY_VAT_FLAG', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수출신고번호'],ref : 'EXPORT_LICENSE_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['환율'],ref : 'EXCHANGE_RATE', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApTaxBill = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_BILL **/
+    const fn_createGridApBill = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApBill';
+        SBGridProperties.id = 'grdApBill';
+        SBGridProperties.jsonref = 'jsonGrdApBill';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전자발행구분'],ref : 'ETAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['11일외전송구분'],ref : 'AFTER_DUE_DATE_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApBill = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_DEEMED **/
+    const fn_createGridApDeemed = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApDeemed';
+        SBGridProperties.id = 'grdApDeemed';
+        SBGridProperties.jsonref = 'jsonGrdApDeemed';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제매입구분'],ref : 'DEEMED_INPUT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제품명'],ref : 'GOODS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['의제수량'],ref : 'PURCHASE_QUANTITY', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApDeemed = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_ASSET **/
+    const fn_createGridApAsset = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApAsset';
+        SBGridProperties.id = 'grdApAsset';
+        SBGridProperties.jsonref = 'jsonGrdApAsset';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['감가상각자산유형'],ref : 'VAT_ASSET_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApAsset = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_NONDED **/
+    const fn_createGridApNonded = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApNonded';
+        SBGridProperties.id = 'grdApNonded';
+        SBGridProperties.jsonref = 'jsonGrdApNonded';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['불공제사유 유형'],ref : 'VAT_NOT_DED_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApNonded = _SBGrid.create(SBGridProperties);
+    }
+    /** AP_CARD **/
+    const fn_createGridApCard = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdApCard';
+        SBGridProperties.id = 'grdApCard';
+        SBGridProperties.jsonref = 'jsonGrdApCard';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption : ['연번'],ref : 'BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['부가세유형'],ref : 'VAT_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['회계전표번호'],ref : 'DOC_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['전표명'],ref : 'DOC_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래일자'],ref : 'BILL_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['신고기준일자'],ref : 'STANDARD_DATE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처명'],ref : 'CS_NAME', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['사업자(주민)번호'],ref : 'BIZ_REGNO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['종사업장번호'],ref : 'SUB_REG_NO', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['공급가액'],ref : 'SUPPLY_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['세액'],ref : 'VAT_AMT', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['예정신고누락구분'],ref : 'REPORT_OMIT_YN', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['카드용도구분'],ref : 'CARD_USE_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['카드번호'],ref : 'CARD_NUM', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['거래처코드'],ref : 'CS_CODE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['매입매출구분'],ref : 'AR_AP_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정신고구분'],ref : 'AMENDED_TAX_TYPE', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['정기신고분연번'],ref : 'REGULAR_BILL_SEQ', width : '80px',style : 'text-align:center',type : 'output'},
+            {caption : ['수정여부'],ref : 'MODIFIED_YN', width : '80px',style : 'text-align:center',type : 'output'},
+        ];
+        grdApCard = _SBGrid.create(SBGridProperties);
+    }
 
-        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
-        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
+    /** grid create  --E **/
 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
-            getType				: 'json',
-            cv_count			: '13',
-            workType            : 'Q',
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
 
-        if(data.resultStatus === 'S'){
-            let resultObj = data.cv_1[0];
-            for(let key in resultObj){
-                let elId = "#" + gfnma_snakeToCamel(key);
-                $(elId).val(parseInt(resultObj[key]));
-            }
-        }
-    }
+
+
+
+
     /** tab Switch **/
     function fn_switchTab(selectId, selectJson){
         const li = document.querySelectorAll(".sbux-tabs-item");
