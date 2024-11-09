@@ -298,6 +298,7 @@
         fn_createGridAr();
         fn_createGridAp();
         fn_createGridArTaxBill();
+        fn_createGridArBill();
         fn_createGridArZeroTax();
         fn_createGridArCard();
         fn_createGridArExport();
