@@ -124,6 +124,7 @@ public class OprtrController extends BaseController{
 			oprtrprfmncvo.setSysFrstInptUserId(getUserId());
 			oprtrprfmncvo.setSysLastChgPrgrmId(getPrgrmId());
 			oprtrprfmncvo.setSysLastChgUserId(getUserId());
+			oprtrprfmncvo.setDelYn("N");
 			HashMap<String, Object> rtnObj = oprtrService.insertOprtrSortPrfmnc(oprtrprfmncvo);
 
 			if(rtnObj != null) {
@@ -138,7 +139,6 @@ public class OprtrController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
 		return getSuccessResponseEntity(resultMap);
 	}
 }

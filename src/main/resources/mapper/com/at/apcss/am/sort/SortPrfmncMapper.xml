@@ -3815,4 +3815,53 @@
 							)
 		]]>
 	</insert>
+	<select id="selectSortPrfmncToPltno" parameterType="HashMap" resultType="HashMap">
+		<![CDATA[
+		SELECT pt0.*
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+			 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+			 , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+		FROM (
+			  SELECT
+				  RMI.APC_CD
+				, RMI.PLTNO
+				, RMI.SPCFCT_CD
+				, RMI.PRDCR_CD
+				, SIP.WRHSNO
+				, SIP.SORTNO
+				, RMI.ITEM_CD
+				, RMI.VRTY_CD
+				, SP.INPT_YMD
+				, SP.SORT_QNTT
+				, SP.GRD_CD
+				, SP.SORT_SN
+			  	, SGD.GRD_NM
+			  FROM
+				  TB_RAW_MTR_INVNTR AS RMI
+				  JOIN TB_SORT_INPT_PRFMNC AS SIP
+					ON RMI.APC_CD = SIP.APC_CD
+					AND RMI.WRHSNO = SIP.WRHSNO
+				    AND RMI.APC_CD = #{apcCd}
+				    AND RMI.PLTNO = #{pltno}
+				  JOIN TB_SORT_PRFMNC AS SP
+					ON SIP.APC_CD = SP.APC_CD
+					AND SIP.SORTNO = SP.SORTNO
+			  		AND SIP.INPT_SN = SP.SORT_SN
+			  	  JOIN TB_APC_STD_GRD AS SG
+					ON RMI.APC_CD = SG.APC_CD
+			  		AND RMI.ITEM_CD = SG.ITEM_CD
+					AND SG.GRD_SE_CD = '03'
+				  JOIN TB_APC_STD_GRD_DTL AS SGD
+					ON SGD.APC_CD = SG.APC_CD
+					AND SGD.ITEM_CD = SG.ITEM_CD
+					AND SGD.GRD_SE_CD = SG.GRD_SE_CD
+					AND SGD.GRD_KND = SG.GRD_KND
+					AND SGD.GRD_CD = sp.GRD_CD
+					AND SGD.DEL_YN = 'N'
+			 ) AS pt0
+		ORDER BY pt0.SORT_SN
+		]]>
+	</select>
 </mapper>

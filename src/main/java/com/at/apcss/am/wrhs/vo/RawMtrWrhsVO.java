@@ -304,6 +304,14 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 생산자그룹여부
 	 * */
 	private String prdcrGroupYn;
+	/*
+	 * 원물규격코드
+	 * */
+	private String spcfctCd;
+	/*
+	 * 원물규격명
+	 * */
+	private String spcfctNm;
 
 	/**
 	 * 표준등급 목록

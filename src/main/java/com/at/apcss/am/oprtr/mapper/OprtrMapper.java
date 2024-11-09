@@ -1,6 +1,5 @@
 package com.at.apcss.am.oprtr.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
@@ -71,9 +70,18 @@ public interface OprtrMapper {
 	public List<OprtrVO> oprtrDelible(OprtrVO oprtrVO) throws Exception;
 	/**
 	 * 작업생산자 작업내역 생성
+	 *
 	 * @param oprtrprfmncvo
 	 * @return String
 	 * @throws Exception
 	 */
-    HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception;
+    int insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception;
+	/**
+	 * 작업내역 순번 조회
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+    int seletePrfmncSn(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
 }

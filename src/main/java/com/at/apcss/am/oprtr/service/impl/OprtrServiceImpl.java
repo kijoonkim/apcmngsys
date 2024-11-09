@@ -120,6 +120,12 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 
 	@Override
 	public HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
-		return oprtrMapper.insertOprtrSortPrfmnc(oprtrprfmncvo);
+		int prfmncSn = oprtrMapper.seletePrfmncSn(oprtrprfmncvo);
+		oprtrprfmncvo.setPrfmncSn(prfmncSn);
+		int insertCnt = oprtrMapper.insertOprtrSortPrfmnc(oprtrprfmncvo);
+		if(insertCnt < 1){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "실적 생성중 오류가 발생했습니다.")));
+		}
+		return null;
 	}
 }

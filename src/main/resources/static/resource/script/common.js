@@ -1691,6 +1691,14 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 	}
 	return param;
 }
+const gfn_camelToSnakeUpper = function(str) {
+	return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase().toUpperCase();
+};
+const gfn_snakeToCamel = function(str){
+	return str.toLowerCase().replace(/(_\w)/g,function(match){
+		return match[1].toUpperCase();
+	});
+};
 
 /**
  * @name gfn_cloneJson

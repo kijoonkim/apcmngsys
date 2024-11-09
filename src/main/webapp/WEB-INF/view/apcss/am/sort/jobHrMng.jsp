@@ -19,8 +19,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-
   <title>title : 작업시간 관리</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -155,23 +153,13 @@
           <td class="td_input">
             <div style="display: flex; gap: 15px; align-items: center">
               <sbux-datepicker
-                      id="srch-dtp-pckgYmdFrom"
-                      name="srch-dtp-pckgYmdFrom"
+                      id="srch-dtp-jobYmd"
+                      name="srch-dtp-jobYmd"
                       uitype="popup"
                       date-format="yyyy-mm-dd"
                       class="form-control input-sm input-sm-ast inpt_data_reqed"
                       style="height: 28px"
               ></sbux-datepicker>
-              <sbux-datepicker
-                      id="srch-dtp-pckgYmdTo"
-                      name="srch-dtp-pckgYmdTo"
-                      uitype="popup"
-                      date-format="yyyy-mm-dd"
-                      class="form-control input-sm input-sm-ast inpt_data_reqed"
-                      style="height: 28px"
-              ></sbux-datepicker>
-              <sbux-checkbox id="chkbox_norm" name="chkbox_norm" uitype="normal" text="일일기준" onclick="fn_oneDay()">
-              </sbux-checkbox>
             </div>
           </td>
         </tr>
@@ -228,6 +216,12 @@
                         onblur="fn_ipt_pltno"
                         onclick="fn_ipt_init"
                 ></sbux-input>
+                <sbux-input
+                        id="dtl-inp-sortno"
+                        name="dtl-inp-sortno"
+                        uitype="text"
+                        wrap-style="display:none"
+                ></sbux-input>
               </td>
             </tr>
             <tr>
@@ -246,7 +240,6 @@
     </div>
   </div>
 </section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </body>
 <script type="text/javascript">
 
@@ -260,11 +253,16 @@
   /** 포장 실적 Obj **/
   let pckgObj = {};
 
+  /** 작업자 원본 **/
+  let jsonOprtr = [];
+
   window.addEventListener('message', async function(e) {
     let obj = e.data;
     if(obj){
       let pltno = obj.pltno;
+      let sortno = obj.sortno;
       SBUxMethod.set("dtl-inp-pltno",pltno);
+      SBUxMethod.set("dtl-inp-sortno",sortno);
       }
   });
 
@@ -273,7 +271,9 @@
     if(mainParam){
       mainParam = JSON.parse(mainParam);
       let pltno = mainParam.pltno;
+      let sortno = mainParam.sortno;
       SBUxMethod.set("dtl-inp-pltno",pltno);
+      SBUxMethod.set("dtl-inp-sortno",sortno);
     }
     localStorage.removeItem("callMain");
 
@@ -283,11 +283,10 @@
   });
 
   const fn_init = async function(){
-    SBUxMethod.set('srch-dtp-pckgYmdFrom',gfn_dateToYmd(new Date()));
-    SBUxMethod.set('srch-dtp-pckgYmdTo',gfn_dateToYmd(new Date()));
-    /** 거래처 **/
+    SBUxMethod.set('srch-dtp-jobYmd',gfn_dateToYmd(new Date()));
+    /** 작업구분 **/
     await fn_search_cnpt();
-    /** 생산자 **/
+    /** 작업자 **/
     await fn_search_prdcr();
     /** 포장실적 grid 생성 **/
     await fn_create_pckgPrfmnc();
@@ -328,6 +327,7 @@
       ...( _jobClsfCd ? { jobClsfCd: _jobClsfCd } : {} )
     });
     let data = await postJsonPromise;
+    jsonOprtr = [...data.resultList];
     await fn_append_button(data.resultList,"prdcrInfoWrap","flnm","jobClsfCd","oprtr");
   }
   /** btn append **/
@@ -371,8 +371,10 @@
         let jobClsfCd = $("#cnptInfoWrap > div > div > div.tabBox.active").data("jobClsfCd");
         let jobClsfNm = $("#cnptInfoWrap > div > div > div.tabBox.active").text().trim();
         let oprtrNm = $(_el).text().trim();
+        let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
         let pltno = SBUxMethod.get('dtl-inp-pltno');
         let jobBgngHr = $("#clock").text();
+        let sortno = SBUxMethod.get('dtl-inp-sortno');
         jobBgngHr = formatTimeToKorean(jobBgngHr);
 
         /** 작업 종료처리 **/
@@ -387,10 +389,12 @@
             let obj = {...jsonPckgPrfmnc[idx]};
             obj.jobBgngHr = formatTime(obj.jobBgngHr);
             obj.jobEndHr = formatTime(obj.jobEndHr);
-            obj.jobHr = formatTime(obj.jobHr);
-            return;
+            obj.jobHr = parseAndFormatToHHmm(obj.jobHr);
+            obj.sortno = sortno;
+            obj.jobYmd = jobYmd;
+            obj.brdt = jsonOprtr.find(item => item.flnm === obj.flnm && item.jobClsfCd === obj.jobClsfCd)?.brdt;
             /** 해당 실적 저장 반영 **/
-            let data = await gfn_postJSON("/am/oprtr/insertOprtrSortPrfmnc",jsonPckgPrfmnc[idx]);
+            let data = await gfn_postJSON("/am/oprtr/insertOprtrSortPrfmnc",obj);
           }
           $(_el).removeClass("active");
         }else{
@@ -402,7 +406,8 @@
             jobClsfNm : jobClsfNm,
             oprtrNm : oprtrNm,
             pltno : pltno,
-            jobBgngHr : jobBgngHr
+            jobBgngHr : jobBgngHr,
+            flnm : oprtrNm
           }
           jsonPckgPrfmnc.push(obj);
           gridPckgPrfmnc.rebuild();
@@ -520,6 +525,33 @@
 
     // HH:mm 포맷으로 반환
     return `${'${String(hour).padStart(2, "0")}'}:${'${String(minute).padStart(2, "0")}'}`;
+  }
+
+  function parseAndFormatToHHmm(timeString) {
+    let hours = 0;
+    let minutes = 0;
+
+    // 시간과 분이 포함된 경우, 시간과 분을 추출
+    if (timeString.includes("시간") && timeString.includes("분")) {
+      const [hourPart, minutePart] = timeString.split("시간");
+      hours = parseInt(hourPart.trim(), 10);
+      minutes = parseInt(minutePart.replace("분", "").trim(), 10);
+    }
+    // 시간만 포함된 경우
+    else if (timeString.includes("시간")) {
+      hours = parseInt(timeString.replace("시간", "").trim(), 10);
+    }
+    // 분만 포함된 경우
+    else if (timeString.includes("분")) {
+      minutes = parseInt(timeString.replace("분", "").trim(), 10);
+    }
+
+    // 두 자리로 포맷
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+
+    // HHmm 형식으로 반환
+    return `${'${formattedHours}'}${'${formattedMinutes}'}`;
   }
 
   function calculateTimeDifference(time1, time2) {
