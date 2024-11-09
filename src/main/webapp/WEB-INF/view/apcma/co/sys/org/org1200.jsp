@@ -452,10 +452,10 @@
             },
             {caption : ["사용자ID"],			ref: 'USER_ID', 	type:'output',  	width:'25%',  	style:'text-align:left'},
             {caption : ["사용자명"],			ref: 'USER_NAME', 	type:'output',  	width:'25%',  	style:'text-align:left'},
-            {caption : ['적용시작일'],     	ref: 'START_DATE',      type:'datepicker' ,   
+            {caption : ['적용시작일'],     	ref: 'START_DATE',      type:'inputdate' ,   
             	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
             },
-            {caption : ['적용종료일'],     	ref: 'END_DATE',      type:'datepicker' ,   
+            {caption : ['적용종료일'],     	ref: 'END_DATE',      type:'inputdate' ,   
             	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
             }
         ];
@@ -674,7 +674,6 @@
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
         		}
-        		gfn_comAlert("I0001");
         		SBUxMethod.attr("FI_ORG_CODE", "readonly", true);
         		cfn_search();
         	} else {
@@ -899,7 +898,7 @@
     	
         var replaceText0 	= "_SITE_CODE_";
         var replaceText1 	= "_SITE_NAME_"; 
-        var strWhereClause 	= "AND SITE_CODE LIKE '%" + replaceText0 + "%' AND SITE_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND COMP_CODE LIKE '%" + gv_ma_selectedApcCd + "%' AND SITE_CODE LIKE '%" + replaceText0 + "%' AND SITE_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
     		compCode				: gv_ma_selectedApcCd

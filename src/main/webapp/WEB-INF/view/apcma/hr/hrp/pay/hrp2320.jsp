@@ -64,7 +64,7 @@
                             name="SRCH_PAY_YYYYMM"
                             uitype="popup"
                             datepicker-mode="month"
-                            date-format="yyyymm"
+                            date-format="yyyy-mm"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             onchange="fn_ymPay"
                     ></sbux-datepicker>
@@ -77,7 +77,7 @@
                             name="SRCH_BASE_YYYYMM"
                             uitype="popup"
                             datepicker-mode="month"
-                            date-format="yyyymm"
+                            date-format="yyyy-mm"
                             class="form-control input-sm input-sm-ast"
                     <%--onchange="fn_payDate"--%>>
                     </sbux-datepicker>
@@ -126,7 +126,7 @@
                             id="SRCH_PAY_DATE"
                             name="SRCH_PAY_DATE"
                             uitype="popup"
-                            date-format="yyyymmdd"
+                            date-format="yyyy-mm-dd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             >
                     </sbux-datepicker>
@@ -138,7 +138,7 @@
                             id="SRCH_EXPECTED_PAY_DATE"
                             name="SRCH_EXPECTED_PAY_DATE"
                             uitype="popup"
-                            date-format="yyyymmdd"
+                            date-format="yyyy-mm-dd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             >
                     </sbux-datepicker>
@@ -410,7 +410,7 @@
                                     name="YMDSTART_PAY_YYYYMM"
                                     uitype="popup"
                                     datepicker-mode="month"
-                                    date-format="yyyymm"
+                                    date-format="yyyy-mm"
                                     class="form-control input-sm input-sm-ast"
                                     >
                             </sbux-datepicker>

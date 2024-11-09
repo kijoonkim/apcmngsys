@@ -44,6 +44,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>기준년도</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -193,17 +194,17 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["기준년도"],         ref: 'YYYY',    type:'datepicker',  	width:'70px',  style:'text-align:left',
+            {caption: ["기준년도"],         ref: 'YYYY',    type:'inputdate',  	width:'70px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
                 format : {type:'date', rule:'yyyy', origin:'YYYY'}
                 , disabled: true
             },
-            {caption: ["적용시작일"],         ref: 'APPLY_START_DATE',    type:'datepicker',  	width:'90px',  style:'text-align:left',
+            {caption: ["적용시작일"],         ref: 'APPLY_START_DATE',    type:'inputdate',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["적용종료일"],         ref: 'APPLY_END_DATE',    type:'datepicker',  	width:'90px',  style:'text-align:left',
+            {caption: ["적용종료일"],         ref: 'APPLY_END_DATE',    type:'inputdate',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -563,6 +564,8 @@
                     jsonBaseYearList.push(msg);
                 });
                 gvwMaster.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonBaseYearList.length;
 
                 if(jsonBaseYearList.length > 0) {
                     if(rowNum) {

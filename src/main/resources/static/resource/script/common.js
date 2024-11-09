@@ -919,6 +919,28 @@ const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
 }
 
 /**
+ * @name gfn_setWrhsVhclSBSelect
+ * @description set SBUX-select options from APC별 입고차량
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setWrhsVhclSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_WRHS_VHCL, {apcCd: _apcCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.trsprtRgnCd;
+			item.cmnsNm = item.trsprtRgnNm;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
  * @name gfn_setTrsprtRgnSBSelect
  * @description set SBUX-select options from APC별 운송지역
  * @function

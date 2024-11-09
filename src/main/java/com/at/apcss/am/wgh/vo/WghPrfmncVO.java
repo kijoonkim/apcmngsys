@@ -192,6 +192,10 @@ public class WghPrfmncVO extends ComVO {
 	 * 팔레트종류
 	 */
 	private String pltKnd;
+	/**
+	 * 팔레트번호
+	 */
+	private String pltno;
 
 	/**
 	 * 박스종류
@@ -287,6 +291,7 @@ public class WghPrfmncVO extends ComVO {
 	private String grdWghSn2;
 	private String grdWghSn3;
 	private String grdWghSn4;
+
 	/*
 	 * 팔레트수량
 	 * */
@@ -295,6 +300,55 @@ public class WghPrfmncVO extends ComVO {
 	 * 입고수량
 	 * */
 	private int bxQntt;
+
+	/*
+	 * 그룹번호
+	 * */
+	private int groupId;
+
+	/*
+	 * 신규여부
+	 * */
+	private String newYn;
+
+	/*
+	 * 반출수량
+	 * */
+	private int shpgotQntt;
+
+	/*
+	 * 반출중량
+	 * */
+    private double shpgotWght;
+    /*
+	 * 반출팔레트수량
+	 * */
+    private int shpgotPltQntt;
+    /*
+	 * 타기관출고명
+	 * */
+    private String oinstSpmtNm;
+    /*
+	 * 운임비용
+	 * */
+    private int trsprtCst;
+    /*
+	 * 작업자명
+	 * */
+    private String oprtrNm;
+    /*
+     * 전화번호
+     * */
+    private String telno;
+    /*
+     * 은행
+     * */
+    private String bankCd;
+    /*
+     * 계좌번호
+     * */
+    private String actno;
+
 	/**
 	 * 계량상세리스트
 	 */

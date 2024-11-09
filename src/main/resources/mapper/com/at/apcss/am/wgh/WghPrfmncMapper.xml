@@ -267,6 +267,12 @@
 					, RMRK
 					, FCLT_CD
 					, WRHS_SPMT_TYPE
+					, SHPGOT_QNTT
+                    , SHPGOT_WGHT
+                    , SHPGOT_PLT_QNTT
+                    , OINST_SPMT_NM
+                    , TRSPRT_CST
+                    , OPRTR_NM
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -289,6 +295,12 @@
 					, #{rmrk}
 					, #{fcltCd}
 					, #{wrhsSpmtType}
+					, #{shpgotQntt}
+                    , #{shpgotWght}
+                    , #{shpgotPltQntt}
+                    , #{oinstSpmtNm}
+                    , #{trsprtCst}
+                    , #{oprtrNm}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -316,22 +328,28 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 
-				, WGH_YMD			= #{wghYmd}
-				, VHCLNO			= #{vhclno}
-				, PRDCR_CD			= #{prdcrCd}
-				, WHOL_WGHT			= #{wholWght}
-				, EMPT_VHCL_WGHT	= #{emptVhclWght}
-				, RDCD_RT			= #{rdcdRt}
-				, RDCD_WGHT			= #{rdcdWght}
-				, WRHS_WGHT			= #{wrhsWght}
-				, RMRK				= #{rmrk}
+				, WGH_YMD					= #{wghYmd}
+				, VHCLNO					= #{vhclno}
+				, PRDCR_CD					= #{prdcrCd}
+				, WHOL_WGHT					= #{wholWght}
+				, EMPT_VHCL_WGHT			= #{emptVhclWght}
+				, RDCD_RT					= #{rdcdRt}
+				, RDCD_WGHT					= #{rdcdWght}
+				, WRHS_WGHT					= #{wrhsWght}
+				, RMRK						= #{rmrk}
+				, SHPGOT_QNTT				= #{shpgotQntt}
+                , SHPGOT_WGHT       		= #{shpgotWght}
+                , SHPGOT_PLT_QNTT   		= #{shpgotPltQntt}
+                , OINST_SPMT_NM     		= #{oinstSpmtNm}
+                , TRSPRT_CST        		= #{trsprtCst}
+                , OPRTR_NM          		= #{oprtrNm}
 		]]>
 			<if test='delYn != null and delYn != ""'>
-				, DEL_YN			= #{delYn}
+				, DEL_YN					= #{delYn}
 			</if>
 		<![CDATA[
-			 WHERE APC_CD = #{apcCd}
-			   AND WGHNO = #{wghno}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WGHNO 					= #{wghno}
 		]]>
 	</update>
 
@@ -539,21 +557,23 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-
-				, PLT_BX_SE_CD 	= #{pltBxSeCd}
-				, PLT_BX_KND	= #{pltBxKnd}
-				, GRD_CD 		= #{grdCd}
-				, UNIT_WGHT 	= #{unitWght}
-				, QNTT 			= #{qntt}
-				, WGHT 			= #{wght}
-
+				, GRD_CD 					= #{grdCd}
+				, PLTNO						= #{pltno}
+				, PLT_KND					= #{pltKnd}
+				, PLT_QNTT					= #{pltQntt}
+				, PLT_WGHT					= #{pltWght}
+				, BX_KND					= #{bxKnd}
+				, BX_QNTT					= #{bxQntt}
+				, BX_WGHT					= #{bxWght}
+		]]>
 			<if test='delYn != null and delYn != ""'>
-				, DEL_YN		= #{delYn}
+				, DEL_YN					= #{delYn}
 			</if>
+		<![CDATA[
 
-			 WHERE APC_CD = #{apcCd}
-			   AND WGHNO = #{wghno}
-			   AND WGH_SN = #{wghSn}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WGHNO 					= #{wghno}
+			   AND WGH_SN 					= #{wghSn}
 		]]>
 	</update>
 
@@ -765,11 +785,21 @@
 			      , Y.VRTY_CD               AS VRTY_CD
 			      , Y.FCLT_CD		        AS FCLT_CD
 			      , Y.WRHS_SPMT_TYPE        AS WRHS_SPMT_TYPE
+			      , MAX(Y.SHPGOT_QNTT)      AS SHPGOT_QNTT
+                  , MAX(Y.SHPGOT_WGHT)      AS SHPGOT_WGHT
+                  , MAX(Y.SHPGOT_PLT_QNTT)  AS SHPGOT_PLT_QNTT
+                  , MAX(Y.OINST_SPMT_NM)    AS OINST_SPMT_NM
+                  , MAX(Y.TRSPRT_CST)       AS TRSPRT_CST
+                  , MAX(Y.OPRTR_NM)         AS OPRTR_NM
 			      , MAX(Y.WHOL_WGHT)        AS WHOL_WGHT
 			      , MAX(Y.EMPT_VHCL_WGHT)   AS EMPT_VHCL_WGHT
 			      , MAX(Y.WHOL_WGHT) - MAX(Y.EMPT_VHCL_WGHT) AS ACTL_WGHT
 			      , SUM(Y.PLT_QNTT)         AS PLT_QNTT
 			      , SUM(Y.BX_QNTT)          AS BX_QNTT
+			      , MAX(Y.DRVR_NM)          AS DRVR_NM
+                  , MAX(Y.BANK_CD)          AS BANK_CD
+                  , FN_UTL_DECRYPT_ARIA(MAX(Y.ACTNO))            AS ACTNO
+                  , MAX(Y.TELNO)            AS TELNO
 			      , MAX(GRD_CD_1)           AS GRD_CD_1
 			      , SUM(GRD_QNTT_1)         AS GRD_QNTT_1
 			      , MAX(GRD_WRHSNO_1)       AS GRD_WRHSNO_1
@@ -801,6 +831,16 @@
 			             , X.GRD_CD             AS GRD_CD
 			             , X.PLT_QNTT           AS PLT_QNTT
 			             , X.BX_QNTT            AS BX_QNTT
+			             , X.SHPGOT_QNTT        AS SHPGOT_QNTT
+                         , x.SHPGOT_WGHT        AS SHPGOT_WGHT
+                         , X.SHPGOT_PLT_QNTT    AS SHPGOT_PLT_QNTT
+                         , X.OINST_SPMT_NM      AS OINST_SPMT_NM
+                         , X.TRSPRT_CST         AS TRSPRT_CST
+                         , x.OPRTR_NM           AS OPRTR_NM
+                         , X.DRVR_NM            AS DRVR_NM
+                         , X.BANK_CD            AS BANK_CD
+                         , X.ACTNO              AS ACTNO
+                         , X.TELNO              AS TELNO
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.GRD_CD END AS GRD_CD_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.BX_QNTT END AS GRD_QNTT_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.WRHSNO END AS GRD_WRHSNO_1
@@ -836,10 +876,22 @@
 			                     , INV.ITEM_CD
 			                     , INV.VRTY_CD
 			                     , SG.GRD_RANK
+			                     , WP.PLTNO
+                                 , WC.SHPGOT_QNTT
+                                 , WC.SHPGOT_WGHT
+                                 , WC.SHPGOT_PLT_QNTT
+                                 , WC.OINST_SPMT_NM
+                                 , WC.TRSPRT_CST
+                                 , WC.OPRTR_NM
+                                 , VI.DRVR_NM
+                                 , VI.BANK_CD
+                                 , VI.ACTNO
+                                 , VI.TELNO
 			                  FROM TB_WGH_PRFMNC_COM WC
 			                     , TB_WGH_PRFMNC_DTL WD
 			                     , TB_RAW_MTR_WRHS_PRFMNC WP
 			                     , TB_RAW_MTR_INVNTR INV
+			                     , TB_WRHS_VHCL_INFO VI
 			                     , (SELECT RANK() OVER (ORDER BY GRD_CD ASC)       GRD_RANK
 			                             , GRD_CD
 			                             , APC_CD
@@ -857,6 +909,13 @@
 			                   AND WP.WRHSNO = INV.WRHSNO
 			                   AND WD.APC_CD = SG.APC_CD
 			                   AND WD.GRD_CD = SG.GRD_CD
+			                   AND WC.APC_CD = VI.APC_CD
+                               AND WC.VHCLNO = VI.VHCLNO
+			                   AND WC.DEL_YN = 'N'
+			                   AND WD.DEL_YN = 'N'
+			                   AND WP.DEL_YN = 'N'
+			                   AND INV.DEL_YN = 'N'
+			                   AND VI.DEL_YN = 'N'
 			                   AND WC.APC_CD = #{apcCd}
 		]]>
 		<if test='itemCd != null and itemCd !=""'>
@@ -878,6 +937,7 @@
 			                ) X
 			  ) Y
 			 GROUP BY Y.APC_CD, Y.WGHNO, Y.WGH_YMD, Y.VHCLNO, Y.PRDCR_CD, Y.ITEM_CD, Y.VRTY_CD, Y.FCLT_CD, Y.WRHS_SPMT_TYPE
+			 ORDER BY Y.WGHNO DESC
 		]]>
 	</select>
 

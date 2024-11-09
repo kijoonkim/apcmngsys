@@ -36,8 +36,6 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3><!-- 차입금상환스케줄 -->
                 </div>
-                <div style="margin-left: auto;">
-                </div>
             </div>
             <div class="box-body">
 
@@ -65,10 +63,10 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">사업단위</th>
+                            <%--<th scope="row" class="th_bg">사업단위</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
+                            </td>--%>
                         
                             <th scope="row" class="th_bg">조회기준일자</th>
                             <td colspan="3" class="td_input" >
@@ -84,6 +82,7 @@
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+							<td colspan="4" style="border-right: hidden;"></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">차입금유형</th>
@@ -92,19 +91,24 @@
                             </td>
                         
                             <th scope="row" class="th_bg">차입기관</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-									<sbux-button
+							<td class="td_input" data-group="BANK_CS">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input" data-group="BANK_CS">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input" data-group="BANK_CS">
+								<%--<sbux-button
 										class="btn btn-xs btn-outline-dark"
-										text=".." uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup1('1')"></sbux-button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
+										type="button"
+										class='ma-btn1'
+										onclick="fn_compopup1('1')">
+									<img src='../../../resource/images/find2.png' width='12px' />
+								</sbux-button>--%>
+								<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('1')">
+									<img src='../../../resource/images/find2.png' width='12px' />
+								</button>
+							</td>
                         
                             <th scope="row" class="th_bg">거래일자</th>
                             <td colspan="3" class="td_input" >
@@ -113,14 +117,14 @@
 								            id="SCH_BASE_DATE_FR"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast">
 								    </sbux-datepicker>
 								    <font style="padding-left:5px;padding-right:5px" >-</font>                          
 								    <sbux-datepicker
 								            id="SCH_BASE_DATE_TO"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast">
 								    </sbux-datepicker>                          
                             	</div>                            
                             </td>
@@ -135,6 +139,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>차입금</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
@@ -146,14 +151,17 @@
                     <div class="col-sm-6" style="width:100%;padding-top:10px">
 					
 					    <sbux-tabs id="idxTab_norm1" name="idxTab_norm1" uitype="normal"
-		                   title-target-id-array = "SB_TOP_TAB1^SB_TOP_TAB2^SB_TOP_TAB3^SB_TOP_TAB4^SB_TOP_TAB5^SB_TOP_TAB6"
+		                   <%--title-target-id-array = "SB_TOP_TAB1^SB_TOP_TAB2^SB_TOP_TAB3^SB_TOP_TAB4^SB_TOP_TAB5^SB_TOP_TAB6"
 		                   title-text-array = "기본정보^계정과목정보^상환정보^이율변동정보^상환계획^현재가치관리"
-		                   title-target-value-array="1^2^3^4^5^6"
+		                   title-target-value-array="1^2^3^4^5^6"--%>
+						   title-target-id-array = "SB_TOP_TAB5"
+						   title-text-array = "상환계획"
+						   title-target-value-array="5"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
 						<div class="tab-content" style="height:330px;width:100%;padding-top:0px" >
 						
-							<div id="SB_TOP_TAB1" >
+							<%--<div id="SB_TOP_TAB1" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -388,9 +396,9 @@
 		                        	</table>		
 		                        
 		                        </div>							
-							</div>
+							</div>--%>
 						
-							<div id="SB_TOP_TAB2" >
+							<%--<div id="SB_TOP_TAB2" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -675,8 +683,8 @@
 		                        
 		                        </div>							
 							</div>
-						
-							<div id="SB_TOP_TAB3" >
+						--%>
+							<%--<div id="SB_TOP_TAB3" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -921,9 +929,9 @@
 		                        	</table>
 		                        	
 		                        </div>							
-							</div>
+							</div>--%>
 						
-							<div id="SB_TOP_TAB4" >
+							<%--<div id="SB_TOP_TAB4" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -942,13 +950,14 @@
 		                        <div style="width:100%;">
 		                            <div id="sb_area_grid_tap4" style="height:280px; width:100%;"></div>
 		                        </div>							
-							</div>
+							</div>--%>
 						
 							<div id="SB_TOP_TAB5" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
 		                                    <span>상환계획</span>
+											<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
 		                                </li>
 		                            </ul>
 				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
@@ -956,12 +965,30 @@
 					                    <font style="padding-right:5px"></font>
 					                    <sbux-button uitype="normal" text="재계산"  		class="btn btn-sm btn-outline-danger" onclick="fn_btnReCalc"></sbux-button>
 					                    <font style="padding-right:10px"></font>
-										<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
+										<%--<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
 											<img src="../../../resource/images/plus.png" width="20px" /> 행추가
 										</a>
 										<a href="#" id="btn1-row-del" class="cu-btn-minus" style="padding-left:10px">
 											<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
-										</a>
+										</a>--%>
+										<sbux-button
+												id="btnDel"
+												name="btnDel"
+												uitype="normal"
+												text="행삭제"
+												class="btn btn-sm btn-outline-danger"
+												onclick="fn_btnDel"
+												style="float: right;"
+										></sbux-button>
+										<sbux-button
+												id="btnAdd"
+												name="btnAdd"
+												uitype="normal"
+												text="행추가"
+												class="btn btn-sm btn-outline-danger"
+												onclick="fn_btnAdd"
+												style="float: right;"
+										></sbux-button>
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
@@ -969,7 +996,7 @@
 		                        </div>							
 							</div>
 						
-							<div id="SB_TOP_TAB6" >
+							<%--<div id="SB_TOP_TAB6" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
 		                                <li>
@@ -982,7 +1009,7 @@
 		                        <div style="width:100%;">
 		                            <div id="sb_area_grid_tap6" style="height:280px; width:100%;"></div>
 		                        </div>							
-							</div>
+							</div>--%>
 							
 						</div>					
 						
@@ -993,14 +1020,14 @@
         </div>
         			
     </section>
-    
+
 	<!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-    </div>
-    <div id="body-modal-compopup1">
-    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-compopup1">
+		<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+	</div>
     
 	<!-- 팝업 Modal -->
     <div>
@@ -1031,14 +1058,14 @@
     var Trl1030GridTop; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1030Top 	= []; 		// 그리드의 참조 데이터 주소 선언
     
-    var Trl1030GridTab4; 			// 그리드를 담기위한 객체 선언
-    var jsonTrl1030Tab4	= []; 		// 그리드의 참조 데이터 주소 선언
+    /*var Trl1030GridTab4; 			// 그리드를 담기위한 객체 선언
+    var jsonTrl1030Tab4	= []; 		// 그리드의 참조 데이터 주소 선언*/
     
     var Trl1030GridTab5; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1030Tab5	= []; 		// 그리드의 참조 데이터 주소 선언
     
-    var Trl1030GridTab6; 			// 그리드를 담기위한 객체 선언
-    var jsonTrl1030Tab6	= []; 		// 그리드의 참조 데이터 주소 선언
+  /*  var Trl1030GridTab6; 			// 그리드를 담기위한 객체 선언
+    var jsonTrl1030Tab6	= []; 		// 그리드의 참조 데이터 주소 선언*/
     
 	var jsonFiOrgCode		= [];	// 사업단위
 	var jsonAllYn			= [];	// 만기차입금포함여부
@@ -1053,7 +1080,8 @@
 	var jsonRepayDd			= [];	// 원금상환일
 	var jsonRepayBase		= [];	// 상환기준
 	var jsonInterestType	= [];	// 이자율구분
-	
+	var jsonBankCsCode	= [];	// 상환거래처계좌
+
 	var jsonInterestRepayType		= [];	// 이자지급기준
 	var jsonInterestCalcDaysType	= [];	// 이자일수계산기준
 	var jsonInterestCalcYearType	= [];	// 년간이자일수
@@ -1069,34 +1097,37 @@
             gfnma_setComSelect(['SCH_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 사업장
-            gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl1030GridTop'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+			// 상환거래처계좌
+			gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonBankCsCode,	'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+
             // 차입금유형
-            gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['FM_CURRENCY_CODE'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl1030GridTop','Trl1030GridTab5'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 년간이자일수
-            gfnma_setComSelect(['FM_LOAN_STATUS'],		jsonLoanStatus,		'L_FIF004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_LOAN_STATUS'],		jsonLoanStatus,		'L_FIF004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상환거래처계좌
-            gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonRepayBankCode,	'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonRepayBankCode,	'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 원금상환조건
-            gfnma_setComSelect(['FM_REPAY_TERM'],		jsonRepayTerm,		'L_FIF005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 원금상환일
-            gfnma_setComSelect(['FM_REPAY_DD'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_REPAY_TERM'],		jsonRepayTerm,		'L_FIF005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 이자일수
+            gfnma_setComSelect([/*'FM_REPAY_DD',*/ 'Trl1030GridTab5'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상환기준
-            gfnma_setComSelect(['FM_REPAY_BASE'],		jsonRepayBase,		'L_FIF017', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_REPAY_BASE'],		jsonRepayBase,		'L_FIF017', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자율구분
-            gfnma_setComSelect(['FM_INTEREST_TYPE'],	jsonInterestType,	'L_FIF006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_INTEREST_TYPE'],	jsonInterestType,	'L_FIF006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 이자지급기준
-            gfnma_setComSelect(['FM_INTEREST_REPAY_TYPE'],		jsonInterestRepayType,		'L_FIF007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_INTEREST_REPAY_TYPE'],		jsonInterestRepayType,		'L_FIF007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자일수계산기준
-            gfnma_setComSelect(['FM_INTEREST_CALC_DAYS_TYPE'],	jsonInterestCalcDaysType,	'L_FIF008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_INTEREST_CALC_DAYS_TYPE'],	jsonInterestCalcDaysType,	'L_FIF008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 년간이자일수
-            gfnma_setComSelect(['FM_INTEREST_CALC_YEAR_TYPE'],	jsonInterestCalcYearType,	'L_FIF039', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_INTEREST_CALC_YEAR_TYPE'],	jsonInterestCalcYearType,	'L_FIF039', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자기산일기준
-            gfnma_setComSelect(['FM_INTEREST_CALC_BASE_DAY'],	jsonInterestCalcBaseDay,	'L_FIF043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_INTEREST_CALC_BASE_DAY'],	jsonInterestCalcBaseDay,	'L_FIF043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -1106,12 +1137,15 @@
   		
 		//화면셋팅
     	fn_state('L');
-  		
+
 		fn_createTrl1030GridTop();
-		fn_createTrl1030GridTab4();
+		//fn_createTrl1030GridTab4();
 		fn_createTrl1030GridTab5();
-		fn_createTrl1030GridTab6();
-		//cfn_search();
+		//fn_createTrl1030GridTab6();
+
+		let openDate = gfn_dateToYmd(new Date());
+
+		SBUxMethod.set('SCH_BASE_DATE', openDate);
 	} 
 	
     // only document
@@ -1152,10 +1186,76 @@
      */
  	function cfn_search() {
  		fn_state('L');
+		fn_P_TRL1010_Q_LIST('LIST', 1);
     	//fn_setTrl1030GridTop('LIST');
     }
+
+	//차입금
+	function fn_createTrl1030GridTop() {
+		var SBGridProperties 				= {};
+		SBGridProperties.parentid 			= 'sb_area_grid_top';
+		SBGridProperties.id 				= 'Trl1030GridTop';
+		SBGridProperties.jsonref 			= 'jsonTrl1030Top';
+		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+		SBGridProperties.selectmode 		= 'byrow';
+		SBGridProperties.explorerbar 		= 'sortmove';
+		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.frozenbottomrows 	= 1;
+		SBGridProperties.total 				= {
+			type 		: 'grand',
+			position	: 'bottom',
+			columns		: {
+				standard : [0],
+				sum : [7,8,9]
+			},
+			grandtotalrow : {
+				titlecol 		: 6,
+				titlevalue		: '합계',
+				style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+				stylestartcol	: 0
+			},
+			datasorting	: true,
+		};
+		SBGridProperties.columns = [
+			{caption: ["차입금번호"],	ref: 'LOAN_NUM', 	type:'output',  	width:'200px',  	style:'text-align:left'},
+			{caption : ["회계단위"], ref : 'FI_ORG_CODE', width : '200px', style : 'text-align:center', type : 'combo', hidden : true,
+				typeinfo : {ref : 'jsonFiOrgCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+			},
+			{caption : ["금융기관"], ref : 'BANK_CS_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+				typeinfo : {ref : 'jsonBankCsCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+			},
+			{caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+				typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+			},
+			{caption : ["차입금유형"], ref : 'LOAN_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
+				typeinfo : {ref : 'jsonLoanType', displayui : true, label : 'label', value : 'value'}, disabled: true
+			},
+			{caption: ["차입금명"],	ref: 'LOAN_NAME',	type:'output',  	width:'250px',  	style:'text-align:left'}, //P_FIM002 DBOBIZCOMPONENT 에 값이 없음.
+			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+			},
+			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["잔액(통화)"],	ref: 'REMAIN_AMT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ['차입일'], ref: 'LOAN_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+			{caption: ['만기일'], ref: 'EXPIRE_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+			{caption: ["약정이율"],         ref: 'INTEREST_RATE',    type:'output',  	width:'150px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["분류1"],			ref: 'LOAN_CATEGORY1',				type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+			{caption: ["분류2"],			ref: 'LOAN_CATEGORY2',				type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+			{caption: ["분류3"],			ref: 'LOAN_CATEGORY3',				type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+			{caption: ["repay_bank_cs_code"],	ref: 'REPAY_BANK_CS_CODE',				type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+			{caption: ["repay_seq"],			ref: 'REPAY_SEQ',				type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+		];
+
+		Trl1030GridTop = _SBGrid.create(SBGridProperties);
+		Trl1030GridTop.bind('click', 'fn_view');
+	}
     
-    function fn_createTrl1030GridTop() {
+    /*function fn_createTrl1030GridTop() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_top';
 	    SBGridProperties.id 				= 'Trl1030GridTop';
@@ -1224,43 +1324,57 @@
 
         Trl1030GridTab4 = _SBGrid.create(SBGridProperties);
         //Trl1030GridTab4.bind('click', 			'fn_viewTrl1030GridTab4Event');
-    }
-    
-    function fn_createTrl1030GridTab5() {
-        var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb_area_grid_tap5';
-	    SBGridProperties.id 				= 'Trl1030GridTab5';
-	    SBGridProperties.jsonref 			= 'jsonTrl1030Tab5';
-        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
-	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["차입금번호"],		ref: 'LOAN_NUM', 				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["상환예정일"],		ref: 'REPAY_PLAN_DATE', 	   	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화"],				ref: 'CURRENCY_CODE',			type:'output',  	width:'100px',  	style:'text-align:left'},
+    }*/
 
-            {caption: ["총상환액"],			ref: 'REPAY_TOTAL_AMT',			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            
-            {caption: ["이자율"],			ref: 'INTEREST_RATE',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["이자일수"],			ref: 'INTEREST_DAY',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["적용시작일"],		ref: 'INTEREST_FROM_DATE',		type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["적용종료일"],		ref: 'INTEREST_TO_DATE',		type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["확정여부"],			ref: 'CONFIRM_FLAG',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전송여부"],			ref: 'INTERFACE_FLAG',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["완료여부"],			ref: 'COMPLETE_FLAG',			type:'output',  	width:'100px',  	style:'text-align:left'},
-        ];
+	//상환계획
+	function fn_createTrl1030GridTab5() {
+		var SBGridProperties 				= {};
+		SBGridProperties.parentid 			= 'sb_area_grid_tap5';
+		SBGridProperties.id 				= 'Trl1030GridTab5';
+		SBGridProperties.jsonref 			= 'jsonTrl1030Tab5';
+		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+		SBGridProperties.selectmode 		= 'byrow';
+		SBGridProperties.explorerbar 		= 'sortmove';
+		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.columns = [
+			{caption: ["차입금번호"], 		ref: 'LOAN_NUM', 			  	type:'output',  	width:'230px',  	style:'text-align:left'},
+			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'200px',  	style:'text-align:left'},
+			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}},
+			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
+			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center',
+				typeinfo : {ref : 'jsonRepayDd', displayui : true, label : 'label', value : 'value'}
+			},
+			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption: ["확정여부"], 	ref: 'CONFIRM_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
+				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
+			},
+			{caption: ["전송여부"], 	ref: 'INTERFACE_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
+				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
+			},
+			{caption: ["완료여부"], 	ref: 'COMPLETE_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
+				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
+			},
+			{caption: ["id"],	ref: 'TXN_ID',	type:'output',  width:'300px',  style:'text-align:left' , hidden : true},
+			{caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
+		];
 
-        Trl1030GridTab5 = _SBGrid.create(SBGridProperties);
-        //Trl1030GridTab5.bind('click', 			'fn_viewTrl1030GridTab5Event');
-    }
+		Trl1030GridTab5 = _SBGrid.create(SBGridProperties);
+		//Trl1030GridTab5.bind('click', 			'fn_viewTrl1030GridTab5Event');
+	}
     
-    function fn_createTrl1030GridTab6() {
+    /*function fn_createTrl1030GridTab6() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb_area_grid_tap6';
 	    SBGridProperties.id 				= 'Trl1030GridTab6';
@@ -1293,7 +1407,7 @@
 
         Trl1030GridTab6 = _SBGrid.create(SBGridProperties);
         //Trl1030GridTab6.bind('click', 			'fn_viewTrl1030GridTab6Event');
-    }
+    }*/
     
     /**
      * 차입기관 
@@ -1339,12 +1453,13 @@
 		        }
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
      * 은행 
      */
-    function fn_compopup2() {
+   /* function fn_compopup2() {
         var searchCode 		= gfnma_nvl(SBUxMethod.get("FM_BANK_CODE"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("FM_BANK_NAME"));
         var replaceText0 	= "_BANK_CODE_";
@@ -1366,17 +1481,16 @@
             ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
             ,tableColumnWidths		: ["80px", "150px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('FM_BANK_CODE', data.BANK_NAME);
                 SBUxMethod.set('FM_BANK_NAME', data.BANK_CODE);
             },
         });
-    }    
+    }    */
     
     /**
      * 입금계좌 
      */
-     function fn_compopup3(type) {
+     /*function fn_compopup3(type) {
         var searchCode 		= '';
         var searchName 		= '';
         if(type=='1'){
@@ -1405,7 +1519,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE", 	"DEPOSIT_NAME", "DEPOSIT_TYPE_NAME","ACCOUNT_NUM", 	"BANK_CODE", 	"BANK_NAME", 	"OPEN_DATE", 	"EXPIRE_DATE"]
             ,tableColumnWidths		: ["120px", 		"160px", 		"100px", 			"200px", 		"100px", 		"140px", 		"100px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if(type=='1'){
 	                SBUxMethod.set('FM_IN_DEPOSIT_CODE', data.DEPOSIT_NAME);
 	                SBUxMethod.set('FM_IN_DEPOSIT_NAME', data.DEPOSIT_CODE);
@@ -1415,12 +1528,12 @@
                 }
             },
         });
-    }    
+    }    */
     
      /**
       * 담당부서 
       */
-     function fn_compopup4(type) {
+     /*function fn_compopup4(type) {
      	
          var searchText1		= '';
          var searchText2		= '';
@@ -1449,7 +1562,6 @@
              ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
              ,tableColumnWidths		: ["100px", 		"200px" 		]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  if(type=='1'){
  	                SBUxMethod.set('FM_DEPOSIT_NAME', data.DEPT_NAME);
  	                SBUxMethod.set('FM_DEPOSIT_CODE', data.DEPT_CODE);
@@ -1457,12 +1569,12 @@
                  }
              },
          });
-     }        
+     }     */
      
      /**
       * 원가중심점코드
       */
-    function fn_compopup5(type) {
+    /*function fn_compopup5(type) {
      	
          var searchText1 	= '';
          var searchText2 	= '';
@@ -1493,7 +1605,6 @@
     		,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME",	"DEPT_CODE",	"DEPT_NAME",	"SITE_CODE"]	
     		,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
  					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
@@ -1501,12 +1612,12 @@
  		        }
  			},
      	});
-     }          
+     }     */
      
      /**
       * 차입금차입
       */ 
-	function fn_compopup6(type) {
+	/*function fn_compopup6(type) {
      	
          var searchCode 	= '';
          var searchName 	= '';
@@ -1552,12 +1663,12 @@
  				}
  			},
      	});
-   	}
+   	}*/
     
      /**
       * 차입금계정
       */ 
-  	function fn_compopup7(type) {
+  	/*function fn_compopup7(type) {
      	
          var searchText1 	= '';
          var searchText2 	= '';
@@ -1611,7 +1722,6 @@
     		,tableColumnNames		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME",		"ACCOUNT_NAME_CHN"]	
     		,tableColumnWidths		: ["100px", 			"250px",			"250px"]
  			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
  		        if(type=='1'){
  					SBUxMethod.set('FM_LOAN_ACCOUNT_CODE', 				data.ACCOUNT_CODE);
  					SBUxMethod.set('FM_LOAN_ACCOUNT_NAME', 				data.ACCOUNT_NAME);
@@ -1642,12 +1752,12 @@
  		        }
  			},
      	});
-     }       
+     }       */
     
      /**
       * 상환거래처
       */ 
-   	function fn_compopup8(){
+   	/*function fn_compopup8(){
     	 
          var searchCode 		= gfnma_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_CODE"));
          var searchName 		= gfnma_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_NAME"));
@@ -1670,17 +1780,16 @@
              ,tableColumnNames		: ["CS_CODE" , 		"CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
              ,tableColumnWidths		: ["100px", 		"200px", "100px", "100px", "120px", "300px"]
              ,itemSelectEvent		: function (data){
-                 console.log('callback data:', data);
                  SBUxMethod.set('FM_REPAY_BANK_CS_CODE', data.CS_NAME);
                  SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CS_CODE);
              },
          });
-     }
+     }*/
      
      /**
       * 상환거래처계좌
       */
-	function fn_compopup9(cellData1, cellData2, cellData3) {
+	/*function fn_compopup9(cellData1, cellData2, cellData3) {
      	
     	 var p_cellData1 = (cellData1) ? cellData1 : "";
     	 var p_cellData2 = (cellData2) ? cellData2 : "";
@@ -1711,14 +1820,367 @@
    			,tableColumnNames		: ["BANK_ACCOUNT_SEQ", 	"SEQ_NAME",		"BANK_CODE",		"BANK_NAME",		"BANK_ACCOUNT_NO",	"DESCRIPTION",	"BANK_ACCOUNT_OWNER",	"CS_CODE",			"EFFECT_START_DATE",	"EFFECT_END_DATE",	"BNKCNT"]
    			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
  			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
                 SBUxMethod.set('FM_REPAY_BANK_CS_CODE', 	data.CS_CODE);
                 SBUxMethod.set('FM_REPAY_BANK_CODE', 		data.BANK_CODE);
  			},
      	});
-     }     
-     
-     
+     }*/
+
+	/**
+	 * 목록 조회
+	 */
+	const fn_P_TRL1010_Q_LIST = async function (strWorkType, row) {
+
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
+		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
+		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
+		let BANK_CS_CODE 	= gfn_nvl(SBUxMethod.get("SCH_BANK_CS_CODE")); 	//차입기관
+
+		if (_.isEqual(strWorkType, 'LIST')){
+
+			/*if (!FI_ORG_CODE) {
+				gfn_comAlert("W0002", "사업단위");
+				return;
+			}*/
+			if (!BASE_DATE) {
+				gfn_comAlert("W0002", "조회기준일자");
+				return;
+			}
+
+		}
+
+		var paramObj = {
+			V_P_DEBUG_MODE_YN: ''
+			,V_P_LANG_ID: ''
+			,V_P_COMP_CODE: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+			,V_P_FI_ORG_CODE  : FI_ORG_CODE /*fi_org_code*/
+			,V_P_BASE_DATE    : BASE_DATE
+			,V_P_TXN_DATE_FR  : ''
+			,V_P_TXN_DATE_TO  : ''
+			,V_P_ALL_YN       : ALL_YN
+			,V_P_LOAN_TYPE    : LOAN_TYPE
+			,V_P_BANK_CS_CODE : BANK_CS_CODE
+			,V_P_LOAN_NUM     : ''
+			,V_P_PLAN_SEQ     : 0
+
+			,V_P_FORM_ID: p_formId
+			,V_P_MENU_ID: p_menuId
+			,V_P_PROC_ID: ''
+			,V_P_USERID: ''
+			,V_P_PC: ''
+		};
+
+		const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectTrl1030List.do", {
+			getType: 'json',
+			workType: strWorkType,
+			cv_count: '5',
+			params: gfnma_objectToString(paramObj)
+		});
+
+		const data = await postJsonPromise;
+
+		try {
+
+			if (_.isEqual("S", data.resultStatus)) {
+
+				/** @type {number} **/
+                let totalRecordCount = 0;
+
+				jsonTrl1030Top.length = 0;
+				data.cv_1.forEach((item, index) => {
+					const msg = {
+						LOAN_NUM        	: gfn_nvl(item.LOAN_NUM),
+						FI_ORG_CODE        	: gfn_nvl(item.FI_ORG_CODE),
+						SITE_CODE        	: gfn_nvl(item.SITE_CODE),
+						BANK_CODE        	: gfn_nvl(item.BANK_CODE),
+						BANK_CS_CODE        : gfn_nvl(item.BANK_CS_CODE),
+						LOAN_CATEGORY1      : gfn_nvl(item.LOAN_CATEGORY1),
+						LOAN_CATEGORY2      : gfn_nvl(item.LOAN_CATEGORY2),
+						LOAN_CATEGORY3      : gfn_nvl(item.LOAN_CATEGORY3),
+						LOAN_NAME        	: gfn_nvl(item.LOAN_NAME),
+						LOAN_DATE        	: gfn_nvl(item.LOAN_DATE),
+						LOAN_AMT        	: gfn_nvl(item.LOAN_AMT),
+						REPAY_AMT        	: gfn_nvl(item.REPAY_AMT),
+						REMAIN_AMT        	: gfn_nvl(item.REMAIN_AMT),
+						EXPIRE_DATE        	: gfn_nvl(item.EXPIRE_DATE),
+						CURRENCY_CODE       : gfn_nvl(item.CURRENCY_CODE),
+						INTEREST_RATE       : gfn_nvl(item.INTEREST_RATE),
+						LOAN_TYPE        	: gfn_nvl(item.LOAN_TYPE),
+						REPAY_BANK_CS_CODE  : gfn_nvl(item.REPAY_BANK_CS_CODE),
+						REPAY_SEQ        	: gfn_nvl(item.REPAY_SEQ),
+						HDG_FLAG        	: gfn_nvl(item.HDG_FLAG),
+
+
+					}
+					jsonTrl1030Top.push(msg);
+					 totalRecordCount++;
+				});
+
+				Trl1030GridTop.rebuild();
+
+				if(jsonTrl1030Top.length > 0) {
+					Trl1030GridTop.clickRow(gfn_nvl(row) == '' ? 1 : row);
+				}
+				document.querySelector('#listCount').innerText = totalRecordCount;
+
+
+			} else {
+				alert(data.resultMessage);
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/**
+	 * 목록 조회
+	 */
+	const fn_P_TRL1010_Q = async function (strWorkType, grdData) {
+
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
+		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
+		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
+		let BANK_CS_CODE 	= gfn_nvl(SBUxMethod.get("SCH_BANK_CS_CODE")); 	//차입기관
+
+		if (_.isEqual(strWorkType, 'LIST')){
+
+			/*if (!FI_ORG_CODE) {
+				gfn_comAlert("W0002", "사업단위");
+				return;
+			}*/
+			if (!BASE_DATE) {
+				gfn_comAlert("W0002", "조회기준일자");
+				return;
+			}
+
+		}
+
+		var paramObj = {
+			V_P_DEBUG_MODE_YN: ''
+			,V_P_LANG_ID: ''
+			,V_P_COMP_CODE: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+			,V_P_FI_ORG_CODE  : FI_ORG_CODE /*fi_org_code*/
+			,V_P_BASE_DATE    : BASE_DATE
+			,V_P_TXN_DATE_FR  : ''
+			,V_P_TXN_DATE_TO  : ''
+			,V_P_ALL_YN       : ALL_YN
+			,V_P_LOAN_TYPE    : LOAN_TYPE
+			,V_P_BANK_CS_CODE : BANK_CS_CODE
+			,V_P_LOAN_NUM     : gfn_nvl(grdData.LOAN_NUM)
+			,V_P_PLAN_SEQ     : gfn_nvl(grdData.PLAN_SEQ)
+
+			,V_P_FORM_ID: p_formId
+			,V_P_MENU_ID: p_menuId
+			,V_P_PROC_ID: ''
+			,V_P_USERID: ''
+			,V_P_PC: ''
+		};
+
+		const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectTrl1030List.do", {
+			getType: 'json',
+			workType: strWorkType,
+			cv_count: '5',
+			params: gfnma_objectToString(paramObj)
+		});
+
+		const data = await postJsonPromise;
+
+		try {
+
+			if (_.isEqual("S", data.resultStatus)) {
+
+				/** @type {number} **/
+                let totalRecordCount = 0;
+
+				/**************************** 상환계획 **********************************/
+				jsonTrl1030Tab5.length = 0;
+				data.cv_4.forEach((item, index) => {
+					const msg = {
+						TXN_ID        				: gfn_nvl(item.TXN_ID),
+						LOAN_NUM        			: gfn_nvl(item.LOAN_NUM),
+						PLAN_SEQ        			: gfn_nvl(item.PLAN_SEQ),
+						CURRENCY_CODE        		: gfn_nvl(item.CURRENCY_CODE),
+						REPAY_PLAN_DATE        		: gfn_nvl(item.REPAY_PLAN_DATE),
+						REPAY_TRANSFER_AMT        	: gfn_nvl(item.REPAY_TRANSFER_AMT),
+						REMAIN_LOAN_AMT        		: gfn_nvl(item.REMAIN_LOAN_AMT),
+						INTEREST_DAY        		: gfn_nvl(item.INTEREST_DAY),
+						INTEREST_REPAY_PLAN_AMT     : gfn_nvl(item.INTEREST_REPAY_PLAN_AMT),
+						REPAY_TOTAL_AMT        		: gfn_nvl(item.REPAY_TOTAL_AMT),
+						INTEREST_FROM_DATE        	: gfn_nvl(item.INTEREST_FROM_DATE),
+						INTEREST_TO_DATE        	: gfn_nvl(item.INTEREST_TO_DATE),
+						INTEREST_RATE        		: gfn_nvl(item.INTEREST_RATE),	//--종료일자
+						INTERFACE_FLAG        		: gfn_nvl(item.INTERFACE_FLAG),
+						CONFIRM_FLAG        		: gfn_nvl(item.CONFIRM_FLAG),
+						COMPLETE_FLAG        		: gfn_nvl(item.COMPLETE_FLAG),
+						UPDATE_TIME        			: gfn_nvl(item.UPDATE_TIME),
+						HDG_TRANS_AMT        		: gfn_nvl(item.HDG_TRANS_AMT),
+
+					}
+					jsonTrl1030Tab5.push(msg);
+					totalRecordCount++;
+				});
+
+				Trl1030GridTab5.rebuild();
+				document.querySelector('#listCount2').innerText = totalRecordCount;
+
+
+			} else {
+				alert(data.resultMessage);
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+
+	}
+
+	//상세정보 보기
+	async function fn_view() {
+		var nCol = Trl1030GridTop.getCol();
+		var nRow = Trl1030GridTop.getRow();
+
+		if (nCol == -1) {
+			return;
+		}
+
+		if (nRow == -1) {
+			return;
+		}
+
+		let gridData = Trl1030GridTop.getRowData(nRow);
+
+		if (_.isEmpty(gridData)){
+			return;
+		}
+
+
+		fn_P_TRL1010_Q('DETAIL', gridData);
+
+
+	}
+
+
+
+	// 행 추가 [상황계횐]
+	const fn_btnAdd = function() {
+		let rowVal = Trl1030GridTab5.getRow();
+
+		let LOAN_NUM 	= gfn_nvl(SBUxMethod.get("FM_LOAN_NUM")); //차입금번호
+
+		const msg = {
+			LOAN_NUM            		: LOAN_NUM,	//차입금번호
+			PLAN_SEQ            		: '',		//순번
+			REPAY_PLAN_DATE  			: '',		//상환예정일
+			CURRENCY_CODE    			: '',		//통화
+			REPAY_TOTAL_AMT            	: 0,		//총상환액
+			REPAY_TRANSFER_AMT          : 0,		//차입금대체
+			REPAY_PLAN_AMT            	: 0,		//원금상환예정액
+			REMAIN_LOAN_AMT            	: 0,		//차입금잔액
+			INTEREST_REPAY_PLAN_AMT     : 0,		//이자상환예정액
+			INTEREST_RATE            	: 0,		//이자율
+			INTEREST_DAY            	: '',		//이자일수
+			INTEREST_FROM_DATE          : '',		//적용시작일
+			INTEREST_TO_DATE          	: '',		//적용종료일
+			CONFIRM_FLAG            	: 'N',		//확정여부
+			INTERFACE_FLAG            	: 'N',		//전송여부
+			COMPLETE_FLAG            	: 'N',		//완료여부
+			TXN_ID            			: '',		//id
+
+
+			status: 'i'
+		}
+
+		if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+			Trl1030GridTab5.addRow(true, msg);
+		}else{
+			Trl1030GridTab5.insertRow(rowVal, 'below', msg);
+		}
+	}
+
+	// 행삭제 [상황계횐]
+	const fn_btnDel = async function () {
+
+		let rowVal = Trl1030GridTab5.getRow();
+
+		if (rowVal == -1) {
+			gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+			return;
+		} else {
+			Trl1030GridTab5.deleteRow(rowVal);
+		}
+
+	}
+
+	// 최초상황계횐
+	const fn_btnPlan = async function () {
+
+		if (gfn_comConfirm("Q0000", "기존 상환계획 정보를 초기화하고 새로운 상환계획 정보를 불러오시겠습니까?")) {
+
+			let strloan_num = '';
+
+			var nRow = Trl1030GridTop.getRow();
+
+			let gridData = Trl1030GridTop.getRowData(nRow);
+
+			if (_.isEmpty(gridData) == false){
+				strloan_num = gridData.LOAN_NUM;
+			}
+
+			//GridDeleteAllRow(grdPlan);
+			await fn_P_TRL1010_Q("PLAN", gridData);
+			await fn_P_TRL1010_Q("DETAIL", gridData);
+			if (strloan_num != '')
+			{
+				//gvwInfo.FocusedRowHandle = GetGridRowIndex(grdInfo, "loan_num", strloan_num);
+				//fn_P_TRL1010_Q_LIST('LIST', nRow);
+			}
+
+		}
+
+	}
+
+	// 재계산
+	const fn_btnReCalc = async function () {
+
+		if (gfn_comConfirm("Q0000", "기존 현재가치관리 정보를 초기화하고 새로운 정보를 불러오시겠습니까?")) {
+
+			let strloan_num = '';
+
+			var nRow = Trl1030GridTop.getRow();
+
+			let gridData = Trl1030GridTop.getRowData(nRow);
+
+			if (_.isEmpty(gridData) == false){
+				strloan_num = gridData.LOAN_NUM;
+			}
+
+			//GridDeleteAllRow(grdPlan);
+			await fn_P_TRL1010_Q("RECALC", gridData);
+			await fn_P_TRL1010_Q("DETAIL", gridData);
+			if (strloan_num != '')
+			{
+				//gvwInfo.FocusedRowHandle = GetGridRowIndex(grdInfo, "loan_num", strloan_num);
+				//fn_P_TRL1010_Q_LIST('LIST', nRow);
+			}
+		}
+
+	}
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -169,6 +169,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtcreated-dept"
 										class="btn btn-xs btn-outline-dark"
@@ -176,6 +177,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup1"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup1()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">청구부서</th>
@@ -190,10 +195,10 @@
 										uitype="text"
 										id="srch-txtpayee-dept-code"
 										class="form-control input-sm"
-										
 	   								></sbux-input>
 	                            </td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtpayee-dept"
 										class="btn btn-xs btn-outline-dark"
@@ -201,6 +206,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup2"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup2()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">작성자</th>
@@ -219,6 +228,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtcreated-by"
 										class="btn btn-xs btn-outline-dark"
@@ -226,6 +236,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup3"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup3()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>
 	                            
 	                            <th scope="row" class="th_bg">실사용자</th>
@@ -244,6 +258,7 @@
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
+	                            	<!-- 
 									<sbux-button
 										id="srch-btn-txtpayee"
 										class="btn btn-xs btn-outline-dark"
@@ -251,6 +266,10 @@
 										target-id="modal-compopup1"
 										onclick="fn_compopup4"
 									></sbux-button>
+	                            	 -->
+	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup4()'>
+	        							<img src='../../../resource/images/find2.png' width='12px' />
+									</button>
 	                            </td>	                            
 	                            
 	                        </tr>
@@ -933,6 +952,7 @@
 				SBUxMethod.set('srch-txtcreated-dept-code', data.DEPT_CODE);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -966,6 +986,7 @@
 				SBUxMethod.set('srch-txtpayee-dept-code', data.DEPT_CODE);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -974,7 +995,6 @@
     var fn_compopup3 = function() {
     	
     	//type A 형 팝업
-    	
         var searchText 		= gfnma_nvl(SBUxMethod.get("srch-txtcreated-by-name"));
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_";
@@ -1001,6 +1021,7 @@
 				SBUxMethod.set('srch-txtcreated-by-code', data.USER_ID);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
     
     /**
@@ -1036,6 +1057,7 @@
 				SBUxMethod.set('srch-txtpayee-code', data.USER_ID);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
   	}        
         
     /**
@@ -1697,7 +1719,7 @@
             {caption: ["대변(통화)"],				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["차변(전표)"],				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["대변(전표)"],				ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["부서"],	   					ref: 'DEBIT_CREDIT_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서"],	   					ref: 'DEPT_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점"],				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["적요"],						ref: 'DESCRIPTION',				type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["비고"],						ref: 'ETC',						type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -2182,13 +2204,27 @@
  				height			: '200px'
  				,width			: '400px'
  				,param			: {
- 					P_DOC_ID		: Fig2200GridCheckedRowsData[0].data.DOC_ID
+ 					P_WORK_TYPE		: 'DOC'
+ 					,P_DOC_ID		: Fig2200GridCheckedRowsData[0].data.DOC_ID
  					,P_COMP_CODE	: Fig2200GridCheckedRowsData[0].data.COMP_CODE
  					,P_CLIENT_CODE	: gv_ma_selectedClntCd
  				}
  			});
  		}
  	}
+    
+    /**
+     * 신규
+     */
+    function cfn_add() {
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+    }
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

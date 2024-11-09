@@ -37,7 +37,7 @@
                     </h3>
                 </div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
+					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
 				</div>
             </div>
             <div class="box-body">
@@ -275,6 +275,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>매출송장리스트</span>
+                                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                         </li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
@@ -358,6 +359,13 @@
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
+<!-- 리포트 출력 팝업 -->
+<div>
+	<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-comPopFig1000Report">
+	<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+</div>	
 </body>
 
 <script type="text/javascript">
@@ -566,7 +574,7 @@
             },
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'182px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'97px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'97px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -587,7 +595,7 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -646,19 +654,19 @@
                 }
                 , disabled: true
             },
-            {caption: ["수금요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
+            {caption: ["수금요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["수금예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["수금예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["수금일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["수금일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -723,7 +731,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["증빙수취일"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["증빙수취일"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -778,7 +786,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -828,24 +836,24 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급요청일자"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'datepicker',  	width:'104px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-                , hidden: true
-            },
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급예정일자"],       ref: 'TXN_EXP_PAY_DATE', 		type:'inputdate',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["상신일자"],       ref: 'INSERT_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1215,7 +1223,15 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["전표번호"], 	        ref: 'link',    	        type:'button',  	width:'200px',  	style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if(objRowData['DOC_ID']){
+                        return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+                    } else {
+                        return "";
+                    }
+                }
+            },
             {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '200px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
@@ -1225,12 +1241,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
+            {caption: ["지급요청일자"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'200px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'200px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1317,7 +1333,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'datepicker',  	width:'153px',  	style:'text-align:left',
+            {caption: ["승인일"],       ref: 'APPR_DATE', 		type:'inputdate',  	width:'153px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -2046,6 +2062,8 @@
                     });
                     gvwMaster.rebuild();
 
+                    document.querySelector('#listCount').innerText = jsonSalesInvoiceList.length;
+
                     if (jsonSalesInvoiceList.length > 0) {
                         gvwMaster.clickRow(1);
                     }
@@ -2130,43 +2148,6 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_print = async function (strprinttype) {
-        // TODO : 레포트 개발 필요
-        var param = {};
-
-        param["WORK_TYPE"] = "INVOICE";
-        param["PRINT_TYPE"] = strprinttype;
-
-        var strdoc_batch_no = "";
-        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwMaster.getColRef("CHECK_YN"), true);
-
-        if (gvwListCheckedList.length == 0) {
-            gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
-            return;
-        } else {
-            gvwListCheckedList.forEach((item, index) => {
-                let data = gvwMaster.getRowData(item);
-
-                if (strdoc_batch_no != "")
-                {
-                    strdoc_batch_no += "|";
-                }
-                strdoc_batch_no += data.DOC_BATCH_NO;
-            });
-
-            if (strdoc_batch_no == "") {
-                gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
-                return;
-            }
-        }
-
-        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
-            param["DOC_BATCH_NO"] = strdoc_batch_no;
-            gfn_popClipReport("", reportFilePath, param);
-            //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
         }
     }
 
@@ -2406,6 +2387,28 @@
         window.parent.cfn_openTabSearch(json);
     }
 
+    const fn_btnPrint = async function () {
+        let gvwListCheckedListData	= gvwMaster.getCheckedRowData(gvwMaster.getColRef("CHECK_YN"));
+        if (gvwListCheckedListData.length == 0) {
+            gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
+            return;
+        } else {
+            if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
+        		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+        		SBUxMethod.openModal('modal-comPopFig1000Report');
+        		comPopFig1000Report({
+        			height			: '200px'
+        			,width			: '400px'
+        			,param			: {
+        				P_WORK_TYPE		: "INVOICE"
+        				,P_DOC_BATCH_NO	: gvwListCheckedListData[0].data.DOC_BATCH_NO
+        				,P_COMP_CODE	: gv_ma_selectedApcCd
+        				,P_CLIENT_CODE	: gv_ma_selectedClntCd
+        			}
+        		});
+            }
+        }
+    }
 </script>
 <!-- inline scripts related to this page -->
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

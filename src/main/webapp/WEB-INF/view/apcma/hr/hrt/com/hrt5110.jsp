@@ -191,6 +191,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>연차 생성 이력</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -563,6 +564,7 @@
                 });
 
                 gvwStatus.rebuild();
+                document.querySelector('#listCount').innerText = jsonStatusList.length;
             } else {
                 alert(historyData.resultMessage);
             }

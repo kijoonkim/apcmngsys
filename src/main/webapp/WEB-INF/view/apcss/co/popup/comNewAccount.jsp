@@ -62,7 +62,13 @@
 						<tr>
 							<th scope="row">사용자 유형</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-comUserType" name="srch-slt-comUserType" uitype="single" class="form-control input-sm" jsondata-ref="jsonUserType">
+								<sbux-select 
+									id="srch-slt-comUserType" 
+									name="srch-slt-comUserType" 
+									uitype="single" 
+									class="form-control input-sm" 
+									jsondata-ref="jsonUserType"
+								>
 							</td>
 						</tr>
 						<tr>
@@ -107,8 +113,10 @@
 			alert("비밀번호는 8자 이상으로 설정하세요");
 			return;
 		}
-
-		if(!param.apcCd.length != 4 ){
+		
+		console.log("param.apcCd.length", param.apcCd.length);
+		
+		if (param.apcCd.length != 4 ){
 			alert("apc코드는 4자리 입니다.");
 			return;
 		}

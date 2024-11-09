@@ -99,6 +99,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>생산조직</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -480,7 +481,7 @@
         });
     }
 
-    const fn_findEmpCodeForGvwEmp = function(nRow, nCol) {
+    const fn_findEmpCodeForGvwEmp = function(nRow) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         SBUxMethod.openModal('modal-compopup1');
 
@@ -546,12 +547,12 @@
             {caption: ["부서명"],        ref: 'DEPT_NAME', 		         type:'output',  	width:'180px',  	style:'text-align:left'},
             {caption: ["부서코드"],        ref: 'DEPT_CODE', 		         type:'output',  	width:'88px',  	style:'text-align:left'},
             {caption: ["정렬순서"],        ref: 'SORT_SEQ', 		         type:'output',  	width:'95px',  	style:'text-align:left'},
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -584,11 +585,11 @@
         SBGridProperties.rowheadercaption 	= {SEQ: 'No'};
         SBGridProperties.rowheaderwidth 	= {SEQ: '60'};
         SBGridProperties.columns = [
-            {caption: ["적용시작일"],        ref: 'APPLY_START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'APPLY_START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'APPLY_END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'APPLY_END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -659,6 +660,11 @@
             },
             {caption: ["사번"],        ref: 'EMP_CODE', 		         type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["이름"],        ref: 'EMP_NAME', 		         type:'output',  	width:'95px',  	style:'text-align:left'},
+            {caption: ["이름"], 		ref: 'EMP_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findEmpCodeForGvwEmp(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		         type:'checkbox',  	width:'82px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["근무패턴코드"], 		ref: 'WORK_PATTERN_CODE',   	    type:'combo', style:'text-align:left' ,width: '116px',
                 typeinfo: {
@@ -669,18 +675,18 @@
                 }
             },
             {caption: ["비고"],        ref: 'MEMO', 		         type:'input',  	width:'218px',  	style:'text-align:left'},
-            {caption: ["시작일자"],        ref: 'START_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		         type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'datepicker',  	width:'95px',  	style:'text-align:left',
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'inputdate',  	width:'95px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		         type:'datepicker',  	width:'106px',  	style:'text-align:left',
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		         type:'inputdate',  	width:'106px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -696,7 +702,7 @@
         ];
 
         gvwEmp = _SBGrid.create(SBGridProperties);
-        gvwEmp.bind('dblclick', 'fn_gvwEmpDblclick');
+        /*gvwEmp.bind('dblclick', 'fn_gvwEmpDblclick');*/
     }
 
     // 복사모드토글
@@ -1000,6 +1006,8 @@
 
                 treeMaster.rebuild();
 
+                document.querySelector('#listCount').innerText = jsonDeptList.length;
+
                 if(jsonDeptList.length > 0) {
                     treeMaster.clickRow(1);
                 }
@@ -1291,7 +1299,7 @@
         var nCol = gvwEmp.getCol();
 
         if(nCol == 6 || nCol == 7) {
-            fn_findEmpCodeForGvwEmp(nRow, nCol);
+            fn_findEmpCodeForGvwEmp(nRow);
         }
     }
 </script>

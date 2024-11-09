@@ -188,6 +188,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>자금이체 내역</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -311,7 +312,7 @@
                     usedecimal : false,
                 };*/
         SBGridProperties.columns = [
-            {caption: ["처리예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["처리예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -326,12 +327,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["등록일"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'96px',  	style:'text-align:left',
+            {caption: ["등록일"],       ref: 'TXN_DATE', 		type:'inputdate',  	width:'96px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["등록시간"],       ref: 'TXN_TIME', 		type:'datepicker',  	width:'65px',  	style:'text-align:left',
+            {caption: ["등록시간"],       ref: 'TXN_TIME', 		type:'inputdate',  	width:'65px',  	style:'text-align:left',
                 format : {type:'date', rule:'HH:mm:ss', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
                 , disabled: true
             },
@@ -397,18 +398,18 @@
                 }
                 , disabled: true
             },
-            {caption: ["처리일"],       ref: 'PROCESS_DATE', 		type:'datepicker',  	width:'101px',  	style:'text-align:left',
+            {caption: ["처리일"],       ref: 'PROCESS_DATE', 		type:'inputdate',  	width:'101px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["에러메세지"],         ref: 'ERROR_MESSAGE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["EB여부"],         ref: 'EB_USED',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["입력시간"],       ref: 'INSERT_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+            {caption: ["입력시간"],       ref: 'INSERT_TIME', 		type:'inputdate',  	width:'160px',  	style:'text-align:left',
                 format : {type:'date', rule:'HH:mm:ss', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
                 , disabled: true
             },
-            {caption: ["수정시간"],       ref: 'UPDATE_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+            {caption: ["수정시간"],       ref: 'UPDATE_TIME', 		type:'inputdate',  	width:'160px',  	style:'text-align:left',
                 format : {type:'date', rule:'HH:mm:ss', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
                 , disabled: true
             },
@@ -431,7 +432,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["자금배치번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'160px',  style:'text-align:left'},
-            {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'92px',  	style:'text-align:left',
+            {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'92px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -782,6 +783,8 @@
                         });
 
                         gvwInfo.rebuild();
+
+                        document.querySelector('#listCount').innerText = jsonFundTransferList.length;
 
                         if (jsonFundTransferList.length > 0) {
                             gvwInfo.clickRow(1);

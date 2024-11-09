@@ -69,28 +69,54 @@ public class ApcMaFia3100Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 자산원장 신규
-    @PostMapping(value = "/fi/ffa/alm/saveFia3100S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveFia3100S(
-    		@RequestBody Map<String, Object> param
-    		, Model model
-    		, HttpSession session
-    		, HttpServletRequest request) throws Exception{
-    	
-    	logger.info("=============saveFia3100S=====start========");
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-    	
-    	try {
-    		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA3100_S");
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.getMessage());
-    		return getErrorResponseEntity(e);
-    	}
-    	
-    	logger.info("=============saveFia3100S=====end========");
-    	return getSuccessResponseEntityMa(resultMap);
-    } 	
+	// 자산원장 저장,수정,삭제
+	@PostMapping(value = "/fi/ffa/alm/modifyFia3100S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> modifyFia3100S(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============modifyFia3100S=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA3100_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============modifyFia3100S=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 자산원장 디테일 저장,수정,삭제
+	@PostMapping(value = "/fi/ffa/alm/modifyFia3100S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> modifyFia3100S2(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============modifyFia3100S2=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA3100_S2");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============modifyFia3100S2=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 }

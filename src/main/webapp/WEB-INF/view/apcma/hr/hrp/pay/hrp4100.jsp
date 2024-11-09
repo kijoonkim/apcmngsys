@@ -832,16 +832,23 @@
     }
 
     // only document
-    window.addEventListener('DOMContentLoaded', function (e) {
+    window.addEventListener('DOMContentLoaded', async function (e) {
 
-        fn_initSBSelect();
-        fn_init();
+        await fn_initSBSelect();
+        await fn_init();
+        fn_search('search');
 
     });
 
     const fn_init = async function () {
 
         fn_createGrid();
+
+        gfnma_multiSelectSet('#SRCH_HR_POSTING_TYPE', 'SUB_CODE', 'CODE_NAME', jsonHrPostingType[0].SUB_CODE);
+
+        //let HR_POSTING_TYPE			    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
+
+
     }
 
     // 신규
@@ -1057,7 +1064,7 @@
                 if (_.isEqual(type, 'search')){
 
                     if (jsonBandgvwInfoList.length > 0) {
-                        gvwBandgvwInfoGrid.clickRow(1);
+                        gvwBandgvwInfoGrid.clickRow(2);
                     }
                     //fn_view();
                 }

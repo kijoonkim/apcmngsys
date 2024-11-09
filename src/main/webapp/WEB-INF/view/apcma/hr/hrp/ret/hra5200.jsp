@@ -38,6 +38,10 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
+            </div>
         </div>
 
         <!--[pp] 검색 -->
@@ -63,7 +67,7 @@
                                 id="RETIRE_CALC_DATE_FR"
                                 name="RETIRE_CALC_DATE_FR"
                                 uitype="popup"
-                                date-format="yyyymmdd"
+                                date-format="yyyy-mm-dd"
                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                 required>
                             <%--onchange="fn_payDate"--%>
@@ -75,7 +79,7 @@
                                 id="RETIRE_CALC_DATE_TO"
                                 name="RETIRE_CALC_DATE_TO"
                                 uitype="popup"
-                                date-format="yyyymmdd"
+                                date-format="yyyy-mm-dd"
                                 class="form-control input-sm input-sm-ast inpt_data_reqed"
                                 required>
                             <%--onchange="fn_payDate"--%>
@@ -205,7 +209,7 @@
                                 id="PAY_DATE"
                                 name="PAY_DATE"
                                 uitype="popup"
-                                date-format="yyyymmdd"
+                                date-format="yyyy-mm-dd"
                                 class="form-control input-sm input-sm-ast"
                                 required>
                             <%--onchange="fn_payDate"--%>
@@ -395,6 +399,29 @@
 
     }
 
+
+    /**
+     * 조회 ??
+     */
+    function cfn_search() {
+        //fn_search();
+    }
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
+        SBUxMethod.set('COMP_CODE', gv_ma_selectedApcCd);
+    }
+
+
+    /**
+     * 출력
+     */
+    const fn_btnPrint = async function() {
+
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

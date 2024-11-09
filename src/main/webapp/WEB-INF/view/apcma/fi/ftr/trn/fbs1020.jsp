@@ -81,6 +81,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>펌뱅킹전문조회</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div style="margin-left: auto;">
@@ -305,6 +306,8 @@
                     jsonFirmBankingElecDocuList.push(msg);
                 });
                 gvwDetail.rebuild();
+
+                document.querySelector('#listCount').innerText = jsonFirmBankingElecDocuList.length;
             } else {
                 alert(data.resultMessage);
             }

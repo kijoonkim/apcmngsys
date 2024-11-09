@@ -149,6 +149,7 @@
                         <ul class="ad_tbl_count">
                             <li>
                                 <span>집계이력</span>
+                                <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
                     </div>
@@ -290,37 +291,37 @@
                 , disabled: true
             },
             {caption: ["확정"],      	ref: 'WORK_SUMMARY_CONFIRM_YN', 		        type:'checkbox',  	width:'50px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'datepicker',  	width:'70px',  	style:'text-align:left',
+            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'inputdate',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["소급월"],       ref: 'ACCT_YYYYMM', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["소급월"],       ref: 'ACCT_YYYYMM', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
             },
-            {caption: ["집계시작일"],       ref: 'WORK_SUMMARY_START_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["집계시작일"],       ref: 'WORK_SUMMARY_START_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["집계종료일"],       ref: 'WORK_SUMMARY_END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["집계종료일"],       ref: 'WORK_SUMMARY_END_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["급여집계시작일"],       ref: 'PAY_SUMMARY_START_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["급여집계시작일"],       ref: 'PAY_SUMMARY_START_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["급여집계종료일"],       ref: 'PAY_SUMMARY_END_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["급여집계종료일"],       ref: 'PAY_SUMMARY_END_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -519,27 +520,27 @@
                 , disabled: true
             },
             {caption: ["확정"],      	ref: 'WORK_SUMMARY_CONFIRM_YN', 		        type:'checkbox',  	width:'50px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
+            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'datepicker',  	width:'70px',  	style:'text-align:left',
+            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'inputdate',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["소급월"],       ref: 'ACCT_YYYYMM', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["소급월"],       ref: 'ACCT_YYYYMM', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
             },
-            {caption: ["시작일자"],       ref: 'START_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시작일자"],       ref: 'START_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["종료일자"],       ref: 'END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일자"],       ref: 'END_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -1247,6 +1248,7 @@
                 }
 
                 gvwInfo.rebuild();
+                document.querySelector('#listCount').innerText = jsonSummaryHistoryList.length;
             } else {
                 alert(listData.resultMessage);
             }

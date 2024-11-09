@@ -70,6 +70,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>근태집계 정보</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -267,6 +268,7 @@
                 });
 
                 gvwInfo.rebuild();
+                document.querySelector('#listCount').innerText = jsonNeglectOfDutyInfoList.length;
             } else {
                 alert(data.resultMessage);
             }

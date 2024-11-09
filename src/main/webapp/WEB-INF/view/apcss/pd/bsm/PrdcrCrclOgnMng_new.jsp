@@ -1230,6 +1230,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,brno : brno
 			,corpNm : corpNm
 			,apoSe : apoSe
+			//페이징
 			,pagingYn : 'Y'
 			,currentPageNo : pageNo
  		  	,recordCountPerPage : pageSize
@@ -1297,7 +1298,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			});
 
 			if (jsonPrdcrCrclOgnMng.length > 0) {
-
 				if(grdPrdcrCrclOgnMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdPrdcrCrclOgnMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdPrdcrCrclOgnMng.rebuild();

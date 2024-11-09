@@ -121,7 +121,7 @@
 							</div>
 						</div>
 						<div style="overflow:auto;border:1px solid #d1cece;height:350px">
-							<table class="table table-bordered table-hover cu-basic-table" style="min-width:1920px">
+							<table class="table table-bordered table-hover cu-basic-table" style="min-width:2310px">
 						        <colgroup>
 			                        <col style="width: 50px">
 			                        <col style="width: 80px">
@@ -132,11 +132,11 @@
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
 			                        <col style="width: 150px">
-			                        <col style="width: 100px">
+			                        <col style="width: 300px">
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
 			                        <col style="width: 150px">
-			                        <col style="width: 100px">
+			                        <col style="width: 300px">
 			                        <col style="width: 100px">
 			                        <col style="width: 150px">
 			                        <col style="width: 300px">
@@ -198,6 +198,8 @@ var _compopappvmng_treeGrid; 					// 트리그리드를 담기위한 객체 선�
 var _compopappvmng_jsonTreeList		= []; 		// 트리그리드의 참조 데이터 주소 선언
 var _compopappvmng_treeGridSelRow	= null;		// 트리그리드를 선택한 행
 
+var _compopappvmng_jsonApprCategory	= [];		// 결재구분
+
 var _compopappvmng_fnTreeView = function(){
 	var nCol = _compopappvmng_treeGrid.getCol();
     //특정 열 부터 이벤트 적용
@@ -243,8 +245,39 @@ function compopappvmng(options) {
 	$.extend(settings, options);	
 	console.log('settings:', settings);
 	
+	//css
+	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
+	
 	//open modal
 	SBUxMethod.openModal(modalDivId);
+	
+	const fn_initPopAppvMng = async function() {
+		let rst = await Promise.all([
+            // 결재구분
+            gfnma_setComSelect([''], _compopappvmng_jsonApprCategory, 'L_FIM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		]);
+	}
+	
+	async function fn_init() {
+  		await fn_initPopAppvMng();
+  		
+  	    fn_createTreeGrid();
+  	    fn_treeSearch();
+  	    
+console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory);  	    
+  	    
+  	    fn_basicSearch(function(){
+  	    	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
+  	    	var cnt = len - (pp_sel_index + 1);
+  	        if (cnt > 0) {
+  	    		$(modalId).find('.cu-btn-collect').hide();
+  	        } else {
+  	    		$(modalId).find('.cu-btn-collect').show();
+  	        };
+  	    });	  	    
+	}	
+	
+	fn_init();
 	
 	var fn_closeModal = function(){
 	 	SBUxMethod.closeModal(modalDivId);
@@ -324,7 +357,7 @@ function compopappvmng(options) {
         _compopappvmng_treeGrid	= _SBGrid.create(SBGridProperties);
         _compopappvmng_treeGrid.bind('click', '_compopappvmng_fnTreeView');
     };
-    fn_createTreeGrid();
+    //fn_createTreeGrid();
     
     var fn_treeSearch = async function() {
 
@@ -403,7 +436,8 @@ function compopappvmng(options) {
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     }    
-    fn_treeSearch();
+    //fn_treeSearch();
+    
 	//----------------------------------------------------------------------------
 	
 	//결재 경로 관련--------------------------------------------------------------
@@ -490,6 +524,22 @@ function compopappvmng(options) {
 		fn_trClickBasicGrid();		
 	}
 	
+	var fn_setSelectHtml = function(list, chk){
+		var htm = '<select class="form-control form-select" style="width:100px" >';
+		var list = _compopappvmng_jsonApprCategory;
+		for (var i = 0; i < list.length; i++) {
+			if(chk == list[i]['SUB_CODE']){
+				htm += '<option  value="' + list[i]['SUB_CODE'] + '" selected>';
+			} else {
+				htm += '<option  value="' + list[i]['SUB_CODE'] + '">';
+			}
+			htm += list[i]['CODE_NAME'];
+			htm += '</option >';
+		}
+		htm += '</select>'
+		return htm;
+	}
+	
 	//그리드 셋팅
 	var fn_createBasicGrid = function(list){
 		
@@ -521,7 +571,12 @@ function compopappvmng(options) {
 			htm += ' >';
 			
 			htm += '<td>' + (i+1) + '</td>';
-			htm += '<td>' + gfnma_nvl(obj['APPR_CATEGORY_NAME'])	+ '</td>';
+			
+			htm += '<td>';
+			htm += fn_setSelectHtml(_compopappvmng_jsonApprCategory, gfnma_nvl(obj['APPR_CATEGORY']));
+			//htm += gfnma_nvl(obj['APPR_CATEGORY'])	
+			htm += '</td>';
+			
 			htm += '<td>' + gfnma_nvl(obj['APPR_TYPE_NAME'])		+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['DEPT_NAME'])			+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['DUTY_NAME'])			+ '</td>';
@@ -688,15 +743,15 @@ function compopappvmng(options) {
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     }    
-    fn_basicSearch(function(){
-    	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
-    	var cnt = len - (pp_sel_index + 1);
-        if (cnt > 0) {
-    		$(modalId).find('.cu-btn-collect').hide();
-        } else {
-    		$(modalId).find('.cu-btn-collect').show();
-        };
-    });	
+//     fn_basicSearch(function(){
+//     	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
+//     	var cnt = len - (pp_sel_index + 1);
+//         if (cnt > 0) {
+//     		$(modalId).find('.cu-btn-collect').hide();
+//         } else {
+//     		$(modalId).find('.cu-btn-collect').show();
+//         };
+//     });	
     
 	//[end ] / 결재 경로 관련 ---------------------------------------------------------
 	

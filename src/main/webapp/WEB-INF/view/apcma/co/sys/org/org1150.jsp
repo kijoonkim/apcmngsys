@@ -126,7 +126,7 @@
 	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -139,7 +139,7 @@
     
 	// 신규
 	function cfn_add() {
-		fn_clearForm();
+		fn_addRow();
 	}
 	
 	// 그룹코드 내역, 세부코드 정보 저장
@@ -152,6 +152,7 @@
 	
 	// 마스터 그리드 삭제
 	function cfn_del() {
+		fn_delRow();
 	}
  
 	// 조회
@@ -176,21 +177,21 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.oneclickedit 		= true;
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+            {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type: 'combo',
                 typeinfo : {
                     ref : 'jsonCompCode',
-                    oneclickedit : true,
                     label : 'label',
                     value : 'value'
                 }
             },
             {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left'},
             {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'700px',  style:'text-align:center'},
+            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'700px',  style:'text-align:left'},
             {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'80px', 	
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
            	},
@@ -210,7 +211,7 @@
                 params: gfnma_objectToString({
                 	   V_P_DEBUG_MODE_YN        : ""
                		  ,V_P_LANG_ID              : ""
-               		  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+               		  ,V_P_COMP_CODE            : gfn_nvl(item.data.COMP_CODE)
                		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
                		  ,V_P_SITE_CODE            : gfn_nvl(item.data.SITE_CODE)
                		  ,V_P_SITE_NAME            : gfn_nvl(item.data.SITE_NAME)
@@ -337,6 +338,7 @@
 	            return;
 	        } else {
 	            masterGrid.deleteRow(rowVal);
+	            await fn_save();
 	        }
     	}
     }

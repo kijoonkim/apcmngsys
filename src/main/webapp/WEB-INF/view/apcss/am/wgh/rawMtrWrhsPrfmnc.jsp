@@ -519,6 +519,8 @@ async function cfn_search() {
 	        	typeinfo : {mask : {alias : 'numeric'}},
 	        	format : {type:'number', rule:'#,##0  '}
 	        },
+	        {caption: ["단가"],ref: 'untPrc',type:'output',width:'100px',style:'text-align:right',typeinfo : {mask : {alias : 'numeric'}},format : {type:'number', rule:'#,##0  '}},
+	        {caption: ["공급가"],ref: 'splyPrc',type:'output',width:'100px',style:'text-align:right',typeinfo : {mask : {alias : 'numeric'}},format : {type:'number', rule:'#,##0  '}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["팔레트번호"],	ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
@@ -800,6 +802,8 @@ async function cfn_search() {
   						prcsTypeNm: item.prcsTypeNm,
   						invntrQntt: item.invntrQntt,
   						invntrWght: item.invntrWght,
+  						untPrc : item.untPrc,
+  						splyPrc : item.splyPrc
   				}
           		jsonRawMtrWrhs.push(rawMtrWrhs);
 

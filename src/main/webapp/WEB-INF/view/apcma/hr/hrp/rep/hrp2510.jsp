@@ -436,7 +436,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -475,7 +475,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -624,7 +624,7 @@
                 ,V_P_DEPT_CODE     : ''
                 ,V_P_EMP_CODE      : rowData.EMP_CODE
                 ,V_P_PAY_YYYYMM_FR : PAY_YYYYMM_FR
-                ,V_P_PAY_YYYYMM_TO : PAY_YYYYMM_FR
+                ,V_P_PAY_YYYYMM_TO : PAY_YYYYMM_FR2
                 ,V_P_PAY_TYPE      : PAY_TYPE
                 ,V_P_PAY_AREA_TYPE : ''
 
@@ -656,10 +656,11 @@
 
                     data.cv_2.reverse().forEach((item, index) => {
                         const columns2 =   {caption: [item.PAY_YYYYMM_NAME], ref: item.PAY_YYYYMM_CODE, type: 'output', width: '100px', style: 'text-align:right'
-                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }}
+                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}}
 
                         columns1.push(columns2);
                     });
+
 
                    fn_createDetailGrid();
 

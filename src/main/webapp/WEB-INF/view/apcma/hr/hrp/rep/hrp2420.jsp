@@ -65,6 +65,11 @@
                 <col style="width: 6%">
                 <col style="width: 6%">
                 <col style="width: 3%">
+
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
             </colgroup>
             <tbody>
             <tr>
@@ -87,54 +92,43 @@
                             id="SRCH_PAY_AREA_TYPE"
                             uitype="single"
                             jsondata-ref="jsonPayAreaType"
-                            unselected-text="선택"
+                            <%--unselected-text="선택"--%>
                             class="form-control input-sm"
                             <%--onchange="fn_payType"--%>>
                     </sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">발송구분</th>
-                <td colspan="3" class="td_input">
-                    <sbux-radio id="ALL" name="SENDTYPE" uitype="normal"
-                                text="전체" value="ALL" checked>
-                    </sbux-radio>
-                    <sbux-radio id="PAY" name="SENDTYPE" uitype="normal"
-                                text="급여명세" value="PAY">
-                    </sbux-radio>
-                    <sbux-radio id="WORK" name="SENDTYPE" uitype="normal"
-                                text="근태현황" value="WORK">
-                    </sbux-radio>
+                <th scope="row" class="th_bg">부서(실)</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <div class="dropdown">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PARENT_DEPT01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="SRCH_PARENT_DEPT01" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
                 </td>
+                <td colspan="6" style="border-right: hidden;"></td>
             </tr>
             <tr>
                 <th scope="row" class="th_bg">귀속년월</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="SRCH_PAY_YYYYMM_FR"
-                            name="SRCH_PAY_YYYYMM_FR"
+                            id="SRCH_PAY_YYYYMM"
+                            name="SRCH_PAY_YYYYMM"
                             uitype="popup"
                             datepicker-mode="month"
-                            date-format="yyyymm"
+                            date-format="yyyy-mm"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
                             style="width: 95%;"
+                            onchange="fn_payDate"
                             required>
                         <%--onchange="fn_payDate"--%>
                     </sbux-datepicker>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_PAY_YYYYMM_FR2"
-                            name="SRCH_PAY_YYYYMM_FR2"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyymm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            style="width: 95%;"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td style="border-right: hidden;"></td>
+                <td colspan="2" style="border-right: hidden;"></td>
+
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input">
                     <sbux-select
@@ -143,22 +137,37 @@
                             jsondata-ref="jsonPayType"
                             unselected-text="선택"
                             class="form-control input-sm inpt_data_reqed"
+                            onchange="fn_payDate"
                             required
                     <%--onchange="fn_payType"--%>>
                     </sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">연간누계 출력여부</th>
-                <td colspan="3" class="td_input" style="border-right: hidden;">
-                    <sbux-checkbox
-                            id="SRCH_MULTI_YN"
-                            name="SRCH_MULTI_YN"
-                            uitype="normal"
-                            text=""
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
+                <th scope="row" class="th_bg">지급일자</th>
+                <td class="td_input">
+                    <sbux-select
+                            id="SRCH_PAY_DATE"
+                            uitype="single"
+                            jsondata-ref="jsonPayDate"
+                            unselected-text="선택"
+                            class="form-control input-sm inpt_data_reqed"
+                            required
+                    <%--onchange="fn_payType"--%>>
+                    </sbux-select>
                 </td>
+                <td colspan="2" style="border-right: hidden;"></td>
+                <th scope="row" class="th_bg">부서(팀)</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <div class="dropdown">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PARENT_DEPT02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="SRCH_PARENT_DEPT02" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" style="border-right: hidden;"></td>
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
@@ -202,7 +211,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td colspan="5" class="td_input" data-group="EMP">
+                <td class="td_input" data-group="EMP">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -210,78 +219,73 @@
                             onclick="fn_compopup2"
                     ></sbux-button>
                 </td>
-            </tr>
-           <%-- /************** 숨겨져 있는 컬럼 목록 **************/--%>
-            <tr>
-                <td class="td_input" style="display: none;">
+                <th scope="row" class="th_bg">직군</th>
+                <td class="td_input">
                     <sbux-select
-                            id="PAY_DATE"
+                            id="SRCH_JOB_GROUP"
                             uitype="single"
-                            jsondata-ref="jsonPayDate"
+                            jsondata-ref="jsonJobGroup"
                             unselected-text="선택"
-                            class="form-control input-sm inpt_data_reqed"
+                            class="form-control input-sm"
+                            required
                     <%--onchange="fn_payType"--%>>
                     </sbux-select>
                 </td>
-                <td class="td_input" style="border-right: hidden; display: none;">
-                    <sbux-input
-                            uitype="text"
-                            id="EMAIL_SUBJECT"
+                <td colspan="2" style="border-right: hidden;"></td>
+                <th scope="row" class="th_bg">소급구분</th>
+                <td class="td_input">
+                    <sbux-select
+                            id="SRCH_SUM_TYPE"
+                            uitype="single"
+                            jsondata-ref="jsonSumType"
                             class="form-control input-sm"
-                    ></sbux-input>
+                            required
+                    <%--onchange="fn_payType"--%>>
+                    </sbux-select>
                 </td>
-                <td class="td_input" style="border-right: hidden; display: none;">
-                    <sbux-input
-                            uitype="text"
-                            id="EMAIL_BODY"
+                <td colspan="2" style="border-right: hidden;"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="th_bg">출력구분</th>
+                <td colspan="3" class="td_input inpt_data_reqed">
+                    <sbux-radio id="EMP" name="SRCH_PRINT_TYPE" uitype="normal"
+                                text="개인별(소속)" value="EMP" checked>
+                    </sbux-radio>
+                    <sbux-radio id="DEPT" name="SRCH_PRINT_TYPE" uitype="normal"
+                                text="소속부서별" value="DEPT">
+                    </sbux-radio>
+                    <sbux-radio id="EMP_COST" name="SRCH_PRINT_TYPE" uitype="normal"
+                                text="개인별(귀속)" value="EMP_COST">
+                    </sbux-radio>
+                    <sbux-radio id="COST_DEPT" name="SRCH_PRINT_TYPE" uitype="normal"
+                                text="귀속부서별" value="COST_DEPT">
+                    </sbux-radio>
+                </td>
+                <th scope="row" class="th_bg" style="display: none">근무지</th>
+                <td class="td_input" style="display: none">
+                    <sbux-select
+                            id="SRCH_WORK_REGION_CODE"
+                            uitype="single"
+                            jsondata-ref="jsonWorkRegionCode"
+                            unselected-text="선택"
                             class="form-control input-sm"
-                    ></sbux-input>
+                            required
+                    ></sbux-select>
                 </td>
+                <td colspan="10" style="border-right: hidden;"></td>
             </tr>
             </tbody>
         </table>
-
-
-        <%--<div class="row">--%>
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
                 <li>
-                    <span>급여내역</span>
+                    <span>급여대장</span>
                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                 </li>
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:300px; width:100%;"></div>
-        </div>
-        <%-- </div>--%>
-
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="ad_tbl_top">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>지급항목</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <div id="sb-area-gvwPay" style="height:230px; width:100%;"></div>
-                </div>
-            </div>
-
-            <div class="col-sm-7">
-                <div class="ad_tbl_top">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>공제항목</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <div id="sb-area-gvwDed" style="height:230px; width:100%;"></div>
-                </div>
-            </div>
+            <div id="sb-area-gvwInfo" style="height:500px; width:100%;"></div>
         </div>
 
 
@@ -308,15 +312,20 @@
     //grid 초기화
     var gvwInfoGrid; 			// 그리드를 담기위한 객체 선언
     var jsonInfoList = []; 	    // 그리드의 참조 데이터 주소 선언
-    var gvwPayGrid;
-    var jsonPayList = [];
-    var gvwDedGrid;
-    var jsonDedList = [];
 
     var jsonSiteCode = []; //사업장 ( L_ORG001 )SRCH_SITE_CODE, 	SITE_CODE
-    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )SRCH_PAY_AREA_TYPE
     var jsonPayType = []; //지급구분 ( L_HRB008 )SRCH_PAY_TYPE, 	PAY_TYPE
-    var jsonPayDate = []; //지급일자 ( L_HRP027 )PAY_DATE
+    var jsonPayDate = []; //지급일자 ( L_HRP027 )SRCH_PAY_DATE
+    var jsonJobGroup = []; //직군 ( L_HRI047 )SRCH_JOB_GROUP
+    var jsonSumType = []; //소급구분 ( L_HRP041 )SRCH_SUM_TYPE
+    var jsonWorkRegionCode = []; //근무지 ( L_HRI999 )SRCH_WORK_REGION_CODE
+    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )SRCH_PAY_AREA_TYPE
+    var jsonEmpType = []; //사원구분 ( L_HRI008 )EMP_TYPE [gvwInfoGrid]
+    var jsonDutyCode = []; //사원구분 ( L_HRI003 )DUTY_CODE [gvwInfoGrid]
+    var jsonLaborCostGroup = []; //인건비 ( L_HRI007 )LABOR_COST_GROUP [gvwInfoGrid]
+    var jsonJobRank = []; //직급 ( L_HRI005 )JOB_RANK [gvwInfoGrid]
+
+
     var jsonPositionCode = []; //직위 ( L_HRI002 )POSITION_CODE
     var jsonPayItemCode = []; //급여항목 ( L_HRP011 )PAY_ITEM_CODE
     var jsonPayItemCode2 = []; //공제항목 ( L_HRP012 )PAY_ITEM_CODE
@@ -326,7 +335,16 @@
 
             gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SRCH_PAY_TYPE','gvwInfoGrid'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+            //gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SUM_TYPE'], jsonSumType, 'L_HRP041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_WORK_REGION_CODE'], jsonWorkRegionCode, 'L_HRI999', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonLaborCostGroup, 'L_HRI007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
             gfnma_setComSelect(['gvwInfoGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode, 'L_HRP011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwDedGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
@@ -349,6 +367,46 @@
                 ,columns		:[
                     {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
                     {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+            //부서(실)
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_PARENT_DEPT01']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG910'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'DEPT_CODE'
+                ,colLabel		: 'DEPT_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'DEPT_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'DEPT_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+            //부서(팀)
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_PARENT_DEPT02']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG911'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'DEPT_CODE'
+                ,colLabel		: 'DEPT_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'DEPT_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'DEPT_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -426,16 +484,28 @@
 
     const fn_init = async function () {
 
-        let openDate = gfn_dateToYmd(new Date());
+        let openDate = gfn_dateToYm(new Date());
 
-        SBUxMethod.set('SRCH_PAY_YYYYMM_FR', openDate);
-        SBUxMethod.set('SRCH_PAY_YYYYMM_FR2', openDate);
+        SBUxMethod.set('SRCH_PAY_YYYYMM', openDate);
 
         fn_createGrid();
-        fn_createPayGrid();
-        fn_createDedGrid();
     }
 
+    /**
+     * 지급일자 조회
+     */
+    var fn_payDate = function() {
+
+        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));   //귀속년월
+        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));     //지급구분
+        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+
+        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
+            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
+
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+
+    }
     // 신규
     /*  function cfn_add() {
           fn_create();
@@ -451,7 +521,7 @@
 
     // 조회
     function cfn_search() {
-        fn_search();
+        fn_search('Q');
     }
 
     /**
@@ -459,7 +529,65 @@
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
+        SBUxMethod.refresh('SRCH_SUM_TYPE');
+        SBUxMethod.refresh('SRCH_PAY_AREA_TYPE');
     }
+
+    var columns1 = [
+        {caption: ['급여년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+        format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
+        {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption: ["담당"], ref: 'PARENT_PARENT_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["실"], ref: 'PARENT_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["귀속부서코드(코스트센터)"], ref: 'COST_DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["귀속부서명(코스트센터)"], ref: 'COST_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["주민등록번호"], ref: 'SOCIAL_NUM_RAEL', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+        {caption : ["직군"], ref : 'JOB_GROUP', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonJobGroup', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption : ["사원구분"], ref : 'EMP_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonEmpType', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption : ["직위"], ref : 'POSITION_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption : ["직책"], ref : 'DUTY_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonDutyCode', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption: ["지급구분"], ref: 'PAY_TYPE', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ['입사일'], ref: 'ENTER_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+        {caption: ['퇴직일'], ref: 'RETIRE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+        {caption: ["근무지"], ref: 'WORK_REGION_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["급여총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            ,  format : { type:'number' , rule:'#,###', emptyvalue:'0'}},
+        {caption: ["비과세총액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            ,  format : { type:'number' , rule:'#,###', emptyvalue:'0'}},
+        {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            ,  format : { type:'number' , rule:'#,###', emptyvalue:'0'}},
+        {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            ,  format : { type:'number' , rule:'#,###', emptyvalue:'0'}},
+        {caption : ["인건비"], ref : 'LABOR_COST_GROUP', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonLaborCostGroup', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption : ["직급"], ref : 'JOB_RANK', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            typeinfo : {ref : 'jsonJobRank', displayui : true, label : 'label', value : 'value'}
+        },
+        {caption: ["social_num"], ref: 'SOCIAL_NUM', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+        {caption: ["호봉"], ref: 'HOBONG', type: 'output', width: '140px', style: 'text-align:left'},
+        {caption: ["코스트센터명"], ref: 'COST_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+        {caption: ["코스트센터"], ref: 'COST_DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+    ];
+
+    var sumCol = [19,20,21,22];
+
 
     //급여내역 리스트
     function fn_createGrid() {
@@ -470,17 +598,17 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
+        //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.frozencols = 7;
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
             columns		: {
                 standard : [0],
-                sum : [10,11,12,13]
+                sum : sumCol
             },
             subtotalrow : {
                 1: {
@@ -499,176 +627,52 @@
             datasorting	: false,
             usedecimal : false,
         };
-        SBGridProperties.columns = [
-            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
-                    checkedvalue: 'Y', uncheckedvalue: 'N'
-                }
-            },
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption : ["직위"], ref : 'POSITION_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
+        SBGridProperties.columns = [];
 
-        ];
+        columns1.forEach((col) => {
+            SBGridProperties.columns.push(col);
+        });
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-        gvwInfoGrid.bind('click', 'fn_view');
-    }
 
-    //지급항목 리스트
-    function fn_createPayGrid() {
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-gvwPay';
-        SBGridProperties.id = 'gvwPayGrid';
-        SBGridProperties.jsonref = 'jsonPayList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
-        SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
-        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
-        SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.total = {
-            type 		: 'grand',
-            position	: 'bottom',
-            columns		: {
-                standard : [2],
-                sum : [1]
-            },
-            subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
-            grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                stylestartcol	: 0
-            },
-            datasorting	: false,
-            usedecimal : false,
-        };
-        SBGridProperties.columns = [
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '170px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '250px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세금액"], ref: 'TAX_FREE_AMT', type: 'output', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
-
-        ];
-
-        gvwPayGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPayGrid.bind('click', 'fn_view');*/
     }
 
 
-    //공제항목 리스트
-    function fn_createDedGrid() {
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-gvwDed';
-        SBGridProperties.id = 'gvwDedGrid';
-        SBGridProperties.jsonref = 'jsonDedList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
-        SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
-        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
-        SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.total = {
-            type 		: 'grand',
-            position	: 'bottom',
-            columns		: {
-                standard : [1],
-                sum : [1]
-            },
-            subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
-            grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                stylestartcol	: 0
-            },
-            datasorting	: false,
-            usedecimal : false,
-        };
-        SBGridProperties.columns = [
-            {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode2', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
-        ];
-
-        gvwDedGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPayGrid.bind('click', 'fn_view');*/
-    }
 
     /**
      * 목록 조회
      */
-    const fn_search = async function () {
+    const fn_search = async function (type) {
 
-        let SITE_CODE           = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let SITE_CODE	        = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
         let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let SENDTYPE            = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        let PAY_YYYYMM_FR       = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
-        let PAY_YYYYMM_FR2      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR2")); //귀속년월
+        let PARENT_DEPT01	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PARENT_DEPT01'));//부서(실)
+        let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
         let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let MULTI_YN            = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN")); //연간누계 출력여부
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PARENT_DEPT02	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PARENT_DEPT02'));//부서(팀)
         let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
         let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let PAY_DATE            = gfn_nvl(SBUxMethod.get("PAY_DATE")); //지급일자
+        let JOB_GROUP           = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP")); //직군
+        let SUM_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_SUM_TYPE")); //소급구분
+        let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let WORK_REGION_CODE    = gfn_nvl(SBUxMethod.get("SRCH_WORK_REGION_CODE")); //근무지
 
 
-        if (!PAY_YYYYMM_FR) {
-            gfn_comAlert("W0002", "귀속년월");
-            return;
-        }
-        if (!PAY_YYYYMM_FR2) {
+        if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
             return;
         }
         if (!PAY_TYPE) {
             gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
+        if (!PRINT_TYPE) {
+            gfn_comAlert("W0002", "출력구분");
             return;
         }
 
@@ -678,19 +682,21 @@
             ,V_P_COMP_CODE: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            ,V_P_SITE_CODE     : SITE_CODE
-            ,V_P_DEPT_CODE     : DEPT_CODE
-            ,V_P_EMP_CODE      : EMP_CODE
-            ,V_P_PAY_YYYYMM    : PAY_YYYYMM_FR
-            ,V_P_PAY_YYYYMM1   : PAY_YYYYMM_FR2
-            ,V_P_PAY_TYPE      : PAY_TYPE
-            ,V_P_PAY_DATE      : PAY_DATE
-            ,V_P_EMP_CODE_LIST : ''
-            ,V_P_PAY_YYYYMM2   : ''
-            ,V_P_PAY_TYPE1     : ''
-            ,V_P_PAY_DATE1     : ''
-            ,V_P_PAY_AREA_TYPE : PAY_AREA_TYPE
-            ,V_P_REPORT_TYPE   : SENDTYPE
+            ,V_P_PAY_YYYYMM         : PAY_YYYYMM
+            ,V_P_PAY_TYPE           : PAY_TYPE
+            ,V_P_PAY_DATE           : PAY_DATE
+            ,V_P_SITE_CODE          : SITE_CODE
+
+            ,V_P_PARENT_DEPT01	    : PARENT_DEPT01
+            ,V_P_PARENT_DEPT02	    : PARENT_DEPT02
+
+            ,V_P_DEPT_CODE          : DEPT_CODE
+            ,V_P_EMP_CODE           : EMP_CODE
+            ,V_P_WORK_REGION_CODE   : WORK_REGION_CODE
+            ,V_P_JOB_GROUP          : JOB_GROUP
+            ,V_P_PRINT_TYPE         : PRINT_TYPE   //'10' -- '10' : 개인별, '20' : 팀별
+            ,V_P_PAY_AREA_TYPE      : PAY_AREA_TYPE
+            ,V_P_SUM_TYPE           : SUM_TYPE   //--소급구분자 20171130 추가
 
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
@@ -699,57 +705,115 @@
             ,V_P_PC: ''
         };
 
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420List.do", {
             getType				: 'json',
-            workType			: 'LIST',
-            cv_count			: '20',
+            workType			: type,
+            cv_count			: '9',
             params				: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
+                // -- 2. 동적 항목(급여항목) 코드 리스트
+                await data.cv_2.forEach((item, index) => {
+
+                    let PAY_ITEM_NAME = gfn_nvl(item.PAY_ITEM_NAME);
+                    let PAY_ITEM_CODE = gfn_nvl(item.PAY_ITEM_CODE);
+                    let PAY_ITEM_CATEGORY = gfn_nvl(item.PAY_ITEM_CATEGORY);
+
+                    if (PAY_ITEM_NAME != '' && PAY_ITEM_CODE != '' && PAY_ITEM_CATEGORY != ''){
+
+                        const columns = {
+                            caption: [PAY_ITEM_NAME],
+                            ref: PAY_ITEM_CODE + PAY_ITEM_CATEGORY,
+                            type: 'output',
+                            width: '100px',
+                            style: 'text-align:right'
+                            ,format : { type:'number', rule:'#,###', emptyvalue:'0'}
+                        };
+                        columns1.push(columns);
+                    }
+
+                });
+
+                fn_createGrid();
 
                 /** @type {number} **/
                 let totalRecordCount = 0;
 
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
+
+                    let DEPT_CODE = gfn_nvl(item.DEPT_CODE);
+                    let EMP_CODE = gfn_nvl(item.EMP_CODE);
+
                     const msg = {
-                        CHK_YN		        : gfn_nvl(item.CHK_YN),
-                        SITE_CODE		    : gfn_nvl(item.SITE_CODE),
-                        DEPT_CODE		    : gfn_nvl(item.DEPT_CODE),
-                        DEPT_NAME		    : gfn_nvl(item.DEPT_NAME),
-                        POSITION_CODE	    : gfn_nvl(item.POSITION_CODE),
-                        POSITION_NAME	    : gfn_nvl(item.POSITION_NAME),
-                        EMP_CODE		    : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME		    : gfn_nvl(item.EMP_NAME),
-                        IN_EMAIL		    : gfn_nvl(item.IN_EMAIL),
-                        PAY_YYYYMM		    : gfn_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE		    : gfn_nvl(item.PAY_TYPE),
-                        PAY_DATE		    : gfn_nvl(item.PAY_DATE),
-                        PAY_TOTAL_AMT		: gfn_nvl(item.PAY_TOTAL_AMT),
-                        TAX_FREE_AMT		: gfn_nvl(item.TAX_FREE_AMT),
-                        PAY_DEDUCTION_AMT	: gfn_nvl(item.PAY_DEDUCTION_AMT),
-                        PAY_NET_AMT		    : gfn_nvl(item.PAY_NET_AMT),
-                        DEPT_CODE_SEQ		: gfn_nvl(item.DEPT_CODE_SEQ),
-                        POSITION_CODE_SEQ	: gfn_nvl(item.POSITION_CODE_SEQ),
+                        SITE_CODE               : gfn_nvl(item.SITE_CODE),
+                        PAY_YYYYMM              : gfn_nvl(item.PAY_YYYYMM),
+                        PARENT_PARENT_DEPT_NAME : gfn_nvl(item.PARENT_PARENT_DEPT_NAME),
+                        PARENT_DEPT_NAME        : gfn_nvl(item.PARENT_DEPT_NAME),
+                        DEPT_CODE               : gfn_nvl(item.DEPT_CODE),
+                        DEPT_NAME               : gfn_nvl(item.DEPT_NAME),
+                        EMP_CODE                : gfn_nvl(item.EMP_CODE),
+                        EMP_NAME                : gfn_nvl(item.EMP_NAME),
+                        SOCIAL_NUM              : gfn_nvl(item.SOCIAL_NUM),
+                        SOCIAL_NUM_REAL         : gfn_nvl(item.SOCIAL_NUM_REAL),
+                        PAY_TYPE                : gfn_nvl(item.PAY_TYPE),
+                        POSITION_CODE           : gfn_nvl(item.POSITION_CODE),
+                        DUTY_CODE               : gfn_nvl(item.DUTY_CODE),
+                        ENTER_DATE              : gfn_nvl(item.ENTER_DATE),
+                        RETIRE_DATE             : gfn_nvl(item.RETIRE_DATE),
+                        TEMP_END_DATE           : gfn_nvl(item.TEMP_END_DATE),
+                        WORK_REGION_CODE        : gfn_nvl(item.WORK_REGION_CODE),
+                        WORK_REGION_NAME        : gfn_nvl(item.WORK_REGION_NAME),
+                        PAY_TOTAL_AMT           : gfn_nvl(item.PAY_TOTAL_AMT) == '' ? 0 : item.PAY_TOTAL_AMT,
+                        TAX_FREE_AMT            : gfn_nvl(item.TAX_FREE_AMT) == '' ? 0 : item.TAX_FREE_AMT,
+                        PAY_DEDUCTION_AMT       : gfn_nvl(item.PAY_DEDUCTION_AMT) == '' ? 0 : item.PAY_DEDUCTION_AMT,
+                        PAY_NET_AMT             : gfn_nvl(item.PAY_NET_AMT) == '' ? 0 : item.PAY_NET_AMT,
+                        DEPT_CODE_SEQ           : gfn_nvl(item.DEPT_CODE_SEQ),
+                        POSITION_CODE_SEQ       : gfn_nvl(item.POSITION_CODE_SEQ),
+                        LABOR_COST_GROUP        : gfn_nvl(item.LABOR_COST_GROUP),
+                        SALARY_CLASS            : gfn_nvl(item.SALARY_CLASS),
+                        JOB_RANK                : gfn_nvl(item.JOB_RANK),
+                        HOBONG                  : gfn_nvl(item.HOBONG),
+                        COST_DEPT_CODE          : gfn_nvl(item.COST_DEPT_CODE),
+                        COST_DEPT_NAME          : gfn_nvl(item.COST_DEPT_NAME),
+                        EMP_TYPE                : gfn_nvl(item.EMP_TYPE),
+                        EMP_TYPE_NAME           : gfn_nvl(item.EMP_TYPE_NAME),
+                        JOB_GROUP               : gfn_nvl(item.JOB_GROUP),
+                        JOB_GROUP_NAME          : gfn_nvl(item.JOB_GROUP_NAME),
 
                     }
+
+                    // -- 3. 동적 항목(급여항목) 데이터 리스트
+                    data.cv_3.forEach((item1, index) => {
+
+                        let DEPT_CODE_VAL = gfn_nvl(item1.DEPT_CODE);
+                        let EMP_CODE_VAL = gfn_nvl(item1.EMP_CODE);
+
+                        if (DEPT_CODE != '' && EMP_CODE != '' && DEPT_CODE_VAL != '' && EMP_CODE_VAL != '' &&
+                        _.isEqual(DEPT_CODE, DEPT_CODE_VAL) && _.isEqual(EMP_CODE, EMP_CODE_VAL)){
+
+                            let PAY_ITEM_CODE = gfn_nvl(item1.PAY_ITEM_CODE);
+                            let PAY_ITEM_CATEGORY = gfn_nvl(item1.PAY_ITEM_CATEGORY);
+                            let REF_NAME = PAY_ITEM_CODE + PAY_ITEM_CATEGORY;
+
+                            if (PAY_ITEM_CODE != '' && PAY_ITEM_CATEGORY != ''){
+                                msg[REF_NAME] = gfn_nvl(item1.PAY_AMT) == '' ? 0 : item1.PAY_AMT;
+                            }
+
+                        }
+
+                    });
                     jsonInfoList.push(msg);
-                    totalRecordCount ++;
+                    totalRecordCount++;
                 });
 
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
-
-                if(jsonInfoList.length > 0) {
-                    gvwInfoGrid.clickRow(1);
-                }
-                //fn_view();
-
 
             } else {
                 alert(data.resultMessage);
@@ -764,101 +828,6 @@
         }
     }
 
-    //상세정보 보기
-    async function fn_view() {
-
-        let nRow = gvwInfoGrid.getRow();
-        let nCol = gvwInfoGrid.getCol();
-
-        if (nCol == -1) {
-            return;
-        }
-        if (nRow < 1) {
-            return;
-        }
-
-        let rowData = gvwInfoGrid.getRowData(nRow);
-        if (!_.isEmpty(rowData)) {
-
-            var paramObj = {
-                V_P_DEBUG_MODE_YN: ''
-                ,V_P_LANG_ID: ''
-                ,V_P_COMP_CODE: gv_ma_selectedApcCd
-                ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                ,V_P_SITE_CODE     : ''
-                ,V_P_DEPT_CODE     : ''
-                ,V_P_EMP_CODE      : rowData.EMP_CODE
-                ,V_P_PAY_YYYYMM    : rowData.PAY_YYYYMM
-                ,V_P_PAY_YYYYMM1   : rowData.PAY_YYYYMM
-                ,V_P_PAY_TYPE      : rowData.PAY_TYPE
-                ,V_P_PAY_DATE      : rowData.PAY_DATE
-                ,V_P_EMP_CODE_LIST : ''
-                ,V_P_PAY_YYYYMM2   : ''
-                ,V_P_PAY_TYPE1     : ''
-                ,V_P_PAY_DATE1     : ''
-                ,V_P_PAY_AREA_TYPE : ''
-                ,V_P_REPORT_TYPE   : ''
-
-                ,V_P_FORM_ID: p_formId
-                ,V_P_MENU_ID: p_menuId
-                ,V_P_PROC_ID: ''
-                ,V_P_USERID: ''
-                ,V_P_PC: ''
-            };
-
-
-            const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420List.do", {
-                getType				: 'json',
-                workType			: 'DETAIL',
-                cv_count			: '20',
-                params				: gfnma_objectToString(paramObj)
-            });
-
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-
-                    jsonPayList.length = 0;
-                    data.cv_3.forEach((item, index) => {
-                        const msg = {
-                            PAY_ITEM_CODE		: gfn_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT		        : gfn_nvl(item.PAY_AMT),
-                            TAX_FREE_AMT		: gfn_nvl(item.TAX_FREE_AMT),
-
-                        }
-                        jsonPayList.push(msg);
-                    });
-
-                    gvwPayGrid.rebuild();
-
-                    jsonDedList.length = 0;
-                    data.cv_3.forEach((item, index) => {
-                        const msg = {
-                            PAY_ITEM_CODE		: gfn_nvl(item.PAY_ITEM_CODE),
-                            PAY_AMT		        : gfn_nvl(item.PAY_AMT)
-
-                        }
-                        jsonDedList.push(msg);
-                    });
-
-                    gvwDedGrid.rebuild();
-
-
-                } else {
-                    alert(data.resultMessage);
-                }
-
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
-        }
-    }
 
     /**
      * 파일저장

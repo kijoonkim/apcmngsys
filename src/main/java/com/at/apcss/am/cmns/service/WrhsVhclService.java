@@ -36,7 +36,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 코드 목록 조회
 	 * @param wrhsVhclVO
@@ -44,7 +44,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> selectWrhsVhclCdList(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 등록
 	 * @param wrhsVhclVO
@@ -84,7 +84,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public String vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * APC기준 차량정보 업데이트
 	 * @param wrhsVhclVO
@@ -99,4 +99,12 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateVhclInfoList(List<WrhsVhclVO> WrhsVhclList) throws Exception;
+
+	/**
+	 * 입고차량정보 등록 및 변경
+	 * @param wrhsVhclVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertMergeWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
 }

@@ -85,4 +85,12 @@ public interface WrhsVhclMapper {
 	 * @throws Exception
 	 */
 	public int updateVhclInfo(WrhsVhclVO wrhsVhclVO) throws Exception;
+
+	/**
+	 * 입고차량정보 등록 및 변경
+	 * @param wrhsVhclVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int insertMergeWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
 }

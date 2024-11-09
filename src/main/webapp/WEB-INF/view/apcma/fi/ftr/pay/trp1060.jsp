@@ -137,7 +137,7 @@
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                     <div id="sb-area-gvwWFItem" style="height:200px;"></div>
                 </div>
-                <div class="ad_tbl_top2">
+                <div class="ad_tbl_top2" style="display: none;">
                     <ul class="ad_tbl_count">
                         <li>
                             <span>송장내역</span>
@@ -148,7 +148,7 @@
                         <sbux-button id="btnAddRowForGvwAct" name="btnAddRowForGvwAct" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwAct" style="float: right;"></sbux-button>
                     </div>
                 </div>
-                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px; display: none;">
                     <div id="sb-area-gvwAct" style="height:300px;"></div>
                 </div>
             </div>
@@ -307,13 +307,13 @@
                 }
                 , disabled: true
             },
-            {caption: ["입출예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'109px',  	style:'text-align:left',
+            {caption: ["입출예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'109px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["전표번호"],         ref: 'DOC_H_DOC_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["입출일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'110px',  	style:'text-align:left',
+            {caption: ["입출일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'110px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -386,7 +386,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["전표일자"],       ref: 'DOC_H_DOC_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["전표일자"],       ref: 'DOC_H_DOC_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -463,13 +463,13 @@
                 }
                 , disabled: true
             },
-            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'datepicker',  	width:'109px',  	style:'text-align:left',
+            {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'inputdate',  	width:'109px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["어음번호"],         ref: 'BILL_NO',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'datepicker',  	width:'109px',  	style:'text-align:left',
+            {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'inputdate',  	width:'109px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -746,7 +746,7 @@
             {caption: ["원천징수세금코드2"], ref: 'WITHHOLD_TAX_TYPE2', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["원천징수거래처코드2"], ref: 'WITHHOLD_CS_CODE2', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["지급기일코드"], ref: 'PAY_TERM_CODE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["지급예정일"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["지급예정일"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -755,7 +755,7 @@
             {caption: ["증빙유형"], ref: 'VOUCHER_TYPE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["증빙번호"], ref: 'VOUCHER_NO', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["증빙번호1"], ref: 'VOUCHER_NO1', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -763,7 +763,7 @@
             {caption: ["사업단위코드"], ref: 'FI_ORG_CODE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["사업장코드"], ref: 'SITE_CODE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["반제완료여부"], ref: 'APPLY_COMPLETE_FLAG', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["반제완료일"],       ref: 'APPLY_COMPLETE_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: ["반제완료일"],       ref: 'APPLY_COMPLETE_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -810,7 +810,7 @@
         SBGridProperties.columns = [
             {caption: ["순번"],         ref: 'LINE_NUM',    type:'output',  	width:'50px',  style:'text-align:left'},
             {caption: ["KEY_ID"],         ref: 'KEY_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["회계일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+            {caption: ["회계일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -835,7 +835,7 @@
             },
             {caption: ["계정과목"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'101px',  style:'text-align:left', hidden: true},
             {caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'170px',  style:'text-align:left'},
-            {caption: ["지급예정일"],       ref: 'EXPECTED_PAY_DATE', 		type:'datepicker',  	width:'92px',  	style:'text-align:left',
+            {caption: ["지급예정일"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'92px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true

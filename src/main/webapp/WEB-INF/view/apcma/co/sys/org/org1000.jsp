@@ -153,7 +153,7 @@
 			                        <th scope="row" class="th_bg">법인등록번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 										<sbux-input uitype="text" id="COMP_REGNO" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
-		                            </td>		                        
+		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
 		                            <th scope="row" class="th_bg" colspan="2" style="text-align:left !important">직인</th>
@@ -161,14 +161,14 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인설립일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="inpt_data_reqed"></sbux-datepicker>
-		                            </td>		                        
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
 		                            <td id="COMP_STAMP_AREA" class="td_input"  style="border-right:hidden;width:100%;" colspan="2" rowspan="3">
                                         <img id="COMP_STAMP" style="width: 410px; height: 105px;object-fit: contain;">
                                         <input type="file" name="COMP_STAMP_FILE" id="COMP_STAMP_FILE" accept="image/*" style="display: none;">		                            
-		                            </td>			                            
+		                            </td>
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인대표</th>
@@ -745,9 +745,9 @@
     	SBUxMethod.set('CLIENT_CODE', 		"");
     	SBUxMethod.set('ACCT_RULE_CODE', 	"");
  
-    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	"");
-    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		"");
-    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 			"");
+    	gfnma_multiSelectSet('#CURRENCY_CODE', 	'CURRENCY_CODE', 'CURRENCY_NAME', 	"");
+    	gfnma_multiSelectSet('#NATION_CODE', 	'NATION_CODE', 'NATION_NAME', 		"");
+    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 'SUB_CODE', 'CODE_NAME', 			"");
         $("#COMP_LOGO").attr("src", "" );
         $("#COMP_STAMP").attr("src", "" );
     	
@@ -864,7 +864,7 @@
        			  ,V_P_FISCAL_END_MMDD      : gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD"))
        			  ,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
        			  ,V_P_ACCT_RULE_CODE       : gfnma_multiSelectGet("#ACCT_RULE_CODE")
-       			  ,V_P_COMP_CODE_ABBR       : gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
+       			  ,V_P_COMP_CODE_ABBR       : gfn_nvl(SBUxMethod.get("COMP_CODE_ABBR"))
        			  ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE") 
        			  ,V_P_FORM_ID              : p_formId
        			  ,V_P_MENU_ID              : p_menuId
@@ -955,7 +955,7 @@
 	    
 	    function removeComma(val){
 	    	if( gfn_isEmpty(val) || val.toString().length < 3){
-	    		return val;
+	    		return '0';
 	    	}
 	    	let str = val.toString();
 	    	return str.replace(/,/gi, '');

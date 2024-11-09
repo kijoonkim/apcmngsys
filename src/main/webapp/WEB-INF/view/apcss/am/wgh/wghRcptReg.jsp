@@ -288,6 +288,7 @@
 	var jsonGrdFcltCd		= [];	// 설비 		fcltCd		그리드
 	var jsonApcGrd			= [];
 
+	var jsonWrhsVhcl		= [];
 	var jsonDataPrdcr 		= [];
     var jsonPrdcr			= [];
     var jsonGrdPrdcr		= [];
@@ -313,6 +314,7 @@
 		 	gfn_setComCdSBSelect('srch-slt-fcltCd',			jsonComFcltCd, 			'WGH_FCLT_CD', 		gv_selectedApcCd),	// 설비
 		 	gfn_setComCdGridSelect('grdWghPrfmnc',			jsonGrdFcltCd, 			'WGH_FCLT_CD', 		gv_selectedApcCd),	// 설비
 		 	gfn_setPrdcrSBSelect('grdWghPrfmnc',			jsonGrdPrdcr, 			gv_selectedApcCd),	// 생산자
+		 	gfn_setWrhsVhclSBSelect('grdWghPrfmnc',			jsonWrhsVhcl, 			gv_selectedApcCd),	// 입고차량
 		]);
 
 		jsonComWrhsSpmtType = jsonComWrhsSpmtType.filter(item => item.value !== 'TF');
@@ -329,8 +331,6 @@
 
 		fn_getPrdcrs();
 		fn_createWghPrfmncGrid();
-
-
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -365,23 +365,22 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-            {caption: ['계량대'], 		ref: 'fcltCd', 		width: '80px', type:'combo',  	style:'text-align:center;',
+            {caption: ['계량대'], 		ref: 'fcltCd', 		width: '80px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdFcltCd', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['구분'], 		ref: 'wrhsSpmtType', width: '60px', type:'combo',  	style:'text-align:center;',
+            {caption: ['구분'], 		ref: 'wrhsSpmtType', width: '60px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdWrhsSpmtType', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['입고일자'], 	ref: 'wghYmd', 		width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
-            {caption: ['차량번호'], 	ref: 'vhclno', 		width: '80px', type: 'input', style:'text-align:center'},
-            {caption: ['생산자'], 		ref: 'prdcrCd', 	width: '120px', type:'inputcombo',  	style:'text-align:center;',
+            {caption: ['입고일자'], 	ref: 'wghYmd', 		width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center; background:#FFF8DC;'},
+            {caption: ['차량번호'], 	ref: 'vhclno', 		width: '80px', type: 'input', style:'text-align:center; background:#FFF8DC;', typeinfo : {max : 9}},
+            {caption: ['생산자'], 		ref: 'prdcrCd', 	width: '120px', type:'inputcombo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['품목'], 		ref: 'itemCd', 		width: '80px', type:'combo',  	style:'text-align:center;',
+            {caption: ['품목'], 		ref: 'itemCd', 		width: '80px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonApcItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['품종'], 		ref: 'vrtyCd', 		width: '80px', type:'combo',  	style:'text-align:center;',
+            {caption: ['품종'], 		ref: 'vrtyCd', 		width: '80px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonApcVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['실중량'], 		ref: 'actlWght', 	width: '70px', type: 'input', style:'text-align:right;', format : {type:'number', rule:'#,### '}},
+            {caption: ['실중량'], 		ref: 'actlWght', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
             {caption: ['입고가구'], 	ref: 'bxQntt', 		width: '60px', type: 'output', style:'text-align:right;', format : {type:'number', rule:'#,### '}},
             {caption: ['입고팔레트'], 	ref: 'pltQntt', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
 		];
-
         for (var i=0; i<jsonApcGrd.length; i++) {
         	SBGridProperties.columns.push(
         			{caption: [jsonApcGrd[i].grdNm], 			ref: 'grdQntt' + (i+1), 		width: '50px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
@@ -389,13 +388,13 @@
         }
 
         SBGridProperties.columns.push(
-        		{caption: ['타출고처'], 	ref: 'oinstSpmtNm', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['출고가구'], 	ref: 'shpgotVhclQntt', 	width: '60px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['출고팔레트'], 	ref: 'shpgotVhclPltQntt', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['기사명'], 		ref: 'drvrNm', 		width: '60px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['연락처'], 		ref: 'telno', 		width: '80px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['작업자'], 		ref: 'oprtr', 		width: '60px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-                {caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'input'},
+        		{caption: ['타출고처'], 	ref: 'oinstSpmtNm', width: '70px', type: 'input', style:'text-align:right'},
+                {caption: ['출고가구'], 	ref: 'shpgotQntt', 	width: '60px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,### '}},
+                {caption: ['출고팔레트'], 	ref: 'shpgotPltQntt', 	width: '70px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,### '}},
+                {caption: ['기사명'], 		ref: 'drvrNm', 		width: '60px', type: 'input', style:'text-align:center'},
+                {caption: ['연락처'], 		ref: 'telno', 		width: '100px', type: 'input', style:'text-align:center', typeinfo : {max : 11}},
+                {caption: ['작업자'], 		ref: 'oprtrNm', 	width: '60px', type: 'input', style:'text-align:center'},
+                {caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'input', style:'text-align:left'},
                 {caption: ['APC코드'], 		ref: 'apcCd', 		hidden: true},
                 {caption: ['추가여부'], 	ref: 'addYn', 		hidden: true},
         	)
@@ -420,15 +419,52 @@
 		let grdQntt3Col = grdWghPrfmnc.getColRef("grdQnttCol3");
 		let grdQntt4Col = grdWghPrfmnc.getColRef("grdQnttCol4");
 		let bxQnttCol = grdWghPrfmnc.getColRef("bxQntt");
+		let vhclnoCol = grdWghPrfmnc.getColRef("vhclno");
 
 		if (grdQntt1Col = nCol || grdQntt2Col == nCol || grdQntt3Col == nCol || grdQntt3Col == nCol) {
 
 			let rowData = grdWghPrfmnc.getRowData(nRow);
-			let bxQntt = parseInt(rowData.grdQntt1) + parseInt(rowData.grdQntt2) + parseInt(rowData.grdQntt3) + parseInt(rowData.grdQntt4)
+			let bxQntt = fn_parseInt(rowData.grdQntt1) + fn_parseInt(rowData.grdQntt2) + fn_parseInt(rowData.grdQntt3) + fn_parseInt(rowData.grdQntt4);
 			grdWghPrfmnc.setCellData(nRow, bxQnttCol, bxQntt, true);
 		}
 
+		if (vhclnoCol == nCol) {
+			let rowData = grdWghPrfmnc.getRowData(nRow);
+			let vhclno = rowData.vhclno;
+
+			const wrhsVhclInfo = _.find(jsonWrhsVhcl, {vhclno: vhclno});
+
+			if (!gfn_isEmpty(wrhsVhclInfo)) {
+
+				let drvrNm = wrhsVhclInfo.drvrNm;
+				let telno = wrhsVhclInfo.telno;
+
+				if (!gfn_isEmpty(drvrNm)) {
+					let drvrNmCol = grdWghPrfmnc.getColRef("drvrNm");
+					grdWghPrfmnc.setCellData(nRow, drvrNmCol, drvrNm, true);
+				}
+
+				if (!gfn_isEmpty(drvrNm)) {
+					let telnoCol = grdWghPrfmnc.getColRef("telno");
+					grdWghPrfmnc.setCellData(nRow, telnoCol, telno, true);
+				}
+			}
+		}
+
 	}
+
+	const fn_parseInt = function(val) {
+
+    	if (gfn_isEmpty(val)) {
+    		return 0;
+    	} else {
+    		if (val == 0) {
+    			return 0;
+    		} else {
+    			return parseInt(val);
+    		}
+    	}
+    }
 
 
 	/**
@@ -524,61 +560,6 @@
 		}
 	}
 
-
-	/**
-     * @name fn_grdStrgLoctnChanged
-     * @description 열, 행, 단 변경 이벤트
-     */
-	const fn_grdStrgLoctnChanged = function () {
-
-		let nCol = grdWghPrfmnc.getCol();
-		let nRow = grdWghPrfmnc.getRow();
-
-		let strgLoctnRowCol = grdWghPrfmnc.getColRef("strgLoctnRow");
-		let strgLoctnColCol = grdWghPrfmnc.getColRef("strgLoctnCol");
-		let strgLoctnLvlCol = grdWghPrfmnc.getColRef("strgLoctnLvl");
-		let rdcdRtCol = grdWghPrfmnc.getColRef("rdcdRt");
-		let acptnWghtCol = grdWghPrfmnc.getColRef("acptnWght");
-		let wrhsWghtCol = grdWghPrfmnc.getColRef("wrhsWght");
-		let checkedYnCol = grdWghPrfmnc.getColRef("checkedYn");
-
-		if (nCol == strgLoctnRowCol || nCol == strgLoctnColCol || nCol == strgLoctnLvlCol) {
-
-			let rowData = grdWghPrfmnc.getRowData(nRow);
-			let strgLoctnCd = rowData.strgLoctnCd;
-
-			let strgLoctnRow = rowData.strgLoctnRow;
-			let strgLoctnCol = rowData.strgLoctnCol;
-			let strgLoctnLvl = rowData.strgLoctnLvl;
-
-			if (strgLoctnCd == (strgLoctnRow + strgLoctnCol + strgLoctnLvl)) {
-				grdWghPrfmnc.setCellData(nRow, checkedYnCol, "N");
-			} else {
-				grdWghPrfmnc.setCellData(nRow, checkedYnCol, "Y");
-			}
-		}
-
-		if (nCol == rdcdRtCol) {
-			let rowData = grdWghPrfmnc.getRowData(nRow);
-
-			let actlWght = rowData.actlWght;
-			let rdcdRt = rowData.rdcdRt;
-
-			if (!gfn_isEmpty(rdcdRt)) {
-
-				let acptnWght = Math.round(parseFloat(actlWght) * ((100 - parseFloat(rdcdRt)) / 100), 0)
-			    grdWghPrfmnc.setCellData(nRow, acptnWghtCol, acptnWght);
-			    grdWghPrfmnc.setCellData(nRow, wrhsWghtCol, acptnWght);
-			} else {
-				grdWghPrfmnc.setCellData(nRow, acptnWghtCol, actlWght);
-				grdWghPrfmnc.setCellData(nRow, wrhsWghtCol, actlWght);
-			}
-		}
-
-	}
-
-
-
 	/** common button action */
 
 
@@ -598,8 +579,8 @@
 	const fn_save = async function() {
 
 		let grdAllData = grdWghPrfmnc.getGridDataAll();
-		let mutiList = [];
-
+		let multiList = [];
+		let wghSnList = [];
 		for (var i=1; i<=grdAllData.length; i++) {
 
 			let rowData = grdWghPrfmnc.getRowData(i);
@@ -608,22 +589,84 @@
 			let delYn = rowData.delYn;
 
 			if (!gfn_isEmpty(delYn)) {
+
+				let itemCd = rowData.itemCd;
+				let fcltCd = rowData.fcltCd;
+				let vrtyCd = rowData.vrtyCd;
+				let wrhsSpmtType = rowData.wrhsSpmtType;
+				let vhclno = rowData.vhclno;
+				let wghYmd = rowData.wghYmd;
+				let prdcrCd = rowData.prdcrCd;
+				let actlWght = rowData.actlWght;
+				let bxQntt = rowData.bxQntt;
+				let pltQntt = rowData.pltQntt;
+
+				if (gfn_isEmpty(fcltCd)) {
+		    		gfn_comAlert("W0001", "계량대");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+				if (gfn_isEmpty(itemCd)) {
+		    		gfn_comAlert("W0001", "품목");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(vrtyCd)) {
+		    		gfn_comAlert("W0001", "품종");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(wrhsSpmtType)) {
+		    		gfn_comAlert("W0001", "입고출고유형");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(prdcrCd)) {
+		    		gfn_comAlert("W0001", "생산자");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(wghYmd)) {
+		    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(vhclno)) {
+		    		gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(actlWght)) {
+		    		gfn_comAlert("W0002", "실중량");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(bxQntt) || bxQntt == 0) {
+		    		gfn_comAlert("W0002", "입고가구");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		    	}
+
+				if (gfn_isEmpty(pltQntt)) {
+		    		gfn_comAlert("W0002", "입고팔레트");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		    	}
+
 				let addYn = rowData.addYn;
 				if (addYn == "Y") {
 
-					for (var j=1; j<=4; j++) {
-						let insertRow = rowData;
+					for (var j=1; j<=jsonApcGrd.length; j++) {
+						let insertRow = grdWghPrfmnc.getRowData(i);
 						let grdCdKey = "grdCd"+j
 						let grdQnttKey = "grdQntt"+j
 
-						let qntt = rowData[grdQnttKey];
+						let qntt = insertRow[grdQnttKey];
 						if (!(gfn_isEmpty(qntt) || parseInt(qntt) == 0)) {
 
 							insertRow.grdCd = jsonApcGrd[(j-1)].grdCd
-							insertRow.bxQntt = rowData[grdQnttKey];
-							insertRow.stts = "I";
+							insertRow.bxQntt = insertRow[grdQnttKey];
+							insertRow.rowSts = "I";
 							insertRow.groupId = i;
-							mutiList.push(insertRow)
+							insertRow.wholWght = insertRow.actlWght;
+							multiList.push(insertRow)
 						} else {
 							continue;
 						}
@@ -631,10 +674,22 @@
 				} else if (addYn == "N") {
 
 					if (stts == 2) {
+						wghSnList.length = 0;
+						for (var n=0; n<jsonApcGrd.length; n++) {
 
-						for (var k=1; k<=4; k++) {
+							let snRowData = grdWghPrfmnc.getRowData(i);
+							let grdWghSnKey = "grdWghSn"+(n+1);
+							let wghSn = snRowData[grdWghSnKey];
 
-							let updateRow = rowData;
+							if (!gfn_isEmpty(wghSn)) {
+								wghSnList.push(wghSn)
+							}
+						}
+
+						for (var k=1; k<=jsonApcGrd.length; k++) {
+							let updateRow = grdWghPrfmnc.getRowData(i);
+							updateRow.rowSts = "U";
+
 							let grdCdKey = "grdCd"+k;
 							let grdQnttKey = "grdQntt"+k;
 							let grdWrhsnoKey = "grdWrhsno"+k;
@@ -648,22 +703,78 @@
 							updateRow.grdCd = grdCd;
 							updateRow.bxQntt = bxQntt;
 							updateRow.wrhsno = wrhsno;
-							updateRow.wghSn = wghSn;
-							updateRow.stts = "U";
+							updateRow.pltno = wrhsno;
+							if (gfn_isEmpty(wghSn)) {
+								updateRow.newYn = 'Y';
+								let max = Math.max(...wghSnList);
+								updateRow.wghSn = parseInt(max) + 1;
+								wghSnList.push(parseInt(max) +1);
+							} else {
+								updateRow.wghSn = wghSn;
+							}
 
-							console.log("updateRow",updateRow)
+							if (gfn_isEmpty(grdCd)) {
+								updateRow.grdCd = jsonApcGrd[(k-1)].grdCd;
+							}
+							updateRow.wholWght = updateRow.actlWght;
+							updateRow.groupId = i;
 
-							console.log("i + k" , i + ", " + k );
+							if (!gfn_isEmpty(wghSn) || bxQntt > 0) {
+								multiList.push(updateRow);
+							} else {
+								continue;
+							}
 
-							mutiList.push(updateRow);
 						}
 					}
 				}
 			}
 		}
 
-		console.log("mutiList", mutiList);
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
+	    	const data = await postJsonPromise;
 
+	    	try {
+	    		if (_.isEqual("S", data.resultStatus)) {
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+
+	/**
+     * @name fn_deleteWghPrfmnc
+     * @description 계량실적 삭제
+     */
+	const fn_deleteWghPrfmnc = async function (wghPrfmncVO, nRow) {
+		const deleteList = [];
+		deleteList.push(wghPrfmncVO);
+
+		const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncList.do", deleteList);
+    	const data = await postJsonPromise;
+
+    	try {
+    		if (_.isEqual("S", data.resultStatus)) {
+       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+       			grdWghPrfmnc.deleteRow(nRow);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
 	}
 
 	/**
@@ -686,7 +797,7 @@
      * @description form 초기화
      * @function
      */
-	const fn_clearForm = function() {
+	const fn_clearForm = function(wghPrfmncVO, nRow) {
 
 	}
 
@@ -723,65 +834,77 @@
       		jsonWghPrfmnc.length = 0;
           	data.resultList.forEach((item, index) => {
   				const wghPrfmnc = {
-  						apcCd: item.apcCd,
-  						wghno: item.wghno,
-  						wghSn: item.wghSn,
-  						wghnoIndct: item.wghnoIndct,
-  						wrhsno: item.wrhsno,
-  						wghYmd: item.wghYmd,
-  						vhclno: item.vhclno,
-  						prdcrCd: item.prdcrCd,
-  						itemCd: item.itemCd,
-  						itemNm: item.itemNm,
-  						vrtyCd: item.vrtyCd,
-  						vrtyNm: item.vrtyNm,
-  						wholWght: item.wholWght,
-  						emptVhclWght: item.emptVhclWght,
-  						rdcdRt: item.rdcdRt,
-  						actlWght: item.actlWght,
-  						rdcdWght: item.rdcdWght,
-  						wrhsWght: item.wrhsWght,
-  						rmrk: item.rmrk,
-  						apcNm: item.apcNm,
-  						prdcrNm: item.prdcrNm,
-  						prdcrIdentno: item.prdcrIdentno,
-  						grdCd: item.grdCd,
-  						grdNm: item.grdNm,
-  						pltWght: item.pltWght,
-  						bxQntt: item.bxQntt,
-  						bxWght: item.bxWght,
-  						invntrWght: item.invntrWght,
-  						warehouseSeCd: item.warehouseSeCd,
-  						warehouseSeNm: item.warehouseSeNm,
-  						gdsSeCd: item.gdsSeCd,
-  						gdsSeNm: item.gdsSeNm,
-  						wrhsSeCd: item.wrhsSeCd,
-  						wrhsSeNm: item.wrhsSeNm,
-  						trsprtSeCd: item.trsprtSeCd,
-  						trsprtSeNm: item.trsprtSeNm,
-  						stdGrd: item.stdGrd,
-  						stdGrdCd: item.stdGrdCd,
-  						fcltCd	: item.fcltCd,
-  						wrhsSpmtType : item.wrhsSpmtType,
-  						grdQntt1 : item.grdQntt1,
-  						grdQntt2 : item.grdQntt2,
-  						grdQntt3 : item.grdQntt3,
-  						grdQntt4 : item.grdQntt4,
-  						grdCd1 : item.grdCd1,
-  						grdCd2 : item.grdCd2,
-  						grdCd3 : item.grdCd3,
-  						grdCd4 : item.grdCd4,
-  						grdWrhsno1 : item.grdWrhsno1,
-  						grdWrhsno2 : item.grdWrhsno2,
-  						grdWrhsno3 : item.grdWrhsno3,
-  						grdWrhsno4 : item.grdWrhsno4,
-  						grdWghSn1 : item.grdWghSn1,
-  						grdWghSn2 : item.grdWghSn2,
-  						grdWghSn3 : item.grdWghSn3,
-  						grdWghSn4 : item.grdWghSn4,
-  						pltQntt : item.pltQntt,
-  						addYn : 'N',
-  						delYn : 'N'
+  					    apcCd			: item.apcCd
+  					  , wghno			: item.wghno
+  					  , wghSn			: item.wghSn
+  					  , wghnoIndct		: item.wghnoIndct
+  					  , wrhsno			: item.wrhsno
+  					  , wghYmd			: item.wghYmd
+  					  , vhclno			: item.vhclno
+  					  , prdcrCd			: item.prdcrCd
+  					  , itemCd			: item.itemCd
+  					  , itemNm			: item.itemNm
+  					  , vrtyCd			: item.vrtyCd
+  					  , vrtyNm			: item.vrtyNm
+  					  , wholWght		: item.wholWght
+  					  , emptVhclWght	: item.emptVhclWght
+  					  , rdcdRt			: item.rdcdRt
+  					  , actlWght		: item.actlWght
+  					  , rdcdWght		: item.rdcdWght
+  					  , wrhsWght		: item.wrhsWght
+  					  , rmrk			: item.rmrk
+  					  , apcNm			: item.apcNm
+  					  , prdcrNm			: item.prdcrNm
+  					  , prdcrIdentno	: item.prdcrIdentno
+  					  , grdCd			: item.grdCd
+  					  , grdNm			: item.grdNm
+  					  , pltWght			: item.pltWght
+  					  , bxQntt			: item.bxQntt
+  					  , bxWght			: item.bxWght
+  					  , invntrWght		: item.invntrWght
+  					  , warehouseSeCd	: item.warehouseSeCd
+  					  , warehouseSeNm	: item.warehouseSeNm
+  					  , gdsSeCd			: item.gdsSeCd
+  					  , gdsSeNm			: item.gdsSeNm
+  					  , wrhsSeCd		: item.wrhsSeCd
+  					  , wrhsSeNm		: item.wrhsSeNm
+  					  , trsprtSeCd		: item.trsprtSeCd
+  					  , trsprtSeNm		: item.trsprtSeNm
+  					  , stdGrd			: item.stdGrd
+  					  , stdGrdCd		: item.stdGrdCd
+  					  , fcltCd			: item.fcltCd
+  					  , wrhsSpmtType 	: item.wrhsSpmtType
+  					  , grdQntt1 		: item.grdQntt1
+  					  , grdQntt2 		: item.grdQntt2
+  					  , grdQntt3 		: item.grdQntt3
+  					  , grdQntt4 		: item.grdQntt4
+  					  , grdCd1 			: item.grdCd1
+  					  , grdCd2 			: item.grdCd2
+  					  , grdCd3 			: item.grdCd3
+  					  , grdCd4 			: item.grdCd4
+  					  , grdWrhsno1 		: item.grdWrhsno1
+  					  , grdWrhsno2 		: item.grdWrhsno2
+  					  , grdWrhsno3 		: item.grdWrhsno3
+  					  , grdWrhsno4 		: item.grdWrhsno4
+  					  , grdWghSn1 		: item.grdWghSn1
+  					  , grdWghSn2 		: item.grdWghSn2
+  					  , grdWghSn3 		: item.grdWghSn3
+  					  , grdWghSn4 		: item.grdWghSn4
+  					  , grdPltno1 		: item.grdPltno1
+  					  , grdPltno2 		: item.grdPltno2
+  					  , grdPltno3 		: item.grdPltno3
+  					  , grdPltno4 		: item.grdPltno4
+  					  , pltQntt 		: item.pltQntt
+  					  , shpgotQntt 		: item.shpgotQntt
+  	                  , shpgotWght 		: item.shpgotWght
+  	                  , shpgotPltQntt 	: item.shpgotPltQntt
+  	                  , oinstSpmtNm 	: item.oinstSpmtNm
+  	                  , trsprtCst 		: item.trsprtCst
+  	                  , oprtrNm 		: item.oprtrNm
+  	                  , telno			: item.telno
+  	                  , drvrNm			: item.drvrNm
+					  , addYn 			: 'N'
+					  , delYn			: 'N'
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
   			});

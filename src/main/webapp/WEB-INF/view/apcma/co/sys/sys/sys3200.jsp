@@ -626,7 +626,7 @@
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.filtering = true;
+        //SBGridProperties.filtering = true;
         SBGridProperties.columns = [
             {caption: ["채번 ID"], ref: 'NUMBERING_ID', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["채 번 명"], ref: 'NUMBERING_NAME', type: 'output', width: '200px', style: 'text-align:left'},

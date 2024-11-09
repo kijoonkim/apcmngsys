@@ -143,7 +143,6 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            // TODO 해당 프로시저 개발 완료시 전환 필요
             param.put("procedure", 		"P_FIM5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
