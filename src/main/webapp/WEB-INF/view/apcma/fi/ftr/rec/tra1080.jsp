@@ -363,6 +363,7 @@
 	var jsonFiOrgCode = [];			// 사업단위
 	var jsonCurrencyCode = [];		// 통화
 	var jsonPayMethod = []; 		// 수금방법
+	var jsonBankCsCode = [];		// 공통은행코드
 	var jsonBankCode = [];			// 은행코드
 	var jsonTxnGroupCode = [];		// 거래유형
 	var jsonDocType = [];			// 전표유형
@@ -696,7 +697,7 @@
                 V_P_PC				: ''
             };
         	console.log("paramObj", paramObj);
-        const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1080List.do", {
+        const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1010List.do", {
             getType				: 'json',
             workType			: 'Q',
             cv_count			: '1',
