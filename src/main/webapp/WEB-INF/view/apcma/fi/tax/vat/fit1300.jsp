@@ -272,7 +272,6 @@
 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-        console.log(paramObj,"이새끼봐라");
 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit1300.do", {
             getType				: 'json',
