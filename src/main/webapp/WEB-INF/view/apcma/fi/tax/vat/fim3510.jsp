@@ -37,6 +37,10 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        .box.box-solid{
+            border-radius: 0 !important;
+            height: 100%;
+        }
         input[type="number"] {
             border: hidden;
             box-sizing: border-box;
@@ -46,7 +50,7 @@
     </style>
 </head>
 <body oncontextmenu="return false">
-<section>
+<section style="height: 100vh">
     <div class="box box-solid">
         <div class="box-header">
             <div>
