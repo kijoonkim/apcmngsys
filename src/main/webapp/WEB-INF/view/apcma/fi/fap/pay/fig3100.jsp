@@ -54,6 +54,196 @@
             <table id="dataArea1" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg">년월</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YMDPERIOD_YYYYMM"
+                                name="SRCH_YMDPERIOD_YYYYMM"
+                                uitype="popup"
+                                datepicker-mode="month"
+                                date-format="yyyy-mm"
+                                class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                required
+                                onchange="fn_payDate"
+                        ></sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg">사업단위</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg">조회구분</th>
+                    <td colspan="4" class="td_input inpt_data_reqed">
+                        <sbux-radio id="ALL" name="SRCH_RIDGUBUN" uitype="normal"
+                                    text="전체" value="99" checked>
+                        </sbux-radio>
+                        <sbux-radio id="TAX" name="SRCH_RIDGUBUN" uitype="normal"
+                                    text="세금계산서" value="20">
+                        </sbux-radio>
+                        <sbux-radio id="BILL" name="SRCH_RIDGUBUN" uitype="normal"
+                                    text="계산서" value="10">
+                        </sbux-radio>
+                    </td>
+                    <th scope="row" class="th_bg">사업자번호</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_CS_BIZ_REGNO"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">작성일자</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_DATE_FR"
+                                name="SRCH_DATE_FR"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        ></sbux-datepicker>
+                    </td>
+                    <td>
+                        <p>~</p>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_DATE_TO"
+                                name="SRCH_DATE_TO"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        ></sbux-datepicker>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg">상호</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_CS_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg">관련부서</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_DEPT_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td <%--colspan="2"--%> class="td_input" >
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup1"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">사원</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_EMP_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" >
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup2"
+                        ></sbux-button>
+                    </td>
+                </tr>
+                <tr style="display: none">
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_TXTAMT"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_TXTAPPROVAL_NO"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_NUMROW_CNT"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+
+            <%--<table id="dataArea1" class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
                     <col style="width: 7%">
                     <col style="width: 6%">
                     <col style="width: 1%">
@@ -165,13 +355,13 @@
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <sbux-input
-                        <%-- uitype="hidden"--%>
+                        &lt;%&ndash; uitype="hidden"&ndash;%&gt;
                                 uitype="text"
                                 id="SRCH_DEPT_NAME"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
-                    <td <%--colspan="2"--%> class="td_input" >
+                    <td &lt;%&ndash;colspan="2"&ndash;%&gt; class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -189,7 +379,7 @@
                     </td>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-input
-                        <%-- uitype="hidden"--%>
+                        &lt;%&ndash; uitype="hidden"&ndash;%&gt;
                                 uitype="text"
                                 id="SRCH_EMP_NAME"
                                 class="form-control input-sm"
@@ -228,7 +418,7 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </table>--%>
 
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">

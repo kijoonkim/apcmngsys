@@ -524,10 +524,10 @@
             {caption: ["계정코드"],			ref: 'ACCOUNT_CODE',			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정과목명"],		ref: 'ACCOUNT_NAME',			type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: ["차변(원래)"],		ref: 'ORIGINAL_DR_AMT',			type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대편(원래)"],		ref: 'ORIGINAL_CR_AMT',			type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변(환산)"],		ref: 'FUNCTIONAL_DR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(환산)"],		ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변(원래)"],		ref: 'ORIGINAL_DR_AMT',			type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["대편(원래)"],		ref: 'ORIGINAL_CR_AMT',			type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["차변(환산)"],		ref: 'FUNCTIONAL_DR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["대변(환산)"],		ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             
             {caption: ["원가중심점"],		ref: 'COST_CENTER_CODE',		type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["부서"],				ref: 'DEPT_NAME',				type:'output',  	width:'150px',  	style:'text-align:left'},
