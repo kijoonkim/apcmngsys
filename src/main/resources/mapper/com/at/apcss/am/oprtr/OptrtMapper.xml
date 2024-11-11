@@ -215,6 +215,7 @@
 		INSERT INTO TB_OPRTR_SORT_PRFMNC
 		(
 		  APC_CD
+		, JOB_CLSF_CD
 		, SORTNO
 		, PRFMNC_SN
 		, BRDT
@@ -234,6 +235,7 @@
 		VALUES
 			(
 			  #{apcCd}
+			, #{jobClsfCd}
 			, #{sortno}
 			, #{prfmncSn}
 			, #{brdt}
@@ -260,6 +262,47 @@
 		  AND SORTNO = #{sortno}
 		]]>
 	</select>
+	<select id="selectOprtrSortPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+		SELECT
+			 pt0.*
+			,(SELECT FN_GET_COM_CD_VL_NM('JOB_CLSF_CD', pt0.JOB_CLSF_CD, pt0.APC_CD) FROM DUAL) AS JOB_CLSF_NM
+		FROM
+		(SELECT APC_CD
+			  , JOB_CLSF_CD
+			  , SORTNO
+			  , PRFMNC_SN
+			  , BRDT
+			  , FLNM
+			  , JOB_YMD
+			  , JOB_BGNG_HR
+			  , JOB_END_HR
+			  , JOB_HR
+			  , RMRK
+			  , HR_WG
+		 FROM TB_OPRTR_SORT_PRFMNC
+		 WHERE APC_CD = #{apcCd}
+		   AND JOB_YMD = #{jobYmd}
+		) AS pt0
+		]]>
+	</select>
+	<update id="updateOprtrSortPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+		UPDATE
+			TB_OPRTR_SORT_PRFMNC
+		SET
+			JOB_END_HR = #{jobEndHr}
+		  , JOB_HR = #{jobHr}
+		WHERE
+			APC_CD = #{apcCd}
+		AND JOB_CLSF_CD = #{jobClsfCd}
+		AND SORTNO = #{sortno}
+		AND PRFMNC_SN = #{prfmncSn}
+		AND BRDT = #{brdt}
+		AND FLNM = #{flnm}
+		AND JOB_YMD = #{jobYmd}
+		]]>
+	</update>
 </mapper>
 
 

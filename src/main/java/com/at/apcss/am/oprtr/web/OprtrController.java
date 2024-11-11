@@ -141,4 +141,52 @@ public class OprtrController extends BaseController{
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/oprtr/updateOprtrSortPrfmnc", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateOprtrSortPrfmnc(@RequestBody OprtrPrfmncVO oprtrprfmncvo, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			oprtrprfmncvo.setSysFrstInptPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysFrstInptUserId(getUserId());
+			oprtrprfmncvo.setSysLastChgPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysLastChgUserId(getUserId());
+			oprtrprfmncvo.setDelYn("N");
+			int rtnObj = oprtrService.updateOprtrSortPrfmnc(oprtrprfmncvo);
+
+			if(rtnObj < 1) {
+				return getErrorResponseEntity(resultMap);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/oprtr/selectOprtrSortPrfmncList", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectOprtrSortPrfmncList(@RequestBody OprtrPrfmncVO oprtrprfmncvo, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<OprtrPrfmncVO> resultList = new ArrayList<>();
+		try {
+			oprtrprfmncvo.setSysFrstInptPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysFrstInptUserId(getUserId());
+			oprtrprfmncvo.setSysLastChgPrgrmId(getPrgrmId());
+			oprtrprfmncvo.setSysLastChgUserId(getUserId());
+			oprtrprfmncvo.setDelYn("N");
+			resultList = oprtrService.selectOprtrSortPrfmncList(oprtrprfmncvo);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

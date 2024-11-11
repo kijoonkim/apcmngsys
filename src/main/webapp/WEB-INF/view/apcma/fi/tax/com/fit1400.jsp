@@ -587,6 +587,9 @@
  function cfn_search() {
         fn_search();
  }
+ function cfn_init(){
+        fn_reset();
+ }
  const fn_seqChange = async function(_id){
         await SBUxMethod.set("srch-dtp-yyyy",_id);
         await fn_search();
@@ -678,7 +681,7 @@ const fn_saveS2 = async function(){
         ,V_P_SEQ                  : ""
         ,V_P_TAX_SITE_CODE        : ""
         ,V_P_CONFIRM_YN           : ""
-        ,V_P_YYYY_D              : ""
+        ,V_P_YYYY_D               : ""
         ,V_P_SEQ_D                : ""
         ,V_P_TAX_SITE_CODE_D      : ""
         ,V_P_VAT_REPORT_CODE_D    : ""
@@ -693,7 +696,7 @@ const fn_saveS2 = async function(){
             if(item.useYn === 'Y'){
                 paramObj.V_P_YYYY_D = yyyy + '|';
                 paramObj.V_P_SEQ_D = numseq + '|';
-                // paramObj.V_P_TAX_SITE_CODE_D = item.
+                paramObj.V_P_TAX_SITE_CODE_D = '';
 
             }
 

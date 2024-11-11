@@ -472,9 +472,7 @@
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
         let result = await Promise.all([
             fn_initSBSelect(),
-            // fn_initSBRadio(),
             fn_getPrdcrs(),
-            fn_setLatestInfo()
         ]);
 
     }

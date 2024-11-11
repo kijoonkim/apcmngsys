@@ -115,7 +115,6 @@
                                                 wrap-style="flex-basis:10%"
                                                 maxlength="2"
                                                 autocomplete="off"
-                                                onchange="fn_onChangeSrchPrdcrIdentno(this)"
                                         ></sbux-input>
                                         <sbux-input
                                                 uitype="text"
@@ -131,8 +130,8 @@
                                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                                         ></sbux-input>
                                         <sbux-button
-                                                id="btn-reg-prdcr"
-                                                name="btn-reg-prdcr"
+                                                id="reg-inp-prdcrCd"
+                                                name="reg-inp-prdcrCd"
                                                 class="btn btn-outline-dark"
                                                 text="찾기" uitype="modal"
                                                 target-id="modal-prdcr"
@@ -149,7 +148,7 @@
                                     <sbux-input
                                             uitype="text"
                                             id="reg-inp-plorCd"
-                                            name="reg-inp-prdcrIdentno"
+                                            name="reg-inp-plorCd"
                                             class="form-control input-sm"
                                             style="width: 30%"
                                             maxlength="2"
@@ -382,6 +381,33 @@
 </body>
 <script type="text/javascript">
     var jsonApcItem			= [];	// 품목 		itemCd		검색
+    var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
+    var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
+    var jsonComWarehouse	= [];	// 창고 		warehouse	검색
+    var jsonApcBx			= [];	// 팔레트/박스 	검색
+    var jsonSpcfctCd        = [];   // 규격
+    var jsonJobClsf         = [];   // 검수자
+
+    var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
+    var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
+    var jsonComTrsprtSeCd	= [];	// 운송구분		TRSPRT_SE_CD
+
+    /* 생산자 자동완성 */
+    var jsonPrdcr				= [];
+    var jsonPrdcrAutocomplete 	= [];
+
+    /* SBGrid */
+    var grdRawMtrWrhs;
+    /* SBGrid Data (JSON) */
+    var jsonRawMtrWrhs = [];
+
+    /*최근조회 데이터List*/
+    var RawMtrWrhsLatestInfoList = [];
+    var PrdcrLatestInfo = [];
+    var rawMtrWrhs = [];
+
+    /** save Json **/
+    var jsonSave = [];
 
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
@@ -399,6 +425,44 @@
      */
     const fn_choicePrdcr = function() {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+    }
+    /**
+     * @name fn_setPrdcr
+     * @description 생산자 선택 popup callback 처리
+     */
+    const fn_setPrdcr = async function(prdcr) {
+        console.log(prdcr,"생산자");
+        SBUxMethod.set("srch-inp-wrhsno", "");
+        await fn_getPrdcrs();
+
+        if (!gfn_isEmpty(prdcr)) {
+            SBUxMethod.set("reg-inp-prdcrCd", prdcr.prdcrCd);
+            SBUxMethod.set("reg-inp-prdcrNm", prdcr.prdcrNm);
+            SBUxMethod.set("reg-inp-prdcrIdentno", prdcr.prdcrIdentno);
+            SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+        }
+    }
+    /**
+     * @name fn_getPrdcrs
+     * @description 생산자 자동완성 JSON 설정
+     */
+    const fn_getPrdcrs = async function() {
+        jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+        jsonPrdcr = gfn_setFrst(jsonPrdcr);
+    }
+
+    /**
+     * @name fn_onInputPrdcrNm
+     * @description 생산자명 입력 시 event : autocomplete
+     */
+    const fn_onInputPrdcrNm = function(prdcrNm){
+        fn_clearPrdcr();
+        if(getByteLengthOfString(prdcrNm.target.value) > 100){
+            SBUxMethod.set("srch-inp-prdcrNm", "");
+            return;
+        }
+        jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
+        SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
 

@@ -75,4 +75,20 @@ public interface OprtrService {
 	 * @throws Exception
 	 */
 	HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 조회
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	List<OprtrPrfmncVO> selectOprtrSortPrfmncList(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 수정
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
 }

@@ -754,6 +754,7 @@
 	 * @description 산지코드선택 callback
 	 */
 	const fn_setComNm = function(comNm) {
+		console.log(comNm,"산지정보");
 		let nRow = grdApcPrdcr.getRow();
 		let comCdCol = grdApcPrdcr.getColRef("plorCd");
 		let flag = true;
@@ -773,9 +774,9 @@
 					popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, plorNm, fn_setplorNm);
 				}
 			}else{
-				grdApcPrdcr.setCellData(nRow, plorCol, plorNm.plorCd);
+				grdApcPrdcr.setCellData(nRow, comCdCol, comNm.comCd);
 			}
-
+			grdApcPrdcr.rebuild();
 		}
 
 	}

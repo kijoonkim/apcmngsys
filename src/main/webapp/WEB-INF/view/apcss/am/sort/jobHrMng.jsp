@@ -168,7 +168,7 @@
 
       <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
                  title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
-                 title-text-array="포장등록^실적조회" onclick="fn_changeTab()"
+                 title-text-array="작업자등록^작업내역" onclick="fn_changeTab()"
                  title-style-array="{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}">
@@ -271,6 +271,7 @@
       SBUxMethod.set("dtl-inp-pltno",pltno);
       SBUxMethod.set("dtl-inp-sortno",sortno);
       SBUxMethod.set("dtl-inp-sortSn",sortSn);
+      fn_init();
       }
   });
 
@@ -300,7 +301,6 @@
     await fn_search_prdcr();
     /** 포장실적 grid 생성 **/
     await fn_create_pckgPrfmnc();
-    return;
     await fn_search();
   }
   const fn_create_pckgPrfmnc = async function(){
@@ -316,22 +316,25 @@
         }
       },
       {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업자"],	ref: 'oprtrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업자"],	ref: 'flnm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
       {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
       {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
       {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["팔레트번호"],	ref: 'pltno',		type:'output',  width:'30%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["팔레트번호"],	ref: 'sortno',		type:'output',  width:'30%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
     ]
     gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
   }
   /** 작업구분 **/
   const fn_search_cnpt = async function(){
+    /** reset **/
+    $("#cnptInfoWrap > div > div").empty();
     let data = await gfn_getComCdDtls("JOB_CLSF_CD", gv_apcCd);
     data = data.filter((item) => item.cdVl !== '12');
     await fn_append_button(data,"cnptInfoWrap","cdVlNm","cdVl","job-clsf-cd");
   }
   /** 작업자 **/
   const fn_search_prdcr = async function(_jobClsfCd = ''){
+    $("#prdcrInfoWrap > div > div").empty();
     let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
         apcCd 		: gv_selectedApcCd,
       ...( _jobClsfCd ? { jobClsfCd: _jobClsfCd } : {} )
@@ -358,10 +361,12 @@
     let dataObj = $(_el).data();
     /** 만약 정보 더 필요해서 data 추가되면 돌려서 집어야함 **/
     for(let key in dataObj){
+      /** 선택된 버튼이 작업분류일때 분기 **/
       if(key == 'jobClsfCd') {
         if ($(_el).hasClass("active")) {
           return;
         } else {
+          /** 이외 버튼 OFF 및 분류에 대한 작업자 필터링 **/
           $(_el).closest('div.carousel').find("div.active").removeClass("active");
           $(_el).addClass("active");
 
@@ -371,14 +376,18 @@
           if ($(item).data('oprtr') !== jobClsfCd) {
             $(item).hide();
           } else {
-            $(item).show();
+            if(!$(item).hasClass("notMatch")){
+              $(item).show();
+            }
           }
         });
       }
         // $("#prdcrInfoWrap > .carousel_container > .carousel").empty();
         // await fn_search_prdcr(dataObj[key]);
+        /** 선택된 버튼이 작업자일때 분기 **/
       }else if(key == 'oprtr'){
-        let jobClsfCd = $("#cnptInfoWrap > div > div > div.tabBox.active").data("jobClsfCd");
+        // let jobClsfCd = $("#cnptInfoWrap > div > div > div.tabBox.active").data("jobClsfCd");
+        let jobClsfCd = $(_el).data("oprtr");
         let jobClsfNm = $("#cnptInfoWrap > div > div > div.tabBox.active").text().trim();
         let oprtrNm = $(_el).text().trim();
         let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
@@ -387,7 +396,7 @@
         let sortno = SBUxMethod.get('dtl-inp-sortno');
         jobBgngHr = formatTimeToKorean(jobBgngHr);
 
-        /** 작업 종료처리 **/
+        /** 작업 종료 Update **/
         if($(_el).hasClass("active")){
           const idx = jsonPckgPrfmnc.findIndex(obj =>
                   obj.jobClsfCd === jobClsfCd && obj.oprtrNm === oprtrNm
@@ -400,13 +409,14 @@
             obj.jobBgngHr = formatTime(obj.jobBgngHr);
             obj.jobEndHr = formatTime(obj.jobEndHr);
             obj.jobHr = parseAndFormatToHHmm(obj.jobHr);
-            obj.sortno = sortno;
+            obj.sortno = pltno;
             obj.jobYmd = jobYmd;
             obj.brdt = jsonOprtr.find(item => item.flnm === obj.flnm && item.jobClsfCd === obj.jobClsfCd)?.brdt;
             /** 해당 실적 저장 반영 **/
-            let data = await gfn_postJSON("/am/oprtr/insertOprtrSortPrfmnc",obj);
+            let data = await gfn_postJSON("/am/oprtr/updateOprtrSortPrfmnc",obj);
+            $(_el).removeClass("active");
           }
-          $(_el).removeClass("active");
+          /** 작업 시작 Insert **/
         }else{
           $(_el).addClass("active");
 
@@ -417,10 +427,17 @@
             oprtrNm : oprtrNm,
             pltno : pltno,
             jobBgngHr : jobBgngHr,
-            flnm : oprtrNm
+            flnm : oprtrNm,
+            jobYmd : jobYmd,
+            sortno : pltno
           }
+          let brdt = jsonOprtr.find(item => item.flnm === obj.flnm && item.jobClsfCd === obj.jobClsfCd)?.brdt;
+          obj.brdt = brdt;
+          let saveJson = {...obj};
+          saveJson.jobBgngHr = formatTime(obj.jobBgngHr);
           jsonPckgPrfmnc.push(obj);
           gridPckgPrfmnc.rebuild();
+          let data = await gfn_postJSON("/am/oprtr/insertOprtrSortPrfmnc",saveJson);
         }
       }
 
@@ -449,21 +466,35 @@
   }
 
   const fn_search = async function(){
-    let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
-    const isEmpty = (obj) => Object.keys(obj).length === 0;
-    let postJsonPromise;
-    if(isEmpty(checked)){
-      let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
-      let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
-      postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmdFrom:pckgYmdFrom,pckgYmdTo:pckgYmdTo});
-    }else{
-      let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmdFrom");
-      postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmd:pckgYmd});
-    }
+    let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
+    postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrSortPrfmncList",{apcCd: gv_apcCd,jobYmd: jobYmd});
 
     const data = await postJsonPromise;
     try {
       if(data.resultStatus === 'S'){
+        let pltno = SBUxMethod.get("dtl-inp-pltno");
+        let oprtrBtn = Array.from(document.querySelectorAll("#prdcrInfoWrap >  .carousel_container > .carousel > div.tabBox"));
+        data.resultList.forEach(function(obj,idx){
+          /** date format **/
+          obj.jobBgngHr = formatTimeToKorean(obj.jobBgngHr);
+          obj.jobEndHr = obj.jobEndHr ? formatTimeToKorean(obj.jobEndHr) : '';
+          obj.jobHr = obj.jobHr > 0 ? convertToHourMinute(String(obj.jobHr)) : '';
+          obj.oprtrNm = obj.flnm;
+
+          let el = oprtrBtn.find(element => {
+            return $(element).data('oprtr') === obj.jobClsfCd && $(element).text().trim() === obj.flnm;
+          });
+
+          if(obj.sortno !== pltno){
+            $(el).hide();
+            $(el).addClass("notMatch");
+          }else{
+            /** 목록에 있지만 작업종료된 작업자 **/
+            if(!obj.jobEndHr){
+              $(el).addClass("active");
+            }
+          }
+        });
         jsonPckgPrfmnc = data.resultList;
         gridPckgPrfmnc.rebuild();
       }
@@ -609,6 +640,33 @@
     const formattedMinute = String(minute).padStart(2, "0");
 
     return `${'${period}'} ${'${formattedHour}'}:${'${formattedMinute}'}`;
+  }
+  function convertToHourMinute(timeString) {
+    let hours = 0;
+    let minutes = 0;
+
+    if (timeString.length === 4) {
+      hours = parseInt(timeString.slice(0, 2), 10);
+      minutes = parseInt(timeString.slice(2, 4), 10);
+    } else if (timeString.length === 2) {
+      minutes = parseInt(timeString, 10);
+    }
+
+    // 결과를 저장할 배열
+    let result = [];
+
+    // 시간이 0이 아닐 때만 추가
+    if (hours > 0) {
+      result.push(`${'${hours}'}시간`);
+    }
+
+    // 분이 0이 아닐 때만 추가
+    if (minutes > 0) {
+      result.push(`${'${minutes}'}분`);
+    }
+
+    // 결과 배열을 공백으로 구분하여 문자열로 반환
+    return result.join(" ");
   }
 
   function updateClock() {
