@@ -2067,12 +2067,12 @@
 			*/
 
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true},
+				typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'},
 				validate : fn_Validate},
 			{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComClsfCd', label:'label', value:'value', displayui : true}},
+				typeinfo : {ref:'jsonComClsfCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
+				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
 			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
 			/*

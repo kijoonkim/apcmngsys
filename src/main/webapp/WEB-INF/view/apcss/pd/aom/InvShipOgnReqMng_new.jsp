@@ -2007,12 +2007,12 @@
 			*/
 
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonGrdSttgUpbrItemSe', label:'label', value:'value', displayui : true},
+				typeinfo : {ref:'jsonGrdSttgUpbrItemSe', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'},
 				validate : fn_Validate},
 			{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonGrdClsfCd', label:'label', value:'value', displayui : true}},
+				typeinfo : {ref:'jsonGrdClsfCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonGrdCtgryCd', label:'label', value:'value', displayui : true}},
+				typeinfo : {ref:'jsonGrdCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
 			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
 			/*
