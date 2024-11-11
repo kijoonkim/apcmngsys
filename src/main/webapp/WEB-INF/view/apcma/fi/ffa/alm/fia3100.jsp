@@ -1647,10 +1647,9 @@
 // 			            var tidx = Fia3100GridDetail01.getRows();
 // 			    		Fia3100GridDetail01.insertRow((tidx-1), 'below');
 // 		                Fia3100GridDetail01.setCellData((tidx-1), 1, 	tobj['ACQUIRE_DATE'], true, true);
-						
 						jsonFia3100Detail01.push(tobj);
-						Fia3100GridDetail01.rebuild();
 					}
+					Fia3100GridDetail01.rebuild();
 				}  	        	
   	        	
         	} else {

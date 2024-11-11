@@ -37,6 +37,7 @@
                     </h3><!-- 합계잔액시산표조회 -->
                 </div>
                 <div style="margin-left: auto;">
+					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -156,7 +157,6 @@
                             	</div>
                             </td>   
                             <td colspan="4" class="td_input" >
-								<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
                             </td>                                                     
                         </tr>
                         
@@ -315,7 +315,19 @@
             {caption: ["차변",			"차변잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["차변",			gd1_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: [gd1_title_gigan,	"계정Level"],		ref: 'ACCOUNT_GROUP',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: [gd1_title_gigan,	"계정코드"],		ref: 'ACCOUNT_CODE_VIEW',		type:'output',  	width:'100px',  	style:'text-align:left'},
+            
+            {caption: [gd1_title_gigan,	"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: [gd1_title_gigan,	"계정과목"],		ref: 'ACCOUNT_NAME',			type:'output',  	width:'300px',  	style:'text-align:left'},
             {caption: ["대변",			gd1_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["대변",			"대변잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -363,7 +375,18 @@
         };
         SBGridProperties.columns = [
             {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'150px', 		style:'text-align:left'},
-            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: [gd2_title_gigan],	ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             {caption: ["차변기초잔액"],		ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["차변기말잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -798,7 +821,30 @@
 	    return data;
 	}
     
+    /**
+     * 그리드내 링크(계정코드) 조회
+     */
+ 	function fn_gridPopup1(event, account_code_view, account_name) {
+		event.preventDefault();	
+		console.log('account_code_view:', account_code_view);		
+        
+        var obj = {
+        	'MENU_MOVE'				: 'Y'	
+        	,'FI_ORG_CODE' 			: SBUxMethod.get('SCH_FI_ORG_CODE') 
+        	,'SITE_CODE' 			: SBUxMethod.get('SCH_SITE_CODE') 
+        	,'ACCT_RULE_CODE'		: SBUxMethod.get('SCH_ACCT_RULE_CODE') 
+        	,'YMDPERIOD_FR' 		: SBUxMethod.get('SCH_YMDPERIOD_FR') 
+        	,'YMDPERIOD_TO' 		: SBUxMethod.get('SCH_YMDPERIOD_TO') 
+        	,'ACCOUNT_GROUP' 		: SBUxMethod.get('SCH_ACCOUNT_GROUP') 
+        	,'ACCOUNT_CODE' 		: account_code_view
+        	,'ACCOUNT_NAME' 		: account_name
+        	,'target'				: 'MA_A20_030_030_210'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
     
+	
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
