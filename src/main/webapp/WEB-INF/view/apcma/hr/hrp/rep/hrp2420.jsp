@@ -25,7 +25,6 @@
     <title>title : 급여대장</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
-    <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -42,8 +41,6 @@
             <div style="margin-left: auto;">
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
             </div>
         </div>
 
