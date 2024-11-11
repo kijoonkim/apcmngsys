@@ -1,3 +1,19 @@
+<%
+    /**
+    * @Class Name 		: fig3510.jsp
+    * @Description 	: 매출/매입송장등록 공통화면
+    * @author 			: 인텔릭아이앤에스
+    * @since 			: 2024.06.03
+    * @version 		: 1.0
+    * @Modification Information
+    * @
+    * @ 수정일       	수정자      수정내용
+    * @ ----------		----------	---------------------------
+    * @ 2024.06.03   	이경한		최초 생성
+    * @see
+    *
+    */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body oncontextmenu="return false">
@@ -336,7 +352,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">총지급액</th>
+                                    <th scope="row" class="th_bg">총액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)"></sbux-input>
                                     </td>
@@ -347,7 +363,7 @@
                                                 <font>선택</font>
                                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:150px;padding-top:0px;overflow:auto">
+                                            <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:400px;padding-top:0px;overflow:auto">
                                             </div>
                                         </div>
                                     </td>
@@ -400,7 +416,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">공급가액</th>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"></sbux-input>
+                                        <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeSupplyAmt(SUPPLY_AMT)"></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg">계좌정보</th>
@@ -1236,8 +1252,8 @@
                         let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(value))[0];
                         let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
 
-                        let VAT_AMOUNT = Number(DOC_AMT) * (dcmvat_rate / 100);
-                        let SUPPLY_AMT = Number(DOC_AMT) - Number(VAT_AMOUNT);
+                        let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
+                        let VAT_AMOUNT = DOC_AMT - Number(SUPPLY_AMT);
 
                         SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
                         SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
@@ -3589,15 +3605,20 @@
         if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get("VAT_AMOUNT")) == "")
             return;
 
+        let DOC_AMT = Number(value.replace(/,/gi, ''));
+
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != "") {
             let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
             let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
 
-            let VAT_AMOUNT = Number(value.replace(/,/gi, '')) * (dcmvat_rate/100);
-            let SUPPLY_AMT = Number(value.replace(/,/gi, '')) - Number(VAT_AMOUNT);
+            let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
+            let VAT_AMOUNT = Number(DOC_AMT) - Number(SUPPLY_AMT);
 
             SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
             SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
+        } else {
+            SBUxMethod.set("SUPPLY_AMT", DOC_AMT);
+            SBUxMethod.set("VAT_AMOUNT", 0);
         }
     }
 
@@ -3608,16 +3629,26 @@
         if (gfn_nvl(SBUxMethod.get("DOC_AMT")) == "" || gfn_nvl(value) == "")
             return;
 
-        SBUxMethod.set("SUPPLY_AMT", (Number(SBUxMethod.get("DOC_AMT")) - Number(value)));
+        SBUxMethod.set("SUPPLY_AMT", (Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, '')) - Number(value.replace(/,/gi, ''))));
 
         if (jsonAccountLineList.length > 0) {
             for (var i = 0; i < jsonAccountLineList.length; i++) {
                 if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
                     gvwWFItem.clickRow((i+1));
-                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), value);
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), Number(value.replace(/,/gi, '')));
                 }
             }
         }
+    }
+
+    const fn_changeSupplyAmt = async function (value) {
+        if (!bnew)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("DOC_AMT")) == "" || gfn_nvl(value) == "")
+            return;
+
+        SBUxMethod.set("VAT_AMT", (Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, '')) - Number(value)));
     }
 
     const fn_changeStandardDate = async function (value) {
@@ -5967,9 +5998,9 @@
         let CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
         let CURRENCY_CODE = gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE'));
         let EXCHANGE_RATE = gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"));
-        let DOC_AMT = gfn_nvl(SBUxMethod.get("DOC_AMT"));
-        let SUPPLY_AMT = gfn_nvl(SBUxMethod.get("SUPPLY_AMT"));
-        let VAT_AMOUNT = gfn_nvl(SBUxMethod.get("VAT_AMOUNT"));
+        let DOC_AMT = Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, ''));
+        let SUPPLY_AMT = Number(SBUxMethod.get("SUPPLY_AMT").replace(/,/gi, ''));
+        let VAT_AMOUNT = Number(SBUxMethod.get("VAT_AMOUNT").replace(/,/gi, ''));
         let VAT_TYPE = gfn_nvl(gfnma_multiSelectGet('#VAT_CODE'));
         let VOUCHER_TYPE = gfn_nvl(SBUxMethod.get("VOUCHER_TYPE"));
         let APPROVAL_NO = gfn_nvl(SBUxMethod.get("APPROVAL_NO"));
@@ -6015,9 +6046,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
+                jsonAccountLineList.length = 0;
                 data.cv_1.forEach((item, index) => {
-                    jsonAccountLineList.length = 0;
-
                     var msg = {
                         KEY_ID : item.KEY_ID,
                         ITEM_SEQ : item.ITEM_SEQ,
@@ -6164,7 +6194,7 @@
 
                 gvwWFItem.rebuild();
                 fn_defaultRuleSet(jsonAccountLineList);
-                fn_createLine();
+                fn_exchageUpdate();
             } else {
                 alert(data.resultMessage);
             }
