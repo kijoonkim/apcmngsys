@@ -241,8 +241,9 @@
         SBGridProperties.id = 'grdRawMtrWrhs';
         SBGridProperties.jsonref = 'jsonRawMtrWrhs';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.mergecells = 'bycol';
+        SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
+            {caption: [],ref: 'MERGE', type:'output',hidden: true},
             {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',      type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
             {caption: ["품목","품목"],		ref: 'ITEM_NM',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["품종","품종"],		ref: 'VRTY_NM',      type:'output',  width:'7%',    style:'text-align:center'},
@@ -406,10 +407,20 @@
         }
         const postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrPrfmncListToPltno.do",check);
         const data = await postJsonPromise;
+        console.log(data.resultList);
         if(data.resultStatus === 'S'){
-            data.resultList.forEach(function(item){
+            /** merge key **/
+            let pltno = data.resultList[0].PLTNO;
+            let merge = 1;
+            data.resultList.forEach(function(item,idx){
                let JOB_FORMAT = item.JOB_BGNG_HR + '-' + item.JOB_END_HR;
                item.JOB_FORMAT = JOB_FORMAT;
+               if(pltno === item.PLTNO){
+                   item.MERGE = merge;
+               }else{
+                   pltno = item.PLTNO;
+                   item.MERGE = ++merge;
+               }
             });
             jsonRawMtrWrhs = data.resultList;
             grdRawMtrWrhs.rebuild();
