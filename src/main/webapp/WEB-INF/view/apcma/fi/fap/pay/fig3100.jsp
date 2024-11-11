@@ -180,9 +180,11 @@
                     <td <%--colspan="2"--%> class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup1"
+                                image-src="../../../resource/images/find2.png"
+                                image-style="width:25px;height:15px;"
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
@@ -204,9 +206,11 @@
                     <td class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup2"
+                                image-src="../../../resource/images/find2.png"
+                                image-style="width:25px;height:15px;"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -861,10 +865,10 @@
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,tableColumnWidths		: ["80px"    , "80px"    , "120px"     , "120px"    , "80px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
-                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
             },
         });
     }
@@ -1599,14 +1603,14 @@
             {caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type: 'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd', oneclickedit: true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'input', width: '170px', style: 'text-align:left'},
-            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
-            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
             {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type:'input',  width:'140px',  style:'text-align:left',
                 typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
@@ -1628,9 +1632,9 @@
             {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             {caption: ["상호"], ref: 'SELLER_NAME', type: 'input', width: '140px', style: 'text-align:left'},
@@ -1696,13 +1700,13 @@
             {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["전표담당자 조회"], 			ref: 'ACCOUNT_EMP_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},
 
 
-            {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, hidden: true},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left' , hidden: true},
             {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
@@ -1793,7 +1797,7 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["부서 조회"], ref: 'DEPT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             /*{caption : ["프로젝트코드"], ref : 'PROJECT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -1806,7 +1810,7 @@
             {caption: ["프로젝트"], ref: 'PROJECT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["프로젝트 조회"], ref: 'PROJECT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             /*{caption : ["계정과목코드"], ref : 'ACCOUNT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -1819,7 +1823,7 @@
             {caption: ["계정과목"], ref: 'ACCOUNT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["계정과목 조회"], ref: 'ACCOUNT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
         ];
