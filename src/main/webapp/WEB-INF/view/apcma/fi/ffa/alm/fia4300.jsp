@@ -73,13 +73,41 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">사업단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgUnit" group-id="search1"></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-fiOrgCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
@@ -223,14 +251,14 @@
 		                            <td  class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-ast-accumDepr" name="srch-ast-accumDepr" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" ></sbux-input>
 		                            </td>
-                                    <th scope="row" class="th_bg acqsAmt2" hidden>취득가액</th>
-		                            <td  class="td_input acqsAmt2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
+                                    <th scope="row" class="th_bg group2" hidden>취득가액</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
-									<th scope="row" class="th_bg bssAcqsAmt" hidden>기초취득가액</th>
-		                            <td  class="td_input bssAcqsAmt" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-beginAcquisitionAmount" name="srch-ast-beginAcquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
+									<th scope="row" class="th_bg group2" hidden>기초취득가액</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-beginAcquisitionAmount" name="srch-ast-beginAcquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -274,14 +302,14 @@
 											name="srch-ast-subsidiesAccDepr"
 											class="form-control input-sm" uitype="text"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
 									</td>
-		                            <th scope="row" class="th_bg"hidden>국고보조금</th>
-		                            <td  class="td_input" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-num-subsidiesAmount" name="srch-num-subsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden"></sbux-input>
+		                            <th scope="row" class="th_bg group2"hidden>국고보조금</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-num-subsidiesAmount" name="srch-num-subsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg"hidden>기초국고보조금</th>
-		                            <td  class="td_input" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-beginSubsidiesAmount" name="srch-ast-beginSubsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden" ></sbux-input>
+		                            <th scope="row" class="th_bg group2"hidden>기초국고보조금</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-beginSubsidiesAmount" name="srch-ast-beginSubsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -303,14 +331,14 @@
 		                            <td  class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-ast-bookValue" name="srch-ast-bookValue" class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="ast1" required></sbux-input>
 		                            </td>
-								    <th scope="row" class="th_bg dprcAtAmt2"hidden>감가상각누계액</th>
-		                            <td  class="td_input dprcAtAmt2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-accumulatedDepreciation" name="srch-ast-accumulatedDepreciation" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="hidden"></sbux-input>
+								    <th scope="row" class="th_bg group2"hidden>감가상각누계액</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-accumulatedDepreciation" name="srch-ast-accumulatedDepreciation" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg dspsRt"hidden>처분비율</th>
-		                            <td  class="td_input dspsRt" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionRate" name="srch-ast-acquisitionRate" class="form-control input-sm" uitype="hidden" ></sbux-input>
+		                            <th scope="row" class="th_bg group2"hidden>처분비율</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionRate" name="srch-ast-acquisitionRate" class="form-control input-sm" uitype="input" group-id="group2"></sbux-input>
 		                            </td>
 
 		                        </tr>
@@ -348,15 +376,15 @@
 										<sbux-input id="srch-ast-subsidiesDeprName" name="srch-ast-subsidiesDeprName" class="form-control input-sm" uitype="hidden" ></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg"hidden>보조금상각누계액</th>
-		                            <td  class="td_input" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-subsidiesAccDepreciation" name="srch-ast-subsidiesAccDepreciation" class="form-control input-sm" uitype="hidden" ></sbux-input>
+		                            <th scope="row" class="th_bg group2"hidden>보조금상각누계액</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-subsidiesAccDepreciation" name="srch-ast-subsidiesAccDepreciation" class="form-control input-sm" uitype="input"  group-id="group2"></sbux-input>
 		                            </td>
 
-		                            <th scope="row" class="th_bg dspsAmt"hidden>처분금액</th>
-		                            <td  class="td_input dspsAmt" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionAmountEvent" name="srch-ast-acquisitionAmountEvent" class="form-control input-sm" uitype="hidden"
-											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)"></sbux-input>
+		                            <th scope="row" class="th_bg group2"hidden>처분금액</th>
+		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
+											<sbux-input id="srch-ast-acquisitionAmountEvent" name="srch-ast-acquisitionAmountEvent" class="form-control input-sm" uitype="input"
+											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)" group-id="group2"></sbux-input>
 		                            </td>
 
               	                </tr>
@@ -657,7 +685,7 @@
 <script type="text/javascript">
 	// 신규
 	function cfn_add() {
-
+		fn_hiddenChange(false);
 	}
 
 	// 그룹코드 내역, 세부코드 정보 저장
@@ -677,6 +705,13 @@
 	function cfn_search() {
 		fnQRY_P_FIA4300_Q();
 
+	}
+
+	// 조회
+	function cfn_init() {
+		fn_hiddenChange(true);
+		SBUxMethod.clearGroupData('group1');
+		SBUxMethod.clearGroupData('group2');
 	}
 
 	// ${comMenuVO.menuId}
@@ -759,7 +794,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 			//회계기준
 			gfnma_setComSelect(['srch-slt-acctRuleCodeP','srch-ast-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['srch-slt-siteCode'], jsonBplc, 'L_FIT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -791,23 +826,42 @@
 			//gfnma_setComSelect(['srch-slt-dspsTab-currency'], jsonCurrency, 'L_FIF045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//회계단위
 			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//회계단위
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-fiOrgCode']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'left' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
 			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-dsps-expenseCurrencyCode','#srch-dsps-currencyCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_FIF045'
+				,bizcompId		: 'L_COM001'
 				,whereClause	: ''
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'CURRENCY_CODE'
+				,colLabel		: 'CURRENCY_NAME'
 				,columns		:[
-		            {caption: "코드",	ref: 'SUB_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "명", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "통화명",	ref: 'CURRENCY_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "비고", 		ref: 'CURRENCY_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//부가세유형
@@ -850,6 +904,25 @@
 		            {caption: "명", 		ref: 'VAT_NAME',    		width:'150px',  	style:'text-align:left'},
 		            {caption: "유형", 		ref: 'VAT_TYPE_NAME',    		width:'150px',  	style:'text-align:left'},
 		            {caption: "비율", 		ref: 'VAT_RATE',    		width:'150px',  	style:'text-align:left'},
+				]
+			}),
+			//법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			})
 
@@ -895,7 +968,7 @@
 	var jsonBplc = []; // 사업장
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
-	var jsonVarType = []; //부가세유형
+	var jsonVatType = []; //부가세유형
 	var jsonCurrency = []; //통화
 	var jsonDclrBplc = []; //신고사업장
 
@@ -985,8 +1058,8 @@
     //workType = DISP / LIST /SAVE /DETAIL
     const fnQRY_P_FIA4300_Q = async function(workType){
 
-    	var corp = gfnma_nvl(SBUxMethod.get("srch-slt-compCode")); //법인 cbocomp_code1
-    	var acntgUnit = gfnma_nvl(SBUxMethod.get("srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
+    	var corp = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-compCode")); //법인 cbocomp_code1
+    	var acntgUnit = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
     	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acctRuleCodeP")); // 회계기준 cboacct_rule_code_p
     	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-originalAssetDispNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
     	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-assetDisposalNo"));  // 자산내역 : 처분번호 txtasset_disposal_no
@@ -1070,7 +1143,7 @@
     	var dspsRt = SBUxMethod.get("srch-inp-astTab-dspsRt");//처분비율
     	var dspsAmt =  SBUxMethod.get("srch-inp-astTab-dspsAmt");
     	var acntgCrtr = SBUxMethod.get("srch-slt-acctRuleCodeP"); //회계기준
-    	var corp = SBUxMethod.get("srch-slt-compCode"); //법인 cbocomp_code1
+    	var corp = gfnma_multiSelectGet("#srch-slt-compCode"); //법인 cbocomp_code1
     	var bssAcqsAmt = SBUxMethod.get("srch-inp-astTab-bssAcqsAmt");
     	var astNo = SBUxMethod.get("srch-inp-assetNo"); // 자산번호
 
@@ -1319,7 +1392,7 @@
 
     	let sourceId = SBUxMethod.get("srch-inp-astTab-dspsSourceId");
     	let disposalType = SBUxMethod.get("srch-slt-disposalType");
-    	let compCode = SBUxMethod.get("srch-slt-compCode");
+    	let compCode = gfnma_multiSelectGet("#srch-slt-compCode");
 
     	if(disposalType === "DISUSE"){
     		return;
@@ -1797,7 +1870,7 @@
     	let sourceId = gfnma_nvl(SBUxMethod.get("srch-ast-sourceId"));
     	let disposalType = SBUxMethod.get("srch-slt-disposalType");
     	let docBatchNo1 = SBUxMethod.get("srch-ast-docBatchNo1");
-    	let fiOrgCode = SBUxMethod.get("srch-slt-fiOrgCode");
+    	let fiOrgCode = gfnma_multiSelectGet("#srch-slt-fiOrgCode");
         if (sourceId === ""){
             //SetMessageBox("전표생성후 사용하세요.");
             alert("전표생성후 사용하세요.");
@@ -2753,6 +2826,20 @@
                 return acc;
             }, {});
         });
+    }
+
+    function fn_hiddenChange(chk){
+    	let tdElements = document.querySelectorAll('.th_bg.group2');
+    	let tdElements2 = document.querySelectorAll('.td_input.group2');
+
+    	tdElements.forEach(td => {
+    		  td.hidden = chk; // hidden 속성을 false로 설정
+    		});
+    	tdElements2.forEach(td => {
+  		  td.hidden = chk; // hidden 속성을 false로 설정
+  		});
+
+    	SBUxMethod.changeGroupAttr('group2', 'readonly', chk.toString());
     }
 
 </script>

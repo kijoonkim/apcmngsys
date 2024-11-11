@@ -81,17 +81,41 @@
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonCorp"></sbux-select>
+								<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 							</td>
 							<td></td>
 
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonBizUnit"></sbux-select>
+								<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-fiOrgCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">사업장</th>
@@ -124,7 +148,7 @@
 									id="srch-dtp-depreciationYyyymm"
 									name="srch-dtp-depreciationYyyymm"
 									uitype="popup"
-									date-format="yyyymm"
+									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 								</sbux-datepicker>
@@ -321,6 +345,44 @@
 			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//코스트센터
 			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+			//법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//회계단위
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-fiOrgCode']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'left' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			})
 		]);
 
 		let yyyymm = gfnma_date6().substring(0,6);
@@ -462,23 +524,23 @@
             {caption: ["자산명"], 			ref: 'assetName', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["취득월"], 			ref: 'acquireYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["내용연수(월)"], 	ref: 'usefulLifeMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초보조금"], 		ref: 'beginSubsidiesAmount',format : {type:'number', rule:'#,###'}, 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["당기취득금액"], 	ref: 'inAcquisitionAmount', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["당기취득보조금"], ref: 'inSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분취득가액"], 	ref: 'outAcquisitionAmount',format : {type:'number', rule:'#,###'}, 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분보조금"], 		ref: 'outSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말취득가액"],	ref: 'endAcquisitionAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말보조금"], 		ref: 'endSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초상각누계액"], ref: 'beginAccumDepr', 		format : {type:'number', rule:'#,###'},		type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각비"], 		ref: 'acqDeprAmt', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산상각비"], ref: 'outAcqDepr', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말상각누계액"], ref: 'endAccumDepr', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초보조금상각누계액"], ref: 'beginSubsidiesAccDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["보조금상각비"],   ref: 'subsidiesDeprAmt', 		format : {type:'number', rule:'#,###'},		type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산보조금상각비"], ref: 'outSubsidiesDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산상각누계액"], ref: 'outAccumDepr', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산보조금상각누계액"], ref: 'outSubsidiesAccumDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말보조금상각누계액"], ref: 'endSubsidesAccumDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기초보조금"], 		ref: 'beginSubsidiesAmount',format : {type:'number', rule:'#,###'}, 				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["당기취득금액"], 	ref: 'inAcquisitionAmount', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["당기취득보조금"], ref: 'inSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분취득가액"], 	ref: 'outAcquisitionAmount',format : {type:'number', rule:'#,###'}, 				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분보조금"], 		ref: 'outSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기말취득가액"],	ref: 'endAcquisitionAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기말보조금"], 		ref: 'endSubsidiesAmount', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기초상각누계액"], ref: 'beginAccumDepr', 		format : {type:'number', rule:'#,###'},		type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["감가상각비"], 		ref: 'acqDeprAmt', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분자산상각비"], ref: 'outAcqDepr', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기말상각누계액"], ref: 'endAccumDepr', 			format : {type:'number', rule:'#,###'},	type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기초보조금상각누계액"], ref: 'beginSubsidiesAccDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["보조금상각비"],   ref: 'subsidiesDeprAmt', 		format : {type:'number', rule:'#,###'},		type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분자산보조금상각비"], ref: 'outSubsidiesDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분자산상각누계액"], ref: 'outAccumDepr', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["처분자산보조금상각누계액"], ref: 'outSubsidiesAccumDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+            {caption: ["기말보조금상각누계액"], ref: 'endSubsidesAccumDepr', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
             {caption: ["비고"], 			ref: 'memomemo', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["부서"], 			ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["원가중심점"], 		ref: 'costCenterCode', 				type : 'combo', typeinfo : {ref:'jsonCostCenter', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
@@ -506,9 +568,9 @@
         	{caption: ['취득월'], ref: 'acquireYyyymm', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['처분월'], ref: 'disposalYyyymm', width: '8%', type: 'output' , style:'text-align:center'},
         	{caption: ['중지월'], ref: 'holdingYyyymm', width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['증가금액'], ref: 'inAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:center'},
-        	{caption: ['감소금액'], ref: 'outAmount', width: '8%',format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:center'},
-        	{caption: ['중지금액'], ref: 'holdingAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:center'}
+        	{caption: ['증가금액'], ref: 'inAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'},
+        	{caption: ['감소금액'], ref: 'outAmount', width: '8%',format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'},
+        	{caption: ['중지금액'], ref: 'holdingAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'}
 
         ];
 
@@ -1010,7 +1072,7 @@
    			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel2',		data.ASSET_GROUP_CODE);
+				SBUxMethod.set('srch-inp-assetLevel2',		data.ASSET_GROUP_NAME);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
@@ -1040,7 +1102,7 @@
    			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel3',		data.ASSET_GROUP_CODE);
+				SBUxMethod.set('srch-inp-assetLevel3',		data.ASSET_GROUP_NAME);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});

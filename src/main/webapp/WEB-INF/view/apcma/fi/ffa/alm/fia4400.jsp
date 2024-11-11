@@ -85,17 +85,41 @@
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonCorp"></sbux-select>
+								<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 							</td>
 							<td></td>
 
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-orgCode1" name="srch-slt-orgCode1"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonBizUnit"></sbux-select>
+								<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-fiOrgCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">사업장</th>
@@ -352,6 +376,44 @@
 				,columns		:[
 		            {caption: "코드",	ref: 'SUB_CODE', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//회계단위
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-fiOrgCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'left' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -996,7 +1058,7 @@
 
 
 		 let acntgCrtr = SBUxMethod.get('srch-slt-acctRuleCode'); //회계기준
-		 let bizUnit = SBUxMethod.get('srch-slt-orgCode1'); //(회계)사업단위
+		 let bizUnit = gfnma_multiSelectGet('#srch-slt-orgCode1'); //(회계)사업단위
 		 let clclnYmdFrom = SBUxMethod.get('srch-dtp-startDate');// 정산일자 from
 		 let clclnYmdTo = SBUxMethod.get('srch-dtp-endDate'); //정산일자to
 		 let bizCd = SBUxMethod.get('srch-inp-projectCode'); //프로젝트코드
