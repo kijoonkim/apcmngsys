@@ -222,6 +222,12 @@
                         uitype="text"
                         wrap-style="display:none"
                 ></sbux-input>
+                <sbux-input
+                        id="dtl-inp-sortSn"
+                        name="dtl-inp-sortSn"
+                        uitype="text"
+                        wrap-style="display:none"
+                ></sbux-input>
               </td>
             </tr>
             <tr>
@@ -261,8 +267,10 @@
     if(obj){
       let pltno = obj.pltno;
       let sortno = obj.sortno;
+      let sortSn = obj.sort
       SBUxMethod.set("dtl-inp-pltno",pltno);
       SBUxMethod.set("dtl-inp-sortno",sortno);
+      SBUxMethod.set("dtl-inp-sortSn",sortSn);
       }
   });
 
@@ -272,8 +280,10 @@
       mainParam = JSON.parse(mainParam);
       let pltno = mainParam.pltno;
       let sortno = mainParam.sortno;
+      let sortSn = mainParam.sortSn;
       SBUxMethod.set("dtl-inp-pltno",pltno);
       SBUxMethod.set("dtl-inp-sortno",sortno);
+      SBUxMethod.set("dtl-inp-sortSn",sortSn);
     }
     localStorage.removeItem("callMain");
 

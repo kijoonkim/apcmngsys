@@ -65,6 +65,14 @@
             vertical-align: middle;
             border-right: hidden;
         }
+        #latestInfoBody > tr:hover{
+            background-color : #FFF8DC;
+            cursor: pointer;
+        }
+        #latestInfoBody > tr.active td{
+            color:white;
+            background-color :rgb(35,83,119);
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -163,6 +171,12 @@
                             <sbux-input
                                     id="dtl-inp-wrhsno"
                                     name="dtl-inp-wrhsno"
+                                    uitype="text"
+                                    wrap-style="display:none"
+                            ></sbux-input>
+                            <sbux-input
+                                    id="sortSn"
+                                    name="sortSn"
                                     uitype="text"
                                     wrap-style="display:none"
                             ></sbux-input>
@@ -462,11 +476,19 @@
     const fn_setJobHr = async function(){
         let pltno = SBUxMethod.get("dtl-inp-pltno");
         let sortno = SBUxMethod.get("dtl-inp-sortno");
+        let sortSn = SBUxMethod.get("sortSn");
         if(gfn_isEmpty(pltno)){
             gfn_comAlert("W0005","팔레트번호");
             return;
         }
-        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno,sortno:sortno}));
+        if(gfn_isEmpty(sortSn)){
+            gfn_comAlert("W0005","선택된 선별내역");
+            return;
+        }
+
+        /** 선별 순번 **/
+
+        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno,sortno:sortno,sortSn:sortSn}));
     }
 
     function fn_qnttChange(_value){
@@ -557,6 +579,8 @@
     const fn_reset = function(){
         jsonSave.length = 0;
         $("#latestInfoBody").empty();
+        /** 작업시간 등록용 선벌순번 초기화 **/
+        SBUxMethod.set("sortSn","");
 
         let table = document.getElementById("saveTable");
         let elements = table.querySelectorAll('[id^="dtl-"]');
@@ -588,16 +612,25 @@
         const data = await postJsonPromise;
         if(data.resultStatus === 'S'){
             $("#latestInfoBody").empty();
-            data.resultList.forEach(function(item,idx){
-                let check = Object.keys(item).reduce((acc,key) => {
-                    acc[gfn_snakeToCamel(key)] = item[key];
-                    return acc;
-                },{});
-                fn_setSaveTable(check);
-            });
-
+            if(data.resultList.length !== 0){
+                data.resultList.forEach(function(item,idx){
+                    let check = Object.keys(item).reduce((acc,key) => {
+                        acc[gfn_snakeToCamel(key)] = item[key];
+                        return acc;
+                    },{});
+                    fn_setSaveTable(check);
+                });
+                /** 선별번호 발번 취소 **/
+                SBUxMethod.set("dtl-inp-sortno",data.resultList[0].SORTNO);
+            }
         }
 
+    }
+    const selectLatestInfo = async function(element){
+        $("#latestInfoBody").find('tr.active').removeClass('active');
+        $(element).addClass("active");
+        let sortSn = $(element).index() + 1;
+        SBUxMethod.set("sortSn",sortSn);
     }
 
 </script>

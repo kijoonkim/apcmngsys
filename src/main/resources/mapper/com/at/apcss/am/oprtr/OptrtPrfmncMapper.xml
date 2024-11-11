@@ -345,6 +345,75 @@
 		]]>
 
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
+	<!-- DESC : pltno 작업목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.11  	손민성         	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectOprtrPrfmncListToPltno" parameterType="Hashmap" resultType="Hashmap">
+		SELECT
+			pt0.*
+		   , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+		   , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+		   , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+		   , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+		   ,osp.BRDT
+		   ,osp.FLNM
+		   ,osp.JOB_BGNG_HR
+		   ,osp.JOB_END_HR
+		FROM (
+				 SELECT
+					 rmi.APC_CD
+					  ,rmi.WRHSNO
+					  ,rmi.PLTNO
+					  ,sip.SORTNO
+					  ,rmi.ITEM_CD
+					  ,rmi.VRTY_CD
+					  ,sip.INPT_YMD
+					  ,rmi.SPCFCT_CD
+					  ,rmi.PRDCR_CD
+					  ,rmi.WRHS_QNTT
+					  ,SUM(sp.sort_Qntt) AS SORT_QNTT
+				 FROM
+					 TB_RAW_MTR_INVNTR AS rmi
+						 JOIN TB_SORT_INPT_PRFMNC AS sip
+							  ON rmi.APC_CD = sip.APC_CD
+								  AND rmi.WRHSNO = sip.WRHSNO
+								  AND rmi.APC_CD = #{apcCd}
+								  AND sip.INPT_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+								  AND rmi.ITEM_CD = #{itemCd}
+								  AND rmi.VRTY_CD = #{vrtyCd}
+								  AND rmi.PRDCR_CD = #{prdcrCd}
+							   <if test='pltno != null and pltno != ""'>
+								 AND rmi.PLTNO = #{pltno}
+							   </if>
+						JOIN TB_SORT_PRFMNC AS sp
+							ON sip.APC_CD = sp.APC_CD
+							AND sip.SORTNO = sp.SORTNO
+							AND sip.INPT_SN = sp.SORT_SN
+				 GROUP BY
+					 rmi.APC_CD
+					,rmi.WRHSNO
+					,rmi.PLTNO
+					,sip.SORTNO
+					,rmi.ITEM_CD
+					,rmi.VRTY_CD
+					,sip.INPT_YMD
+				 	,rmi.SPCFCT_CD
+					,rmi.PRDCR_CD
+					,rmi.WRHS_QNTT
+			 ) AS pt0
+		JOIN usram.tb_oprtr_sort_prfmnc AS osp
+	  		ON pt0.apc_Cd = osp.APC_CD
+			AND pt0.SORTNO  = osp.SORTNO
+	WHERE 1=1
+	<if test='flnm != null and flnm != ""'>
+		AND osp.FLNM =  #{flnm}
+	</if>;
+	</select>
 
 </mapper>
 

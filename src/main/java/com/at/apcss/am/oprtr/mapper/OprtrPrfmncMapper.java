@@ -1,5 +1,6 @@
 package com.at.apcss.am.oprtr.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -64,4 +65,10 @@ public interface OprtrPrfmncMapper {
 	 * @return integer
 	 */
 	int getoprtrPrfmncno(OprtrPrfmncVO oprtrPrfmncVO) throws Exception;
+	/**
+	 * pltno로 작업실적 목록조회
+	 * @param param
+	 * @return List<HashMap<String, Object>>
+	 */
+    List<HashMap<String, Object>> selectOprtrPrfmncListToPltno(HashMap<String, Object> param) throws Exception;
 }
