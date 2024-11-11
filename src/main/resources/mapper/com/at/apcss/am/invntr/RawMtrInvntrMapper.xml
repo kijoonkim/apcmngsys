@@ -1045,6 +1045,7 @@
 					, PRDCTN_YR
 					, PRCS_NO
 					, PRCS_TYPE
+					, CHCKR
 					, RMRK
 					, INVNTR_STTS_CD
 		    		, SYS_FRST_INPT_DT
@@ -1079,6 +1080,7 @@
 					, #{prdctnYr}
 					, #{prcsNo}
 					, #{prcsType}
+					, #{chckr}
 					, #{rmrk}
 					, #{invntrSttsCd}
 		    		, SYSDATE

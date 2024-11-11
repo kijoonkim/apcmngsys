@@ -313,6 +313,12 @@ public class RawMtrWrhsVO extends ComVO {
 	 * */
 	private String spcfctNm;
 
+    /*
+     * 검수자
+     * */
+    private String chckr;
+
+
 	/**
 	 * 표준등급 목록
 	 */
