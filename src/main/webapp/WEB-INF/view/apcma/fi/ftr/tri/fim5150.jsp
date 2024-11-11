@@ -253,7 +253,7 @@
     const gridModeList = [
     	{id: "none", text: "🚫복사해제모드", next: "rowcopy"},
     	{id: "rowcopy", text: "🏳️‍🌈행복사모드", next: "cellcopy"},
-    	{id: "cellcopy", text: "🏁셀복사모드", next: "rowcopy"},
+    	{id: "cellcopy", text: "🏁셀복사모드", next: "none"},
     ];
     
     const fn_switchGridMode = function() {
@@ -985,11 +985,12 @@
 
         grdPayDate = _SBGrid.create(SBGridProperties);
         
+        /*
         grdPayDate.bind('mouseleave',function() {
         	grdPayDate.stopEditing();
         });
+        */
     }
-
     
 	/**
      * @name fn_search

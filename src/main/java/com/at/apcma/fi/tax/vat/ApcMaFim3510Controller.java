@@ -38,6 +38,7 @@ public class ApcMaFim3510Controller extends BaseController {
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
+    
     @PostMapping(value = "/fi/tax/vat/selectFim3510.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFim3510(
             @RequestBody Map<String, Object> param
@@ -60,5 +61,28 @@ public class ApcMaFim3510Controller extends BaseController {
 
         logger.info("=============selectFim3510=====end========");
         return getSuccessResponseEntityMa(resultMap);
+    }
+    
+    
+    
+    @PostMapping(value = "/fi/tax/vat/insertFim3510SList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFim3510SList(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFim3510SList=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM3510_S");
+
+            logger.info("=============insertFim3510SList=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
     }
 }
