@@ -29,6 +29,14 @@ public class OprtrPrfmncVO extends ComVO{
 	 * */
 	private String apcCd;
 	/*
+	 * 작업분류
+	 * */
+	private String jobClsfCd;
+	/*
+	 * 작업분류명
+	 * */
+	private String jobClsfNm;
+	/*
 	 * 포장번호
 	 * */
 	private String pckgno;

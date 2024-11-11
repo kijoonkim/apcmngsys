@@ -122,9 +122,9 @@
                                 <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
                                 </div>
                             </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                             <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                         </div>
                     </td>
                 </tr>

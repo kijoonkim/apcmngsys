@@ -128,4 +128,14 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<OprtrPrfmncVO> selectOprtrSortPrfmncList(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
+		return oprtrMapper.selectOprtrSortPrfmncList(oprtrprfmncvo);
+	}
+
+	@Override
+	public int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
+		return oprtrMapper.updateOprtrSortPrfmnc(oprtrprfmncvo);
+	}
 }

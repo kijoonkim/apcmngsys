@@ -107,9 +107,9 @@
                                 <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
                                 </div>
                             </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                             <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                         </div>
                     </td>
                 </tr>
@@ -361,7 +361,7 @@
                                     <div id="tpgDivision" style="height: 100%">
                                         <div class="ad_tbl_top">
                                             <ul class="ad_tbl_count">
-                                                <li><span>◎통매입세액 안분 계산 명세</span></li>
+                                                <li><span>통매입세액 안분 계산 명세</span></li>
                                             </ul>
                                         </div>
                                         <div id="sb-area-grdDivision" style="width: 100%"></div>
@@ -369,7 +369,7 @@
                                     <div id="tpgCalc" style="height: 100%">
                                         <div class="ad_tbl_top">
                                             <ul class="ad_tbl_count">
-                                                <li><span>◎공통매입세액의 정산 명세</span></li>
+                                                <li><span>공통매입세액의 정산 명세</span></li>
                                             </ul>
                                             <sbux-button id="btn_add_grdCalc" name="btn_add_grdCalc" uitype="normal" text="행 추가"
                                                          image-src="/static/resource/svg/grdPlus.svg"
@@ -387,7 +387,7 @@
                                         <div id="sb-area-grdCalc" style="height: 150px;"></div>
                                         <div class="ad_tbl_top">
                                             <ul class="ad_tbl_count">
-                                                <li><span>◎납부세액 또는 환급세액 재계산 명세</span></li>
+                                                <li><span>납부세액 또는 환급세액 재계산 명세</span></li>
                                             </ul>
                                             <sbux-button id="btn_add_grdReCalc" name="btn_add_grdReCalc" uitype="normal" text="행 추가"
                                                          image-src="/static/resource/svg/grdPlus.svg"
@@ -670,7 +670,32 @@
             }
         }
     }
-    /** 공통버튼 **/
+    /** 공통버튼 초기화 **/
+    function cfn_init(){
+        fn_reset();
+    }
+    const fn_reset = async function(){
+        jsonGrdList.length = 0;
+        jsonGrdDivision.length = 0;
+        jsonGrdCalc.length = 0;
+        jsonGrdReCalc.length = 0;
+
+        grdListGrid.rebuild();
+        grdDivision.rebuild();
+        grdCalc.rebuild();
+        grdReCalc.rebuild();
+
+        const inputs = document.querySelectorAll('#panRightHeader input');
+        inputs.forEach(input => {
+            input.value = 0;
+        });
+
+        gfnma_multiSelectSet('#src-btn-currencyCode','','','');
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
+
+    }
+    /** 공통버튼 조회 **/
     function cfn_search() {
         fn_search();
     }

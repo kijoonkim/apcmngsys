@@ -152,7 +152,6 @@
                                     class="input-sm-ast inpt_data_reqed inpt-mbl srch-pltno"
                                     autocomplete="off"
                                     onblur="fn_ipt_pltno"
-                                    onclick="fn_ipt_init"
                             ></sbux-input>
                             <sbux-button
                                     id="dtl-btn-rawMtrInvntr"
@@ -631,6 +630,10 @@
         $(element).addClass("active");
         let sortSn = $(element).index() + 1;
         SBUxMethod.set("sortSn",sortSn);
+    }
+    const fn_ipt_pltno = function(){
+        SBUxMethod.set("sortSn","");
+        $("#latestInfoBody").empty();
     }
 
 </script>
