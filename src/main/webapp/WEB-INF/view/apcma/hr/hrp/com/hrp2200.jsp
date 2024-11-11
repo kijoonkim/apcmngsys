@@ -125,11 +125,16 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td colspan="2" class="td_input" data-group="DEPT">
+                <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
+                    <%--<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1()">
+                        <img src='../../../resource/images/find2.png' width='12px' />
+                    </button>--%>
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
+                            uitype="modal"
                             target-id="modal-compopup1"
+                            image-src="../../../resource/images/find2.png"
+                            image-style="width:25px;height:15px;"
                             onclick="fn_compopup1"
                     ></sbux-button>
                 </td>
@@ -284,13 +289,14 @@
                         </tr>
                     </table>
                 </div>
-
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
-                        <li><span>급여변동항목 등록</span></li>
+                        <li>
+                            <span>급여변동항목 등록</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                        </li>
                     </ul>
-
-                    <div class="ad_tbl_toplist">
+                    <div>
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
                         <input type="file" name="excelFile2" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
                         <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="Excel 업로드" onclick="fn_uld"></sbux-button>
@@ -504,10 +510,11 @@
         ]);
     }
 
-    var fn_compopup1 = function() {
+    function fn_compopup1() {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_ENTRY_DEPT_NAME"));
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -519,11 +526,11 @@
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
-
+            ,width					: '500px'
             ,height					: '400px'
-            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
-            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,tableHeader			: ["기준일"      ,		"사업장", 		"부서명", 	"사업장코드"]
+            ,tableColumnNames		: ["START_DATE" ,	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px"      , 		"150px", 		"100px",    "100px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set('SRCH_ENTRY_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_ENTRY_DEPT_CODE', data.DEPT_CODE);
@@ -676,12 +683,14 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+
+                    return "<button type='button' class='ma-btn1' style='width:40px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
             {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
@@ -903,6 +912,8 @@
                     });
 
                     gvwDetallGrid.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount;
+
                     SBUxMethod.set("ROW_COUNT", totalRecordCount);
 
 

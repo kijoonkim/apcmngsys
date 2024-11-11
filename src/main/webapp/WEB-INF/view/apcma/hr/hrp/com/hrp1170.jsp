@@ -153,12 +153,14 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td  class="td_input" style="border-right: hidden;" data-group="EMP" >
+                <td class="td_input" style="border-right: hidden;" data-group="EMP" >
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
+                            uitype="modal"
                             target-id="modal-compopup1"
                             onclick="fn_compopup1"
+                            image-src="../../../resource/images/find2.png"
+                            image-style="width:25px;height:15px;"
                     ></sbux-button>
                 </td>
                 <%--<td style="border-right: hidden;">&nbsp;</td>--%>
@@ -306,7 +308,9 @@
         ]);
     }
 
-    const fn_compopup1 = function() {
+    function fn_compopup1() {
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
 
         var searchText = gfn_nvl(SBUxMethod.get("srch-dept_name"));
         var replaceText0 = "_EMP_CODE_";
@@ -317,7 +321,6 @@
         var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
             + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
             compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
@@ -336,7 +339,6 @@
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
-
     }
 
 
@@ -414,7 +416,8 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='ma-btn1' style='width:40px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},

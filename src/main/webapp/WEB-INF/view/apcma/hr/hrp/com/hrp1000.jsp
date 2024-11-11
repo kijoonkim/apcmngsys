@@ -112,10 +112,15 @@
                     ></sbux-input>
                 </td>
                 <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
+                    <%--<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('srch')">
+                        <img src='../../../resource/images/find2.png' width='12px' />
+                    </button>--%>
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
+                            uitype="modal"
                             target-id="modal-compopup1"
+                            image-src="../../../resource/images/find2.png"
+                            image-style="width:25px;height:15px;"
                             onclick="fn_compopup1('srch')"
                     ></sbux-button>
                 </td>
@@ -136,10 +141,15 @@
                     ></sbux-input>
                 </td>
                 <td <%--colspan="2"--%> class="td_input" data-group="EMP">
+                    <%--<button id="BTN_POP2" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('srch')">
+                        <img src='../../../resource/images/find2.png' width='12px' />
+                    </button>--%>
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
+                            uitype="modal"
                             target-id="modal-compopup1"
+                            image-src="../../../resource/images/find2.png"
+                            image-style="width:25px;height:15px;"
                             onclick="fn_compopup2('srch')"
                     ></sbux-button>
                 </td>
@@ -212,11 +222,16 @@
                                 ></sbux-input>
                             </td>
                             <td class="td_input" >
+                                <%--<button id="empBtn" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2">
+                                    <img src='../../../resource/images/find2.png' width='12px' />
+                                </button>--%>
                                 <sbux-button
                                         id="empBtn"
                                         class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
+                                        uitype="modal"
                                         target-id="modal-compopup1"
+                                        image-src="../../../resource/images/find2.png"
+                                        image-style="width:25px;height:15px;"
                                         onclick="fn_compopup2"
                                 ></sbux-button>
                             </td>
@@ -262,6 +277,9 @@
                                 ></sbux-input>
                             </td>
                             <td class="td_input" >
+                                <%--<button id="deptBtn" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1">
+                                    <img src='../../../resource/images/find2.png' width='12px' />
+                                </button>--%>
                                 <sbux-button
                                         id="deptBtn"
                                         class="btn btn-xs btn-outline-dark"
@@ -662,7 +680,13 @@
                 </sbux-tabs>
                 <div class="tab-content">
                     <div id="payInfoTab" >
-                        <div class="ad_tbl_toplist">
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>급여정보</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                </li>
+                            </ul>
                             <sbux-button
                                     id="btnDel"
                                     name="btnDel"
@@ -688,42 +712,104 @@
                         </div>
                     </div>
                     <div id="payTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>고정 수당항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwPay" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="dedTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>고정 공제항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwDed" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="varPayTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>변동 수당항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount5">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwVarPay" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="varDedTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>변동 공제항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount6">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwVarDed" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="payExTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>급상여 예외항목</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount7">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwPayEx" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="detailTab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>사회보험 가입이력</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount8">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwDetail" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="viewEx1Tab" >
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>보수월액</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount9">0</span>건)</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <div id="sb-area-grwViewEx1" style="height:283px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="withholdTab" >
-                        <div class="ad_tbl_toplist">
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>원천세징수비율</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount10">0</span>건)</span>
+                                </li>
+                            </ul>
                             <sbux-button
                                     id="btnDelWithhold"
                                     name="btnDelWithhold"
@@ -961,6 +1047,7 @@
                 }
             },
         });
+        //SBUxMethod.openModal('modal-compopup1');
 
     }
 
@@ -995,9 +1082,9 @@
         fn_createGrid();
         fn_createPayInfoGrid();        //급여정보
         fn_createPayGrid();     //고정 수당항목
-        fn_createDedGrid();      //고정공제항목
-        fn_createVarPayGrid();  //변동수당항목
-        fn_createVarDedGrid();  //변동공제항목
+        fn_createDedGrid();      //고정 공제항목
+        fn_createVarPayGrid();  //변동 수당항목
+        fn_createVarDedGrid();  //변동 공제항목
         fn_createPayExGrid();   //급상여 예외항목
         fn_createDetailGrid();  //사회보험 가입이력
         fn_createViewEx1Grid();  //보수월액
@@ -1158,40 +1245,40 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["급여체계"], ref : 'PAY_GROUP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayGroupCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayGroupCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["급여영역"], ref : 'PAY_AREA_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayAreaType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayAreaType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["직 책"], ref : 'DUTY_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonDutyCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDutyCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPositionCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDeptName', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["급여계좌은행"], ref : 'BANK_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonBankCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonBankCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["급여계좌번호"], ref: 'BANK_ACCOUNT_REAL', type: 'output', width: '200px', style: 'text-align:left'},
             {caption : ["연차계좌은행"], ref : 'BANK_CODE2', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonBankCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonBankCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["연차계좌번호"], ref: 'BANK_ACCOUNT2_REAL', type: 'output', width: '200px', style: 'text-align:left'},
 
             {caption : ["재직구분"], ref : 'EMP_STATE', width : '100px', style : 'text-align:center', type : 'combo', hidden: true,
-                typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonEmpState', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["급여계좌번호(암호화)"], ref: 'BANK_ACCOUNT', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["연차계좌번호(암호화)"], ref: 'BANK_ACCOUNT2', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption : ["IRP계좌은행"], ref : 'RET_PENS_BANK_CODE', width : '100px', style : 'text-align:center', type : 'combo', hidden: true,
-                typeinfo : {ref : 'jsonBankCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonBankCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["IRP계좌번호(암호화)"], ref: 'RET_PENS_BANK_ACC', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["IRP계좌번호"], ref: 'RET_PENS_BANK_ACC_REAL', type: 'output', width: '200px', style: 'text-align:left', hidden: true}
@@ -1222,48 +1309,48 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["급여기본급"], ref: 'SALARY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["업적급"], ref: 'JOB_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["고정연장수당"], ref: 'OT_FIXED_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["역할급"], ref: 'ROLE_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["성과급"], ref: 'INCENTIVE_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["역량가급"], ref: 'COMPETENCE_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["월급여"], ref: 'MONTHLY_SALARY_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["지급횟수"], ref: 'PAY_COUNT', type: 'input', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["성과가급"], ref: 'INCENTIVE_ADD_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["지급횟수(성과)"], ref: 'BONUS_COUNT', type: 'input', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["연봉"], ref: 'ANNUAL_SALARY_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["성과급월액"], ref: 'INCENTIVE_MONTH_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["기본시급"], ref: 'HOURLY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["기본급(통상시급용)"], ref: 'SUM_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["연차기준금액"], ref: 'ANNUAL_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["수정일시"], ref: 'USERTIME', type: 'input', width: '100px', style: 'text-align:left', disabled: true},
 
             {caption: ["기본일급"], ref: 'DAILY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right', hidden: true
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["상여기본급"], ref: 'BONUS_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right', hidden: true
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["기여시급"], ref: 'CONTRIBUTE_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["조정수당"], ref: 'ADJUST_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}}
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}}
 
         ];
 
@@ -1285,19 +1372,19 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["수당항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
@@ -1310,7 +1397,7 @@
         gvwPayGrid = _SBGrid.create(SBGridProperties);
     }
 
-    //고정공제항목
+    //고정 공제항목
     function fn_createDedGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwDed';
@@ -1324,19 +1411,19 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode2', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode2', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
@@ -1350,7 +1437,7 @@
         gvwDedGrid = _SBGrid.create(SBGridProperties);
     }
 
-    //변동수당항목
+    //변동 수당항목
     function fn_createVarPayGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwVarPay';
@@ -1364,13 +1451,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode3', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode3', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, /*disabled: true,*/ //수정
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
@@ -1379,7 +1466,7 @@
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
@@ -1391,7 +1478,7 @@
         gvwVarPayGrid = _SBGrid.create(SBGridProperties);
     }
 
-    //변동공제항목
+    //변동 공제항목
     function fn_createVarDedGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwVarDed';
@@ -1405,13 +1492,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode4', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode4', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,  disabled: true,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
@@ -1420,7 +1507,7 @@
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['수정시간'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -1447,25 +1534,25 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode5', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode5', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작월'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}, disabled: true},
             {caption: ['적용종료월'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayApplyType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '100px', style: 'text-align:right' , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}},
             {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -1492,20 +1579,20 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'INSU_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonInsuType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInsuType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['가입일'], ref: 'START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['종료일'], ref: 'END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["자격부여사유"], ref : 'INSU_REASON_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonInsuReasonType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInsuReasonType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["신고"], ref : 'INSU_STATE_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonInsuStateType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInsuStateType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["상태"], ref : 'INSU_REG_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonInsuRegType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInsuRegType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["적용율(%)"], ref: 'INSU_RATE', type: 'input', width: '100px', style: 'text-align:left' , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 3}},
             {caption: ["취득월제외"], ref: 'INSU_AMT_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
@@ -1519,7 +1606,7 @@
             },
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true}
@@ -1543,25 +1630,25 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["사회보험"], ref : 'APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["요양"], ref : 'LONG_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonLongApplyType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonLongApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['가입일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['종료일'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["보수월액"], ref: 'BASE_AMT', type: 'input', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["사회보험보험료"], ref: 'VAL1', type: 'input', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["사회보험 면제/공제"], ref: 'VAL2', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["노인장기요양 보험료"], ref: 'VAL3', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["노인장기요양 면제"], ref: 'LONG_APPLY_EXEM_AMT', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -1591,7 +1678,7 @@
             {caption: ["비율%"], ref: 'WITHHOLD_RATE', type: 'input', width: '150px', style: 'text-align:right' , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 3}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '150px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -1601,7 +1688,7 @@
         gvwWithholdGrid = _SBGrid.create(SBGridProperties);
     }
 
-    /*//급여 기본 사항, 사회보험
+    //급여 기본 사항, 사회보험
     function fn_createHrpMasterGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwHrpMaster';
@@ -1609,13 +1696,13 @@
         SBGridProperties.jsonref = 'jsonHrpMasterList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
-        /!*SBGridProperties.allowcopy = true; //복사*!/
+        //!*SBGridProperties.allowcopy = true; //복사
         SBGridProperties.explorerbar = 'sortmove';
-        /!*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*!/
+        //!*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["급여체계"], ref : 'PAY_GROUP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayGroupCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayGroupCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption: ["급여계좌번호(암호화)"], ref: 'BANK_ACCOUNT', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["급여계좌번호(암호화)"], ref: 'RET_PENS_BANK_ACC', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
@@ -1626,7 +1713,7 @@
             {caption: ["PENSION_CLOSE_DATE"], ref: 'PENSION_CLOSE_DATE', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["PENSION_NO"], ref: 'PENSION_NO', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["PENSION_BASE_AMT"], ref: 'PENSION_BASE_AMT', type: 'input', width: '100px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /!*maxlength : 10*!/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false},/*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["HEALTH_INSURE_YN"], ref: 'HEALTH_INSURE_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: {ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -1634,12 +1721,12 @@
             {caption: ["HEALTH_INSURE_CLOSE_DATE"], ref: 'HEALTH_INSURE_CLOSE_DATE', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["HEALTH_INSURE_NO"], ref: 'HEALTH_INSURE_NO', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["HEALTH_INSURE_BASE_AMT"], ref: 'HEALTH_INSURE_BASE_AMT', type: 'input', width: '100px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /!*maxlength : 10*!/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["EMPLOY_INSURE_YN"], ref: 'EMPLOY_INSURE_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: {ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["EMPLOY_INSURE_BASE_AMT"], ref: 'EMPLOY_INSURE_BASE_AMT', type: 'input', width: '100px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /!*maxlength : 10*!/},  format : {type:'number', rule:'#,###'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["APPLICATION_RATE"], ref: 'APPLICATION_RATE', type: 'input', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false},}},
             {caption: ["LAST_APPLICATION_DATE"], ref: 'LAST_APPLICATION_DATE', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
@@ -1649,7 +1736,7 @@
         ];
 
         gvwHrpMasterGrid = _SBGrid.create(SBGridProperties);
-    }*/
+    }
 
 
     //상세정보 보기
@@ -1789,6 +1876,8 @@
 
 
                     /*****************급여정보********************/
+                    /** @type {number} **/
+                    let totalRecordCount2 = 0;
                     jsonPayInfoList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
@@ -1818,11 +1907,15 @@
                             ADJUST_BASE_AMT         : gfn_nvl(item.ADJUST_BASE_AMT)
                         }
                         jsonPayInfoList.push(msg);
+                        totalRecordCount2++;
                     });
 
                     gvwPayInfoGrid.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                     /*****************고정 수당항목********************/
+                    /** @type {number} **/
+                    let totalRecordCount3 = 0;
                     jsonPayList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
@@ -1837,11 +1930,15 @@
                             TXN_ID              : gfn_nvl(item.TXN_ID)
                         }
                         jsonPayList.push(msg);
+                        totalRecordCount3++;
                     });
 
                     gvwPayGrid.rebuild();
+                    document.querySelector('#listCount3').innerText = totalRecordCount3;
 
-                    /*****************고정공제항목********************/
+                    /*****************고정 공제항목********************/
+                    /** @type {number} **/
+                    let totalRecordCount4 = 0;
                     jsonDedList.length = 0;
                     data.cv_6.forEach((item, index) => {
                         const msg = {
@@ -1857,11 +1954,16 @@
                             TXN_ID              : gfn_nvl(item.TXN_ID)
                         }
                         jsonDedList.push(msg);
+                        totalRecordCount4++;
                     });
 
                     gvwDedGrid.rebuild();
+                    document.querySelector('#listCount4').innerText = totalRecordCount4;
 
-                    /*****************변동수당항목********************/
+
+                    /*****************변동 수당항목********************/
+                    /** @type {number} **/
+                    let totalRecordCount5 = 0;
                     jsonVarPayList.length = 0;
                     data.cv_8.forEach((item, index) => {
                         const msg = {
@@ -1877,11 +1979,15 @@
                             TXN_ID              : gfn_nvl(item.TXN_ID)
                         }
                         jsonVarPayList.push(msg);
+                        totalRecordCount5++;
                     });
 
                     gvwVarPayGrid.rebuild();
+                    document.querySelector('#listCount5').innerText = totalRecordCount5;
 
-                    /*****************변동공제항목********************/
+                    /*****************변동 공제항목********************/
+                    /** @type {number} **/
+                    let totalRecordCount6 = 0;
                     jsonVarDedList.length = 0;
                     data.cv_9.forEach((item, index) => {
                         const msg = {
@@ -1897,11 +2003,15 @@
                             TXN_ID              : gfn_nvl(item.TXN_ID)
                         }
                         jsonVarDedList.push(msg);
+                        totalRecordCount6++;
                     });
 
                     gvwVarDedGrid.rebuild();
+                    document.querySelector('#listCount6').innerText = totalRecordCount6;
 
-                    /*****************급상여 예외항목********************/
+                    /*****************급상여 예외항목********************/listCount7
+                    /** @type {number} **/
+                    let totalRecordCount7 = 0;
                     jsonPayExList.length = 0;
                     data.cv_10.forEach((item, index) => {
                         const msg = {
@@ -1918,11 +2028,15 @@
                             MEMO                : gfn_nvl(item.MEMO)
                         }
                         jsonPayExList.push(msg);
+                        totalRecordCount7++;
                     });
 
                     gvwPayExGrid.rebuild();
+                    document.querySelector('#listCount7').innerText = totalRecordCount7;
 
-                    /*****************사회보험 가입이력********************/
+                    /*****************사회보험 가입이력********************/listCount8
+                    /** @type {number} **/
+                    let totalRecordCount8 = 0;
                     jsonDetailList.length = 0;
                     data.cv_11.forEach((item, index) => {
                         const msg = {
@@ -1941,11 +2055,15 @@
                             USERTIME            : gfn_nvl(item.USERTIME)
                         }
                         jsonDetailList.push(msg);
+                        totalRecordCount8++;
                     });
 
                     gvwDetailGrid.rebuild();
+                    document.querySelector('#listCount8').innerText = totalRecordCount8;
 
                     /*****************보수월액********************/
+                    /** @type {number} **/
+                    let totalRecordCount9 = 0;
                     jsonViewEx1List.length = 0;
                     data.cv_7.forEach((item, index) => {
                         const msg = {
@@ -1963,11 +2081,15 @@
                             USERTIME            : gfn_nvl(item.USERTIME)
                         }
                         jsonViewEx1List.push(msg);
+                        totalRecordCount9++;
                     });
 
                     gvwViewEx1Grid.rebuild();
+                    document.querySelector('#listCount9').innerText = totalRecordCount9;
 
                     /*****************원천세징수비율********************/
+                    /** @type {number} **/
+                    let totalRecordCount10 = 0;
                     jsonWithholdList.length = 0;
                     data.cv_12.forEach((item, index) => {
                         const msg = {
@@ -1979,9 +2101,11 @@
                             USERTIME            : gfn_nvl(item.USERTIME)
                         }
                         jsonWithholdList.push(msg);
+                        totalRecordCount10++;
                     });
 
                     gvwWithholdGrid.rebuild();
+                    document.querySelector('#listCount10').innerText = totalRecordCount10;
 
                     fn_setData(rowData.EMP_CODE);
 
@@ -2156,9 +2280,9 @@
     var tabJsonData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "급여정보",         "targetid" : "payInfoTab" , "targetvalue" : "급여정보"},
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "고정 수당항목",     "targetid" : "payTab" ,     "targetvalue" : "고정 수당항목"},
-        { "id" : "2", "pid" : "-1", "order" : "3", "text" : "고정공제항목",      "targetid" : "dedTab" ,     "targetvalue" : "고정공제항목"},
-        { "id" : "3", "pid" : "-1", "order" : "4", "text" : "변동수당항목",      "targetid" : "varPayTab" ,  "targetvalue" : "변동수당항목"},
-        { "id" : "4", "pid" : "-1", "order" : "5", "text" : "변동공제항목",      "targetid" : "varDedTab" ,  "targetvalue" : "변동공제항목"},
+        { "id" : "2", "pid" : "-1", "order" : "3", "text" : "고정 공제항목",      "targetid" : "dedTab" ,     "targetvalue" : "고정 공제항목"},
+        { "id" : "3", "pid" : "-1", "order" : "4", "text" : "변동 수당항목",      "targetid" : "varPayTab" ,  "targetvalue" : "변동 수당항목"},
+        { "id" : "4", "pid" : "-1", "order" : "5", "text" : "변동 공제항목",      "targetid" : "varDedTab" ,  "targetvalue" : "변동 공제항목"},
         { "id" : "5", "pid" : "-1", "order" : "6", "text" : "급상여 예외항목",    "targetid" : "payExTab" ,   "targetvalue" : "급상여 예외항목"},
         { "id" : "6", "pid" : "-1", "order" : "7", "text" : "사회보험 가입이력",  "targetid" : "detailTab" ,  "targetvalue" : "사회보험 가입이력"},
         { "id" : "7", "pid" : "-1", "order" : "8", "text" : "보수월액",          "targetid" : "viewEx1Tab" , "targetvalue" : "보수월액"},
@@ -2490,14 +2614,14 @@
         let RET_PENS_BANK_ACC           = gfn_nvl(SBUxMethod.get("RET_PENS_BANK_ACC"));
 
         /* let payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
-         let dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
-         let varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-         let varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
+         let dedData = gvwDedGrid.getGridDataAll(); //고정 공제항목
+         let varPayData = gvwVarPayGrid.getGridDataAll();  //변동 수당항목
+         let varDedData = gvwVarDedGrid.getGridDataAll(); //변동 공제항목
  */
         let payData     = gvwPayGrid.getGridDataAll(true, 'all'); //고정 수당항목
-        let dedData     = gvwDedGrid.getGridDataAll(true, 'all'); //고정공제항목
-        let varPayData  = gvwVarPayGrid.getGridDataAll(true, 'all');  //변동수당항목
-        let varDedData  = gvwVarDedGrid.getGridDataAll(true, 'all'); //변동공제항목
+        let dedData     = gvwDedGrid.getGridDataAll(true, 'all'); //고정 공제항목
+        let varPayData  = gvwVarPayGrid.getGridDataAll(true, 'all');  //변동 수당항목
+        let varDedData  = gvwVarDedGrid.getGridDataAll(true, 'all'); //변동 공제항목
 
         /************고정,고정 수당/공제 항목 프로시저 변수************/
         let strtype             = "";
