@@ -63,37 +63,4 @@ public class ApcMaHrp2420Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
 
     }
-    
-    // 급여대장( 급여명세서 일괄출력 ) 레포트 데이터 조회
-    @PostMapping(value = "/hr/hrp/rep/selectHrp2420ReportList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHrp2420ReportList(
-    		@RequestBody Map<String, Object> param
-    		, Model model
-    		, HttpSession session
-    		, HttpServletRequest request) throws Exception{
-    	
-    	logger.info("=============selectHrp2420ReportList=====start========");
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-    	
-    	try {
-    		
-    		param.put("procedure", "P_HRP2436_Q");
-    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-    		
-    		//self url 편집
-    		String f_path1 = request.getRequestURL().toString();
-    		String f_path2 = request.getRequestURI().toString();
-    		String f_path3 = f_path1.replaceAll(f_path2, "");
-    		resultMap.put("SERVER_ROOT_PATH", f_path3);
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.getMessage());
-    		return getErrorResponseEntity(e);
-    	}
-    	
-    	logger.info("=============selectHrp2420ReportList=====end========");
-    	return getSuccessResponseEntityMa(resultMap);
-    	
-    }
 }
