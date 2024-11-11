@@ -311,19 +311,21 @@
                 }
                 , disabled: true
             },
-            {caption: ["생성자"],         ref: 'INSERT_USERID',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["생성자"],         ref: 'INSERT_USERID',    type:'output',  	width:'100px',  style:'text-align:left'},/*
             {caption: ["생성일시"],         ref: 'INSERT_TIME',    type:'output',  	width:'130px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd HH:mm:ss'},
-                format : {type:'date', rule:'yyyy-mm-dd HH:mm:ss', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd HH:mm:ss', origin:'MM/DD/YY  HH:mm:ss '}
                 , disabled: true
             },
             {caption: ["종료일시"],         ref: 'ACTION_END_TIME',    type:'output',  	width:'75px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd HH:mm:ss'},
-                format : {type:'date', rule:'yyyy-mm-dd HH:mm:ss', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd HH:mm:ss', origin:'MM/DD/YY  HH:mm:ss '}
                 , disabled: true
-            },
+            },*/
+            {caption: ["생성일시"],         ref: 'INSERT_TIME',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["종료일시"],         ref: 'ACTION_END_TIME',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["생성PC"],         ref: 'INSERT_PC',    type:'output',  	width:'128px',  style:'text-align:left'},
-            {caption: ["집계조건"],       ref: 'ENTER_DATE', 		type:'output',  	width:'450px',  	style:'text-align:left'},
+            {caption: ["집계조건"],       ref: 'TOT_COND', 		type:'output',  	width:'450px',  	style:'text-align:left'},
             {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'200px',  style:'text-align:right'},
         ];
 
