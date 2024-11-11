@@ -69,13 +69,27 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">급여영역</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType"></sbux-select>
+									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택"></sbux-select>
                             </td>
                         </tr>
                         <tr>
@@ -85,7 +99,7 @@
 									id="srch-dtp-submitYyyymmFr"
 									name="srch-dtp-submitYyyymmFr"
 									uitype="popup"
-									date-format="yyyymm"
+									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-submitYyyymmFr)"
@@ -96,7 +110,7 @@
 									id="srch-dtp-submitYyyymmTo"
 									name="srch-dtp-submitYyyymmTo"
 									uitype="popup"
-									date-format="yyyymm"
+									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-submitYyyymmTo)"
@@ -189,6 +203,25 @@ var p_userId = '${loginVO.id}';
 			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 급여영역
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+          //법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			})
 		]);
 
 
@@ -369,29 +402,29 @@ var p_userId = '${loginVO.id}';
         	{caption: ["전표적요"], ref: 'docDesc', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["생년월일"], ref: 'socialNumDate', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["지급일"], ref: 'payDate', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["원천신고대상"], ref: 'payTotAmt', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사업소세과세대상"], ref: 'payTotAmt2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사업소세비과세"], ref: 'taxFreeAmt', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["급여지급액(세전)"], ref: 'payTotAmt3', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)인건비"], ref: 'payTotAmt4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)인정상여"], ref: 'payTotAmt5', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)연차수당 "], ref: 'payTotAmt6', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)복리급여"], ref: 'payTotAmt7', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)휴일교통비"], ref: 'payTotAmt8', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)자가운전보조비"], ref: 'payTotAmt9', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)보육수당"], ref: 'payTotAmt10', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)야간근로수당"], ref: 'payTotAmt11', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)자가운전보조비"], ref: 'payTotAmt12', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)식대"], ref: 'payTotAmt13', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 징수액"], ref: 'whIncomeTax1', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 환급액"], ref: 'whIncomeTax2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 조정액"], ref: 'whIncomeTax3', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 납부액"], ref: 'whIncomeTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 징수액"], ref: 'whLocalTax1', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 환급액"], ref: 'whLocalTax2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 조정액"], ref: 'whLocalTax3', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 납부액"], ref: 'whLocalTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["총납부액"], ref: 'totTax', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["원천신고대상"], ref: 'payTotAmt', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["사업소세과세대상"], ref: 'payTotAmt2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["사업소세비과세"], ref: 'taxFreeAmt', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["급여지급액(세전)"], ref: 'payTotAmt3', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)인건비"], ref: 'payTotAmt4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)인정상여"], ref: 'payTotAmt5', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)연차수당 "], ref: 'payTotAmt6', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)복리급여"], ref: 'payTotAmt7', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)휴일교통비"], ref: 'payTotAmt8', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(과)자가운전보조비"], ref: 'payTotAmt9', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(비)보육수당"], ref: 'payTotAmt10', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(비)야간근로수당"], ref: 'payTotAmt11', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(비)자가운전보조비"], ref: 'payTotAmt12', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["(비)식대"], ref: 'payTotAmt13', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["소득세 징수액"], ref: 'whIncomeTax1', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["소득세 환급액"], ref: 'whIncomeTax2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["소득세 조정액"], ref: 'whIncomeTax3', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["소득세 납부액"], ref: 'whIncomeTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["주민세 징수액"], ref: 'whLocalTax1', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["주민세 환급액"], ref: 'whLocalTax2', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["주민세 조정액"], ref: 'whLocalTax3', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["주민세 납부액"], ref: 'whLocalTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
+        	{caption: ["총납부액"], ref: 'totTax', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
         	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
