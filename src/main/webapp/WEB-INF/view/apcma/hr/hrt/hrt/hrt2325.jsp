@@ -111,7 +111,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findDeptCode"
                         ></sbux-button>
@@ -160,7 +160,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findEmpCode"
                         ></sbux-button>

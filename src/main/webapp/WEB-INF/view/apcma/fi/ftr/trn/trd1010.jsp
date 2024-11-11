@@ -117,7 +117,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findBankCsCode"
                         ></sbux-button>
@@ -145,7 +145,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findPayCurrencyCode"
                         ></sbux-button>
@@ -160,7 +160,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findAccountNo"
                         ></sbux-button>

@@ -160,7 +160,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="DEPT_LEADER">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findDeptLeaderEmpCode"
                                                 readonly
@@ -184,7 +184,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="PARENT_DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findParentDeptCode"
                                                 readonly
@@ -299,7 +299,7 @@
                                                 <td class="td_input" style="border-right:hidden;" data-group="EMP">
                                                     <sbux-button
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findEmpCode"
                                                     ></sbux-button>
