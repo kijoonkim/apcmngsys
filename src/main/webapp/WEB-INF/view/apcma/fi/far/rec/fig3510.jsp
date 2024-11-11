@@ -1067,6 +1067,7 @@
     var jsonCreditArea = []; // 여신영역
     var jsonBankAccountSeq = []; // 계좌정보
     var jsonVatCode = []; // 세금코드
+    var jsonSiteCode = []; // 사업장
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1608,6 +1609,8 @@
             gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 여신영역
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 사업장
+            gfnma_setComSelect(['gvwWFItem'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
         ]);
     }
 
@@ -1964,6 +1967,60 @@
         });
     }
 
+    var fn_findFiDeptCodeForGvwWFItem = function (row) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FI_DEPT'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 	"",	gfn_dateToYmd(new Date())]
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+            ,width					: '700px'
+            ,height					: '300px'
+            ,tableHeader			: ["부서코드", 		"부서명"]
+            ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,tableColumnWidths		: ["150px", 		"250px"]
+            ,itemSelectEvent		: function (data){
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NAME);
+            },
+        });
+        SBUxMethod.openModal('modal-compopup1');
+    }
+
+    var fn_findProjectCodeForGvwWFItem = function (row) {
+        var replaceText0 = "_PROJECT_CODE_";
+        var replaceText1 = "_PROJECT_NAME_";
+        var strWhereClause = "AND I.PROJECT_CODE LIKE '%" + replaceText0 + "%' AND I.PROJECT_NAME LIKE '%" + replaceText1 + "%' AND I.FI_ORG_CODE ='"+p_fiOrgCode+"'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', "프로젝트 정보");
+
+        compopup1({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: "P_COM028_C"
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions: ["프로젝트코드", "프로젝트명"]
+            , searchInputFields: ["PROJECT_CODE", "PROJECT_NAME"]
+            , searchInputValues: ["", ""]
+            , height: '400px'
+            , tableHeader: ["프로젝트코드", "프로젝트명", "코스트센터코드", "코스트센터"]
+            , tableColumnNames: ["PROJECT_CODE", "PROJECT_NAME", "COST_CENTER_CODE", "COST_CENTER_NAME"]
+            , tableColumnWidths: ["150px", "250px", "100px", "250px"]
+            , itemSelectEvent: function (data) {
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME);
+            },
+        });
+
+        SBUxMethod.openModal('modal-compopup1');
+    }
+
     // 복사모드토글
     const fn_toggleMode = async function (mode) {
         if (mode == "clear") {
@@ -2054,12 +2111,12 @@
                 }
             },
             {
-                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'output', width: '126px', style: 'text-align:right',
+                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'input', width: '126px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
             {
-                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'output', width: '135px', style: 'text-align:right',
+                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'input', width: '135px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###', emptyvalue: '0'}
             },
@@ -2071,7 +2128,6 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , disabled: true
             },
             {
                 caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:right',
@@ -2079,6 +2135,11 @@
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
+            {caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
@@ -2086,17 +2147,29 @@
                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
-            {caption: ["사업장"], ref: 'SITE_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["적요"], ref: 'DESCRIPTION', type: 'output', width: '300px', style: 'text-align:left'},
+            {caption: ["사업장"], ref: 'SITE_CODE', type: 'input', width: '100px', style: 'text-align:left',
+                typeinfo: {
+                    ref: 'jsonSiteCode',
+                    label: 'label',
+                    value: 'value',
+                    itemcount: 10
+                }
+            },
+            {caption: ["적요"], ref: 'DESCRIPTION', type: 'input', width: '300px', style: 'text-align:left'},
             {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
+            {caption: ["프로젝트명"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["단위"], ref: 'UOM', type: 'output', width: '60px', style: 'text-align:left'},
-            {caption: ["수량"], ref: 'TXN_QTY', type: 'output', width: '60px', style: 'text-align:left'},
+            {caption: ["수량"], ref: 'TXN_QTY', type: 'input', width: '60px', style: 'text-align:left'},
             {
                 caption: ["건수"],
                 ref: 'SOURCE_RECORD_COUNT',
-                type: 'output',
+                type: 'input',
                 width: '75px',
                 style: 'text-align:left'
             },
@@ -2710,10 +2783,10 @@
                 style: 'text-align:left',
                 hidden: true
             },
-            {caption: ["환산단위"], ref: 'BASE_SCALE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["계정분류"], ref: 'ACC_CATEGORY', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["부가세유형"], ref: 'VAT_TYPE_CODE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["원천소스"], ref: 'ITEM_SOURCE_TYPE', type: 'output', width: '75px', style: 'text-align:left'},
+            {caption: ["환산단위"], ref: 'BASE_SCALE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["계정분류"], ref: 'ACC_CATEGORY', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["부가세유형"], ref: 'VAT_TYPE_CODE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["원천소스"], ref: 'ITEM_SOURCE_TYPE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
             {
                 caption: ["원천전표번호"],
                 ref: 'ITEM_DOC_NAME',
@@ -2956,6 +3029,7 @@
                     itemcount: 10
                 }
                 , disabled: true
+                , hidden: true
             },
             {caption: ["부가세"], ref: 'VAT_AMT', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
             {
