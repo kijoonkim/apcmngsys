@@ -946,6 +946,7 @@
      * @function
      */
     const fn_clearForm = function() {
+        $("#latestInfoBody").empty();
         jsonSave.length = 0;
 
         let table = document.getElementById("saveTable");

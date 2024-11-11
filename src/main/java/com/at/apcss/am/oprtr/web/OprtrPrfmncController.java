@@ -138,4 +138,27 @@ public class OprtrPrfmncController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	/** 작업일지 조회 **/
+	@PostMapping(value = "/am/oprtr/selectOprtrPrfmncListToPltno.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectOprtrPrfmncListToPltno(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
+		try {
+
+			resultList = oprtrPrfmncService.selectOprtrPrfmncListToPltno(param);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

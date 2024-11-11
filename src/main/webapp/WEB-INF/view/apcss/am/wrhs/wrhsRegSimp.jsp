@@ -122,9 +122,7 @@
                                     name="srch-inp-pltno"
                                     class="form-control input-sm"
                                     style="width: 50%"
-                                    maxlength="2"
                                     autocomplete="off"
-                                    onchange="fn_onChangeSrchPrdcrIdentno(this)"
                             ></sbux-input>
                         </td>
                         <th scope="row" class="th_bg">
@@ -133,8 +131,8 @@
                         <td class="td_input">
                             <div style="display: flex; gap: 10px">
                                 <sbux-input
-                                        id="srch-inp-prdcr"
-                                        name="srch-inp-prdcr"
+                                        id="srch-inp-flnm"
+                                        name="srch-inp-flnm"
                                         uitype="text"
                                         class="form-control input-sm"
                                         wrap-style="flex-basis:50%"
@@ -145,8 +143,9 @@
                                         name="dtl-btn-rawMtrInvntr"
                                         class="btn btn-sm btn-outline-danger btn-mbl"
                                         text="찾기"
-                                        uitype="normal"
-                                        onclick="fn_searchInvntr"
+                                        uitype="modal"
+                                        target-id="modal-oprtr"
+                                        onclick="fn_modalOprtr"
                                 ></sbux-button>
                             </div>
                         </td>
@@ -170,6 +169,13 @@
 </div>
 <div id="body-modal-prdcr">
     <jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+</div>
+<!-- 생산작업자 선택 Modal -->
+<div>
+    <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+</div>
+<div id="body-modal-oprtr">
+    <jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
 </div>
 </body>
 <script type="text/javascript">
@@ -235,16 +241,17 @@
         SBGridProperties.id = 'grdRawMtrWrhs';
         SBGridProperties.jsonref = 'jsonRawMtrWrhs';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.mergecells = 'bycol';
         SBGridProperties.columns = [
-            {caption: ["작업일자","작업일자"],		ref: 'wrhsno',      type:'output',  width:'13%',    style:'text-align:center'},
-            {caption: ["품목","품목"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["품종","품종"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","규격"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","생산자"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","팔레트번호"],		ref: 'wrhsno',      type:'output',  width:'12%',    style:'text-align:center'},
-            {caption: ["원물입고","수량"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["생산작업","작업자"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["생산작업","작업시간"],		ref: 'wrhsno',      type:'output',  width:'12%',    style:'text-align:center'},
+            {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',      type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["품목","품목"],		ref: 'ITEM_NM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["품종","품종"],		ref: 'VRTY_NM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","규격"],		ref: 'SPCFCT_NM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","생산자"],		ref: 'PRDCR_NM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","팔레트번호"],		ref: 'PLTNO',      type:'output',  width:'12%',    style:'text-align:center'},
+            {caption: ["원물입고","수량"],		ref: 'WRHS_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["생산작업","작업자"],		ref: 'FLNM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["생산작업","작업시간"],		ref: 'JOB_FORMAT',      type:'output',  width:'12%',    style:'text-align:center',merge:false},
             {caption: ["재고","재고"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["상품출고","함안"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["상품출고","안성"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
@@ -325,6 +332,25 @@
         }
 
     }
+    /* 생산작업자 선택 호출 필수 function  */
+    /* Start */
+    /**
+     * @name fn_modalOprtr
+     * @description 생산작업자선택팝업 호출
+     */
+    const fn_modalOprtr = function() {
+        popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-flnm"), fn_setFlnm);
+    }
+
+    /**
+     * @name fn_setFlnm
+     * @description 생산작업자 선택 callback
+     */
+    const fn_setFlnm = function(oprtr) {
+        if (!gfn_isEmpty(oprtr)) {
+            SBUxMethod.set('srch-inp-flnm', oprtr.flnm);
+        }
+    }
     /**
      * @name fn_onChangeSrchItemCd
      * @description 품목 선택 변경 event
@@ -368,19 +394,27 @@
         }
     }
     const fn_search = async function(){
-        let check = gfn_getTableElement("searchTable","srch-",["pltno","prdcr"]);
+        let check = gfn_getTableElement("searchTable","srch-",["pltno","flnm"]);
+        /** datePicker range **/
+        let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");
+        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");
+        check.wrhsYmdFrom = wrhsYmdFrom;
+        check.wrhsYmdTo = wrhsYmdTo;
+        check.apcCd = gv_selectedApcCd;
         if(!check){
             return;
         }
+        const postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrPrfmncListToPltno.do",check);
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            data.resultList.forEach(function(item){
+               let JOB_FORMAT = item.JOB_BGNG_HR + '-' + item.JOB_END_HR;
+               item.JOB_FORMAT = JOB_FORMAT;
+            });
+            jsonRawMtrWrhs = data.resultList;
+            grdRawMtrWrhs.rebuild();
+        }
     }
-
-
-
-
-
-
-
-
 
     function apcSelectAdd(){
         $("#apcTable tbody tr").append(`

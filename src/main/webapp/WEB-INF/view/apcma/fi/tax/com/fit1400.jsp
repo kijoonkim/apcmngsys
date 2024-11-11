@@ -124,6 +124,9 @@
                                                      class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                                                      onchange="fn_seqChange(reg-dtp-yyyy)">
                                     </sbux-datepicker>
+                                    <sbux-input id="reg-inp-seq" name="reg-inp-seq" uitype="text" style="display: none">
+
+                                    </sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">부가세기간구분</th>
@@ -155,7 +158,7 @@
 
                                 <th scope="row" class="th_bg">신고일</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-datepicker id="reg-dtp-reportDate" name="reg-dtp-reportDate" uitype="popup" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
+                                    <sbux-datepicker id="reg-dtp-reportDate" name="reg-dtp-reportDate" uitype="popup" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed" date-format="yyyy-mm-dd">
                                     </sbux-datepicker>
                                 </td>
                                 <td></td>
@@ -198,7 +201,7 @@
                     </div>
                 </div>
                 <div style="flex: 1;">
-                    <div style="display: flex;justify-content: space-between;">
+                    <div style="display: flex;gap:100px;">
                         <div style="width: 35%">
                             <div class="ad_tbl_top">
                                 <ul class="ad_tbl_count">
@@ -343,10 +346,10 @@
             {caption: ['부가세기간구분'], 			ref: 'taxTerm', 		width: '7%',	type: 'combo',	style:'text-align: center', typeinfo : {ref:'jsonCbotaxTerm', label:'label', value:'value'}},
             {caption: ['신고구분'],				ref: 'vatRepDetailType', 		width: '7%',	type: 'output',	style:'text-align: center'},
             {caption: ['부가세 서식명'],				ref: 'vatTypeName', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준시작월'], 				ref: 'standardMonthFr', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준종료월'], 				ref: 'standardMonthTo', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준시작월'], 				ref: 'standardMonthFr', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
+            {caption: ['신고기준종료월'], 				ref: 'standardMonthTo', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
             {caption: ['신고사업장수'], 				ref: 'siteCnt', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고일'], 				ref: 'reportDate', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고일'], 				ref: 'reportDate', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
             {caption: ['비고'], 				ref: 'memo', 	width: '7%',	type: 'output',	style:'text-align: center'},
             {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'payOrgsiteNo', 	width: '10%',	type: 'output',	style:'text-align: center'},
             {caption: ['조기환급신고여부'], 				ref: 'refundYn', 	width: '10%',	type: 'output',	style:'text-align: center'},
@@ -407,14 +410,20 @@
     const fn_setMdGrid = async function(){
         let idx = rptStdGrid.getRow();
         let data = rptStdGrid.getRowData(idx);
+        let cnt = rptStdGrid.getRows();
 
         let table = document.getElementById("middleTable");
         let regs = table.querySelectorAll(`[id^="reg-"]`);
+
         for (const item of regs) {
            let wordIdx = item.id.lastIndexOf('-') + 1;
            let key = item.id.substring(wordIdx);
            await SBUxMethod.set(item.id,data[key]);
         }
+
+        console.log(cnt);
+        /** middle seq는 선택된 로우의 seq가 아니라 전체 행의 갯수 **/
+        SBUxMethod.set("reg-inp-seq",cnt);
         /** 연도 readOnly **/
         SBUxMethod.attr('reg-dtp-yyyy', 'readonly', 'true');
         let idx2 = rptStdGrid.getRow();
@@ -620,6 +629,13 @@ const fn_save = async function(){
         ,V_P_USERID			            : ''
         ,V_P_PC				            : ''
     }
+    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_",["memo","seq"]);
+
+    if(!postFlag){
+        return;
+    }
+    // let seq = gfnma_multiSelectGet('#src-btn-currencyCode');
+    // console.log(seq);
     /** 공통으로 get 불가능한 요소 **/
     let seq = '';
     if(status === 'U'){
@@ -628,17 +644,11 @@ const fn_save = async function(){
         seq = gfnma_nvl(rptStdGrid.getRows());
     }
 
-    if(gfn_isEmpty(seq)){
-        gfn_comAlert("W0005","신고구분순번");
-        return;
-    }
-
     paramObj.V_P_SEQ = seq;
-    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_");
+    console.log(paramObj,"wㅓ장전");
+    await fn_saveS2();
+    return;
 
-    if(!postFlag){
-        return;
-    }
 
     const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1400S.do", {
         getType				: 'json',
@@ -653,6 +663,43 @@ const fn_save = async function(){
         await fn_search();
     }
 }
+const fn_saveS2 = async function(){
+    console.log(jsonRptSiteGrid,"jsonRptSiteGrid");
+    console.log(jsonVatGrid,"jsonVatGrid");
+    let yyyy = SBUxMethod.get("reg-dtp-yyyy");
+    let numseq = gfnma_nvl(rptStdGrid.getRows());
+    console.log(yyyy,"원하는게이거맞음?");
+    var paramObj = {
+        V_P_DEBUG_MODE_YN        : ""
+        ,V_P_LANG_ID              : ""
+        ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+        ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+        ,VL_P_YYYY                : ""
+        ,V_P_SEQ                  : ""
+        ,V_P_TAX_SITE_CODE        : ""
+        ,V_P_CONFIRM_YN           : ""
+        ,V_P_YYYY_D              : ""
+        ,V_P_SEQ_D                : ""
+        ,V_P_TAX_SITE_CODE_D      : ""
+        ,V_P_VAT_REPORT_CODE_D    : ""
+        ,V_P_REPORTING_DATE_D     : ""
+        ,V_P_FORM_ID              : p_formId
+        ,V_P_MENU_ID              : p_formId
+        ,V_P_PROC_ID              : ""
+        ,V_P_USERID               : p_formId
+        ,V_P_PC                   : ""
+    };
+        jsonVatGrid.forEach(function(item){
+            if(item.useYn === 'Y'){
+                paramObj.V_P_YYYY_D = yyyy + '|';
+                paramObj.V_P_SEQ_D = numseq + '|';
+                // paramObj.V_P_TAX_SITE_CODE_D = item.
+
+            }
+
+
+        });
+}
 const fn_create = async function(){
     /** 신고 기준정보 초기화 **/
     let table = document.getElementById("middleTable");
@@ -666,6 +713,33 @@ const fn_create = async function(){
     SBUxMethod.attr('reg-dtp-yyyy', 'readonly', 'false');
     let ymd = SBUxMethod.get('srch-dtp-yyyy');
     SBUxMethod.set('reg-dtp-yyyy',ymd);
+
+    let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
+    let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
+
+    var paramObj = {
+        V_P_DEBUG_MODE_YN        : ""
+        ,V_P_LANG_ID              : ""
+        ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+        ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+        ,V_P_YYYY                 : V_P_YYYY
+        ,V_P_SEQ                  : V_P_SEQ
+        ,V_P_TAX_SITE_CODE        : ""
+        ,V_P_FORM_ID              : p_formId
+        ,V_P_MENU_ID              : p_formId
+        ,V_P_PROC_ID              : ""
+        ,V_P_USERID               : p_formId
+        ,V_P_PC                   : ""
+    };
+
+    const postJsonPromise = gfn_postJSON("/fi/tax/selectFit1400Q.do", {
+        getType				: 'json',
+        workType			: 'NEW',
+        cv_count			: '5',
+        params				: gfnma_objectToString(paramObj)
+    });
+    const data = await postJsonPromise;
+    console.log(data,"new도 필요한가요?");
 }
 const fn_delete = async function() {
     if(!gfn_comConfirm("Q0001","삭제")){
