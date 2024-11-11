@@ -572,7 +572,8 @@
         let data = await postJsonPromise;
 
         if(data.resultStatus ==='S'){
-            fn_reset();
+            gfn_comAlert("I0001");
+            fn_searchInvntr();
         }
     }
     const fn_reset = function(){
