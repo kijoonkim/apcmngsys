@@ -750,6 +750,36 @@ public class ApcMaComController extends BaseController {
 		}
 	}
 	
+	@PostMapping(value = "/com/getAccountRange.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> getAccountRange(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+		
+		logger.info("=============getAccountRange=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			param.put("procedure", 		"P_FIG_ACCOUNT_RANGE_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============getAccountRange=====end========");
+		if(resultMap.get("resultStatus").equals("E")) {
+			String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+			String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+			
+			return getErrorResponseEntity(errorCode, errorStr);
+		} else {
+			return getSuccessResponseEntity(resultMap);
+		}
+	}
+	
 	//com3410  오류 조회
 	@PostMapping(value = "/com/com3410List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> com3410List(

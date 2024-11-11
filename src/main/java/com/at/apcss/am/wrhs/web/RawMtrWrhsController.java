@@ -197,7 +197,7 @@ public class RawMtrWrhsController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
+		resultMap.put("returnList",rawMtrWrhsList);
 		return getSuccessResponseEntity(resultMap);
 	}
 

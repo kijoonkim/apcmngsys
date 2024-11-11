@@ -25,7 +25,6 @@
     <title>title : 급여대장</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
-    <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -42,8 +41,6 @@
             <div style="margin-left: auto;">
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
             </div>
         </div>
 
@@ -500,8 +497,8 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));     //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
-            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
+        let V_P_WHERE_CLAUSE = "WHERE SITE_CODE IN (SELECT SITE_CODE FROM ORGSITE WHERE COMP_CODE ='"+gv_ma_selectedApcCd+ "') AND PAY_YYYYMM = '"
+            + PAY_YYYYMM + "' AND PAY_TYPE = '" + PAY_TYPE + "'AND PAY_AREA_TYPE ='" + PAY_AREA_TYPE + "'";
 
         gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
 
@@ -835,103 +832,6 @@
     const fn_btnFile = async function (/*tabMoveVal*/) {
 
     }
-    
-    /**
-     * 출력
-     */
-    const fn_btnPrint = async function() {
-        var nRow = gvwInfoGrid.getRow();
-    	var conn = '';
-    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-    	if (nRow < 1) {
-            return;
-        }
-        
-        let rowData = gvwInfoGrid.getRowData(nRow);
-        
-    	if (SENDTYPE == "ALL") {
-            conn = await fn_GetReportData('REPORT5', rowData);
-            conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("", "ma/RPT_HRP2436_Q_ALL.crf", null, conn );	
-        } else if(SENDTYPE == "PAY") {
-            conn = await fn_GetReportData('REPORT3', rowData);
-            conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("급여명세서", "ma/RPT_HRP2436_Q_PAY.crf", null, conn );
-        } else if(SENDTYPE == "WORK") {
-            conn = await fn_GetReportData('REPORT4', rowData);
-            conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", null, conn );
-        }
-    }
-    const fn_GetReportData = async function(workType, obj) {
-    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        var paramObj = {
-            V_P_DEBUG_MODE_YN 		: '',
-            V_P_LANG_ID 			: '',
-            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
-            V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
-            
-            V_P_SITE_CODE 			: '',
-            V_P_DEPT_CODE 			: '',
-            V_P_EMP_CODE     		: gfn_nvl(obj.EMP_CODE),
-            V_P_PAY_YYYYMM    		: gfn_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_YYYYMM1       	: gfn_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_TYPE        	: gfn_nvl(obj.PAY_TYPE),
-            V_P_PAY_DATE			: gfn_nvl(obj.PAY_DATE),
-            V_P_EMP_CODE_LIST 		: gfn_nvl(obj.EMP_CODE),
-            V_P_PAY_YYYYMM2 		: gfn_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_TYPE1     		: gfn_nvl(obj.PAY_TYPE),
-            V_P_PAY_DATE1    		: gfn_nvl(obj.PAY_DATE),
-            V_P_PAY_AREA_TYPE       : '',
-            V_P_REPORT_TYPE        	: SENDTYPE,
-        	
-            V_P_FORM_ID 			: p_formId,
-            V_P_MENU_ID 			: p_menuId,
-            V_P_PROC_ID 			: '',
-            V_P_USERID 				: '',
-            V_P_PC 					: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420ReportList.do", {
-            getType				: 'json',
-            workType			: workType,
-            cv_count			: '15',
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-
-        try { 
-            if (_.isEqual("S", data.resultStatus)) {
-                if(data.cv_6.length > 0){
-					if(SENDTYPE == 'WORK'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-                	}else if(SENDTYPE == 'PAY'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-                	}else if(SENDTYPE == 'ALL'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-                	}
-                }
-                if(data.cv_13.length > 0){
-					if(SENDTYPE == 'ALL'){
-    	                data.cv_13[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_13[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-                	}
-                }
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-        return data;
-    }
-    
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

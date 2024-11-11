@@ -26,6 +26,7 @@
     <title>title : 부가세전자신고파일생성</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #Sales > table > tbody > tr > td,#Purchase > table > tbody > tr > td{
             text-align: center;
@@ -36,11 +37,29 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        .box.box-solid{
+            border-radius: 0 !important;
+        }
         input[type="number"] {
             border: hidden;
             box-sizing: border-box;
             text-align: right;
             width: 100%;
+        }
+        .th_cs{
+            font-size: 10px;
+
+        }
+        #headerTable, #headerTable th, #headerTable td{
+            border: 0!important;
+        }
+        #headerTable th{
+            padding: 3px 0px !important;
+        }
+        #headerTable input{
+            font-size: 10px;
+            padding: 0px 5px !important;
+            height: 20px!important;
         }
     </style>
 </head>
@@ -55,47 +74,62 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered tbl_fixed">
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
+            <table id="srchTable" class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                    <td></td>
                     <th scope="row" class="th_bg">기준연도</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="기준연도" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
+                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                        >
+                        </sbux-datepicker>
                     </td>
-                    <td></td>
+
                     <th scope="row" class="th_bg">신고구분명</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="신고구분명" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <td colspan="7" class="td_input" style="border-top: hidden;">
+                        <div style="display: flex;gap: 5px">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
+                            </div>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <p style="text-align: center;line-height: 30px">~</p>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                        </div>
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">신고사업장</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="신고사업장" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">사업자번호</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="사업자번호" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="7" class="td_input">
+                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
                     </td>
-                    <td colspan="4"></td>
                 </tr>
                 </tbody>
             </table>
@@ -103,118 +137,131 @@
                 <div style="flex: 1">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
-                            <li><span>사업장 리스트</span></li>
+                            <li><span>◎사업장 리스트</span></li>
                         </ul>
                     </div>
-                    <div id="사업장리스트그리드" style="width: 100%"></div>
+                    <div id="sb-area-grdListGrid" style="width: 100%"></div>
                 </div>
                 <div style="flex: 4;display: flex;flex-direction: column">
-                    <div style="flex: 1">
-                        <div style="flex: 1">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li><span>공제받지 못할 매입세액 명세</span></li>
-                                </ul>
-                            </div>
+                    <div>
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>◎전자신고 생성정보</span></li>
+                            </ul>
                         </div>
-                        <div class="tab-content" style="height: auto">
-                            <div id="Sales">
-                                <table style="width: 60%">
+                        <div style="display: flex; gap: 10px">
+                            <div style="flex-basis:65%">
+                                <table id="headerTable" class="table table-bordered tbl_fixed">
                                     <colgroup>
+                                        <col style="width: 10%">
                                         <col style="width: 60%">
                                         <col style="width: 10%">
-                                        <col style="width: 15%">
-                                        <col style="width: 15%">
+                                        <col style="width: 20%">
                                     </colgroup>
                                     <tbody>
-                                        <tr>
-                                            <td rowspan="2">매입세액불공제사유</td>
-                                            <td colspan="3">세금계산서</td>
-                                        </tr>
-                                        <tr>
-                                            <td>매수</td>
-                                            <td>공급가액</td>
-                                            <td>세액</td>
-                                        </tr>
-                                        <tr>
-                                            <td>① 필요적 기재사항 누락 등</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>② 사업과 직접 관련 없는 지출</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>③ 비영업용 소형승용자동차 구입 ㆍ유지 및 임차</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>④ 접대비 및 이와 유사한 비용 관련</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>⑤ 면세사업등 관련</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>⑥ 토지의 자본적 지출 관련</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>⑦ 사업자등록 전 매입세액</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>⑧ 금,구리 스크랩 거래계좌 미사용 관련 매입세액</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>⑨ 합계</td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                            <td><input type="number" value="0"/></td>
-                                        </tr>
+                                    <tr>
+                                        <th scope="row" class="th_cs">신고사업장명</th>
+                                        <td class="td_input" style="border-right: hidden">
+                                            <sbux-input id="TAX_SITE_NAME" name="TAX_SITE_NAME" uitype="text" class="form-control input-sm" readonly></sbux-input>
+                                        </td>
+                                        <th scope="row" class="th_cs">사업자번호</th>
+                                        <td class="td_input">
+                                            <sbux-input id="BIZ_REGNO" name="BIZ_REGNO" uitype="text" class="form-control input-sm" readonly></sbux-input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="th_cs">홈택스ID</th>
+                                        <td class="td_input" style="border-right: hidden">
+                                            <sbux-input id="HOME_TAX_ID" name="HOME_TAX_ID" uitype="text" class="form-control input-sm" readonly></sbux-input>
+                                        </td>
+                                        <th scope="row" class="th_cs">제출일</th>
+                                        <td class="td_input">
+                                            <sbux-input id="DATA_HANDOUT_DATE" name="DATA_HANDOUT_DATE" uitype="text" class="form-control input-sm" readonly></sbux-input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="th_cs">비고</th>
+                                        <td colspan="3" class="td_input">
+                                            <sbux-input id="MEMO" name="MEMO" uitype="text" class="form-control input-sm" ></sbux-input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="th_cs">파일저장경로</th>
+                                        <td colspan="3" class="td_input">
+                                            <sbux-input id="FILE_STRECOURS" name="FILE_STRECOURS" uitype="text" class="form-control input-sm"></sbux-input>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
-                                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal" is-scrollable="false"
-                                           title-target-id-array="Sales2^Purchase"
-                                           title-text-array="안분계산 명세^정산 및 재계산 명세">
-                                </sbux-tabs>
-                                <div class="tab-content" style="height: auto">
-                                    <div id="Sales2">
-                                        <div class="ad_tbl_top">
-                                            <ul class="ad_tbl_count">
-                                                <li><span>공통매입세액 안분 계산 명세</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div id="Purchase"></div>
-                                </div>
-
-                                <div class="ad_tbl_top">
-                                    <ul class="ad_tbl_count">
-                                        <li><span>과세기간 종료일 다음달 11일까지 전송된 전자세금계산서외 발급분 매출처별 명세</span></li>
-                                    </ul>
-                                </div>
-                                <div id="매출그리드" style="width: 100%; height: 100%"></div>
+                                <sbux-button
+                                        id="btnRese1t"
+                                        name="btnRese1t"
+                                        uitype="normal"
+                                        style="width: 170px;margin-left: calc(100% - 173px);"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="전자신고 파일생성"
+                                        onclick="fn_1"
+                                ></sbux-button>
+                            </div>
+                            <div style="display: grid;grid-template-rows: repeat(4, 1fr); grid-template-columns: repeat(2,minmax(100px, 1fr)); grid-auto-flow: column; gap: 5px;">
+                                <sbux-button
+                                        id="btnReset"
+                                        name="btnReset"
+                                        uitype="normal"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="매출 세금계산서"
+                                        onclick="fn_1"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnReset2"
+                                        name="btnReset2"
+                                        uitype="normal"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="매출/매입 계산서"
+                                        onclick="fn_2"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnReset3"
+                                        name="btnReset3"
+                                        uitype="normal"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="신용카드매출전표등수령명세서"
+                                        onclick="fn_3"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnReset4"
+                                        name="btnReset4"
+                                        uitype="normal"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="수출실적명세서"
+                                        onclick="fn_4"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnReset5"
+                                        name="btnReset5"
+                                        uitype="normal"
+                                        class="btn btn-sm btn-outline-danger"
+                                        text="매입 세금계산서"
+                                        onclick="fn_5"
+                                ></sbux-button>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>◎첨부 신고서류 리스트</span></li>
+                            </ul>
+                        </div>
+                        <div id="sb-area-grdMiddle" style="width: 50%"></div>
+                    </div>
+                    <div>
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>◎전자신고 파일생성 로그</span></li>
+                            </ul>
+                        </div>
+                        <div id="sb-area-grdBottom" style="width: 100%"></div>
                     </div>
                 </div>
             </div>
@@ -222,66 +269,192 @@
     </div>
 </section>
 </body>
-<script>
-    let json사업장리스트 = [];
-    let json매출 = [];
-    let json매입 = [];
+<script type="text/javascript">
+    // common ---------------------------------------------------
+    var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId 	= '${comMenuVO.menuId}';
+    //-----------------------------------------------------------
+    /** 신고 구분명 **/
+    var jsonCorpNm = [];
 
-    let 사업장grid;
-    let 매출grid;
-    let 매입grid;
+    /** 신고 사업장 그리드 **/
+    var jsonGrdList = [];
+    var grdListGrid;
 
+    /** 첨부 신고서류 리스트 **/
+    var jsonGrdMiddle = [];
+    var grdMiddle;
 
+    /** 전자신고 파일생성 로그 **/
+    var jsonGrdBottom = [];
+    var grdBottom;
 
     window.addEventListener("DOMContentLoaded",function(){
         fn_createGrid();
-        fn_create매출();
-        fn_create매입();
+        fn_createGridMiddle();
+        fn_createGridBottom();
+
+
+        fn_init();
+
     });
 
+    const fn_init = async function(){
+        /** 법인 select **/
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        SBUxMethod.refresh('srch-slt-corpNm');
+        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+        /** 기준연도 **/
+        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        /** tab 정렬 **/
+        SBUxMethod.selectTab('tabTopJson', 'grdAR_AP');
+
+        /** 신고구분명 select **/
+        gfnma_multiSelectInit({
+            target			: ['#src-btn-currencyCode']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_FIT030'
+            ,whereClause	: ''
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'right' 	// left, right
+            ,colValue		: 'SEQ'
+            ,colLabel		: 'VAT_TYPE_NAME'
+            ,columns		:[
+                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
+                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+            ]
+            ,callback       : fn_choice
+        })
+    };
+    async function fn_choice(_value){
+        /** reset **/
+
+        const inputs = document.querySelectorAll('#panRightHeader input');
+        inputs.forEach(input => {
+            input.value = 0;
+        });
+
+        let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
+        if (tr.length) {
+            let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
+            if (termFr.length) {
+                SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
+                SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
+            }
+
+            let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
+            if (termTo.length) {
+                SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
+            }
+        }
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_DATA_HANDOUT_DATE  : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+
+        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        paramObj.V_P_SEQ = _value;
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit3000.do", {
+            getType				: 'json',
+            cv_count			: '7',
+            workType            : 'SITELIST',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log(data);
+        if(data.resultStatus === 'S') {
+            jsonGrdList = data.cv_1;
+            grdListGrid.rebuild();
+            if(grdListGrid.getRows() === 2) {
+                grdListGrid.setRow(1);
+                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit3000.do", {
+                    getType: 'json',
+                    cv_count: '7',
+                    workType: 'SITEINFO',
+                    params: gfnma_objectToString(paramObj)
+                });
+                let data = await postJsonPromise;
+                console.log(data,"두번쨰");
+                if(data.resultStatus === 'S'){
+                    let tableData = data.cv_2[0];
+                    for(let key in tableData){
+                        SBUxMethod.set(key,tableData[key]);
+                    }
+                    jsonGrdMiddle = data.cv_3;
+                    grdMiddle.rebuild();
+                }
+            }
+        }
+    }
+    /** 신고 사업장 **/
     const fn_createGrid = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '사업장리스트그리드';
-        SBGridProperties.id = '사업장리스트그리드';
-        SBGridProperties.jsonref = 'json사업장리스트';
+        SBGridProperties.parentid = 'sb-area-grdListGrid';
+        SBGridProperties.id = 'grdListGrid';
+        SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'check',        width : '50%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '50%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
-        사업장grid = _SBGrid.create(SBGridProperties);
+        grdListGrid = _SBGrid.create(SBGridProperties);
+        // grdListGrid.bind("click","fn_setSiteCode");
     }
-    const fn_create매출 = function(){
+    /** 첨부 신고서류 리스트 **/
+    const fn_createGridMiddle = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '매출그리드';
-        SBGridProperties.id = '매출그리드';
-        SBGridProperties.jsonref = 'json매출';
+        SBGridProperties.parentid = 'sb-area-grdMiddle';
+        SBGridProperties.id = 'grdMiddle';
+        SBGridProperties.jsonref = 'jsonGrdMiddle';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'check',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'academy',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'academy',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['연번'],               ref : 'REPORT_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['부가세 서식명'],          ref : 'VAT_REPORT_NAME',      width : '90%',   style : 'text-align:center',    type : 'output'},
         ];
-        매출grid = _SBGrid.create(SBGridProperties);
+        grdMiddle = _SBGrid.create(SBGridProperties);
     }
-    const fn_create매입 = function(){
+    /** 전자신고 파일생성 로그 **/
+    const fn_createGridBottom = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '매입그리드';
-        SBGridProperties.id = '매입그리드';
-        SBGridProperties.jsonref = 'json매입';
+        SBGridProperties.parentid = 'sb-area-grdBottom';
+        SBGridProperties.id = 'grdBottom';
+        SBGridProperties.jsonref = 'jsonGrdBottom';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'check',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'academy',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'academy',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['연번'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['제출일자'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['생성자ID'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['생성일시'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['생성자PC'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['비고'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
-        매출grid = _SBGrid.create(SBGridProperties);
+        grdBottom = _SBGrid.create(SBGridProperties);
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

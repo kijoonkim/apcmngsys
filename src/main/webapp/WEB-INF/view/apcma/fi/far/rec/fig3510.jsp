@@ -1,3 +1,19 @@
+<%
+    /**
+    * @Class Name 		: fig3510.jsp
+    * @Description 	: 매출/매입송장등록 공통화면
+    * @author 			: 인텔릭아이앤에스
+    * @since 			: 2024.06.03
+    * @version 		: 1.0
+    * @Modification Information
+    * @
+    * @ 수정일       	수정자      수정내용
+    * @ ----------		----------	---------------------------
+    * @ 2024.06.03   	이경한		최초 생성
+    * @see
+    *
+    */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body oncontextmenu="return false">
@@ -58,7 +74,7 @@
                                     <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
                                     <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
+                                    <sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                                 </div>
                 				<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
                                 
@@ -129,7 +145,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findDeptCode"
                                                 disabled="true"
@@ -188,7 +204,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="CS">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findCsCode"
                                         ></sbux-button>
@@ -204,7 +220,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findPayTermCode"
                                         ></sbux-button>
@@ -336,7 +352,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">총지급액</th>
+                                    <th scope="row" class="th_bg">총액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)"></sbux-input>
                                     </td>
@@ -347,7 +363,7 @@
                                                 <font>선택</font>
                                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:150px;padding-top:0px;overflow:auto">
+                                            <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:400px;padding-top:0px;overflow:auto">
                                             </div>
                                         </div>
                                     </td>
@@ -400,7 +416,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">공급가액</th>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"></sbux-input>
+                                        <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeSupplyAmt(SUPPLY_AMT)"></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg">계좌정보</th>
@@ -813,7 +829,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME1"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(1)"
                                                     ></sbux-button>
@@ -829,7 +845,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME5"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(5)"
                                                     ></sbux-button>
@@ -845,7 +861,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME9"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(9)"
                                                     ></sbux-button>
@@ -863,7 +879,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME2"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(2)"
                                                     ></sbux-button>
@@ -879,7 +895,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME6"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(6)"
                                                     ></sbux-button>
@@ -895,7 +911,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME10"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(10)"
                                                     ></sbux-button>
@@ -913,7 +929,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME3"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(3)"
                                                     ></sbux-button>
@@ -929,7 +945,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME7"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(7)"
                                                     ></sbux-button>
@@ -947,7 +963,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME4"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(4)"
                                                     ></sbux-button>
@@ -963,7 +979,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME8"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            text="찾기" uitype="modal"
+                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(8)"
                                                     ></sbux-button>
@@ -1051,6 +1067,7 @@
     var jsonCreditArea = []; // 여신영역
     var jsonBankAccountSeq = []; // 계좌정보
     var jsonVatCode = []; // 세금코드
+    var jsonSiteCode = []; // 사업장
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1236,8 +1253,8 @@
                         let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(value))[0];
                         let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
 
-                        let VAT_AMOUNT = Number(DOC_AMT) * (dcmvat_rate / 100);
-                        let SUPPLY_AMT = Number(DOC_AMT) - Number(VAT_AMOUNT);
+                        let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
+                        let VAT_AMOUNT = DOC_AMT - Number(SUPPLY_AMT);
 
                         SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
                         SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
@@ -1592,6 +1609,8 @@
             gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 여신영역
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 사업장
+            gfnma_setComSelect(['gvwWFItem'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
         ]);
     }
 
@@ -1948,6 +1967,60 @@
         });
     }
 
+    var fn_findFiDeptCodeForGvwWFItem = function (row) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FI_DEPT'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 	"",	gfn_dateToYmd(new Date())]
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+            ,width					: '700px'
+            ,height					: '300px'
+            ,tableHeader			: ["부서코드", 		"부서명"]
+            ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,tableColumnWidths		: ["150px", 		"250px"]
+            ,itemSelectEvent		: function (data){
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NAME);
+            },
+        });
+        SBUxMethod.openModal('modal-compopup1');
+    }
+
+    var fn_findProjectCodeForGvwWFItem = function (row) {
+        var replaceText0 = "_PROJECT_CODE_";
+        var replaceText1 = "_PROJECT_NAME_";
+        var strWhereClause = "AND I.PROJECT_CODE LIKE '%" + replaceText0 + "%' AND I.PROJECT_NAME LIKE '%" + replaceText1 + "%' AND I.FI_ORG_CODE ='"+p_fiOrgCode+"'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', "프로젝트 정보");
+
+        compopup1({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: "P_COM028_C"
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions: ["프로젝트코드", "프로젝트명"]
+            , searchInputFields: ["PROJECT_CODE", "PROJECT_NAME"]
+            , searchInputValues: ["", ""]
+            , height: '400px'
+            , tableHeader: ["프로젝트코드", "프로젝트명", "코스트센터코드", "코스트센터"]
+            , tableColumnNames: ["PROJECT_CODE", "PROJECT_NAME", "COST_CENTER_CODE", "COST_CENTER_NAME"]
+            , tableColumnWidths: ["150px", "250px", "100px", "250px"]
+            , itemSelectEvent: function (data) {
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME);
+            },
+        });
+
+        SBUxMethod.openModal('modal-compopup1');
+    }
+
     // 복사모드토글
     const fn_toggleMode = async function (mode) {
         if (mode == "clear") {
@@ -2038,12 +2111,12 @@
                 }
             },
             {
-                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'output', width: '126px', style: 'text-align:right',
+                caption: ["통화금액"], ref: 'ORIGINAL_AMT', type: 'input', width: '126px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
             {
-                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'output', width: '135px', style: 'text-align:right',
+                caption: ["전표금액"], ref: 'FUNCTIONAL_AMT', type: 'input', width: '135px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric'}, maxlength: 24}
                 , format: {type: 'number', rule: '#,###', emptyvalue: '0'}
             },
@@ -2055,7 +2128,6 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , disabled: true
             },
             {
                 caption: ["환율"], ref: 'EXCHANGE_RATE', type: 'output', width: '75px', style: 'text-align:right',
@@ -2063,6 +2135,11 @@
                 , format: {type: 'number', rule: '#,###.00', emptyvalue: '0.00'}
             },
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
+            {caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
@@ -2070,17 +2147,29 @@
                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
-            {caption: ["사업장"], ref: 'SITE_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["적요"], ref: 'DESCRIPTION', type: 'output', width: '300px', style: 'text-align:left'},
+            {caption: ["사업장"], ref: 'SITE_CODE', type: 'input', width: '100px', style: 'text-align:left',
+                typeinfo: {
+                    ref: 'jsonSiteCode',
+                    label: 'label',
+                    value: 'value',
+                    itemcount: 10
+                }
+            },
+            {caption: ["적요"], ref: 'DESCRIPTION', type: 'input', width: '300px', style: 'text-align:left'},
             {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
+            {caption: ["프로젝트명"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["단위"], ref: 'UOM', type: 'output', width: '60px', style: 'text-align:left'},
-            {caption: ["수량"], ref: 'TXN_QTY', type: 'output', width: '60px', style: 'text-align:left'},
+            {caption: ["수량"], ref: 'TXN_QTY', type: 'input', width: '60px', style: 'text-align:left'},
             {
                 caption: ["건수"],
                 ref: 'SOURCE_RECORD_COUNT',
-                type: 'output',
+                type: 'input',
                 width: '75px',
                 style: 'text-align:left'
             },
@@ -2694,10 +2783,10 @@
                 style: 'text-align:left',
                 hidden: true
             },
-            {caption: ["환산단위"], ref: 'BASE_SCALE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["계정분류"], ref: 'ACC_CATEGORY', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["부가세유형"], ref: 'VAT_TYPE_CODE', type: 'output', width: '75px', style: 'text-align:left'},
-            {caption: ["원천소스"], ref: 'ITEM_SOURCE_TYPE', type: 'output', width: '75px', style: 'text-align:left'},
+            {caption: ["환산단위"], ref: 'BASE_SCALE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["계정분류"], ref: 'ACC_CATEGORY', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["부가세유형"], ref: 'VAT_TYPE_CODE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["원천소스"], ref: 'ITEM_SOURCE_TYPE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
             {
                 caption: ["원천전표번호"],
                 ref: 'ITEM_DOC_NAME',
@@ -2940,6 +3029,7 @@
                     itemcount: 10
                 }
                 , disabled: true
+                , hidden: true
             },
             {caption: ["부가세"], ref: 'VAT_AMT', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
             {
@@ -3589,15 +3679,20 @@
         if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get("VAT_AMOUNT")) == "")
             return;
 
+        let DOC_AMT = Number(value.replace(/,/gi, ''));
+
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != "") {
             let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
             let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
 
-            let VAT_AMOUNT = Number(value.replace(/,/gi, '')) * (dcmvat_rate/100);
-            let SUPPLY_AMT = Number(value.replace(/,/gi, '')) - Number(VAT_AMOUNT);
+            let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
+            let VAT_AMOUNT = Number(DOC_AMT) - Number(SUPPLY_AMT);
 
             SBUxMethod.set("SUPPLY_AMT", SUPPLY_AMT);
             SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
+        } else {
+            SBUxMethod.set("SUPPLY_AMT", DOC_AMT);
+            SBUxMethod.set("VAT_AMOUNT", 0);
         }
     }
 
@@ -3608,16 +3703,26 @@
         if (gfn_nvl(SBUxMethod.get("DOC_AMT")) == "" || gfn_nvl(value) == "")
             return;
 
-        SBUxMethod.set("SUPPLY_AMT", (Number(SBUxMethod.get("DOC_AMT")) - Number(value)));
+        SBUxMethod.set("SUPPLY_AMT", (Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, '')) - Number(value.replace(/,/gi, ''))));
 
         if (jsonAccountLineList.length > 0) {
             for (var i = 0; i < jsonAccountLineList.length; i++) {
                 if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
                     gvwWFItem.clickRow((i+1));
-                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), value);
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), Number(value.replace(/,/gi, '')));
                 }
             }
         }
+    }
+
+    const fn_changeSupplyAmt = async function (value) {
+        if (!bnew)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("DOC_AMT")) == "" || gfn_nvl(value) == "")
+            return;
+
+        SBUxMethod.set("VAT_AMT", (Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, '')) - Number(value)));
     }
 
     const fn_changeStandardDate = async function (value) {
@@ -5967,9 +6072,9 @@
         let CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
         let CURRENCY_CODE = gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE'));
         let EXCHANGE_RATE = gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"));
-        let DOC_AMT = gfn_nvl(SBUxMethod.get("DOC_AMT"));
-        let SUPPLY_AMT = gfn_nvl(SBUxMethod.get("SUPPLY_AMT"));
-        let VAT_AMOUNT = gfn_nvl(SBUxMethod.get("VAT_AMOUNT"));
+        let DOC_AMT = Number(SBUxMethod.get("DOC_AMT").replace(/,/gi, ''));
+        let SUPPLY_AMT = Number(SBUxMethod.get("SUPPLY_AMT").replace(/,/gi, ''));
+        let VAT_AMOUNT = Number(SBUxMethod.get("VAT_AMOUNT").replace(/,/gi, ''));
         let VAT_TYPE = gfn_nvl(gfnma_multiSelectGet('#VAT_CODE'));
         let VOUCHER_TYPE = gfn_nvl(SBUxMethod.get("VOUCHER_TYPE"));
         let APPROVAL_NO = gfn_nvl(SBUxMethod.get("APPROVAL_NO"));
@@ -6015,9 +6120,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
+                jsonAccountLineList.length = 0;
                 data.cv_1.forEach((item, index) => {
-                    jsonAccountLineList.length = 0;
-
                     var msg = {
                         KEY_ID : item.KEY_ID,
                         ITEM_SEQ : item.ITEM_SEQ,
@@ -6164,7 +6268,7 @@
 
                 gvwWFItem.rebuild();
                 fn_defaultRuleSet(jsonAccountLineList);
-                fn_createLine();
+                fn_exchageUpdate();
             } else {
                 alert(data.resultMessage);
             }

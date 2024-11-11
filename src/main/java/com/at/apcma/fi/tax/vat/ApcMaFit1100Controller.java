@@ -32,26 +32,25 @@ import java.util.Map;
  *  </pre>
  */
 @Controller
-public class ApcMaFim3510Controller extends BaseController {
+public class ApcMaFit1100Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
-    
-    @PostMapping(value = "/fi/tax/vat/selectFim3510.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFim3510(
+    @PostMapping(value = "/fi/tax/vat/selectFit1100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFit1100(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectFim3510=====start========");
+        logger.info("=============selectFit1100=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
 
-            param.put("procedure", 		"P_FIM3510_Q");
+            param.put("procedure", 		"P_FIT1100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -59,30 +58,7 @@ public class ApcMaFim3510Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectFim3510=====end========");
+        logger.info("=============selectFit1100=====end========");
         return getSuccessResponseEntityMa(resultMap);
-    }
-    
-    
-    
-    @PostMapping(value = "/fi/tax/vat/insertFim3510SList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertFim3510SList(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============insertFim3510SList=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM3510_S");
-
-            logger.info("=============insertFim3510SList=====end========");
-            return getSuccessResponseEntityMa(resultMap);
-        } catch (Exception e) {
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
     }
 }

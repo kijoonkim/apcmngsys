@@ -1,5 +1,6 @@
 package com.at.apcss.am.oprtr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
@@ -68,5 +69,10 @@ public interface OprtrPrfmncService {
 	 * @return integer
 	 */
 	int getoprtrPrfmncno(OprtrPrfmncVO oprtrPrfmncVO) throws Exception;
-
+	/**
+	 * pltno로 작업실적 목록조회
+	 * @param param
+	 * @return List<HashMap<String, Object>>
+	 */
+	List<HashMap<String, Object>> selectOprtrPrfmncListToPltno(HashMap<String, Object> param)throws Exception;
 }

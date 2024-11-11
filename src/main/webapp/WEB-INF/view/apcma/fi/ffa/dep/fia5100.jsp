@@ -68,13 +68,41 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-corp" name="srch-slt-corp" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="group1"></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-comp"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">사업단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-bizUnit" name="srch-slt-bizUnit" class="form-control input-sm" uitype="single" jsondata-ref="jsonBizUnit" group-id="group1"></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-bizUnit"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
@@ -397,11 +425,16 @@
 	function cfn_add(){
 		newClick();
 	}
+	//초기화
+	function cfn_init(){
+		SBUxMethod.clearGroupData('group1');
+		SBUxMethod.clearGroupData('group2');
+	}
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-comp'], jsonCorp, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-bplc1','#srch-slt-bplc2']
@@ -424,7 +457,45 @@
 			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100')
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-comp']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//회계단위
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-bizUnit']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'left' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
 
 
 		]);
@@ -528,8 +599,8 @@
     //감가상각 일시중지등록 로직인듯
     //strStauts : N, U
     const fnSET_P_FIA5100_S = async function(strStauts) {
-    	let corp = SBUxMethod.get("srch-slt-corp")//법인
-        let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
+    	let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
+        let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
         let bplc = gfnma_multiSelectGet("#srch-slt-bplc2")//사업장,site_code
         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
@@ -598,9 +669,9 @@
     //strWorkType : LIST
     const fnQRY_P_FIA5100_Q = async function(strWorkType) {
 
-         let corp = SBUxMethod.get("srch-slt-corp")//법인
-         let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
-         let bplc = SBUxMethod.get("srch-slt-bplc1")//사업장,site_code
+         let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
+         let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
+         let bplc = gfnma_multiSelectGet("#srch-slt-bplc1")//사업장,site_code
          let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
          let stopBgngYmdFrom = SBUxMethod.get("srch-dtp-stopBgngYmdFrom"); //중지시작년월From
          let stopBgngYmdTo = SBUxMethod.get("srch-dtp-stopBgngYmdTo"); //중지시작년월To

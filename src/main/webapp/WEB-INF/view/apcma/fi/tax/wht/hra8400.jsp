@@ -70,9 +70,21 @@
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonCorp"></sbux-select>
+								<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">급여영역</th>
@@ -203,16 +215,7 @@
 											class="form-control input-sm">
 										</sbux-textarea></td>
 								</tr>
-								<tr>
-									<th scope="row" class="th_bg">파일생성경로</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
-										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath"
-											class="form-control input-sm" uitype="search"
-											button-back-text="···"
-											button-back-event="fn_fileCrtPathPopup"
-											wrap-style="width:100%"></sbux-input>
-									</td>
-								</tr>
+
 
 							</tbody>
 						</table>
@@ -308,6 +311,25 @@
             gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //사업장
             gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+          //법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			})
 
 		]);
 
@@ -775,12 +797,12 @@
 
     	let rowId = grdDclrList.getRow();
     	let dclrRow = grdDclrList.getRowData(rowId);
-    	let memo = SBUxMethod.get("srch-inp-memomemo");
-    	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
-    	let empName = SBUxMethod.get("srch-inp-empName");
-    	let tel = SBUxMethod.get("srch-inp-tel");
-    	let deptName = SBUxMethod.get("srch-inp-deptName");
-    	let filePath = SBUxMethod.get("srch-inp-filePath")
+    	let memo = gfnma_nvl(SBUxMethod.get("srch-inp-memomemo"));
+    	let homeTaxId = gfnma_nvl(SBUxMethod.get("srch-inp-homeTaxId"));
+    	let empName = gfnma_nvl(SBUxMethod.get("srch-inp-empName"));
+    	let tel = gfnma_nvl(SBUxMethod.get("srch-inp-tel"));
+    	let deptName = gfnma_nvl(SBUxMethod.get("srch-inp-deptName"));
+    	//let filePath = SBUxMethod.get("srch-inp-filePath")
 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
@@ -796,15 +818,15 @@
 			,V_P_JOB_YYYYMM_FR     : ''
 			,V_P_JOB_YYYYMM_TO     : ''
 
-			,V_P_FILE_PATH         : filePath
+			,V_P_FILE_PATH         : ''
 			,V_P_MEMO              : memo
 			,V_P_HOMETAXID         : homeTaxId
 			,V_P_EMP_NAME          : empName
 			,V_P_TEL               : tel
 			,V_P_DEPT_NAME         : deptName
 			,V_P_INC_TYPE          : ''  //DEFAULT '77'   --소득종류
-			,V_P_EMP_CODE_LIST     : empCodeList
-			,V_P_SOCIAL_NUM_LIST   : socialNumList
+			,V_P_EMP_CODE_LIST     : gfnma_nvl(empCodeList)
+			,V_P_SOCIAL_NUM_LIST   : gfnma_nvl(socialNumList)
 
 
 			,V_P_FORM_ID		: p_formId
@@ -940,6 +962,7 @@
         let intChkCount = 0;
 
     	let grd2 = grdSimpleGiveSpcfct.getGridDataAll();
+    	let test = grd2.pop();
     	grd2.forEach(row => {
 
     		//socialNumReal Setting 해주는 부분 확인 필요
@@ -980,42 +1003,7 @@
     	let resultString = ds.filter(item => item.content) // content가 있는 항목만 필터링
         					 .map(item => item.content)     // content 값만 추출
         					 .join("|");
-
-
-    	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
-
-
-         const data = {
-        		    params: resultString
-        		};
-
-     	  fetch('/hr/hra/insertHra8400S1.do', {
-     		    method: 'POST',
-     		    headers: {
-     		        'Content-Type': 'application/json'
-     		    },
-     		    body: JSON.stringify(data) // JSON 문자열로 변환하여 요청 본문에 포함
-     		})
-     		.then(response => {
-     		    if (response.ok) {
-     		        return response.text(); // 텍스트로 응답 변환
-     		    }
-     		    throw new Error('Network response was not ok.');
-     		})
-     		.then(text => {
-     		    const blob = new Blob([text], { type: 'text/plain' }); // Blob 객체 생성
-     		    const url = URL.createObjectURL(blob); // Blob URL 생성
-     		    const a = document.createElement('a'); // 가상의 앵커 요소 생성
-     		    a.href = url; // Blob URL 설정
-     		    a.download = 'output.txt'; // 다운로드할 파일 이름
-     		    document.body.appendChild(a); // 문서에 앵커 추가
-     		    a.click(); // 앵커 클릭하여 다운로드 실행
-     		    document.body.removeChild(a); // 앵커 요소 제거
-     		    URL.revokeObjectURL(url); // Blob URL 해제
-     		})
-     		.catch(error => console.error('Error:', error)); // 오류 처리
-
-
+    	await fn_saveFile(resultString);
     }
 
 	const fn_compopup1 = function(list) {
@@ -1085,6 +1073,33 @@
             }, {});
         });
     }
+
+    const fn_saveFile = async function(text) {
+        try {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: "간이지급명세서.txt",
+                types: [
+                    {
+                        description: "Text file",
+                        accept: { "text/plain": [".txt"] },
+                    },
+                ],
+            });
+            const writable = await handle.createWritable();
+            await writable.write(text);
+            await writable.close();
+        } catch (error) {
+            console.error("파일 저장 중 오류 발생:", error);
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 

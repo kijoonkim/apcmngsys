@@ -203,7 +203,7 @@
 					<td class="td_input" style="border-right: hidden;" colspan="3">
 						<div class="dropdown">
 							<button 
-								style="width:160px;text-align:left" 
+								style="width:250px;text-align:left" 
 								class="btn btn-sm btn-light dropdown-toggle" 
 								type="button"
 								id="srch-currencyCode" 
@@ -246,9 +246,17 @@
                 </tr>
                 <tr>
                 	<th scope="row" class="th_bg">반제대상</th>
-                	<td colspan="3" class="td_input" style="border-right: hidden;">
+                	<td colspan="6" class="td_input" style="border-right: hidden;">
+                		<sbux-radio
+                			id="srch-rdo-retraAccount"
+                			name="srch-rdo-retraAccount"
+                			uitype="normal"
+                			text-right-padding="10px"
+                			jsondata-ref="jsonRetraAccount"
+                			onchange="onChangeRetraAccount()"
+                		></sbux-radio>
                 	</td>
-                	<td colspan="8">
+                	<td colspan="5">
                 	</td>
                 </tr>
                 </tbody>
@@ -345,14 +353,27 @@
 		                    <label style="margin-right:5px;padding-top:5px" >선택합계금액</label>                              
 							<sbux-input 
 								uitype="text" 
-								id="retra-inp-sltTotAmt"
-								name="retra-inp-sltTotAmt"
+								id="retra-inp-sltTotOrgnlAmt"
+								name="retra-inp-sltTotOrgnlAmt"
 								class="form-control input-sm" 			
-								style="width:120px;margin-right:20px"
+								style="width:120px;margin-right:40px"
 								maxlength="20"
 								autocomplete="off"
 								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								readonly
 							></sbux-input>
+							<sbux-input 
+								uitype="text" 
+								id="retra-inp-sltTotFnctnlAmt"
+								name="retra-inp-sltTotFnctnlAmt"
+								class="form-control input-sm" 			
+								style="width:120px;margin-right:40px"
+								maxlength="20"
+								autocomplete="off"
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								readonly
+							></sbux-input>
+							
 		                    <label style="margin-right:20px;padding-top:5px" >확정합계금액</label>
 		                    <label style="margin-right:5px;padding-top:5px" >입금액(통화)</label>
 		                    <sbux-input 
@@ -453,6 +474,7 @@
 	var p_menuId = '${comMenuVO.menuId}';
 	var p_empCd = '${loginVO.maEmpCode}';
 	var p_fiOrgCode = "${loginVO.maFIOrgCode}";
+	var p_defaultAcctRule = "${loginVO.maDefaultAcctRule}";
 	//-----------------------------------------------------------
 	
 	// Tab Data
@@ -496,6 +518,7 @@
 	var jsonCurrencyCode = [];		// 통화
 	var jsonPayMethod = []; 		// 수금방법
 	var jsonReceiptType = [];		// 수금유형
+	var jsonBankCsCode = [];		// 금융기관코드
 	var jsonBankCode = [];			// 은행코드
 	var jsonTxnGroupCode = [];		// 거래유형
 	var jsonDocType = [];			// 전표유형
@@ -509,7 +532,13 @@
     var jsonAccItemCode = []; 		// 관리항목코드
     var jsonVoucherType = [];		// 증빙유형
 	var jsonRegType = [];			// 등록유형
+	var jsonVatType = [];			// 부가세유형
 	var jsonUseYn = [];
+	
+	var jsonRetraAccount = [
+		{text: "외상매출금", value: "111061%", style : "color:red;" },
+		{text: "미지급금", value: "2120111%", style : "color:blue;" },
+	];
 	
 	// 수금거래내역
 	var grdSvg;
@@ -526,8 +555,6 @@
 	// 회계처리
 	var grdAcntg;
 	var jsonAcntg = [];
-	
-
 	
     window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
@@ -556,6 +583,8 @@
     	fn_createGridFund();
     	fn_createGridAcntg();
     	fn_createGridRetra();
+    	
+    	SBUxMethod.set("srch-rdo-retraAccount", "111061%");
     }
     
     
@@ -619,7 +648,10 @@
 	            gfnma_setComSelect(['grdSvg'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            
 				// 은행
-				gfnma_setComSelect(['grdSvg'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+				
+				//gfnma_setComSelect(['grdSvg'], jsonBankCode, 'P_COM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+				// 금융기관코드
+				gfnma_setComSelect(['grdFund'], jsonBankCsCode, 'L_CS_BANK', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
 				// 거래유형
 	            gfnma_setComSelect(['grdFund'], jsonTxnGroupCode, 'L_FIM071', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	         	// 전표유형
@@ -638,10 +670,701 @@
 	            gfnma_setComSelect(['grdAcntg'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
 	         	// 증빙유형
 	            gfnma_setComSelect(['grdAcntg'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            // 부가세유형
+	            gfnma_setComSelect(['grdAcntg'], jsonVatType, 'L_FIT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),
 	         	
-			]);
+			]);	
+		
+		console.log("jsonVatType", jsonVatType);
 	}
     
+	const fn_grdSvgRowChanged = async function() {
+		
+		const nRow = grdSvg.getRow();
+    	
+    	if (nRow < 1) {
+    		return;
+    	}
+    	
+    	const _svg = grdSvg.getRowData(nRow);
+    	
+		const selectedTab = SBUxMethod.get('tab-svg');
+		
+		switch (selectedTab) {
+			case "tp-retra":
+				await fn_setGrdRetra(_svg);
+				break;
+			case "tp-fund":
+				await fn_setGrdFund(_svg);
+				break;
+			case "tp-acntg":
+				await fn_setGrdAcntg(_svg);
+				break;
+			default:
+				break;
+		}
+		
+	}
+	
+	const fn_tabClick = function() {
+		
+		const selectedTab = SBUxMethod.get('tab-svg');
+		
+		if (!_.isEqual(lv_prvTabId, selectedTab)) {
+			lv_prvTabId = selectedTab;
+			fn_grdSvgRowChanged();
+		}		
+	}
+	
+	
+	const fn_setRetraSumSelected = function() {
+		
+		let orgnAmt = 0;
+		let fnctAmt = 0;
+		
+		const allData = grdRetra.getGridDataAll();
+		allData.forEach((item) => {
+			if (_.isEqual("Y", item.CHECK_YN)) {
+				orgnAmt += parseInt(item.ORIGINAL_APPLY_AMOUNT) || 0;
+				fnctAmt += parseInt(item.FUNCTIONAL_APPLY_R_AMOUNT) || 0;
+			}
+		});
+		
+		SBUxMethod.set('retra-inp-sltTotOrgnlAmt', orgnAmt);
+		SBUxMethod.set('retra-inp-sltTotFnctnlAmt', fnctAmt);
+	}
+	
+	const fn_setRetraSumConfirmed = function() {
+		
+		let orgnAmt = 0;
+		let fnctAmt = 0;
+		
+		const allData = grdRetra.getGridDataAll();
+		allData.forEach((item) => {
+			if (_.isEqual("Y", item.CONFIRM_FLAG)) {
+				orgnAmt += parseInt(item.ORIGINAL_APPLY_AMOUNT) || 0;
+				fnctAmt += parseInt(item.FUNCTIONAL_APPLY_R_AMOUNT) || 0;
+			}
+		});		
+		
+		SBUxMethod.set('retra-inp-cfmntTotOrgnlAmt', orgnAmt);
+		SBUxMethod.set('retra-inp-cfmntTotFnctnlAmt', fnctAmt);
+	}
+	
+	
+	/**
+     * @name fn_search
+     * @description 조회 버튼
+     */
+    const fn_search = async function() {
+		
+        if (!SBUxMethod.validateRequired({group_id: "panHeader"})) {
+            return false;
+        }
+        
+        const txnDateFrom = SBUxMethod.get('srch-dtp-txnDate_from');
+        const txnDateTo = SBUxMethod.get('srch-dtp-txnDate_to');
+        const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
+        const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+        const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
+        
+        const payerName = gfn_nvl(SBUxMethod.get('srch-inp-payerName'));
+        const payerCode = gfn_nvl(SBUxMethod.get('srch-inp-payerCode'));        
+        const costCenterCode = gfn_nvl(SBUxMethod.get('srch-inp-costCenterCode'));
+        const costCenterName = gfn_nvl(SBUxMethod.get('srch-inp-costCenterName'));
+        const empCode = gfn_nvl(SBUxMethod.get('srch-inp-empCode'));
+        const empName = gfn_nvl(SBUxMethod.get('srch-inp-empName'));
+        const description = gfn_nvl(SBUxMethod.get('srch-inp-description'));
+        const confirmFlag = gfn_nvl(SBUxMethod.get('srch-slt-confirmFlag'));
+        const applyAccount = gfn_nvl(SBUxMethod.get('srch-rdo-retraAccount'));
+        
+        const paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID			: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+                V_P_FI_ORG_CODE 	: fiOrgCode,
+                V_P_DATE_FR			: txnDateFrom,
+                V_P_DATE_TO			: txnDateTo,
+                V_P_CONFIRM_FLAG	: confirmFlag,
+                V_P_DESCRIPTION		: description,
+                V_P_APPLY_ACCOUNT	: applyAccount,
+                V_P_CURRENCY_CODE	: currencyCode,
+                V_P_CUSTOMER_CS_CODE: '',
+                V_P_IN_PAY_METHOD	: payMethod,
+                V_P_APPLY_TYPE		: '',
+                V_P_RECEIPT_NO		: '',
+                V_P_RECEIPT_DATE	: '',
+                V_P_ITEM_SOURCE_ID	: '',
+                V_P_ORIGINAL_RECEIPT_AMOUNT		: '',
+                V_P_FUNCTIONAL_RECEIPT_AMOUNT	: '',
+                V_P_TXN_ID			: '',
+                V_P_DEPT_CODE		: '',
+                V_P_COST_CENTER_CODE: costCenterCode,
+                V_P_PROJECT_CODE	: '',
+                V_P_EMP_CODE		: empCode,
+                
+                V_P_FORM_ID			: p_formId,
+                V_P_MENU_ID			: p_menuId,
+                V_P_PROC_ID			: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+        	console.log("paramObj", paramObj);
+        const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1010List.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+            	
+            	console.log("listData.cv_1", listData.cv_1);
+            	
+            	jsonSvg.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const obj = {
+                    		DOC_DATE: item.DOC_DATE,
+                    		COMP_CODE: item.COMP_CODE,
+                    		FI_ORG_CODE: item.FI_ORG_CODE,
+                    		TXN_ID: item.TXN_ID,
+                    		TXN_DATE: item.TXN_DATE,
+                    		RECEIPT_NO: item.RECEIPT_NO,
+                    		PAY_METHOD: item.PAY_METHOD,
+                    		APPLY_TYPE: item.APPLY_TYPE,
+                    		CUSTOMER_CS_CODE: item.CUSTOMER_CS_CODE,
+                    		CUSTOMER_CS_NAME: item.CUSTOMER_CS_NAME,
+                    		PAYER_BIZ_REGNO: item.PAYER_BIZ_REGNO,
+                    		SOURCE_DOC_ID: item.SOURCE_DOC_ID,
+                    		SOURCE_DOC_TYPE: item.SOURCE_DOC_TYPE,
+                    		SOURCE_DOC_NAME: item.SOURCE_DOC_NAME,
+                    		DOC_STATUS: item.DOC_STATUS,
+                    		ITEM_SOURCE_ID: item.ITEM_SOURCE_ID,
+                    		ACCOUNT_CODE: item.ACCOUNT_CODE,
+                    		ACCOUNT_NAME: item.ACCOUNT_NAME,
+                    		BANK_CHARGE_ACC_CODE: item.BANK_CHARGE_ACC_CODE,
+                    		BANK_CHARGE_ACC_NAME: item.BANK_CHARGE_ACC_NAME,
+                    		CURRENCY_CODE: item.CURRENCY_CODE,
+                    		EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+                    		EXCHANGE_RATE: item.EXCHANGE_RATE,
+                    		ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
+                    		FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
+                    		ORIGINAL_BANK_CHARGE: item.ORIGINAL_BANK_CHARGE,
+                    		FUNCTIONAL_BANK_CHARGE: item.FUNCTIONAL_BANK_CHARGE,
+                    		CONFIRM_FLAG: item.CONFIRM_FLAG,
+                    		ACCOUNT_COMPLETE_FLAG: item.ACCOUNT_COMPLETE_FLAG,
+                    		CHECK_YN: item.CHECK_YN,
+                    		DOC_ID: item.DOC_ID,
+                    		DOC_TYPE: item.DOC_TYPE,
+                    		DOC_NAME: item.DOC_NAME,
+                    		DOC_EMP_CODE: item.DOC_EMP_CODE,
+                    		DOC_EMP_NAME: item.DOC_EMP_NAME,
+                    		DOC_INSERT_TIME: item.DOC_INSERT_TIME,
+                    		DOC_STATUS: item.DOC_STATUS,
+                    		DEPT_CODE: item.DEPT_CODE,
+                    		DEPT_NAME: item.DEPT_NAME,
+                    		COST_CENTER_CODE: item.COST_CENTER_CODE,
+                    		COST_CENTER_NAME: item.COST_CENTER_NAME,
+                    		PROJECT_CODE: item.PROJECT_CODE,
+                    		CREDIT_AREA: item.CREDIT_AREA,
+                    		TOTAL_RECEIPT_AMOUNT: item.TOTAL_RECEIPT_AMOUNT,
+                    		DESCRIPTION: item.DESCRIPTION,
+                    		IN_DEPOSIT_CODE: item.IN_DEPOSIT_CODE,
+                    		DEPOSIT_NAME: item.DEPOSIT_NAME,
+                    		ACCOUNT_NUM: item.ACCOUNT_NUM,
+                    		ORIGINAL_RECEIPT_YN: item.ORIGINAL_RECEIPT_YN,
+                    		DIV_YN: item.DIV_YN,
+                    		CHILD_CONFIRM_FLAG: item.CHILD_CONFIRM_FLAG,
+                    		BASESCALE: item.BASESCALE,
+                    		RECEIPT_TYPE: item.RECEIPT_TYPE,
+                    }
+                    jsonSvg.push(obj);
+                });
+                
+                grdSvg.rebuild();
+                
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+
+	
+	/**
+     * @name fn_setGrdRetra
+     * @param {string} _txnId
+     * @description 반제실적
+     */
+    const fn_setGrdRetra = async function(_svg) {
+    	 
+         const txnDateFrom = SBUxMethod.get('srch-dtp-txnDate_from');
+         const txnDateTo = SBUxMethod.get('srch-dtp-txnDate_to');
+         const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
+         const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+         const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
+         
+         const payerName = gfn_nvl(SBUxMethod.get('srch-inp-payerName'));
+         const payerCode = gfn_nvl(SBUxMethod.get('srch-inp-payerCode'));        
+         const costCenterCode = gfn_nvl(SBUxMethod.get('srch-inp-costCenterCode'));
+         const costCenterName = gfn_nvl(SBUxMethod.get('srch-inp-costCenterName'));
+         const empCode = gfn_nvl(SBUxMethod.get('srch-inp-empCode'));
+         const empName = gfn_nvl(SBUxMethod.get('srch-inp-empName'));
+         const description = gfn_nvl(SBUxMethod.get('srch-inp-description'));
+         const confirmFlag = gfn_nvl(SBUxMethod.get('srch-slt-confirmFlag'));
+         const applyAccount = gfn_nvl(SBUxMethod.get('srch-rdo-retraAccount'));
+         
+         const paramObj = {
+
+                 V_P_DEBUG_MODE_YN	: '',
+                 V_P_LANG_ID		: '',
+                 V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                 V_P_FI_ORG_CODE 	: _svg.FI_ORG_CODE,
+                 V_P_DATE_FR		: txnDateFrom,
+                 V_P_DATE_TO		: txnDateTo,
+                 V_P_CONFIRM_FLAG	: confirmFlag,
+                 V_P_DESCRIPTION	: description,
+                 V_P_APPLY_ACCOUNT	: applyAccount,
+                 V_P_CURRENCY_CODE	: _svg.CURRENCY_CODE,
+                 V_P_CUSTOMER_CS_CODE: _svg.CUSTOMER_CS_CODE,
+                 V_P_IN_PAY_METHOD	: '',
+                 V_P_APPLY_TYPE		: _svg.APPLY_TYPE,
+                 V_P_RECEIPT_NO		: _svg.RECEIPT_NO,
+                 V_P_RECEIPT_DATE	: _svg.TXN_DATE,
+                 V_P_ITEM_SOURCE_ID	: parseInt(_svg.ITEM_SOURCE_ID) || 0,
+                 V_P_ORIGINAL_RECEIPT_AMOUNT	: 
+                	 					parseInt(_svg.ORIGINAL_AMOUNT) || 0
+                	 					+ 
+                	 					parseInt(_svg.ORIGINAL_BANK_CHARGE) || 0,
+                 V_P_FUNCTIONAL_RECEIPT_AMOUNT	: 
+                	 					parseInt(_svg.FUNCTIONAL_AMOUNT) || 0
+	 									+ 
+	 									parseInt(_svg.FUNCTIONAL_BANK_CHARGE) || 0,
+                 V_P_TXN_ID			: parseInt(_svg.TXN_ID) || 0,
+                 V_P_DEPT_CODE		: _svg.DEPT_CODE,
+                 V_P_COST_CENTER_CODE: _svg.COST_CENTER_CODE,
+                 V_P_PROJECT_CODE	: _svg.PROJECT_CODE,
+                 V_P_EMP_CODE		: empCode,
+                 
+                 V_P_FORM_ID		: p_formId,
+                 V_P_MENU_ID		: p_menuId,
+                 V_P_PROC_ID		: '',
+                 V_P_USERID			: '',
+                 V_P_PC				: ''
+			};
+         
+		console.log("paramObj", paramObj);
+		
+        const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1010List.do", {
+             getType			: 'json',
+             workType			: 'APPLY',
+             cv_count			: '1',
+             params				: gfnma_objectToString(paramObj)
+		});
+
+        const listData = await postJsonPromiseForList;
+
+        try {
+			if (_.isEqual("S", listData.resultStatus)) {
+             	
+				console.log("listData.cv_1", listData.cv_1);
+             	
+             	jsonRetra.length = 0;
+
+				listData.cv_1.forEach((item, index) => {
+					const obj = {
+						CHECK_YN: item.CHECK_YN,
+						APPLY_DATE: item.APPLY_DATE,
+						DOC_DATE: item.DOC_DATE,
+						APPLY_TYPE: item.APPLY_TYPE,
+						INVOICE_ID: item.INVOICE_ID,
+						INVOICE_BATCH_NO: item.INVOICE_BATCH_NO,
+						INVOICE_LINE_NUM: item.INVOICE_LINE_NUM,
+						PAYER_ID: item.PAYER_ID,
+						PAYER_NAME: item.PAYER_NAME,
+						FI_ORG_CODE: item.FI_ORG_CODE,
+						DOC_ID: item.DOC_ID,
+						DOC_TYPE: item.DOC_TYPE,
+						DOC_NAME: item.DOC_NAME,
+						VOUCHER_TYPE: item.VOUCHER_TYPE,
+						VOUCHER_NO: item.VOUCHER_NO,
+						ITEM_SOURCE_ID_ADVANCE: item.ITEM_SOURCE_ID_ADVANCE,
+						ITEM_SOURCE_ID: item.ITEM_SOURCE_ID,
+						ACCOUNT_CODE: item.ACCOUNT_CODE,
+						ACCOUNT_NAME: item.ACCOUNT_NAME,
+						CURRENCY_CODE: item.CURRENCY_CODE,
+						EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+						EXCHANGE_RATE: item.EXCHANGE_RATE,
+						ORIGINAL_APPLY_AMOUNT: item.ORIGINAL_APPLY_AMOUNT,
+						FUNCTIONAL_APPLY_AMOUNT: item.FUNCTIONAL_APPLY_AMOUNT,
+						ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
+						FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
+						FUNCTIONAL_APPLY_R_AMOUNT: item.FUNCTIONAL_APPLY_R_AMOUNT,
+						PAY_EXCHANGE_PL_AMT: item.PAY_EXCHANGE_PL_AMT,
+						CONFIRM_FLAG: item.CONFIRM_FLAG,
+						APPLY_NO: item.APPLY_NO,
+						DEPT_CODE: item.DEPT_CODE,
+						COST_CENTER_CODE: item.COST_CENTER_CODE,
+						PROJECT_CODE: item.PROJECT_CODE,
+						DESCRIPTION: item.DESCRIPTION,
+					}
+					
+					jsonRetra.push(obj);
+				});
+                 
+				grdRetra.rebuild();
+                 
+			} else {
+                alert(listData.resultMessage);
+            }
+		} catch (e) {
+            if (!(e instanceof Error)) {
+        		e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+		
+		fn_setRetraSumSelected();
+		fn_setRetraSumConfirmed();
+		
+	}
+     
+ 	/**
+     * @name fn_setGrdFund
+     * @description 자금실적 조회 DETAIL
+     * @function
+     */
+	const fn_setGrdFund = async function(_svg) {
+		
+        const txnDateFrom = SBUxMethod.get('srch-dtp-txnDate_from');
+        const txnDateTo = SBUxMethod.get('srch-dtp-txnDate_to');
+        const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
+        const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+        const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
+        
+        const payerName = gfn_nvl(SBUxMethod.get('srch-inp-payerName'));
+        const payerCode = gfn_nvl(SBUxMethod.get('srch-inp-payerCode'));        
+        const costCenterCode = gfn_nvl(SBUxMethod.get('srch-inp-costCenterCode'));
+        const costCenterName = gfn_nvl(SBUxMethod.get('srch-inp-costCenterName'));
+        const empCode = gfn_nvl(SBUxMethod.get('srch-inp-empCode'));
+        const empName = gfn_nvl(SBUxMethod.get('srch-inp-empName'));
+        const description = gfn_nvl(SBUxMethod.get('srch-inp-description'));
+        const confirmFlag = gfn_nvl(SBUxMethod.get('srch-slt-confirmFlag'));
+        const applyAccount = gfn_nvl(SBUxMethod.get('srch-rdo-retraAccount'));
+	     
+	    const paramObj = {
+	    		
+			V_P_DEBUG_MODE_YN	: '',
+	        V_P_LANG_ID		: '',
+	        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+	        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+	        V_P_FI_ORG_CODE 	: _svg.FI_ORG_CODE,
+	        V_P_DATE_FR		: txnDateFrom,
+	        V_P_DATE_TO		: txnDateTo,
+	        V_P_CONFIRM_FLAG	: confirmFlag,
+	        V_P_DESCRIPTION	: description,
+	        V_P_APPLY_ACCOUNT	: applyAccount,
+	        V_P_CURRENCY_CODE	: _svg.CURRENCY_CODE,
+	        V_P_CUSTOMER_CS_CODE: _svg.CUSTOMER_CS_CODE,
+	        V_P_IN_PAY_METHOD	: '',
+	        V_P_APPLY_TYPE		: _svg.APPLY_TYPE,
+	        V_P_RECEIPT_NO		: _svg.RECEIPT_NO,
+	        V_P_RECEIPT_DATE	: _svg.TXN_DATE,
+	        V_P_ITEM_SOURCE_ID	: parseInt(_svg.ITEM_SOURCE_ID) || 0,
+	        V_P_ORIGINAL_RECEIPT_AMOUNT	: 
+	        						parseInt(_svg.ORIGINAL_AMOUNT) || 0
+	            					+ 
+	            					parseInt(_svg.ORIGINAL_BANK_CHARGE) || 0,
+	        V_P_FUNCTIONAL_RECEIPT_AMOUNT	: 
+	        	 					parseInt(_svg.FUNCTIONAL_AMOUNT) || 0
+	 								+ 
+	 								parseInt(_svg.FUNCTIONAL_BANK_CHARGE) || 0,
+	        V_P_TXN_ID			: parseInt(_svg.TXN_ID) || 0,
+	        V_P_DEPT_CODE		: _svg.DEPT_CODE,
+	        V_P_COST_CENTER_CODE: _svg.COST_CENTER_CODE,
+	        V_P_PROJECT_CODE	: _svg.PROJECT_CODE,
+	        V_P_EMP_CODE		: empCode,
+	             
+	        V_P_FORM_ID		: p_formId,
+	        V_P_MENU_ID		: p_menuId,
+	        V_P_PROC_ID		: '',
+	        V_P_USERID			: '',
+	        V_P_PC				: ''
+		};
+	     
+		console.log("paramObj", paramObj);
+		
+	    const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1010List.do", {
+	         getType			: 'json',
+	         workType			: 'DETAIL',
+	         cv_count			: '1',
+	         params				: gfnma_objectToString(paramObj)
+		});
+	
+	    const listData = await postJsonPromiseForList;
+	
+	    try {
+			if (_.isEqual("S", listData.resultStatus)) {
+	         	
+				console.log("listData.cv_1", listData.cv_1);
+	         	
+	         	jsonFund.length = 0;
+	
+				listData.cv_1.forEach((item, index) => {
+					const obj = {
+							TREASURY_ID: item.TREASURY_ID,
+							TREASURY_BATCH_NO: item.TREASURY_BATCH_NO,
+							TREASURY_LINE_NUM: item.TREASURY_LINE_NUM,
+							TXN_GROUP_CODE: item.TXN_GROUP_CODE,
+							PAYER_ID: item.PAYER_ID,
+							DOC_TYPE: item.DOC_TYPE,
+							DOC_ID: item.DOC_ID,
+							DOC_NAME: item.DOC_NAME,
+							DOC_STATUS: item.DOC_STATUS,
+							PLANNED_PAY_DATE: item.PLANNED_PAY_DATE,
+							PAY_DATE: item.PAY_DATE,
+							PAY_METHOD: item.PAY_METHOD,
+							STATUS_CODE: item.STATUS_CODE,
+							BANK_CS_CODE: item.BANK_CS_CODE,
+							ACCOUNT_NUM: item.ACCOUNT_NUM,
+							CURRENCY_CODE: item.CURRENCY_CODE,
+							EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+							EXCHANGE_RATE: item.EXCHANGE_RATE,
+							ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
+							FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
+							ACCT_RULE_CODE: item.ACCT_RULE_CODE,
+					}
+					
+					jsonFund.push(obj);
+				});
+	             
+				grdFund.rebuild();
+	             
+			} else {
+	            alert(listData.resultMessage);
+	        }
+		} catch (e) {
+	        if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	        }
+	        console.error("failed", e.message);
+	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/**
+     * @name fn_setGrdAcntg
+     * @param {object} _svg
+     * @description 회계처리
+     */
+    const fn_setGrdAcntg = async function(_svg) {
+		
+         const txnDateFrom = SBUxMethod.get('srch-dtp-txnDate_from');
+         const txnDateTo = SBUxMethod.get('srch-dtp-txnDate_to');
+         const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
+         const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+         const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
+         
+         const payerName = gfn_nvl(SBUxMethod.get('srch-inp-payerName'));
+         const payerCode = gfn_nvl(SBUxMethod.get('srch-inp-payerCode'));        
+         const costCenterCode = gfn_nvl(SBUxMethod.get('srch-inp-costCenterCode'));
+         const costCenterName = gfn_nvl(SBUxMethod.get('srch-inp-costCenterName'));
+         const empCode = gfn_nvl(SBUxMethod.get('srch-inp-empCode'));
+         const empName = gfn_nvl(SBUxMethod.get('srch-inp-empName'));
+         const description = gfn_nvl(SBUxMethod.get('srch-inp-description'));
+         const confirmFlag = gfn_nvl(SBUxMethod.get('srch-slt-confirmFlag'));
+         const applyAccount = gfn_nvl(SBUxMethod.get('srch-rdo-retraAccount'));
+	     
+	    const paramObj = {
+	    		
+			V_P_DEBUG_MODE_YN	: '',
+	        V_P_LANG_ID		: '',
+	        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+	        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+	        V_P_FI_ORG_CODE 	: _svg.FI_ORG_CODE,
+	        V_P_DATE_FR		: txnDateFrom,
+	        V_P_DATE_TO		: txnDateTo,
+	        V_P_CONFIRM_FLAG	: confirmFlag,
+	        V_P_DESCRIPTION	: description,
+	        V_P_APPLY_ACCOUNT	: applyAccount,
+	        V_P_CURRENCY_CODE	: _svg.CURRENCY_CODE,
+	        V_P_CUSTOMER_CS_CODE: _svg.CUSTOMER_CS_CODE,
+	        V_P_IN_PAY_METHOD	: '',
+	        V_P_APPLY_TYPE		: _svg.APPLY_TYPE,
+	        V_P_RECEIPT_NO		: _svg.RECEIPT_NO,
+	        V_P_RECEIPT_DATE	: _svg.TXN_DATE,
+	        V_P_ITEM_SOURCE_ID	: parseInt(_svg.ITEM_SOURCE_ID) || 0,
+	        V_P_ORIGINAL_RECEIPT_AMOUNT	: 
+	        						parseInt(_svg.ORIGINAL_AMOUNT) || 0
+	            					+ 
+	            					parseInt(_svg.ORIGINAL_BANK_CHARGE) || 0,
+	        V_P_FUNCTIONAL_RECEIPT_AMOUNT	: 
+	        	 					parseInt(_svg.FUNCTIONAL_AMOUNT) || 0
+	 								+ 
+	 								parseInt(_svg.FUNCTIONAL_BANK_CHARGE) || 0,
+	        V_P_TXN_ID			: parseInt(_svg.TXN_ID) || 0,
+	        V_P_DEPT_CODE		: _svg.DEPT_CODE,
+	        V_P_COST_CENTER_CODE: _svg.COST_CENTER_CODE,
+	        V_P_PROJECT_CODE	: _svg.PROJECT_CODE,
+	        V_P_EMP_CODE		: empCode,
+	             
+	        V_P_FORM_ID		: p_formId,
+	        V_P_MENU_ID		: p_menuId,
+	        V_P_PROC_ID		: '',
+	        V_P_USERID			: '',
+	        V_P_PC				: ''
+		};
+	     
+		console.log("paramObj", paramObj);
+		
+	    const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1010List.do", {
+	         getType			: 'json',
+	         workType			: 'ACCOUNT',
+	         cv_count			: '1',
+	         params				: gfnma_objectToString(paramObj)
+		});
+	
+	    const listData = await postJsonPromiseForList;
+
+         try {
+             if (_.isEqual("S", listData.resultStatus)) {
+             	
+             	console.log("listData.cv_1", listData.cv_1);
+             	
+             	jsonAcntg.length = 0;
+
+				listData.cv_1.forEach((item, index) => {
+                     const obj = {
+                    		 KEY_ID: item.KEY_ID,
+                    		 ITEM_ID: item.ITEM_ID,
+                    		 ITEM_SEQ: item.ITEM_SEQ,
+                    		 LINE_TYPE: item.LINE_TYPE,
+                    		 DEBIT_CREDIT: item.DEBIT_CREDIT,
+                    		 VAT_TYPE: item.VAT_TYPE,
+                    		 VAT_NAME: item.VAT_NAME,
+                    		 DEPT_CODE: item.DEPT_CODE,
+                    		 COST_CENTER_CODE: item.COST_CENTER_CODE,
+                    		 PROJECT_CODE: item.PROJECT_CODE,
+                    		 ORIGINAL_CR_AMT: item.ORIGINAL_CR_AMT,
+                    		 ORIGINAL_DR_AMT: item.ORIGINAL_DR_AMT,
+                    		 FUNCTIONAL_CR_AMT: item.FUNCTIONAL_CR_AMT,
+                    		 FUNCTIONAL_DR_AMT: item.FUNCTIONAL_DR_AMT,
+                    		 TXN_QTY: item.TXN_QTY,
+                    		 ACCOUNT_CODE: item.ACCOUNT_CODE,
+                    		 ACCOUNT_NAME: item.ACCOUNT_NAME,
+                    		 ACC_ITEM_CODE1: item.ACC_ITEM_CODE1,
+                    		 ACC_ITEM_CODE2: item.ACC_ITEM_CODE2,
+                    		 ACC_ITEM_CODE3: item.ACC_ITEM_CODE3,
+                    		 ACC_ITEM_CODE4: item.ACC_ITEM_CODE4,
+                    		 ACC_ITEM_CODE5: item.ACC_ITEM_CODE5,
+                    		 ACC_ITEM_CODE6: item.ACC_ITEM_CODE6,
+                    		 ACC_ITEM_CODE7: item.ACC_ITEM_CODE7,
+                    		 ACC_ITEM_CODE8: item.ACC_ITEM_CODE8,
+                    		 ACC_ITEM_CODE9: item.ACC_ITEM_CODE9,
+                    		 ACC_ITEM_CODE10: item.ACC_ITEM_CODE10,
+                    		 ACC_ITEM_NAME1: item.ACC_ITEM_NAME1,
+                    		 ACC_ITEM_NAME2: item.ACC_ITEM_NAME2,
+                    		 ACC_ITEM_NAME3: item.ACC_ITEM_NAME3,
+                    		 ACC_ITEM_NAME4: item.ACC_ITEM_NAME4,
+                    		 ACC_ITEM_NAME5: item.ACC_ITEM_NAME5,
+                    		 ACC_ITEM_NAME6: item.ACC_ITEM_NAME6,
+                    		 ACC_ITEM_NAME7: item.ACC_ITEM_NAME7,
+                    		 ACC_ITEM_NAME8: item.ACC_ITEM_NAME8,
+                    		 ACC_ITEM_NAME9: item.ACC_ITEM_NAME9,
+                    		 ACC_ITEM_NAME10: item.ACC_ITEM_NAME10,
+                    		 ACC_ITEM_YN1: item.ACC_ITEM_YN1,
+                    		 ACC_ITEM_YN2: item.ACC_ITEM_YN2,
+                    		 ACC_ITEM_YN3: item.ACC_ITEM_YN3,
+                    		 ACC_ITEM_YN4: item.ACC_ITEM_YN4,
+                    		 ACC_ITEM_YN5: item.ACC_ITEM_YN5,
+                    		 ACC_ITEM_YN6: item.ACC_ITEM_YN6,
+                    		 ACC_ITEM_YN7: item.ACC_ITEM_YN7,
+                    		 ACC_ITEM_YN8: item.ACC_ITEM_YN8,
+                    		 ACC_ITEM_YN9: item.ACC_ITEM_YN9,
+                    		 ACC_ITEM_YN10: item.ACC_ITEM_YN10,
+                    		 DATA_TYPE1: item.DATA_TYPE1,
+                    		 DATA_TYPE2: item.DATA_TYPE2,
+                    		 DATA_TYPE3: item.DATA_TYPE3,
+                    		 DATA_TYPE4: item.DATA_TYPE4,
+                    		 DATA_TYPE5: item.DATA_TYPE5,
+                    		 DATA_TYPE6: item.DATA_TYPE6,
+                    		 DATA_TYPE7: item.DATA_TYPE7,
+                    		 DATA_TYPE8: item.DATA_TYPE8,
+                    		 DATA_TYPE9: item.DATA_TYPE9,
+                    		 DATA_TYPE10: item.DATA_TYPE10,
+                    		 POPUP_ID1: item.POPUP_ID1,
+                    		 POPUP_ID2: item.POPUP_ID2,
+                    		 POPUP_ID3: item.POPUP_ID3,
+                    		 POPUP_ID4: item.POPUP_ID4,
+                    		 POPUP_ID5: item.POPUP_ID5,
+                    		 POPUP_ID6: item.POPUP_ID6,
+                    		 POPUP_ID7: item.POPUP_ID7,
+                    		 POPUP_ID8: item.POPUP_ID8,
+                    		 POPUP_ID9: item.POPUP_ID9,
+                    		 POPUP_ID10: item.POPUP_ID10,
+                    		 ACC_CHARACTER: item.ACC_CHARACTER,
+                    		 ACC_ITEM_VALUE1: item.ACC_ITEM_VALUE1,
+                    		 ACC_ITEM_VALUE2: item.ACC_ITEM_VALUE2,
+                    		 ACC_ITEM_VALUE3: item.ACC_ITEM_VALUE3,
+                    		 ACC_ITEM_VALUE4: item.ACC_ITEM_VALUE4,
+                    		 ACC_ITEM_VALUE5: item.ACC_ITEM_VALUE5,
+                    		 ACC_ITEM_VALUE6: item.ACC_ITEM_VALUE6,
+                    		 ACC_ITEM_VALUE7: item.ACC_ITEM_VALUE7,
+                    		 ACC_ITEM_VALUE8: item.ACC_ITEM_VALUE8,
+                    		 ACC_ITEM_VALUE9: item.ACC_ITEM_VALUE9,
+                    		 ACC_ITEM_VALUE10: item.ACC_ITEM_VALUE10,
+                    		 ACC_VALUE_NAME1: item.ACC_VALUE_NAME1,
+                    		 ACC_VALUE_NAME2: item.ACC_VALUE_NAME2,
+                    		 ACC_VALUE_NAME3: item.ACC_VALUE_NAME3,
+                    		 ACC_VALUE_NAME4: item.ACC_VALUE_NAME4,
+                    		 ACC_VALUE_NAME5: item.ACC_VALUE_NAME5,
+                    		 ACC_VALUE_NAME6: item.ACC_VALUE_NAME6,
+                    		 ACC_VALUE_NAME7: item.ACC_VALUE_NAME7,
+                    		 ACC_VALUE_NAME8: item.ACC_VALUE_NAME8,
+                    		 ACC_VALUE_NAME9: item.ACC_VALUE_NAME9,
+                    		 ACC_VALUE_NAME10: item.ACC_VALUE_NAME10,
+                    		 ITEM_CODE: item.ITEM_CODE,
+                    		 TXN_QTY: item.TXN_QTY,
+                    		 DEPT_NAME: item.DEPT_NAME,
+                    		 DESCRIPTION: item.DESCRIPTION,
+                    		 INVOICE_ID: item.INVOICE_ID,
+                    		 FI_ORG_CODE: item.FI_ORG_CODE,
+                    		 ITEM_DOC_TYPE: item.ITEM_DOC_TYPE,
+                    		 DOC_ID: item.DOC_ID,
+                    		 DOC_NAME: item.DOC_NAME,
+                    		 DOC_TYPE: item.DOC_TYPE,
+                    		 DOC_STATUS: item.DOC_STATUS,
+                     }
+                     jsonAcntg.push(obj);
+                 });
+                 
+                 grdAcntg.rebuild();
+                 
+             } else {
+                 alert(listData.resultMessage);
+             }
+         } catch (e) {
+             if (!(e instanceof Error)) {
+                 e = new Error(e);
+             }
+             console.error("failed", e.message);
+             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+         }
+	}
+	
 	/**
      * @name fn_createGridSvg
      * @description 예금입금 그리드 생성	sb-area-grdSvg
@@ -653,7 +1376,7 @@
         SBGridProperties.id = 'grdSvg';
         SBGridProperties.jsonref = 'jsonSvg';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheader = ['update'];
+        SBGridProperties.rowheader = ['update','select'];
         SBGridProperties.columns = [
             {
             	caption : ['chk'],               
@@ -671,7 +1394,7 @@
             {
             	caption : ["수금방법"],
             	ref : 'PAY_METHOD', 
-            	width : '150px', 
+            	width : '100px', 
             	style : 'text-align:center', 
             	type : 'combo', 
                 typeinfo : {
@@ -693,20 +1416,14 @@
             },
             {
             	caption : ["입금은행"],
-            	ref : 'CUSTOMER_BANK_CODE', 
-            	width : '100px', 
-            	style : 'text-align:center', 
-            	type : 'combo', 
-                typeinfo : {
-                    ref : 'jsonBankCode',
-                    label : 'label',
-                    value : 'value'
-                },
-                disabled: true
+            	ref : 'DEPOSIT_NAME',
+            	width : '140px',   
+            	style : 'text-align:left',    
+            	type : 'output',
             },
             {
             	caption : ['원화금액'],          
-            	ref : 'ORIGINAL_RECEIPT_AMOUNT',
+            	ref : 'ORIGINAL_AMOUNT',
             	datatype: 'number',
             	width : '100px',   
             	style : 'text-align:right',    
@@ -813,8 +1530,9 @@
             },
         ];
         grdSvg = _SBGrid.create(SBGridProperties);
+        grdSvg.bind('rowchanged', fn_grdSvgRowChanged);
 	}
-	
+
 	
 	/**
      * @name fn_createGridRetra
@@ -827,6 +1545,7 @@
         SBGridProperties.id = 'grdRetra';
         SBGridProperties.jsonref = 'jsonRetra';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.rowheader = ['update'];
         SBGridProperties.columns = [
             {
             	caption : ["반제ID"],				
@@ -881,10 +1600,26 @@
             	type:'output',  	
             	width:'100px',  	
             	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
             },
             
             // CHECK
+            {
+            	caption : [''],               
+            	ref : 'CHECK_YN',
+            	type : 'checkbox',
+            	width : '40px',    
+            	style : 'text-align:center',
+                typeinfo : {
+                	//ignoreupdate : true,
+                	checkedvalue : "Y", 
+                	uncheckedvalue : "N",
+                	fixedcellcheckbox : {
+                		usemode: true, 
+                		rowindex: 0, 
+                		deletecaption: true
+                	}
+                }, 
+            },
             {
             	caption: ["적요"], 	        
             	ref: 'DESCRIPTION',    	        
@@ -894,22 +1629,12 @@
             },
             {
             	caption : ['입금액(통화)'],          
-            	ref : 'ORIGINAL_AMOUNT',
+            	ref : 'ORIGINAL_APPLY_AMOUNT',
             	datatype: 'number',
             	width : '100px',   
             	style : 'text-align:right',    
             	type : 'output',
             	format : {type:'number', rule:'#,###.##'}
-            },
-            
-            {
-            	caption : ['전표금액'],          
-            	ref : 'FUNCTIONAL_AMOUNT',
-            	datatype: 'number',
-            	width : '100px',   
-            	style : 'text-align:right',    
-            	type : 'input',
-            	format : {type:'number', rule:'#,###'}
             },
             {
             	caption: ["계정코드"], 	        
@@ -971,7 +1696,6 @@
             	width : '150px', 
             	style : 'text-align:center', 
             	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
                 typeinfo : {
                     ref : 'jsonExchangeType',
                     label : 'label',
@@ -986,93 +1710,43 @@
             	width : '50px',
             	style : 'text-align:right',
             	type : 'output',
-                format : {type:'number', rule:'0,000.00'}
-            },
-            
-            ///////
-            
-            
-            
-            
+            	format : {type:'number', rule:'#,###.00'}
+            },            
             {
-            	caption: ["전표상태"],
-            	ref: 'DOC_STATUS',
-            	type:'combo', 
-            	style:'text-align:left',
-            	width: '79px',
-                typeinfo: {
-                    ref			: 'jsonDocStatus',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-
-            {
-            	caption: ["반제구분"], 		
-            	ref: 'APPLY_TYPE',   	    
-            	type:'combo', 
-            	style:'text-align:left',
-            	width: '200px',
-                typeinfo: {
-                    ref			: 'jsonDocType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                },
-                disabled: true
-            },
-            {
-            	caption: ["AR송장번호"], 	        
-            	ref: 'INVOICE_ID',    	        
-            	type:'output',  	
-            	width:'75px',  	
-            	style:'text-align:left'
-            },
-            {
-            	caption: ["라인번호"], 	        
-            	ref: 'INVOICE_LINE_NUM',    	        
-            	type:'output',  	
-            	width:'66px',  	
-            	style:'text-align:left'
-			},
-            {
-            	caption : ["환율유형"],
-            	ref : 'EXCHANGE_TYPE', 
-            	width : '150px', 
-            	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
-                typeinfo : {
-                    ref : 'jsonExchangeType',
-                    displayui : true,
-                    oneclickedit:true,
-                    label : 'label',
-                    value : 'value'
-                }
-            },
-            {
-            	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE',
+            	caption : ['입금액(전표)'],          
+            	ref : 'FUNCTIONAL_APPLY_AMOUNT',
             	datatype: 'number',
-            	width : '50px',
-            	style : 'text-align:right',
+            	width : '100px',   
+            	style : 'text-align:right',    
             	type : 'input',
-            	typeinfo: {
-	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 20,
-	                oneclickedit: true,
-                },
-                format : {type:'number', rule:'#,###.##'}
+            	format : {type:'number', rule:'#,###'}
             },
-            
             {
-            	caption : ["반제완료"],				
-            	ref: 'APPLY_DOC_NAME',		
-            	type:'output',  	
-            	width:'60px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	caption : ['통화금액'],          
+            	ref : 'ORIGINAL_AMOUNT',
+            	datatype: 'number',
+            	width : '100px',   
+            	style : 'text-align:right',    
+            	type : 'input',
+            	format : {type:'number', rule:'#,###'}
+            },
+            {
+            	caption : ['수금전표금액'],          
+            	ref : 'FUNCTIONAL_APPLY_R_AMOUNT',
+            	datatype: 'number',
+            	width : '100px',   
+            	style : 'text-align:right',    
+            	type : 'input',
+            	format : {type:'number', rule:'#,###'}
+            },
+            {
+            	caption : ['환차손익'],          
+            	ref : 'PAY_EXCHANGE_PL_AMT',
+            	datatype: 'number',
+            	width : '100px',   
+            	style : 'text-align:right',    
+            	type : 'input',
+            	format : {type:'number', rule:'#,###'}
             },
             {
             	caption: ["증빙유형"],
@@ -1096,28 +1770,34 @@
             	style:'text-align:left'
             },
             {
-            	caption: ['확정'],         
-            	ref: 'CONFIRM_FLAG',				
-            	type:'checkbox',        
-            	width:'70px', 
-            	style : 'text-align:center',
-                typeinfo : { 
-                	checkedvalue : "Y", 
-                	uncheckedvalue : "N" 
-                }, 
-                disabled: true
-            },
-            {
-            	caption: ["비고"],			
-            	ref: 'DESCRIPTION',			            
-            	type:'output',  	
-            	width:'100px',  	
-            	style:'text-align:left'
+            	caption : ['순번'],          
+            	ref : 'INVOICE_LINE_NUM',
+            	datatype: 'number',
+            	width : '50px',   
+            	style : 'text-align:right',    
+            	type : 'input',
+            	format : {type:'number', rule:'#,###'}
             },
         ];
         
         grdRetra = _SBGrid.create(SBGridProperties);
+        grdRetra.bind('valuechanged' , fn_grdRetraValueChanged);
 	}	
+	
+	const fn_grdRetraValueChanged = function() {
+		
+		const row = grdRetra.getRow();
+		const col = grdRetra.getCol();
+		
+		if (row < 1 || col < 0) {
+			return;
+		}
+		
+		if (_.isEqual(col, grdRetra.getColRef('CHECK_YN'))) {
+			fn_setRetraSumSelected();
+		} 
+	}
+	
 	
 	/**
      * @name fn_createGridFund
@@ -1143,8 +1823,7 @@
             	ref: 'TREASURY_BATCH_NO',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["순번"],				
@@ -1211,7 +1890,6 @@
             	type:'output',  	
             	width:'100px',  	
             	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
             },
             {
             	caption: ["전표상태"],
@@ -1233,7 +1911,6 @@
             	width : '150px', 
             	style : 'text-align:center', 
             	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     label : 'label',
@@ -1248,7 +1925,7 @@
             	width : '50px',
             	style : 'text-align:right',
             	type : 'output',
-                format : {type:'number', rule:'0,000.00'}
+            	format : {type:'number', rule:'#,###.00'}
             },
             {
             	caption : ["환산유형"],
@@ -1256,7 +1933,6 @@
             	width : '150px', 
             	style : 'text-align:center', 
             	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
                 typeinfo : {
                     ref : 'jsonExchangeType',
                     label : 'label',
@@ -1288,14 +1964,12 @@
             	width : '100px', 
             	style : 'text-align:center', 
             	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
-                typeinfo : {
-                    ref : 'jsonBankCode',
-                    displayui : true,
-                    oneclickedit:true,
+            	typeinfo : {
+                    ref : 'jsonBankCsCode',
                     label : 'label',
                     value : 'value'
-                }
+                },
+                disabled: true
             },
             {
             	caption : ["거래처"],				
@@ -1317,11 +1991,8 @@
             	width : '150px', 
             	style : 'text-align:center', 
             	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
                 typeinfo : {
                     ref : 'jsonPayMethod',
-                    displayui : true,
-                    oneclickedit:true,
                     label : 'label',
                     value : 'value'
                 }
@@ -1337,9 +2008,9 @@
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }
-                , disabled: true
-                , hidden: true
+                },
+                disabled: true,
+                hidden: true
             },
         ];
         grdFund = _SBGrid.create(SBGridProperties);
@@ -1429,9 +2100,14 @@
             {
             	caption: ["부가세유형"], 	    
             	ref: 'VAT_TYPE',    	   
-            	type:'output',  	
+            	type:'combo',  	
             	width:'150px',  	
-            	style:'text-align:left'
+            	style:'text-align:left',
+               	typeinfo: {
+   					ref			: 'jsonVatType',
+   					label		: 'label',
+   					value		: 'value',
+               	}
             }, // TODO : P_ACCOUNT_POPUP_Q
             {
             	caption: ["계정코드"], 	        
@@ -1650,7 +2326,593 @@
 		});
 	}    
 	
+    /**
+     * @name fn_onChangeRetraAccount
+     * @description 반제대상변경 이벤트
+     */
+	const fn_onChangeRetraAccount = function() {
+		
+		const chkVal = SBUxMethod.get("srch-rdo-retraAccount");
+		
+		if (_.isEqual(chkVal, "111061%")) {
+			SBUxMethod.show('svg-btn-batchRetraReg');
+			SBUxMethod.show('svg-btn-batchRetraCncl');
+		} else {
+			SBUxMethod.hide('svg-btn-batchRetraReg');
+			SBUxMethod.hide('svg-btn-batchRetraCncl');
+		}
+	}
 	
+	
+    
+    /**
+     * @name fn_batchRetraReg
+     * @description 일괄반제수행
+     */    
+	const fn_batchRetraReg = async function() {
+		await fn_batchRetra('BATCH_APPLY');
+    }
+    
+    /**
+     * @name fn_batchRetraCncl
+     * @description 일괄반제취소
+     */    
+	const fn_batchRetraCncl = async function() {
+		await fn_batchRetra('BATCH_CANCEL');
+    }
+    
+    const fn_batchRetra = async function(_workType) {
+    	
+		let receiptNo = "";
+		
+		const allData = grdSvg.getGridDataAll();
+		
+		allData.forEach((item) => {
+			if (_.isEqual("Y", item.CHECK_YN)) {
+				
+				if (!gfn_isEmpty(receiptNo)) {
+					receiptNo += "|";
+				}
+				
+				receiptNo += item['RECEIPT_NO'];
+			}
+		});
+		
+		if (gfn_isEmpty(receiptNo)) {
+			gfn_comAlert("W0004", "선택");		//	W0004	{0}한 대상이 없습니다.
+ 			return;
+		}
+		
+		let msgCn = "";
+		switch (_workType) {
+			case 'BATCH_APPLY':
+				msgCn = "일괄반제수행";
+				break;
+			case 'BATCH_CANCEL':
+				msgCn = "일괄반제취소"
+				break;
+			default:
+				return;
+		}
+		
+		if (!gfn_comConfirm("Q0001", msgCn)) {	//	Q0001	{0} 하시겠습니까?
+     		return;
+     	}
+		
+  		const paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID			: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+                
+                V_P_RECEIPT_NO_T	: receiptNo,
+                
+                V_P_FORM_ID			: p_formId,
+                V_P_MENU_ID			: p_menuId,
+                V_P_PROC_ID			: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+        	
+        const postJsonPromise = gfn_postJSON("/fi/ftr/rec/insertTra1010S3.do", {
+            getType				: 'json',
+            workType			: _workType,
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        
+        console.log("paramObj", paramObj);
+    	
+    	Object.keys(paramObj).forEach((key) => {
+    		console.log("key", key, paramObj[key]);
+    	});
+    	
+        
+        const resoponseData = await postJsonPromise;
+        
+        try {
+            if (_.isEqual("S", resoponseData.resultStatus)) {
+            	gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+            	fn_search();
+
+            } else {
+                //alert(resoponseData.resultMessage);
+                gfn_comAlert("E0000", data.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+
+    
+    
+    /**
+     * @name fn_prttnReg
+     * @description 분할등록
+     */    
+    const fn_prttnReg = async function() {
+    	
+    	await fn_prttn('DIVIDE');
+    	
+    }
+    
+    /**
+     * @name fn_prttnCncl
+     * @description 분할취소
+     */    
+    const fn_prttnCncl = async function() {
+    	
+    	await fn_prttn('CANCEL');
+    	
+    }
+    
+    /**
+     * @name fn_prttn
+     * @description 분할
+     */
+    const fn_prttn = async function(_workType) {
+    	
+    	// 현재행
+    	const row = grdSvg.getRow();
+    	if (row < 1) {
+    		return;
+    	}
+    	
+    	const rowData = grdSvg.getRowData(row);
+    	
+    	
+    	const divAmount = parseInt(SBUxMethod.get('svg-inp-divAmount')) || 0;
+    	const originalAmount = parseInt(rowData['ORIGINAL_AMOUNT']) || 0;
+    	
+    	const originalReceiptYn = rowData['ORIGINAL_RECEIPT_YN'];
+    	const divYn = rowData['DIV_YN'];
+    	
+    	switch (_workType) {
+    	
+	    	case 'DIVIDE':
+
+	        	if (divAmount <= 0) {
+	    			gfn_comAlert("W0023", "분할금액", "0");		//	W0023	{0}은/는 {1} 보다 커야 합니다.
+	     			return;
+	    		}
+	        	
+	        	
+	        	if (divAmount >= originalAmount) {
+	        		gfn_comAlert("W0024", "분할금액", "통화금액");		//	W0024	{0}은/는 {1} 보다 작아야 합니다.
+	     			return;
+	        	}
+	        	
+	        	if (!gfn_comConfirm("Q0001", "분할")) {	//	Q0001	{0} 하시겠습니까?
+	         		return;
+	         	}
+	        	
+	    		break;
+	    		
+	    	case 'CANCEL':
+	    		
+	    		if (_.isEqual(originalReceiptYn, "Y")) {
+	    			gfn_comAlert("W0025", "원수금내역", "분할취소", "불가능");		//	W0025	{0}은/는 {1}이/가 {2}합니다.
+	     			return;
+	    		}
+	    		
+	    		if (_.isEqual(divYn, "Y")) {
+	    			gfn_comAlert("W0011", "분할내역");		//	W0011	{0}이/가 아닙니다.
+	     			return;
+	    		}
+	    		
+	    		if (!gfn_comConfirm("Q0001", "분할취소")) {	//	Q0001	{0} 하시겠습니까?
+	         		return;
+	         	}
+	    		
+	    	default:
+	    		return;
+    	
+    	}
+    	
+  		const paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID			: '',
+                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedApcCd),
+                V_P_CLIENT_CODE		: gfn_nvl(rowData.CLIENT_CODE, gv_ma_selectedClntCd),
+                
+                V_P_TXN_ID         	: rowData.TXN_ID,
+                V_P_DIV_AMOUNT     	: divAmount,
+                
+                V_P_FORM_ID			: p_formId,
+                V_P_MENU_ID			: p_menuId,
+                V_P_PROC_ID			: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+        	
+        const postJsonPromise = gfn_postJSON("/fi/ftr/rec/insertTra1010S2.do", {
+            getType				: 'json',
+            workType			: _workType,
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        
+        console.log("paramObj", paramObj);
+    	
+    	Object.keys(paramObj).forEach((key) => {
+    		console.log("key", key, paramObj[key]);
+    	});
+    	
+        
+        const resoponseData = await postJsonPromise;
+        
+        try {
+            if (_.isEqual("S", resoponseData.resultStatus)) {
+            	gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+            	fn_search();
+
+            } else {
+                //alert(resoponseData.resultMessage);
+                gfn_comAlert("E0000", data.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+    
+    /**
+     * @name fn_svgRetraReg
+     * @description 입금반제
+     */
+    const fn_svgRetraReg = async function(_workType) {
+    	await fn_svgRetra('N');
+    }
+    
+    /**
+     * @name fn_svgRetraCncl
+     * @description 입금반제취소
+     */
+    const fn_svgRetraCncl = async function(_workType) {
+    	await fn_svgRetra('D');
+    }
+    
+    /**
+     * @name fn_svgRetra
+     * @description 입금반제처리
+     */
+    const fn_svgRetra = async function(_workType) {
+    	
+    	// 현재행
+    	const row = grdSvg.getRow();
+    	if (row < 1) {
+    		return;
+    	}
+    	
+    	const rowData = grdSvg.getRowData(row);
+
+    	switch (_workType) {
+    	
+	    	case 'N':	// 입금반제
+	    	
+	        	fn_setRetraSumSelected();
+	        	
+	        	const originalAmount = parseInt(rowData['ORIGINAL_AMOUNT']) || 0;
+	        	const originalBankCharge = parseInt(rowData['ORIGINAL_BANK_CHARGE']) || 0;
+	        		
+	        	const dtlOrgnlAmt = parseInt(SBUxMethod.get('retra-inp-sltTotOrgnlAmt')) || 0;
+	        	const dtlFnctnlAmt = parseInt(SBUxMethod.get('retra-inp-sltTotFnctnlAmt')) || 0;
+	        	
+	        	if (dtlOrgnlAmt > originalAmount + originalBankCharge) {
+	        		//채권반제항목 합계는 수금 거래내역의 입금금액을 초과할 수 없습니다.
+	        		gfn_comAlert("W0014", "채권반제항목 합계", "수금 거래내역의 입금금액");		//	W0014	{0}이/가 {1} 보다 큽니다.
+	     			return;
+	        	} else if (dtlOrgnlAmt < originalAmount + originalBankCharge) {
+	        		// 채권반제항목 합계가 수금 거래내역에서 선택된 입금금액보다 작습니다.
+	        		gfn_comAlert("W0015", "채권반제항목 합계", "수금 거래내역에서 선택된 입금금액");		//	W0015	{0}이/가 {1} 보다 작습니다.
+	     			return;
+	        	}
+	        	
+	        	if (!gfn_comConfirm("Q0001", "입금반제")) {	//	Q0001	{0} 하시겠습니까?
+	         		return;
+	         	}
+	        	
+	    		break;
+	    		
+	    	case 'D':	// 입금반제취소
+	    		
+	    		if (!gfn_comConfirm("Q0001", "입금반제취소")) {	//	Q0001	{0} 하시겠습니까?
+	         		return;
+	         	}
+	    		
+	    		break;
+	    	
+	    	default:
+	    		return;
+    	
+    	}
+    	
+    	let docIdD = "";
+    	let exchangeTypeD = "";
+    	let exchangeRateD = "";
+    	let originalAmountD = "";
+    	let originalApplyAmountD = "";
+    	let functionalApplyAmountD = "";
+    	let payExchangePlAmtD = "";
+    	let voucherNoD = "";
+    	let voucherTypeD = "";
+    	let descriptionD = "";
+    	let sourceIdAdvanceD = "";
+    	let sourceIdD = "";
+    	let sourceDocD = "";
+    	let accountCodeD = "";
+    	let deptCodeD = "";
+    	let costCenterCodeD = "";
+    	let projectCodeD = "";
+    	
+		const allData = grdRetra.getGridDataAll();
+		
+		allData.forEach((item) => {
+			if (_.isEqual("Y", item.CHECK_YN)) {
+				
+				const docId = item['DOC_ID'] + "";
+				const exchangeType = item['EXCHANGE_TYPE'] + "";
+				const exchangeRate = item['EXCHANGE_RATE'] + "";
+				const originalAmount = item['ORIGINAL_AMOUNT'] + "";
+				const originalApplyAmount = item['ORIGINAL_APPLY_AMOUNT'] + "";
+				const functionalApplyAmount = item['FUNCTIONAL_APPLY_AMOUNT'] + "";
+				const payExchangePlAmt = item['PAY_EXCHANGE_PL_AMT'] + "";
+				const voucherNo = item['VOUCHER_NO'] + "";
+				const voucherType = item['VOUCHER_TYPE'] + "";
+				const description = item['DESCRIPTION'] + "";
+				const itemSourceIdAdvance = item['ITEM_SOURCE_ID_ADVANCE'] + "";
+				const itemSourceId = item['ITEM_SOURCE_ID'] + "";
+				const docType = item['DOC_TYPE'] + "";
+				const accountCode = item['ACCOUNT_CODE'] + "";
+				const deptCode = item['DEPT_CODE'] + "";
+				const costCenterCode = item['COST_CENTER_CODE'] + "";
+				const projectCode = item['PROJECT_CODE'] + "";
+				
+				
+				if (!gfn_isEmpty(docIdD)) {
+					docIdD += "|";
+					exchangeTypeD += "|";
+					exchangeRateD += "|";
+					originalAmountD += "|";
+					originalApplyAmountD += "|";
+					functionalApplyAmountD += "|";
+					payExchangePlAmtD += "|";
+					voucherNoD += "|";
+					voucherTypeD += "|";
+					descriptionD += "|";
+					sourceIdAdvanceD += "|";
+					sourceIdD += "|";
+					sourceDocD += "|";
+					accountCodeD += "|";
+					deptCodeD += "|";
+					costCenterCodeD += "|";
+					projectCodeD += "|";
+				}
+				
+				docIdD += docId;
+				exchangeTypeD += exchangeType;
+				exchangeRateD += exchangeRate;
+				originalAmountD += originalAmount;
+				originalApplyAmountD += originalApplyAmount;
+				functionalApplyAmountD += functionalApplyAmount;
+				payExchangePlAmtD += payExchangePlAmt;
+				voucherNoD += voucherNo;
+				voucherTypeD += voucherType;
+				descriptionD += description;
+				sourceIdAdvanceD += itemSourceIdAdvance;
+				sourceIdD += itemSourceId;
+				sourceDocD += docType;
+				accountCodeD += accountCode;
+				deptCodeD += deptCode;
+				costCenterCodeD += costCenterCode;
+				projectCodeD += projectCode;
+			}
+		});
+    	
+    	
+  		const paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID			: '',
+                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedApcCd),
+                V_P_CLIENT_CODE		: gfn_nvl(rowData.CLIENT_CODE, gv_ma_selectedClntCd),
+                
+                V_P_FI_ORG_CODE		: fiOrgCode,
+                V_P_RECEIPT_NO		: receiptNo,
+                V_P_APPLY_DATE		: applyDate,
+                V_P_APPLY_TYPE		: applyType,
+                V_P_CURRENCY_CODE	: currencyCode,
+                V_P_TXN_ID			: txnId,
+                V_P_DOC_ID_D					: docIdD,
+                V_P_EXCHANGE_TYPE_D				: exchangeTypeD,
+                V_P_EXCHANGE_RATE_D				: exchangeRateD,
+                V_P_ORIGINAL_AMOUNT_D			: originalAmountD,
+                V_P_ORIGINAL_APPLY_AMOUNT_D		: originalApplyAmountD,
+                V_P_FUNCTIONAL_APPLY_AMOUNT_D	: functionalApplyAmountD,
+                V_P_PAY_EXCHANGE_PL_AMT_D		: payExchangePlAmtD,
+                V_P_VOUCHER_NO_D				: voucherNoD,
+                V_P_VOUCHER_TYPE_D				: voucherTypeD,
+                V_P_DESCRIPTION_D				: descriptionD,
+                V_P_SOURCE_ID_ADVANCE_D			: sourceIdAdvanceD,
+                V_P_SOURCE_ID_D					: sourceIdD,
+                V_P_SOURCE_DOC_D				: sourceDocD,
+                V_P_ACCOUNT_CODE_D				: accountCodeD,
+                V_P_DEPT_CODE_D					: deptCodeD,
+                V_P_COST_CENTER_CODE_D			: costCenterCodeD,
+                V_P_PROJECT_CODE_D				: projectCodeD,
+                
+                V_P_FORM_ID			: p_formId,
+                V_P_MENU_ID			: p_menuId,
+                V_P_PROC_ID			: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+        	
+        const postJsonPromise = gfn_postJSON("/fi/ftr/rec/insertTra1010S.do", {
+            getType				: 'json',
+            workType			: _workType,
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        
+        console.log("paramObj", paramObj);
+    	
+    	Object.keys(paramObj).forEach((key) => {
+    		console.log("key", key, paramObj[key]);
+    	});
+    	
+        const resoponseData = await postJsonPromise;
+        
+        try {
+            if (_.isEqual("S", resoponseData.resultStatus)) {
+            	gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+            	fn_search();
+
+            } else {
+                alert(resoponseData.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
+
+    
+	/**
+     * @name fn_saveFundPlan	
+     * @description 저장 버튼	자금계획등록
+     */
+    const fn_insertFundPlan = async function() {
+    	await fn_saveFundPlan('ACCOUNT');
+	}
+    
+	/**
+     * @name fn_deleteFundPlan	
+     * @description 저장 버튼	자금계획삭제
+     */
+    const fn_deleteFundPlan = async function() {
+    	await fn_saveFundPlan('CANCEL');
+	}
+	
+	/**
+     * @name fn_saveFundPlan	
+     * @description 저장 버튼	자금계획등록
+     */
+    const fn_saveFundPlan = async function(_workType) {
+		
+        const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
+        const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+        const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
+        const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
+        const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));
+
+        const listData = [];
+
+        let rownum = -1;
+        
+        const allData = grdSvg.getGridDataAll();
+        allData.forEach((item, index) => {
+        	
+        	if (!_.isEqual("Y", item.CHECK_YN)) {
+        		return;
+        	}
+        			
+        	if (_.isEqual(_workType, 'ACCOUNT') && _.isEqual(item.ACCOUNT_COMPLETE_FLAG, "Y")) {
+        		return;
+        	}
+        		
+        	rownum++;
+        	
+            const param = {
+                cv_count: '0',
+                getType: 'json',
+                rownum: rownum,
+                workType: _workType,
+                params: gfnma_objectToString({
+                	V_P_DEBUG_MODE_YN	: '',
+                	V_P_LANG_ID			: '',
+                	V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                	V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+                	V_P_FI_ORG_CODE		: gfn_nvl(item.FI_ORG_CODE, fiOrgCode),
+                	V_P_ACCT_RULE_CODE	: p_defaultAcctRule,
+                	V_P_APPLY_TYPE		: item.APPLY_TYPE,
+                	V_P_RECEIPT_NO		: item.RECEIPT_NO,
+                	V_P_TXN_ID			: gfn_nvl(item.TXN_ID, "0"),
+                	V_P_FORM_ID			: p_formId,
+                	V_P_MENU_ID			: p_menuId,
+                	V_P_PROC_ID			: '',
+                	V_P_USERID			: '',
+                	V_P_PC				: '',
+                })
+            }
+            
+            listData.push(param);
+        });
+
+        if (listData.length == 0) {
+ 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+ 			return;
+ 		}
+        
+ 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+     		return;
+     	}
+ 		
+		const postJsonPromise = gfn_postJSON("/fi/ftr/rec/insertTra1010S1List.do", {listData: listData});
+        const data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+            	gfn_comAlert("I0001");
+                fn_search();
+			} else {
+            alert(data.resultMessage);
+            }
+		} catch (e) {
+        	if (!(e instanceof Error)) {
+            	e = new Error(e);
+			}
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+	
+    
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

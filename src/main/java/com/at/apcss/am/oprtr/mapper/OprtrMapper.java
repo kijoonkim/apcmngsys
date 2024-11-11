@@ -1,7 +1,9 @@
 package com.at.apcss.am.oprtr.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.oprtr.vo.OprtrVO;
@@ -67,4 +69,34 @@ public interface OprtrMapper {
 	 * @throws Exception
 	 */
 	public List<OprtrVO> oprtrDelible(OprtrVO oprtrVO) throws Exception;
+	/**
+	 * 작업생산자 작업내역 생성
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+    int insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception;
+	/**
+	 * 작업내역 순번 조회
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+    int seletePrfmncSn(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 조회
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+    List<OprtrPrfmncVO> selectOprtrSortPrfmncList(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 수정
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
 }

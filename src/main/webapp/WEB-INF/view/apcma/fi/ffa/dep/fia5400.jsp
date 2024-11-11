@@ -68,13 +68,41 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-compCode1"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">회계단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgUnit" group-id="search1"></sbux-select>
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle "
+										    	type="button"
+										    	id="srch-slt-fiOrgCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
@@ -106,7 +134,7 @@
 									id="srch-dtp-periodFr"
 									name="srch-dtp-periodFr"
 									uitype="popup"
-									date-format="yyyymm"
+									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-periodFr)"
@@ -117,7 +145,7 @@
 									id="srch-dtp-periodTo"
 									name="srch-dtp-periodTo"
 									uitype="popup"
-									date-format="yyyymm"
+									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-periodTo)"
@@ -253,6 +281,44 @@
 
 			//코스트센터
 			gfnma_setComSelect(['grdTotDtlDprc'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+			//회계단위
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-fiOrgCode']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'left' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//법인
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-compCode1']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG000'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'COMP_CODE'
+				,colLabel		: 'COMP_NAME'
+				,columns		:[
+		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			})
 
 		]);
 		SBUxMethod.set("srch-dtp-ymdFrom", gfn_dateFirstYmd(new Date()));
@@ -316,7 +382,7 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
         	{caption: ['자산구분'], ref: 'ASSET_CATEGORY', width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['감소금액'], ref: 'OUT_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['감소금액'], ref: 'OUT_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:right'},
         	{caption: ['상각구분'], ref: 'DEPRECIATION_TYPE', width: '8%', type : 'combo', typeinfo : {ref:'jsonDprcCrtr', label:'label', value:'value'},disabled:true, style:'text-align:center'},
         	{caption: ['내용연수'], ref: 'USEFUL_LIFE', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['사업장'], ref: 'SITE_CODE', width: '8%', type : 'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value'},disabled:true, style:'text-align:center'},
@@ -324,10 +390,10 @@
         	{caption: ['자산계정'], ref: 'ASSET_ACCOUNT', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['자산수량'], ref: 'ASSET_QTY', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['회계단위'], ref: 'FI_ORG_CODE', width: '8%', type : 'combo', typeinfo : {ref:'jsonAcntgUnit', label:'label', value:'value'},disabled:true, style:'text-align:center'},
-        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:right'},
+        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:right'},
         	{caption: ['구분'], ref: 'GUBUN', width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:right'},
 
 
         ];
@@ -363,39 +429,39 @@
         	{caption: ['부서명'], ref: 'DEPT_NAME', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['원가중심점'], ref: 'COST_CENTER_CODE', 				type : 'combo', typeinfo : {ref:'jsonCostCenter', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
         	{caption: ['취득일'], ref: 'ACQUIRE_DATE', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['최초취득가액'], ref: 'ORIGINAL_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISTION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['당기취득보조금'], ref: 'IN_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
+        	{caption: ['최초취득가액'], ref: 'ORIGINAL_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISTION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['당기취득보조금'], ref: 'IN_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
         	{caption: ['처분유형'], ref: 'DISPOSAL_TYPE', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['처분일'], ref: 'DISPOSAL_DATE', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분금액'], ref: 'OUT_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분보조금'], ref: 'OUT_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말보조금'], ref: 'END_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_ACC_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초장부가액'], ref: 'BEGIN_NET_BALANCE', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['수량'], ref: 'ASSET_QTY', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['01월상각비'], ref: 'ACQ_DEPR_AMT_01', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['02월상각비'], ref: 'ACQ_DEPR_AMT_02', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['03월상각비'], ref: 'ACQ_DEPR_AMT_03', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['04월상각비'], ref: 'ACQ_DEPR_AMT_04', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['05월상각비'], ref: 'ACQ_DEPR_AMT_05', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['06월상각비'], ref: 'ACQ_DEPR_AMT_06', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['07월상각비'], ref: 'ACQ_DEPR_AMT_07', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['08월상각비'], ref: 'ACQ_DEPR_AMT_08', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['09월상각비'], ref: 'ACQ_DEPR_AMT_09', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['10월상각비'], ref: 'ACQ_DEPR_AMT_10', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['11월상각비'], ref: 'ACQ_DEPR_AMT_11', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['12월상각비'], ref: 'ACQ_DEPR_AMT_12', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['감가상각누계액'], ref: 'OUT_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['국고보조금상각누계액'], ref: 'OUT_SUBSIDIES_ACCUM_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말상각누계액'], ref: 'END_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말보조금상각누계액'], ref: 'END_SUBSIDES_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말장부가액'], ref: 'END_NET_BALANCE', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:center'}
+        	{caption: ['처분금액'], ref: 'OUT_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['처분보조금'], ref: 'OUT_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기말보조금'], ref: 'END_SUBSIDIES_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_ACC_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기초장부가액'], ref: 'BEGIN_NET_BALANCE', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['수량'], ref: 'ASSET_QTY', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['01월상각비'], ref: 'ACQ_DEPR_AMT_01', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['02월상각비'], ref: 'ACQ_DEPR_AMT_02', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['03월상각비'], ref: 'ACQ_DEPR_AMT_03', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['04월상각비'], ref: 'ACQ_DEPR_AMT_04', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['05월상각비'], ref: 'ACQ_DEPR_AMT_05', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['06월상각비'], ref: 'ACQ_DEPR_AMT_06', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['07월상각비'], ref: 'ACQ_DEPR_AMT_07', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['08월상각비'], ref: 'ACQ_DEPR_AMT_08', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['09월상각비'], ref: 'ACQ_DEPR_AMT_09', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['10월상각비'], ref: 'ACQ_DEPR_AMT_10', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['11월상각비'], ref: 'ACQ_DEPR_AMT_11', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['12월상각비'], ref: 'ACQ_DEPR_AMT_12', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['감가상각누계액'], ref: 'OUT_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['국고보조금상각누계액'], ref: 'OUT_SUBSIDIES_ACCUM_DEPR', 				type:'output',format : {type:'number', rule:'#,###'}	,	width:'80px',		style:'text-align:right'},
+        	{caption: ['기말상각누계액'], ref: 'END_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기말보조금상각누계액'], ref: 'END_SUBSIDES_ACCUM_DEPR', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
+        	{caption: ['기말장부가액'], ref: 'END_NET_BALANCE', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'}
 
 
         ];
@@ -415,7 +481,7 @@
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:center'},
+        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:right'},
         	{caption: ['자산계정'], ref: 'ASSET_ACCOUNT', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['자산구분'], ref: 'ASSET_CATEGORY', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['중분류'], ref: 'ASSET_LEVEL2', width: '8%', type: 'output', style:'text-align:center'},
@@ -427,7 +493,7 @@
         	{caption: ['상각구분연월'], ref: 'DEPRECIATION_YYYYMM', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['회계단위'], ref: 'FI_ORG_CODE', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['사업장'], ref: 'SITE_CODE', width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:center'}
+        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:right'}
 
         ];
 

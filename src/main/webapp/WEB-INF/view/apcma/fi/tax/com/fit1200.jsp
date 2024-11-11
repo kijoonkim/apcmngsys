@@ -128,7 +128,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">손채권세액공제비율(분자)</th>
+                            <th scope="row" class="th_bg">대손채권세액공제비율(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input id="reg-inp-baddebtsNumerator" name="reg-inp-baddebtsNumerator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
@@ -140,7 +140,7 @@
                             <td style="border-right: hidden"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">손채권세액공제비율(분모)</th>
+                            <th scope="row" class="th_bg">대손채권세액공제비율(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input id="reg-inp-baddebtsDenominator" name="reg-inp-baddebtsDenominator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
@@ -262,9 +262,9 @@
         fn_save();
     }
 
-    /** 공통버튼 신규 **/
-    function cfn_add(){
-
+    /** 공통버튼 초기화 **/
+    function cfn_init(){
+        fn_reset();
     }
     /** fit1200_Q_Detail **/
     const fn_search = async function(){
@@ -386,6 +386,13 @@
         SBUxMethod.set("reg-slt-taxSiteName",_orgsiteName);
 
         SBUxMethod.closeModal('wholePaySitePopup');
+    }
+    const fn_reset = async function(){
+        let table = document.getElementById("regTable");
+        let elements = table.querySelectorAll("[id^='reg-']");
+        for (const item of elements) {
+            await SBUxMethod.set(item.id,'');
+        }
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

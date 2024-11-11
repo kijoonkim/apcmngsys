@@ -121,7 +121,7 @@
 	                            
 	                            <th scope="row" class="th_bg">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_ACCT_RULE_CODE" style="width:150px" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                    	</tr>
 	                    	
@@ -166,7 +166,7 @@
 	                    	<tr>
 	                            <th scope="row" class="th_bg">계정수준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_ACCOUNT_GROUP" style="width:150px" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                    	
 	                            <th scope="row" class="th_bg">계정과목</th>
@@ -309,6 +309,8 @@
 		//화면셋팅
     	fn_state();
   		fn_createFig4140Grid();
+  		
+  		fn_orderMenuParamSet();
 	}    
     
     // only document
@@ -321,8 +323,64 @@
     	localStorage.removeItem("callMain");
     	
     	fn_init();
-    	
     });
+
+    //메뉴가 이미 열려있을때..
+    window.addEventListener('message', async function(e) {
+    	let obj = e.data;
+		if(obj){
+			if(obj['MENU_MOVE']){
+				p_menu_param 	= obj;
+		    	fn_init();
+			}
+		}
+    });
+    
+    /**
+     * 다른화면 파라미터 셋팅
+     */
+    function fn_orderMenuParamSet() {
+
+  		//다른 메뉴에서 파라미터 전송될때 ----------------
+    	if(p_menu_param){
+    		if(p_menu_param['ACCOUNT_CODE']){
+    			
+        		SBUxMethod.set('SCH_FI_ORG_CODE', 			p_menu_param['FI_ORG_CODE']);
+        		SBUxMethod.set('SCH_SITE_CODE', 			p_menu_param['SITE_CODE']);
+        		SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_menu_param['ACCT_RULE_CODE']);
+        		
+        		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', 	p_menu_param['YMDPERIOD_FR']);
+        		
+        		if(p_menu_param['YMDPERIOD_FR']){
+        			
+	        		var m1 = p_menu_param['YMDPERIOD_FR'];
+	        		var m2 = m1.substr(0,4) + '-' + m1.substr(4,2) + '-01';
+	        		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		m2);
+	        		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', 	m2.substr(0,7));
+	        		
+	        		var m3 = p_menu_param['YMDPERIOD_TO'];
+	        		var m4 = gfnma_date3(Number(m3.substr(0,4)), Number(m3.substr(4,2)));
+	        		SBUxMethod.set('SCH_ENTRY_DATE_TO', 	m4);
+	        		
+        		} else if(p_menu_param['START_DATE']){
+        			
+            		SBUxMethod.set('SCH_ENTRY_DATE_FR', 	p_menu_param['START_DATE']);
+            		SBUxMethod.set('SCH_ENTRY_DATE_TO', 	p_menu_param['END_DATE']);
+            		
+        		}
+        		
+        		SBUxMethod.set('SCH_ACCOUNT_CODE_FR', 	p_menu_param['ACCOUNT_CODE']);
+        		SBUxMethod.set('SCH_ACCOUNT_NAME_FR', 	p_menu_param['ACCOUNT_NAME']);
+        		SBUxMethod.set('SCH_ACCOUNT_CODE_TO', 	p_menu_param['ACCOUNT_CODE']);
+        		SBUxMethod.set('SCH_ACCOUNT_NAME_TO', 	p_menu_param['ACCOUNT_NAME']);
+        		
+        		SBUxMethod.set('SCH_ACCOUNT_GROUP', 	p_menu_param['ACCOUNT_GROUP']);
+        		
+        		cfn_search();        		
+    		}
+    	}
+  		//----------------------------------------------------
+    }
 
     /**
      * 화면 state 변경

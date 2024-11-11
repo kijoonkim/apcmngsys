@@ -207,13 +207,13 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 품종명
 	 */
 	private String vrtyNm;
-	
-	
+
+
 	/**
 	 * 선별입력값유형
 	 */
 	private String sortInptVlType;
-	
+
 
 	/**
 	 * 상품구분명
@@ -258,7 +258,7 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 선별번호
 	 */
 	private String sortno;
-	
+
 	/**
 	 * 지시수량
 	 */
@@ -328,6 +328,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 규격
 	 */
 	private String spcfctCd;
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
 
 	/**
 	 * 생산자구분
@@ -348,12 +352,12 @@ public class RawMtrInvntrVO extends ComVO {
 	/*비고*/
 	private String rmrk;
 
-	
+
 	/**
 	 * 재고상태코드
 	 */
 	private String invntrSttsCd;
-	
+
 	/**
 	 * 표준등급
 	 */
@@ -410,6 +414,12 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 포장단위명 표시항목
 	 * */
 	private String indctArtclType;
+
+    /*
+     * 검수자
+     * */
+    private String chckr;
+
 
 
 	/**

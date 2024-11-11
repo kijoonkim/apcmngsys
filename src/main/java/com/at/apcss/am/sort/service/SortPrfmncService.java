@@ -262,4 +262,12 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectWrhsSpmtDsctnList(HashMap<String, Object> wrhsSpmtDsctnList) throws Exception;
+	/**
+	 * 팔레트번호로 데이터 조회
+	 *
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	List<HashMap<String, Object>> selectSortPrfmncToPltno(HashMap<String, Object> param)throws Exception;
 }

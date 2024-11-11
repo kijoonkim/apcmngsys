@@ -494,6 +494,7 @@
 					    frmhsAddr		: item.frmhsAddr,
 					    frmhsCtpv		: item.frmhsCtpv,
 					    frmhsTelno		: item.frmhsTelno,
+						plorCd			: item.plorCd
 					}
 
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
@@ -646,6 +647,7 @@
 						typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
 			        {caption: ['정산기준'], 		ref: 'clclnCrtrCd', 	type: 'combo', 	width: '100px', 	style: 'text-align:center', sortable: false,
 						typeinfo: {ref:'jsonComClclnCrtrCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
+					{caption:['산지코드'], ref:'plorCd', type: 'output', width:"150px",style: 'text-align:center', sortable: false},
 			        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 						validate : gfn_chkByte.bind({byteLimit: 40})},
 			        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,

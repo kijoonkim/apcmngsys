@@ -1,5 +1,6 @@
 package com.at.apcss.am.oprtr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,11 @@ public class OprtrPrfmncServiceImpl extends BaseServiceImpl implements OprtrPrfm
 
 		int prfmncSn = oprtrPrfmncMapper.getoprtrPrfmncno(oprtrPrfmncVO);
 		return prfmncSn;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOprtrPrfmncListToPltno(HashMap<String, Object> param) throws Exception {
+		return oprtrPrfmncMapper.selectOprtrPrfmncListToPltno(param);
 	}
 
 }

@@ -1009,7 +1009,7 @@
 		let reqYr = SBUxMethod.get('dtl-input-yr');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
 		let uoCorpNm;
-		if (comUoBrno.length > 0) {
+		if (comUoBrno.length > 0 && apoSeVal == '2') {
 			let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 			let selCombo = _.find(comUoBrno, {value : selVal});
 			uoCorpNm =  selCombo.text;

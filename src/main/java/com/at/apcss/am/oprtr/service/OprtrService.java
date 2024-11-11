@@ -3,6 +3,7 @@ package com.at.apcss.am.oprtr.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import com.at.apcss.am.oprtr.vo.OprtrVO;
 /**
  * 작업생산자 Service 인터페이스
@@ -67,5 +68,27 @@ public interface OprtrService {
 	 * @throws Exception
 	 */
 	public String oprtrDelible(OprtrVO oprtrVO) throws Exception;
-
+	/**
+	 * 작업생산자 작업내역 생성
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 조회
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	List<OprtrPrfmncVO> selectOprtrSortPrfmncList(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 수정
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
 }

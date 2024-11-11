@@ -40,6 +40,7 @@
     			, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N') AS SORT_CMNDNO
     			, (SELECT MAX(X.SORTNO) KEEP (DENSE_RANK LAST ORDER BY X.INPT_SN) FROM TB_SORT_INPT_PRFMNC X WHERE X.APC_CD = pt0.APC_CD AND X.WRHSNO = pt0.WRHSNO AND X.DEL_YN = 'N') AS SORTNO
     			, (SELECT MAX(X.INPT_YMD) KEEP (DENSE_RANK LAST ORDER BY X.INPT_SN) FROM TB_SORT_INPT_PRFMNC X WHERE X.APC_CD = pt0.APC_CD AND X.WRHSNO = pt0.WRHSNO AND X.DEL_YN = 'N') AS INPT_YMD
+	    		, (SELECT SPCFCT_NM FROM TB_APC_SPCFCT_CRTR WHERE APC_CD = pt0.APC_CD AND ITEM_CD = pt0.ITEM_CD AND SPCFCT_CD = pt0.SPCFCT_CD) AS SPCFCT_NM
 			  FROM (
 			SELECT
 				  RI.APC_CD				AS APC_CD
@@ -75,6 +76,7 @@
 				, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_WGHT
 				, RI.DEL_YN				AS DEL_YN
 				, PI.PRDCR_IDENTNO 		AS PRDCR_IDENTNO
+				, RI.SPCFCT_CD			AS SPCFCT_CD
 
 			  FROM TB_RAW_MTR_INVNTR RI
 			  LEFT JOIN TB_PRDCR_INFO PI
@@ -1043,6 +1045,7 @@
 					, PRDCTN_YR
 					, PRCS_NO
 					, PRCS_TYPE
+					, CHCKR
 					, RMRK
 					, INVNTR_STTS_CD
 		    		, SYS_FRST_INPT_DT
@@ -1051,6 +1054,7 @@
 		    		, SYS_LAST_CHG_DT
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
+					, SPCFCT_CD
 	    		)
 	   		VALUES
 	   			(
@@ -1076,6 +1080,7 @@
 					, #{prdctnYr}
 					, #{prcsNo}
 					, #{prcsType}
+					, #{chckr}
 					, #{rmrk}
 					, #{invntrSttsCd}
 		    		, SYSDATE
@@ -1084,6 +1089,7 @@
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
+					, #{spcfctCd}
 	   			)
     	]]>
     </insert>
