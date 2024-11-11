@@ -891,10 +891,6 @@
     	let obj = e.data;
 		if(obj){
 			if(obj['MENU_MOVE']){
-				//pg_state 		= 'edit';			
-				//p_menu_param 	= obj;
-		     	//fn_init(false);
-		     	
 				p_menu_param 	= obj;
 				if(p_menu_param){
 					pg_state = 'edit';			
