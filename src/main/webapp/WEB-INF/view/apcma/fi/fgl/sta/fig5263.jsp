@@ -384,6 +384,13 @@
 		SBUxMethod.set('SCH_CBODESCR1',	'BS');
 		
 		SBUxMethod.hide('SCH_YMDSELECT_PERIOD1');
+		
+		fn_createFig5263Grid1();
+		fn_createFig5263Grid2();
+		fn_createFig5263Grid3();
+		fn_createFig5263Grid4();
+		fn_createFig5263Grid5();
+		fn_createFig5263Grid6();
     }
     
     /**
@@ -423,7 +430,18 @@
 	    SBGridProperties.frozencols 		= 3;
         SBGridProperties.columns = [
             {caption: ["계정그룹",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output',  	width:'80px'	,  	style:'text-align:left'},
-            {caption: ["계정그룹",		"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["계정그룹",		"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정그룹",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output',  	width:'300px',  	style:'text-align:left'},
             
             {caption: [gd1_title_1,		"당기세부"],		ref: 'THIS_DETAIL_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -459,7 +477,18 @@
 	    SBGridProperties.frozencols 		= 3;
         SBGridProperties.columns = [
             {caption: ["계정정보",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'100px', 		style:'text-align:left'},
-            {caption: ["계정정보",		"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정정보",		"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정정보",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: [gd2_title_1,		"월(당기)"],		ref: 'THIS_PERIOD_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -496,7 +525,18 @@
 	    SBGridProperties.frozencols 		= 3;
         SBGridProperties.columns = [
             {caption: ["계정정보",	"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'70px', 		style:'text-align:left'},
-            {caption: ["계정정보",	"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정정보",	"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정정보",	"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: ["기준년도",	"총금액"],			ref: 'TOTAL_AMT',		 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -541,7 +581,18 @@
 	    },
         SBGridProperties.columns = [
             {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'200px', 		style:'text-align:left'},
-            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정과목명"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: [gd4_title_1],		ref: 'THIS_SUMMARY_AMT',		type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -575,7 +626,18 @@
 	    },
         SBGridProperties.columns = [
             {caption: ["계정Leval",		"계정Leval"],		ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'200px', 		style:'text-align:left'},
-            {caption: ["계정코드",		"계정코드"],		ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정코드",		"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정과목명", 	"계정과목명"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: [gd5_title_1, 	gd5_title_1_1],		ref: 'THIS_PERIOD_AMT',			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -617,7 +679,18 @@
 	    },
         SBGridProperties.columns = [
             {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'200px', 		style:'text-align:left'},
-            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE_VIEW', 		type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['ACCOUNT_CODE']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['ACCOUNT_CODE'] + "', '" + objRowData['ACCOUNT_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['ACCOUNT_CODE'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["계정과목명"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: ["총금액"],			ref: 'TOTAL_AMT',		 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -1848,6 +1921,30 @@
 	    }
 	    return data;
 	}
+    
+    /**
+     * 그리드내 링크(계정코드) 조회
+     */
+ 	function fn_gridPopup1(event, account_code_view, account_name) {
+		event.preventDefault();	
+		console.log('account_code_view:', account_code_view);		
+        
+        var obj = {
+        	'MENU_MOVE'				: 'Y'	
+        	,'FI_ORG_CODE' 			: SBUxMethod.get('SCH_FI_ORG_CODE') 
+        	,'SITE_CODE' 			: SBUxMethod.get('SCH_SITE_CODE') 
+        	,'ACCT_RULE_CODE'		: SBUxMethod.get('SCH_ACCT_RULE_CODE') 
+        	,'YMDPERIOD_FR' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_FR') 
+        	,'YMDPERIOD_TO' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_TO') 
+        	,'ACCOUNT_GROUP' 		: SBUxMethod.get('SCH_ACCOUNT_LEVEL') 
+        	,'ACCOUNT_CODE' 		: account_code_view
+        	,'ACCOUNT_NAME' 		: account_name
+        	,'target'				: 'MA_A20_030_030_210'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
+	
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
