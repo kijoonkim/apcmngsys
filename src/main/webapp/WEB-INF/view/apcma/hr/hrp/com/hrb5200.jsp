@@ -212,7 +212,7 @@
                                         <td class="td_input" style="border-right:hidden;" data-group="TAX_FREE">
                                             <sbux-button
                                                     class="btn btn-xs btn-outline-dark"
-                                                    text="찾기" uitype="modal"
+                                                    image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                     target-id="modal-compopup1"
                                                     onclick="fn_findTaxFreeCode"
                                             ></sbux-button>
@@ -362,7 +362,7 @@
                                         <td class="td_input" style="border-right:hidden;" data-group="ENTRY_DEPT">
                                             <sbux-button
                                                     class="btn btn-xs btn-outline-dark"
-                                                    text="찾기" uitype="modal"
+                                                    image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                     target-id="modal-compopup1"
                                                     onclick="fn_findEntryDeptCode"
                                             ></sbux-button>

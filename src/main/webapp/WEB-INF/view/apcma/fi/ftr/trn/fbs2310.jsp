@@ -138,7 +138,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findBankCode"
                         ></sbux-button>
@@ -151,7 +151,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findBankAccount"
                         ></sbux-button>

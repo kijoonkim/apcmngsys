@@ -306,7 +306,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_FR">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findCsCode('FR')"
                         ></sbux-button>
@@ -323,7 +323,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_TO">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findCsCode('TO')"
                         ></sbux-button>

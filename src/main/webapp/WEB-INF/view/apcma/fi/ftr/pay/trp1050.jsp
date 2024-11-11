@@ -92,7 +92,7 @@
                     <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_CS_FR">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findCsCode('FR')"
                         ></sbux-button>
@@ -107,7 +107,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_TO">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findCsCode('TO')"
                         ></sbux-button>
@@ -211,7 +211,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findPayCurrencyCode"
                         ></sbux-button>
@@ -346,10 +346,10 @@
                             <span style="margin-right: 10px;">계좌번호</span>
                             <sbux-input id="BANK_CODE_P" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="BANK_NAME_P" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findBankCode"></sbux-button>
+                            <sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findBankCode"></sbux-button>
                             <sbux-input id="DEPOSIT_CODE_P" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="DEPOSIT_NAME_P" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findDepositCode"></sbux-button>
+                            <sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findDepositCode"></sbux-button>
                             <sbux-button id="btnApplyAccount" name="btnApplyAccount" class="btn btn-xs btn-outline-dark" text="계좌반영" uitype="normal" onclick="fn_applyAccount"></sbux-button>
                         </div>
                         <table class="table table-bordered tbl_fixed" style="width: 45%">

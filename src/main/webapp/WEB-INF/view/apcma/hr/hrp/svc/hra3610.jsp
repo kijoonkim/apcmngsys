@@ -104,7 +104,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="EARNER">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        text="찾기" uitype="modal"
+                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findEarnerCode"
                                                 ></sbux-button>
@@ -252,7 +252,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        text="찾기" uitype="modal"
+                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findBankCode"
                                                 ></sbux-button>
@@ -436,7 +436,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK1">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        text="찾기" uitype="modal"
+                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findBankCode1"
                                                 ></sbux-button>
