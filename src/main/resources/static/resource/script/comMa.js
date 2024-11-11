@@ -111,9 +111,10 @@ const gfnma_date2 = function() {
  * @function
  * @param 		{string} year 	: 년 
  * @param 		{string} month 	: 월
+ * @param 		{boolean} onlyDay 	: true(마지막일자만), false : 년-월-일
  * @returns 	{string}
  */
-const gfnma_date3 = function(year, month) {
+const gfnma_date3 = function(year, month, onlyDay) {
 	var rstr 	= '';
 	var p_month	= '';
 	if(month){
@@ -121,10 +122,13 @@ const gfnma_date3 = function(year, month) {
 	}  
 	var date = new Date(year, p_month, 0);
 	rstr = date.getDate();
-	if(rstr.length==1){
-		rstr = year + '-' + month + '-0' + rstr;
+	if(onlyDay){
 	} else {
-		rstr = year + '-' + month + '-' + rstr;
+		if(rstr.length==1){
+			rstr = year + '-' + month + '-0' + rstr;
+		} else {
+			rstr = year + '-' + month + '-' + rstr;
+		}
 	}
 	return rstr;
 }
@@ -1841,3 +1845,53 @@ function gfnma_generateUUID() {
 		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
 	);
 }
+
+/**
+ * @name 		gfnma_getAccountRange
+ * @description 세금계산서 매핑 대상
+ * @function
+ * @param 		{string} workType
+ * @param 		{string} strAccountCode
+ * @returns 	{void}
+ */
+async function gfnma_getAccountRange(workType, strAccountCode, callbackFn) {
+	
+	var paramObj = {
+		V_P_DEBUG_MODE_YN 	: '',
+		V_P_LANG_ID 		: '',
+		V_P_COMP_CODE 		: gv_ma_selectedApcCd,
+		V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+		V_P_ACCOUNT_CODE 	: strAccountCode,
+		V_P_FORM_ID 		: p_formId,
+		V_P_MENU_ID 		: p_menuId,
+		V_P_PROC_ID 		: '',
+		V_P_USERID 			: '',
+		V_P_PC 				: ''
+	};
+		
+    const postJsonPromise = gfn_postJSON("/com/getAccountRange.do", {
+    	getType				: 'json',
+    	workType			: workType,
+    	cv_count			: '1',
+    	params				: gfnma_objectToString(paramObj)
+	});    	 
+	const data = await postJsonPromise;
+	console.log('gfnma_getExchangeRateQ data:', data);
+
+	try {
+		if (_.isEqual("S", data.resultStatus)) {
+			if(callbackFn){
+				callbackFn(data.cv_1);
+			}
+		} else {
+			alert(data.message);
+		}
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	}
+}
+
