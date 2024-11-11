@@ -344,20 +344,30 @@
   		//다른 메뉴에서 파라미터 전송될때 ----------------
     	if(p_menu_param){
     		if(p_menu_param['ACCOUNT_CODE']){
+    			
         		SBUxMethod.set('SCH_FI_ORG_CODE', 			p_menu_param['FI_ORG_CODE']);
         		SBUxMethod.set('SCH_SITE_CODE', 			p_menu_param['SITE_CODE']);
         		SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_menu_param['ACCT_RULE_CODE']);
         		
         		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', 	p_menu_param['YMDPERIOD_FR']);
         		
-        		var m1 = p_menu_param['YMDPERIOD_FR'];
-        		var m2 = m1.substr(0,4) + '-' + m1.substr(4,2) + '-01';
-        		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		m2);
-        		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', 	m2.substr(0,7));
-        		
-        		var m3 = p_menu_param['YMDPERIOD_TO'];
-        		var m4 = gfnma_date3(Number(m3.substr(0,4)), Number(m3.substr(4,2)));
-        		SBUxMethod.set('SCH_ENTRY_DATE_TO', 	m4);
+        		if(p_menu_param['YMDPERIOD_FR']){
+        			
+	        		var m1 = p_menu_param['YMDPERIOD_FR'];
+	        		var m2 = m1.substr(0,4) + '-' + m1.substr(4,2) + '-01';
+	        		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		m2);
+	        		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', 	m2.substr(0,7));
+	        		
+	        		var m3 = p_menu_param['YMDPERIOD_TO'];
+	        		var m4 = gfnma_date3(Number(m3.substr(0,4)), Number(m3.substr(4,2)));
+	        		SBUxMethod.set('SCH_ENTRY_DATE_TO', 	m4);
+	        		
+        		} else if(p_menu_param['START_DATE']){
+        			
+            		SBUxMethod.set('SCH_ENTRY_DATE_FR', 	p_menu_param['START_DATE']);
+            		SBUxMethod.set('SCH_ENTRY_DATE_TO', 	p_menu_param['END_DATE']);
+            		
+        		}
         		
         		SBUxMethod.set('SCH_ACCOUNT_CODE_FR', 	p_menu_param['ACCOUNT_CODE']);
         		SBUxMethod.set('SCH_ACCOUNT_NAME_FR', 	p_menu_param['ACCOUNT_NAME']);

@@ -357,6 +357,17 @@
     	
     });
 
+    //메뉴가 이미 열려있을때..
+    window.addEventListener('message', async function(e) {
+    	let obj = e.data;
+		if(obj){
+			if(obj['MENU_MOVE']){
+				p_menu_param 	= obj;
+		    	fn_init();
+			}
+		}
+    });
+    
     /**
      * 화면 state 변경
      */
@@ -381,6 +392,9 @@
     		}
     		if(p_menu_param['ACCOUNT_CODE_FR']){
     			SBUxMethod.set("SCH_ACCOUNT_CODE_FR", 	p_menu_param['ACCOUNT_CODE_FR']);
+    		}
+    		if(p_menu_param['ACCOUNT_CODE_TO']){
+    			SBUxMethod.set("SCH_ACCOUNT_CODE_TO", 	p_menu_param['ACCOUNT_CODE_TO']);
     		}
     		if(p_menu_param['ACCOUNT_NAME']){
     			SBUxMethod.set("SCH_ACCOUNT_NAME_FR", 	p_menu_param['ACCOUNT_NAME']);
@@ -710,10 +724,15 @@
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
   	        	//----------
-  	        	let nRow = 1;
-  	        	Fig4180QGrid.selectRow(nRow);
-  	        	let rowData = Fig4180QGrid.getRowData(nRow);
-  	          	fn_setFig4180Q2Grid('DETAIL', 	rowData);
+  	        	if(jsonFig4180Q.length > 0){
+	  	        	let nRow = 1;
+	  	        	Fig4180QGrid.selectRow(nRow);
+	  	        	let rowData = Fig4180QGrid.getRowData(nRow);
+	  	          	fn_setFig4180Q2Grid('DETAIL', 	rowData);
+  	        	} else {
+  	  	    		jsonFig4180Q2.length = 0;
+  	  	    		Fig4180Q2Grid.rebuild();  	        		
+  	        	}
   	        	//----------
   	        	
         	} else {
