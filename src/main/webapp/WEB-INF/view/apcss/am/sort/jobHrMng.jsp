@@ -271,6 +271,7 @@
       SBUxMethod.set("dtl-inp-pltno",pltno);
       SBUxMethod.set("dtl-inp-sortno",sortno);
       SBUxMethod.set("dtl-inp-sortSn",sortSn);
+      SBUxMethod.selectTab('tab_norm','tab_pckgPrfmncReg');
       fn_init();
       }
   });
@@ -474,6 +475,9 @@
       if(data.resultStatus === 'S'){
         let pltno = SBUxMethod.get("dtl-inp-pltno");
         let oprtrBtn = Array.from(document.querySelectorAll("#prdcrInfoWrap >  .carousel_container > .carousel > div.tabBox"));
+        /** btn acvice reset **/
+        oprtrBtn.forEach(item => $(item).removeClass("active"));
+
         data.resultList.forEach(function(obj,idx){
           /** date format **/
           obj.jobBgngHr = formatTimeToKorean(obj.jobBgngHr);
@@ -485,6 +489,7 @@
             return $(element).data('oprtr') === obj.jobClsfCd && $(element).text().trim() === obj.flnm;
           });
 
+          /** 다른 팔레트에서 작업중인 작업자 제외 **/
           if(obj.sortno !== pltno){
             $(el).hide();
             $(el).addClass("notMatch");
@@ -504,14 +509,11 @@
   }
 
   const fn_delRow = async function(_nRow){
-    if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-      if(!gfn_comConfirm("Q0001","삭제")){
+    if(!gfn_comConfirm("Q0001","삭제")){
         return;
       }
-    }
-
     let delObj = gridPckgPrfmnc.getRowData(_nRow);
-    const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do",delObj);
+    const postJsonPromise = gfn_postJSON("/am/cmns/deleteOprtrPrfmnc.do",delObj);
     const data = await postJsonPromise;
     try {
       if(data.resultStatus === 'S'){
