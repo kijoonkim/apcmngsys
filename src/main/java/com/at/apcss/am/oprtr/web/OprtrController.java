@@ -189,4 +189,26 @@ public class OprtrController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/cmns/deleteOprtrPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteOprtrPrfmnc(@RequestBody OprtrPrfmncVO oprtrprfmncvo, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int delCnt = oprtrService.deleteOprtrPrfmnc(oprtrprfmncvo);
+
+			if(delCnt < 1) {
+				return getErrorResponseEntity(resultMap);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
