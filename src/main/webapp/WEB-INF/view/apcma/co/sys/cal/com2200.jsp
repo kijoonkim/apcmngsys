@@ -110,8 +110,8 @@
                         </div>
                         <div style="display: flex;align-items: center;gap:5px;margin-bottom:5px;">
 	              		    <p style="font-size:13px;">현업 OPEN</p>
-							<sbux-datepicker id="WORKPERIODFROM" name="WORKPERIODFROM" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;"></sbux-datepicker>
-							<sbux-datepicker id="WORKPERIODTO" name="WORKPERIODTO" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;"></sbux-datepicker>
+							<sbux-datepicker id="WORKPERIODFROM" name="WORKPERIODFROM" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;" date-format="yyyy-mm"></sbux-datepicker>
+							<sbux-datepicker id="WORKPERIODTO" name="WORKPERIODTO" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;" date-format="yyyy-mm"></sbux-datepicker>
 						    <sbux-button 
 						    	style="text-align:center; vertical-align:middle;" 
 						    	class="btn btn-sm btn-light" 
@@ -122,8 +122,8 @@
 						    	onclick="fn_workPeriodOpen()">
 						    </sbux-button >
 	              		    <p style="font-size:13px;margin-left:1rem;">담당자 OPEN</p>
-							<sbux-datepicker id="CONTRACTPERIODFROM" name="CONTRACTPERIODFROM" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;"></sbux-datepicker>
-							<sbux-datepicker id="CONTRACTPERIODTO" name="CONTRACTPERIODTO" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;"></sbux-datepicker>
+							<sbux-datepicker id="CONTRACTPERIODFROM" name="CONTRACTPERIODFROM" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;" date-format="yyyy-mm"></sbux-datepicker>
+							<sbux-datepicker id="CONTRACTPERIODTO" name="CONTRACTPERIODTO" uitype="popup" datepicker-mode="month" style="width:80px;height:28px;" date-format="yyyy-mm"></sbux-datepicker>
 						    <sbux-button 
 						    	style="text-align:center; vertical-align:middle;" 
 						    	class="btn btn-sm btn-light" 

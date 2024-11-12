@@ -53,6 +53,7 @@
 						            , TB_SORT_INVNTR SI
 						        WHERE SP.APC_CD = SI.APC_CD
 						          AND SP.SORTNO = SI.SORTNO
+						          AND SP.SORT_SN = SI.SORT_SN
 						          AND SP.DEL_YN = 'N'
 						          AND SI.DEL_YN = 'N'
 						          AND SP.APC_CD = #{apcCd}
@@ -67,6 +68,7 @@
 						     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	    AS SPCFCT_NM
 						     , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', pt0.PRFMNC_SE_CD) FROM DUAL)         AS PRFMNC_SE_NM
 						     , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL)  AS FCLT_NM
+						     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
 						  FROM (
 						        SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
 						               PP.APC_CD                AS APC_CD
@@ -90,6 +92,7 @@
 						            , TB_GDS_INVNTR GI
 						        WHERE PP.APC_CD = GI.APC_CD
 						          AND PP.PCKGNO = GI.PCKGNO
+						          AND PP.PCKG_SN = GI.PCKG_SN
 						          AND PP.DEL_YN = 'N'
 						          AND GI.DEL_YN = 'N'
 						          AND PP.APC_CD = #{apcCd}
@@ -118,6 +121,7 @@
 						SELECT OP.SORTNO				AS PRFMNCNO
 							 , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', '2') FROM DUAL)         AS PRFMNC_SE_NM
 							 , '2'						AS PRFMNC_SE_CD
+							 , OP.HR_WG
 							 , (SELECT FN_GET_COM_CD_VL_NM(
 							 	   'SORT_FCLT_CD'
 								 , (SELECT MAX(FCLT_CD)
@@ -133,6 +137,7 @@
 						SELECT OP.PCKGNO				AS PRFMNCNO
 							 , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', '3') FROM DUAL)         AS PRFMNC_SE_NM
 							 , '3'						AS PRFMNC_SE_CD
+							 , OP.HR_WG
 							 , (SELECT FN_GET_COM_CD_VL_NM(
 									'PCKG_FCLT_CD'
 								  , (SELECT MAX(FCLT_CD)
@@ -155,6 +160,7 @@
 						     , OP.JOB_BGNG_HR       AS JOB_BGNG_HR
 						     , OP.JOB_END_HR        AS JOB_END_HR
 						     , OP.JOB_HR            AS JOB_HR
+						     , OP.HR_WG				AS HR_WG
 						     , OP.RMRK              AS RMRK
 						     , OP.DEL_YN            AS DEL_YN
 		]]>
@@ -218,6 +224,7 @@
 			        , JOB_BGNG_HR
 			        , JOB_END_HR
 			        , JOB_HR
+			        , HR_WG
 			        , RMRK
 			        , SYS_FRST_INPT_DT
 			        , SYS_FRST_INPT_USER_ID
@@ -237,6 +244,7 @@
 			        , #{jobBgngHr}
 			        , #{jobEndHr}
 			        , #{jobHr}
+			        , #{hrWg}
 			        , #{rmrk}
 			        , SYSDATE
 			        , #{sysFrstInptUserId}
@@ -280,6 +288,7 @@
 		         , JOB_BGNG_HR				= #{jobBgngHr}
 		         , JOB_END_HR				= #{jobEndHr}
 		         , JOB_HR					= #{jobHr}
+		         , HR_WG					= #{hrWg}
 		         , RMRK						= #{rmrk}
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRFMNC_SN 				= #{prfmncSn}

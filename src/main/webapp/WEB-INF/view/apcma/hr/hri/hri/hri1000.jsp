@@ -556,9 +556,9 @@
                                     <td colspan="2" class="td_input">
                                         <sbux-select id="START_POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>인정경력</th>
+                                    <th scope="row" class="th_bg">인정경력</th>
                                     <td class="td_input" style="display: flex; align-items: center;">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
                                         <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                 </tr>
@@ -601,9 +601,9 @@
                                                 style="width:100%;"
                                         />
                                     </td>
-                                    <th scope="row" id="START_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
+                                    <th scope="row" id="START_PAY_GRADE_TH" class="th_bg">PayGrade(입사)</th>
                                     <td class="td_input" id="START_PAY_GRADE_TD" style="display: flex; align-items: center;">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
                                         <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CAREER_TRACK_ENTER_DATE_TH" class="th_bg">기준일(PG)</th>
@@ -655,9 +655,9 @@
                                                 style="width:100%;"
                                         />
                                     </td>
-                                    <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
+                                    <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg">PayGrade(현재)</th>
                                     <td class="td_input" id="CURRENT_PAY_GRADE_TD" style="display: flex; align-items: center; gap:4px;">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input>
+                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
                                         <span style="text-align: center; width: 30px;">개월</span>
                                     </td>
                                     <th scope="row" id="CURRENT_PAY_GRADE_DATE_TH" class="th_bg">기준일(PG)</th>
@@ -1673,6 +1673,25 @@
     }
 
     const fn_onload = async function () {
+        // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
+        SBUxMethod.hideTab('idxTab_norm', 'tpgEducation');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgMasterSubDetail4');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgHealth');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgGroupInsurance');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgDisease');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgOfficialInjury');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgContractDeg');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgWORKPLAN');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgExpenditurewelfare');
+        $('#START_PAY_GRADE_TH').hide();
+        $('#START_PAY_GRADE_TD').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TH').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TD').hide();
+        $('#CURRENT_PAY_GRADE_TH').hide();
+        $('#CURRENT_PAY_GRADE_TD').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TH').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TD').hide();
+
         SBUxMethod.set("SRCH_EMP_STATE", "WORK");
         SBUxMethod.set("LEAP_MONTH_YN", "N");
         SBUxMethod.set("BIRTHDAY_TYPE", "2");
@@ -1738,6 +1757,7 @@
             }
         });
 
+        // TODO : 단위테스트 요청으로 탭 숨김처리하면서 그리드도 같이 주석 처리
         await fn_initSBSelect();
         fn_createGvwListGrid();
         fn_createGvwFamilyGrid();
@@ -1747,20 +1767,20 @@
         fn_createGvwLanguageGrid();
         fn_createGvwComputerSkillGrid();
         fn_createGvwFileGrid();
-        fn_createGvwEducationGrid();
+        /*fn_createGvwEducationGrid();*/
         fn_createGvwPrizeGrid();
-        fn_createGvwHealthGrid();
+        /*fn_createGvwHealthGrid();*/
         fn_createGvwAppointmentGrid();
         fn_createGvwAddJobGrid();
         fn_createGvwTimeOffHistoryGrid();
-        fn_createGvwGroupInsuranceGrid();
-        fn_createGvwDiseaseGrid();
+        /*fn_createGvwGroupInsuranceGrid();
+        fn_createGvwDiseaseGrid();*/
         fn_createGvwPersonnelEvaluationGrid();
-        fn_createGvwOfficialInjuryGrid();
+        /*fn_createGvwOfficialInjuryGrid();
         fn_createGvwContractDegGrid();
-        fn_createGvwWorkPlanGrid();
+        fn_createGvwWorkPlanGrid();*/
         fn_createGvwEmpGrid();
-        fn_createGvwExpenditurewelfareGrid();
+        /*fn_createGvwExpenditurewelfareGrid();*/
 
         await fn_onload();
     });
@@ -2021,14 +2041,14 @@
         SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'false');
         SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'false');
 
-        $('#START_PAY_GRADE_TH').show();
-        $('#START_PAY_GRADE_TD').show();
-        $('#CAREER_TRACK_ENTER_DATE_TH').show();
-        $('#CAREER_TRACK_ENTER_DATE_TD').show();
-        $('#CURRENT_PAY_GRADE_TH').show();
-        $('#CURRENT_PAY_GRADE_TD').show();
-        $('#CURRENT_PAY_GRADE_DATE_TH').show();
-        $('#CURRENT_PAY_GRADE_DATE_TD').show();
+        $('#START_PAY_GRADE_TH').hide();
+        $('#START_PAY_GRADE_TD').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TH').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TD').hide();
+        $('#CURRENT_PAY_GRADE_TH').hide();
+        $('#CURRENT_PAY_GRADE_TD').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TH').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TD').hide();
 
         clearTabContents();
     }
@@ -2483,7 +2503,7 @@
             $("#DIV_SIGN_IMG").show();
         }
 
-        if(data.JOB_GROUP == '3') {
+        /*if(data.JOB_GROUP == '3') {
             $('#START_PAY_GRADE_TH').hide();
             $('#START_PAY_GRADE_TD').hide();
             $('#CAREER_TRACK_ENTER_DATE_TH').hide();
@@ -2501,7 +2521,16 @@
             $('#CURRENT_PAY_GRADE_TD').show();
             $('#CURRENT_PAY_GRADE_DATE_TH').show();
             $('#CURRENT_PAY_GRADE_DATE_TD').show();
-        }
+        }*/
+
+        $('#START_PAY_GRADE_TH').hide();
+        $('#START_PAY_GRADE_TD').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TH').hide();
+        $('#CAREER_TRACK_ENTER_DATE_TD').hide();
+        $('#CURRENT_PAY_GRADE_TH').hide();
+        $('#CURRENT_PAY_GRADE_TD').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TH').hide();
+        $('#CURRENT_PAY_GRADE_DATE_TD').hide();
 
         $("#btnRegistResignation").attr('disabled', 'false');
         $("#btnCopyHistory").attr('disabled', 'false');
@@ -3312,21 +3341,21 @@
         });
         const data = await postJsonPromise;
         try {
-        	
-                                if (_.isEqual("S", data.resultStatus)) {
-                    if(data.cv_1.length > 0){
-       	                data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
-                                    }
-                                } else {
-                                    alert(data.resultMessage);
-                                }
-                            } catch (e) {
-                                if (!(e instanceof Error)) {
-                                    e = new Error(e);
-                                }
-                                console.error("failed", e.message);
-                                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                            }
+            if (_.isEqual("S", data.resultStatus)) {
+            	if(data.cv_1.length > 0){
+            		data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+            		data.cv_1[0].EMP_PHOTO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].EMP_PHOTO_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+                }
+            } else {
+            	alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+			console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
         return data;
     }
 </script>

@@ -1036,7 +1036,7 @@
                     value : 'value'
                 }
             },
-            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd'}},
+            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}},
             {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: 'input', width: '100px', style: 'text-align:right'},
             {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
@@ -1426,7 +1426,7 @@
                     value : 'value'
                 }
             },
-            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd'}},
+            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}},
             {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: editType, width: '100px', style: 'text-align:right'},
             {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {

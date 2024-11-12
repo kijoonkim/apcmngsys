@@ -99,4 +99,12 @@ public interface OprtrMapper {
 	 * @throws Exception
 	 */
 	int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
+	/**
+	 * 작업생산자 작업내역 삭제
+	 *
+	 * @param oprtrprfmncvo
+	 * @return String
+	 * @throws Exception
+	 */
+	int deleteOprtrPrfmnc(OprtrPrfmncVO oprtrprfmncvo)throws Exception;
 }

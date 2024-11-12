@@ -21,8 +21,12 @@
 	height: 28px;
 	padding: 4px 8px;
 }
-
-
+.sbux-inp-btn-group span.sbux-inp-bk-span{
+	height: 28px;
+}
+.sbux-inp-btn-group .sbux-inp-bk-span > button{
+	height: 28px;
+}
 
 .input-sm-ast:focus {
 	 border: 1px solid #e53c48;

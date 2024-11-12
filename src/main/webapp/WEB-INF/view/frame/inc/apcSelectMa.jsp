@@ -1,27 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-				<table id="apcSelectMa" class="table table-bordered tbl_fixed">
+                <table id="apcSelectMa" class="table table-bordered tbl_fixed table-search-ma">
+				
 					<colgroup>
-						<col style="width: 7%">
+						<col style="width: 10%">
 						<col style="width: 6%">
+						<col style="width: 1%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 2%">
 						
-						<col style="width: 7%">
+						<col style="width: 10%">
 						<col style="width: 6%">
+						<col style="width: 1%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 2%">
 						
-						<col style="width: 7%">
+						<col style="width: 10%">
 						<col style="width: 6%">
+						<col style="width: 1%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 2%">
+						
+						<col style="width: 10%">
+						<col style="width: 6%">
+						<col style="width: 1%">
+						<col style="width: 6%">
+						<col style="width: 2%">
+						
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >클라이언트 코드</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<th scope="row" class="th_bg_search">클라이언트 코드</th>
+							<td colspan="4" class="td_input">
 	<script type="text/javascript">
 		var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 		var temp_jsonClientCode		= [];
@@ -53,7 +64,7 @@
 		 */
 		const cfn_onChangeClntCd = function(obj) {
 			 gv_ma_selectedClntCd = obj.value;
-		}		
+		}
 	</script>								
 								<c:choose>
 									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
@@ -82,8 +93,8 @@
 								</c:choose>
 							</td>
 							
-							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<th scope="row" class="th_bg_search">APC명</th>
+							<td colspan="4" class="td_input">
 	<script type="text/javascript">
 	<c:choose>
 		<c:when test="${comApcList != null}">
@@ -147,8 +158,6 @@
 		</c:otherwise>
 	</c:choose>
 							</td>
-							
-							<td colspan="4"></td>
 						</tr>
 				</table>
 						

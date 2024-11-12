@@ -3552,13 +3552,12 @@
     }
 
     const fn_changeControlSettings = async function (dr) {
-        // TODO : 확인 필요
         if (dr == null)
             return;
 
         for (var i = 1; i <= 10; i++) {
             // 라벨명 설정
-            $("LBL_ACC_ITEM_VALUE" + i).text(dr["ACC_ITEM_NAME" + i])
+            $("#LBL_ACC_ITEM_VALUE" + i).text(dr["ACC_ITEM_NAME" + i])
 
             // 컨트롤 타입 설정
             switch (dr["DATA_TYPE" + i]) {
@@ -3598,7 +3597,7 @@
             // 팝업 설정
             if (dr["DATA_TYPE" + i] == "POPUP") {
                 SBUxMethod.attr('ACC_VALUE_NAME' + i, 'readonly', 'false');
-                SBUxMethod.attr('BTN_ACC_VALUE_NAME' + i, 'disabled', 'false');
+                $("#BTN_ACC_VALUE_NAME"+i).removeAttr('disabled');
 
                 accPopupBizcompIdList["ACC_VALUE_NAME" + i] = dr["POPUP_ID" + i];
 

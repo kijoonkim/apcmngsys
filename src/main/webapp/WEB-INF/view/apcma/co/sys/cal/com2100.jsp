@@ -273,8 +273,8 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [ 
             {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {oneclickedit : true} },
-            {caption: ['시작일'],       ref: 'START_DATE',      type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료일'],       ref: 'END_DATE',        type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작일'],       ref: 'START_DATE',      type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일'],       ref: 'END_DATE',        type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'100px',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonFiscalStatus',

@@ -326,8 +326,8 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
@@ -340,9 +340,9 @@
             {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
             			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
         ];               
         subGrid	= _SBGrid.create(SBSubGridProperties);

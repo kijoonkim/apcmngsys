@@ -76,13 +76,13 @@
                     <sbux-input id="FAMILY_REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('FAMILY_REGISTER')"></sbux-button>
+                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('FAMILY_REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="FAMILY_REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
-                <th scope="row" class="th_bg">노조가입일</th>
-                <td class="td_input" style="border-right:hidden;">
+                <th scope="row" class="th_bg" style="display: none;">노조가입일</th>
+                <td class="td_input" style="border-right:hidden; display: none;">
                     <sbux-datepicker
                             uitype="popup"
                             id="UNION_JOIN_START_DATE"
@@ -99,7 +99,7 @@
                     <sbux-input id="REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('REGISTER')"></sbux-button>
+                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -108,8 +108,8 @@
                 <td class="td_input" style="border-right:hidden;">
                     <sbux-input id="CELLPHONE_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
-                <th scope="row" class="th_bg">노조탈퇴일</th>
-                <td class="td_input" style="border-right:hidden;">
+                <th scope="row" class="th_bg" style="display: none;">노조탈퇴일</th>
+                <td class="td_input" style="border-right:hidden; display: none;">
                     <sbux-datepicker
                             uitype="popup"
                             id="UNION_JOIN_END_DATE"
@@ -126,7 +126,7 @@
                     <sbux-input id="EMERGENCY_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('EMERGENCY')"></sbux-button>
+                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('EMERGENCY')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="EMERGENCY_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -142,7 +142,7 @@
                     <sbux-input id="RESIDENCE_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
+                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
@@ -165,7 +165,7 @@
                 <td class="td_input" style="border-right:hidden;">
                     <sbux-input id="INTER_PHONE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
-                <td class="td_input" style="border-right:hidden;">
+                <td class="td_input" style="border-right:hidden; display: none;">
                     <sbux-checkbox
                             uitype="normal"
                             id="UNION_JOIN_YN"

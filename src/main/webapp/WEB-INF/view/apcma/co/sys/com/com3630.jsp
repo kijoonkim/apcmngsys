@@ -160,7 +160,7 @@
                             				false-value="N" >
                             			</sbux-checkbox>
                                     </td>
-                                </tr>                                
+                                </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">상위계정</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -180,7 +180,9 @@
 		                            <td class="td_input">
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="찾기" uitype="modal"
+											image-src="../../../resource/images/find2.png"
+											image-style="width:25px;height:15px;"
+											uitype="modal"
 											target-id="modal-compopup1"
 											onclick="fn_compopupParent"
 										></sbux-button>
@@ -304,7 +306,7 @@
 		                            <td class="td_input">
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="찾기" uitype="modal"
+											image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"uitype="modal"
 											target-id="modal-compopup1"
 											onclick="fn_compopupSumAccount"
 										></sbux-button>
@@ -461,7 +463,7 @@
 		                            <td class="td_input">
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="찾기" uitype="modal"
+											image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
 											target-id="modal-compopup1"
 											onclick="fn_compopupTtrType"
 										></sbux-button>
@@ -486,7 +488,7 @@
 		                            <td class="td_input">
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="찾기" uitype="modal"
+											image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
 											target-id="modal-compopup1"
 											onclick="fn_compopupCostElement"
 										></sbux-button>
@@ -661,7 +663,7 @@
 										<sbux-input uitype="text" id="BUDGET_DEPT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetDept" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetDept" ></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -673,7 +675,7 @@
 										<sbux-input uitype="text" id="BUDGET_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetAcc" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetAcc" ></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -817,7 +819,7 @@
 										<sbux-input uitype="text" id="PUR_BUDGET_CC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupPurBudget" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupPurBudget" ></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -829,7 +831,7 @@
 										<sbux-input uitype="text" id="CATEGORY2_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCategory2" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCategory2" ></sbux-button>
 		                            </td>
                                 </tr>																                                                                                                                                                                
                             </table>                        	
@@ -852,7 +854,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME1" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('1')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('1')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN1" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -867,7 +869,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME2" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('2')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('2')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN2" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -882,7 +884,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME3" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('3')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('3')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN3" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -897,7 +899,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME4" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('4')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('4')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN4" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -912,7 +914,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME5" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('5')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('5')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN5" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -927,7 +929,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME6" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('6')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('6')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN6" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -942,7 +944,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME7" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('7')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('7')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN7" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -957,7 +959,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME8" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('8')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('8')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN8" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -972,7 +974,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME9" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('9')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('9')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN9" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -987,7 +989,7 @@
 										<sbux-input uitype="text" id="ACC_ITEM_NAME10" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('10')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;"  uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccItemCode('10')" ></sbux-button>
 		                            </td>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-checkbox id="ITEM_USE_YN10" uitype="normal" text="필수" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -1018,7 +1020,7 @@
 										<sbux-input uitype="text" id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('EXCHANGE_GAIN_ACC')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('EXCHANGE_GAIN_ACC')" ></sbux-button>
 		                            </td>
                                 </tr>				
                                 <tr>
@@ -1030,7 +1032,7 @@
 										<sbux-input uitype="text" id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('EXCHANGE_LOSS_ACC')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('EXCHANGE_LOSS_ACC')" ></sbux-button>
 		                            </td>
                                 </tr>		
                                 <tr>
@@ -1042,7 +1044,7 @@
 										<sbux-input uitype="text" id="VAL_GAIN_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('VAL_GAIN_ACC')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('VAL_GAIN_ACC')" ></sbux-button>
 		                            </td>
                                 </tr>					
                                 <tr>
@@ -1054,7 +1056,7 @@
 										<sbux-input uitype="text" id="VAL_LOSS_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('VAL_LOSS_ACC')" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc('VAL_LOSS_ACC')" ></sbux-button>
 		                            </td>
                                 </tr>																																		                                                                                                                                                                
                             </table>                        	
