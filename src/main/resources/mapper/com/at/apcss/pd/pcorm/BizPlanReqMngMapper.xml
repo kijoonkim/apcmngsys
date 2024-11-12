@@ -24,9 +24,10 @@
 
 		<![CDATA[
 			SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
-				TEA.APO_CD
-				, TEA.APO_SE
-				, TEA.BRNO
+				EAM.YR
+				, EAM.APO_CD
+				, EAM.APO_SE
+				, EAM.BRNO
 				, DECODE(TEA.APRV , '1' , '승인형' , '2' , '육성형' , ''
 				) AS APRV
 				, TEA.CRNO
@@ -56,15 +57,14 @@
 				, DECODE(SSD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려'
 				) AS SGNTR_APRV_YN
 
-				, NVL(BPSD.YR , SSD.YR) AS YR
-
 				, BPSD.RMRK AS BIZ_PLAN_RMRK
 				, SSD.RMRK AS SGNTR_RMRK
 
 				, BPSD.FILE_SN AS BIZ_PLAN_FILE_SN
 				, SSD.FILE_SN AS SGNTR_FILE_SN
 
-			FROM TB_EV_APO TEA
+			FROM TB_EV_APLY_MNG EAM
+				, TB_EV_APO TEA
 				,(SELECT *
 					FROM TB_EV_SBMSN_DCMNT
 					WHERE 1=1
@@ -78,21 +78,22 @@
 					  AND DCMNT_KND = 'S'
 				) AS SSD
 			WHERE 1=1
-			  AND TEA.BRNO = BPSD.BRNO(+)
-			  AND TEA.BRNO = SSD.BRNO(+)
-			  AND TEA.APO_SE = '1'
+			  AND EAM.BRNO = TEA.BRNO(+)
+			  AND EAM.BRNO = BPSD.BRNO(+)
+			  AND EAM.BRNO = SSD.BRNO(+)
+			  AND EAM.APO_SE = '1'
 			  AND TEA.APRV IS NOT NULL
-			  AND TEA.BRNO NOT IN (SELECT BRNO
+			  AND EAM.BRNO NOT IN (SELECT BRNO
 									FROM TB_COM_USER
 									WHERE 1=1
 									  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
 									  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
 		]]>
 			<if test='yr != null and yr != ""'>
-			  AND #{yr} = (SELECT YR FROM TB_EV_APLY_MNG WHERE BRNO = TEA.BRNO AND YR = #{yr} AND APO_SE = '1')
+			  AND #{yr} = (SELECT YR FROM TB_EV_APLY_MNG WHERE BRNO = EAM.BRNO AND YR = #{yr} AND APO_SE = '1')
 			</if>
 			<if test='brno != null and brno != ""'>
-			  AND TEA.BRNO = #{brno}
+			  AND EAM.BRNO = #{brno}
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 			  AND TEA.CORP_NM LIKE '%' || #{corpNm} || '%'
@@ -106,7 +107,7 @@
 			<if test='aprv != null and aprv != ""'>
 			  AND TEA.APRV = #{aprv}
 			</if>
-		ORDER BY TEA.BRNO ASC
+		ORDER BY TEA.CORP_NM ASC
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

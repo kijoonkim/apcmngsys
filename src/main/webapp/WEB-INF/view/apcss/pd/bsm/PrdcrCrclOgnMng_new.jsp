@@ -1723,6 +1723,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	/**
 	  * @param {boolean} isConfirmed
 	  * 업데이트
+	  * 저장시 년도별로 히스토리를 별개로 저장중 TB_EV_APO_HSTRY
 	*/
 	const fn_subUpdate = async function (isConfirmed){
 		console.log("******************fn_subUpdate**********************************");

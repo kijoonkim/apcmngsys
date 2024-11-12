@@ -37,4 +37,12 @@ public interface BrnoPopupService {
 	 */
 	public List<BrnoPopupVO> selectAplyBrnoList(BrnoPopupVO BrnoPopupVO) throws Exception;
 
+	/**
+	 * 조직 리스트
+	 * @param BrnoPopupVO
+	 * @return List<BrnoPopupVO>
+	 * @throws Exception
+	 */
+	public List<BrnoPopupVO> selectBrnoMngList(BrnoPopupVO BrnoPopupVO) throws Exception;
+
 }

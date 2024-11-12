@@ -76,4 +76,22 @@ public class BrnoPopupController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//조직 리스트 검색
+	@PostMapping(value = "/pd/popup/selectBrnoMngList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectBrnoMngList(@RequestBody BrnoPopupVO vo, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<BrnoPopupVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = BrnoPopupService.selectBrnoMngList(vo);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
