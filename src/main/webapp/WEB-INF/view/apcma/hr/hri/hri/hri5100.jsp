@@ -37,48 +37,45 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg"><span class="data_required"></span>기준일자</th>
+                    <th scope="row" class="th_bg_search"><span class="data_required"></span>기준일자</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_YMDDATE1"
                                 name="SRCH_YMDDATE1"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 required
                         />
@@ -98,14 +95,14 @@
                     </td>
                 </tr>
                 <tr id="srchYmddate2Section" style="display: none;">
-                    <th scope="row" class="th_bg">기준일자2</th>
+                    <th scope="row" class="th_bg_search">기준일자2</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_YMDDATE2"
                                 name="SRCH_YMDDATE2"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 onchange="fn_valueChangeForYmddate2(this)"
                         />
@@ -113,6 +110,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div>
                     <div class="ad_tbl_top">

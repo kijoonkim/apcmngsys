@@ -124,7 +124,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYER">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findPayerName"
                                 ></sbux-button>
@@ -137,7 +137,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_CREATED_DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findCreatedDeptName"
                                 ></sbux-button>
@@ -150,7 +150,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYEE_DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findPayeeDeptName"
                                 ></sbux-button>
@@ -215,7 +215,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_CREATED_BY">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findCreatedByName"
                                 ></sbux-button>
@@ -228,7 +228,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYEE">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findPayeeName"
                                 ></sbux-button>

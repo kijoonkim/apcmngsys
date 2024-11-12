@@ -61,45 +61,64 @@
                         <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" onclick="fn_print" style="float: right;"></sbux-button>
                     </div>
                 </div>
-                <!--[APC] START -->
-                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                <!--[APC] END -->
-                <table id="srchArea" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <th scope="row" class="th_bg">회계단위</th>
-                        <td class="td_input" style="border-right:hidden;">
-                            <div class="dropdown">
-                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
-                                    <font>선택</font>
-                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                <div class="box-search-ma">
+                    <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                    <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
+                        <caption>검색 조건 설정</caption>
+                        <colgroup>
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="th_bg_search">회계단위</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <th scope="row" class="th_bg">자금번호</th>
-                        <td class="td_input" style="border-right:hidden;">
-                            <sbux-input id="SRCH_TREASURY_BATCH_NO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_TRANS_ID" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_FINANCE_FLAG" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_DATE" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_CURRENCY_CODE" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_EXCHANGE_RATE" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_DOC_DATE" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_FROM_DATE" class="form-control input-sm"></sbux-input>
-                            <sbux-input uitype="hidden" uitype="text" id="SRCH_TO_DATE" class="form-control input-sm"></sbux-input>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                            <th scope="row" class="th_bg_search">자금번호</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="SRCH_TREASURY_BATCH_NO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_TRANS_ID" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_FINANCE_FLAG" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_DATE" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_CURRENCY_CODE" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_EXCHANGE_RATE" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_DOC_DATE" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_FROM_DATE" class="form-control input-sm"></sbux-input>
+                                <sbux-input uitype="hidden" uitype="text" id="SRCH_TO_DATE" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="ad_tbl_top2">
                     <ul class="ad_tbl_count">
                         <li>

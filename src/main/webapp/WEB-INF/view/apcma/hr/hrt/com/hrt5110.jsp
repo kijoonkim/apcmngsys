@@ -43,28 +43,38 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">사업장</th>
+                    <th scope="row" class="th_bg_search">사업장</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
@@ -76,14 +86,14 @@
                             </div>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">재직구분</th>
+                    <th scope="row" class="th_bg_search">재직구분</th>
                     <td colspan="3" class="td_input">
                         <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td colspan="2"></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">직종</th>
+                    <th scope="row" class="th_bg_search">직종</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>--%>
                         <div class="dropdown">
@@ -95,7 +105,7 @@
                             </div>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">연차유형</th>
+                    <th scope="row" class="th_bg_search">연차유형</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)"  required></sbux-select>--%>
                         <div class="dropdown">
@@ -110,7 +120,7 @@
                     <td colspan="2"></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">기준년도</th>
+                    <th scope="row" class="th_bg_search">기준년도</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
@@ -118,31 +128,31 @@
                                 name="SRCH_YYYY"
                                 date-format="yyyy"
                                 datepicker-mode="year"
-                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm table-datepicker-ma"
                                 onchange="fn_srchYyyy(SRCH_YYYY)"
                                 group-id="panHeader"
                                 required
                         />
                     </td>
                     <td colspan="2"></td>
-                    <th scope="row" class="th_bg">연차계산기준일</th>
+                    <th scope="row" class="th_bg_search">연차계산기준일</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_BASE_DATE"
                                 name="SRCH_BASE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
-                    <th scope="row" class="th_bg">특별휴가기준기간</th>
+                    <th scope="row" class="th_bg_search">특별휴가기준기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_SPECIAL_PERIOD" uitype="single" jsondata-ref="jsonSpecialPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">부서</th>
+                    <th scope="row" class="th_bg_search">부서</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -152,12 +162,12 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findDeptCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg">사원</th>
+                    <th scope="row" class="th_bg_search">사원</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -167,24 +177,25 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findEmpCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg">차년도존재여부</th>
+                    <th scope="row" class="th_bg_search">차년도존재여부</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_EXIST_NEXT_YYYY" uitype="single" jsondata-ref="jsonYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">비고</th>
+                    <th scope="row" class="th_bg_search">비고</th>
                     <td colspan="7" class="td_input" style="border-right:hidden;">
                         <sbux-textarea id="SRCH_MEMO" rows="2" class="form-control input-sm" uitype="normal" style="width:100%"></sbux-textarea>
                     </td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div>
                     <div class="ad_tbl_top">

@@ -154,7 +154,7 @@
 							 <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
 								 <sbux-button
 										 class="btn btn-xs btn-outline-dark"
-										 image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+										 text="…" uitype="modal"
 										 target-id="modal-compopup1"
 										 onclick="fn_findEmpCode"
 								 ></sbux-button>

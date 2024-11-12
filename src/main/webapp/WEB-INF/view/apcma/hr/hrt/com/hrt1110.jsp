@@ -37,27 +37,42 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 60%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">근태집계코드</th>
+                    <th scope="row" class="th_bg_search">근태집계코드</th>
                     <td class="td_input">
                         <sbux-input id="SRCH_TIME_SUMMARY_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
-                    <th scope="row" class="th_bg">근태집계명</th>
+                    <th scope="row" class="th_bg_search">근태집계명</th>
                     <td class="td_input">
                         <sbux-input id="SRCH_TIME_SUMMARY_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
@@ -65,6 +80,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">

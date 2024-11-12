@@ -37,25 +37,38 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 14%">
-                    <col style="width: 14%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 14%">
-                    <col style="width: 14%">
-                    <col style="width: 14%">
-                    <col style="width: 14%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">사업장</th>
+                    <th scope="row" class="th_bg_search">사업장</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
@@ -69,7 +82,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">발령구분</th>
+                    <th scope="row" class="th_bg_search">발령구분</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_APPOINT_TYPE" uitype="single" jsondata-ref="jsonAppointType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
@@ -81,7 +94,7 @@
                             </div>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">발령번호</th>
+                    <th scope="row" class="th_bg_search">발령번호</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
                         <sbux-input id="SRCH_APPOINT_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -91,21 +104,21 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-srchAppointNum"
                                 onclick="fn_findSrchAppointNum"
                         ></sbux-button>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">발령기간</th>
+                    <th scope="row" class="th_bg_search">발령기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_APPOINT_DATE_FR"
                                 name="SRCH_APPOINT_DATE_FR"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -118,13 +131,14 @@
                                 id="SRCH_APPOINT_DATE"
                                 name="SRCH_APPOINT_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="ad_tbl_top">
@@ -194,7 +208,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="APPOINT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAppointType"
                                         ></sbux-button>
@@ -317,7 +331,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findDeptCode"
                                         ></sbux-button>
@@ -332,7 +346,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="EMP">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findEmpCode"
                                         ></sbux-button>
