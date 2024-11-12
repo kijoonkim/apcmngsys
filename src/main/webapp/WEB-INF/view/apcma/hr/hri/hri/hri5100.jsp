@@ -24,7 +24,7 @@
 <head>
     <title>title : 인원현황</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -45,25 +45,34 @@
             <table id="srchArea" class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 7%">
+                    <col style="width: 10%">
                     <col style="width: 6%">
+                    <col style="width: 1%">
                     <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 2%">
 
-                    <col style="width: 7%">
+                    <col style="width: 10%">
                     <col style="width: 6%">
+                    <col style="width: 1%">
                     <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 2%">
 
-                    <col style="width: 7%">
+                    <col style="width: 10%">
                     <col style="width: 6%">
+                    <col style="width: 1%">
                     <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg"><span class="data_required"></span>기준일자</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_YMDDATE1"
@@ -74,7 +83,7 @@
                                 required
                         />
                     </td>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                    <td colspan="4" class="td_input" style="border-right: hidden;">
                         <p class="ad_input_row">
                             <sbux-checkbox
                                     uitype="normal"

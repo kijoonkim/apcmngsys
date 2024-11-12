@@ -24,7 +24,7 @@
 <head>
     <title>title : 캘린더</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         .calendar { width: 100%; }
         .clickDate { color: black; font-weight: bold; background-color: skyblue; opacity: 0.5; }
