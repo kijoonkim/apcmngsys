@@ -24,7 +24,7 @@
 <head>
     <title>title : 사원별 근무일정관리</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>

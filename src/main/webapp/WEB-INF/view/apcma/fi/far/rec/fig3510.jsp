@@ -473,13 +473,15 @@
                                     <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <%--<sbux-input id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
+                                    <sbux-checkbox id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
                                     <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <%--<sbux-input id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
+                                    <sbux-checkbox id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
                                     <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
@@ -1753,7 +1755,7 @@
         var replaceText1 = "_CS_NAME_";
         var replaceText2 = "_BIZ_REGNO_";
         var strWhereClause = "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'"
-            + (strsourceType == "AP" ? " BETWEEN effect_start_date AND effect_end_date " : "");
+            + (strsourceType == "AP" ? "AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN EFFECT_START_DATE AND EFFECT_END_DATE " : "");
 
         SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
         compopup1({
@@ -1897,14 +1899,17 @@
     }
 
     var fn_findAccountCodeForGvwWFItem = function (row) {
-        var addParam = [null];
+        let OPEN_TO_ALL_YN = gfn_nvl(SBUxMethod.get("OPEN_TO_ALL_YN").OPEN_TO_ALL_YN) == "" ? "'Y'" : "'" + gfn_nvl(SBUxMethod.get("OPEN_TO_ALL_YN").OPEN_TO_ALL_YN) + "'";
+        let LINE_TYPE = "'"+gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE"))+"'";
+        let OPEN_TO_FCM_YN = gfn_nvl(SBUxMethod.get("OPEN_TO_FCM_YN").OPEN_TO_FCM_YN) == "" ? "'Y'" : "'" + gfn_nvl(SBUxMethod.get("OPEN_TO_FCM_YN").OPEN_TO_FCM_YN) + "'";
+        var addParam = [OPEN_TO_ALL_YN, LINE_TYPE, OPEN_TO_FCM_YN];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
         SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
-            , bizcompId: "P_FIM045"
+            , bizcompId: "P_FIM045_LINE"
             , popupType: 'B'
             , whereClause: addParam
             , searchCaptions: ["코드", "코드명"]
@@ -1918,6 +1923,17 @@
             , itemSelectEvent: function (data) {
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE);
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME);
+                for(var i = 1; i < 11; i++) {
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_CODE"+i), data["ACC_ITEM_CODE"+i]);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_NAME"+i), data["ACC_ITEM_NAME"+i]);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("DATA_TYPE"+i), data["DATA_TYPE"+i]);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("POPUP_ID"+i), data["POPUP_ID"+i]);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_YN"+i), data["ACC_ITEM_YN"+i]);
+                }
+
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_CHARACTER"), data.ACC_CHARACTER);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_YN"), data.PROJECT_YN);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
             },
             returnDataFilter: function (data) {
                 if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {

@@ -24,7 +24,7 @@
 <head>
     <title>title : 인사정보 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
     <style>
         body{

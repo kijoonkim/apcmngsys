@@ -24,7 +24,6 @@
 <head>
     <title>title : 증명서발급</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>

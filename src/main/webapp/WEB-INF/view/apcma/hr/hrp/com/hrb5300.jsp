@@ -24,7 +24,7 @@
 <head>
     <title>title : 급여체계별 급여항목</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
