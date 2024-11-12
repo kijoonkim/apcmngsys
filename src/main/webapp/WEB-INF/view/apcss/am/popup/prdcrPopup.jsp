@@ -494,7 +494,8 @@
 					    frmhsAddr		: item.frmhsAddr,
 					    frmhsCtpv		: item.frmhsCtpv,
 					    frmhsTelno		: item.frmhsTelno,
-						plorCd			: item.plorCd
+						plorCd			: item.plorCd,
+						plorNm			: item.plorNm
 					}
 
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
