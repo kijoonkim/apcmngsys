@@ -101,7 +101,8 @@
 		                    <colgroup>
 								<col style="width: 10%">
 								<col style="width: 10%">
-								<col style="width: 10%">
+								<col style="width: 2%">
+								<col style="width: 8%">
 								<col style="width: 10%">
 								<col style="width: 15%">
 								<col style="width: 45%">
@@ -113,7 +114,7 @@
 										<sbux-input uitype="text" id="CHANGE_DATE_KEY" class="form-control input-sm" readonly></sbux-input>	
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_changeDateKey" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:85%;" uitype="modal" target-id="modal-compopup1" onclick="fn_changeDateKey" ></sbux-button>
 		                            </td>
 		                            <th scope="row" class="th_bg">변경일자</th>
 		                            <td class="td_input"  style="border-right:hidden;" colspan="2">
@@ -1033,11 +1034,9 @@
 
     const fn_btnSave = async function(){
     	
-    	let workType = '';
-    	let saveData = await fn_save('');
-    	
+    	await fn_save('');
     	await fn_save_s1();
-
+    	
 	    SBUxMethod.attr('btnAddOrg', 'disabled', 'false');
 	    SBUxMethod.attr('btnAddRow', 'disabled', 'false');
 	    SBUxMethod.attr('btnDelRow', 'disabled', 'false');

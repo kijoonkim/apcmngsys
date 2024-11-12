@@ -236,11 +236,11 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">개업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class=""></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">폐업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class=""></sbux-datepicker>
+		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -597,10 +597,10 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.rowheaderwidth = {  seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
+			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
 				fixedstyle : 'background-color:#f1ffd9;',	width:'150px',	style:'text-align:center'	
 		    },	
-			{	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
+			{	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
 		    	fixedstyle : 'background-color:#f1ffd9;', width:'150px',	style:'text-align:center'	
 		    },	
 	        { caption: ["사업장명"],   ref: 'TAX_SITE_NAME',	  type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;', },
@@ -645,10 +645,10 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.rowheaderwidth = { seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
+			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
 		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'	
 		    },	
-		    {	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},	
+		    {	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},	
 		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'
 		    },
 		    {	caption:["월발행한도"],	ref:'ISSUE_LIMIT_MONTH',	type:'input',	width:'150px',	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'	},

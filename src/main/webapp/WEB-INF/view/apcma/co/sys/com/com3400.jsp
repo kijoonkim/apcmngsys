@@ -274,7 +274,7 @@
 										<sbux-input uitype="text" id="EMP_CODE" class="form-control input-sm" ></sbux-input>
 									</td>	
 									<td id='EMP_BTN'class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
 									</td>								
 								</tr>                                   
 								<tr>
@@ -319,7 +319,7 @@
 										<sbux-input uitype="text" id="BANK_NAME_H" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
 									</td>
 								</tr>   
 								<tr>
@@ -573,7 +573,7 @@
 										</div>   									
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height:28px;"></sbux-datepicker>
+										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height:28px;" placement="top" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;" colspan="2">
 									</td>
@@ -611,15 +611,15 @@
 												<sbux-input id="ZIP_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
 											</td>	
 											<td class="td_input" style="border-right: hidden;">
-												<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="검색" class="btn btn-xs btn-outline-dark"></sbux-button>
+												<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-xs btn-outline-dark"></sbux-button>
 											</td>	                                    
 											<th scope="row" class="th_bg">거래시작일</th>
 											<td class="td_input" style="border-right: hidden;">
-												<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height:28px;"></sbux-datepicker>
+												<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height:28px;" date-format="yyyy-mm-dd"></sbux-datepicker>
 											</td>	                                    
 											<th scope="row" class="th_bg">거래종료일</th>
 											<td class="td_input" style="border-right: hidden;" colspan="2">
-												<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height:28px;"></sbux-datepicker>
+												<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height:28px;" date-format="yyyy-mm-dd"></sbux-datepicker> 
 											</td>	                                    
 										</tr>    
 										<tr>
@@ -827,7 +827,7 @@
 												<sbux-input uitype="text" id="AP_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">채무정산계정</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -837,7 +837,7 @@
 												<sbux-input uitype="text" id="AP_CLR_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
 				                            </td> 
 										</tr>    
 										<tr>
@@ -849,7 +849,7 @@
 												<sbux-input uitype="text" id="AP_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">선급금계정</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -859,7 +859,7 @@
 												<sbux-input uitype="text" id="PREPAY_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
 				                            </td> 
 										</tr>    
 			                    	</table>		
@@ -1009,7 +1009,7 @@
 												<sbux-input uitype="text" id="AR_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">채권계정코드외화</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -1019,7 +1019,7 @@
 												<sbux-input uitype="text" id="AR_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
 				                            </td> 
 										</tr>  										
 										<tr>
@@ -1031,7 +1031,7 @@
 												<sbux-input uitype="text" id="ADVANCE_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
 				                            </td>
 										</tr>  										
 			                    	</table>		
@@ -2229,8 +2229,8 @@
                     value : 'value'
                 }
             },
-            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
             {caption : ["부가세전용계좌여부"], 		ref : 'VAT_ACCOUNT_YN', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonVatAccountYN',
@@ -2240,7 +2240,7 @@
                     value : 'value'
                 }
             },
-            {caption : ['수취인확인일'],			ref : 'FIRM_PAYEE_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}},
+            {caption : ['수취인확인일'],			ref : 'FIRM_PAYEE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}},
             {caption : ["수취인확인전문번호"],		ref: 'FIRM_PAYEE_TRF_NO',		type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption : ["수취인조회결과코드"],		ref: 'RESULT_CODE',		type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption : ["예금주확인값"],			ref: 'RESULT_NAME',		type:'input',  	width:'200px',  	style:'text-align:left'},
@@ -2478,8 +2478,8 @@
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'datepicker',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["사업자번호"],	ref : 'BIZ_REGNO', 		type:'input',  	width:'150px', 		style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["업    태"],		ref : 'BIZ_CATEGORY', 	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["종    목"],		ref : 'BIZ_ITEMS',		type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
@@ -3019,7 +3019,7 @@
     	//주민분여부 체크박스
     	$('#RESIDENT_YN').change(function(){
     		if($(this).val() == 'Y'){
-    			if(gfnma_multiSelectSet('#CS_GROUP' != '6000')){
+    			if(gfnma_multiSelectGet('#CS_GROUP' != '6000')){
 	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
     			}
 			}else{
