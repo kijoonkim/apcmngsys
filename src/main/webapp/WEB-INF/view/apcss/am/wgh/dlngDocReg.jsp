@@ -41,6 +41,14 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<sbux-button
+						id="btnPrdctnDoc"
+						name="btnPrdctnDoc"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_prdctnDoc"
+						text="생산일보"
+					></sbux-button>
 					<sbux-button
 						id="btnCmndDocPckg"
 						name="btnCmndDocPckg"
@@ -994,6 +1002,25 @@
 		fn_inqUpdate(obj.pltno);
 
 	}
+
+	/**
+     * @name fn_prdctnDoc
+     * @description 생산일보 발행 버튼
+     */
+	const fn_prdctnDoc = async function() {
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+		let wrhsYmd= SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고시작일자
+
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RTD_DOC');
+		let obj = {apcCd: gv_selectedApcCd
+				, yyyymmdd: wrhsYmd
+				, yyyymm : wrhsYmd.substring(0,6)
+				, yyyy : wrhsYmd.substring(0,4)
+				};
+
+		gfn_popClipReport("생산일보", rptUrl, obj );
+	}
+
 
 	const fn_searchRow = async function(grd,nRow,nCol){
 		let rowData = grd.getRowData(nRow);
