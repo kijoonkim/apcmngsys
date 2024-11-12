@@ -1,7 +1,7 @@
 <%
 /**
  * @Class Name 		: fig2310.jsp
- * @Description 	: 미결반제전표 화면
+ * @Description 	: 미결반제전표생성 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.08.09
  * @version 		: 1.0
@@ -718,7 +718,11 @@
     	}
     	localStorage.removeItem("callMain");
     	if(p_menu_param){
-    		pg_state = 'edit';
+    		if(p_menu_param['STATE']=='new'){
+        		pg_state = 'new';
+    		} else {
+	    		pg_state = 'edit';
+    		}
     	} else {
     		pg_state = 'new';
     	}
@@ -741,10 +745,12 @@
     	let obj = e.data;
 		if(obj){
 			if(obj['MENU_MOVE']){
-				//console.log('2 message pg_state:', pg_state);			
-				//console.log('2 message obj:', obj);
-				pg_state 		= 'edit';			
 				p_menu_param 	= obj;
+	    		if(p_menu_param['STATE']=='new'){
+	        		pg_state = 'new';
+	    		} else {
+		    		pg_state = 'edit';
+	    		}
 		     	fn_init(false);
 			}
 		}
@@ -759,9 +765,24 @@
 			cfn_add();
 		} else if(type=='edit'){
 			if(p_menu_param){
-				console.log('p_menu_param ====>>> in');			
+				console.log('p_menu_param ====>>> ', p_menu_param);			
 				if(p_menu_param['DOC_ID']){
-					SBUxMethod.set('sch-doc-id', 	p_menu_param['DOC_ID']);
+					
+					SBUxMethod.set('sch-doc-id', 			gfnma_nvl(p_menu_param['DOC_ID']));
+					SBUxMethod.set('sch-doc-name', 			gfnma_nvl(p_menu_param['DOC_NAME']));
+					SBUxMethod.set('sch-doc-batch-no', 		gfnma_nvl(p_menu_param['DOC_BATCH_NO']));
+					SBUxMethod.set('sch-dept-code', 		gfnma_nvl(p_menu_param['DEPT_CODE']));
+					SBUxMethod.set('sch-dept-name', 		gfnma_nvl(p_menu_param['DEPT_NAME']));
+					SBUxMethod.set('sch-tax-site-code', 	gfnma_nvl(p_menu_param['SITE_CODE']));
+					SBUxMethod.set('sch-sub-tax-site-code',	gfnma_nvl(p_menu_param['SITE_CODE']));
+					SBUxMethod.set('sch-doc-type',			gfnma_nvl(p_menu_param['DOC_TYPE']));
+					SBUxMethod.set('sch-doc-status',		gfnma_nvl(p_menu_param['DOC_STATUS']));
+					SBUxMethod.set('sch-currency-code', 	gfnma_nvl(p_menu_param['CURRENCY_CODE']));
+					SBUxMethod.set('sch-description', 		gfnma_nvl(p_menu_param['DESCRIPTION']));
+					SBUxMethod.set('sch-doc-date', 			gfnma_nvl(p_menu_param['DOC_DATE']));
+					SBUxMethod.set('sch-posting-date', 		gfnma_nvl(p_menu_param['POSTING_DATE']));
+					SBUxMethod.set('sch-acct-rule-code', 	gfnma_nvl(p_menu_param['ACCT_RULE_CODE']));
+					
 					fn_subSearch(function(){
 						if(p_menu_param['WORK_TYPE']=='COPY'){
 							SBUxMethod.set('sch-doc-id', 		'0');
@@ -1959,7 +1980,8 @@
         			}
         			return;
         		} else {
-        			list = data.cv_1;
+        			//list = data.cv_1;
+        			list = data.cv_3;
         		}
         		
         		list.forEach((item, index) => {

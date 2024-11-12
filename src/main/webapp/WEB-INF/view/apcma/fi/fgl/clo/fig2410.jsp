@@ -373,7 +373,7 @@
 			,V_P_PC					: '' 
 	    };		
 	    
-        const postJsonPromise = gfn_postJSON("/fi/fgl/leg/selectFig2410List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/clo/selectFig2410List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
@@ -496,7 +496,7 @@
 			,V_P_PC					: '' 
 	    };		
 	    
-        const postJsonPromise = gfn_postJSON("/fi/fgl/leg/selectFig2410List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/clo/selectFig2410List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',

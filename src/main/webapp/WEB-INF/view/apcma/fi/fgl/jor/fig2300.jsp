@@ -285,7 +285,7 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg">전표번호</th>
 	                            <td colspan="7" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                            	<div style="display:flex;float:left;vertical-align:middle !important;width:100%">
 		   								<sbux-input
 											id="SCH_DOC_NAME"
 											uitype="text"
@@ -333,7 +333,7 @@
 	                        </li>
 	                    </ul>
 	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-	                    	<font>결재의견</font>
+	                    	<font style="padding-top:5px">결재의견</font>
 		                    <span style="width:5px"></span>
 	                        <sbux-input id="SCH_APPR_OPINION" name="SCH_APPR_OPINION" class="form-control input-sm" uitype="text" style="width:250px;" ></sbux-input>
 		                    <span style="width:5px"></span>
@@ -618,10 +618,14 @@
             {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표구분"],  				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             
-            {caption: ["전표번호"],  				ref: 'DOC_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            {caption: ["전표번호"], 				ref: 'DOC_NAME', 				type:'button',  	width:'100px', 		style:'text-align:left', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-   	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            		if(objRowData['DOC_ID']){
+            			var tmp = "fn_gridPopup1(event, " + nRow + ", " + nCol + ")";
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['DOC_NAME'] + '</a>';
+            		} else {
+            			return "";
+            		}
             	}	
             },
             
@@ -737,7 +741,17 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output', 		width:'100px',  	style:'text-align:left'},
+            {caption: ["전표번호"], 				ref: 'DOC_NAME', 				type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+            			var tmp = "fn_gridPopup2(event, " + nRow + ", " + nCol + ")";
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['DOC_NAME'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["전표유형"], 				ref: 'DOC_TYPE_NAME',  			type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["전표상태"],    				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["순번"],  					ref: 'ITEM_SEQ', 				type:'output',  	width:'80px',  		style:'text-align:left'},
@@ -2117,23 +2131,83 @@
   	}   
     
     /**
-     * 그리드내 전표번호 조회
+     * 그리드(미결반제전표내역) 전표번호 조회
      */
 	function fn_gridPopup1(event, row, col) {
 		event.preventDefault();	
-        let rowData = Fig2300Grid.getRowData(row);
+		var rowData = Fig2300Grid.getRowData(row);
         console.log('fn_gridPopup1 rowData:', rowData);
         
         var obj = {
-        	'MENU_MOVE'		: 'Y'	
-        	,'DOC_ID' 		: rowData['DOC_ID']
-        	,'WORK_TYPE'	: 'VIEW'
-        	,'target'		: 'MA_A20_030_020_160'
+        	'MENU_MOVE'			: 'Y'	
+        	,'DOC_ID' 			: rowData['DOC_ID']
+        	,'DOC_NAME' 		: rowData['DOC_NAME']
+        	,'DOC_BATCH_NO' 	: rowData['DOC_BATCH_NO']
+        	,'DEPT_CODE' 		: rowData['DEPT_CODE']
+        	,'DEPT_NAME' 		: rowData['DEPT_NAME']
+        	,'SITE_CODE' 		: rowData['SITE_CODE']
+        	,'DOC_TYPE' 		: rowData['DOC_TYPE']
+        	,'DOC_STATUS' 		: rowData['DOC_STATUS']
+        	,'CURRENCY_CODE' 	: rowData['CURRENCY_CODE']
+        	,'DESCRIPTION' 		: rowData['DESCRIPTION']
+        	,'DOC_DATE' 		: rowData['DOC_DATE']
+        	,'POSTING_DATE' 	: rowData['POSTING_DATE']
+        	,'ACCT_RULE_CODE'	: gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"))
+        	,'WORK_TYPE'		: 'VIEW'
+           	,'STATE' 			: 'edit'
+        	,'target'			: 'MA_A20_030_020_160'
         }
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
 	}
     
+    /**
+     * 그리드(회게처리탭) 전표번호 조회
+     */
+	function fn_gridPopup2(event, row, col) {
+		event.preventDefault();	
+    	var nRow 	= Fig2300Grid.getRow();
+    	if(nRow<1){
+    		return;
+    	}
+		var rowData = Fig2300Grid.getRowData(nRow);
+        console.log('fn_gridPopup2 rowData:', rowData);
+        
+        var obj = {
+        	'MENU_MOVE'			: 'Y'	
+        	,'DOC_ID' 			: rowData['DOC_ID']
+        	,'DOC_NAME' 		: rowData['DOC_NAME']
+        	,'DOC_BATCH_NO' 	: rowData['DOC_BATCH_NO']
+        	,'DEPT_CODE' 		: rowData['DEPT_CODE']
+        	,'DEPT_NAME' 		: rowData['DEPT_NAME']
+        	,'SITE_CODE' 		: rowData['SITE_CODE']
+        	,'DOC_TYPE' 		: rowData['DOC_TYPE']
+        	,'DOC_STATUS' 		: rowData['DOC_STATUS']
+        	,'CURRENCY_CODE' 	: rowData['CURRENCY_CODE']
+        	,'DESCRIPTION' 		: rowData['DESCRIPTION']
+        	,'DOC_DATE' 		: rowData['DOC_DATE']
+        	,'POSTING_DATE' 	: rowData['POSTING_DATE']
+        	,'ACCT_RULE_CODE'	: gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"))
+        	,'WORK_TYPE'		: 'VIEW'
+           	,'STATE' 			: 'edit'
+        	,'target'			: 'MA_A20_030_020_160'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}
+    
+    /**
+     * 신규
+     */
+     var cfn_add = function() {
+         var obj = {
+             	'MENU_MOVE'		: 'Y'	
+             	,'STATE' 		: 'new'
+             	,'target'		: 'MA_A20_030_020_160'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+    }
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
