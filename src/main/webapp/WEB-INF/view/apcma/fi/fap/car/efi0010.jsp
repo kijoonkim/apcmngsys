@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fim3100.jsp
+ * @Class Name 		: efi0010.jsp
  * @Description 	: 계정마스타관리 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.08
@@ -24,7 +24,6 @@
 <head>
 	<title>title : 계정마스타관리</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -41,43 +40,42 @@
             </div>
             <div class="box-body">
 
-				<div style="padding-bottom:10px">
+				<div class="box-search-ma" style="padding-bottom:10px">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg">집계단위</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <th scope="row" class="th_bg_search">집계단위</th>
+	                            <td colspan="3" class="td_input" >
 									<div class="dropdown" style="margin-right:5px" >
 									    <button id="srch-cbozaccd-g" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									    	<font>선택</font>
@@ -87,32 +85,38 @@
 									    </div>
 									</div>                                    
 	                            </td>
+	                        	<td></td>
 	                            
-	                            <th scope="row" class="th_bg">판관비계정코드</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <th scope="row" class="th_bg_search">판관비계정코드</th>
+	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtzaccd-d" class="form-control input-sm" ></sbux-input>
 	                            </td>
+	                        	<td></td>
 	                            
-	                            <th scope="row" class="th_bg">판관비계정명</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <th scope="row" class="th_bg_search">판관비계정명</th>
+	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtzaccd-dname" class="form-control input-sm" ></sbux-input>
 	                            </td>
+	                        	<td></td>
 	                            	 
-	                            <th scope="row" class="th_bg">제조계정코드</th>
+	                            <th scope="row" class="th_bg_search">제조계정코드</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtzaccd-d2" class="form-control input-sm" ></sbux-input>
 	                            </td>
-	                            	 
-	                            <th scope="row" class="th_bg">제조계정명</th>
+	                        	<td></td>
+	                        </tr>
+	                        <tr>    	 
+	                            <th scope="row" class="th_bg_search">제조계정명</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtzaccd-dname2" class="form-control input-sm" ></sbux-input>
 	                            </td>
+	                        	<td colspan="16"></td>
 	                        </tr>    
 	                    </tbody>
 	                </table>				
 				</div>
                 
-                <div class="row">
+                <div class="row" style="padding-top:10px">
 	                <div class="ad_tbl_top">
 	                    <ul class="ad_tbl_count">
 	                        <li>
@@ -135,7 +139,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdAcct" style="height:570px; width:100%;">
+	                    <div id="sb-area-grdAcct" style="height:710px; width:100%;">
 	                    </div>
 	                </div>
                 </div>
@@ -194,7 +198,7 @@
 		
     	fn_initSBSelect();
     	fn_createGrid();	
-    	cfn_search();
+    	//cfn_search();
     	
 		$('#btn-row-add').click(function(e){
 			e.preventDefault();
@@ -388,8 +392,13 @@
 
 		Efi0010Grid.clearStatus();
 
-		let p_cbozaccd_g 		= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", 'object')['value']);
-		let p_cbozaccd_gname	= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", 'object')['label']);
+		let p_cbozaccd_g 		= gfnma_multiSelectGet("#srch-cbozaccd-g", true);
+		if(!p_cbozaccd_g){
+    		gfn_comAlert("E0000", "집계단위를 선택하세요");
+    		return;
+		}
+		p_cbozaccd_g 			= p_cbozaccd_g['ZACCD_G'];
+		let p_cbozaccd_gname	= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", true)['ZACCD_GNAME']);
 		let p_txtzaccd_d		= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-d"));
 		let p_txtzaccd_dname	= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-dname"));
 		let p_txtzaccd_d2		= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-d2"));
