@@ -24,7 +24,6 @@
 <head>
 	<title>title : 카드정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -42,55 +41,63 @@
             </div>
             <div class="box-body">
 
-				<div style="padding-bottom:10px">
+				<div class="box-search-ma" style="padding-bottom:10px">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg">상태(카드사기준)</th>
+	                            <th scope="row" class="th_bg_search">상태(카드사기준)</th>
 	                            <td colspan="3" class="td_input" style="border-right:hidden;">
 	                                <sbux-select id="srch-cbocard-status2-p" uitype="single" jsondata-ref="jsonCbocardStatus2" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+	                        	<td></td>
 	                            
-	                            <th scope="row" class="th_bg">카드번호</th>
+	                            <th scope="row" class="th_bg_search">카드번호</th>
 	                            <td colspan="3" class="td_input" style="border-right:hidden;">
 	   								<sbux-input uitype="text" id="srch-txtcard-no-p" class="form-control input-sm" ></sbux-input>
 	                            </td>
+	                        	<td></td>
 	                            
-	                            <th scope="row" class="th_bg">카드명</th>
+	                            <th scope="row" class="th_bg_search">카드명</th>
 	                            <td colspan="3" class="td_input" style="border-right:hidden;">
 	   								<sbux-input uitype="text" id="srch-txtcard-name" class="form-control input-sm" ></sbux-input>
 	                            </td>
+	                        	<td></td>
 	                            	 
-	                            <th scope="row" class="th_bg">카드상태</th>
+	                            <th scope="row" class="th_bg_search">카드상태</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbocard-status1" uitype="single" jsondata-ref="jsonCbocardStatus1" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+	                        	<td></td>
 	                        </tr>    
 	                    </tbody>
 	                </table>				
@@ -161,7 +168,8 @@
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
-												text="찾기" uitype="modal"
+												text="…" 
+												uitype="modal"
 												target-id="modal-compopup1"
 												onclick="fn_compopup1"
 											></sbux-button>
@@ -241,7 +249,7 @@
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
-												text="찾기" uitype="modal"
+												text="…"  uitype="modal"
 												target-id="modal-compopup1"
 												onclick="fn_compopup2"
 											></sbux-button>
@@ -258,7 +266,7 @@
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
-												text="찾기" uitype="modal"
+												text="…"  uitype="modal"
 												target-id="modal-compopup1"
 												onclick="fn_compopup3"
 											></sbux-button>
@@ -349,7 +357,7 @@
 	                                        		<font style="width:5px"></font>
 													<sbux-button 
 														class="btn btn-xs btn-outline-dark"
-														text="찾기" uitype="modal"
+														text="…"  uitype="modal"
 														target-id="modal-compopup1"
 														onclick="fn_compopup4"
 													></sbux-button>
@@ -403,7 +411,7 @@
 	                                        		<font style="width:5px"></font>
 													<sbux-button 
 														class="btn btn-xs btn-outline-dark"
-														text="찾기" uitype="modal"
+														text="…"  uitype="modal"
 														target-id="modal-compopup1"
 														onclick="fn_compopup5"
 													></sbux-button>
@@ -421,7 +429,7 @@
 													<sbux-button 
 														id="SRCH_EMP_BTN"
 														class="btn btn-xs btn-outline-dark"
-														text="찾기" uitype="modal"
+														text="…"  uitype="modal"
 														target-id="modal-compopup1"
 														onclick="fn_compopup6"
 													></sbux-button>
@@ -439,7 +447,7 @@
 													<sbux-button 
 														id="SRCH_ACCOUNT_EMP_BTN"
 														class="btn btn-xs btn-outline-dark"
-														text="찾기" uitype="modal"
+														text="…"  uitype="modal"
 														target-id="modal-compopup1"
 														onclick="fn_compopup7"
 													></sbux-button>
