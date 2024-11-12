@@ -236,6 +236,8 @@
 			},
 			{caption: ["작업시간"], ref: 'jobHr',   		type:'output',  width:'120px', style: 'text-align:right',
 	     		typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 분'}},
+     		{caption: ["시급"], ref: 'hrWg',   		type:'input',  width:'120px', style: 'text-align:right',
+	     		typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["비고"], 	 	ref: 'rmrk',   			type:'input',  	width:'300px', style: 'text-align:center'},
 			{caption: ["apcCd"], 	 	ref: 'apcCd',   		hidden:true},
 			{caption: ["실적번호"], 	ref: 'prfmncno',   		hidden:true},
@@ -572,6 +574,7 @@
 			      		  , apcCd		: item.apcCd
 			      		  , brdt		: item.brdt
 			      		  , delYn		: item.delYn
+			      		  , hrWg		: item.hrWg
 			      		  , insertYn	: "N"
 					}
 			      	jsonOprtrPrfmnc.push(prfmncVO);
