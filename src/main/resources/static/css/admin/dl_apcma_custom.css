@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+/* 경영관리 테스트 조회 테이블 관련 설정 */
+
+.box-search-ma {
+    background-color: rgb(182, 216, 237, 0.2) !important;
+    border: 1px solid !important;
+    border-color: rgb(222 229 250) !important;
+}
+
+/* 테이블 */
+.table-search-ma {
+    border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    background-color: transparent !important;
+}
+
+/* 조회 테이블 */
+.th_bg_search{
+    border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+/* 컨텐츠 테이블 */
+.th_bg_content{
+    background-color: rgb(182, 216, 237, 0.2) !important;
+}
+
+.table-search-ma > tbody > tr{
+	border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.table-search-ma > tbody > tr > th, .table-search-ma > tbody > tr > td{
+	border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+/*테이블에서 그려진 datepicker input 색상 제거*/
+.table-datepicker-ma {
+	background: #fff !important;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+}
+
+/*테이블에서 그려진 datepicker button 색상 제거*/
+.table-datepicker-ma + .sbux-pik-icon-span .sbux-pik-icon-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: rgb(215, 215, 215) !important;
+    margin-left: 0px !important;	
+}
+
+/*
+* 그리드 생성시 자동으로 생성되는 div의 클래스여서 여기서 수정시 APC 생산관리 화면까지 영향이 생김
+*/
+/* .sbgrid_GFA_st { */
+/*     border-top: 1px solid !important; */
+/* 	border-right: none !important; */
+/*     border-left: none !important; */
+/*     border-bottom: none !important; */
+/*     border-color: #b2bad2 !important; */
+/* } */

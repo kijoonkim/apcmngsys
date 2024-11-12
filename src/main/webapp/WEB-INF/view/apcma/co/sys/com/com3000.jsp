@@ -13,7 +13,6 @@
  * @see
  *
  */
- 
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,6 +25,11 @@
 	<title>title : 공통코드 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<style>
+        body{
+/*             zoom: 0.9 !important; */
+        }
+	</style>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,63 +44,73 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">유형분류</th>
-                            <td colspan="" class="td_input" style="border-right:hidden;">
-								<div class="dropdown">
-								    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_GROUP_CATEGORY" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby="SRCH_GROUP_CATEGORY" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                              
-							</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">그룹코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">코드그룹명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma"> 
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table class="table table-bordered tbl_fixed table-search-ma" >
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 10%">
+							<col style="width: 6%">
+							<col style="width: 1%">
+							<col style="width: 6%">
+							<col style="width: 2%">
+							
+							<col style="width: 10%">
+							<col style="width: 6%">
+							<col style="width: 1%">
+							<col style="width: 6%">
+							<col style="width: 2%">
+							
+							<col style="width: 10%">
+							<col style="width: 6%">
+							<col style="width: 1%">
+							<col style="width: 6%">
+							<col style="width: 2%">
+							
+							<col style="width: 10%">
+							<col style="width: 6%">
+							<col style="width: 1%">
+							<col style="width: 6%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr >
+	                            <th scope="row" class="th_bg_search" >유형분류</th>
+	                            <td colspan="4" class="td_input" >
+									<div class="dropdown">
+									    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_GROUP_CATEGORY" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby="SRCH_GROUP_CATEGORY" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                              
+								</td>
+	                            <th scope="row" class="th_bg_search" >그룹코드</th>
+	                            <td colspan="4" class="td_input" >
+	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:100" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <th scope="row" class="th_bg_search" >코드그룹명</th>
+	                            <td colspan="4" class="td_input" >
+	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+		                        <th scope="row" class="th_bg_search">sbux-datepicker 테스트</th>
+	                            <td colspan="4" class="td_input"  style="border-right:hidden;width:100%;">
+	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+	                            </td>	
+	                        </tr>
+	                    </tbody>
+	                </table>
+                </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>코드목록</span>
+                                    <span>◎ 코드목록</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -125,11 +139,11 @@
                                     <col style="width:13%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">그룹코드</th>
+                                    <th scope="row" class="th_bg_content">그룹코드</th>
                                     <td class="td_input">
                                         <sbux-input id="GROUP_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">사용여부</th>
+                                    <th scope="row" class="th_bg_content">사용여부</th>
                                     <td class="td_input">
                                         <p class="ad_input_row">
                                             <sbux-checkbox
@@ -144,23 +158,23 @@
                                             />
                                         </p>                                    
                                     </td>
-                                    <th scope="row" rowspan="3" colspan="" class="th_bg" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;요</th>
+                                    <th scope="row" rowspan="3" colspan="" class="th_bg_content" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;요</th>
                                     <td class="td_input" rowspan="3" colspan="3" >
                                         <sbux-textarea id="DESCR" class="form-control input-sm" uitype="normal" style="width:100%; height:100px;""></sbux-textarea>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">코드그룹명</th>
+                                    <th scope="row" class="th_bg_content">코드그룹명</th>
                                     <td class="td_input" colspan="3">
                                         <sbux-input id="GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">코드길이</th>
+                                    <th scope="row" class="th_bg_content">코드길이</th>
                                     <td class="td_input">
                                         <sbux-input id="CODE_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">유형분류</th>
+                                    <th scope="row" class="th_bg_content">유형분류</th>
 		                            <td colspan="" class="td_input" style="border-right:hidden;">
 		                                <sbux-select
 		                                        id="GROUP_CATEGORY"
@@ -173,91 +187,91 @@
 									</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">여유필드캡션1</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션1</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION1" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션6</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션6</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION6" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션11</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션11</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION11" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션16</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션16</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION16" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">여유필드캡션2</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션2</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION2" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션7</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션7</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION7" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션12</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션12</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION12" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션17</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션17</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION17" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">여유필드캡션3</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션3</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION3" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션8</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션8</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION8" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션13</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션13</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION13" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션18</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션18</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION18" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">여유필드캡션4</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션4</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION4" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션9</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션9</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION9" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션14</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션14</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION14" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션19</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션19</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION19" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">여유필드캡션5</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션5</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION5" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션10</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션10</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION10" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션15</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션15</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION15" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">여유필드캡션20</th>
+                                    <th scope="row" class="th_bg_content">여유필드캡션20</th>
                                     <td class="td_input">
                                         <sbux-input id="FIELD_CAPTION20" class="form-control input-sm field-caption" uitype="text" style="width:100%"></sbux-input>
                                     </td>
@@ -319,7 +333,7 @@
                         </div>
                         <div class="ad_tbl_top2">
 	                        <div>
-	                            <div id="sb-area-subGrdCom3000" style="height:292px; width:100%;"></div>
+	                            <div id="sb-area-subGrdCom3000" style="height:292px; width:100%; border-left: none !important; border-right: none !important; border-bottom: none !important; border-top: none !important;"></div>
 	                        </div>
                         </div>
                     </div>
@@ -1223,6 +1237,16 @@
         fn_setCMNSCDSubGrid(rowData.GROUP_CODE);
 
     }
+    
+/*
+border-right:none !important
+
+border-left:none !important
+
+border-top:none !important
+
+border-bottom:none !important
+*/
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
