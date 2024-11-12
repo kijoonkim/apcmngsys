@@ -1,6 +1,14 @@
+<%@ include file="./headerScript.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+    body{
+        zoom: 0.8 !important;
+    }
+</style>
+
+<link rel="stylesheet" href="../../../css/admin/dl_apcma_custom.css">
 <!-- 파일첨부 팝업 Modal -->
 <div>
     <sbux-modal style="width:1300px" id="modal-comPopFileMng" name="modal-comPopFileMng" uitype="middle" header-title="파일첨부관리" body-html-id="body-modal-comPopFileMng" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
