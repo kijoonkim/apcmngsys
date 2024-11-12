@@ -24,7 +24,6 @@
 <head>
 	<title>title : 전표생성RULE관리</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -41,36 +40,45 @@
             </div>
             <div class="box-body">
 
-				<div>
+				<div class="box-search-ma"> 
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg">전표Rule코드</th>
+	                            <th scope="row" class="th_bg_search">전표Rule코드</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtrule-code" class="form-control input-sm" ></sbux-input>
 	                            </td>
-	                            <td colspan="8">
+	                            <td colspan="16">
 	                            </td>
 	                        </tr>    
 	                    </tbody>
@@ -207,7 +215,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdBot" style="height:240px; width:100%;">
+	                    <div id="sb-area-grdBot" style="height:440px; width:100%;">
 	                    </div>
 	                </div>
                 </div>
@@ -396,7 +404,7 @@
             {caption: ["계정코드"],  				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계정명"],    				ref: 'ACCOUNT_NAME', 			type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -405,14 +413,14 @@
             {caption: ["부서코드"],					ref: 'DEPT_CODE',				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["부서명"],					ref: 'DEPT_NAME',				type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["원가중심점코드"],			ref: 'COST_CENTER_CODE',		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원가중심점명"],				ref: 'COST_CENTER_NAME',		type:'output',  	width:'200px',  	style:'text-align:left'},
