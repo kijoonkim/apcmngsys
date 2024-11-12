@@ -909,13 +909,13 @@
 			                   AND WP.WRHSNO = INV.WRHSNO
 			                   AND WD.APC_CD = SG.APC_CD
 			                   AND WD.GRD_CD = SG.GRD_CD
-			                   AND WC.APC_CD = VI.APC_CD
-                               AND WC.VHCLNO = VI.VHCLNO
+			                   AND WC.APC_CD = VI.APC_CD(+)
+                               AND WC.VHCLNO = VI.VHCLNO(+)
 			                   AND WC.DEL_YN = 'N'
 			                   AND WD.DEL_YN = 'N'
 			                   AND WP.DEL_YN = 'N'
 			                   AND INV.DEL_YN = 'N'
-			                   AND VI.DEL_YN = 'N'
+			                   AND VI.DEL_YN(+) = 'N'
 			                   AND WC.APC_CD = #{apcCd}
 		]]>
 		<if test='itemCd != null and itemCd !=""'>
