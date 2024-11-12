@@ -499,6 +499,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				}
 				// 입고번호 설정
 				wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+				wghPrfmncDtlVO.setPltno(rawMtrWrhsVO.getPltno());
 				wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 
 
