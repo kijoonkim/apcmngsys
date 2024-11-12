@@ -100,6 +100,10 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String plorCd;
 	/**
+	 * 산지코드명
+	 */
+	private String plorNm;
+	/**
 	 * 생산자연계코드
 	 */
 	private String prdcrLinkCd;

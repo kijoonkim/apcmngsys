@@ -938,6 +938,13 @@
         event.preventDefault();
     }, { passive: false });
 
+    window.addEventListener('keydown', function(event) {
+        if (event.altKey && (event.key === 'F' || event.key === 'f' || event.key === 'ㄹ')) {
+            event.preventDefault();
+            mfn_search();
+        }
+    });
+
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
 

@@ -38,4 +38,12 @@ public interface BrnoPopupMapper {
 	 */
 	public List<BrnoPopupVO> selectAplyBrnoList(BrnoPopupVO vo);
 
+	/**
+	 * 조직 리스트 조회
+	 * @param BrnoPopupVO
+	 * @return List<BrnoPopupVO>
+	 * @throws Exception
+	 */
+	public List<BrnoPopupVO> selectBrnoMngList(BrnoPopupVO vo);
+
 }

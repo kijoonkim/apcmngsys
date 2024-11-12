@@ -14,4 +14,8 @@ public class BrnoPopupVO extends ComVO{
 	private String crno;			//법인등록번호
 	private String apoCd;			//조직코드
 	private String yr;				//등록년도
+
+	private String mno;				//본번
+	private String sno;				//부번
+	private String slctnYr;			//선정년도
 }
