@@ -45,4 +45,10 @@ public class BrnoPopupServiceImpl extends BaseServiceImpl implements BrnoPopupSe
 		return resultList;
 	}
 
+	@Override
+	public List<BrnoPopupVO> selectBrnoMngList(BrnoPopupVO vo) throws Exception {
+		List<BrnoPopupVO> resultList = BrnoPopupMapper.selectBrnoMngList(vo);
+
+		return resultList;
+	}
 }
