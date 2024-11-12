@@ -42,21 +42,29 @@
         <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-
-                <col style="width: 7%">
+                <col style="width: 10%">
                 <col style="width: 6%">
                 <col style="width: 1%">
                 <col style="width: 6%">
                 <col style="width: 2%">
 
-                <col style="width: 7%">
+                <col style="width: 10%">
                 <col style="width: 6%">
+                <col style="width: 1%">
                 <col style="width: 6%">
-                <col style="width: 3%">
+                <col style="width: 2%">
+
+                <col style="width: 10%">
+                <col style="width: 6%">
+                <col style="width: 1%">
+                <col style="width: 6%">
+                <col style="width: 2%">
+
+                <col style="width: 10%">
+                <col style="width: 6%">
+                <col style="width: 1%">
+                <col style="width: 6%">
+                <col style="width: 2%">
             </colgroup>
             <tbody>
             <tr>
@@ -69,7 +77,7 @@
                                 text="전체" value="ALL">
                     </sbux-radio>
                 </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
+                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">접속일자</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
@@ -102,9 +110,7 @@
                         </div>
                     </div>
                 </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            <tr>
+                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">사용자ID</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
@@ -113,6 +119,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
+                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
             </tr>
             </tbody>
         </table>
