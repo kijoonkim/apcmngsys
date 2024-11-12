@@ -237,6 +237,10 @@
     let prvTabMenuId = "";
 
 
+	let lv_sysId	= "";
+
+	const jsonSideTempData = [];
+	
     const jsonTabPage = [];
 
     const jsonCommonBtn = [];
@@ -321,7 +325,7 @@
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
      */
     async function fn_setLeftMenu(_menuNo, _menuId) {
-
+    	
         var menuInfo = _.find(menuJson, {id: _menuNo});
         var pMenuId = menuInfo.pid;
         var pMenuNm = menuInfo.value;
@@ -331,12 +335,21 @@
             pMenuNm = menuInfo.text;
         }
 
+        lv_sysId = pMenuId;
+        
+        const idxSideTemp = jsonSideTempData.findIndex(function(item) {return item.id === lv_sysId}) // findIndex = find + indexOf
+        if (idxSideTemp > -1) {
+        	jsonSideTempData.splice(idxSideTemp, 1)
+        }
+        
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
         const data = await postJsonPromise;
 
         try {
+        	
+        	const list = [];
             sideJsonData.length = 0;
             data.resultList.forEach((item, index) => {
                 const menu = {
@@ -349,8 +362,14 @@
                     bmkYn	: item.bmkYn
                 }
                 sideJsonData.push(menu);
+                list.push(menu);
             });
 
+            jsonSideTempData.push({
+            	id: lv_sysId,
+            	list: list
+            });
+            
             //if (pMenuId !== "0") {
             if (!gfn_isEmpty(menuInfo.pid)) {
                 var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
@@ -364,14 +383,34 @@
             }
 
             var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
+            var expndPid;
             if (idx >= 0) {
                 sideJsonData[idx].class = "active";
+                
+                expndPid = sideJsonData[idx].pid;
             }
 
             SBUxMethod.refresh("side_menu");
-            if (!gfn_isEmpty(menuInfo.pid)) {
-                SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
+            
+            if (!gfn_isEmpty(expndPid)) {            	
+                SBUxMethod.expandSideMenu("side_menu", expndPid, true);
             }
+            
+            /*
+            SBUxMethod.expandSideMenu("side_menu", findMenu.pid, true);
+            
+            let findMenu = _.find(sideJsonData, {id: _menuNo});
+            
+            if (!gfn_isEmpty(findMenu) && gfn_nvl(findMenu.pid).length > 2) {
+
+            	SBUxMethod.expandSideMenu("side_menu", findMenu.pid, true);
+            }
+            
+            if (!gfn_isEmpty(menuInfo.pid)) {            	
+                SBUxMethod.expandSideMenu("side_menu");
+            }
+            */
+            
 
             var title = pMenuNm;
             document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
@@ -507,7 +546,6 @@
         	lv_frmId = lv_tabPrefix + _menuId;
         }
 
-
         // 공통버튼 설정
         await fn_setTabInfo(_menuId);
 
@@ -632,7 +670,8 @@
 
         var upMenuNo = menuInfo.pid;
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
-        var topMenuNo = upMenuInfo.pid;
+        //var topMenuNo = upMenuInfo.pid;
+        var topMenuNo = menuId.substr(0, 2);	// topMenu 고정
         if (gfn_isEmpty(topMenuNo)) {
             topMenuNo = upMenuNo;
         }
@@ -664,7 +703,40 @@
     }
 
 	function fn_selectTabMenu(_selectId, _selectJson) {
-		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
+		
+		const _menuNo = _selectId.substring(_selectId.indexOf("_")+1);
+		const topId = _menuNo.substr(0, 2);
+		
+		if (!_.isEqual(topId, lv_sysId)) {
+			
+			const sideData = _.find(jsonSideTempData, {id: topId});
+			
+			sideJsonData.length = 0;
+			sideData.list.forEach((item) => {
+				sideJsonData.push(item);
+			});
+			
+			lv_sysId = topId;
+		}
+		
+		const idx = _.findLastIndex(sideJsonData, {id: _menuNo});
+        if (idx >= 0) {
+            sideJsonData[idx].class = "active";
+        }
+		
+		SBUxMethod.refresh("side_menu");
+		
+
+		let findMenu = _.find(sideJsonData, {id: _menuNo});
+		if (!gfn_isEmpty(findMenu)) {
+			if (!gfn_isEmpty(findMenu.pid)) {
+				SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
+			}
+		}
+		//SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
+		
+		
+		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));		
 	}
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
