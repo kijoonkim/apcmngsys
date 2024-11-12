@@ -68,6 +68,10 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 팔레트번호
 	 */
 	private String pltno;
+	/**
+	 * 산지코드
+	 */
+	private String plorCd;
 
 	/**
 	 * 입고일자
