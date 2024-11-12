@@ -184,7 +184,7 @@
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup1"
                                 image-src="../../../resource/images/find2.png"
-                                image-style="width:25px;height:15px;"
+                                image-style="width:85%;"
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
@@ -210,7 +210,7 @@
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup2"
                                 image-src="../../../resource/images/find2.png"
-                                image-style="width:25px;height:15px;"
+                                image-style="width:85%;"
                         ></sbux-button>
                     </td>
                 </tr>
