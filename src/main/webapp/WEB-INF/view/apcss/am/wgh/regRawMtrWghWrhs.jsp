@@ -70,7 +70,7 @@
                 </sbux-tabs>
                 <div class="tab-content">
                     <div id="tab_spmtPrfmncReg">
-                        <table class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 40%">
+                        <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 50%">
                             <colgroup>
                                 <col style="width: 20%">
                                 <col style="width: 30%">
@@ -83,13 +83,11 @@
                                     입고일자
                                 </th>
                                 <td class="td_input" colspan="3">
-                                    <sbux-datepicker uitype="popup" id="reg-dtp-wrhsYmd" name="reg-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+                                    <sbux-datepicker uitype="popup" id="reg-dtp-wghYmd" name="reg-dtp-wghYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    품목
-                                </th>
+                                <th scope="row" class="th_bg">품목</th>
                                 <td class="td_input" colspan="3">
                                     <div style="width: 50%">
                                         <sbux-select
@@ -105,9 +103,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    농가
-                                </th>
+                                <th scope="row" class="th_bg">농가</th>
                                 <td class="td_input" colspan="3">
                                     <div style="display: flex; gap: 5px">
                                         <sbux-input
@@ -132,9 +128,15 @@
                                                 oninput="fn_onInputPrdcrNm(event)"
                                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                                         ></sbux-input>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="reg-inp-prdcrCd"
+                                                name="reg-inp-prdcrCd"
+                                                style="display: none"
+                                        ></sbux-input>
                                         <sbux-button
-                                                id="srch-btn-prdcrCd"
-                                                name="srch-btn-prdcrCd"
+                                                id="reg-btn-prdcrCd"
+                                                name="reg-btn-prdcrCd"
                                                 class="btn btn-outline-dark"
                                                 text="찾기" uitype="modal"
                                                 target-id="modal-prdcr"
@@ -144,9 +146,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    산지
-                                </th>
+                                <th scope="row" class="th_bg">산지</th>
                                 <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
@@ -166,9 +166,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    차량번호
-                                </th>
+                                <th scope="row" class="th_bg">차량번호</th>
                                 <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
@@ -182,9 +180,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    총중량(Kg)
-                                </th>
+                                <th scope="row" class="th_bg">총중량(Kg)</th>
                                 <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
@@ -198,9 +194,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    공차중량(Kg)
-                                </th>
+                                <th scope="row" class="th_bg">공차중량(Kg)</th>
                                 <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
@@ -214,24 +208,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    실중량(Kg)
-                                </th>
-                                <td style="padding :0!important;" colspan="3">
+                                <th scope="row" class="th_bg">실중량(Kg)</th>
+                                <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
                                             id="reg-inp-wrhsWght"
                                             name="reg-inp-wrhsWght"
                                             style="background-color: yellow !important; border-radius: 0"
+                                            tooltip="실중량 = 총중량 - 공차중량 - (콘티수 * 콘티중량) - (파렛트수 * 파렛트중량)"
                                             autocomplete="off"
                                             readonly
                                     ></sbux-input>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg" >
-                                    콘티수(개)
-                                </th>
+                                <th scope="row" class="th_bg" >콘티수(개)</th>
                                 <td class="td_input">
                                     <sbux-input
                                             uitype="text"
@@ -242,9 +233,7 @@
                                             onchange="fn_calcInput()"
                                     ></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">
-                                    콘티 중량(Kg)
-                                </th>
+                                <th scope="row" class="th_bg">콘티 중량(Kg)</th>
                                 <td class="td_input" >
                                     <sbux-input
                                             uitype="text"
@@ -258,9 +247,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    상품등급
-                                </th>
+                                <th scope="row" class="th_bg">상품등급</th>
                                 <td style="padding: 0!important;" colspan="3";>
                                     <div style="display: flex">
                                         <div class="th_bg" style="flex-basis: 25%; text-align: center;align-content: center;">
@@ -269,8 +256,8 @@
                                         <div>
                                             <sbux-input
                                                     uitype="text"
-                                                    id="reg-inp-grdCd"
-                                                    name="reg-inp-grdCd"
+                                                    id="reg-inp-grdQntt1"
+                                                    name="reg-inp-grdQntt1"
                                                     wrap-style="margin-left:5px"
                                                     style="width: 90%"
                                                     autocomplete="off"
@@ -282,8 +269,8 @@
                                         <div>
                                             <sbux-input
                                                     uitype="text"
-                                                    id="reg-inp-NgrdCd"
-                                                    name="reg-inp-NgrdCd"
+                                                    id="reg-inp-grdQntt2"
+                                                    name="reg-inp-grdQntt2"
                                                     wrap-style="margin-left:5px"
                                                     style="width: 90%"
                                                     autocomplete="off"
@@ -294,14 +281,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    파렛트수(개)
-                                </th>
+                                <th scope="row" class="th_bg">파렛트수(개)</th>
                                 <td class="td_input" >
                                     <sbux-input
                                             uitype="text"
-                                            id="reg-inp-bxQntt"
-                                            name="reg-inp-bxQntt"
+                                            id="reg-inp-pltQntt"
+                                            name="reg-inp-pltQntt"
                                             class="form-control input-sm"
                                             autocomplete="off"
                                     ></sbux-input>
@@ -321,10 +306,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    실중량(Kg)/콘티
-                                </th>
-                                <td style="padding: 0!important;" colspan="3">
+                                <th scope="row" class="th_bg">실중량(Kg)/콘티</th>
+                                <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
                                             id="reg-inp-avgWght"
@@ -336,14 +319,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">
-                                    비고
-                                </th>
+                                <th scope="row" class="th_bg">비고</th>
                                 <td class="td_input" colspan="3">
                                     <sbux-input
                                             uitype="text"
-                                            id="reg-inp-bxQntt"
-                                            name="reg-inp-bxQntt"
+                                            id="reg-inp-rmrk"
+                                            name="reg-inp-rmrk"
                                             class="form-control input-sm"
                                             autocomplete="off"
                                     ></sbux-input>
@@ -359,12 +340,12 @@
                                 <col style="width: 70%">
                             </colgroup>
                             <tbody>
-                            <tr>ßs
+                            <tr>
                                 <th scope="row" class="th_bg">
                                     입고일자
                                 </th>
                                 <td class="td_input">
-                                    <sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+                                    <sbux-datepicker uitype="popup" id="srch-dtp-wghYmd" name="srch-dtp-wghYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
                                 </td>
                             </tr>
                             </tbody>
@@ -445,9 +426,8 @@
         // stdGrdSelect.init();
     });
     const fn_init = async function(){
-        console.log("TLqkffhadl");
-        SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("reg-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-wghYmd", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
         await gfn_setApcItemSBSelect('reg-slt-itemCd',jsonApcItem, gv_selectedApcCd);		// 품목
     }
     /**
@@ -471,6 +451,7 @@
             SBUxMethod.set("reg-inp-prdcrNm", prdcr.prdcrNm);
             SBUxMethod.set("reg-inp-prdcrIdentno", prdcr.prdcrIdentno);
             SBUxMethod.set("reg-inp-plorNm",prdcr.plorNm);
+            SBUxMethod.set("reg-inp-plorCd",prdcr.plorCd);
             SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
         }
     }
@@ -522,8 +503,73 @@
      * @description 모든 수치 데이터 일괄 처리
      */
     const fn_calcInput = function(){
-        let inputs = Array.from(document.querySelectorAll("[id^='reg-inp']"));
-        console.log(inputs);
+        /** 총중량 **/
+        let wholWght = SBUxMethod.get("reg-inp-wholWght") || 0;
+
+        /** 공차중량 **/
+        let emptVhclWght = SBUxMethod.get("reg-inp-emptVhclWght") || 0;
+
+        /** 콘티수 **/
+        let bxQntt = SBUxMethod.get("reg-inp-bxQntt") || 0;
+
+        /** 콘티중량 **/
+        let boxWght = SBUxMethod.get("boxWght") || 0;
+
+        /** 파렛트수 **/
+        let pltQntt = SBUxMethod.get("reg-inp-pltQntt") || 0;
+
+        /** 퍄렛트 중량 **/
+        let pltWght = SBUxMethod.get("pltWght") || 0;
+
+        /** 실중량 계산 **/
+        let total = parseInt(wholWght) - parseInt(emptVhclWght) - (parseInt(pltQntt) * parseInt(pltWght)) - (parseInt(bxQntt) * parseInt(boxWght));
+        SBUxMethod.set("reg-inp-wrhsWght",String(total));
+        if(total < 0){
+            gfn_comAlert("W0023","실중량","0");
+        }
+        let avg = total / parseInt(bxQntt);
+        SBUxMethod.set("reg-inp-avgWght",String(avg));
+
+    }
+    const fn_save = async function(){
+        let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
+        console.log(elements);
+        console.log(jsonApcGrd,"jsonApcGrd");
+        saveList = [];
+        let tableData = gfn_getTableElement("regTable","reg-",["grdQntt2"]);
+        if(tableData.grdQntt2){
+            /** 비품 존재 > row add **/
+            let obj = {...tableData};
+            /** 등급 설정 **/
+            jsonApcGrd.forEach(function(item){
+                obj.grdCd = item.grdCd;
+                /** 공통정보 주입 **/
+                obj.apcCd = gv_selectedApcCd;
+                obj.rowSts = 'I';
+                obj.groupId = 1;
+                obj.delYn = 'N';
+                obj.wrhsSpmtType = "RT";
+                obj.grdCd1 = '';
+                obj.grdCd2 = '';
+                saveList.push({...obj});
+            });
+        }
+        console.log(saveList,"진짜 저장전");
+        if (gfn_comConfirm("Q0001", "저장")) {
+            const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", saveList);
+            const data = await postJsonPromise;
+            console.log(data);
+            if(data.resultStatus === 'S'){
+                fn_reset();
+            }
+        }
+    }
+    const fn_reset = function(){
+        let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
+        for(let el in elements){
+            SBUxMethod.set(el.id,'');
+        }
+        SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
     }
 
 

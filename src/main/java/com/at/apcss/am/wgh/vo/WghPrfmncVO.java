@@ -177,11 +177,14 @@ public class WghPrfmncVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
-
 	/**
 	 * 계량순번
 	 */
 	private int wghSeqNo;
+	/**
+	 * 산지코드
+	 */
+	private String plorCd;
 
 	/**
 	 * 팔레트박스구분코드
