@@ -4,35 +4,35 @@
                 <table id="apcSelectMa" class="table table-bordered tbl_fixed table-search-ma">
 				
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 6%">
+						<col style="width: 8%">
+						<col style="width: 7%">
 						<col style="width: 1%">
-						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
 						<col style="width: 2%">
 						
-						<col style="width: 10%">
-						<col style="width: 6%">
+						<col style="width: 8%">
+						<col style="width: 7%">
 						<col style="width: 1%">
-						<col style="width: 6%">
+						<col style="width: 7%">
 						<col style="width: 2%">
 						
-						<col style="width: 10%">
-						<col style="width: 6%">
+						<col style="width: 8%">
+						<col style="width: 7%">
 						<col style="width: 1%">
-						<col style="width: 6%">
-						<col style="width: 2%">
-						
-						<col style="width: 10%">
-						<col style="width: 6%">
-						<col style="width: 1%">
-						<col style="width: 6%">
+						<col style="width: 7%">
 						<col style="width: 2%">
 						
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg_search">클라이언트 코드</th>
-							<td colspan="4" class="td_input">
+							<td colspan="3" class="td_input">
 	<script type="text/javascript">
 		var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 		var temp_jsonClientCode		= [];
@@ -92,9 +92,9 @@
 									</c:otherwise>
 								</c:choose>
 							</td>
-							
+							<td></td>
 							<th scope="row" class="th_bg_search">APC명</th>
-							<td colspan="4" class="td_input">
+							<td colspan="3" class="td_input">
 	<script type="text/javascript">
 	<c:choose>
 		<c:when test="${comApcList != null}">
@@ -158,6 +158,7 @@
 		</c:otherwise>
 	</c:choose>
 							</td>
+							<td></td>
 						</tr>
 				</table>
 						
