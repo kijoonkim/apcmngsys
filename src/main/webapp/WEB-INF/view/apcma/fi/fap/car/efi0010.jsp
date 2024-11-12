@@ -243,14 +243,14 @@
             {caption: ["판관비 계정코드(주계정)"],  ref: 'ZACCD_D', 				type:'input',		width:'160px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>..</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["판관비 계정명"],    		ref: 'ZACCD_DNAME', 			type:'input',  		width:'200px',  	style:'text-align:left'},
             {caption: ["제조비용 계정코드"],		ref: 'ZACCD_D2',				type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>..</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["제조계정명"], 				ref: 'ZACCD_DNAME2', 			type:'output',  	width:'200px',  	style:'text-align:left'},
