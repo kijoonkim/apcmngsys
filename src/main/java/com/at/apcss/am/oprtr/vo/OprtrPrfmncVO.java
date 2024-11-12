@@ -127,4 +127,9 @@ public class OprtrPrfmncVO extends ComVO{
 	 * 실적 중량
 	 * */
 	private int wght;
+
+	/*
+	 * 시급
+	 * */
+	private int hrWg;
 }

@@ -504,7 +504,7 @@
                     jsonSave[idx].pltno = item.pltno;
                     updateCell(idx,2,item.pltno);
                 });
-                await fn_autoPrint(data.resultMap);
+                await fn_autoPrint(jsonSave);
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }
@@ -564,14 +564,15 @@
      */
     const fn_autoPrint = async function(resultMap){
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+        const pltno = resultMap.map(item => item.pltno).join(',');
         if(document.querySelector('#srch-chk-autoPrint').checked){
             if(!document.querySelector('#srch-chk-exePrint').checked){
-                gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+                gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: pltno,element : 'div-rpt-clipReportPrint'});
             }else{
-                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: pltno,element : 'div-rpt-clipReportPrint'});
             }
         }else{
-            gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+            gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: pltno});
         }
 
         //gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
