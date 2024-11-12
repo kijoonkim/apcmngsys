@@ -138,4 +138,9 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 	public int updateOprtrSortPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
 		return oprtrMapper.updateOprtrSortPrfmnc(oprtrprfmncvo);
 	}
+
+	@Override
+	public int deleteOprtrPrfmnc(OprtrPrfmncVO oprtrprfmncvo) throws Exception {
+		return oprtrMapper.deleteOprtrPrfmnc(oprtrprfmncvo);
+	}
 }
