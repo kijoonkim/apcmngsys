@@ -24,12 +24,7 @@
 <head>
 	<title>title : 공통코드 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
-	<style>
-        body{
-/*             zoom: 0.9 !important; */
-        }
-	</style>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -52,32 +47,32 @@
 	                <table class="table table-bordered tbl_fixed table-search-ma" >
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-							<col style="width: 10%">
-							<col style="width: 6%">
+							<col style="width: 8%">
+							<col style="width: 7%">
 							<col style="width: 1%">
-							<col style="width: 6%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
 							<col style="width: 2%">
 							
-							<col style="width: 10%">
-							<col style="width: 6%">
+							<col style="width: 8%">
+							<col style="width: 7%">
 							<col style="width: 1%">
-							<col style="width: 6%">
+							<col style="width: 7%">
 							<col style="width: 2%">
 							
-							<col style="width: 10%">
-							<col style="width: 6%">
+							<col style="width: 8%">
+							<col style="width: 7%">
 							<col style="width: 1%">
-							<col style="width: 6%">
-							<col style="width: 2%">
-							
-							<col style="width: 10%">
-							<col style="width: 6%">
-							<col style="width: 1%">
-							<col style="width: 6%">
+							<col style="width: 7%">
 							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
-	                        <tr >
+	                        <tr>
 	                            <th scope="row" class="th_bg_search" >유형분류</th>
 	                            <td colspan="4" class="td_input" >
 									<div class="dropdown">
@@ -90,17 +85,24 @@
 									</div>                              
 								</td>
 	                            <th scope="row" class="th_bg_search" >그룹코드</th>
-	                            <td colspan="4" class="td_input" >
+	                            <td colspan="3" class="td_input" >
 	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:100" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
-	                            <th scope="row" class="th_bg_search" >코드그룹명</th>
-	                            <td colspan="4" class="td_input" >
-	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-	                            </td>
+	                            <td></td>
+<!-- 	                            <th scope="row" class="th_bg_search" >코드그룹명</th> -->
+<!-- 	                            <td colspan="4" class="td_input" > -->
+<!-- 	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input> -->
+<!-- 	                            </td> -->
 		                        <th scope="row" class="th_bg_search">sbux-datepicker 테스트</th>
-	                            <td colspan="4" class="td_input"  style="border-right:hidden;width:100%;">
+	                            <td class="td_input"  style="border-right:hidden;">
 	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
 	                            </td>	
+	                            <td colspan="3"></td>
+		                        <th scope="row" class="th_bg_search">datepicker reqed 테스트</th>
+	                            <td class="td_input"  style="border-right:hidden;">
+	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+	                            </td>	
+	                            <td colspan="3"></td>
 	                        </tr>
 	                    </tbody>
 	                </table>
