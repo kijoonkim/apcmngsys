@@ -588,14 +588,14 @@
         	const vatCode = item.data.VAT_CODE;
         	const vatName = item.data.VAT_NAME;
         	const vatTypeCode = item.data.VAT_TYPE_CODE;
-        	const vatRate = gfn_nvl(item.data.VAT_RATE);
+        	const vatRate = parseFloat(item.data.VAT_RATE) || 0;
         	const nondedYn = gfn_nvl(item.data.NONDED_YN);
         	const accountCode = gfn_nvl(item.data.ACCOUNT_CODE);
-        	const useYn = gfn_nvl(item.data.USE_YN);
+        	const useYn = gfn_nvl(item.data.USE_YN, 'N');
         	const startDate = gfn_nvl(item.data.START_DATE);
         	const endDate = gfn_nvl(item.data.END_DATE);
         	const memo = gfn_nvl(item.data.MEMO);
-        	const sortSeq = gfn_nvl(item.data.SORT_SEQ);
+        	const sortSeq = parseInt(item.data.SORT_SEQ) || 0;
         	const limitPlusRate = gfn_nvl(item.data.LIMIT_PLUS_RATE);
         	const limitMinusRate = gfn_nvl(item.data.LIMIT_MINUS_RATE);
         	

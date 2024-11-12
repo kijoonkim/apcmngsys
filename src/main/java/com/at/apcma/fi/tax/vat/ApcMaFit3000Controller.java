@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 세무 처리하는 컨트롤러 클래스
@@ -38,6 +39,7 @@ public class ApcMaFit3000Controller extends BaseController {
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
+    
     @PostMapping(value = "/fi/tax/vat/selectFit3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFit3000(
             @RequestBody Map<String, Object> param
@@ -60,5 +62,35 @@ public class ApcMaFit3000Controller extends BaseController {
 
         logger.info("=============selectFit3000=====end========");
         return getSuccessResponseEntityMa(resultMap);
+    }
+    
+    @PostMapping(value = "/fi/tax/vat/insertFit3000S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFit3000S(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFit3000S=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_FIT3000_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFit3000S=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 }
