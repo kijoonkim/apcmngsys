@@ -731,6 +731,7 @@
 			}
 		}
 		console.log(multiList,"저장전");
+		return;
 
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
