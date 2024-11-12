@@ -251,7 +251,7 @@
 										<sbux-input uitype="text" id="PARENT_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">상위여부</th>
 									<td class="td_input" style="border-right: hidden;" colspan="3">
@@ -407,7 +407,7 @@
 										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">손익사업장</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -417,7 +417,7 @@
 										<sbux-input uitype="text" id="SITE_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupSite" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupSite" ></sbux-button>
 									</td>
 								</tr>  													
 								<tr>
@@ -429,7 +429,7 @@
 										<sbux-input uitype="text" id="TRANS_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupTrans" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupTrans" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">센터장</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -439,7 +439,7 @@
 										<sbux-input uitype="text" id="COST_CENTER_LEADER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupLeader" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupLeader" ></sbux-button>
 									</td>
 								</tr>				 
 								<tr>
@@ -451,7 +451,7 @@
 										<sbux-input uitype="text" id="BUDGET_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudget" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudget" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">예산관리</th>
 									<td class="td_input" style="border-right: hidden;"colspan="3">
@@ -844,8 +844,8 @@
 	            lock: true
         };
         SBGridProperties.columns = [
-            {caption : ["원가중심점코드"],		ref: 'COST_CENTER_CODE', 	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["원가중심점명"],		ref: 'COST_CENTER_NAME', 	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption : ["원가중심점코드"],		ref: 'COST_CENTER_CODE', 	type:'output',  	width:'100px',  	style:'text-align:center'},
+            {caption : ["원가중심점명"],		ref: 'COST_CENTER_NAME', 	type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption: ['상위여부'],    ref: 'PARENT_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
@@ -853,9 +853,9 @@
             		style : 'text-align:center',
             		disabled : true
             },
-            {caption : ["상위원가중심점명"],	ref: 'PARENT_COST_CENTER',		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption : ["부서코드"],			ref: 'DEPT_CODE',		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["부서명"],			ref: 'DEPT_NAME',		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption : ["상위원가중심점명"],	ref: 'PARENT_COST_CENTER',		type:'output',  	width:'200px',  	style:'text-align:center'},
+            {caption : ["부서코드"],			ref: 'DEPT_CODE',		type:'output',  	width:'100px',  	style:'text-align:center'},
+            {caption : ["부서명"],			ref: 'DEPT_NAME',		type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption: ['예산관리여부'],   		ref: 'BUDGET_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
@@ -863,9 +863,9 @@
             		style : 'text-align:center',
             		disabled : true
             },
-            {caption : ["예산코스트센터"],		ref: 'BUDGET_COST_CENTER',		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["예산코스트센터명"],	ref: 'BUDGET_COST_CENTER_NAME',		type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["코스트센터장"],		ref: 'COST_CENTER_LEADER',		type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption : ["예산코스트센터"],		ref: 'BUDGET_COST_CENTER',		type:'output',  	width:'100px',  	style:'text-align:center'},
+            {caption : ["예산코스트센터명"],	ref: 'BUDGET_COST_CENTER_NAME',		type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["코스트센터장"],		ref: 'COST_CENTER_LEADER',		type:'output',  	width:'200px',  	style:'text-align:center'}
         ];
         masterTreeGrid	= _SBGrid.create(SBGridProperties);
         masterTreeGrid.bind('click', 'fn_viewSubTable');
@@ -943,10 +943,10 @@
     	  		alert(data.resultMessage);
     		}
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     	        

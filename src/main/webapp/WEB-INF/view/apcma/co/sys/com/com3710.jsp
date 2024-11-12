@@ -192,7 +192,7 @@
 										<sbux-input uitype="text" id="PARENT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -204,7 +204,7 @@
 										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -216,7 +216,7 @@
 										<sbux-input uitype="text" id="COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCostCenter()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCostCenter()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -228,7 +228,7 @@
 										<sbux-input uitype="text" id="ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -240,7 +240,7 @@
 										<sbux-input uitype="text" id="CIP_ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('CIP_ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('CIP_ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -252,7 +252,7 @@
 										<sbux-input uitype="text" id="ASSET_ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ASSET_ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ASSET_ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
