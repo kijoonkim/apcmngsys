@@ -4,7 +4,18 @@
 
 <style>
     body{
-        zoom: 0.8 !important;
+        transform: scale(0.8) !important; /* 80% 배율 */
+        transform-origin: top left !important; /* 시작 지점을 왼쪽 위로 고정 */
+        background-color: #FFFFFF !important;
+        width: 125% !important;
+        height: 125% !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    body > section {
+        flex: 1;
     }
 </style>
 
