@@ -43,11 +43,21 @@
         }
     });
 
-    // 감시할 부모 요소를 선택합니다
+   /* // 감시할 부모 요소를 선택합니다
     const targetNode = document.body; // 동적 요소가 생성될 부모 요소 ID
 
     // 감시할 클래스 목록
-    const requiredClasses = ['sbgrid_common', 'sbgrid_child', 'hasDatepicker'];
+    const requiredClasses = ['sbgrid_common', 'sbgrid_child'];
+
+    // 감시할 ID 설정
+    const targetId = 'sbgrid-ui-datepicker-div';
+
+    // 감시할 앵커 ID 설정
+    const anchorId = 'sbgrid-ui-datepicker-div';
+
+    // sbgrid-ui-datepicker-div 요소를 가져옴
+    const anchorElement = document.getElementById(anchorId);
+    const parentElement = anchorElement ? anchorElement.parentElement : null;
 
     // MutationObserver 설정
     if (targetNode) {
@@ -59,22 +69,7 @@
 
                     // 대상 요소가 특정 클래스를 포함하게 되었는지 확인
                     if (targetElement.classList.contains('sbgrid-ui-selectmenu-open')) {
-                        // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
-                        const originalTop = parseInt(window.getComputedStyle(targetElement).top) || 0;
-                        const originalLeft = parseInt(window.getComputedStyle(targetElement).left) || 0;
-
-                        // 새로운 위치 계산 (예: 20px씩 더하기)
-                        const newTop = originalTop * 1.25;
-                        const newLeft = originalLeft * 1.25;
-
-                        targetElement.style.top = newTop+'px';
-                        targetElement.style.left = newLeft + 'px';
-                    }
-
-                    console.log(targetElement.classList.contains('hasDatepicker'))
-
-                    if (targetElement.classList.contains('hasDatepicker')) {
-                        console.log("CATCH")
+                        console.log("test")
                         // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
                         const originalTop = parseInt(window.getComputedStyle(targetElement).top) || 0;
                         const originalLeft = parseInt(window.getComputedStyle(targetElement).left) || 0;
@@ -87,13 +82,69 @@
                         targetElement.style.left = newLeft + 'px';
                     }
                 }
+
+                if (mutation.type === 'childList') {
+
+                    mutation.addedNodes.forEach((node) => {
+                        // sbgrid-ui-datepicker-div가 동적으로 생성되었는지 확인
+                        if (node.nodeName === 'DIV' && node.id === anchorId) {
+                            // sbgrid-ui-datepicker-div의 부모 요소 가져오기
+                            const parentElement = node.parentElement;
+
+                            // 형제 노드 생성/삭제 감시를 위한 MutationObserver 설정
+                            const siblingObserver = new MutationObserver((siblingMutations) => {
+                                siblingMutations.forEach((siblingMutation) => {
+                                    if (siblingMutation.type === 'childList') {
+                                        siblingMutation.addedNodes.forEach((siblingNode) => {
+                                            if (siblingNode.nodeName === 'DIV' && siblingNode !== node) {
+                                                if (siblingNode.classList.contains('sbgrid-ui-selectmenu-open')) {
+                                                    console.log("test")
+                                                    // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
+                                                    const originalTop = parseInt(window.getComputedStyle(siblingNode).top) || 0;
+                                                    const originalLeft = parseInt(window.getComputedStyle(siblingNode).left) || 0;
+
+                                                    // 새로운 위치 계산 (예: 20px씩 더하기)
+                                                    const newTop = originalTop * 1.25;
+                                                    const newLeft = originalLeft * 1.25;
+
+                                                    siblingNode.style.top = newTop+'px';
+                                                    siblingNode.style.left = newLeft + 'px';
+                                                }
+
+                                                if (siblingNode.classList.contains('hasDatepicker')) {
+                                                    console.log("test2")
+                                                    // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
+                                                    const originalTop = parseInt(window.getComputedStyle(siblingNode).top) || 0;
+                                                    const originalLeft = parseInt(window.getComputedStyle(siblingNode).left) || 0;
+
+                                                    // 새로운 위치 계산 (예: 20px씩 더하기)
+                                                    const newTop = originalTop * 1.25;
+                                                    const newLeft = originalLeft * 1.25;
+
+                                                    siblingNode.style.top = newTop+'px';
+                                                    siblingNode.style.left = newLeft + 'px';
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+
+                            // 부모 요소에서 자식 노드 추가 및 제거 감지
+                            siblingObserver.observe(parentElement, { childList: true });
+
+                            // sbgrid-ui-datepicker-div가 발견되었으므로 body 감시는 종료
+                            observer.disconnect();
+                        }
+                    });
+                }
             });
         });
 
         // observer가 감시할 설정 옵션 (속성 변경 감지 + 하위 요소 포함)
-        const config = { attributes: true, attributeFilter: ['class'], subtree: true };
+        const config = { attributes: true, attributeFilter: ['class'], childList: true, subtree: true };
 
         // observer 시작
         observer.observe(document.body, config);
-    }
+    }*/
 </script>
