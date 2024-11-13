@@ -166,7 +166,6 @@
         let mainParam = localStorage.getItem("callMain");
         if(mainParam){
             mainParam = JSON.parse(mainParam);
-            console.log(mainParam,"main에서 받음");
             fn_formatJson(mainParam);
             grdRawMtrWrhs.rebuild();
         }
@@ -174,11 +173,8 @@
     });
     window.addEventListener("message",function(e){
         let obj = e.data;
-        console.log(obj);
         fn_formatJson(JSON.parse(obj));
-        if(obj){
-
-        }
+        grdRawMtrWrhs.rebuild();
     });
     const fn_formatJson = function(_json){
         let grdCd = _json.grdCd.split(',');
@@ -238,7 +234,6 @@
      * @description 생산자 선택 popup callback 처리
      */
     const fn_setPrdcr = async function(prdcr) {
-        console.log(prdcr,"생산자");
         SBUxMethod.set("srch-inp-wrhsno", "");
 
         if (!gfn_isEmpty(prdcr)) {
@@ -266,7 +261,6 @@
     const fn_search = async function(){
         let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");
         let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");
-        console.log(wrhsYmdFrom,wrhsYmdTo);
 
         let obj = gfn_getTableElement("searchTable","srch-",["itemCd","prdcrNm","prdcrCd","vhclno","plorCd","plorNm"]);
         obj.wghYmdFrom = wrhsYmdFrom;
@@ -279,11 +273,25 @@
         if(data.resultStatus === 'S'){
             jsonRawMtrWrhs.length = 0;
             data.resultList.forEach(function(item){
-               fn_formatJson(item);
+                let camel = Object.keys(item).reduce((acc,key) => {
+                    acc[gfn_snakeToCamel(key)] = item[key];
+                    return acc;
+                },{});
+               fn_formatJson(camel);
             });
             grdRawMtrWrhs.rebuild();
         }
-        console.log(data);
+    }
+    const fn_reset = function(){
+        jsonRawMtrWrhs.length = 0;
+        grdRawMtrWrhs.rebuild();
+        let table = document.getElementById("searchTable");
+        let elements = Array.from(table.querySelectorAll('[id^="srch-"]'));
+        for(let element of elements){
+            SBUxMethod.set(element.id,"");
+        }
+        SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:#FFF8DC");
+
     }
     function apcSelectAdd(){
         $("#apcTable tbody tr").append(`
