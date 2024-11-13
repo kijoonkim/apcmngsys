@@ -28,6 +28,11 @@
             font-size: 15px;
             text-align: left;
         }
+        .td_add{
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+        }
         .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd .sbux-tabs-content{
             padding: 16px 0px !important;
         }
@@ -40,6 +45,14 @@
         #searchTable th{
             text-align: center;
             font-weight: bold;
+        }
+        #searchTable  tr:hover{
+            background-color : #FFF8DC;
+            cursor: pointer;
+        }
+        #searchTable  tr.active  td{
+            color:white;
+            background-color :rgb(35,83,119);
         }
     </style>
 </head>
@@ -69,7 +82,7 @@
                  text-align: center;font-weight: bold;border-radius:0}">
                 </sbux-tabs>
                 <div class="tab-content">
-                    <div id="tab_spmtPrfmncReg">
+                    <div id="tab_spmtPrfmncReg" style="height: 500px">
                         <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 50%">
                             <colgroup>
                                 <col style="width: 20%">
@@ -142,6 +155,12 @@
                                                 target-id="modal-prdcr"
                                                 onclick="fn_choicePrdcr"
                                         ></sbux-button>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="wghno"
+                                                name="wghno"
+                                                style="display: none"
+                                        ></sbux-input>
                                     </div>
                                 </td>
                             </tr>
@@ -240,7 +259,6 @@
                                             id="boxWght"
                                             name="boxWght"
                                             class="form-control input-sm"
-<%--                                            style="width: 30%"--%>
                                             autocomplete="off"
                                             onchange="fn_calcInput()"
                                     ></sbux-input>
@@ -333,7 +351,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="tab_spmtPrfmnc">
+                    <div id="tab_spmtPrfmnc" style="height: 500px">
                         <table class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 40%">
                             <colgroup>
                                 <col style="width: 30%">
@@ -367,14 +385,6 @@
                                 <th scope="row" class="th_bg">차량번호</th>
                                 <th scope="row" class="th_bg">총중량</th>
                                 <th scope="row" class="th_bg">상세</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             </tbody>
                         </table>
@@ -421,6 +431,10 @@
     /** save Json **/
     var jsonSave = [];
 
+    /** 입고내역에 전달할 조회 json **/
+    var jsonSearchData = [];
+
+
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
         // stdGrdSelect.init();
@@ -442,7 +456,6 @@
      * @description 생산자 선택 popup callback 처리
      */
     const fn_setPrdcr = async function(prdcr) {
-        console.log(prdcr,"생산자");
         SBUxMethod.set("srch-inp-wrhsno", "");
         await fn_getPrdcrs();
 
@@ -461,7 +474,6 @@
             gfn_getStdGrdDtls(gv_selectedApcCd, "01", obj)
         ]);
         jsonApcGrd = result[1];
-        console.log(jsonApcGrd,"입고등급련");
     }
     /**
      * @name fn_getPrdcrs
@@ -492,6 +504,11 @@
      * @description 확인서 발행
      */
     const fn_docRawMtrWrhs = async function(){
+        let wghno = SBUxMethod.get("wghno");
+        if(gfn_isEmpty(wghno)){
+            gfn_comAlert("W0001","발행대상");
+            return;
+        }
 
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 
@@ -533,8 +550,6 @@
     }
     const fn_save = async function(){
         let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
-        console.log(elements);
-        console.log(jsonApcGrd,"jsonApcGrd");
         saveList = [];
         let tableData = gfn_getTableElement("regTable","reg-",["grdQntt2"]);
         let obj = {...tableData};
@@ -570,11 +585,9 @@
             obj.bxQntt = obj.grdQntt1;
             saveList.push({...obj});
         }
-        console.log(saveList,"진짜 저장전");
         if (gfn_comConfirm("Q0001", "저장")) {
             const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", saveList);
             const data = await postJsonPromise;
-            console.log(data);
             if(data.resultStatus === 'S'){
                 gfn_comAlert("I0001");
                 await fn_reset();
@@ -589,6 +602,54 @@
         SBUxMethod.set("boxWght",'');
         SBUxMethod.set("pltWght",'');
         await SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
+
+        $("#searchTable > tbody tr").slice(1).remove();
+    }
+    const fn_search = async function(){
+        jsonSearchData.length = 0;
+
+        let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+        const postJsonPromise = gfn_postJSON("/am/wgh/selectMultiWghPrfmncList.do", {apcCd:gv_selectedApcCd,wghYmd:wghYmd});
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            data.resultList.forEach(function(item,idx){
+                 let camel = Object.keys(item).reduce((acc,key) => {
+                    acc[gfn_snakeToCamel(key)] = item[key];
+                    return acc;
+                },{});
+                 jsonSearchData.push(camel);
+            });
+            SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmnc');
+            fn_setSearchTable();
+        }
+    }
+    const fn_setSearchTable = function(){
+        $("#searchTable > tbody tr").slice(1).remove();
+        jsonSearchData.forEach(function(item,idx){
+          let el = `
+        <tr onclick="selectLatestInfo(this)">
+            <td class="td_add">${'${item.wrhsYmd}'}</td>
+            <td class="td_add">${'${item.itemNm}'}</td>
+            <td class="td_add">${'${item.prdcrNm}'}</td>
+            <td class="td_add">${'${item.vhclno}'}</td>
+            <td class="td_add">${'${item.wholWght}'}</td>
+            <td><button class="btn btn-lg btn-primary" style="min-width:100% !important" onclick="fn_searchDetail(this)">조회</button></td>
+        </tr>
+        `;
+        $("#searchTable > tbody").append(el);
+        });
+
+    }
+    const fn_searchDetail = async function(_el){
+        let idx = $(_el).closest("tr").index()-1;
+        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_023",...jsonSearchData[idx]}));
+    }
+
+    const selectLatestInfo = async function(element){
+        $("#searchTable").find('tr.active').removeClass('active');
+        $(element).addClass("active");
+        let idx = $(element).index() - 1;
+        SBUxMethod.set("wghno", jsonSearchData[idx].wghno);
     }
 
 

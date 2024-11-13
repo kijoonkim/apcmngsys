@@ -343,7 +343,7 @@
                                         id="TEMP_END_DATE"
                                         name="TEMP_END_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast"
                                 ></sbux-datepicker>
                             </td>
@@ -354,7 +354,7 @@
                                         id="BONUS_APPLY_START_DATE"
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast"
                                         ></sbux-datepicker>
                             </td>
@@ -577,7 +577,7 @@
                                     id="PENSION_JOIN_DATE"
                                     name="PENSION_JOIN_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -586,7 +586,7 @@
                                     id="HEALTH_INSURE_JOIN_DATE"
                                     name="HEALTH_INSURE_JOIN_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -595,7 +595,7 @@
                                     id="PENSION_CLOSE_DATE"
                                     name="PENSION_CLOSE_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -604,7 +604,7 @@
                                     id="HEALTH_INSURE_CLOSE_DATE"
                                     name="HEALTH_INSURE_CLOSE_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -613,7 +613,7 @@
                                     id="LAST_APPLICATION_DATE"
                                     name="LAST_APPLICATION_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -807,7 +807,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>원천세징수비율</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount10">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount10">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -2089,7 +2089,7 @@
 
                     /*****************원천세징수비율********************/
                     /** @type {number} **/
-                    let totalRecordCount10 = 0;
+                    //let totalRecordCount10 = 0;
                     jsonWithholdList.length = 0;
                     data.cv_12.forEach((item, index) => {
                         const msg = {
@@ -2101,11 +2101,11 @@
                             USERTIME            : gfn_nvl(item.USERTIME)
                         }
                         jsonWithholdList.push(msg);
-                        totalRecordCount10++;
+                        //totalRecordCount10++;
                     });
 
                     gvwWithholdGrid.rebuild();
-                    document.querySelector('#listCount10').innerText = totalRecordCount10;
+                    //document.querySelector('#listCount10').innerText = totalRecordCount10;
 
                     fn_setData(rowData.EMP_CODE);
 

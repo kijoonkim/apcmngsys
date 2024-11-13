@@ -641,4 +641,9 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		return null;
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectMultiWghPrfmncList(WghPrfmncVO wghPrfmnc) throws Exception {
+		return wghPrfmncMapper.selectMultiWghPrfmncList(wghPrfmnc);
+	}
 }

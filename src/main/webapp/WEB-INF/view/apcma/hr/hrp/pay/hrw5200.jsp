@@ -268,7 +268,7 @@
                                         name="YYYYMM_TO"
                                         uitype="popup"
                                         datepicker-mode="month"
-                                        date-format="yyyymm"
+                                        date-format="yyyy-mm"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>

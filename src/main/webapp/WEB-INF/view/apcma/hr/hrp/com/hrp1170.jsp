@@ -120,7 +120,7 @@
                                 name="SRCH_PAY_YYYYMM_FR"
                                 uitype="popup"
                                 datepicker-mode="month"
-                                date-format="yyyymm"
+                                date-format="yyyy-mm"
                                 class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
@@ -131,7 +131,7 @@
                                 name="SRCH_PAY_YYYYMM_TO"
                                 uitype="popup"
                                 datepicker-mode="month"
-                                date-format="yyyymm"
+                                date-format="yyyy-mm"
                                 class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>

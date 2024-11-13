@@ -826,7 +826,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>급여내역</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -858,7 +858,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>상여내역</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -890,7 +890,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>임금 환산 년수</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -3434,7 +3434,7 @@
                 });
 
                 /** @type {number} **/
-                let totalRecordCount2 = 0;
+                //let totalRecordCount2 = 0;
                 //-- [1-2] 평균임금 계산 - 급여내역
                 jsonPayList.length = 0;
                 data.cv_4.forEach((item, index) => {
@@ -3451,11 +3451,11 @@
 
                     }
                     jsonPayList.push(msg);
-                    totalRecordCount2++;
+                    //totalRecordCount2++;
                 });
 
                 gvwPayGrid.rebuild();
-                document.querySelector('#listCount2').innerText = totalRecordCount2;
+                //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                 if (jsonPayList.length > 0) {
                     jsonPayList.forEach((item, index) => {
@@ -3463,7 +3463,7 @@
                     })
                 }
                 /** @type {number} **/
-                let totalRecordCount3 = 0;
+                //let totalRecordCount3 = 0;
                 //[1-3] 평균임금 계산 - 상여내역
                 jsonBonusList.length = 0;
                 data.cv_5.forEach((item, index) => {
@@ -3477,11 +3477,11 @@
 
                     }
                     jsonBonusList.push(msg);
-                    totalRecordCount3++;
+                    //totalRecordCount3++;
                 });
 
                 gvwBonusGrid.rebuild();
-                document.querySelector('#listCount3').innerText = totalRecordCount3;
+                //document.querySelector('#listCount3').innerText = totalRecordCount3;
 
                 //[TAB2] 퇴직소득세액계산
                 data.cv_6.forEach((item, index) => {
@@ -3642,7 +3642,7 @@
                 });
 
                 /** @type {number} **/
-                let totalRecordCount4 = 0;
+                //let totalRecordCount4 = 0;
                 //-- [1-4] 평균임금 계산 - 임원 환산 년수 내역
                 jsonChangeList.length = 0;
                 data.cv_9.forEach((item, index) => {
@@ -3663,11 +3663,11 @@
                         PEAK_YN             : gfn_nvl(item.PEAK_YN),
                     }
                     jsonChangeList.push(msg);
-                    totalRecordCount4++;
+                    //totalRecordCount4++;
                 });
 
                 gvwChangeGrid.rebuild();
-                document.querySelector('#listCount4').innerText = totalRecordCount4;
+                //document.querySelector('#listCount4').innerText = totalRecordCount4;
 
 
                 SBUxMethod.set("CALCULATE_TAX_YN", 'Y'); //과세 재계산
