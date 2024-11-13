@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: com3100.jsp
+ * @Class Name 		: fia1100.jsp
  * @Description 	: 자산분류등록 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.04.29
@@ -24,7 +24,6 @@
 <head>
 	<title>title : 자산분류등록</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -39,47 +38,61 @@
                 <div style="margin-left: auto;">
                 </div>
             </div>
-            <div class="box-body">
+			<div class="box-search-ma" >
 
                 <!--[pp] 검색 -->
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">자산분류명</th>
+                            <th scope="row" class="th_bg_search">자산분류명</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-input id="SCH_ASSET_GROUP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 	  							<sbux-input  id="SCH_TXTLANG_ID"  	name="SCH_TXTLANG_ID" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
                             </td>
+                            <td></td>
                             
-                            <th scope="row" class="th_bg">감가상각방법</th>
+                            <th scope="row" class="th_bg_search">감가상각방법</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+                            <td></td>
                             
-                            <th scope="row" class="th_bg">감가상각주기</th>
+                            <th scope="row" class="th_bg_search">감가상각주기</th>
 							<td colspan="3"  class="td_input">
                                 <sbux-select id="SCH_DEPRECIATION_PERIOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
+                            <td></td>
+                            
+                            <td colspan="5"></td>
                         </tr>
                     </tbody>
                 </table>

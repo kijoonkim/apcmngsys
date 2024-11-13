@@ -24,7 +24,7 @@
 <head>
 	<title>title : 손익계산서</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,34 +40,38 @@
                     <sbux-button uitype="normal" text="수불내역"  class="btn btn-sm btn-outline-danger" onclick="fn_dtlView()" ></sbux-button>
                 </div>
             </div>
-            <div class="box-body">
+			<div class="box-search-ma" >
 
                 <!--[pp] 검색 -->
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
                     </colgroup>
                     <tbody>
@@ -84,79 +88,82 @@
                        		<!-- /hidden -->
                        		                    
                         <tr>
-                            <th scope="row" class="th_bg">사업단위</th>
+                            <th scope="row" class="th_bg_search">사업단위</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+                            <td></td>
                             
-                            <th scope="row" class="th_bg">사업장</th>
+                            <th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+                            <td></td>
                             
-                            <th scope="row" class="th_bg">회계기준</th>
+                            <th scope="row" class="th_bg_search">회계기준</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select style="width:150px" id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+                            <td></td>
                             
-                            <th scope="row" class="th_bg">기준년월</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-                            	<div style="display:flex;float:left">
-									<sbux-datepicker
-										uitype="popup"
-										id="SCH_YMDPERIOD_CODE_FR"
-								        datepicker-mode="month"
-								        date-format="yyyy-mm"
-								        style="width:80px"
-										class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-								        onchange = "fn_cngBasicDate"
-									></sbux-datepicker>
-	                            	<font id="SCH_LBLBETWEEN" style="padding-left:5px;padding-right:5px">-</font>
-									<sbux-datepicker
-										uitype="popup"
-										id="SCH_YMDPERIOD_CODE_TO"
-								        datepicker-mode="month"
-								        date-format="yyyy-mm"
-								        style="width:80px"
-										class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-								        onchange = "fn_cngBasicDate"
-									></sbux-datepicker>
-                            	</div>
+                            <th scope="row" class="th_bg_search">기준년월</th>
+                            <td class="td_input" >
+								<sbux-datepicker
+									uitype="popup"
+									id="SCH_YMDPERIOD_CODE_FR"
+							        datepicker-mode="month"
+							        date-format="yyyy-mm"
+									class="form-control pull-right input-sm  input-sm-ast table-datepicker-ma"  onchange="fn_cngBasicDate">
+								</sbux-datepicker>
 							</td>
+                            <td>-</td>
+                            <td class="td_input" >
+								<sbux-datepicker
+									uitype="popup"
+									id="SCH_YMDPERIOD_CODE_TO"
+							        datepicker-mode="month"
+							        date-format="yyyy-mm"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast table-datepicker-ma" onchange = "fn_cngBasicDate">
+								</sbux-datepicker>
+							</td>
+                            <td></td>
                             
                         </tr>
                         
                         <tr>
 							                            
-                            <th scope="row" class="th_bg">계정수준</th>
+                            <th scope="row" class="th_bg_search">계정수준</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select style="width:150px" id="SCH_ACCOUNT_LEVEL" uitype="single" jsondata-ref="jsonAccountLevel" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
+                            <td></td>
 							                            
-                            <th scope="row" class="th_bg">기간</th>
-                            <td colspan="3" class="td_input" >
-                            	<div style="display:flex;float:left">
-	                                <sbux-select style="width:150px" id="SCH_CBODESCR1" uitype="single" jsondata-ref="jsonCbodescr1" unselected-text="선택" class="form-control input-sm" onchange="fn_cngCbodescr1(SCH_CBODESCR1)"></sbux-select>
-								    <font style="padding-left:10px;"></font>  
-									<sbux-datepicker
-										uitype="popup"
-										id="SCH_YMDSELECT_PERIOD1"
-								        datepicker-mode="month"
-								        date-format="yyyy-mm"
-								        style="width:80px"
-										class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									></sbux-datepicker>
-								</div>
+                            <th scope="row" class="th_bg_search">기간</th>
+                            <td colspan="2" class="td_input" >
+                                <sbux-select style="width:150px" id="SCH_CBODESCR1" uitype="single" jsondata-ref="jsonCbodescr1" unselected-text="선택" class="form-control input-sm" onchange="fn_cngCbodescr1(SCH_CBODESCR1)"></sbux-select>
+                            </td>
+                            <td colspan="2" class="td_input" >
+								<sbux-datepicker
+									uitype="popup"
+									id="SCH_YMDSELECT_PERIOD1"
+							        datepicker-mode="month"
+							        date-format="yyyy-mm"
+							        style="width:80px"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+								></sbux-datepicker>
                             </td>
 							                            
-                            <th scope="row" class="th_bg">조건</th>
-                            <td colspan="7" class="td_input" >
+                            <th scope="row" class="th_bg_search">조건</th>
+                            <td colspan="3" class="td_input" >
                             	<div style="display:flex;float:left">
 	                            	<font>Zero포함</font>
 								    <font style="padding-left:10px;"></font>  
 	                            	<sbux-checkbox id="SCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
                             	</div>
                             </td>
+                            <td></td>
+                            
+                            <td colspan="5"></td>
                             
                         </tr>
                         

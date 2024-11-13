@@ -24,12 +24,7 @@
 <head>
 	<title>title : 선급비용상각</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-	
-	<style type="text/css">
-	</style>
-	
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -48,28 +43,37 @@
             </div>
             <div class="box-body">
 
-				<div>
+				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">	                    
 	                    </colgroup>
 	                    <tbody>
 	                    
@@ -77,12 +81,13 @@
                        		<!-- /hidden -->
                        		
 	                    	<tr>
-	                            <th scope="row" class="th_bg">사업단위</th>
+	                            <th scope="row" class="th_bg_search">사업단위</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+	                            <td></td>
 	                            
-	                            <th scope="row" class="th_bg">기간</th>
+	                            <th scope="row" class="th_bg_search">기간</th>
 	                            <td colspan="3" class="td_input" >
 									<sbux-datepicker
 									        id="SCH_PERIOD_YYYYMM"
@@ -90,14 +95,18 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:80px"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed"
-									        required>
+									        class="form-control input-sm input-sm-ast table-datepicker-ma">
 									</sbux-datepicker>                            
 	                            </td>
+	                            <td></td>
 	                            
-	                            <th scope="row" class="th_bg"></th>
+	                            <th scope="row" class="th_bg_search"></th>
 	                            <td colspan="3" class="td_input" >
 	                            </td>
+	                            <td></td>
+	                            
+	                            <td colspan="5"></td>
+	                            
 	                    	</tr>
 															                            
 	                    </tbody>
