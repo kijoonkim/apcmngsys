@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fim3100.jsp
+ * @Class Name 		: fim4300.jsp
  * @Description 	: 전표유형관리 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.11
@@ -24,7 +24,6 @@
 <head>
 	<title>title : 전표유형관리</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 	
 	<style type="text/css">
@@ -46,43 +45,52 @@
             </div>
             <div class="box-body">
 
-				<div>
+				<div class="box-search-ma" style="padding-bottom:10px">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg">전표유형</th>
+	                            <th scope="row" class="th_bg_search">전표유형</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtdoc-type" class="form-control input-sm" ></sbux-input>
 	                            </td>
-	                            <th scope="row" class="th_bg">전표유형명</th>
+	                        	<td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">전표유형명</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtdoc-name" class="form-control input-sm" ></sbux-input>
 	                            </td>
-	                            <th scope="row" class="th_bg"></th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="srch-txtdoctype-p" class="form-control input-sm" ></sbux-input>
-	                            </td>
+	                        	<td colspan="11"></td>
+	                            
 	                        </tr>    
 	                    </tbody>
 	                </table>				
@@ -258,7 +266,7 @@
             {caption: ["환차익계정"],				ref: 'EXCHAGE_GAIN_ACC',		type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["환차익계정명"],				ref: 'EXCHAGE_GAIN_ACC_NAME',	type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -266,7 +274,7 @@
             {caption: ["환차손계정"],				ref: 'EXCHAGE_LOSS_ACC',		type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["환차손계정명"],				ref: 'EXCHAGE_LOSS_ACC_NAME',	type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -274,7 +282,7 @@
             {caption: ["외화평가이익계정"],			ref: 'VAL_GAIN_ACC',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["외화평가이익계정명"],		ref: 'VAL_GAIN_ACC_NAME',		type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -282,7 +290,7 @@
             {caption: ["외화평가손실계정"],			ref: 'VAL_LOSS_ACC',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn4',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["외화평가손실계정명"],		ref: 'VAL_LOSS_ACC_NAME',		type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -577,7 +585,7 @@
             {caption: ["부서코드"],					ref: 'DEPT_CODE',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["부서명"],					ref: 'DEPT_NAME',				type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -590,7 +598,7 @@
             {caption: ["결재자명"],					ref: 'APPR_EMP_NAME',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup11(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup11(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             
