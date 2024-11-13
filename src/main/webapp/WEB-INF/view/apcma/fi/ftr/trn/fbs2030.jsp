@@ -82,11 +82,12 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">거래처</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
                         <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
                         <sbux-input id="SRCH_CUSTOMER_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
@@ -97,8 +98,6 @@
                                 onclick="fn_findCsCode"
                         ></sbux-button>
                     </td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg_search">입출예정일자</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -127,11 +126,12 @@
                                 required
                         />
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">은행</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-input id="SRCH_BANK_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-input id="SRCH_BANK_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
@@ -142,11 +142,13 @@
                                 onclick="fn_findBankCode"
                         ></sbux-button>
                     </td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg_search">계좌번호</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
@@ -157,8 +159,6 @@
                                 onclick="fn_findBankAccount"
                         ></sbux-button>
                     </td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg_search">전표번호</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DOC_NAME_FR" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -169,7 +169,8 @@
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DOC_NAME_TO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <th scope="row" class="th_bg_search">
+                    <td></td>
+                    <td class="td_input">
                         <sbux-checkbox
                                 uitype="normal"
                                 id="SRCH_MULTI_DOC_YN"
@@ -179,8 +180,8 @@
                                 text="복수선택"
                                 true-value="Y" false-value="N"
                         />
-                    </th>
-                    <td class="td_input">
+                    </td>
+                    <td colspan="4" class="td_input">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="복수전표" uitype="modal"

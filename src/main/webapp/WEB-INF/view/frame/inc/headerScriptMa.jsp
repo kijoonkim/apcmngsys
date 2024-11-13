@@ -42,4 +42,58 @@
             cfn_search();
         }
     });
+
+    // 감시할 부모 요소를 선택합니다
+    const targetNode = document.body; // 동적 요소가 생성될 부모 요소 ID
+
+    // 감시할 클래스 목록
+    const requiredClasses = ['sbgrid_common', 'sbgrid_child', 'hasDatepicker'];
+
+    // MutationObserver 설정
+    if (targetNode) {
+        // MutationObserver 설정
+        const observer = new MutationObserver((mutationsList) => {
+            mutationsList.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const targetElement = mutation.target;
+
+                    // 대상 요소가 특정 클래스를 포함하게 되었는지 확인
+                    if (targetElement.classList.contains('sbgrid-ui-selectmenu-open')) {
+                        // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
+                        const originalTop = parseInt(window.getComputedStyle(targetElement).top) || 0;
+                        const originalLeft = parseInt(window.getComputedStyle(targetElement).left) || 0;
+
+                        // 새로운 위치 계산 (예: 20px씩 더하기)
+                        const newTop = originalTop * 1.25;
+                        const newLeft = originalLeft * 1.25;
+
+                        targetElement.style.top = newTop+'px';
+                        targetElement.style.left = newLeft + 'px';
+                    }
+
+                    console.log(targetElement.classList.contains('hasDatepicker'))
+
+                    if (targetElement.classList.contains('hasDatepicker')) {
+                        console.log("CATCH")
+                        // 기존 top과 left 값 가져오기 (기본값이 없으면 0px로 설정)
+                        const originalTop = parseInt(window.getComputedStyle(targetElement).top) || 0;
+                        const originalLeft = parseInt(window.getComputedStyle(targetElement).left) || 0;
+
+                        // 새로운 위치 계산 (예: 20px씩 더하기)
+                        const newTop = originalTop * 1.25;
+                        const newLeft = originalLeft * 1.25;
+
+                        targetElement.style.top = newTop+'px';
+                        targetElement.style.left = newLeft + 'px';
+                    }
+                }
+            });
+        });
+
+        // observer가 감시할 설정 옵션 (속성 변경 감지 + 하위 요소 포함)
+        const config = { attributes: true, attributeFilter: ['class'], subtree: true };
+
+        // observer 시작
+        observer.observe(document.body, config);
+    }
 </script>

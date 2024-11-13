@@ -69,11 +69,12 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">근태집계코드</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_TIME_SUMMARY_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">근태집계명</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_TIME_SUMMARY_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
                     <td></td>

@@ -69,7 +69,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">근태집계단위</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <%--<sbux-select id="SRCH_SUMMARY_SCALE" uitype="single" jsondata-ref="jsonSummaryScale" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SUMMARY_SCALE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,19 +80,19 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">근태분류</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-select id="SRCH_TIME_CATEGORY" uitype="single" jsondata-ref="jsonTimeCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td></td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg_search">근태항목코드</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_TIME_ITEM_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">근태항목명</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_TIME_ITEM_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                     </td>
                     <td></td>

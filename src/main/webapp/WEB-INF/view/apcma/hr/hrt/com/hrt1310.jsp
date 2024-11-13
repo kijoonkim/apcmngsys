@@ -100,8 +100,9 @@
                                 required
                         />
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">근무패턴</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <%--<sbux-select id="SRCH_WORK_PATTERN_CODE" uitype="single" jsondata-ref="jsonWorkPatternCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_WORK_PATTERN_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,6 +113,7 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>

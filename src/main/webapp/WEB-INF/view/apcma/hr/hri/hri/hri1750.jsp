@@ -90,7 +90,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <span> ~ </span>
                         </td>
-                        <td colspan="2" class="td_input" style="border-right:hidden;">
+                        <td class="td_input" style="border-right:hidden;">
                             <sbux-datepicker
                                     uitype="popup"
                                     id="SRCH_REQUEST_DATE_TO"
@@ -102,16 +102,17 @@
                                     required
                             />
                         </td>
+                        <td></td>
                         <th scope="row" class="th_bg_search">증명서유형</th>
-                        <td class="td_input" style="border-right:hidden;">
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
+                        <td></td>
                         <th scope="row" class="th_bg_search">진행상태</th>
-                        <td class="td_input" style="border-right:hidden;">
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_CONFIRM_STEP" uitype="single" jsondata-ref="jsonConfirmStep" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
-                    </tr>
-                    <tr>
+                        <td></td>
                         <th scope="row" class="th_bg_search">부서</th>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                             <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -127,11 +128,13 @@
                                     onclick="fn_findSrchDeptCode"
                             ></sbux-button>
                         </td>
+                    </tr>
+                    <tr>
                         <th scope="row" class="th_bg_search">사원</th>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                             <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
-                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                        <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                             <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">

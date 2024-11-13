@@ -69,7 +69,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">서비스</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
@@ -79,14 +79,17 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">거래유형</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_TXN_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">거래유형명</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_TXN_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>

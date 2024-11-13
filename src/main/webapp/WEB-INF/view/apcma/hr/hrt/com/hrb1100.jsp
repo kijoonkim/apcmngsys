@@ -86,6 +86,7 @@
                                 required
                         />
                     </td>
+                    <td colspan="18"></td>
                 </tr>
                 </tbody>
             </table>

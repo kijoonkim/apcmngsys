@@ -75,7 +75,7 @@
                     <tbody>
 						<tr>
 							<th scope="row" class="th_bg_search">사업단위</th>
-							<td class="td_input" style="border-right:hidden;">
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
 										<font>선택</font>
@@ -85,11 +85,12 @@
 									</div>
 								</div>
 							</td>
+                            <td></td>
                             <th scope="row" class="th_bg_search">입출금계좌</th>
                             <td class="td_input" data-group="SRCH_OUT_DEPOSIT">
                                 <sbux-input id="SRCH_OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                             </td>
-                            <td class="td_input" data-group="SRCH_OUT_DEPOSIT">
+                            <td colspan="2" class="td_input" data-group="SRCH_OUT_DEPOSIT">
                                 <sbux-input id="SRCH_OUT_ACCOUNT_NO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_OUT_DEPOSIT">
@@ -100,27 +101,26 @@
                                         onclick="fn_findDepositCode"
                                 ></sbux-button>
                             </td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg_search">년월</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-datepicker
-										uitype="popup"
-										id="SRCH_PERIOD_YYYYMM"
-										name="SRCH_PERIOD_YYYYMM"
-										date-format="yyyy-mm"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed table-datepicker-ma"
-										style="width:100%;"
+                            <th scope="row" class="th_bg_search">년월</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="SRCH_PERIOD_YYYYMM"
+                                        name="SRCH_PERIOD_YYYYMM"
+                                        date-format="yyyy-mm"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
                                         datepicker-mode="month"
                                         group-id="panHeader"
                                         required
-								/>
-							</td>
+                                />
+                            </td>
+                            <td colspan="3"></td>
                             <th scope="row" class="th_bg_search">금융기관</th>
                             <td class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                             </td>
-                            <td class="td_input" data-group="SRCH_BANK_CS">
+                            <td colspan="2" class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                 <sbux-input id="SRCH_DEPT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                             </td>
@@ -132,8 +132,10 @@
                                         onclick="fn_findBankCsCode"
                                 ></sbux-button>
                             </td>
+						</tr>
+						<tr>
                             <th scope="row" class="th_bg_search">예적금거래유형</th>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_TXN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -143,6 +145,7 @@
                                     </div>
                                 </div>
                             </td>
+                            <td></td>
 						</tr>
                     </tbody>
                 </table>

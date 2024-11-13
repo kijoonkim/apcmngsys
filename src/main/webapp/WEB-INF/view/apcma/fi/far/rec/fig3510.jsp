@@ -20,36 +20,55 @@
     <section>
         <div class="box box-solid">
                 <div class="box-body">
-
-                    <!--[pp] 검색 -->
-                    <!--[APC] START -->
+                    <div class="box-search-ma">
                         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                    <!--[APC] END -->
-                    <table class="table table-bordered tbl_fixed" style="display: none;">
+                        <table class="table table-bordered tbl_fixed table-search-ma" style="display: none;">
                         <caption>검색 조건 설정</caption>
                         <colgroup>
-                            <col style="width: 10%">
-                            <col style="width: 10%">
-                            <col style="width: 10%">
-                            <col style="width: 10%">
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
                         </colgroup>
                         <tbody>
                             <tr>
                                 <th scope="row" class="th_bg">회계단위</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td colspan="3" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="SRCH_DOC_H_FI_ORG_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                 </td>
+                                <td></td>
                                 <th scope="row" class="th_bg">사업장</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td colspan="3" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                 </td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                     <div class="row">
                         <div id="srchArea" class="ad_tbl_top">
                             <ul class="ad_tbl_count">

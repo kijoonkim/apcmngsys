@@ -44,29 +44,39 @@
 				</div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
+				<div class="box-search-ma">
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea" class="table table-bordered tbl_fixed">
+                	<table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 10%">
-						<col style="width: 10%">
+						<col style="width: 8%">
+						<col style="width: 7%">
 						<col style="width: 1%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg">사업단위</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<th scope="row" class="th_bg_search">사업단위</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
@@ -76,7 +86,8 @@
 									</div>
 								</div>
 							</td>
-							<th scope="row" class="th_bg">조회구분</th>
+							<td></td>
+							<th scope="row" class="th_bg_search">조회구분</th>
 							<td colspan="3" class="td_input inpt_data_reqed" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="rdo_norm1" name="SRCH_RIDGUBUN" uitype="normal" text="전체" value="99" group-id="panHeader" required></sbux-radio>
@@ -91,35 +102,36 @@
 								<sbux-input id="SRCH_APPROVAL_NO" name="SRCH_APPROVAL_NO" uitype="hidden"></sbux-input>
 								<sbux-input id="SRCH_ROW_CNT" name="SRCH_ROW_CNT" uitype="hidden"></sbux-input>
 							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">년월</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td></td>
+							<th scope="row" class="th_bg_search">년월</th>
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 										uitype="popup"
 										id="SRCH_PERIOD_YYYYMM"
 										name="SRCH_PERIOD_YYYYMM"
 										date-format="yyyy-mm"
 										datepicker-mode="month"
-										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
 										style="width:100%;"
 										onchange="fn_payDate"
 								/>
 							</td>
-							<th scope="row" class="th_bg">사업자번호</th>
-							<td class="td_input" style="border-right:hidden;">
+							<td colspan="3"></td>
+							<th scope="row" class="th_bg_search">사업자번호</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input id="SRCH_CS_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							</td>
+							<td></td>
 						</tr>
 						 <tr>
-							<th scope="row" class="th_bg">작성일자</th>
+							<th scope="row" class="th_bg_search">작성일자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 										uitype="popup"
 										id="SRCH_DATE_FR"
 										name="SRCH_DATE_FR"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
 										style="width:100%;"
 										group-id="panHeader"
 										required
@@ -134,21 +146,23 @@
 										id="SRCH_DATE_TO"
 										name="SRCH_DATE_TO"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
 										style="width:100%;"
 										group-id="panHeader"
 										required
 								/>
 							</td>
-							<th scope="row" class="th_bg">상호</th>
-							<td class="td_input" style="border-right:hidden;">
+							 <td></td>
+							<th scope="row" class="th_bg_search">상호</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input id="SRCH_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							</td>
-							 <th scope="row" class="th_bg">담당자</th>
+							 <td></td>
+							 <th scope="row" class="th_bg_search">담당자</th>
 							 <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
 								 <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							 </td>
-							 <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+							 <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
 								 <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							 </td>
 							 <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
@@ -162,6 +176,7 @@
 						</tr>
                     </tbody>
                 </table>
+				</div>
 				<div class="row">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">

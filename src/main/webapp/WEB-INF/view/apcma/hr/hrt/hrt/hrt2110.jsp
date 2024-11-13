@@ -80,7 +80,7 @@
                     <tbody>
                     <tr>
                         <th scope="row" class="th_bg_search">사업장</th>
-                        <td colspan="4  " class="td_input" style="border-right:hidden;">
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
                             <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                             <div class="dropdown">
                                 <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,13 +91,12 @@
                                 </div>
                             </div>
                         </td>
+                        <td></td>
                         <th scope="row" class="th_bg_search">직군</th>
                         <td colspan="3" class="td_input">
                             <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
+                        <td></td>
                         <th scope="row" class="th_bg_search">부서</th>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                             <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -117,7 +116,7 @@
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                             <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
-                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                        <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                             <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="SITE_CODE2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
                             <sbux-input id="DEPT_CODE2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
@@ -134,11 +133,13 @@
                                     onclick="fn_findEmpCode"
                             ></sbux-button>
                         </td>
+                    </tr>
+                    <tr>
                         <th scope="row" class="th_bg_search">근태항목</th>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
                             <sbux-input id="SRCH_TIME_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
-                        <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
+                        <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
                             <sbux-input id="SRCH_TIME_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
@@ -149,8 +150,6 @@
                                     onclick="fn_findTimeItemCode"
                             ></sbux-button>
                         </td>
-                    </tr>
-                    <tr>
                         <th scope="row" class="th_bg_search">근태일</th>
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-datepicker
@@ -167,7 +166,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <span> ~ </span>
                         </td>
-                        <td colspan="2" class="td_input" style="border-right:hidden;">
+                        <td class="td_input" style="border-right:hidden;">
                             <sbux-datepicker
                                     uitype="popup"
                                     id="SRCH_END_DATE"
@@ -179,18 +178,24 @@
                                     required
                             />
                         </td>
+                        <td></td>
                         <th scope="row" class="th_bg_search">구분</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_TIME_CATEGORY" uitype="single" jsondata-ref="jsonTimeCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
+                        <td></td>
                         <th scope="row" class="th_bg_search">신청상태</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_REQUEST_STATUS_CODE" uitype="single" jsondata-ref="jsonStatusCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <th scope="row" class="th_bg_search">결과상태</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_RESULT_STATUS_CODE" uitype="single" jsondata-ref="jsonStatusCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                         </td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>

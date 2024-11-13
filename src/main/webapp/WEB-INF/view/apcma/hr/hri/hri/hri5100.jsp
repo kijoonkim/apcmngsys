@@ -80,7 +80,7 @@
                                 required
                         />
                     </td>
-                    <td colspan="4" class="td_input" style="border-right: hidden;">
+                    <td colspan="20" class="td_input" style="border-right: hidden;">
                         <p class="ad_input_row">
                             <sbux-checkbox
                                     uitype="normal"

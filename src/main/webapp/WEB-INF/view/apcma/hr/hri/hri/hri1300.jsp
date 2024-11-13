@@ -69,7 +69,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">사업장</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,10 +80,9 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
+                    <td></td>
                     <th scope="row" class="th_bg_search">발령구분</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_APPOINT_TYPE" uitype="single" jsondata-ref="jsonAppointType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_APPOINT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,11 +93,12 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">발령번호</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
                         <sbux-input id="SRCH_APPOINT_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
                         <sbux-input id="SRCH_APPOINT_TITLE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_APPOINT">
@@ -109,8 +109,6 @@
                                 onclick="fn_findSrchAppointNum"
                         ></sbux-button>
                     </td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg_search">발령기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -135,6 +133,7 @@
                                 style="width:100%;"
                         />
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>

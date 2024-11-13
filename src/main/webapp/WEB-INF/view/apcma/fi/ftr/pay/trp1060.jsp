@@ -93,7 +93,7 @@
                         <tbody>
                         <tr>
                             <th scope="row" class="th_bg_search">회계단위</th>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                         <font>선택</font>
@@ -103,8 +103,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td></td>
                             <th scope="row" class="th_bg_search">자금번호</th>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_TREASURY_BATCH_NO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                 <sbux-input uitype="hidden" uitype="text" id="SRCH_TRANS_ID" class="form-control input-sm"></sbux-input>
                                 <sbux-input uitype="hidden" uitype="text" id="SRCH_FINANCE_FLAG" class="form-control input-sm"></sbux-input>
@@ -115,6 +116,7 @@
                                 <sbux-input uitype="hidden" uitype="text" id="SRCH_FROM_DATE" class="form-control input-sm"></sbux-input>
                                 <sbux-input uitype="hidden" uitype="text" id="SRCH_TO_DATE" class="form-control input-sm"></sbux-input>
                             </td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>

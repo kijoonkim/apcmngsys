@@ -69,7 +69,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">사업장코드</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,17 +80,17 @@
                             </div>
                         </div>
                     </td>
-                    <td colspan="4"></td>
-                </tr>
-                <tr>
+                    <td></td>
                     <th scope="row" class="th_bg_search">부서코드</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">부서명</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">기준일자</th>
                     <td class="td_input">
                         <sbux-datepicker
@@ -104,6 +104,7 @@
                                 required
                         />
                     </td>
+                    <td colspan="3"></td>
                 </tr>
                 </tbody>
             </table>

@@ -75,7 +75,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">회계단위</th>
-                    <td colspan="4" class="td_input">
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -85,8 +85,7 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
+                    <td></td>
                     <th scope="row" class="th_bg_search">기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -120,7 +119,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
@@ -132,7 +131,7 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg_search">거래유형</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_TXN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -142,6 +141,7 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg_search">통화</th>
@@ -163,7 +163,7 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_DEPOSIT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">

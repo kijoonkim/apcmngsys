@@ -41,29 +41,34 @@
 				</div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
+                <div class="box-search-ma">
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea" class="table table-bordered tbl_fixed">
+                    <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 1%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-                        <col style="width: 3%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-                        <col style="width: 3%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-                        <col style="width: 3%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
                     </colgroup>
                     <tbody>
 						<tr>
@@ -78,8 +83,9 @@
 									</div>
 								</div>
 							</td>
+                            <td></td>
                             <th scope="row" class="th_bg">상태</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -89,8 +95,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td colspan="6"></td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td></td>
+                            <td colspan="5" class="td_input" style="border-right:hidden;">
                                 <sbux-checkbox
                                         uitype="normal"
                                         id="SRCH_APPR_ONLY_FLAG"
@@ -101,23 +107,24 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
+                            <th scope="row" class="th_bg">년월</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="SRCH_PERIOD_YYYYMM"
+                                        name="SRCH_PERIOD_YYYYMM"
+                                        date-format="yyyy-mm"
+                                        datepicker-mode="month"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                        onchange="fn_payDate"
+                                />
+                            </td>
+                            <td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">년월</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-datepicker
-										uitype="popup"
-										id="SRCH_PERIOD_YYYYMM"
-										name="SRCH_PERIOD_YYYYMM"
-										date-format="yyyy-mm"
-										datepicker-mode="month"
-										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-										style="width:100%;"
-                                        onchange="fn_payDate"
-								/>
-							</td>
                             <th scope="row" class="th_bg">거래처</th>
-                            <td class="td_input" data-group="SRCH_PAYER">
+                            <td colspan="3" class="td_input" data-group="SRCH_PAYER">
                                 <sbux-input id="SRCH_PAYER_CODE" name="SRCH_PAYER_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
@@ -130,7 +137,7 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">작성부서</th>
-                            <td class="td_input" data-group="SRCH_CREATED_DEPT">
+                            <td colspan="3" class="td_input" data-group="SRCH_CREATED_DEPT">
                                 <sbux-input id="SRCH_CREATED_DEPT_CODE" name="SRCH_CREATED_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
@@ -143,7 +150,7 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">청구부서</th>
-                            <td class="td_input" data-group="SRCH_PAYEE_DEPT">
+                            <td colspan="3" class="td_input" data-group="SRCH_PAYEE_DEPT">
                                 <sbux-input id="SRCH_PAYEE_DEPT_CODE" name="SRCH_PAYEE_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
@@ -155,7 +162,7 @@
                                         onclick="fn_findPayeeDeptName"
                                 ></sbux-button>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td colspan="5" class="td_input" style="border-right:hidden;">
                                 <sbux-checkbox
                                         uitype="normal"
                                         id="SRCH_REVERSE_FLAG"
@@ -175,7 +182,7 @@
 										id="SRCH_TXN_DATE_FROM"
 										name="SRCH_TXN_DATE_FROM"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
 										style="width:100%;"
                                         group-id="panHeader"
                                         required
@@ -190,14 +197,15 @@
 										id="SRCH_TXN_DATE_TO"
 										name="SRCH_TXN_DATE_TO"
 										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
 										style="width:100%;"
                                         group-id="panHeader"
                                         required
 								/>
 							</td>
+                             <td></td>
 							<th scope="row" class="th_bg">전표구분</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -207,8 +215,9 @@
                                     </div>
                                 </div>
                             </td>
+                             <td></td>
                             <th scope="row" class="th_bg">작성자</th>
-                            <td class="td_input" data-group="SRCH_CREATED_BY">
+                            <td colspan="3" class="td_input" data-group="SRCH_CREATED_BY">
                                 <sbux-input id="SRCH_CREATED_BY_CODE" name="SRCH_CREATED_BY_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_BY_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
@@ -221,7 +230,7 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">실사용자</th>
-                            <td class="td_input" data-group="SRCH_PAYEE">
+                            <td colspan="3" class="td_input" data-group="SRCH_PAYEE">
                                 <sbux-input id="SRCH_PAYEE_CODE" name="SRCH_PAYEE_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
@@ -239,6 +248,7 @@
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
+                            <td></td>
                             <th scope="row" class="th_bg">
                                 <sbux-checkbox
                                         uitype="normal"
@@ -250,7 +260,7 @@
                                         true-value="Y" false-value="N"
                                 />
                             </th>
-                            <td colspan="2" class="td_input">
+                            <td colspan="3" class="td_input">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="복수전표" uitype="modal"
@@ -258,13 +268,16 @@
                                         onclick="fn_multiSelect"
                                 ></sbux-button>
                             </td>
+                            <td></td>
                             <th scope="row" class="th_bg">제목</th>
-                            <td colspan="5" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_DESC" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
 				<div class="row">
                     <div>
                         <sbux-tabs id="idxTabMaster" name="idxTabMaster" uitype="normal" is-scrollable="false" jsondata-ref="jsonMasterTabData">

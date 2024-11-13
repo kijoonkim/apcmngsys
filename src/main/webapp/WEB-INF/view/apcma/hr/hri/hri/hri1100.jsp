@@ -69,13 +69,15 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">사업장</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">재직구분</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">부서</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -92,7 +94,7 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg_search">직책</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
@@ -103,40 +105,48 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg_search">직종</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_JOB_FAMILY" uitype="single" jsondata-ref="jsonJobFamily" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">성별</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_GENDER" uitype="single" jsondata-ref="jsonGender" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">급여영역</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_PAY_AREA_TYPE" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">사번</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg_search">이름</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">직위</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">직급</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_JOB_RANK" uitype="single" jsondata-ref="jsonJobRank" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">직무</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -147,10 +157,11 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg_search">기산일</th>
-                    <td colspan="4" class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_INITIAL_DATE"
@@ -161,6 +172,7 @@
                                 placement="bottomRight"
                         />
                     </td>
+                    <td colspan="3"></td>
                 </tr>
                 </tbody>
             </table>

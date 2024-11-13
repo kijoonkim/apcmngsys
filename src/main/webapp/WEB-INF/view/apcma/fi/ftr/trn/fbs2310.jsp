@@ -92,8 +92,9 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">통화</th>
-                    <td colspan="2" class="td_input">
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -103,8 +104,9 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">FBS서비스</th>
-                    <td colspan="2" class="td_input">
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                 <font>선택</font>
@@ -114,8 +116,7 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
+                    <td></td>
                     <th scope="row" class="th_bg_search">입출일자</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -140,8 +141,11 @@
                                 style="width:100%;"
                         />
                     </td>
+                    <td></td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg_search">은행</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
+                    <td colspan="3" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-input id="SRCH_BANK_CODE" uitype="hidden" placeholder="" class="form-control input-sm" readonly></sbux-input>
                         <sbux-input id="SRCH_BANK_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -154,7 +158,7 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg_search">계좌번호</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
+                    <td colspan="3" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NO" uitype="hidden" placeholder="" class="form-control input-sm" readonly></sbux-input>
                         <sbux-input id="SRCH_BANK_ACCOUNT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>

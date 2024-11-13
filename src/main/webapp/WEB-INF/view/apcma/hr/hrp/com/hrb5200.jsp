@@ -70,17 +70,20 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">급여항목구분</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_PAY_ITEM_CATEGORY" uitype="single" jsondata-ref="jsonPayItemCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">급여항목코드</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_PAY_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">급여항목명</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_PAY_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
