@@ -25,7 +25,7 @@
 <head>
     <title>title : 환율정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 
 <body oncontextmenu="return false">
@@ -58,101 +58,107 @@
                         <sbux-button id="btn_currencyData" name="btn_currencyData" uitype="normal" text="환율(외부) 가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_currencyData" style="margin-right: 1rem;"></sbux-button>
                         <sbux-button id="btn_fbsExchangeRate" name="btn_fbsExchangeRate" uitype="normal" text="환율요청" class="btn btn-sm btn-outline-danger" onclick="fn_fbsExchangeRate"></sbux-button>
                     </div>
-                    <!--[APC] START -->
-                    <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                    <!--[APC] END -->
-                    <table id="srchArea1" class="table table-bordered tbl_fixed">
-                        <colgroup>
-	                        <col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">
-	                        <col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">
-	                        <col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="th_bg">통화</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE style="width:270px;height:300px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">고시회차</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                	<sbux-input id="SRCH_EXCHANGE_SEQ_P" class="form-control input-sm" uitype="text" value="1" style="width:100%"></sbux-input>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">기준일자</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div style="display: flex;align-items: center;">
-                                        <sbux-datepicker id="SRCH_BASE_DATE_FR" name="SRCH_BASE_DATE_FR" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;">
-                                        </sbux-datepicker>
-                                        <span style="margin-left:1rem;margin-right:1rem;font-size:large;"> ~ </span>
-                                        <sbux-datepicker id="SRCH_BASE_DATE_TO" name="SRCH_BASE_DATE_TO" uitype="popup" date-format="yyyy-mm-dd" style="height:28px;width: 120px;">
-                                        </sbux-datepicker>
-                                    </div>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="th_bg">서비스</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_FBS_SERVICE style="width:170px;height:300px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>                                
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">FBS대상</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_FBS_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_FBS_YN style="width:170px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>   
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">사용여부</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_USE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_USE_YN style="width:170px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>                                  
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="box-search-ma">
+	                    <!--[APC] START -->
+	                    <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+	                    <!--[APC] END -->
+	                    <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                        <colgroup>
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+		
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+	                        </colgroup>
+	                        <tbody>
+	                            <tr>
+	                                <th scope="row" class="th_bg_search">통화</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE style="width:270px;height:300px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>
+	                                </td>
+	                                <td></td>
+	                                
+	                                <th scope="row" class="th_bg_search">고시회차</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                	<sbux-input id="SRCH_EXCHANGE_SEQ_P" class="form-control input-sm" uitype="text" value="1" style="width:100%"></sbux-input>
+	                                </td>
+	                                <td></td>
+	                                
+	                                <th scope="row" class="th_bg_search">기준일자</th>
+	                                <td class="td_output" style="border-right: hidden;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE_FR" name="SRCH_BASE_DATE_FR" class="table-datepicker-ma" uitype="popup" date-format="yyyy-mm-dd" style="height: 3.6vh;width: 100%;"></sbux-datepicker>
+	                                </td>
+	                                <td>~</td>
+	                                <td class="td_output" style="border-right: hidden;">
+	                                    <sbux-datepicker id="SRCH_BASE_DATE_TO" name="SRCH_BASE_DATE_TO" class="table-datepicker-ma" uitype="popup" date-format="yyyy-mm-dd" style="height: 3.6vh;width: 100%;"></sbux-datepicker>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <th scope="row" class="th_bg_search">서비스</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_FBS_SERVICE style="width:170px;height:300px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>                                
+	                                </td>
+	                                <td></td>
+	                                <th scope="row" class="th_bg_search">FBS대상</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_FBS_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_FBS_YN style="width:170px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>   
+	                                </td>
+	                                <td></td>
+	                                <th scope="row" class="th_bg_search">사용여부</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_USE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_USE_YN style="width:170px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>                                  
+	                                </td>
+	                                <td></td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                </div>
                     <div class="ad_tbl_top2">
                         <ul class="ad_tbl_count">
                             <li>
@@ -174,53 +180,63 @@
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-dailyDayGrid" style="height:500px;"></div>
+                        <div id="sb-area-dailyDayGrid" style="height:80vh; width:100%;"></div>
                     </div>
                 </div>
                 
                 <div id="TAB_AVERAGE">
-                    <!--[APC] START -->
-<%--                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %> --%>
-                    <!--[APC] END -->
-                    <table id="srchArea2" class="table table-bordered tbl_fixed">
-                        <caption>검색 조건 설정</caption>
-                        <colgroup>
-	                        <col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">                        
-	                        <col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">                        
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="th_bg">기준일자</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div style="display: flex;align-items: center;">
-                                        <sbux-datepicker id="SRCH_BASE_DATE2" name="SRCH_BASE_DATE2" uitype="popup" date-format="yyyy/mm/dd" style="height:28px;width: 120px;">
+                	<div class="box-search-ma">
+	                    <table id="srchArea2" class="table table-bordered tbl_fixed table-search-ma">
+	                        <caption>검색 조건 설정</caption>
+	                        <colgroup>
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+		
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">                      
+	                        </colgroup>
+	                        <tbody>
+	                            <tr>
+	                                <th scope="row" class="th_bg_search">기준일자</th>
+	                                <td class="td_output" style="border-right: hidden;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE2" name="SRCH_BASE_DATE2" class="table-datepicker-ma"  uitype="popup" date-format="yyyy-mm-dd" style="height: 3.6vh;width: 100%;">
                                         </sbux-datepicker>
-                                    </div>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">통화</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE2 style="width:270px;height:300px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>                                
-                            </tr>
-                        </tbody>
-                    </table>
+	                                </td>
+	                                <td colspan="3"></td>
+	                                <th scope="row" class="th_bg_search">통화</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE2 style="width:270px;height:300px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>
+	                                </td>
+	                                <td></td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                </div>    
                     <div class="col-sm-4 tab-content">
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
@@ -230,7 +246,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageInfo" style="height:500px;"></div>
+                            <div id="sb-area-grdAverageInfo" style="height:92vh;"></div>
                         </div>
                     </div>
                     <div class="col-sm-8 tab-content">
@@ -242,7 +258,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageAvg" style="height:200px;"></div>
+                            <div id="sb-area-grdAverageAvg" style="height:40vh;"></div>
                         </div>
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
@@ -252,55 +268,66 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageDetail" style="height:300px;"></div>
+                            <div id="sb-area-grdAverageDetail" style="height:48vh;"></div>
                         </div>
                     </div>
                 </div>
 
                 <div id="TAB_MONTH">
-                    <!--[APC] START -->
-<%--                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %> --%>
-                    <!--[APC] END -->                
-                    <table id="srchArea3" class="table table-bordered tbl_fixed">
-	                    <colgroup>
-							<col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">
-							
-							<col style="width: 7%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 3%">
-	                    </colgroup>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="th_bg">기준월</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div style="display: flex;align-items: center;">
-                                        <sbux-datepicker id="SRCH_BASE_DATE_FR1" name="SRCH_BASE_DATE_FR1" uitype="popup" date-format="yyyy/mm" datepicker-mode="month" style="height:28px;width: 120px;"></sbux-datepicker>
-                                        <span style="margin-left:1rem;margin-right:1rem;font-size:large;"> ~ </span>
-                                        <sbux-datepicker id="SRCH_BASE_DATE_TO1" name="SRCH_BASE_DATE_TO1" uitype="popup" date-format="yyyy/mm" datepicker-mode="month" style="height:28px;width: 120px;"></sbux-datepicker>
-                                    </div>
-                                </td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <th scope="row" class="th_bg">통화</th>
-                                <td class="td_output" style="border-right: hidden;">
-                                    <div class="dropdown">
-                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE3 style="width:270px;height:300px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>
-                                </td>       
-                                <td style="border-right: hidden;">&nbsp;</td>
-                                <td style="border-right: hidden;">&nbsp;</td>                                                         
-                            </tr>
-                        </tbody>
-                    </table>                    
+                	<div class="box-search-ma">
+	                    <table id="srchArea3" class="table table-bordered tbl_fixed table-search-ma">
+		                    <colgroup>
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+		
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+		                    </colgroup>
+	                        <tbody>
+	                            <tr>
+	                                <th scope="row" class="th_bg_search">기준월</th>
+	                                <td class="td_output" style="border-right: hidden;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE_FR1" name="SRCH_BASE_DATE_FR1" class="table-datepicker-ma" uitype="popup" date-format="yyyy-mm" datepicker-mode="month" style="height: 3.6vh;width: 100%;"></sbux-datepicker>
+	                                </td>
+	                                <td>~</td>
+	                                <td class="td_output" style="border-right: hidden;">
+                                        <sbux-datepicker id="SRCH_BASE_DATE_TO1" name="SRCH_BASE_DATE_TO1" class="table-datepicker-ma" uitype="popup" date-format="yyyy-mm" datepicker-mode="month" style="height: 3.6vh;width: 100%;"></sbux-datepicker>
+	                                </td>
+	                                <td></td>
+	                                <th scope="row" class="th_bg_search">통화</th>
+	                                <td colspan="3" class="td_output" style="border-right: hidden;">
+	                                    <div class="dropdown">
+	                                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" uitype="normal" id="SRCH_CURRENCY_CODE3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <font>선택</font>
+	                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                        </button>
+	                                        <div class="dropdown-menu" aria-labelledby=SRCH_CURRENCY_CODE3 style="width:270px;height:300px;padding-top:0px;overflow:auto">
+	                                        </div>
+	                                    </div>
+	                                </td>       
+	                                <td></td>
+	                            </tr>
+	                        </tbody>
+	                    </table>        
+	                </div>                
                     <div class="col-sm-3 tab-content" >
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
@@ -310,7 +337,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdMonthType" style="height:500px;"></div>
+                            <div id="sb-area-grdMonthType" style="height:93vh;"></div>
                         </div>
                     </div>
                     <div class="col-sm-9 tab-content">
@@ -322,7 +349,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdMonthMonth" style="height:500px;"></div>
+                            <div id="sb-area-grdMonthMonth" style="height:94vh;"></div>
                         </div>
                     </div>
                 </div>
@@ -894,7 +921,7 @@
                 compCode: gv_ma_selectedApcCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
-                whereClause: '',
+                whereClause: "AND COMP_CODE = '" + gv_ma_selectedApcCd + "'",
                 formId: p_formId,
                 menuId: p_menuId,
                 selectValue: '',

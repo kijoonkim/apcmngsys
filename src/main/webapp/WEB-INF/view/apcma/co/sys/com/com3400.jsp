@@ -25,7 +25,6 @@
 <head>
 	<title>title : 거래처 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 <!-- 	<style>     -->
 <!--  			body{  -->
@@ -57,147 +56,146 @@
 					<sbux-button id="btnList" name="btnList" uitype="normal" text="리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_list" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnOld" name="btnOld" uitype="normal" text="이력 조회" class="btn btn-sm btn-outline-danger" onclick="fn_old" style="float: right;margin-right:1rem;" ></sbux-button>
 				</div>
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">거래처유형</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle " 
-								    	type="button"
-								    	id="SRCH_CS_GROUP_P" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">사업자번호</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<sbux-input id="SRCH_BIZ_REGNO1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">대표자명</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<sbux-input id="SRCH_CHIEF_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">거래처구분</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle " 
-								    	type="button"
-								    	id="SRCH_CS_TYPE" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                              
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">거래처코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;" colspan="2">
-                                <sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">
-                            	<div style="display:flex;">
-	                            	<p style="margin-right:2rem; vertical-align:middle;">~</p>
+            	<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">거래처유형</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle " 
+									    	type="button"
+									    	id="SRCH_CS_GROUP_P" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">사업자번호</th>
+	                            <td class="td_input" colspan="3" style="border-right: hidden;">
+									<sbux-input id="SRCH_BIZ_REGNO1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">대표자명</th>
+	                            <td class="td_input" colspan="3" style="border-right: hidden;">
+									<sbux-input id="SRCH_CHIEF_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
+	                            </td>
+	                            <td></td>                            
+	                        </tr>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">거래처구분</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle " 
+									    	type="button"
+									    	id="SRCH_CS_TYPE" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                              
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">거래처코드</th>
+	                            <td class="td_input" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+								<td>~</td>
+	                            <td style="border-right: hidden;">
 	                                <sbux-input id="SRCH_CS_CODE_TO" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            	</div>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">거래처명</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-								<sbux-input id="SRCH_CS_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                          
-                            </td>                            
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">확정여부</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                  				<sbux-select id="SRCH_USE_YN1" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">거래중지여부</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                  				<sbux-select id="SRCH_USE_YN2" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">삭제여부</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                  				<sbux-select id="SRCH_DELETE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">복수선택</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-								<sbux-checkbox uitype="normal" id="SRCH_MULTI_YN" class="form-control input-sm check" text="사용여부" true-value="Y" false-value="N"/>
-                            </td>
-                            <td style="border-right: hidden;">
-	                        	<sbux-button uitype="normal" text="복수선택 팝업" class="btn btn-sm btn-outline-danger" onclick="fn_multiSelect"></sbux-button>
-                            </td>
-                            <td style="border-right: hidden; colspan="9">
-							</td>
-                        </tr>                        
-                    </tbody>
-                </table>
+								</td>
+								<td></td>
+	                            <th scope="row" class="th_bg_search">거래처명</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+									<sbux-input id="SRCH_CS_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                          
+	                            </td>                            
+								<td></td>
+	                        </tr>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">확정여부</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                  				<sbux-select id="SRCH_USE_YN1" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">거래중지여부</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                  				<sbux-select id="SRCH_USE_YN2" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">삭제여부</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                  				<sbux-select id="SRCH_DELETE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">복수선택</th>
+	                            <td class="td_input" colspan="" style="border-right:hidden;">
+									<sbux-checkbox uitype="normal" id="SRCH_MULTI_YN" class="form-control input-sm check" text="사용여부" true-value="Y" false-value="N"/>
+	                            </td>
+	                            <td style="border-right: hidden;">
+		                        	<sbux-button uitype="normal" text="복수선택 팝업" class="btn btn-sm btn-outline-danger" onclick="fn_multiSelect"></sbux-button>
+	                            </td>
+	                        </tr>                        
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>거래처리스트</span>
+                                    <span>◎ 거래처리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3400" style="height:540px; width:100%;"></div>
+                            <div id="sb-area-grdCom3400" style="height:80vh; width:100%;"></div>
                         </div>
                     </div>
                     <div style="display:flex">
@@ -211,7 +209,7 @@
 						</div>
                     </div>
                     <div class="col-sm-8 tab-content">
-                        <div id="tabInfo" style="height:480px;">
+                        <div id="tabInfo" style="height:76vh;">
 	                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width:10%">
@@ -274,7 +272,7 @@
 										<sbux-input uitype="text" id="EMP_CODE" class="form-control input-sm" ></sbux-input>
 									</td>	
 									<td id='EMP_BTN'class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
 									</td>								
 								</tr>                                   
 								<tr>
@@ -319,7 +317,7 @@
 										<sbux-input uitype="text" id="BANK_NAME_H" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
 									</td>
 								</tr>   
 								<tr>
@@ -573,7 +571,7 @@
 										</div>   									
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height:28px;" placement="top" date-format="yyyy-mm-dd"></sbux-datepicker>
+										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height: 3.6vh;" placement="top" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;" colspan="2">
 									</td>
@@ -586,7 +584,7 @@
 								</tr>
 	                    	</table>
                     	</div>
-                        <div id="tabDetail" style="height:480px !important;">
+                        <div id="tabDetail"  style="height:76vh;">
 	                        <sbux-tabs id="idxTab_detail" name="idxTab_detail" uitype="normal"
 								is-scrollable="false"
 								title-target-id-array="tabAddress^tabFinance^tabPurchase^tabSales^tabSalesShipTo^tabSalesCategory^tabTax^tabHistory^tabMapping"
@@ -594,7 +592,7 @@
 							</sbux-tabs>
 							<div class="col-sm-12 tab-content">
 							<!-- 주소 ~ 매핑이력 - 주소/연락처 -->
-								<div id="tabAddress" style="height:350px;">
+								<div id="tabAddress" style="height:67vh;">
 									<table id="addressTable" class="table table-bordered tbl_fixed">
 										<colgroup>
 											<col style="width:15%">
@@ -611,15 +609,15 @@
 												<sbux-input id="ZIP_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
 											</td>	
 											<td class="td_input" style="border-right: hidden;">
-												<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" class="btn btn-xs btn-outline-dark"></sbux-button>
+												<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="…" class="btn btn-xs btn-outline-dark"></sbux-button>
 											</td>	                                    
 											<th scope="row" class="th_bg">거래시작일</th>
 											<td class="td_input" style="border-right: hidden;">
-												<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height:28px;" date-format="yyyy-mm-dd"></sbux-datepicker>
+												<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd"></sbux-datepicker>
 											</td>	                                    
 											<th scope="row" class="th_bg">거래종료일</th>
 											<td class="td_input" style="border-right: hidden;" colspan="2">
-												<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height:28px;" date-format="yyyy-mm-dd"></sbux-datepicker> 
+												<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd"></sbux-datepicker> 
 											</td>	                                    
 										</tr>    
 										<tr>
@@ -674,7 +672,7 @@
 			                    	</table>									
 								</div>
 								<!-- 주소 ~ 매핑이력 - 자금정보 -->
-								<div id="tabFinance" style="height:400px;">
+								<div id="tabFinance" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:ruby;float: right;">
 				                        	<span style="vertical-align:middle; text-align:center;">FBS 서비스</span>
@@ -703,7 +701,7 @@
 			                        </div>
 								</div>
 								<!-- 주소 ~ 매핑이력 - 구매정보 -->
-								<div id="tabPurchase" style="height:350px;">
+								<div id="tabPurchase" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddPurchaseRow" name="btnAddPurchaseRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addPurchaseRow" style="float: right;"></sbux-button>
@@ -827,7 +825,7 @@
 												<sbux-input uitype="text" id="AP_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">채무정산계정</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -837,7 +835,7 @@
 												<sbux-input uitype="text" id="AP_CLR_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
 				                            </td> 
 										</tr>    
 										<tr>
@@ -849,7 +847,7 @@
 												<sbux-input uitype="text" id="AP_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">선급금계정</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -859,7 +857,7 @@
 												<sbux-input uitype="text" id="PREPAY_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
 				                            </td> 
 										</tr>    
 			                    	</table>		
@@ -868,7 +866,7 @@
 			                        </div>
 								</div>
 								<!-- 주소 ~ 매핑이력 - 판매정보 -->
-								<div id="tabSales" style="height:350px;">
+								<div id="tabSales" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddSalesRow" name="btnAddSalesRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesRow" style="float: right;"></sbux-button>
@@ -970,7 +968,7 @@
 			                        </div>									
 								</div>
 								<!-- 주소 ~ 매핑이력 - 판매납품처 -->
-								<div id="tabSalesShipTo" style="height:350px;">
+								<div id="tabSalesShipTo" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddSalesShipToRow" name="btnAddSalesShipToRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesShipToRow" style="float: right;"></sbux-button>
@@ -982,7 +980,7 @@
 			                        </div>										
 								</div>
 								<!-- 주소 ~ 매핑이력 - 판매처분류 -->
-								<div id="tabSalesCategory" style="height:430px;">
+								<div id="tabSalesCategory" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddSalesCategoryRow" name="btnAddSalesCategoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesCategoryRow" style="float: right;"></sbux-button>
@@ -1009,7 +1007,7 @@
 												<sbux-input uitype="text" id="AR_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
 				                            </td>
 											<th scope="row" class="th_bg">채권계정코드외화</th>
 											<td class="td_input" style="border-right: hidden;">
@@ -1019,7 +1017,7 @@
 												<sbux-input uitype="text" id="AR_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
 				                            </td> 
 										</tr>  										
 										<tr>
@@ -1031,7 +1029,7 @@
 												<sbux-input uitype="text" id="ADVANCE_ACC_NAME" class="form-control input-sm" ></sbux-input>
 											</td>
 				                            <td class="td_input">
-												<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
+												<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
 				                            </td>
 										</tr>  										
 			                    	</table>		
@@ -1040,7 +1038,7 @@
 			                        </div>										
 								</div>
 								<!-- 주소 ~ 매핑이력 - 세금 등 -->
-								<div id="tabTax" style="height:350px;">
+								<div id="tabTax" style="height:67vh;">
 									<table id="taxTable" class="table table-bordered tbl_fixed">
 										<colgroup>
 											<col style="width:15%">
@@ -1122,7 +1120,7 @@
 			                    	</table>											
 								</div>
 								<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
-								<div id="tabHistory" style="height:350px;">
+								<div id="tabHistory" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddHistoryRow" name="btnAddHistoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right;"></sbux-button>
@@ -1134,7 +1132,7 @@
 			                        </div>										
 								</div>
 								<!-- 주소 ~ 매핑이력 - 매핑이력 -->
-								<div id="tabMapping" style="height:350px;">
+								<div id="tabMapping" style="height:67vh;">
 			                        <div class="ad_tbl_toplist">
 				                        <div style="display:flex;float: right;">
 				                            <sbux-button id="btnAddMappingRow" name="btnAddMappingRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addMappingRow" style="float: right;"></sbux-button>
@@ -2173,7 +2171,7 @@
             {caption : ["행번"],					ref: 'SEQ', 	type:'output',  	width:'50px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
             {caption: ["은행검색 팝업"], 			ref: 'POP_BTN_BANK', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopupBank(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopupBank(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
             {caption : ["은행"],					ref: 'BANK_CODE', 	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },

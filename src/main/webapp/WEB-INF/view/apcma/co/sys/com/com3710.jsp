@@ -25,7 +25,7 @@
 <head>
 	<title>title : 프로젝트 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,56 +40,66 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">프로젝트코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_PROJECT_CODE_P" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">프로젝트명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_PROJECT_NAME_P" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">프로젝트코드</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_PROJECT_CODE_P" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">프로젝트명</th>
+	                            <td class="td_input" colspan="3" style="border-right: hidden;">
+	                                <sbux-input id="SRCH_PROJECT_NAME_P" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>코드목록</span>
+                                    <span>◎ 코드목록</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3710" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdCom3710" style="height:100vh; width:100%;"></div>
                         </div>
                     </div>
 	                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
@@ -98,7 +108,7 @@
 						title-text-array="기본정보^채번관리^관리항목">
 					</sbux-tabs>
                     <div class="col-sm-6 tab-content">
-						<div id="tab1">
+						<div id="tab1" style="height:97vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -192,7 +202,7 @@
 										<sbux-input uitype="text" id="PARENT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -204,7 +214,7 @@
 										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -216,7 +226,7 @@
 										<sbux-input uitype="text" id="COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCostCenter()"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCostCenter()"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -228,7 +238,7 @@
 										<sbux-input uitype="text" id="ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -240,7 +250,7 @@
 										<sbux-input uitype="text" id="CIP_ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('CIP_ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('CIP_ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -252,7 +262,7 @@
 										<sbux-input uitype="text" id="ASSET_ACCOUNT_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ASSET_ACCOUNT')"></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccount('ASSET_ACCOUNT')"></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
@@ -302,7 +312,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">마감일자</th>
                                     <td class="td_input" >
-										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" date-format="yyyy-mm-dd" uitype="popup" placement="top" style="width:120px;height:28px;"></sbux-datepicker>
+										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" date-format="yyyy-mm-dd" uitype="popup" placement="top" style="width:120px;height: 3.6vh;"></sbux-datepicker>
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input" >
@@ -317,7 +327,7 @@
                                 </tr>                                                                                                                                                                                   
                             </table>
                         </div>
-						<div id="tab2" style="height:500px;">
+						<div id="tab2" style="height:97vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -525,7 +535,7 @@
                                 </tr>  																					                                                                                                                                                         
                             </table>
                         </div>                        
-						<div id="tab3">
+						<div id="tab3"  style="height:97vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">

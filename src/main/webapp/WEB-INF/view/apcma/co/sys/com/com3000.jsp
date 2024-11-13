@@ -95,12 +95,12 @@
 <!-- 	                            </td> -->
 		                        <th scope="row" class="th_bg_search">sbux-datepicker 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
-	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
 	                            </td>	
 	                            <td colspan="3"></td>
 		                        <th scope="row" class="th_bg_search">datepicker reqed 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
-	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 	                            </td>	
 	                            <td colspan="3"></td>
 	                        </tr>
@@ -149,7 +149,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3000" style="height:616px; width:100%;"></div>
+                            <div id="sb-area-grdCom3000" style="height:742px; width:100%;"></div>
                         </div>
                     </div>
 
@@ -366,7 +366,7 @@
                         </div>
                         <div class="ad_tbl_top2">
 	                        <div>
-	                            <div id="sb-area-subGrdCom3000" style="height:292px; width:100%; border-left: none !important; border-right: none !important; border-bottom: none !important; border-top: none !important;"></div>
+	                            <div id="sb-area-subGrdCom3000" style="height:420px; width:100%; border-left: none !important; border-right: none !important; border-bottom: none !important; border-top: none !important;"></div>
 	                        </div>
                         </div>
                     </div>

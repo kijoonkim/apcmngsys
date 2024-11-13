@@ -25,7 +25,7 @@
 <head>
 	<title>사업장정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,49 +40,59 @@
                 </div>
             </div>
             <div class="box-body">
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-				<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">	
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">사업장코드</th>
-                            <td class="td_input"  style="border-right:hidden;">
-                            	<sbux-input uitype="text" id="SRCH_TAX_SITE_CODE1" class="form-control input-sm"></sbux-input>	
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">사업장명</th>
-                            <td class="td_input"  style="border-right:hidden;">
-                            	<sbux-input uitype="text" id="SRCH_TAX_SITE_NAME1" class="form-control input-sm"></sbux-input>	
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">사업자번호</th>
-                            <td class="td_input"  style="border-right:hidden;">
-                            	<sbux-input uitype="text" id="SRCH_BIZ_REGNO" class="form-control input-sm"></sbux-input>	
-                            </td>                            
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                        </tr>
-                    </tbody>
-                </table>
+            	<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">사업장코드</th>
+	                            <td colspan="3" class="td_input"  style="border-right:hidden;">
+	                            	<sbux-input uitype="text" id="SRCH_TAX_SITE_CODE1" class="form-control input-sm"></sbux-input>	
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">사업장명</th>
+	                            <td colspan="3" class="td_input"  style="border-right:hidden;">
+	                            	<sbux-input uitype="text" id="SRCH_TAX_SITE_NAME1" class="form-control input-sm"></sbux-input>	
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">사업자번호</th>
+	                            <td colspan="3" class="td_input"  style="border-right:hidden;">
+	                            	<sbux-input uitype="text" id="SRCH_BIZ_REGNO" class="form-control input-sm"></sbux-input>	
+	                            </td> 
+	                            <td></td>                           
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div>
                     <div class="col-sm-6">
                         <div class="ad_tbl_top">
@@ -104,21 +114,21 @@
 							style="margin-top:1rem;">
 						</sbux-tabs>
 						<div class="tab-content">
-							<div id="HISTORY">
+							<div id="HISTORY" style="height:52vh;">
 		                        <div class="ad_tbl_top2">
 		                        	<sbux-button id="btnSaveHistoryGrid" name="btnSaveHistoryGrid" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveHistoryGrid" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnDelHistoryRow"  name="btnDelHistoryRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delHistoryRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnAddHistoryRow"  name="btnAddHistoryRow"  uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        </div>							
-	                            <div id="sb-area-grdHistoryOrg1100" style="width:100%"></div>
+	                            <div id="sb-area-grdHistoryOrg1100" style="width:100%;height:47vh;"></div>
 							</div>
-							<div id="LIMIT">
+							<div id="LIMIT" style="height:52vh;">
 								<div class="ad_tbl_top2">
 		                        	<sbux-button id="btnSaveLimitGrid" name="btnSaveLimitGrid" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveLimitGrid" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnDelLimitRow"  name="btnDelLimitRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delLimitRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnAddLimitRow"  name="btnAddLimitRow"  uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addLimitRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        </div>							
-	                            <div id="sb-area-grdLimitOrg1100" style="width:100%"></div>
+	                            <div id="sb-area-grdLimitOrg1100" style="width:100%;height:47vh;"></div>
 							</div>
 						</div>
                     </div>
@@ -236,11 +246,11 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">개업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;x;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">폐업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -592,7 +602,6 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
-	    SBGridProperties.height = '180px';
 	    SBGridProperties.rowheadercaption = { seq: 'No' };
 	    SBGridProperties.rowheaderwidth = {  seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -640,7 +649,6 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
-	    SBGridProperties.height = '180px';
 	    SBGridProperties.rowheadercaption = {  seq: 'No'  };
 	    SBGridProperties.rowheaderwidth = { seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';

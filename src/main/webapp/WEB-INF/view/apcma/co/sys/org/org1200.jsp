@@ -25,7 +25,7 @@
 <head>
 	<title>title : 사업단위 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,64 +40,66 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">사업단위</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_ORG_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            
-                            <th scope="row" class="th_bg">사업단위명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_ORG_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <td colspan="3" class="td_input" colspan="" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_ORG_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">사업단위명</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+	                                <sbux-input id="SRCH_ORG_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>사업단위 리스트</span>
+                                    <span>◎ 사업단위 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg1200" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1200" style="height:778px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -169,23 +171,23 @@
 							style="margin-top:2rem;">
 						</sbux-tabs>
 						<div class="tab-content" >
-	                        <div id="DETAIL" style="height:330px;">
+	                        <div id="DETAIL" style="height:65vh;">
 								<div class="ad_tbl_top">
 		                            <sbux-button id="btnDelDetail"  name="btnDelDetail" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delDetailRow" style="float: right;">
 		                            </sbux-button>
 		                            <sbux-button id="btnAddDetail"  name="btnAddDetail" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addDetailRow" style="float: right;">
 		                            </sbux-button>
 		                        </div>     
-	                        	<div id="sb-area-grdOrgDetail" style="height:320px; width:100%;"></div>
+	                        	<div id="sb-area-grdOrgDetail" style="height:60vh; width:100%;"></div>
 	                        </div>
-	                        <div id="AUTHORITY" style="height:330px;">
+	                        <div id="AUTHORITY" style="height:65vh;">
 								<div class="ad_tbl_top">
 		                            <sbux-button id="btnDelAuthority"  name="btnDelAuthority" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delAuthorityRow" style="float: right;">
 		                            </sbux-button>
 		                            <sbux-button id="btnAddAuthority"  name="btnAddAuthority" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAuthorityRow" style="float: right;">
 		                            </sbux-button>
 		                        </div>     
-	                        	<div id="sb-area-grdOrgAuthority" style="height:320px; width:100%;"></div>
+	                        	<div id="sb-area-grdOrgAuthority" style="height:60vh; width:100%;"></div>
 	                        </div>
 						</div>
                     </div>
@@ -421,7 +423,7 @@
             },
             {caption: [''],ref: 'btn1',    				type:'button',  	width:'50px',  		style:'text-align:center', 
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
 	        	}	
             },
             {caption : ["사업장코드"],	ref: 'SITE_CODE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -447,7 +449,7 @@
         SBGridProperties.columns = [
             {caption: [''],ref: 'btn2',    				type:'button',  	width:'10%',  		style:'text-align:center', 
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
 	        	}	
             },
             {caption : ["사용자ID"],			ref: 'USER_ID', 	type:'output',  	width:'25%',  	style:'text-align:left'},

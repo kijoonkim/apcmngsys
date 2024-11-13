@@ -25,7 +25,7 @@
 <head>
 	<title>법인정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,60 +40,67 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">	
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">법인코드</th>
-                            <td class="td_input"  style="border-right:hidden;">
-                            	<sbux-input uitype="text" id="SRCH_COMP_CODE_P" class="form-control input-sm"></sbux-input>	
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">법인명</th>
-                            <td class="td_input"  style="border-right:hidden;">
-                            	<sbux-input uitype="text" id="SRCH_COMP_NAME_P" class="form-control input-sm"></sbux-input>	
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+		
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+								
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">법인코드</th>
+	                            <td colspan="3" class="td_input"  style="border-right:hidden;">
+	                            	<sbux-input uitype="text" id="SRCH_COMP_CODE_P" class="form-control input-sm"></sbux-input>	
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">법인명</th>
+	                            <td colspan="3" class="td_input"  style="border-right:hidden;">
+	                            	<sbux-input uitype="text" id="SRCH_COMP_NAME_P" class="form-control input-sm"></sbux-input>	
+	                            </td>
+	                            <td></td>
+	                            
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>법인 리스트</span>
+                                    <span>◎ 법인 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg1000" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1000" style="height:778px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -161,7 +168,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인설립일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
