@@ -337,6 +337,8 @@
 				, RDCD_WGHT					= #{rdcdWght}
 				, WRHS_WGHT					= #{wrhsWght}
 				, RMRK						= #{rmrk}
+				, FCLT_CD					= #{fcltCd}
+				, WRHS_SPMT_TYPE			= #{wrhsSpmtType}
 				, SHPGOT_QNTT				= #{shpgotQntt}
                 , SHPGOT_WGHT       		= #{shpgotWght}
                 , SHPGOT_PLT_QNTT   		= #{shpgotPltQntt}
