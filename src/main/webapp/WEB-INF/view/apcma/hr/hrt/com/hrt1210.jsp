@@ -37,25 +37,38 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 40%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">교대조</th>
+                    <th scope="row" class="th_bg_search">교대조</th>
                     <td class="td_input">
                         <%--<sbux-select id="SRCH_SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
@@ -67,11 +80,11 @@
                             </div>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">교대조명</th>
+                    <th scope="row" class="th_bg_search">교대조명</th>
                     <td class="td_input">
                         <sbux-input id="SRCH_SHIFT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <th scope="row" class="th_bg">사용여부</th>
+                    <th scope="row" class="th_bg_search">사용여부</th>
                     <td class="td_input">
                         <sbux-select id="SRCH_USE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
@@ -79,6 +92,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">

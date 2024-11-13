@@ -41,25 +41,39 @@
 				</div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
+                <div class="box-search-ma">
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea" class="table table-bordered tbl_fixed">
+                    <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 3%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg">사업단위</th>
-							<td class="td_input" style="border-right:hidden;">
+							<th scope="row" class="th_bg_search">사업단위</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
 										<font>선택</font>
@@ -69,23 +83,23 @@
 									</div>
 								</div>
 							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">조회기준일자</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-datepicker
-										uitype="popup"
-										id="SRCH_BASE_DATE"
-										name="SRCH_BASE_DATE"
-										date-format="yyyy-mm-dd"
-										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed"
-										style="width:100%;"
+                            <td></td>
+                            <th scope="row" class="th_bg_search">조회기준일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="SRCH_BASE_DATE"
+                                        name="SRCH_BASE_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
                                         group-id="panHeader"
                                         required
-								/>
-							</td>
-                            <th scope="row" class="th_bg">만기예적금포함여부</th>
-                            <td class="td_input" style="border-right:hidden;">
+                                />
+                            </td>
+                            <td colspan="3"></td>
+                            <th scope="row" class="th_bg_search">만기예적금포함여부</th>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_ALL_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -95,10 +109,9 @@
                                     </div>
                                 </div>
                             </td>
-						</tr>
-						 <tr>
-							<th scope="row" class="th_bg">예적금유형</th>
-							<td class="td_input" style="border-right:hidden;">
+                            <td></td>
+                            <th scope="row" class="th_bg_search">예적금유형</th>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -107,18 +120,21 @@
                                     <div class="dropdown-menu" aria-labelledby="SRCH_DEPOSIT_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
-							</td>
-                            <th scope="row" class="th_bg">금융기관</th>
+                            </td>
+                            <td></td>
+						</tr>
+						 <tr>
+                            <th scope="row" class="th_bg_search">금융기관</th>
                             <td class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                             </td>
-                            <td class="td_input" data-group="SRCH_BANK_CS">
+                            <td colspan="2" class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
                             <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                        text="..." uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findBankCsCode('SRCH_')"
                                 ></sbux-button>
@@ -126,6 +142,7 @@
 						</tr>
                     </tbody>
                 </table>
+                </div>
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li>
@@ -233,7 +250,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK_CS">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findBankCsCode('')"
                                                 ></sbux-button>
@@ -250,7 +267,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findBankCode"
                                                 ></sbux-button>
@@ -319,7 +336,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="IN_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findDepositCode('IN')"
                                                 ></sbux-button>
@@ -339,7 +356,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="OUT_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findDepositCode('OUT')"
                                                 ></sbux-button>
@@ -447,7 +464,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('DEPOSIT_ACCOUNT')"
                                                 ></sbux-button>
@@ -464,7 +481,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="ADVANCE_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('ADVANCE_INCOME_ACCOUNT')"
                                                 ></sbux-button>
@@ -481,7 +498,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="ACCRUED_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('ACCRUED_INCOME_ACCOUNT')"
                                                 ></sbux-button>
@@ -498,7 +515,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="CTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('CTAX_WITHHOLD_ACCOUNT')"
                                                 ></sbux-button>
@@ -515,7 +532,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="PTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('PTAX_WITHHOLD_ACCOUNT')"
                                                 ></sbux-button>
@@ -532,7 +549,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="PRESENT_VALUE_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('PRESENT_VALUE_ACCOUNT')"
                                                 ></sbux-button>
@@ -549,7 +566,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_LIQUID_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('DEPOSIT_LIQUID_ACCOUNT')"
                                                 ></sbux-button>
@@ -587,7 +604,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="PAY_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findDepositCode('PAY')"
                                                 ></sbux-button>
@@ -877,7 +894,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="INTEREST_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('INTEREST_INCOME_ACCOUNT')"
                                                 ></sbux-button>
@@ -894,7 +911,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_GAIN_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('EXCHANGE_GAIN_ACC')"
                                                 ></sbux-button>
@@ -911,7 +928,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_LOSS_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('EXCHANGE_LOSS_ACC')"
                                                 ></sbux-button>
@@ -928,7 +945,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="VAL_GAIN_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('VAL_GAIN_ACC')"
                                                 ></sbux-button>
@@ -945,7 +962,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="VAL_LOSS_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccountCode('VAL_LOSS_ACC')"
                                                 ></sbux-button>
@@ -982,7 +999,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_START_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('DEPOSIT_START_TR')"
                                                 ></sbux-button>
@@ -999,7 +1016,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_IN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('DEPOSIT_IN_TR')"
                                                 ></sbux-button>
@@ -1016,7 +1033,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="INTEREST_IN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('INTEREST_IN_TR')"
                                                 ></sbux-button>
@@ -1033,7 +1050,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="CTAX_WITHHOLD_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('CTAX_WITHHOLD_TR')"
                                                 ></sbux-button>
@@ -1050,7 +1067,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="PTAX_WITHHOLD_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('PTAX_WITHHOLD_TR')"
                                                 ></sbux-button>
@@ -1087,7 +1104,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_GAIN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('EXCHANGE_GAIN_TR')"
                                                 ></sbux-button>
@@ -1104,7 +1121,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_LOSS_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findFundCode('EXCHANGE_LOSS_TR')"
                                                 ></sbux-button>
@@ -1141,7 +1158,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findDeptCode"
                                                 ></sbux-button>
@@ -1158,7 +1175,7 @@
                                             <td class="td_input" style="border-right:hidden;" data-group="COST_CENTER">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
-                                                        image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                        text="..." uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findCostCenterCode"
                                                 ></sbux-button>

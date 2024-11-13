@@ -42,30 +42,38 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
-                    <col style="width: 8%">
-                    <col style="width: 8%">
-                    <col style="width: 3%">
-                    <col style="width: 8%">
-                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
-                    <col style="width: 3%">
+                    <col style="width: 2%">
+
                     <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
                     <col style="width: 8%">
-                    <col style="width: 20%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">사업장</th>
+                    <th scope="row" class="th_bg_search">사업장</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
@@ -77,13 +85,13 @@
                             </div>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">급여영역</th>
-                    <td colspan="2" class="td_input">
+                    <td></td>
+                    <th scope="row" class="th_bg_search">급여영역</th>
+                    <td colspan="3" class="td_input">
                         <sbux-select id="SRCH_PAY_AREA_TYPE" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">귀속년월</th>
+                    <td></td>
+                    <th scope="row" class="th_bg_search">귀속년월</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
@@ -91,61 +99,62 @@
                                 name="SRCH_YYYYMM"
                                 date-format="yyyy-mm"
                                 datepicker-mode="month"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                 style="width:100%;"
                                 onchange="fn_valueChangeForYyyymm(this)"
                                 group-id="panHeader"
                                 required
                         />
                     </td>
-                    <td colspan="2"></td>
-                    <th scope="row" class="th_bg">근태일</th>
+                    <td colspan="3"></td>
+                    <th scope="row" class="th_bg_search">근태일</th>
                     <td class="td_input" style="border-right:hidden;">
-                      <sbux-datepicker
-                              uitype="popup"
-                              id="SRCH_WORK_START_DAY"
-                              name="SRCH_WORK_START_DAY"
-                              date-format="yyyy-mm-dd"
-                              class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                              style="width:100%;"
-                      />
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_WORK_START_DAY"
+                                name="SRCH_WORK_START_DAY"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                style="width:100%;"
+                        />
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                      <span> ~ </span>
+                        <span> ~ </span>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                      <sbux-datepicker
-                              uitype="popup"
-                              id="SRCH_WORK_END_DAY"
-                              name="SRCH_WORK_END_DAY"
-                              date-format="yyyy-mm-dd"
-                              class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                              style="width:100%;"
-                      />
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_WORK_END_DAY"
+                                name="SRCH_WORK_END_DAY"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                style="width:100%;"
+                        />
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">급여체계</th>
-                    <td class="td_input">
-                      <sbux-select id="SRCH_PAY_GROUP_CODE" uitype="single" jsondata-ref="jsonPayGroupCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">부서</th>
+                    <th scope="row" class="th_bg_search">급여체계</th>
+                    <td colspan="3" class="td_input">
+                      <sbux-select id="SRCH_PAY_GROUP_CODE" uitype="single" jsondata-ref="jsonPayGroupCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <td></td>
+                    <th scope="row" class="th_bg_search">부서</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                      <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
+                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                      <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findDeptCode"
+                        ></sbux-button>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
-                      <sbux-button
-                              class="btn btn-xs btn-outline-dark"
-                              image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
-                              target-id="modal-compopup1"
-                              onclick="fn_findDeptCode"
-                      ></sbux-button>
-                    </td>
-                    <th scope="row" class="th_bg">사원</th>
+                    <th scope="row" class="th_bg_search">사원</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -155,22 +164,24 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findEmpCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg">직종</th>
-                    <td class="td_input">
-                      <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <th scope="row" class="th_bg_search">직종</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="th_bg">비고</th>
-                  <td colspan="8" class="td_input">
+                  <th scope="row" class="th_bg_search">비고</th>
+                  <td colspan="9" class="td_input">
                     <sbux-input id="SRCH_MEMO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                   </td>
-                  <td class="td_input">
+                  <td></td>
+                  <td colspan="10" class="td_input">
                     <sbux-checkbox
                             uitype="normal"
                             id="SRCH_MONTH_TYPE_YN"
@@ -184,6 +195,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="ad_tbl_top">

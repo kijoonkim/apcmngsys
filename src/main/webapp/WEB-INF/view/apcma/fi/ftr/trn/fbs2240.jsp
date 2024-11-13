@@ -25,7 +25,6 @@
     <title>title : 급여이체파일전송</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -51,30 +50,41 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-                <!--[APC] START -->
-                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                <!--[APC] END -->
-                <table  id="srchArea" class="table table-bordered tbl_fixed">
+                <div class="box-search-ma">
+                    <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                    <table  id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
-                        <col style="width: 11%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row" class="th_bg">사업장</th>
-                        <td class="td_input" style="border-right: hidden;">
+                        <th scope="row" class="th_bg_search">사업장</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -82,10 +92,11 @@
                                 </div>
                             </div>
                         </td>
-                        <th scope="row" class="th_bg">예적금</th>
-                        <td class="td_input" style="border-right: hidden;">
+                        <td></td>
+                        <th scope="row" class="th_bg_search">예적금</th>
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_DEPOSIT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -93,9 +104,9 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="td_input" style="border-right: hidden;">
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_BANK_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_BANK_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -103,8 +114,8 @@
                                 </div>
                             </div>
                         </td>
-                        <th scope="row" class="th_bg">FBS서비스</th>
-                        <td class="td_input">
+                        <th scope="row" class="th_bg_search">FBS서비스</th>
+                        <td colspan="3" class="td_input">
                             <div class="dropdown">
                                 <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FBS_SERVICE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                     <font>선택</font>
@@ -114,9 +125,8 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg">귀속년월</th>
+                        <td></td>
+                        <th scope="row" class="th_bg_search">귀속년월</th>
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-datepicker
                                     uitype="popup"
@@ -124,28 +134,33 @@
                                     name="SRCH_PAY_YYYYMM"
                                     datepicker-mode="month"
                                     date-format="yyyy-mm"
-                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                     style="width:100%;"
                                     group-id="panHeader"
                                     required
                             />
                         </td>
-                        <th scope="row" class="th_bg">급여구분</th>
-                        <td colspan="2" class="td_input" style="border-right:hidden;">
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="th_bg_search">급여구분</th>
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_PAY_TYPE" uitype="single" jsondata-ref="jsonPayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
                         </td>
-                        <th scope="row" class="th_bg">귀속일자</th>
-                        <td class="td_input" style="border-right:hidden;">
+                        <td></td>
+                        <th scope="row" class="th_bg_search">귀속일자</th>
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
                             <sbux-select id="SRCH_PAY_DATE" uitype="single" jsondata-ref="jsonPayDate" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panHeader" required></sbux-select>
                         </td>
-                        <th scope="row" class="th_bg">실지급일자</th>
+                        <td></td>
+                        <th scope="row" class="th_bg_search">실지급일자</th>
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-datepicker
                                     uitype="popup"
                                     id="SRCH_ACTUAL_PAY_DATE"
                                     name="SRCH_ACTUAL_PAY_DATE"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                     style="width:100%;"
                                     group-id="panHeader"
                                     required
@@ -153,9 +168,11 @@
                             <sbux-input id="SRCH_PASSWORD" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="SRCH_APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
+                        <td colspan="3"></td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
                 <div class="row">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">

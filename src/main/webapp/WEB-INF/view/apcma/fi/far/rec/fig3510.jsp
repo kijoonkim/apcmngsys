@@ -20,36 +20,55 @@
     <section>
         <div class="box box-solid">
                 <div class="box-body">
-
-                    <!--[pp] 검색 -->
-                    <!--[APC] START -->
+                    <div class="box-search-ma">
                         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                    <!--[APC] END -->
-                    <table class="table table-bordered tbl_fixed" style="display: none;">
+                        <table class="table table-bordered tbl_fixed table-search-ma" style="display: none;">
                         <caption>검색 조건 설정</caption>
                         <colgroup>
-                            <col style="width: 10%">
-                            <col style="width: 10%">
-                            <col style="width: 10%">
-                            <col style="width: 10%">
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
                         </colgroup>
                         <tbody>
                             <tr>
                                 <th scope="row" class="th_bg">회계단위</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td colspan="3" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="SRCH_DOC_H_FI_ORG_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                 </td>
+                                <td></td>
                                 <th scope="row" class="th_bg">사업장</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td colspan="3" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                     <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                 </td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                     <div class="row">
                         <div id="srchArea" class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -74,7 +93,7 @@
                                     <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
                                     <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                     <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
+                                    <sbux-button class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                                 </div>
                 				<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
                                 
@@ -145,7 +164,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="..." uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findDeptCode"
                                                 disabled="true"
@@ -204,7 +223,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="CS">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="..." uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findCsCode"
                                         ></sbux-button>
@@ -220,7 +239,7 @@
                                     <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                text="..." uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findPayTermCode"
                                         ></sbux-button>
@@ -831,7 +850,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME1"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(1)"
                                                     ></sbux-button>
@@ -847,7 +866,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME5"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(5)"
                                                     ></sbux-button>
@@ -863,7 +882,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME9"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(9)"
                                                     ></sbux-button>
@@ -881,7 +900,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME2"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(2)"
                                                     ></sbux-button>
@@ -897,7 +916,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME6"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(6)"
                                                     ></sbux-button>
@@ -913,7 +932,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME10"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(10)"
                                                     ></sbux-button>
@@ -931,7 +950,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME3"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(3)"
                                                     ></sbux-button>
@@ -947,7 +966,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME7"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(7)"
                                                     ></sbux-button>
@@ -965,7 +984,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME4"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(4)"
                                                     ></sbux-button>
@@ -981,7 +1000,7 @@
                                                     <sbux-button
                                                             id="BTN_ACC_VALUE_NAME8"
                                                             class="btn btn-xs btn-outline-dark"
-                                                            image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                                            text="..." uitype="modal"
                                                             target-id="modal-compopup1"
                                                             onclick="fn_findAccItem(8)"
                                                     ></sbux-button>

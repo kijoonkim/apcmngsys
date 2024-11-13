@@ -37,28 +37,51 @@
             </div>
         </div>
         <div class="box-body">
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 16%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg">소득자 성명</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th id="TH_SRCH_BIZ_REGNO" scope="row" class="th_bg">사업자등록번호</th>
-                    <td id="TD_SRCH_BIZ_REGNO" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" id="TD_SRCH_BIZ_REGNO" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <sbux-tabs id="tabInfo" name="tabInfo" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData" onclick="fn_clickTab"></sbux-tabs>
                 <div class="tab-content">

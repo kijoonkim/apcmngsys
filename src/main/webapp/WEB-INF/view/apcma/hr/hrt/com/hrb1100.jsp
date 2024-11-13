@@ -42,21 +42,38 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 80%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준년도</th>
+                    <th scope="row" class="th_bg_search">기준년도</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
@@ -64,14 +81,16 @@
                                 name="SRCH_YYYY"
                                 date-format="yyyy"
                                 datepicker-mode="year"
-                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm table-datepicker-ma"
                                 group-id="panHeader"
                                 required
                         />
                     </td>
+                    <td colspan="18"></td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="ad_tbl_top">

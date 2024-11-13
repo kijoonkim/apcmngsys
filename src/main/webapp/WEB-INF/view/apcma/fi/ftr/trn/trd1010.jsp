@@ -43,30 +43,39 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table  id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table  id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 11%">
-                    <col style="width: 11%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 11%">
-                    <col style="width: 3%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
-                    <col style="width: 3%">
-                    <col style="width: 11%">
-                    <col style="width: 11%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">회계단위</th>
-                    <td colspan="4" class="td_input">
+                    <th scope="row" class="th_bg_search">회계단위</th>
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -76,16 +85,15 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">기간</th>
+                    <td></td>
+                    <th scope="row" class="th_bg_search">기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_DATE_FR_P"
                                 name="SRCH_DATE_FR_P"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                 style="width:100%;"
                                 group-id="panHeader"
                                 required
@@ -100,30 +108,30 @@
                                 id="SRCH_DATE_TO_P"
                                 name="SRCH_DATE_TO_P"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                 style="width:100%;"
                                 group-id="panHeader"
                                 required
                         />
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">금융기관</th>
+                    <th scope="row" class="th_bg_search">금융기관</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findBankCsCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg">거래유형</th>
-                    <td class="td_input">
+                    <th scope="row" class="th_bg_search">거래유형</th>
+                    <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_TXN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -133,9 +141,10 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">통화</th>
+                    <th scope="row" class="th_bg_search">통화</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
@@ -145,22 +154,22 @@
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findPayCurrencyCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg">계좌</th>
+                    <th scope="row" class="th_bg_search">계좌</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_DEPOSIT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_findAccountNo"
                         ></sbux-button>
@@ -168,6 +177,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
