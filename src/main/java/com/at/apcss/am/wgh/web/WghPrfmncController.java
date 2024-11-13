@@ -1,5 +1,6 @@
 package com.at.apcss.am.wgh.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -309,6 +310,26 @@ public class WghPrfmncController extends BaseController {
 			}
 		}
 
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/wgh/selectMultiWghPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMultiWghPrfmncList(@RequestBody WghPrfmncVO wghPrfmnc, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
+
+		try {
+			resultList = wghPrfmncService.selectMultiWghPrfmncList(wghPrfmnc);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 

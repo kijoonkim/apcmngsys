@@ -28,6 +28,11 @@
             font-size: 15px;
             text-align: left;
         }
+        .td_add{
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+        }
         .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd .sbux-tabs-content{
             padding: 16px 0px !important;
         }
@@ -69,7 +74,7 @@
                  text-align: center;font-weight: bold;border-radius:0}">
                 </sbux-tabs>
                 <div class="tab-content">
-                    <div id="tab_spmtPrfmncReg">
+                    <div id="tab_spmtPrfmncReg" style="height: 500px">
                         <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 50%">
                             <colgroup>
                                 <col style="width: 20%">
@@ -240,7 +245,6 @@
                                             id="boxWght"
                                             name="boxWght"
                                             class="form-control input-sm"
-<%--                                            style="width: 30%"--%>
                                             autocomplete="off"
                                             onchange="fn_calcInput()"
                                     ></sbux-input>
@@ -333,7 +337,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="tab_spmtPrfmnc">
+                    <div id="tab_spmtPrfmnc" style="height: 500px">
                         <table class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 40%">
                             <colgroup>
                                 <col style="width: 30%">
@@ -367,14 +371,6 @@
                                 <th scope="row" class="th_bg">차량번호</th>
                                 <th scope="row" class="th_bg">총중량</th>
                                 <th scope="row" class="th_bg">상세</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             </tbody>
                         </table>
@@ -420,6 +416,10 @@
 
     /** save Json **/
     var jsonSave = [];
+
+    /** 입고내역에 전달할 조회 json **/
+    var jsonSearchData = [];
+
 
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
@@ -589,6 +589,51 @@
         SBUxMethod.set("boxWght",'');
         SBUxMethod.set("pltWght",'');
         await SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
+    }
+    const fn_search = async function(){
+        jsonSearchData.length = 0;
+
+        let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+        const postJsonPromise = gfn_postJSON("/am/wgh/selectMultiWghPrfmncList.do", {apcCd:gv_selectedApcCd,wghYmd:wghYmd});
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            data.resultList.forEach(function(item,idx){
+                 let camel = Object.keys(item).reduce((acc,key) => {
+                    acc[gfn_snakeToCamel(key)] = item[key];
+                    return acc;
+                },{});
+                 jsonSearchData.push(camel);
+            });
+            SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmnc');
+            fn_setSearchTable();
+        }
+        console.log(data,"조회");
+    }
+    const fn_setSearchTable = function(){
+        console.log(jsonSearchData,"잘전달받앗고 카멜로 되어있길바라");
+        console.log($("#searchTable > tbody tr:not(:first)").length);
+        $("#searchTable > tbody tr").slice(1).remove();
+        jsonSearchData.forEach(function(item,idx){
+          let el = `
+        <tr>
+            <td class="td_add">${'${item.wrhsYmd}'}</td>
+            <td class="td_add">${'${item.itemNm}'}</td>
+            <td class="td_add">${'${item.prdcrNm}'}</td>
+            <td class="td_add">${'${item.vhclno}'}</td>
+            <td class="td_add">${'${item.wholWght}'}</td>
+            <td><button class="btn btn-lg btn-primary" style="min-width:100% !important" onclick="fn_searchDetail(this)">조회</button></td>
+        </tr>
+        `;
+        $("#searchTable > tbody").append(el);
+        });
+
+    }
+    const fn_searchDetail = async function(_el){
+        console.log(_el);
+        let idx = $(_el).index();
+        console.log(idx,"index");
+        console.log(jsonSearchData[idx],"json");
+        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_023",...jsonSearchData[idx]}));
     }
 
 

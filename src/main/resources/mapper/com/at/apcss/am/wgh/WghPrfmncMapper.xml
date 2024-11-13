@@ -940,5 +940,80 @@
 			 ORDER BY Y.WGHNO DESC
 		]]>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptList		-->
+	<!-- DESC : 계량접수등록 목록 조회.		                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.30  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectMultiWghPrfmncList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="hashmap">
+		SELECT
+			 pt0.*
+			 ,(SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+			 ,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 ,(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+		FROM(SELECT
+				   MAX(WPD.APC_CD) AS APC_CD
+				  ,MAX(WPD.WRHSNO) AS WRHSNO
+				  ,WPD.WGHNO AS WGHNO
+				  ,MAX(RMWP.WRHS_YMD) AS WRHS_YMD
+				  ,MAX(RMI.ITEM_CD) AS ITEM_CD
+				  ,MAX(RMI.VRTY_CD) AS VRTY_CD
+				  ,MAX(RMI.PRDCR_CD) AS PRDCR_CD
+				  ,MAX(PI.PLOR_CD) AS PLOR_CD
+				  ,MAX(WPC.VHCLNO) AS VHCLNO
+				  ,MAX(WPC.WHOL_WGHT) AS WHOL_WGHT
+				  ,MAX(WPC.EMPT_VHCL_WGHT) AS EMPT_VHCL_WGHT
+				  ,MAX(WPC.WRHS_WGHT) AS WRHS_WGHT
+				  ,LISTAGG(WPD.BX_QNTT, ',') WITHIN GROUP (ORDER BY WPD.GRD_CD) AS BX_QNTT
+				  ,LISTAGG(WPD.GRD_CD, ',') WITHIN GROUP (ORDER BY WPD.GRD_CD) AS GRD_CD
+				  ,MAX(WPD.PLT_QNTT) AS PLT_QNTT
+				  ,MAX(WPC.RMRK) AS RMRK
+				  ,MAX((SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', PI.PLOR_CD) FROM DUAL)) AS PLOR_NM
+			 FROM
+				 usram.TB_WGH_PRFMNC_COM AS WPC
+					 JOIN usram.TB_WGH_PRFMNC_DTL AS WPD
+						  ON WPC.APC_CD  = WPD.APC_CD
+							  AND WPC.WGHNO = WPD.WGHNO
+							  AND WPC.APC_CD = #{apcCd}
+					<if test='wghYmd != null and wghYmd !=""'>
+							  AND WPC.WGH_YMD = #{wghYmd}
+					</if>
+					<if test=' wghYmdFrom != null and wghYmdFrom !="" and wghYmdTo != null and wghYmdTo !="" '>
+							  AND WPC.WGH_YMD BETWEEN #{wghYmdFrom} AND #{wghYmdTo}
+					</if>
+							  AND WPC.DEL_YN = 'N'
+							  AND WPD.DEL_YN = 'N'
+					 JOIN usram.TB_RAW_MTR_WRHS_PRFMNC AS RMWP
+						  ON WPD.APC_CD = RMWP.APC_CD
+							  AND WPD.WRHSNO = RMWP.WRHSNO
+							  AND RMWP.DEL_YN = 'N'
+					 JOIN usram.TB_RAW_MTR_INVNTR AS RMI
+						  ON RMWP.APC_CD = RMI.APC_CD
+							  AND RMWP.WRHSNO = RMI.WRHSNO
+							  AND RMI.DEL_YN = 'N'
+					<if test='itemCd != null and itemCd !=""'>
+							  AND RMI.ITEM_CD = #{itemCd}
+					</if>
+					<if test='prdcrCd != null and prdcrCd !=""'>
+							  AND RMI.PRDCR_CD = #{prdcrCd}
+					</if>
+					 JOIN usram.TB_PRDCR_INFO AS PI
+						  ON RMI.APC_CD = PI.APC_CD
+							  AND RMI.PRDCR_CD = PI.PRDCR_CD
+							  AND PI.DEL_YN = 'N'
+			GROUP BY WPD.WGHNO
+			) AS pt0
+		WHERE 1=1
+		<if test='plorNm != null and plorNm != ""'>
+			AND pt0.PLOR_NM LIKE '%' || #{plorNm} || '%'
+		</if>
+		<if test='vhclno != null and vhclno != ""'>
+			AND pt0.VHCLNO LIKE '%' || #{vhclno} || '%'
+		</if>
+
+	</select>
 
 </mapper>

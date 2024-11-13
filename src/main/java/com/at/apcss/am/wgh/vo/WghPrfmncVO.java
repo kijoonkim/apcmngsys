@@ -185,6 +185,10 @@ public class WghPrfmncVO extends ComVO {
 	 * 산지코드
 	 */
 	private String plorCd;
+	/**
+	 * 산지코드명
+	 */
+	private String plorNm;
 
 	/**
 	 * 팔레트박스구분코드
