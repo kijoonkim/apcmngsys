@@ -104,6 +104,37 @@
 	                            </td>	
 	                            <td colspan="3"></td>
 	                        </tr>
+	                        <tr>
+	                        	<th scope="row" class="th_bg_search">라디오버튼 테스트</th>
+                                 <td class="td_input " colspan="3">
+									<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" text="차변" uitype="normal" value="D" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" text="대변" uitype="normal" value="C" class="radio_label"></sbux-radio>
+								</td>	                        
+								<td></td>
+	                        	<th scope="row" class="th_bg_search">셀렉트 테스트</th>
+                                <td class="td_input" colspan="3">
+				                    <sbux-select
+				                            id="SRCH_PAY_DATE"
+				                            uitype="single"
+				                            jsondata-ref="selectJsonData"
+				                            unselected-text="선택"
+				                            class="form-control input-sm"
+				                    </sbux-select>                                
+								</td>	
+								<td></td>                        
+	                        	<th scope="row" class="th_bg_search">셀렉트 테스트</th>
+                                <td class="td_input" colspan="3">
+				                    <sbux-select
+				                            id="SRCH_PAY_DATE1"
+				                            uitype="single"
+				                            jsondata-ref="selectJsonData"
+				                            unselected-text="선택"
+				                            class="form-control input-sm inpt_data_reqed"
+				                            required
+				                    </sbux-select>                                
+								</td>	
+								<td></td>                        
+	                        </tr>
 	                    </tbody>
 	                </table>
                 </div>
@@ -367,6 +398,20 @@
 	var editType 		= 'N';
 	var mode 			= 'byrows';
 	var jsonGroupCode	= [];	// 유형분류
+	
+	var selectJsonData = [
+		{ text : "빨강", value : "red",       style : "color:red;"},
+		{ text : "주황", value : "orange",    style : "color:orange;"},
+		{ text : "노랑", value : "yellow",    style : "color:yellow;"},
+		{ text : "초록", value : "green",     style : "color:green;"},
+		{ text : "파랑", value : "blue",      style : "color:blue;"},
+		{ text : "남색", value : "navy",      style : "color:navy;"},
+		{ text : "보라", value : "purple",    style : "color:purple;"},
+		{ text : "금색", value : "gold",      style : "color:gold;"},
+		{ text : "은색", value : "silver",    style : "color:silver;"},
+		{ text : "검정", value : "black",     style : "color:black;"},
+		{ text : "흰색", value : "white"  }
+	];
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
@@ -1234,21 +1279,9 @@
 		if (nRow < 1) {
             return;
 		}
-
         let rowData = CMNSCDGrid.getRowData(nRow);
         fn_setCMNSCDSubGrid(rowData.GROUP_CODE);
-
     }
-    
-/*
-border-right:none !important
-
-border-left:none !important
-
-border-top:none !important
-
-border-bottom:none !important
-*/
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
