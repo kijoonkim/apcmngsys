@@ -449,7 +449,7 @@
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',
                 format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
             {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'}
 
         ];

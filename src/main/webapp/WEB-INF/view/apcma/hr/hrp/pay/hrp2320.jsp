@@ -24,7 +24,7 @@
 <head>
     <title>title : 급상여 계산(신규) 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -36,117 +36,117 @@
                 </h3><!-- 급상여 계산(신규) -->
             </div>
         </div>
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 5%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 5%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 2%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">귀속년월</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_PAY_YYYYMM"
-                            name="SRCH_PAY_YYYYMM"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyy-mm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            onchange="fn_ymPay"
-                    ></sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">상여기준월</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_BASE_YYYYMM"
-                            name="SRCH_BASE_YYYYMM"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyy-mm"
-                            class="form-control input-sm input-sm-ast"
-                    <%--onchange="fn_payDate"--%>>
-                    </sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg" style="display: none">급상여구분</th>
-                <td class="td_input" style="display: none">
-                    <sbux-select
-                            id="SRCH_PAY_CALCULATE_TYPE"
-                            uitype="single"
-                            jsondata-ref="jsonPayCalculateType"
-                            unselected-text="선택"
-                            class="form-control input-sm"
-                            onchange="fn_payCalType"
-                    ></sbux-select>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">지급구분</th>
-                <%--<td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text=""
-                            uitype="single"
-                            id="SRCH_PAY_TYPE"
-                            name="SRCH_PAY_TYPE"
-                            class="form-control input-sm inpt_data_reqed"
-                            jsondata-ref="jsonPayType"
-                            onchange="fn_payType"
-                    />
-                </td>--%>
-                <td class="td_input">
-                    <sbux-select
-                            id="SRCH_PAY_TYPE"
-                            uitype="single"
-                            jsondata-ref="jsonPayType"
-                            unselected-text="선택"
-                            class="form-control input-sm inpt_data_reqed"
-                            onchange="fn_payType"
-                    ></sbux-select>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">지급일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_PAY_DATE"
-                            name="SRCH_PAY_DATE"
-                            uitype="popup"
-                            date-format="yyyy-mm-dd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            >
-                    </sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">퇴사일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_EXPECTED_PAY_DATE"
-                            name="SRCH_EXPECTED_PAY_DATE"
-                            uitype="popup"
-                            date-format="yyyy-mm-dd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            >
-                    </sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">귀속년월</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_PAY_YYYYMM"
+                                name="SRCH_PAY_YYYYMM"
+                                uitype="popup"
+                                datepicker-mode="month"
+                                date-format="yyyy-mm"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                onchange="fn_ymPay"
+                        ></sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">상여기준월</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_BASE_YYYYMM"
+                                name="SRCH_BASE_YYYYMM"
+                                uitype="popup"
+                                datepicker-mode="month"
+                                date-format="yyyy-mm"
+                                class="table-datepicker-ma input-sm-ast"
+                        <%--onchange="fn_payDate"--%>>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">지급구분</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select
+                                id="SRCH_PAY_TYPE"
+                                uitype="single"
+                                jsondata-ref="jsonPayType"
+                                unselected-text="선택"
+                                class="form-control input-sm inpt_data_reqed"
+                                onchange="fn_payType"
+                        ></sbux-select>
+                    </td>
+                    <td colspan="6" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">지급일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_PAY_DATE"
+                                name="SRCH_PAY_DATE"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed"
+                        >
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">퇴사일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_EXPECTED_PAY_DATE"
+                                name="SRCH_EXPECTED_PAY_DATE"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed"
+                        >
+                        </sbux-datepicker>
+                    </td>
+                    <th scope="row" class="th_bg_search" style="display: none">급상여구분</th>
+                    <td colspan="3" class="td_input" style="display: none">
+                        <sbux-select
+                                id="SRCH_PAY_CALCULATE_TYPE"
+                                uitype="single"
+                                jsondata-ref="jsonPayCalculateType"
+                                unselected-text="선택"
+                                class="form-control input-sm"
+                                onchange="fn_payCalType"
+                        ></sbux-select>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <td colspan="8" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div>
             <div class="ad_tbl_top">
@@ -356,7 +356,7 @@
                         <td colspan="8" class="td_input" data-group="EMP">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_compopup2"
                             ></sbux-button>
@@ -570,6 +570,7 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li><span>계산 이력(로그)</span></li>
+                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                 </ul>
             </div>
             <div>
@@ -804,7 +805,7 @@
             {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption : ["처리구분"], ref : 'CALCULATE_WORK_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonCalculateWorkType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonCalculateWorkType',  label : 'label', value : 'value'}
             },
             {caption: ["시작시각"], ref: 'ACTION_START_TIME', type: 'input', width: '200px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
@@ -836,10 +837,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["근속기간(~개월 이상)"], ref : 'PAY_WORK_MONTHS', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonWorkMonthsType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonWorkMonthsType',  label : 'label', value : 'value'}
             },
             {caption : ["상여적용기준"], ref : 'BONUS_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonApplyType',  label : 'label', value : 'value'}
             },
             {caption: ["적용비율(%)"], ref: 'BONUS_RATE', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
@@ -863,11 +864,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCodeType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCodeType',  label : 'label', value : 'value'}
             },
-            {caption: ['적용시작년월'], ref: 'PAY_APPLY_YYYYMM_FR', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작년월'], ref: 'PAY_APPLY_YYYYMM_FR', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
-            {caption: ['적용종료년월'], ref: 'PAY_APPLY_YYYYMM_TO', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료년월'], ref: 'PAY_APPLY_YYYYMM_TO', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
         ];
 

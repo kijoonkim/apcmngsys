@@ -24,7 +24,7 @@
 <head>
     <title>title : 급여명세서 메일발송</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 
     <title>Calculator</title>
@@ -49,253 +49,258 @@
             </div>
         </div>
 
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">사업장</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">사업장</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
+                    </td>
+                    <td style="border-right: hidden;"></td>
 
-                <th scope="row" class="th_bg">급여영역</th>
-                <td class="td_input">
-                    <sbux-select
-                            id="SRCH_PAY_AREA_TYPE"
-                            uitype="single"
-                            jsondata-ref="jsonPayAreaType"
-                            unselected-text="선택"
-                            class="form-control input-sm"
-                    <%--onchange="fn_payType"--%>>
-                    </sbux-select>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">발송구분</th>
-                <td colspan="3" class="td_input">
-                    <sbux-radio id="ALL" name="SENDTYPE" uitype="normal"
-                                text="전체" value="ALL" checked>
-                    </sbux-radio>
-                    <sbux-radio id="PAY" name="SENDTYPE" uitype="normal"
-                                text="급여명세" value="PAY">
-                    </sbux-radio>
-                    <sbux-radio id="WORK" name="SENDTYPE" uitype="normal"
-                                text="근태현황" value="WORK">
-                    </sbux-radio>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">귀속년월</th>
-                <td <%--colspan="2"--%> class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_PAY_YYYYMM_FR"
-                            name="SRCH_PAY_YYYYMM_FR"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyy-mm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            style="width: 95%;"
-                            required
-                            onchange="fn_payDate">
-                    </sbux-datepicker>
-                </td>
-              <%--  <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_PAY_YYYYMM_FR2"
-                            name="SRCH_PAY_YYYYMM_FR2"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyymm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            style="width: 95%;"
-                            required>
-                        &lt;%&ndash;onchange="fn_payDate"&ndash;%&gt;
-                    </sbux-datepicker>
-                </td>--%>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">지급구분</th>
-                <td class="td_input">
-                    <sbux-select
-                            id="SRCH_PAY_TYPE"
-                            uitype="single"
-                            jsondata-ref="jsonPayType"
-                            unselected-text="선택"
-                            class="form-control input-sm inpt_data_reqed"
-                            required
-                            onchange="fn_payDate">
-                    </sbux-select>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">지급일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            id="SRCH_PAY_DATE"
-                            uitype="single"
-                            jsondata-ref="jsonPayDate"
-                            unselected-text="선택"
-                            class="form-control input-sm inpt_data_reqed"
-                            required
-                    <%--onchange="fn_payType"--%>>
-                    </sbux-select>
-                </td>
-                <th scope="row" class="th_bg" style="display: none">연간누계 출력여부</th>
-                <td class="td_input" style="border-right: hidden; display: none">
-                    <sbux-checkbox
-                            id="SRCH_MULTI_YN"
-                            name="SRCH_MULTI_YN"
-                            uitype="normal"
-                            text=""
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_DEPT_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_DEPT_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup1"
-                    ></sbux-button>
-                </td>
+                    <th scope="row" class="th_bg_search">급여영역</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select
+                                id="SRCH_PAY_AREA_TYPE"
+                                uitype="single"
+                                jsondata-ref="jsonPayAreaType"
+                                unselected-text="선택"
+                                class="form-control input-sm"
+                        <%--onchange="fn_payType"--%>>
+                        </sbux-select>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">발송구분</th>
+                    <td colspan="4" class="td_input inpt_data_reqed">
+                        <sbux-radio id="ALL" name="SENDTYPE" uitype="normal"
+                                    text="전체" value="ALL" checked>
+                        </sbux-radio>
+                        <sbux-radio id="PAY" name="SENDTYPE" uitype="normal"
+                                    text="급여명세" value="PAY">
+                        </sbux-radio>
+                        <sbux-radio id="WORK" name="SENDTYPE" uitype="normal"
+                                    text="근태현황" value="WORK">
+                        </sbux-radio>
+                    </td>
+                    <th scope="row" class="th_bg_search">귀속년월</th>
+                    <td <%--colspan="2"--%> class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_PAY_YYYYMM_FR"
+                                name="SRCH_PAY_YYYYMM_FR"
+                                uitype="popup"
+                                datepicker-mode="month"
+                                date-format="yyyy-mm"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                style="width: 95%;"
+                                required
+                                onchange="fn_payDate">
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">지급구분</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select
+                                id="SRCH_PAY_TYPE"
+                                uitype="single"
+                                jsondata-ref="jsonPayType"
+                                unselected-text="선택"
+                                class="form-control input-sm inpt_data_reqed"
+                                required
+                                onchange="fn_payDate">
+                        </sbux-select>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">지급일</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                id="SRCH_PAY_DATE"
+                                uitype="single"
+                                jsondata-ref="jsonPayDate"
+                                unselected-text="선택"
+                                class="form-control input-sm inpt_data_reqed"
+                                required
+                        <%--onchange="fn_payType"--%>>
+                        </sbux-select>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search" style="display: none">연간누계 출력여부</th>
+                    <td colspan="4" class="td_input" style="border-right: hidden; display: none">
+                        <sbux-checkbox
+                                id="SRCH_MULTI_YN"
+                                name="SRCH_MULTI_YN"
+                                uitype="normal"
+                                text=""
+                                true-value="Y"
+                                false-value="N"
+                        ></sbux-checkbox>
+                    </td>
+                    <td colspan="5" style="border-right: hidden;"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">부서</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_DEPT_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…"
+                                uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup1"
+                        ></sbux-button>
+                    </td>
 
-                <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_EMP_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup2"
-                    ></sbux-button>
-                </td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-checkbox
-                            id="CHKMULTI_CS_YN"
-                            name="CHKMULTI_CS_YN"
-                            uitype="normal"
-                            text="복수선택"
-                            text-left-padding="5px"
-                            text-right-padding="25px"
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
-                </td>
-                <td class="td_input" style="border-right: hidden; display: none;">
-                    <sbux-input
-                            uitype="text"
-                            id="strCsCodeList"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-button
-                            id="btnMultiCs"
-                            name="btnMultiCs"
-                            uitype="normal"
-                            text="복수사원"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_compopup4"
-                    ></sbux-button>
-                </td>
-                <th scope="row" class="th_bg">파일암호 적용여부</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-checkbox
-                            id="CHKPASSWORD_YN"
-                            name="CHKPASSWORD_YN"
-                            uitype="normal"
-                            text=""
-                            text-left-padding="5px"
-                            text-right-padding="25px"
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
-                </td>
-            </tr>
-            <%-- /************** 숨겨져 있는 컬럼 목록 **************/--%>
-            <%--<tr>
-                <td class="td_input" style="display: none;">
-                    <sbux-select
-                            id="PAY_DATE"
-                            uitype="single"
-                            jsondata-ref="jsonPayDate"
-                            unselected-text="선택"
-                            class="form-control input-sm inpt_data_reqed"
-                    &lt;%&ndash;onchange="fn_payType"&ndash;%&gt;>
-                    </sbux-select>
-                </td>
-                <td class="td_input" style="border-right: hidden; display: none;">
-                    <sbux-input
-                            uitype="text"
-                            id="EMAIL_SUBJECT"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden; display: none;">
-                    <sbux-input
-                            uitype="text"
-                            id="EMAIL_BODY"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-            </tr>--%>
-            </tbody>
-        </table>
+                    <th scope="row" class="th_bg_search">사원</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_EMP_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…"
+                                uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup2"
+                        ></sbux-button>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-checkbox
+                                id="CHKMULTI_CS_YN"
+                                name="CHKMULTI_CS_YN"
+                                uitype="normal"
+                                text="복수선택"
+                                text-left-padding="5px"
+                                text-right-padding="25px"
+                                true-value="Y"
+                                false-value="N"
+                        ></sbux-checkbox>
+                    </td>
+                    <td class="td_input" style="border-right: hidden; display: none;">
+                        <sbux-input
+                                uitype="text"
+                                id="strCsCodeList"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="4" class="td_input" style="border-right: hidden;">
+                        <sbux-button
+                                id="btnMultiCs"
+                                name="btnMultiCs"
+                                uitype="normal"
+                                text="복수사원"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_compopup4"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg_search로">파일암호 적용여부</th>
+                    <td colspan="4" class="td_input" style="border-right: hidden;">
+                        <sbux-checkbox
+                                id="CHKPASSWORD_YN"
+                                name="CHKPASSWORD_YN"
+                                uitype="normal"
+                                text=""
+                                text-left-padding="5px"
+                                text-right-padding="25px"
+                                true-value="Y"
+                                false-value="N"
+                        ></sbux-checkbox>
+                    </td>
+                </tr>
+                <%-- /************** 숨겨져 있는 컬럼 목록 **************/--%>
+                <%--<tr>
+                    <td class="td_input" style="display: none;">
+                        <sbux-select
+                                id="PAY_DATE"
+                                uitype="single"
+                                jsondata-ref="jsonPayDate"
+                                unselected-text="선택"
+                                class="form-control input-sm inpt_data_reqed"
+                        &lt;%&ndash;onchange="fn_payType"&ndash;%&gt;>
+                        </sbux-select>
+                    </td>
+                    <td class="td_input" style="border-right: hidden; display: none;">
+                        <sbux-input
+                                uitype="text"
+                                id="EMAIL_SUBJECT"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right: hidden; display: none;">
+                        <sbux-input
+                                uitype="text"
+                                id="EMAIL_BODY"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                </tr>--%>
+                </tbody>
+            </table>
+        </div>
 
         <%--<div class="row">--%>
         <div class="ad_tbl_top">
@@ -307,7 +312,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:300px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:500px; width:100%;"></div>
         </div>
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -375,7 +380,7 @@
 
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button=""true"" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
@@ -651,31 +656,31 @@
             },
             {caption: ["메일전송일(근태현황)"], ref: 'MAIL_SEND_TIME1', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}
             },
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["직위"], ref : 'POSITION_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPositionCode',  label : 'label', value : 'value'}
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["사내이메일"], ref: 'IN_EMAIL', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType',  label : 'label', value : 'value'}
             },
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["메일전송결과(급여명세)"], ref: 'MAIL_SEND_MSG', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["메일전송결과(근태현황)"], ref: 'MAIL_SEND_MSG1', type: 'output', width: '140px', style: 'text-align:left'}
 

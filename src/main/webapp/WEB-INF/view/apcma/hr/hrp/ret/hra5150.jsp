@@ -24,7 +24,7 @@
 <head>
     <title>title : 중간/퇴직급여 계산</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -50,135 +50,151 @@
             </div>
         </div>
 
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 1%">
-                <col style="width: 6%">
-                <col style="width: 2%">
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">사업장</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">사업장</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">퇴직정산구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_RET_CALC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu input_change" aria-labelledby="SRCH_RET_CALC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">퇴직정산구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left"
+                                    class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button"
+                                    id="SRCH_RET_CALC_TYPE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu input_change" aria-labelledby="SRCH_RET_CALC_TYPE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="6" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">정산종료일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_RETIRE_CALC_DATE_FR"
-                            name="SRCH_RETIRE_CALC_DATE_FR"
-                            uitype="popup"
-                            date-format="yyyymmdd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td>~</td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_RETIRE_CALC_DATE_TO"
-                            name="SRCH_RETIRE_CALC_DATE_TO"
-                            uitype="popup"
-                            date-format="yyyymmdd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">사번</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">이름</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">정산일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_RET_CALC_DAT"
-                            name="SRCH_RET_CALC_DAT"
-                            uitype="popup"
-                            date-format="yyyymmdd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-checkbox
-                            id="SRCH_CALCULATE_TAX_YN"
-                            name="SRCH_CALCULATE_TAX_YN"
-                            uitype="normal"
-                            text="과세계산여부"
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
-                </td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-checkbox
-                            id="SRCH_CALCULATE_PREV_YN"
-                            name="SRCH_CALCULATE_PREV_YN"
-                            uitype="normal"
-                            text="중간지급 포함"
-                            true-value="Y"
-                            false-value="N"
-                    ></sbux-checkbox>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td  style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">정산종료일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_RETIRE_CALC_DATE_FR"
+                                name="SRCH_RETIRE_CALC_DATE_FR"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td>~</td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_RETIRE_CALC_DATE_TO"
+                                name="SRCH_RETIRE_CALC_DATE_TO"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">사번</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">이름</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">정산일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_RET_CALC_DAT"
+                                name="SRCH_RET_CALC_DAT"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-checkbox
+                                id="SRCH_CALCULATE_TAX_YN"
+                                name="SRCH_CALCULATE_TAX_YN"
+                                uitype="normal"
+                                text="과세계산여부"
+                                true-value="Y"
+                                false-value="N"
+                        ></sbux-checkbox>
+                    </td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-checkbox
+                                id="SRCH_CALCULATE_PREV_YN"
+                                name="SRCH_CALCULATE_PREV_YN"
+                                uitype="normal"
+                                text="중간지급 포함"
+                                true-value="Y"
+                                false-value="N"
+                        ></sbux-checkbox>
+                    </td>
+                    <td colspan="8" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="row">
             <div class="col-sm-2">
@@ -810,6 +826,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>급여내역</span>
+                                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -833,7 +850,7 @@
                                     ></sbux-button>
                                 </div>
                                 <div>
-                                    <div id="sb-area-gvwPay" style="height:200px; width:100%;"></div>
+                                    <div id="sb-area-gvwPay" style="height:280px; width:100%;"></div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -841,6 +858,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>상여내역</span>
+                                            <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -864,7 +882,7 @@
                                     ></sbux-button>
                                 </div>
                                 <div>
-                                    <div id="sb-area-gvwBonus" style="height:200px; width:100%;"></div>
+                                    <div id="sb-area-gvwBonus" style="height:280px; width:100%;"></div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -872,6 +890,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>임금 환산 년수</span>
+                                            <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -895,7 +914,7 @@
                                     ></sbux-button>
                                 </div>
                                 <div>
-                                    <div id="sb-area-gvwChange" style="height:200px; width:100%;"></div>
+                                    <div id="sb-area-gvwChange" style="height:280px; width:100%;"></div>
                                 </div>
                             </div>
                         </div>
@@ -2149,6 +2168,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>퇴직급여 회계처리</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount5">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
@@ -2533,20 +2553,20 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["퇴직정산구분"], ref : 'RET_CALC_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonRetCalcType', displayui : true, label : 'label', value : 'value', hidden : true}
+                typeinfo : {ref : 'jsonRetCalcType',  label : 'label', value : 'value', hidden : true}
             },
             /* {caption: ["퇴직정산구분"], ref: 'RET_CALC_TYPE', type: 'output', width: '100px', style: 'text-align:left'},*/
             /* {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                 typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
+                 typeinfo : {ref : 'jsonDeptName',  label : 'label', value : 'value'}
              },
              {caption : ["사번"], ref : 'EMP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                 typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
+                 typeinfo : {ref : 'jsonEmp',  label : 'label', value : 'value'}
              },*/
             /* {caption : ["이름"], ref : 'EMP_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                 typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
+                 typeinfo : {ref : 'jsonEmp',  label : 'label', value : 'value'}
              },*/
             /*{caption : ["퇴직정산구분"], ref : 'RET_CALC_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonRetCalcType', displayui : true, label : 'label', value : 'value', hidden : true}
+                typeinfo : {ref : 'jsonRetCalcType',  label : 'label', value : 'value', hidden : true}
             },*/
             {caption: ["확정"], ref: 'RET_CALC_CONFIRM_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -2658,7 +2678,7 @@
             {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode',  label : 'label', value : 'value'}
             },
             {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2691,7 +2711,7 @@
                 }
             },
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPositionCode',  label : 'label', value : 'value'}
             },
             {caption: ['적용시작일'], ref: 'ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -2742,12 +2762,12 @@
             {caption: ["계정코드"], ref: 'ACC_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["계정명"], ref: 'ACC_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["통화"], ref : 'CURRENCY_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}
             },
             {caption: ["차변금액"], ref: 'DEBIT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["대변금액"], ref: 'CREDIT_AMT', type: 'output', width: '140px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["거래처"], ref: 'CS_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사원코드"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사 원 명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
@@ -3413,6 +3433,8 @@
                     SBUxMethod.set("WORKING_DAY_CNT2_PEAK"  , gfn_nvl(item.WORKING_DAY_CNT2_PEAK));
                 });
 
+                /** @type {number} **/
+                let totalRecordCount2 = 0;
                 //-- [1-2] 평균임금 계산 - 급여내역
                 jsonPayList.length = 0;
                 data.cv_4.forEach((item, index) => {
@@ -3429,16 +3451,19 @@
 
                     }
                     jsonPayList.push(msg);
+                    totalRecordCount2++;
                 });
 
                 gvwPayGrid.rebuild();
+                document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                 if (jsonPayList.length > 0) {
                     jsonPayList.forEach((item, index) => {
                         gvwPayGrid.setCellDisabled(index + 1, 1, index + 1, 1, true, false, true);
                     })
                 }
-
+                /** @type {number} **/
+                let totalRecordCount3 = 0;
                 //[1-3] 평균임금 계산 - 상여내역
                 jsonBonusList.length = 0;
                 data.cv_5.forEach((item, index) => {
@@ -3452,9 +3477,11 @@
 
                     }
                     jsonBonusList.push(msg);
+                    totalRecordCount3++;
                 });
 
                 gvwBonusGrid.rebuild();
+                document.querySelector('#listCount3').innerText = totalRecordCount3;
 
                 //[TAB2] 퇴직소득세액계산
                 data.cv_6.forEach((item, index) => {
@@ -3614,6 +3641,8 @@
 
                 });
 
+                /** @type {number} **/
+                let totalRecordCount4 = 0;
                 //-- [1-4] 평균임금 계산 - 임원 환산 년수 내역
                 jsonChangeList.length = 0;
                 data.cv_9.forEach((item, index) => {
@@ -3634,9 +3663,11 @@
                         PEAK_YN             : gfn_nvl(item.PEAK_YN),
                     }
                     jsonChangeList.push(msg);
+                    totalRecordCount4++;
                 });
 
                 gvwChangeGrid.rebuild();
+                document.querySelector('#listCount4').innerText = totalRecordCount4;
 
 
                 SBUxMethod.set("CALCULATE_TAX_YN", 'Y'); //과세 재계산
@@ -3771,7 +3802,8 @@
 
                     });
 
-
+                    /** @type {number} **/
+                    let totalRecordCount5 = 0;
                     //-- [1-4] 평균임금 계산 - 임원 환산 년수 내역
                     jsonInfoList.length = 0;
                     data.cv_2.forEach((item, index) => {
@@ -3802,9 +3834,11 @@
 
                         }
                         jsonInfoList.push(msg);
+                        totalRecordCount5++;
                     });
 
                     gvwInfoGrid.rebuild();
+                    document.querySelector('#listCount5').innerText = totalRecordCount5;
 
                     //fn_searchQH();
 

@@ -70,7 +70,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">조회구분</th>
-                    <td colspan="3" class="td_input">
+                    <td class="td_input" >
                         <sbux-radio id="NOW" name="SRCH_QUERY_TYPE" uitype="normal"
                                     text="현재접속자" value="NOW" checked>
                         </sbux-radio>
@@ -78,7 +78,7 @@
                                     text="전체" value="ALL">
                         </sbux-radio>
                     </td>
-                    <td style="border-right: hidden;">&nbsp;</td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                     <th scope="row" class="th_bg_search">접속일자</th>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
