@@ -38,473 +38,432 @@
                 <div style="margin-left: auto;">
                 </div>
             </div>
-			<div class="box-search-ma" >
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg_search">자산분류명</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-input id="SCH_ASSET_GROUP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-	  							<sbux-input  id="SCH_TXTLANG_ID"  	name="SCH_TXTLANG_ID" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">감가상각방법</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">감가상각주기</th>
-							<td colspan="3"  class="td_input">
-                                <sbux-select id="SCH_DEPRECIATION_PERIOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
-							</td>
-                            <td></td>
-                            
-                            <td colspan="5"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-sm-6" style="width:25%">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>자산분류리스트</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div id="sb_area_grid1" style="height:590px; width:100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6" style="width:75%">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li><span>자산분류정보편집</span></li>
-                            </ul>
-                        </div>
-                        <div style="height:590px;overflow:auto;">
-                        	<table id="dataArea1" class="table table-bordered tbl_fixed">
-                                <colgroup>
-			                        <col style="width: 10%">
-			                        <col style="width: 6%">
-			                        <col style="width: 6%">
-			
-			                        <col style="width: 10%">
-			                        <col style="width: 6%">
-			                        <col style="width: 6%">
-			
-			                        <col style="width: 10%">
-			                        <col style="width: 6%">
-			                        <col style="width: 6%">
-			
-			                        <col style="width: 10%">
-			                        <col style="width: 6%">
-			                        <col style="width: 6%">
-                                </colgroup>
-			                    <tbody>
-			                    
+            
+            <div class="box-body">
+            
+				<div class="box-search-ma" >
+	
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">자산분류명</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-input id="SCH_ASSET_GROUP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+		  							<sbux-input  id="SCH_TXTLANG_ID"  	name="SCH_TXTLANG_ID" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">감가상각방법</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">감가상각주기</th>
+								<td colspan="3"  class="td_input">
+	                                <sbux-select id="SCH_DEPRECIATION_PERIOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								</td>
+	                            <td></td>
+	                            
+	                            <td colspan="5"></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                
+	            </div>
+	                
+	            <div class="row">
+	                <div class="col-sm-6" style="width:25%">
+	                    <div class="ad_tbl_top">
+	                        <ul class="ad_tbl_count">
+	                            <li>
+	                                <span>자산분류리스트</span>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                    <div>
+	                        <div id="sb_area_grid1" style="height:590px; width:100%;"></div>
+	                    </div>
+	                </div>
+	
+	                <div class="col-sm-6" style="width:75%">
+	                    <div class="ad_tbl_top">
+	                        <ul class="ad_tbl_count">
+	                            <li><span>자산분류정보편집</span></li>
+	                        </ul>
+	                    </div>
+	                    <div style="height:590px;overflow:auto;">
+	                        <table id="dataArea1" class="table table-bordered tbl_fixed">
+	                            <colgroup>
+	                                <col style="width: 10%">
+	                                <col style="width: 6%">
+	                                <col style="width: 6%">
+	
+	                                <col style="width: 10%">
+	                                <col style="width: 6%">
+	                                <col style="width: 6%">
+	
+	                                <col style="width: 10%">
+	                                <col style="width: 6%">
+	                                <col style="width: 6%">
+	
+	                                <col style="width: 10%">
+	                                <col style="width: 6%">
+	                                <col style="width: 6%">
+	                            </colgroup>
+	                            <tbody>
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">분류구분</th>
 	                                    <td colspan="5" class="td_input">
-			                                <sbux-select id="FM_ASSET_LEVEL_TYPE" jsondata-ref="jsonAssetLevelType" style="width:150px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_ASSET_LEVEL_TYPE" jsondata-ref="jsonAssetLevelType" style="width:150px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
-	                                
+	
 	                                    <th scope="row" class="th_bg">자산분류코드</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_ASSET_GROUP_CODE" class="form-control input-sm" style="width:150px" uitype="text" ></sbux-input>
+	                                        <sbux-input id="FM_ASSET_GROUP_CODE" class="form-control input-sm" style="width:150px" uitype="text"></sbux-input>
 	                                    </td>
 	                                </tr>
-			                    
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">비용유형</th>
 	                                    <td colspan="5" class="td_input">
-			                                <sbux-select id="FM_EXPENSE_TYPE" jsondata-ref="jsonExpenseType" style="width:150px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_EXPENSE_TYPE" jsondata-ref="jsonExpenseType" style="width:150px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
-	                                
+	
 	                                    <th scope="row" class="th_bg">자산분류명</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_ASSET_GROUP_NAME" class="form-control input-sm" uitype="text" ></sbux-input>
+	                                        <sbux-input id="FM_ASSET_GROUP_NAME" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	                                </tr>
-			                    
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">자산구분</th>
 	                                    <td colspan="5" class="td_input">
-			                                <sbux-select id="FM_ASSET_CATEGORY" jsondata-ref="jsonAssetCategory" style="width:300px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_ASSET_CATEGORY" jsondata-ref="jsonAssetCategory" style="width:300px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
-	                                
+	
 	                                    <td colspan="6" class="td_input">
-			                            	<div style="display:flex;float:left">
-			                            	
-											    <font style="padding-left:20px;padding-right:5px;">자산화대상</font>  
-	                            				<sbux-checkbox id="FM_CAPITAL_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-											    
-											    <font style="padding-left:20px;padding-right:5px;">상각여부</font>  
-	                            				<sbux-checkbox id="FM_DEPRECIATE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-											    
-											    <font style="padding-left:20px;padding-right:5px;">사용여부</font>  
-	                            				<sbux-checkbox id="FM_USE_YN" uitype="normal" text="사용" true-value="Y" false-value="N" ></sbux-checkbox>
-											    <font style="padding-left:20px;"></font>  
-			                            		
-			                            	</div>
+	                                        <div style="display:flex;float:left">
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">자산화대상</font>
+	                                            <sbux-checkbox id="FM_CAPITAL_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">상각여부</font>
+	                                            <sbux-checkbox id="FM_DEPRECIATE_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">사용여부</font>
+	                                            <sbux-checkbox id="FM_USE_YN" uitype="normal" text="사용" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <font style="padding-left:20px;"></font>
+	
+	                                        </div>
 	                                    </td>
 	                                </tr>
-			                    
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">
-	                                    	<font id="LA_PARENT_ASSET_LABEL">중분류</font>
+	                                        <font id="LA_PARENT_ASSET_LABEL">중분류</font>
 	                                    </th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_PARENT_ASSET_GROUP" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP1" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup1()"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:200px"  id="FM_PARENT_ASSET_GROUP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_PARENT_ASSET_GROUP" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP1" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup1()"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:200px" id="FM_PARENT_ASSET_GROUP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
 	                                    </td>
-	                                
+	
 	                                    <td colspan="6" class="td_input">
-			                            	<div style="display:flex;float:left">
-			                            	
-											    <font style="padding-left:20px;padding-right:5px;">재고관리대상</font>  
-	                            				<sbux-checkbox id="FM_INVENTORY_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-											    
-											    <font style="padding-left:20px;padding-right:5px;">보류여부</font>  
-	                            				<sbux-checkbox id="FM_OWNED_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-											    
-											    <font style="padding-left:20px;padding-right:5px;">리스여부</font>  
-	                            				<sbux-checkbox id="FM_LEASE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-											    <font style="padding-left:20px;"></font>  
-			                            		
-			                            	</div>
+	                                        <div style="display:flex;float:left">
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">재고관리대상</font>
+	                                            <sbux-checkbox id="FM_INVENTORY_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">보류여부</font>
+	                                            <sbux-checkbox id="FM_OWNED_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	
+	                                            <font style="padding-left:20px;padding-right:5px;">리스여부</font>
+	                                            <sbux-checkbox id="FM_LEASE_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <font style="padding-left:20px;"></font>
+	
+	                                        </div>
 	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr style="padding-top:5px">
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left;padding-top:10px !important">▶ 기업회계기준 감가상각기준</th>
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left">▶ 자산계정과목 정의</th>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_METHOD_GAAP" jsondata-ref="jsonDepreciationMethodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_METHOD_GAAP" jsondata-ref="jsonDepreciationMethodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_GAAP" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_USEFUL_LIFE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">자산계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_ASSET_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP2" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('1')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_ASSET_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP2" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('1')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_PERIOD_GAAP" jsondata-ref="jsonDepreciationPeriodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_GAAP" jsondata-ref="jsonDepreciationPeriodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_GAAP" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_VALUE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">감가상각비 계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_DEPR_EXP_ACC" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP3" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('2')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_DEPR_EXP_ACC" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP3" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('2')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg"></th>
 	                                    <td colspan="2" class="td_input">
-										</td>		                                	
-	                                
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_GAAP" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_RATE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">감가상각누계 계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP4" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('3')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP4" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('3')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr style="padding-top:5px">
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left;padding-top:10px !important">▶ 법인세 감가상각기준</th>
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left">▶ 국고보조금 계정과목 정의</th>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_METHOD_TAX" jsondata-ref="jsonDepreciationMethodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_METHOD_TAX" jsondata-ref="jsonDepreciationMethodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_TAX" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_USEFUL_LIFE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">보조금 계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_SUBSIDIES_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP5" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('4')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_SUBSIDIES_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP5" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('4')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_PERIOD_TAX" jsondata-ref="jsonDepreciationPeriodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_TAX" jsondata-ref="jsonDepreciationPeriodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_TAX" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_VALUE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">감가상각비 계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_SUBSIDIES_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP6" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('5')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_SUBSIDIES_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP6" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('5')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg"></th>
 	                                    <td colspan="2" class="td_input">
-										</td>		                                	
-	                                
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_TAX" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_RATE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">감가상각누계 계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP7" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('6')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP7" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('6')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr style="padding-top:5px">
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left;padding-top:10px !important">▶ 국제회계기준 감가상각기준</th>
 	                                    <th scope="row" colspan="6" class="td_input" style="text-align:left">▶ 자산처분손익 계정과목 정의</th>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_METHOD_IFRS" jsondata-ref="jsonDepreciationMethodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_METHOD_IFRS" jsondata-ref="jsonDepreciationMethodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_IFRS" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_USEFUL_LIFE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">매각이익계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_DISPOSAL_PROFIT_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP8" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('7')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_DISPOSAL_PROFIT_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_DISPOSAL_PROFIT_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP8" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('7')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_DISPOSAL_PROFIT_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="FM_DEPRECIATION_PERIOD_IFRS" jsondata-ref="jsonDepreciationPeriodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-										</td>		                                	
-	                                
+	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_IFRS" jsondata-ref="jsonDepreciationPeriodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_IFRS" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_VALUE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">매각손실계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_DISPOSAL_LOSS_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP9" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('8')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_DISPOSAL_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_DISPOSAL_LOSS_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP9" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('8')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_DISPOSAL_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg"></th>
 	                                    <td colspan="2" class="td_input">
-										</td>		                                	
-	                                
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_IFRS" class="form-control input-sm" uitype="text" ></sbux-input>
-										</td>		                                	
-	                                
+	                                        <sbux-input id="FM_SALVAGE_RATE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                    </td>
+	
 	                                    <th scope="row" class="th_bg">폐기손실계정</th>
 	                                    <td colspan="5" class="td_input">
-			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input style="width:100px" id="FM_DISUSE_LOSS_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
-			   									<font style="width:5px"></font>
-												<sbux-button
-													id="BTN_POP10" 
-													class="btn btn-xs btn-outline-dark"
-													text=".." uitype="modal"
-													target-id="modal-compopup1"
-													onclick="fn_compopup2('9')"></sbux-button>
-			   									<font style="width:5px"></font>
-			   									<sbux-input style="width:300px"  id="FM_DISUSE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-			                            	</div>
-										</td>		                                	
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                            <sbux-input style="width:100px" id="FM_DISUSE_LOSS_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-button id="BTN_POP10" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('9')"></sbux-button>
+	                                            <font style="width:5px"></font>
+	                                            <sbux-input style="width:300px" id="FM_DISUSE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                                        </div>
+	                                    </td>
 	                                </tr>
-	                                
+	
 	                                <tr>
 	                                    <th scope="row" class="th_bg">비고</th>
 	                                    <td colspan="5" class="td_input">
 	                                        <sbux-textarea id="FM_MEMO" class="form-control input-sm" uitype="normal" style="width:100%; height:50px;""></sbux-textarea>
-										</td>		                                	
-										
-	                                    <th scope="row" class="th_bg">정렬순서</th>
+							</td>		                                	
+							
+	                                 <th scope=" row" class="th_bg">정렬순서</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_SORT_SEQ" class="form-control input-sm" style="width:100px" uitype="text" ></sbux-input>
-										</td>		                                	
+	                                        <sbux-input id="FM_SORT_SEQ" class="form-control input-sm" style="width:100px" uitype="text"></sbux-input>
+	                                    </td>
 	                                </tr>
-	                                
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                    </div>
-
-                </div>
+	
+	                            </tbody>
+	                        </table>
+	
+	                    </div>
+	                </div>
+	
+	            </div>                
+            
             </div>
+                
         </div>
+        
     </section>
     
 	<!-- 팝업 Modal -->
