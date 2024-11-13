@@ -24,12 +24,7 @@
 <head>
 	<title>title : 전표조회</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-	
-	<style type="text/css">
-	</style>
-	
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -58,33 +53,37 @@
             </div>
             <div class="box-body">
 
-				<div>
+				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                    
@@ -92,25 +91,35 @@
                        		<!-- /hidden -->
 	                    
 	                        <tr>
-	                            <th scope="row" class="th_bg">사업단위</th>
+	                        
+	                            <th scope="row" class="th_bg_search">사업단위</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
-	                            <th scope="row" class="th_bg">사업장</th>
+						        <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">사업장</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbosite-code" name="srch-cbosite-code" uitype="single" jsondata-ref="jsonCbositeCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
-	                            <th scope="row" class="th_bg">보류여부</th>
+						        <td></td>
+						        
+	                            <th scope="row" class="th_bg_search">보류여부</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-ccbohold-flag" name="srch-ccbohold-flag" uitype="single" jsondata-ref="jsonCboholdFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
-	                            <th scope="row" class="th_bg">전표상태</th>
+						        <td></td>
+						        
+	                            <th scope="row" class="th_bg_search">전표상태</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbodoc-status-p" name="srch-cbodoc-status-p" uitype="single" jsondata-ref="jsonCbodocStatusP" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+						        <td></td>
+	                            
 	                        </tr>    
+	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">년월</th>
+	                            <th scope="row" class="th_bg_search">년월</th>
 	                            <td colspan="3" class="td_input" >
 									<sbux-datepicker
 									        id="srch-ymdperiod-yyyymm-p"
@@ -119,43 +128,52 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:80px"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed"
+									        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
 									        onchange = "fn_payDate"
 									        required>
 									</sbux-datepicker>                            
 	                            </td>
-	                            <th scope="row" class="th_bg">전표일자</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left">
-									    <sbux-datepicker
-									            id="srch-ymddate-fr"
-									            name="srch-ymddate-fr"
-									            uitype="popup"
-									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
-									    </sbux-datepicker>                          
-									    <font style="padding-left:5px;padding-right:5px">-</font>  
-									    <sbux-datepicker
-									            id="srch-ymddate-to"
-									            name="srch-ymddate-to"
-									            uitype="popup"
-									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
-									    </sbux-datepicker>                            
-	                            	</div>
+						        <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">전표일자</th>
+	                            <td class="td_input" >
+								    <sbux-datepicker
+								            id="srch-ymddate-fr"
+								            name="srch-ymddate-fr"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								    </sbux-datepicker>                          
 	                            </td>
-	                            <th scope="row" class="th_bg">회계기준</th>
+						        <td>-</td>
+	                            <td class="td_input" >
+								    <sbux-datepicker
+								            id="srch-ymddate-to"
+								            name="srch-ymddate-to"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								    </sbux-datepicker>                            
+	                            </td>
+						        <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cboacct-rule-code" name="srch-cboacct-rule-code" uitype="single" jsondata-ref="jsonCboacctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
-	                            <th scope="row" class="th_bg">전표구분</th>
+						        <td></td>
+						        
+	                            <th scope="row" class="th_bg_search">전표구분</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbodoc-type-p" name="srch-cbodoc-type-p" uitype="single" jsondata-ref="jsonCbodocTypeP" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+						        <td></td>
 	                        </tr>    
+	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">작성부서</th>
-								<td colspan="2"  class="td_input" >
+	                        
+	                            <th scope="row" class="th_bg_search">작성부서</th>
+								<td colspan="3"  class="td_input" >
 	   								<sbux-input
 										uitype="text"
 										id="srch-txtcreated-dept-name"
@@ -172,14 +190,14 @@
 									<sbux-button
 										id="srch-btn-txtcreated-dept"
 										class="btn btn-xs btn-outline-dark"
-										text="찾기" uitype="modal"
+										text="…" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup1"
 									></sbux-button>
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">청구부서</th>
-								<td colspan="2"  class="td_input" >
+	                            <th scope="row" class="th_bg_search">청구부서</th>
+								<td colspan="3"  class="td_input" >
 	   								<sbux-input
 										uitype="text"
 										id="srch-txtpayee-dept-name"
@@ -197,14 +215,14 @@
 									<sbux-button
 										id="srch-btn-txtpayee-dept"
 										class="btn btn-xs btn-outline-dark"
-										text="찾기" uitype="modal"
+										text="…" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup2"
 									></sbux-button>
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">작성자</th>
-								<td colspan="2"  class="td_input" >
+	                            <th scope="row" class="th_bg_search">작성자</th>
+								<td colspan="3"  class="td_input" >
 	   								<sbux-input
 										uitype="text"
 										id="srch-txtcreated-by-name"
@@ -222,14 +240,14 @@
 									<sbux-button
 										id="srch-btn-txtcreated-by"
 										class="btn btn-xs btn-outline-dark"
-										text="찾기" uitype="modal"
+										text="…" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup3"
 									></sbux-button>
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">실사용자</th>
-								<td colspan="2"  class="td_input" >
+	                            <th scope="row" class="th_bg_search">실사용자</th>
+								<td colspan="3"  class="td_input" >
 	   								<sbux-input
 										uitype="text"
 										id="srch-txtpayee-name"
@@ -240,14 +258,13 @@
 										uitype="text"
 										id="srch-txtpayee-code"
 										class="form-control input-sm"
-										
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
 									<sbux-button
 										id="srch-btn-txtpayee"
 										class="btn btn-xs btn-outline-dark"
-										text="찾기" uitype="modal"
+										text="…" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup4"
 									></sbux-button>
@@ -256,8 +273,8 @@
 	                        </tr>
 	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">전표번호</th>
-								<td colspan="3"  class="td_input" >
+	                            <th scope="row" class="th_bg_search">전표번호</th>
+								<td colspan="4"  class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 				                        <sbux-input id="srch-txtdoc-name" name="srch-txtdoc-name" class="form-control input-sm" uitype="text" style="width:120px;" ></sbux-input>
 									    <font style="padding-right:10px"></font>  
@@ -277,12 +294,12 @@
 	                            	</div>
 								</td>
 								
-	                            <th scope="row" class="th_bg">제목</th>
-								<td colspan="7"  class="td_input" >
+	                            <th scope="row" class="th_bg_search">제목</th>
+								<td colspan="9"  class="td_input" >
 			                        <sbux-input id="srch-txtdesc" name="srch-txtdesc" class="form-control input-sm" uitype="text" ></sbux-input>
 								</td>
 								
-								<td colspan="4"  class="td_input" >
+								<td colspan="5"  class="td_input" >
 								    <font style="padding-right:10px"></font>  
 	                       			<sbux-checkbox 
 	                       				id="srch-chkappr-only-flag" 
