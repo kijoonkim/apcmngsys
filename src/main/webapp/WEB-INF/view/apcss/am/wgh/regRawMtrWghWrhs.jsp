@@ -46,6 +46,14 @@
             text-align: center;
             font-weight: bold;
         }
+        #searchTable  tr:hover{
+            background-color : #FFF8DC;
+            cursor: pointer;
+        }
+        #searchTable  tr.active  td{
+            color:white;
+            background-color :rgb(35,83,119);
+        }
     </style>
 </head>
 <body>
@@ -147,6 +155,12 @@
                                                 target-id="modal-prdcr"
                                                 onclick="fn_choicePrdcr"
                                         ></sbux-button>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="wghno"
+                                                name="wghno"
+                                                style="display: none"
+                                        ></sbux-input>
                                     </div>
                                 </td>
                             </tr>
@@ -442,7 +456,6 @@
      * @description 생산자 선택 popup callback 처리
      */
     const fn_setPrdcr = async function(prdcr) {
-        console.log(prdcr,"생산자");
         SBUxMethod.set("srch-inp-wrhsno", "");
         await fn_getPrdcrs();
 
@@ -461,7 +474,6 @@
             gfn_getStdGrdDtls(gv_selectedApcCd, "01", obj)
         ]);
         jsonApcGrd = result[1];
-        console.log(jsonApcGrd,"입고등급련");
     }
     /**
      * @name fn_getPrdcrs
@@ -492,6 +504,11 @@
      * @description 확인서 발행
      */
     const fn_docRawMtrWrhs = async function(){
+        let wghno = SBUxMethod.get("wghno");
+        if(gfn_isEmpty(wghno)){
+            gfn_comAlert("W0001","발행대상");
+            return;
+        }
 
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 
@@ -533,8 +550,6 @@
     }
     const fn_save = async function(){
         let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
-        console.log(elements);
-        console.log(jsonApcGrd,"jsonApcGrd");
         saveList = [];
         let tableData = gfn_getTableElement("regTable","reg-",["grdQntt2"]);
         let obj = {...tableData};
@@ -570,11 +585,9 @@
             obj.bxQntt = obj.grdQntt1;
             saveList.push({...obj});
         }
-        console.log(saveList,"진짜 저장전");
         if (gfn_comConfirm("Q0001", "저장")) {
             const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", saveList);
             const data = await postJsonPromise;
-            console.log(data);
             if(data.resultStatus === 'S'){
                 gfn_comAlert("I0001");
                 await fn_reset();
@@ -589,6 +602,8 @@
         SBUxMethod.set("boxWght",'');
         SBUxMethod.set("pltWght",'');
         await SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
+
+        $("#searchTable > tbody tr").slice(1).remove();
     }
     const fn_search = async function(){
         jsonSearchData.length = 0;
@@ -607,15 +622,12 @@
             SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmnc');
             fn_setSearchTable();
         }
-        console.log(data,"조회");
     }
     const fn_setSearchTable = function(){
-        console.log(jsonSearchData,"잘전달받앗고 카멜로 되어있길바라");
-        console.log($("#searchTable > tbody tr:not(:first)").length);
         $("#searchTable > tbody tr").slice(1).remove();
         jsonSearchData.forEach(function(item,idx){
           let el = `
-        <tr>
+        <tr onclick="selectLatestInfo(this)">
             <td class="td_add">${'${item.wrhsYmd}'}</td>
             <td class="td_add">${'${item.itemNm}'}</td>
             <td class="td_add">${'${item.prdcrNm}'}</td>
@@ -629,11 +641,15 @@
 
     }
     const fn_searchDetail = async function(_el){
-        console.log(_el);
-        let idx = $(_el).index();
-        console.log(idx,"index");
-        console.log(jsonSearchData[idx],"json");
+        let idx = $(_el).closest("tr").index()-1;
         window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_023",...jsonSearchData[idx]}));
+    }
+
+    const selectLatestInfo = async function(element){
+        $("#searchTable").find('tr.active').removeClass('active');
+        $(element).addClass("active");
+        let idx = $(element).index() - 1;
+        SBUxMethod.set("wghno", jsonSearchData[idx].wghno);
     }
 
 
