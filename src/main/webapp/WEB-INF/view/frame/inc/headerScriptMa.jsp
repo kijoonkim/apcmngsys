@@ -1,24 +1,6 @@
 <%@ include file="./headerScript.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<style>
-    body{
-        transform: scale(0.8) !important; /* 80% 배율 */
-        transform-origin: top left !important; /* 시작 지점을 왼쪽 위로 고정 */
-        background-color: #FFFFFF !important;
-        width: 125% !important;
-        height: 125% !important;
-        margin: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    body > section {
-        flex: 1;
-    }
-</style>
-
 <link rel="stylesheet" href="../../../css/admin/dl_apcma_custom.css">
 <!-- 파일첨부 팝업 Modal -->
 <div>
