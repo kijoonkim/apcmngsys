@@ -537,9 +537,9 @@
         console.log(jsonApcGrd,"jsonApcGrd");
         saveList = [];
         let tableData = gfn_getTableElement("regTable","reg-",["grdQntt2"]);
-        if(tableData.grdQntt2){
+        let obj = {...tableData};
+        if(tableData.grdQntt2 && tableData.grdQntt2 > 0){
             /** 비품 존재 > row add **/
-            let obj = {...tableData};
             /** 등급 설정 **/
             jsonApcGrd.forEach(function(item){
                 obj.grdCd = item.grdCd;
@@ -551,8 +551,24 @@
                 obj.wrhsSpmtType = "RT";
                 obj.grdCd1 = '';
                 obj.grdCd2 = '';
+                if(item.grdCd === '01'){
+                    obj.bxQntt = obj.grdQntt1;
+                }else{
+                    obj.bxQntt = obj.grdQntt2;
+                }
                 saveList.push({...obj});
             });
+        }else{
+            obj.grdCd = "01"
+            obj.apcCd = gv_selectedApcCd;
+            obj.rowSts = 'I';
+            obj.groupId = 1;
+            obj.delYn = 'N';
+            obj.wrhsSpmtType = "RT";
+            obj.grdCd1 = '';
+            obj.grdCd2 = '';
+            obj.bxQntt = obj.grdQntt1;
+            saveList.push({...obj});
         }
         console.log(saveList,"진짜 저장전");
         if (gfn_comConfirm("Q0001", "저장")) {
@@ -560,16 +576,19 @@
             const data = await postJsonPromise;
             console.log(data);
             if(data.resultStatus === 'S'){
-                fn_reset();
+                gfn_comAlert("I0001");
+                await fn_reset();
             }
         }
     }
-    const fn_reset = function(){
+    const fn_reset = async function(){
         let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
-        for(let el in elements){
-            SBUxMethod.set(el.id,'');
-        }
-        SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
+        elements.forEach(function(item){
+           SBUxMethod.set(item.id,'');
+        });
+        SBUxMethod.set("boxWght",'');
+        SBUxMethod.set("pltWght",'');
+        await SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
     }
 
 
