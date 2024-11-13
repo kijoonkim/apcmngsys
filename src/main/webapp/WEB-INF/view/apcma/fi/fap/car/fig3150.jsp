@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="box-body">
-				<div class="box-search-ma" style="padding-bottom:10px">
+				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -89,7 +89,7 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:100%"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed"
+									        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
 									        onchange = "fn_payDate"
 									        required>
 									</sbux-datepicker>                            
@@ -103,7 +103,7 @@
 								            name="srch-ymddoc-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -113,7 +113,7 @@
 								            name="srch-ymddoc-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -125,7 +125,7 @@
 								            name="srch-ymdtxn-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -135,7 +135,7 @@
 								            name="srch-ymdtxn-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>

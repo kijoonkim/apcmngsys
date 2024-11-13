@@ -45,7 +45,7 @@
             </div>
             <div class="box-body">
 
-				<div class="box-search-ma" style="padding-bottom:10px">
+				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>

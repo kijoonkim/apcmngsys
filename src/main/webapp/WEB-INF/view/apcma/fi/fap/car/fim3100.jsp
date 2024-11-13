@@ -41,7 +41,7 @@
             </div>
             <div class="box-body">
 
-				<div class="box-search-ma" style="padding-bottom:10px">
+				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -76,19 +76,19 @@
 	                    <tbody>
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">상태(카드사기준)</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbocard-status2-p" uitype="single" jsondata-ref="jsonCbocardStatus2" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                        	<td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">카드번호</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtcard-no-p" class="form-control input-sm" ></sbux-input>
 	                            </td>
 	                        	<td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">카드명</th>
-	                            <td colspan="3" class="td_input" style="border-right:hidden;">
+	                            <td colspan="3" class="td_input" >
 	   								<sbux-input uitype="text" id="srch-txtcard-name" class="form-control input-sm" ></sbux-input>
 	                            </td>
 	                        	<td></td>
