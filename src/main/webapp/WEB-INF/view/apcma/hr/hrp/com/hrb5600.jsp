@@ -201,7 +201,7 @@
                                         id="APPLY_START_DATE"
                                         name="APPLY_START_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed">
                                 </sbux-datepicker>
 
@@ -212,7 +212,7 @@
                                         id="APPLY_END_DATE"
                                         name="APPLY_END_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed">
                                 </sbux-datepicker>
                             </td>
@@ -259,7 +259,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>적용기준 상세</span>
-                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                            <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -663,7 +663,7 @@
                     });
 
                     /** @type {number} **/
-                    let totalRecordCount = 0;
+                    //let totalRecordCount = 0;
 
                     jsonBandgvwDetailList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -677,11 +677,11 @@
 
                         }
                         jsonBandgvwDetailList.push(msg);
-                        totalRecordCount++;
+                        //totalRecordCount++;
                     });
 
                     gvwBandgvwDetailGrid.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount;
+                    //document.querySelector('#listCount2').innerText = totalRecordCount;
 
                     fn_settings('true');
 

@@ -24,7 +24,7 @@
 <head>
     <title>title : 연말정산기준등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -44,47 +44,58 @@
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 7%">
-                <col style="width: 2%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">정산연도</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_YE_TX_YYYY"
-                            name="SRCH_YE_TX_YYYY"
-                            uitype="popup"
-                            datepicker-mode="year"
-                            date-format="yyyy"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            style="width: 95%;"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td colspan="9" style="border-right: hidden;"></td>
-            </tr>
-            </tbody>
-        </table>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">정산연도</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YE_TX_YYYY"
+                                name="SRCH_YE_TX_YYYY"
+                                uitype="popup"
+                                datepicker-mode="year"
+                                date-format="yyyy"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                style="width: 95%;"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="18" style="border-right: hidden;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -100,6 +111,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>근로소득공제</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                         </li>
                     </ul>
                     <sbux-button
@@ -122,7 +134,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwDeduction" style="height:300px; width:100%;"></div>
+                    <div id="sb-area-gvwDeduction" style="height:500px; width:100%;"></div>
                 </div>
 
                 <div class="row">
@@ -2105,8 +2117,8 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
-                /*/!** @type {number} **!/
-                let totalRecordCount = 0;*/
+                /** @type {number} **/
+                let totalRecordCount = 0;
 
                 jsonDeductionList.length = 0;
                 data.cv_1.forEach((item, index) => {
@@ -2120,11 +2132,11 @@
                         DEDUCTION_LIMIT_EAMT: gfn_nvl(item.DEDUCTION_LIMIT_EAMT)
                     }
                     jsonDeductionList.push(msg);
-                   /* totalRecordCount++;*/
+                    totalRecordCount++;
                 });
 
                 gvwDeductionGrid.rebuild();
-                /*document.querySelector('#listCount').innerText = totalRecordCount;*/
+                document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if (jsonDeductionList.length > 0){
                     jsonDeductionList.forEach((item, index) => {
