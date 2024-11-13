@@ -6,6 +6,7 @@
     background-color: rgb(182, 216, 237, 0.2) !important;
     border: 1px solid !important;
     border-color: rgb(222 229 250) !important;
+    margin-bottom: 1vh !important;
 }
 
 /* 테이블 */
@@ -45,27 +46,98 @@
 }
 
 /*테이블에서 그려진 datepicker input 색상 제거*/
-.table-datepicker-ma {
+input.table-datepicker-ma {
 	background: #fff !important;
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
 }
 
 /*테이블에서 그려진 datepicker button 색상 제거*/
-.table-datepicker-ma + .sbux-pik-icon-span .sbux-pik-icon-btn {
+input.table-datepicker-ma + .sbux-pik-icon-span .sbux-pik-icon-btn {
     background: #fff !important;
     color: #000 !important;
     border-color: rgb(215, 215, 215) !important;
     margin-left: 0px !important;	
 }
 
-/*
-* 그리드 생성시 자동으로 생성되는 div의 클래스여서 여기서 수정시 APC 생산관리 화면까지 영향이 생김
-*/
-/* .sbgrid_GFA_st { */
-/*     border-top: 1px solid !important; */
-/* 	border-right: none !important; */
-/*     border-left: none !important; */
-/*     border-bottom: none !important; */
-/*     border-color: #b2bad2 !important; */
+.table-datepicker-ma[readonly], .table-datepicker-ma.readonly {
+    cursor: text !important;
+    background-repeat: no-repeat !important;
+    background-color: #efefef !important;
+    color: #555 !important;
+    border-color: #d9d9d9 !important;
+}
+
+input.table-datepicker-ma.sbux-dirty[readonly] + .sbux-pik-icon-span .sbux-pik-icon-btn {
+    cursor: default !important;
+    background-repeat: no-repeat !important;
+    background-color: #efefef !important;
+    color: #555 !important;
+    border-color: #d9d9d9 !important;
+}
+
+
+
+/*테이블에서 그려진 datepicker input inpt_data_reqed 색상 적용*/
+input.table-datepicker-ma.inpt_data_reqed {
+	background: #FFF8DC !important;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+}
+
+/*테이블에서 그려진 datepicker input inpt_data_reqed 색상 적용*/
+input.table-datepicker-ma.inpt_data_reqed + .sbux-pik-icon-span .sbux-pik-icon-btn {
+    background: #FFF8DC !important;
+    color: #000 !important;
+    border-color: rgb(215, 215, 215) !important;
+    margin-left: 0px !important;	
+}
+
+/*테이블에서 그려진 radio 버튼 색상 흰색으로 변경*/
+/* span.sbux-rdo-wrap.sbux-comp-root{ */
+/* 	background: #fff !important; */
+/*     border-color: rgb(215, 215, 215) !important; */
+/*     color: #000 !important; */
 /* } */
+
+/*테이블에서 그려진 radio 버튼 inpt_data_reqed 색상 변경*/
+/* .table-search-ma td:has(> span > input[type="radio"]) { */
+/* 	background: #fff !important; */
+/* } */
+
+
+/*테이블에서 그려진 radio 버튼 inpt_data_reqed 색상 변경*/
+.table-search-ma > tbody > tr > td.td_input.inpt_data_reqed{
+	background: #FFF8DC !important;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+}
+
+/*테이블에서 그려진 셀렉트 inpt_data_reqed 색상 변경*/
+.table-search-ma > tbody > tr > td > select{
+	background-color: #FFF;
+    background: url(../../images/admin/img_select.png) no-repeat right -6px top -6px;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+}
+select.form-control.input-sm {
+    background-color: #FFF;
+}
+/*테이블에서 그려진 셀렉트 inpt_data_reqed 색상 변경*/
+.table-search-ma > tbody > tr > td > select.inpt_data_reqed{
+	background-color: #FFF8DC;
+    background: url(../../images/admin/img_select.png) no-repeat right -6px top -6px;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+}
+
+/*
+* 그리드 생성시 자동으로 생성되는 div의 보더를 탑만 제외하고 안보이게 처리함
+*/
+.sbgrid_GFA_st {
+    border-top: 1px solid !important;
+    border-color: #b2bad2 !important;
+	border-right: none !important;
+    border-left: none !important;
+    border-bottom: none !important;
+}
