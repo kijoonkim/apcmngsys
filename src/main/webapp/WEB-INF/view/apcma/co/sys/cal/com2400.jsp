@@ -24,7 +24,7 @@
 <head>
     <title>title : 달력</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         .calendar { width: 100%; }
         .clickDate { color: black; font-weight: bold; background-color: skyblue; opacity: 0.5; }
@@ -60,36 +60,55 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
-                <caption>검색 조건 설정</caption>
-                <colgroup>
-                    <col style="width: 42%">
-                    <col style="width: 3%">
-                    <col style="width: 5%">
-                    <col style="width: 3%">
-                    <col style="width: 42%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-button id="btnBeforeYear" name="btnBeforeYear" 	uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-button id="btnNextYear" name="btnNextYear" 	uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
-                    </td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+			<div class="box-search-ma">
+	            <!--[pp] 검색 -->
+	            <!--[APC] START -->
+	            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+	            <!--[APC] END -->
+	            <table class="table table-bordered tbl_fixed table-search-ma">
+	                <caption>검색 조건 설정</caption>
+	                <colgroup>
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+	
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+	                </colgroup>
+	                <tbody>
+	                <tr>
+	                    <td colspan="5"></td>
+	                    <td class="td_input" style="border-right:hidden;" align="right">
+	                        <sbux-button id="btnBeforeYear" name="btnBeforeYear" 	uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
+	                    </td>
+	                    <td colspan ="2" class="td_input" style="border-right:hidden;">
+	                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly style="text-align:center !important;"></sbux-input>
+	                    </td>
+	                    <td class="td_input" style="border-right:hidden;">
+	                        <sbux-button id="btnNextYear" name="btnNextYear" 	uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
+	                    </td>
+	                    <td colspan="8"></td>
+	                </tr>
+	                </tbody>
+	            </table>
+	        </div>    
             <div class="row">
                 <div class="col-sm-7">
                     <div class="ad_tbl_top">

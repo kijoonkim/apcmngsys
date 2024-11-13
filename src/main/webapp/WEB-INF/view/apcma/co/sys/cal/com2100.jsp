@@ -25,7 +25,7 @@
 <head>
 	<title>title : 회기 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,72 +40,87 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle" 
-								    	uitype="normal"
-								    	id="SRCH_COMP_CODE" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:200px;height:200px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                
-                            </td>                
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                                          
-                            <th scope="row" class="th_bg">회기</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle" 
-								    	uitype="normal"
-								    	id="SRCH_FISCAL_NO" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_FISCAL_NO style="width:500px;height:200px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">법인</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle" 
+									    	uitype="normal"
+									    	id="SRCH_COMP_CODE" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:200px;height:200px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                
+	                            </td>                
+	                            <td></td>                                          
+	                            <th scope="row" class="th_bg_search">회기</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle" 
+									    	uitype="normal"
+									    	id="SRCH_FISCAL_NO" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_FISCAL_NO style="width:500px;height:200px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+                </div>
                 <div class="row">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>코드목록</span>
+                                    <span>◎ 코드목록</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -139,7 +154,7 @@
                             ></sbux-button>
                         </div>                        
                         <div>
-                            <div id="sb-area-grdCom2100" style="height:616px; width:100%;"></div>
+                            <div id="sb-area-grdCom2100" style="height:100vh; width:100%;"></div>
                         </div>
                 </div>
             </div>
