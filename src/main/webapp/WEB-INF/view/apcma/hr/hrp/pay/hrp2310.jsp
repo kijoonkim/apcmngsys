@@ -550,7 +550,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>공제항목</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">

@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1710.jsp
      * @Description       : 연말정산 결과조회 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.09.05
@@ -24,7 +24,7 @@
 <head>
     <title>title : 연말정산 결과조회</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -40,120 +40,132 @@
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">정산연도</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_YE_TX_YYYY"
-                            name="SRCH_YE_TX_YYYY"
-                            uitype="popup"
-                            datepicker-mode="year"
-                            date-format="yyyy"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">급여영역</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_PAY_AREA_TYPE"
-                            name="SRCH_PAY_AREA_TYPE"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonPayAreaType"
-                    />
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">사업장</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_SITE_CODE"
-                            name="SRCH_SITE_CODE"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonSiteCode"
-                    />
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_DEPT_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_DEPT_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup1"
-                    ></sbux-button>
-                </td>
-                <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_EMP_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="5" class="td_input"  data-group="EMP">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup2"
-                    ></sbux-button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">정산연도</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YE_TX_YYYY"
+                                name="SRCH_YE_TX_YYYY"
+                                uitype="popup"
+                                datepicker-mode="year"
+                                date-format="yyyy"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">급여영역</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="SRCH_PAY_AREA_TYPE"
+                                name="SRCH_PAY_AREA_TYPE"
+                                class="form-control input-sm"
+                                jsondata-ref="jsonPayAreaType"
+                        />
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">사업장</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="SRCH_SITE_CODE"
+                                name="SRCH_SITE_CODE"
+                                class="form-control input-sm"
+                                jsondata-ref="jsonSiteCode"
+                        />
+                    </td>
+                    <td colspan="6" style="border-right: hidden;"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">부서</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_DEPT_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup1"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg_search">사원</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_EMP_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="5" class="td_input" data-group="EMP">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup2"
+                        ></sbux-button>
+                    </td>
+                    <td colspan="10" style="border-right: hidden;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -164,7 +176,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:580px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:780px; width:100%;"></div>
         </div>
 
     </div>
@@ -343,12 +355,12 @@
             {caption: ["사번"], ref: 'SEQ', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["정산구분"], ref: 'YE_TX_TYPE', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
             {caption : ["마감상태"], ref : 'CLOSE_STATE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonCloseState', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonCloseState',  label : 'label', value : 'value'}
             },
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ['정산일자(퇴직일자)'], ref: 'WORK_END_DAT', 	width:'130px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['정산일자(퇴직일자)'], ref: 'WORK_END_DAT', 	width:'130px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["중간소득신고 여부"], ref: 'MIDWAY_TX_RETURN_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -356,59 +368,59 @@
                 }
             },
             {caption: ["급여계"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["상여계"], ref: 'BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["과세수당"], ref: 'PAY_TAX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["급여계"], ref: 'YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["상여계"], ref: 'YE_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["인정수당계"], ref: 'YE_ADD_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["기타소득계"], ref: 'YE_INC_EXTRA_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0'}},
             {caption: ["비과세수당"], ref: 'TXFREE_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["과세계"], ref: 'PAY_TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["비과세예외금액"], ref: 'TAX_FREE_EXCEPT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["지급액계(비과세수당+비과세예외금액제외)"], ref: 'PAY_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["총급여액"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근로소득공제"], ref: 'INC_DEAMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근로소득금액"], ref: 'INC_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["과세표준"], ref: 'TOT_INC_TX_STD_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["산출세액"], ref: 'CALCULATE_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["세액공제"], ref: 'TX_DED_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["결정세액(소득세)"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["결정세액(주민세)"], ref: 'CALC_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["결정세액(농특세)"], ref: 'CALC_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["기납부세액(소득세)"], ref: 'NOW_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["기납부세액(주민세)"], ref: 'NOW_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["기납부세액(농특세)"], ref: 'NOW_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["차감징수세액(소득세)"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["차감징수세액(주민세)"], ref: 'LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["차감징수세액(농특세)"], ref: 'SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["차감징수세액계"], ref: 'TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
 
         ];
 

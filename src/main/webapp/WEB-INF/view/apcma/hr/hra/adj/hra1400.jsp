@@ -24,7 +24,7 @@
 <head>
     <title>title : 정산자료(개인)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -44,156 +44,170 @@
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 1%">
-                <col style="width: 6%">
-                <col style="width: 2%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">사업장</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">사업장</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">급여영역</th>
-                <td class="td_input">
-                    <sbux-select
-                            id="SRCH_PAY_AREA_TYPE"
-                            uitype="single"
-                            jsondata-ref=""
-                            unselected-text="선택"
-                            class="form-control input-sm"
-                    <%--onchange="fn_payType"--%>>
-                    </sbux-select>
-                </td>
-                <td colspan="7" style="border-right: hidden;"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">정산연도</th>
-                <td colspan="2" class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_YE_TX_YYYY"
-                            name="SRCH_YE_TX_YYYY"
-                            uitype="popup"
-                            datepicker-mode="year"
-                            date-format="yyyy"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                    </sbux-datepicker>
-                </td>
-                <td <%--colspan="2"--%> style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">정산구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">급여영역</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select
+                                id="SRCH_PAY_AREA_TYPE"
+                                uitype="single"
+                                jsondata-ref=""
+                                unselected-text="선택"
+                                class="form-control input-sm"
+                        <%--onchange="fn_payType"--%>>
+                        </sbux-select>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">정산연도</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YE_TX_YYYY"
+                                name="SRCH_YE_TX_YYYY"
+                                uitype="popup"
+                                datepicker-mode="year"
+                                date-format="yyyy"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">정산구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left"
+                                    class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button"
+                                    id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">퇴사일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_RET_DATE_FR"
-                            name="SRCH_RET_DATE_FR"
-                            uitype="popup"
-                            date-format="yyyymmdd"
-                            class="form-control input-sm input-sm-ast"
-                    >
-                    </sbux-datepicker>
-                </td>
-                <td>~</td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_RET_DATE_TO"
-                            name="SRCH_RET_DATE_TO"
-                            uitype="popup"
-                            date-format="yyyymmdd"
-                            class="form-control input-sm input-sm-ast">
-                    </sbux-datepicker>
-                </td>
-                <td style="border-right: hidden;"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_DEPT_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_DEPT_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup1"
-                    ></sbux-button>
-                </td>
-                <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                    <%-- uitype="hidden"--%>
-                            uitype="text"
-                            id="SRCH_EMP_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td colspan="6" class="td_input" data-group="EMP">
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            text="찾기" uitype="modal"
-                            target-id="modal-compopup1"
-                            onclick="fn_compopup2"
-                    ></sbux-button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">퇴사일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_RET_DATE_FR"
+                                name="SRCH_RET_DATE_FR"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma"
+                        ></sbux-datepicker>
+                    </td>
+                    <td>~</td>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_RET_DATE_TO"
+                                name="SRCH_RET_DATE_TO"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma">
+                        </sbux-datepicker>
+                    </td>
+                    <td style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">부서</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_DEPT_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup1"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg_search">사원</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                        <%-- uitype="hidden"--%>
+                                uitype="text"
+                                id="SRCH_EMP_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="6" class="td_input" data-group="EMP">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_compopup2"
+                        ></sbux-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="row">
             <div class="col-sm-4">
@@ -402,6 +416,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>인적공제 및 소득공제 명세</span>
+                            <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                         </li>
                     </ul>
                     <sbux-button
@@ -1196,12 +1211,12 @@
                                 <tr>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기술도입계약 또는 근로제공일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="TECH_INTRO_CONTRACT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="TECH_INTRO_CONTRACT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                 class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">감면기간 만료일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="TECH_INTRO_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="TECH_INTRO_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <td rowspan="4" style="border-right: hidden;">&nbsp;</td>
@@ -1210,12 +1225,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">외국인 근로소득에 대한 감면</th>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="FOREI_INC_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="FOREI_INC_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="FOREI_INC_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="FOREI_INC_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                 </tr>
@@ -1223,12 +1238,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득에 대한 조세조약 상 면제</th>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="TX_TREATY_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="TX_TREATY_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="TX_TREATY_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="TX_TREATY_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                 </tr>
@@ -1236,12 +1251,12 @@
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">중소기업 취업자 감면</th>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="EMP_YOUTH_ST_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="EMP_YOUTH_ST_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="EMP_YOUTH_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="EMP_YOUTH_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                 </tr>
@@ -1639,12 +1654,12 @@
                                 <tr>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">납부일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="FOREI_PAY_TX_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="FOREI_PAY_TX_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">신청서제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                                        <sbux-datepicker id="FOREI_REQ_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyymmdd"
+                                        <sbux-datepicker id="FOREI_REQ_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
                                                          class="form-control input-sm input-sm-ast"></sbux-datepicker>
                                     </td>
                                 </tr>
@@ -1687,6 +1702,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>연금 저축 등 소득공제명세</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -2269,11 +2285,11 @@
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO_REAL', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["근무기간"], ref: 'WORK_DATE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["거주구분"], ref: 'LIVE_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -2282,7 +2298,7 @@
                 } , hidden : true
             },
             {caption : ["거주지국"], ref : 'LIVE_NATION_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonLiveNationCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonLiveNationCode',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["세대주"], ref: 'FAMILY_OWNER_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -2311,7 +2327,7 @@
             },
             {caption: ["계산결과상태"], ref: 'RESULT_STATE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['업로드시간'], ref: 'UPLOAD_TIME', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['업로드시간'], ref: 'UPLOAD_TIME', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["업로드사용자"], ref: 'UPLOAD_USERID', type: 'output', width: '140px', style: 'text-align:left'},
         ];
@@ -2338,31 +2354,31 @@
             {caption: ["가족주민번호"], ref: 'FAMILY_SOCIAL_NO_REAL', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["가족주민번호"], ref: 'FAMILY_BIRTHDAY', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
             {caption : ["가족 관계코드"], ref : 'FAMILY_YE_TX_REL', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYeTxRel', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYeTxRel',  label : 'label', value : 'value'}
             },
             {caption : ["외국인"], ref : 'FAMILY_FOREI_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["기본공제"], ref : 'FAMILY_BASIC_DED_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["경로우대"], ref : 'FAMILY_SENIOR_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["부녀자"], ref : 'FAMILY_WOMAN_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["한부모"], ref : 'FAMILY_SINGLE_PARENT_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["장애인"], ref : 'FAMILY_HDCP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyHdcpType', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyHdcpType',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["7세이하"], ref : 'FAMILY_BRING_CHILD_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["출생ㆍ입양"], ref : 'FAMILY_CHILDBIRTH_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2377,7 +2393,7 @@
             {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["교육비구분"], ref : 'EDU_EXP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonEduExpType', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonEduExpType',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["교육비(국세청)"], ref: 'EDU_EXP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2512,17 +2528,17 @@
             {caption: ["수능/대학입학전형료(기타)"], ref: 'EDU_EXP_SAT_PAY_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["자녀순서"], ref : 'FAMILY_CHILD_SEQ_TYPE', width : '130px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyChildSeqType', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyChildSeqType',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["65세ㆍ장애인<의료비(국세청)>"], ref: 'MED_SENIOR_HDCP_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["65세ㆍ장애인<의료비(기타)>"], ref: 'MED_SENIOR_HDCP_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["65세 이상ㆍ장애인"], ref : 'FAMILY_65AGE_HDC_YN', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["50세 이상"], ref : 'FAMILY_50AGE_YN', width : '130px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["장애인증명자료사업자번호"], ref: 'R101_BUSNID', type: 'output', width: '170px', style: 'text-align:left' , hidden : true},
             {caption: ["장애인증명자료발급기관"], ref: 'R101_TRADE_NM', type: 'output', width: '170px', style: 'text-align:left', hidden : true},
@@ -2551,7 +2567,7 @@
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'PENS_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["소득공제구분"], ref : 'PENS_DED_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPensDedType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPensDedType',  label : 'label', value : 'value'}
             },
             {caption: ["금융기관코드"], ref: 'PENS_BANK_CODE', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["금융기관"], ref: 'PENSION_BANK_NAME', type: 'input', width: '140px', style: 'text-align:left'},
@@ -2563,14 +2579,14 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["공제금액"], ref: 'PENS_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ['가입일자'], ref: 'PENS_JOIN_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['가입일자'], ref: 'PENS_JOIN_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['가입년도'], ref: 'INVESTMENT_YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['가입년도'], ref: 'INVESTMENT_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
             {caption: ["가입기간월수"], ref: 'PENS_CTR_TERM_MM_CNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' ,  emptyvalue:'0'}},
             {caption : ["투자조합구분"], ref : 'INVESTMENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonInvestmentType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInvestmentType',  label : 'label', value : 'value'}
             },
             {caption: ["ISA계좌 만기전환 납입금액"], ref: 'ISA_ANN_TOT_AMT', type: 'output', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2602,22 +2618,22 @@
             {caption: ["월세액 임대인 성명(상호)"], ref: 'HS_MM_LESSOR_NAME', type: 'input', width: '170px', style: 'text-align:left'},
             {caption: ["월세액 임대인 주민등록번호(사업자번호)"], ref: 'HS_MM_LESSOR_SOCNO_REAL', type: 'input', width: '230px', style: 'text-align:left'},
             {caption : ["월세주택유형"], ref : 'HS_MM_RENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonHouseType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonHouseType',  label : 'label', value : 'value'}
             },
             {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0.0' }},
             {caption: ["월세액 주소지"], ref: 'HS_MM_LEASE_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ['월세액 임대차 시작일'], ref: 'HS_MM_ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['월세액 임대차 시작일'], ref: 'HS_MM_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['월세액 임대차 종료일'], ref: 'HS_MM_END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['월세액 임대차 종료일'], ref: 'HS_MM_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["월세액"], ref: 'HS_MM_RENT_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["주택임차차입금 금전소비대차 대주 성명"], ref: 'HSRENT_RDM_LEN_NAME', type: 'input', width: '250px', style: 'text-align:left'},
             {caption: ["주택임차차입금 금전소비대차 대주 주민등록번호"], ref: 'HSRENT_RDM_LEN_SOCNO_REAL', type: 'input', width: '270px', style: 'text-align:left'},
-            {caption: ['주택임차차입금 금전소비대차 계약시작일'], ref: 'HSRENT_RDM_SPD_ST_DAT', width:'250px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 금전소비대차 계약시작일'], ref: 'HSRENT_RDM_SPD_ST_DAT', width:'250px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['주택임차차입금 금전소비대차 계약종료일'], ref: 'HSRENT_RDM_SPD_END_DAT', width:'250px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 금전소비대차 계약종료일'], ref: 'HSRENT_RDM_SPD_END_DAT', width:'250px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["주택임차차입금 금전소비대차 이자율"], ref: 'HSRENT_RDM_INT_R', type: 'input', width: '230px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2628,14 +2644,14 @@
             {caption: ["주택임차차입금 임대차 임대인 성명"], ref: 'HSRENT_RDM_LESSOR_NAME', type: 'input', width: '250px', style: 'text-align:left'},
             {caption: ["주택임차차입금 임대차 임대인 주민등록번호"], ref: 'HSRENT_RDM_LESSOR_SOCNO_REAL', type: 'input', width: '250px', style: 'text-align:left'},
             {caption : ["주택임차주택유형"], ref : 'HSRENT_RDM_LEASE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonHouseType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonHouseType',  label : 'label', value : 'value'}
             },
             {caption: ["주택임차계약면적(㎡)"], ref: 'HSRENT_RDM_LEASE_AREA', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0.0' }},
             {caption: ["주택임차차입금 임대차 주소"], ref: 'HSRENT_RDM_LEASE_ADDRESS', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ['주택임차차입금 임대차 계약시작일'], ref: 'HSRENT_RDM_LEASE_ST_DAT', width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 임대차 계약시작일'], ref: 'HSRENT_RDM_LEASE_ST_DAT', width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['주택임차차입금 임대차 계약종료일'], ref: 'HSRENT_RDM_LEASE_END_DAT', width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 임대차 계약종료일'], ref: 'HSRENT_RDM_LEASE_END_DAT', width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["주택임차차입금 임대차 전세보증금"], ref: 'HSRENT_RDM_LEASE_DEP_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2662,12 +2678,12 @@
             {caption: ["연번"], ref: 'MED_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'MED_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["대상자"], ref : 'MED_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonSocialNoReal', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption: ["사업자등록번호"], ref: 'MED_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'MED_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonMedCertificateCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonMedCertificateCode',  label : 'label', value : 'value'}
             },
             {caption: ["건수"], ref: 'MED_COUNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
@@ -2719,16 +2735,16 @@
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'DON_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["기부자"], ref : 'DONATION_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonSocialNoReal', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption : ["기부금 관계코드"], ref : 'DON_YE_TX_REL', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonYeTxRel', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonYeTxRel',  label : 'label', value : 'value'}
             },
             {caption : ["구분"], ref : 'DON_TYPE_NTS_YN', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonTypeNtsYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonTypeNtsYn',  label : 'label', value : 'value'}
             },
             {caption : ["기부유형"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
             {caption: ["사업자등록번호"], ref: 'DON_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'DON_NAME', type: 'input', width: '140px', style: 'text-align:left'},
@@ -2760,10 +2776,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.columns = [
-            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2797,10 +2813,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.columns = [
-            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2835,10 +2851,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.columns = [
-            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2875,12 +2891,12 @@
             {caption: ["연번"], ref: 'INSURE_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'INSURE_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["대상자"], ref : 'INSURE_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonSocialNoReal', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption: ["사업자등록번호"], ref: 'INSURE_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'INSURE_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             {caption : ["보험유형"], ref : 'INSURE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonInsureType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonInsureType',  label : 'label', value : 'value'}
             },
             {caption: ["보험번호"], ref: 'INSURE_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["건수"], ref: 'INSURE_COUNT', type: 'input', width: '140px', style: 'text-align:right'
@@ -3081,8 +3097,10 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    // TODO : cv_4 - cv_29까지 데이터가 없음
+                    /** @type {number} **/
+                    //let totalRecordCount2 = 0;
 
+                    // TODO : cv_4 - cv_29까지 데이터가 없음
                     jsonSupportList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
@@ -3183,9 +3201,11 @@
 
                         }
                         jsonSupportList.push(msg);
+                        //totalRecordCount2++;
                     });
 
                     gvwSupportGrid.rebuild();
+                   //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                     if (jsonSupportList.length > 0){
                         jsonSupportList.forEach((item, index) => {
@@ -3349,6 +3369,8 @@
                         SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 	        gfn_nvl(item.HS_MM_RENT_TX_DEAMT ));
                     });
 
+                    /** @type {number} **/
+                    //let totalRecordCount3 = 0;
                     //  -- 연금·저축 등 소득공제명세
                     jsonPensionSavingList.length = 0;
                     data.cv_4.forEach((item, index) => {
@@ -3371,10 +3393,12 @@
 
                         }
                         jsonPensionSavingList.push(msg);
+                        //totalRecordCount3++;
 
                     });
 
                     gvwPensionSavingGrid.rebuild();
+                    //document.querySelector('#listCount3').innerText = totalRecordCount3;
 
 
                     // -- 월세액·거주자간 주택임차차입금 원리금 상환액 소득공제명세
