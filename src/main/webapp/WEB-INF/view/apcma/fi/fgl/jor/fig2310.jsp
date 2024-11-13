@@ -24,12 +24,7 @@
 <head>
 	<title>title : 미결반제전표</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-	
-	<style type="text/css">
-	</style>
-	
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -72,28 +67,37 @@
             </div>
             <div class="box-body">
 
-				<div>
+				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table id="srchArea1" class="table table-bordered tbl_fixed">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 	                    </colgroup>
 	                    <tbody>
 	                    
@@ -125,17 +129,20 @@
                        		<!-- /hidden -->
                        		
 	                        <tr>
-	                            <th scope="row" class="th_bg">배치번호</th>
-	                            <td colspan="3" class="td_input" >
+	                            <th scope="row" class="th_bg_search">배치번호</th>
+	                            <td class="td_input" >
+	   								<sbux-input id="sch-doc-batch-no" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td colspan="2" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		   								<sbux-input id="sch-doc-batch-no" uitype="text" class="form-control input-sm"></sbux-input>
-					                    <font style="margin-right:10px">전표ID</font>
+		                            	<font>전표ID</font>
 		   								<sbux-input id="sch-doc-id" uitype="text" class="form-control input-sm"></sbux-input>
 	                            	</div>
 	                            </td>
+	                            <td></td>
 
-	                            <th scope="row" class="th_bg">결의부서</th>
-	                            <td colspan="2" class="td_input" >
+	                            <th scope="row" class="th_bg_search">결의부서</th>
+	                            <td colspan="3" class="td_input" >
 	   								<sbux-input
 										uitype="text"
 										id="sch-dept-name"
@@ -151,127 +158,146 @@
 	                            <td class="td_input" >
 									<sbux-button
 										class="btn btn-xs btn-outline-dark"
-										text="찾기" uitype="modal"
+										text="…" uitype="modal"
 										target-id="modal-compopup1"
 										onclick="fn_compopup1"
 									></sbux-button>
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">회계기준</th>
+	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
-	                        </tr>    
-	                        
-	                        <tr>
-	                            <th scope="row" class="th_bg">전표번호</th>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">전표번호</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input id="sch-doc-name" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
-
-	                            <th scope="row" class="th_bg">회계검토의견</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input id="sch-acct-opinion" uitype="text" class="form-control input-sm"></sbux-input>
-	                            </td>
-
-	                            <th scope="row" class="th_bg">자금검토의건</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input id="sch-tr-opinion" uitype="text" class="form-control input-sm"></sbux-input>
-	                            </td>
+	                            <td></td>
+	                            
 	                        </tr>    
 	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">신고사업장</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			                            <sbux-select id="sch-tax-site-code" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-					                    <font style="margin-right:10px">&nbsp;/&nbsp;</font>
-			                            <sbux-select id="sch-sub-tax-site-code" uitype="single" jsondata-ref="jsonSubTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            	</div>
-	                            </td>
 
-	                            <th scope="row" class="th_bg">현업결재일</th>
+	                            <th scope="row" class="th_bg_search">회계검토의견</th>
+	                            <td colspan="3" class="td_input" >
+	   								<sbux-input id="sch-acct-opinion" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+
+	                            <th scope="row" class="th_bg_search">자금검토의건</th>
+	                            <td colspan="3" class="td_input" >
+	   								<sbux-input id="sch-tr-opinion" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">신고사업장</th>
+	                            <td class="td_input" >
+		                            <sbux-select id="sch-tax-site-code" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td>/</td>
+	                            <td class="td_input" >
+		                            <sbux-select id="sch-sub-tax-site-code" uitype="single" jsondata-ref="jsonSubTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">현업결재일</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-approve-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-
-	                            <th scope="row" class="th_bg">회계승인일</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-									    <sbux-datepicker
-									            id="sch-posting-date"
-									            uitype="popup"
-									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
-									    </sbux-datepicker>                          
-					                    <font style="margin-right:10px"></font>
-	   									<sbux-input id="sch-tposting-user" uitype="text" class="form-control input-sm"></sbux-input>
-	                            	</div>
-	                            </td>
+	                            <td></td>
+	                            
 	                        </tr>    
 	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">전표유형</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-		                                <sbux-select id="sch-doc-status" name="sch-doc-status" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            	</div>
-	                            </td>
 
-	                            <th scope="row" class="th_bg">전기일자</th>
+	                            <th scope="row" class="th_bg_search">회계승인일</th>
+	                            <td class="td_input" >
+								    <sbux-datepicker
+								            id="sch-posting-date"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								    </sbux-datepicker>                          
+	                            </td>
+	                            <td></td>
+	                            <td class="td_input" >
+   									<sbux-input id="sch-tposting-user" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">전표유형</th>
+	                            <td class="td_input" >
+	                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            <td class="td_input" >
+	                                <sbux-select id="sch-doc-status" name="sch-doc-status" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+
+	                            <th scope="row" class="th_bg_search">전기일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-doc-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
+	                            <td></td>
 
-	                            <th scope="row" class="th_bg">승인취소일</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-									    <sbux-datepicker
-									            id="sch-unposting-date"
-									            uitype="popup"
-									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
-									    </sbux-datepicker>                          
-					                    <font style="margin-right:10px"></font>
-	   									<sbux-input id="sch-unposting-user" uitype="text" class="form-control input-sm"></sbux-input>
-	                            	</div>
+	                            <th scope="row" class="th_bg_search">승인취소일</th>
+	                            <td class="td_input" >
+								    <sbux-datepicker
+								            id="sch-unposting-date"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								    </sbux-datepicker>                          
 	                            </td>
+	                            <td></td>
+	                            <td class="td_input" >
+   									<sbux-input id="sch-unposting-user" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            
 	                        </tr>    
 	                        
 	                        <tr>
-	                            <th scope="row" class="th_bg">증빙일자</th>
+	                            <th scope="row" class="th_bg_search">증빙일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-voucher-receipt-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
+	                            <td></td>
 
-	                            <th scope="row" class="th_bg">통화</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-		   								<sbux-input uitype="text" id="sch-exchange-rate" class="form-control input-sm" ></sbux-input>
-	                            	</div>
+	                            <th scope="row" class="th_bg_search">통화</th>
+	                            <td class="td_input" >
+	                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
+	                            <td></td>
+	                            <td class="td_input" >
+	   								<sbux-input uitype="text" id="sch-exchange-rate" class="form-control input-sm" ></sbux-input>
+	                            </td>
+	                            <td></td>
 
-	                            <th scope="row" class="th_bg">제목</th>
+	                            <th scope="row" class="th_bg_search">제목</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input id="sch-description" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
+	                            <td></td>
+	                            
 	                        </tr>    
 								                            
 	                    </tbody>
@@ -346,7 +372,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">신고일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">공급가액</th>
 				                            <td class="td_input" >
@@ -376,7 +402,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">선적일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">당기제출금_원화</th>
 				                            <td class="td_input" >
@@ -438,7 +464,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">발급일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <td colspan="4" class="td_input" >
 				                            </td>
