@@ -25,7 +25,7 @@
 <head>
     <title>title : 은행계좌정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
 		#resizer{
 	            background-image:url('/static/resource/svg/dot_h.svg');
