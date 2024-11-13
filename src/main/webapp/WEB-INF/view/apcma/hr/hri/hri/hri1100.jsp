@@ -188,7 +188,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwList" style="height:616px;"></div>
+                        <div id="sb-area-gvwList" style="height: 80vh"></div>
                     </div>
 
                 </div>
@@ -343,13 +343,6 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.paging = {
-            'type' 			: 'page',
-            'count' 		: 5,
-            'size' 			: 20,
-            'sorttype' 		: 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {caption: ["담당"],		        	ref: 'DEPT_CODE1', 			        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["담당명"], 	        	ref: 'DEPT_NAME1',    	            type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},

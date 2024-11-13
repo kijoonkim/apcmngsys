@@ -107,22 +107,6 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
-                            <th scope="row" class="th_bg">년월</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="SRCH_PERIOD_YYYYMM"
-                                        name="SRCH_PERIOD_YYYYMM"
-                                        date-format="yyyy-mm"
-                                        datepicker-mode="month"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                        style="width:100%;"
-                                        onchange="fn_payDate"
-                                />
-                            </td>
-                            <td colspan="3"></td>
-						</tr>
-						<tr>
                             <th scope="row" class="th_bg">거래처</th>
                             <td colspan="3" class="td_input" data-group="SRCH_PAYER">
                                 <sbux-input id="SRCH_PAYER_CODE" name="SRCH_PAYER_CODE" uitype="hidden"></sbux-input>
@@ -136,6 +120,8 @@
                                         onclick="fn_findPayerName"
                                 ></sbux-button>
                             </td>
+						</tr>
+						<tr>
                             <th scope="row" class="th_bg">작성부서</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_DEPT">
                                 <sbux-input id="SRCH_CREATED_DEPT_CODE" name="SRCH_CREATED_DEPT_CODE" uitype="hidden"></sbux-input>
@@ -173,8 +159,34 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
+                            <th scope="row" class="th_bg">전표구분</th>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SRCH_DOC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
 						</tr>
 						 <tr>
+                             <th scope="row" class="th_bg">년월</th>
+                             <td class="td_input" style="border-right:hidden;">
+                                 <sbux-datepicker
+                                         uitype="popup"
+                                         id="SRCH_PERIOD_YYYYMM"
+                                         name="SRCH_PERIOD_YYYYMM"
+                                         date-format="yyyy-mm"
+                                         datepicker-mode="month"
+                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                         style="width:100%;"
+                                         onchange="fn_payDate"
+                                 />
+                             </td>
+                             <td colspan="3"></td>
 							<th scope="row" class="th_bg">거래일자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
@@ -203,18 +215,6 @@
                                         required
 								/>
 							</td>
-                             <td></td>
-							<th scope="row" class="th_bg">전표구분</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-                                <div class="dropdown">
-                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <font>선택</font>
-                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="SRCH_DOC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                    </div>
-                                </div>
-                            </td>
                              <td></td>
                             <th scope="row" class="th_bg">작성자</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_BY">
@@ -249,7 +249,7 @@
                                 <sbux-input id="SRCH_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">
+                            <td class="td_input">
                                 <sbux-checkbox
                                         uitype="normal"
                                         id="SRCH_MULTI_YN"
@@ -259,7 +259,7 @@
                                         text="복수선택"
                                         true-value="Y" false-value="N"
                                 />
-                            </th>
+                            </td>
                             <td colspan="3" class="td_input">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"

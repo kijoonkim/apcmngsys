@@ -1717,6 +1717,7 @@
         jsonEmpList.length = 0;
         jsonExpenditurewelfareList.length = 0;
 
+        // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
         gvwFamily.rebuild();
         gvwSchool.rebuild();
         gvwCareer.rebuild();
@@ -1724,20 +1725,20 @@
         gvwLanguage.rebuild();
         gvwComputerSkill.rebuild();
         gvwFile.rebuild();
-        gvwEducation.rebuild();
+        /*gvwEducation.rebuild();*/
         gvwPrize.rebuild();
-        gvwHealth.rebuild();
+        /*gvwHealth.rebuild();*/
         gvwAppointment.rebuild();
         gvwAddJob.rebuild();
         gvwTimeOffHistory.rebuild();
-        gvwGroupInsurance.rebuild();
-        gvwDisease.rebuild();
+        /*gvwGroupInsurance.rebuild();*/
+        /*gvwDisease.rebuild();*/
         gvwPersonnelEvaluation.rebuild();
-        gvwOfficialInjury.rebuild();
-        gvwContractDeg.rebuild();
-        gvwWorkPlan.rebuild();
+        /*gvwOfficialInjury.rebuild();*/
+        /*gvwContractDeg.rebuild();*/
+        /*gvwWorkPlan.rebuild();*/
         gvwEmp.rebuild();
-        gvwExpenditurewelfare.rebuild();
+        /*gvwExpenditurewelfare.rebuild();*/
 
         SBUxMethod.selectTab('idxTab_norm','tpgMasterSub');
     }
