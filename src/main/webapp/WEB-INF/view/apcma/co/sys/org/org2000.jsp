@@ -25,7 +25,7 @@
 <head>
 	<title>title : 부서 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,53 +40,59 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">부서코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_DEPT_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">부서명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_DEPT_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">기준일</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker id="SRCH_BASE_DATE" name="SRCH_BASE_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
-                           
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+		
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">부서코드</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_DEPT_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">부서명</th>
+	                            <td class="td_input" colspan="3" style="border-right: hidden;">
+	                                <sbux-input id="SRCH_DEPT_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">기준일</th>
+	                            <td class="td_input"  style="border-right: hidden;">
+	                                <sbux-datepicker id="SRCH_BASE_DATE" name="SRCH_BASE_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+	                            </td>
+	                            <td colspan="3"></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+                </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ad_tbl_top">
@@ -98,7 +104,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg2000" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdOrg2000" style="height:100vh; width:100%;"></div>
                         </div>
                     </div>
 	                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
@@ -107,7 +113,7 @@
 						title-text-array="기본정보^관리항목">
 					</sbux-tabs>
                     <div class="col-sm-6 tab-content">
-                        <div id="INFO" style="height:568px;">
+                        <div id="INFO" style="height:95vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
@@ -175,7 +181,7 @@
 										<sbux-input uitype="text" id="PARENT_DEPT_NAME" class="form-control input-sm" readonly></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button id="BTN_PARENT" class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
+										<sbux-button id="BTN_PARENT" class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
 		                            </td>
                                 </tr>                                
                                 <tr>
@@ -187,7 +193,7 @@
 										<sbux-input uitype="text" id="DEPT_LEADER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDeptLeader" ></sbux-button>
 		                            </td>
                                 </tr>                                
                                 <tr>
@@ -252,17 +258,17 @@
 										<sbux-input uitype="text" id="CC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupCcCode" ></sbux-button>
 		                            </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">적용시작일</th>
                                     <td class="td_input ">
-                                		<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
+                                		<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
                                     <th scope="row" class="th_bg">적용종료일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                               			<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" style="height:28px;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
+                               			<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;"></td>
                                 </tr>
@@ -315,7 +321,7 @@
                                 </tr>  
                             </table>
                         </div>
-                        <div id="MNG" style="height:568px;">
+                        <div id="MNG" style="height:95vh;">
                             <table id="dataArea2" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">

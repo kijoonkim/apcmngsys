@@ -164,7 +164,7 @@
 							</td>
 							<td colspan="" class="td_input" style="border-right: hidden;border-top: hidden" >
 							<th class="ta_r th_bg td_prdcr_area">
-								<sbux-label id="srch-lab-prdcrNm" name="srch-lab-prdcrNm" uitype="normal" text="생산자"></sbux-label>
+								<sbux-label id="srch-lab-prdcrNm" name="srch-lab-prdcrNm" style="font-weight: bold" uitype="normal" text="생산자"></sbux-label>
 							</th>
 							<td class="td_input td_prdcr_area" style="border-right: hidden;">
 								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -217,7 +217,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:401px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:500px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -357,6 +357,22 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.total = {
+      		  type 		: 'grand',
+      		  position	: 'bottom',
+      		  columns		: {
+      		      standard : [1,2],
+      		      sum : [8, 9, 10, 11, 12, 13, 14],
+      		  },
+      		  grandtotalrow : {
+      		      titlecol 	: 1,
+      		      titlevalue	: '합계',
+      		      style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+      		      stylestartcol	: 1
+      		  },
+      		  datasorting	: true,
+      		  usedecimal : false,
+      		};
         SBGridProperties.columns = [
         	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
@@ -375,7 +391,7 @@
     			typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['품목'], 		ref: 'itemCd', 		width: '80px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonApcItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['품종'], 		ref: 'vrtyCd', 		width: '80px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
+            {caption: ['품종'], 		ref: 'vrtyCd', 		width: '120px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonApcVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['실중량'], 		ref: 'actlWght', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
             {caption: ['입고가구'], 	ref: 'bxQntt', 		width: '60px', type: 'output', style:'text-align:right;', format : {type:'number', rule:'#,### '}},
@@ -451,6 +467,8 @@
 			}
 		}
 
+		grdWghPrfmnc.refresh();
+
 	}
 
 	const fn_parseInt = function(val) {
@@ -475,45 +493,60 @@
 
 		if (gubun == "ADD") {
 
-			let apcCdCol = grdWghPrfmnc.getColRef("apcCd");
-			let addYnCol = grdWghPrfmnc.getColRef("addYn");
-			let wrhsSpmtTypeCol = grdWghPrfmnc.getColRef("wrhsSpmtType");
-			let wghYmdCol = grdWghPrfmnc.getColRef("wghYmd");
+
+			// jsonWghPrfmnc
+			let wghPrfmnc = {};
+
+			wghPrfmnc.delYn = "N";
+			wghPrfmnc.apcCd = gv_selectedApcCd;
+			wghPrfmnc.addYn = "Y";
+
 
 			if (!gfn_isEmpty(SBUxMethod.get("srch-slt-fcltCd"))) {
-				let fcltCdCol = grdWghPrfmnc.getColRef("fcltCd");
-				grdWghPrfmnc.setCellData(nRow, fcltCdCol, SBUxMethod.get("srch-slt-fcltCd"), true);
+				wghPrfmnc.fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 			}
 
 			if (!gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd"))) {
-				let itemCdCol = grdWghPrfmnc.getColRef("itemCd");
-				grdWghPrfmnc.setCellData(nRow, itemCdCol, SBUxMethod.get("srch-slt-itemCd"), true);
+				wghPrfmnc.itemCd = SBUxMethod.get("srch-slt-itemCd");
 			}
 
 			if (!gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd"))) {
-				let vrtyCol = grdWghPrfmnc.getColRef("vrtyCd");
-				grdWghPrfmnc.setCellData(nRow, vrtyCol, SBUxMethod.get("srch-slt-vrtyCd").substr(4,4), true);
+				wghPrfmnc.vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 			}
 
-			grdWghPrfmnc.setCellData(nRow, nCol, "N", true);
-			grdWghPrfmnc.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
-			grdWghPrfmnc.setCellData(nRow, wrhsSpmtTypeCol, SBUxMethod.get("srch-slt-wrhsSpmtType"), true);
-			grdWghPrfmnc.setCellData(nRow, wghYmdCol, SBUxMethod.get("srch-dtp-wghYmd"), true);
-			grdWghPrfmnc.setCellData(nRow, addYnCol, "Y", true);
-			grdWghPrfmnc.addRow(true);
+			if (!gfn_isEmpty(SBUxMethod.get("srch-dtp-wghYmd"))) {
+				wghPrfmnc.wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+			}
+
+			if (!gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrCd"))) {
+				wghPrfmnc.prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+			}
+
+			if (!gfn_isEmpty(SBUxMethod.get("srch-slt-wrhsSpmtType"))) {
+				wghPrfmnc.wrhsSpmtType = SBUxMethod.get("srch-slt-wrhsSpmtType");
+			}
+
+
+			jsonWghPrfmnc.splice(parseInt((nRow)-1), 0, wghPrfmnc);
+			grdWghPrfmnc.rebuild();
 
 			grdWghPrfmnc.setCellDisabled(0, 0, grdWghPrfmnc.getRows() -1, grdWghPrfmnc.getCols() -1, false);
 			grdWghPrfmnc.setCellDisabled(grdWghPrfmnc.getRows() -1, 0, grdWghPrfmnc.getRows() -1, grdWghPrfmnc.getCols() -1, true);
 
+
 		} else if (gubun == "DEL") {
 
-			if(grdWghPrfmnc.getRowStatus(nRow) == 0 || grdWghPrfmnc.getRowStatus(nRow) == 2){
-        		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+			let rowData = jsonWghPrfmnc[parseInt(nRow)-1];
+			let addYn = rowData.addYn;
+
+			if (addYn != "Y"){
+        		if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
         			var wghPrfmncVO = grdWghPrfmnc.getRowData(nRow);
         			fn_deleteWghPrfmnc(wghPrfmncVO, nRow);
         		}
-        	}else{
-        		grdWghPrfmnc.deleteRow(nRow);
+        	} else {
+        		jsonWghPrfmnc.splice(parseInt(nRow)-1, 1);
+        		grdWghPrfmnc.refresh();
         	}
 		}
 
@@ -765,7 +798,8 @@
     	try {
     		if (_.isEqual("S", data.resultStatus)) {
        			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-       			grdWghPrfmnc.deleteRow(nRow);
+       			jsonWghPrfmnc.splice(parseInt(nRow)-1, 1);
+        		grdWghPrfmnc.refresh();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
@@ -812,11 +846,18 @@
 
   		let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");		// 계량일자
   		let itemCd 	= SBUxMethod.get("srch-slt-itemCd");	// 품목
+  		let wrhsSpmtType 	= SBUxMethod.get("srch-slt-wrhsSpmtType");	// 입고출고유형
+
+  		if (gfn_isEmpty(wrhsSpmtType)) {
+    		gfn_comAlert("W0001", "구분");					//	W0001	{0}을/를 선택하세요.
+            return;
+    	}
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghRcptList.do", {
-			apcCd: gv_selectedApcCd,
-			wghYmd: wghYmd,
-			itemCd : itemCd,
+			apcCd			: gv_selectedApcCd
+		  , wghYmd			: wghYmd
+		  , itemCd 			: itemCd
+		  , wrhsSpmtType 	: wrhsSpmtType
   		});
 
   		try {
@@ -1068,8 +1109,8 @@
                     {
                         apcCd: gv_selectedApcCd,
                         apcNm: gv_selectedApcNm,
-                        linkKnd: "W",
-                        kndList: ["W"]
+                        linkKnd: "R",
+                        kndList: ["R"]
                     },
                     fn_popApcLinkCallBack
                 );

@@ -25,7 +25,7 @@
 <head>
 	<title>title : 프로젝트코드 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,56 +40,66 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">그룹코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">코드그룹명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">그룹코드</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">코드그룹명</th>
+	                            <td class="td_input" colspan="3" style="border-right: hidden;">
+	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>    
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>코드목록</span>
+                                    <span>◎ 코드목록</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdcom3720" style="height:616px; width:100%;"></div>
+                            <div id="sb-area-grdcom3720" style="height:100vh; width:100%;"></div>
                         </div>
                     </div>
 
@@ -272,7 +282,7 @@
                         </div>
                         <div class="ad_tbl_top2">
 	                        <div>
-	                            <div id="sb-area-subGrdcom3720" style="height:292px; width:100%;"></div>
+	                            <div id="sb-area-subGrdcom3720" style="height:54vh; width:100%;"></div>
 	                        </div>
                         </div>
                     </div>

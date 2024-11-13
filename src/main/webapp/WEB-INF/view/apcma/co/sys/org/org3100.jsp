@@ -25,7 +25,7 @@
 <head>
 	<title>title : 원가중심점 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -40,115 +40,115 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">회계단위</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle " 
-								    	type="button"
-								    	id="SRCH_FI_ORG_CODE" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_FI_ORG_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            
-                            <th scope="row" class="th_bg">원가유형</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle " 
-								    	type="button"
-								    	id="SRCH_COST_CLASS" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_COST_CLASS style="width:250px;height:250px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                    
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">배부대상</th>
-                            <td class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-								    <button 
-								    	style="width:160px;text-align:left" 
-								    	class="btn btn-sm btn-light dropdown-toggle " 
-								    	type="button"
-								    	id="SRCH_PATH_TYPE" 
-								    	data-toggle="dropdown" 
-								    	aria-haspopup="true" 
-								    	aria-expanded="false">
-								    	<font>선택</font>
-								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-								    </button>
-								    <div class="dropdown-menu" aria-labelledby=SRCH_PATH_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-								    </div>
-								</div>                                    
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">원가중심점코드</th>
-                            <td class="td_input" colspan="" style="border-right:hidden;">
-                                <sbux-input id="SRCH_COST_CENTER_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            
-                            <th scope="row" class="th_bg">원가중심점명</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_COST_CENTER_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>                            
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma">
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">회계단위</th>
+	                            <td colspan="3" class="td_input" colspan="" style="border-right:hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle " 
+									    	type="button"
+									    	id="SRCH_FI_ORG_CODE" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_FI_ORG_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">원가유형</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle " 
+									    	type="button"
+									    	id="SRCH_COST_CLASS" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_COST_CLASS style="width:250px;height:250px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                    
+	                            </td>
+	                            <td></td>
+	                            <th scope="row" class="th_bg_search">배부대상</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+									    <button 
+									    	style="width:160px;text-align:left" 
+									    	class="btn btn-sm btn-light dropdown-toggle " 
+									    	type="button"
+									    	id="SRCH_PATH_TYPE" 
+									    	data-toggle="dropdown" 
+									    	aria-haspopup="true" 
+									    	aria-expanded="false">
+									    	<font>선택</font>
+									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									    </button>
+									    <div class="dropdown-menu" aria-labelledby=SRCH_PATH_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+									    </div>
+									</div>                                    
+	                            </td>
+	                            <td></td>                            
+	                        </tr>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">원가중심점코드</th>
+	                            <td class="td_input" colspan="3" style="border-right:hidden;">
+	                                <sbux-input id="SRCH_COST_CENTER_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">원가중심점명</th>
+	                            <td colspan="3" class="td_input" style="border-right: hidden;">
+	                                <sbux-input id="SRCH_COST_CENTER_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>                            
+	                        </tr>
+	                    </tbody>
+	                </table>
+                </div>
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="ad_tbl_top">
@@ -160,7 +160,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg3100" style="height:540px; width:100%;"></div>
+                            <div id="sb-area-grdOrg3100" style="height:96vh; width:100%;"></div>
                         </div>
                     </div>
                     <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal"
@@ -169,7 +169,7 @@
 						title-text-array="기본정보^관리항목">
 					</sbux-tabs>
                     <div class="col-sm-7 tab-content">
-                        <div id="NORMAL" style="height:520px;">
+                        <div id="NORMAL" style="height:93vh;">
 	                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width:13%">
@@ -251,7 +251,7 @@
 										<sbux-input uitype="text" id="PARENT_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupParent" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">상위여부</th>
 									<td class="td_input" style="border-right: hidden;" colspan="3">
@@ -407,7 +407,7 @@
 										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">손익사업장</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -417,7 +417,7 @@
 										<sbux-input uitype="text" id="SITE_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupSite" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupSite" ></sbux-button>
 									</td>
 								</tr>  													
 								<tr>
@@ -429,7 +429,7 @@
 										<sbux-input uitype="text" id="TRANS_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupTrans" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupTrans" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">센터장</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -439,7 +439,7 @@
 										<sbux-input uitype="text" id="COST_CENTER_LEADER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupLeader" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupLeader" ></sbux-button>
 									</td>
 								</tr>				 
 								<tr>
@@ -451,7 +451,7 @@
 										<sbux-input uitype="text" id="BUDGET_COST_CENTER_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudget" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudget" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">예산관리</th>
 									<td class="td_input" style="border-right: hidden;"colspan="3">
@@ -460,7 +460,7 @@
 								</tr>  													 
 	                    	</table>
                     	</div>              	
-                        <div id="CATEGORY" style="height:520px;">
+                        <div id="CATEGORY" style="height:93vh;">
 	                    	<table id="dataArea2" class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width:15%">

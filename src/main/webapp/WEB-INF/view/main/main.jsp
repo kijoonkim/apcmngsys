@@ -236,6 +236,7 @@
     let lv_frmId = "";
     let prvTabMenuId = "";
 
+    let lv_isNewTab = true;
 
 	let lv_sysId	= "";
 
@@ -385,7 +386,7 @@
             var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
             var expndPid;
             if (idx >= 0) {
-                sideJsonData[idx].class = "active";
+                //sideJsonData[idx].class = "active";
                 
                 expndPid = sideJsonData[idx].pid;
             }
@@ -525,9 +526,10 @@
                     , 'link': '/co/menu/openPage.do/' + _menuNo	// _url
                     , 'closeicon': true
                 };
-
+                lv_isNewTab = true;
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
             } else {
+            	lv_isNewTab = false;
                 SBUxMethod.selectTab(tabName);
             }
         }
@@ -704,6 +706,14 @@
 
 	function fn_selectTabMenu(_selectId, _selectJson) {
 		
+		
+		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));	
+		
+		if (lv_isNewTab) {
+			lv_isNewTab = false;
+			return;
+		}
+		
 		const _menuNo = _selectId.substring(_selectId.indexOf("_")+1);
 		const topId = _menuNo.substr(0, 2);
 		
@@ -721,10 +731,10 @@
 		
 		const idx = _.findLastIndex(sideJsonData, {id: _menuNo});
         if (idx >= 0) {
-            sideJsonData[idx].class = "active";
+            //sideJsonData[idx].class = "active";
         }
 		
-		SBUxMethod.refresh("side_menu");
+		//SBUxMethod.refresh("side_menu");
 		
 
 		let findMenu = _.find(sideJsonData, {id: _menuNo});
@@ -735,8 +745,7 @@
 		}
 		//SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
 		
-		
-		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));		
+	
 	}
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
