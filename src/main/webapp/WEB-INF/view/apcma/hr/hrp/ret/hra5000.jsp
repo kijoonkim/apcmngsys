@@ -24,7 +24,7 @@
 <head>
     <title>title : 퇴직정산기준 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -44,43 +44,55 @@
             </div>
         </div>
 
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">기준년도</th>
-                <td colspan="11" class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_YE_TX_YYYY"
-                            name="SRCH_YE_TX_YYYY"
-                            uitype="popup"
-                            datepicker-mode="year"
-                            date-format="yyyy"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">기준년도</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YE_TX_YYYY"
+                                name="SRCH_YE_TX_YYYY"
+                                uitype="popup"
+                                datepicker-mode="year"
+                                date-format="yyyy"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="18" style="border-right: hidden;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
         <div class="row">
@@ -94,7 +106,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwMaster" style="height:610px; width:100%;"></div>
+                    <div id="sb-area-gvwMaster" style="height:800px; width:100%;"></div>
                 </div>
             </div>
 
@@ -202,6 +214,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>근속연수공제</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -227,7 +240,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDetail" style="height:410px; width:100%;"></div>
+                            <div id="sb-area-gvwDetail" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="dayTab" >
@@ -235,6 +248,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>누진일수</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -260,7 +274,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDay" style="height:410px; width:100%;"></div>
+                            <div id="sb-area-gvwDay" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="convertTab" >
@@ -268,6 +282,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>환산급여</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -293,7 +308,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwConvertIncome" style="height:410px; width:100%;"></div>
+                            <div id="sb-area-gvwConvertIncome" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -443,16 +458,16 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['기준년도'], ref: 'YYYY', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기준년도'], ref: 'YYYY', width:'170px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}, disabled: true},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', width:'170px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', width:'170px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["퇴직소득공제율"], ref: 'RETIRE_INCOME_DED_RATE', type: 'output', width: '170px', style: 'text-align:right', hidden: true
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0' }},
             {caption: ["임원지급배수"], ref: 'EXECUTIVE_PAY_MULTIPLE', type: 'output', width: '170px', style: 'text-align:right', hidden: true
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0' }},
             {caption: ["메모"], ref: 'MEMO', type: 'output', width: '170px', style: 'text-align:left'},
         ];
 
@@ -475,13 +490,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근속공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
         ];
@@ -504,11 +519,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
@@ -531,13 +546,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["공제세율(%)"], ref: 'TX_R', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0' }},
             {caption: ["누진공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
@@ -795,6 +810,9 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
+                    /** @type {number} **/
+                    let totalRecordCount2 = 0;
+
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
@@ -805,15 +823,20 @@
 
                         }
                         jsonDetailList.push(msg);
+                        totalRecordCount2++;
                     });
 
                     gvwDetailGrid.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                     if (jsonDetailList.length > 0){
                         jsonDetailList.forEach((item, index) => {
                             gvwDetailGrid.setCellDisabled(index+1, 0, index+1, 1, true, false, true);
                         })
                     }
+
+                    /** @type {number} **/
+                    let totalRecordCount3 = 0;
 
                     jsonDayList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -825,9 +848,14 @@
 
                         }
                         jsonDayList.push(msg);
+                        totalRecordCount3++;
                     });
 
                     gvwDayGrid.rebuild();
+                    document.querySelector('#listCount3').innerText = totalRecordCount3;
+
+                    /** @type {number} **/
+                    let totalRecordCount4 = 0;
 
                     jsonConvertList.length = 0;
                     data.cv_4.forEach((item, index) => {
@@ -840,9 +868,11 @@
 
                         }
                         jsonConvertList.push(msg);
+                        totalRecordCount4++;
                     });
 
                     gvwConvertGrid.rebuild();
+                    document.querySelector('#listCount4').innerText = totalRecordCount4;
 
 
                 } else {

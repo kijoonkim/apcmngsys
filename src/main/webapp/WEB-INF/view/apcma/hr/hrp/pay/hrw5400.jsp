@@ -24,7 +24,7 @@
 <head>
     <title>title : 고용보험 내역 관리 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -36,7 +36,9 @@
                 </h3><!-- 건강보험 내역 관리 -->
             </div>
         </div>
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+        </div>
         <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
         </sbux-tabs>
         <div class="tab-content">
@@ -111,7 +113,7 @@
                             <td colspan="2" class="td_input" data-group="DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_compopup1"
                                 ></sbux-button>
@@ -136,7 +138,7 @@
                             <td colspan="2" class="td_input" data-group="EMP">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_compopup2"
                                 ></sbux-button>
@@ -146,7 +148,10 @@
                 </div>
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
-                        <li><span>고용보험 실적</span></li>
+                        <li>
+                            <span>고용보험 실적</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                        </li>
                     </ul>
                     <div class="ad_tbl_toplist">
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
@@ -214,7 +219,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:530px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:700px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2">
@@ -277,7 +282,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:540px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:730px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -578,7 +583,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.frozencols = 3;
         SBGridProperties.total = {
-            type 		: 'subgrand',
+            type 		: 'grand',
             position	: 'bottom',
             columns		: {
                 standard : [0],
@@ -611,39 +616,39 @@
             {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ['보험년월'], ref: 'INSURE_YYYYMM', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['보험년월'], ref: 'INSURE_YYYYMM', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden: true},
             {caption : ["급여영역"], ref : 'PAY_AREA_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayAreaType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayAreaType',  label : 'label', value : 'value'}
             },
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPositionCode',  label : 'label', value : 'value'}
             },
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["산정실업급여(사원)"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["산정실업급여(회사)"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["사업주고안직능"], ref: 'COMP_STABILITY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["실업급여산정"], ref: 'UNEMPLOY_INCOME', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["고안직능산정"], ref: 'STABILITY_INCOME', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["연말실업급여(사원)"], ref: 'EMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["연말실업급여(회사)"], ref: 'COMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["고안직능(연말)"], ref: 'STABILITY_INCOME_YE', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["정산실업급여(사원)"], ref: 'EMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["정산실업급여(회사)"], ref: 'COMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["고안직능(정산)"], ref: 'STABILITY_INCOME_ADJ', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -655,41 +660,41 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }, disabled: true
             },
-            {caption: ['급여년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['급여년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["급여유형"], ref: 'PAY_TYPE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ['급여일'], ref: 'PAY_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['급여일'], ref: 'PAY_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["급여항목(직원)"], ref : 'EMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["고용보험료(사원)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption : ["고용보험급여항목(회사)"], ref : 'COMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["고용보험료(회사)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption : ["연말고용보험급여항목(사원)"], ref : 'EMP_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["연말정산고용보험료(사원)"], ref: 'EMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption : ["연말고용보험급여항목(회사)"], ref : 'COMP_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["연말정산고용보험료(회사)"], ref: 'COMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption : ["정산고용보험급여항목(사원)"], ref : 'EMP_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["정산고용보험료(사원)"], ref: 'EMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption : ["정산고용보험급여항목(회사)"], ref : 'COMP_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItem',  label : 'label', value : 'value'}
             },
             {caption: ["정산고용보험료(회사)"], ref: 'COMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
         ];
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
@@ -832,7 +837,7 @@
                             width: '100px',
                             style: 'text-align:right'
                             , merge: false
-                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }
                         };
 
                         columns1.push(columns);
@@ -852,7 +857,7 @@
                     width: '100px',
                     style: 'text-align:right'
                     , merge : false
-                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }
                 };
 
                 columns1.push(columns);
@@ -871,7 +876,7 @@
                 width: '100px',
                 style: 'text-align:right'
                 , merge: false
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }
             };
 
             columns1.push(columns);
@@ -1132,6 +1137,9 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
+                /** @type {number} **/
+                let totalRecordCount = 0;
+
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
@@ -1169,9 +1177,11 @@
                         COMP_PAY_AMT             : gfn_nvl(item.COMP_PAY_AMT),
                     }
                     jsonGvwList.push(msg);
+                    totalRecordCount++;
                 });
 
                 gvwListGrid.rebuild();
+                document.querySelector('#listCount').innerText = totalRecordCount;
 
                 gvwListGrid.setColDisabled(6, false);
                 gvwListGrid.setColDisabled(7, false);

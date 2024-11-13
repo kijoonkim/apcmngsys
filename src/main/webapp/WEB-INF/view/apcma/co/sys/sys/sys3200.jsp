@@ -24,7 +24,7 @@
 <head>
     <title>title : 관리번호 채번 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -35,79 +35,71 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3><!-- 국가정보 -->
             </div>
-           <%-- <div style="margin-left: auto;">
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_create"></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>
-                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_search"></sbux-button>
-            </div>--%>
         </div>
 
-        <!--[pp] 검색 -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">채번그룹</th>
-               <%-- <td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_NUMBERING_GROUP"
-                            name="SRCH_NUMBERING_GROUP"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonNumberingGroup"
-                    />
-                </td>--%>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_NUMBERING_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_NUMBERING_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search로">채번그룹</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_NUMBERING_GROUP" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_NUMBERING_GROUP"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">채번 ID</th>
-                <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="SRCH_NUMBERING_ID" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">채번명</th>
-                <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="SRCH_NUMBERING_NAME" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search로">채번 ID</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_NUMBERING_ID" uitype="text" style="width:100%" placeholder=""
+                                    class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="thth_bg_search로_bg">채번명</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_NUMBERING_NAME" uitype="text" style="width:100%" placeholder=""
+                                    class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td colspan="8" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="ad_tbl_top">
@@ -463,7 +455,10 @@
                 </div>
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
-                        <li><span>채번 이력</span></li>
+                        <li>
+                            <span>채번 이력</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                        </li>
                     </ul>
                     <div class="ad_tbl_toplist">
                         <sbux-button
@@ -966,7 +961,7 @@
                     });
 
                     gvwHistoryGrid.rebuild();
-                    //document.querySelector('#listCount').innerText = totalRecordCount;
+                    document.querySelector('#listCount2').innerText = totalRecordCount;
 
                 } else {
                     alert(data.resultMessage);

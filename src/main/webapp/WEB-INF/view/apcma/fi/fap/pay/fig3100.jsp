@@ -24,7 +24,7 @@
 <head>
     <title>title : 전자세금계산서 관리(매입)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -48,193 +48,202 @@
 
             </div>
         </div>
+
         <div class="box-body">
 
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <table id="dataArea1" class="table table-bordered tbl_fixed">
-                <caption>검색 조건 설정</caption>
-                <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 6%">
-                    <col style="width: 1%">
-                    <col style="width: 6%">
-                    <col style="width: 2%">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
-                    <col style="width: 1%">
-                    <col style="width: 6%">
-                    <col style="width: 2%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
-                    <col style="width: 1%">
-                    <col style="width: 6%">
-                    <col style="width: 2%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
-                    <col style="width: 1%">
-                    <col style="width: 6%">
-                    <col style="width: 2%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">년월</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker
-                                id="SRCH_YMDPERIOD_YYYYMM"
-                                name="SRCH_YMDPERIOD_YYYYMM"
-                                uitype="popup"
-                                datepicker-mode="month"
-                                date-format="yyyy-mm"
-                                class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                required
-                                onchange="fn_payDate"
-                        ></sbux-datepicker>
-                    </td>
-                    <td colspan="3" style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">사업단위</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="th_bg_search">년월</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker
+                                    id="SRCH_YMDPERIOD_YYYYMM"
+                                    name="SRCH_YMDPERIOD_YYYYMM"
+                                    uitype="popup"
+                                    datepicker-mode="month"
+                                    date-format="yyyy-mm"
+                                    class="table-datepicker-ma inpt_data_reqed"
+                                    required
+                                    onchange="fn_payDate"
+                            ></sbux-datepicker>
+                        </td>
+                        <td colspan="3" style="border-right: hidden;"></td>
+                        <th scope="row" class="th_bg_search">사업단위</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <div class="dropdown">
+                                <button style="width:100%;text-align:left"
+                                        class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button"
+                                        id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE"
+                                     style="width:600px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td colspan="3" style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">조회구분</th>
-                    <td colspan="4" class="td_input inpt_data_reqed">
-                        <sbux-radio id="ALL" name="SRCH_RIDGUBUN" uitype="normal"
-                                    text="전체" value="99" checked>
-                        </sbux-radio>
-                        <sbux-radio id="TAX" name="SRCH_RIDGUBUN" uitype="normal"
-                                    text="세금계산서" value="20">
-                        </sbux-radio>
-                        <sbux-radio id="BILL" name="SRCH_RIDGUBUN" uitype="normal"
-                                    text="계산서" value="10">
-                        </sbux-radio>
-                    </td>
-                    <th scope="row" class="th_bg">사업자번호</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_CS_BIZ_REGNO"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="3" style="border-right: hidden;"></td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">작성일자</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker
-                                id="SRCH_DATE_FR"
-                                name="SRCH_DATE_FR"
-                                uitype="popup"
-                                date-format="yyyy-mm-dd"
-                                class="form-control input-sm input-sm-ast inpt_data_reqed"
-                        ></sbux-datepicker>
-                    </td>
-                    <td>
-                        <p>~</p>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker
-                                id="SRCH_DATE_TO"
-                                name="SRCH_DATE_TO"
-                                uitype="popup"
-                                date-format="yyyy-mm-dd"
-                                class="form-control input-sm input-sm-ast inpt_data_reqed"
-                        ></sbux-datepicker>
-                    </td>
-                    <td style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">상호</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_CS_NAME"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="3" style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">관련부서</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_DEPT_CODE"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                        <%-- uitype="hidden"--%>
-                                uitype="text"
-                                id="SRCH_DEPT_NAME"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td <%--colspan="2"--%> class="td_input" >
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
-                                target-id="modal-compopup1"
-                                onclick="fn_compopup1"
-                        ></sbux-button>
-                    </td>
-                    <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_EMP_CODE"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                        <%-- uitype="hidden"--%>
-                                uitype="text"
-                                id="SRCH_EMP_NAME"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td class="td_input" >
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
-                                target-id="modal-compopup1"
-                                onclick="fn_compopup2"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr style="display: none">
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_TXTAMT"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_TXTAPPROVAL_NO"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="SRCH_NUMROW_CNT"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td style="border-right: hidden;"></td>
+                        <th scope="row" class="th_bg_search">조회구분</th>
+                        <td colspan="4" class="td_input inpt_data_reqed">
+                            <sbux-radio id="ALL" name="SRCH_RIDGUBUN" uitype="normal"
+                                        text="전체" value="99" checked>
+                            </sbux-radio>
+                            <sbux-radio id="TAX" name="SRCH_RIDGUBUN" uitype="normal"
+                                        text="세금계산서" value="20">
+                            </sbux-radio>
+                            <sbux-radio id="BILL" name="SRCH_RIDGUBUN" uitype="normal"
+                                        text="계산서" value="10">
+                            </sbux-radio>
+                        </td>
+                        <th scope="row" class="th_bg_search">사업자번호</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_CS_BIZ_REGNO"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td style="border-right: hidden;"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="th_bg_search">작성일자</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker
+                                    id="SRCH_DATE_FR"
+                                    name="SRCH_DATE_FR"
+                                    uitype="popup"
+                                    date-format="yyyy-mm-dd"
+                                    class="table-datepicker-ma inpt_data_reqed"
+                            ></sbux-datepicker>
+                        </td>
+                        <td>
+                            <p>~</p>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker
+                                    id="SRCH_DATE_TO"
+                                    name="SRCH_DATE_TO"
+                                    uitype="popup"
+                                    date-format="yyyy-mm-dd"
+                                    class="table-datepicker-ma inpt_data_reqed"
+                            ></sbux-datepicker>
+                        </td>
+                        <td style="border-right: hidden;"></td>
+                        <th scope="row" class="th_bg_search">상호</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_CS_NAME"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td style="border-right: hidden;"></td>
+                        <th scope="row" class="th_bg_search">관련부서</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_DEPT_CODE"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                            <%-- uitype="hidden"--%>
+                                    uitype="text"
+                                    id="SRCH_DEPT_NAME"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td <%--colspan="2"--%> class="td_input">
+                            <sbux-button
+                                    class="btn btn-xs btn-outline-dark"
+                                    uitype="modal"
+                                    target-id="modal-compopup1"
+                                    onclick="fn_compopup1"
+                                    text="…"
+                            ></sbux-button>
+                        </td>
+                        <th scope="row" class="th_bg_search">사원</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_EMP_CODE"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                            <%-- uitype="hidden"--%>
+                                    uitype="text"
+                                    id="SRCH_EMP_NAME"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td class="td_input">
+                            <sbux-button
+                                    class="btn btn-xs btn-outline-dark"
+                                    uitype="modal"
+                                    target-id="modal-compopup1"
+                                    onclick="fn_compopup2"
+                                    text="…"
+                            ></sbux-button>
+                        </td>
+                    </tr>
+                    <tr style="display: none">
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_TXTAMT"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_TXTAPPROVAL_NO"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="SRCH_NUMROW_CNT"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
 
@@ -531,8 +540,8 @@
                 ,colValue		: 'FI_ORG_CODE'
                 ,colLabel		: 'FI_ORG_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'FI_ORG_CODE', 		width:'300px',  	style:'text-align:left'},
+                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'300px',  	style:'text-align:left'}
                 ]
             }),
             // 제외사유
@@ -861,10 +870,10 @@
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,tableColumnWidths		: ["80px"    , "80px"    , "120px"     , "120px"    , "80px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
-                gvwListGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
             },
         });
     }
@@ -1599,14 +1608,14 @@
             {caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type: 'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd', oneclickedit: true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'input', width: '170px', style: 'text-align:left'},
-            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
-            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
             {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type:'input',  width:'140px',  style:'text-align:left',
                 typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
@@ -1628,9 +1637,9 @@
             {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             {caption: ["상호"], ref: 'SELLER_NAME', type: 'input', width: '140px', style: 'text-align:left'},
@@ -1696,13 +1705,13 @@
             {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["전표담당자 조회"], 			ref: 'ACCOUNT_EMP_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},
 
 
-            {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, hidden: true},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left' , hidden: true},
             {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
@@ -1793,7 +1802,7 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["부서 조회"], ref: 'DEPT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             /*{caption : ["프로젝트코드"], ref : 'PROJECT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -1806,7 +1815,7 @@
             {caption: ["프로젝트"], ref: 'PROJECT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["프로젝트 조회"], ref: 'PROJECT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
             /*{caption : ["계정과목코드"], ref : 'ACCOUNT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -1819,7 +1828,7 @@
             {caption: ["계정과목"], ref: 'ACCOUNT_NAME', type: 'input', width: '160px', style: 'text-align:left'},
             {caption: ["계정과목 조회"], ref: 'ACCOUNT_POP_BTN',    type:'button',  	width:'90px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
                 }
             },
         ];

@@ -24,7 +24,7 @@
 <head>
     <title>title : 개인급여 정보 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -36,140 +36,140 @@
                 </h3><!-- 국가정보 -->
             </div>
         </div>
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">사업장</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">사업장</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">재직구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_EMP_STATE"
-                            name="SRCH_EMP_STATE"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonEmpState"
-                    />
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td colspan="2" class="td_input td_input_dtl" style="border-left:hidden">
-                    <sbux-button
-                            uitype="normal" id="lbladd1" name="lbladd1"
-                            class="btn btn-sm btn-outline-danger" text="변동항목추가" onclick="fn_lbladd1">
-                    </sbux-button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                            uitype="text"
-                            uitype="text"
-                            id="SRCH_DEPT_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_DEPT_NAME"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
-                    <%--<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('srch')">
-                        <img src='../../../resource/images/find2.png' width='12px' />
-                    </button>--%>
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            uitype="modal"
-                            target-id="modal-compopup1"
-                            image-src="../../../resource/images/find2.png"
-                            image-style="width:25px;height:15px;"
-                            onclick="fn_compopup1('srch')"
-                    ></sbux-button>
-                </td>
-                <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_CODE"
-                            class="form-control input-sm"
-                    ></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;" data-group="EMP">
-                    <sbux-input
-                            uitype="text"
-                            id="SRCH_EMP_FULL_NAME"
-                            class="form-control input-sm"
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">재직구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="SRCH_EMP_STATE"
+                                name="SRCH_EMP_STATE"
+                                class="form-control input-sm"
+                                jsondata-ref="jsonEmpState"
+                        />
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">급여영역</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="SRCH_PAY_AREA_TYPE"
+                                name="SRCH_PAY_AREA_TYPE"
+                                class="form-control input-sm"
+                                jsondata-ref="jsonPayAreaType"
+                        />
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <td colspan="5" class="td_input td_input_dtl" style="border-left:hidden">
+                        <sbux-button
+                                uitype="normal" id="lbladd1" name="lbladd1"
+                                class="btn btn-sm btn-outline-danger" text="변동항목추가" onclick="fn_lbladd1">
+                        </sbux-button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg_search">부서</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_DEPT_NAME"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" data-group="DEPT">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                uitype="modal"
+                                target-id="modal-compopup1"
+                                text="…"
+                                onclick="fn_compopup1('srch')"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg_search">사원</th>
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_CODE"
+                                class="form-control input-sm"
+                        ></sbux-input>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
+                        <sbux-input
+                                uitype="text"
+                                id="SRCH_EMP_FULL_NAME"
+                                class="form-control input-sm"
 
-                    ></sbux-input>
-                </td>
-                <td <%--colspan="2"--%> class="td_input" data-group="EMP">
-                    <%--<button id="BTN_POP2" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('srch')">
-                        <img src='../../../resource/images/find2.png' width='12px' />
-                    </button>--%>
-                    <sbux-button
-                            class="btn btn-xs btn-outline-dark"
-                            uitype="modal"
-                            target-id="modal-compopup1"
-                            image-src="../../../resource/images/find2.png"
-                            image-style="width:25px;height:15px;"
-                            onclick="fn_compopup2('srch')"
-                    ></sbux-button>
-                </td>
-                <th scope="row" class="th_bg">급여영역</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_PAY_AREA_TYPE"
-                            name="SRCH_PAY_AREA_TYPE"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonPayAreaType"
-                    />
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
-
+                        ></sbux-input>
+                    </td>
+                    <td class="td_input" data-group="EMP">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                uitype="modal"
+                                target-id="modal-compopup1"
+                                text="…"
+                                onclick="fn_compopup2('srch')"
+                        ></sbux-button>
+                    </td>
+                    <td colspan="10" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="ad_tbl_top">
@@ -1259,9 +1259,9 @@
             {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptName', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["급여계좌은행"], ref : 'BANK_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonBankCode', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1303,9 +1303,9 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['시작일자'], 		ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['시작일자'], 		ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['종료일자'], 		ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['종료일자'], 		ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["급여기본급"], ref: 'SALARY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
@@ -1379,9 +1379,9 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1418,9 +1418,9 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1458,11 +1458,11 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, /*disabled: true,*/ //수정
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, /*disabled: true,*/ //수정
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
-            {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo',
@@ -1499,17 +1499,17 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,  disabled: true,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,  disabled: true,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['수정시간'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정시간'], ref: 'USERTIME', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
@@ -1541,9 +1541,9 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작월'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작월'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}, disabled: true},
-            {caption: ['적용종료월'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료월'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1554,7 +1554,7 @@
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
@@ -1581,9 +1581,9 @@
             {caption : ["지급구분"], ref : 'INSU_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonInsuType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['가입일'], ref: 'START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['가입일'], ref: 'START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['종료일'], ref: 'END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['종료일'], ref: 'END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["자격부여사유"], ref : 'INSU_REASON_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonInsuReasonType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1608,7 +1608,7 @@
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true}
 
         ];
@@ -1635,9 +1635,9 @@
             {caption : ["요양"], ref : 'LONG_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonLongApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['가입일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['가입일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['종료일'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['종료일'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["보수월액"], ref: 'BASE_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -1650,7 +1650,7 @@
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
@@ -1671,16 +1671,16 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['시작일'], ref: 'APPLY_START_DATE', 	width:'150px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['시작일'], ref: 'APPLY_START_DATE', 	width:'150px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['종료일'], ref: 'APPLY_END_DATE', 	width:'150px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['종료일'], ref: 'APPLY_END_DATE', 	width:'150px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비율%"], ref: 'WITHHOLD_RATE', type: 'input', width: '150px', style: 'text-align:right' , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 3}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '150px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];

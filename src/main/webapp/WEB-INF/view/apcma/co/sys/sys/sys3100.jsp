@@ -24,7 +24,7 @@
 <head>
     <title>title : 소수점 설정 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -35,61 +35,57 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3><!-- 소수점 설정 -->
             </div>
-            <%--<div style="margin-left: auto;">
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>
-
-                <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-
-                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-            </div>--%>
         </div>
 
-        <!--[pp] 검색 -->
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">소수유형ID</th>
-                <td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="SRCH_DECIMAL_ID" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">소수유형명</th>
-                <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="SRCH_DECIMAL_NAME" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg" style="display: none"></th>
-                <td class="td_input" style="border-right: hidden;">
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search로">소수유형ID</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_DECIMAL_ID" uitype="text" style="width:100%" placeholder=""
+                                    class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search로">소수유형명</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_DECIMAL_NAME" uitype="text" style="width:100%" placeholder=""
+                                    class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td colspan="11" style="border-right: hidden;">&nbsp;</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="ad_tbl_top">
@@ -101,7 +97,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-grdSys3100" style="height:616px; width:100%;"></div>
+                    <div id="sb-area-grdSys3100" style="height:800px; width:100%;"></div>
                 </div>
             </div>
 

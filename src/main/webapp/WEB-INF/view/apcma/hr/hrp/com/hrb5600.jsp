@@ -24,7 +24,7 @@
 <head>
     <title>title : 수당기준 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -40,68 +40,80 @@
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tr>
-                <th scope="row" class="th_bg">기준일</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_APPLY_DATE"
-                            name="SRCH_APPLY_DATE"
-                            uitype="popup"
-                            date-format="yyyy-mm-dd"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed">
-                    </sbux-datepicker>
-                </td>
-                <td colspan="10" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            <tr>
-                <th scope="row" class="th_bg">급여항목</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAY_ITEM_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_ITEM_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tr>
+                    <th scope="row" class="th_bg_search">기준일</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_APPLY_DATE"
+                                name="SRCH_APPLY_DATE"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma inpt_data_reqed">
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">급여항목</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_PAY_ITEM_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_PAY_ITEM_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">지급구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="SRCH_PAY_TYPE"
-                            name="SRCH_PAY_TYPE"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonPayType"
-                    />
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">지급구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="SRCH_PAY_TYPE"
+                                name="SRCH_PAY_TYPE"
+                                class="form-control input-sm"
+                                jsondata-ref="jsonPayType"
+                        />
+                    </td>
+                    <td colspan="6" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="row">
             <div class="col-sm-4">
@@ -245,7 +257,10 @@
 
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
-                        <li><span>적용기준 상세</span></li>
+                        <li>
+                            <span>적용기준 상세</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                        </li>
                     </ul>
                     <div class="ad_tbl_toplist">
                         <sbux-button
@@ -270,7 +285,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwBandgvwDetailList" style="height:283px; width:100%;"></div>
+                    <div id="sb-area-gvwBandgvwDetailList" style="height:550px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -647,6 +662,8 @@
 
                     });
 
+                    /** @type {number} **/
+                    let totalRecordCount = 0;
 
                     jsonBandgvwDetailList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -660,9 +677,11 @@
 
                         }
                         jsonBandgvwDetailList.push(msg);
+                        totalRecordCount++;
                     });
 
                     gvwBandgvwDetailGrid.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount;
 
                     fn_settings('true');
 

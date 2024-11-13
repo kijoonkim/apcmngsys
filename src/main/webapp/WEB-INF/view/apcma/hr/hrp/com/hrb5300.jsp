@@ -40,75 +40,90 @@
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">급여체계</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAY_GROUP_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_GROUP_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+
+                    <col style="width: 10%">
+                    <col style="width: 6%">
+                    <col style="width: 1%">
+                    <col style="width: 6%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">급여체계</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left"
+                                    class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button"
+                                    id="SRCH_PAY_GROUP_CODE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_PAY_GROUP_CODE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-
-                <th scope="row" class="th_bg">지급구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_PAY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">지급구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left"
+                                    class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button"
+                                    id="SRCH_PAY_TYPE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_PAY_TYPE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-
-                <th scope="row" class="th_bg">급여항목구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAY_ITEM_CATEGORY" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_PAY_ITEM_CATEGORY" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search">급여항목구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_PAY_ITEM_CATEGORY" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_PAY_ITEM_CATEGORY"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>
-
-            </tr>
-            </tbody>
-        </table>
-
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
@@ -119,7 +134,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwMaster" style="height:230px; width:100%;"></div>
+                <div id="sb-area-gvwMaster" style="height:350px; width:100%;"></div>
             </div>
         </div>
 
@@ -428,37 +443,37 @@
                 }
             },
             {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCategory',  label : 'label', value : 'value'}
             },
             {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["급여항목명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["집계방법구분"], ref : 'SUMMARY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSummaryType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSummaryType',  label : 'label', value : 'value'}
             },
             {caption : ["관련항목"], ref : 'SUMMARY_RELATED_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSummaryRelatedCode', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSummaryRelatedCode',  label : 'label', value : 'value'}
             },
             {caption: ["계산순서"], ref: 'CALCULATE_SEQ', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ['시작일자'], 		ref: 'START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
+            {caption: ['시작일자'], 		ref: 'START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['종료일자'], 		ref: 'END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
+            {caption: ['종료일자'], 		ref: 'END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["비례계수제외여부"], ref: 'PPTLCT_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
-            {caption: ["지급제외항목"], ref: 'PAY_EXCLUDE_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["지급제외항목"], ref: 'PAY_EXCLUDE_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
-            {caption: ["소급계산여부"], ref: 'RECALC_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["소급계산여부"], ref: 'RECALC_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
-            {caption: ["최대한도 적용"], ref: 'APPLY_MAX_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["최대한도 적용"], ref: 'APPLY_MAX_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
             {caption: ["최대한도값"], ref: 'APPLY_MAX_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["최소한도 적용"], ref: 'APPLY_MIN_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["최소한도 적용"], ref: 'APPLY_MIN_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
             }},
             {caption: ["최소한도값"], ref: 'APPLY_MIN_AMT', type: 'input', width: '100px', style: 'text-align:right'
@@ -496,7 +511,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCategory',  label : 'label', value : 'value'}
             },
             {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},

@@ -25,7 +25,7 @@
 <head>
     <title>title : 급여 전표처리기준 정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -37,65 +37,79 @@
                 </h3><!-- 급여 전표처리기준 -->
             </div>
         </div>
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 5%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 5%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 2%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">급여체계</th>
-                <td class="td_input">
-                    <sbux-select
-                            id="SRCH_PAY_GROUP_CODE"
-                            uitype="single"
-                            jsondata-ref="jsonPayGroupCode"
-                            unselected-text=""
-                            class="form-control input-sm inpt_data_reqed"
-                            required
-                    ></sbux-select>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">전표구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_HR_POSTING_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_HR_POSTING_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search로">급여체계</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select
+                                id="SRCH_PAY_GROUP_CODE"
+                                uitype="single"
+                                jsondata-ref="jsonPayGroupCode"
+                                unselected-text="선택"
+                                class="form-control input-sm inpt_data_reqed"
+                                required
+                        ></sbux-select>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search로">전표구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_HR_POSTING_TYPE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_HR_POSTING_TYPE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-                <th scope="row" class="th_bg">상대계정(미지급금)</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-input
-                            id="SRCH_TXTCORRESPONDING_ACCOUNT"
-                            class="form-control input-sm"
-                            uitype="text"
-                            style="width:100%"
-                            readonly>
-                    </sbux-input>
-                </td>
-                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td style="border-right: hidden;">&nbsp;</td>
+                    <th scope="row" class="th_bg_search로">상대계정(미지급금)</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                id="SRCH_TXTCORRESPONDING_ACCOUNT"
+                                class="form-control input-sm"
+                                uitype="text"
+                                style="width:100%"
+                                readonly>
+                        </sbux-input>
+                    </td>
+                    <td colspan="6" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div>
             <div class="ad_tbl_top">
@@ -107,7 +121,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-bandgvwInfo" style="height:430px; width:100%;"></div>
+                <div id="sb-area-bandgvwInfo" style="height:530px; width:100%;"></div>
             </div>
         </div>
         <div>
@@ -214,7 +228,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('1')"
                             ></sbux-button>
@@ -238,7 +252,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('2')"
                             ></sbux-button>
@@ -262,7 +276,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_findIntroducerCode('1')"
                             ></sbux-button>
@@ -287,7 +301,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('3')"
                             ></sbux-button>
@@ -310,7 +324,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('4')"
                             ></sbux-button>
@@ -334,7 +348,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_findIntroducerCode('2')"
                             ></sbux-button>
@@ -359,7 +373,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('5')"
                             ></sbux-button>
@@ -383,7 +397,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('6')"
                             ></sbux-button>
@@ -408,7 +422,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_findIntroducerCode('3')"
                             ></sbux-button>
@@ -433,7 +447,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('7')"
                             ></sbux-button>
@@ -457,7 +471,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('8')"
                             ></sbux-button>
@@ -482,7 +496,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_findIntroducerCode('4')"
                             ></sbux-button>
@@ -507,7 +521,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_findCsCode"
                             ></sbux-button>
@@ -531,7 +545,7 @@
                         <td class="td_input" style="border-right:hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_ACCOUNT_POPUP('9')"
                             ></sbux-button>
@@ -892,10 +906,10 @@
         SBGridProperties.frozencols = 5;
         SBGridProperties.columns = [
             {caption : ["구분","구 분"], ref : 'PAY_ITEM_CATEGORY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCategory',  label : 'label', value : 'value'}
             },
             {caption : ["구분","급여항목"], ref : 'HR_PAY_ACCOUNT_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonHrPayAccountType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonHrPayAccountType',  label : 'label', value : 'value'}
             },
             {caption: ["구분","계정처리"], ref: 'ACCOUNTING_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -904,7 +918,7 @@
             },
             {caption: ["구분","차대구분"], ref: 'DEBIT_CREDIT', type: 'output', width: '100px', style: 'text-align:left' , hidden: true},
             {caption : ["구분","집계단위"], ref : 'POSTING_SUMMARY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPostingSummaryType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPostingSummaryType',  label : 'label', value : 'value'}
             },
             {caption: ["판매비","판매비 주계정"], ref: 'SALES_COST_ACC_CODE', type: 'output', width: '120px', style: 'text-align:left', disabled: true},
             {caption: ["판매비","판매비 주계정명"], ref: 'SALES_COST_ACC_NAME', type: 'output', width: '120px', style: 'text-align:left', disabled: true},
@@ -952,7 +966,7 @@
                 }, hidden: true
             },
             {caption : ["전표처리급여항목","전표처리급여항목"], ref : 'ACCOUNT_PAY_ITEM', width : '140px', style : 'text-align:center', type : 'combo', hidden: true,
-                typeinfo : {ref : 'jsonHrPayAccountType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonHrPayAccountType',  label : 'label', value : 'value'}
             },
             {caption: ["전표급여항목명","전표급여항목명"], ref: 'ACCOUNT_PAY_ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left' , hidden: true},
         ];

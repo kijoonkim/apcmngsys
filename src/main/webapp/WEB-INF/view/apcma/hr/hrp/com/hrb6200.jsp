@@ -24,7 +24,7 @@
 <head>
     <title>title : 간이세액조건표</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -39,7 +39,10 @@
                 </h3><!-- 간이세액조건표 -->
             </div>
         </div>
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+        <div class="box-search-ma">
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+        </div>
+
     <div class="row">
         <div class="col-sm-4">
             <div class="ad_tbl_top">
@@ -58,7 +61,9 @@
         <div class="col-sm-8">
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
-                    <li><span>간이세율표 기본 정보</span></li>
+                    <li>
+                        <span>간이세율표 정보</span>
+                    </li>
                 </ul>
             </div>
 
@@ -127,13 +132,14 @@
                 <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
                 </sbux-tabs>
                 <div class="tab-content">
-                    <div class="ad_tbl_top">
-                        <ul class="ad_tbl_count">
-                            <li><span>간이세율표 정보</span></li>
-                        </ul>
-                    </div>
                     <div id="bandgvwDetailTab" >
                         <div class="ad_tbl_toplist">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>간이세율표 정보</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                </li>
+                            </ul>
                             <sbux-button
                                     id="btnDel"
                                     name="btnDel"
@@ -187,6 +193,12 @@
                     </div>
                     <div id="gvwItemTab" >
                         <div class="ad_tbl_toplist">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>1000만원 초과</span>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                </li>
+                            </ul>
                             <sbux-button
                                     id="btnDelItem"
                                     name="btnDelItem"
@@ -806,6 +818,10 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
+
+                    /** @type {number} **/
+                    let totalRecordCount2 = 0;
+
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
@@ -835,10 +851,16 @@
                             APPLY_END_DATE      : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonDetailList.push(msg);
+                        totalRecordCount2++;
                     });
 
                     grdDetail.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount2;
 
+
+
+                    /** @type {number} **/
+                    let totalRecordCount3 = 0;
 
                     jsonItemList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -852,9 +874,11 @@
                             APPLY_END_DATE          : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonItemList.push(msg);
+                        totalRecordCount3++;
                     });
 
                     grdItemList.rebuild();
+                    document.querySelector('#listCount3').innerText = totalRecordCount3;
 
 
                 } else {
