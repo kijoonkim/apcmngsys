@@ -25,7 +25,6 @@
 <head>
     <title>title : 부가세전자신고파일생성</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -471,6 +470,8 @@
 		        })			
 			
 			]);
+		
+		console.log(jsonVatType);
 	}
     
 	const fn_setSrchSeq = async function(_seq) {
@@ -648,6 +649,12 @@
 		const seq = gfn_nvl(gfnma_multiSelectGet("#srch-ddm-seq"));
 		const taxSiteName = gfn_nvl(SBUxMethod.get('srch-inp-taxSiteName'));
 		const bizRegno = gfn_nvl(SBUxMethod.get('srch-inp-bizRegno'));
+		
+        if (gfn_isEmpty(taxSiteName)) {
+            gfn_comAlert("W0002", "신고구분명");
+            return;
+        }
+		
 		
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
@@ -1053,6 +1060,8 @@
     	const nowDate = new Date();
 		const nowYmd = gfn_dateToYmd(nowDate);
 		
+		let isSuccess = true;
+		
 		for ( let i=0; i<jsonTaxSite.length; i++ ) {
 			
 			const taxSite = jsonTaxSite[i];
@@ -1074,13 +1083,13 @@
 					break;
 			}
 			
-			let isSuccess = true;
+			
 			
 			try {
 				
-				await fn_getFileContent(_workType, taxSiteCode);
-				console.log("jsonVatContents", jsonVatContents);
-				if (jsonVatContents.length == 0) {
+				isSuccess = await fn_getFileContent(_workType, taxSiteCode);
+				
+				if (isSuccess && jsonVatContents.length == 0) {
 					isSuccess = false;
 				}
 				
@@ -1129,7 +1138,9 @@
 			}
 		}
 		
-		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		if (isSuccess) {
+			gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		}
 		
 		// 로그조회
 		fn_setGrdFileLog();
@@ -1192,8 +1203,11 @@
                 	});
                 }
                 
+                return true;
+                
             } else {
                 alert(listData.resultMessage);
+                return false;
             }
             
         } catch (e) {
@@ -1202,6 +1216,8 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            
+            return false;
         }
 	}
 	
@@ -1242,6 +1258,8 @@
     	const nowDate = new Date();
 		const nowYmd = gfn_dateToYmd(nowDate);
 		
+		let isSuccess = true;
+		
 		for ( let i=0; i<jsonTaxSite.length; i++ ) {
 			
 			const taxSite = jsonTaxSite[i];
@@ -1250,12 +1268,11 @@
 			
 			const taxSiteCode = taxSite['TAX_SITE_CODE'];
 			
-			let isSuccess = true;
 			
 			try {
-				await fn_getFileContent('FILE', taxSiteCode);
+				isSuccess = await fn_getFileContent('FILE', taxSiteCode);
 				
-				if (jsonVatContents.length == 0 || jsonVatRepDetailType.length == 0) {
+				if (isSuccess && (jsonVatContents.length == 0 || jsonVatRepDetailType.length == 0)) {
 					isSuccess = false;
 				}
 				
@@ -1310,7 +1327,9 @@
 			}
 		}
 		
-		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		if (isSuccess) {
+			gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		}
 		
 		// 로그조회
 		fn_setGrdFileLog();
