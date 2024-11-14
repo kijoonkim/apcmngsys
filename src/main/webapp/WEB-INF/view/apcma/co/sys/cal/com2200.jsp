@@ -644,7 +644,7 @@
             {caption : ["기간","년도"],					ref: 'PERIOD_YYYY', 			type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption : ["기간","기간코드"],				ref: 'PERIOD_CODE', 			type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption : ["기간","기간명"],					ref: 'PERIOD_NAME',				type:'output',  	width:'150px',  	style:'text-align:center'},
-            {caption : ["FCM현업","FCMFCM현업마감모듈"],	ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM현업","FCM현업마감모듈"],		ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM현업","FCM현업마감여부"],		ref: 'WORK_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM담당자","FCM담당자마감모듈"],	ref: 'CONTRACT_CLOSE_CNT',		type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM담당자","FCM담당자마감여부"],	ref: 'CONTRACT_CLOSE_STATUS',	type:'output',  	width:'150px',  	style:'text-align:center'},
