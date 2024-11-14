@@ -39,101 +39,114 @@
             </div>
             <div class="box-body">
 
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
+				<div class="box-search-ma">
+					<!--[pp] 검색 -->
+					<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+					<!--[APC] END -->
+					<table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+						<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <%--<th scope="row" class="th_bg">사업단위</th>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+						</colgroup>
+						<tbody>
+						<tr>
+							<%--<th scope="row" class="th_bg">사업단위</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>--%>
-                        
-                            <th scope="row" class="th_bg">조회기준일자</th>
-                            <td colspan="3" class="td_input" >
-							    <sbux-datepicker
-							            id="SCH_BASE_DATE"
-							            uitype="popup"
-							            date-format="yyyy-mm-dd"
-							            class="form-control input-sm input-sm-ast inpt_data_reqed">
-							    </sbux-datepicker>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">만기차입금포함여부</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-							<td colspan="4" style="border-right: hidden;"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">차입금유형</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">차입기관</th>
+
+							<th scope="row" class="th_bg_search">조회기준일자</th>
+							<td class="td_input">
+								<sbux-datepicker
+										id="SCH_BASE_DATE"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="table-datepicker-ma inpt_data_reqed">
+								</sbux-datepicker>
+							</td>
+							<td colspan="3" style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg_search">만기차입금포함여부</th>
+							<td colspan="3" class="td_input">
+								<sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn"
+											 unselected-text="선택" class="form-control input-sm"></sbux-select>
+							</td>
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg_search">차입금유형</th>
+							<td colspan="3" class="td_input">
+								<sbux-select id="SCH_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType"
+											 unselected-text="선택" class="form-control input-sm"></sbux-select>
+							</td>
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg_search">차입기관</th>
 							<td class="td_input" data-group="BANK_CS">
-								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text"
+											class="form-control input-sm"></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" data-group="BANK_CS">
+								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text"
+											class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" data-group="BANK_CS">
-								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input" data-group="BANK_CS">
-								<%--<sbux-button
+								<sbux-button
 										class="btn btn-xs btn-outline-dark"
-										type="button"
-										class='ma-btn1'
-										onclick="fn_compopup1('1')">
-									<img src='../../../resource/images/find2.png' width='12px' />
-								</sbux-button>--%>
-								<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1('1')">
-									<img src='../../../resource/images/find2.png' width='12px' />
-								</button>
+										text="…"
+										uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_compopup1('1')"
+								></sbux-button>
 							</td>
-                        
-                            <th scope="row" class="th_bg">거래일자</th>
-                            <td colspan="3" class="td_input" >
-	                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
-								    <sbux-datepicker
-								            id="SCH_BASE_DATE_FR"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast">
-								    </sbux-datepicker>
-								    <font style="padding-left:5px;padding-right:5px" >-</font>                          
-								    <sbux-datepicker
-								            id="SCH_BASE_DATE_TO"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast">
-								    </sbux-datepicker>                          
-                            	</div>                            
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg_search">거래일자</th>
+							<td class="td_input">
+								<sbux-datepicker
+										id="SCH_BASE_DATE_FR"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="table-datepicker-ma">
+								</sbux-datepicker>
+							</td>
+							<td class="td_input">
+								<span>-</span>
+							</td>
+							<td class="td_input">
+								<sbux-datepicker
+										id="SCH_BASE_DATE_TO"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="table-datepicker-ma">
+								</sbux-datepicker>
+							</td>
+							<td colspan="16" style="border-right: hidden;"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
                 
                 <div class="row">
-                
                     <div class="col-sm-6" style="width:100%">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -144,7 +157,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid_top" style="height:180px; width:100%;"></div>
+                            <div id="sb_area_grid_top" style="height:280px; width:100%;"></div>
                         </div>
                     </div>
                 
@@ -159,7 +172,7 @@
 						   title-target-value-array="5"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
-						<div class="tab-content" style="height:330px;width:100%;padding-top:0px" >
+						<div class="tab-content" style="height:430px;width:100%;padding-top:0px" >
 						
 							<%--<div id="SB_TOP_TAB1" >
 		                        <div class="ad_tbl_top">
@@ -957,7 +970,7 @@
 		                            <ul class="ad_tbl_count">
 		                                <li>
 		                                    <span>상환계획</span>
-											<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+											<%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
 		                                </li>
 		                            </ul>
 				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
@@ -992,7 +1005,7 @@
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
+		                            <div id="sb_area_grid_tap5" style="height:380px; width:100%;"></div>
 		                        </div>							
 							</div>
 						
@@ -1219,20 +1232,20 @@
 		SBGridProperties.columns = [
 			{caption: ["차입금번호"],	ref: 'LOAN_NUM', 	type:'output',  	width:'200px',  	style:'text-align:left'},
 			{caption : ["회계단위"], ref : 'FI_ORG_CODE', width : '200px', style : 'text-align:center', type : 'combo', hidden : true,
-				typeinfo : {ref : 'jsonFiOrgCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+				typeinfo : {ref : 'jsonFiOrgCode',  label : 'label', value : 'value'}/*, disabled: true*/
 			},
 			{caption : ["금융기관"], ref : 'BANK_CS_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonBankCsCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+				typeinfo : {ref : 'jsonBankCsCode',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+				typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption : ["차입금유형"], ref : 'LOAN_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonLoanType', displayui : true, label : 'label', value : 'value'}, disabled: true
+				typeinfo : {ref : 'jsonLoanType',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption: ["차입금명"],	ref: 'LOAN_NAME',	type:'output',  	width:'250px',  	style:'text-align:left'}, //P_FIM002 DBOBIZCOMPONENT 에 값이 없음.
 			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption: ["상환금액(통화)"],	ref: 'REPAY_AMT',   	type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -1342,7 +1355,7 @@
 			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}},
+				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}},
 			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -1351,7 +1364,7 @@
 			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right',
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
 			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center',
-				typeinfo : {ref : 'jsonRepayDd', displayui : true, label : 'label', value : 'value'}
+				typeinfo : {ref : 'jsonRepayDd',  label : 'label', value : 'value'}
 			},
 			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -1453,7 +1466,7 @@
 		        }
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
+		//SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -2001,7 +2014,7 @@
 			if (_.isEqual("S", data.resultStatus)) {
 
 				/** @type {number} **/
-                let totalRecordCount = 0;
+                //let totalRecordCount = 0;
 
 				/**************************** 상환계획 **********************************/
 				jsonTrl1030Tab5.length = 0;
@@ -2028,11 +2041,11 @@
 
 					}
 					jsonTrl1030Tab5.push(msg);
-					totalRecordCount++;
+					//totalRecordCount++;
 				});
 
 				Trl1030GridTab5.rebuild();
-				document.querySelector('#listCount2').innerText = totalRecordCount;
+				//document.querySelector('#listCount2').innerText = totalRecordCount;
 
 
 			} else {
