@@ -47,7 +47,6 @@
 		<result property="untyOgnzCd" column="UNTY_OGNZ_CD" />
 		<result property="ognzCd" column="OGNZ_CD" />
 		<result property="ognzNm" column="OGNZ_NM" />
-		<result property="corpCd" column="CORP_CD" />
 		<result property="corpNm" column="CORP_NM" />
 	
 
@@ -134,7 +133,7 @@
 				, CU.DEL_YN			AS DEL_YN
 
 				, CU.CLNT_CD        	AS CLNT_CD
-				, CU.CORP_CD        	AS CORP_CD
+				--, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
 				, CU.EMP_CD     		AS EMP_CD
 				, CU.DEPT_CD        	AS DEPT_CD
@@ -228,7 +227,7 @@
 				, CU.DEL_YN			AS DEL_YN
 
 				, CU.CLNT_CD        	AS CLNT_CD
-				, CU.CORP_CD        	AS CORP_CD
+				--, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
 				, CU.EMP_CD     		AS EMP_CD
 				, CU.DEPT_CD        	AS DEPT_CD
