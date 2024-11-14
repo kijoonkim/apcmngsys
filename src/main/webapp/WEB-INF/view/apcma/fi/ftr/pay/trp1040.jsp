@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row" class="th_bg_search">사업단위</th>
+                        <th scope="row" class="th_bg_search">APC명</th>
                         <td colspan="3" class="td_input">
                             <div class="dropdown">
                                 <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -523,7 +523,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 회계단위
+            // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -821,7 +821,7 @@
             {caption: ["DOC_ID"],         ref: 'DOC_ID',    type:'output',  	width:'115px',  style:'text-align:left', hidden: true},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'49px',  style:'text-align:left', hidden: true},
             {caption: ["보류사유"],         ref: 'HOLD_REASON',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["사업단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["APC명"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["작성자"],         ref: 'USER_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["법인번호"],         ref: 'COMP_REGNO',    type:'output',  	width:'110px',  style:'text-align:left'},
             {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',

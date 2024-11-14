@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg">사업단위</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -392,7 +392,7 @@
 
     var strDocNameList = "";
 
-    var jsonFiOrgCode = []; // 사업단위
+    var jsonFiOrgCode = []; // APC명
     var jsonDocStatus = []; // 전표상태
     var jsonDocType = []; // 전표구분
     var jsonPayMethod = []; // 수금방법
@@ -442,7 +442,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['gvwMaster', 'gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
@@ -622,7 +622,7 @@
             {caption: ["역분개전표번호"],         ref: 'REVERSE_DOC_NAME',    type:'output',  	width:'109px',  style:'text-align:left'},
             {caption: ["원천전표id"],         ref: 'ORIG_DOC_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["원천전표번호"],         ref: 'ORIG_DOC_NAME',    type:'output',  	width:'93px',  style:'text-align:left'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '109px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '109px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',
@@ -781,7 +781,7 @@
             {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'128px',  style:'text-align:left'},
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'177px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',

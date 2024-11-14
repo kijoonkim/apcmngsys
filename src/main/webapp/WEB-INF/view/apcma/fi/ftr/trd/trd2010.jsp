@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">사업단위</th>
+							<th scope="row" class="th_bg_search">APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -1216,7 +1216,7 @@
 
     var jsonBankCode = []; // 은행코드
     var jsonCurrencyCode = []; // 통화코드
-    var jsonFiOrgCode = []; // 사업단위
+    var jsonFiOrgCode = []; // APC명
     var jsonBankCsCode = []; // 금융기관코드
     var jsonDepositType = []; // 예적금유형
     var jsonBankAccountSeq = []; // 계좌정보
@@ -1249,7 +1249,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE', '#FI_ORG_CODE']
@@ -1696,7 +1696,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["예적금번호"],         ref: 'DEPOSIT_NUM',    type:'output',  	width:'144px',  style:'text-align:left'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',

@@ -2541,6 +2541,11 @@
             return;
         }
 
+        var nRow = gvwList.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
         cfn_add();
         editType = "U";
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
@@ -2553,12 +2558,6 @@
         SBUxMethod.attr('JOB_RANK', 'readonly', 'true');
         SBUxMethod.attr('ENTER_TYPE', 'readonly', 'false');
         SBUxMethod.attr('EMP_TYPE', 'readonly', 'false');
-
-
-        var nRow = gvwList.getRow();
-        if (nRow < 1) {
-            return;
-        }
 
         let rowData = gvwList.getRowData(nRow);
 
