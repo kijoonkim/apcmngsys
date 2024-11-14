@@ -154,7 +154,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div style="border:1px solid #d7d4d4">
+                        <div>
                             <div id="sb_area_grid1" style="height:250px; width:100%;"></div>
                         </div>
                     </div>
