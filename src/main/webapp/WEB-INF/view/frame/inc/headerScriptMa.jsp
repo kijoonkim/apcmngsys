@@ -37,6 +37,9 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+        let isDragging = false;
+        let clickElement = null;
+
         const targetNode = document.body;
 
         const config = {
@@ -59,6 +62,7 @@
                                 adjustPosition(node);
                             }
                         }
+
                     });
                 }
 
@@ -72,19 +76,30 @@
                     }
                 }
 
-                // 3. 기존 input 요소의 style 속성이 변경될 때
-                if (mutation.type === 'attributes' && mutation.attributeName === 'style' && mutation.target.tagName.toLowerCase() === 'input') {
+               /* if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                     const targetElement = mutation.target;
-                    const classList = targetElement.classList;
 
-                    // 특정 클래스 집합만 체크
-                    if (classList.contains('sbgrid_input_text') && classList.contains('sbgrid_input_text_st') && classList.contains('sbgrid_common')) {
-                        console.log('특정 클래스 집합을 가진 input의 style 속성이 변경되었습니다:', targetElement);
+                    if (targetElement.id === "SBHE_VL_bandgvwDetail") {
+                        // position이 static이면 relative로 변경
+                        if (window.getComputedStyle(targetElement).position === 'static') {
+                            targetElement.style.position = 'relative';
+                        }
 
-                        // top과 left 값을 1.25배로 조정
-                        adjustPosition(targetElement);
+                        const leftValue = window.getComputedStyle(targetElement).left;
+
+                        // left 값이 auto가 아닐 때만 실행
+                        if (leftValue !== 'auto') {
+                            console.log('left 값이 auto에서 다른 값으로 변경되었습니다:', leftValue);
+
+                            // leftValue에서 숫자 부분만 추출하고 1.25를 곱함
+                            const numericLeftValue = parseFloat(leftValue);
+                            const newLeftValue = numericLeftValue * 1.25;
+
+                            // 새로운 left 값을 설정 (단위 px 추가)
+                            targetElement.style.left = newLeftValue + 'px';
+                        }
                     }
-                }
+                }*/
             }
         };
 
@@ -121,77 +136,75 @@
                 }
             });
         }
-        /*
+
         // 더블클릭 이벤트를 감지하는 함수
         function handleTdDoubleClick(event) {
             const targetElement = event.target;
 
             // 특정 클래스 집합을 가진 td 요소가 더블클릭되었는지 확인
-            if (
-                targetElement.tagName.toLowerCase() === 'td' &&
-                targetElement.classList.contains('sbgrid_cell') &&
-                targetElement.classList.contains('sbgrid_cell_border_st') &&
-                targetElement.classList.contains('sbgrid_cell_st') &&
-                targetElement.classList.contains('sbgrid_data_cell_st') &&
-                targetElement.classList.contains('sbgrid_bandgvwDetail_col_col_10_style') &&
-                targetElement.classList.contains('sbgrid_input_data_col_st') &&
-                targetElement.classList.contains('sbgrid_ellipsis') &&
-                targetElement.classList.contains('sbgrid_common') &&
+            if (targetElement.tagName.toLowerCase() === 'td' &&
                 targetElement.classList.contains('sbgrid_focus_st')
             ) {
-                console.log('특정 클래스 집합을 가진 td가 더블클릭되었습니다:', targetElement);
+                const targetTr = targetElement.closest('tr');
+                if (targetTr) {
+                    const trRect = targetTr.getBoundingClientRect();
+                    const tdRect = targetElement.getBoundingClientRect();
 
-                // td의 data-colindex 속성 값으로 input 위치 배치
-                const colIndex = targetElement.getAttribute('data-colindex');
-                console.log(colIndex);
-                if (colIndex) {
-                    const inputId = "SBHE_col_"+colIndex+"_input_bandgvwDetail";
-                    console.log(inputId)
-                    const inputElement = document.getElementById(inputId);
+                    const trLeft = trRect.left;
+                    const tdLeft = tdRect.left;
+                    const trTop = trRect.top;
+                    const tdTop = tdRect.top;
 
-                    if (inputElement) {
-                        // 스타일 변경 감지 후 위치 배치 함수 호출
-                        observeInputStyleChange(inputElement, targetElement);
+                    const leftDifference = tdLeft - trLeft;
+                    const topDifference = tdTop - trTop;
+
+                    const colIndex = targetElement.getAttribute('data-colindex');
+                    if (colIndex) {
+                        const inputId = "SBHE_col_"+colIndex+"_input_bandgvwDetail";
+                        const inputElement = document.getElementById(inputId);
+
+                        if (inputElement) {
+                            // input의 스타일을 td와 맞추어 설정
+                            inputElement.style.left = (leftDifference * 1.25) + 'px';
+                            inputElement.style.top = (topDifference * 1.25) + 'px';
+                        }
                     }
                 }
             }
         }
 
-        // input 요소의 스타일이 변경된 후 위치를 조정하는 함수
-        function observeInputStyleChange(inputElement, tdElement) {
-            const inputObserver = new MutationObserver(function(mutationsList) {
-                for (let mutation of mutationsList) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        console.log('input의 style 속성이 변경되었습니다:', inputElement);
-                        // 스타일 변경 후 위치 조정
-                        positionInputAboveTd(tdElement, inputElement);
+        document.addEventListener('mousedown', function(event) {
+            console.log("event.target.id", event.target.id)
+            if (event.target.id === 'SBHE_VL_bandgvwDetail') {
+                isDragging = true; // 드래그 상태 시작
+                clickElement = event.target;
+                console.log('드래그 시작:', event.clientX, event.clientY);
+                handleDivClickDrag(event.clientX)
+            }
+        });
 
-                        // 감시 종료
-                        inputObserver.disconnect();
-                        break;
-                    }
-                }
-            });
+        document.addEventListener('mousemove', function(event) {
+            if (isDragging) {
+                // 드래그 중일 때만 실행
+                console.log('드래그 중:', event.clientX, event.clientY);
+                handleDivClickDrag(event.clientX)
+            }
+        });
 
-            // style 속성 변경 감시 시작
-            inputObserver.observe(inputElement, { attributes: true, attributeFilter: ['style'] });
-        }
+        function handleDivClickDrag(clientX) {
+            const clickElementRect = clickElement.getBoundingClientRect();
+            const clickElementRectLeft = clickElementRect.left;
+            const leftDifference = clickElementRectLeft - clientX;
+            const inputElement = document.getElementById("SBHE_VL_bandgvwDetail");
 
-        // td 요소의 위치를 기반으로 input 요소를 배치하는 함수
-        function positionInputAboveTd(tdElement, inputElement) {
-            const tdRect = tdElement.getBoundingClientRect();
-
-            // input의 스타일을 td와 맞추어 설정
-            inputElement.style.position = 'absolute';
-            inputElement.style.top = tdRect.top+'px';
-            inputElement.style.left = (window.scrollX+tdRect.left)+'px';
-            inputElement.style.width = tdRect.width+'px';
-            inputElement.style.height = tdRect.height+'px';
-            inputElement.style.zIndex = 1000; // 필요에 따라 z-index를 조정하여 td 위에 보이도록 설정
+            if (inputElement) {
+                // input의 스타일을 td와 맞추어 설정
+                inputElement.style.left = (leftDifference * 1.25) + 'px';
+            }
         }
 
         // 전체 문서에서 더블클릭 이벤트를 감지하고 특정 td 요소에서만 실행
-        document.addEventListener('dblclick', handleTdDoubleClick);*/
+        document.addEventListener('dblclick', handleTdDoubleClick);
 
         // MutationObserver 인스턴스 생성 및 콜백 함수 등록
         const observer = new MutationObserver(callback);
