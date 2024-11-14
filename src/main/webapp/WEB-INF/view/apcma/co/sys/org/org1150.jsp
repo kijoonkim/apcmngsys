@@ -129,7 +129,7 @@
 	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -265,7 +265,7 @@
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN        : ""
    				  ,V_P_LANG_ID              : ""
-   				  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   				  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    				  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    				  ,V_P_SITE_CODE            : SRCH_SITE_CODE
    				  ,V_P_SITE_NAME            : SRCH_SITE_NAME

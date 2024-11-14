@@ -358,7 +358,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.id}';
 	var gv_ma_selectedClntCd 	= '${loginVO.clntCd}';
-	var gv_ma_selectedApcCd		= '${loginVO.apcCd}';
+	var gv_ma_selectedCorpCd		= '${loginVO.apcCd}';
 	//-----------------------------------------------------------
 	const fn_initSBSelect = async function() {
 // 	    let 
@@ -366,7 +366,7 @@
 	        //기준 통화
 	        gfnma_multiSelectInit({
 	            target			: ['#CURRENCY_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_COM001',
 	            whereClause		: '',
@@ -386,7 +386,7 @@
 	        //국가
 	        gfnma_multiSelectInit({
 	            target			: ['#NATION_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_COM015',
 	            whereClause		: '',
@@ -405,7 +405,7 @@
 	        //회계기준
 	        gfnma_multiSelectInit({
 	            target			: ['#ACCT_RULE_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_FIM054',
 	            whereClause		: '',
@@ -617,7 +617,7 @@
 				//전체 관리지가 아니라면 본인이 속한 법인정보만 보이게
 				}else{
 					data.cv_1.forEach((item, index) => {
-						if(gv_ma_selectedApcCd == item.COMP_CODE){
+						if(gv_ma_selectedCorpCd == item.COMP_CODE){
 							const msg = {
 									COMP_CODE			: gfn_nvl(item.COMP_CODE),
 									COMP_NAME			: gfn_nvl(item.COMP_NAME),

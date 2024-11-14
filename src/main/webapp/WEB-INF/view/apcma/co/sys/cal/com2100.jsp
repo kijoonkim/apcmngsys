@@ -186,11 +186,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
-			gfnma_setComSelect(['masterGrid','FISCAL_STATUS'], jsonFiscalStatus, 'L_FIM021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','FISCAL_STATUS'], jsonFiscalStatus, 'L_FIM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_COMP_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -209,7 +209,7 @@
 			//회기
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_FISCAL_NO']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIG007'
 				,whereClause	: ''
@@ -312,7 +312,7 @@
 	    			var paramObj = {
 	    					 V_P_DEBUG_MODE_YN     : ''
 	    						,V_P_LANG_ID           : ''
-	    						,V_P_COMP_CODE         : gv_ma_selectedApcCd
+	    						,V_P_COMP_CODE         : gv_ma_selectedCorpCd
 	    						,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
 	    						,V_P_FISCAL_NO         : gfn_nvl(rowVal[i].data.FISCAL_NO)
 	    						,V_P_START_DATE        : gfn_nvl(rowVal[i].data.START_DATE)
@@ -368,7 +368,7 @@
     	var paramObj = {
   	   			V_P_DEBUG_MODE_YN     : ''
   				,V_P_LANG_ID           : ''
-  				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+  				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
   				,V_P_FISCAL_NO         : SRCH_FISCAL_NO
   				,V_P_FORM_ID           : p_formId
@@ -430,7 +430,7 @@
 		var paramObj = {
 				 V_P_DEBUG_MODE_YN     : ''
 				,V_P_LANG_ID           : ''
-				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
 				,V_P_FISCAL_NO         : '0'
 				,V_P_START_DATE        : ''

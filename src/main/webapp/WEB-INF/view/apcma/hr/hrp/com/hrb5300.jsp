@@ -303,18 +303,18 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSalaryGrid','gvwMasterGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSalaryGrid','gvwMasterGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //급여체계
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_GROUP_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI010'
                 ,whereClause	: ''
@@ -334,7 +334,7 @@
             //지급구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_ITEM_CATEGORY']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB009'
                 ,whereClause	: ''
@@ -354,7 +354,7 @@
             //지급구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB008'
                 ,whereClause	: ''
@@ -590,7 +590,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_GROUP_CODE : PAY_GROUP_CODE
@@ -712,7 +712,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_PAY_GROUP_CODE    : PAY_GROUP_CODE
@@ -973,7 +973,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN			: ''
                 ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                 ,V_P_PAY_GROUP_CODE     : PAY_GROUP_CODE

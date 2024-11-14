@@ -360,19 +360,19 @@
 		
         let rst = await Promise.all([
         	// 지급,수금구분	TXN_TYPE		COM045
-        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 기산일기준 		BASIS_TYPE		FIM037
-        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 기간유형 		PERIOD_TYPE		FIM038
-        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 시작일 룰		START_RULE		FIM043
-        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 지급기준기산일					FIM042
-        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 휴일제외적용일 	STD_TYPE 		FIM040
-        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 지급방식			PAY_METHOD		FIM081
-        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	
         	// 지급조건
         	fn_setPayTerm(),
@@ -387,7 +387,7 @@
 		const paramObj = {
 	                V_P_DEBUG_MODE_YN	: '',
 	                V_P_LANG_ID			: '',
-	                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+	                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 	                V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
 	                
 	                V_P_PAY_TERM_CODE	: '', 
@@ -569,7 +569,7 @@
     	const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_PAY_TERM_CODE   : payTermCode,
@@ -1025,7 +1025,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_PAY_TERM_CODE	: payTermCode, 
@@ -1140,7 +1140,7 @@
 
         for(const item of updatedData) {
         	
-        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedApcCd);
+        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedCorpCd);
         	const clientCode 	= gfn_nvl(item.data.CLIENT_CODE, gv_ma_selectedClntCd);
         	const payTermCode 	= item.data.PAY_TERM_CODE;
         	const payTermName 	= item.data.PAY_TERM_NAME;
@@ -1293,7 +1293,7 @@
   		const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedApcCd),
+                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedCorpCd),
                 V_P_CLIENT_CODE		: gfn_nvl(rowData.CLIENT_CODE, gv_ma_selectedClntCd),
                 
                 V_P_PAY_TERM_CODE	: rowData.PAY_TERM_CODE,

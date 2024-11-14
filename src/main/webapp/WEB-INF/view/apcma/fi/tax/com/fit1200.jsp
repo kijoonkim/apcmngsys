@@ -201,7 +201,7 @@
     </div>
 </body>
 <script type="text/javascript">
-    var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+    var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
     var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
@@ -216,10 +216,10 @@
     });
     const fn_init = async function(){
         /** 사업장 구분 **/
-        let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+        let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
         jsonTaxSiteType = data.cv_1;
         SBUxMethod.refresh('reg-slt-taxSiteType');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
 
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
@@ -227,7 +227,7 @@
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedApcCd
+            ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
             ,whereClause	: ''
@@ -295,7 +295,7 @@
        var paramObj = {
             V_P_DEBUG_MODE_YN       :   ""
            ,V_P_LANG_ID             :   ""
-           ,V_P_COMP_CODE           :   gv_ma_selectedApcCd
+           ,V_P_COMP_CODE           :   gv_ma_selectedCorpCd
            ,V_P_CLIENT_CODE         :   gv_ma_selectedClntCd
            ,V_P_YYYY                :   V_P_YYYY
            ,V_P_SEQ                 :   V_P_SEQ
@@ -346,7 +346,7 @@
        var paramObj = {
             V_P_DEBUG_MODE_YN              : ''
            ,V_P_LANG_ID                    : ''
-           ,V_P_COMP_CODE                  : gv_ma_selectedApcCd
+           ,V_P_COMP_CODE                  : gv_ma_selectedCorpCd
            ,V_P_CLIENT_CODE                : gv_ma_selectedClntCd
            ,V_P_YYYY                       : ''
            ,V_P_SEQ                        : ''

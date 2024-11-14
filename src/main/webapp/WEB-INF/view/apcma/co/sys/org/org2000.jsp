@@ -436,12 +436,12 @@
 			
 			SBUxMethod.attr('BTN_PARENT', 'disabled', 'true'),
 			//재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		    
 			//사업장코드
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -460,7 +460,7 @@
 			//부서구분
 			gfnma_multiSelectInit({
 				target			: ['#DEPT_CATEGORY']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG010'
 				,whereClause	: ''
@@ -479,7 +479,7 @@
 			//인건비분류
 			gfnma_multiSelectInit({
 				target			: ['#LABOR_COST_GROUP']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_HRI007'
 				,whereClause	: ''
@@ -498,7 +498,7 @@
 			//근무패턴
 			gfnma_multiSelectInit({
 				target			: ['#WORK_PATTERN_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_HRT020'
 				,whereClause	: ''
@@ -517,7 +517,7 @@
 			//부서구분
 			gfnma_multiSelectInit({
 				target			: ['#ATTR1']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG009'
 				,whereClause	: ''
@@ -623,7 +623,7 @@
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
     			  ,V_P_LANG_ID             : ''
-   				  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    				  ,V_P_SITE_CODE           : ''
    				  ,V_P_DEPT_CODE           : SRCH_DEPT_CODE
@@ -796,7 +796,7 @@
   	    var paramObj = {
   	    		 V_P_DEBUG_MODE_YN       : ''
     			,V_P_LANG_ID             : ''
-    			,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    			,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     			,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     			,V_P_DEPT_CODE           : gfn_nvl(SBUxMethod.get("DEPT_CODE"))
     			,V_P_DEPT_NAME           : gfn_nvl(SBUxMethod.get("DEPT_NAME"))
@@ -926,7 +926,7 @@
     var fn_compopupParent = function() {
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG001'
     		,popupType				: 'B'
@@ -960,7 +960,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -994,7 +994,7 @@
  
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG010'
         	,popupType				: 'A'

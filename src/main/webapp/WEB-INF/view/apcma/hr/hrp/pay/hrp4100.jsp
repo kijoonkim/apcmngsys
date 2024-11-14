@@ -642,16 +642,16 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonHrPostingType, 'L_HRP023', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'EXTRA_FIELD1', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonHrPostingType, 'L_HRP023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'EXTRA_FIELD1', 'Y', ''),
 
             //전표구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_HR_POSTING_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP023'
                 ,whereClause	: ''
@@ -672,7 +672,7 @@
             //전표구분
             gfnma_multiSelectInit({
                 target			: ['#POSTING_SUMMARY_TYPE', '#ACCOUNT_PAY_ITEM']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP031'
                 ,whereClause	: ''
@@ -718,7 +718,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보 팝업');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FIM045'
             ,popupType				: 'B'
@@ -786,7 +786,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가조직정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG010'
             ,popupType				: 'A'
@@ -826,7 +826,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'
@@ -995,7 +995,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_GROUP_CODE      : PAY_GROUP_CODE
@@ -1302,7 +1302,7 @@
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
             ,V_P_HR_POSTING_TYPE          : HR_POSTING_TYPE

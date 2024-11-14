@@ -270,29 +270,29 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC명
-            gfnma_setComSelect(['SCH_FI_ORG_CODE', 'Trl2010GridTop'],		jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE', 'Trl2010GridTop'],		jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 차입금거래유형
-            gfnma_setComSelect(['SCH_TXN_TYPE','Trl2010GridTop'], jsonTxnType, 		'L_FIM083', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_TXN_TYPE','Trl2010GridTop'], jsonTxnType, 		'L_FIM083', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //금융기관
-            gfnma_setComSelect(['Trl2010GridTop'],	jsonBankCsCode,	'L_CS_BANK', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTop'],	jsonBankCsCode,	'L_CS_BANK', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
             //지급방법
-            gfnma_setComSelect(['Trl2010GridTop'],	jsonPayMethod,	'L_FIM073_LOAN', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTop'],	jsonPayMethod,	'L_FIM073_LOAN', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //원가중심점
-            gfnma_setComSelect(['Trl2010GridTop'],	jsonCostCenterCode,	'L_COST_CENTER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTop'],	jsonCostCenterCode,	'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //거래유형
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonTxnGroupCode,	'L_FIM071', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonTxnGroupCode,	'L_FIM071', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //출금은행
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonBankCode,	'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonBankCode,	'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             //거래처
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonPayerId,	'L_COMP_ID', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonPayerId,	'L_COMP_ID', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', ''),
             //전표유형
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonDocType,	'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonDocType,	'L_FIM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //지급방법
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonPayMethodCode,	'L_FIM081', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonPayMethodCode,	'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //지급방식
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonTrPayMethod,	'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonTrPayMethod,	'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //상태
-            gfnma_setComSelect(['Trl2010GridTab1'],	jsonStatusCode,	'L_FIM074', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['Trl2010GridTab1'],	jsonStatusCode,	'L_FIM074', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
         ]);
@@ -570,7 +570,7 @@
          SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
          SBUxMethod.openModal('modal-compopup1');
          compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_DEPOSIT'
             ,popupType				: 'A'
@@ -609,7 +609,7 @@
      	
      	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_CS_BANK'
          	,popupType				: 'A'
@@ -655,7 +655,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_FI_ORG_CODE    : FI_ORG_CODE
@@ -798,7 +798,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_FI_ORG_CODE    : FI_ORG_CODE
@@ -1160,7 +1160,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: ''
                     , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     ,V_P_ACCT_RULE_CODE            : p_ss_defaultAcctRule

@@ -520,13 +520,13 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
-            //gfnma_setComSelect(['SRCH_NUMBERING_GROUP'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['SRCH_NUMBERING_GROUP'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             //급여체계
             gfnma_multiSelectInit({
                 target			: ['#SRCH_NUMBERING_GROUP','#NUMBERING_GROUP']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS001'
                 ,whereClause	: ''
@@ -546,7 +546,7 @@
             gfnma_multiSelectInit({
                 target			: ['#NUMBER_ELEMENT1','#NUMBER_ELEMENT2','#NUMBER_ELEMENT3','#NUMBER_ELEMENT4','#NUMBER_ELEMENT5'
                     ,'#SURFIX_ELEMENT1' ,'#SURFIX_ELEMENT2','#SURFIX_ELEMENT3','#SURFIX_ELEMENT4','#SURFIX_ELEMENT5']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS002'
                 ,whereClause	: ''
@@ -709,7 +709,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_GROUP   : V_P_NUMBERING_GROUP
@@ -921,7 +921,7 @@
             var paramHisObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_NUMBERING_GROUP   : rowData.NUMBERING_GROUP
@@ -1243,7 +1243,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID      : obj.NUMBERING_ID
@@ -1325,7 +1325,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: ''
                     ,V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     ,V_P_NUMBERING_ID   : numberId
@@ -1392,7 +1392,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID      : obj.NUMBERING_ID
@@ -1502,7 +1502,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_NUMBERING_ID      : NUMBERING_ID
@@ -1608,7 +1608,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID      : NUMBERING_ID

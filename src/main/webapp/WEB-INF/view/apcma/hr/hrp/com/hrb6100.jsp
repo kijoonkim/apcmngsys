@@ -179,9 +179,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 급여일
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptCode, 'L_HRB006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptCode, 'L_HRB006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 비과세한도기준
-            gfnma_setComSelect(['gvwDetail'], jsonTaxFreeLimitPeriod, 'L_HRB007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTaxFreeLimitPeriod, 'L_HRB007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -269,7 +269,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
             V_P_FORM_ID		: p_formId,
@@ -379,7 +379,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
             V_P_APPLY_START_DATE : APPLY_START_DATE,
@@ -415,7 +415,7 @@
                         params: gfnma_objectToString({
                             V_P_DEBUG_MODE_YN : '',
                             V_P_LANG_ID	: '',
-                            V_P_COMP_CODE : gv_ma_selectedApcCd,
+                            V_P_COMP_CODE : gv_ma_selectedCorpCd,
                             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                             V_P_YYYY : YYYY,
                             V_P_TAX_FREE_CODE : item.data.TAX_FREE_CODE,
@@ -487,7 +487,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_YYYY : YYYY,
                 V_P_APPLY_START_DATE : APPLY_START_DATE,
@@ -532,7 +532,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : '',
             V_P_FORM_ID		: p_formId,

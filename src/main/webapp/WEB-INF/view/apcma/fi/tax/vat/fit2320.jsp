@@ -202,10 +202,10 @@
   const fn_init = async function(){
     /** 법인 select **/
     jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
-    jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+    jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
     jsonReasonCode = jsonReasonCodeData.cv_1;
     SBUxMethod.refresh('srch-slt-corpNm');
-    SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+    SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
     /** 제출사유 **/
     SBUxMethod.refresh('SUBMIS_REASON_CODE');
     /** 기준연도 **/
@@ -214,7 +214,7 @@
     /** 신고구분명 select **/
     gfnma_multiSelectInit({
       target			: ['#src-btn-currencyCode']
-      ,compCode		: gv_ma_selectedApcCd
+      ,compCode		: gv_ma_selectedCorpCd
       ,clientCode		: gv_ma_selectedClntCd
       ,bizcompId		: 'L_FIT030'
       ,whereClause	: ''
@@ -265,7 +265,7 @@
     var paramObj = {
       V_P_DEBUG_MODE_YN      : ''
       ,V_P_LANG_ID            : ''
-      ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+      ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
       ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
       ,V_P_YYYY               : ''
       ,V_P_SEQ                : ''
@@ -492,7 +492,7 @@
     var paramObj = {
       V_P_DEBUG_MODE_YN: ''
       , V_P_LANG_ID: ''
-      , V_P_COMP_CODE: gv_ma_selectedApcCd
+      , V_P_COMP_CODE: gv_ma_selectedCorpCd
       , V_P_CLIENT_CODE: gv_ma_selectedClntCd
       , V_P_YYYY: ''
       , V_P_SEQ: ''

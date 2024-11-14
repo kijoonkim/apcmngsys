@@ -578,12 +578,12 @@
 		// 코드정보 설정
 		let result = await Promise.all([
 
-	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
+	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
 	    	
 			/** 신고구분명 select **/
 			gfnma_multiSelectInit({
 		            target			: ['#srch-ddm-seq']
-		            ,compCode		: gv_ma_selectedApcCd
+		            ,compCode		: gv_ma_selectedCorpCd
 		            ,clientCode		: gv_ma_selectedClntCd
 		            ,bizcompId		: 'L_FIT030'
 		            ,whereClause	: ''
@@ -609,37 +609,37 @@
 		        }),
 		        
 		        // 매입매출구분
-		        gfnma_setComSelect(['srch-slt-arApType'], jsonArApType, 'L_FIT003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		        gfnma_setComSelect(['srch-slt-arApType'], jsonArApType, 'L_FIT003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		        // 부가세유형
-		        gfnma_setComSelect(['_'], jsonVatType, 'L_FIT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),		        
+		        gfnma_setComSelect(['_'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),		        
 		     	// 전자발행
-	            gfnma_setComSelect(['_'], jsonEtaxType,			'L_FIT005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonEtaxType,			'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 카드용도
-	            gfnma_setComSelect(['_'], jsonCardUseType, 		'L_FIT012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonCardUseType, 		'L_FIT012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 내국신용장구분
-	            gfnma_setComSelect(['_'], jsonLocalCreditType,	'L_FIT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonLocalCreditType,	'L_FIT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 불공제유형
-	            gfnma_setComSelect(['_'], jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 예정신고누락
-	            gfnma_setComSelect(['_'], jsonReportOmitYn,		'L_FIT009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonReportOmitYn,		'L_FIT009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 중복발행
-	            gfnma_setComSelect(['_'], jsonDupIssBillType,	'L_FIT007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonDupIssBillType,	'L_FIT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 감가상각자산유형
-	            gfnma_setComSelect(['_'], jsonVatAssetType,		'L_FIT014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonVatAssetType,		'L_FIT014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 11일외전송
-	            gfnma_setComSelect(['_'], jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 영세율첨부서류여부
-	            gfnma_setComSelect(['_'], jsonZeroReportYn,		'L_FIT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonZeroReportYn,		'L_FIT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 수입금액제외
-	            gfnma_setComSelect(['_'], jsonExcludeAmtYn,		'L_FIT008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonExcludeAmtYn,		'L_FIT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 영세율구분
-	            gfnma_setComSelect(['_'], jsonZeroType,			'L_FIT010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonZeroType,			'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	         	// 의제매입구분
-	            gfnma_setComSelect(['_'], jsonDeemedInputType,	'L_FIT015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonDeemedInputType,	'L_FIT015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 				// 수정신고구분
-				gfnma_setComSelect(['_'], jsonAmendedTaxType,	'L_FIT017', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+				gfnma_setComSelect(['_'], jsonAmendedTaxType,	'L_FIT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	            // 통화
-				gfnma_setComSelect(['_'], jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+				gfnma_setComSelect(['_'], jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 				
 			]);
 		
@@ -723,7 +723,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY			: yyyy,
@@ -873,7 +873,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY			: yyyy,
@@ -5822,7 +5822,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_CS_PURCHASE'
             ,popupType				: 'A'

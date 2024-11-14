@@ -405,11 +405,11 @@
 	    let rst = await Promise.all([
 		    SBUxMethod.set("SRCH_TODAY_DATE", gfn_dateToYmd(new Date())),
 		    //재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	        //사업장
 	        gfnma_multiSelectInit({
 	            target: ['#SITE_CODE1'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG001',
 	            whereClause: '',
@@ -429,7 +429,7 @@
 	        //부서구분_1
 	        gfnma_multiSelectInit({
 	            target: ['#DEPT_CATEGORY'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG010',
 	            whereClause: '',
@@ -449,7 +449,7 @@
 	        //부서구분_2
 	        gfnma_multiSelectInit({
 	            target: ['#DEPT_GUBUN'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG012',
 	            whereClause: '',
@@ -469,7 +469,7 @@
 	        //인건비분류
 	        gfnma_multiSelectInit({
 	            target: ['#LABOR_COST_GROUP'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_HRI007',
 	            whereClause: '',
@@ -635,7 +635,7 @@
        var paramObj = {
     	   V_P_DEBUG_MODE_YN		: '',
     	   V_P_LANG_ID				: '',
-    	   V_P_COMP_CODE			: gv_ma_selectedApcCd,
+    	   V_P_COMP_CODE			: gv_ma_selectedCorpCd,
     	   V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
     	   V_P_TODAY_DATE			: DATE,
     	   V_P_FORM_ID				: p_formId,
@@ -912,7 +912,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN        : ""
    			  ,V_P_LANG_ID              : ""
-   			  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   			  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    			  ,V_P_CHANGE_DATE          : gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
    			  ,V_P_MEMO                 : gfn_nvl(SBUxMethod.get("MEMO1")) 
@@ -989,7 +989,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN       : ""
    			  ,V_P_LANG_ID             : ""
-   			  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    			  ,V_P_CHANGE_DATE         : gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
    			  ,V_P_DEPT_CODE           : DEPT_CODE
@@ -1055,10 +1055,10 @@
     }
     const fn_changeDateKey = async function() {
     	//변경번호 법인별로 구분되게 where 추가
-    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedApcCd + "%'"
+    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedCorpCd + "%'"
     	SBUxMethod.attr('modal-compopup1', 'header-title', '조직도변경번호 팝업');
     	await compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG007'
         	,popupType				: 'A'
@@ -1092,7 +1092,7 @@
     	let CHANGE_DATE 		= gfn_nvl(SBUxMethod.get("CHANGE_DATE"));
     	let addParams = [ "'" + CHANGE_DATE + "'"];
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG002'
             ,popupType				: 'B'
@@ -1118,7 +1118,7 @@
     	
     	var searchText = '';
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
@@ -1143,7 +1143,7 @@
     const fn_compopupCcCode = function() {
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG010'
         	,popupType				: 'A'

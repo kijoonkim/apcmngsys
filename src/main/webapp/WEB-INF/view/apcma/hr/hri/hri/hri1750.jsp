@@ -362,17 +362,17 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 증명서유형
-            gfnma_setComSelect(['SRCH_REPORT_TYPE', 'bandgvwInfo', 'REPORT_TYPE'], jsonReportType, 'L_HRI042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_REPORT_TYPE', 'bandgvwInfo', 'REPORT_TYPE'], jsonReportType, 'L_HRI042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 진행상태
-            gfnma_setComSelect(['SRCH_CONFIRM_STEP', 'bandgvwInfo'], jsonConfirmStep, 'L_HRI059', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_CONFIRM_STEP', 'bandgvwInfo'], jsonConfirmStep, 'L_HRI059', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['bandgvwInfo'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 출력구분
-            gfnma_setComSelect(['bandgvwInfo'], jsonPrintType, 'L_HRA026', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonPrintType, 'L_HRA026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -387,7 +387,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
@@ -414,7 +414,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -448,7 +448,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
@@ -711,7 +711,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_REQUEST_DATE_FR : REQUEST_DATE_FR,
             V_P_REQUEST_DATE_TO : REQUEST_DATE_TO,
@@ -872,7 +872,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID : '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE : gv_ma_selectedClntCd,
             IV_P_DOC_NUM : DOC_NUM,
             V_P_REQUEST_DATE : REQUEST_DATE,
@@ -941,7 +941,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID : '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE : gv_ma_selectedClntCd,
             IV_P_DOC_NUM : DOC_NUM,
             V_P_REQUEST_DATE : REQUEST_DATE,
@@ -1011,7 +1011,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN : '',
                 V_P_LANG_ID : '',
-                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_COMP_CODE : gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE : gv_ma_selectedClntCd,
                 IV_P_DOC_NUM : DOC_NUM,
                 V_P_REQUEST_DATE : REQUEST_DATE,
@@ -1287,8 +1287,8 @@
 
             compopappvmng({
                 workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-                ,compCode		: gv_ma_selectedApcCd
-                ,compCodeNm		: gv_ma_selectedApcNm
+                ,compCode		: gv_ma_selectedCorpCd
+                ,compCodeNm		: gv_ma_selectedCorpNm
                 ,clientCode		: gv_ma_selectedClntCd
                 ,apprId			: apprId
                 ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")))
@@ -1337,7 +1337,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
-            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
         	V_P_REQUEST_DATE_FR 	: '',
         	V_P_REQUEST_DATE_TO 	: '',
@@ -1365,7 +1365,7 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
 	                if(data.cv_3[0].IMG_YN == 'N'){
-		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }else{
 	                	data.cv_3[0].IMG2 = '';
 	                }
@@ -1400,7 +1400,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
-            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
             V_P_YE_TX_YYYY 			: obj.INCOME_YEAR,
             V_P_YEAR_END_TX_TYPE	: YEAR_END_TX_TYPE,
@@ -1433,7 +1433,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
-	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);
@@ -1454,7 +1454,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
-            V_P_COMP_CODE 			: gv_ma_selectedApcCd,
+            V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
             
             V_P_RET_CALC_DAT_FR 	: '',
@@ -1485,7 +1485,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
-	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);

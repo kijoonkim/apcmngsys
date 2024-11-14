@@ -174,7 +174,7 @@
 			//집계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-cbozaccd-g']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_EFI0020'
 				,whereClause	: ''
@@ -292,7 +292,7 @@
         var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ESS_EFI0010_Q1'
            	,popupType				: 'A'
@@ -339,7 +339,7 @@
         var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ESS_EFI0010_Q2'
            	,popupType				: 'A'
@@ -407,7 +407,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_ZACCD_G		: p_cbozaccd_g	
 			,V_P_ZACCD_GNAME	: p_cbozaccd_gname			
@@ -522,7 +522,7 @@
                     params		: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN			: '',
                         V_P_LANG_ID					: '',
-                        V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+                        V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
                         V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
                         V_P_MANDT 					: gfnma_nvl(obj.MANDT),
                         V_P_TXN_ID 					: gfnma_nvl(obj.TXN_ID),

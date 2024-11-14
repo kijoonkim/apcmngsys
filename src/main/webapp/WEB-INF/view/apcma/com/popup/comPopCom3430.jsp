@@ -396,7 +396,7 @@ function compopcom3430(options) {
     //거래처유형
 	gfnma_multiSelectInit({
 		target			: ['#SRCH_CS_GROUP1']
-		,compCode		: gv_ma_selectedApcCd
+		,compCode		: gv_ma_selectedCorpCd
 		,clientCode		: gv_ma_selectedClntCd
 		,bizcompId		: 'L_COM011'
 		,whereClause	: ''
@@ -414,20 +414,20 @@ function compopcom3430(options) {
             {caption: "사업자등록번호필수",		ref: 'EXTRA_FIELD3',    	width:'150px',  	style:'text-align:left'},
 		]
 	});
-    gfnma_setComSelect(['com3430Grid','CS_GROUP'], 				jsonCsGroup, 'L_COM011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','TAX_TYPE'], 				jsonTaxType, 'L_COM029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','COM_TYPE'], 				jsonComType, 'L_COM030', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','BIZ_TYPE'], 				jsonBizType, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','DEFER_REASON'], 			jsonDeferReason, 'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','TXN_STOP_REASON'], 		jsonTxnStopReason, 'L_COM048', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','PUR_HANDOV_CNDT_CD'],	jsonPurHandovCndtCd, 'L_COM038_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','PAY_DATE_RULE'], 		jsonPayDateRule, 'L_COM011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','DELIVERY_TYPE'], 		jsonDeliveryType, 'L_COM038_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','RECEIPT_DATE_RULE'], 	jsonReceiptDateRule, 'L_COM039_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','SHIPPING_TYPE'], 		jsonShippingType, 'L_COM039_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_OFFICE'], 	jsonWithholdaTaxOffice, 'L_CS_GOVERNMENT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_OFFICE2'], 	jsonWithholdaTaxOffice2, 'L_CS_GOVERNMENT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
-    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_TYPE'], 	jsonWithholdaTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','CS_GROUP'], 				jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','TAX_TYPE'], 				jsonTaxType, 'L_COM029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','COM_TYPE'], 				jsonComType, 'L_COM030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','BIZ_TYPE'], 				jsonBizType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','DEFER_REASON'], 			jsonDeferReason, 'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','TXN_STOP_REASON'], 		jsonTxnStopReason, 'L_COM048', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','PUR_HANDOV_CNDT_CD'],	jsonPurHandovCndtCd, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','PAY_DATE_RULE'], 		jsonPayDateRule, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','DELIVERY_TYPE'], 		jsonDeliveryType, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','RECEIPT_DATE_RULE'], 	jsonReceiptDateRule, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','SHIPPING_TYPE'], 		jsonShippingType, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_OFFICE'], 	jsonWithholdaTaxOffice, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_OFFICE2'], 	jsonWithholdaTaxOffice2, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
+    gfnma_setComSelect(['com3430Grid','WITHHOLD_TAX_TYPE'], 	jsonWithholdaTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', '');
     
 	function fn_clearCom3430() {
 		jsonCom3430 = [];
@@ -444,7 +444,7 @@ function compopcom3430(options) {
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			,V_P_CS_CODE			: SRCH_CS_CODE
 			,V_P_CS_NAME			: SRCH_CS_NAME

@@ -454,11 +454,11 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_NAME"));
         var replaceText0 	= "_BUDGET_ACC_CODE_";
         var replaceText1 	= "_BUDGET_ACC_NAME_";
-        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedApcCd + "'" ;
+        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_BUDGET'
     		,popupType				: 'A'
@@ -485,7 +485,7 @@
 			//유형분류
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_GROUP_CATEGORY']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM013'
 				,whereClause	: ''
@@ -503,7 +503,7 @@
 			}),
 			
 			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 		]);
 	}
@@ -667,7 +667,7 @@
 	    		
     	   		   V_P_DEBUG_MODE_YN	: ''
     	   		   ,V_P_LANG_ID         : ''    
-    	   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+    	   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
     	   		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
     	   		   ,V_P_GROUP_CATEGORY  : SRCH_GROUP_CATEGORY 
     	   		   ,V_P_GROUP_CODE      : SRCH_GROUP_CODE
@@ -739,7 +739,7 @@
 	    		
    		   V_P_DEBUG_MODE_YN	: ''
    		   ,V_P_LANG_ID         : ''    
-   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
    		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
    		   ,V_P_GROUP_CATEGORY  : '' 
    		   ,V_P_GROUP_CODE      : GROUP_CODE
@@ -985,7 +985,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -1103,7 +1103,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -1163,7 +1163,7 @@
                         params: gfnma_objectToString({
   	   	  	    	      V_P_DEBUG_MODE_YN        : ''
     	   	  	    	      ,V_P_LANG_ID             : ''
-    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
     	   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
