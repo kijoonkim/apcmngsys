@@ -219,7 +219,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_SITE_CODE      : ''
             ,V_P_DATE1      	: YMDDATE1

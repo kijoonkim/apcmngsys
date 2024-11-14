@@ -313,18 +313,18 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 미결관리대상
-            gfnma_setComSelect(['SCH_ACC_CHARACTER'],		jsonAccCharacter, 	'L_FIM033_01', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACC_CHARACTER'],		jsonAccCharacter, 	'L_FIM033_01', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 특수관계자여부
-            gfnma_setComSelect(['SCH_RELATED_YN'],			jsonRelatedYn, 	  	'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_RELATED_YN'],			jsonRelatedYn, 	  	'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 특수관계자유형
-            gfnma_setComSelect(['SCH_RELATED_CS_TYPE'],		jsonRelatedCsType, 	'L_COM047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_RELATED_CS_TYPE'],		jsonRelatedCsType, 	'L_COM047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
 		]);
 	}	
@@ -509,7 +509,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_fi_org_code
@@ -746,7 +746,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FIM042_1'
         	,popupType				: 'A'
@@ -794,7 +794,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
     	compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'

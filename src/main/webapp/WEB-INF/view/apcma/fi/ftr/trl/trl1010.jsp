@@ -75,7 +75,7 @@
 						</colgroup>
 						<tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">사업단위</th>
+							<th scope="row" class="th_bg_search">APC명</th>
 							<td colspan="3" class="td_input">
 								<sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode"
 											 unselected-text="선택"
@@ -787,7 +787,6 @@
 				  									<sbux-input style="width:200px" id="FM_REPAY_FIRST_AMT" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원금상환일</th>
 			                                    <td colspan="3" class="td_input">
@@ -799,25 +798,21 @@
 					                                <sbux-select style="width:200px" id="FM_REPAY_BASE" uitype="single" jsondata-ref="jsonRepayBase" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자율구분</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_TYPE" uitype="single" jsondata-ref="jsonInterestType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
-			                                    </td>		                        
-			                                    
+			                                    </td>
 			                                    <th scope="row" class="th_bg">약정이율</th>
 			                                    <td colspan="3" class="td_input">
 				  									<sbux-input style="width:200px" id="FM_INTEREST_RATE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자지급기준</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_REPAY_TYPE" uitype="single" jsondata-ref="jsonInterestRepayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
-			                                    </td>		                        
-			                                    
+			                                    </td>
 			                                    <th scope="row" class="th_bg">이자일수계산기준</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_DAYS_TYPE" uitype="single" jsondata-ref="jsonInterestCalcDaysType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
@@ -1287,7 +1282,7 @@
     var Trl1010GridTab4; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1010Tab4	= []; 		// 그리드의 참조 데이터 주소 선언
     
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC명
 	var jsonAllYn			= [];	// 만기차입금포함여부
 	
 	var jsonSiteCode		= [];	// 사업장
@@ -1309,51 +1304,51 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE','FM_FI_ORG_CODE'],		jsonFiOrgCode, 	'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC명
+            gfnma_setComSelect(['SCH_FI_ORG_CODE','FM_FI_ORG_CODE'],		jsonFiOrgCode, 	'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 만기차입금포함여부
-            gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차입금유형
-            gfnma_setComSelect(['SCH_LOAN_TYPE', 'FM_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_LOAN_TYPE', 'FM_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 사업장
-            gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 차입금유형
-            //gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_LOAN_TYPE'],		jsonLoanType, 		'P_FIF002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'LOAN_NUM', 'LOAN_NAME', 'Y', ''),
             // 사업장
-            //gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['FM_SITE_CODE'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['FM_CURRENCY_CODE'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_CURRENCY_CODE'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 년간이자일수
-            gfnma_setComSelect(['FM_LOAN_STATUS'],		jsonLoanStatus,		'L_FIF004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_LOAN_STATUS'],		jsonLoanStatus,		'L_FIF004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상환거래처계좌
-            gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonRepayBankCode,	'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonRepayBankCode,	'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 원금상환조건
-            gfnma_setComSelect(['FM_REPAY_TERM'],		jsonRepayTerm,		'L_FIF005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_REPAY_TERM'],		jsonRepayTerm,		'L_FIF005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 원금상환일
-            gfnma_setComSelect(['FM_REPAY_DD'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_REPAY_DD'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상환기준
-            gfnma_setComSelect(['FM_REPAY_BASE'],		jsonRepayBase,		'L_FIF017', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_REPAY_BASE'],		jsonRepayBase,		'L_FIF017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자율구분
-            gfnma_setComSelect(['FM_INTEREST_TYPE'],	jsonInterestType,	'L_FIF006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_INTEREST_TYPE'],	jsonInterestType,	'L_FIF006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 이자지급기준
-            gfnma_setComSelect(['FM_INTEREST_REPAY_TYPE'],		jsonInterestRepayType,		'L_FIF007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_INTEREST_REPAY_TYPE'],		jsonInterestRepayType,		'L_FIF007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자일수계산기준
-            gfnma_setComSelect(['FM_INTEREST_CALC_DAYS_TYPE'],	jsonInterestCalcDaysType,	'L_FIF008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_INTEREST_CALC_DAYS_TYPE'],	jsonInterestCalcDaysType,	'L_FIF008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 년간이자일수
-            gfnma_setComSelect(['FM_INTEREST_CALC_YEAR_TYPE'],	jsonInterestCalcYearType,	'L_FIF039', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_INTEREST_CALC_YEAR_TYPE'],	jsonInterestCalcYearType,	'L_FIF039', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 이자기산일기준
-            gfnma_setComSelect(['FM_INTEREST_CALC_BASE_DAY'],	jsonInterestCalcBaseDay,	'L_FIF043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_INTEREST_CALC_BASE_DAY'],	jsonInterestCalcBaseDay,	'L_FIF043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//금융기관
-			gfnma_setComSelect(['Trl1010GridTop'],	jsonBankCsCode,	'L_CS_BANK', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
+			gfnma_setComSelect(['Trl1010GridTop'],	jsonBankCsCode,	'L_CS_BANK', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
 
 			// 계좌정보
-			gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
+			gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
 
 			gfnma_multiSelectInit({
 				target: ['#FM_REPAY_SEQ']
-				, compCode: gv_ma_selectedApcCd
+				, compCode: gv_ma_selectedCorpCd
 				, clientCode: gv_ma_selectedClntCd
 				, bizcompId: 'L_CS_ACCOUNT'
 				, whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("FM_LOAN_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
@@ -1801,7 +1796,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CS_BANK'
         	,popupType				: 'A'
@@ -1827,8 +1822,7 @@
 		        }
 			},
     	});
-		//SBUxMethod.openModal('modal-compopup1');
-    }     
+    }
     
     /**
      * 은행 
@@ -1842,7 +1836,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM003'
             ,popupType				: 'A'
@@ -1859,8 +1853,7 @@
                 SBUxMethod.set('FM_BANK_NAME', data.BANK_NAME);
             },
         });
-		//SBUxMethod.openModal('modal-compopup1');
-    }    
+    }
     
     /**
      * 입금계좌 
@@ -1881,7 +1874,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '예적금 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FIF001'
             ,popupType				: 'A'
@@ -1903,8 +1896,7 @@
                 }
             },
         });
-		//SBUxMethod.openModal('modal-compopup1');
-    }    
+    }
     
      /**
       * 담당부서 
@@ -1923,7 +1915,7 @@
 
          SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
          compopup1({
-             compCode				: gv_ma_selectedApcCd
+             compCode				: gv_ma_selectedCorpCd
              ,clientCode			: gv_ma_selectedClntCd
              ,bizcompId				: 'P_FI_DEPT'
              ,popupType				: 'B'
@@ -1945,8 +1937,7 @@
                  }
              },
          });
-		 //SBUxMethod.openModal('modal-compopup1');
-     }        
+     }
      
      /**
       * 원가중심점코드
@@ -1967,7 +1958,7 @@
          
      	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_CC_INPUT'
         	,popupType				: 'A'
@@ -1989,8 +1980,7 @@
  		        }
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
-     }          
+     }
      
      /**
       * 차입금차입
@@ -2016,7 +2006,7 @@
      	
      	SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 팝업');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_FUND_CODE'
          	,popupType				: 'A'
@@ -2041,7 +2031,6 @@
  				}
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
 	 }
     
      /**
@@ -2092,7 +2081,7 @@
          
      	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'
@@ -2143,8 +2132,7 @@
  		        }
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
-     }       
+     }
     
      /**
       * 상환거래처
@@ -2159,7 +2147,7 @@
 
          SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
          compopup1({
-             compCode				: gv_ma_selectedApcCd
+             compCode				: gv_ma_selectedCorpCd
              ,clientCode			: gv_ma_selectedClntCd
              ,bizcompId				: 'P_CS_BANK'
              ,popupType				: 'A'
@@ -2176,7 +2164,6 @@
                  SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CS_CODE);
              },
          });
-		 //SBUxMethod.openModal('modal-compopup1');
      }
      
      /**
@@ -2198,7 +2185,7 @@
          
      	SBUxMethod.attr('modal-compopup1', 'header-title', '계좌행번');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'L_CS_ACCOUNT'
        		,popupType				: 'A'
@@ -2247,7 +2234,7 @@
           
       	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
       	compopup1({
-      		compCode				: gv_ma_selectedApcCd
+      		compCode				: gv_ma_selectedCorpCd
       		,clientCode				: gv_ma_selectedClntCd
       		,bizcompId				: 'P_ACCT_DOC_IN'
          	,popupType				: 'A'
@@ -2280,7 +2267,6 @@
   		        }
   			},
       	});
-		  //SBUxMethod.openModal('modal-compopup1');
       }
 
 	// 행 추가 [이율변동정보]
@@ -2410,7 +2396,7 @@
 
 		gfnma_multiSelectInit({
 			target: ['#FM_REPAY_SEQ']
-			, compCode: gv_ma_selectedApcCd
+			, compCode: gv_ma_selectedCorpCd
 			, clientCode: gv_ma_selectedClntCd
 			, bizcompId: 'L_CS_ACCOUNT'
 			, whereClause: "AND a.cs_code = '" + tmpBankCsCode + "' AND '" + tmpLoanDate + "' BETWEEN a.effect_start_date AND a.effect_end_date"
@@ -2460,7 +2446,7 @@
 	 */
 	const fn_P_TRL1010_Q_LIST = async function (strWorkType) {
 
-		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
 		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
 		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
 		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
@@ -2469,7 +2455,7 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "사업단위");
+				gfn_comAlert("W0002", "APC명");
 				return;
 			}
 			if (!BASE_DATE) {
@@ -2482,7 +2468,7 @@
 		var paramObj = {
 			V_P_DEBUG_MODE_YN: ''
 			,V_P_LANG_ID: ''
-			,V_P_COMP_CODE: gv_ma_selectedApcCd
+			,V_P_COMP_CODE: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
 			,V_P_FI_ORG_CODE  : FI_ORG_CODE /*fi_org_code*/
@@ -2578,7 +2564,7 @@
 	 */
 	const fn_P_TRL1010_Q = async function (strWorkType, grdData) {
 
-		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
 		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
 		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
 		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
@@ -2587,7 +2573,7 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "사업단위");
+				gfn_comAlert("W0002", "APC명");
 				return;
 			}
 			if (!BASE_DATE) {
@@ -2600,7 +2586,7 @@
 		var paramObj = {
 			V_P_DEBUG_MODE_YN: ''
 			,V_P_LANG_ID: ''
-			,V_P_COMP_CODE: gv_ma_selectedApcCd
+			,V_P_COMP_CODE: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
 			,V_P_FI_ORG_CODE  : FI_ORG_CODE /*fi_org_code*/
@@ -2910,7 +2896,7 @@
 		var paramObj = {
 			V_P_DEBUG_MODE_YN: ''
 			, V_P_LANG_ID: ''
-			, V_P_COMP_CODE: gv_ma_selectedApcCd
+			, V_P_COMP_CODE: gv_ma_selectedCorpCd
 			, V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
 			,IV_P_LOAN_NUM                 : LOAN_NUM
@@ -3079,7 +3065,7 @@
 				params: gfnma_objectToString({
 					V_P_DEBUG_MODE_YN: ''
 					, V_P_LANG_ID: ''
-					, V_P_COMP_CODE: gv_ma_selectedApcCd
+					, V_P_COMP_CODE: gv_ma_selectedCorpCd
 					, V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
 					,V_P_LOAN_NUM         : gfn_nvl(item.data.LOAN_NUM)

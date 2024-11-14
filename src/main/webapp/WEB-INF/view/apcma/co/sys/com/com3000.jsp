@@ -89,24 +89,26 @@
 	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:100" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
-<!-- 	                            <th scope="row" class="th_bg_search" >코드그룹명</th> -->
-<!-- 	                            <td colspan="4" class="td_input" > -->
-<!-- 	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input> -->
-<!-- 	                            </td> -->
-		                        <th scope="row" class="th_bg_search">sbux-datepicker 테스트</th>
+	                            <th scope="row" class="th_bg_search" >코드그룹명</th>
+	                            <td colspan="4" class="td_input" >
+	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                        </tr>
+	                        <tr>
+		                        <th scope="row" class="th_bg_search">datepicker 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
 	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
-	                            </td>	
+	                            </td>
 	                            <td colspan="3"></td>
 		                        <th scope="row" class="th_bg_search">datepicker reqed 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
 	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 	                            </td>	
-	                            <td colspan="3"></td>
+	                            <td colspan="3"></td>	                        
 	                        </tr>
 	                        <tr>
 	                        	<th scope="row" class="th_bg_search">라디오버튼 테스트</th>
-                                 <td class="td_input " colspan="3">
+                                <td class="td_input " colspan="3">
 									<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" text="차변" uitype="normal" value="D" class="radio_label" checked></sbux-radio>
 									<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" text="대변" uitype="normal" value="C" class="radio_label"></sbux-radio>
 								</td>	                        
@@ -119,10 +121,10 @@
 				                            jsondata-ref="selectJsonData"
 				                            unselected-text="선택"
 				                            class="form-control input-sm"
-				                    </sbux-select>                                
-								</td>	
+				                    </sbux-select>
+								</td>
 								<td></td>                        
-	                        	<th scope="row" class="th_bg_search">셀렉트 테스트</th>
+	                        	<th scope="row" class="th_bg_search">셀렉트 테스트 reqed</th>
                                 <td class="td_input" colspan="3">
 				                    <sbux-select
 				                            id="SRCH_PAY_DATE1"
@@ -134,6 +136,27 @@
 				                    </sbux-select>                                
 								</td>	
 								<td></td>                        
+	                        </tr>
+	                        <tr>
+								<th scope="row" class="th_bg_search">팝업 테스트</th>
+								<td class="td_input" >
+	   								<sbux-input uitype="text" id="BUDGET_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input"  colspan="2">
+									<sbux-input uitype="text" id="BUDGET_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+	                            <td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetAcc" ></sbux-button>
+	                            </td>	                        
+								<th scope="row" class="th_bg_search">datepicker 2개 테스트</th>
+								<td class="td_input" >
+	                                <sbux-datepicker id="TEST_DATE3" name="TEST_DATE3" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+								</td>
+								<td>~</td>
+								<td class="td_input" >
+	                                <sbux-datepicker id="TEST_DATE4" name="TEST_DATE4" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+								</td>
+	                            <td></td>	                        
 	                        </tr>
 	                    </tbody>
 	                </table>
@@ -188,11 +211,12 @@
                                                     text="사용"
                                                     true-value="Y" 
                                                     false-value="N"
+                                                    checked
                                             />
                                         </p>                                    
                                     </td>
                                     <th scope="row" rowspan="3" colspan="" class="th_bg_content" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;요</th>
-                                    <td class="td_input" rowspan="3" colspan="3" >
+                                    <td class="td_input" rowspan="3" colspan="3">
                                         <sbux-textarea id="DESCR" class="form-control input-sm" uitype="normal" style="width:100%; height:100px;""></sbux-textarea>
                                     </td>
                                 </tr>
@@ -377,7 +401,14 @@
     
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="com-popup1" name="com-popup1" uitype="middle" header-title="" body-html-id="body-com-popup1" header-is-close-button="true" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal 
+        	id="modal-compopup1" 
+        	name="modal-compopup1" 
+        	uitype="middle" 
+        	header-title="" 
+        	body-html-id="body-com-popup1" 
+        	header-is-close-button="true" footer-is-close-button="false" style="width:1000px">
+        </sbux-modal>
     </div>
     <div id="body-com-popup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -413,13 +444,48 @@
 		{ text : "흰색", value : "white"  }
 	];
 	
+    /**
+     * 공통팝업
+     * 예산계정	
+     */
+   	var fn_compopupBudgetAcc = function() {
+    	
+        var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_NAME"));
+        var replaceText0 	= "_BUDGET_ACC_CODE_";
+        var replaceText1 	= "_BUDGET_ACC_NAME_";
+        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+    	compopup1({
+    		compCode				: gv_ma_selectedCorpCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_ACCT_BUDGET'
+    		,popupType				: 'A'
+    		,whereClause			: strWhereClause
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["코드",			"명칭", 				"구분", 				"원가구분"]
+   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"EXTRA_FIELD1",  	"COST_CLASS"]
+   			,tableColumnWidths		: ["100px", 		"100px", 			"100px", 			"100px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('BUDGET_ACC_CODE', data.ACCOUNT_CODE);
+				SBUxMethod.set('BUDGET_ACC_NAME', data.ACCOUNT_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+  	}
+	
+	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
 			//유형분류
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_GROUP_CATEGORY']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM013'
 				,whereClause	: ''
@@ -437,10 +503,10 @@
 			}),
 			
 			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 		]);
-	}	
+	}
 
     // only document
     window.addEventListener('DOMContentLoaded', async  function(e) {
@@ -601,7 +667,7 @@
 	    		
     	   		   V_P_DEBUG_MODE_YN	: ''
     	   		   ,V_P_LANG_ID         : ''    
-    	   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+    	   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
     	   		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
     	   		   ,V_P_GROUP_CATEGORY  : SRCH_GROUP_CATEGORY 
     	   		   ,V_P_GROUP_CODE      : SRCH_GROUP_CODE
@@ -673,7 +739,7 @@
 	    		
    		   V_P_DEBUG_MODE_YN	: ''
    		   ,V_P_LANG_ID         : ''    
-   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
    		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
    		   ,V_P_GROUP_CATEGORY  : '' 
    		   ,V_P_GROUP_CODE      : GROUP_CODE
@@ -919,7 +985,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -1037,7 +1103,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -1097,7 +1163,7 @@
                         params: gfnma_objectToString({
   	   	  	    	      V_P_DEBUG_MODE_YN        : ''
     	   	  	    	      ,V_P_LANG_ID             : ''
-    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
     	   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
@@ -1162,32 +1228,24 @@
         }
     }
 
-     // 행 추가
-     const fn_addRow = function () {
-         let rowVal = CMNSCDSubGrid.getRow();
+    // 행 추가
+    const fn_addRow = function () {
+   		CMNSCDSubGrid.addRows([{USE_YN:"Y"}]);
+    }
 
-    	//데이터가 없고 행선택이 없을경우.
-         if (rowVal == -1){ 
+    // 행 삭제
+    const fn_delRow = async function () {
 
-             CMNSCDSubGrid.addRow(true);
-         }else{
-             CMNSCDSubGrid.insertRow(rowVal);
-         }
-     }
+        let rowVal = CMNSCDSubGrid.getRow();
 
-     // 행 삭제
-     const fn_delRow = async function () {
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+            CMNSCDSubGrid.deleteRow(rowVal);
+        }
 
-         let rowVal = CMNSCDSubGrid.getRow();
-
-         if (rowVal == -1) {
-             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
-             return;
-         } else {
-             CMNSCDSubGrid.deleteRow(rowVal);
-         }
-
-     }
+    }
      /*필드캡션 데이터*/
     const fn_fieldCaption = async function (){
     	let field_data = {
@@ -1216,7 +1274,7 @@
     }
      
      /*셀복사 해제 (복사모드해제)*/
-    const fn_gridCopyClear = async function (){ 
+    const fn_gridCopyClear = async function (){
          $('#btnCopyClear').hide();
          $('#btnCopyLine').show();
          $('#btnCopyCell').hide();
@@ -1227,38 +1285,37 @@
          let fieldData = await fn_fieldCaption(); 
          fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
     }
-     /*행 복사 (행복사모드)*/
-     const fn_gridCopyLine = async function () { 
-         $('#btnCopyClear').hide();
-         $('#btnCopyLine').hide();
-         $('#btnCopyCell').show();
-         let gridData = CMNSCDSubGrid.getGridDataAll();
-         jsonCMNSCDSubList = [];
-         let fieldData = await fn_fieldCaption(); 
-
+    /*행 복사 (행복사모드)*/
+    const fn_gridCopyLine = async function () { 
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').show();
+        let gridData = CMNSCDSubGrid.getGridDataAll();
+        jsonCMNSCDSubList = [];
+        let fieldData = await fn_fieldCaption(); 
+		
         mode = 'byrows'; //그리드 프로퍼티스 셀모드
-
-         fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
-
-     }
+		
+        fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
+    }
     /*셀 복사 (셀복사모드)*/
     const fn_gridCopyCell = async function () { 
         $('#btnCopyClear').show();
         $('#btnCopyLine').hide();
         $('#btnCopyCell').hide();
-
+		
         let gridData = CMNSCDSubGrid.getGridDataAll();
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 
-
+		
         mode = 'free'; //그리드 프로퍼티스 클리어모드
-
+		
     	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
     }
      
      /*여유필드 캡션1~20 수정 시 그리드에 적용되게 */
      const fn_changeFieldCaption = async function () { 
-
+		
         let gridData = CMNSCDSubGrid.getGridDataAll();
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 

@@ -151,13 +151,13 @@ function compopfia2510(options) {
 	const fn_initPopFia2510 = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 		
 	}
@@ -241,7 +241,7 @@ function compopfia2510(options) {
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : gfnma_nvl(SBUxMethod.get('POP_SCH_FI_ORG_CODE'))

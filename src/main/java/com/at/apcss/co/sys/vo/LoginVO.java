@@ -80,8 +80,12 @@ public class LoginVO implements Serializable{
 
 	private String refreshToken;
 
+	private String ognzCd;
+	private String ognzNm;
+	
 	private String clntCd;
 	private String corpCd;
+	private String corpNm;
 	private String userCtrgy;
 	private String empCd;
 	private String deptCd;
@@ -1078,6 +1082,24 @@ public class LoginVO implements Serializable{
 	}
 	public void setMbrTypeCd(String mbrTypeCd) {
 		this.mbrTypeCd = mbrTypeCd;
+	}
+	public String getCorpNm() {
+		return corpNm;
+	}
+	public void setCorpNm(String corpNm) {
+		this.corpNm = corpNm;
+	}
+	public String getOgnzCd() {
+		return ognzCd;
+	}
+	public void setOgnzCd(String ognzCd) {
+		this.ognzCd = ognzCd;
+	}
+	public String getOgnzNm() {
+		return ognzNm;
+	}
+	public void setOgnzNm(String ognzNm) {
+		this.ognzNm = ognzNm;
 	}
 
 

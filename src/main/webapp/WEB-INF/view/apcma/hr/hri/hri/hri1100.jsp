@@ -231,31 +231,31 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            /*gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
             // 직종
-            gfnma_setComSelect(['SRCH_JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 성별
-            gfnma_setComSelect(['SRCH_GENDER'], jsonGender, 'L_HRM002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_GENDER'], jsonGender, 'L_HRM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['SRCH_JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직무
-            /*gfnma_setComSelect(['SRCH_JOB_CODE'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_JOB_CODE'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
             // 입사구분
-            gfnma_setComSelect(['gvwList'], jsonEnterType, 'L_HRI041_01', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonEnterType, 'L_HRI041_01', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 병역구분
-            gfnma_setComSelect(['gvwList'], jsonArmyType, 'L_HRI019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonArmyType, 'L_HRI019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
             gfnma_multiSelectInit({
                 target			: ['#SRCH_DUTY_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI003'
                 ,whereClause	: ''
@@ -275,7 +275,7 @@
             // 직무
             gfnma_multiSelectInit({
                 target			: ['#SRCH_JOB_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI006'
                 ,whereClause	: ''
@@ -300,7 +300,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -505,7 +505,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE

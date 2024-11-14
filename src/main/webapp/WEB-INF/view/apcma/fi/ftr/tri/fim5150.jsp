@@ -47,34 +47,43 @@
 			</div>
 		</div>
 		<div class="box-body">
-			<div style="padding-bottom:10px">
+			<div class="box-search-ma"> 
 				<!--[APC] START -->
 	            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 	            <!--[APC] END -->
 				
 				<!--[pp] 검색 -->
-                <table class="table table-bordered tbl_fixed" style="margin-bottom:5px">
+                <table class="table table-bordered tbl_fixed table-search-ma" >
                 	<caption>검색 조건 설정</caption>
                     <colgroup>
-						<col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 					</colgroup>
                     <tbody>
                     	<tr>
-                            <th scope="row" class="th_bg">수금,지급구분</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <th scope="row" class="th_bg_search">수금,지급구분</th>
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text="전체"
                                         uitype="single"
@@ -85,21 +94,33 @@
                                 />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">기준일자</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
-									uitype="popup" 
-									id="srch-dtp-standardDay" 
-									name="srch-dtp-standardDay"
-									date-format="yyyy-mm-dd" 
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-									wrap-style="border:0;padding:0;"
-									group-id="panHeader"
-		                            required
-								/>	
+                            <th scope="row" class="th_bg_search">지급기준코드</th>
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                	uitype="text"
+                                    id="srch-inp-payTermCode"
+                                    name="srch-inp-payTermCode"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
+                                    onkeyenter="fn_search"
+                                />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">지급조건</th>
+                            <th scope="row" class="th_bg_search">지급기준명</th>
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                	uitype="text"
+                                    id="srch-inp-payTermName"
+                                    name="srch-inp-payTermName"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
+                                    onkeyenter="fn_search"
+                                />
+                            </td>
+                            <td colspan="6"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg_search">지급조건</th>
                             <td colspan="3" class="td_input"">
                                 <div class="dropdown">
 									<button 
@@ -120,34 +141,23 @@
 										style="width:300px;height:400px;padding-top:0px;overflow:auto"
 									></div>
 								</div> 
-                            </td>  
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">지급기준코드</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-input
-                                	uitype="text"
-                                    id="srch-inp-payTermCode"
-                                    name="srch-inp-payTermCode"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                                    onkeyenter="fn_search"
-                                />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">지급기준명</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-input
-                                	uitype="text"
-                                    id="srch-inp-payTermName"
-                                    name="srch-inp-payTermName"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                                    onkeyenter="fn_search"
-                                />
+                            <th scope="row" class="th_bg_search">기준일자</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+									uitype="popup" 
+									id="srch-dtp-standardDay" 
+									name="srch-dtp-standardDay"
+									date-format="yyyy-mm-dd" 
+									class="table-datepicker-ma"
+									wrap-style="border:0;padding:0;"
+									group-id="panHeader"
+		                            required
+								/>	
                             </td>
-                            <td></td>
-							<th scope="row" class="th_bg">지급예정일</th>
+                            <td colspan="3"></td>  
+							<th scope="row" class="th_bg_search">지급예정일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-input
                                 	uitype="text"
@@ -161,10 +171,12 @@
                         </tr>
                  	</tbody>
                	</table>
+			</div>
+			<div class="row">
                	<div class="ad_tbl_top">
                 	<ul class="ad_tbl_count">
                     	<li>
-                        	<span>지급기준 관리</span>
+                        	<span>◎ 지급기준 관리</span>
                         </li>
 					</ul>
 					<div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
@@ -348,19 +360,19 @@
 		
         let rst = await Promise.all([
         	// 지급,수금구분	TXN_TYPE		COM045
-        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 기산일기준 		BASIS_TYPE		FIM037
-        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 기간유형 		PERIOD_TYPE		FIM038
-        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 시작일 룰		START_RULE		FIM043
-        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 지급기준기산일					FIM042
-        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 휴일제외적용일 	STD_TYPE 		FIM040
-        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	// 지급방식			PAY_METHOD		FIM081
-        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         	
         	// 지급조건
         	fn_setPayTerm(),
@@ -375,7 +387,7 @@
 		const paramObj = {
 	                V_P_DEBUG_MODE_YN	: '',
 	                V_P_LANG_ID			: '',
-	                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+	                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 	                V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
 	                
 	                V_P_PAY_TERM_CODE	: '', 
@@ -557,7 +569,7 @@
     	const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_PAY_TERM_CODE   : payTermCode,
@@ -1013,7 +1025,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_PAY_TERM_CODE	: payTermCode, 
@@ -1128,7 +1140,7 @@
 
         for(const item of updatedData) {
         	
-        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedApcCd);
+        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedCorpCd);
         	const clientCode 	= gfn_nvl(item.data.CLIENT_CODE, gv_ma_selectedClntCd);
         	const payTermCode 	= item.data.PAY_TERM_CODE;
         	const payTermName 	= item.data.PAY_TERM_NAME;
@@ -1281,7 +1293,7 @@
   		const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedApcCd),
+                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedCorpCd),
                 V_P_CLIENT_CODE		: gfn_nvl(rowData.CLIENT_CODE, gv_ma_selectedClntCd),
                 
                 V_P_PAY_TERM_CODE	: rowData.PAY_TERM_CODE,

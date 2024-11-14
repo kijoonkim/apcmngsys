@@ -152,9 +152,9 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//지역
-			gfnma_setComSelect(['nationGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['nationGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//통화
-			gfnma_setComSelect(['nationGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['nationGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -242,7 +242,7 @@
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_NATION_CODE	: NATION_CODE
 			,V_P_NATION_NAME	: NATION_NAME
@@ -329,7 +329,7 @@
                 params: gfnma_objectToString({
         			V_P_DEBUG_MODE_YN			: ''
        				,V_P_LANG_ID				: ''
-       				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+       				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
        				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
        				,V_P_NATION_CODE			: gfn_nvl(item.data.NATION_CODE)
        				,V_P_NATION_NAME			: gfn_nvl(item.data.NATION_NAME)

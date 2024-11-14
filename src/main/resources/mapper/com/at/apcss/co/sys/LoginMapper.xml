@@ -44,6 +44,11 @@
 		<result property="untyOgnzType" column="UNTY_OGNZ_TYPE" />
 		<result property="untyAuthrtType" column="UNTY_AUTHRT_TYPE" />
 		<result property="untyAuthrtMngYn" column="UNTY_AUTHRT_MNG_YN" />
+		<result property="untyOgnzCd" column="UNTY_OGNZ_CD" />
+		<result property="ognzCd" column="OGNZ_CD" />
+		<result property="ognzNm" column="OGNZ_NM" />
+		<result property="corpNm" column="CORP_NM" />
+	
 
 	</resultMap>
 
@@ -84,6 +89,7 @@
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 
 			  FROM TB_COM_USER CU
+			  
 			 WHERE CU.USER_ID = #{id}
     	]]>
     </select>
@@ -127,7 +133,7 @@
 				, CU.DEL_YN			AS DEL_YN
 
 				, CU.CLNT_CD        	AS CLNT_CD
-				, CU.CORP_CD        	AS CORP_CD
+				--, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
 				, CU.EMP_CD     		AS EMP_CD
 				, CU.DEPT_CD        	AS DEPT_CD
@@ -157,6 +163,7 @@
 					) THEN 'Y'
 					ELSE 'N'
 				  END	AS AUTHRT_MNGR_YN
+				  
 				, CASE
 					WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
 					WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
@@ -164,8 +171,17 @@
 					ELSE 'X'
 				  END		AS UNTY_OGNZ_CD
 
+				, AOI.OGNZ_CD	AS OGNZ_CD
+				, AOI.OGNZ_NM	AS OGNZ_NM
+				
+				, AOI.OGNZ_CD	AS CORP_CD
+				, AOI.OGNZ_NM	AS CORP_NM
 
 			 FROM TB_COM_USER CU
+			 
+			 LEFT JOIN TB_APC_OGNZ_INFO AOI
+			   ON AOI.OGNZ_CD = CU.UNTY_OGNZ_CD
+			   
 			WHERE CU.USER_ID = #{id}
 			  AND CU.PSWD = #{password}
 			  -- AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
@@ -211,7 +227,7 @@
 				, CU.DEL_YN			AS DEL_YN
 
 				, CU.CLNT_CD        	AS CLNT_CD
-				, CU.CORP_CD        	AS CORP_CD
+				--, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
 				, CU.EMP_CD     		AS EMP_CD
 				, CU.DEPT_CD        	AS DEPT_CD
@@ -252,7 +268,17 @@
 					ELSE 'X'
 				  END		AS UNTY_OGNZ_CD
 
+				, AOI.OGNZ_CD	AS OGNZ_CD
+				, AOI.OGNZ_NM	AS OGNZ_NM
+				
+				, AOI.OGNZ_CD	AS CORP_CD
+				, AOI.OGNZ_NM	AS CORP_NM
+
 			 FROM TB_COM_USER CU
+			 
+			 LEFT JOIN TB_APC_OGNZ_INFO AOI
+			   ON AOI.OGNZ_CD = CU.UNTY_OGNZ_CD
+			   
 			WHERE CU.USER_ID = #{id}
 			  AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			  AND CU.DEL_YN = 'N'

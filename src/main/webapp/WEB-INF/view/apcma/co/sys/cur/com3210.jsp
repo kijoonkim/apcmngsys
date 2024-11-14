@@ -441,7 +441,7 @@
                 params: gfnma_objectToString({
                 	 V_P_DEBUG_MODE_YN        : ''
                		,V_P_LANG_ID              : ''
-               		,V_P_COMP_CODE            : gv_ma_selectedApcCd
+               		,V_P_COMP_CODE            : gv_ma_selectedCorpCd
                		,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
                		,V_P_PERIOD               : gfn_nvl(item.data.BASE_MONTH)
                		,V_P_EX_RATE_DIV          : gfn_nvl(item.data.EX_RATE_DIV)
@@ -496,7 +496,7 @@
                 params: gfnma_objectToString({
             	    V_P_DEBUG_MODE_YN        : ""
            		   ,V_P_LANG_ID              : ""
-           		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+           		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
            		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
            		   ,V_P_BASE_CURRENCY        : gfn_nvl(item.data.BASE_CURRENCY)
            		   ,V_P_BASE_DATE            : gfn_nvl(item.data.BASE_DATE.replace(/-/g, ""))
@@ -615,7 +615,7 @@
     	var paramObj = {
 	    	    V_P_DEBUG_MODE_YN        : ''
 	    	   ,V_P_LANG_ID              : ''
-	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	    	   ,V_P_BASE_DATE_FR         : SRCH_BASE_DATE_FR
 	    	   ,V_P_BASE_DATE_TO         : SRCH_BASE_DATE_TO
@@ -758,7 +758,7 @@
     	var paramObj = {
 	    	    V_P_DEBUG_MODE_YN        : ''
 	    	   ,V_P_LANG_ID              : ''
-	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	    	   ,V_P_BASE_DATE_FR         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
 	    	   ,V_P_BASE_DATE_TO         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"))
@@ -818,7 +818,7 @@
  	    var paramObj = {
 	    	    V_P_DEBUG_MODE_YN        : ''
  	    	   ,V_P_LANG_ID              : ''
- 	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+ 	    	   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
  	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
  	    	   ,V_P_BASE_DATE_FR         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_FR1"))
  	    	   ,V_P_BASE_DATE_TO         : gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE_TO1"))
@@ -888,17 +888,17 @@
             SBUxMethod.set("SRCH_BASE_DATE_TO1", 	gfn_dateToYm(new Date())),
             
             //기준통화
-            gfnma_setComSelect(['dailyDayGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['dailyDayGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             //통화
-            gfnma_setComSelect(['dailyDayGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['dailyDayGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             //통화
-            gfnma_setComSelect(['monthMonthGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['monthMonthGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             //통화
-            gfnma_setComSelect(['monthMonthGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['monthMonthGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             //일별 환율탭 -  통화
             gfnma_multiSelectInit({
                 target: ['#SRCH_CURRENCY_CODE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM001',
                 whereClause: '',
@@ -918,10 +918,10 @@
             //평균환율탭 -  서비스
             gfnma_multiSelectInit({
                 target: ['#SRCH_FBS_SERVICE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
-                whereClause: "AND COMP_CODE = '" + gv_ma_selectedApcCd + "'",
+                whereClause: "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'",
                 formId: p_formId,
                 menuId: p_menuId,
                 selectValue: '',
@@ -937,7 +937,7 @@
             //평균환율탭 -  FBS대상
             gfnma_multiSelectInit({
                 target: ['#SRCH_FBS_YN'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM036',
                 whereClause: '',
@@ -956,7 +956,7 @@
             //평균환율탭 -  사용여부
             gfnma_multiSelectInit({
                 target: ['#SRCH_USE_YN'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM036',
                 whereClause: '',
@@ -975,7 +975,7 @@
             //평균환율탭 -  통화
             gfnma_multiSelectInit({
                 target: ['#SRCH_CURRENCY_CODE2'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM001',
                 whereClause: '',
@@ -995,7 +995,7 @@
             //기간별환율탭 -  통화
             gfnma_multiSelectInit({
                 target: ['#SRCH_CURRENCY_CODE3'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM001',
                 whereClause: '',
@@ -1581,7 +1581,7 @@
     	SBUxMethod.attr('modal-comPopCom5500', 'header-title', '메일링 리스트');
     	com5500Popup({
     		contact_group			: 'EXCHANGE_RATE'
-    		,comp_code				: gv_ma_selectedApcCd
+    		,comp_code				: gv_ma_selectedCorpCd
     		,client_code			: gv_ma_selectedClntCd
     	});
     }
@@ -1625,7 +1625,7 @@
 		                    params: gfnma_objectToString({
 		                    	    V_P_DEBUG_MODE_YN        : ""
 	                    		   ,V_P_LANG_ID              : ""
-	                    		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+	                    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	                    		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	                    		   ,V_P_BASE_CURRENCY        : gfn_nvl(dayGridData[i].BASE_CURRENCY)
 	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE)

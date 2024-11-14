@@ -165,10 +165,10 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SUMMARY_SCALE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRT001'
                 ,whereClause	: ''
@@ -185,13 +185,13 @@
                 ]
             }),
             // 집계기준
-            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'gvwInfo'], jsonTimeCategory, 'L_HRT024', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'gvwInfo'], jsonTimeCategory, 'L_HRT024', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 시간
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeTime, 'L_HRT006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeTime, 'L_HRT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
             // 횟수
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeCount, 'L_HRT007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeCount, 'L_HRT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
             // 시작/종료일자유형
-            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -382,7 +382,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_SUMMARY_SCALE : SUMMARY_SCALE,
             V_P_TIME_ITEM_CODE : TIME_ITEM_CODE,
@@ -481,7 +481,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
                     V_P_LANG_ID: '',
-                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                    V_P_COMP_CODE: gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                     V_P_TIME_ITEM_CODE : gfn_nvl(item.data.TIME_ITEM_CODE),
                     V_P_TIME_ITEM_NAME : gfn_nvl(item.data.TIME_ITEM_NAME),

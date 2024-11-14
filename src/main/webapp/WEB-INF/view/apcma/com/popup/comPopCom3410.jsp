@@ -81,7 +81,7 @@ function compopcom3410(options) {
         console.log('fn_createGrid end');
     }	
     fn_createGrid();	
-    gfnma_setComSelect(['com3410Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3410Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 	console.log('jsonCsGroup =>', jsonCsGroup);
 	
 	function fn_clearCom3410() {
@@ -95,7 +95,7 @@ function compopcom3410(options) {
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId

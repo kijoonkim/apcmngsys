@@ -255,15 +255,15 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_EMP_STATE','gvwInfoGrid'], jsonSrchEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE','gvwInfoGrid'], jsonSrchEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -283,7 +283,7 @@
             //정산구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_YE_TX_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA029'
                 ,whereClause	: ''
@@ -309,7 +309,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -345,7 +345,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -383,7 +383,7 @@
             + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
 
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
@@ -527,7 +527,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY       : YE_TX_YYYY
@@ -660,7 +660,7 @@
 
                     V_P_DEBUG_MODE_YN: ''
                     , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     ,V_P_YE_TX_YYYY         : YE_TX_YYYY

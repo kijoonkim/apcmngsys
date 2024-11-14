@@ -424,11 +424,11 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 
 
 
@@ -443,7 +443,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'
@@ -475,7 +475,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -709,7 +709,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 ,V_P_PAY_YYYYMM  : PAY_YYYYMM
@@ -813,10 +813,10 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
+        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
 
-        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
 
     }
 
@@ -859,7 +859,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM  : PAY_YYYYMM
@@ -1055,7 +1055,7 @@
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM          : PAY_YYYYMM
@@ -1217,7 +1217,7 @@
 
                     V_P_DEBUG_MODE_YN			: ''
                     ,V_P_LANG_ID				: ''
-                    ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                    ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
                     ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                     ,V_P_PAY_YYYYMM   : PAY_YYYYMM
@@ -1375,7 +1375,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_PAY_YYYYMM        : PAY_YYYYMM
@@ -1494,7 +1494,7 @@
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
             ,V_P_PERIOD_YYYYMM     : PAY_YYYYMM

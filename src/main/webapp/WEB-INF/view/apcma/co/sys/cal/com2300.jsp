@@ -217,12 +217,12 @@
 		SBUxMethod.set("SRCH_YYYY", gfn_dateToYmd(new Date()));
 		let rst = await Promise.all([
 			//그리드 - 요일
-			gfnma_setComSelect(['masterGrid','DAY_NAME'], jsonDayName, 'L_COM043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','DAY_NAME'], jsonDayName, 'L_COM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_COMP_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -372,7 +372,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_YYYY	            : SRCH_YYYY
 	    	   ,V_P_FORM_ID        		: p_formId
@@ -548,7 +548,7 @@
   	    var paramObj = {
   	    	   V_P_DEBUG_MODE_YN         : '' 
     		   ,V_P_LANG_ID              : ''
-    		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
     		   ,V_P_YYYY                 : SRCH_YYYY
     		   ,V_P_SUN_HOLIDAY_YN       : gfn_nvl(sunData[0].HOLIDAY_YN)
@@ -637,7 +637,7 @@
   	    var paramObj = {
   	    	   V_P_DEBUG_MODE_YN         : '' 
     		   ,V_P_LANG_ID              : ''
-    		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
     		   ,V_P_YYYY                 : SRCH_YYYY
     		   ,V_P_SUN_HOLIDAY_YN       : gfn_nvl(sunData[0].HOLIDAY_YN)
@@ -690,7 +690,7 @@
 							params: gfnma_objectToString({
 								V_P_DEBUG_MODE_YN         : ""
 								,V_P_LANG_ID              : ""
-								,V_P_COMP_CODE            : gv_ma_selectedApcCd
+								,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 								,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 								,V_P_YYYY                 : SRCH_YYYY
 								,V_P_TXN_ID               : gfn_nvl(item.data.TXN_ID)
@@ -816,7 +816,7 @@
          const paramObj = {
     	    	   V_P_DEBUG_MODE_YN         : '' 
    	    		   ,V_P_LANG_ID              : ''
-   	    		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   	    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    	    		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    	    		   ,V_P_YYYY                 : SRCH_YYYY
    	    		   ,V_P_SUN_HOLIDAY_YN       : ''
@@ -884,7 +884,7 @@
      	var paramObj = {
 	     		    V_P_DEBUG_MODE_YN       : ''
 	 	    	   ,V_P_LANG_ID             : ''
-	 	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	 	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	 	    	   ,V_P_YYYY	            : SRCH_YYYY
 	 	    	   ,V_P_FORM_ID        		: p_formId
@@ -929,7 +929,7 @@
      	var paramObj = {
 	     		    V_P_DEBUG_MODE_YN       : ''
 	 	    	   ,V_P_LANG_ID             : ''
-	 	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	 	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	 	    	   ,V_P_YYYY	            : SRCH_YYYY
 	 	    	   ,V_P_FORM_ID        		: p_formId

@@ -467,7 +467,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_GROUP_CODE          : SRCH_GROUP_CODE
 	    	   ,V_P_GROUP_NAME          : SRCH_GROUP_CODE
@@ -654,7 +654,7 @@
   	    var paramObj = {
   	    	    V_P_DEBUG_MODE_YN       : ''
     		   ,V_P_LANG_ID             : ''
-    		   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     		   ,V_P_GROUP_CODE          : GROUP_CODE
     		   ,V_P_GROUP_NAME          : GROUP_NAME
@@ -754,7 +754,7 @@
   	    var paramObj = {
   	    	    V_P_DEBUG_MODE_YN       : ''
     		   ,V_P_LANG_ID             : ''
-    		   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     		   ,V_P_GROUP_CODE          : GROUP_CODE
     		   ,V_P_GROUP_NAME          : GROUP_NAME
@@ -813,7 +813,7 @@
         	    					
        	    					   V_P_DEBUG_MODE_YN        : ''
   	    						   ,V_P_LANG_ID             : ''
-  	    						   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+  	    						   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
   	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
   	    						   ,V_P_GROUP_CODE          : GROUP_CODE
   	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
@@ -965,7 +965,7 @@
 	    var paramObj = {
 	   		   V_P_DEBUG_MODE_YN	: ''
 	   		   ,V_P_LANG_ID         : ''    
-	   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+	   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
 	   		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
 	   		   ,V_P_GROUP_CODE      : rowData.GROUP_CODE
 	   		   ,V_P_GROUP_NAME		: ''          

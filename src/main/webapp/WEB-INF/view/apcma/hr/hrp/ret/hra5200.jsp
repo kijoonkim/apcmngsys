@@ -246,12 +246,12 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 
             //정산구분
             gfnma_multiSelectInit({
                 target			: ['#RET_CALC_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA037'
                 ,whereClause	: ''
@@ -271,7 +271,7 @@
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -291,7 +291,7 @@
             //정산구분
             gfnma_multiSelectInit({
                 target			: ['#PRINT_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA026'
                 ,whereClause	: ''
@@ -312,7 +312,7 @@
 
         ]);
 
-        SBUxMethod.set('COMP_CODE', gv_ma_selectedApcCd);
+        SBUxMethod.set('COMP_CODE', gv_ma_selectedCorpCd);
         gfnma_multiSelectSet('#PRINT_TYPE', 'SUB_CODE', 'CODE_NAME', 20);
     }
 
@@ -325,7 +325,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -361,7 +361,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -412,7 +412,7 @@
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
-        SBUxMethod.set('COMP_CODE', gv_ma_selectedApcCd);
+        SBUxMethod.set('COMP_CODE', gv_ma_selectedCorpCd);
     }
 
 

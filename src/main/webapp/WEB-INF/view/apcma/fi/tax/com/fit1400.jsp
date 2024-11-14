@@ -267,7 +267,7 @@
         /** 법인 select **/
         jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
 
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
@@ -275,7 +275,7 @@
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedApcCd
+            ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
             ,whereClause	: ''
@@ -315,15 +315,15 @@
         }
 
         /** 등록조건_부가세기준정보 select **/
-        jsonCbotaxTerm = await gfnma_getComSelectList('L_FIT002','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
+        jsonCbotaxTerm = await gfnma_getComSelectList('L_FIT002','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
         SBUxMethod.refresh("reg-slt-taxTerm");
 
         /** 등록조건_신고구분 select **/
-        jsonCbotaxRepDtlType = await gfnma_getComSelectList('L_FIT035','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
+        jsonCbotaxRepDtlType = await gfnma_getComSelectList('L_FIT035','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
         SBUxMethod.refresh("reg-slt-vatRepDetailType");
 
         /** 등록조건_환급구분 select **/
-        jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
+        jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
         SBUxMethod.refresh("reg-slt-refundType");
 
         fn_search();
@@ -450,7 +450,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN        : ""
             ,V_P_LANG_ID              : ""
-            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
             ,V_P_YYYY                 : V_P_YYYY
             ,V_P_SEQ                  : V_P_SEQ
@@ -500,7 +500,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN        : ""
             ,V_P_LANG_ID              : ""
-            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
             ,V_P_YYYY                 : ""
             ,V_P_SEQ                  : ""
@@ -549,7 +549,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN        : ""
             ,V_P_LANG_ID              : ""
-            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
             ,V_P_YYYY                 : ""
             ,V_P_SEQ                  : ""
@@ -622,7 +622,7 @@ const fn_save = async function(){
     var paramObj = {
          V_P_DEBUG_MODE_YN              : ''
         ,V_P_LANG_ID                    : ''
-        ,V_P_COMP_CODE                  : gv_ma_selectedApcCd
+        ,V_P_COMP_CODE                  : gv_ma_selectedCorpCd
         ,V_P_CLIENT_CODE                : gv_ma_selectedClntCd
         ,VL_P_YYYY                      : ''
         ,V_P_SEQ                        : ''
@@ -689,7 +689,7 @@ const fn_saveS2 = async function(){
     var paramObj = {
         V_P_DEBUG_MODE_YN        : ""
         ,V_P_LANG_ID              : ""
-        ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+        ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
         ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
         ,VL_P_YYYY                : ""
         ,V_P_SEQ                  : ""
@@ -767,7 +767,7 @@ const fn_create = async function(){
     var paramObj = {
         V_P_DEBUG_MODE_YN        : ""
         ,V_P_LANG_ID              : ""
-        ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+        ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
         ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
         ,V_P_YYYY                 : V_P_YYYY
         ,V_P_SEQ                  : V_P_SEQ
@@ -798,7 +798,7 @@ const fn_delete = async function() {
     var paramObj = {
         V_P_DEBUG_MODE_YN: ''
         , V_P_LANG_ID: ''
-        , V_P_COMP_CODE: gv_ma_selectedApcCd
+        , V_P_COMP_CODE: gv_ma_selectedCorpCd
         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
         , VL_P_YYYY: ''
         , V_P_SEQ: ''

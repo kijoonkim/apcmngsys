@@ -208,7 +208,7 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
@@ -252,11 +252,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -275,7 +275,7 @@
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-fiOrgCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -294,7 +294,7 @@
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -310,11 +310,11 @@
 		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			gfnma_setComSelect(['srch-slt-bplc'], jsonBplc, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-bplc'], jsonBplc, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-slt-depreciationType","2");
@@ -332,7 +332,7 @@
     	//fn_search();
 
 		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 		//	function(list){
 		//		$('#SRCH_EMP_BTN').click(function(){
 		//			fn_compopup1(list);
@@ -445,7 +445,7 @@
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
       		    ,V_P_FI_ORG_CODE    : ''
       		    ,V_P_DEPRECIATION_YYYYMM : ''
@@ -596,7 +596,7 @@
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
       			,V_P_DEPRECIATION_YYYYMM : ''
       			,V_P_DEPRECIATION_TYPE   : ''
@@ -648,7 +648,7 @@
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
       			,V_P_ACCT_RULE_CODE	: NATION_CODE
       			,V_P_TXN_ID_D       : strtxn_id

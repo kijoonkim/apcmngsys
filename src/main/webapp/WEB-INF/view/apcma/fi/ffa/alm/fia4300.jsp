@@ -794,18 +794,18 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 			//회계기준
-			gfnma_setComSelect(['srch-slt-acctRuleCodeP','srch-ast-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			//gfnma_setComSelect(['srch-slt-siteCode'], jsonBplc, 'L_FIT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acctRuleCodeP','srch-ast-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//gfnma_setComSelect(['srch-slt-siteCode'], jsonBplc, 'L_FIT001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//신고사업장
-			gfnma_setComSelect(['srch-dsps-taxSiteCode'], jsonDclrBplc, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-dsps-taxSiteCode'], jsonDclrBplc, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
 			//부가세유형
-			gfnma_setComSelect(['grdAstDsps'], jsonVatType, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdAstDsps'], jsonVatType, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode','#srch-ast-siteCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -822,14 +822,14 @@
 				]
 			}),
 			//처분유형
-			gfnma_setComSelect(['srch-slt-disposalType','srch-ast-disposalType'], jsonDspsUnit, 'L_FIA009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			//gfnma_setComSelect(['srch-slt-dspsTab-currency'], jsonCurrency, 'L_FIF045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-disposalType','srch-ast-disposalType'], jsonDspsUnit, 'L_FIA009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//gfnma_setComSelect(['srch-slt-dspsTab-currency'], jsonCurrency, 'L_FIF045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//회계단위
-			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-fiOrgCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -848,7 +848,7 @@
 			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-dsps-expenseCurrencyCode','#srch-dsps-currencyCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM001'
 				,whereClause	: ''
@@ -867,7 +867,7 @@
 			//부가세유형
 			gfnma_multiSelectInit({
 				target			: ['#srch-dsps-vatType']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_SALES_VAT_TYPE'
 				,whereClause	: ''
@@ -888,7 +888,7 @@
 			//비용부가세유형
 			gfnma_multiSelectInit({
 				target			: ['#srch-dsps-expenseVatType']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_PUR_VAT_TYPE'
 				,whereClause	: ''
@@ -909,7 +909,7 @@
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-compCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -949,7 +949,7 @@
     	//fn_search();
 
 		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 		//	function(list){
 		//		$('#SRCH_EMP_BTN').click(function(){
 		//			fn_compopup1(list);
@@ -1086,7 +1086,7 @@
 		var paramObj = {
 			    V_P_DEBUG_MODE_YN         : ''
 			    ,V_P_LANG_ID : ''
-			    ,V_P_COMP_CODE  : gv_ma_selectedApcCd
+			    ,V_P_COMP_CODE  : gv_ma_selectedCorpCd
 			    ,V_P_CLIENT_CODE : gv_ma_selectedClntCd
 		  	    ,V_P_FI_ORG_CODE : acntgUnit
 			    ,V_P_ACCT_RULE_CODE : acntgCrtr
@@ -1150,7 +1150,7 @@
         var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID         :     ''
-	   		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
+	   		    ,V_P_COMP_CODE       :     gv_ma_selectedCorpCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
 			    ,V_P_ACCT_RULE_CODE  : ''
 			    ,V_P_ASSET_NO        : ''
@@ -2069,7 +2069,7 @@
 		var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID         :     ''
-	   		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
+	   		    ,V_P_COMP_CODE       :     gv_ma_selectedCorpCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
 
     		    ,V_P_ACCT_RULE_CODE  :    acntgCrtr
@@ -2158,7 +2158,7 @@
     		    V_P_WORK_TYPE         : workType
     		    ,V_P_DEBUG_MODE_YN  : 'N'
     		    ,V_P_LANG_ID            :     'KOR'
-    		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
+    		    ,V_P_COMP_CODE       :     gv_ma_selectedCorpCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
     		    ,V_P_ASSET_DISPOSAL_NO       : dspsNo
     		    ,V_P_DISPOSAL_SEQ             : ''
@@ -2211,7 +2211,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID            :     ''
-    		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
+    		    ,V_P_COMP_CODE       :     gv_ma_selectedCorpCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
     		    ,V_P_ACCT_RULE_CODE  : gfnma_nvl(acntgCrtr)
     		    ,V_P_ASSET_DISPOSAL_NO : gfnma_nvl(rowData.assetDisposalNo)
@@ -2544,7 +2544,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM008'
         	,popupType				: 'A'
@@ -2592,7 +2592,7 @@
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	var addParams = [searchCode|searchName|null];
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
         	,popupType				: 'B'
@@ -2643,7 +2643,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
@@ -2681,7 +2681,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LIST'
         	,popupType				: 'A'
@@ -2718,7 +2718,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
@@ -2755,7 +2755,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '비용거래처');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CS_PURCHASE'
         	,popupType				: 'A'
@@ -2792,7 +2792,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '처분비용계정');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'

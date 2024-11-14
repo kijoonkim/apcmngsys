@@ -254,11 +254,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//회계기준
-            gfnma_setComSelect(['srch-lblacct-rule-code'], 	jsonLblacctRuleCode, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-lblacct-rule-code'], 	jsonLblacctRuleCode, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-cbocurrency-code']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM001'
 				,whereClause	: ''
@@ -277,7 +277,7 @@
 			//전표구분
 			gfnma_multiSelectInit({
 				target			: ['#srch-cbodoc-type']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM051'
 				,whereClause	: ''
@@ -293,8 +293,8 @@
 		            {caption: "명칭", 		ref: 'CODE_NAME',    	width:'250px',  	style:'text-align:left'}
 				]
 			}),
-            gfnma_setComSelect([], jsonGridComboLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridComboDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridComboLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridComboDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -454,7 +454,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -500,7 +500,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -546,7 +546,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CC_INPUT'
        		,popupType				: 'A'
@@ -605,7 +605,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_RULE_CODE		: p_txtrule_code	
 			,V_P_FORM_ID		: p_formId
@@ -681,7 +681,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_RULE_CODE		: p_txtrule_code1	
 			,V_P_FORM_ID		: p_formId
@@ -797,7 +797,7 @@
  	    var paramObj = { 
  				V_P_DEBUG_MODE_YN			: ''
  				,V_P_LANG_ID				: ''
- 				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+ 				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
  				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
  				,V_P_RULE_CODE				: rowData.RULE_CODE
  				,V_P_RULE_NAME				: rowData.RULE_NAME
@@ -910,7 +910,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			,V_P_RULE_CODE				: obj.RULE_CODE
 			,V_P_RULE_NAME				: obj.RULE_NAME
@@ -972,7 +972,7 @@
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: '',
     	 				V_P_LANG_ID					: '',
-    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
     	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
     	 				V_P_RULE_CODE				: gfnma_nvl(pobj.RULE_CODE),
     	 				V_P_ITEM_SEQ				: gfnma_nvl(i+1),
@@ -1024,7 +1024,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			,V_P_RULE_CODE				: obj.RULE_CODE
 			,V_P_RULE_NAME				: obj.RULE_NAME
@@ -1093,7 +1093,7 @@
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: '',
     	 				V_P_LANG_ID					: '',
-    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
     	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
     	 				V_P_RULE_CODE				: gfnma_nvl(pobj.RULE_CODE),
     	 				V_P_ITEM_SEQ				: gfnma_nvl(obj.ITEM_SEQ),
