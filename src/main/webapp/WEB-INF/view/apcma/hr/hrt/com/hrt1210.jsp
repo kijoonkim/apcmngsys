@@ -69,7 +69,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search">교대조</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <%--<sbux-select id="SRCH_SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SHIFT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,12 +80,14 @@
                             </div>
                         </div>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">교대조명</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-input id="SRCH_SHIFT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                     <th scope="row" class="th_bg_search">사용여부</th>
-                    <td class="td_input">
+                    <td colspan="3" class="td_input">
                         <sbux-select id="SRCH_USE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td></td>

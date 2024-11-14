@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg">사업단위</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,22 +107,6 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
-                            <th scope="row" class="th_bg">년월</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-datepicker
-                                        uitype="popup"
-                                        id="SRCH_PERIOD_YYYYMM"
-                                        name="SRCH_PERIOD_YYYYMM"
-                                        date-format="yyyy-mm"
-                                        datepicker-mode="month"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                        style="width:100%;"
-                                        onchange="fn_payDate"
-                                />
-                            </td>
-                            <td colspan="3"></td>
-						</tr>
-						<tr>
                             <th scope="row" class="th_bg">거래처</th>
                             <td colspan="3" class="td_input" data-group="SRCH_PAYER">
                                 <sbux-input id="SRCH_PAYER_CODE" name="SRCH_PAYER_CODE" uitype="hidden"></sbux-input>
@@ -136,6 +120,8 @@
                                         onclick="fn_findPayerName"
                                 ></sbux-button>
                             </td>
+						</tr>
+						<tr>
                             <th scope="row" class="th_bg">작성부서</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_DEPT">
                                 <sbux-input id="SRCH_CREATED_DEPT_CODE" name="SRCH_CREATED_DEPT_CODE" uitype="hidden"></sbux-input>
@@ -173,8 +159,34 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
+                            <th scope="row" class="th_bg">전표구분</th>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SRCH_DOC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
 						</tr>
 						 <tr>
+                             <th scope="row" class="th_bg">년월</th>
+                             <td class="td_input" style="border-right:hidden;">
+                                 <sbux-datepicker
+                                         uitype="popup"
+                                         id="SRCH_PERIOD_YYYYMM"
+                                         name="SRCH_PERIOD_YYYYMM"
+                                         date-format="yyyy-mm"
+                                         datepicker-mode="month"
+                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                         style="width:100%;"
+                                         onchange="fn_payDate"
+                                 />
+                             </td>
+                             <td colspan="3"></td>
 							<th scope="row" class="th_bg">거래일자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
@@ -203,18 +215,6 @@
                                         required
 								/>
 							</td>
-                             <td></td>
-							<th scope="row" class="th_bg">전표구분</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-                                <div class="dropdown">
-                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <font>선택</font>
-                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="SRCH_DOC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                    </div>
-                                </div>
-                            </td>
                              <td></td>
                             <th scope="row" class="th_bg">작성자</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_BY">
@@ -249,7 +249,7 @@
                                 <sbux-input id="SRCH_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">
+                            <td class="td_input">
                                 <sbux-checkbox
                                         uitype="normal"
                                         id="SRCH_MULTI_YN"
@@ -259,7 +259,7 @@
                                         text="복수선택"
                                         true-value="Y" false-value="N"
                                 />
-                            </th>
+                            </td>
                             <td colspan="3" class="td_input">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
@@ -392,7 +392,7 @@
 
     var strDocNameList = "";
 
-    var jsonFiOrgCode = []; // 사업단위
+    var jsonFiOrgCode = []; // APC명
     var jsonDocStatus = []; // 전표상태
     var jsonDocType = []; // 전표구분
     var jsonPayMethod = []; // 수금방법
@@ -442,7 +442,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['gvwMaster', 'gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
@@ -622,7 +622,7 @@
             {caption: ["역분개전표번호"],         ref: 'REVERSE_DOC_NAME',    type:'output',  	width:'109px',  style:'text-align:left'},
             {caption: ["원천전표id"],         ref: 'ORIG_DOC_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["원천전표번호"],         ref: 'ORIG_DOC_NAME',    type:'output',  	width:'93px',  style:'text-align:left'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '109px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '109px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',
@@ -781,7 +781,7 @@
             {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'128px',  style:'text-align:left'},
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'177px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',

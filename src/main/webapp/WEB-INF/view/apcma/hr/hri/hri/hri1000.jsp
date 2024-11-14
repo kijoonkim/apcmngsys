@@ -26,11 +26,6 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
-    <style>
-        body{
-            zoom: 0.8 !important;
-        }
-    </style>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -1851,13 +1846,6 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.paging = {
-            'type' 			: 'page',
-            'count' 		: 5,
-            'size' 			: 20,
-            'sorttype' 		: 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["사번"], 	        ref: 'EMP_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
@@ -2547,6 +2535,17 @@
 
     //상세정보 보기
     const fn_view = async function() {
+        var nCol = gvwList.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+
+        var nRow = gvwList.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
         cfn_add();
         editType = "U";
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
@@ -2559,16 +2558,6 @@
         SBUxMethod.attr('JOB_RANK', 'readonly', 'true');
         SBUxMethod.attr('ENTER_TYPE', 'readonly', 'false');
         SBUxMethod.attr('EMP_TYPE', 'readonly', 'false');
-
-        var nCol = gvwList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = gvwList.getRow();
-        if (nRow < 1) {
-            return;
-        }
 
         let rowData = gvwList.getRowData(nRow);
 
@@ -2833,7 +2822,8 @@
                 gvwPrize.rebuild();
 
                 // 건강검진내역
-                detailData.cv_17.forEach((item, index) => {
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
+                /*detailData.cv_17.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         CHECK_TYPE : item.CHECK_TYPE,
@@ -2846,7 +2836,7 @@
                     jsonHealthList.push(msg);
                 });
 
-                gvwHealth.rebuild();
+                gvwHealth.rebuild();*/
 
                 // 발령사항
                 detailData.cv_18.forEach((item, index) => {
@@ -2906,8 +2896,9 @@
 
                 gvwTimeOffHistory.rebuild();
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 단체보험
-                detailData.cv_20.forEach((item, index) => {
+                /*detailData.cv_20.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         GROUP_INSURE_CODE : item.GROUP_INSURE_CODE,
@@ -2921,10 +2912,11 @@
                     jsonGroupInsuranceList.push(msg);
                 });
 
-                gvwGroupInsurance.rebuild();
+                gvwGroupInsurance.rebuild();*/
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 상해/질병정보
-                detailData.cv_21.forEach((item, index) => {
+                /*detailData.cv_21.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         DISEASE_TYPE : item.DISEASE_TYPE,
@@ -2941,7 +2933,7 @@
                     jsonDiseaseList.push(msg);
                 });
 
-                gvwDisease.rebuild();
+                gvwDisease.rebuild();*/
 
                 // 평가항목
                 detailData.cv_22.forEach((item, index) => {
@@ -2958,8 +2950,9 @@
 
                 gvwPersonnelEvaluation.rebuild();
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 공상발생
-                detailData.cv_23.forEach((item, index) => {
+                /*detailData.cv_23.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         OFFICIAL_INJURY_START_DATE : item.OFFICIAL_INJURY_START_DATE,
@@ -2969,10 +2962,11 @@
                     jsonOfficialInjuryList.push(msg);
                 });
 
-                gvwOfficialInjury.rebuild();
+                gvwOfficialInjury.rebuild();*/
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 계약차수
-                detailData.cv_35.forEach((item, index) => {
+                /*detailData.cv_35.forEach((item, index) => {
                     const msg = {
                         CONTRACT_DEGREE : item.CONTRACT_DEGREE,
                         CONTRACT_START_DATE : item.CONTRACT_START_DATE,
@@ -2984,10 +2978,11 @@
                     jsonContractDegList.push(msg);
                 });
 
-                gvwContractDeg.rebuild();
+                gvwContractDeg.rebuild();*/
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 근무계획
-                detailData.cv_38.forEach((item, index) => {
+                /*detailData.cv_38.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         WORKPLAN_TYPE : item.WORKPLAN_TYPE,
@@ -2997,7 +2992,7 @@
                     jsonWorkPlanList.push(msg);
                 });
 
-                gvwWorkPlan.rebuild();
+                gvwWorkPlan.rebuild();*/
 
                 // 근무조
                 detailData.cv_39.forEach((item, index) => {
@@ -3026,8 +3021,9 @@
 
                 gvwEmp.rebuild();
 
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 경조사비
-                detailData.cv_24.forEach((item, index) => {
+                /*detailData.cv_24.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         NAME : item.NAME,
@@ -3043,7 +3039,7 @@
                     jsonExpenditurewelfareList.push(msg);
                 });
 
-                gvwExpenditurewelfare.rebuild();
+                gvwExpenditurewelfare.rebuild();*/
 
             } else {
                 alert(data.resultMessage);

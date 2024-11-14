@@ -92,7 +92,7 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <th scope="row" class="th_bg_search">회계단위</th>
+                            <th scope="row" class="th_bg_search">APC명</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -207,7 +207,7 @@
     var htInvoice = {};
     var dtKeyInvoiceMapping = {};
 
-    var jsonFiOrgCode = []; // 회계단위
+    var jsonFiOrgCode = []; // APC명
     var jsonTxnGroupCode = []; // 입출
     var jsonBankCode = []; // 은행코드
     var jsonPayTermCode = []; // 지급조건
@@ -238,7 +238,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 회계단위
+            // APC명
             gfnma_setComSelect(['gvwList'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
@@ -387,7 +387,7 @@
             {caption: ["FBS_TXN_DATE"],         ref: 'FBS_TXN_DATE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["FBS_TXN_TIME"],         ref: 'FBS_TXN_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["DOC_ID"],         ref: 'DOC_H_DOC_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["회계단위"], 		ref: 'DOC_H_FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["APC명"], 		ref: 'DOC_H_FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonStatusCode',
                     label		: 'label',
@@ -781,7 +781,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["사업단위코드"], ref: 'FI_ORG_CODE', type: 'output', width: '75px', style: 'text-align:left'},
+            {caption: ["APC명코드"], ref: 'FI_ORG_CODE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["사업장코드"], ref: 'SITE_CODE', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["반제완료여부"], ref: 'APPLY_COMPLETE_FLAG', type: 'output', width: '75px', style: 'text-align:left'},
             {caption: ["반제완료일"],       ref: 'APPLY_COMPLETE_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',

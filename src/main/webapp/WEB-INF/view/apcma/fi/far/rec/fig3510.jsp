@@ -51,7 +51,7 @@
                         </colgroup>
                         <tbody>
                             <tr>
-                                <th scope="row" class="th_bg">회계단위</th>
+                                <th scope="row" class="th_bg">APC명</th>
                                 <td colspan="3" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="SRCH_DOC_H_FI_ORG_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                 </td>
@@ -1129,7 +1129,7 @@
 
     const fn_initSBSelect = async function () {
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_multiSelectInit({
                 target: ['#TAX_SITE_CODE', '#SUB_TAX_SITE_CODE']
                 , compCode: gv_ma_selectedApcCd
@@ -6467,9 +6467,6 @@
     }
 
     const fn_attach = async function() {
-        if (gvwWFItem.getRow() < 0)
-            return;
-
         if (gfn_nvl(SBUxMethod.get("DOC_ID")) == "" || gfn_nvl(SBUxMethod.get("DOC_ID")) == "0") {
             gfn_comAlert("E0000", "전표저장후 파일등록가능합니다.");
             return;

@@ -81,7 +81,7 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <th scope="row" class="th_bg_search">사업단위</th>
+                            <th scope="row" class="th_bg_search">APC명</th>
                             <td colspan="3" class="td_input">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -610,7 +610,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 회계단위
+            // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedApcCd
