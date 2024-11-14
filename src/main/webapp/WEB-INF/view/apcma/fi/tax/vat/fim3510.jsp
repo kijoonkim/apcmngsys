@@ -38,25 +38,35 @@
             </div>
         </div>
         <div class="box-body">
+            <div class="box-search-ma">
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
                 <colgroup>
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
@@ -73,6 +83,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="ad_tbl_top" style="margin-top: 10px">
                 <ul class="ad_tbl_count">
                     <li><span>◎ 부가세 정보</span></li>

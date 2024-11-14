@@ -93,7 +93,7 @@
 								</c:choose>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg_search">APC명</th>
+							<th scope="row" class="th_bg_search">법인명</th>
 							<td colspan="3" class="td_input">
 	<script type="text/javascript">
 	<c:choose>

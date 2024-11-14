@@ -476,41 +476,41 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '90px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption : ["마감상태"], ref : 'CLOSE_STATE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["마감상태"], ref : 'CLOSE_STATE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonCloseState',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["확정"], ref: 'CONFIRM_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["확정"], ref: 'CONFIRM_FLAG', type: 'checkbox', width: '90px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonYeTxType',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["부서명"], ref : 'DEPT_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["부서명"], ref : 'DEPT_NAME', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true, hidden : true},
-            {caption: ["생성PC"], ref: 'INSERT_PC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["변경자"], ref: 'UPDATE_USERID', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['변경일시'], ref: 'UPDATE_TIME', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ["생성PC"], ref: 'INSERT_PC', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["변경자"], ref: 'UPDATE_USERID', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ['변경일시'], ref: 'UPDATE_TIME', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true, hidden : true},
-            {caption: ["변경PC"], ref: 'UPDATE_PC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['시작월'], ref: 'YE_YYYYMM', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ["변경PC"], ref: 'UPDATE_PC', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ['시작월'], ref: 'YE_YYYYMM', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden : true},
-            {caption: ["마감여부"], ref: 'SPLIT_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["마감여부"], ref: 'SPLIT_YN', type: 'checkbox', width: '90px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }

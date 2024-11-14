@@ -27,11 +27,6 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
-    
-    	body{
-            /** zoom: 0.8 !important;*/
-        }
-        
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -81,149 +76,161 @@
 			</div>
         </div>
         <div class="box-body">
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
-                <colgroup>
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+            <div class="box-search-ma">
+                <!--[APC] START -->
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <!--[APC] END -->
+                <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">기준연도</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker
-                        	id="srch-dtp-yyyy" 
-                        	name="srch-dtp-yyyy" 
-                        	uitype="popup" 
-                        	datepicker-mode="year"
-                        	date-format="yyyy"
-                        	class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        ></sbux-datepicker>
-                    </td>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <th scope="row" class="th_bg">신고구분명</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
-                        <div style="display: flex;gap: 5px">
-                            <div class="dropdown">
-                                <button 
-                                	style="width:200px;text-align:left" 
-                                	class="btn btn-sm btn-light dropdown-toggle" 
-                                	type="button" 
-                                	id="srch-ddm-seq" 
-                                	data-toggle="dropdown" 
-                                	aria-haspopup="true" 
-                                	aria-expanded="false"
-                                >
-                                    <font>선택</font>
-                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                </button>
-                                <div 
-                                	class="dropdown-menu" 
-                                	aria-labelledby="srch-ddm-seq" 
-                                	style="width:750px;height:150px;padding-top:0px;overflow:auto"
-                                ></div>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" >기준연도</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker
+                                    id="srch-dtp-yyyy"
+                                    name="srch-dtp-yyyy"
+                                    uitype="popup"
+                                    datepicker-mode="year"
+                                    date-format="yyyy"
+                                    class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                            ></sbux-datepicker>
+                        </td>
+                        <td></td>
+                        <th scope="row" >신고구분명</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <div style="display: flex;gap: 5px">
+                                <div class="dropdown">
+                                    <button
+                                            style="width:200px;text-align:left"
+                                            class="btn btn-sm btn-light dropdown-toggle"
+                                            type="button"
+                                            id="srch-ddm-seq"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                    >
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div
+                                            class="dropdown-menu"
+                                            aria-labelledby="srch-ddm-seq"
+                                            style="width:750px;height:150px;padding-top:0px;overflow:auto"
+                                    ></div>
+                                </div>
+                                <sbux-input
+                                        readonly
+                                        id="srch-inp-termFr"
+                                        name="srch-inp-termFr"
+                                        uitype="text"
+                                        class="form-control input-sm"
+                                ></sbux-input>
+                                <p style="text-align: center;line-height: 30px">~</p>
+                                <sbux-input
+                                        readonly
+                                        id="srch-inp-termTo"
+                                        name="srch-inp-termTo"
+                                        uitype="text"
+                                        class="form-control input-sm"
+                                ></sbux-input>
                             </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" >신고사업장</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
                             <sbux-input
-                            	readonly 
-                            	id="srch-inp-termFr"
-                            	name="srch-inp-termFr"
-                            	uitype="text" 
-                            	class="form-control input-sm"
+                                    id="srch-inp-taxSiteName"
+                                    name="srch-inp-taxSiteName"
+                                    uitype="text"
+                                    class="form-control input-sm"
                             ></sbux-input>
-                            <p style="text-align: center;line-height: 30px">~</p>
+                        </td>
+                        <td></td>
+                        <th scope="row" >사업자번호</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
                             <sbux-input
-                            	readonly 
-                            	id="srch-inp-termTo" 
-                            	name="srch-inp-termTo" 
-                            	uitype="text" 
-                            	class="form-control input-sm"
+                                    id="srch-inp-bizRegno"
+                                    name="srch-inp-bizRegno"
+                                    uitype="text"
+                                    class="form-control input-sm"
                             ></sbux-input>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">신고사업장</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                        	id="srch-inp-taxSiteName" 
-                        	name="srch-inp-taxSiteName" 
-                        	uitype="text" 
-                        	class="form-control input-sm" 
-                        ></sbux-input>
-                    </td>
-                    <td></td>
-                    <th scope="row" class="th_bg">사업자번호</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
-                        <sbux-input 
-                        	id="srch-inp-bizRegno" 
-                        	name="srch-inp-bizRegno" 
-                        	uitype="text" 
-                        	class="form-control input-sm" 
-                        ></sbux-input>
-                    </td>
-                </tr>
-                <tr>
-                	<th scope="row" class="th_bg">매입매출구분</th>
-                	<td colspan="2" class="td_input" style="border-right: hidden;">
-                        <sbux-select
-                        	unselected-text="전체"
-                            uitype="single"
-                            id="srch-slt-arApType"
-                            name="srch-slt-arApType"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonArApType"
-						/>
-                    </td>
-                    <td></td>
-                    <th scope="row" class="th_bg">거래처</th>
-                    <td class="td_input" style="border-right: hidden;">
- 						<sbux-input 
- 							uitype="search" 
- 							id="srch-inp-csCode"
- 							name="srch-inp-csCode"
- 							class="form-control input-sm"
- 							button-back-text=""
-							button-back-class="glyphicon glyphicon-remove"
-							button-back-event="fn_clearSrchCsCode" 
- 							event-ignore-readonly="true"
- 							readonly
- 						></sbux-input>
-					</td>
-					<td class="td_input" style="border-right: hidden;">
-						<sbux-input 
-							uitype="text" 
-							id="srch-inp-csName" 
-							name="srch-inp-csName"
-							class="form-control input-sm"							 
-						></sbux-input>
-					</td>
-                    <td class="td_input" style="border-right: hidden;">
-						<sbux-button 
-							class="btn btn-xs btn-outline-dark" 
-							image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
-							uitype="modal" 
-							target-id="modal-compopup1" 
-							onclick="fn_popSrchCsCode"
-						></sbux-button>
-                    </td>
-                    <td colspan="4"></td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" >매입매출구분</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-select
+                                    unselected-text="전체"
+                                    uitype="single"
+                                    id="srch-slt-arApType"
+                                    name="srch-slt-arApType"
+                                    class="form-control input-sm"
+                                    jsondata-ref="jsonArApType"
+                            />
+                        </td>
+                        <td></td>
+                        <th scope="row" >거래처</th>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="search"
+                                    id="srch-inp-csCode"
+                                    name="srch-inp-csCode"
+                                    class="form-control input-sm"
+                                    button-back-text=""
+                                    button-back-class="glyphicon glyphicon-remove"
+                                    button-back-event="fn_clearSrchCsCode"
+                                    event-ignore-readonly="true"
+                                    readonly
+                            ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-input
+                                    uitype="text"
+                                    id="srch-inp-csName"
+                                    name="srch-inp-csName"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
+                            <sbux-button
+                                    class="btn btn-xs btn-outline-dark"
+                                    image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                    uitype="modal"
+                                    target-id="modal-compopup1"
+                                    onclick="fn_popSrchCsCode"
+                            ></sbux-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div style=" height: 90vh; display: flex; gap: 10px">
                 <div style="flex: 1">
                     <div class="ad_tbl_top">
