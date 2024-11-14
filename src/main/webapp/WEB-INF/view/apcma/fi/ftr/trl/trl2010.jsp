@@ -45,87 +45,107 @@
             </div>
             <div class="box-body">
 
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+                <div class="box-search-ma">
+                    <!--[pp] 검색 -->
+                    <!--[APC] START -->
+                    <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                    <!--[APC] END -->
+                    <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+                        <caption>검색 조건 설정</caption>
+                        <colgroup>
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+
+                            <col style="width: 8%">
+                            <col style="width: 7%">
+                            <col style="width: 1%">
+                            <col style="width: 7%">
+                            <col style="width: 2%">
+                        </colgroup>
+                        <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">년월</th>
-                            <td colspan="3" class="td_input" >
+                            <th scope="row" class="th_bg_search">년월</th>
+                            <td class="td_input">
                                 <sbux-datepicker
                                         id="SCH_PERIOD_YYYYMM_P"
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyy-mm"
                                         style="width:100px"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed" >
+                                        class="table-datepicker-ma inpt_data_reqed">
                                 </sbux-datepicker>
                             </td>
-
-                            <th scope="row" class="th_bg">사업단위</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <td colspan="3" style="border-right: hidden;"></td>
+                            <th scope="row" class="th_bg_search">사업단위</th>
+                            <td colspan="3" class="td_input">
+                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode"
+                                             unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
-                        
-                            <th scope="row" class="th_bg">입출금계좌</th>
+                            <td style="border-right: hidden;"></td>
+                            <th scope="row" class="th_bg_search">입출금계좌</th>
                             <td class="td_input" data-group="BANK_CS">
-                                <sbux-input style="width:100%" id="SCH_OUT_ACCOUNT_NO" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input style="width:100%" id="SCH_OUT_ACCOUNT_NO" uitype="text"
+                                            class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td colspan="2" class="td_input" data-group="BANK_CS">
+                                <sbux-input style="width:100%" id="SCH_OUT_ACCOUNT_NM" uitype="text"
+                                            class="form-control input-sm"></sbux-input>
                             </td>
                             <td class="td_input" data-group="BANK_CS">
-                                <sbux-input style="width:100%" id="SCH_OUT_ACCOUNT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="…"
+                                        uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup1()"
+                                ></sbux-button>
                             </td>
-                            <td class="td_input" data-group="BANK_CS">
-                                <button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup1()">
-                                    <img src='../../../resource/images/find2.png' width='12px' />
-                                </button>
+                            <th scope="row" class="th_bg_search">금융기관</th>
+                            <td class="td_input" data-group="BANK_CODE">
+                                <sbux-input style="width:100%" id="SCH_BANK_CODE" uitype="text"
+                                            class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td colspan="2" class="td_input" data-group="BANK_CODE">
+                                <sbux-input style="width:100%" id="SCH_BANK_NAME" uitype="text"
+                                            class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td class="td_input" data-group="BANK_CODE">
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="…"
+                                        uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup2('1')"
+                                ></sbux-button>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">금융기관</th>
-                            <td class="td_input" data-group="BANK_CODE">
-                                <sbux-input style="width:100%" id="SCH_BANK_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+                            <th scope="row" class="th_bg_search">차입금거래유형</th>
+                            <td colspan="3" class="td_input">
+                                <sbux-select id="SCH_TXN_TYPE" uitype="single" jsondata-ref="jsonTxnType"
+                                             unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
-                            <td class="td_input" data-group="BANK_CODE">
-                                <sbux-input style="width:100%" id="SCH_BANK_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td class="td_input" data-group="BANK_CODE">
-                                <button id="BTN_POP2" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('1')">
-                                    <img src='../../../resource/images/find2.png' width='12px' />
-                                </button>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">차입금거래유형</th>
-                            <td colspan="3" class="td_input" >
-					            <sbux-select id="SCH_TXN_TYPE" uitype="single" jsondata-ref="jsonTxnType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-
-                            <td colspan="4" style="border-right: hidden;">&nbsp;</td>
-                            </td>
+                            <td colspan="16" style="border-right: hidden;">&nbsp;</td>
                         </tr>
-                    </tbody>
-                </table>
-                
+                        </tbody>
+                    </table>
+                </div>
                 <div class="row">
-                
                     <div class="col-sm-6" style="width:100%">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -136,10 +156,9 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid_top" style="height:180px; width:100%;"></div>
+                            <div id="sb_area_grid_top" style="height:280px; width:100%;"></div>
                         </div>
                     </div>
-                
                     <div class="col-sm-6" style="width:100%;padding-top:10px">
 					
 					    <sbux-tabs id="idxTab_norm1" name="idxTab_norm1" uitype="normal"
@@ -148,7 +167,7 @@
 		                   title-target-value-array="1^2"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
-						<div class="tab-content" style="height:320px;width:100%;padding-top:0px" >
+						<div class="tab-content" style="height:420px;width:100%;padding-top:0px" >
 						
 							<div id="SB_TOP_TAB1" >
 		                        <div class="ad_tbl_top">
@@ -162,7 +181,7 @@
 									</div>
 		                        </div>
 		                        <div>
-		                            <div id="sb_area_grid1" style="height:260px; width:100%;"></div>
+		                            <div id="sb_area_grid1" style="height:360px; width:100%;"></div>
 		                        </div>
 							</div>
 						
@@ -178,18 +197,14 @@
 									</div>
 		                        </div>
 		                        <div>
-		                            <div id="sb_area_grid2" style="height:260px; width:100%;"></div>
+		                            <div id="sb_area_grid2" style="height:360px; width:100%;"></div>
 		                        </div>
 							</div>
-							
-						</div>					
-						
+						</div>
 					</div>
-        		
         		</div>
         	</div>	
         </div>
-        			
     </section>
     
 	<!-- 팝업 Modal -->
@@ -373,10 +388,10 @@
         	    }
         	},
             {caption : ["거래유형"], ref : 'TXN_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonTxnType', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonTxnType',  label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption : ["금융기관"], ref : 'BANK_CS_CODE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonBankCsCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonBankCsCode',  label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption: ["기간"], 		ref: 'PERIOD_CODE', 		   	type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["차입금번호"],	ref: 'LOAN_NUM',				type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -397,7 +412,7 @@
 
 
             {caption : ["지급방법"], ref : 'PAY_METHOD', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayMethod', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonPayMethod',  label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption: ["자동이체"], 		ref: 'PREAUTH_PAY_YN', 			type: 'checkbox', 	width:'100px', style: 'text-align:center',
                 typeinfo: {ignoreupdate: false, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false},
@@ -408,7 +423,7 @@
             {caption: ["환율"],	ref: 'EXCHANGE_RATE',  		type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
             {caption: ["부서"],	ref: 'DEPT_CODE',	type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption : ["원가중심점"], ref : 'COST_CENTER_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonCostCenterCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonCostCenterCode',  label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption: ["차입금(원래)"],	ref: 'LOAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
             {caption: ["차입금(환산)"],	ref: 'LOAN_AMT_F',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -428,7 +443,7 @@
             {caption: ['종료일'], ref: 'INTEREST_TO_DATE', 	    type: 'inputdate', width:'200px',	 style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["회계단위"], ref : 'FI_ORG_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFiOrgCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/, hidden: true
+                typeinfo : {ref : 'jsonFiOrgCode',  label : 'label', value : 'value'}/*, disabled: true*/, hidden: true
             },
         ];
 
@@ -451,30 +466,30 @@
             {caption: ["자금배치번호"], 	ref: 'TREASURY_BATCH_NO', 	  	type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["순번"],				ref: 'TREASURY_LINE_NUM', 	   	type:'output',  	width:'80px',	  	style:'text-align:left'},
             {caption : ["거래유형"], ref : 'TXN_GROUP_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonTxnGroupCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonTxnGroupCode',  label : 'label', value : 'value'}, disabled: true
             },
             {caption : ["출금은행"], ref : 'BANK_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonTxnGroupCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonTxnGroupCode',  label : 'label', value : 'value'}, disabled: true
             },
             {caption: ["출금계좌"],	ref: 'ACCOUNT_NUM',	type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption : ["거래처"], ref : 'PAYER_ID', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayerId', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonPayerId',  label : 'label', value : 'value'}, disabled: true
             },
             {caption : ["전표유형"], ref : 'DOC_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayerId', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonPayerId',  label : 'label', value : 'value'}, disabled: true
             },
             {caption: ['지급예정일'], ref: 'PLANNED_PAY_DATE', 	    type: 'inputdate', width:'100px',	 style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['지급일'], ref: 'PAY_DATE', 	    type: 'inputdate', width:'100px',	 style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["지급방법"], ref : 'PAY_METHOD', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayMethodCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonPayMethodCode',  label : 'label', value : 'value'}, disabled: true
             },
             {caption : ["지급방식"], ref : 'TR_PAY_METHOD', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonTrPayMethod', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonTrPayMethod',  label : 'label', value : 'value'}, disabled: true
             },
             {caption : ["상태"], ref : 'STATUS_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonStatusCode', displayui : true, label : 'label', value : 'value'}, disabled: true
+                typeinfo : {ref : 'jsonStatusCode',  label : 'label', value : 'value'}, disabled: true
             },
             {caption: ["통화"],	ref: 'CURRENCY_CODE', 	   	type:'output',  	width:'80px',	  	style:'text-align:left'},
             {caption: ["환산유형"],	ref: 'EXCHANGE_TYPE', 	   	type:'output',  	width:'80px',	  	style:'text-align:left'},
@@ -573,7 +588,7 @@
                  SBUxMethod.set('SCH_OUT_ACCOUNT_NM', data.ACCOUNT_NUM);
             },
          });
-        SBUxMethod.openModal('modal-compopup1');
+        //SBUxMethod.openModal('modal-compopup1');
      }  
     
      /**
@@ -616,7 +631,7 @@
  		        }
  			},
      	});
-         SBUxMethod.openModal('modal-compopup1');
+         //SBUxMethod.openModal('modal-compopup1');
      }
 
 
