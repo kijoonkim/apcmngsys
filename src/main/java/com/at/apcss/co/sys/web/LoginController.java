@@ -186,6 +186,14 @@ public class LoginController extends BaseController {
 						} else {
 							// 정상 로그인 진행
 
+							
+							// 
+							logger.debug("untyOgnzCd {}", resultVO.getUntyOgnzCd());
+							logger.debug("ognzCd {}", resultVO.getOgnzCd());
+							logger.debug("ognzNm {}", resultVO.getOgnzNm());
+							logger.debug("corpCd {}", resultVO.getCorpCd());
+							logger.debug("corpNm {}", resultVO.getCorpNm());
+							
 							if (!"prd".equals(getServerType())) {
 								//----------------------------------------------------------------------------
 								//경영관리 쎄션정보 가져오기
