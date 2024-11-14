@@ -1466,8 +1466,7 @@
 		        }
 			},
     	});
-		//SBUxMethod.openModal('modal-compopup1');
-    }     
+    }
     
     /**
      * 은행 

@@ -588,8 +588,7 @@
                  SBUxMethod.set('SCH_OUT_ACCOUNT_NM', data.ACCOUNT_NUM);
             },
          });
-        //SBUxMethod.openModal('modal-compopup1');
-     }  
+     }
     
      /**
       * 금융기관 
@@ -631,7 +630,6 @@
  		        }
  			},
      	});
-         //SBUxMethod.openModal('modal-compopup1');
      }
 
 

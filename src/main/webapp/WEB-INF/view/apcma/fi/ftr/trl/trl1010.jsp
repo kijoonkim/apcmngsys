@@ -787,7 +787,6 @@
 				  									<sbux-input style="width:200px" id="FM_REPAY_FIRST_AMT" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">원금상환일</th>
 			                                    <td colspan="3" class="td_input">
@@ -799,25 +798,21 @@
 					                                <sbux-select style="width:200px" id="FM_REPAY_BASE" uitype="single" jsondata-ref="jsonRepayBase" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자율구분</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_TYPE" uitype="single" jsondata-ref="jsonInterestType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
-			                                    </td>		                        
-			                                    
+			                                    </td>
 			                                    <th scope="row" class="th_bg">약정이율</th>
 			                                    <td colspan="3" class="td_input">
 				  									<sbux-input style="width:200px" id="FM_INTEREST_RATE" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
 			                                    </td>		
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">이자지급기준</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_REPAY_TYPE" uitype="single" jsondata-ref="jsonInterestRepayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
-			                                    </td>		                        
-			                                    
+			                                    </td>
 			                                    <th scope="row" class="th_bg">이자일수계산기준</th>
 			                                    <td colspan="3" class="td_input">
 					                                <sbux-select style="width:200px" id="FM_INTEREST_CALC_DAYS_TYPE" uitype="single" jsondata-ref="jsonInterestCalcDaysType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
@@ -1827,8 +1822,7 @@
 		        }
 			},
     	});
-		//SBUxMethod.openModal('modal-compopup1');
-    }     
+    }
     
     /**
      * 은행 
@@ -1859,8 +1853,7 @@
                 SBUxMethod.set('FM_BANK_NAME', data.BANK_NAME);
             },
         });
-		//SBUxMethod.openModal('modal-compopup1');
-    }    
+    }
     
     /**
      * 입금계좌 
@@ -1903,8 +1896,7 @@
                 }
             },
         });
-		//SBUxMethod.openModal('modal-compopup1');
-    }    
+    }
     
      /**
       * 담당부서 
@@ -1945,8 +1937,7 @@
                  }
              },
          });
-		 //SBUxMethod.openModal('modal-compopup1');
-     }        
+     }
      
      /**
       * 원가중심점코드
@@ -1989,8 +1980,7 @@
  		        }
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
-     }          
+     }
      
      /**
       * 차입금차입
@@ -2041,7 +2031,6 @@
  				}
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
 	 }
     
      /**
@@ -2143,8 +2132,7 @@
  		        }
  			},
      	});
-		 //SBUxMethod.openModal('modal-compopup1');
-     }       
+     }
     
      /**
       * 상환거래처
@@ -2176,7 +2164,6 @@
                  SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CS_CODE);
              },
          });
-		 //SBUxMethod.openModal('modal-compopup1');
      }
      
      /**
@@ -2280,7 +2267,6 @@
   		        }
   			},
       	});
-		  //SBUxMethod.openModal('modal-compopup1');
       }
 
 	// 행 추가 [이율변동정보]
