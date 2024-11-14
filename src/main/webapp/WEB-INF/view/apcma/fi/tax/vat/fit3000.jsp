@@ -439,12 +439,12 @@
 		// 코드정보 설정
 		let result = await Promise.all([
 
-	    	gfnma_setComSelect(['_'], jsonVatType, 'L_FIT030', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
+	    	gfnma_setComSelect(['_'], jsonVatType, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
 
 			/** 신고구분명 select **/
 			gfnma_multiSelectInit({
 		            target			: ['#srch-ddm-seq']
-		            ,compCode		: gv_ma_selectedApcCd
+		            ,compCode		: gv_ma_selectedCorpCd
 		            ,clientCode		: gv_ma_selectedClntCd
 		            ,bizcompId		: 'L_FIT030'
 		            ,whereClause	: ''
@@ -659,7 +659,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY 			: yyyy,
@@ -744,7 +744,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY 			: yyyy,
@@ -873,7 +873,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY 			: yyyy,
@@ -1155,7 +1155,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY 			: yyyy,
@@ -1355,7 +1355,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 V_P_YYYY 			: yyyy,

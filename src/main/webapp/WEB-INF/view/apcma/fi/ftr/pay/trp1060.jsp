@@ -239,10 +239,10 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // APC명
-            gfnma_setComSelect(['gvwList'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM022'
                 ,whereClause	: ''
@@ -259,39 +259,39 @@
                 ]
             }),
             // 입출
-            gfnma_setComSelect(['gvwList'], jsonTxnGroupCode, 'L_FIM071', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonTxnGroupCode, 'L_FIM071', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 은행코드
-            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 지급조건
-            gfnma_setComSelect(['gvwList'], jsonPayTermCode, 'L_PAY_DATE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonPayTermCode, 'L_PAY_DATE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
             // 지불방식
-            gfnma_setComSelect(['gvwList'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
             // 상태
-            gfnma_setComSelect(['gvwList'], jsonStatusCode, 'L_TR_STATUS', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonStatusCode, 'L_TR_STATUS', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['gvwList'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 전표구분
-            gfnma_setComSelect(['gvwWFItem', 'gvwList'], jsonDocType, 'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem', 'gvwList'], jsonDocType, 'L_FIM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상태
-            gfnma_setComSelect(['gvwList'], jsonDocStatus, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonDocStatus, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['gvwList'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 환율유형
-            gfnma_setComSelect(['gvwWFItem', 'gvwList'], jsonExchangeType, 'L_COM034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem', 'gvwList'], jsonExchangeType, 'L_COM034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 보류여부
-            gfnma_setComSelect(['gvwList'], jsonHoldYn, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonHoldYn, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 보류사유
-            gfnma_setComSelect(['gvwList'], jsonHoldReason, 'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonHoldReason, 'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차/대
-            gfnma_setComSelect(['gvwWFItem'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // LINE
-            gfnma_setComSelect(['gvwWFItem', 'gvwAct'], jsonLineType, 'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem', 'gvwAct'], jsonLineType, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 단위
-            gfnma_setComSelect(['gvwWFItem'], jsonUom, 'L_LGS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonUom, 'L_LGS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
             // 관리항목코드
-            gfnma_setComSelect(['gvwWFItem'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
             // 통화코드
-            gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
         ]);
     }
 
@@ -1065,7 +1065,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_FI_ORG_CODE : p_fiOrgCode,
             V_P_TREASURY_BATCH_NO : TREASURY_BATCH_NO,
@@ -1705,7 +1705,7 @@
                     var paramObj = {
                         V_P_DEBUG_MODE_YN: '',
                         V_P_LANG_ID: '',
-                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                         V_P_ACCT_RULE_CODE: p_defaultAcctRule,
                         IV_P_TREASURY_BATCH_NO: gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")),
@@ -1916,7 +1916,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: '',
                 V_P_LANG_ID: '',
-                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                 V_P_TREASURY_ID : strtreasury_id,
                 V_P_PAY_DATE : strpay_date,
@@ -1964,7 +1964,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: '',
                 V_P_LANG_ID: '',
-                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                 V_P_TREASURY_BATCH_NO : gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")),
                 V_P_FORM_ID: p_formId,
@@ -2108,7 +2108,7 @@
 
         param["FROM_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_FROM_DATE"));
         param["TO_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TO_DATE"));
-        param["COMP_CODE"] = gv_ma_selectedApcCd;
+        param["COMP_CODE"] = gv_ma_selectedCorpCd;
         param["FI_ORG_CODE"] = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');
         param["APRINT"] = bPrint_YN ? "Y" : "N";
 

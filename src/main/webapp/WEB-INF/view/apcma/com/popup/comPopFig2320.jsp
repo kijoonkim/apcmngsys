@@ -609,21 +609,21 @@ function compopfig2320(options) {
 	const fn_popInitSBSelect = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['sch-pop-fi-org-code'],		jsonPopCbofiOrgCode, 	'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-pop-site-code'],		jsonPopSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-fi-org-code'],		jsonPopCbofiOrgCode, 	'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-site-code'],		jsonPopSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['sch-pop-currency-code'],	jsonPopCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-currency-code'],	jsonPopCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['sch-pop-acct-rule-code'],	jsonPopAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-acct-rule-code'],	jsonPopAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 미결관리대상
-            gfnma_setComSelect(['sch-pop-acc-character'],	jsonPopAccCharacter, 	'L_FIM033_01', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-acc-character'],	jsonPopAccCharacter, 	'L_FIM033_01', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표유형
-            gfnma_setComSelect(['sch-pop-doc-type'],		jsonPopDocType, 	  	'L_FIM051_CLR', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-pop-doc-type'],		jsonPopDocType, 	  	'L_FIM051_CLR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 그리드내 라인유형
-			gfnma_setComSelect([], 							jsonPopLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 							jsonPopLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 그리드내 차/대
-			gfnma_setComSelect([], 							jsonPopDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 							jsonPopDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 	
@@ -807,7 +807,7 @@ function fn_popCurrencyCodeChange(val) {
 	var paramObj = {
 		    V_P_DEBUG_MODE_YN	: '',
 		    V_P_LANG_ID			: '',
-		    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+		    V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 		    V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
 		    V_P_YYYYMMDD		: p_entry_date_to,
 		    V_P_CURR_CODE		: val,
@@ -854,7 +854,7 @@ function fn_popCompopup1(type) {
 
 	SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_FIM042_1'
     	,popupType				: 'A'
@@ -901,7 +901,7 @@ function fn_popCompopup2(type) {
 
 	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
 	compopup1({
-        compCode				: gv_ma_selectedApcCd
+        compCode				: gv_ma_selectedCorpCd
         ,clientCode				: gv_ma_selectedClntCd
         ,bizcompId				: 'P_COM004'
         ,popupType				: 'A'
@@ -1020,7 +1020,7 @@ const fn_popSubQueryDispA = async function (wtype){
     var paramObj = { 
 		V_P_DEBUG_MODE_YN			: ''
 		,V_P_LANG_ID				: ''
-		,V_P_COMP_CODE				: gv_ma_selectedApcCd
+		,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 		,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 	
 		,V_P_FI_ORG_CODE			: p_fi_org_code
@@ -1254,7 +1254,7 @@ const fn_popSubQueryDispB = async function (wtype){
     var paramObj = { 
 		V_P_DEBUG_MODE_YN			: ''
 		,V_P_LANG_ID				: ''
-		,V_P_COMP_CODE				: gv_ma_selectedApcCd
+		,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 		,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 	
 		,V_P_FI_ORG_CODE			: p_fi_org_code

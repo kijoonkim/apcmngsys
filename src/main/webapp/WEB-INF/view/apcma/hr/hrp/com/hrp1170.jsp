@@ -276,14 +276,14 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['grdExceptionList', 'SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList', 'SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -303,7 +303,7 @@
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_ITEM_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP004'
                 ,whereClause	: ''
@@ -337,7 +337,7 @@
             + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
 
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -528,7 +528,7 @@
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
 
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001_ESS'
             ,popupType				: 'A'
@@ -662,7 +662,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM_FR : PAY_YYYYMM_FR
@@ -803,7 +803,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_PAY_TYPE          : gfn_nvl(item.data.PAY_TYPE)

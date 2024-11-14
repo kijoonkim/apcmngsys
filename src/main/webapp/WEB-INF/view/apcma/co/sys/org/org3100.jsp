@@ -558,12 +558,12 @@
 		let rst = await Promise.all([
 			
 			//재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		    
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_FI_ORG_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -583,7 +583,7 @@
 			//원가유형
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_COST_CLASS']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM101'
 				,whereClause	: ''
@@ -603,7 +603,7 @@
 			//배부대상
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_PATH_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM102'
 				,whereClause	: ''
@@ -623,7 +623,7 @@
 		    //법인
 			gfnma_multiSelectInit({
 				target			: ['#COMP_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -643,7 +643,7 @@
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -663,7 +663,7 @@
 			//원가유형
 			gfnma_multiSelectInit({
 				target			: ['#COST_CLASS']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM101'
 				,whereClause	: ''
@@ -683,7 +683,7 @@
 			//원가유형
 			gfnma_multiSelectInit({
 				target			: ['#DIV_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM102'
 				,whereClause	: ''
@@ -703,7 +703,7 @@
 			//공장
 			gfnma_multiSelectInit({
 				target			: ['#PLANT_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM104'
 				,whereClause	: ''
@@ -723,7 +723,7 @@
 			//직간접비
 			gfnma_multiSelectInit({
 				target			: ['#PROD_RELATION_FLAG']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM107'
 				,whereClause	: ''
@@ -743,7 +743,7 @@
 			//배부기준코드
 			gfnma_multiSelectInit({
 				target			: ['#DEFAULT_DRIVER_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COST_DRIVER_CODE'
 				,whereClause	: ''
@@ -763,7 +763,7 @@
 			//판관원가중심점
 			gfnma_multiSelectInit({
 				target			: ['#MG_COST_CENTER']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_CC_MG'
 				,whereClause	: ''
@@ -885,7 +885,7 @@
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
    				  ,V_P_LANG_ID             : ''
-   				  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    				  ,V_P_FI_ORG_CODE         : ''
    				  ,V_P_COST_CLASS          : ''
@@ -1055,7 +1055,7 @@
   	    var paramObj = {
        			 V_P_DEBUG_MODE_YN        : ""
    				,V_P_LANG_ID              : ""
-   				,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    				,V_P_COST_CENTER_CODE     : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
    				,V_P_COST_CENTER_NAME     : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"))
@@ -1130,7 +1130,7 @@
   	    var paramObj = {
        			 V_P_DEBUG_MODE_YN        : ""
    				,V_P_LANG_ID              : ""
-   				,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    				,V_P_COST_CENTER_CODE     : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"))
    				,V_P_COST_CENTER_NAME     : gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"))
@@ -1212,7 +1212,7 @@
     	var paramObj = {
  			   V_P_DEBUG_MODE_YN       : ''
 			  ,V_P_LANG_ID             : ''
-			  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 			  ,V_P_FI_ORG_CODE         : ''
 			  ,V_P_COST_CLASS          : ''
@@ -1308,7 +1308,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_PARENT_COSTCENTER'
         	,popupType				: 'A'
@@ -1340,7 +1340,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -1374,7 +1374,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '손익사업장');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG201'
        		,popupType				: 'A'
@@ -1408,7 +1408,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체원가중심점 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
@@ -1439,7 +1439,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -1473,7 +1473,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체원가중심점 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'

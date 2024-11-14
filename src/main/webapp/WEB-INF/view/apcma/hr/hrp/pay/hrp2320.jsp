@@ -634,18 +634,18 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_CALCULATE_TYPE'], jsonPayCalculateType, 'L_HRP005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwLogGrid'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwWorkGrid'], jsonWorkMonthsType, 'L_HRP010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwWorkGrid'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['BONUS_PAY_ITEM_CODE'], jsonBonusPayType, 'L_HRP014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwExceptionGrid'], jsonPayItemCodeType, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['BONUS_CALCULATE_TYPE'], jsonBonusCalculateType, 'L_HRP007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_CALCULATE_TYPE'], jsonPayCalculateType, 'L_HRP005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwLogGrid'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonWorkMonthsType, 'L_HRP010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['BONUS_PAY_ITEM_CODE'], jsonBonusPayType, 'L_HRP014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwExceptionGrid'], jsonPayItemCodeType, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['BONUS_CALCULATE_TYPE'], jsonBonusCalculateType, 'L_HRP007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
         ]);
 
@@ -661,7 +661,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -697,7 +697,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -760,7 +760,7 @@
         SBUxMethod.set("CHKRESERVE_YN"          , "N");
 
 
-        SBUxMethod.set("COMP_CODE", gv_ma_selectedApcCd);
+        SBUxMethod.set("COMP_CODE", gv_ma_selectedCorpCd);
 
     }
 
@@ -912,7 +912,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE          : SITE_CODE
@@ -1434,7 +1434,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE             : SITE_CODE
@@ -1680,7 +1680,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM             : PAY_YYYYMM
@@ -1833,7 +1833,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE                  : SITE_CODE

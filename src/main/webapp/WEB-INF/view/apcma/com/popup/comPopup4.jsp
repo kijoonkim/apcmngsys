@@ -116,7 +116,7 @@ function compopup4(options) {
 	//취소유형
 	gfnma_multiSelectInit({
 		target			: ['#srch-compopup4-ctype']
-		,compCode		: gv_ma_selectedApcCd
+		,compCode		: gv_ma_selectedCorpCd
 		,clientCode		: gv_ma_selectedClntCd
 		,bizcompId		: 'L_COM072'
 		,whereClause	: ''

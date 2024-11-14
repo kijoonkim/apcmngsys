@@ -1961,29 +1961,29 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid','SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonLiveNationCode, 'L_COM015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
-            gfnma_setComSelect(['FOREI_VISIT_PURP'], jsonForeiVisitPurp, 'L_HRA050', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwPensionSavingGrid'], jsonPensDedType, 'L_HRA012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwPensionSavingGrid'], jsonInvestmentType, 'L_HRA069', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwHouseMonthlyGrid'], jsonHouseType, 'L_HRA064', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMedExpenseGrid','gvwDonationGrid','gvwInsureGrid'], jsonSocialNoReal, 'L_HRA042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMedExpenseGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwDonationGrid'], jsonDonYeTxRel, 'L_HRA043', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwDonationGrid'], jsonDonTypeNtsYn, 'L_HRA044', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwDonationGrid','gvwAdjustGrid', 'gvwAdjust2Grid', 'gvwAdjust3Grid'], jsonDonType, 'L_HRA002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInsureGrid'], jsonInsureType, 'L_HRA070', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyYeTxRel, 'L_HRA009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyYn, 'L_COM014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyHdcpType, 'L_HRA051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSupportGrid'], jsonEduExpType, 'L_HRA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyChildSeqType, 'L_HRA067', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid','SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonLiveNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            gfnma_setComSelect(['FOREI_VISIT_PURP'], jsonForeiVisitPurp, 'L_HRA050', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwPensionSavingGrid'], jsonPensDedType, 'L_HRA012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwPensionSavingGrid'], jsonInvestmentType, 'L_HRA069', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwHouseMonthlyGrid'], jsonHouseType, 'L_HRA064', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMedExpenseGrid','gvwDonationGrid','gvwInsureGrid'], jsonSocialNoReal, 'L_HRA042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMedExpenseGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDonationGrid'], jsonDonYeTxRel, 'L_HRA043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDonationGrid'], jsonDonTypeNtsYn, 'L_HRA044', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDonationGrid','gvwAdjustGrid', 'gvwAdjust2Grid', 'gvwAdjust3Grid'], jsonDonType, 'L_HRA002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInsureGrid'], jsonInsureType, 'L_HRA070', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyYeTxRel, 'L_HRA009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyYn, 'L_COM014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyHdcpType, 'L_HRA051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSupportGrid'], jsonEduExpType, 'L_HRA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwSupportGrid'], jsonFamilyChildSeqType, 'L_HRA067', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             //정산구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_YE_TX_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA029'
                 ,whereClause	: ''
@@ -2003,7 +2003,7 @@
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -2028,7 +2028,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -2064,7 +2064,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -2938,7 +2938,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY       : YE_TX_YYYY
@@ -3065,7 +3065,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_YE_TX_YYYY        : YE_TX_YYYY
@@ -4031,7 +4031,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY                             : YE_TX_YYYY
@@ -4300,7 +4300,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	    : ''
             ,V_P_LANG_ID		    : ''
-            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY                      : gfn_nvl(SBUxMethod.get("YE_TX_YYYY"))
@@ -4550,7 +4550,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY             : YE_TX_YYYY
@@ -4642,7 +4642,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY              : YE_TX_YYYY
@@ -4777,7 +4777,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY                  : YE_TX_YYYY
@@ -4874,7 +4874,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY               : YE_TX_YYYY
@@ -4963,7 +4963,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY              : YE_TX_YYYY
@@ -5053,7 +5053,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY             : YE_TX_YYYY
@@ -5098,7 +5098,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	    : ''
             ,V_P_LANG_ID		    : ''
-            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY         : YE_TX_YYYY
@@ -5210,7 +5210,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	    : ''
             ,V_P_LANG_ID		    : ''
-            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY         : YE_TX_YYYY

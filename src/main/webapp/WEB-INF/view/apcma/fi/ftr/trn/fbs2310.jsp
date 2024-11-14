@@ -247,7 +247,7 @@
             // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM022'
                 ,whereClause	: ''
@@ -266,7 +266,7 @@
             // 통화
             gfnma_multiSelectInit({
                 target: ['#SRCH_CURRENCY_CODE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_COM001',
                 whereClause: '',
@@ -286,7 +286,7 @@
             // FBS서비스
             gfnma_multiSelectInit({
                 target: ['#SRCH_FBS_SERVICE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
                 whereClause: '',
@@ -303,13 +303,13 @@
                 ]
             }),
             // 은행코드
-            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 수금유형
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 제외사유
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptExceptReason, 'L_FBS027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptExceptReason, 'L_FBS027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 거래구분
-            gfnma_setComSelect(['gvwDetail'], jsonTranType, 'L_FIF021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTranType, 'L_FIF021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
         ]);
     }
@@ -322,7 +322,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_BANK_CODE'
             ,popupType				: 'A'
@@ -349,7 +349,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_BANK_ACCOUNT'
             ,popupType				: 'A'
@@ -644,7 +644,7 @@
                         params: gfnma_objectToString({
                             V_P_DEBUG_MODE_YN: '',
                             V_P_LANG_ID: '',
-                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_COMP_CODE: gv_ma_selectedCorpCd,
                             V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                             V_P_SEQ : parseInt(gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("SEQ")))),
                             V_P_EXCEPT_REASON : gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("RECEIPT_EXCEPT_REASON"))),
@@ -705,7 +705,7 @@
                         params: gfnma_objectToString({
                             V_P_DEBUG_MODE_YN: '',
                             V_P_LANG_ID: '',
-                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_COMP_CODE: gv_ma_selectedCorpCd,
                             V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                             V_P_SEQ : parseInt(gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("SEQ")))),
                             V_P_RECEIPT_TYPE : gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("RECEIPT_TYPE"))),
@@ -759,7 +759,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_DEPOSIT_CODE : strDepositCode,
             V_P_BALANCE_AMT_NOW : Number(gfn_nvl(strBalance_amt_now)),
@@ -830,7 +830,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_DEPOSIT_CODE : strdeposit_code,
             V_P_BALANCE_AMT_NOW : strBalance_amt_now,
@@ -904,7 +904,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_FI_ORG_CODE : FI_ORG_CODE,
             IV_P_TXN_DATE_FR : TXN_DATE_FR,
@@ -1027,7 +1027,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_FBS_SERVICE : strFbs_Service,
             V_P_FBS_WORK_TYPE : strFbs_Work_Type,
@@ -1100,7 +1100,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_BANK_CODE : strBank_Code,
             V_P_FBS_SERVICE : strFbs_Service,

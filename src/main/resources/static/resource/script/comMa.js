@@ -1216,7 +1216,7 @@ async function gfnma_getComCode(obj, callbackFn) {
     var paramObj = { 
 		V_P_DEBUG_MODE_YN	: ''
 		,V_P_LANG_ID		: ''
-		,V_P_COMP_CODE		: gv_ma_selectedApcCd
+		,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 		,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 		
 		,V_P_GROUP_CATEGORY	: _groupCategory
@@ -1363,7 +1363,7 @@ const gfnma_fbsOpen = async function (strBank_Code, strFbs_Service, strcs_code, 
 	var paramObj = {
 		V_P_DEBUG_MODE_YN	: '',
 		V_P_LANG_ID		: '',
-		V_P_COMP_CODE		: gv_ma_selectedApcCd,
+		V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 		V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
 		V_P_BANK_CODE : strBank_Code,
 		V_P_FBS_SERVICE : strFbs_Service,
@@ -1440,7 +1440,7 @@ const gfnma_fbsName = async function (
 	var paramObj = {
 		V_P_DEBUG_MODE_YN	: '',
 		V_P_LANG_ID		: '',
-		V_P_COMP_CODE		: gv_ma_selectedApcCd,
+		V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 		V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
 		V_P_BANK_CODE : strBank_Code,
 		V_P_FBS_SERVICE : strFbs_Service,
@@ -1772,7 +1772,7 @@ const gfnma_findReportFilePath = async function(reportType) {
 	var paramObj = {
 		V_P_DEBUG_MODE_YN : '',
 		V_P_LANG_ID : '',
-		V_P_COMP_CODE : gv_ma_selectedApcCd,
+		V_P_COMP_CODE : gv_ma_selectedCorpCd,
 		V_P_CLIENT_CODE : gv_ma_selectedClntCd,
 		V_P_REPORT_TYPE : reportType,
 		V_P_FORM_ID : p_formId,
@@ -1859,7 +1859,7 @@ async function gfnma_getAccountRange(workType, strAccountCode, callbackFn) {
 	var paramObj = {
 		V_P_DEBUG_MODE_YN 	: '',
 		V_P_LANG_ID 		: '',
-		V_P_COMP_CODE 		: gv_ma_selectedApcCd,
+		V_P_COMP_CODE 		: gv_ma_selectedCorpCd,
 		V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
 		V_P_ACCOUNT_CODE 	: strAccountCode,
 		V_P_FORM_ID 		: p_formId,

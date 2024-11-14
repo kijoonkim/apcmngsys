@@ -521,30 +521,30 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//감가상각방법
-			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['SCH_DEPRECIATION_PERIOD'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['SCH_DEPRECIATION_PERIOD'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			//분류구분
-			gfnma_setComSelect(['FM_ASSET_LEVEL_TYPE'], 	jsonAssetLevelType, 	'L_FIA002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_ASSET_LEVEL_TYPE'], 	jsonAssetLevelType, 	'L_FIA002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//비용유형
-			gfnma_setComSelect(['FM_EXPENSE_TYPE'], 		jsonExpenseType, 		'L_FIA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_EXPENSE_TYPE'], 		jsonExpenseType, 		'L_FIA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//자산구분
-			gfnma_setComSelect(['FM_ASSET_CATEGORY'], 		jsonAssetCategory, 		'L_FIA001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_ASSET_CATEGORY'], 		jsonAssetCategory, 		'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_TAX'], 			jsonDepreciationMethodTax,		'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_TAX'], 			jsonDepreciationMethodTax,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_TAX'], 			jsonDepreciationPeriodTax,		'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_TAX'], 			jsonDepreciationPeriodTax,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_IFRS'], 		jsonDepreciationMethodIfrs,		'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_IFRS'], 		jsonDepreciationMethodIfrs,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_IFRS'], 		jsonDepreciationPeriodIfrs,		'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_IFRS'], 		jsonDepreciationPeriodIfrs,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -744,7 +744,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_ASSET_GROUP_NAME		: p_asset_group_name
@@ -830,7 +830,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_ASSET_GROUP_NAME		: p_asset_group_name
@@ -883,14 +883,14 @@
     	
     	//type C 형 팝업
     	var p_find1	= p_ss_languageID;
-    	var p_find2	= gv_ma_selectedApcCd;
+    	var p_find2	= gv_ma_selectedCorpCd;
     	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_CATEGORY"));
    		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP"));
 		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
 		
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LEVEL2_POPUP'
     		,popupType				: 'C'
@@ -960,7 +960,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'
@@ -1148,7 +1148,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_ASSET_GROUP_CODE			: p_asset_group_code

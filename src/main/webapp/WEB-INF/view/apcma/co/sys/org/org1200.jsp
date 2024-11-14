@@ -228,12 +228,12 @@
 		let rst = await Promise.all([
 			
 			//재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		    
 			//사업장코드
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -252,7 +252,7 @@
 			//사업단위구분
 			gfnma_multiSelectInit({
 				target			: ['#DEPT_CATEGORY']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG010'
 				,whereClause	: ''
@@ -271,7 +271,7 @@
 			//인건비분류
 			gfnma_multiSelectInit({
 				target			: ['#LABOR_COST_GROUP']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_HRI007'
 				,whereClause	: ''
@@ -290,7 +290,7 @@
 			//근무패턴
 			gfnma_multiSelectInit({
 				target			: ['#WORK_PATTERN_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_HRT020'
 				,whereClause	: ''
@@ -309,7 +309,7 @@
 			//사업단위구분
 			gfnma_multiSelectInit({
 				target			: ['#ATTR1']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG009'
 				,whereClause	: ''
@@ -482,7 +482,7 @@
     	var paramObj = {
     			V_P_DEBUG_MODE_YN        : ''
    				,V_P_LANG_ID             : ''
-   				,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    				,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
    				,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
@@ -531,7 +531,7 @@
     	var paramObj = {
     			V_P_DEBUG_MODE_YN        : ''
    				,V_P_LANG_ID             : ''
-   				,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    				,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
    				,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
@@ -699,7 +699,7 @@
   	    var paramObj = {
          	   V_P_DEBUG_MODE_YN       : ""
        		  ,V_P_LANG_ID             : ""
-       		  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+       		  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
        		  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
        		  ,V_P_FI_ORG_CODE         : gfn_nvl(SBUxMethod.get("FI_ORG_CODE"))
        		  ,V_P_FI_ORG_NAME         : gfn_nvl(SBUxMethod.get("FI_ORG_NAME"))
@@ -759,7 +759,7 @@
     	var paramObj = {
     			   V_P_DEBUG_MODE_YN       : ''
    				  ,V_P_LANG_ID             : ''
-   				  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    				  ,V_P_FI_ORG_CODE         : gfn_nvl(selectRowVal.FI_ORG_CODE)
    				  ,V_P_FI_ORG_NAME         : gfn_nvl(selectRowVal.FI_ORG_NAME)
@@ -838,7 +838,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'
@@ -871,7 +871,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '법인코드 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG000'
     		,popupType				: 'A'
@@ -954,10 +954,10 @@
     	
         var replaceText0 	= "_SITE_CODE_";
         var replaceText1 	= "_SITE_NAME_"; 
-        var strWhereClause 	= "AND COMP_CODE LIKE '%" + gv_ma_selectedApcCd + "%' AND SITE_CODE LIKE '%" + replaceText0 + "%' AND SITE_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%' AND SITE_CODE LIKE '%" + replaceText0 + "%' AND SITE_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI0010'
            	,popupType				: 'A'
@@ -993,10 +993,10 @@
     	
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_"; 
-        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' AND D.COMP_CODE LIKE '" + gv_ma_selectedApcCd + "\'";
+        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' AND D.COMP_CODE LIKE '" + gv_ma_selectedCorpCd + "\'";
     	
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM005'
            	,popupType				: 'A'

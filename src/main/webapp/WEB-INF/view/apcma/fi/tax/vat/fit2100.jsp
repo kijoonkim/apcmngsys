@@ -2323,11 +2323,11 @@
         /** 법인 select **/
         jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
         /** 한도율 **/
-        jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+        jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
         jsonLimitRate = jsonLimitRateData.cv_1;
         SBUxMethod.refresh('MANU_LIMIT_RATE');
         SBUxMethod.set('MANU_LIMIT_RATE','3');
@@ -2337,7 +2337,7 @@
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedApcCd
+            ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
             ,whereClause	: ''
@@ -2380,7 +2380,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
             ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
             ,V_P_YYYY               : ''
             ,V_P_SEQ                : ''
@@ -2545,7 +2545,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
             ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
             ,V_P_YYYY               : ''
             ,V_P_SEQ                : ''
@@ -2604,7 +2604,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
             ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
             ,V_P_YYYY               : ''
             ,V_P_SEQ                : ''
@@ -2663,7 +2663,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FIT037'
             ,popupType				: 'A'

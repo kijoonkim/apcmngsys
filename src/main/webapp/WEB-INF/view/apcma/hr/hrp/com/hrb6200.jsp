@@ -703,7 +703,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_YYYY : YYYY
@@ -792,7 +792,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_YYYY  : gfn_nvl(rowData.YYYY)
@@ -939,7 +939,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_YYYY                : YYYY
@@ -1085,7 +1085,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_YYYY                  : YYYY
@@ -1188,7 +1188,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YYYY                   : YYYY
@@ -1241,7 +1241,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_YYYY: YYYY

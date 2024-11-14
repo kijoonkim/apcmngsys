@@ -140,7 +140,7 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -238,7 +238,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_TIME_SUMMARY_CODE : TIME_SUMMARY_CODE,
             V_P_TIME_SUMMARY_NAME : TIME_SUMMARY_NAME,
@@ -312,7 +312,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
                     V_P_LANG_ID: '',
-                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                    V_P_COMP_CODE: gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                     V_P_TIME_SUMMARY_CODE: item.data.TIME_SUMMARY_CODE,
                     V_P_TIME_SUMMARY_NAME: item.data.TIME_SUMMARY_NAME,

@@ -240,7 +240,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
             V_P_FORM_ID		: p_formId,
@@ -346,7 +346,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
             V_P_APPLY_START_DATE : APPLY_START_DATE,
@@ -382,7 +382,7 @@
                         params: gfnma_objectToString({
                             V_P_DEBUG_MODE_YN : '',
                             V_P_LANG_ID	: '',
-                            V_P_COMP_CODE : gv_ma_selectedApcCd,
+                            V_P_COMP_CODE : gv_ma_selectedCorpCd,
                             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                             V_P_YYYY : YYYY,
                             V_P_PAY_AMT_FR : item.data.PAY_AMT_FR,
@@ -451,7 +451,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_YYYY : YYYY,
                 V_P_APPLY_START_DATE : APPLY_START_DATE,
@@ -496,7 +496,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : '',
             V_P_FORM_ID		: p_formId,

@@ -267,7 +267,7 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
@@ -307,11 +307,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -328,27 +328,27 @@
 				]
 			}),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
-			gfnma_setComSelect(['srch-slt-siteCode'], jsonSite, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-siteCode'], jsonSite, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//중분류
-			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
 			//소분류
-			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
 			//자산구분
-			gfnma_setComSelect(['srch-slt-assetCategoryName'], jsonAssetCategory, 'L_FIA001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetCategoryName'], jsonAssetCategory, 'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각방법
-			gfnma_setComSelect(['grdDprcList'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//코스트센터
-			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -367,7 +367,7 @@
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-fiOrgCode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -676,7 +676,7 @@
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
       		    ,V_P_FI_ORG_CODE    : ''
      		    ,V_P_DEPRECIATION_YYYYMM : ''
@@ -787,7 +787,7 @@
     		var paramObj = {
          			V_P_DEBUG_MODE_YN	: ''
          			,V_P_LANG_ID		: ''
-         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+         			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
          			,V_P_TXN_ID         : row.txnId //그리드에 없음 -> 안보이게 ㄲ json에만 넣으면 될듯
          		    ,V_P_DEPRECIATION_YYYYMM  : row.depreciationYyyymm //그리드에 없음
@@ -848,7 +848,7 @@
    		var paramObj = {
         			V_P_DEBUG_MODE_YN	: ''
         			,V_P_LANG_ID		: ''
-        			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+        			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
         			,V_P_FI_ORG_CODE    : strfi_org_code
         		    ,V_P_SITE_CODE      : strsite_code
@@ -910,7 +910,7 @@
 
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_HRI001'
            	,popupType				: 'A'
@@ -958,7 +958,7 @@
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	var addParams = [searchCode|searchName|null];
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
         	,popupType				: 'B'
@@ -997,7 +997,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
@@ -1029,7 +1029,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA001'
         	,popupType				: 'A'
@@ -1059,7 +1059,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA005'
         	,popupType				: 'A'
@@ -1089,7 +1089,7 @@
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA006'
         	,popupType				: 'A'

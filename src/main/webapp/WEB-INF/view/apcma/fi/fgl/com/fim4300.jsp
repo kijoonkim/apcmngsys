@@ -192,16 +192,16 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            gfnma_setComSelect([], jsonGridApprTemplate, 		'L_FIM062', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprSourceType, 		'L_FIM062_SOURCE', 	'AND EXTRA_FIELD12 IS NULL', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprRule, 			'L_FIM063', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridSourceType, 			'L_FIM062', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridDocType, 			'L_FIM051', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprCategory,		'L_FIM065', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridAmtRule,				'L_FIM066', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprRelation,		'L_FIM064', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprTemplate, 		'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprSourceType, 		'L_FIM062_SOURCE', 	'AND EXTRA_FIELD12 IS NULL', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprRule, 			'L_FIM063', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridSourceType, 			'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridDocType, 			'L_FIM051', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprCategory,		'L_FIM065', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridAmtRule,				'L_FIM066', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprRelation,		'L_FIM064', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
-            gfnma_setComSelect([], jsonGridEmpState,			'L_HRI009', 		'', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridEmpState,			'L_HRI009', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -358,7 +358,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -404,7 +404,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -450,7 +450,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -496,7 +496,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -644,7 +644,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서(조직)정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG006'
            	,popupType				: 'A'
@@ -691,7 +691,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서(조직)정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_EMP_APPR'
            	,popupType				: 'A'
@@ -753,7 +753,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 		   	,V_P_DOC_TYPE      	: p_txtdoc_type	
 		   	,V_P_DOC_NAME      	: p_txtdoc_name	 
@@ -861,7 +861,7 @@
 	    var paramObj = { 
 				V_P_DEBUG_MODE_YN	: ''
 				,V_P_LANG_ID		: ''
-				,V_P_COMP_CODE		: gv_ma_selectedApcCd
+				,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			   	,V_P_DOC_TYPE      	: doc_type	
 			   	,V_P_DOC_NAME      	: ''	 
@@ -1086,7 +1086,7 @@
 	 			params		: gfnma_objectToString({
 	 				V_P_DEBUG_MODE_YN			: '',
 	 				V_P_LANG_ID					: '',
-	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
 	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
 	 				
 	 				V_P_DOC_TYPE				: gfnma_nvl(obj.DOC_TYPE),
@@ -1193,7 +1193,7 @@
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: '',
     	 				V_P_LANG_ID					: '',
-    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
     	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
     	 				
     	 				V_P_DOC_TYPE				: gfnma_nvl(obj.DOC_TYPE),

@@ -613,7 +613,7 @@
             // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM022'
                 ,whereClause	: ''
@@ -632,7 +632,7 @@
             // FBS서비스
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FBS_SERVICE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FBS019'
                 ,whereClause	: ''
@@ -651,7 +651,7 @@
             // 지급구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_GUBUN']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FBS031'
                 ,whereClause	: ''
@@ -670,7 +670,7 @@
             // 지급방법
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_METHOD']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM081_FBS'
                 ,whereClause	: "AND EXTRA_FIELD11 = '" + "ECBANK" + "'"
@@ -690,14 +690,14 @@
                 ]
             }),
             // 지급구분
-            gfnma_setComSelect(['SRCH_DEPOSIT_CODE'], jsonDepositCode, 'L_DEPOSIT_LIST', "", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPOSIT_CODE', 'DEPOSIT_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_DEPOSIT_CODE'], jsonDepositCode, 'L_DEPOSIT_LIST', "", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPOSIT_CODE', 'DEPOSIT_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['gvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 상태
-            gfnma_setComSelect(['gvwDetail'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_TXN_STATUS']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIG002'
                 ,whereClause	: ''
@@ -714,10 +714,10 @@
                 ]
             }),
             // 이체처리결과
-            gfnma_setComSelect(['gvwDetail'], jsonProcessYn, 'L_FIM080', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonProcessYn, 'L_FIM080', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PROCESS_YN']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM080'
                 ,whereClause	: ''
@@ -734,12 +734,12 @@
                 ]
             }),
             // 은행코드
-            gfnma_setComSelect(['gvwDetail'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 입출유형
-            gfnma_setComSelect(['gvwDetail'], jsonTransferType, 'L_FBS016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTransferType, 'L_FBS016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_TRANSFER_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FBS016'
                 ,whereClause	: ''
@@ -756,19 +756,19 @@
                 ]
             }),
             // 입출유형
-            gfnma_setComSelect(['gvwDetail'], jsonErrorCode, 'L_FBS012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonErrorCode, 'L_FBS012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 기업분류
-            gfnma_setComSelect(['gvwDetail'], jsonComType, 'L_COM030', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonComType, 'L_COM030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['gvwAct'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 사용자
-            gfnma_setComSelect(['gvwAct'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
             // 지불방식
-            gfnma_setComSelect(['gvwAct'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
             // 지급사유코드
             gfnma_multiSelectInit({
                 target			: ['#PAY_REASON']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_COM062'
                 ,whereClause	: ''
@@ -787,7 +787,7 @@
             // 송금사유코드
             gfnma_multiSelectInit({
                 target			: ['#SEND_REASON']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_COM063'
                 ,whereClause	: ''
@@ -806,7 +806,7 @@
             // 가격조건
             gfnma_multiSelectInit({
                 target			: ['#PRICE_CONDITION']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_COM065'
                 ,whereClause	: ''
@@ -825,7 +825,7 @@
             // 수입용도코드
             gfnma_multiSelectInit({
                 target			: ['#IMPORT_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_COM066'
                 ,whereClause	: ''
@@ -842,7 +842,7 @@
                 ]
             }),
             // 입금처
-            gfnma_setComSelect([''], jsonPayerName, 'L_COMP_ID', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayerName, 'L_COMP_ID', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', ''),
         ]);
     }
 
@@ -1105,7 +1105,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_CS_PURCHASE'
             ,popupType				: 'A'
@@ -1132,7 +1132,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '전송회차');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_BANK_TRANS'
             , popupType: 'A'
@@ -1221,7 +1221,7 @@
         SBUxMethod.openModal('modal-comPopCom5500');
         com5500Popup({
             contact_group			: 'FIRMBANK_REQ'
-            ,comp_code				: gv_ma_selectedApcCd
+            ,comp_code				: gv_ma_selectedCorpCd
             ,client_code			: gv_ma_selectedClntCd
         });
     }
@@ -1730,8 +1730,8 @@
         if (!p_isGW) {
             compopappvmng({
                 workType		: strApprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-                ,compCode		: gv_ma_selectedApcCd
-                ,compCodeNm		: gv_ma_selectedApcNm
+                ,compCode		: gv_ma_selectedCorpCd
+                ,compCodeNm		: gv_ma_selectedCorpNm
                 ,clientCode		: gv_ma_selectedClntCd
                 ,apprId			: strApprId
                 ,sourceNo		: gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE1")) + gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME1"))
@@ -1809,7 +1809,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_FBS_SERVICE : FBS_SERVICE,
                 V_P_PAY_GUBUN : PAY_GUBUN,
@@ -2031,7 +2031,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_APPR_ID : parseInt(strApprID),
                 V_P_FORM_ID		: p_formId,
@@ -2117,7 +2117,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_BANK_CODE : BANK_CODE,
                 V_P_FBS_SERVICE : FBS_SERVICE,
@@ -2174,7 +2174,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_FBS_NO : strfbs_no,
                 V_P_DOC_ID : "",
@@ -2262,7 +2262,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: '',
                         V_P_LANG_ID: '',
-                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                         V_P_CHECK_YN : gfn_nvl(item.data.CHECK_YN),
                         IV_P_FBS_NO : gfn_nvl(item.data.FBS_NO),
@@ -2380,7 +2380,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_FBS_NO : FBS_NO,
                 V_P_CS_NAME : CS_NAME,
@@ -2630,7 +2630,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_TXN_DATE_FR : TXN_DATE_FR,
             V_P_TXN_DATE_TO : TXN_DATE_TO,
@@ -2680,7 +2680,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_TXN_DATE_FR : TXN_DATE_FR,
             V_P_TXN_DATE_TO : TXN_DATE_TO,
@@ -3177,7 +3177,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_BANK_CODE : BANK_CODE,
             V_P_FBS_SERVICE : FBS_SERVICE,

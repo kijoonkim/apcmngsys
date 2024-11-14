@@ -75,18 +75,18 @@
                 </c:otherwise>
                 </c:choose>
 
-                var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
-                var gv_ma_selectedApcNm	= '${loginVO.apcNm}';
+                var gv_ma_selectedCorpCd	= '${loginVO.corpCd}';
+                var gv_ma_selectedCorpNm	= '${loginVO.corpNm}';
                 //값선택
                 for (var i = 0; i < cjsonApcList.length; i++) {
                     var obj = cjsonApcList[i];
                     if(i==0){
                         obj['selected'] 	= "selected";
-                        gv_ma_selectedApcCd 	= obj['apcCd'];
+                        gv_ma_selectedCorpCd 	= obj['value'];
                     }
-                    if(obj['apcCd']=='${loginVO.apcCd}'){
+                    if(obj['corpCd']=='${loginVO.corpCd}'){
                         obj['selected'] 	= "selected";
-                        gv_ma_selectedApcCd 	= obj['apcCd'];
+                        gv_ma_selectedCorpCd 	= obj['value'];
                     }
                 }
 
@@ -97,8 +97,8 @@
                  * @param {string} _apcCd
                  */
                 const cfn_onChangeApc = function(obj) {
-                    gv_ma_selectedApcCd = obj.value;
-                    gv_ma_selectedApcNm = obj.text;
+                    gv_ma_selectedCorpCd = obj.value;
+                    gv_ma_selectedCorpNm = obj.text;
                 }
 
             </script>
@@ -109,22 +109,22 @@
                             name="gsb-slt-apcCd"
                             uitype="single"
                             jsondata-ref="cjsonApcList"
-                            jsondata-text="apcNm"
-                            jsondata-value="apcCd"
+                            jsondata-text="label"
+                            jsondata-value="value"
                             class="form-control input-sm"
                             onchange="cfn_onChangeApc(this)"
                             style="max-width:150px;"
                     ></sbux-select>
                 </c:when>
                 <c:otherwise>
-                    <c:set scope="request" var="apcNm" value="${loginVO.apcNm}"></c:set>
+                    <c:set scope="request" var="apcNm" value="${loginVO.corpNm}"></c:set>
                     <sbux-input
                             id="gsb-slt-apcCd"
                             name="gsb-slt-apcCd"
                             uitype="text"
                             class="form-control input-sm"
                             readonly
-                    ><c:out value='${apcNm}'></c:out></sbux-input>
+                    ><c:out value='${corpNm}'></c:out></sbux-input>
                 </c:otherwise>
             </c:choose>
         </td>

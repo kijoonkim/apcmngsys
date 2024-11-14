@@ -250,19 +250,19 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 자산구분
-            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],			jsonAssetCategory,	'L_FIA001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],			jsonAssetCategory,	'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상각여부
-            gfnma_setComSelect(['SCH_DEPRECIATE_YN'],			jsonDepreciateYn,	'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_DEPRECIATE_YN'],			jsonDepreciateYn,	'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 중분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
             // 소분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -271,7 +271,7 @@
   		await fn_initSBSelect()
   		
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 			function(list){
 				$('#BTN_POP1').click(function(){
 					fn_compopup10(list);

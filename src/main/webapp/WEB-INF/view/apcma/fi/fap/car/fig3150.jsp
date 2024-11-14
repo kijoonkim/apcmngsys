@@ -350,15 +350,15 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//회계단위
-			gfnma_setComSelect(['srch-cbofi-org-code'], jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-cbofi-org-code'], jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//전표상태
-			gfnma_setComSelect(['srch-cbodoc-status'], jsonCbodocStatusCode, 'L_FIG002_2', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbodoc-status'], jsonCbodocStatusCode, 'L_FIG002_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//업종코드
-			gfnma_setComSelect(['srch-cbomcc-code'], jsonCbomccCode, 'L_EFI0006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ZMCC_CODE', 'ZMCC_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbomcc-code'], jsonCbomccCode, 'L_EFI0006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ZMCC_CODE', 'ZMCC_NAME', 'Y', ''),
 			//제외사유
 			gfnma_multiSelectInit({
 				target			: ['#srch-cboexcept-code']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM221'
 				,whereClause	: ''
@@ -527,7 +527,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_FI_ORG_CODE	: p_cbofi_org_code		//회계단위
 			,V_P_DOC_DATE_FR	: p_ymddoc_date_fr		//전기일자 시작
@@ -653,7 +653,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			,V_P_FI_ORG_CODE		: p_cbofi_org_code		//회계단위
 			,V_P_TXN_DATE_FR		: p_ymdtxn_date_fr		//사용일자 시작
@@ -713,7 +713,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_USER_02'
         	,popupType				: 'A'
@@ -742,7 +742,7 @@
     	
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -890,7 +890,7 @@
                     params		: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN			: '',
                         V_P_LANG_ID					: '',
-                        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE				: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
                         V_P_FI_ORG_CODE 			: p_cbofi_org_code,
                         V_P_TXN_DATE_FR 			: p_ymdtxn_date_fr,
@@ -951,7 +951,7 @@
 	    var paramObj = { 
 				V_P_DEBUG_MODE_YN		: ''
 				,V_P_LANG_ID			: ''
-				,V_P_COMP_CODE			: gv_ma_selectedApcCd
+				,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 				,V_P_APPR_CANCEL_TYPE	: rowData.APPR_CANCEL_TYPE	
 				,V_P_CARD_NO			: rowData.CARD_NO
@@ -1039,7 +1039,7 @@
            	    	params 		: gfnma_objectToString({
                			V_P_DEBUG_MODE_YN		: ''
                			,V_P_LANG_ID			: ''
-               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
                			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
                			,V_P_FI_ORG_CODE		: p_cbofi_org_code		//회계단위
                			,V_P_TXN_DATE_FR		: p_ymdtxn_date_fr		//사용일자 시작
@@ -1131,7 +1131,7 @@
            	    	params 		: gfnma_objectToString({
                			V_P_DEBUG_MODE_YN		: ''
                			,V_P_LANG_ID			: ''
-               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
                			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
                			,V_P_APPR_CANCEL_TYPE	: obj.APPR_CANCEL_TYPE	
                			,V_P_APPR_NO			: obj.APPR_NO
@@ -1215,7 +1215,7 @@
            	    	params 		: gfnma_objectToString({
                			V_P_DEBUG_MODE_YN		: ''
                			,V_P_LANG_ID			: ''
-               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
                			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
                			,V_P_APPR_CANCEL_TYPE	: obj.APPR_CANCEL_TYPE	
                			,V_P_APPR_NO			: obj.APPR_NO

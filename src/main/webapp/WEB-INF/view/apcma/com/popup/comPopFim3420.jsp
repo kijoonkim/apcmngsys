@@ -123,7 +123,7 @@ function compopfim3420(options) {
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 		    ,V_P_APPR_ID      		: settings.param['p_appr_id']

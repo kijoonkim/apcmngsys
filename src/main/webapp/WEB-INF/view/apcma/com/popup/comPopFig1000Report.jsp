@@ -145,7 +145,7 @@ function comPopFig1000Report(options) {
 	    try {
 	        if (_.isEqual("S", data.resultStatus)) {
 	        	if(data.cv_1.length > 0){
-	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	            }
 			} else {
 			    alert(data.resultMessage);
@@ -187,7 +187,7 @@ function comPopFig1000Report(options) {
 	    try {
 	        if (_.isEqual("S", data.resultStatus)) {
 	        	if(data.cv_1.length > 0){
-	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	            }
 			} else {
 			    alert(data.resultMessage);
@@ -232,7 +232,7 @@ function comPopFig1000Report(options) {
 	        if (_.isEqual("S", data.resultStatus)) {
 	        	let cnt = 0;
 	        	if(data.cv_1.length > 0){
-	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedApcCd +"&client_code=" + gv_ma_selectedClntCd;
+	            	data.cv_1[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	            }
 	        	if(data.cv_2.length > 0){
 	            	for(var i=0; data.cv_2.length > i; i++){

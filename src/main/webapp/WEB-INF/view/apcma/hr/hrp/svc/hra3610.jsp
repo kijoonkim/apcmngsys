@@ -532,12 +532,12 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SITE_CODE', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 내외국민구분
-            gfnma_setComSelect(['gvwResident'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#FOREIGN_TYPE', '#FOREIGN_TYPE1']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA006'
                 ,whereClause	: ''
@@ -554,12 +554,12 @@
                 ]
             }),
             // 거주지국
-            gfnma_setComSelect(['NATION_CODE', 'NATION_CODE1', 'gvwResident'], jsonNationCode, 'L_COM015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            gfnma_setComSelect(['NATION_CODE', 'NATION_CODE1', 'gvwResident'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
             // 근무지역
-            gfnma_setComSelect(['gvwResident'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#WORK_REGION', '#WORK_REGION1']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI999'
                 ,whereClause	: ''
@@ -576,10 +576,10 @@
                 ]
             }),
             // 개인/법인 구분
-            gfnma_setComSelect(['gvwResident'], jsonBusinessType, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonBusinessType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#BUSINESS_TYPE', '#BUSINESS_TYPE1']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA014'
                 ,whereClause	: ''
@@ -596,10 +596,10 @@
                 ]
             }),
             // 소득종류
-            gfnma_setComSelect(['gvwResident'], jsonIncomeType, 'L_HRA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonIncomeType, 'L_HRA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#INCOME_TYPE', '#INCOME_TYPE1']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA020'
                 ,whereClause	: ''
@@ -660,7 +660,7 @@
             // 소득구분
             gfnma_multiSelectInit({
                 target			: ['#INCOME_SEC', '#INCOME_SEC1']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA023'
                 ,whereClause	: ''
@@ -682,11 +682,11 @@
                 }
             }),
             // 신고사업장
-            gfnma_setComSelect(['TAX_SITE_CODE1', 'TAX_SITE_CODE2', 'gvwResident'], jsonTaxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['TAX_SITE_CODE1', 'TAX_SITE_CODE2', 'gvwResident'], jsonTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 정산주기
             gfnma_multiSelectInit({
                 target			: ['#PAY_CYCLE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA021'
                 ,whereClause	: ''
@@ -975,7 +975,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRA060'
             ,popupType				: 'A'
@@ -1004,7 +1004,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM027'
             ,popupType				: 'A'
@@ -1032,7 +1032,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM027'
             ,popupType				: 'A'
@@ -1094,7 +1094,7 @@
           case 'L_HRA023':
               gfnma_multiSelectInit({
                   target			: ['#'+target]
-                  ,compCode		: gv_ma_selectedApcCd
+                  ,compCode		: gv_ma_selectedCorpCd
                   ,clientCode		: gv_ma_selectedClntCd
                   ,bizcompId		: 'L_HRA023'
                   ,whereClause	: ''
@@ -1119,7 +1119,7 @@
           case 'L_HRA048':
               gfnma_multiSelectInit({
                   target			: ['#'+target]
-                  ,compCode		: gv_ma_selectedApcCd
+                  ,compCode		: gv_ma_selectedCorpCd
                   ,clientCode		: gv_ma_selectedClntCd
                   ,bizcompId		: 'L_HRA048'
                   ,whereClause	: ''
@@ -1144,7 +1144,7 @@
           case 'L_HRA056':
               gfnma_multiSelectInit({
                   target			: ['#'+target]
-                  ,compCode		: gv_ma_selectedApcCd
+                  ,compCode		: gv_ma_selectedCorpCd
                   ,clientCode		: gv_ma_selectedClntCd
                   ,bizcompId		: 'L_HRA056'
                   ,whereClause	: ''
@@ -1167,7 +1167,7 @@
           case 'L_HRA024':
               gfnma_multiSelectInit({
                   target			: ['#'+target]
-                  ,compCode		: gv_ma_selectedApcCd
+                  ,compCode		: gv_ma_selectedCorpCd
                   ,clientCode		: gv_ma_selectedClntCd
                   ,bizcompId		: 'L_HRA024'
                   ,whereClause	: ''
@@ -1243,7 +1243,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
             V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
@@ -1338,7 +1338,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
                 V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
@@ -1409,7 +1409,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_EARNER_NAME : EARNER_NAME,
             V_P_BIZ_REGNO : BIZ_REGNO,

@@ -229,7 +229,7 @@
                 params: gfnma_objectToString({
                 	   V_P_DEBUG_MODE_YN         : ''
                		   ,V_P_LANG_ID              : ''
-               		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+               		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
                		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
                		   ,V_P_CURRENCY_CODE        : gfn_nvl(item.data.CURRENCY_CODE)
                		   ,V_P_CURRENCY_NAME        : gfn_nvl(item.data.CURRENCY_NAME)
@@ -285,7 +285,7 @@
     	var paramObj = {
 	    	   V_P_DEBUG_MODE_YN         : ''
 	    	   ,V_P_LANG_ID              : ''
-	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	    	   ,V_P_CURRENCY_CODE        : SRCH_CURRENCY_CODE
 	    	   ,V_P_CURRENCY_NAME        : SRCH_CURRENCY_NAME

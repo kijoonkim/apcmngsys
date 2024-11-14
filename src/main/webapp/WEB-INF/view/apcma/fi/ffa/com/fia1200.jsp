@@ -210,7 +210,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//감가상각방법
-			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -383,7 +383,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method
@@ -458,7 +458,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method
@@ -524,7 +524,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method2
@@ -598,7 +598,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: gfnma_nvl(p_depreciation_method2)
@@ -726,7 +726,7 @@
 	  	 			params		: gfnma_objectToString({
 	  	 				V_P_DEBUG_MODE_YN			: '',
 	  	 				V_P_LANG_ID					: '',
-	  	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+	  	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
 	  	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
 	  	 				
 	  	 				V_P_DEPRECIATION_METHOD		: gfnma_nvl(p_depreciation_method2),

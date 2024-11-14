@@ -723,10 +723,10 @@
 
         let rst = await Promise.all([
             // 집계기준
-            /*gfnma_setComSelect(['SRCH_SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),*/
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SHIFT_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRT_SHIFTCODE'
                 ,whereClause	: ''
@@ -743,17 +743,17 @@
                 ]
             }),
             // 사용여부
-            gfnma_setComSelect(['SRCH_USE_YN'], jsonUseYn, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_USE_YN'], jsonUseYn, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근무일
-            gfnma_setComSelect(['bandgvwInfo', 'WORK_DAY_TYPE'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo', 'WORK_DAY_TYPE'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근무유형
-            gfnma_setComSelect(['bandgvwInfo', 'WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRT_WORKTYPE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo', 'WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRT_WORKTYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
             // 교대유형
-            gfnma_setComSelect(['SHIFT_CATEGORY'], jsonShiftCategory, 'L_HRT034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SHIFT_CATEGORY'], jsonShiftCategory, 'L_HRT034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 바탕색상
-            gfnma_setComSelect(['BACK_COLOR'], jsonBackColor, 'L_COLOR', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COLOR_CODE', 'COLOR_NAME', 'Y', ''),
+            gfnma_setComSelect(['BACK_COLOR'], jsonBackColor, 'L_COLOR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COLOR_CODE', 'COLOR_NAME', 'Y', ''),
             // 13유휴대상
-            gfnma_setComSelect(['PAY_ALLOWANCE_FLAG'], jsonPayAllowanceFlag, 'L_HRT052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_ALLOWANCE_FLAG'], jsonPayAllowanceFlag, 'L_HRT052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근무구분
             gfnma_setComSelect(['WORK_ON_DAY_TYPE', 'WORK_OFF_DAY_TYPE'
                 , 'NORMAL_START_DAY_TYPE', 'NORMAL_END_DAY_TYPE'
@@ -768,7 +768,7 @@
                 , 'BREAK3_START_DAY_TYPE', 'BREAK3_END_DAY_TYPE'
                 , 'BREAK4_START_DAY_TYPE', 'BREAK4_END_DAY_TYPE'
                 , 'BREAK5_START_DAY_TYPE', 'BREAK5_END_DAY_TYPE']
-                , jsonDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+                , jsonDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근태시간
             gfnma_setComSelect(['WORK_ON_HH', 'WORK_OFF_HH'
                 , 'NORMAL_START_HH', 'NORMAL_END_HH'
@@ -783,7 +783,7 @@
                 , 'BREAK3_START_HH', 'BREAK3_END_HH'
                 , 'BREAK4_START_HH', 'BREAK4_END_HH'
                 , 'BREAK5_START_HH', 'BREAK5_END_HH']
-                , jsonHh, 'L_HRT009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+                , jsonHh, 'L_HRT009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근태분
             gfnma_setComSelect(['WORK_ON_MM', 'WORK_OFF_MM'
                 , 'NORMAL_START_MM', 'NORMAL_END_MM'
@@ -798,7 +798,7 @@
                 , 'BREAK3_START_MM', 'BREAK3_END_MM'
                 , 'BREAK4_START_MM', 'BREAK4_END_MM'
                 , 'BREAK5_START_MM', 'BREAK5_END_MM']
-                , jsonMm, 'L_HRT010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+                , jsonMm, 'L_HRT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근태항목
             gfnma_setComSelect(['NORMAL_TIME_ITEM_CODE'
                 , 'OVER_TIME_ITEM_CODE', 'NIGHT_TIME_ITEM_CODE'
@@ -807,7 +807,7 @@
                 , 'BREAK1_TIME_ITEM_CODE', 'BREAK2_TIME_ITEM_CODE'
                 , 'BREAK3_TIME_ITEM_CODE', 'BREAK4_TIME_ITEM_CODE'
                 , 'BREAK5_TIME_ITEM_CODE']
-                , jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
+                , jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
         ]);
     }
 
@@ -1235,7 +1235,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_SHIFT_CODE : SHIFT_CODE,
             V_P_SHIFT_NAME : SHIFT_NAME,
@@ -1364,7 +1364,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_SHIFT_CODE : SHIFT_CODE,
             V_P_SHIFT_NAME : SHIFT_NAME,

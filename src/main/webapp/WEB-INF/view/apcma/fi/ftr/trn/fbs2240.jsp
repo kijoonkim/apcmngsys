@@ -255,10 +255,10 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             //사업장
-            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -277,7 +277,7 @@
             // 예적금원장
             gfnma_multiSelectInit({
                 target: ['#SRCH_DEPOSIT_CODE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_DEPOSIT_LIST',
                 whereClause: '',
@@ -299,7 +299,7 @@
             // 예적금원장_은행코드
             gfnma_multiSelectInit({
                 target: ['#SRCH_BANK_CODE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_DEPOSIT_BANK_CODE',
                 whereClause: '',
@@ -318,7 +318,7 @@
             // FBS서비스
             gfnma_multiSelectInit({
                 target: ['#SRCH_FBS_SERVICE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
                 whereClause: '',
@@ -335,15 +335,15 @@
                 ]
             }),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwInfo'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwInfo'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 귀속일자
-            gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
             // 지급구분
-            gfnma_setComSelect(['gvwInfo'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 계좌조회결과
-            gfnma_setComSelect(['gvwInfo'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 사용자
-            gfnma_setComSelect(['gvwInfo'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
         ]);
     }
 
@@ -597,7 +597,7 @@
                         params: gfnma_objectToString({
                             V_P_DEBUG_MODE_YN: '',
                             V_P_LANG_ID: '',
-                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_COMP_CODE: gv_ma_selectedCorpCd,
                             V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                             V_P_PAY_YYYYMM : gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")),
                             V_P_PAY_TYPE : gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")),
@@ -630,7 +630,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: '',
                         V_P_LANG_ID: '',
-                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                         V_P_PAY_YYYYMM : gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")),
                         V_P_PAY_TYPE : gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")),
@@ -743,7 +743,7 @@
                 var paramObj = {
                     V_P_DEBUG_MODE_YN	: '',
                     V_P_LANG_ID		: '',
-                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                    V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_PAY_YYYYMM : PAY_YYYYMM,
                     V_P_PAY_TYPE_GROUP : PAY_TYPE,
@@ -837,7 +837,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_PAY_YYYYMM : PAY_YYYYMM,
             V_P_PAY_TYPE : PAY_TYPE,
@@ -907,7 +907,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_PAY_YYYYMM : PAY_YYYYMM,
             V_P_PAY_TYPE : PAY_TYPE,
@@ -1009,8 +1009,8 @@
 
         compopappvmng({
             workType		: numApprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-            ,compCode		: gv_ma_selectedApcCd
-            ,compCodeNm		: gv_ma_selectedApcNm
+            ,compCode		: gv_ma_selectedCorpCd
+            ,compCodeNm		: gv_ma_selectedCorpNm
             ,clientCode		: gv_ma_selectedClntCd
             ,apprId			: numApprId
             ,sourceNo		: gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")) + "_" + gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE"))
@@ -1408,7 +1408,7 @@
                 var paramObj = {
                     V_P_DEBUG_MODE_YN	: '',
                     V_P_LANG_ID		: '',
-                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                    V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_PAY_YYYYMM : PAY_YYYYMM,
                     V_P_PAY_TYPE : PAY_TYPE,
@@ -1561,7 +1561,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_PAY_YYYYMM : PAY_YYYYMM,
             V_P_PAY_TYPE : PAY_TYPE,

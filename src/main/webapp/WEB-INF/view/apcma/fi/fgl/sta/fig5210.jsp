@@ -244,15 +244,15 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -462,7 +462,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -584,7 +584,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -790,7 +790,7 @@
 	    var paramObj = {
 				V_P_DEBUG_MODE_YN		: ''
 				,V_P_LANG_ID			: ''
-				,V_P_COMP_CODE			: gv_ma_selectedApcCd
+				,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 				
 				,V_P_ACCT_RULE_CODE		: ACCT_RULE_CODE

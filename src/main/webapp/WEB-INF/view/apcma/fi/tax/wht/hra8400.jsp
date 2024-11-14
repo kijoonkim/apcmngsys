@@ -253,7 +253,7 @@
 <script type="text/javascript">
 
 
-	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
@@ -303,18 +303,18 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 급여영역
-            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
          // 급여영역
-            gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //사업장
-            gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
           //법인
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
 				,whereClause	: ''
@@ -630,7 +630,7 @@
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_EMP_CODE       : empCode == "" ? "T02" : ""
 			,V_P_JOB_YYYYMM_FR  : ''
@@ -727,7 +727,7 @@
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_JOB_YYYY          : ''
 			,V_P_DATA_HANDOUT_DATE : gfnma_nvl(submitDate)
@@ -807,7 +807,7 @@
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
 			,V_P_JOB_YYYY          : ''
@@ -887,7 +887,7 @@
     		var paramObj = {
          			V_P_DEBUG_MODE_YN	: ''
          			,V_P_LANG_ID		: ''
-         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+         			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
          			, V_P_PAY_YYYYMM       : ''
          			, V_P_PAY_TYPE_GROUP   : ''
@@ -1016,7 +1016,7 @@
 
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
      	compopup1({
-     		compCode				: gv_ma_selectedApcCd
+     		compCode				: gv_ma_selectedCorpCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_HRI001'
            	,popupType				: 'A'

@@ -274,7 +274,7 @@
 		// 코드정보 설정
 		let result = await Promise.all([
 				// 부가세유형
-            	gfnma_setComSelect(['grdVat'], jsonVatType, 'L_FIT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),
+            	gfnma_setComSelect(['grdVat'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),
 			]);	
 	}
     
@@ -502,7 +502,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
             ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
             ,V_P_VAT_CODE           : vatCode
             ,V_P_FORM_ID            : p_formId
@@ -593,7 +593,7 @@
 
         for(const item of updatedData) {
         	
-        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedApcCd);
+        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedCorpCd);
         	const clientCode 	= gfn_nvl(item.data.CLIENT_CODE, gv_ma_selectedClntCd);
         	const vatCode = item.data.VAT_CODE;
         	const vatName = item.data.VAT_NAME;
@@ -722,7 +722,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
