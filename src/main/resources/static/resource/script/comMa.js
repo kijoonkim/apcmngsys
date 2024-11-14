@@ -1895,3 +1895,18 @@ async function gfnma_getAccountRange(workType, strAccountCode, callbackFn) {
 	}
 }
 
+/**
+ * @name 		gfnma_getAccountRange
+ * @description 세금계산서 매핑 대상
+ * @function
+ * @param 		{string} workType
+ * @param 		{string} strAccountCode
+ * @returns 	{void}
+ */
+const gfnma_gridValidate = async function(objGrid, nRow, nCol, strValue) {
+	if (strValue != "") {
+		return strValue;
+	} else {
+		return { isValid : false, message : '값을 입력하세요.' };
+	}
+}

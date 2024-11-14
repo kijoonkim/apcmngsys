@@ -70,7 +70,7 @@ public class ApcMaFia1200Controller extends BaseController {
 	}	
 	
 	// 감가상각률등록 신규
-    @PostMapping(value = "/fi/fgl/com/saveFia1200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/fi/ffa/com/saveFia1200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> saveFia1200List(
     		@RequestBody Map<String, Object> param
     		, Model model

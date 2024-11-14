@@ -84,4 +84,26 @@ public class ApcMaFit1400Controller  extends BaseController {
         logger.info("=============insertFit1400S=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
+    @PostMapping(value = "/fi/tax/insertFit1400S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFit1400S2(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFit1400S2=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure","P_FIT1400_S2");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFit1400S2=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+    }
 }

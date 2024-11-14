@@ -458,6 +458,18 @@
             {caption: ["사업자번호"], 				ref: 'BIZ_REGNO', 				type:'output',		width:'150px',  	style:'text-align:left'},
             {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
 
+            {caption: ["전표번호"], 				ref: 'DOC_NAME', 				type:'button',  	width:'100px', 		style:'text-align:left', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_NAME']){
+            			var tmp = "fn_gridPopup1(event, '" + objRowData['DOC_ID'] + "', '" + objRowData['DOC_NAME'] + "' )";
+            			//console.log('tmp:', tmp);
+		        		return '<a style="text-decoration: underline;cursor:pointer;color:#149fff" href="#" onClick="' + tmp + '">' + objRowData['DOC_NAME'] + '</a>';
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["차변(전표)"], 	   			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["순금액(전표)"],	   			ref: 'FUNCTIONAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -981,7 +993,20 @@
 		cfn_subSearch();
   	}       
     
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+ 	function fn_gridPopup1(event, doc_id, doc_name) {
+		event.preventDefault();	
         
+        var obj = {
+                'MENU_MOVE'		: 'Y'
+                ,'DOC_ID' 		: doc_id
+                ,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
     
     
 </script>

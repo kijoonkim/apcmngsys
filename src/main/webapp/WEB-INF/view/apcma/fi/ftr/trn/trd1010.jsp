@@ -74,7 +74,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg_search">회계단위</th>
+                    <th scope="row" class="th_bg_search">APC명</th>
                     <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -252,7 +252,7 @@
     var strout_deposit_seq = "";
     var strin_deposit_seq = "";
 
-    var jsonFiOrgCode = []; // 회계단위
+    var jsonFiOrgCode = []; // APC명
     var jsonSiteCode = []; // 사업장
     var jsonTxnType = []; // 거래유형
     var jsonCurrencyCode = []; // 통화코드
@@ -289,7 +289,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 회계단위
+            // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -389,7 +389,7 @@
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'92px',  style:'text-align:left', hidden: true},
-            {caption: ["회계단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '161px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '161px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',

@@ -913,13 +913,6 @@
         SBGridProperties.selectmode = 'byrow';
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.paging = {
-            'type': 'page',
-            'count': 5,
-            'size': 20,
-            'sorttype': 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["발령일자"], ref: 'APPOINT_DATE', type: 'output', width: '89px', style: 'text-align:left',
@@ -1158,13 +1151,6 @@
         }
 
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.paging = {
-            'type': 'page',
-            'count': 5,
-            'size': 20,
-            'sorttype': 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {
                 caption: ["인원정보", ""],

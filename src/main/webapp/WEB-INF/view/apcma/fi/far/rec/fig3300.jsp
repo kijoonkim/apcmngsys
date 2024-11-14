@@ -75,7 +75,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">사업단위</th>
+							<th scope="row" class="th_bg_search">APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -103,27 +103,32 @@
 								<sbux-input id="SRCH_ROW_CNT" name="SRCH_ROW_CNT" uitype="hidden"></sbux-input>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg_search">년월</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-datepicker
-										uitype="popup"
-										id="SRCH_PERIOD_YYYYMM"
-										name="SRCH_PERIOD_YYYYMM"
-										date-format="yyyy-mm"
-										datepicker-mode="month"
-										class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-										style="width:100%;"
-										onchange="fn_payDate"
-								/>
-							</td>
-							<td colspan="3"></td>
 							<th scope="row" class="th_bg_search">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input id="SRCH_CS_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
+							<th scope="row" class="th_bg_search">상호</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-input id="SRCH_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+							</td>
+							<td></td>
 						</tr>
 						 <tr>
+							 <th scope="row" class="th_bg_search">년월</th>
+							 <td class="td_input" style="border-right:hidden;">
+								 <sbux-datepicker
+										 uitype="popup"
+										 id="SRCH_PERIOD_YYYYMM"
+										 name="SRCH_PERIOD_YYYYMM"
+										 date-format="yyyy-mm"
+										 datepicker-mode="month"
+										 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+										 style="width:100%;"
+										 onchange="fn_payDate"
+								 />
+							 </td>
+							 <td colspan="3"></td>
 							<th scope="row" class="th_bg_search">작성일자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
@@ -151,11 +156,6 @@
 										group-id="panHeader"
 										required
 								/>
-							</td>
-							 <td></td>
-							<th scope="row" class="th_bg_search">상호</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-input id="SRCH_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 							</td>
 							 <td></td>
 							 <th scope="row" class="th_bg_search">담당자</th>
@@ -262,7 +262,7 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			// 사업단위
+			// APC명
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_FI_ORG_CODE']
 				,compCode		: gv_ma_selectedApcCd
@@ -500,7 +500,7 @@
 				}
 			},
 			{caption: ["상태"],         ref: 'ROW_STATUS',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-			{caption: ["회계단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["APC명"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["조회시공급사코드"],         ref: 'CS_CODE_ORG',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 		];
 
@@ -1448,7 +1448,7 @@
 		let GUBUN = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
 		if (!FI_ORG_CODE) {
-			gfn_comAlert("W0002", "사업단위");
+			gfn_comAlert("W0002", "APC명");
 			return;
 		}
 		if (!GUBUN) {

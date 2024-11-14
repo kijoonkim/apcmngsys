@@ -161,6 +161,24 @@
                                                 name="wghno"
                                                 style="display: none"
                                         ></sbux-input>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="itemCd"
+                                                name="itemCd"
+                                                style="display: none"
+                                        ></sbux-input>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="wrhsYmd"
+                                                name="wrhsYmd"
+                                                style="display: none"
+                                        ></sbux-input>
+                                        <sbux-input
+                                                uitype="text"
+                                                id="prdcrCd"
+                                                name="prdcrCd"
+                                                style="display: none"
+                                        ></sbux-input>
                                     </div>
                                 </td>
                             </tr>
@@ -505,6 +523,9 @@
      */
     const fn_docRawMtrWrhs = async function(){
         let wghno = SBUxMethod.get("wghno");
+        let itemCd = SBUxMethod.get("itemCd");
+        let wrhsYmd = SBUxMethod.get("wrhsYmd");
+        let prdcrCd = SBUxMethod.get("prdcrCd");
         if(gfn_isEmpty(wghno)){
             gfn_comAlert("W0001","발행대상");
             return;
@@ -512,7 +533,7 @@
 
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 
- 		gfn_popClipReport("원물입고일지", rptUrl, {apcCd: gv_selectedApcCd});
+ 		gfn_popClipReport("원물입고일지", rptUrl, {apcCd: gv_selectedApcCd,wghno : wghno, itemCd:itemCd, wrhsYmd : wrhsYmd, prdcrCd : prdcrCd});
 
     }
     /**
@@ -650,6 +671,10 @@
         $(element).addClass("active");
         let idx = $(element).index() - 1;
         SBUxMethod.set("wghno", jsonSearchData[idx].wghno);
+        SBUxMethod.set("itemCd", jsonSearchData[idx].itemCd);
+        SBUxMethod.set("wrhsYmd", jsonSearchData[idx].wrhsYmd);
+        SBUxMethod.set("prdcrCd", jsonSearchData[idx].prdcrCd);
+
     }
 
 

@@ -266,8 +266,8 @@
 											<tr>
 			                                    <th scope="row" class="th_bg">자산구분</th>
 			                                    <td colspan="2" class="td_input">
-					                                <sbux-select id="FM_ASSET_CATEGORY_NAME" uitype="single" jsondata-ref="jsonAssetCategoryName" unselected-text="선택" class="form-control input-sm"></sbux-select>
-					  								<sbux-input  id="FM_ASSET_CATEGORY" style="display:none;" uitype="text" class="form-control input-sm"></sbux-input>
+					                                <sbux-select id="FM_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonFmAssetCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					  								<sbux-input  id="FM_ASSET_CATEGORY_NAME" style="display:none;" uitype="text" class="form-control input-sm"></sbux-input>
 			                                    </td>
 			                                    
 			                                    <th scope="row" class="th_bg">최초감가상각년월</th>
@@ -840,7 +840,7 @@
 	var jsonAssetCategory	= [];	// 자산구분
 	var jsonAssetLevel2		= [];	// 중분류
 	var jsonAssetLevel3		= [];	// 소분류
-	var jsonAssetCategoryName		= [];	// 자산구분
+	var jsonFmAssetCategory			= [];	// 자산구분
 	var jsonCurrencyCode			= [];	// 통화
 	var jsonAcctRuleCode			= [];	// 회계기준
 	var jsonDepreciationType		= [];	// 감가상각기준
@@ -865,7 +865,7 @@
             // 소분류
             gfnma_setComSelect(['SCH_ASSET_LEVEL3'],							jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
             // 자산구분
-            gfnma_setComSelect(['FM_ASSET_CATEGORY_NAME'],						jsonAssetCategoryName,	'P_ASSET_CATEGORY', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_CATEGORY', 'ASSET_CATEGORY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_ASSET_CATEGORY'],							jsonFmAssetCategory,	'P_ASSET_CATEGORY', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_CATEGORY', 'ASSET_CATEGORY_NAME', 'Y', ''),
             // 통화
             gfnma_setComSelect(['FM_CURRENCY_CODE'],							jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 회계기준
@@ -1055,7 +1055,7 @@
     	var bol = true;
     	var p_fm_asset_name 			= gfnma_nvl(SBUxMethod.get('FM_ASSET_NAME')); 
     	var p_fm_asset_account			= gfnma_nvl(SBUxMethod.get('FM_ASSET_ACCOUNT')); 
-    	var p_fm_asset_category_name	= gfnma_nvl(SBUxMethod.get('FM_ASSET_CATEGORY_NAME')); 
+    	var p_fm_asset_category			= gfnma_nvl(SBUxMethod.get('FM_ASSET_CATEGORY')); 
     	var p_fm_asset_level2			= gfnma_nvl(SBUxMethod.get('FM_ASSET_LEVEL2')); 
     	var p_fm_dept_code				= gfnma_nvl(SBUxMethod.get('FM_DEPT_CODE')); 
     	var p_fm_asset_level3			= gfnma_nvl(SBUxMethod.get('FM_ASSET_LEVEL3')); 
@@ -1074,7 +1074,7 @@
     	} else if(!p_fm_asset_account){
     		gfn_comAlert("E0000","자산내역의 기본내역탭 자산계정은 필수입력입니다.");
     		bol = false;
-    	} else if(!p_fm_asset_category_name){
+    	} else if(!p_fm_asset_category){
     		gfn_comAlert("E0000","자산내역의 기본내역탭 자산구분은 필수입력입니다.");
     		bol = false;
     	} else if(!p_fm_asset_level2){
@@ -1186,7 +1186,7 @@
             return;
 		}
         let rowData = Fia3100GridMast.getRowData(nRow);
-		console.log(rowData);      
+		console.log('rowData:', rowData);      
 		
 		fn_viewSetData(rowData);
     	fn_setFia3100GridMast('DETAIL');

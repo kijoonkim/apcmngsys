@@ -38,53 +38,65 @@
             </div>
         </div>
         <div class="box-body">
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <!-- content_header start -->
-            <table class="table table-bordered tbl_fixed">
-                <colgroup>
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+            <div class="box-search-ma">
+                <!--[APC] START -->
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <!--[APC] END -->
+                <!-- content_header start -->
+                <table class="table table-bordered tbl_fixed table-search-ma">
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                    <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">기준년도</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-<%--                        <sbux-select id="기준연도" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                                         >
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
 
-                        </sbux-datepicker>
-                    </td>
-                    <th scope="row" class="th_bg">신고구분명</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" >기준년도</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
+                                             date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                            >
+                            </sbux-datepicker>
+                        </td>
+                        <td></td>
+                        <th scope="row" >신고구분명</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- content_header end -->
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- content_header end -->
+            </div>
+
             <!-- content_body start -->
             <div style="display: flex; flex-direction: column; height: 85vh">
                 <div style="flex: 1;">
@@ -648,9 +660,6 @@ const fn_save = async function(){
 
     paramObj.V_P_SEQ = seq;
     console.log(paramObj,"wㅓ장전");
-    await fn_saveS2();
-    return;
-
 
     const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1400S.do", {
         getType				: 'json',
@@ -662,12 +671,18 @@ const fn_save = async function(){
 
     if(data.resultStatus === "S"){
         gfn_comAlert("Q0000",data.resultMessage);
-        await fn_search();
+        await fn_saveS2();
+        // await fn_search();
     }
 }
 const fn_saveS2 = async function(){
-    console.log(jsonRptSiteGrid,"jsonRptSiteGrid");
-    console.log(jsonVatGrid,"jsonVatGrid");
+    let status = "";
+    let rowIdx = rptStdGrid.getRow();
+    if($("#reg-dtp-yyyy").prop('readonly')){
+        status = "U";
+    }else{
+        status = "N";
+    }
     let yyyy = SBUxMethod.get("reg-dtp-yyyy");
     let numseq = gfnma_nvl(rptStdGrid.getRows());
     console.log(yyyy,"원하는게이거맞음?");
@@ -685,22 +700,52 @@ const fn_saveS2 = async function(){
         ,V_P_TAX_SITE_CODE_D      : ""
         ,V_P_VAT_REPORT_CODE_D    : ""
         ,V_P_REPORTING_DATE_D     : ""
+        ,V_P_USE_YN_D             : ""
         ,V_P_FORM_ID              : p_formId
         ,V_P_MENU_ID              : p_formId
         ,V_P_PROC_ID              : ""
         ,V_P_USERID               : p_formId
         ,V_P_PC                   : ""
     };
+    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_",["memo","seq"]);
+    if(!postFlag){
+        return;
+    }
+    let seq = '';
+    if(status === 'U'){
+        seq = gfnma_nvl(rptStdGrid.getRowData(rowIdx).seq);
+    }else if(status === 'N'){
+        seq = gfnma_nvl(rptStdGrid.getRows());
+    }
+    paramObj.V_P_SEQ = seq;
+
+    let taxSiteCode = jsonRptSiteGrid[0].taxSiteCode;
+    let useYn = jsonRptSiteGrid[0].chkYn;
+
+    let reportingDate = SBUxMethod.get("reg-dtp-reportDate");
+    console.log(jsonVatGrid,"니가왜갑자기");
+
         jsonVatGrid.forEach(function(item){
             if(item.useYn === 'Y'){
-                paramObj.V_P_YYYY_D = yyyy + '|';
-                paramObj.V_P_SEQ_D = numseq + '|';
-                paramObj.V_P_TAX_SITE_CODE_D = '';
-
+                paramObj.V_P_YYYY_D += '|' + yyyy;
+                paramObj.V_P_SEQ_D += '|' + numseq;
+                paramObj.V_P_TAX_SITE_CODE_D += '|' + taxSiteCode;
+                paramObj.V_P_VAT_REPORT_CODE_D += '|' + item.vatReportCode;
+                paramObj.V_P_REPORTING_DATE_D += '|' + reportingDate;
+                paramObj.V_P_USE_YN_D += '|' + item.useYn;
             }
-
-
         });
+        paramObj.V_P_TAX_SITE_CODE = taxSiteCode;
+        paramObj.V_P_CONFIRM_YN = useYn;
+
+    const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1400S2.do", {
+        getType				: 'json',
+        workType			: 'N',
+        cv_count			: '0',
+        params				: gfnma_objectToString(paramObj)
+    });
+    const data = await postJsonPromise;
+    console.log(data);
 }
 const fn_create = async function(){
     /** 신고 기준정보 초기화 **/
