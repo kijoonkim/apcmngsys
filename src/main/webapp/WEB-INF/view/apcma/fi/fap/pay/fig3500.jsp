@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row" class="th_bg_search">사업단위</th>
+                        <th scope="row" class="th_bg_search">APC명</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
                             <div class="dropdown">
                                 <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
@@ -526,7 +526,7 @@
 
     var strDocNameList = "";
 
-    var jsonFiOrgCode = []; // 사업단위
+    var jsonFiOrgCode = []; // APC명
     var jsonDocStatus = []; // 전표상태
     var jsonDocType = []; // 전표구분
     var jsonPayMethod = []; // 수금방법
@@ -585,7 +585,7 @@
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
 
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['gvwMaster', 'gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
@@ -1058,7 +1058,7 @@
             },
             {caption: ["회계의견"],         ref: 'ACCT_OPINION',    type:'output',  	width:'133px',  style:'text-align:left'},
             {caption: ["자금의견"],         ref: 'TR_OPINION',    type:'output',  	width:'125px',  style:'text-align:left'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',
@@ -1618,7 +1618,7 @@
             {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'128px',  style:'text-align:left'},
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'177px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'DOC_NUM',    type:'output',  	width:'50px',  style:'text-align:right'},
-            {caption: ["사업단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
+            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',
@@ -1775,7 +1775,7 @@
     }
 
     const fn_search = async function (ACTIVE_MASTER_TAB) {
-        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //사업단위
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //APC명
         let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS")); //자금상태
         let HOLD_FLAG = gfn_nvl(gfnma_multiSelectGet("#SRCH_HOLD_FLAG")); //보류여부
         let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG); //결재건만
@@ -2169,7 +2169,7 @@
     }
 
     const fn_searchApplyTab = async function (rowData) {
-        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //사업단위
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //APC명
         let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS")); //자금상태
         let HOLD_FLAG = gfn_nvl(gfnma_multiSelectGet("#SRCH_HOLD_FLAG")); //보류여부
         let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG); //결재건만

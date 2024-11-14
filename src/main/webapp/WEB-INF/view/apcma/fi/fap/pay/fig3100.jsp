@@ -96,7 +96,7 @@
                             ></sbux-datepicker>
                         </td>
                         <td colspan="3" style="border-right: hidden;"></td>
-                        <th scope="row" class="th_bg_search">사업단위</th>
+                        <th scope="row" class="th_bg_search">APC명</th>
                         <td colspan="3" class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
                                 <button style="width:100%;text-align:left"
@@ -285,7 +285,7 @@
                         ></sbux-datepicker>
                     </td>
                     <td colspan="3" style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">사업단위</th>
+                    <th scope="row" class="th_bg">APC명</th>
                     <td class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
                             <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -525,7 +525,7 @@
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
 
         let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -1889,7 +1889,7 @@
 
        /* let YMDPERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
         //let FI_ORG_CODE = gfn_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//APC명
         let RIDGUBUN        = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
         let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
         let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
@@ -2096,7 +2096,7 @@
         }
 
         //let FI_ORG_CODE = gfn_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//APC명
         let RIDGUBUN        = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
         let DATE_FR         = gfn_nvl(SBUxMethod.get("SRCH_DATE_FR")); //작성일자
         let DATE_TO         = gfn_nvl(SBUxMethod.get("SRCH_DATE_TO")); //작성일자
@@ -2257,7 +2257,7 @@
 
         let returnData = [];
 
-        let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+        let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//APC명
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");

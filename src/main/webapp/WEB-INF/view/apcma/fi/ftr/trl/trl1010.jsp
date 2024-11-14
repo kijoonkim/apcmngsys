@@ -75,7 +75,7 @@
 						</colgroup>
 						<tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">사업단위</th>
+							<th scope="row" class="th_bg_search">APC명</th>
 							<td colspan="3" class="td_input">
 								<sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode"
 											 unselected-text="선택"
@@ -1282,7 +1282,7 @@
     var Trl1010GridTab4; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1010Tab4	= []; 		// 그리드의 참조 데이터 주소 선언
     
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC명
 	var jsonAllYn			= [];	// 만기차입금포함여부
 	
 	var jsonSiteCode		= [];	// 사업장
@@ -1304,7 +1304,7 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['SCH_FI_ORG_CODE','FM_FI_ORG_CODE'],		jsonFiOrgCode, 	'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 만기차입금포함여부
             gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -2446,7 +2446,7 @@
 	 */
 	const fn_P_TRL1010_Q_LIST = async function (strWorkType) {
 
-		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
 		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
 		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
 		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
@@ -2455,7 +2455,7 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "사업단위");
+				gfn_comAlert("W0002", "APC명");
 				return;
 			}
 			if (!BASE_DATE) {
@@ -2564,7 +2564,7 @@
 	 */
 	const fn_P_TRL1010_Q = async function (strWorkType, grdData) {
 
-		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+		let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
 		let BASE_DATE 		= gfn_nvl(SBUxMethod.get("SCH_BASE_DATE")); 	//조회기준일자
 		let ALL_YN 			= gfn_nvl(SBUxMethod.get("SCH_ALL_YN")); 		//만기차입금포함여부
 		let LOAN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_LOAN_TYPE")); 	//차입금유형
@@ -2573,7 +2573,7 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "사업단위");
+				gfn_comAlert("W0002", "APC명");
 				return;
 			}
 			if (!BASE_DATE) {
