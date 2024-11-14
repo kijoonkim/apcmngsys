@@ -325,12 +325,12 @@
 			                   
 			                        <tr>
 			                            <th scope="row" class="th_bg">우편번호</th>
-			                            <td class="td_input"  style="border-right:hidden;" colspan="3">
+			                            <td class="td_input"  style="border-right:hidden;" colspan="2">
 											<sbux-input uitype="text" id="ZIP_CODE" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
-<!-- 			                            <td class="td_input"> -->
-<!-- 											<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupZipCode" ></sbux-button> -->
-<!-- 			                            </td> -->
+			                            <td class="td_input">
+											<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="…" class="btn btn-xs btn-outline-dark"></sbux-button>
+			                            </td>
 			                        </tr>
 			                        <tr>
 			                            <th scope="row" class="th_bg">주소</th>
@@ -626,10 +626,10 @@
        // 코드목록 그리드 초기화
        fn_clearForm();
        
-       var DATE = '';
+       let DATE = '';
        if (workType == 'TODAY'){
     	   DATE =  gfn_nvl(SBUxMethod.get("SRCH_TODAY_DATE"));
-       }else{
+       } else {
 	       DATE =  gfn_nvl(SBUxMethod.get("CHANGE_DATE"));
        }
        var paramObj = {
@@ -1188,6 +1188,41 @@
         }
     }
 	    
+	/* 주소 팝업 */
+	//팝업 실행
+	var fn_goPopup = function(){
+		w = 520;
+		h = 620;
+		LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+		TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+
+		settings = "height=" + h
+				   + ",width=" + w
+				   + ",top=" + TopPosition
+				   + ",left=" + LeftPosition
+				   + ",scrollbars=yes, resizable=yes";
+		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
+
+	}
+	/* 주소 팝업 */
+	//팝업 콜백
+	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+		/*
+			roadFullAddr 전체 도로명주소
+			roadAddrPart1 도로명주소(참고항목 제외)
+			roadAddrPart2 도로명주소 참고항목
+			addrDetail 상세주소
+			engAddr 도로명 주소 영문
+			jibunAddr 지번 정보
+			zipNo 우편번호
+		*/
+		if(addrDetail.length>30){
+			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
+			return;
+		}
+		SBUxMethod.set("ZIP_CODE", zipNo);//우편번호
+		SBUxMethod.set("ADDRESS", roadFullAddr );// 도로명주소
+	}
 	    
 	    
 </script>

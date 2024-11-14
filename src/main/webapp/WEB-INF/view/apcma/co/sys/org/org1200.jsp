@@ -142,7 +142,7 @@
 										<sbux-input uitype="text" id="SITE_ACC_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAcc" ></sbux-button>
 		                            </td>
                                 </tr>                                   
                                 <tr>
@@ -154,7 +154,7 @@
 										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm" ></sbux-input>
 									</td>
 		                            <td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupComp" ></sbux-button>
+										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupComp" ></sbux-button>
 		                            </td>
                                 </tr>    
                                 <tr>
@@ -339,10 +339,15 @@
     
 	// 신규
 	function cfn_add() {
+		fn_setSiteData();
+	}
+	
+	const fn_setSiteData = async function(){
 		fn_clearSubForm();
-		SBUxMethod.attr("FI_ORG_CODE" , "readonly", false);
+		SBUxMethod.attr("FI_ORG_CODE" , "readonly", true);
 		detailGrid.rebuild();
 		authorityGrid.rebuild();
+		
 	}
 	
     // 저장
@@ -475,19 +480,68 @@
     	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
     	
     	var paramObj = {
-    			   V_P_DEBUG_MODE_YN       : ''
-   				  ,V_P_LANG_ID             : ''
-   				  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
-   				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   				  ,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
-   				  ,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
-   				  ,V_P_USER_ID_P           : ''
-   				  ,V_P_SITE_CODE           : ''
-   				  ,V_P_FORM_ID             : p_formId
-   				  ,V_P_MENU_ID             : p_menuId
-   				  ,V_P_PROC_ID             : ''
-   				  ,V_P_USERID              : p_userId
-   				  ,V_P_PC                  : ''
+    			V_P_DEBUG_MODE_YN        : ''
+   				,V_P_LANG_ID             : ''
+   				,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   				,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
+   				,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
+   				,V_P_USER_ID_P           : ''
+   				,V_P_SITE_CODE           : ''
+   				,V_P_FORM_ID             : p_formId
+   				,V_P_MENU_ID             : p_menuId
+   				,V_P_PROC_ID             : ''
+   				,V_P_USERID              : p_userId
+   				,V_P_PC                  : ''
+	    };
+    	
+		const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1200.do", {
+			getType				: 'json',
+			workType			: 'Q',
+			cv_count			: '4',
+			params				: gfnma_objectToString(paramObj)
+		});
+    	const data = await postJsonPromise;
+    	try {
+	    	if (_.isEqual("S", data.resultStatus)) {
+	    		} else {
+	    	  		alert(data.resultMessage);
+	    		}
+
+    	} catch (e) {
+    	if (!(e instanceof Error)) {
+    		e = new Error(e);
+    	}
+    	console.error("failed", e.message);
+    		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    	}
+    	        
+    }
+    /**
+     * 코드목록 조회
+     */
+    const fn_search = async function() {
+
+    	// 코드목록 그리드 초기화
+    	fn_clearForm();
+    	
+    	let SRCH_ORG_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
+    	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
+    	
+    	var paramObj = {
+    			V_P_DEBUG_MODE_YN        : ''
+   				,V_P_LANG_ID             : ''
+   				,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   				,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
+   				,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
+   				,V_P_USER_ID_P           : ''
+   				,V_P_SITE_CODE           : ''
+   				,V_P_FORM_ID             : p_formId
+   				,V_P_MENU_ID             : p_menuId
+   				,V_P_PROC_ID             : ''
+   				,V_P_USERID              : p_userId
+   				,V_P_PC                  : ''
 	    };
     	
 		const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1200.do", {
@@ -813,7 +867,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("COMP_NAME"));
         var replaceText0 	= "_COMP_CODE_";
         var replaceText1 	= "_COMP_NAME_";
-        var strWhereClause 	= "AND COMP_CODE LIKE '%" + replaceText0 + "%' AND COMP_NAME  LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND COMP_CODE LIKE '%" + searchCode + "%' AND COMP_NAME  LIKE '%" + searchName + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '법인코드 조회');
     	compopup1({
