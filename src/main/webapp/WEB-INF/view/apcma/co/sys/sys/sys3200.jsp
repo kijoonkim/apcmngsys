@@ -43,34 +43,34 @@
             <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg_search로">채번그룹</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
                                     type="button" id="SRCH_NUMBERING_GROUP" data-toggle="dropdown" aria-haspopup="true"
@@ -83,19 +83,19 @@
                             </div>
                         </div>
                     </td>
-                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <td style="border-right: hidden;">&nbsp;</td>
                     <th scope="row" class="th_bg_search로">채번 ID</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_NUMBERING_ID" uitype="text" style="width:100%" placeholder=""
                                     class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                    <td style="border-right: hidden;">&nbsp;</td>
                     <th scope="row" class="thth_bg_search로_bg">채번명</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_NUMBERING_NAME" uitype="text" style="width:100%" placeholder=""
                                     class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="8" style="border-right: hidden;">&nbsp;</td>
+                    <td colspan="6" style="border-right: hidden;">&nbsp;</td>
                 </tr>
                 </tbody>
             </table>

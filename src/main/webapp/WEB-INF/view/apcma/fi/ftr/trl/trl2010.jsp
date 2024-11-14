@@ -91,7 +91,7 @@
                                 </sbux-datepicker>
                             </td>
                             <td colspan="3" style="border-right: hidden;"></td>
-                            <th scope="row" class="th_bg_search">사업단위</th>
+                            <th scope="row" class="th_bg_search">APC명</th>
                             <td colspan="3" class="td_input">
                                 <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode"
                                              unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -254,7 +254,7 @@
     var Trl2010GridTab2; 			// 그리드를 담기위한 객체 선언
     var jsonTrl2010Tab2	= []; 		// 그리드의 참조 데이터 주소 선언
     
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC명
 	var jsonTxnType			= [];	// 차입금거래유형
 	var jsonBankCsCode		= [];	// 금융기관
 	var jsonPayMethod		= [];	// 지급방법 //L_FIM073_LOAN
@@ -269,7 +269,7 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC명
             gfnma_setComSelect(['SCH_FI_ORG_CODE', 'Trl2010GridTop'],		jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 차입금거래유형
             gfnma_setComSelect(['SCH_TXN_TYPE','Trl2010GridTop'], jsonTxnType, 		'L_FIM083', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -588,8 +588,7 @@
                  SBUxMethod.set('SCH_OUT_ACCOUNT_NM', data.ACCOUNT_NUM);
             },
          });
-        //SBUxMethod.openModal('modal-compopup1');
-     }  
+     }
     
      /**
       * 금융기관 
@@ -631,7 +630,6 @@
  		        }
  			},
      	});
-         //SBUxMethod.openModal('modal-compopup1');
      }
 
 
@@ -640,7 +638,7 @@
      */
     const fn_P_TRL2010_Q_LIST = async function (strWorkType, row) {
 
-        let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+        let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
         let PERIOD_YYYYMM_P = gfn_nvl(SBUxMethod.get("SCH_PERIOD_YYYYMM_P")); 	//년월
         let BANK_CODE 		= gfn_nvl(SBUxMethod.get("SCH_BANK_CODE")); 	//금융기관
         let TXN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_TXN_TYPE")); 	//차입금거래유형
@@ -792,7 +790,7 @@
      */
     const fn_P_TRL2010_Q = async function (strWorkType, grdData) {
 
-        let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//사업단위
+        let FI_ORG_CODE 	= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE")); 	//APC명
         let PERIOD_YYYYMM_P = gfn_nvl(SBUxMethod.get("SCH_PERIOD_YYYYMM_P")); 	//년월
         let BANK_CODE 		= gfn_nvl(SBUxMethod.get("SCH_BANK_CODE")); 	//금융기관
         let TXN_TYPE 		= gfn_nvl(SBUxMethod.get("SCH_TXN_TYPE")); 	//차입금거래유형
