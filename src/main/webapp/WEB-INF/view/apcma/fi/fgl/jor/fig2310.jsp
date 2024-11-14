@@ -208,7 +208,7 @@
 								            id="sch-approve-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -223,7 +223,7 @@
 								            id="sch-posting-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -248,7 +248,7 @@
 								            id="sch-doc-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -259,7 +259,7 @@
 								            id="sch-unposting-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -277,7 +277,7 @@
 								            id="sch-voucher-receipt-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -372,7 +372,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">신고일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">공급가액</th>
 				                            <td class="td_input" >
@@ -402,7 +402,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">선적일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">당기제출금_원화</th>
 				                            <td class="td_input" >
@@ -464,7 +464,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">발급일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <td colspan="4" class="td_input" >
 				                            </td>
@@ -507,58 +507,60 @@
 				                    </colgroup>
 				                    <tbody>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME1"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME1">관리항목1</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE1, 'ACC_ITEM_VALUE1')"  id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME5"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME5">관리항목5</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE5, 'ACC_ITEM_VALUE5')"  id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME9"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME9">관리항목9</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE9, 'ACC_ITEM_VALUE9')"  id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME2"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME2">관리항목2</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE2, 'ACC_ITEM_VALUE2')"  id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME6"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME6">관리항목6</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE6, 'ACC_ITEM_VALUE6')"  id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME10"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME10">관리항목10</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE10, 'ACC_ITEM_VALUE10')"  id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME3"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME3">관리항목3</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE3, 'ACC_ITEM_VALUE3')"  id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME7"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME7">관리항목7</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE7, 'ACC_ITEM_VALUE7')"  id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="PROJECT_NAME"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="PROJECT_NAME">프로젝트</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(PROJECT_CODE, 'PROJECT_CODE')"  id="PROJECT_CODE" name="PROJECT_CODE" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME4"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME4">관리항목4</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE4, 'ACC_ITEM_VALUE4')"  id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME8"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME8">관리항목8</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE8, 'ACC_ITEM_VALUE8')"  id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 				                            <th scope="row" class="th_bg" ></th>
 				                            <td colspan="2" class="td_input" >
+				   								<sbux-input uitype="hidden" id="DEBIT_CREDIT" name="DEBIT_CREDIT" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input uitype="hidden" id="ACCOUNT_CODE" name="ACCOUNT_CODE" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 									</tbody>
