@@ -2671,6 +2671,16 @@
 
                 bandgvwDetail.rebuild();
 
+                fnDeptAppointYnChange(null);
+                fnPositionAppointYnChange(null);
+                fnDutyAppointYnChange(null);
+                fnJobRankAppointYnChange(null);
+                fnJobGroupAppointYnChange(null);
+                fnJobAppointYnChange(null);
+                fnJobFamilyAppointYnChange(null);
+                fnRegionAppointYnChange(null);
+                fnParentingWorkTypeYnChange(null);
+
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_CODE1"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_NAME1"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("POSITION_CODE1"), true);
@@ -2687,6 +2697,8 @@
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_START_DAY_TYPE"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_DAY_TYPE"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_HHMM"), true);
+
+
             } else {
                 alert(data.resultMessage);
             }
