@@ -712,12 +712,12 @@
 			}       	
     	}
     	
-	   	 var chkList = Fia1200GridDetail.getOrgGridDataAll(true)
+	   	 var chkList = Fia1200GridDetail.getOrgGridDataAll(true);
 	  	 //서버 전송 리스트
 	  	 let listData 	= [];
 	  	 let workt		= ""; 
 	  	 for (var i = 0; i < chkList.length; i++) {
-			var obj = chkList[i].data;
+			var obj = chkList[i];
 	  	 	const param = {
 	  	 			cv_count	: '0',
 	  	 			getType		: 'json',
