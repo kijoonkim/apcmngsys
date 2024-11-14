@@ -47,34 +47,43 @@
 			</div>
 		</div>
 		<div class="box-body">
-			<div style="padding-bottom:10px">
+			<div class="box-search-ma"> 
 				<!--[APC] START -->
 	            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 	            <!--[APC] END -->
 				
 				<!--[pp] 검색 -->
-                <table class="table table-bordered tbl_fixed" style="margin-bottom:5px">
+                <table class="table table-bordered tbl_fixed table-search-ma" >
                 	<caption>검색 조건 설정</caption>
                     <colgroup>
-						<col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                        
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 					</colgroup>
                     <tbody>
                     	<tr>
-                            <th scope="row" class="th_bg">수금,지급구분</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <th scope="row" class="th_bg_search">수금,지급구분</th>
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text="전체"
                                         uitype="single"
@@ -85,21 +94,33 @@
                                 />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">기준일자</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
-									uitype="popup" 
-									id="srch-dtp-standardDay" 
-									name="srch-dtp-standardDay"
-									date-format="yyyy-mm-dd" 
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-									wrap-style="border:0;padding:0;"
-									group-id="panHeader"
-		                            required
-								/>	
+                            <th scope="row" class="th_bg_search">지급기준코드</th>
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                	uitype="text"
+                                    id="srch-inp-payTermCode"
+                                    name="srch-inp-payTermCode"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
+                                    onkeyenter="fn_search"
+                                />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">지급조건</th>
+                            <th scope="row" class="th_bg_search">지급기준명</th>
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                	uitype="text"
+                                    id="srch-inp-payTermName"
+                                    name="srch-inp-payTermName"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
+                                    onkeyenter="fn_search"
+                                />
+                            </td>
+                            <td colspan="6"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg_search">지급조건</th>
                             <td colspan="3" class="td_input"">
                                 <div class="dropdown">
 									<button 
@@ -120,34 +141,23 @@
 										style="width:300px;height:400px;padding-top:0px;overflow:auto"
 									></div>
 								</div> 
-                            </td>  
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">지급기준코드</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-input
-                                	uitype="text"
-                                    id="srch-inp-payTermCode"
-                                    name="srch-inp-payTermCode"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                                    onkeyenter="fn_search"
-                                />
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">지급기준명</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-input
-                                	uitype="text"
-                                    id="srch-inp-payTermName"
-                                    name="srch-inp-payTermName"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                                    onkeyenter="fn_search"
-                                />
+                            <th scope="row" class="th_bg_search">기준일자</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+									uitype="popup" 
+									id="srch-dtp-standardDay" 
+									name="srch-dtp-standardDay"
+									date-format="yyyy-mm-dd" 
+									class="table-datepicker-ma"
+									wrap-style="border:0;padding:0;"
+									group-id="panHeader"
+		                            required
+								/>	
                             </td>
-                            <td></td>
-							<th scope="row" class="th_bg">지급예정일</th>
+                            <td colspan="3"></td>  
+							<th scope="row" class="th_bg_search">지급예정일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-input
                                 	uitype="text"
@@ -161,10 +171,12 @@
                         </tr>
                  	</tbody>
                	</table>
+			</div>
+			<div class="row">
                	<div class="ad_tbl_top">
                 	<ul class="ad_tbl_count">
                     	<li>
-                        	<span>지급기준 관리</span>
+                        	<span>◎ 지급기준 관리</span>
                         </li>
 					</ul>
 					<div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
