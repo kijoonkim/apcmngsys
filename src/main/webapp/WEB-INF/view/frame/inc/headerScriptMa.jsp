@@ -37,6 +37,9 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+        let isDragging = false;
+        let clickElement = null;
+
         const targetNode = document.body;
 
         const config = {
@@ -46,14 +49,6 @@
             attributeFilter: ['class', 'style'], // class와 style 속성 변화만 감지
             attributeOldValue: true     // 이전 속성 값 저장
         };
-
-        function setupMouseMoveEvent(targetDiv) {
-            targetDiv.style.position = 'absolute';
-
-            document.addEventListener('mousemove', function(event) {
-                targetDiv.style.left = event.pageX + 'px';
-            });
-        }
 
         const callback = function(mutationsList, observer) {
             for (let mutation of mutationsList) {
@@ -157,8 +152,11 @@
 
                     const trLeft = trRect.left;
                     const tdLeft = tdRect.left;
+                    const trTop = trRect.top;
+                    const tdTop = tdRect.top;
 
                     const leftDifference = tdLeft - trLeft;
+                    const topDifference = tdTop - trTop;
 
                     const colIndex = targetElement.getAttribute('data-colindex');
                     if (colIndex) {
@@ -168,9 +166,40 @@
                         if (inputElement) {
                             // input의 스타일을 td와 맞추어 설정
                             inputElement.style.left = (leftDifference * 1.25) + 'px';
+                            inputElement.style.top = (topDifference * 1.25) + 'px';
                         }
                     }
                 }
+            }
+        }
+
+        document.addEventListener('mousedown', function(event) {
+            console.log("event.target.id", event.target.id)
+            if (event.target.id === 'SBHE_VL_bandgvwDetail') {
+                isDragging = true; // 드래그 상태 시작
+                clickElement = event.target;
+                console.log('드래그 시작:', event.clientX, event.clientY);
+                handleDivClickDrag(event.clientX)
+            }
+        });
+
+        document.addEventListener('mousemove', function(event) {
+            if (isDragging) {
+                // 드래그 중일 때만 실행
+                console.log('드래그 중:', event.clientX, event.clientY);
+                handleDivClickDrag(event.clientX)
+            }
+        });
+
+        function handleDivClickDrag(clientX) {
+            const clickElementRect = clickElement.getBoundingClientRect();
+            const clickElementRectLeft = clickElementRect.left;
+            const leftDifference = clickElementRectLeft - clientX;
+            const inputElement = document.getElementById("SBHE_VL_bandgvwDetail");
+
+            if (inputElement) {
+                // input의 스타일을 td와 맞추어 설정
+                inputElement.style.left = (leftDifference * 1.25) + 'px';
             }
         }
 
