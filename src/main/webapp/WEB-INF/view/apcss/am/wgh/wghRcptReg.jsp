@@ -217,7 +217,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:500px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:544px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -494,6 +494,10 @@
 		if (gubun == "ADD") {
 
 
+			if (jsonWghPrfmnc.length == 1 && gfn_isEmpty(jsonWghPrfmnc[0].delYn)) {
+				grdWghPrfmnc.deleteRow(nRow);
+			}
+
 			// jsonWghPrfmnc
 			let wghPrfmnc = {};
 
@@ -526,12 +530,12 @@
 				wghPrfmnc.wrhsSpmtType = SBUxMethod.get("srch-slt-wrhsSpmtType");
 			}
 
-
 			jsonWghPrfmnc.splice(parseInt((nRow)-1), 0, wghPrfmnc);
 			grdWghPrfmnc.rebuild();
 
 			grdWghPrfmnc.setCellDisabled(0, 0, grdWghPrfmnc.getRows() -1, grdWghPrfmnc.getCols() -1, false);
 			grdWghPrfmnc.setCellDisabled(grdWghPrfmnc.getRows() -1, 0, grdWghPrfmnc.getRows() -1, grdWghPrfmnc.getCols() -1, true);
+
 
 
 		} else if (gubun == "DEL") {
@@ -950,8 +954,14 @@
   				jsonWghPrfmnc.push(wghPrfmnc);
   			});
 
-          	grdWghPrfmnc.rebuild();
-          	grdWghPrfmnc.addRow(true);
+          	if (jsonWghPrfmnc.length == 0) {
+          		grdWghPrfmnc.clearTotal();
+          		grdWghPrfmnc.refresh();
+          		grdWghPrfmnc.addRow(true);
+          	} else {
+
+	          	grdWghPrfmnc.rebuild();
+          	}
 
           	grdWghPrfmnc.setCellDisabled(grdWghPrfmnc.getRows() -1, 0, grdWghPrfmnc.getRows() -1, grdWghPrfmnc.getCols() -1, true);
 
