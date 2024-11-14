@@ -128,7 +128,7 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:80px"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+									        class="form-control input-sm input-sm-ast table-datepicker-ma"
 									        onchange = "fn_payDate"
 									        required>
 									</sbux-datepicker>                            
@@ -142,7 +142,7 @@
 								            name="srch-ymddate-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 						        <td>-</td>
@@ -152,7 +152,7 @@
 								            name="srch-ymddate-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                            
 	                            </td>
 						        <td></td>
