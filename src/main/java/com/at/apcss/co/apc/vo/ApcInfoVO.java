@@ -14,6 +14,13 @@ public class ApcInfoVO extends ComVO{
 	/* 제외APC코드 */
 	private String exclApcCd;
 
+	private String ognzCd;
+	private String ognzNm;
+	private String corpCd;
+	private String corpNm;
+	private String value;
+	private String label;
+	
 	/** 원본 APC명 */
 	private String regApcNm;
 	/** 원본 우편번호 */
@@ -68,5 +75,7 @@ public class ApcInfoVO extends ComVO{
 	private String userId;
 	
 	private String untyOgnzCd;
+	
+	
 	
 }
