@@ -80,7 +80,7 @@
                        		<!-- /hidden -->
                        		
 	                    	<tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="9" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 			                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -284,7 +284,7 @@
 
 	var jsonTempList 		= [];	// 저장할 임시 저장소
 
-	var jsonFiOrgCode 		= []; 	// 사업단위
+	var jsonFiOrgCode 		= []; 	// APC
 	var jsonSiteCode 		= []; 	// 사업장
 	var jsonAcctRuleCode 	= []; 	// 회계기준
 	var jsonSummaryType 	= []; 	// 합계표시
@@ -299,7 +299,7 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SCH_SITE_CODE'], 			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -447,7 +447,7 @@
 	    },
         SBGridProperties.columns = [
             {caption: ["기간"],						ref: 'PERIOD_CODE', 			type:'output', 		width:'250px', 		style:'text-align:left'},
-            {caption: ["사업단위"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["APC"], 						ref: 'FI_ORG_NAME',    			type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["계정과목"], 				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'output',		width:'250px',  	style:'text-align:left'},
             {caption: ["일자"],    					ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},

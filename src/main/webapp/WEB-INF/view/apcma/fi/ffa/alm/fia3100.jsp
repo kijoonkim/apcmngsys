@@ -76,7 +76,7 @@
 	                    <tbody>
 	                    
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -834,7 +834,7 @@
     var Fia3100GridDetail04; 		// 그리드를 담기위한 객체 선언
     var jsonFia3100Detail04 = []; 	// 그리드의 참조 데이터 주소 선언
 
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	var jsonActualFlagP		= [];	// 실적구분
 	var jsonAssetCategory	= [];	// 자산구분
@@ -852,7 +852,7 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],								jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),

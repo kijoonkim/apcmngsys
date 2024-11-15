@@ -73,7 +73,7 @@
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동전]</font> 사업단위</th>
+	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동전]</font> APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE1" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -85,7 +85,7 @@
 	                            </td>
 	                            <td></td>
 	                            
-	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동후]</font> 사업단위</th>
+	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동후]</font> APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE2" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -365,12 +365,12 @@
     var Fia4100Grid; 				// 그리드를 담기위한 객체 선언
     var jsonFia4100 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE1','SCH_FI_ORG_CODE2'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SCH_SITE_CODE1','SCH_SITE_CODE2','FM_SITE_CODE_FROM','"FM_SITE_CODE_TO"'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),

@@ -82,7 +82,7 @@
                        		<!-- /hidden -->
 	                    
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">회계단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="SCH_FI_ORG_CODE" name="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonfiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -343,7 +343,7 @@
 	var p_menu_param			= null;	// 메뉴이동 파라미터
 	//-----------------------------------------------------------
 	
-    var jsonfiOrgCode 		= []; // 회계단위
+    var jsonfiOrgCode 		= []; // APC
     var jsonDocStatus 		= []; // 전표상태
     var jsonAcctRuleCode 	= []; // 회계기준
     var jsonAccCharacter 	= []; // 미결관리대상
@@ -359,7 +359,7 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 회계단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],		jsonfiOrgCode, 		'L_FIM022', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 전표상태
             gfnma_setComSelect(['SCH_DOC_STATUS'],		jsonDocStatus, 		'L_FIG002_1', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -652,7 +652,7 @@
             {caption: ["지급방법"],  				ref: 'PAY_METHOD_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점"],  				ref: 'COST_CENTER_CODE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["회계단위"],  				ref: 'FI_ORG_NAME', 			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["APC"],  				ref: 'FI_ORG_NAME', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["회계기준"],  				ref: 'ACCT_RULE_NAME', 			type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -710,7 +710,7 @@
 		
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","회계단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_end_balance_type){

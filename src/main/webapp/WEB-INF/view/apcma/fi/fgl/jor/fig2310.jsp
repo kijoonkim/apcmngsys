@@ -203,7 +203,7 @@
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">현업결재일</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-approve-date"
 								            uitype="popup"
@@ -211,7 +211,7 @@
 								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 	                            
 	                        </tr>    
 	                        
@@ -243,7 +243,7 @@
 	                            <td></td>
 
 	                            <th scope="row" class="th_bg_search">전기일자</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-doc-date"
 								            uitype="popup"
@@ -251,7 +251,7 @@
 								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 
 	                            <th scope="row" class="th_bg_search">승인취소일</th>
 	                            <td class="td_input" >
@@ -272,7 +272,7 @@
 	                        
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">증빙일자</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-voucher-receipt-date"
 								            uitype="popup"
@@ -280,11 +280,11 @@
 								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td class="td_input" >
-	                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            <td class="td_input" >
@@ -1083,15 +1083,15 @@
             {caption: ["부가세유형"], 				ref: 'VAT_TYPE',    			type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
-            {caption: ["부가세유형명"], 			ref: 'VAT_NAME', 			type:'input',		width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형명"], 			ref: 'VAT_NAME', 				type:'input',		width:'100px',  	style:'text-align:left'},
             
             {caption: ["거래처"], 					ref: pg_colcs_code_field1,    	type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["거래처명"], 				ref: pg_colcs_code_field2, 		type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1099,7 +1099,7 @@
             {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1121,7 +1121,7 @@
             {caption: ["부서"], 					ref: 'DEPT_NAME', 				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn4',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["부서코드"],					ref: 'DEPT_CODE', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1129,7 +1129,7 @@
             {caption: ["원가중심점"], 				ref: 'COST_CENTER_CODE',		type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn5',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME', 		type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1137,7 +1137,7 @@
             {caption: ["프로젝트코드"], 			ref: 'PROJECT_CODE',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["프로젝트명"], 				ref: 'PROJECT_NAME', 			type:'input',		width:'250px',  	style:'text-align:left'},
@@ -1145,14 +1145,14 @@
             {caption: ["지급기준"], 				ref: 'PAY_TERM_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["지급기준명"], 				ref: 'PAY_TERM_NAME', 			type:'output',		width:'150px',  	style:'text-align:left'},
             {caption: ["지급방법"], 				ref: 'PAY_METHOD_NAME', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn7',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["지급방법코드"],				ref: 'PAY_METHOD', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1165,7 +1165,7 @@
             {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_TYPE', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn8',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "1," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "1," + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_CODE', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1175,7 +1175,7 @@
             {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_TYPE2', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn9',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "2," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "2," + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_CODE2', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1205,7 +1205,7 @@
             {caption: ["계좌행번"], 				ref: 'SEQ_NAME', 				type:'output', 		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn10',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계좌행번"],					ref: 'BANK_ACCOUNT_SEQ', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},

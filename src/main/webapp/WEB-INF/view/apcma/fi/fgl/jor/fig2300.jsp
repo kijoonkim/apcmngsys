@@ -94,7 +94,7 @@
                        		<!-- /hidden -->
 	                    
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="SCH_FI_ORG_CODE" name="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonfiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -439,7 +439,7 @@
 	var p_menu_param			= null;	// 메뉴이동 파라미터
 	//-----------------------------------------------------------
 	
-    var jsonfiOrgCode 		= []; // 사업단위
+    var jsonfiOrgCode 		= []; // APC
     var jsonSiteCode 		= []; // 사업장
     var jsonHoldFlag 		= []; // 보류여부
     var jsonDocStatus 		= []; // 전표상태
@@ -467,7 +467,7 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],		jsonfiOrgCode, 		'L_FIM022', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SCH_SITE_CODE'], 		jsonSiteCode, 		'L_ORG001', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -620,7 +620,7 @@
         	    }
         	},        	
             {caption: ["전표상태"],					ref: 'DOC_STATUS_NAME', 		type:'output', 		width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'150px', 		style:'text-align:left'},
+            {caption: ["APC"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["사업장"],    				ref: 'SITE_NAME', 				type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표구분"],  				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -896,7 +896,7 @@
 		
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_site_code){
@@ -1652,7 +1652,7 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
@@ -1799,7 +1799,7 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
@@ -1912,7 +1912,7 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		

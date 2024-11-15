@@ -81,7 +81,7 @@
                        		<!-- /hidden -->
                        		
 	                    	<tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -197,7 +197,7 @@
 	var Fig2410Grid; 				// 그리드를 담기위한 객체 선언
 	var jsonFig2410 		= []; 	// 그리드의 참조 데이터 주소 선언
 
-	var jsonFiOrgCode 		= []; 	// 사업단위
+	var jsonFiOrgCode 		= []; 	// APC
 	
     var p_menu_param		= null;
 	
@@ -205,7 +205,7 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
+            // APC
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
 		]);
 	}	
@@ -357,7 +357,7 @@
 		let p_period_yyyymm			= gfnma_nvl(SBUxMethod.get("SCH_PERIOD_YYYYMM"));
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
@@ -598,7 +598,7 @@
 		let p_period_yyyymm			= gfnma_nvl(SBUxMethod.get("SCH_PERIOD_YYYYMM"));
     	
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		

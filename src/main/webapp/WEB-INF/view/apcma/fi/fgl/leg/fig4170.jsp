@@ -85,7 +85,7 @@
                        		<!-- /hidden -->
                        		
 	                    	<tr>
-	                            <th scope="row" class="th_bg_search">회계단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="19" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 			                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -643,7 +643,7 @@
 		let p_all_yn				= gfnma_nvl(SBUxMethod.get("SCH_ALL_YN")['SCH_ALL_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","회계단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		

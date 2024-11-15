@@ -82,7 +82,7 @@
                        		<!-- /hidden -->
                        		
 	                    	<tr>
-	                            <th scope="row" class="th_bg_search">회계단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -291,7 +291,7 @@
 
 	var jsonTempList 		= [];	// 저장할 임시 저장소
 
-	var jsonFiOrgCode 		= []; 	// 회계단위
+	var jsonFiOrgCode 		= []; 	// APC
 	var jsonCurrencyCode 	= []; 	// 통화
 	var jsonAcctRuleCode 	= []; 	// 회계기준
 	var jsonAccCharacter 	= []; 	// 미결관리대상
