@@ -74,7 +74,7 @@
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg_search" >회계단위</th>
+	                            <th scope="row" class="th_bg_search" >APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</td>

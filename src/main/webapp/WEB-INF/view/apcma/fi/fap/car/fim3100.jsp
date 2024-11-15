@@ -133,7 +133,7 @@
                                     <col style="width:30%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">회계단위</th>
+                                    <th scope="row" class="th_bg">APC</th>
                                     <td colspan="3" class="td_input">
 										<div class="dropdown" style="margin-right:5px" >
 										    <button id="FI_ORG_CODE" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -594,7 +594,7 @@
 			gfnma_setComSelect(['srch-cbocard-status2-p'], 	jsonCbocardStatus2, 'L_FIM008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//카드상태
 			gfnma_setComSelect(['srch-cbocard-status1'], 	jsonCbocardStatus1, 'L_FIM009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			//회계단위
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
 				,compCode		: gv_ma_selectedCorpCd
@@ -824,7 +824,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["회계단위"],				ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["APC"],				ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["카드번호"], 			ref: 'CARD_NO',    				type:'output',  	width:'350px',  	style:'text-align:left'},
             {caption: ["카드명"],  				ref: 'CARD_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["법인개인구분"],    		ref: 'BIZ_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -933,8 +933,8 @@
   	        	jsonFim3100List.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),				//회계단위				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
-  						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),				//회계단위명			
+  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),				//APC				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
+  						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),				//APC명			
   						CARD_NO					: gfnma_nvl(item.CARD_NO),					//카드번호
   						CARD_NAME				: gfnma_nvl(item.CARD_NAME),				//카드명
   						BIZ_TYPE				: gfnma_nvl(item.BIZ_TYPE),					//법인개인구분			--> BIZ_TYPE_NAME (필요)		<-- L_FIM003 공통코드 조인
