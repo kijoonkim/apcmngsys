@@ -193,5 +193,31 @@ public class ApcMaCom3000Controller extends BaseController {
 			
 		}
 	}
+	
+	// 공통코드 정보 - 그룹코드 내역 수정
+	@PostMapping(value = "/co/sys/com/deleteCom3000_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCom3000_S1(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============deleteCom3000_S1=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_COM3000_S1");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============deleteCom3000_S1=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}	
+	
 
 }

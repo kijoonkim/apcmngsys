@@ -456,9 +456,9 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'500px',  	style:'text-align:left'},
-            {caption: ['사용'],     		ref : 'USE_YN',		type :'checkbox',		width:'80px', 
+            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'20%',  	style:'text-align:left'},
+            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'70%',  	style:'text-align:left'},
+            {caption: ['사용'],     		ref : 'USE_YN',		type :'checkbox',		width:'10%', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
             }
         ];

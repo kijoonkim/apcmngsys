@@ -226,7 +226,6 @@
 	const fn_initSBSelect = async function() {
 		
 		let rst = await Promise.all([
-			
 			//재직구분
 		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		    
@@ -330,7 +329,12 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	fn_initSBSelect();
+		console.log('gv_ma_selectedCorpCd', gv_ma_selectedCorpCd);
+		console.log('p_formId', p_formId);
+		console.log('p_menuId', p_menuId);
+		console.log('p_userId', p_userId);
+
+		fn_initSBSelect();
     	fn_createGrid();
         fn_createAuthorityGrid();
         fn_createDetailGrid();
@@ -348,6 +352,8 @@
 		detailGrid.rebuild();
 		authorityGrid.rebuild();
 		
+		let siteData = await fn_siteData();
+		console.log('siteData ==>', siteData);
 	}
 	
     // 저장
@@ -471,7 +477,7 @@
     /**
      * 코드목록 조회
      */
-    const fn_search = async function() {
+    const fn_siteData = async function() {
 
     	// 코드목록 그리드 초기화
     	fn_clearForm();
@@ -484,8 +490,8 @@
    				,V_P_LANG_ID             : ''
    				,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   				,V_P_FI_ORG_CODE         : SRCH_ORG_CODE
-   				,V_P_FI_ORG_NAME         : SRCH_ORG_NAME
+   				,V_P_FI_ORG_CODE         : ''
+   				,V_P_FI_ORG_NAME         : ''
    				,V_P_USER_ID_P           : ''
    				,V_P_SITE_CODE           : ''
    				,V_P_FORM_ID             : p_formId
@@ -497,24 +503,25 @@
     	
 		const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1200.do", {
 			getType				: 'json',
-			workType			: 'Q',
+			workType			: 'IMPORT',
 			cv_count			: '4',
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
-
+    		} else {
+    	  		alert(data.resultMessage);
+   			}
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
+    	
+    	return data;
     	        
     }
     /**
