@@ -123,10 +123,27 @@
 	                    	</tr>
 	                    	
 	                    	<tr>
+	                            <th scope="row" class="th_bg_search">특수관계자여부</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_RELATED_YN" uitype="single" jsondata-ref="jsonRelatedYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">특수관계자유형</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_RELATED_CS_TYPE" uitype="single" jsondata-ref="jsonRelatedCsType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <td colspan="10"></td>
+	                            
+	                    	</tr>	  
+	                    	
+	                    	<tr>
 	                            <th scope="row" class="th_bg_search">계정과목</th>
 	                            <td colspan="19" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	   									<sbux-input style="width:100px" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px" placeholder="코드" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -134,11 +151,11 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('1')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px"  id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:200px"  placeholder="계정과목명" id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 					                    <font>~</font>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px"  id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -146,15 +163,17 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('2')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
-	   									<font style="width:5px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_MULTI_YN" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
-	   									<font style="width:5px"></font>
+	   									<sbux-input style="width:200px" placeholder="계정과목명" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<font style="width:10px"></font>
+	   									<span style="padding-top:7px">
+			                       			<sbux-checkbox 
+			                       				id="SCH_MULTI_YN" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" ></sbux-checkbox>
+	   									</span>
+	   									<font style="width:10px"></font>
 										<sbux-button
 											id="BTN_MULTI_YN"
 											class="btn btn-xs btn-outline-dark"
@@ -168,35 +187,35 @@
 	                            <th scope="row" class="th_bg_search">거래처</th>
 	                            <td colspan="19" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	   									<sbux-input style="width:100px"  id="SCH_CS_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_CS_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="…" uitype="modal"
-											target-id="modal-compopup1"
+											text="…" 
 											onclick="fn_compopup2('1')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px"  id="SCH_CS_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:200px"  placeholder="거래처명" id="SCH_CS_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 					                    <font>~</font>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px"  id="SCH_CS_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_CS_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
-											text="…" uitype="modal"
-											target-id="modal-compopup1"
+											text="…" 
 											onclick="fn_compopup2('2')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px"  id="SCH_CS_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
-	   									<font style="width:5px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_MULTI_CS_YN" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
-	   									<font style="width:5px"></font>
+	   									<sbux-input style="width:200px"  placeholder="거래처명" id="SCH_CS_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<font style="width:10px"></font>
+	   									<span style="padding-top:7px">
+			                       			<sbux-checkbox 
+			                       				id="SCH_MULTI_CS_YN" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" ></sbux-checkbox>
+		                       			</span>	
+	   									<font style="width:10px"></font>
 										<sbux-button
 											id="BTN_MULTI_CS_YN"
 											class="btn btn-xs btn-outline-dark"
@@ -205,24 +224,6 @@
 									</div>
 	                            </td>
 	                    	</tr>
-	                    		                    	
-	                    	<tr>
-	                            <th scope="row" class="th_bg_search">특수관계자여부</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_RELATED_YN" uitype="single" jsondata-ref="jsonRelatedYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            
-	                            <th scope="row" class="th_bg_search">특수관계자유형</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_RELATED_CS_TYPE" uitype="single" jsondata-ref="jsonRelatedCsType" style="width:250px" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            
-	                            <td colspan="10"></td>
-	                            
-	                    	</tr>	  
-
 								                            
 	                    </tbody>
 	                </table>				
@@ -556,7 +557,16 @@
             {caption: ["거래처명"],					ref: 'CS_NAME', 				type:'output',  	width:'200px', 		style:'text-align:left'},
             
             {caption: ["사업자번호"], 				ref: 'BIZ_REGNO', 				type:'output',		width:'100px',  	style:'text-align:left'},
-            {caption: ["전표번호"], 				ref: 'DOC_NAME', 				type:'output',		width:'100px',  	style:'text-align:left'},
+            //{caption: ["전표번호"], 				ref: 'DOC_NAME', 				type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
             
             {caption: ["차변(전표)"],    			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -1104,6 +1114,11 @@
             searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_CS_NAME_TO"));
         }
         
+        if(!searchText1 && !searchText2){
+ 			gfn_comAlert("E0000", "거래처코드를 모르시는경우 거래처명을 2개단어 이상 입력해야 합니다.");
+ 			return;
+        }
+        
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -1135,6 +1150,7 @@
     			}
     		},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }        
     
     /**
@@ -1158,7 +1174,24 @@
     			},
     	});
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
-    }        
+    }  
+    
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+ 	function fn_gridPopup1(event, doc_id) {
+		event.preventDefault();	
+		console.log('doc_id:', doc_id);		
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: doc_id
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
