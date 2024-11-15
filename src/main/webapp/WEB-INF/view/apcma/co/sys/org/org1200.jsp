@@ -225,11 +225,11 @@
 	//-----------------------------------------------------------
 	var jsonEmpState = []; // 재직구분
 	const fn_initSBSelect = async function() {
-		
+		"AND COMP_CODE ='" + gv_ma_selectedCorpCd + "'"
 		let rst = await Promise.all([
 			//재직구분
 		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-		    
+		    and comp_code = comp_code '
 			//사업장코드
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
@@ -344,7 +344,7 @@
 	
 	const fn_fiOrgCode = async function(){
 		fn_clearSubForm();
-		SBUxMethod.attr("FI_ORG_CODE" , "readonly", true);
+		SBUxMethod.attr("FI_ORG_CODE" , "readonly", false);
 		detailGrid.rebuild();
 		authorityGrid.rebuild();
 		await fn_fiorgData();

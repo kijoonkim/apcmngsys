@@ -625,7 +625,7 @@
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
-				,whereClause	: "WHERE COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
+				,whereClause	: "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
@@ -778,7 +778,6 @@
 		            {caption: "원가중심점명",		ref: 'COST_CENTER_NAME',    	width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			
 		]);
 	}	
 
@@ -882,20 +881,20 @@
     	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
     	
     	var paramObj = {
-    			   V_P_DEBUG_MODE_YN       : ''
-   				  ,V_P_LANG_ID             : ''
-   				  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-   				  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   				  ,V_P_FI_ORG_CODE         : ''
-   				  ,V_P_COST_CLASS          : ''
-   				  ,V_P_PATH_TYPE           : ''
-   				  ,V_P_COST_CENTER_CODE    : ''
-   				  ,V_P_COST_CENTER_NAME    : ''
-   				  ,V_P_FORM_ID             : p_formId
-   				  ,V_P_MENU_ID             : p_menuId
-   				  ,V_P_PROC_ID             : ''
-   				  ,V_P_USERID              : p_userId
-   				  ,V_P_PC                  : ''
+    			 V_P_DEBUG_MODE_YN       : ''
+   				,V_P_LANG_ID             : ''
+   				,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+   				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   				,V_P_FI_ORG_CODE         : ''
+   				,V_P_COST_CLASS          : ''
+   				,V_P_PATH_TYPE           : ''
+   				,V_P_COST_CENTER_CODE    : ''
+   				,V_P_COST_CENTER_NAME    : ''
+   				,V_P_FORM_ID             : p_formId
+   				,V_P_MENU_ID             : p_menuId
+   				,V_P_PROC_ID             : ''
+   				,V_P_USERID              : p_userId
+   				,V_P_PC                  : ''
 	    };
     	
 		const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg3100.do", {
