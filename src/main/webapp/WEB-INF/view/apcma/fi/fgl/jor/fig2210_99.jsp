@@ -2615,14 +2615,14 @@ console.log('fn_enableSet(code):', code);
 			,V_P_PC						: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/com/getExchangeRage.do", {
+        const postJsonPromise = gfn_postJSON("/fi/far/rec/getExchangeRate.do", {
         	getType				: 'json',
         	workType			: 'Q2',
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-        console.log('getExchangeRage:', data);        		
+        console.log('getExchangeRate:', data);        		
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
