@@ -2537,12 +2537,6 @@
 
     //상세정보 보기
     const fn_view = async function() {
-        var nCol = gvwList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-
         var nRow = gvwList.getRow();
         if (nRow < 1) {
             return;
