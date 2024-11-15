@@ -89,7 +89,7 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:100%"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
+									        class="form-control input-sm input-sm-ast table-datepicker-ma""
 									        onchange = "fn_payDate"
 									        required>
 									</sbux-datepicker>                            
@@ -103,7 +103,7 @@
 								            name="srch-ymddoc-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -113,7 +113,7 @@
 								            name="srch-ymddoc-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -125,7 +125,7 @@
 								            name="srch-ymdtxn-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -135,7 +135,7 @@
 								            name="srch-ymdtxn-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -218,16 +218,18 @@
 	                            <th scope="row" class="th_bg_search">전표번호</th>
 	                            <td colspan="4" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;">
-				                        <sbux-input id="srch-txtdoc-name" class="form-control input-sm" uitype="text" style="width:200px;margin-right:10px"></sbux-input>
-		                       			<sbux-checkbox 
-		                       				id="srch-chkmulti-yn2" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" 
-		                       				style="margin-top:8px"
-		                       				>
-		                       			</sbux-checkbox>
+				                        <sbux-input id="srch-txtdoc-name" class="form-control input-sm" uitype="text" style="width:120px;margin-right:10px"></sbux-input>
+				                        <span style="padding-left:5px;padding-top:7px;padding-right:5px">
+			                       			<sbux-checkbox 
+			                       				id="srch-chkmulti-yn2" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" 
+			                       				style="margin-top:8px"
+			                       				>
+			                       			</sbux-checkbox>
+				                        </span>
 									    <font style="padding-right:10px"></font>  
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -244,15 +246,17 @@
 	                            </td>
 	                            <td colspan="5" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;">
-		                       			<sbux-checkbox 
-		                       				id="srch-chkmulti-yn" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" 
-		                       				style="margin-top:8px"
-		                       				>
-		                       			</sbux-checkbox>
+				                        <span style="padding-left:5px;padding-top:7px;padding-right:5px">
+			                       			<sbux-checkbox 
+			                       				id="srch-chkmulti-yn" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" 
+			                       				style="margin-top:8px"
+			                       				>
+			                       			</sbux-checkbox>
+		                       			</span>
 									    <font style="padding-right:10px"></font>  
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -284,7 +288,7 @@
 		                    <sbux-button uitype="normal" text="거래처생성" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnCustomer"></sbux-button>
 		                    <sbux-button uitype="normal" text="전표번호갱신" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnDocRefresh"></sbux-button>
 	                    	<lavel style="margin-right:5px;padding-top:5px" >전기일</lavel>
-						    <sbux-datepicker style="padding-right:10px !important;width:100px" id="srch-pay-s2date" name="srch-pay-s2date" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker> 
+						    <sbux-datepicker style="padding-right:10px !important;width:100px" id="srch-pay-s2date" name="srch-pay-s2date" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast"></sbux-datepicker> 
 		                    <sbux-button uitype="normal" text="전기일자 일괄변경" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnDocDateAllChange"></sbux-button>
 	                    	<lavel style="margin-right:5px;padding-top:5px" >제외사유</lavel>
 							<div class="dropdown" style="margin-right:5px" >
@@ -301,7 +305,7 @@
 	                    </div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdComMsg" style="height:650px; width:100%;"></div>
+	                    <div id="sb-area-grdComMsg" style="height:580px; width:100%;"></div>
 	                </div>
                 </div>
                 
@@ -412,7 +416,18 @@
         	    }
         	},        	
             {caption: ["전표상태"],				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표번호"], 			ref: 'DOC_NAME',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            
+            //{caption: ["전표번호"], 			ref: 'DOC_NAME',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 			ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["결재자"],  				ref: 'FINAL_STEP_SEQ', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["거래구분"],      		ref: 'APPR_CANCEL_TYPE_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["부서명"],				ref: 'DEPT_NAME',				type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -1255,6 +1270,23 @@
             }
         }    	
     }
+    
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+ 	function fn_gridPopup1(event, doc_id) {
+		event.preventDefault();	
+		console.log('doc_id:', doc_id);		
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: doc_id
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
