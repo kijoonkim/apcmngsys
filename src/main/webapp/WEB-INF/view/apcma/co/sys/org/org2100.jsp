@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: ORG2100.jsp
  * @Description 	: 조직개편등록
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.22

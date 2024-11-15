@@ -1043,6 +1043,7 @@
         SBGridProperties.jsonref 			= 'jsonDailyDayList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.oneclickedit  		= true;
         SBGridProperties.allowcopy 			= false; //복사
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
@@ -1058,7 +1059,6 @@
             {caption : ["기준통화"], ref : 'BASE_CURRENCY', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    oneclickedit:true,
                     label : 'label',
                     value : 'value'
                 }
@@ -1068,7 +1068,6 @@
             {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    oneclickedit:true,
                     label : 'label',
                     value : 'value'
                 }
