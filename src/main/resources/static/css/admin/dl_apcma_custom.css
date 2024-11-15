@@ -65,6 +65,7 @@ input.table-datepicker-ma {
 	background: #fff !important;
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
+    width: 110% !important;
 }
 
 /*테이블에서 그려진 datepicker button 색상 제거*/
@@ -81,6 +82,7 @@ input.table-datepicker-ma + .sbux-pik-icon-span .sbux-pik-icon-btn {
     background-color: #efefef !important;
     color: #555 !important;
     border-color: #d9d9d9 !important;
+    width: 110% !important;
 }
 
 input.table-datepicker-ma.sbux-dirty[readonly] + .sbux-pik-icon-span .sbux-pik-icon-btn {
@@ -98,6 +100,7 @@ input.table-datepicker-ma.inpt_data_reqed {
 	background: #FFF8DC !important;
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
+    width: 110% !important;
 }
 
 /*테이블에서 그려진 datepicker input inpt_data_reqed 색상 적용*/

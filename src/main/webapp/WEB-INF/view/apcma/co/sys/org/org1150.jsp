@@ -127,7 +127,7 @@
 	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', "WHERE COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 		]);
 	}	
 
