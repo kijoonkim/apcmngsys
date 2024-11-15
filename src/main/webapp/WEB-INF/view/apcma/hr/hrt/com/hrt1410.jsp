@@ -746,11 +746,6 @@
 
     // 행추가
     const fn_addRowForPattern = async function () {
-        var nCol = treeMaster.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = treeMaster.getRow();
         if (nRow < 1) {
             return;
@@ -768,11 +763,6 @@
     }
 
     const fn_addRowForEmp = async function () {
-        var nCol = treeMaster.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = treeMaster.getRow();
         if (nRow < 1) {
             return;
@@ -811,11 +801,6 @@
 
     // 검색
     const fn_searchEmp = async function () {
-        var nCol = treeMaster.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = treeMaster.getRow();
         if (nRow < 1) {
             return;
@@ -1180,11 +1165,6 @@
     }
 
     const fn_save = async function() {
-        var nCol = treeMaster.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = treeMaster.getRow();
         if (nRow < 1) {
             return;

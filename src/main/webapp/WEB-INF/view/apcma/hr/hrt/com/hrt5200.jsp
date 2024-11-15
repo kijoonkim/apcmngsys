@@ -769,11 +769,6 @@
     }
 
     const fn_view = async function() {
-        var nCol = gvwInfo.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = gvwInfo.getRow();
         if (nRow < 1) {
             return;

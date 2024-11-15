@@ -1564,11 +1564,6 @@
         $("#btn_copy").attr("disabled", false);
         SBUxMethod.attr("SHIFT_CODE", "readonly", true);
 
-        var nCol = bandgvwInfo.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = bandgvwInfo.getRow();
         if (nRow < 1) {
             return;
