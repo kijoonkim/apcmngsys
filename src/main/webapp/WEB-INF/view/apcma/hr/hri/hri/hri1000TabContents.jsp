@@ -1710,7 +1710,7 @@
         jsonAddJobList.length = 0;
         jsonTimeOffHistoryList.length = 0;
         /*jsonGroupInsuranceList.length = 0;
-        jsonDiseaseList.length = 0;*/
+        jsonDiseaseList.length = 0;
         jsonPersonnelEvaluationList.length = 0;
         /*jsonOfficialInjuryList.length = 0;
         jsonContractDegList.length = 0;
@@ -1733,7 +1733,7 @@
         gvwTimeOffHistory.rebuild();
         /*gvwGroupInsurance.rebuild();*/
         /*gvwDisease.rebuild();*/
-        gvwPersonnelEvaluation.rebuild();
+        /*gvwPersonnelEvaluation.rebuild();*/
         /*gvwOfficialInjury.rebuild();*/
         /*gvwContractDeg.rebuild();*/
         /*gvwWorkPlan.rebuild();*/

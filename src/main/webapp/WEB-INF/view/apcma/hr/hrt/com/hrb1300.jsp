@@ -62,12 +62,9 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 42%">
@@ -92,6 +89,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-sm-7">
                     <div class="ad_tbl_top">

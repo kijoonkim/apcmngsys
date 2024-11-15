@@ -29,6 +29,25 @@
 	<jsp:include page="../../../com/popup/comPopAppvMng.jsp"></jsp:include>
 </div>
 <script>
+    const bodyTransform = window.getComputedStyle(document.body).transform;
+    let scaleX = 1;
+    let scaleY = 1;
+
+    if (bodyTransform !== 'none') {
+        // matrix 또는 matrix3d로부터 scale 값을 추출
+        const values = bodyTransform.match(/matrix.*\((.+)\)/)[1].split(', ');
+
+        // 2D 변환인 경우 (matrix)
+        if (values.length === 6) {
+            scaleX = (1 / parseFloat(values[0]));
+            scaleY = (1 /parseFloat(values[3]));
+        }
+
+        document.body.style.setProperty('width', Math.trunc(scaleX * 100) + '%', 'important');
+        document.body.style.setProperty('height', Math.trunc(scaleY * 100) + '%', 'important');
+    }
+
+
     window.addEventListener('keydown', function(event) {
         if (event.altKey && (event.key === 'F' || event.key === 'f' || event.key === 'ㄹ')) {
             event.preventDefault();
@@ -38,7 +57,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         let isDragging = false;
-        let clickElement = null;
+        let clickDivName = null;
 
         const targetNode = document.body;
 
@@ -75,31 +94,6 @@
                         adjustPosition(targetElement);
                     }
                 }
-
-               /* if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                    const targetElement = mutation.target;
-
-                    if (targetElement.id === "SBHE_VL_bandgvwDetail") {
-                        // position이 static이면 relative로 변경
-                        if (window.getComputedStyle(targetElement).position === 'static') {
-                            targetElement.style.position = 'relative';
-                        }
-
-                        const leftValue = window.getComputedStyle(targetElement).left;
-
-                        // left 값이 auto가 아닐 때만 실행
-                        if (leftValue !== 'auto') {
-                            console.log('left 값이 auto에서 다른 값으로 변경되었습니다:', leftValue);
-
-                            // leftValue에서 숫자 부분만 추출하고 1.25를 곱함
-                            const numericLeftValue = parseFloat(leftValue);
-                            const newLeftValue = numericLeftValue * 1.25;
-
-                            // 새로운 left 값을 설정 (단위 px 추가)
-                            targetElement.style.left = newLeftValue + 'px';
-                        }
-                    }
-                }*/
             }
         };
 
@@ -128,11 +122,19 @@
                     let num = parseFloat(matches[1]);
                     const unit = matches[2];
 
-                    // 값을 1.25배로 곱함
-                    num *= 1.25;
+                    if(prop == 'top') {
+                        // 값을 1.25배로 곱함
+                        num *= scaleX;
 
-                    // 새로운 값 설정
-                    element.style[prop] = num + unit;
+                        // 새로운 값 설정
+                        element.style[prop] = num + unit;
+                    } else if (prop == 'left') {
+                        // 값을 1.25배로 곱함
+                        num *= scaleY;
+
+                        // 새로운 값 설정
+                        element.style[prop] = num + unit;
+                    }
                 }
             });
         }
@@ -146,6 +148,13 @@
                 targetElement.classList.contains('sbgrid_focus_st')
             ) {
                 const targetTr = targetElement.closest('tr');
+                const parentTable = targetElement.closest('table');
+                let tableName = "";
+
+                if(parentTable) {tableName = parentTable.id.substring("SBHE_DT_".length);}
+
+                const rowNumTable = document.getElementById("SBHE_RHT_" + tableName);
+
                 if (targetTr) {
                     const trRect = targetTr.getBoundingClientRect();
                     const tdRect = targetElement.getBoundingClientRect();
@@ -157,16 +166,21 @@
 
                     const leftDifference = tdLeft - trLeft;
                     const topDifference = tdTop - trTop;
+                    let rowNumTableWidth = 0;
+
+                    if(rowNumTable) {
+                        rowNumTableWidth = rowNumTable.offsetWidth;
+                    }
 
                     const colIndex = targetElement.getAttribute('data-colindex');
                     if (colIndex) {
-                        const inputId = "SBHE_col_"+colIndex+"_input_bandgvwDetail";
+                        const inputId = "SBHE_col_"+colIndex+"_input_"+tableName;
                         const inputElement = document.getElementById(inputId);
 
                         if (inputElement) {
                             // input의 스타일을 td와 맞추어 설정
-                            inputElement.style.left = (leftDifference * 1.25) + 'px';
-                            inputElement.style.top = (topDifference * 1.25) + 'px';
+                            inputElement.style.left = ((leftDifference * scaleX)+rowNumTableWidth) + 'px';
+                            /*inputElement.style.top = (topDifference * scaleY) + 'px';*/
                         }
                     }
                 }
@@ -174,32 +188,59 @@
         }
 
         document.addEventListener('mousedown', function(event) {
-            console.log("event.target.id", event.target.id)
-            if (event.target.id === 'SBHE_VL_bandgvwDetail') {
+            const targetElement = event.target;
+            const parentTable = targetElement.closest('div');
+            let divName = parentTable.id.substring("SBHE_FHA_".length);
+            const classList = [...targetElement.classList];
+            // 비교할 클래스 목록
+            const requiredClasses = ['sbgrid_ia', 'sbgrid_wca', 'sbgrid_common'];
+
+            const classesMatch =
+                classList.length === requiredClasses.length && // 길이가 같은지 확인
+                requiredClasses.every(className => classList.includes(className)); // 모든 클래스가 포함되어 있는지 확인
+
+            if (classesMatch) {
                 isDragging = true; // 드래그 상태 시작
-                clickElement = event.target;
-                console.log('드래그 시작:', event.clientX, event.clientY);
-                handleDivClickDrag(event.clientX)
+                clickDivName = divName;
+                handleDivClickDrag(divName)
             }
         });
 
         document.addEventListener('mousemove', function(event) {
             if (isDragging) {
-                // 드래그 중일 때만 실행
-                console.log('드래그 중:', event.clientX, event.clientY);
-                handleDivClickDrag(event.clientX)
+                if (event.target.tagName === 'TD') {
+                    const parentTable = event.target.closest('table');
+                    let tableName = parentTable.id.substring("SBHE_FHT_".length);
+                    handleDivClickDrag(tableName)
+                }
             }
         });
 
-        function handleDivClickDrag(clientX) {
-            const clickElementRect = clickElement.getBoundingClientRect();
-            const clickElementRectLeft = clickElementRect.left;
-            const leftDifference = clickElementRectLeft - clientX;
-            const inputElement = document.getElementById("SBHE_VL_bandgvwDetail");
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            clickDivName = null;
+        });
 
+        function handleDivClickDrag(tableName) {
+            const inputElement = document.getElementById("SBHE_VL_" + tableName);
             if (inputElement) {
-                // input의 스타일을 td와 맞추어 설정
-                inputElement.style.left = (leftDifference * 1.25) + 'px';
+                const rowNumTable = document.getElementById("SBHE_RHT_" + tableName);
+                const tableRect = document.getElementById("SBHE_DT_" + tableName).getBoundingClientRect();
+                const line = inputElement.getBoundingClientRect();
+                let rowNumTableWidth = 0;
+
+                const tableLeft = tableRect.left;
+                const lineLeft = line.left;
+
+                const leftDifference = lineLeft - tableLeft;
+
+                if(rowNumTable) {
+                    rowNumTableWidth = rowNumTable.offsetWidth;
+                }
+
+                console.log(tableRect.left)
+
+                inputElement.style.left = (parseFloat(leftDifference * scaleX) + rowNumTableWidth) + 'px';
             }
         }
 

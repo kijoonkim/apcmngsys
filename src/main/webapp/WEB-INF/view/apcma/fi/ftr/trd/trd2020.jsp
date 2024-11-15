@@ -68,7 +68,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">APC명</th>
+							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -201,7 +201,7 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th scope="row" class="th_bg">APC명</th>
+                                            <th scope="row" class="th_bg">APC</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
                                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
@@ -1233,7 +1233,7 @@
 
     var jsonBankCode = []; // 은행코드
     var jsonCurrencyCode = []; // 통화코드
-    var jsonFiOrgCode = []; // APC명
+    var jsonFiOrgCode = []; // APC
     var jsonBankCsCode = []; // 금융기관코드
     var jsonDepositType = []; // 예적금유형
     var jsonBankAccountSeq = []; // 계좌정보
@@ -1266,7 +1266,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // APC명
+            // APC
             gfnma_setComSelect(['gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE', '#FI_ORG_CODE']
@@ -1706,7 +1706,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["예적금번호"],         ref: 'DEPOSIT_NUM',    type:'output',  	width:'144px',  style:'text-align:left'},
-            {caption: ["APC명"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
+            {caption: ["APC"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
                 typeinfo: {
                     ref			: 'jsonFiOrgCode',
                     label		: 'label',
