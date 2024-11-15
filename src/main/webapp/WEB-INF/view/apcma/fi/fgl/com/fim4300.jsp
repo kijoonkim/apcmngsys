@@ -304,10 +304,10 @@
         	{caption: ["전표편철대상"],				ref: 'ATTR4', 					type:'input', 		width:'100px', 		style:'text-align:center'},        	
         	
             {caption: ["결재경로유형"], 			ref:'APPR_TEMPLATE', 			type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridApprTemplate', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridApprTemplate', label : 'label', value : 'value'}
             },
             {caption: ["결재유형"], 				ref:'APPR_SOURCE_TYPE', 		type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridApprSourceType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridApprSourceType', label : 'label', value : 'value'}
             },
             
         	{caption: ["전표자동전기"], 			ref: 'DOC_END_YN', 				type:'checkbox', 	width:'100px', 		style:'text-align:center',	typeinfo: { checkedvalue: 'Y', uncheckedvalue: 'N'}},        	
@@ -559,19 +559,19 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["결재룰"], 					ref:'APPR_RULE', 			type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridApprRule', 		displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridApprRule', 		label : 'label', value : 'value'}
             },
             {caption: ["결재유형"], 				ref:'SOURCE_TYPE', 			type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridSourceType', 	displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridSourceType', 	label : 'label', value : 'value'}
             },
             {caption: ["전표유형"], 				ref:'DOC_TYPE', 			type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridDocType', 		displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridDocType', 		label : 'label', value : 'value'}
             },
             {caption: ["결재구분"], 				ref:'APPR_CATEGORY', 		type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridApprCategory', 	displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridApprCategory', 	label : 'label', value : 'value'}
             },
             {caption: ["금액기준"], 				ref:'AMT_RULE', 		type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridAmtRule', 		displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridAmtRule', 		label : 'label', value : 'value'}
             },
             {caption: ["금액(최소)"],				ref: 'AMT_FR',					type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["금액(최대)"],				ref: 'AMT_TO',					type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -592,7 +592,7 @@
             
             {caption: ["결재자"],					ref: 'APPR_EMP_CODE',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["관계"], 					ref: 'APPR_RELATION', 			type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
-                typeinfo : {ref : 'jsonGridApprRelation', 		displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonGridApprRelation', 		label : 'label', value : 'value'}
             },
             
             {caption: ["결재자명"],					ref: 'APPR_EMP_NAME',			type:'input',  		width:'100px',  	style:'text-align:left'},
