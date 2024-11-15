@@ -147,12 +147,12 @@
             if (targetElement.tagName.toLowerCase() === 'td' &&
                 targetElement.classList.contains('sbgrid_focus_st')
             ) {
-                const targetTr = targetElement.closest('tr');
+
                 const parentTable = targetElement.closest('table');
                 let tableName = "";
 
                 if(parentTable) {tableName = parentTable.id.substring("SBHE_DT_".length);}
-
+                const targetTr = document.getElementById("SBHE_" + tableName);
                 const rowNumTable = document.getElementById("SBHE_RHT_" + tableName);
 
                 if (targetTr) {
@@ -166,11 +166,6 @@
 
                     const leftDifference = tdLeft - trLeft;
                     const topDifference = tdTop - trTop;
-                    let rowNumTableWidth = 0;
-
-                    if(rowNumTable) {
-                        rowNumTableWidth = rowNumTable.offsetWidth;
-                    }
 
                     const colIndex = targetElement.getAttribute('data-colindex');
                     if (colIndex) {
@@ -179,7 +174,7 @@
 
                         if (inputElement) {
                             // input의 스타일을 td와 맞추어 설정
-                            inputElement.style.left = ((leftDifference * scaleX)+rowNumTableWidth) + 'px';
+                            inputElement.style.left = (leftDifference * scaleX) + 'px';
                             /*inputElement.style.top = (topDifference * scaleY) + 'px';*/
                         }
                     }
