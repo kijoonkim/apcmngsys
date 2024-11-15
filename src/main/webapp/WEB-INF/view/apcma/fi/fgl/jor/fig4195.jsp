@@ -105,7 +105,7 @@
 								            id="SCH_ENTRY_DATE_TO"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                            
 	                            </td>
 	                            <td></td>
@@ -168,14 +168,16 @@
 											onclick="fn_compopup1('2')"></sbux-button>
 	   									<font style="width:5px"></font>
 	   									<sbux-input style="width:200px" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
-	   									<font style="width:5px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_MULTI_YN" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
-	   									<font style="width:5px"></font>
+	   									<font style="width:10px"></font>
+	   									<span style="padding-top:7px">
+			                       			<sbux-checkbox 
+			                       				id="SCH_MULTI_YN" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" ></sbux-checkbox>
+	   									</span>
+	   									<font style="width:10px"></font>
 										<sbux-button
 											id="BTN_MULTI_YN"
 											class="btn btn-xs btn-outline-dark"
@@ -211,14 +213,16 @@
 											onclick="fn_compopup2('2')"></sbux-button>
 	   									<font style="width:5px"></font>
 	   									<sbux-input style="width:200px"  id="SCH_CS_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
-	   									<font style="width:5px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_MULTI_CS_YN" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
-	   									<font style="width:5px"></font>
+	   									<font style="width:10px"></font>
+	   									<span style="padding-top:7px">
+			                       			<sbux-checkbox 
+			                       				id="SCH_MULTI_CS_YN" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" ></sbux-checkbox>
+	   									</span>
+	   									<font style="width:10px"></font>
 										<sbux-button
 											id="BTN_MULTI_CS_YN"
 											class="btn btn-xs btn-outline-dark"
@@ -410,7 +414,18 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["전표유형"],					ref: 'DOC_TYPE_NAME',			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            
+            //{caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
+            
             {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정명"],  					ref: 'ACCOUNT_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["부서명"],  					ref: 'DEPT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -449,42 +464,42 @@
 		let p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_entry_date_to			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_TO"));
 		
-		let p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN"));
+		let p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
 		if(p_account_code_fr == 'N'){
 			p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR"));
 		} else {
 			p_account_code_fr		= '';
 		}
 		
-		let p_account_code_to		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN"));
+		let p_account_code_to		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
 		if(p_account_code_to == 'N'){
 			p_account_code_to		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"));
 		} else {
 			p_account_code_to		= '';
 		}
 		
-		let p_cs_code_fr			= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN"));
+		let p_cs_code_fr			= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN")['SCH_MULTI_CS_YN']);
 		if(p_cs_code_fr == 'N'){
 			p_cs_code_fr			= gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_FR"));
 		} else {
 			p_cs_code_fr			= '';
 		}
 		
-		let p_cs_code_to			= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN"));
+		let p_cs_code_to			= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN")['SCH_MULTI_CS_YN']);
 		if(p_cs_code_to == 'N'){
 			p_cs_code_to			= gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_TO"));
 		} else {
 			p_cs_code_to			= '';
 		}
 		
-		let p_account_code_d		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN"));
+		let p_account_code_d		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
 		if(p_account_code_d == 'Y'){
 			p_account_code_d		= p_strAccountCodeList;
 		} else {
 			p_account_code_d		= '';
 		}
 		
-		let p_cs_code_d				= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN"));
+		let p_cs_code_d				= gfnma_nvl(SBUxMethod.get("SCH_MULTI_CS_YN")['SCH_MULTI_CS_YN']);
 		if(p_cs_code_d == 'Y'){
 			p_cs_code_d				= p_strCsCodeList;
 		} else {
@@ -497,14 +512,26 @@
 		let p_related_yn			= gfnma_nvl(SBUxMethod.get("SCH_RELATED_YN"));
 		let p_related_cs_type		= gfnma_nvl(SBUxMethod.get("SCH_RELATED_CS_TYPE"));
 		
+		if(!p_currency_code){
+ 			gfn_comAlert("E0000","통화를 선택하세요");
+			return;      		 
+		}
+		if(!p_acct_rule_code){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		if(!p_entry_date_to){
+ 			gfn_comAlert("E0000","기준일자를 입력하세요");
+			return;      		 
+		}
 		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
  			gfn_comAlert("E0000","계정과목을 선택하세요");
 			return;      		 
 		}
-		if(!gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_TO"))){
- 			gfn_comAlert("E0000","거래처를 선택하세요");
-			return;      		 
-		}
+// 		if(!gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_TO"))){
+//  			gfn_comAlert("E0000","거래처를 선택하세요");
+// 			return;      		 
+// 		}
 		
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
@@ -826,6 +853,22 @@
     var cfn_init = function() {
     	gfnma_uxDataClear('#srchArea1');
     }    
+    
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+ 	function fn_gridPopup1(event, doc_id) {
+		event.preventDefault();	
+		console.log('doc_id:', doc_id);		
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: doc_id
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
