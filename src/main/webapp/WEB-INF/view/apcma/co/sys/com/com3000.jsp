@@ -541,7 +541,7 @@
 	const fn_saveData = async function(){
 		await fn_save();
 		await fn_saveSubGrid();
-		cfn_search();
+		await fn_search();
 	}
 	
 	// 마스터 그리드 삭제
@@ -555,9 +555,6 @@
 	// 조회
 	function cfn_search() {
 		fn_search();
-		fn_clearForm();
-// 		fn_createGrid();
-// 		fn_createSubGrid();
 	}
 
     const fn_onload = async function (parentParameter) {
@@ -1137,7 +1134,7 @@
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-          		gfn_comAlert('I0001');
+//           		gfn_comAlert('I0001');
         	} else {
           		alert(data.resultMessage);
         	}
@@ -1149,7 +1146,6 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-    //
     const fn_saveSubGrid = async function(){
     	
 		//세부코드 정보  저장
@@ -1159,8 +1155,16 @@
         if(CMNSCDSubGridLength <= 0){
         	return;
         }
+        
+        const deleteRemove = (arr, value) => {
+            return arr.filter((element) => {
+                return element.status  != value;
+            });
+        };
+        CMNSCDSubGridData = deleteRemove(CMNSCDSubGridData, 'd');
+        
         console.log('CMNSCDSubGridData' , CMNSCDSubGridData);
-        let listData = [];
+        let paramList = [];
         CMNSCDSubGridData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -1168,61 +1172,62 @@
                 rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
- 	  	    	      V_P_DEBUG_MODE_YN        : ''
-   	  	    	      ,V_P_LANG_ID             : ''
-   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
-   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
-   	  	    	      ,V_P_CODE_NAME           : gfn_nvl(item.data.CODE_NAME)
-   	  	    	      ,V_P_SYSTEM_YN           : gfn_nvl(item.data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-   	  	    	      ,IV_P_EXTRA_FIELD1       : gfn_nvl(item.data.EXTRA_FIELD1)
-   	  	    	      ,IV_P_EXTRA_FIELD2       : gfn_nvl(item.data.EXTRA_FIELD2)
-   	  	    	      ,V_P_EXTRA_FIELD3        : gfn_nvl(item.data.EXTRA_FIELD3)
-   	  	    	      ,V_P_EXTRA_FIELD4        : gfn_nvl(item.data.EXTRA_FIELD4)
-   	  	    	      ,V_P_EXTRA_FIELD5        : gfn_nvl(item.data.EXTRA_FIELD5)
-   	  	    	      ,V_P_EXTRA_FIELD6        : gfn_nvl(item.data.EXTRA_FIELD6)
-   	  	    	      ,V_P_EXTRA_FIELD7        : gfn_nvl(item.data.EXTRA_FIELD7)
-   	  	    	      ,V_P_EXTRA_FIELD8        : gfn_nvl(item.data.EXTRA_FIELD8)
-   	  	    	      ,V_P_EXTRA_FIELD9        : gfn_nvl(item.data.EXTRA_FIELD9)
-   	  	    	      ,V_P_EXTRA_FIELD10       : gfn_nvl(item.data.EXTRA_FIELD10)
-   	  	    	      ,V_P_EXTRA_FIELD11       : gfn_nvl(item.data.EXTRA_FIELD11)
-   	  	    	      ,V_P_EXTRA_FIELD12       : gfn_nvl(item.data.EXTRA_FIELD12)
-   	  	    	      ,V_P_EXTRA_FIELD13       : gfn_nvl(item.data.EXTRA_FIELD13)
-   	  	    	      ,V_P_EXTRA_FIELD14       : gfn_nvl(item.data.EXTRA_FIELD14)
-   	  	    	      ,V_P_EXTRA_FIELD15       : gfn_nvl(item.data.EXTRA_FIELD15)
-   	  	    	      ,V_P_EXTRA_FIELD16       : gfn_nvl(item.data.EXTRA_FIELD16)
-   	  	    	      ,V_P_EXTRA_FIELD17       : gfn_nvl(item.data.EXTRA_FIELD17)
-   	  	    	      ,V_P_EXTRA_FIELD18       : gfn_nvl(item.data.EXTRA_FIELD18)
-   	  	    	      ,V_P_EXTRA_FIELD19       : gfn_nvl(item.data.EXTRA_FIELD19)
-   	  	    	      ,V_P_EXTRA_FIELD20       : gfn_nvl(item.data.EXTRA_FIELD20)
-   	  	    	      ,V_P_SORT_SEQ            : gfn_nvl(item.data.SORT_SEQ)
-   	  	    	      ,V_P_USE_YN              : gfn_nvl(item.data.USE_YN) == 'Y' ? 'Y' : 'N'
-   	  	    	      ,V_P_FORM_ID             : p_formId
-   	  	    	      ,V_P_MENU_ID             : p_menuId
-   	  	    	      ,V_P_PROC_ID             : ''
-   	  	    	      ,V_P_USERID              : p_userId
-   	  	    	      ,V_P_PC                  : ''
+ 	  	    	    V_P_DEBUG_MODE_YN        : ''
+   	  	    	    ,V_P_LANG_ID             : ''
+   	  	    	    ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+   	  	    	    ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   	  	    	    ,V_P_GROUP_CODE          : GROUP_CODE
+   	  	    	    ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
+   	  	    	    ,V_P_CODE_NAME           : gfn_nvl(item.data.CODE_NAME)
+   	  	    	    ,V_P_SYSTEM_YN           : gfn_nvl(item.data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+   	  	    	    ,IV_P_EXTRA_FIELD1       : gfn_nvl(item.data.EXTRA_FIELD1)
+   	  	    	    ,IV_P_EXTRA_FIELD2       : gfn_nvl(item.data.EXTRA_FIELD2)
+   	  	    	    ,V_P_EXTRA_FIELD3        : gfn_nvl(item.data.EXTRA_FIELD3)
+   	  	    	    ,V_P_EXTRA_FIELD4        : gfn_nvl(item.data.EXTRA_FIELD4)
+   	  	    	    ,V_P_EXTRA_FIELD5        : gfn_nvl(item.data.EXTRA_FIELD5)
+   	  	    	    ,V_P_EXTRA_FIELD6        : gfn_nvl(item.data.EXTRA_FIELD6)
+   	  	    	    ,V_P_EXTRA_FIELD7        : gfn_nvl(item.data.EXTRA_FIELD7)
+   	  	    	    ,V_P_EXTRA_FIELD8        : gfn_nvl(item.data.EXTRA_FIELD8)
+   	  	    	    ,V_P_EXTRA_FIELD9        : gfn_nvl(item.data.EXTRA_FIELD9)
+   	  	    	    ,V_P_EXTRA_FIELD10       : gfn_nvl(item.data.EXTRA_FIELD10)
+   	  	    	    ,V_P_EXTRA_FIELD11       : gfn_nvl(item.data.EXTRA_FIELD11)
+   	  	    	    ,V_P_EXTRA_FIELD12       : gfn_nvl(item.data.EXTRA_FIELD12)
+   	  	    	    ,V_P_EXTRA_FIELD13       : gfn_nvl(item.data.EXTRA_FIELD13)
+   	  	    	    ,V_P_EXTRA_FIELD14       : gfn_nvl(item.data.EXTRA_FIELD14)
+   	  	    	    ,V_P_EXTRA_FIELD15       : gfn_nvl(item.data.EXTRA_FIELD15)
+   	  	    	    ,V_P_EXTRA_FIELD16       : gfn_nvl(item.data.EXTRA_FIELD16)
+   	  	    	    ,V_P_EXTRA_FIELD17       : gfn_nvl(item.data.EXTRA_FIELD17)
+   	  	    	    ,V_P_EXTRA_FIELD18       : gfn_nvl(item.data.EXTRA_FIELD18)
+   	  	    	    ,V_P_EXTRA_FIELD19       : gfn_nvl(item.data.EXTRA_FIELD19)
+   	  	    	    ,V_P_EXTRA_FIELD20       : gfn_nvl(item.data.EXTRA_FIELD20)
+   	  	    	    ,V_P_SORT_SEQ            : gfn_nvl(item.data.SORT_SEQ)
+   	  	    	    ,V_P_USE_YN              : gfn_nvl(item.data.USE_YN) == 'Y' ? 'Y' : 'N'
+   	  	    	    ,V_P_FORM_ID             : p_formId
+   	  	    	    ,V_P_MENU_ID             : p_menuId
+   	  	    	    ,V_P_PROC_ID             : ''
+   	  	    	    ,V_P_USERID              : p_userId
+   	  	    	    ,V_P_PC                  : ''
                 })
             }
-            listData.push(param);
+            paramList.push(param);
         });
-        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: listData});
-        const updateData = await postJsonPromise;
-console.log('postJsonPromise', postJsonPromise);        
-console.log('updateData', updateData);        
-        try {
-            if (_.isEqual("S", updateData.resultStatus)) {
-            } else {
-                alert(updateData.resultMessage);
-                return false;
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        if(paramList.length > 0) {
+	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: paramList});
+	        const updateData = await postJsonPromise;
+	console.log('postJsonPromise', postJsonPromise);        
+	console.log('updateData', updateData);        
+	        try {
+	            if (_.isEqual("S", updateData.resultStatus)) {
+	            } else {
+	                alert(updateData.resultMessage);
+	            }
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
         }
     }
 
