@@ -1,7 +1,7 @@
 <%
 /**
  * @Class Name 		: Org1200.jsp
- * @Description 	: 사업단위 정보
+ * @Description 	: APC 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.08.06
  * @version 		: 1.0
@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 사업단위 정보</title>
+	<title>title : APC 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
@@ -74,12 +74,12 @@
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" colspan="" style="border-right:hidden;">
 	                                <sbux-input id="SRCH_ORG_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
-	                            <th scope="row" class="th_bg_search">사업단위명</th>
+	                            <th scope="row" class="th_bg_search">APC명</th>
 	                            <td colspan="3" class="td_input" style="border-right: hidden;">
 	                                <sbux-input id="SRCH_ORG_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
@@ -93,7 +93,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 사업단위 리스트</span>
+                                    <span>◎ APC 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -106,9 +106,10 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>사업단위 정보</span>
+                                    <span>APC 정보</span>
                                 </li>
                             </ul>
+	                        <sbux-button id="btnFiOrgCode" name="btnFiOrgCode" uitype="normal" text="자동생성" class="btn btn-sm btn-outline-danger" onclick="fn_fiOrgCode" style="float: right; margin-right:1rem;"></sbux-button>
                         </div>                    
                     	<table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
@@ -119,7 +120,7 @@
                                     <col style="width:10%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">사업단위</th>
+                                    <th scope="row" class="th_bg">APC</th>
                                     <td class="td_input">
                                         <sbux-input id="FI_ORG_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
 									</td>               
@@ -128,7 +129,7 @@
 									<td class="td_input" style="border-right: hidden;"></td>                     
                                 </tr>    
                                 <tr>
-                                    <th scope="row" class="th_bg">사업단위명</th>
+                                    <th scope="row" class="th_bg">APC명</th>
                                     <td class="td_input" colspan="4">
                                         <sbux-input id="FI_ORG_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
 									</td>                                    
@@ -248,7 +249,7 @@
 		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			//사업단위구분
+			//APC구분
 			gfnma_multiSelectInit({
 				target			: ['#DEPT_CATEGORY']
 				,compCode		: gv_ma_selectedCorpCd
@@ -264,7 +265,7 @@
 				,colLabel		: 'CODE_NAME'
 				,columns		:[
 		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "사업단위구분", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "APC구분", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//인건비분류
@@ -305,7 +306,7 @@
 		            {caption: "근무패턴",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			//사업단위구분
+			//APC구분
 			gfnma_multiSelectInit({
 				target			: ['#ATTR1']
 				,compCode		: gv_ma_selectedCorpCd
@@ -321,7 +322,7 @@
 				,colLabel		: 'CODE_NAME'
 				,columns		:[
 		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "사업단위구분",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "APC구분",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -329,11 +330,6 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-		console.log('gv_ma_selectedCorpCd', gv_ma_selectedCorpCd);
-		console.log('p_formId', p_formId);
-		console.log('p_menuId', p_menuId);
-		console.log('p_userId', p_userId);
-
 		fn_initSBSelect();
     	fn_createGrid();
         fn_createAuthorityGrid();
@@ -342,18 +338,16 @@
     });
     
 	// 신규
-	function cfn_add() {
-		fn_setSiteData();
+	async function cfn_add() {
+		await fn_fiOrgCode();
 	}
 	
-	const fn_setSiteData = async function(){
+	const fn_fiOrgCode = async function(){
 		fn_clearSubForm();
 		SBUxMethod.attr("FI_ORG_CODE" , "readonly", true);
 		detailGrid.rebuild();
 		authorityGrid.rebuild();
-		
-		let siteData = await fn_siteData();
-		console.log('siteData ==>', siteData);
+		await fn_fiorgData();
 	}
 	
     // 저장
@@ -383,10 +377,10 @@
 	}
 	
     //grid 초기화
-    var masterGrid; 					// 사업단위 그리드를 담기위한 객체 선언
+    var masterGrid; 					// APC 그리드를 담기위한 객체 선언
     var detailGrid; 					// 대상사업장 그리드를 담기위한 객체 선언
     var authorityGrid; 					// 전표 전기 권한 그리드를 담기위한 객체 선언
-    var jsonMasterList			= []; 	// 사업단위 그리드의 참조 데이터 주소 선언
+    var jsonMasterList			= []; 	// APC 그리드의 참조 데이터 주소 선언
     var jsonDetialList			= []; 	// 대상사업장 그리드의 참조 데이터 주소 선언
     var jsonAuthorityList		= []; 	// 전표 전기 권한 그리드의 참조 데이터 주소 선언
 
@@ -404,8 +398,8 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["사업단위"],			ref: 'FI_ORG_CODE', 	type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption : ["사업단위명"],		ref: 'FI_ORG_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption : ["APC"],			ref: 'FI_ORG_CODE', 	type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption : ["APC명"],		ref: 'FI_ORG_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption : ["본지점계정"],		ref: 'SITE_ACC_CODE',	type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption : ["법인명"],			ref: 'COMP_NAME',		type:'output',  	width:'200px',  	style:'text-align:left'}
         ];
@@ -475,16 +469,11 @@
         authorityGrid	= _SBGrid.create(SBGridProperties);
     }
     /**
-     * 코드목록 조회
+     * 자동생성
      */
-    const fn_siteData = async function() {
-
+    const fn_fiorgData = async function() {
     	// 코드목록 그리드 초기화
     	fn_clearForm();
-    	
-    	let SRCH_ORG_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ORG_CODE"));
-    	let SRCH_ORG_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ORG_NAME"));
-    	
     	var paramObj = {
     			V_P_DEBUG_MODE_YN        : ''
    				,V_P_LANG_ID             : ''
@@ -520,9 +509,6 @@
 	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
-    	
-    	return data;
-    	        
     }
     /**
      * 코드목록 조회
@@ -585,15 +571,15 @@
                 if(jsonMasterList.length > 0) {
                 	masterGrid.clickRow(1);
                 }
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
+    		} else {
+    	  		alert(data.resultMessage);
+    		}
 
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     	        
@@ -604,13 +590,13 @@
      * @param 
      */
     const fn_clearForm = async function() {
-    	//사업단위 리스트 
+    	//APC 리스트 
     	jsonMasterList = [];
     }
     
     /**
      * @name fn_clearSubForm
-     * @description 사업단위 정보, 대상사업장, 전표 전기 권한 그리드 및 화면 초기화
+     * @description APC 정보, 대상사업장, 전표 전기 권한 그리드 및 화면 초기화
      * @param 
      */
     const fn_clearSubForm = async function() {
@@ -634,11 +620,11 @@
 
     	//필수 데이터 입력하지 않았을 경우 리턴
     	if(gfn_nvl(SBUxMethod.get("FI_ORG_CODE")) == "") {
-            gfn_comAlert("W0002", "사업단위");
+            gfn_comAlert("W0002", "APC");
             return;
     	}
     	if(gfn_nvl(SBUxMethod.get("FI_ORG_NAME")) == "") {
-            gfn_comAlert("W0002", "사업단위명");
+            gfn_comAlert("W0002", "APC명");
             return;
     	}
         let updatedDetailData	 = detailGrid.getGridDataAll();
@@ -759,7 +745,7 @@
 	        return;
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
-    	// 사업단위 정보, 대상사업장, 전표 전기 권한 화면 및 그리드 초기화
+    	// APC 정보, 대상사업장, 전표 전기 권한 화면 및 그리드 초기화
     	await fn_clearSubForm();
     	SBUxMethod.attr("FI_ORG_CODE" , "readonly", true);
     	// 코드목록 그리드 초기화
@@ -820,14 +806,14 @@
 		    	});
 	    	   	detailGrid.rebuild();
 	    	   	authorityGrid.rebuild();
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
+    		} else {
+    	  		alert(data.resultMessage);
+    		}
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     	
@@ -874,7 +860,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("COMP_NAME"));
         var replaceText0 	= "_COMP_CODE_";
         var replaceText1 	= "_COMP_NAME_";
-        var strWhereClause 	= "AND COMP_CODE LIKE '%" + searchCode + "%' AND COMP_NAME  LIKE '%" + searchName + "%' ";
+        var strWhereClause 	= "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '법인코드 조회');
     	compopup1({

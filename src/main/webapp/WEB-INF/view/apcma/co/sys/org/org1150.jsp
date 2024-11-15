@@ -97,9 +97,7 @@
                                 </li>
                             </ul>
                         </div>                        
-                        <div>
-                            <div id="sb-area-grdOrg1150" style="width:100%;height:100vh !important;"></div>
-                        </div>
+                        <div id="sb-area-grdOrg1150" style="width:100%;height:100vh"></div>
                 </div>
             </div>
         </div>
@@ -129,7 +127,7 @@
 	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', "WHERE COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -185,17 +183,17 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type: 'combo',
+            {caption : ["법인"], ref : 'COMP_CODE', width : '15%', style : 'text-align:center', type: 'combo',
                 typeinfo : {
                     ref : 'jsonCompCode',
                     label : 'label',
                     value : 'value'
                 }
             },
-            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'700px',  style:'text-align:left'},
-            {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'80px', 	
+            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'15%',  style:'text-align:left'},
+            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'15%',  style:'text-align:left'},
+            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'55%',  style:'text-align:left'},
+            {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'10%', 	
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
            	},
         ];

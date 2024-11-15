@@ -117,7 +117,7 @@
                                     <col style="width:25%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">사업단위</th>
+                                    <th scope="row" class="th_bg">APC</th>
                                     <td class="td_input ">
 										<div class="dropdown">
 										    <button 
@@ -966,7 +966,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
-			//사업단위
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
 				,compCode		: gv_ma_selectedCorpCd
@@ -1165,7 +1165,7 @@
     const fn_save = async function() {
 
     	if(gfnma_multiSelectGet('#FI_ORG_CODE') == "") {
-            gfn_comAlert("W0002", "사업단위");
+            gfn_comAlert("W0002", "APC");
             return;
     	}
     	if(gfnma_multiSelectGet('#PROJECT_TYPE') == "") {
