@@ -102,7 +102,7 @@
                                 id="SRCH_PAY_AREA_TYPE"
                                 uitype="single"
                                 jsondata-ref="jsonPayAreaType"
-                                unselected-text="선택"
+                                <%--unselected-text="선택"--%>
                                 class="form-control input-sm"
                         <%--onchange="fn_payType"--%>>
                         </sbux-select>
@@ -366,8 +366,12 @@
                 </tbody>
             </table>
         </div>
-
-
+        <form id="reportPdfDownload">
+            <input type="hidden" name="title" value="">
+            <input type="hidden" name="fileName" value="">
+            <input type="hidden" name="param" value="">
+            <input type="hidden" name="conn" value="">
+        </form>
     </div>
 </section>
 <!-- 팝업 Modal -->
@@ -385,6 +389,7 @@
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
+<div id="div-rpt-clipReportPrint"></div>
 
 </body>
 <script type="text/javascript">
@@ -392,6 +397,7 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
+    var p_userNm = '${loginVO.name}';
     //-----------------------------------------------------------
 
     //grid 초기화
@@ -546,11 +552,10 @@
         let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
         let PAY_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
-        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
+        let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'";
 
         gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
-
 
     }
 
@@ -1106,6 +1111,76 @@
      */
     const fn_btnFile = async function () {
 
+        var nRow = gvwInfoGrid.getRow();
+        var conn = '';
+        var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+        if (nRow < 1) {
+            return;
+        }
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        if (SENDTYPE == "ALL") {
+            conn = await fn_GetReportData('REPORT5', rowData);
+            conn = await gfnma_convertDataForReport(conn);
+
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_ALL.crf", conn, 'testFile');
+        } else if(SENDTYPE == "PAY") {
+            conn = await fn_GetReportData('REPORT3', rowData);
+            conn = await gfnma_convertDataForReport(conn);
+
+            //fn_pdfDowmload("급여명세서",  "ma/RPT_HRP2436_Q_PAY.crf", '', conn );
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_PAY.crf", conn, '급여명세서');
+        } else if(SENDTYPE == "WORK") {
+            conn = await fn_GetReportData('REPORT4', rowData);
+            conn = await gfnma_convertDataForReport(conn);
+
+            //fn_pdfDowmload("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", '', conn );
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_WORK.crf", conn, '근태현황');
+        }
+
+    }
+
+    const fn_pdfDowmload = async function (_title, _fileName, _param, _conn) {
+
+        if (!gfn_isEmpty(_param)) {
+            _param.userNm = p_userNm;
+            _param.title = _title;
+            _param.fileName = _fileName;
+        }
+
+        const param = JSON.stringify(_param);
+        const conn = JSON.stringify(_conn);
+
+        /*SBUxMethod.set("title"          , 	_title);
+        SBUxMethod.set("fileName"       , 	_fileName);
+        SBUxMethod.set("param"          , 	param);
+        SBUxMethod.set("conn"           , 	conn);*/
+
+
+        var url = "/report/openClipReport.do";
+        var formData = new FormData();
+        formData.append("title", _title);
+        formData.append("fileName", _fileName);
+        formData.append("param", param);
+        formData.append("conn", conn);
+
+        $.ajax({
+            url : url,
+            type : 'post',
+            data : formData,
+            cache : false,
+            contentType : false,
+            processData : false,
+            error : function (jqXHR, testStatus, errorThrown){
+
+            },
+            success : function (data, jqXHR, textStatus){
+
+            }
+        });
+
+
+
     }
 
     /**
@@ -1133,7 +1208,7 @@
     	if (SENDTYPE == "ALL") {
             conn = await fn_GetReportData('REPORT5', rowData);
             conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("", "ma/RPT_HRP2436_Q_ALL.crf", null, conn );	
+    		gfn_popClipReportPost("", "ma/RPT_HRP2436_Q_ALL.crf", null, conn );
         } else if(SENDTYPE == "PAY") {
             conn = await fn_GetReportData('REPORT3', rowData);
             conn = await gfnma_convertDataForReport(conn);
@@ -1183,6 +1258,7 @@
 
         try { 
             if (_.isEqual("S", data.resultStatus)) {
+
                 if(data.cv_6.length > 0){
 					if(SENDTYPE == 'WORK'){
     	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
