@@ -1234,7 +1234,7 @@ console.log('updateData', updateData);
     // 행 삭제
     const fn_delRow = async function () {
         let rowVal = CMNSCDSubGrid.getRow();
-        let rowData = datagrid.getRowData(rowVal)
+        let rowData = CMNSCDSubGrid.getRowData(rowVal)
         if (rowVal == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;

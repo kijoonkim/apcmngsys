@@ -74,7 +74,7 @@
 	                    </colgroup>
 	                    <tbody>
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">회계단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" colspan="" style="border-right:hidden;">
 									<div class="dropdown">
 									    <button 
@@ -186,11 +186,10 @@
 									<td class="td_input" style="border-right: hidden;" colspan="3">
 										<div class="dropdown">
 											<button 
-												style="width:160px;text-align:left" 
+												style="width:160px;text-align:left;" 
 												class="btn btn-sm btn-light dropdown-toggle " 
 												type="button"
 												id="COMP_CODE" 
-												data-toggle="dropdown" 
 												aria-haspopup="true" 
 												aria-expanded="false"
 												readonly>
@@ -201,7 +200,7 @@
 											</div>
 										</div>                                    
 									</td>	                                    
-									<th scope="row" class="th_bg">회계단위</th>
+									<th scope="row" class="th_bg">APC</th>
 									<td class="td_input" style="border-right: hidden;" colspan="3">
 										<div class="dropdown">
 											<button 
@@ -560,7 +559,7 @@
 			//재직구분
 		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		    
-			//회계단위
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_FI_ORG_CODE']
 				,compCode		: gv_ma_selectedCorpCd
@@ -626,7 +625,7 @@
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
+				,whereClause	: "WHERE COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
@@ -640,7 +639,7 @@
 				]
 			}),
 		    
-			//회계단위
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
 				,compCode		: gv_ma_selectedCorpCd

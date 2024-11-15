@@ -484,7 +484,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	            	{ caption: "사업장코드", 		ref: 'SITE_CODE',	width: '100px',	style: 'text-align:left'  },
 	            	{ caption: "사업장명",		ref: 'SITE_NAME',	width: '150px',	style: 'text-align:left' },
 	            	{ caption: "비고",	  		ref: 'DESCR',	width: '150px',	style: 'text-align:left' },
-	            	{ caption: "회계단위코드",	 	ref: 'FI_ORG_CODE',	width: '150px',	style: 'text-align:left' }
+	            	{ caption: "APC코드",	 	ref: 'FI_ORG_CODE',	width: '150px',	style: 'text-align:left' }
 	            ]
 	        }),
 	    ]);
