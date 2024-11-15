@@ -38,10 +38,10 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
+           <%-- <div style="margin-left: auto;">
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="출력"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-            </div>
+            </div>--%>
         </div>
 
         <div class="box-search-ma">
@@ -513,7 +513,7 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));     //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "WHERE SITE_CODE IN (SELECT SITE_CODE FROM ORGSITE WHERE COMP_CODE ='"+gv_ma_selectedCorpCd+ "') AND PAY_YYYYMM = '"
+        let V_P_WHERE_CLAUSE = "AND SITE_CODE IN (SELECT SITE_CODE FROM ORGSITE WHERE COMP_CODE ='"+gv_ma_selectedCorpCd+ "') AND PAY_YYYYMM = '"
             + PAY_YYYYMM + "' AND PAY_TYPE = '" + PAY_TYPE + "'AND PAY_AREA_TYPE ='" + PAY_AREA_TYPE + "'";
 
         gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
@@ -843,7 +843,7 @@
 
 
     /**
-     * 파일저장
+     * 출력
      */
     const fn_btnFile = async function (/*tabMoveVal*/) {
 
