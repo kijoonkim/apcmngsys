@@ -25,7 +25,7 @@
 <head>
     <title>Title</title><title>title : 신용카드수령명세서(매입)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #Sales > table > tbody > tr > td{
             text-align: center;
@@ -40,12 +40,6 @@
             text-align: center;
             border: solid 1px blue;
             padding: 5px;
-        }
-        #신용카드 > tbody > tr > td:nth-child(1){
-            font-size: 15px;
-        }
-        #신용카드 > tbody > tr:nth-child(1) > td{
-            font-size: 15px;
         }
         .resizer[data-direction="horizontal"] {
             background-color: #cbd5e0;
@@ -79,38 +73,48 @@
             </div>
         </div>
         <div class="box-body">
+            <div class="box-search-ma">
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
             <!-- content_header start -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
                 <colgroup>
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준연도</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <th scope="row" >기준연도</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                          date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                         >
                         </sbux-datepicker>
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">신고구분명</th>
+                    <th scope="row" >신고구분명</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
@@ -126,21 +130,24 @@
                             <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
                         </div>
                     </td>
-                    <td colspan="4" style="border-top: hidden" ></td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">신고사업장</th>
+                    <th scope="row" >신고사업장</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
+                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
-                    <th scope="row" class="th_bg">사업자번호</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
+                    <td></td>
+                    <th scope="row" >사업자번호</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style=" height: 80vh; display: flex">
+            </div>
+                <div style=" height: 80vh; display: flex">
                 <div style="width: 30%;padding: 10px">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
@@ -494,6 +501,20 @@
     };
     resizer.addEventListener('mousedown', mouseDownHandler);
     /** 공통버튼 **/
+    function cfn_init(){
+        fn_reset();
+    }
+    function fn_reset(){
+        jsonGrdList.length = 0;
+        grdListGrid.rebuild();
+        jsonGrdDetail.length = 0;
+        grdDetailGrid.rebuild();
+
+        const inputs = document.querySelectorAll('#panRightHeader input');
+        inputs.forEach(input => {
+            input.value = 0;
+        });
+    }
     function cfn_search() {
         fn_search();
     }

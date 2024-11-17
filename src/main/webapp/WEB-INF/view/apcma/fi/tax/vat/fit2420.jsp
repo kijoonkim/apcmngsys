@@ -25,7 +25,7 @@
 <head>
     <title>Title</title><title>title : 신용카드수령명세서(매입)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #Sales > table > tbody > tr > td{
             text-align: center;
@@ -73,38 +73,48 @@
             </div>
         </div>
         <div class="box-body">
+            <div class="box-search-ma">
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
             <!-- content_header start -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
                 <colgroup>
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준연도</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <th scope="row" >기준연도</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                          date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                         >
                         </sbux-datepicker>
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">신고구분명</th>
+                    <th scope="row" >신고구분명</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
@@ -120,14 +130,17 @@
                             <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">총괄납부관리번호</th>
+                    <td></td>
+                    <th scope="row" >총괄납부관리번호</th>
                     <td colspan="3" class="td_input" style="border-top: hidden" >
-                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
+                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
-            <div style=" height: 80vh; display: flex">
+            </div>
+                <div style=" height: 80vh; display: flex">
                <div id="sb-area-grdReport" style="width: 100%; height: 600px"></div>
             </div>
         </div>
@@ -311,6 +324,13 @@
     };
     resizer.addEventListener('mousedown', mouseDownHandler);
     /** 공통버튼 **/
+    function cfn_init(){
+        fn_reset();
+    }
+    function fn_reset(){
+        jsonGrdReport.length = 0;
+        grdReport.rebuild();
+    }
     function cfn_search() {
         fn_search();
     }
