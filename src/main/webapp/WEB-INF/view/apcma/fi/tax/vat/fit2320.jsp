@@ -25,7 +25,7 @@
 <head>
   <title>Title</title><title>title : 신용카드수령명세서(매입)</title>
   <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-  <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+  <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
   <style>
     #Sales > table > tbody > tr > td{
       text-align: center;
@@ -73,38 +73,48 @@
       </div>
     </div>
     <div class="box-body">
+      <div class="box-search-ma">
       <!--[APC] START -->
       <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
       <!--[APC] END -->
       <!-- content_header start -->
-      <table id="srchTable" class="table table-bordered tbl_fixed">
+      <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
         <colgroup>
+          <col style="width: 8%">
           <col style="width: 7%">
-          <col style="width: 6%">
-          <col style="width: 6%">
-          <col style="width: 3%">
+          <col style="width: 1%">
+          <col style="width: 7%">
+          <col style="width: 2%">
 
+          <col style="width: 8%">
           <col style="width: 7%">
-          <col style="width: 6%">
-          <col style="width: 6%">
-          <col style="width: 3%">
+          <col style="width: 1%">
+          <col style="width: 7%">
+          <col style="width: 2%">
 
+          <col style="width: 8%">
           <col style="width: 7%">
-          <col style="width: 6%">
-          <col style="width: 6%">
-          <col style="width: 3%">
+          <col style="width: 1%">
+          <col style="width: 7%">
+          <col style="width: 2%">
+
+          <col style="width: 8%">
+          <col style="width: 7%">
+          <col style="width: 1%">
+          <col style="width: 7%">
+          <col style="width: 2%">
         </colgroup>
         <tbody>
         <tr>
-          <th scope="row" class="th_bg">기준연도</th>
-          <td colspan="2" class="td_input" style="border-right: hidden;">
+          <th scope="row" >기준연도</th>
+          <td colspan="3" class="td_input" style="border-right: hidden;">
             <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                              date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
             >
             </sbux-datepicker>
           </td>
           <td></td>
-          <th scope="row" class="th_bg">신고구분명</th>
+          <th scope="row" >신고구분명</th>
           <td colspan="3" class="td_input" style="border-right: hidden;">
             <div style="display: flex;gap: 5px">
               <div class="dropdown">
@@ -120,21 +130,24 @@
               <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
             </div>
           </td>
-          <td colspan="4" style="border-top: hidden" ></td>
+          <td></td>
         </tr>
         <tr>
-          <th scope="row" class="th_bg">신고사업장</th>
+          <th scope="row" >신고사업장</th>
           <td colspan="3" class="td_input" style="border-right: hidden;">
-            <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
+            <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
           </td>
-          <th scope="row" class="th_bg">사업자번호</th>
-          <td colspan="7" class="td_input" style="border-right: hidden;">
-            <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
+          <td></td>
+          <th scope="row" >사업자번호</th>
+          <td colspan="3" class="td_input" style="border-right: hidden;">
+            <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
           </td>
+          <td></td>
         </tr>
         </tbody>
       </table>
-      <div style=" height: 80vh; display: flex">
+      </div>
+        <div style=" height: 80vh; display: flex">
         <div style="width: 30%;padding: 10px">
           <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -323,8 +336,8 @@
     SBGridProperties.jsonref = 'jsonGrdList';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.columns = [
-      {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-      {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+      {caption : ['신고사업장명'], ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
+      {caption : ['사업자번호'], ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center', format : {type:'string', rule:'000-00-00000'}},
     ];
     grdListGrid = _SBGrid.create(SBGridProperties);
     grdListGrid.bind("click","fn_setSiteCode");
@@ -369,6 +382,7 @@
         caption: ['신고기준일자'],
         ref: 'STANDARD_DATE',
         width: '100px',
+        format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},
         style: 'text-align:center',
         type: 'output'
       },
@@ -397,29 +411,33 @@
         caption: ['당기제출 외화'],
         ref: 'EXPORT_AMT',
         width: '100px',
-        style: 'text-align:center',
-        type: 'output'
+        style: 'text-align:right',
+        type: 'output',
+        format : {type:'number', rule:'#,###'}
       },
       {
         caption: ['당기제출 원화'],
         ref: 'EXPORT_AMT_KRW',
         width: '100px',
-        style: 'text-align:center',
-        type: 'output'
+        style: 'text-align:right',
+        type: 'output',
+        format : {type:'number', rule:'#,###'}
       },
       {
         caption: ['당기신고 외화'],
         ref: 'VAT_EXPORT_AMT',
         width: '100px',
-        style: 'text-align:center',
-        type: 'output'
+        style: 'text-align:right',
+        type: 'output',
+        format : {type:'number', rule:'#,###'}
       },
       {
         caption: ['당기신고 원화'],
         ref: 'VAT_EXPORT_AMT_KRW',
         width: '100px',
-        style: 'text-align:center',
-        type: 'output'
+        style: 'text-align:right',
+        type: 'output',
+        format : {type:'number', rule:'#,###'}
       },
     ];
     grdDetailGrid = _SBGrid.create(SBGridProperties);
@@ -477,6 +495,20 @@
   };
   resizer.addEventListener('mousedown', mouseDownHandler);
   /** 공통버튼 **/
+  function  cfn_init(){
+    fn_reset();
+  }
+  function fn_reset(){
+    jsonGrdList.length = 0;
+    grdListGrid.rebuild();
+    jsonGrdDetail.length = 0;
+    grdDetailGrid.rebuild();
+
+    const inputs = document.querySelectorAll('#panRightHeader input');
+    inputs.forEach(input => {
+      input.value = 0;
+    });
+  }
   function cfn_search() {
     fn_search();
   }
