@@ -37,7 +37,9 @@
             </div>
         </div>
         <div class="box-body">
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            </div>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="ad_tbl_top">
