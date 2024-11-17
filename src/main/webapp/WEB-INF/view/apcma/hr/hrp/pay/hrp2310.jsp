@@ -550,7 +550,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>공제항목</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -642,32 +642,32 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            /*gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            /*gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
 */
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
-            gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
 
-            gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode1, 'L_HRP011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode1, 'L_HRP011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
-            gfnma_setComSelect(['gvwDeductGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDeductGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
-            gfnma_setComSelect(['gvwBasicGrid'], jsonPayItemCode3, 'L_HRP015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBasicGrid'], jsonPayItemCode3, 'L_HRP015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
 
 
             //급여체계
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -697,7 +697,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -729,10 +729,10 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
+        let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
             + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
 
-        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
 
 
     }
@@ -1022,7 +1022,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE      : SITE_CODE
@@ -1131,7 +1131,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 ,V_P_LANG_ID: ''
-                ,V_P_COMP_CODE: gv_ma_selectedApcCd
+                ,V_P_COMP_CODE: gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 ,V_P_SITE_CODE      : SITE_CODE
@@ -1409,7 +1409,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM  : V_P_PAY_YYYYMM
@@ -1482,7 +1482,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM  : V_P_PAY_YYYYMM
@@ -1741,7 +1741,7 @@
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE           : SITE_CODE

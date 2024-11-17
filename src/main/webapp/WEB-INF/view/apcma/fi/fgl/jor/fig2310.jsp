@@ -203,15 +203,15 @@
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">현업결재일</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-approve-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 	                            
 	                        </tr>    
 	                        
@@ -223,7 +223,7 @@
 								            id="sch-posting-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -243,15 +243,15 @@
 	                            <td></td>
 
 	                            <th scope="row" class="th_bg_search">전기일자</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-doc-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 
 	                            <th scope="row" class="th_bg_search">승인취소일</th>
 	                            <td class="td_input" >
@@ -259,7 +259,7 @@
 								            id="sch-unposting-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td></td>
@@ -272,19 +272,19 @@
 	                        
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">증빙일자</th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-voucher-receipt-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            <td></td>
+	                            <td colspan="3"></td>
 
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td class="td_input" >
-	                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            <td class="td_input" >
@@ -372,7 +372,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">신고일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" name="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">공급가액</th>
 				                            <td class="td_input" >
@@ -402,7 +402,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">선적일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" name="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <th scope="row" class="th_bg">당기제출금_원화</th>
 				                            <td class="td_input" >
@@ -464,7 +464,7 @@
 				                            </td>
 				                            <th scope="row" class="th_bg">발급일자</th>
 				                            <td class="td_input" >
-											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"></sbux-datepicker>                          
+											    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" name="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 				                            </td>
 				                            <td colspan="4" class="td_input" >
 				                            </td>
@@ -507,58 +507,60 @@
 				                    </colgroup>
 				                    <tbody>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME1"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME1">관리항목1</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE1, 'ACC_ITEM_VALUE1')"  id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME5"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME5">관리항목5</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE5, 'ACC_ITEM_VALUE5')"  id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME9"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME9">관리항목9</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE9, 'ACC_ITEM_VALUE9')"  id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME2"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME2">관리항목2</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE2, 'ACC_ITEM_VALUE2')"  id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME6"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME6">관리항목6</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE6, 'ACC_ITEM_VALUE6')"  id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME10"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME10">관리항목10</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE10, 'ACC_ITEM_VALUE10')"  id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME3"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME3">관리항목3</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE3, 'ACC_ITEM_VALUE3')"  id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME7"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME7">관리항목7</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE7, 'ACC_ITEM_VALUE7')"  id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="PROJECT_NAME"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="PROJECT_NAME">프로젝트</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(PROJECT_CODE, 'PROJECT_CODE')"  id="PROJECT_CODE" name="PROJECT_CODE" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 				                        <tr>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME4"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME4">관리항목4</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE4, 'ACC_ITEM_VALUE4')"  id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
-				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME8"></th>
+				                            <th scope="row" class="th_bg cu-tab2-fom-area" id="ACC_ITEM_NAME8">관리항목8</th>
 				                            <td colspan="2" class="td_input" >
 				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE8, 'ACC_ITEM_VALUE8')"  id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" uitype="text" class="form-control input-sm" ></sbux-input>
 				                            </td>
 				                            <th scope="row" class="th_bg" ></th>
 				                            <td colspan="2" class="td_input" >
+				   								<sbux-input uitype="hidden" id="DEBIT_CREDIT" name="DEBIT_CREDIT" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input uitype="hidden" id="ACCOUNT_CODE" name="ACCOUNT_CODE" class="form-control input-sm" ></sbux-input>
 				                            </td>
 										</tr>
 									</tbody>
@@ -673,33 +675,33 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 
-            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-cbosite-code'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-cboexchange-type'],		jsonExchangeType,	'L_COM034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-cbosite-code'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-cboexchange-type'],		jsonExchangeType,	'L_COM034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
             // 회계기준
-            gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 신고사업장
-            gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             // 종사업장
-            gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             // 전표유형
-            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             
             // 그리드내 라인유형
-			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 그리드내 차/대
-			gfnma_setComSelect([], 								jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			//전표템플릿
 			gfnma_multiSelectInit({
 				target			: ['#srch-compopup1-rulecode']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: pg_rule_code_bizId
 				,whereClause	: pg_rule_code_where
@@ -1081,15 +1083,15 @@
             {caption: ["부가세유형"], 				ref: 'VAT_TYPE',    			type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
-            {caption: ["부가세유형명"], 			ref: 'VAT_NAME', 			type:'input',		width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형명"], 			ref: 'VAT_NAME', 				type:'input',		width:'100px',  	style:'text-align:left'},
             
             {caption: ["거래처"], 					ref: pg_colcs_code_field1,    	type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["거래처명"], 				ref: pg_colcs_code_field2, 		type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1097,7 +1099,7 @@
             {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1119,7 +1121,7 @@
             {caption: ["부서"], 					ref: 'DEPT_NAME', 				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn4',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["부서코드"],					ref: 'DEPT_CODE', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1127,7 +1129,7 @@
             {caption: ["원가중심점"], 				ref: 'COST_CENTER_CODE',		type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn5',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME', 		type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1135,7 +1137,7 @@
             {caption: ["프로젝트코드"], 			ref: 'PROJECT_CODE',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["프로젝트명"], 				ref: 'PROJECT_NAME', 			type:'input',		width:'250px',  	style:'text-align:left'},
@@ -1143,14 +1145,14 @@
             {caption: ["지급기준"], 				ref: 'PAY_TERM_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["지급기준명"], 				ref: 'PAY_TERM_NAME', 			type:'output',		width:'150px',  	style:'text-align:left'},
             {caption: ["지급방법"], 				ref: 'PAY_METHOD_NAME', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn7',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["지급방법코드"],				ref: 'PAY_METHOD', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1163,7 +1165,7 @@
             {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_TYPE', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn8',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "1," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "1," + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_CODE', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1173,7 +1175,7 @@
             {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_TYPE2', 		type:'output', 		width:'150px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn9',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "2," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "2," + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_CODE2', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1203,7 +1205,7 @@
             {caption: ["계좌행번"], 				ref: 'SEQ_NAME', 				type:'output', 		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn10',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계좌행번"],					ref: 'BANK_ACCOUNT_SEQ', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1340,7 +1342,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: pg_vat_type_bizId
        		,popupType				: 'B'
@@ -1390,7 +1392,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', pg_colcs_code_title);
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: pg_colcs_code_bizId
        		,popupType				: 'A'
@@ -1439,7 +1441,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FIM045'
        		,popupType				: 'B'
@@ -1543,7 +1545,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -1587,7 +1589,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CC_INPUT'
        		,popupType				: 'A'
@@ -1631,7 +1633,7 @@
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
 		compopup1({
-			compCode				: gv_ma_selectedApcCd
+			compCode				: gv_ma_selectedCorpCd
 			,clientCode				: gv_ma_selectedClntCd
 			,bizcompId				: 'P_COM028' 
 			,popupType				: 'A'
@@ -1676,7 +1678,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: pg_colpay_term_code_bizId
        		,popupType				: 'A'
@@ -1723,7 +1725,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급방법');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIM081'
        		,popupType				: 'A'
@@ -1774,7 +1776,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원천징수세금코드');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_WITHHOLD_TAX_TYPE'
        		,popupType				: 'A'
@@ -1830,7 +1832,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계좌행번');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_CS_ACCOUNT'
        		,popupType				: 'A'
@@ -1879,7 +1881,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG001'
     		,popupType				: 'B'
@@ -1913,7 +1915,7 @@
 		var paramObj = {
 			    V_P_DEBUG_MODE_YN	: '',
 			    V_P_LANG_ID			: '',
-			    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+			    V_P_COMP_CODE		: gv_ma_selectedCorpCd,
 			    V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
 			    V_P_YYYYMMDD		: p_doc_date,
 			    V_P_CURR_CODE		: p_currency_code,
@@ -1959,7 +1961,7 @@
   	    var paramObj = { 
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 				
   				,V_P_FI_ORG_CODE			: p_fi_org_code
@@ -2752,7 +2754,7 @@
         	var paramObj = {
                	V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                    
    				IV_P_DOC_BATCH_NO  			: gfnma_nvl(SBUxMethod.get('sch-doc-batch-no')),
@@ -2946,7 +2948,7 @@
         	var paramObj = {
                	V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                    
    				IV_P_DOC_BATCH_NO  			: gfnma_nvl(SBUxMethod.get('sch-doc-batch-no')),
@@ -3160,7 +3162,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID			: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
             V_P_PAY_TERM_CODE 	: strpay_term_code,
             V_P_TXN_DATE 		: strtxn_date,
@@ -3296,7 +3298,7 @@
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_fi_org_code
@@ -3389,7 +3391,7 @@
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_fi_org_code
@@ -3517,7 +3519,7 @@
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_fi_org_code
@@ -3610,7 +3612,7 @@
         
     	if( (lgv_sourceType) && (lgv_sourceCode) ){
 			compopfilemng({
-	    		compCode		: gv_ma_selectedApcCd
+	    		compCode		: gv_ma_selectedCorpCd
 	    		,clientCode		: gv_ma_selectedClntCd
 	    		,sourceType		: lgv_sourceType
 	    		,sourceCode		: lgv_sourceCode
@@ -3638,8 +3640,8 @@
         
     	//본인이 상신하는 경우
     	compopappvmng({
-    		compCode		: gv_ma_selectedApcCd
-    		,compCodeNm		: gv_ma_selectedApcNm
+    		compCode		: gv_ma_selectedCorpCd
+    		,compCodeNm		: gv_ma_selectedCorpNm
     		,clientCode		: gv_ma_selectedClntCd
     		,apprId			: p_appr_id  
     		,sourceNo		: p_doc_id  

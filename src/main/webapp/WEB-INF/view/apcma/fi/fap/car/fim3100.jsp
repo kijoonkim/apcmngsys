@@ -133,7 +133,7 @@
                                     <col style="width:30%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">회계단위</th>
+                                    <th scope="row" class="th_bg">APC</th>
                                     <td colspan="3" class="td_input">
 										<div class="dropdown" style="margin-right:5px" >
 										    <button id="FI_ORG_CODE" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -591,13 +591,13 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//상태(카드사기준)
-			gfnma_setComSelect(['srch-cbocard-status2-p'], 	jsonCbocardStatus2, 'L_FIM008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbocard-status2-p'], 	jsonCbocardStatus2, 'L_FIM008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//카드상태
-			gfnma_setComSelect(['srch-cbocard-status1'], 	jsonCbocardStatus1, 'L_FIM009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			//회계단위
+			gfnma_setComSelect(['srch-cbocard-status1'], 	jsonCbocardStatus1, 'L_FIM009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -616,7 +616,7 @@
 			//법인개인구분
 			gfnma_multiSelectInit({
 				target			: ['#BIZ_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM003'
 				,whereClause	: ''
@@ -635,7 +635,7 @@
 			//카드용도구분
 			gfnma_multiSelectInit({
 				target			: ['#CARD_USE_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM216'
 				,whereClause	: ''
@@ -654,7 +654,7 @@
 			//카드상태
 			gfnma_multiSelectInit({
 				target			: ['#CARD_STATUS']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM009'
 				,whereClause	: ''
@@ -673,7 +673,7 @@
 			//상태(카드사기준)
 			gfnma_multiSelectInit({
 				target			: ['#CARD_STATUS2']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM008'
 				,whereClause	: ''
@@ -692,7 +692,7 @@
 			//결제일
 			gfnma_multiSelectInit({
 				target			: ['#SETTLE_DD']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM010'
 				,whereClause	: ''
@@ -711,7 +711,7 @@
 			//지급기일코드
 			gfnma_multiSelectInit({
 				target			: ['#PAY_TERM_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_PAY_DATE'
 				,whereClause	: ''
@@ -730,7 +730,7 @@
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
 				,whereClause	: ''
@@ -749,7 +749,7 @@
 			//조회수준
 			gfnma_multiSelectInit({
 				target			: ['#VIEW_LEVEL']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM007'
 				,whereClause	: ''
@@ -775,7 +775,7 @@
     	fn_createGrid();	
     	
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 			function(list){
 				$('#SRCH_EMP_BTN').click(function(){
 					fn_compopup6(list);
@@ -824,7 +824,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["회계단위"],				ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["APC"],				ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["카드번호"], 			ref: 'CARD_NO',    				type:'output',  	width:'350px',  	style:'text-align:left'},
             {caption: ["카드명"],  				ref: 'CARD_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["법인개인구분"],    		ref: 'BIZ_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -899,7 +899,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_FI_ORG_CODE	: ''	
 			,V_P_CARD_NO		: p_txtcard_no			
@@ -933,8 +933,8 @@
   	        	jsonFim3100List.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),				//회계단위				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
-  						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),				//회계단위명			
+  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),				//APC				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
+  						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),				//APC명			
   						CARD_NO					: gfnma_nvl(item.CARD_NO),					//카드번호
   						CARD_NAME				: gfnma_nvl(item.CARD_NAME),				//카드명
   						BIZ_TYPE				: gfnma_nvl(item.BIZ_TYPE),					//법인개인구분			--> BIZ_TYPE_NAME (필요)		<-- L_FIM003 공통코드 조인
@@ -1052,7 +1052,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd)
+			,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd)
 			,V_P_CLIENT_CODE			: gfnma_nvl(gv_ma_selectedClntCd)
 			,V_P_FI_ORG_CODE      		: gfnma_nvl(gfnma_multiSelectGet("#FI_ORG_CODE"))
 			,V_P_CARD_NO          		: gfnma_nvl(SBUxMethod.get("CARD_NO"))
@@ -1155,7 +1155,7 @@
                     params		: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN			: '',
                         V_P_LANG_ID					: '',
-                        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE				: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
                         V_P_CARD_NO					: obj.CARD_NO,
                         V_P_SEQ						: obj.SEQ,
@@ -1209,7 +1209,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '카드사');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FIM053'
         	,popupType				: 'A'
@@ -1243,7 +1243,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '채무계정');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'
@@ -1277,7 +1277,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급거래처');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CS_CARD_PAY'
         	,popupType				: 'A'
@@ -1311,7 +1311,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '결제은행(지급)');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_BANK_CODE'
         	,popupType				: 'A'
@@ -1343,7 +1343,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -1379,7 +1379,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -1416,7 +1416,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -1447,7 +1447,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
@@ -1525,7 +1525,7 @@
 	    	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
 			SBUxMethod.openModal('modal-compopup1');
 	    	compopup1({
-	    		compCode				: gv_ma_selectedApcCd
+	    		compCode				: gv_ma_selectedCorpCd
 	    		,clientCode				: gv_ma_selectedClntCd
 	    		,bizcompId				: 'P_HRI001_ESS'
 	           	,popupType				: 'A'

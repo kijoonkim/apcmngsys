@@ -1,11 +1,11 @@
 @charset "utf-8";
 /* 경영관리 body 설정 */
-body{
-    transform: scale(0.8) !important; /* 80% 배율 */
+body {
+    transform: scale(0.9) !important; /* 80% 배율 */
     transform-origin: top left !important; /* 시작 지점을 왼쪽 위로 고정 */
     background-color: #FFFFFF !important;
-    width: 125% !important;
-    height: 125% !important;
+/*    width: 111% !important;
+    height: 111% !important;*/
     margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -65,6 +65,7 @@ input.table-datepicker-ma {
 	background: #fff !important;
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
+    width: 110% !important;
 }
 
 /*테이블에서 그려진 datepicker button 색상 제거*/
@@ -81,6 +82,7 @@ input.table-datepicker-ma + .sbux-pik-icon-span .sbux-pik-icon-btn {
     background-color: #efefef !important;
     color: #555 !important;
     border-color: #d9d9d9 !important;
+    width: 110% !important;
 }
 
 input.table-datepicker-ma.sbux-dirty[readonly] + .sbux-pik-icon-span .sbux-pik-icon-btn {
@@ -98,6 +100,7 @@ input.table-datepicker-ma.inpt_data_reqed {
 	background: #FFF8DC !important;
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
+    width: 110% !important;
 }
 
 /*테이블에서 그려진 datepicker input inpt_data_reqed 색상 적용*/

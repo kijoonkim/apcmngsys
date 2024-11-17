@@ -254,7 +254,7 @@ function compopappvmng(options) {
 	const fn_initPopAppvMng = async function() {
 		let rst = await Promise.all([
             // 결재구분
-            gfnma_setComSelect([''], _compopappvmng_jsonApprCategory, 'L_FIM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], _compopappvmng_jsonApprCategory, 'L_FIM065', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}
 	

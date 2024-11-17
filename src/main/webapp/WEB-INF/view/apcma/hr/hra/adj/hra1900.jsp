@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1900.jsp
+     * @Class Name        : hra1900.jsp
      * @Description       : 연말정산 전산매체생성 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.08.28
@@ -24,7 +24,7 @@
 <head>
     <title>title : 연말정산 전산매체생성 결과조회</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -40,64 +40,78 @@
             </div>
             <div style="margin-left: auto;">
                 <sbux-button
-                        id="btnFile" name="btnFile" uitype="normal" text="인쇄"
+                        id="btnFile" name="btnFile" uitype="normal" text="파일생성"
                         class="btn btn-sm btn-outline-danger" onclick="fn_btnFile" style="float: right;"
                 ></sbux-button>
             </div>
         </div>
 
-        <!--[pp] 검색 -->
-        <!--[APC] START -->
-        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table id="dataArea1" class="table table-bordered tbl_fixed">
-            <caption>검색 조건 설정</caption>
-            <colgroup>
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+        <div class="box-search-ma">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
-                <col style="width: 7%">
-                <col style="width: 6%">
-                <col style="width: 6%">
-                <col style="width: 3%">
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row" class="th_bg">정산연도</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-datepicker
-                            id="SRCH_YE_TX_YYYY"
-                            name="SRCH_YE_TX_YYYY"
-                            uitype="popup"
-                            datepicker-mode="year"
-                            date-format="yyyy"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            required>
-                        <%--onchange="fn_payDate"--%>
-                    </sbux-datepicker>
-                </td>
-                <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">정산구분</th>
-                <td class="td_input" style="border-right: hidden;">
-                    <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <font>선택</font>
-                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg_search">정산연도</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_YE_TX_YYYY"
+                                name="SRCH_YE_TX_YYYY"
+                                uitype="popup"
+                                datepicker-mode="year"
+                                date-format="yyyy"
+                                class="table-datepicker-ma inpt_data_reqed"
+                                required>
+                            <%--onchange="fn_payDate"--%>
+                        </sbux-datepicker>
+                    </td>
+                    <td colspan="3" style="border-right: hidden;"></td>
+                    <th scope="row" class="th_bg_search">정산구분</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
+                                    type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE"
+                                 style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td colspan="6" style="border-right: hidden;">&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td colspan="11" style="border-right: hidden;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
                 <li>
@@ -298,17 +312,17 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['TX_SITE_CODE'], jsonTxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwCAGrid'], jsonMedSocialNoReal, 'L_HRA042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwCAGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['TX_SITE_CODE'], jsonTxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedSocialNoReal, 'L_HRA042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
             /*gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -328,7 +342,7 @@
             //출력구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_YE_TX_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA029'
                 ,whereClause	: ''
@@ -360,7 +374,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -396,7 +410,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -489,26 +503,27 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
-            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonYeTxType', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonYeTxType',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["기부건수"], ref: 'DONATION_COUNT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["기부건수"], ref: 'DONATION_COUNT', type: 'output', width: '200px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }, hidden : true},
-            {caption: ["기부금액"], ref: 'DONATION_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }, hidden : true},
-            {caption: ["총급여"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["기부금액"], ref: 'DONATION_AMT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }, hidden : true},
+            {caption: ["총급여"], ref: 'INC_TOT_AMT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: ["결정세액"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: ["차감징수세액"], ref: 'INC_TX_AMT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
         ];
 
         gvwCGrid = _SBGrid.create(SBGridProperties);
@@ -530,28 +545,29 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
-            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonYeTxType', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonYeTxType',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption : ["대상자 주민등록번호"], ref : 'MED_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonMedSocialNoReal', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption : ["대상자 주민등록번호"], ref : 'MED_SOCIAL_NO_REAL', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonMedSocialNoReal',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["사업자등록번호"], ref: 'MED_COM_NUM', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["상호"], ref: 'MED_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonMedCertificateCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption: ["사업자등록번호"], ref: 'MED_COM_NUM', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["상호"], ref: 'MED_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonMedCertificateCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["건수"], ref: 'MED_COUNT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }},
-            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["건수"], ref: 'MED_COUNT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ , emptyvalue:'0'}},
+            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'output', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
         ];
 
         gvwCAGrid = _SBGrid.create(SBGridProperties);
@@ -574,20 +590,21 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
-            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonYeTxType', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '230px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonYeTxType',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '230px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["건수"], ref: 'DON_COUNT', type: 'output', width: '100px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }},
-            {caption: ["금액"], ref: 'DON_AMT', type: 'output', width: '100px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["건수"], ref: 'DON_COUNT', type: 'output', width: '230px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ , emptyvalue:'0'}},
+            {caption: ["금액"], ref: 'DON_AMT', type: 'output', width: '230px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
         ];
 
         gvwHGrid = _SBGrid.create(SBGridProperties);
@@ -609,13 +626,14 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
-            {caption: ["연번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'130px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ["연번"], ref: 'SEQ', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'230px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["생성PC"], ref: 'INSERT_PC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["생성조건"], ref: 'CREATE_COND', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["생성PC"], ref: 'INSERT_PC', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["생성조건"], ref: 'CREATE_COND', type: 'output', width: '230px', style: 'text-align:left'},
+            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '350px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
 
         ];
 
@@ -648,7 +666,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_YE_TX_YYYY         : YE_TX_YYYY

@@ -71,7 +71,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg_search">사업단위</th>
+                    <th scope="row" class="th_bg_search">APC</th>
                     <td colspan="3" class="td_input">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -263,10 +263,10 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 회계단위
+            // APC
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM022'
                 ,whereClause	: ''
@@ -283,21 +283,21 @@
                 ]
             }),
             // 사업장
-            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 입출유형
-            gfnma_setComSelect(['gvwInfo'], jsonTransferType, 'L_FBS016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonTransferType, 'L_FBS016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 지급구분
-            gfnma_setComSelect(['gvwInfo'], jsonDepositCode, 'L_DEPOSIT_LIST', "", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPOSIT_CODE', 'DEPOSIT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonDepositCode, 'L_DEPOSIT_LIST', "", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPOSIT_CODE', 'DEPOSIT_NAME', 'Y', ''),
             // 은행코드
-            gfnma_setComSelect(['gvwInfo'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
             // 이체처리결과
-            gfnma_setComSelect(['gvwInfo'], jsonProcessYn, 'L_FIM080', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonProcessYn, 'L_FIM080', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['gvwAct'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 사용자
-            gfnma_setComSelect(['gvwAct'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
             // 지불방식
-            gfnma_setComSelect(['gvwAct'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwAct'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
         ]);
     }
 
@@ -521,7 +521,7 @@
         if (nCol != gvwInfo.getColRef("DOC_NAME")) {
             var param = {
                 TYPE : "Q",
-                COMP_CODE : gv_ma_selectedApcCd,
+                COMP_CODE : gv_ma_selectedCorpCd,
                 FI_ORG_CODE : gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE')),
                 TXN_DATE : gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("TXN_DATE"))),
                 TXN_TIME : gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("TXN_TIME"))),
@@ -557,7 +557,7 @@
         if (nCol != gvwAct.getColRef("TREASURY_BATCH_NO")) {
             var param = {
                 TREASURY_BATCH_NO: gvwAct.getCellData(gvwAct.getRow(), gvwAct.getColRef("TREASURY_BATCH_NO")),
-                COMP_CODE: gv_ma_selectedApcCd,
+                COMP_CODE: gv_ma_selectedCorpCd,
                 FI_ORG_CODE: gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE')),
                 ASAVE : "N",
                 APRINT : "N",
@@ -579,7 +579,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_CS_PURCHASE'
             ,popupType				: 'A'
@@ -607,7 +607,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_BANK_CODE'
             ,popupType				: 'A'
@@ -635,7 +635,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_BANK_ACCOUNT'
             ,popupType				: 'A'
@@ -711,7 +711,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_FI_ORG_CODE : FI_ORG_CODE,
                 V_P_TXN_DATE_FR : TXN_DATE_FR,
@@ -877,7 +877,7 @@
     const fn_create = async function () {
         var param = {
             TYPE : "N",
-            COMP_CODE : gv_ma_selectedApcCd,
+            COMP_CODE : gv_ma_selectedCorpCd,
             FI_ORG_CODE : '',
             TXN_DATE : '',
             TXN_TIME : '',

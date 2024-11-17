@@ -192,10 +192,10 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무패턴
-            gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_WORK_PATTERN_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -384,7 +384,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: '',
                 V_P_LANG_ID: '',
-                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                 V_P_WORK_TYPE_D: WORK_TYPE_D,
                 V_P_YYYYMMDD_D: YYYYMMDD_D,
@@ -430,7 +430,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
             V_P_LANG_ID: '',
-            V_P_COMP_CODE: gv_ma_selectedApcCd,
+            V_P_COMP_CODE: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE: gv_ma_selectedClntCd,
             V_P_WORK_PATTERN_CODE: WORK_PATTERN_CODE,
             V_P_YYYYMMDD_FR: YYYYMMDD_FR,
@@ -529,7 +529,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_WORK_PATTERN_CODE : WORK_PATTERN_CODE,
             V_P_YYYYMMDD_FR : YYYYMMDD_FR,

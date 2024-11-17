@@ -406,11 +406,11 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	var jsonCurrencyCode = [];
 	const fn_initSBSelect = async function() {
 	    let rst = await Promise.all([
-			gfnma_setComSelect(['historyGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['historyGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 	        //통화코드
 	        gfnma_multiSelectInit({
 	            target: ['#CURRENCY_CODE'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_COM001',
 	            whereClause: '',
@@ -430,7 +430,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	        //부가세관할세무소
 	        gfnma_multiSelectInit({
 	            target: ['#VAT_OFFICE'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_COM004',
 	            whereClause: '',
@@ -449,7 +449,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	        //원천세관할세무소
 	        gfnma_multiSelectInit({
 	            target: ['#INCOME_TAX_OFFICE'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_COM004',
 	            whereClause: '',
@@ -469,7 +469,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	        //국가
 	        gfnma_multiSelectInit({
 	            target: ['#SITE_CODE'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG001',
 	            whereClause: '',
@@ -484,7 +484,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	            	{ caption: "사업장코드", 		ref: 'SITE_CODE',	width: '100px',	style: 'text-align:left'  },
 	            	{ caption: "사업장명",		ref: 'SITE_NAME',	width: '150px',	style: 'text-align:left' },
 	            	{ caption: "비고",	  		ref: 'DESCR',	width: '150px',	style: 'text-align:left' },
-	            	{ caption: "회계단위코드",	 	ref: 'FI_ORG_CODE',	width: '150px',	style: 'text-align:left' }
+	            	{ caption: "APC코드",	 	ref: 'FI_ORG_CODE',	width: '150px',	style: 'text-align:left' }
 	            ]
 	        }),
 	    ]);
@@ -679,7 +679,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 	        V_P_DEBUG_MODE_YN			: '',
 	        V_P_LANG_ID					: '',
-	        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+	        V_P_COMP_CODE				: gv_ma_selectedCorpCd,
 	        V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
 	        V_P_TAX_SITE_CODE			: SRCH_TAX_SITE_CODE1,
 	        V_P_TAX_SITE_NAME			: SRCH_TAX_SITE_NAME1,
@@ -763,7 +763,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 	        V_P_DEBUG_MODE_YN: '',
 	        V_P_LANG_ID: '',
-	        V_P_COMP_CODE: gv_ma_selectedApcCd,
+	        V_P_COMP_CODE: gv_ma_selectedCorpCd,
 	        V_P_CLIENT_CODE: gv_ma_selectedClntCd,
 	        V_P_TAX_SITE_CODE: gfnma_nvl(P_TAX_SITE_CODE),
 	        V_P_TAX_SITE_NAME: gfnma_nvl(P_TAX_SITE_NAME),
@@ -826,7 +826,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 	        V_P_DEBUG_MODE_YN			: '',
 	        V_P_LANG_ID					: '',
-	        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+	        V_P_COMP_CODE				: gv_ma_selectedCorpCd,
 	        V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
 	        V_P_TAX_SITE_CODE			: gfnma_nvl(P_TAX_SITE_CODE),
 	        V_P_TAX_SITE_NAME			: gfnma_nvl(P_TAX_SITE_NAME),
@@ -888,7 +888,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 		        V_P_DEBUG_MODE_YN			: '',
 		        V_P_LANG_ID					: '',
-		        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+		        V_P_COMP_CODE				: gv_ma_selectedCorpCd,
 		        V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
 		        V_P_TAX_SITE_CODE			: selectRowVal.TAX_SITE_CODE,
 		        V_P_TAX_SITE_NAME			: selectRowVal.TAX_SITE_NAME,
@@ -939,7 +939,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 		    	    gfnma_multiSelectSet('#SITE_CODE', 'SITE_CODE', 'SITE_NAME', gfnma_nvl(obj.SITE_CODE));
 		    	
 		    	    if (gfnma_nvl(obj.SITE_STAMP_FILE_NAME) != '') {
-		    	        $("#TAX_SITE_STAMP").attr("src", "/com/getFileImage.do?fkey=" + obj.SITE_STAMP_FILE_NAME + "&comp_code=" + gv_ma_selectedApcCd + "&client_code=" + gv_ma_selectedClntCd);
+		    	        $("#TAX_SITE_STAMP").attr("src", "/com/getFileImage.do?fkey=" + obj.SITE_STAMP_FILE_NAME + "&comp_code=" + gv_ma_selectedCorpCd + "&client_code=" + gv_ma_selectedClntCd);
 		    	    }
 		    	    $('#btnTaxSiteStamp').find('.sbux-btn-txt').text('사용인감 변경');
 		    	    
@@ -1055,7 +1055,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 	    		   V_P_DEBUG_MODE_YN       : ''
     			  ,V_P_LANG_ID             : ''
-    			  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     			  ,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
     			  ,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
@@ -1119,7 +1119,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    var paramObj = {
 	    		   V_P_DEBUG_MODE_YN       : ''
     			  ,V_P_LANG_ID             : ''
-    			  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+    			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
     			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
     			  ,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
     			  ,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
@@ -1186,7 +1186,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    paramData.append("files", file);
 	    paramData.append("type", type); // 1:사진 , 2:싸인, 3:법인 로고, 4: 직인, 5: 사용인감
 	    paramData.append("empCode", key); // 키값 여기서는 사업장정보 -> 사업장코드를 이용
-	    paramData.append("comp_code", gv_ma_selectedApcCd);
+	    paramData.append("comp_code", gv_ma_selectedCorpCd);
 	    paramData.append("client_code", gv_ma_selectedClntCd);
 	    paramData.append("formID", p_formId);
 	    paramData.append("menuId", p_menuId);
@@ -1195,7 +1195,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    const data = await postJsonPromise;
 	    try {
 	        if (_.isEqual("S", data.resultStatus)) {
-	            $("#TAX_SITE_STAMP").attr("src", "/com/getFileImage.do?fkey=" + data.imgKey + "&comp_code=" + gv_ma_selectedApcCd + "&client_code=" + gv_ma_selectedClntCd);
+	            $("#TAX_SITE_STAMP").attr("src", "/com/getFileImage.do?fkey=" + data.imgKey + "&comp_code=" + gv_ma_selectedCorpCd + "&client_code=" + gv_ma_selectedClntCd);
 	        } else {
 	            alert(data.resultMessage);
 	        }
@@ -1292,7 +1292,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	            params: gfnma_objectToString({
 	            	   V_P_DEBUG_MODE_YN        : ''
             		  ,V_P_LANG_ID              : ''
-            		  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            		  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
             		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
             		  ,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
             		  ,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)
@@ -1405,7 +1405,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	            params: gfnma_objectToString({
 	            	   V_P_DEBUG_MODE_YN        : ""
             		  ,V_P_LANG_ID              : ""
-            		  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            		  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
             		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
             		  ,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
             		  ,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)

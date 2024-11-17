@@ -25,6 +25,7 @@
 	<title>title : 손익계산서</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+	<%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -36,7 +37,6 @@
                     </h3><!-- 손익계산서 -->
                 </div>
                 <div style="margin-left: auto;">
-					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
                     <sbux-button uitype="normal" text="수불내역"  class="btn btn-sm btn-outline-danger" onclick="fn_dtlView()" ></sbux-button>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                        		<!-- /hidden -->
                        		                    
                         <tr>
-                            <th scope="row" class="th_bg_search">사업단위</th>
+                            <th scope="row" class="th_bg_search">APC</th>
                             <td colspan="3" class="td_input" >
                                 <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
@@ -184,6 +184,7 @@
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
 								<font style="margin-right:auto;">관리용 손익계산서</font>
                 				<div style="margin-left: auto;">
+									<sbux-button id="btnPrint1" name="btnPrint1" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint('1')"></sbux-button>
 								</div>
 							</div>
 							<div id="SB_TAB1_GRID" style="height:470px; width:100%;">
@@ -194,6 +195,7 @@
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
 								<font style="margin-right:auto;">기간별 증감비교</font>
                 				<div style="margin-left: auto;">
+									<sbux-button id="btnPrint2" name="btnPrint2" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint('2')"></sbux-button>
 								</div>
 							</div>
 							<div id="SB_TAB2_GRID" style="height:470px; width:100%;">
@@ -275,7 +277,7 @@
 	var p_ss_deptName			= '${loginVO.maDeptName}';
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	var jsonAcctRuleCode	= [];	// 회계기준
 	var jsonAccountLevel	= [];	// 계정수준
@@ -328,16 +330,16 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_LEVEL'],		jsonAccountLevel, 	'L_FIG011_Y', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCOUNT_LEVEL'],		jsonAccountLevel, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 기간
-            gfnma_setComSelect(['SCH_CBODESCR1'],			jsonCbodescr1, 		'L_FIM130', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CBODESCR1'],			jsonCbodescr1, 		'L_FIM130', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -736,7 +738,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -751,7 +753,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -880,7 +882,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -895,7 +897,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -1036,7 +1038,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -1051,7 +1053,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -1181,7 +1183,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -1196,7 +1198,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -1316,7 +1318,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -1331,7 +1333,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -1462,7 +1464,7 @@
 		let p_zero_include_yn	 = gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -1477,7 +1479,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -1864,19 +1866,106 @@
         
         var obj = {
         	'MENU_MOVE'				: 'Y'	
-        	,'FI_ORG_CODE' 			: SBUxMethod.get('SCH_FI_ORG_CODE') 
-        	,'SITE_CODE' 			: SBUxMethod.get('SCH_SITE_CODE') 
-        	,'ACCT_RULE_CODE'		: SBUxMethod.get('SCH_ACCT_RULE_CODE') 
-        	,'YMDPERIOD_FR' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_FR') 
-        	,'YMDPERIOD_TO' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_FR') 
-        	,'ACCOUNT_GROUP' 		: SBUxMethod.get('SCH_ACCOUNT_LEVEL') 
+        	,'FI_ORG_CODE' 			: SBUxMethod.get('SCH_FI_ORG_CODE')
+        	,'SITE_CODE' 			: SBUxMethod.get('SCH_SITE_CODE')
+        	,'ACCT_RULE_CODE'		: SBUxMethod.get('SCH_ACCT_RULE_CODE')
+        	,'YMDPERIOD_FR' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_FR')
+        	,'YMDPERIOD_TO' 		: SBUxMethod.get('SCH_YMDPERIOD_CODE_FR')
+        	,'ACCOUNT_GROUP' 		: SBUxMethod.get('SCH_ACCOUNT_LEVEL')
         	,'ACCOUNT_CODE' 		: account_code_view
         	,'ACCOUNT_NAME' 		: account_name
         	,'target'				: 'MA_A20_030_030_210'
         }
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
-	}    
+	}  
+    
+    const fn_btnPrint = async function(type){
+    	var conn = '';
+    	if (type == "1") {
+            conn = await fn_GetReportData('REPORT1');
+            conn = await gfnma_convertDataForReport(conn);
+    		gfn_popClipReportPost("손익계산서", "ma/RPT_FIG5253_PL1.crf", null, conn );	
+        } else if(type == "2") {
+            conn = await fn_GetReportData('REPORT2');
+            conn = await gfnma_convertDataForReport(conn);
+    		gfn_popClipReportPost("손익계산서", "ma/RPT_FIG5253_PL2.crf", null, conn );
+        }
+    }
+	//손익계산서 리포트 출력 데이터
+    const fn_GetReportData = async function(workType) {
+		let ACCT_RULE_CODE		= gfn_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let FI_ORG_CODE			= gfn_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let SITE_CODE			= gfn_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let YMDPERIOD_CODE_FR	= gfn_nvl(SBUxMethod.get("SCH_YMDPERIOD_CODE_FR"));
+		let YMDPERIOD_CODE_TO	= gfn_nvl(SBUxMethod.get("SCH_YMDPERIOD_CODE_TO"));
+		let CBODESCR1			= gfn_nvl(SBUxMethod.get("SCH_CBODESCR1"));
+		let YMDSELECT_PERIOD1	= gfn_nvl(SBUxMethod.get("SCH_YMDSELECT_PERIOD1"));
+		let ZERO_INCLUDE_YN		= gfn_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
+		let ACCOUNT_GROUP	 	= gfn_nvl(SBUxMethod.get("SCH_ACCOUNT_LEVEL"));
+		if(!FI_ORG_CODE){
+ 			gfn_comAlert("E0000","APC를 선택하세요");
+			return;      		 
+		}
+		if(!ACCT_RULE_CODE){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		if(!YMDPERIOD_CODE_FR){
+ 			gfn_comAlert("E0000","기준년월을 선택하세요");
+			return;      		 
+		}
+	    var paramObj = {
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			,V_P_ACCT_RULE_CODE		: ACCT_RULE_CODE
+			,V_P_FI_ORG_CODE		: FI_ORG_CODE
+			,V_P_SITE_CODE			: SITE_CODE
+			,V_P_PERIOD_CODE_FR		: YMDPERIOD_CODE_FR
+			,V_P_PERIOD_CODE_TO		: YMDPERIOD_CODE_TO
+			,V_P_ACCOUNT_GROUP		: ACCOUNT_GROUP
+			,V_P_DESCR				: CBODESCR1
+			,V_P_SELECT_PERIOD		: YMDSELECT_PERIOD1
+			,V_P_ZERO_INCLUDE_YN	: ZERO_INCLUDE_YN
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253Report.do", {
+        	getType				: 'json',
+        	workType			: workType,
+        	cv_count			: '5',
+        	params				: gfnma_objectToString(paramObj)
+		});
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+            	if(workType == 'REPORT1'){
+	            	if(data.cv_2.length > 0){
+	            		data.cv_2[0].PREV_PERIOD_DESCR = data.cv_1[0].PREV_PERIOD_DESCR;
+	            	}
+            	}else if(workType == 'REPORT2'){
+	            	if(data.cv_4.length > 0){
+	            		data.cv_4[0].PREV_PERIOD_DESCR = data.cv_3[0].PREV_PERIOD_DESCR;
+	            	}
+            	}
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+        return data;
+    }
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

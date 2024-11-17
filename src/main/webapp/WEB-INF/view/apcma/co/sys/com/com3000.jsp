@@ -89,24 +89,26 @@
 	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:100" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
-<!-- 	                            <th scope="row" class="th_bg_search" >코드그룹명</th> -->
-<!-- 	                            <td colspan="4" class="td_input" > -->
-<!-- 	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input> -->
-<!-- 	                            </td> -->
-		                        <th scope="row" class="th_bg_search">sbux-datepicker 테스트</th>
+	                            <th scope="row" class="th_bg_search" >코드그룹명</th>
+	                            <td colspan="4" class="td_input" >
+	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                        </tr>
+	                        <tr>
+		                        <th scope="row" class="th_bg_search">datepicker 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
 	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
-	                            </td>	
+	                            </td>
 	                            <td colspan="3"></td>
 		                        <th scope="row" class="th_bg_search">datepicker reqed 테스트</th>
 	                            <td class="td_input"  style="border-right:hidden;">
 	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 	                            </td>	
-	                            <td colspan="3"></td>
+	                            <td colspan="3"></td>	                        
 	                        </tr>
 	                        <tr>
 	                        	<th scope="row" class="th_bg_search">라디오버튼 테스트</th>
-                                 <td class="td_input " colspan="3">
+                                <td class="td_input " colspan="3">
 									<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" text="차변" uitype="normal" value="D" class="radio_label" checked></sbux-radio>
 									<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" text="대변" uitype="normal" value="C" class="radio_label"></sbux-radio>
 								</td>	                        
@@ -119,10 +121,10 @@
 				                            jsondata-ref="selectJsonData"
 				                            unselected-text="선택"
 				                            class="form-control input-sm"
-				                    </sbux-select>                                
-								</td>	
+				                    </sbux-select>
+								</td>
 								<td></td>                        
-	                        	<th scope="row" class="th_bg_search">셀렉트 테스트</th>
+	                        	<th scope="row" class="th_bg_search">셀렉트 테스트 reqed</th>
                                 <td class="td_input" colspan="3">
 				                    <sbux-select
 				                            id="SRCH_PAY_DATE1"
@@ -134,6 +136,27 @@
 				                    </sbux-select>                                
 								</td>	
 								<td></td>                        
+	                        </tr>
+	                        <tr>
+								<th scope="row" class="th_bg_search">팝업 테스트</th>
+								<td class="td_input" >
+	   								<sbux-input uitype="text" id="BUDGET_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input"  colspan="2">
+									<sbux-input uitype="text" id="BUDGET_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+	                            <td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetAcc" ></sbux-button>
+	                            </td>	                        
+								<th scope="row" class="th_bg_search">datepicker 2개 테스트</th>
+								<td class="td_input" >
+	                                <sbux-datepicker id="TEST_DATE3" name="TEST_DATE3" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+								</td>
+								<td>~</td>
+								<td class="td_input" >
+	                                <sbux-datepicker id="TEST_DATE4" name="TEST_DATE4" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
+								</td>
+	                            <td></td>	                        
 	                        </tr>
 	                    </tbody>
 	                </table>
@@ -149,7 +172,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3000" style="height:742px; width:100%;"></div>
+                            <div id="sb-area-grdCom3000" style="height:96vh; width:100%;"></div>
                         </div>
                     </div>
 
@@ -179,20 +202,11 @@
                                     <th scope="row" class="th_bg_content">사용여부</th>
                                     <td class="td_input">
                                         <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="USE_YN"
-                                                    name="USE_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="사용"
-                                                    true-value="Y" 
-                                                    false-value="N"
-                                            />
+                                            <sbux-checkbox uitype="normal" id="USE_YN" name="USE_YN" uitype="normal" class="form-control input-sm check" text="사용" true-value="Y" false-value="N"/></sbux-checkbox>
                                         </p>                                    
                                     </td>
                                     <th scope="row" rowspan="3" colspan="" class="th_bg_content" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;요</th>
-                                    <td class="td_input" rowspan="3" colspan="3" >
+                                    <td class="td_input" rowspan="3" colspan="3">
                                         <sbux-textarea id="DESCR" class="form-control input-sm" uitype="normal" style="width:100%; height:100px;""></sbux-textarea>
                                     </td>
                                 </tr>
@@ -365,9 +379,7 @@
                             </div>
                         </div>
                         <div class="ad_tbl_top2">
-	                        <div>
-	                            <div id="sb-area-subGrdCom3000" style="height:420px; width:100%; border-left: none !important; border-right: none !important; border-bottom: none !important; border-top: none !important;"></div>
-	                        </div>
+                            <div id="sb-area-subGrdCom3000" style="height:55vh; width:100%; border-left: none !important; border-right: none !important; border-bottom: none !important; border-top: none !important;"></div>
                         </div>
                     </div>
                 </div>
@@ -377,7 +389,14 @@
     
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="com-popup1" name="com-popup1" uitype="middle" header-title="" body-html-id="body-com-popup1" header-is-close-button="true" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal 
+        	id="modal-compopup1" 
+        	name="modal-compopup1" 
+        	uitype="middle" 
+        	header-title="" 
+        	body-html-id="body-com-popup1" 
+        	header-is-close-button="true" footer-is-close-button="false" style="width:1000px">
+        </sbux-modal>
     </div>
     <div id="body-com-popup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -413,13 +432,48 @@
 		{ text : "흰색", value : "white"  }
 	];
 	
+    /**
+     * 공통팝업
+     * 예산계정	
+     */
+   	var fn_compopupBudgetAcc = function() {
+    	
+        var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_NAME"));
+        var replaceText0 	= "_BUDGET_ACC_CODE_";
+        var replaceText1 	= "_BUDGET_ACC_NAME_";
+        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+    	compopup1({
+    		compCode				: gv_ma_selectedCorpCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_ACCT_BUDGET'
+    		,popupType				: 'A'
+    		,whereClause			: strWhereClause
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["코드",			"명칭", 				"구분", 				"원가구분"]
+   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"EXTRA_FIELD1",  	"COST_CLASS"]
+   			,tableColumnWidths		: ["100px", 		"100px", 			"100px", 			"100px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('BUDGET_ACC_CODE', data.ACCOUNT_CODE);
+				SBUxMethod.set('BUDGET_ACC_NAME', data.ACCOUNT_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+  	}
+	
+	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
 			//유형분류
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_GROUP_CATEGORY']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM013'
 				,whereClause	: ''
@@ -437,10 +491,10 @@
 			}),
 			
 			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 		]);
-	}	
+	}
 
     // only document
     window.addEventListener('DOMContentLoaded', async  function(e) {
@@ -480,22 +534,27 @@
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-			fn_saveFieldCaption();
+			fn_saveData();
 		}
     }
 	
+	const fn_saveData = async function(){
+		await fn_save();
+		await fn_saveSubGrid();
+		await fn_search();
+	}
 	
 	// 마스터 그리드 삭제
 	function cfn_del() {
-		fn_delete();
+		let GROUP_CODE = gfn_nvl(SBUxMethod.get("GROUP_CODE"));
+		if(gfn_comConfirm("Q0001", "[" + GROUP_CODE + "] " + "그룹코드를 삭제")){ //{0} 하시겠습니까?
+			fn_delete();
+		}
 	}
  
 	// 조회
 	function cfn_search() {
 		fn_search();
-		fn_clearForm();
-		fn_createGrid();
-		fn_createSubGrid();
 	}
 
     const fn_onload = async function (parentParameter) {
@@ -599,62 +658,62 @@
     	
     	var paramObj = {
 	    		
-    	   		   V_P_DEBUG_MODE_YN	: ''
-    	   		   ,V_P_LANG_ID         : ''    
-    	   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
-    	   		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
-    	   		   ,V_P_GROUP_CATEGORY  : SRCH_GROUP_CATEGORY 
-    	   		   ,V_P_GROUP_CODE      : SRCH_GROUP_CODE
-    	   		   ,V_P_GROUP_NAME		: SRCH_GROUP_NAME          
-    	  		   ,V_P_PARAM_INFO		: ''        
-    	   		   ,V_P_FORM_ID			: p_formId    
-    	   		   ,V_P_MENU_ID			: p_menuId         
-    	   		   ,V_P_PROC_ID     	: ''        
-    	   		   ,V_P_USERID			: p_userId
-    	   		   ,V_P_PC				: '' 
-    	   		   
-    		    };		
-    	        const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3000List.do", {
-    	        	getType				: 'json',
-    	        	workType			: 'MASTER',
-    	        	cv_count			: '4',
-    	        	params				: gfnma_objectToString(paramObj)
-    			});
+   		   V_P_DEBUG_MODE_YN	: ''
+   		   ,V_P_LANG_ID         : ''    
+   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
+   		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
+   		   ,V_P_GROUP_CATEGORY  : SRCH_GROUP_CATEGORY 
+   		   ,V_P_GROUP_CODE      : SRCH_GROUP_CODE
+   		   ,V_P_GROUP_NAME		: SRCH_GROUP_NAME          
+  		   ,V_P_PARAM_INFO		: ''        
+   		   ,V_P_FORM_ID			: p_formId    
+   		   ,V_P_MENU_ID			: p_menuId         
+   		   ,V_P_PROC_ID     	: ''        
+   		   ,V_P_USERID			: p_userId
+   		   ,V_P_PC				: '' 
+   		   
+	    };		
+        const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3000List.do", {
+        	getType				: 'json',
+        	workType			: 'MASTER',
+        	cv_count			: '4',
+        	params				: gfnma_objectToString(paramObj)
+		});
 
-    	        const data = await postJsonPromise;
-    	        try {
-    	  			if (_.isEqual("S", data.resultStatus)) {
+        const data = await postJsonPromise;
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-    	  	        	/** @type {number} **/
-    	  	    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-    	  	    		CMNSCDGrid.length = 0;
-    	  	        	data.cv_1.forEach((item, index) => {
-    	  					const msg = {
-    	  							GROUP_NAME		: item.GROUP_NAME,
-    	  							GROUP_CODE		: item.GROUP_CODE
-    	  					}
-    	  					jsonCMNSCDList.push(msg);
-    	  					totalRecordCount ++;
-    	  				});
+  	    		CMNSCDGrid.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  							GROUP_NAME		: item.GROUP_NAME,
+  							GROUP_CODE		: item.GROUP_CODE
+  					}
+  					jsonCMNSCDList.push(msg);
+  					totalRecordCount ++;
+  				});
 
-    	  	        	CMNSCDGrid.rebuild();
-    	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
+  	        	CMNSCDGrid.rebuild();
+  	        	document.querySelector('#listCount').innerText = totalRecordCount;
 
-                        if(jsonCMNSCDList.length > 0) {
-                            CMNSCDGrid.clickRow(1);
-                        }
-    	        	} else {
-    	          		alert(data.resultMessage);
-    	        	}
+                   if(jsonCMNSCDList.length > 0) {
+                       CMNSCDGrid.clickRow(1);
+                   }
+        	} else {
+          		alert(data.resultMessage);
+        	}
 
-    	        } catch (e) {
-    	    		if (!(e instanceof Error)) {
-    	    			e = new Error(e);
-    	    		}
-    	    		console.error("failed", e.message);
-    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	        }
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     	        
     }
 
@@ -673,7 +732,7 @@
 	    		
    		   V_P_DEBUG_MODE_YN	: ''
    		   ,V_P_LANG_ID         : ''    
-   		   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+   		   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
    		   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
    		   ,V_P_GROUP_CATEGORY  : '' 
    		   ,V_P_GROUP_CODE      : GROUP_CODE
@@ -725,11 +784,7 @@
   	      		SBUxMethod.set("FIELD_CAPTION19", 		obj.FIELD_CAPTION19);
   	      		SBUxMethod.set("FIELD_CAPTION20", 		obj.FIELD_CAPTION20);
   	      		SBUxMethod.set("DESCR", 				obj.DESCR);
-  	      		if(obj.USE_YN == 'Y'){
-  	      			$('#USE_YN').prop('checked', true);
-  	      		}else{
-  	      			$('#USE_YN').prop('checked', false);
-  	      		}
+  	      		SBUxMethod.set("USE_YN", 				obj.USE_YN);
   	      		
   	      		fn_drawCMNSCDSubGrid(mode, obj, cv_4);
   	      		
@@ -919,7 +974,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -977,11 +1032,10 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    	
     }
 
     //그룹코드 내역 저장
-    const fn_saveFieldCaption = async function() {
+    const fn_save = async function() {
 
     	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
     	let USE_YN				= gfn_nvl(SBUxMethod.get("USE_YN"));
@@ -1037,7 +1091,7 @@
   	    var paramObj = {
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_GROUP_CODE				: GROUP_CODE
   				,V_P_GROUP_NAME				: GROUP_NAME
@@ -1080,76 +1134,7 @@
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-          		gfn_comAlert('I0001');
-        		//세부코드 정보  저장
-        		let CMNSCDSubGridLength	= CMNSCDSubGrid.getUpdateData(true, 'all').length;
-        		let CMNSCDSubGridData 	= CMNSCDSubGrid.getUpdateData(true, 'all');
-                if(CMNSCDSubGridLength <= 0){
-                	return;
-                }
-                let listData = [];
-                CMNSCDSubGridData.forEach((item, index) => {
-                    const param = {
-                        cv_count: '0',
-                        getType: 'json',
-                        rownum: item.rownum,
-                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                        params: gfnma_objectToString({
-  	   	  	    	      V_P_DEBUG_MODE_YN        : ''
-    	   	  	    	      ,V_P_LANG_ID             : ''
-    	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
-    	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-    	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
-    	   	  	    	      ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
-    	   	  	    	      ,V_P_CODE_NAME           : gfn_nvl(item.data.CODE_NAME)
-    	   	  	    	      ,V_P_SYSTEM_YN           : gfn_nvl(item.data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-    	   	  	    	      ,IV_P_EXTRA_FIELD1       : gfn_nvl(item.data.EXTRA_FIELD1)
-    	   	  	    	      ,IV_P_EXTRA_FIELD2       : gfn_nvl(item.data.EXTRA_FIELD2)
-    	   	  	    	      ,V_P_EXTRA_FIELD3        : gfn_nvl(item.data.EXTRA_FIELD3)
-    	   	  	    	      ,V_P_EXTRA_FIELD4        : gfn_nvl(item.data.EXTRA_FIELD4)
-    	   	  	    	      ,V_P_EXTRA_FIELD5        : gfn_nvl(item.data.EXTRA_FIELD5)
-    	   	  	    	      ,V_P_EXTRA_FIELD6        : gfn_nvl(item.data.EXTRA_FIELD6)
-    	   	  	    	      ,V_P_EXTRA_FIELD7        : gfn_nvl(item.data.EXTRA_FIELD7)
-    	   	  	    	      ,V_P_EXTRA_FIELD8        : gfn_nvl(item.data.EXTRA_FIELD8)
-    	   	  	    	      ,V_P_EXTRA_FIELD9        : gfn_nvl(item.data.EXTRA_FIELD9)
-    	   	  	    	      ,V_P_EXTRA_FIELD10       : gfn_nvl(item.data.EXTRA_FIELD10)
-    	   	  	    	      ,V_P_EXTRA_FIELD11       : gfn_nvl(item.data.EXTRA_FIELD11)
-    	   	  	    	      ,V_P_EXTRA_FIELD12       : gfn_nvl(item.data.EXTRA_FIELD12)
-    	   	  	    	      ,V_P_EXTRA_FIELD13       : gfn_nvl(item.data.EXTRA_FIELD13)
-    	   	  	    	      ,V_P_EXTRA_FIELD14       : gfn_nvl(item.data.EXTRA_FIELD14)
-    	   	  	    	      ,V_P_EXTRA_FIELD15       : gfn_nvl(item.data.EXTRA_FIELD15)
-    	   	  	    	      ,V_P_EXTRA_FIELD16       : gfn_nvl(item.data.EXTRA_FIELD16)
-    	   	  	    	      ,V_P_EXTRA_FIELD17       : gfn_nvl(item.data.EXTRA_FIELD17)
-    	   	  	    	      ,V_P_EXTRA_FIELD18       : gfn_nvl(item.data.EXTRA_FIELD18)
-    	   	  	    	      ,V_P_EXTRA_FIELD19       : gfn_nvl(item.data.EXTRA_FIELD19)
-    	   	  	    	      ,V_P_EXTRA_FIELD20       : gfn_nvl(item.data.EXTRA_FIELD20)
-    	   	  	    	      ,V_P_SORT_SEQ            : gfn_nvl(item.data.SORT_SEQ)
-    	   	  	    	      ,V_P_USE_YN              : gfn_nvl(item.data.USE_YN) == 'Y' ? 'Y' : 'N'
-    	   	  	    	      ,V_P_FORM_ID             : p_formId
-    	   	  	    	      ,V_P_MENU_ID             : p_menuId
-    	   	  	    	      ,V_P_PROC_ID             : ''
-    	   	  	    	      ,V_P_USERID              : p_userId
-    	   	  	    	      ,V_P_PC                  : ''
-                        })
-                    }
-                    listData.push(param);
-                });
-                const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: listData});
-                const updateData = await postJsonPromise;
-                try {
-                    if (_.isEqual("S", updateData.resultStatus)) {
-                    } else {
-                        alert(updateData.resultMessage);
-                        return false;
-                    }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                }
-	       		cfn_search();
+//           		gfn_comAlert('I0001');
         	} else {
           		alert(data.resultMessage);
         	}
@@ -1161,33 +1146,183 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+    const fn_saveSubGrid = async function(){
+    	
+		//세부코드 정보  저장
+		let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
+		let CMNSCDSubGridLength	= CMNSCDSubGrid.getUpdateData(true, 'all').length;
+		let CMNSCDSubGridData 	= CMNSCDSubGrid.getUpdateData(true, 'all');
+        if(CMNSCDSubGridLength <= 0){
+        	return;
+        }
+        
+        const deleteRemove = (arr, value) => {
+            return arr.filter((element) => {
+                return element.status  != value;
+            });
+        };
+        CMNSCDSubGridData = deleteRemove(CMNSCDSubGridData, 'd');
+        
+        console.log('CMNSCDSubGridData' , CMNSCDSubGridData);
+        let paramList = [];
+        CMNSCDSubGridData.forEach((item, index) => {
+            const param = {
+                cv_count: '0',
+                getType: 'json',
+                rownum: item.rownum,
+                workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+ 	  	    	    V_P_DEBUG_MODE_YN        : ''
+   	  	    	    ,V_P_LANG_ID             : ''
+   	  	    	    ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+   	  	    	    ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   	  	    	    ,V_P_GROUP_CODE          : GROUP_CODE
+   	  	    	    ,V_P_SUB_CODE            : gfn_nvl(item.data.SUB_CODE)
+   	  	    	    ,V_P_CODE_NAME           : gfn_nvl(item.data.CODE_NAME)
+   	  	    	    ,V_P_SYSTEM_YN           : gfn_nvl(item.data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+   	  	    	    ,IV_P_EXTRA_FIELD1       : gfn_nvl(item.data.EXTRA_FIELD1)
+   	  	    	    ,IV_P_EXTRA_FIELD2       : gfn_nvl(item.data.EXTRA_FIELD2)
+   	  	    	    ,V_P_EXTRA_FIELD3        : gfn_nvl(item.data.EXTRA_FIELD3)
+   	  	    	    ,V_P_EXTRA_FIELD4        : gfn_nvl(item.data.EXTRA_FIELD4)
+   	  	    	    ,V_P_EXTRA_FIELD5        : gfn_nvl(item.data.EXTRA_FIELD5)
+   	  	    	    ,V_P_EXTRA_FIELD6        : gfn_nvl(item.data.EXTRA_FIELD6)
+   	  	    	    ,V_P_EXTRA_FIELD7        : gfn_nvl(item.data.EXTRA_FIELD7)
+   	  	    	    ,V_P_EXTRA_FIELD8        : gfn_nvl(item.data.EXTRA_FIELD8)
+   	  	    	    ,V_P_EXTRA_FIELD9        : gfn_nvl(item.data.EXTRA_FIELD9)
+   	  	    	    ,V_P_EXTRA_FIELD10       : gfn_nvl(item.data.EXTRA_FIELD10)
+   	  	    	    ,V_P_EXTRA_FIELD11       : gfn_nvl(item.data.EXTRA_FIELD11)
+   	  	    	    ,V_P_EXTRA_FIELD12       : gfn_nvl(item.data.EXTRA_FIELD12)
+   	  	    	    ,V_P_EXTRA_FIELD13       : gfn_nvl(item.data.EXTRA_FIELD13)
+   	  	    	    ,V_P_EXTRA_FIELD14       : gfn_nvl(item.data.EXTRA_FIELD14)
+   	  	    	    ,V_P_EXTRA_FIELD15       : gfn_nvl(item.data.EXTRA_FIELD15)
+   	  	    	    ,V_P_EXTRA_FIELD16       : gfn_nvl(item.data.EXTRA_FIELD16)
+   	  	    	    ,V_P_EXTRA_FIELD17       : gfn_nvl(item.data.EXTRA_FIELD17)
+   	  	    	    ,V_P_EXTRA_FIELD18       : gfn_nvl(item.data.EXTRA_FIELD18)
+   	  	    	    ,V_P_EXTRA_FIELD19       : gfn_nvl(item.data.EXTRA_FIELD19)
+   	  	    	    ,V_P_EXTRA_FIELD20       : gfn_nvl(item.data.EXTRA_FIELD20)
+   	  	    	    ,V_P_SORT_SEQ            : gfn_nvl(item.data.SORT_SEQ)
+   	  	    	    ,V_P_USE_YN              : gfn_nvl(item.data.USE_YN) == 'Y' ? 'Y' : 'N'
+   	  	    	    ,V_P_FORM_ID             : p_formId
+   	  	    	    ,V_P_MENU_ID             : p_menuId
+   	  	    	    ,V_P_PROC_ID             : ''
+   	  	    	    ,V_P_USERID              : p_userId
+   	  	    	    ,V_P_PC                  : ''
+                })
+            }
+            paramList.push(param);
+        });
+        if(paramList.length > 0) {
+	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: paramList});
+	        const updateData = await postJsonPromise;
+	console.log('postJsonPromise', postJsonPromise);        
+	console.log('updateData', updateData);        
+	        try {
+	            if (_.isEqual("S", updateData.resultStatus)) {
+	            } else {
+	                alert(updateData.resultMessage);
+	            }
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+        }
+    }
 
-     // 행 추가
-     const fn_addRow = function () {
-         let rowVal = CMNSCDSubGrid.getRow();
+    // 행 추가
+    const fn_addRow = function () {
+   		CMNSCDSubGrid.addRows([{USE_YN:"Y"}]);
+    }
 
-    	//데이터가 없고 행선택이 없을경우.
-         if (rowVal == -1){ 
+    // 행 삭제
+    const fn_delRow = async function () {
+        let rowVal = CMNSCDSubGrid.getRow();
+        let rowData = CMNSCDSubGrid.getRowData(rowVal)
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+    		if(gfn_comConfirm("Q0001", "삭제")){ //{0} 하시겠습니까?
+				if(rowData.SYSTEM_YN == 'Y'){
+					gfn_comAlert('E0000', '시스템코드는 삭제할 수 없습니다.');
+					return;
+				}else{
+    				await fn_deleteSubGrid(rowVal, rowData);
+				}
+    		}
+        }
+    }
+ 	// 행 삭제
+    const fn_deleteSubGrid = async function(rowVal, rowData){
+    	
+    	let GROUP_CODE = gfn_nvl(SBUxMethod.get("GROUP_CODE"));
+    	
+  	    var paramObj = {
+  	    	    V_P_DEBUG_MODE_YN        : ''
+				,V_P_LANG_ID             : ''
+				,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+				,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+				,V_P_GROUP_CODE          : GROUP_CODE
+				,V_P_SUB_CODE            : gfn_nvl(rowData.SUB_CODE)
+				,V_P_CODE_NAME           : gfn_nvl(rowData.CODE_NAME)
+				,V_P_SYSTEM_YN           : gfn_nvl(rowData.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+				,IV_P_EXTRA_FIELD1       : gfn_nvl(rowData.EXTRA_FIELD1)
+				,IV_P_EXTRA_FIELD2       : gfn_nvl(rowData.EXTRA_FIELD2)
+				,V_P_EXTRA_FIELD3        : gfn_nvl(rowData.EXTRA_FIELD3)
+				,V_P_EXTRA_FIELD4        : gfn_nvl(rowData.EXTRA_FIELD4)
+				,V_P_EXTRA_FIELD5        : gfn_nvl(rowData.EXTRA_FIELD5)
+				,V_P_EXTRA_FIELD6        : gfn_nvl(rowData.EXTRA_FIELD6)
+				,V_P_EXTRA_FIELD7        : gfn_nvl(rowData.EXTRA_FIELD7)
+				,V_P_EXTRA_FIELD8        : gfn_nvl(rowData.EXTRA_FIELD8)
+				,V_P_EXTRA_FIELD9        : gfn_nvl(rowData.EXTRA_FIELD9)
+				,V_P_EXTRA_FIELD10       : gfn_nvl(rowData.EXTRA_FIELD10)
+				,V_P_EXTRA_FIELD11       : gfn_nvl(rowData.EXTRA_FIELD11)
+				,V_P_EXTRA_FIELD12       : gfn_nvl(rowData.EXTRA_FIELD12)
+				,V_P_EXTRA_FIELD13       : gfn_nvl(rowData.EXTRA_FIELD13)
+				,V_P_EXTRA_FIELD14       : gfn_nvl(rowData.EXTRA_FIELD14)
+				,V_P_EXTRA_FIELD15       : gfn_nvl(rowData.EXTRA_FIELD15)
+				,V_P_EXTRA_FIELD16       : gfn_nvl(rowData.EXTRA_FIELD16)
+				,V_P_EXTRA_FIELD17       : gfn_nvl(rowData.EXTRA_FIELD17)
+				,V_P_EXTRA_FIELD18       : gfn_nvl(rowData.EXTRA_FIELD18)
+				,V_P_EXTRA_FIELD19       : gfn_nvl(rowData.EXTRA_FIELD19)
+				,V_P_EXTRA_FIELD20       : gfn_nvl(rowData.EXTRA_FIELD20)
+				,V_P_SORT_SEQ            : gfn_nvl(rowData.SORT_SEQ)
+				,V_P_USE_YN              : gfn_nvl(rowData.USE_YN) == 'Y' ? 'Y' : 'N'
+				,V_P_FORM_ID             : p_formId
+				,V_P_MENU_ID             : p_menuId
+				,V_P_PROC_ID             : ''
+				,V_P_USERID              : p_userId
+				,V_P_PC                  : ''
+	    };		
+        const postJsonPromise = gfn_postJSON("/co/sys/com/deleteCom3000_S1.do", {
+        	getType				: 'json',
+        	workType			: 'D',
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
 
-             CMNSCDSubGrid.addRow(true);
-         }else{
-             CMNSCDSubGrid.insertRow(rowVal);
-         }
-     }
-
-     // 행 삭제
-     const fn_delRow = async function () {
-
-         let rowVal = CMNSCDSubGrid.getRow();
-
-         if (rowVal == -1) {
-             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
-             return;
-         } else {
-             CMNSCDSubGrid.deleteRow(rowVal);
-         }
-
-     }
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		// 행삭제
+            CMNSCDSubGrid.deleteRow(rowVal);
+        		gfn_comAlert('I0001');
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
+    
+    
      /*필드캡션 데이터*/
     const fn_fieldCaption = async function (){
     	let field_data = {
@@ -1216,7 +1351,7 @@
     }
      
      /*셀복사 해제 (복사모드해제)*/
-    const fn_gridCopyClear = async function (){ 
+    const fn_gridCopyClear = async function (){
          $('#btnCopyClear').hide();
          $('#btnCopyLine').show();
          $('#btnCopyCell').hide();
@@ -1227,38 +1362,37 @@
          let fieldData = await fn_fieldCaption(); 
          fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
     }
-     /*행 복사 (행복사모드)*/
-     const fn_gridCopyLine = async function () { 
-         $('#btnCopyClear').hide();
-         $('#btnCopyLine').hide();
-         $('#btnCopyCell').show();
-         let gridData = CMNSCDSubGrid.getGridDataAll();
-         jsonCMNSCDSubList = [];
-         let fieldData = await fn_fieldCaption(); 
-
+    /*행 복사 (행복사모드)*/
+    const fn_gridCopyLine = async function () { 
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').show();
+        let gridData = CMNSCDSubGrid.getGridDataAll();
+        jsonCMNSCDSubList = [];
+        let fieldData = await fn_fieldCaption(); 
+		
         mode = 'byrows'; //그리드 프로퍼티스 셀모드
-
-         fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
-
-     }
+		
+        fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
+    }
     /*셀 복사 (셀복사모드)*/
     const fn_gridCopyCell = async function () { 
         $('#btnCopyClear').show();
         $('#btnCopyLine').hide();
         $('#btnCopyCell').hide();
-
+		
         let gridData = CMNSCDSubGrid.getGridDataAll();
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 
-
+		
         mode = 'free'; //그리드 프로퍼티스 클리어모드
-
+		
     	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
     }
      
      /*여유필드 캡션1~20 수정 시 그리드에 적용되게 */
      const fn_changeFieldCaption = async function () { 
-
+		
         let gridData = CMNSCDSubGrid.getGridDataAll();
         jsonCMNSCDSubList = [];
         let fieldData = await fn_fieldCaption(); 

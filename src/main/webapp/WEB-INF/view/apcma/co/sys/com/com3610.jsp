@@ -303,7 +303,7 @@
 			//데이터 유형
 			gfnma_multiSelectInit({
 				target			: ['#DATA_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM024'
 				,whereClause	: ''
@@ -322,7 +322,7 @@
 			//컨트롤 유형
 			gfnma_multiSelectInit({
 				target			: ['#CONTROL_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM025'
 				,whereClause	: ''
@@ -341,7 +341,7 @@
 			//생성구분
 			gfnma_multiSelectInit({
 				target			: ['#CREATE_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM026'
 				,whereClause	: ''
@@ -360,7 +360,7 @@
 			//팝업데이터
 			gfnma_multiSelectInit({
 				target			: ['#POPUP_DATA']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM027'
 				,whereClause	: ''
@@ -456,9 +456,9 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'500px',  	style:'text-align:left'},
-            {caption: ['사용'],     		ref : 'USE_YN',		type :'checkbox',		width:'80px', 
+            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'20%',  	style:'text-align:left'},
+            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'70%',  	style:'text-align:left'},
+            {caption: ['사용'],     		ref : 'USE_YN',		type :'checkbox',		width:'10%', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
             }
         ];
@@ -480,7 +480,7 @@
     	var paramObj = {
 	    	   V_P_DEBUG_MODE_YN    : ''
 	    	   ,V_P_LANG_ID         : ''
-	    	   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
 	    	   ,V_P_ACC_ITEM_CODE   : SRCH_ACC_ITEM_CODE
 	    	   ,V_P_ACC_ITEM_NAME   : SRCH_ACC_ITEM_NAME
@@ -556,7 +556,7 @@
     	var paramObj = {
 	    	   V_P_DEBUG_MODE_YN    : ''
 	    	   ,V_P_LANG_ID         : ''
-	    	   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
 	    	   ,V_P_ACC_ITEM_CODE   : ACC_ITEM_CODE
 	    	   ,V_P_ACC_ITEM_NAME   : ''
@@ -635,7 +635,7 @@
   	    var paramObj = {
   	    		V_P_DEBUG_MODE_YN     : ''
  	    	    ,V_P_LANG_ID          : ''
-	    	    ,V_P_COMP_CODE        : gv_ma_selectedApcCd
+	    	    ,V_P_COMP_CODE        : gv_ma_selectedCorpCd
   	    		,V_P_CLIENT_CODE      : gv_ma_selectedClntCd
   	    		,V_P_ACC_ITEM_CODE    : ACC_ITEM_CODE
   	    		,V_P_ACC_ITEM_NAME    : ACC_ITEM_NAME    
@@ -727,7 +727,7 @@
   	    var paramObj = {
   	    		V_P_DEBUG_MODE_YN     : ''
  	    	    ,V_P_LANG_ID          : ''
-	    	    ,V_P_COMP_CODE        : gv_ma_selectedApcCd
+	    	    ,V_P_COMP_CODE        : gv_ma_selectedCorpCd
   	    		,V_P_CLIENT_CODE      : gv_ma_selectedClntCd
   	    		,V_P_ACC_ITEM_CODE    : ACC_ITEM_CODE
   	    		,V_P_ACC_ITEM_NAME    : ACC_ITEM_NAME    
@@ -766,7 +766,7 @@
         	    			var paramObj = {
        	    					   V_P_DEBUG_MODE_YN     : ''
    	    						   ,V_P_LANG_ID          : ''
-   	    						   ,V_P_COMP_CODE        : gv_ma_selectedApcCd
+   	    						   ,V_P_COMP_CODE        : gv_ma_selectedCorpCd
    	    						   ,V_P_CLIENT_CODE      : gv_ma_selectedClntCd
    	    						   ,V_P_ACC_ITEM_CODE    : ACC_ITEM_CODE
    	    						   ,V_P_DATA_CODE        : rowVal[i].data.DATA_CODE

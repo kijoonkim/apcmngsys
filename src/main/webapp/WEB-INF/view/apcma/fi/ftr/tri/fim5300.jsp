@@ -2091,7 +2091,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 V_P_FI_ORG_CODE 	: fiOrgCode,
                 V_P_BASE_DATE		: txnDate,
@@ -2188,7 +2188,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 IV_P_DEPOSIT_CODE: depositCode,
@@ -2444,7 +2444,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 
                 IV_P_DEPOSIT_CODE: gfn_nvl(depositCode),
@@ -2570,16 +2570,16 @@
         let rst = await Promise.all([
 	        
 	        // 여부
-	        gfnma_setComSelect(['srch-slt-allYn'], jsonUseYn, 'L_COM014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	        gfnma_setComSelect(['srch-slt-allYn'], jsonUseYn, 'L_COM014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	        	
 	        // 계좌유형
-	        gfnma_setComSelect(['srch-slt-depositType','dtl-slt-depositType'], jsonDepositType, 'L_FIF001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	        gfnma_setComSelect(['srch-slt-depositType','dtl-slt-depositType'], jsonDepositType, 'L_FIF001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 	        // 사업단위
-	        gfnma_setComSelect(['dtl-slt-fiOrgCode'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+	        gfnma_setComSelect(['dtl-slt-fiOrgCode'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
 	        gfnma_multiSelectInit({
 	            target			: ['#srch-fiOrgCode']
-	            ,compCode		: gv_ma_selectedApcCd
+	            ,compCode		: gv_ma_selectedCorpCd
 	            ,clientCode		: gv_ma_selectedClntCd
 	            ,bizcompId		: 'L_FIM022'
 	            ,whereClause	: ''
@@ -2597,16 +2597,16 @@
 	        }),
 	        
 	        // 예적금상태
-	        gfnma_setComSelect(['dtl-slt-depositStatus'], jsonDepositStatus, 'L_FIF002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	        gfnma_setComSelect(['dtl-slt-depositStatus'], jsonDepositStatus, 'L_FIF002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	        
 	     	// 지급방법
-			gfnma_setComSelect(['dtl-slt-withdrawType'], jsonWithdrawType, 'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['dtl-slt-withdrawType'], jsonWithdrawType, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			// 통화
-			gfnma_setComSelect(['estbl-slt-currencyCode'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['estbl-slt-currencyCode'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 	        
 			// 은행
-			gfnma_setComSelect(['estbl-inp-bankName'], jsonBankCode, 'P_COM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['estbl-inp-bankName'], jsonBankCode, 'P_COM003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 	        
 		]);
         
@@ -2965,7 +2965,7 @@
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
                 V_P_FI_ORG_CODE 	: gfn_nvl(_rowData.FI_ORG_CODE),
                 V_P_BASE_DATE		: '',
@@ -3270,7 +3270,7 @@
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보 조회');
 		compopup1({
-			compCode				: gv_ma_selectedApcCd
+			compCode				: gv_ma_selectedCorpCd
 			,clientCode				: gv_ma_selectedClntCd
 			,bizcompId				: 'P_COM027'
 	    	,popupType				: 'A'
@@ -3310,7 +3310,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM003'
             ,popupType				: 'A'
@@ -3345,7 +3345,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -3379,7 +3379,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FUND_CODE'
             ,popupType				: 'A'
@@ -3412,7 +3412,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_CC_INPUT'
             ,popupType				: 'A'
@@ -3442,7 +3442,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FI_DEPT'
             ,popupType				: 'B'

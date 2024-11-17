@@ -24,7 +24,6 @@
 <head>
 	<title>title : 취득등록</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -50,151 +49,160 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                    
-                      	<!-- hidden  -->
-  						<sbux-input style="display:none" id="SCH_ASSET_CATEGORY" uitype="text" class="form-control input-sm"></sbux-input>
-                  		<!-- /hidden -->
-                    
-                        <tr>
-                            <th scope="row" class="th_bg">사업단위</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">사업장</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">실적구분</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th scope="row" class="th_bg">취득일</th>
-                            <td colspan="3" class="td_input" >
-	                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
+				<div class="box-search-ma"> 
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">	                    
+	                    </colgroup>
+	                    <tbody>
+	                    
+	                      	<!-- hidden  -->
+	  						<sbux-input style="display:none" id="SCH_ASSET_CATEGORY" uitype="text" class="form-control input-sm"></sbux-input>
+	                  		<!-- /hidden -->
+	                    
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">APC</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                        	<td></td>
+	                        	
+	                            <th scope="row" class="th_bg_search">사업장</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                        	<td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">실적구분</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                        	<td></td>
+	                        	
+	                            <th scope="row" class="th_bg_search">취득일</th>
+	                            <td class="td_input" >
 								    <sbux-datepicker
 								            id="SCH_ACQUIRE_DATE_FR"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>
-								    <font style="padding-left:5px;padding-right:5px" >-</font>                          
+	                            </td>
+	                        	<td>-</td>
+	                            <td class="td_input" >
 								    <sbux-datepicker
 								            id="SCH_ACQUIRE_DATE_TO"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
-                            	</div>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">취득구분</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_SACQUIRE_TYPE" uitype="single" jsondata-ref="jsonSacquireType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">취득처</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-  									<!-- 
-									<sbux-button
-										id="BTN_POP1" 
-										class="btn btn-xs btn-outline-dark"
-										text=".." uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup1()"></sbux-button>
-  									 -->
-	        						<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup1()'>
-	        							<img src='../../../resource/images/find2.png' width='12px' />
-									</button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th scope="row" class="th_bg">담당부서</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-  									<!-- 
-									<sbux-button
-										id="BTN_POP2" 
-										class="btn btn-xs btn-outline-dark"
-										text=".." uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup2()"></sbux-button>
-  									 -->
-	        						<button id="BTN_POP2" type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup2()'>
-	        							<img src='../../../resource/images/find2.png' width='12px' />
-									</button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">담당자</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-  									<!-- 
-									<sbux-button
-										id="BTN_POP3" 
-										class="btn btn-xs btn-outline-dark"
-										text=".." uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup3"></sbux-button>
-  									<font style="width:5px"></font>
-  									 -->
-	        						<button id="BTN_POP3" type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup3()'>
-	        							<img src='../../../resource/images/find2.png' width='12px' />
-									</button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">회계기준</th>
-                            <td colspan="3" class="td_input" >
-	                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
+	                            </td>
+	                        	<td></td>
+	                        
+	                        </tr>
+	                        
+	                        <tr>
+	                        
+	                            <th scope="row" class="th_bg_search">취득구분</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_SACQUIRE_TYPE" uitype="single" jsondata-ref="jsonSacquireType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                        	<td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">취득처</th>
+	                            <td colspan="3" class="td_input" >
+		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	  									<sbux-input style="width:80px" id="SCH_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<font style="width:5px"></font>
+										<sbux-button
+											id="BTN_POP1" 
+											class="btn btn-xs btn-outline-dark"
+											text="…" uitype="modal"
+											target-id="modal-compopup1"
+											onclick="fn_compopup1()"></sbux-button>
+	  									<font style="width:5px"></font>
+	  									<sbux-input style="width:100%" id="SCH_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+		                           	</div>
+	                            </td>
+	                        	<td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">담당부서</th>
+	                            <td colspan="3" class="td_input" >
+		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	  									<sbux-input style="width:80px" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<font style="width:5px"></font>
+										<sbux-button
+											id="BTN_POP2" 
+											class="btn btn-xs btn-outline-dark"
+											text="…" uitype="modal"
+											target-id="modal-compopup1"
+											onclick="fn_compopup2()"></sbux-button>
+	  									<font style="width:5px"></font>
+	  									<sbux-input style="width:100%" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+		                           	</div>
+	                            </td>
+	                        	<td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">담당자</th>
+	                            <td colspan="3" class="td_input" >
+		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	  									<sbux-input style="width:80px" id="SCH_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<font style="width:5px"></font>
+										<sbux-button
+											id="BTN_POP3" 
+											class="btn btn-xs btn-outline-dark"
+											text="…" uitype="modal"
+											target-id="modal-compopup1"
+											onclick="fn_compopup3"></sbux-button>
+	  									<font style="width:5px"></font>
+	  									<sbux-input style="width:100%" id="SCH_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+		                           	</div>
+	                            </td>
+	                        	<td></td>
+	                            
+	                        </tr>
+	                        
+	                        <tr>
+	                        
+	                            <th scope="row" class="th_bg_search">회계기준</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                        	<td></td>
+	                            
+	                        	<td colspan="15"></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+				</div>                
+
                 <div class="row">
                 
                     <div class="col-sm-6" style="width:100%">
@@ -284,7 +292,7 @@
 												            id="FM_ACQUIRE_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="form-control input-sm input-sm-ast table-datepicker-ma">
 												    </sbux-datepicker>
 			                                    </td>
 			                                    
@@ -305,18 +313,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP4" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup4()"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP4" type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup4()'>
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -338,18 +341,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:60px" id="FM_VAT_TYPE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP5" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup5()"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP5" type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup5()'>
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_VAT_TYPE_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -362,18 +360,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP6" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup6('1')"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP6" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -384,18 +377,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_ASSET_NO" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP7" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup7()"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP7" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7()">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ASSET_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -418,18 +406,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP8" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup8"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP8" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup8()">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -457,18 +440,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP9" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup9('1')"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP9" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup9('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -479,18 +457,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_PROJECT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!--  
 														<sbux-button
 															id="BTN_POP10" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup10('1')"></sbux-button>
-					  									-->
-						        						<button id="BTN_POP10" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PROJECT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -518,18 +491,13 @@
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 					  									<sbux-input style="width:80px" id="FM_ACCOUNT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
-					  									<!-- 
 														<sbux-button
 															id="BTN_POP11" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text=".." uitype="modal"
+															text="…" uitype="modal"
 															target-id="modal-compopup1"
 															onclick="fn_compopup11('1')"></sbux-button>
-					  									 -->
-						        						<button id="BTN_POP11" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
-														</button>															
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ACCOUNT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
@@ -594,18 +562,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:100%" id="FM2_ASSET_CATEGORY_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP12" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup12"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP12" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup12()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="display:none;" id="FM2_ASSET_CATEGORY_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -621,18 +584,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_ASSET_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP13" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup13"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP13" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup13()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -645,18 +603,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP14" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup14"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP14" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup14()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="display:none;" id="FM2_ASSET_LEVEL2_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -670,7 +623,7 @@
 															        datepicker-mode="month"
 															        date-format="yyyy-mm"
 															        style="width:100px"
-															        class="form-control input-sm input-sm-ast inpt_data_reqed" >
+															        class="form-control input-sm input-sm-ast table-datepicker-ma" >
 															</sbux-datepicker>                            
 					                                    </td>								
 					                                
@@ -679,18 +632,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_CS_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!--  
 																<sbux-button
 																	id="BTN_POP15" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup15"></sbux-button>
-							  									-->
-								        						<button id="BTN_POP15" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup15()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_CS_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -701,18 +649,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_DEPR_EXP_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!--  
 																<sbux-button
 																	id="BTN_POP16" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('2')"></sbux-button>
-							  									-->
-								        						<button id="BTN_POP16" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('2')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -725,18 +668,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP17" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup16"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP17" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup16()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="display:none;" id="FM2_ASSET_LEVEL3_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -750,7 +688,7 @@
 															        datepicker-mode="month"
 															        date-format="yyyy-mm"
 															        style="width:100px"
-															        class="form-control input-sm input-sm-ast inpt_data_reqed" >
+															        class="form-control input-sm input-sm-ast table-datepicker-ma" >
 															</sbux-datepicker>                            
 					                                    </td>								
 					                                
@@ -759,18 +697,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_DEPT_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP18" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup6('2')"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP18" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6('2')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_DEPT_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -781,18 +714,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP19" 
 																	style="width:21px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('3')"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP19" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('3')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -806,7 +734,7 @@
 														            id="FM2_ACQUIRE_DATE_A"
 														            uitype="popup"
 														            date-format="yyyy-mm-dd"
-														            class="form-control input-sm input-sm-ast inpt_data_reqed">
+														            class="form-control input-sm input-sm-ast table-datepicker-ma">
 														    </sbux-datepicker>
 					                                    </td>
 					                                
@@ -820,18 +748,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_COST_CENTER_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP20" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup9('2')"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP20" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup9('2')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_COST_CENTER_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -842,18 +765,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP21" 
 																	style="width:21px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('4')"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP21" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('4')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -876,18 +794,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_PROJECT_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!--  
 																<sbux-button
 																	id="BTN_POP22" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup10('2')"></sbux-button>
-							  									-->
-								        						<button id="BTN_POP22" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10('2')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_PROJECT_NAME_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -898,18 +811,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!--  
 																<sbux-button
 																	id="BTN_POP23" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('5')"></sbux-button>
-							  									-->
-								        						<button id="BTN_POP23" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('5')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -932,18 +840,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!--  
 																<sbux-button
 																	id="BTN_POP24" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup17()"></sbux-button>
-							  									-->
-								        						<button id="BTN_POP24" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup17()">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -954,18 +857,13 @@
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
-							  									<!-- 
 																<sbux-button
 																	id="BTN_POP25" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text=".." uitype="modal"
+																	text="…" uitype="modal"
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('6')"></sbux-button>
-							  									 -->
-								        						<button id="BTN_POP25" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup11('6')">
-								        							<img src='../../../resource/images/find2.png' width='12px' />
-																</button>															
 							  									<font style="width:5px"></font>
 							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
@@ -1206,7 +1104,7 @@
     var Fia2500GridDetail; 			// 그리드를 담기위한 객체 선언
     var jsonFia2500Detail 	= []; 	// 그리드의 참조 데이터 주소 선언
 
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	var jsonActualFlagP		= [];	// 실적구분
 	var jsonSacquireType	= [];	// 취득구분
@@ -1220,27 +1118,27 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],									jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],									jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE','FM2_SITE_CODE1_A'],	jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE','FM2_SITE_CODE1_A'],	jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],								jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],								jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 취득구분
-            gfnma_setComSelect(['SCH_SACQUIRE_TYPE','FM_ACQUIRE_TYPE'],				jsonSacquireType,	'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SACQUIRE_TYPE','FM_ACQUIRE_TYPE'],				jsonSacquireType,	'L_FIA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 신고사업장
-            gfnma_setComSelect(['FM_TAX_SITE_CODE'],								jsonTaxSiteCode,	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_TAX_SITE_CODE'],								jsonTaxSiteCode,	'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['FM2_CURRENCY_CODE_A','FM_CURRENCY_CODE'],			jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_CURRENCY_CODE_A','FM_CURRENCY_CODE'],			jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 감가상각방법
-            gfnma_setComSelect(['FM2_DEPRECIATION_METHOD_GAAP','FM2_DEPRECIATION_METHOD_TAX','FM2_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_DEPRECIATION_METHOD_GAAP','FM2_DEPRECIATION_METHOD_TAX','FM2_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 감가상각주기
-            gfnma_setComSelect(['FM2_DEPRECIATION_PERIOD_GAAP','FM2_DEPRECIATION_PERIOD_TAX','FM2_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM2_DEPRECIATION_PERIOD_GAAP','FM2_DEPRECIATION_PERIOD_TAX','FM2_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 단위
-            gfnma_setComSelect(['Fia2500GridDetail'],	jsonUnitCode,	'L_LGS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
+            gfnma_setComSelect(['Fia2500GridDetail'],	jsonUnitCode,	'L_LGS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -1249,7 +1147,7 @@
   		await fn_initSBSelect()
   		
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 			function(list){
 				$('#BTN_POP3').click(function(){
 					fn_compopup3(list);
@@ -1600,7 +1498,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ASSET_LEVEL2       : p_fm2_asset_level2_code
@@ -1677,7 +1575,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
@@ -1880,7 +1778,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
@@ -1989,7 +1887,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM009'
         	,popupType				: 'A'
@@ -2007,7 +1905,6 @@
 				SBUxMethod.set('SCH_CS_NAME', 	data.CS_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }       
     
     /**
@@ -2021,7 +1918,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -2041,7 +1938,6 @@
                 SBUxMethod.set('SCH_DEPT_CODE', data.DEPT_CODE);
             },
         });
-		SBUxMethod.openModal('modal-compopup1');
     }   
     
     /**
@@ -2058,7 +1954,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -2079,7 +1975,6 @@
 				SBUxMethod.set('SCH_EMP_NAME', 	data.EMP_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }      
     
     /**
@@ -2096,7 +1991,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM009'
         	,popupType				: 'A'
@@ -2114,7 +2009,6 @@
 				SBUxMethod.set('FM_CS_NAME', 	data.CS_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }   
     
     /**
@@ -2129,7 +2023,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_VAT_INFO'
         	,popupType				: 'A'
@@ -2150,7 +2044,6 @@
 				SBUxMethod.set('FM_VAT_RATE',		cal);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }   
     
     /**
@@ -2172,7 +2065,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FI_DEPT'
             ,popupType				: 'B'
@@ -2197,7 +2090,6 @@
                 }
             },
         });
-		SBUxMethod.openModal('modal-compopup1');
     }       
         
     /**
@@ -2214,7 +2106,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산목록');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LIST'
         	,popupType				: 'A'
@@ -2232,7 +2124,6 @@
 				SBUxMethod.set('FM_ASSET_NAME',	data.ASSET_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }       
     
     /**
@@ -2249,7 +2140,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -2270,7 +2161,6 @@
 				SBUxMethod.set('FM_EMP_NAME', 	data.EMP_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -2294,7 +2184,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CC_INPUT'
        		,popupType				: 'A'
@@ -2319,7 +2209,6 @@
 		        }
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }         
     
     /**
@@ -2343,7 +2232,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_PROJECT_CIP'
        		,popupType				: 'A'
@@ -2368,7 +2257,6 @@
 		        }
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -2404,7 +2292,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
        		,popupType				: 'A'
@@ -2441,7 +2329,6 @@
 		        }
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }        
     
     /**
@@ -2458,7 +2345,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_CATEGORY'
        		,popupType				: 'A'
@@ -2478,7 +2365,6 @@
 				SBUxMethod.set('FM2_ASSET_CATEGORY_NAME', 	data.ASSET_CATEGORY_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }     
     
     /**
@@ -2495,7 +2381,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
        		,popupType				: 'A'
@@ -2515,7 +2401,6 @@
 				SBUxMethod.set('FM2_ASSET_ACC_NAME', 	data.ACCOUNT_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }         
     
     /**
@@ -2532,7 +2417,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산중분류');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LEVEL2'
        		,popupType				: 'A'
@@ -2552,7 +2437,6 @@
 				SBUxMethod.set('FM2_ASSET_LEVEL2_NAME', 	data.ASSET_LEVEL2_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }         
     
     /**
@@ -2569,7 +2453,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM009'
        		,popupType				: 'A'
@@ -2589,7 +2473,6 @@
 				SBUxMethod.set('FM2_CS_NAME1_A', 	data.CS_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }         
     
     /**
@@ -2599,7 +2482,7 @@
     	
     	//type C 형 팝업
     	var p_find1	= p_ss_languageID;
-    	var p_find2	= gv_ma_selectedApcCd;
+    	var p_find2	= gv_ma_selectedCorpCd;
     	var p_find3	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL2_CODE"));
    		var p_find4	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_CODE"));
 		var p_find5	= gfnma_nvl(SBUxMethod.get("FM2_ASSET_LEVEL3_NAME"));
@@ -2608,7 +2491,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ASSET_LEVEL3_ALL'
             ,popupType				: 'C'
@@ -2649,7 +2532,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FA_LOCATION'
        		,popupType				: 'A'
@@ -2669,7 +2552,6 @@
 				SBUxMethod.set('FM2_LOCATION_NAME', 	data.LOCATION_NAME);
 			},
     	});
-		SBUxMethod.openModal('modal-compopup1');
     }       
     
     /**
@@ -2763,7 +2645,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_sch_fi_org_code    
@@ -2856,7 +2738,7 @@
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: ''
     	 				,V_P_LANG_ID				: ''
-    	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd)
+    	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd)
     	 				,V_P_CLIENT_CODE			: gfnma_nvl(gv_ma_selectedClntCd)
     	 				
     	 				,V_P_SITE_CODE				: gfnma_nvl(p_fm_tax_site_code)
@@ -2953,7 +2835,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_sch_fi_org_code    
@@ -3237,7 +3119,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_sch_fi_org_code    
@@ -3412,7 +3294,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN				: ''
 			,V_P_LANG_ID					: ''
-			,V_P_COMP_CODE					: gv_ma_selectedApcCd
+			,V_P_COMP_CODE					: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE				: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE				: p_sch_fi_org_code    

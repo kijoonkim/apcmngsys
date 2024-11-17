@@ -26,8 +26,8 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 
-    <title>Calculator</title>
-    <link rel="stylesheet" href="/resource/css/ma_custom.css">
+    <%--<title>Calculator</title>
+    <link rel="stylesheet" href="/resource/css/ma_custom.css">--%>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -826,7 +826,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>급여내역</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -858,7 +858,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>상여내역</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -890,7 +890,7 @@
                                     <ul class="ad_tbl_count">
                                         <li>
                                             <span>임금 환산 년수</span>
-                                            <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
+                                            <%--<span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>--%>
                                         </li>
                                     </ul>
                                     <sbux-button
@@ -2233,20 +2233,20 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['RET_CALC_TYPE1','gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['LIVE_NATION_CODE'], jsonLiveNationCode, 'L_COM015_2', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonEmp, 'P_HRI0001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'EMP_CODE', 'EMP_FULL_NAME', 'Y', ''),
-            //gfnma_setComSelect(['gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBonusGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwChangeGrid'], jsonPositionCode, 'L_HRI002_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['RET_CALC_TYPE1','gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['LIVE_NATION_CODE'], jsonLiveNationCode, 'L_COM015_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonEmp, 'P_HRI0001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'EMP_CODE', 'EMP_FULL_NAME', 'Y', ''),
+            //gfnma_setComSelect(['gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBonusGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwChangeGrid'], jsonPositionCode, 'L_HRI002_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 
             //퇴직정산구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_RET_CALC_TYPE', '#RET_CALC_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA037'
                 ,whereClause	: ''
@@ -2266,7 +2266,7 @@
             //지급구분
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -2286,7 +2286,7 @@
             //퇴사사유
             gfnma_multiSelectInit({
                 target			: ['#RET_REASON']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI013'
                 ,whereClause	: ''
@@ -2306,7 +2306,7 @@
             //퇴사사유
             gfnma_multiSelectInit({
                 target			: ['#IRP_BANK_CODE','#PENS_BANK_CODE1','#PENS_BANK_CODE2','#PENS_BANK_CODE3']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA011'
                 ,whereClause	: ''
@@ -2331,7 +2331,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM027'
             ,popupType				: 'B'
@@ -2363,7 +2363,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'
@@ -3162,7 +3162,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_RET_CALC_DAT_FR : RETIRE_CALC_DATE_FR
@@ -3299,7 +3299,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_RET_CALC_DAT_FR   : RETIRE_CALC_DATE_FR
@@ -3434,7 +3434,7 @@
                 });
 
                 /** @type {number} **/
-                let totalRecordCount2 = 0;
+                //let totalRecordCount2 = 0;
                 //-- [1-2] 평균임금 계산 - 급여내역
                 jsonPayList.length = 0;
                 data.cv_4.forEach((item, index) => {
@@ -3451,11 +3451,11 @@
 
                     }
                     jsonPayList.push(msg);
-                    totalRecordCount2++;
+                    //totalRecordCount2++;
                 });
 
                 gvwPayGrid.rebuild();
-                document.querySelector('#listCount2').innerText = totalRecordCount2;
+                //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                 if (jsonPayList.length > 0) {
                     jsonPayList.forEach((item, index) => {
@@ -3463,7 +3463,7 @@
                     })
                 }
                 /** @type {number} **/
-                let totalRecordCount3 = 0;
+                //let totalRecordCount3 = 0;
                 //[1-3] 평균임금 계산 - 상여내역
                 jsonBonusList.length = 0;
                 data.cv_5.forEach((item, index) => {
@@ -3477,11 +3477,11 @@
 
                     }
                     jsonBonusList.push(msg);
-                    totalRecordCount3++;
+                    //totalRecordCount3++;
                 });
 
                 gvwBonusGrid.rebuild();
-                document.querySelector('#listCount3').innerText = totalRecordCount3;
+                //document.querySelector('#listCount3').innerText = totalRecordCount3;
 
                 //[TAB2] 퇴직소득세액계산
                 data.cv_6.forEach((item, index) => {
@@ -3642,7 +3642,7 @@
                 });
 
                 /** @type {number} **/
-                let totalRecordCount4 = 0;
+                //let totalRecordCount4 = 0;
                 //-- [1-4] 평균임금 계산 - 임원 환산 년수 내역
                 jsonChangeList.length = 0;
                 data.cv_9.forEach((item, index) => {
@@ -3663,11 +3663,11 @@
                         PEAK_YN             : gfn_nvl(item.PEAK_YN),
                     }
                     jsonChangeList.push(msg);
-                    totalRecordCount4++;
+                    //totalRecordCount4++;
                 });
 
                 gvwChangeGrid.rebuild();
-                document.querySelector('#listCount4').innerText = totalRecordCount4;
+                //document.querySelector('#listCount4').innerText = totalRecordCount4;
 
 
                 SBUxMethod.set("CALCULATE_TAX_YN", 'Y'); //과세 재계산
@@ -3755,7 +3755,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_PAY_YYYYMM    : PAY_YYYYMM
@@ -3890,7 +3890,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_PAY_YYYYMM    : PAY_YYYYMM
@@ -4025,7 +4025,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_RET_CALC_DAT          : gfn_nvl(rowData.RET_CALC_DAT)
@@ -4173,7 +4173,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_RET_CALC_DAT  : masterData.RET_CALC_DAT
@@ -4261,7 +4261,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_RET_CALC_DAT  : masterData.RET_CALC_DAT
@@ -4345,7 +4345,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_RET_CALC_DAT           : masterData.RET_CALC_DAT
@@ -5783,7 +5783,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 ,V_P_RET_CALC_TYPE     : RET_CALC_TYPE
@@ -5895,7 +5895,7 @@
              var paramObj = {
                  V_P_DEBUG_MODE_YN: ''
                  , V_P_LANG_ID: ''
-                 , V_P_COMP_CODE: gv_ma_selectedApcCd
+                 , V_P_COMP_CODE: gv_ma_selectedCorpCd
                  , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                  ,V_P_RET_CALC_TYPE     : RET_CALC_TYPE
@@ -6069,7 +6069,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PAY_YYYYMM         : PAY_YYYYMM
@@ -6155,7 +6155,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_PERIOD_YYYYMM          : PAY_YYYYMM

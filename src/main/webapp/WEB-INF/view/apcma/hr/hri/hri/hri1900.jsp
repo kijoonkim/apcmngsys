@@ -171,10 +171,10 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            /*gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),*/
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -191,9 +191,9 @@
                 ]
             }),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -203,7 +203,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -237,7 +237,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
@@ -284,7 +284,7 @@
             {caption: ["사원사진"],	ref: 'EMP_PHOTO',   	type:'output',  	width:'83px',   	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     console.log(objRowData)
-                    return '<img src="'+'/com/getFileImage.do?fkey='+objRowData.EMP_PHOTO_NAME+'&comp_code='+gv_ma_selectedApcCd+'&client_code=' + gv_ma_selectedClntCd+'" style="width: 100%; height: 100%">';
+                    return '<img src="'+'/com/getFileImage.do?fkey='+objRowData.EMP_PHOTO_NAME+'&comp_code='+gv_ma_selectedCorpCd+'&client_code=' + gv_ma_selectedClntCd+'" style="width: 100%; height: 100%">';
                 }
             },
             {caption: ["생년월일"],   ref: 'BIRTHDAY', 		type:'output',  	width:'69px',    	style:'text-align:left',
@@ -371,7 +371,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE

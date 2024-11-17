@@ -91,7 +91,7 @@
                        		<!-- /hidden -->
 	                    
 	                        <tr>
-	                            <th scope="row" class="th_bg_search">사업단위</th>
+	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
@@ -125,7 +125,7 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:80px"
-									        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+									        class="form-control input-sm input-sm-ast table-datepicker-ma"
 									        onchange = "fn_payDate"
 									        required>
 									</sbux-datepicker>                            
@@ -139,7 +139,7 @@
 								            name="srch-ymddate-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input" >-
@@ -150,7 +150,7 @@
 								            name="srch-ymddate-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -452,7 +452,7 @@
 	var p_ss_deptName 			= '${loginVO.maDeptName}';
 	//-----------------------------------------------------------
 	
-    var jsonCbofiOrgCode 		= []; // 사업단위
+    var jsonCbofiOrgCode 		= []; // APC
     var jsonCbositeCode 		= []; // 사업장
     var jsonCboholdFlag 		= []; // 보류여부
     var jsonCbodocStatusP 		= []; // 전표상태
@@ -463,18 +463,18 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['srch-cbofi-org-code'],		jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC
+            gfnma_setComSelect(['srch-cbofi-org-code'],		jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['srch-cbosite-code'], 		jsonCbositeCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-cbosite-code'], 		jsonCbositeCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 보류여부
-            gfnma_setComSelect(['srch-ccbohold-flag'], 		jsonCboholdFlag, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-ccbohold-flag'], 		jsonCboholdFlag, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표상태
-            gfnma_setComSelect(['srch-cbodoc-status-p'],	jsonCbodocStatusP, 'L_FIG002_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-cbodoc-status-p'],	jsonCbodocStatusP, 'L_FIG002_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표구분
-            gfnma_setComSelect(['srch-cbodoc-type-p'],		jsonCbodocTypeP, 'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-cbodoc-type-p'],		jsonCbodocTypeP, 'L_FIM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['srch-cboacct-rule-code'],	jsonCboacctRuleCode, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '2'),
+            gfnma_setComSelect(['srch-cboacct-rule-code'],	jsonCboacctRuleCode, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '2'),
 		]);
 	}	
 
@@ -633,7 +633,7 @@
         	    }
         	},        	
             {caption: ["전표상태"],					ref: 'DOC_STATUS_NAME', 		type:'output', 		width:'80px',  		style:'text-align:left'},
-            {caption: ["사업단위"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: ["APC"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["사업장"], 					ref: 'SITE_NAME', 				type:'output',		width:'80px',  		style:'text-align:left'},
             {caption: ["역발행승인"],    			ref: 'SIGN_YN', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
@@ -753,7 +753,7 @@
 		let p_txtdesc				= gfnma_nvl(SBUxMethod.get("srch-txtdesc"));
 		
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_ymddate_fr){
@@ -768,7 +768,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_cbofi_org_code
@@ -924,7 +924,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG001'
     		,popupType				: 'B'
@@ -957,7 +957,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG001'
     		,popupType				: 'B'
@@ -991,7 +991,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_USER_02'
         	,popupType				: 'A'
@@ -1026,7 +1026,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_USER_02'
         	,popupType				: 'A'
@@ -1073,7 +1073,7 @@
     	
 		var p_cbofi_org_code = gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"))
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;
 		}
 
@@ -1139,14 +1139,14 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_cbofi_org_code
@@ -1246,14 +1246,14 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_cbofi_org_code
@@ -1332,14 +1332,14 @@
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		if(!p_cbofi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_FI_ORG_CODE			: p_cbofi_org_code
@@ -1549,7 +1549,7 @@
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
  			,V_P_APPR_ID				: p_strappr_id
@@ -1727,7 +1727,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_cbofi_org_code
@@ -1963,7 +1963,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : ''
@@ -2091,7 +2091,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_APPR_ID        	: p_appr_id

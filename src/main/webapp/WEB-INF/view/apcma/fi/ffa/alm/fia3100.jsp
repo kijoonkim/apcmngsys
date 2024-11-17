@@ -24,7 +24,6 @@
 <head>
 	<title>title : 자산원장</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -41,125 +40,144 @@
             </div>
             <div class="box-body">
 
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+				<div class="box-search-ma"> 
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                    
-                        <tr>
-                            <th scope="row" class="th_bg">사업단위</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">사업장</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">비고</th>
-                            <td colspan="3" class="td_input" >
-								<sbux-input id="SCH_DESCRIPTION" uitype="text" class="form-control input-sm"></sbux-input>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">실적구분</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        </tr>
-                    
-                        <tr>
-                            <th scope="row" class="th_bg">자산구분</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonAssetCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            
-                            <th scope="row" class="th_bg">중분류</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ASSET_LEVEL2" uitype="single" jsondata-ref="jsonAssetLevel2" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            
-                            <th scope="row" class="th_bg">소분류</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ASSET_LEVEL3" uitype="single" jsondata-ref="jsonAssetLevel3" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            
-                            <th scope="row" class="th_bg">조회기준일자</th>
-                            <td colspan="3" class="td_input" >
-							    <sbux-datepicker
-							            id="SCH_BASE_DATE"
-							            uitype="popup"
-							            date-format="yyyy-mm-dd"
-							            class="form-control input-sm input-sm-ast inpt_data_reqed">
-							    </sbux-datepicker>
-								<sbux-input style="display:none" id="SCH_LANG_ID" uitype="text" class="form-control input-sm"></sbux-input>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th scope="row" class="th_bg">담당부서</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-	        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup1()'>
-	        							<img src='../../../resource/images/find2.png' width='12px' />
-									</button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>                        
-                        
-                            <th scope="row" class="th_bg">원가중심점</th>
-                            <td colspan="3" class="td_input" >
-	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-  									<sbux-input style="width:80px" id="SCH_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
-  									<font style="width:5px"></font>
-	        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('2')">
-	        							<img src='../../../resource/images/find2.png' width='12px' />
-									</button>
-  									<font style="width:5px"></font>
-  									<sbux-input style="width:100%" id="SCH_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
-	                           	</div>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">감가상각기준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_DEPRECIATION_TYPE" uitype="single" jsondata-ref="jsonDepreciationType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        
-                            <th scope="row" class="th_bg">회계기준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+	                    </colgroup>
+	                    <tbody>
+	                    
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">APC</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">사업장</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">비고</th>
+	                            <td colspan="3" class="td_input" >
+									<sbux-input id="SCH_DESCRIPTION" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">실적구분</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                    
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">자산구분</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonAssetCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">중분류</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ASSET_LEVEL2" uitype="single" jsondata-ref="jsonAssetLevel2" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">소분류</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ASSET_LEVEL3" uitype="single" jsondata-ref="jsonAssetLevel3" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">조회기준일자</th>
+	                            <td colspan="3" class="td_input" >
+								    <sbux-datepicker
+								            id="SCH_BASE_DATE"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+								    </sbux-datepicker>
+									<sbux-input style="display:none" id="SCH_LANG_ID" uitype="text" class="form-control input-sm"></sbux-input>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                        
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">담당부서</th>
+	                            <td colspan="3" class="td_input" >
+		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	  									<sbux-input style="width:80px" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<font style="width:5px"></font>
+		        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup1()'>
+		        							…
+										</button>
+	  									<font style="width:5px"></font>
+	  									<sbux-input style="width:100%" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+		                           	</div>
+	                            </td>                        
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">원가중심점</th>
+	                            <td colspan="3" class="td_input" >
+		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+	  									<sbux-input style="width:80px" id="SCH_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<font style="width:5px"></font>
+		        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('2')">
+		        							…
+										</button>
+	  									<font style="width:5px"></font>
+	  									<sbux-input style="width:100%" id="SCH_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+		                           	</div>
+	                            </td>
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">감가상각기준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_DEPRECIATION_TYPE" uitype="single" jsondata-ref="jsonDepreciationType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        
+	                            <th scope="row" class="th_bg_search">회계기준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                        </tr>
+	                        
+	                    </tbody>
+	                </table>
+                </div>
                 
                 <div class="row">
                 
@@ -171,7 +189,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div style="border:1px solid #d7d4d4">
                             <div id="sb_area_grid1" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
@@ -237,7 +255,7 @@
 					  									<sbux-input style="width:80px" id="FM_ASSET_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -248,8 +266,8 @@
 											<tr>
 			                                    <th scope="row" class="th_bg">자산구분</th>
 			                                    <td colspan="2" class="td_input">
-					                                <sbux-select id="FM_ASSET_CATEGORY_NAME" uitype="single" jsondata-ref="jsonAssetCategoryName" unselected-text="선택" class="form-control input-sm"></sbux-select>
-					  								<sbux-input  id="FM_ASSET_CATEGORY" style="display:none;" uitype="text" class="form-control input-sm"></sbux-input>
+					                                <sbux-select id="FM_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonFmAssetCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					  								<sbux-input  id="FM_ASSET_CATEGORY_NAME" style="display:none;" uitype="text" class="form-control input-sm"></sbux-input>
 			                                    </td>
 			                                    
 			                                    <th scope="row" class="th_bg">최초감가상각년월</th>
@@ -260,7 +278,7 @@
 													        datepicker-mode="month"
 													        date-format="yyyy-mm"
 													        style="width:100px"
-													        class="form-control input-sm input-sm-ast inpt_data_reqed" >
+													        class="form-control input-sm input-sm-ast table-datepicker-ma" >
 													</sbux-datepicker>                            
 			                                    </td>
 			                                    
@@ -270,7 +288,7 @@
 					  									<sbux-input style="width:80px" id="FM_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup3()">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -283,7 +301,7 @@
 					  									<sbux-input style="width:80px" id="FM_DEPR_EXP_ACC" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button id="BTN_FM_DEPR_EXP_ACC" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('2')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -298,7 +316,7 @@
 					  									<sbux-input style="width:80px" id="FM_ASSET_LEVEL2" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick='fn_compopup4()'>
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -313,7 +331,7 @@
 													        datepicker-mode="month"
 													        date-format="yyyy-mm"
 													        style="width:100px"
-													        class="form-control input-sm input-sm-ast inpt_data_reqed" >
+													        class="form-control input-sm input-sm-ast table-datepicker-ma" >
 													</sbux-datepicker>                            
 			                                    </td>
 			                                    
@@ -323,7 +341,7 @@
 					  									<sbux-input style="width:80px" id="FM_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup5('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -336,7 +354,7 @@
 					  									<sbux-input style="width:80px" id="FM_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button id="BTN_FM_ACCUM_DEPR_ACC" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('3')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -352,7 +370,7 @@
 					  									<sbux-input style="width:80px" id="FM_ASSET_LEVEL3" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup6()">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -370,7 +388,7 @@
 					  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -383,7 +401,7 @@
 					  									<sbux-input style="width:80px" id="FM_SUBSIDIES_ACCOUNT" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('4')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -399,7 +417,7 @@
 												            id="FM_ACQUIRE_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="form-control input-sm input-sm-ast table-datepicker-ma">
 												    </sbux-datepicker>
 			                                    </td>
 			                                    
@@ -414,7 +432,7 @@
 					  									<sbux-input style="width:80px" id="FM_PROJECT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup8('1')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_PROJECT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -427,7 +445,7 @@
 					  									<sbux-input style="width:80px" id="FM_SUBSIDIES_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button id="BTN_FM_SUBSIDIES_DEPR_ACC" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('5')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -453,7 +471,7 @@
 					  									<sbux-input style="width:80px" id="FM_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup9()">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -466,7 +484,7 @@
 					  									<sbux-input style="width:80px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button id="BTN_FM_SUBSIDIES_ACCUM_DEPR_ACC" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup2('6')">
-						        							<img src='../../../resource/images/find2.png' width='12px' />
+						        							…
 														</button>
 					  									<font style="width:5px"></font>
 					  									<sbux-input style="width:100%" id="FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -700,14 +718,14 @@
 										            id="FM_ACQUIRE_DATE_FR"
 										            uitype="popup"
 										            date-format="yyyy-mm-dd"
-										            class="form-control input-sm input-sm-ast inpt_data_reqed">
+										            class="form-control input-sm input-sm-ast table-datepicker-ma">
 										    </sbux-datepicker>
 										    <font style="padding-left:5px;padding-right:5px" >-</font>                          
 										    <sbux-datepicker
 										            id="FM_ACQUIRE_DATE_TO"
 										            uitype="popup"
 										            date-format="yyyy-mm-dd"
-										            class="form-control input-sm input-sm-ast inpt_data_reqed">
+										            class="form-control input-sm input-sm-ast table-datepicker-ma">
 										    </sbux-datepicker> 
 										                             
 		                                	<font style="padding-right:10px"></font>
@@ -716,7 +734,7 @@
 		  									<sbux-input style="width:80px" id="FM_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 		  									<font style="width:5px"></font>
 			        						<button id="BTN_POP1" type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup10()">
-			        							<img src='../../../resource/images/find2.png' width='12px' />
+			        							…
 											</button>
 		  									<font style="width:5px"></font>
 		  									<sbux-input style="width:150px" id="FM_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
@@ -816,13 +834,13 @@
     var Fia3100GridDetail04; 		// 그리드를 담기위한 객체 선언
     var jsonFia3100Detail04 = []; 	// 그리드의 참조 데이터 주소 선언
 
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	var jsonActualFlagP		= [];	// 실적구분
 	var jsonAssetCategory	= [];	// 자산구분
 	var jsonAssetLevel2		= [];	// 중분류
 	var jsonAssetLevel3		= [];	// 소분류
-	var jsonAssetCategoryName		= [];	// 자산구분
+	var jsonFmAssetCategory			= [];	// 자산구분
 	var jsonCurrencyCode			= [];	// 통화
 	var jsonAcctRuleCode			= [];	// 회계기준
 	var jsonDepreciationType		= [];	// 감가상각기준
@@ -834,36 +852,36 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],								jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],								jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE','FM_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],							jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACTUAL_FLAG_P'],							jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 자산구분
-            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],							jsonActualFlagP,	'L_FIA001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],							jsonActualFlagP,	'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 중분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],							jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],							jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
             // 소분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL3'],							jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_LEVEL3'],							jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
             // 자산구분
-            gfnma_setComSelect(['FM_ASSET_CATEGORY_NAME'],						jsonAssetCategoryName,	'P_ASSET_CATEGORY', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ASSET_CATEGORY', 'ASSET_CATEGORY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_ASSET_CATEGORY'],							jsonFmAssetCategory,	'P_ASSET_CATEGORY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_CATEGORY', 'ASSET_CATEGORY_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['FM_CURRENCY_CODE'],							jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_CURRENCY_CODE'],							jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],		jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],		jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 감가상각기준
-            gfnma_setComSelect(['SCH_DEPRECIATION_TYPE'],						jsonDepreciationType,'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_DEPRECIATION_TYPE'],						jsonDepreciationType,'L_FIA018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 감가상각방법
-            gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP','FM_DEPRECIATION_METHOD_TAX','FM_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP','FM_DEPRECIATION_METHOD_TAX','FM_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 감가상각주기
-            gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP','FM_DEPRECIATION_PERIOD_TAX','FM_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP','FM_DEPRECIATION_PERIOD_TAX','FM_DEPRECIATION_PERIOD_IFRS'],	jsonDeprePeriodCode,'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 단위
-            gfnma_setComSelect([],	jsonUnitCode,	'L_LGS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
+            gfnma_setComSelect([],	jsonUnitCode,	'L_LGS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'UNIT_CODE', 'UNIT_NAME', 'Y', ''),
             // 단위
-            gfnma_setComSelect([],	jsonAreaUom,	'L_FIM402', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([],	jsonAreaUom,	'L_FIM402', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -872,7 +890,7 @@
   		await fn_initSBSelect()
   		
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 			function(list){
 				$('#BTN_POP1').click(function(){
 					fn_compopup10(list);
@@ -1037,7 +1055,7 @@
     	var bol = true;
     	var p_fm_asset_name 			= gfnma_nvl(SBUxMethod.get('FM_ASSET_NAME')); 
     	var p_fm_asset_account			= gfnma_nvl(SBUxMethod.get('FM_ASSET_ACCOUNT')); 
-    	var p_fm_asset_category_name	= gfnma_nvl(SBUxMethod.get('FM_ASSET_CATEGORY_NAME')); 
+    	var p_fm_asset_category			= gfnma_nvl(SBUxMethod.get('FM_ASSET_CATEGORY')); 
     	var p_fm_asset_level2			= gfnma_nvl(SBUxMethod.get('FM_ASSET_LEVEL2')); 
     	var p_fm_dept_code				= gfnma_nvl(SBUxMethod.get('FM_DEPT_CODE')); 
     	var p_fm_asset_level3			= gfnma_nvl(SBUxMethod.get('FM_ASSET_LEVEL3')); 
@@ -1056,7 +1074,7 @@
     	} else if(!p_fm_asset_account){
     		gfn_comAlert("E0000","자산내역의 기본내역탭 자산계정은 필수입력입니다.");
     		bol = false;
-    	} else if(!p_fm_asset_category_name){
+    	} else if(!p_fm_asset_category){
     		gfn_comAlert("E0000","자산내역의 기본내역탭 자산구분은 필수입력입니다.");
     		bol = false;
     	} else if(!p_fm_asset_level2){
@@ -1168,7 +1186,7 @@
             return;
 		}
         let rowData = Fia3100GridMast.getRowData(nRow);
-		console.log(rowData);      
+		console.log('rowData:', rowData);      
 		
 		fn_viewSetData(rowData);
     	fn_setFia3100GridMast('DETAIL');
@@ -1342,7 +1360,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE       	: p_sch_fi_org_code
@@ -1728,7 +1746,7 @@
             {caption: ["관리부서"], 				ref: 'DEPT_NAME', 				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
 				}	
             },
             {caption: ["관리부서코드"],				ref: 'DEPT_CODE', 				type:'input',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1736,7 +1754,7 @@
             {caption: ["원가중심점명"],				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'170px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
 				}	
             },
             {caption: ["관리부서코드"],				ref: 'COST_CENTER_CODE', 		type:'input',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1949,7 +1967,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -2005,7 +2023,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
        		,popupType				: 'A'
@@ -2059,7 +2077,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM009'
         	,popupType				: 'A'
@@ -2094,7 +2112,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산중분류');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LEVEL2'
        		,popupType				: 'A'
@@ -2134,7 +2152,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FI_DEPT'
             ,popupType				: 'B'
@@ -2167,7 +2185,7 @@
     	
     	//type C 형 팝업
     	var p_find1	= p_ss_languageID;
-    	var p_find2	= gv_ma_selectedApcCd;
+    	var p_find2	= gv_ma_selectedCorpCd;
     	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2"));
    		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3"));
 		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_NAME"));
@@ -2176,7 +2194,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ASSET_LEVEL3_ALL'
             ,popupType				: 'C'
@@ -2224,7 +2242,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CC_INPUT'
        		,popupType				: 'A'
@@ -2271,7 +2289,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산프로젝트');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_PROJECT_CIP'
        		,popupType				: 'A'
@@ -2311,7 +2329,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FA_LOCATION'
        		,popupType				: 'A'
@@ -2348,7 +2366,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
        		,popupType				: 'A'
@@ -2491,7 +2509,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -2537,7 +2555,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
@@ -2665,7 +2683,7 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE				: p_fm_acct_rule_code    
@@ -2779,7 +2797,7 @@
    	 			params		: gfnma_objectToString({
    	 				V_P_DEBUG_MODE_YN			: ''
    	 				,V_P_LANG_ID				: ''
-   	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd)
+   	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd)
    	 				,V_P_CLIENT_CODE			: gfnma_nvl(gv_ma_selectedClntCd)
    	 				
    	 				,V_P_ASSET_NO				: gfnma_nvl(obj.ASSET_NO)

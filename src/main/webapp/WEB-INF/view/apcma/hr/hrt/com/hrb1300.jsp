@@ -62,12 +62,9 @@
             </div>
         </div>
         <div class="box-body">
-
-            <!--[pp] 검색 -->
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchArea" class="table table-bordered tbl_fixed">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="srchArea" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 42%">
@@ -92,6 +89,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-sm-7">
                     <div class="ad_tbl_top">
@@ -263,11 +261,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무유형
-            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
+            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
             // 휴일유형
-            gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -329,7 +327,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYYMMDD : YYYYMMDD,
             V_P_WORK_DAY_TYPE : WORK_DAY_TYPE,
@@ -389,7 +387,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYY : YYYY,
             V_P_FORM_ID : p_formId,
@@ -457,7 +455,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_YYYYMM : YYYYMM,
             V_P_YYYYMMDD : YYYYMMDD,

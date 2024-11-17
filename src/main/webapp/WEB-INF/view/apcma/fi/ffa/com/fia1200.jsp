@@ -24,7 +24,6 @@
 <head>
 	<title>title : 감가상각률등록</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -40,38 +39,53 @@
                 </div>
             </div>
             <div class="box-body">
-
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table id="srchArea1" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">감가상각방법</th>
-                            <td colspan="11" class="td_input" >
-                                <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+				<div class="box-search-ma"> 
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">감가상각방법</th>
+	                            <td colspan="11" class="td_input" >
+	                                <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <td colspan="15"></td>
+	                            
+	                        </tr>
+	                    </tbody>
+	                </table>
+                </div>
+                
                 <div class="row">
                     <div class="col-sm-6" style="width:20%">
                         <div class="ad_tbl_top">
@@ -196,7 +210,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//감가상각방법
-			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -369,7 +383,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method
@@ -444,7 +458,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method
@@ -510,7 +524,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: p_depreciation_method2
@@ -584,7 +598,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			
 			,V_P_DEPRECIATION_METHOD	: gfnma_nvl(p_depreciation_method2)
@@ -698,12 +712,12 @@
 			}       	
     	}
     	
-	   	 var chkList = Fia1200GridDetail.getOrgGridDataAll(true)
+	   	 var chkList = Fia1200GridDetail.getOrgGridDataAll(true);
 	  	 //서버 전송 리스트
 	  	 let listData 	= [];
 	  	 let workt		= ""; 
 	  	 for (var i = 0; i < chkList.length; i++) {
-			var obj = chkList[i].data;
+			var obj = chkList[i];
 	  	 	const param = {
 	  	 			cv_count	: '0',
 	  	 			getType		: 'json',
@@ -712,7 +726,7 @@
 	  	 			params		: gfnma_objectToString({
 	  	 				V_P_DEBUG_MODE_YN			: '',
 	  	 				V_P_LANG_ID					: '',
-	  	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+	  	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
 	  	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
 	  	 				
 	  	 				V_P_DEPRECIATION_METHOD		: gfnma_nvl(p_depreciation_method2),

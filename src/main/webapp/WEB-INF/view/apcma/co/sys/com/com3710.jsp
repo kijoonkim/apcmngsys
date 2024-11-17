@@ -117,7 +117,7 @@
                                     <col style="width:25%">
                                 </colgroup>
                                 <tr>
-                                    <th scope="row" class="th_bg">사업단위</th>
+                                    <th scope="row" class="th_bg">APC</th>
                                     <td class="td_input ">
 										<div class="dropdown">
 										    <button 
@@ -792,7 +792,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FI_ORG_CODE         : ''
 	    	   ,V_P_PROJECT_CODE        : SRCH_PROJECT_CODE
@@ -871,7 +871,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FI_ORG_CODE         : ''
 	    	   ,V_P_PROJECT_CODE        : ''
@@ -904,32 +904,32 @@
 		    				$('#codeSegTh'+num).text(data.cv_1[i].GROUP_NAME);
 		    				
 							if( i == '0'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '1'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '2'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '3'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '4'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '5'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '6'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '7'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '8'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							}else if( i == '9'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
 							};
 
 							let rst = await Promise.all([
 								//채번관리 탭 항목 드랍다운 추가
 								gfnma_multiSelectInit({
 									target			: ['#'+data.cv_1[i].SEGMENT_FIELD_NAME.toUpperCase()]
-									,compCode		: gv_ma_selectedApcCd
+									,compCode		: gv_ma_selectedCorpCd
 									,clientCode		: gv_ma_selectedClntCd
 									,bizcompId		: data.cv_1[i].BIZCOMPONENT_ID
 									,whereClause	: ''
@@ -966,10 +966,10 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
-			//사업단위
+			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM022'
 				,whereClause	: ''
@@ -988,7 +988,7 @@
 			//프로젝트유형
 			gfnma_multiSelectInit({
 				target			: ['#PROJECT_TYPE']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIM121'
 				,whereClause	: ''
@@ -1085,7 +1085,7 @@
   	    var paramObj = {
 	    	   V_P_DEBUG_MODE_YN       : ""
     		   ,V_P_LANG_ID            : ""
-    		   ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
     		   ,IV_P_PROJECT_CODE      : gfn_nvl(SBUxMethod.get("PROJECT_CODE"))
     		   ,V_P_PROJECT_NAME       : gfn_nvl(SBUxMethod.get("PROJECT_NAME"))
@@ -1165,7 +1165,7 @@
     const fn_save = async function() {
 
     	if(gfnma_multiSelectGet('#FI_ORG_CODE') == "") {
-            gfn_comAlert("W0002", "사업단위");
+            gfn_comAlert("W0002", "APC");
             return;
     	}
     	if(gfnma_multiSelectGet('#PROJECT_TYPE') == "") {
@@ -1196,7 +1196,7 @@
   	    var paramObj = {
    	    	   V_P_DEBUG_MODE_YN       : ""
     		   ,V_P_LANG_ID            : ""
-    		   ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+    		   ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
     		   ,IV_P_PROJECT_CODE      : gfn_nvl(SBUxMethod.get("PROJECT_CODE"))
     		   ,V_P_PROJECT_NAME       : gfn_nvl(SBUxMethod.get("PROJECT_NAME"))
@@ -1296,7 +1296,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FI_ORG_CODE         : obj.FI_ORG_CODE
 	    	   ,V_P_PROJECT_CODE        : obj.PROJECT_CODE
@@ -1387,7 +1387,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '상위코드 조회');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_PROJECT_PARENT'
         	,popupType				: 'A'
@@ -1420,7 +1420,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '관리부서 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
         	,popupType				: 'A'
@@ -1454,7 +1454,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CC_INPUT'
         	,popupType				: 'A'
@@ -1487,7 +1487,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 정보 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'

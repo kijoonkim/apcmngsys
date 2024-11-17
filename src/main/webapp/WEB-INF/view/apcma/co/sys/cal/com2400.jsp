@@ -259,9 +259,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무유형
-//             gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
+//             gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
             // 휴일유형
-//             gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+//             gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
         ]);
     }
 
@@ -295,7 +295,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN         : ''
    			   ,V_P_LANG_ID              : ''
-   			   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   			   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    			   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    			   ,V_P_YYYYMMDD             : YYYYMMDD
    			   ,V_P_WORKING_DAY_YN       : WORKING_DAY_YN
@@ -354,7 +354,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN         : '' 
    			   ,V_P_LANG_ID              : ''
-   			   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   			   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    			   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    			   ,V_P_YYYY                 : SRCH_YYYY
    			   ,V_P_YYYYMMDD             : ''
@@ -434,7 +434,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN    :'' 
    			   ,V_P_LANG_ID         : ''
-   			   ,V_P_COMP_CODE       : gv_ma_selectedApcCd
+   			   ,V_P_COMP_CODE       : gv_ma_selectedCorpCd
    			   ,V_P_CLIENT_CODE     : gv_ma_selectedClntCd
    			   ,V_P_YYYY            : YYYY
    			   ,V_P_YYYYMMDD        : YYYYMMDD

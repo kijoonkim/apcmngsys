@@ -1695,6 +1695,7 @@
         SBUxMethod.set("GUARANTOR2_ZIP_CODE", "");
         SBUxMethod.set("GUARANTOR2_ADDRESS", "");
 
+        // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
         jsonFamilyList.length = 0;
         jsonSchoolList.length = 0;
         jsonCareerList.length = 0;
@@ -1702,20 +1703,20 @@
         jsonLanguageList.length = 0;
         jsonComputerSkillList.length = 0;
         jsonFileList.length = 0;
-        jsonEducationList.length = 0;
+        /*jsonEducationList.length = 0;*/
         jsonPrizeList.length = 0;
-        jsonHealthList.length = 0;
+        /*jsonHealthList.length = 0;*/
         jsonAppointmentList.length = 0;
         jsonAddJobList.length = 0;
         jsonTimeOffHistoryList.length = 0;
-        jsonGroupInsuranceList.length = 0;
+        /*jsonGroupInsuranceList.length = 0;
         jsonDiseaseList.length = 0;
         jsonPersonnelEvaluationList.length = 0;
-        jsonOfficialInjuryList.length = 0;
+        /*jsonOfficialInjuryList.length = 0;
         jsonContractDegList.length = 0;
-        jsonWorkPlanList.length = 0;
+        jsonWorkPlanList.length = 0;*/
         jsonEmpList.length = 0;
-        jsonExpenditurewelfareList.length = 0;
+        /*jsonExpenditurewelfareList.length = 0;*/
 
         gvwFamily.rebuild();
         gvwSchool.rebuild();
@@ -1724,20 +1725,20 @@
         gvwLanguage.rebuild();
         gvwComputerSkill.rebuild();
         gvwFile.rebuild();
-        gvwEducation.rebuild();
+        /*gvwEducation.rebuild();*/
         gvwPrize.rebuild();
-        gvwHealth.rebuild();
+        /*gvwHealth.rebuild();*/
         gvwAppointment.rebuild();
         gvwAddJob.rebuild();
         gvwTimeOffHistory.rebuild();
-        gvwGroupInsurance.rebuild();
-        gvwDisease.rebuild();
-        gvwPersonnelEvaluation.rebuild();
-        gvwOfficialInjury.rebuild();
-        gvwContractDeg.rebuild();
-        gvwWorkPlan.rebuild();
+        /*gvwGroupInsurance.rebuild();*/
+        /*gvwDisease.rebuild();*/
+        /*gvwPersonnelEvaluation.rebuild();*/
+        /*gvwOfficialInjury.rebuild();*/
+        /*gvwContractDeg.rebuild();*/
+        /*gvwWorkPlan.rebuild();*/
         gvwEmp.rebuild();
-        gvwExpenditurewelfare.rebuild();
+        /*gvwExpenditurewelfare.rebuild();*/
 
         SBUxMethod.selectTab('idxTab_norm','tpgMasterSub');
     }
@@ -3435,7 +3436,7 @@
         return {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_EMP_CODE : EMP_CODE,
             V_P_BLOOD_TYPE_RH : BLOOD_TYPE_RH,
@@ -3532,7 +3533,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3566,7 +3567,7 @@
                 V_P_WORK_TYPE : strStatus,
                 V_P_DEBUG_MODE_YN : '',
                 V_P_LANG_ID	: '',
-                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_COMP_CODE : gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
                 V_P_EMP_PHOTO : EMP_PHOTO, // blob
@@ -3592,7 +3593,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3645,7 +3646,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3688,7 +3689,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3732,7 +3733,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3775,7 +3776,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3815,7 +3816,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3857,7 +3858,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3900,7 +3901,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -3935,7 +3936,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_APPOINT_NUM : item.data.APPOINT_NUM,
                     V_P_EMP_CODE : empCode,
@@ -3973,7 +3974,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4009,7 +4010,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4041,7 +4042,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4077,7 +4078,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4116,7 +4117,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4150,7 +4151,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4182,7 +4183,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_CONTRACT_DEGREE : item.data.CONTRACT_DEGREE,
@@ -4222,7 +4223,7 @@
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
                 V_P_LANG_ID	: '',
-                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_COMP_CODE : gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
                 V_P_RESIDENCE_ZIP_CODE : RESIDENCE_ZIP_CODE,
@@ -4255,7 +4256,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,
@@ -4287,7 +4288,7 @@
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
                 V_P_LANG_ID	: '',
-                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_COMP_CODE : gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
                 V_P_AGREE_YN : AGREE_YN,
@@ -4313,7 +4314,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
                     V_P_SEQ : item.rownum,

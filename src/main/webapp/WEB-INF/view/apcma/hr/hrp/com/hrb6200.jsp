@@ -137,7 +137,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>간이세율표 정보</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -196,7 +196,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>1000만원 초과</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -703,7 +703,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_YYYY : YYYY
@@ -792,7 +792,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_YYYY  : gfn_nvl(rowData.YYYY)
@@ -820,7 +820,7 @@
 
 
                     /** @type {number} **/
-                    let totalRecordCount2 = 0;
+                    //let totalRecordCount2 = 0;
 
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
@@ -851,16 +851,16 @@
                             APPLY_END_DATE      : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonDetailList.push(msg);
-                        totalRecordCount2++;
+                        //totalRecordCount2++;
                     });
 
                     grdDetail.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount2;
+                    //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
 
 
                     /** @type {number} **/
-                    let totalRecordCount3 = 0;
+                    //let totalRecordCount3 = 0;
 
                     jsonItemList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -874,11 +874,11 @@
                             APPLY_END_DATE          : gfn_nvl(item.APPLY_END_DATE)
                         }
                         jsonItemList.push(msg);
-                        totalRecordCount3++;
+                        //totalRecordCount3++;
                     });
 
                     grdItemList.rebuild();
-                    document.querySelector('#listCount3').innerText = totalRecordCount3;
+                    //document.querySelector('#listCount3').innerText = totalRecordCount3;
 
 
                 } else {
@@ -939,7 +939,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_YYYY                : YYYY
@@ -1085,7 +1085,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_YYYY                  : YYYY
@@ -1188,7 +1188,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YYYY                   : YYYY
@@ -1241,7 +1241,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_YYYY: YYYY

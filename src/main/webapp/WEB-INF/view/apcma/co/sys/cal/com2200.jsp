@@ -644,7 +644,7 @@
             {caption : ["기간","년도"],					ref: 'PERIOD_YYYY', 			type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption : ["기간","기간코드"],				ref: 'PERIOD_CODE', 			type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption : ["기간","기간명"],					ref: 'PERIOD_NAME',				type:'output',  	width:'150px',  	style:'text-align:center'},
-            {caption : ["FCM현업","FCMFCM현업마감모듈"],	ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
+            {caption : ["FCM현업","FCM현업마감모듈"],		ref: 'WORK_CLOSE_CNT',			type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM현업","FCM현업마감여부"],		ref: 'WORK_CLOSE_STATUS',		type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM담당자","FCM담당자마감모듈"],	ref: 'CONTRACT_CLOSE_CNT',		type:'output',  	width:'150px',  	style:'text-align:center'},
             {caption : ["FCM담당자","FCM담당자마감여부"],	ref: 'CONTRACT_CLOSE_STATUS',	type:'output',  	width:'150px',  	style:'text-align:center'},
@@ -786,7 +786,7 @@
     	var saveParamObj = {
     			V_P_DEBUG_MODE_YN      : ''
    				,V_P_LANG_ID           : ''
-   				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
    				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
@@ -964,7 +964,7 @@
     	var saveParamObj = {
     			V_P_DEBUG_MODE_YN      : ''
    				,V_P_LANG_ID           : ''
-   				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
    				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
@@ -1040,7 +1040,7 @@
     	var saveParamObj = {
     			V_P_DEBUG_MODE_YN      : ''
    				,V_P_LANG_ID           : ''
-   				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
    				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
@@ -1115,7 +1115,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FISCAL_NO         	: SRCH_FISCAL_NO
 	    	   ,V_P_PERIOD_CODE        	: SRCH_PERIOD_CODE
@@ -1193,7 +1193,7 @@
 			//회기
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_FISCAL_NO']
-				,compCode		: gv_ma_selectedApcCd
+				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIG007'
 				,whereClause	: ''
@@ -1212,9 +1212,9 @@
 			}),
 			
 			//기초정보 - 회기
-            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', ''),
+            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', ''),
 			//기초정보 - 분기
-            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	
 		]);
 	}
@@ -1253,7 +1253,7 @@
 	  	    var paramObj = {
 	    			V_P_DEBUG_MODE_YN      : ''
 	   				,V_P_LANG_ID           : ''
-	   				,V_P_COMP_CODE         : gv_ma_selectedApcCd
+	   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
 	   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
 	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
 	   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
@@ -1337,7 +1337,7 @@
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
-	    	   ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
 	    	   ,V_P_FISCAL_NO         	: ''
 	    	   ,V_P_PERIOD_CODE        	: rowData.PERIOD_CODE.replace(/-/g, "")
@@ -1371,8 +1371,8 @@
 				SBUxMethod.set("START_DATE", 		rowData.START_DATE);
 				SBUxMethod.set("END_DATE", 			rowData.END_DATE);
 				SBUxMethod.set("DESCRIPTION", 		rowData.DESCRIPTION);
-	            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', rowData.FISCAL_NO);
-	            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', rowData.PERIOD_QUARTER);
+	            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', rowData.FISCAL_NO);
+	            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', rowData.PERIOD_QUARTER);
 
 				for(var i = 0; subData.cv_2.length > i; i++){
 					

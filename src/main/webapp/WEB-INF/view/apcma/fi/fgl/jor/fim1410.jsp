@@ -235,7 +235,7 @@
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
@@ -282,7 +282,7 @@
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_ACCT_DOC_IN'
            	,popupType				: 'A'
@@ -339,7 +339,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			
 		   	,V_P_DEPT_CODE     	: p_txtdept_code1	
@@ -482,7 +482,7 @@
 	 			params		: gfnma_objectToString({
 	 				V_P_DEBUG_MODE_YN			: '',
 	 				V_P_LANG_ID					: '',
-	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd),
 	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
 	 				
 	 				V_P_DEPT_CODE				: gfnma_nvl(obj.DEPT_CODE),

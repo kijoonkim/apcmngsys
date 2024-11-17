@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: ORG2100.jsp
  * @Description 	: 조직개편등록
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.22
@@ -325,12 +325,12 @@
 			                   
 			                        <tr>
 			                            <th scope="row" class="th_bg">우편번호</th>
-			                            <td class="td_input"  style="border-right:hidden;" colspan="3">
+			                            <td class="td_input"  style="border-right:hidden;" colspan="2">
 											<sbux-input uitype="text" id="ZIP_CODE" class="form-control input-sm" ></sbux-input>			                            
 			                            </td>
-<!-- 			                            <td class="td_input"> -->
-<!-- 											<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupZipCode" ></sbux-button> -->
-<!-- 			                            </td> -->
+			                            <td class="td_input">
+											<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="…" class="btn btn-xs btn-outline-dark"></sbux-button>
+			                            </td>
 			                        </tr>
 			                        <tr>
 			                            <th scope="row" class="th_bg">주소</th>
@@ -405,11 +405,11 @@
 	    let rst = await Promise.all([
 		    SBUxMethod.set("SRCH_TODAY_DATE", gfn_dateToYmd(new Date())),
 		    //재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 	        //사업장
 	        gfnma_multiSelectInit({
 	            target: ['#SITE_CODE1'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG001',
 	            whereClause: '',
@@ -429,7 +429,7 @@
 	        //부서구분_1
 	        gfnma_multiSelectInit({
 	            target: ['#DEPT_CATEGORY'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG010',
 	            whereClause: '',
@@ -449,7 +449,7 @@
 	        //부서구분_2
 	        gfnma_multiSelectInit({
 	            target: ['#DEPT_GUBUN'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_ORG012',
 	            whereClause: '',
@@ -469,7 +469,7 @@
 	        //인건비분류
 	        gfnma_multiSelectInit({
 	            target: ['#LABOR_COST_GROUP'],
-	            compCode: gv_ma_selectedApcCd,
+	            compCode: gv_ma_selectedCorpCd,
 	            clientCode: gv_ma_selectedClntCd,
 	            bizcompId: 'L_HRI007',
 	            whereClause: '',
@@ -626,16 +626,16 @@
        // 코드목록 그리드 초기화
        fn_clearForm();
        
-       var DATE = '';
+       let DATE = '';
        if (workType == 'TODAY'){
     	   DATE =  gfn_nvl(SBUxMethod.get("SRCH_TODAY_DATE"));
-       }else{
+       } else {
 	       DATE =  gfn_nvl(SBUxMethod.get("CHANGE_DATE"));
        }
        var paramObj = {
     	   V_P_DEBUG_MODE_YN		: '',
     	   V_P_LANG_ID				: '',
-    	   V_P_COMP_CODE			: gv_ma_selectedApcCd,
+    	   V_P_COMP_CODE			: gv_ma_selectedCorpCd,
     	   V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
     	   V_P_TODAY_DATE			: DATE,
     	   V_P_FORM_ID				: p_formId,
@@ -912,7 +912,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN        : ""
    			  ,V_P_LANG_ID              : ""
-   			  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   			  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
    			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
    			  ,V_P_CHANGE_DATE          : gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
    			  ,V_P_MEMO                 : gfn_nvl(SBUxMethod.get("MEMO1")) 
@@ -989,7 +989,7 @@
         var paramObj = {
        		   V_P_DEBUG_MODE_YN       : ""
    			  ,V_P_LANG_ID             : ""
-   			  ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
    			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
    			  ,V_P_CHANGE_DATE         : gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
    			  ,V_P_DEPT_CODE           : DEPT_CODE
@@ -1055,10 +1055,10 @@
     }
     const fn_changeDateKey = async function() {
     	//변경번호 법인별로 구분되게 where 추가
-    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedApcCd + "%'"
+    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedCorpCd + "%'"
     	SBUxMethod.attr('modal-compopup1', 'header-title', '조직도변경번호 팝업');
     	await compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG007'
         	,popupType				: 'A'
@@ -1092,7 +1092,7 @@
     	let CHANGE_DATE 		= gfn_nvl(SBUxMethod.get("CHANGE_DATE"));
     	let addParams = [ "'" + CHANGE_DATE + "'"];
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG002'
             ,popupType				: 'B'
@@ -1118,7 +1118,7 @@
     	
     	var searchText = '';
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
@@ -1143,7 +1143,7 @@
     const fn_compopupCcCode = function() {
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	compopup1({
-    		compCode				: gv_ma_selectedApcCd
+    		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG010'
         	,popupType				: 'A'
@@ -1188,6 +1188,41 @@
         }
     }
 	    
+	/* 주소 팝업 */
+	//팝업 실행
+	var fn_goPopup = function(){
+		w = 520;
+		h = 620;
+		LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+		TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+
+		settings = "height=" + h
+				   + ",width=" + w
+				   + ",top=" + TopPosition
+				   + ",left=" + LeftPosition
+				   + ",scrollbars=yes, resizable=yes";
+		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
+
+	}
+	/* 주소 팝업 */
+	//팝업 콜백
+	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+		/*
+			roadFullAddr 전체 도로명주소
+			roadAddrPart1 도로명주소(참고항목 제외)
+			roadAddrPart2 도로명주소 참고항목
+			addrDetail 상세주소
+			engAddr 도로명 주소 영문
+			jibunAddr 지번 정보
+			zipNo 우편번호
+		*/
+		if(addrDetail.length>30){
+			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
+			return;
+		}
+		SBUxMethod.set("ZIP_CODE", zipNo);//우편번호
+		SBUxMethod.set("ADDRESS", roadFullAddr );// 도로명주소
+	}
 	    
 	    
 </script>

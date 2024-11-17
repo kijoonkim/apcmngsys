@@ -152,15 +152,15 @@ function compopfia2520(options) {
 	const fn_initPopFia2520 = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect([''],						pop_jsonAcquireType,	'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''],						pop_jsonAcquireType,	'L_FIA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 		
 	}
@@ -358,7 +358,7 @@ function compopfia2520(options) {
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : gfnma_nvl(SBUxMethod.get('POP_SCH_FI_ORG_CODE'))
@@ -583,7 +583,7 @@ function compopfia2520(options) {
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: ''
     	 				,V_P_LANG_ID				: ''
-    	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd)
+    	 				,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd)
     	 				,V_P_CLIENT_CODE			: gfnma_nvl(gv_ma_selectedClntCd)
     	 				
 						,V_P_ACCT_RULE_CODE     		: gfnma_nvl(obj.ACCT_RULE_CODE)
@@ -727,7 +727,7 @@ var fn_popFia2520_compopup1 = function(row, col, cellData1, cellData2) {
 
 	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
 	compopup1({
-        compCode				: gv_ma_selectedApcCd
+        compCode				: gv_ma_selectedCorpCd
         ,clientCode				: gv_ma_selectedClntCd
         ,bizcompId				: 'P_COM004'
         ,popupType				: 'A'
@@ -769,7 +769,7 @@ var fn_popFia2520_compopup2 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 	compopup1({
-        compCode				: gv_ma_selectedApcCd
+        compCode				: gv_ma_selectedCorpCd
         ,clientCode				: gv_ma_selectedClntCd
         ,bizcompId				: 'P_FI_DEPT'
         ,popupType				: 'B'
@@ -814,7 +814,7 @@ var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_COST_CENTER'
     	,popupType				: 'A'
@@ -857,7 +857,7 @@ var fn_popFia2520_compopup4 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_ASSET_LIST'
     	,popupType				: 'A'
@@ -900,7 +900,7 @@ var fn_popFia2520_compopup5 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_ASSET_CATEGORY'
    		,popupType				: 'A'
@@ -945,7 +945,7 @@ var fn_popFia2520_compopup6 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산중분류');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_ASSET_LEVEL2'
    		,popupType				: 'A'
@@ -990,7 +990,7 @@ var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산소분류');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_ASSET_LEVEL3'
    		,popupType				: 'A'
@@ -1035,7 +1035,7 @@ var fn_popFia2520_compopup8 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_FA_LOCATION'
    		,popupType				: 'A'
@@ -1080,7 +1080,7 @@ var fn_popFia2520_compopup9 = function(row, col, cellData1, cellData2) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'P_PROJECT_CIP'
    		,popupType				: 'A'
@@ -1123,7 +1123,7 @@ var fn_popFia2520_compopup10 = function(row, col, cellData1) {
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
 	compopup1({
-		compCode				: gv_ma_selectedApcCd
+		compCode				: gv_ma_selectedCorpCd
 		,clientCode				: gv_ma_selectedClntCd
 		,bizcompId				: 'L_VAT_INFO'
    		,popupType				: 'A'

@@ -357,8 +357,6 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.id}';
-	var gv_ma_selectedClntCd 	= '${loginVO.clntCd}';
-	var gv_ma_selectedApcCd		= '${loginVO.apcCd}';
 	//-----------------------------------------------------------
 	const fn_initSBSelect = async function() {
 // 	    let 
@@ -366,7 +364,7 @@
 	        //기준 통화
 	        gfnma_multiSelectInit({
 	            target			: ['#CURRENCY_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_COM001',
 	            whereClause		: '',
@@ -386,7 +384,7 @@
 	        //국가
 	        gfnma_multiSelectInit({
 	            target			: ['#NATION_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_COM015',
 	            whereClause		: '',
@@ -405,7 +403,7 @@
 	        //회계기준
 	        gfnma_multiSelectInit({
 	            target			: ['#ACCT_RULE_CODE'],
-	            compCode		: gv_ma_selectedApcCd,
+	            compCode		: gv_ma_selectedCorpCd,
 	            clientCode		: gv_ma_selectedClntCd,
 	            bizcompId		: 'L_FIM054',
 	            whereClause		: '',
@@ -472,9 +470,7 @@
 	// 신규
 	function cfn_add() {
 		fn_clearSubTable();
-		SBUxMethod.attr('COMP_CODE', 'readonly', false);
-    	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 추가'); 
-    	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 추가');
+		fn_setCompData();
 	}
 
 	// 저장
@@ -515,6 +511,62 @@
 	    masterGrid.bind('click', 'fn_searchSubTable');
 	}
 
+	/*
+	*신규 버튼 기본 법인정보 추가
+	*/
+	const fn_setCompData = async function() {
+		SBUxMethod.attr('COMP_CODE', 'readonly', true);
+    	let comp_data = await fn_compData();
+    	SBUxMethod.set("COMP_CODE", gfn_nvl(comp_data.COMP_CODE));
+    	SBUxMethod.set("COMP_NAME", gfn_nvl(comp_data.COMP_NAME));
+    	SBUxMethod.set("COMP_REGNO", gfn_nvl(comp_data.COMP_REGNO));
+    	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 추가'); 
+    	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 추가');
+	}
+	
+    /**
+    * 법인 리스트 조회
+    */
+    const fn_compData = async function() {
+       let COMP_CODE_P	    = gfn_nvl(SBUxMethod.get("SRCH_COMP_CODE_P"));
+       let COMP_NAME_P	    = gfn_nvl(SBUxMethod.get("SRCH_COMP_NAME_P"));
+       var paramObj = {
+    		   V_P_DEBUG_MODE_YN        : ""
+			  ,V_P_LANG_ID              : ""
+			  ,V_P_COMP_CODE            : ''
+			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+			  ,V_P_COMP_CODE_P          : ''
+			  ,V_P_COMP_NAME            : ''
+			  ,V_P_FORM_ID              : p_formId
+			  ,V_P_MENU_ID              : p_menuId
+			  ,V_P_PROC_ID              : ""
+			  ,V_P_USERID               : p_userId
+			  ,V_P_PC                   : ""
+       };
+       const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1000.do", {
+    	   getType	: 'json',
+    	   workType	: 'IMPORT',
+    	   cv_count	: '1',
+    	   params	: gfnma_objectToString(paramObj)
+       });
+       const data = await postJsonPromise;
+       try {
+    	   if (_.isEqual("S", data.resultStatus)) {
+                
+    	    } else {
+    		    alert(data.resultMessage);
+    	    }
+
+        } catch (e) {
+    	   if (!(e instanceof Error)) {
+    		   e = new Error(e);
+    	   }
+    	   console.error("failed", e.message);
+    	   gfn_comAlert("E0001"); //	E0001	오류가 발생하였습니다.
+    	}
+        return data.cv_1[0];
+    }
+	
     /**
     * 법인 리스트 조회
     */
@@ -563,7 +615,7 @@
 				//전체 관리지가 아니라면 본인이 속한 법인정보만 보이게
 				}else{
 					data.cv_1.forEach((item, index) => {
-						if(gv_ma_selectedApcCd == item.COMP_CODE){
+						if(gv_ma_selectedCorpCd == item.COMP_CODE){
 							const msg = {
 									COMP_CODE			: gfn_nvl(item.COMP_CODE),
 									COMP_NAME			: gfn_nvl(item.COMP_NAME),
@@ -757,7 +809,6 @@
     	gfnma_multiSelectSet('#ACCT_RULE_CODE', 'SUB_CODE', 'CODE_NAME', 			"");
         $("#COMP_LOGO").attr("src", "" );
         $("#COMP_STAMP").attr("src", "" );
-    	
     }
     
 	    /**

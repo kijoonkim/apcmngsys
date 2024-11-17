@@ -165,12 +165,12 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            //gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             //로그유형
             gfnma_multiSelectInit({
                 target			: ['#SRCH_LOG_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS010'
                 ,whereClause	: ''
@@ -279,7 +279,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_LOG_DATE_FR     : LOG_DATE_FR

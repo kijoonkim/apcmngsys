@@ -576,10 +576,10 @@
     const fn_initSBSelect = async function () {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE', '#SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -596,10 +596,10 @@
                 ]
             }),
             // 발령구분
-            gfnma_setComSelect(['gvwList'], jsonAppointType, 'L_HRI041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonAppointType, 'L_HRI041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_APPOINT_TYPE', '#POP_APPOINT_TYPE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI041'
                 ,whereClause	: ''
@@ -616,10 +616,10 @@
                 ]
             }),
             // 적용구분
-            gfnma_setComSelect(['APPLY_YN'], jsonApplyYn, 'L_HRM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['APPLY_YN'], jsonApplyYn, 'L_HRM003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#POP_APPLY_YN']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRM003'
                 ,whereClause	: ''
@@ -636,14 +636,14 @@
                 ]
             }),
             // 발령상태
-            gfnma_setComSelect(['STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['POSITION_CODE', 'bandgvwDetail'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POSITION_CODE', 'bandgvwDetail'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['bandgvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#DUTY_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI003'
                 ,whereClause	: ''
@@ -660,14 +660,14 @@
                 ]
             }),
             // 직급
-            gfnma_setComSelect(['JOB_RANK', 'bandgvwDetail'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['JOB_RANK', 'bandgvwDetail'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직군
-            gfnma_setComSelect(['JOB_GROUP', 'bandgvwDetail'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['JOB_GROUP', 'bandgvwDetail'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직무
-            gfnma_setComSelect(['bandgvwDetail'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#JOB_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI006'
                 ,whereClause	: ''
@@ -684,10 +684,10 @@
                 ]
             }),
             // 근무지
-            gfnma_setComSelect(['bandgvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#WORK_REGION']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI999'
                 ,whereClause	: ''
@@ -704,15 +704,15 @@
                 ]
             }),
             // 휴직유형
-            gfnma_setComSelect(['bandgvwDetail'], jsonTimeOffType, 'L_HRT003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonTimeOffType, 'L_HRT003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직종
-            gfnma_setComSelect(['bandgvwDetail'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 육아기근로시간단축
-            gfnma_setComSelect(['bandgvwDetail'], jsonParentingWorkType, 'L_HRM006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonParentingWorkType, 'L_HRM006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 시작구분
-            gfnma_setComSelect(['bandgvwDetail'], jsonTimeStartDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonTimeStartDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -727,7 +727,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
@@ -754,7 +754,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -785,7 +785,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI041'
             ,whereClause			: strWhereClause
@@ -813,7 +813,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
                 , V_P_APPOINT_NUM : ''
                 , V_P_EMP_CODE : ''
@@ -913,13 +913,6 @@
         SBGridProperties.selectmode = 'byrow';
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.paging = {
-            'type': 'page',
-            'count': 5,
-            'size': 20,
-            'sorttype': 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["발령일자"], ref: 'APPOINT_DATE', type: 'output', width: '89px', style: 'text-align:left',
@@ -1158,13 +1151,6 @@
         }
 
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.paging = {
-            'type': 'page',
-            'count': 5,
-            'size': 20,
-            'sorttype': 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {
                 caption: ["인원정보", ""],
@@ -1453,7 +1439,7 @@
                     var paramObj = {
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
                         , V_P_APPOINT_NUM : APPOINT_NUM
                         , V_P_EMP_CODE : EMP_CODE
@@ -1795,7 +1781,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
             , V_P_APPOINT_NUM: APPOINT_NUM
             , V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
@@ -1943,7 +1929,7 @@
         var master = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_APPOINT_NUM : APPOINT_NUM,
             V_P_APPOINT_TYPE : APPOINT_TYPE,
@@ -1990,7 +1976,7 @@
                             params: gfnma_objectToString({
                                 V_P_DEBUG_MODE_YN: '',
                                 V_P_LANG_ID: '',
-                                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                                 V_P_APPOINT_NUM: masterData.v_returnStr,
                                 V_P_APPOINT_DATE: item.data.APPOINT_DATE,
@@ -2060,7 +2046,7 @@
                                             params: gfnma_objectToString({
                                                 V_P_DEBUG_MODE_YN: '',
                                                 V_P_LANG_ID: '',
-                                                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                                                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                                                 V_P_APPOINT_NUM: item.data.APPOINT_NUM,
                                                 V_P_APPOINT_DATE: item.data.APPOINT_DATE,
@@ -2190,7 +2176,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: '',
                 V_P_LANG_ID: '',
-                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                V_P_COMP_CODE: gv_ma_selectedCorpCd,
                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                 IV_P_APPOINT_NUM: APPOINT_NUM,
                 V_P_APPOINT_TYPE: APPOINT_TYPE,
@@ -2260,7 +2246,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_APPOINT_NUM : APPOINT_NUM,
             V_P_APPOINT_TYPE : APPOINT_TYPE,
@@ -2331,7 +2317,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_COMP_CODE : gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             IV_P_APPOINT_NUM : APPOINT_NUM,
             V_P_APPOINT_TYPE : APPOINT_TYPE,
@@ -2386,11 +2372,6 @@
         editType = "U";
         cfn_add();
 
-        var nCol = gvwList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
         var nRow = gvwList.getRow();
         if (nRow < 1) {
             return;
@@ -2408,7 +2389,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
             , V_P_APPOINT_NUM: APPOINT_NUM
             , V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
@@ -2601,7 +2582,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
             , V_P_APPOINT_NUM: ''
             , V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
@@ -2685,6 +2666,16 @@
 
                 bandgvwDetail.rebuild();
 
+                fnDeptAppointYnChange(null);
+                fnPositionAppointYnChange(null);
+                fnDutyAppointYnChange(null);
+                fnJobRankAppointYnChange(null);
+                fnJobGroupAppointYnChange(null);
+                fnJobAppointYnChange(null);
+                fnJobFamilyAppointYnChange(null);
+                fnRegionAppointYnChange(null);
+                fnParentingWorkTypeYnChange(null);
+
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_CODE1"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("DEPT_NAME1"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("POSITION_CODE1"), true);
@@ -2701,6 +2692,8 @@
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_START_DAY_TYPE"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_DAY_TYPE"), true);
                 bandgvwDetail.setColDisabled(bandgvwDetail.getColRef("TIME_END_HHMM"), true);
+
+
             } else {
                 alert(data.resultMessage);
             }
@@ -2729,7 +2722,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN: '',
                         V_P_LANG_ID: '',
-                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_COMP_CODE: gv_ma_selectedCorpCd,
                         V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                         V_P_APPOINT_NUM: rowData.APPOINT_NUM,
                         V_P_APPOINT_DATE: '',

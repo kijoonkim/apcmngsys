@@ -343,7 +343,7 @@
                                         id="TEMP_END_DATE"
                                         name="TEMP_END_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast"
                                 ></sbux-datepicker>
                             </td>
@@ -354,7 +354,7 @@
                                         id="BONUS_APPLY_START_DATE"
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast"
                                         ></sbux-datepicker>
                             </td>
@@ -577,7 +577,7 @@
                                     id="PENSION_JOIN_DATE"
                                     name="PENSION_JOIN_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -586,7 +586,7 @@
                                     id="HEALTH_INSURE_JOIN_DATE"
                                     name="HEALTH_INSURE_JOIN_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -595,7 +595,7 @@
                                     id="PENSION_CLOSE_DATE"
                                     name="PENSION_CLOSE_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -604,7 +604,7 @@
                                     id="HEALTH_INSURE_CLOSE_DATE"
                                     name="HEALTH_INSURE_CLOSE_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -613,7 +613,7 @@
                                     id="LAST_APPLICATION_DATE"
                                     name="LAST_APPLICATION_DATE"
                                     uitype="popup"
-                                    date-format="yyyymmdd"
+                                    date-format="yyyy-mm-dd"
                                     class="form-control input-sm input-sm-ast"
                                     readonly>
                             </sbux-datepicker>
@@ -807,7 +807,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>원천세징수비율</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount10">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount10">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -915,37 +915,37 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['srch-comp_code'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_EMP_STATE','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'GRADE_HOBONG_CODE', 'GRADE_HOBONG_NAME', 'Y', ''),
-            gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['BANK_CODE','BANK_CODE2','RET_PENS_BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode, 'L_HRP001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode2, 'L_HRP002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode3, 'L_HRP009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode4, 'L_HRP037', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode5, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayApplyType, 'L_HRP021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuType, 'L_HRW018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuReasonType, 'L_HRW019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuStateType, 'L_HRW021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuRegType, 'L_HRW020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-comp_code'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'GRADE_HOBONG_CODE', 'GRADE_HOBONG_NAME', 'Y', ''),
+            gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['BANK_CODE','BANK_CODE2','RET_PENS_BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode, 'L_HRP001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode2, 'L_HRP002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode3, 'L_HRP009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode4, 'L_HRP037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode5, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuType, 'L_HRW018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuReasonType, 'L_HRW019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuStateType, 'L_HRW021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuRegType, 'L_HRW020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
 
 
             //사업장
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_ORG001'
                 ,whereClause	: ''
@@ -977,7 +977,7 @@
         }
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
+            compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_ORG001'
             ,popupType				: 'B'
@@ -1025,7 +1025,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
+            compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
             , popupType: 'A'
@@ -1762,7 +1762,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_SITE_CODE     : gfn_nvl(rowData.SITE_CODE)
@@ -2089,7 +2089,7 @@
 
                     /*****************원천세징수비율********************/
                     /** @type {number} **/
-                    let totalRecordCount10 = 0;
+                    //let totalRecordCount10 = 0;
                     jsonWithholdList.length = 0;
                     data.cv_12.forEach((item, index) => {
                         const msg = {
@@ -2101,11 +2101,11 @@
                             USERTIME            : gfn_nvl(item.USERTIME)
                         }
                         jsonWithholdList.push(msg);
-                        totalRecordCount10++;
+                        //totalRecordCount10++;
                     });
 
                     gvwWithholdGrid.rebuild();
-                    document.querySelector('#listCount10').innerText = totalRecordCount10;
+                    //document.querySelector('#listCount10').innerText = totalRecordCount10;
 
                     fn_setData(rowData.EMP_CODE);
 
@@ -2211,7 +2211,7 @@
 
         //TODO : 원본로우가 중복되어 에러가 나기 때문에 COMP_CODE를 추가해서 대처해놓음
         //let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
-        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " + " AND comp_code = '" + gv_ma_selectedApcCd + "'";
+        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " + " AND comp_code = '" + gv_ma_selectedCorpCd + "'";
         var paramObj = {
             EMP_CODE: query
         }
@@ -2418,7 +2418,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_SITE_CODE      : SITE_CODE
@@ -2846,7 +2846,7 @@
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
             ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE		: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
             , V_P_EMP_CODE                  : EMP_CODE
@@ -3161,7 +3161,7 @@
                     params: gfnma_objectToString({
                         V_P_DEBUG_MODE_YN   : ''
                         , V_P_LANG_ID       : ''
-                        , V_P_COMP_CODE     : gv_ma_selectedApcCd
+                        , V_P_COMP_CODE     : gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
 
                         , V_P_EMP_CODE              : EMP_CODE
@@ -3261,7 +3261,7 @@
 
                         V_P_DEBUG_MODE_YN: ''
                         , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         , V_P_EMP_CODE          : EMP_CODE
@@ -3303,7 +3303,7 @@
 
                     V_P_DEBUG_MODE_YN: ''
                     , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     , V_P_EMP_CODE            : EMP_CODE
@@ -3350,7 +3350,7 @@
 
                     V_P_DEBUG_MODE_YN: ''
                     , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     , V_P_EMP_CODE              : EMP_CODE

@@ -40,139 +40,144 @@
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
                 </div>
             </div>
-            <div class="box-search-ma">
 
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed table-search-ma">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">                    
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg_search">사업단위</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">사업장</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">회계기준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">기간</th>
-                            <td colspan="4" class="td_input" >
-                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-									<sbux-datepicker
-										uitype="popup"
-										id="SCH_YMDPERIOD_FR"
-								        datepicker-mode="month"
-								        date-format="yyyy-mm"
-								        style="width:80px"
-										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
-									></sbux-datepicker>
-								    <font style="padding-left:5px;padding-right:5px">-</font>  
-									<sbux-datepicker
-										uitype="popup"
-										id="SCH_YMDPERIOD_TO"
-								        datepicker-mode="month"
-								        date-format="yyyy-mm"
-								        style="width:80px"
-										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
-									></sbux-datepicker>
-								    <font style="padding-left:5px;"></font>  
-								    <span style="padding-top:7px">
-										<sbux-checkbox id="SCH_CHKTHIS_PERIOD_YN" name="SCH_CHKTHIS_PERIOD_YN" uitype="normal" text="당월" true-value="Y" false-value="N" onclick="fn_chkMonth(SCH_CHKTHIS_PERIOD_YN)" ></sbux-checkbox>
-								    </span>
-                            	</div>
-							</td>
-						</tr>
-
-                        <tr>
-							                            
-                            <th scope="row" class="th_bg_search">통화</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-							                            
-                            <th scope="row" class="th_bg_search">계정수준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">조건</th>
-                            <td colspan="9" class="td_input" >
-                            	<div style="display:flex;float:left">
-                            	
-	                            	<font>기초포함</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKBEGIN_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+ 			<div class="box-body">
+            
+	            <div class="box-search-ma">
+	
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">                    
+	                    </colgroup>
+	                    <tbody>
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">APC</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">사업장</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">회계기준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">기간</th>
+	                            <td colspan="4" class="td_input" >
+	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+										<sbux-datepicker
+											uitype="popup"
+											id="SCH_YMDPERIOD_FR"
+									        datepicker-mode="month"
+									        date-format="yyyy-mm"
+									        style="width:80px"
+											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+										></sbux-datepicker>
+									    <font style="padding-left:5px;padding-right:5px">-</font>  
+										<sbux-datepicker
+											uitype="popup"
+											id="SCH_YMDPERIOD_TO"
+									        datepicker-mode="month"
+									        date-format="yyyy-mm"
+									        style="width:80px"
+											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+										></sbux-datepicker>
+									    <font style="padding-left:5px;"></font>  
+									    <span style="padding-top:7px">
+											<sbux-checkbox id="SCH_CHKTHIS_PERIOD_YN" name="SCH_CHKTHIS_PERIOD_YN" uitype="normal" text="당월" true-value="Y" false-value="N" onclick="fn_chkMonth(SCH_CHKTHIS_PERIOD_YN)" ></sbux-checkbox>
+									    </span>
+	                            	</div>
+								</td>
+							</tr>
+	
+	                        <tr>
+								                            
+	                            <th scope="row" class="th_bg_search">통화</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+								                            
+	                            <th scope="row" class="th_bg_search">계정수준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">조건</th>
+	                            <td colspan="9" class="td_input" >
+	                            	<div style="display:flex;float:left">
 	                            	
-								    <font style="padding-left:30px;"></font>  
-								    
-	                            	<font>Zero포함</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-	                            	
-								    <font style="padding-left:30px;"></font>  
-	                            	
-	                            	<font>상위계정포함</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKPARENT_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-
-								    <font style="padding-left:30px;"></font>  
-
-	                            	<font>표준재무제표계정표시</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKREPORT_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-								    
-								    <font style="padding-left:30px;"></font>  
-
-	                            	<font>본사계정표시</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-                            	</div>
-                            </td>   
-                            
-                        </tr>
-                        
-                    </tbody>
-                </table>
+		                            	<font>기초포함</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKBEGIN_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+		                            	
+									    <font style="padding-left:30px;"></font>  
+									    
+		                            	<font>Zero포함</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+		                            	
+									    <font style="padding-left:30px;"></font>  
+		                            	
+		                            	<font>상위계정포함</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKPARENT_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+	
+									    <font style="padding-left:30px;"></font>  
+	
+		                            	<font>표준재무제표계정표시</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKREPORT_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+									    
+									    <font style="padding-left:30px;"></font>  
+	
+		                            	<font>본사계정표시</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+	                            	</div>
+	                            </td>   
+	                            
+	                        </tr>
+	                        
+	                    </tbody>
+	                </table>
+	
+	            </div>
                 
 				<div class="table-responsive tbl_scroll_sm" style="padding-top:10px">
 				
@@ -200,6 +205,7 @@
 				</div>
                 
             </div>
+            
         </div>
     </section>
 </body>
@@ -222,7 +228,7 @@
 	var p_ss_deptName			= '${loginVO.maDeptName}';
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	
-	var jsonFiOrgCode		= [];	// 사업단위
+	var jsonFiOrgCode		= [];	// APC
 	var jsonSiteCode		= [];	// 사업장
 	var jsonAcctRuleCode	= [];	// 회계기준
 	var jsonCurrencyCode	= [];	// 통화
@@ -243,16 +249,16 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            // APC
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -447,7 +453,7 @@
 		let p_zero_include_yn	= gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -462,7 +468,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -569,7 +575,7 @@
 		let p_zero_include_yn	= gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
 		
 		if(!p_fi_org_code){
- 			gfn_comAlert("E0000","사업단위를 선택하세요");
+ 			gfn_comAlert("E0000","APC를 선택하세요");
 			return;      		 
 		}
 		if(!p_acct_rule_code){
@@ -584,7 +590,7 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
@@ -790,7 +796,7 @@
 	    var paramObj = {
 				V_P_DEBUG_MODE_YN		: ''
 				,V_P_LANG_ID			: ''
-				,V_P_COMP_CODE			: gv_ma_selectedApcCd
+				,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 				
 				,V_P_ACCT_RULE_CODE		: ACCT_RULE_CODE

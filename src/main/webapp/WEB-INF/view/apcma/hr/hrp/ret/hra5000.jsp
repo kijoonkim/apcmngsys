@@ -214,7 +214,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>근속연수공제</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -248,7 +248,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>누진일수</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -282,7 +282,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>환산급여</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount4">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -686,7 +686,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN   : ''
             ,V_P_LANG_ID        : ''
-            ,V_P_COMP_CODE      : gv_ma_selectedApcCd
+            ,V_P_COMP_CODE      : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE    : gv_ma_selectedClntCd
 
             ,V_P_YYYY           : YE_TX_YYYY
@@ -785,7 +785,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN   : ''
                 ,V_P_LANG_ID        : ''
-                ,V_P_COMP_CODE      : gv_ma_selectedApcCd
+                ,V_P_COMP_CODE      : gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE    : gv_ma_selectedClntCd
 
                 ,V_P_YYYY           : rowData.YYYY
@@ -811,7 +811,7 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     /** @type {number} **/
-                    let totalRecordCount2 = 0;
+                    //let totalRecordCount2 = 0;
 
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
@@ -823,11 +823,11 @@
 
                         }
                         jsonDetailList.push(msg);
-                        totalRecordCount2++;
+                        //totalRecordCount2++;
                     });
 
                     gvwDetailGrid.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount2;
+                    //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                     if (jsonDetailList.length > 0){
                         jsonDetailList.forEach((item, index) => {
@@ -836,7 +836,7 @@
                     }
 
                     /** @type {number} **/
-                    let totalRecordCount3 = 0;
+                    //let totalRecordCount3 = 0;
 
                     jsonDayList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -848,14 +848,14 @@
 
                         }
                         jsonDayList.push(msg);
-                        totalRecordCount3++;
+                        //totalRecordCount3++;
                     });
 
                     gvwDayGrid.rebuild();
-                    document.querySelector('#listCount3').innerText = totalRecordCount3;
+                    //document.querySelector('#listCount3').innerText = totalRecordCount3;
 
                     /** @type {number} **/
-                    let totalRecordCount4 = 0;
+                    //let totalRecordCount4 = 0;
 
                     jsonConvertList.length = 0;
                     data.cv_4.forEach((item, index) => {
@@ -868,11 +868,11 @@
 
                         }
                         jsonConvertList.push(msg);
-                        totalRecordCount4++;
+                        //totalRecordCount4++;
                     });
 
                     gvwConvertGrid.rebuild();
-                    document.querySelector('#listCount4').innerText = totalRecordCount4;
+                    //document.querySelector('#listCount4').innerText = totalRecordCount4;
 
 
                 } else {
@@ -941,7 +941,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_YYYY                   : YYYY
@@ -1043,7 +1043,7 @@
 
                     V_P_DEBUG_MODE_YN   : ''
                     , V_P_LANG_ID       : ''
-                    , V_P_COMP_CODE     : gv_ma_selectedApcCd
+                    , V_P_COMP_CODE     : gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
 
                     ,V_P_YYYY                   : YYYY
@@ -1118,7 +1118,7 @@
 
                     V_P_DEBUG_MODE_YN   : ''
                     , V_P_LANG_ID       : ''
-                    , V_P_COMP_CODE     : gv_ma_selectedApcCd
+                    , V_P_COMP_CODE     : gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
 
                     ,V_P_YYYY               : YYYY
@@ -1192,7 +1192,7 @@
 
                     V_P_DEBUG_MODE_YN   : ''
                     , V_P_LANG_ID       : ''
-                    , V_P_COMP_CODE     : gv_ma_selectedApcCd
+                    , V_P_COMP_CODE     : gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
 
                     ,V_P_YYYY                   : YYYY
@@ -1235,7 +1235,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN			: ''
                 ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                 ,V_P_YYYY                   : YYYY
@@ -1320,7 +1320,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN			: ''
                 ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                 ,V_P_YYYY                   : YYYY

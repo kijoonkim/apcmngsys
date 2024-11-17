@@ -201,7 +201,7 @@
                                         id="APPLY_START_DATE"
                                         name="APPLY_START_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed">
                                 </sbux-datepicker>
 
@@ -212,7 +212,7 @@
                                         id="APPLY_END_DATE"
                                         name="APPLY_END_DATE"
                                         uitype="popup"
-                                        date-format="yyyymmdd"
+                                        date-format="yyyy-mm-dd"
                                         class="form-control input-sm input-sm-ast inpt_data_reqed">
                                 </sbux-datepicker>
                             </td>
@@ -259,7 +259,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>적용기준 상세</span>
-                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                            <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                         </li>
                     </ul>
                     <div class="ad_tbl_toplist">
@@ -319,16 +319,16 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['SRCH_PAY_TYPE','PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_ITEM_CODE'], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            /*gfnma_setComSelect([''], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE','PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_ITEM_CODE'], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            /*gfnma_setComSelect([''], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 */
             //급여항목
             gfnma_multiSelectInit({
                 target			: ['#SRCH_PAY_ITEM_CODE']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP004'
                 ,whereClause	: ''
@@ -348,7 +348,7 @@
             //급여항목
             gfnma_multiSelectInit({
                 target			: ['#PAY_ITEM_RANGE_TYPE1','#PAY_ITEM_RANGE_TYPE2']
-                ,compCode		: gv_ma_selectedApcCd
+                ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB026'
                 ,whereClause	: ''
@@ -521,7 +521,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             ,V_P_APPLY_DATE          : APPLY_DATE
@@ -617,7 +617,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_COMP_CODE: gv_ma_selectedCorpCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_APPLY_DATE            : APPLY_DATE
@@ -663,7 +663,7 @@
                     });
 
                     /** @type {number} **/
-                    let totalRecordCount = 0;
+                    //let totalRecordCount = 0;
 
                     jsonBandgvwDetailList.length = 0;
                     data.cv_3.forEach((item, index) => {
@@ -677,11 +677,11 @@
 
                         }
                         jsonBandgvwDetailList.push(msg);
-                        totalRecordCount++;
+                        //totalRecordCount++;
                     });
 
                     gvwBandgvwDetailGrid.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount;
+                    //document.querySelector('#listCount2').innerText = totalRecordCount;
 
                     fn_settings('true');
 
@@ -716,7 +716,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
-            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_APPLY_DATE            : APPLY_DATE
@@ -881,7 +881,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN			: ''
             ,V_P_LANG_ID				: ''
-            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
             ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
@@ -1026,7 +1026,7 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: ''
                     , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     , V_P_PAY_ITEM_CODE         : PAY_ITEM_CODE
@@ -1154,7 +1154,7 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN			: ''
                 ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_COMP_CODE				: gv_ma_selectedCorpCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                 ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE

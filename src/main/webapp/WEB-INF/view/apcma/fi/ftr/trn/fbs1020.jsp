@@ -141,7 +141,7 @@
             // FBS서비스
             gfnma_multiSelectInit({
                 target: ['#SRCH_FBS_SERVICE'],
-                compCode: gv_ma_selectedApcCd,
+                compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
                 whereClause: '',
@@ -265,7 +265,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_FBS_SERVICE : FBS_SERVICE,
             V_P_TXN_TYPE : V_P_TXN_TYPE,
