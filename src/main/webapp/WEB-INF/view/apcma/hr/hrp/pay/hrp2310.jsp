@@ -1057,8 +1057,6 @@
                 /** @type {number} **/
                 let totalRecordCount = 0;
 
-                console.log('----------data---------', data);
-
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
