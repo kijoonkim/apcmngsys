@@ -1348,22 +1348,22 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		SBGridProperties.mergecellsfixedrows  = 'bycol';
+		SBGridProperties.mergecellsfixedrows  = 'bycolrec';
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["APC코드","APC코드"],		ref: 'apcCd',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["APC명","APC명"],			ref: 'apcNm',		type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["시도"],					ref:'ctpvNm',		type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["시군구"],					ref:'sigunNm',		type:'input',  width:'80px',	style:'text-align:center'},
+			{caption: ["시도","시도"],					ref:'ctpvNm',		type:'input',  width:'80px',	style:'text-align:center'},
+			{caption: ["시군구","시군구"],					ref:'sigunNm',		type:'input',  width:'80px',	style:'text-align:center'},
 			{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["지원유형","지원유형"],			ref: 'sprtBizNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
 				ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
-			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'},
-			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'},
-			{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'100px',    style:'text-align:right'},
-			{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'100px',    style:'text-align:right'},
-			{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'110px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'110px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'110px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'110px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'110px',    style:'text-align:right'},
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -1378,11 +1378,11 @@
 				{caption: ["지원유형","지원유형"],			ref: 'sprtBizNm',		type:'input',  width:'100px',    style:'text-align:center'},
 				{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
 					ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
-				{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'},
-				{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","계"],				ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","국고"],			ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'},
 				{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'100px',    style:'text-align:right'},
 				{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'100px',    style:'text-align:right'},
-				{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","자부담"],			ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'},
 		);
 
 		return _columns;

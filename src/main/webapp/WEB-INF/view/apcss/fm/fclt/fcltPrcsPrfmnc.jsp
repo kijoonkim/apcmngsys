@@ -1363,7 +1363,7 @@
 			{caption: ["APC 조직화취급 공선수탁(백만원)"],				ref:'apcOgnzCprtnSortTrst',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 조직화취급 계약매취(백만원)"],				ref:'apcCtrtEmspap',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 취급액(A)(백만원)"],					ref:'apcTrmtAmt',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["APC 취급물량(백만원)"],						ref:'apcTrmtVlm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 취급물량(톤)"],						ref:'apcTrmtVlm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 취급액 중 산지유통통합조직 출하액(B)(백만원)"],	ref:'tmSpmtAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전속출하 비율(B/A*100)(%)"],			ref:'tmSpmtRt',			type:'output',width:'70px',style:'text-align:center'},
 
