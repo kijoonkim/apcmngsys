@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 /**
@@ -55,10 +54,17 @@ public interface FcltPrgrsMapper {
 	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO);
 
 	/**
-	 * 최종제출 여부를 업데이트 한다.
+	 * 승인 여부를 업데이트 한다.
 	 * @param fcltPrgrsVO
 	 * @return
 	 */
 	public int updateAprv(FcltPrgrsVO fcltPrgrsVO);
+
+	/**
+	 * 진척도 로우데이터를 조회한다.
+	 * @param fcltInfoVO
+	 * @return
+	 */
+	public List<FcltPrgrsVO> selectPrgrsRawData(FcltPrgrsVO fcltPrgrsVO);
 
 }

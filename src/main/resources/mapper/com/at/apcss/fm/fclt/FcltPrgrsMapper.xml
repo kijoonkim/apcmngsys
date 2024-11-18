@@ -3,11 +3,11 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : FcltPrgrsMapper.xml                                    				-->
-<!-- DESC : 운영자개요 정보 mapper                                             			-->
+<!-- DESC : 진척도 정보 mapper                                             			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- 2024.07.23  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper">
@@ -347,10 +347,13 @@
 		UPDATE
 			TB_TE_APC_PRGRS
 		SET
-			PRGRS_LAST = #{prgrsLast}
-			, SYS_LAST_CHG_DT		=  SYSDATE
-			, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
-			, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+			PRGRS_LAST 				= #{prgrsLast}
+			, LAST_USER_ID			= #{sysLastChgUserId}
+			, LAST_DT				= SYSDATE
+
+			, SYS_LAST_CHG_DT		= SYSDATE
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHERE 1=1
 		  AND CRTR_YR		= #{crtrYr}
 		  AND APC_CD		= #{apcCd}
@@ -405,4 +408,84 @@
 		  AND APC_CD		= #{apcCd}
 		  AND PRGRS_SE_CD	= 'FCLT'
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData		-->
+	<!-- DESC : 진척도 로우데이터 조회                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.18  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrgrsRawData" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData */
+				AP.CRTR_YR
+				, AP.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
+				, AP.PRGRS_SE_CD
+
+				, APC_ADM_CD
+				, FN_GET_COM_CD_VL_NM('UNTY_CTPV',SUBSTR(RO.APC_ADM_CD , 0 , 2)) AS CTPV_NM
+				, FN_GET_COM_CD_VL_NM('UNTY_SGG',SUBSTR(RO.APC_ADM_CD , 0 , 5)) AS SGG_NM
+
+				, AP.PRGRS_1
+				, AP.PRGRS_2
+				, AP.PRGRS_3
+				, AP.PRGRS_4
+				, AP.PRGRS_5
+				, AP.PRGRS_6
+				, AP.PRGRS_7
+				, AP.PRGRS_8
+				, AP.PRGRS_9
+				, AP.PRGRS_10
+				, AP.PRGRS_11
+				, AP.PRGRS_12
+				, AP.PRGRS_13
+				, AP.PRGRS_14
+				, AP.PRGRS_LAST
+				, AP.APRV_CTPV_STTS
+				, TO_CHAR(AP.APRV_CTPV_DT , 'YYYY-MM-DD') AS APRV_CTPV_DT
+				, AP.APRV_SGG_STTS
+				, TO_CHAR(AP.APRV_SGG_DT , 'YYYY-MM-DD') AS APRV_SGG_DT
+
+				, (SELECT PIC_NM ||' '|| JBPS FROM TB_COM_USER WHERE USER_ID = AP.APRV_CTPV_USER_ID) AS CTPV_PIC_NM
+				, (SELECT CO_TELNO FROM TB_COM_USER WHERE USER_ID = AP.APRV_CTPV_USER_ID) AS CTPV_CO_TELNO
+				, (SELECT MBL_TELNO FROM TB_COM_USER WHERE USER_ID = AP.APRV_CTPV_USER_ID) AS CTPV_MBL_TELNO
+				, AP.APRV_CTPV_USER_ID
+
+				, (SELECT PIC_NM ||' '|| JBPS FROM TB_COM_USER WHERE USER_ID = AP.APRV_SGG_USER_ID) AS SGG_PIC_NM
+				, (SELECT CO_TELNO FROM TB_COM_USER WHERE USER_ID = AP.APRV_SGG_USER_ID) AS SGG_CO_TELNO
+				, (SELECT MBL_TELNO FROM TB_COM_USER WHERE USER_ID = AP.APRV_SGG_USER_ID) AS SGG_MBL_TELNO
+				, AP.APRV_SGG_USER_ID
+
+			FROM TB_TE_APC_PRGRS AP
+				,TB_TE_APC_OPER_PRSN_OTLN RO
+			WHERE 1=1
+			  AND AP.APC_CD = RO.APC_CD(+)
+			  AND AP.CRTR_YR = RO.CRTR_YR(+)
+			  AND AP.DEL_YN = 'N'
+			  AND AP.APC_CD IS NOT NULL
+			  AND AP.PRGRS_SE_CD = 'FCLT'
+			  AND AP.APC_CD NOT IN ('0857','0859')
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='ctpv != null and !ctpv.equals("")'>
+				AND AP.APC_CD IN (SELECT APC_CD
+									FROM TB_TE_APC_OPER_PRSN_OTLN ROA
+									WHERE 1=1
+									  AND ROA.CRTR_YR = AP.CRTR_YR
+									  AND SUBSTR(ROA.APC_ADM_CD , 0 , 2) = #{ctpv} )
+			</if>
+			<if test='sgg != null and !sgg.equals("")'>
+				AND AP.APC_CD IN (SELECT APC_CD
+									FROM TB_TE_APC_OPER_PRSN_OTLN ROB
+									WHERE 1=1
+									  AND ROB.CRTR_YR = AP.CRTR_YR
+									  AND SUBSTR(ROB.APC_ADM_CD , 0 , 4) = SUBSTR(#{sgg} , 0 , 4) )
+			</if>
+			ORDER BY AP.APC_CD
+	</select>
 </mapper>
