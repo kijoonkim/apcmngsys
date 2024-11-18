@@ -141,6 +141,10 @@ public class WghPrfmncDtlVO extends ComVO {
 	private String stdGrd;
 	private String stdGrdCd;
 
+	/*
+	 * 출하번호
+	 * */
+	private String spmtno;
 	/**
 	 * 표준등급 목록
 	 */

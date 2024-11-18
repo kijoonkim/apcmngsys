@@ -248,20 +248,48 @@ public class WghPrfmncController extends BaseController {
 	}
 
 	/**
-	 * 계량실적 목록 조회
-	 * @param comAuthrtVO
+	 * 계량접수 출고 목록 조회
+	 * @param WghPrfmncVO
 	 * @param request
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping(value = "/am/wgh/selectWghRcptList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectWghRcptList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/wgh/selectWghRcptSpmtList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghRcptSpmtList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WghPrfmncVO> resultList;
 
 		try {
-			resultList = wghPrfmncService.selectWghRcptList(wghPrfmncVO);
+			resultList = wghPrfmncService.selectWghRcptSpmtList(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	/**
+	 * 계량접수 입고 목록 조회
+	 * @param WghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectWghRcptWrhsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghRcptWrhsList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectWghRcptWrhsList(wghPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

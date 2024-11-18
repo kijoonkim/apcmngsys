@@ -144,12 +144,19 @@ public interface WghPrfmncService {
 	public HashMap<String, Object> updateRdcdRt(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
-	 * 계량접수등록 목록 조회
+	 * 계량접수등록 입고 목록 조회
 	 * @param wghPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<WghPrfmncVO> selectWghRcptList(WghPrfmncVO wghPrfmncVO) throws Exception;
+	public List<WghPrfmncVO> selectWghRcptWrhsList(WghPrfmncVO wghPrfmncVO) throws Exception;
+	/**
+	 * 계량접수등록 출고 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghRcptSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
 	 * 계량접수 다중 저장

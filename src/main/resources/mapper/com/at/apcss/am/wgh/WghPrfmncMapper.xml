@@ -512,6 +512,7 @@
 					, BX_QNTT
 					, BX_WGHT
 					, WRHSNO
+					, SPMTNO
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -533,6 +534,7 @@
 					, #{bxQntt}
 					, #{bxWght}
 					, #{wrhsno}
+					, #{spmtno}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -567,6 +569,7 @@
 				, BX_KND					= #{bxKnd}
 				, BX_QNTT					= #{bxQntt}
 				, BX_WGHT					= #{bxWght}
+				, SPMTNO					= #{spmtno}
 		]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN					= #{delYn}
@@ -769,14 +772,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptList		-->
-	<!-- DESC : 계량접수등록 목록 조회.		                             			-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList	-->
+	<!-- DESC : 계량접수등록 입고 목록 조회.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghRcptList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghRcptWrhsList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
@@ -795,8 +798,8 @@
                   , MAX(Y.OPRTR_NM)         AS OPRTR_NM
 			      , MAX(Y.WHOL_WGHT)        AS WHOL_WGHT
 			      , MAX(Y.EMPT_VHCL_WGHT)   AS EMPT_VHCL_WGHT
-			      , MAX(Y.WHOL_WGHT) - MAX(Y.EMPT_VHCL_WGHT) AS ACTL_WGHT
-			      , SUM(Y.PLT_QNTT)         AS PLT_QNTT
+			      , MAX(Y.WHOL_WGHT) - NVL(MAX(Y.EMPT_VHCL_WGHT), 0) AS ACTL_WGHT
+			      , MAX(Y.PLT_QNTT)         AS PLT_QNTT
 			      , SUM(Y.BX_QNTT)          AS BX_QNTT
 			      , MAX(Y.DRVR_NM)          AS DRVR_NM
                   , MAX(Y.BANK_CD)          AS BANK_CD
@@ -931,6 +934,192 @@
 		</if>
 		<if test='prdcrCd != null and prdcrCd !=""'>
 							   AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='fcltCd != null and fcltCd !=""'>
+							   AND WC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
+							   AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
+		</if>
+		<![CDATA[
+			                ) X
+			  ) Y
+			 GROUP BY Y.APC_CD, Y.WGHNO, Y.WGH_YMD, Y.VHCLNO, Y.PRDCR_CD, Y.ITEM_CD, Y.VRTY_CD, Y.FCLT_CD, Y.WRHS_SPMT_TYPE
+			 ORDER BY Y.WGHNO DESC
+		]]>
+	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptSpmtList	-->
+	<!-- DESC : 계량접수등록 출고 목록 조회.		                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.30  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghRcptSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			 SELECT Y.APC_CD                AS APC_CD
+			      , Y.WGHNO                 AS WGHNO
+			      , Y.WGH_YMD               AS WGH_YMD
+			      , Y.VHCLNO                AS VHCLNO
+			      , Y.PRDCR_CD	            AS PRDCR_CD
+			      , Y.ITEM_CD               AS ITEM_CD
+			      , Y.VRTY_CD               AS VRTY_CD
+			      , Y.FCLT_CD		        AS FCLT_CD
+			      , Y.WRHS_SPMT_TYPE        AS WRHS_SPMT_TYPE
+			      , MAX(Y.WRHSNO)           AS WRHSNO
+			      , MAX(Y.SHPGOT_QNTT)      AS SHPGOT_QNTT
+                  , MAX(Y.SHPGOT_WGHT)      AS SHPGOT_WGHT
+                  , MAX(Y.SHPGOT_PLT_QNTT)  AS SHPGOT_PLT_QNTT
+                  , MAX(Y.OINST_SPMT_NM)    AS OINST_SPMT_NM
+                  , MAX(Y.TRSPRT_CST)       AS TRSPRT_CST
+                  , MAX(Y.OPRTR_NM)         AS OPRTR_NM
+			      , MAX(Y.WHOL_WGHT)        AS WHOL_WGHT
+			      , MAX(Y.EMPT_VHCL_WGHT)   AS EMPT_VHCL_WGHT
+			      , MAX(Y.WHOL_WGHT) - NVL(MAX(Y.EMPT_VHCL_WGHT), 0) AS ACTL_WGHT
+			      , MAX(Y.PLT_QNTT)         AS PLT_QNTT
+			      , SUM(Y.BX_QNTT)          AS BX_QNTT
+			      , MAX(Y.DRVR_NM)          AS DRVR_NM
+                  , MAX(Y.BANK_CD)          AS BANK_CD
+                  , FN_UTL_DECRYPT_ARIA(MAX(Y.ACTNO))            AS ACTNO
+                  , MAX(Y.TELNO)            AS TELNO
+			      , MAX(GRD_CD_1)           AS GRD_CD_1
+			      , SUM(GRD_QNTT_1)         AS GRD_QNTT_1
+			      , MAX(GRD_WRHSNO_1)       AS GRD_WRHSNO_1
+			      , MAX(GRD_WGH_SN_1)       AS GRD_WGH_SN_1
+			      , MAX(GRD_CD_2)           AS GRD_CD_2
+			      , SUM(GRD_QNTT_2)         AS GRD_QNTT_2
+			      , MAX(GRD_WRHSNO_2)       AS GRD_WRHSNO_2
+			      , MAX(GRD_WGH_SN_2)       AS GRD_WGH_SN_2
+			      , MAX(GRD_CD_3)           AS GRD_CD_3
+			      , SUM(GRD_QNTT_3)         AS GRD_QNTT_3
+			      , MAX(GRD_WRHSNO_3)       AS GRD_WRHSNO_3
+			      , MAX(GRD_WGH_SN_3)       AS GRD_WGH_SN_3
+			      , MAX(GRD_CD_4)           AS GRD_CD_4
+			      , SUM(GRD_QNTT_4)         AS GRD_QNTT_4
+			      , MAX(GRD_WRHSNO_4)       AS GRD_WRHSNO_4
+			      , MAX(GRD_WGH_SN_4)       AS GRD_WGH_SN_4
+			   FROM (
+			        SELECT X.APC_CD             AS APC_CD
+			             , X.WGHNO              AS WGHNO
+			             , X.WGH_YMD            AS WGH_YMD
+			             , X.VHCLNO             AS VHCLNO
+			             , X.PRDCR_CD	        AS PRDCR_CD
+			             , X.WHOL_WGHT          AS WHOL_WGHT
+			             , X.EMPT_VHCL_WGHT     AS EMPT_VHCL_WGHT
+			             , X.ITEM_CD            AS ITEM_CD
+			             , X.VRTY_CD            AS VRTY_CD
+			             , x.FCLT_CD		    AS FCLT_CD
+			             , x.WRHS_SPMT_TYPE     AS WRHS_SPMT_TYPE
+			             , X.GRD_CD             AS GRD_CD
+			             , X.PLT_QNTT           AS PLT_QNTT
+			             , X.BX_QNTT            AS BX_QNTT
+			             , X.SHPGOT_QNTT        AS SHPGOT_QNTT
+                         , x.SHPGOT_WGHT        AS SHPGOT_WGHT
+                         , X.SHPGOT_PLT_QNTT    AS SHPGOT_PLT_QNTT
+                         , X.OINST_SPMT_NM      AS OINST_SPMT_NM
+                         , X.TRSPRT_CST         AS TRSPRT_CST
+                         , x.OPRTR_NM           AS OPRTR_NM
+                         , X.DRVR_NM            AS DRVR_NM
+                         , X.BANK_CD            AS BANK_CD
+                         , X.ACTNO              AS ACTNO
+                         , X.TELNO              AS TELNO
+                         , X.WRHSNO				AS WRHSNO
+			             , CASE WHEN X.GRD_RANK = 1 THEN X.GRD_CD END AS GRD_CD_1
+			             , CASE WHEN X.GRD_RANK = 1 THEN X.BX_QNTT END AS GRD_QNTT_1
+			             , CASE WHEN X.GRD_RANK = 1 THEN X.WRHSNO END AS GRD_WRHSNO_1
+			             , CASE WHEN X.GRD_RANK = 1 THEN X.WGH_SN END AS GRD_WGH_SN_1
+			             , CASE WHEN X.GRD_RANK = 2 THEN X.GRD_CD END AS GRD_CD_2
+			             , CASE WHEN X.GRD_RANK = 2 THEN X.BX_QNTT END AS GRD_QNTT_2
+			             , CASE WHEN X.GRD_RANK = 2 THEN X.WRHSNO END AS GRD_WRHSNO_2
+			             , CASE WHEN X.GRD_RANK = 2 THEN X.WGH_SN END AS GRD_WGH_SN_2
+			             , CASE WHEN X.GRD_RANK = 3 THEN X.GRD_CD END AS GRD_CD_3
+			             , CASE WHEN X.GRD_RANK = 3 THEN X.BX_QNTT END AS GRD_QNTT_3
+			             , CASE WHEN X.GRD_RANK = 3 THEN X.WRHSNO END AS GRD_WRHSNO_3
+			             , CASE WHEN X.GRD_RANK = 3 THEN X.WGH_SN END AS GRD_WGH_SN_3
+			             , CASE WHEN X.GRD_RANK = 4 THEN X.GRD_CD END AS GRD_CD_4
+			             , CASE WHEN X.GRD_RANK = 4 THEN X.BX_QNTT END AS GRD_QNTT_4
+			             , CASE WHEN X.GRD_RANK = 4 THEN X.WRHSNO END AS GRD_WRHSNO_4
+			             , CASE WHEN X.GRD_RANK = 4 THEN X.WGH_SN END AS GRD_WGH_SN_4
+
+			          FROM (
+			                SELECT WC.APC_CD
+			                     , WC.WGHNO
+			                     , WC.WGH_YMD
+			                     , WC.VHCLNO
+			                     , WD.WGH_SN
+			                     , WD.SPMTNO        AS WRHSNO
+			                     , WC.PRDCR_CD
+			                     , WC.WHOL_WGHT
+			                     , WC.EMPT_VHCL_WGHT
+			                     , WC.FCLT_CD
+			                     , WC.WRHS_SPMT_TYPE
+			                     , WD.GRD_CD
+			                     , WD.PLT_QNTT
+			                     , WD.BX_QNTT
+			                     , GI.ITEM_CD
+			                     , GI.VRTY_CD
+			                     , SG.GRD_RANK
+			                     , WC.SHPGOT_QNTT
+			                     , WC.SHPGOT_WGHT
+			                     , WC.SHPGOT_PLT_QNTT
+			                     , WC.OINST_SPMT_NM
+			                     , WC.TRSPRT_CST
+			                     , WC.OPRTR_NM
+			                     , VI.DRVR_NM
+			                     , VI.BANK_CD
+			                     , VI.ACTNO
+			                     , VI.TELNO
+			                  FROM TB_WGH_PRFMNC_COM WC
+			                     , TB_WGH_PRFMNC_DTL WD
+			                     , TB_SPMT_PRFMNC_COM PC
+			                     , TB_SPMT_PRFMNC_DTL PD
+			                     , TB_GDS_INVNTR GI
+			                     , TB_WRHS_VHCL_INFO VI
+			                     , (SELECT RANK() OVER (ORDER BY GRD_CD ASC)       GRD_RANK
+			                             , GRD_CD
+			                             , APC_CD
+			                          FROM TB_APC_STD_GRD_DTL
+			                         WHERE APC_CD = #{apcCd}
+			                           AND GRD_SE_CD = '03'
+			                           AND ITEM_CD = #{itemCd}
+			                        ) SG
+			                 WHERE WC.APC_CD = WD.APC_CD
+			                   AND WC.WGHNO = WD.WGHNO
+			                   AND WD.APC_CD = PC.APC_CD
+			                   AND WD.SPMTNO = PC.SPMTNO
+			                   AND PC.APC_CD = PD.APC_CD
+			                   AND PC.SPMTNO = PD.SPMTNO
+			                   AND WD.WGH_SN = PD.SPMT_SN
+			                   AND PD.APC_CD = GI.APC_CD
+			                   AND PD.PCKGNO = GI.PCKGNO
+			                   AND PD.PCKG_SN = GI.PCKG_SN
+			                   AND WD.APC_CD = SG.APC_CD
+			                   AND WD.GRD_CD = SG.GRD_CD
+			                   AND WC.APC_CD = VI.APC_CD(+)
+			                   AND WC.VHCLNO = VI.VHCLNO(+)
+			                   AND WC.DEL_YN = 'N'
+			                   AND WD.DEL_YN = 'N'
+			                   AND PC.DEL_YN = 'N'
+			                   AND PD.DEL_YN = 'N'
+			                   AND GI.DEL_YN = 'N'
+			                   AND VI.DEL_YN(+) = 'N'
+			                   AND WC.APC_CD = #{apcCd}
+		]]>
+		<if test='itemCd != null and itemCd !=""'>
+							   AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd !=""'>
+							   AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='wghYmd != null and wghYmd !=""'>
+							   AND WC.WGH_YMD = #{wghYmd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+							   AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='fcltCd != null and fcltCd !=""'>
+							   AND WC.FCLT_CD = #{fcltCd}
 		</if>
 		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
 							   AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
