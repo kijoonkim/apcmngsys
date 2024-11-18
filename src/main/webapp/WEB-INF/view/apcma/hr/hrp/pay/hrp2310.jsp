@@ -653,8 +653,8 @@
 
             gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode1, 'L_HRP011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
@@ -812,9 +812,10 @@
             {caption : ["부    서"], ref : 'DEPT_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptCode',  label : 'label', value : 'value'}, hidden: true
             },
-            {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            /*{caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptName',  label : 'label', value : 'value'}
-            },
+            },*/
             {caption: ["확정"], ref: 'PAY_CONFIRM_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
@@ -1055,6 +1056,8 @@
 
                 /** @type {number} **/
                 let totalRecordCount = 0;
+
+                console.log('----------data---------', data);
 
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
