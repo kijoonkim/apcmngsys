@@ -1475,7 +1475,7 @@
 			{caption: ["조직화취급 공선수탁(백만원)"],		ref:'rtlOgnzOgnzCprtnSortTrst',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["조직화취급 계약매취(백만원)"],		ref:'rtlOgnzOgnzCtrtEmspap',	type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["취급물량(백만원)"],				ref:'rtlOgnzTotTrmtVlm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["취급물량(톤))"],				ref:'rtlOgnzTotTrmtVlm',		type:'output',width:'70px',style:'text-align:center'},
 
 
 		];

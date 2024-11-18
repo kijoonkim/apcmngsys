@@ -995,7 +995,7 @@
 			{caption: ["１일(8시간) 최대 처리 능력(톤)"],	ref:'sortPrcsAblt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["연간 처리 물량(톤)"],				ref:'sortPrcsPrfmnc',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["연간가동시간(시간)"],				ref:'sortOprtngHr',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["평균가동일수*연간가동시간/4시간"],		ref:'sortAvgOprtngDcnt',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["평균가동일수(일)(연간가동시간/4시간)"],		ref:'sortAvgOprtngDcnt',			type:'output',width:'70px',style:'text-align:center'},
 
 
 		];
