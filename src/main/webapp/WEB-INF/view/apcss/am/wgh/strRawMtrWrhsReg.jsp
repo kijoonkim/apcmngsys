@@ -46,6 +46,12 @@
     input[type=number] {
       -moz-appearance: textfield;
     }
+    .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd .sbux-tabs-content{
+      padding: 16px 0px !important;
+    }
+    #tab_spmtPrfmncReg, #tab_spmtPrfmnc{
+      border: 0 !important;
+    }
   </style>
 </head>
 <body oncontextmenu="return false">
@@ -57,191 +63,206 @@
         <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록(태블릿) -->
       </div>
     </div>
-    <div class="box-body" style="padding: 10px 30px 15px;">
-      <div style="margin-right: auto;">
-        <sbux-button
-                id="btnCmndDocspmt"
-                name="btnCmndDocspmt"
-                uitype="normal"
-                class="btn btn-lg btn-primary"
-                style="padding: 7px 35px"
-                onclick="fn_docRawMtrWrhs"
-                text="입고전표"
-        ></sbux-button>
-        <sbux-button
-                id="btnReset"
-                name="btnReset"
-                uitype="normal"
-                class="btn btn-lg btn-outline-danger"
-                onclick="fn_reset"
-                text="초기화"
-        ></sbux-button>
-        <sbux-button
-                id="btnSave"
-                name="btnSave"
-                uitype="normal"
-                class="btn btn-lg btn-outline-danger"
-                onclick="fn_save"
-                text="저장"
-        ></sbux-button>
-        <sbux-button
-                id="btnSearch"
-                name="btnSearch"
-                uitype="normal"
-                class="btn btn-lg btn-outline-danger"
-                onclick="fn_search"
-                text="조회"
-        ></sbux-button>
-        <p class="ad_input_row chk-mbl" style="vertical-align:middle; display: inline-flex; align-items: center;">
-          <input
-                  style="width:20px;height:20px;"
-                  type="checkbox"
-                  id="reportChk"
-          />
-          <label for="reportChk">자동발행</label>
-        </p>
-      </div>
-      <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 70%">
-        <colgroup>
-          <col style="width: 25%">
-          <col style="width: 30%">
-          <col style="width: 20%">
-          <col style="width: 25%">
-        </colgroup>
-        <tbody>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">
-            입고일자
-          </th>
-          <td class="td_input" colspan="3">
-            <sbux-datepicker
-                    uitype="popup"
-                    id="reg-dtp-wghYmd"
-                    name="reg-dtp-wghYmd"
-                    class="form-control pull-right inpt_data_reqed inpt-mbl"
-                    date-format="yyyy-mm-dd"
-                    wrap-style="width: 50%"
-            ></sbux-datepicker>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">품목</th>
-          <td class="td_input" colspan="3">
-            <div>
-              <sbux-select
-                      unselected-text="전체"
-                      uitype="single"
-                      id="reg-slt-itemCd"
-                      name="reg-slt-itemCd"
-                      class="form-control inpt-mbl"
-                      jsondata-ref="jsonApcItem"
-                      unselected-text="선택"
-                      style="width: 50%; font-size: 28px;"
-                      readonly
-              ></sbux-select>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">농가</th>
-          <td class="td_input" colspan="3">
-            <div style="display: flex; gap: 5px">
-              <sbux-input
-                      uitype="text"
-                      id="reg-inp-prdcrIdentno"
-                      name="reg-inp-prdcrIdentno"
-                      class="form-control inpt-mbl"
-                      style="background-color:rgb(255, 248, 220)"
-                      wrap-style="flex-basis:10%;"
-                      maxlength="2"
-                      autocomplete="off"
-              ></sbux-input>
-              <sbux-input
-                      uitype="text"
-                      id="reg-inp-prdcrNm"
-                      name="reg-inp-prdcrNm"
-                      class="form-control inpt_data_reqed inpt-mbl"
-                      placeholder="초성검색 가능"
-                      wrap-style="flex-basis:60%"
-                      autocomplete-ref="jsonPrdcrAutocomplete"
-                      autocomplete-text="name"
-                      autocomplete-height="270px"
-                      oninput="fn_onInputPrdcrNm(event)"
-                      autocomplete-select-callback="fn_onSelectPrdcrNm"
-              ></sbux-input>
-              <sbux-input
-                      uitype="text"
-                      id="reg-inp-prdcrCd"
-                      name="reg-inp-prdcrCd"
-                      style="display: none"
-              ></sbux-input>
-              <sbux-button
-                      id="reg-btn-prdcrCd"
-                      name="reg-btn-prdcrCd"
-                      class="btn btn-outline-dark"
-                      style="padding: 0px 40px; font-size: 20px;"
-                      text="찾기"
-                      uitype="modal"
-                      target-id="modal-prdcr"
-                      onclick="fn_choicePrdcr"
-              ></sbux-button>
-              <sbux-input
-                      uitype="text"
-                      id="wghno"
-                      name="wghno"
-                      style="display: none"
-              ></sbux-input>
+    <div class="box-body" style="padding: 0px 30px 15px;">
+      <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
+                 title-target-id-array="tab_spmtPrfmncReg^tab_spmtPrfmnc"
+                 title-text-array="입고등록^입고내역" onclick="fn_changeTab()"
+                 title-style-array="{margin-right: 5px;width: 8vw;
+                 text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
+                 text-align: center;font-weight: bold;border-radius:0}">
+      </sbux-tabs>
+      <div class="tab-content">
+        <div id="tab_spmtPrfmncReg" style="height: 500px">
+          <div style="margin-right: auto;">
+            <sbux-button
+                    id="btnCmndDocspmt"
+                    name="btnCmndDocspmt"
+                    uitype="normal"
+                    class="btn btn-lg btn-primary"
+                    style="padding: 7px 35px"
+                    onclick="fn_docRawMtrWrhs"
+                    text="입고전표"
+            ></sbux-button>
+            <sbux-button
+                    id="btnReset"
+                    name="btnReset"
+                    uitype="normal"
+                    class="btn btn-lg btn-outline-danger"
+                    onclick="fn_reset"
+                    text="초기화"
+            ></sbux-button>
+            <sbux-button
+                    id="btnSave"
+                    name="btnSave"
+                    uitype="normal"
+                    class="btn btn-lg btn-outline-danger"
+                    onclick="fn_save"
+                    text="저장"
+            ></sbux-button>
+            <sbux-button
+                    id="btnSearch"
+                    name="btnSearch"
+                    uitype="normal"
+                    class="btn btn-lg btn-outline-danger"
+                    onclick="fn_search"
+                    text="조회"
+            ></sbux-button>
+            <p class="ad_input_row chk-mbl" style="vertical-align:middle; display: inline-flex; align-items: center;">
+              <input
+                      style="width:20px;height:20px;"
+                      type="checkbox"
+                      id="reportChk"
+              />
+              <label for="reportChk">자동발행</label>
+            </p>
+          </div>
+          <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 70%">
+            <colgroup>
+              <col style="width: 25%">
+              <col style="width: 30%">
+              <col style="width: 20%">
+              <col style="width: 25%">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">
+                입고일자
+              </th>
+              <td class="td_input" colspan="3">
+                <sbux-datepicker
+                        uitype="popup"
+                        id="reg-dtp-wghYmd"
+                        name="reg-dtp-wghYmd"
+                        class="form-control pull-right inpt_data_reqed inpt-mbl"
+                        date-format="yyyy-mm-dd"
+                        wrap-style="width: 50%"
+                ></sbux-datepicker>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">품목</th>
+              <td class="td_input" colspan="3">
+                <div>
+                  <sbux-select
+                          unselected-text="전체"
+                          uitype="single"
+                          id="reg-slt-itemCd"
+                          name="reg-slt-itemCd"
+                          class="form-control inpt-mbl"
+                          jsondata-ref="jsonApcItem"
+                          unselected-text="선택"
+                          style="width: 50%; font-size: 28px;"
+                          readonly
+                  ></sbux-select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">농가</th>
+              <td class="td_input" colspan="3">
+                <div style="display: flex; gap: 5px">
+                  <sbux-input
+                          uitype="text"
+                          id="reg-inp-prdcrIdentno"
+                          name="reg-inp-prdcrIdentno"
+                          class="form-control inpt-mbl"
+                          style="background-color:rgb(255, 248, 220)"
+                          wrap-style="flex-basis:10%;"
+                          maxlength="2"
+                          autocomplete="off"
+                  ></sbux-input>
+                  <sbux-input
+                          uitype="text"
+                          id="reg-inp-prdcrNm"
+                          name="reg-inp-prdcrNm"
+                          class="form-control inpt_data_reqed inpt-mbl"
+                          placeholder="초성검색 가능"
+                          wrap-style="flex-basis:60%"
+                          autocomplete-ref="jsonPrdcrAutocomplete"
+                          autocomplete-text="name"
+                          autocomplete-height="270px"
+                          oninput="fn_onInputPrdcrNm(event)"
+                          autocomplete-select-callback="fn_onSelectPrdcrNm"
+                  ></sbux-input>
+                  <sbux-input
+                          uitype="text"
+                          id="reg-inp-prdcrCd"
+                          name="reg-inp-prdcrCd"
+                          style="display: none"
+                  ></sbux-input>
+                  <sbux-button
+                          id="reg-btn-prdcrCd"
+                          name="reg-btn-prdcrCd"
+                          class="btn btn-outline-dark"
+                          style="padding: 0px 40px; font-size: 20px;"
+                          text="찾기"
+                          uitype="modal"
+                          target-id="modal-prdcr"
+                          onclick="fn_choicePrdcr"
+                  ></sbux-button>
+                  <sbux-input
+                          uitype="text"
+                          id="wghno"
+                          name="wghno"
+                          style="display: none"
+                  ></sbux-input>
 
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">검수자</th>
-          <td class="td_input" colspan="3">
-            <div style="display: flex;">
-              <sbux-input
-                      id="reg-slt-chckr"
-                      name="reg-slt-chckr"
-                      uitype="text"
-                      style="background: 0; border: 0"
-                      wrap-style="flex-basis:40%"
-                      class="inpt_data_reqed inpt-mbl"
-                      readonly
-              ></sbux-input>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">킹박스 분출</th>
-          <td class="td_input" colspan="3">
-            <div style="display: flex;">
-              <sbux-input
-                      id="reg-slt-kingBox"
-                      name="reg-slt-kingBox"
-                      uitype="text"
-                      wrap-style="flex-basis:20%"
-                      class="inpt_data_reqed inpt-mbl"
-              ></sbux-input>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="th_bg th-mbl">일반박스 분출</th>
-          <td class="td_input" colspan="3">
-            <div style="display: flex;">
-              <sbux-input
-                      id="reg-slt-box"
-                      name="reg-slt-box"
-                      uitype="text"
-                      wrap-style="flex-basis:20%"
-                      class="inpt_data_reqed inpt-mbl"
-              ></sbux-input>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <!--[pp] 검색 -->
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">검수자</th>
+              <td class="td_input" colspan="3">
+                <div style="display: flex;">
+                  <sbux-input
+                          id="reg-slt-chckr"
+                          name="reg-slt-chckr"
+                          uitype="text"
+                          style="background: 0; border: 0"
+                          wrap-style="flex-basis:40%"
+                          class="inpt_data_reqed inpt-mbl"
+                          readonly
+                  ></sbux-input>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">킹박스 분출</th>
+              <td class="td_input" colspan="3">
+                <div style="display: flex;">
+                  <sbux-input
+                          id="reg-slt-kingBox"
+                          name="reg-slt-kingBox"
+                          uitype="text"
+                          wrap-style="flex-basis:20%"
+                          class="inpt_data_reqed inpt-mbl"
+                  ></sbux-input>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="th_bg th-mbl">일반박스 분출</th>
+              <td class="td_input" colspan="3">
+                <div style="display: flex;">
+                  <sbux-input
+                          id="reg-slt-box"
+                          name="reg-slt-box"
+                          uitype="text"
+                          wrap-style="flex-basis:20%"
+                          class="inpt_data_reqed inpt-mbl"
+                  ></sbux-input>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <!--[pp] 검색 -->
+        </div>
+        <div id="tab_spmtPrfmnc">
+
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -305,6 +326,7 @@
             }, {})
     );
     let idx = 4;
+    console.log(result,"ㅎ");
     result.forEach(function(item){
       item.sort((a,b) => {
         if(parseInt(a.grdCd) < parseInt(b.grdCd)) return -1
@@ -330,7 +352,7 @@
       const div = document.createElement('div');
       div.style.display = 'flex';
       div.style.gap = '3%';
-      div.style.justifyContent = 'center';
+      div.style.justifyContent = 'left';
       td.appendChild(div); // <div>를 <td>에 추가
 
       item.forEach(function(grd){
@@ -339,6 +361,10 @@
         const input = document.createElement('input');
         input.type = 'number';
         input.placeholder = grd.grdNm;
+        input.classList.add("reg_data");
+        input.setAttribute("data-item-cd",grd.itemCd);
+        input.setAttribute("data-vrty-cd",grd.vrtyCd);
+        input.setAttribute("data-grd-cd",grd.grdCd);
         input.style.textAlign = 'center';
         input.style.fontSize = '28px';
         input.style.width = '100%';
@@ -419,5 +445,15 @@
     }
 
   }
+
+
+  const fn_save = async function(){
+    let regObj = gfn_getTableElement("regTable","reg-",[]);
+    console.log(regObj);
+    let regEl = Array.from($("#regTable tbody tr td div div input"));
+    console.log(Array.from(regEl),"regEl");
+  }
+
+
 </script>
 </html>
