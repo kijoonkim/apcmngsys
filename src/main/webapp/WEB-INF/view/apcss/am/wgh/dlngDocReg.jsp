@@ -42,11 +42,11 @@
 				</div>
 				<div style="margin-left: auto;">
 				<sbux-button
-						id="btnPrdctnDoc"
-						name="btnPrdctnDoc"
-						uitype="normal"
+						id="btnPrdctnDocModal"
+						name="btnPrdctnDocModal"
+						uitype="modal"
+						target-id="modal_normal"
 						class="btn btn-sm btn-primary"
-						onclick="fn_prdctnDoc"
 						text="생산일보"
 					></sbux-button>
 					<sbux-button
@@ -91,7 +91,7 @@
 				<sbux-input id="srch-inp-wrhsno" name="srch-inp-wrhsno" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>
-				<table id="rawMtrWrhsTable" class="table table-bordered tbl_fixed">
+				<table id="rawMtrWrhsTable" class="table table-bordered tbl_fixed" >
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -160,7 +160,7 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="24" class="td_input" >
 								<sbux-input
 									id="srch-inp-prdcrIdentno"
 									name="srch-inp-prdcrIdentno"
@@ -177,7 +177,7 @@
 							<td colspan="9" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
 							</td>
-							<td>
+							<td style="border-right: hidden;">
 								<sbux-input id="srch-rdo-wrhsSeCd" name="srch-rdo-wrhsSeCd" uitype="hidden"/>
 								<sbux-input id="srch-rdo-gdsSeCd" name="srch-rdo-gdsSeCd" uitype="hidden"/>
 								<sbux-input id="srch-rdo-trsprtSeCd" name="srch-rdo-trsprtSeCd" uitype="hidden"/>
@@ -189,48 +189,48 @@
 
 					</tbody>
 				</table>
+				<div class="ad_tbl_top" style="margin-top:30px">
+					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData" >
+					</sbux-tabs>
 
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-				</sbux-tabs>
+					<div class="tab-content" >
+						<div id="regTab">
+							<!--[pp] //검색 -->
+							<!--[pp] 검색결과 -->
+							<div class="ad_tbl_top2">
+								<ul class="ad_tbl_count">
+									<li>
 
-				<div class="tab-content">
-					<div id="regTab">
-						<!--[pp] //검색 -->
-						<!--[pp] 검색결과 -->
-						<div class="ad_tbl_top2">
-							<ul class="ad_tbl_count">
-								<li>
-
-								</li>
-							</ul>
-							<div class="ad_tbl_toplist">
-								<sbux-select
-									id="srch-slt-spcfctCd"
-									name="srch-slt-spcfctCd"
-									uitype="single"
-									jsondata-ref="jsonApcSpcfct"
-								></sbux-select>
-								<sbux-button
-									id="btnBndlAplcn"
-									name="btnBndlAplcn"
-									uitype="normal"
-									class="btn btn-sm btn-primary"
-									onclick="fn_bndlAplcn"
-									text="일괄적용"
-								></sbux-button>
+									</li>
+								</ul>
+								<div class="ad_tbl_toplist">
+									<sbux-select
+										id="srch-slt-spcfctCd"
+										name="srch-slt-spcfctCd"
+										uitype="single"
+										jsondata-ref="jsonApcSpcfct"
+									></sbux-select>
+									<sbux-button
+										id="btnBndlAplcn"
+										name="btnBndlAplcn"
+										uitype="normal"
+										class="btn btn-sm btn-primary"
+										onclick="fn_bndlAplcn"
+										text="일괄적용"
+									></sbux-button>
+								</div>
+							</div>
+							<div class="table-responsive tbl_scroll_sm">
+								<div id="sb-area-grdRawMtrWrhs" style="height:280px;"></div>
 							</div>
 						</div>
-						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdRawMtrWrhs" style="height:280px;"></div>
-						</div>
-					</div>
-					<div id=listTab>
-						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdRegList" style="height:280px;"></div>
+						<div id=listTab>
+							<div class="table-responsive tbl_scroll_sm">
+								<div id="sb-area-grdRegList" style="height:280px;"></div>
+							</div>
 						</div>
 					</div>
 				</div>
-
 				<!-- 엑셀 시트별 데이터 영역 -->
 			</div>
 		</div>
@@ -244,6 +244,30 @@
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+
+    <sbux-modal id="modal_normal" name="modal_normal" uitype="middle" header-title="생산일보 발행"
+    	body-html-id="modalBody"
+    	style="width:400px; height:500px; position:fixed; display:block; top:30%; left:40%;">
+    </sbux-modal>
+
+    <div id="modalBody">
+    	<div class="box-header" style="display:flex; justify-content: flex-start;">
+    		<div style="margin-left: auto;">
+    			<sbux-button
+					id="btnPrdctnDoc"
+					name="btnPrdctnDoc"
+					uitype="modal"
+					target-id="modal_normal"
+					class="btn btn-sm btn-primary"
+					onclick="fn_prdctnDoc"
+					text="생산일보발행"
+				></sbux-button>
+			</div>
+		</div>
+		<div>
+			<sbux-textarea id="srch-slt-issue" name="srch-slt-issue" uitype="normal" cols="50" placeholder="TODAY ISSUE를 입력하세요"></sbux-textarea>
+		</div>
     </div>
 
 
@@ -389,10 +413,11 @@
 	    SBGridProperties.id = 'grdRawMtrWrhs';
 	    SBGridProperties.jsonref = 'jsonRawMtrWrhs';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.extendlastcol = 'none';
+	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.rowheader = 'seq';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.total = {
 	    		  type 		: 'grand',
 	    		  position	: 'bottom',
@@ -407,17 +432,18 @@
 	    }
 	    SBGridProperties.columns = [
 
-	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',   width : '17%',    style:'text-align:center'},
-	        {caption: ["규격"],		ref: 'spcfctCd',    type:'combo',  typeinfo : {ref:'jsonApcSpcfct', label:'label', value:'value', oneclickedit: true},  width:'17%',    style:'text-align:center', sortable: false},
-	        {caption: ["수량"],		ref: 'bxQntt',      type:'input',  width:'17%',    style:'text-align:center', sortable: false,
+	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',   width : '15%',    style:'text-align:center'},
+	        {caption: ["규격"],		ref: 'spcfctCd',    type:'combo',  width : '15%', typeinfo : {ref:'jsonApcSpcfct', label:'label', value:'value', oneclickedit: true},  width:'17%',    style:'text-align:center', sortable: false},
+	        {caption: ["수량"],		ref: 'bxQntt',      type:'input',  width:'15%',    style:'text-align:center', sortable: false,
 	        	dataType : 'number' ,format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["단가"],	ref: 'untPrc',    type:'input',  width:'17%',    style:'text-align:center', sortable: false,
+	        {caption: ["단가"],	ref: 'untPrc',    type:'input',  width:'15%',    style:'text-align:center', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["공급가"],	ref: 'splyPrc',    type:'input',  width:'17%',    style:'text-align:center', sortable: false,
+	        {caption: ["공급가"],	ref: 'splyPrc',    type:'input',  width:'15%',    style:'text-align:center', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
-	        }
+	        },
+	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'25%',    style:'text-align:center', sortable: false}
 	        ];
 
 	    grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
@@ -456,11 +482,11 @@
 	    SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.columns = [
 
-	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',   width : '10%',    style:'text-align:center'},
+	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',   width : '25%',    style:'text-align:center'},
 	        //{caption: ["순번"],		ref: 'rowSeq',    type:'output'  ,  width:'17%',    style:'text-align:center', sortable: false},
-	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'17%',    style:'text-align:center', sortable: false},
+	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'25%',    style:'text-align:center', sortable: false},
 	        //{caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'17%',    style:'text-align:center', sortable: false},
-	        {caption: ["수량"],	ref: 'wrhsQntt',    type:'input',  width:'17%',    style:'text-align:center', sortable: false,
+	        {caption: ["수량"],	ref: 'wrhsQntt',    type:'input',  width:'25%',    style:'text-align:center', sortable: false,
 	        	dataType : 'number' ,format : {type:'number', rule:'#,###'}
 	        },
 
@@ -477,6 +503,7 @@
                    //}
 
                 }},
+                {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'25%',    style:'text-align:center', sortable: false}
 	        ];
 
 	    grdRegList = _SBGrid.create(SBGridProperties);
@@ -488,7 +515,9 @@
 	}
 
 	const fn_gridRegClick = function(){
-		jsonRawMtrWrhs = jsonRegListTemp;
+		//jsonRawMtrWrhs = jsonRegListTemp;
+		jsonRawMtrWrhs = jsonRegListTemp.filter(item => item.pltno === grdRegList.getRowData(grdRegList.getRow())['pltno'])
+
 		SBUxMethod.selectTab('idxTab_norm', {tabId: 'regTab', changeIndex: 0, moveToFirst : true});
 		grdRawMtrWrhs.refresh()
 	}
@@ -720,8 +749,6 @@
 
 		allData.pop();
  		allData.forEach(item => {
-
- 			//let tempSpcfct = jsonApcSpcfct.find(data => data.spcfctCd === item.['spcfctCd'])
  			let spc = jsonApcSpcfct.find(data => data.spcfctCd === item['spcfctCd'])['spcfctNm'].replace(/[^0-9]/g, '');
 			item['apcCd'] = gv_apcCd
  			item['prdcrCd'] = prdcrCd;
@@ -737,7 +764,6 @@
  			item["trsprtSeCd"] = trsprtSeCd;
  			item["inqYn"] = "N";
  			item["gdsSeCd"] = gdsSeCd;
-
  		})
 
 
@@ -1010,15 +1036,20 @@
 	const fn_prdctnDoc = async function() {
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
 		let wrhsYmd= SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고시작일자
+		let issue = SBUxMethod.get("srch-slt-issue");		// todayIssue
 
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RTD_DOC');
 		let obj = {apcCd: gv_selectedApcCd
 				, yyyymmdd: wrhsYmd
 				, yyyymm : wrhsYmd.substring(0,6)
 				, yyyy : wrhsYmd.substring(0,4)
+				, textarea : encodeURIComponent(issue)
 				};
 
-		gfn_popClipReport("생산일보", rptUrl, obj );
+		await gfn_popClipReport("생산일보", rptUrl, obj );
+		SBUxMethod.closeModal("modal_normal");
+		SBUxMethod.clear("srch-slt-issue");
+
 	}
 
 
@@ -1101,6 +1132,9 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+
+
 
 
 
