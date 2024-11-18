@@ -573,12 +573,12 @@
         SBGridProperties.columns = [
             {caption: ['기준일(퇴직일)'], ref: 'EXPECTED_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["소스번호"], ref: 'SOURCE_DOC', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["배치번호"], ref: 'INVOICE_BATCH_NO', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["전표번호"], ref: 'DOC_NAME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ['회계처리일자'], ref: 'POSTING_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '200px', style: 'text-align:left'},
 
          /*   {caption: ['급여영역'], ref: 'PAY_YYYYMM', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden: true},
