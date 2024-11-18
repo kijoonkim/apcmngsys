@@ -163,9 +163,9 @@
 		                                    <span>기본정보</span>
 		                                </li>
 		                            </ul>
-				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
+				                   <%-- <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
 					                    <sbux-button uitype="normal" text="파일첨부"  	class="btn btn-sm btn-outline-danger" onclick="fn_btnAttch"></sbux-button>
-									</div>
+									</div>--%>
 		                        </div>
 		                        <div style="width:100%;">
 		                        
@@ -1267,7 +1267,7 @@
 	
 	var p_ss_languageID	= '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
-
+	var strFileSourceType = "FIFLOANMASTER";
 	var p_sel_rowData =  null;
 
 	// 현재탭 [ 기본정보 = 1 , 계정과목정보 = 2, 상환정보 = 3, 이율변동정보 = 4, 상환계획 = 5, 현재가치관리 = 6, 손익계정 = 7, 햇지정보 = 8]
@@ -1556,6 +1556,11 @@
 	 */
 	var cfn_init = function() {
 		gfnma_uxDataClear('#srchArea1');
+	}
+
+	// 파일첨부
+	function cfn_attach() {
+		fn_attach();
 	}
 
 	//차입금
@@ -3291,6 +3296,37 @@
 
 	}
 
+	const fn_attach = async function() {
+		var nCol = Trl1010GridTop.getCol();
+		var nRow = Trl1010GridTop.getRow();
+
+		if (nCol == -1) {
+			return;
+		}
+
+		if (nRow == -1) {
+			return;
+		}
+
+		let gridData = Trl1010GridTop.getRowData(nRow);
+
+		if (_.isEmpty(gridData)){
+			return;
+		}
+
+		let strsource_code = gfn_nvl(SBUxMethod.get("FM_LOAN_NUM"));
+
+		if (strsource_code != "") {
+			compopfilemng({
+				compCode		: gv_ma_selectedCorpCd
+				,clientCode		: gv_ma_selectedClntCd
+				,sourceType		: strFileSourceType
+				,sourceCode		: strsource_code
+				,formID			: p_formId
+				,menuId			: p_menuId
+			});
+		}
+	}
 
 
 </script>
