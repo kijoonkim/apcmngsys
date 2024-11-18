@@ -36,6 +36,9 @@
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 			</div>
 			<div style="margin-left: auto;">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+			</c:if>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<!--
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -182,6 +185,7 @@
 				<!-- SBGrid를 호출합니다. -->
 				<div id="sb-area-grdFcltPrgrsInfo" style="height:450px; width: 100%;"></div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -587,8 +591,15 @@
 			gfn_comAlert("W0001", "대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-
-		if (!gfn_comConfirm("Q0001", "최종제출 해제")) {
+		let confirmStr = ""
+		if(ynVal == "Y"){
+			confirmStr = "최종제출"
+		}else if(ynVal == "N"){
+			confirmStr = "최종제출 해제"
+		}else{
+			return;
+		}
+		if (!gfn_comConfirm("Q0001", confirmStr)) {
 			return;
 		}
 
@@ -629,6 +640,178 @@
 			apcCd 		: gfn_nvl(apcCd)
 			, crtrYr 	: gfn_nvl(crtrYr)
 		});
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["등록년도"],		ref: 'crtrYr',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["APC코드"],	ref: 'apcCd',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["APC명"],		ref: 'apcNm',		type:'output',  width:'200px',    style:'text-align:center'},
+
+			{caption: ["APC도로명코드"],	ref: 'apcAdmCd',	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도명"],			ref: 'ctpvNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시군구명"],			ref: 'sggNm',		type:'output',  width:'80px',    style:'text-align:center'},
+
+			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["1"],		ref: 'prgrs1',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["2"],		ref: 'prgrs2',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["3"],		ref: 'prgrs3',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["4"],		ref: 'prgrs4',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["5"],		ref: 'prgrs5',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["6"],		ref: 'prgrs6',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["7"],		ref: 'prgrs7',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["8"],		ref: 'prgrs8',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["9"],		ref: 'prgrs9',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["10"],		ref: 'prgrs10',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["11"],		ref: 'prgrs11',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["12"],		ref: 'prgrs12',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["13"],		ref: 'prgrs13',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["14"],		ref: 'prgrs14',		type:'output',  width:'40px',    style:'text-align:center'},
+
+			{caption: ["지자체(시도)승인"],		ref: 'aprvCtpvStts',	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도 승인일"],			ref: 'aprvCtpvDt',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["지자체(시군구)승인"],		ref: 'aprvSggStts',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시군구 승인일"],			ref: 'aprvSggDt',		type:'output',  width:'80px',    style:'text-align:center'},
+
+
+			{caption: ["시도 담당자 명"],			ref: 'ctpvPicNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도 담당자 회사전화번호"],		ref: 'ctpvCoTelno',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도 담당자 휴대폰번호"],		ref: 'ctpvMblTelno',	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도 담당자 아이디"],			ref: 'ctpvUserId',		type:'output',  width:'80px',    style:'text-align:center'},
+
+			{caption: ["시군구 담당자 명"],			ref: 'sggPicNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시군구 담당자 회사전화번호"],		ref: 'sggCoTelno',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시군구 담당자 휴대폰번호"],		ref: 'sggMblTelno',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["시군구 담당자 아이디"],			ref: 'sggUserId',		type:'output',  width:'80px',    style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let ctpv = SBUxMethod.get("srch-inp-ctpv");
+		let sgg = SBUxMethod.get("srch-inp-sgg");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrsRawData.do", {
+			crtrYr : crtrYr
+			,ctpv : ctpv
+			,sgg : sgg
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+						crtrYr			:item.crtrYr
+						,apcCd			:item.apcCd
+						,apcNm			:item.apcNm
+
+						,prgrs1			:fn_prgrsChnage(item.prgrs1)
+						,prgrs2			:fn_prgrsChnage(item.prgrs2)
+						,prgrs3			:fn_prgrsChnage(item.prgrs3)
+						,prgrs4			:fn_prgrsChnage(item.prgrs4)
+						,prgrs5			:fn_prgrsChnage(item.prgrs5)
+						,prgrs6			:fn_prgrsChnage(item.prgrs6)
+						,prgrs7			:fn_prgrsChnage(item.prgrs7)
+						,prgrs8			:fn_prgrsChnage(item.prgrs8)
+						,prgrs9			:fn_prgrsChnage(item.prgrs9)
+						,prgrs10		:fn_prgrsChnage(item.prgrs10)
+						,prgrs11		:fn_prgrsChnage(item.prgrs11)
+						,prgrs12		:fn_prgrsChnage(item.prgrs12)
+						,prgrs13		:fn_prgrsChnage(item.prgrs13)
+						,prgrs14		:fn_prgrsChnage(item.prgrs14)
+						,prgrsLast		:item.prgrsLast
+
+						,aprvAtStts		:item.aprvAtStts	//승인상태 AT
+						,aprvCtpvStts	:item.aprvCtpvStts	//승인상태 지자체(시도)
+						,aprvSggStts	:item.aprvSggStts	//승인상태 지자체(시군구)
+
+						,apcAdmCd		:item.apcAdmCd		//APC도로명코드
+						,ctpvNm			:item.ctpvNm		//시도명
+						,sggNm			:item.sggNm			//시군구명
+
+						,aprvCtpvDt		:item.aprvCtpvDt	//시도 승인일
+						,aprvSggDt		:item.aprvSggDt		//시군구 승인일
+
+						,ctpvPicNm		:item.ctpvPicNm		//시도 담당자 명
+						,aprvCtpvDt		:item.ctpvCoTelno	//시도 담당자 회사전화번호
+						,ctpvMblTelno	:item.ctpvMblTelno	//시도 담당자 휴대폰번호
+						,ctpvUserId		:item.ctpvUserId	//시도 담당자 아이디
+
+						,sggPicNm		:item.sggPicNm		//시군구 담당자 명
+						,sggCoTelno		:item.sggCoTelno	//시군구 담당자 회사전화번호
+						,sggMblTelno	:item.sggMblTelno	//시군구 담당자 휴대폰번호
+						,sggUserId		:item.sggUserId		//시군구 담당자 아이디
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_전체진척도관리_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>

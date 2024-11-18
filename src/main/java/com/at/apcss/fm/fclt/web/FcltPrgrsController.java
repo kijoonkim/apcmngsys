@@ -199,4 +199,22 @@ public class FcltPrgrsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 진척도 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectPrgrsRawData.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrgrsRawData(Model model, @RequestBody FcltPrgrsVO fcltPrgrsVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltPrgrsVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = fcltPrgrsService.selectPrgrsRawData(fcltPrgrsVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

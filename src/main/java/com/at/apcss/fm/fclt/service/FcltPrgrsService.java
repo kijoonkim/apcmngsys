@@ -77,4 +77,12 @@ public interface FcltPrgrsService {
 	 */
 	public int multiSaveAprv(List<FcltPrgrsVO> fcltPrgrsVOList) throws Exception;
 
+	/**
+	 * 진척도 로우데이터를 조회한다.
+	 * @param fcltPrgrsVO
+	 * @return List<FcltPrgrsVO>
+	 * @throws Exception
+	 */
+	public List<FcltPrgrsVO> selectPrgrsRawData(FcltPrgrsVO fcltPrgrsVO) throws Exception;
+
 }

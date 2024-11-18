@@ -283,7 +283,7 @@
 			/** main에 선언되어있는 fn **/
 			window.parent.cfn_openTabSearch(json);
 		}
-
+		//진척도 조회
 		const cfn_selectPrgrs = async function(){
 			console.log("*******cfn_selectPrgrs******");
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
@@ -336,12 +336,19 @@
 						}
 					}
 				}else{
-					for (var i = 1; i < 15; i++) {
+					for (var i = 1; i <= 14; i++) {
 						cfn_setPrgrs(null,i);
 					}
+					SBUxMethod.set("dtl-inp-prgrsLast", null);
 					$('#prgrsCnt').text("0");
 					SBUxMethod.set("dtl-inp-prgrsCnt", 0);
-					SBUxMethod.attr('btnLastSave','disabled','true');
+					SBUxMethod.attr('prgrs-btnLastSave','disabled','true');
+
+					//최종체출시 버튼 비활성화 처리
+					if(typeof fn_prgrsLastChk === 'function'){
+						console.log('fn_prgrsLastChk');
+						fn_prgrsLastChk();
+					}
 				}
 			}catch (e) {
 				if (!(e instanceof Error)) {
@@ -350,7 +357,7 @@
 				console.error("failed", e.message);
 			}
 		}
-
+		//진척도 변경
 		const cfn_setPrgrs = async function(prgrsVal,num){
 			if (prgrsVal == 'Y') {
 				$("#scrn"+num).attr("data-saved","true");
@@ -363,6 +370,7 @@
 				$("#scrn"+num).attr("data-draft","false");
 			}
 		}
+		//최종제출
 		const cfn_lastSave = async function(prgrsVal,num){
 			//저장 확인
 			let saveCnt = SBUxMethod.get("dtl-inp-prgrsCnt");
@@ -414,7 +422,7 @@
 			//진척도 조회
 			cfn_selectPrgrs();
 		}
-
+		//출력
 		const cfn_report = async function() {
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");

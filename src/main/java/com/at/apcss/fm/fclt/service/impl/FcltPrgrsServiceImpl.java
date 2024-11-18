@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltPrgrsService;
-import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
@@ -78,6 +77,12 @@ public class FcltPrgrsServiceImpl extends BaseServiceImpl implements FcltPrgrsSe
 			saveCnt += updateAprv(fcltPrgrsVO);
 		}
 		return saveCnt;
+	}
+
+	@Override
+	public List<FcltPrgrsVO> selectPrgrsRawData(FcltPrgrsVO fcltPrgrsVO) throws Exception {
+		List<FcltPrgrsVO> resultList = fcltPrgrsMapper.selectPrgrsRawData(fcltPrgrsVO);
+		return resultList;
 	}
 
 }
