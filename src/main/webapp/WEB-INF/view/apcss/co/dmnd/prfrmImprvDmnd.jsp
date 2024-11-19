@@ -93,7 +93,7 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdPrgrmImprvDmnd', jsonComPic, 'PIC', gv_selectedApcCd)	// PIC
+			gfn_setComCdSBSelect('grdPrgrmImprvDmnd', jsonComPic, 'PIC')	// PIC
 		]);
         fn_search();
 	}
