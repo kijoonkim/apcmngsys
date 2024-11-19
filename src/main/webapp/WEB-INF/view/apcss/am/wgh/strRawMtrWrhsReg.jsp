@@ -73,7 +73,50 @@
         <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록(태블릿) -->
       </div>
     </div>
-    <div class="box-body" style="padding: 0px 30px 15px;">
+    <div class="box-body" style="padding: 0px 30px 15px;display: flex;flex-direction: column;position: relative;">
+      <div style="margin-right: auto;position: absolute;left: 33vw;z-index: 9999;">
+        <sbux-button
+                id="btnCmndDocspmt"
+                name="btnCmndDocspmt"
+                uitype="normal"
+                class="btn btn-lg btn-primary"
+                style="padding: 7px 35px"
+                onclick="fn_docRawMtrWrhs"
+                text="입고전표"
+        ></sbux-button>
+        <sbux-button
+                id="btnReset"
+                name="btnReset"
+                uitype="normal"
+                class="btn btn-lg btn-outline-danger"
+                onclick="fn_reset"
+                text="초기화"
+        ></sbux-button>
+        <sbux-button
+                id="btnSave"
+                name="btnSave"
+                uitype="normal"
+                class="btn btn-lg btn-outline-danger"
+                onclick="fn_save"
+                text="저장"
+        ></sbux-button>
+        <sbux-button
+                id="btnSearch"
+                name="btnSearch"
+                uitype="normal"
+                class="btn btn-lg btn-outline-danger"
+                onclick="fn_search"
+                text="조회"
+        ></sbux-button>
+        <p class="ad_input_row chk-mbl" style="vertical-align:middle; display: inline-flex; align-items: center;">
+          <input
+                  style="width:20px;height:20px;"
+                  type="checkbox"
+                  id="reportChk"
+          />
+          <label for="reportChk">자동발행</label>
+        </p>
+      </div>
       <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
                  title-target-id-array="tab_spmtPrfmncReg^tab_spmtPrfmnc"
                  title-text-array="입고등록^입고내역" onclick="fn_changeTab()"
@@ -83,49 +126,6 @@
       </sbux-tabs>
       <div class="tab-content">
         <div id="tab_spmtPrfmncReg">
-          <div style="margin-right: auto;">
-            <sbux-button
-                    id="btnCmndDocspmt"
-                    name="btnCmndDocspmt"
-                    uitype="normal"
-                    class="btn btn-lg btn-primary"
-                    style="padding: 7px 35px"
-                    onclick="fn_docRawMtrWrhs"
-                    text="입고전표"
-            ></sbux-button>
-            <sbux-button
-                    id="btnReset"
-                    name="btnReset"
-                    uitype="normal"
-                    class="btn btn-lg btn-outline-danger"
-                    onclick="fn_reset"
-                    text="초기화"
-            ></sbux-button>
-            <sbux-button
-                    id="btnSave"
-                    name="btnSave"
-                    uitype="normal"
-                    class="btn btn-lg btn-outline-danger"
-                    onclick="fn_save"
-                    text="저장"
-            ></sbux-button>
-            <sbux-button
-                    id="btnSearch"
-                    name="btnSearch"
-                    uitype="normal"
-                    class="btn btn-lg btn-outline-danger"
-                    onclick="fn_search"
-                    text="조회"
-            ></sbux-button>
-            <p class="ad_input_row chk-mbl" style="vertical-align:middle; display: inline-flex; align-items: center;">
-              <input
-                      style="width:20px;height:20px;"
-                      type="checkbox"
-                      id="reportChk"
-              />
-              <label for="reportChk">자동발행</label>
-            </p>
-          </div>
           <table id="regTable" class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 70%">
             <colgroup>
               <col style="width: 25%">
