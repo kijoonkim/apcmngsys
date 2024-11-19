@@ -69,12 +69,12 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -103,7 +103,7 @@
 									class="form-control input-sm"
 									jsondata-ref="jsonClclnSn"
 									jsondata-text="cdVlNm"
-									jsondata-value="cdVl"									
+									jsondata-value="cdVl"
 									onchange="fn_onChangeSrchClclnSn(this)"
 								></sbux-select>
 			          		</td>
@@ -118,7 +118,7 @@
 									unselected-text="전체"
 									jsondata-ref="jsonClclnSeCd"
 									jsondata-text="cdVlNm"
-									jsondata-value="cdVl"									
+									jsondata-value="cdVl"
 									onchange="fn_search"
 								></sbux-select>
 							</td>
@@ -175,7 +175,16 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-			          		<td colspan="8">
+							<th scope="row" class="th_bg">지역</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-frmhsCtpv"
+									name="srch-inp-frmhsCtpv"
+									class="form-control input-sm"
+								></sbux-input>
+							</td>
+			          		<td colspan="4">
 			          		</td>
 						</tr>
 					</tbody>
@@ -206,7 +215,7 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
-    
+
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
@@ -228,24 +237,24 @@
 	const _COL_PRFX_QNTT_		= "ClclnQntt";
 	const _COL_PRFX_WGHT_		= "ClclnWght";
 	const _COL_PRFX_AMT_		= "ClclnAmt";
-	
+
 	const _COL_PRFX_SEED_		= "seed";
 	const _COL_PRFX_WHRS_GRD_	= "wrhs";
 	const _COL_PRFX_SORT_GRD_	= "sort";
 	const _COL_PRFX_GDS_GRD_	= "gds";
-	
+
 	const _COL_PRFX_ACML_FUND_	= "acmlFund";
-	
+
 	const arrCtrtAmtKnd = [
 		{property: "ctrtSdPymt", column: "SD_PYMT"},
 		{property: "ctrtCash", column: "CASH"},
 	];
-	
+
 	const arrAdvncAmtKnd = [
 		{property: "advncPrvpyAmt", column: "PRVPY_AMT"},
 		{property: "advncSdPymt", column: "SD_PYMT"},
 	];
-	
+
 	const arrDdcAmtKnd = [
 		{property: "ddcSdPymt", column: "SD_PYMT"},
 		{property: "ddcCtrtAmt", column: "CTRT_AMT"},
@@ -259,26 +268,26 @@
 		{property: "ddcNRtnDdc", column: "N_RTN_DDC"},
 		{property: "ddcPrtpay", column: "PRTPAY"},
 	];
-	
+
 	const _COL_PRFX_DDC_AMT_		= "ddc__";
 	const _COL_PRFX_ADVNC_AMT_		= "advnc__";
-	
+
 	// crtrType
 	const _CLCLN_CRTR_TYPE_			= "CLCLN_CRTR_TYPE";
-	
-	const _CLCLN_ARTCL_KND_			= "CLCLN_ARTCL_KND";	
+
+	const _CLCLN_ARTCL_KND_			= "CLCLN_ARTCL_KND";
 	const _CLCLN_AMT_KND_ 			= "CLCLN_AMT_KND";
 	const _CLCLN_UNTPRC_ELMT_ 		= "CLCLN_UNTPRC_ELMT";
 	const _CLCLN_UNTPRC_KND_		= "CLCLN_UNTPRC_KND";
 	const _CLCLN_AMT_KND_DTL_		= "CLCLN_AMT_KND_DTL";
-	const _CLCLN_RSLT_KND_			= "CLCLN_RSLT_KND";	
-	
+	const _CLCLN_RSLT_KND_			= "CLCLN_RSLT_KND";
+
 	const _RSLT_KND__SEED_			= "SEED";
 	const _RSLT_KND__WRHS_			= "WRHS";
 	const _RSLT_KND__SORT_			= "SORT";
 	const _RSLT_KND__GDS_			= "GDS";
 	const _RSLT_KND__ALL_			= "RSLT_ALL";
-	
+
 	// 정산상세유형
 	const _CLCLN_DTL_TYPE_			= "CLCLN_DTL_TYPE";
 
@@ -288,7 +297,7 @@
 	const _CLCLN_DTL_TYPE__VRTY_CD_	= "VRTY_CD";
 	const _CLCLN_DTL_TYPE__GRD_CD_	= "GRD_CD";
 	const _CLCLN_DTL_TYPE__SEED_CD_	= "SEED_CD";
-	
+
 	// (항목종류) CLCLN_ARTCL_KND	기준코드
 	const _CLCLN_SE_CD_				= "CLCLN_SE_CD";
 	const _CLCLN_CLSF_				= "CLCLN_CLSF";
@@ -299,7 +308,7 @@
 	const _UNTPRC_KND__WRHS_GRD_ 	= "WRHS_GRD";
 	const _UNTPRC_KND__SORT_GRD_ 	= "SORT_GRD";
 	const _UNTPRC_KND__GDS_GRD_ 	= "GDS_GRD";
-	
+
 
 	// (금액종류) CLCLN_AMT_KND 기준코드
 	const _AMT_KND__ASST_CST_		= "ASST_CST";	// 보조비용
@@ -310,58 +319,58 @@
 	const _AMT_KND__ACML_FUND_		= "ACML_FUND";	// 적자금
 	const _AMT_KND__EXTRA_AMT_		= "EXTRA_AMT";	// 추가지급금
 	const _AMT_KND__FEE_AMT_		= "FEE_AMT";	// 적자금
-	
+
 	const _AMT_KND__CTRT_AMT_SUM_	= "CTRT_AMT_SUM";
-	
+
 	// CLCLN_ELMT 상세
 	const _CLCLN_ELMT__SE_CD_		= "SE_CD";
 	const _CLCLN_ELMT__CLSF_		= "CLSF";
 	const _CLCLN_ELMT__ITEM_		= "ITEM";
 	const _CLCLN_ELMT__VRTY_		= "VRTY";
 	const _CLCLN_ELMT__SEED_		= "SEED";
-	
+
 
 	let needsElmtSeCd	= false;
 	let needsElmtClsf	= false;
 	let needsElmtItem	= false;
 	let needsElmtVrty	= false;
 	let needsElmtSeed	= false;
-	
+
 	let needsUntprcSeed		= false;
-	let needsUntprcWrhsGrd	= false;	
+	let needsUntprcWrhsGrd	= false;
 	let needsUntprcSortGrd	= false;
 	let needsUntprcGdsGrd	= false;
-	
+
 	let needsExtraAmt	= false;
 	let needsFeeAmt		= false;
-	
+
 	var jsonClclnSn		= [];	// 차수
-	
+
     var jsonPrdcr				= [];
     var jsonPrdcrAutocomplete 	= [];
-    
-	
+
+
 	// 코드 json
 	var jsonYn				= [
 		{cdVl: "Y", cdVlNm: "확정"},
 		{cdVl: "N", cdVlNm: "미확정"},
 	];
-	
+
 	var jsonClclnSeCd		= [];	// 정산구분코드
 	var jsonClclnClsf		= [];	// 정산분류
 	var jsonClclnElmt		= [];	// 정산항목
 	var jsonClclnAmtKnd		= [];	// 정산금액종류
 	var jsonClclnUntprcKnd	= [];	// 정산단가종류
 	var jsonUntprcUnit		= [];	// 단가단위
-	
+
 	var jsonAsstCst		= [];
 	var jsonGiveAmt		= [];
 	var jsonDdcAmt		= [];
 	var jsonAdvncAmt	= [];
 	var jsonCtrtAmt		= [];
 	var jsonAcmlFund	= [];
-	
-	var jsonWrhsGrd		= [];	// 입고등급 
+
+	var jsonWrhsGrd		= [];	// 입고등급
 	var jsonSortGrd		= [];	// 선별등급
 	var jsonGdsGrd		= [];	// 상품등급
 
@@ -373,19 +382,19 @@
 	var jsonClclnCrtrDtl	= [];	// 정산기준 상세
 
 	var jsonClclnAmtKndDtl	= [];	// 금액종류상세
-	
+
     /* SBGrid */
 	var grdClclnRslt;
 
     /* SBGrid Data (JSON) */
 	var jsonClclnRslt = [];
-    
+
     const jsonClclnRsltData = [];
-    
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	})
-    
+
 	/**
 	 * @name fn_init
 	 * @description form init
@@ -393,20 +402,20 @@
 	const fn_init = async function() {
 
 		SBUxMethod.openProgress(gv_loadingOptions);
-		
+
 		SBUxMethod.set("srch-dtp-clclnYr", gfn_dateToYear(new Date()));
-		
+
 		await fn_initSBSelect();
-		
+
 		fn_createGrid();
-		
+
 		SBUxMethod.closeProgress(gv_loadingOptions);
 	}
-	
+
 	const fn_initSBSelect = async function() {
 
  		await fn_setCodeJson();
- 		
+
 		SBUxMethod.refresh("srch-slt-clclnSeCd");
 		SBUxMethod.refresh("srch-slt-clclnClsf");
 	}
@@ -417,7 +426,7 @@
      * @function
      */
  	const fn_setCodeJson = async function() {
- 		
+
  		// 코드정보 설정
 		let result = await Promise.all([
 			gfn_getComCdDtls("UNTPRC_UNIT"),
@@ -429,7 +438,7 @@
 			fn_getClclnSn(),
 			fn_getPrdcrs(),
 		]);
-		
+
 		jsonUntprcUnit = result[0];
 		jsonItem = result[1];
 		jsonVrty = result[2];
@@ -437,21 +446,21 @@
 
 		fn_setJsonClclnCrtr();
  	}
-	
+
 	/**
      * @name fn_getClclnSn
      * @description 정산차수 조회
      * @function
 	 **/
 	const fn_getClclnSn = async function() {
-		
+
 		jsonClclnSn.length = 0;
 
 		const clclnYr = SBUxMethod.get("srch-dtp-clclnYr");
-		
+
 		try {
         	const postJsonPromise = gfn_postJSON(
-        			"/am/clcln/selectClclnUntprcMstrList.do", 
+        			"/am/clcln/selectClclnUntprcMstrList.do",
         			{
         				apcCd: gv_selectedApcCd, clclnYr: clclnYr
         			},
@@ -460,17 +469,17 @@
         	);
 
             const data = await postJsonPromise;
-        	
+
   			if (_.isEqual("S", data.resultStatus)) {
-  	      		
+
   				const list = [...data.resultList].reverse();
-  				
+
   				list.forEach((item, index) => {
   					item.cdVl = "" + item.clclnSn;
   					item.cdVlNm = "" + item.clclnSn + "차";
   					jsonClclnSn.push(item);
 				});
-  					        	
+
         	} else {
         		console.log("clclnSn errorCode", data.resultCode);
         		console.log("clclnSn errorMessage", data.resultMessage);
@@ -482,67 +491,67 @@
     		}
     		console.error("clclnSn failed", e.message);
 		}
-		
+
 		SBUxMethod.refresh("srch-slt-clclnSn");
 	}
- 	
- 	
+
+
  	/**
      * @name fn_setJsonClclnCrtr
      * @description 정산기준 JSON
      * @function
      */
 	const fn_setJsonClclnCrtr = function() {
-		
+
  		jsonClclnSeCd.length = 0;		//	정산구분코드
  		jsonClclnClsf.length = 0;		//	정산분류
  		jsonClclnElmt.length = 0; 		//	정산요소
  		jsonClclnUntprcKnd.length = 0;	//	정산단가종류
  		jsonClclnAmtKndDtl.length = 0;	//	정산금액상세
- 		
+
  		jsonWrhsGrd.length = 0;
  		jsonSortGrd.length = 0;
  		jsonGdsGrd.length = 0;
  		jsonSeed.length = 0;
- 		
+
  		jsonAsstCst.length = 0;
  		jsonGiveAmt.length = 0;
  		jsonDdcAmt.length = 0;
  		jsonAdvncAmt.length = 0;
  		jsonCtrtAmt.length = 0;
  		jsonAcmlFund.length = 0;
- 		
+
  		jsonClclnCrtrDtl.forEach((item, index) => {
 
 			item.cdVl	= item.dtlCd;
 	 		item.cdVlNm	= item.dtlIndctNm;
-	 		
+
 			// 정산기준 유형에 따라 json 생성
 			switch (item.clclnCrtrType) {
-				
+
 				// 정산항목종류
 				case _CLCLN_ARTCL_KND_:
-					
+
 					// 기준코드
 					switch (item.crtrCd) {
 						case _CLCLN_SE_CD_:
 							jsonClclnSeCd.push(item);
 							break;
-							
+
 						case _CLCLN_CLSF_:
 							jsonClclnClsf.push(item);
 							break;
-							
+
 						case _CLCLN_ELMT_:
 							jsonClclnElmt.push(item);
 							break;
-							
+
 						default:
 	 						break;
 					}
-					
+
 					break;
-				
+
 				case _CLCLN_UNTPRC_KND_:		// 정산할 단가종류
 					jsonClclnUntprcKnd.push(item);
 					// 기준코드
@@ -550,70 +559,70 @@
 						case _UNTPRC_KND__WRHS_GRD_:
 							jsonWrhsGrd.push(item);
 							break;
-							
+
 						case _UNTPRC_KND__SORT_GRD_:
 							jsonSortGrd.push(item);
 							break;
-							
+
 						case _UNTPRC_KND__GDS_GRD_:
 							jsonGdsGrd.push(item);
 							break;
-							
+
 						case _UNTPRC_KND__SEED_:
 							jsonSeed.push(item);
 							break;
-							
+
 						default:
 	 						break;
 					}
-					
+
 					break;
-				
+
 				case _CLCLN_AMT_KND_:		// 금액종류
 					switch (item.crtrCd) {
 						case _AMT_KND__ASST_CST_:
 							jsonAsstCst.push(item);
 							break;
-							
+
 						case _AMT_KND__GIVE_AMT_:
 							jsonGiveAmt.push(item);
 							break;
-							
+
 						case _AMT_KND__DDC_AMT_:
 							jsonDdcAmt.push(item);
 							break;
-							
+
 						case _AMT_KND__ADVNC_AMT_:
 							jsonAdvncAmt.push(item);
 							break;
-						
+
 						case _AMT_KND__CTRT_AMT_:
 							jsonCtrtAmt.push(item);
 							break;
-							
+
 						case _AMT_KND__ACML_FUND_:
 							jsonAcmlFund.push(item);
 							break;
-						
-							
+
+
 						case _AMT_KND__EXTRA_AMT_:
 							needsExtraAmt = true;
 							break;
 						case _AMT_KND__FEE_AMT_:
 							needsFeeAmt = true;
 							break;
-							
+
 						default:
 	 						break;
 					}
-				
+
 				default:
 					break;
 			}
 		});
- 		
+
 		jsonClclnElmt.forEach((item, index) => {
-    		
+
     		// 정산요소에 따라 항목 표시
     		switch (item.dtlCd) {
     			case _CLCLN_ELMT__SE_CD_:
@@ -631,44 +640,44 @@
     			case _CLCLN_ELMT__SEED_:
     				needsElmtSeed = true;
     				break;
-    				
+
     			default:
     				break;
     		}
     	});
 		needsUntprcSeed		= jsonSeed.length > 0;
-		needsUntprcWrhsGrd	= jsonWrhsGrd.length > 0;	
+		needsUntprcWrhsGrd	= jsonWrhsGrd.length > 0;
 		needsUntprcSortGrd	= jsonSortGrd.length > 0;
 		needsUntprcGdsGrd	= jsonGdsGrd.length > 0;
- 		
+
  	}
- 	
+
  	/**
      * @name fn_getClclnCrtrDtl
      * @description 정산기준 상세 조회
      * @function
      */
  	const fn_getClclnCrtrDtl = async function() {
- 		
+
  		jsonClclnCrtrDtl.length = 0;
 
         try {
 
         	const postJsonPromise = gfn_postJSON(
-        			"/am/clcln/selectCrtrDtlListInUse.do", 
+        			"/am/clcln/selectCrtrDtlListInUse.do",
         			{apcCd: gv_selectedApcCd},
         			null,
         			true
         	);
 
             const data = await postJsonPromise;
-        	
+
   			if (_.isEqual("S", data.resultStatus)) {
-  	      		
+
   				data.resultList.forEach((item, index) => {
   					jsonClclnCrtrDtl.push(item);
 				});
-	        	
+
         	} else {
         		console.log("crtr dtl errorCode", data.resultCode);
         		console.log("crtr dtl errorMessage", data.resultMessage);
@@ -681,8 +690,8 @@
     		console.error("crtr dtl failed", e.message);
 		}
  	}
- 	
- 	
+
+
  	/**
      * @name fn_createGrid
      * @description 정산실적 그리드 생성
@@ -706,18 +715,18 @@
         		caption: ['정산연도','정산연도'],
         		ref: 'clclnYr',
         		width: '60px',
-        		type: 'output', 
+        		type: 'output',
         		style: 'text-align:center'
         	},
       		{
         		caption: ['차수','차수'],
         		ref: 'clclnSn',
         		width: '40px',
-        		type: 'output', 
+        		type: 'output',
         		style: 'text-align:center'
         	},
 		];
-		
+
 		// 정산구분 사용
     	if (needsElmtSeCd) {
     		SBGridProperties.columns.push({
@@ -728,7 +737,7 @@
         		style: 'text-align:center'
         	});
     	}
-		
+
     	// 정산분류 사용
     	if (needsElmtClsf) {
     		SBGridProperties.columns.push({
@@ -739,7 +748,7 @@
         		style: 'text-align:center'
         	});
     	}
-		
+
     	// 정산품목 사용
     	if (needsElmtItem) {
     		SBGridProperties.columns.push({
@@ -750,7 +759,7 @@
         		style: 'text-align:center'
         	});
     	}
-    	
+
     	// 정산품종 사용
     	if (needsElmtVrty) {
     		SBGridProperties.columns.push({
@@ -761,45 +770,45 @@
         		style: 'text-align:center'
         	});
     	}
-    	
+
     	SBGridProperties.columns.push(
    			{
             	caption: ['지역','지역'],
             	ref: 'frmhsCtpv',
             	width: '80px',
-            	type: 'output', 
+            	type: 'output',
             	style: 'text-align:center'
 			},
     		{
            		caption: ['농가명','농가명'],
            		ref: 'prdcrNm',
            		width: '80px',
-           		type: 'output', 
+           		type: 'output',
            		style: 'text-align:center'
            	},
            	{
            		caption: ['주소','주소'],
            		ref: 'frmhsAddr',
            		width: '120px',
-           		type: 'output', 
+           		type: 'output',
            		style: 'text-align:center'
            	},
            	{
            		caption: ['연락처','연락처'],
            		ref: 'telno',
            		width: '120px',
-           		type: 'output', 
+           		type: 'output',
            		style: 'text-align:center'
            	},
  		);
- 		
+
  		// 정산종자 사용
-    	if (needsUntprcSeed) {    		
-    		jsonSeed.forEach((item, index) => {    			
+    	if (needsUntprcSeed) {
+    		jsonSeed.forEach((item, index) => {
     			const colNm = _COL_PRFX_SEED_ + _COL_PRFX_QNTT_ + (index+1);
     			const colNmAmt = _COL_PRFX_SEED_ + _COL_PRFX_AMT_ + (index+1);
     			const colNmUntprc = _COL_PRFX_SEED_ + _COL_PRFX_UNTPRC_ + (index+1);
-    			
+
     			SBGridProperties.columns.push({
     				caption: ['품종', item.dtlIndctNm],
             		ref: colNm,
@@ -808,7 +817,7 @@
       				width:'80px',
       				style: 'text-align:right;background-color:#FFF8DC',
       				userattr: {
-      					colType: _RSLT_KND__SEED_, 
+      					colType: _RSLT_KND__SEED_,
       					colNm: colNm,
       					colNmUntprc: colNmUntprc,
       					colNmAmt: colNmAmt,
@@ -829,7 +838,7 @@
                	caption: ['계약면적','평'],
                	ref: 'ctrtArea',
                	width: '60px',
-               	type: 'output', 
+               	type: 'output',
                	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
@@ -837,7 +846,7 @@
                	caption: ['계약면적','㎡'],
                	ref: 'ctrtAreaM',
                	width: '60px',
-               	type: 'output', 
+               	type: 'output',
                	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
@@ -845,18 +854,18 @@
                	caption: ['정식면적<br>(평)','정식면적<br>(평)'],
                	ref: 'plntngArea',
                	width: '60px',
-               	type: 'output', 
+               	type: 'output',
                	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
 		);
- 		
-    	
+
+
 		// 등급별 수량, 중량
 		// 입고등급
     	if (needsUntprcWrhsGrd) {
-    		
-    		jsonWrhsGrd.forEach((item, index) => {    			
+
+    		jsonWrhsGrd.forEach((item, index) => {
 
     			const colNmQntt = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
     			const colNmAmt = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_AMT_ + (index+1);
@@ -892,8 +901,8 @@
 	      				width:'100px',
 	      				style: 'text-align:right;background-color:#FFF8DC',
 	      				userattr: {
-	      					colType: _RSLT_KND__WRHS_, 
-	      					colNm: colNmAmt, 
+	      					colType: _RSLT_KND__WRHS_,
+	      					colNm: colNmAmt,
 	      					dtlCd: item.dtlCd
 	      				},
 	      				typeinfo: {
@@ -906,16 +915,16 @@
     			);
     		});
     	}
-		
+
     	// 선별등급
     	if (needsUntprcSortGrd) {
-    		
-    		jsonSortGrd.forEach((item, index) => {    			
-    			
+
+    		jsonSortGrd.forEach((item, index) => {
+
     			const colNmQntt = _COL_PRFX_SORT_GRD_ + _COL_PRFX_QNTT_ + (index+1);
     			const colNmAmt = _COL_PRFX_SORT_GRD_ + _COL_PRFX_AMT_ + (index+1);
     			const colNmUntprc = _COL_PRFX_SORT_GRD_ + _COL_PRFX_UNTPRC_ + (index+1);
-    			
+
     			SBGridProperties.columns.push(
     				{
 	    				caption: [item.dtlIndctNm,"수량"],
@@ -925,7 +934,7 @@
 	      				width:'80px',
 	      				style: 'text-align:right;background-color:#FFF8DC',
 	      				userattr: {
-	      					colType: _RSLT_KND__SORT_, 
+	      					colType: _RSLT_KND__SORT_,
 	      					colNm: colNmQntt,
 	      					colNmUntprc: colNmUntprc,
 	      	                colNmAmt: colNmAmt,
@@ -947,8 +956,8 @@
 	      				width:'100px',
 	      				style: 'text-align:right;background-color:#FFF8DC',
 	      				userattr: {
-	      					colType: _RSLT_KND__SORT_, 
-	      					colNm: colNmAmt, 
+	      					colType: _RSLT_KND__SORT_,
+	      					colNm: colNmAmt,
 	      					dtlCd: item.dtlCd
 	      				},
 	      				typeinfo: {
@@ -961,16 +970,16 @@
     			);
     		});
     	}
-		
+
 		// 상품등급
     	if (needsUntprcGdsGrd) {
-    		
-    		jsonGdsGrd.forEach((item, index) => {    			
-    			
+
+    		jsonGdsGrd.forEach((item, index) => {
+
     			const colNmQntt = _COL_PRFX_GDS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
     			const colNmAmt = _COL_PRFX_GDS_GRD_ + _COL_PRFX_AMT_ + (index+1);
     			const colNmUntprc = _COL_PRFX_GDS_GRD_ + _COL_PRFX_UNTPRC_ + (index+1);
-    			
+
     			SBGridProperties.columns.push(
     				{
 	    				caption: [item.dtlIndctNm,"수량"],
@@ -980,8 +989,8 @@
 	      				width:'80px',
 	      				style: 'text-align:right;background-color:#FFF8DC',
 	      				userattr: {
-	      					colType: _RSLT_KND__GDS_, 
-	      					colNm: colNmQntt, 
+	      					colType: _RSLT_KND__GDS_,
+	      					colNm: colNmQntt,
 	      					colNmUntprc: colNmUntprc,
 	      	                colNmAmt: colNmAmt,
 	      					dtlCd: item.dtlCd,
@@ -1002,8 +1011,8 @@
 	      				width:'100px',
 	      				style: 'text-align:right;background-color:#FFF8DC',
 	      				userattr: {
-	      					colType: _RSLT_KND__GDS_, 
-	      					colNm: colNmAmt, 
+	      					colType: _RSLT_KND__GDS_,
+	      					colNm: colNmAmt,
 	      					dtlCd: item.dtlCd
 	      				},
 	      				typeinfo: {
@@ -1016,7 +1025,7 @@
     			);
     		});
     	}
-		
+
     	SBGridProperties.columns.push(
      		{
                	caption: ['합계','수량'],
@@ -1026,8 +1035,8 @@
   				width:'100px',
   				style: 'text-align:right;',
   				userattr: {
-  					colType: _RSLT_KND__ALL_, 
-  					colNm: "clclnQntt", 
+  					colType: _RSLT_KND__ALL_,
+  					colNm: "clclnQntt",
   					dtlCd: ""
   				},
   				typeinfo: {
@@ -1045,8 +1054,8 @@
   				width:'100px',
   				style: 'text-align:right;',
   				userattr: {
-  					colType: _RSLT_KND__ALL_, 
-  					colNm: "clclnAmt", 
+  					colType: _RSLT_KND__ALL_,
+  					colNm: "clclnAmt",
   					dtlCd: ""
   				},
   				typeinfo: {
@@ -1057,7 +1066,7 @@
 				format : {type:'number', rule:'#,###'}
    			},
 		);
-    	
+
     	// 추가 지급금
     	if (needsExtraAmt) {
     		SBGridProperties.columns.push(
@@ -1069,8 +1078,8 @@
 	  				width:'100px',
 	  				style: 'text-align:right;',
 	  				userattr: {
-	  					colType: _AMT_KND__EXTRA_AMT_, 
-	  					colNm: "extraUntprc", 
+	  					colType: _AMT_KND__EXTRA_AMT_,
+	  					colNm: "extraUntprc",
 	  					dtlCd: ""
 	  				},
 	  				typeinfo: {
@@ -1088,8 +1097,8 @@
 	  				width:'100px',
 	  				style: 'text-align:right;',
 	  				userattr: {
-	  					colType: _AMT_KND__EXTRA_AMT_, 
-	  					colNm: "extraAmt", 
+	  					colType: _AMT_KND__EXTRA_AMT_,
+	  					colNm: "extraAmt",
 	  					dtlCd: ""
 	  				},
 	  				typeinfo: {
@@ -1101,7 +1110,7 @@
 	   			},
 			);
     	}
-    	
+
     	// 수수료
     	if (needsFeeAmt) {
     		SBGridProperties.columns.push(
@@ -1113,8 +1122,8 @@
    	  				width:'100px',
    	  				style: 'text-align:right;',
    	  				userattr: {
-   	  					colType: _AMT_KND__FEE_AMT_, 
-   	  					colNm: "feeAmt", 
+   	  					colType: _AMT_KND__FEE_AMT_,
+   	  					colNm: "feeAmt",
    	  					dtlCd: ""
    	  				},
    	  				typeinfo: {
@@ -1126,12 +1135,12 @@
    	   			},
    			);
     	}
-    	
+
     	// 계약금
     	jsonCtrtAmt.forEach((item, index) => {
     		const ctrt = _.find(arrCtrtAmtKnd, {column: item.dtlCd});
 			const colNm = ctrt.property;
-			
+
    			SBGridProperties.columns.push(
    				{
     				caption: ["계약금",item.dtlIndctNm],
@@ -1141,7 +1150,7 @@
       				width:'100px',
       				style: 'text-align:right;background-color:#FFF8DC',
       				userattr: {
-      					colType: _AMT_KND__CTRT_AMT_, 
+      					colType: _AMT_KND__CTRT_AMT_,
       					colNm: colNm,
       					colNmAmt: "ctrtAmt",
       					dtlCd: item.dtlCd,
@@ -1156,7 +1165,7 @@
            		}
 			);
     	});
-    	
+
     	if (jsonCtrtAmt.length > 1) {
     		SBGridProperties.columns.push(
       			{
@@ -1167,8 +1176,8 @@
          				width:'100px',
          				style: 'text-align:right;background-color:#FFF8DC',
          				userattr: {
-         					colType: _AMT_KND__CTRT_AMT_SUM_, 
-         					colNm: "ctrtAmt", 
+         					colType: _AMT_KND__CTRT_AMT_SUM_,
+         					colNm: "ctrtAmt",
          					dtlCd: ""
          				},
          				typeinfo: {
@@ -1180,7 +1189,7 @@
               	}
    			);
     	}
-    	
+
     	// 적자금
     	jsonAcmlFund.forEach((item, index) => {
     		const colNm = _COL_PRFX_ACML_FUND_ + (index+1);
@@ -1193,8 +1202,8 @@
          				width:'100px',
          				style: 'text-align:right;background-color:#FFF8DC',
          				userattr: {
-         					colType: _AMT_KND__ACML_FUND_, 
-         					colNm: colNm, 
+         					colType: _AMT_KND__ACML_FUND_,
+         					colNm: colNm,
          					dtlCd: item.dtlCd
          				},
          				typeinfo: {
@@ -1206,13 +1215,13 @@
               	}
    			);
     	});
-    	
+
     	// 공제내역
 		jsonDdcAmt.forEach((item, index) => {
-			
+
 			const ddc = _.find(arrDdcAmtKnd, {column: item.dtlCd});
 			const colNm = ddc.property;
-			
+
    			SBGridProperties.columns.push(
    				{
     				caption: ["공제내역", item.dtlIndctNm],
@@ -1222,8 +1231,8 @@
       				width:'100px',
       				style: 'text-align:right;background-color:#FFF8DC',
       				userattr: {
-      					colType: _AMT_KND__DDC_AMT_, 
-      					colNm: colNm, 
+      					colType: _AMT_KND__DDC_AMT_,
+      					colNm: colNm,
       					dtlCd: item.dtlCd
       				},
       				typeinfo: {
@@ -1235,24 +1244,24 @@
            		}
 			);
 		});
-    	
+
     	// 선금
     	jsonAdvncAmt.forEach((item, index) => {
-    		
+
 			const advnc = _.find(arrAdvncAmtKnd, {column: item.dtlCd});
 			const colNm = advnc.property;
-			
+
    			SBGridProperties.columns.push(
    				{
-    				caption: ["선급금",item.dtlIndctNm],
+    				caption: ["선입금",item.dtlIndctNm],
             		ref: colNm,
             		datatype: 'number',
       				type:'input',
       				width:'100px',
       				style: 'text-align:right;background-color:#FFF8DC',
       				userattr: {
-      					colType: _AMT_KND__ADVNC_AMT_, 
-      					colNm: colNm, 
+      					colType: _AMT_KND__ADVNC_AMT_,
+      					colNm: colNm,
       					dtlCd: item.dtlCd
       				},
       				typeinfo: {
@@ -1264,7 +1273,7 @@
            		}
 			);
 		});
-    	
+
     	SBGridProperties.columns.push(
 			{
 				caption: ["최종지급금","최종지급금"],
@@ -1274,8 +1283,8 @@
   				width:'100px',
   				style: 'text-align:right;',
   				userattr: {
-  					colType: _AMT_KND__GIVE_AMT_, 
-  					colNm: "giveAmt", 
+  					colType: _AMT_KND__GIVE_AMT_,
+  					colNm: "giveAmt",
   					dtlCd: ""
   				},
   				typeinfo: {
@@ -1284,14 +1293,28 @@
   	                //oneclickedit: true
                 },
 				format : {type:'number', rule:'#,###'}
-       		}
+       		},
+       		{
+				caption: ["계좌정보","은행"],
+        		ref: "bankNm",
+  				type:'output',
+  				width:'100px',
+  				style: 'text-align:center;',
+       		},
+       		{
+				caption: ["계좌정보","번호"],
+        		ref: "actno",
+  				type:'output',
+  				width:'130px',
+  				style: 'text-align:center;',
+       		},
 		);
-    	
+
     	//console.log("columns");
     	console.log(SBGridProperties.columns);
-    	
+
 		grdClclnRslt = _SBGrid.create(SBGridProperties);
-		grdClclnRslt.bind('valuechanged' , fn_grdClclnRsltValueChanged);		
+		grdClclnRslt.bind('valuechanged' , fn_grdClclnRsltValueChanged);
 	}
 
 	/**
@@ -1303,23 +1326,23 @@
      * @description 조회 버튼
      */
 	const fn_search = async function() {
-	    
+
 		//jsonClclnRslt.length = 0;
 		//grdClclnRslt.refresh();
-		
+
 		fn_setGrdClclnRslt();
 	}
 
-	
+
 	const fn_clclnReg = async function() {
-		
+
 		const clclnYr = SBUxMethod.get("srch-dtp-clclnYr");
     	const clclnSn = SBUxMethod.get("srch-slt-clclnSn");
-    	
+
     	if (!gfn_comConfirm("Q0001", clclnYr + "년 " + clclnSn + "차 정산실적 생성")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	
+
         try {
         	const postJsonPromise = gfn_postJSON("/am/clcln/insertClclnRsltReg.do", {
         		apcCd: gv_selectedApcCd,
@@ -1328,17 +1351,17 @@
       		});
 
             const data = await postJsonPromise;
-        	
+
   			if (_.isEqual("S", data.resultStatus)) {
-        		
+
   				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		
+
   				await fn_search();
-  				
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-        	
+
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1346,19 +1369,19 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
-		
-		
+
+
 	}
-	
-	
+
+
     /**
      * @name fn_save
      * @description 저장 버튼
      */
  	const fn_save = async function() {
-    	await fn_insertClclnRslt();	
+    	await fn_insertClclnRslt();
     }
-     
+
     /**
      * @name fn_insertClclnRslt
      * @description 저장 버튼
@@ -1366,25 +1389,25 @@
 	const fn_insertClclnRslt = async function() {
 
     	const clclnRsltList = [];
-    	
+
 		const allData = grdClclnRslt.getGridDataAll();
-		
+
     	for ( var i=2; i<=allData.length+1; i++ ){
 			const rowData = grdClclnRslt.getRowData(i);
 			const rowSts = grdClclnRslt.getRowStatus(i);
-			
+
 			const isUpdatedYn = rowData.isUpdatedYn;
-			
+
 			console.log("isUpdatedYn", isUpdatedYn)
-			
+
 			if (rowSts === 0 && !_.isEqual(isUpdatedYn, "Y")) {
 				continue;
 			}
-			
-			
-			
+
+
+
 			const clclnRsltDtlList = [];
-			
+
 			let seedClclnAmt = 0;
 			let wrhsClclnAmt = 0;
 			let sortClclnAmt = 0;
@@ -1399,7 +1422,7 @@
 			let giveAmt = 0;
 
 			// 항목별 분기
-			
+
 			// 종자			**************************************************
 			// jsonSeed.dtlCd
 			// 종자 수량 seed seedClclnQntt, seedClclnAmt
@@ -1408,13 +1431,13 @@
 				jsonSeed.forEach((item, index) => {
 					const colUntprc = _COL_PRFX_SEED_ + _COL_PRFX_UNTPRC_ + (index+1);
 					const colQntt = _COL_PRFX_SEED_ + _COL_PRFX_QNTT_ + (index+1);
-					
+
 					const untprc = rowData[colUntprc];
 					const qntt = rowData[colQntt];
 					const amt = qntt * untprc;
-					
+
 					if (qntt > 0) {
-						
+
 						clclnRsltDtlList.push({
 							clclnCrtrType: _CLCLN_RSLT_KND_,
 							crtrCd: _RSLT_KND__SEED_,
@@ -1424,23 +1447,23 @@
 							elmtQntt: "Y",
 							elmtAmt: "Y"
 						});
-						
+
 						seedClclnAmt += amt || 0;
 					}
 				});
 			}
-			
+
 			// 등급수량		**************************************************
 			// 등급수량 - 입고
 			if (needsUntprcWrhsGrd) {
 				jsonWrhsGrd.forEach((item, index) => {
 					const colUntprc = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_UNTPRC_ + (index+1);
 					const colQntt = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
-					
+
 					const untprc = rowData[colUntprc];
 					const qntt = rowData[colQntt];
 					const amt = qntt * untprc;
-					
+
 					if (qntt > 0) {
 						clclnRsltDtlList.push({
 							clclnCrtrType: _CLCLN_RSLT_KND_,
@@ -1451,22 +1474,22 @@
 							elmtQntt: "Y",
 							elmtAmt: "Y"
 						});
-						
+
 						wrhsClclnAmt += amt || 0;
 					}
 				});
 			}
-			
+
 			// 등급수량 - 선별
 			if (needsUntprcSortGrd) {
 				jsonSortGrd.forEach((item, index) => {
 					const colUntprc = _COL_PRFX_SORT_GRD_ + _COL_PRFX_UNTPRC_ + (index+1);
 					const colQntt = _COL_PRFX_SORT_GRD_ + _COL_PRFX_QNTT_ + (index+1);
-					
+
 					const untprc = rowData[colUntprc];
 					const qntt = rowData[colQntt];
 					const amt = qntt * untprc;
-					
+
 					if (qntt > 0) {
 						clclnRsltDtlList.push({
 							clclnCrtrType: _CLCLN_RSLT_KND_,
@@ -1477,18 +1500,18 @@
 							elmtQntt: "Y",
 							elmtAmt: "Y"
 						});
-						
+
 						sortClclnAmt += amt || 0;
 					}
 				});
 			}
-			
+
 			// 등급수량 - 상품
 			if (needsUntprcGdsGrd) {
 				jsonGdsGrd.forEach((item, index) => {
 					const colUntprc = _COL_PRFX_GDS_GRD_ + _COL_PRFX_UNTPRC_ + (index+1);
 					const colQntt = _COL_PRFX_GDS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
-					
+
 					const untprc = rowData[colUntprc];
 					const qntt = rowData[colQntt];
 					const amt = qntt * untprc;
@@ -1502,12 +1525,12 @@
 							elmtQntt: "Y",
 							elmtAmt: "Y"
 						});
-					
+
 						gdsClclnAmt += amt || 0;
 					}
 				});
 			}
-			
+
 			// 추가지급금	**************************************************
 			// 추가지급금 - 단가	extraUntprc
 			// 추가지급금 - 금액	extraAmt
@@ -1521,7 +1544,7 @@
 				elmtUntprc: "Y",
 				elmtAmt: "Y"
 			});
-			
+
 			// 수수료		**************************************************
 			// 농협수수료 feeAmt
 			feeAmt = rowData["feeAmt"] || 0;
@@ -1531,7 +1554,7 @@
 				clclnAmt: feeAmt,
 				elmtAmt: "Y"
 			});
-			
+
 			// 계약금		**************************************************
 			// 계약금 - 종자대금
 			// 계약금 - 현금
@@ -1539,7 +1562,7 @@
 				const ctrt = _.find(arrCtrtAmtKnd, {column: item.dtlCd});
 				const colNm = ctrt.property;
 				const amt = rowData[colNm];
-				
+
 				clclnRsltDtlList.push({
 					clclnCrtrType: item.clclnCrtrType,
 					crtrCd: item.crtrCd,
@@ -1547,16 +1570,16 @@
 					clclnAmt: amt,
 					elmtAmt: "Y"
 				});
-				
+
 				ctrtAmt += amt || 0;
 			});
-			
-			
+
+
 			// 적자금		**************************************************
 			jsonAcmlFund.forEach((item, index) => {
 				const colNm = _COL_PRFX_ACML_FUND_ + (index+1);
 				const amt = rowData[colNm];
-				
+
 				clclnRsltDtlList.push({
 					clclnCrtrType: item.clclnCrtrType,
 					crtrCd: item.crtrCd,
@@ -1564,10 +1587,10 @@
 					clclnAmt: amt,
 					elmtAmt: "Y"
 				});
-				
+
 				acmlFund += amt || 0;
 			});
-			
+
 			// 공제내역 	**************************************************
 			// 공제내역 - 농자재대금
 			// 공제내역 - 운반비
@@ -1580,7 +1603,7 @@
 				const ddc = _.find(arrDdcAmtKnd, {column: item.dtlCd});
 				const colNm = ddc.property;
 				const amt = rowData[colNm];
-				
+
 				clclnRsltDtlList.push({
 					clclnCrtrType: item.clclnCrtrType,
 					crtrCd: item.crtrCd,
@@ -1588,10 +1611,10 @@
 					clclnAmt: amt,
 					elmtAmt: "Y"
 				});
-				
+
 				ddcAmt += amt || 0;
 			});
-						
+
 			// 선급금		**************************************************
 			// 선급금 - 선금
 			// 선급금 - 종자대금
@@ -1599,7 +1622,7 @@
 				const advnc = _.find(arrAdvncAmtKnd, {column: item.dtlCd});
 				const colNm = advnc.property;
 				const amt = rowData[colNm];
-				
+
 				clclnRsltDtlList.push({
 					clclnCrtrType: item.clclnCrtrType,
 					crtrCd: item.crtrCd,
@@ -1607,11 +1630,11 @@
 					clclnAmt: amt,
 					elmtAmt: "Y"
 				});
-				
+
 				advncAmt += amt || 0;
 			});
-			
-			
+
+
 			// 최종지급금	**************************************************
 			giveAmt = rowData["giveAmt"] || 0;
 			clclnRsltDtlList.push({
@@ -1620,21 +1643,21 @@
 				clclnAmt: giveAmt,
 				elmtAmt: "Y"
 			});
-			
+
 			rowData.clclnRsltDtlList = clclnRsltDtlList;
 			clclnRsltList.push(rowData);
     	}
-    	
+
 		if (clclnRsltList.length == 0) {
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		
+
 
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			clclnRsltList: clclnRsltList
@@ -1643,12 +1666,12 @@
         try {
         	const postJsonPromise = gfn_postJSON("/am/clcln/updateClclnRslt.do", param);
     		const data = await postJsonPromise;
-    		
+
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		
+
         		await fn_search();
-        		
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -1662,7 +1685,7 @@
 
 	}
 
-    
+
 
 
     /**
@@ -1678,7 +1701,8 @@
     	const clclnClsf = SBUxMethod.get("srch-slt-clclnClsf");
     	const prdcrNm = SBUxMethod.get("srch-inp-prdcrNm");
     	const prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-    	
+    	const frmhsCtpv = SBUxMethod.get("srch-inp-frmhsCtpv");
+
         try {
         	const postJsonPromise = gfn_postJSON("/am/clcln/selectClclnRsltList.do", {
         		apcCd: gv_selectedApcCd,
@@ -1688,25 +1712,26 @@
         		clclnClsf: clclnClsf,
         		prdcrNm: prdcrNm,
         		prdcrCd: prdcrCd,
+        		frmhsCtpv : frmhsCtpv
       		});
 
             const data = await postJsonPromise;
-        	
+
   			if (_.isEqual("S", data.resultStatus)) {
-  	      		
+
   		    	jsonClclnRslt.length = 0;
-  		    	
+
   				data.resultList.forEach((item, index) => {
   					item.isUpdatedYn = "N";
   					jsonClclnRslt.push(item);
 				});
-  				
+
   				let totalRecordCount = jsonClclnRslt.length;
   				grdClclnRslt.rebuild();
-  	          	
+
 	        	document.querySelector('#cnt-clclnRslt').innerText = totalRecordCount;
 	        	console.log(jsonClclnRslt)
-	        	
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1720,29 +1745,29 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
     }
-	
 
-	 
+
+
 	/*
 	 * @name fn_grdClclnRsltValueChanged
 	 * @description 정산결과 변경 이벤트
 	 */
 	const fn_grdClclnRsltValueChanged = function() {
-		
+
 		const nRow = grdClclnRslt.getRow();
 		const nCol = grdClclnRslt.getCol();
-		
+
 		const usrAttr = grdClclnRslt.getColUserAttr(nCol);
-		
-		
+
+
 		if (
-			!gfn_isEmpty(usrAttr) 
+			!gfn_isEmpty(usrAttr)
 			&& usrAttr.hasOwnProperty('colType')
 			&& usrAttr.hasOwnProperty('colNm')) {
-			
+
 			const rowData = grdClclnRslt.getRowData(nRow, false);	// deep copy
 			const val = grdClclnRslt.getCellData(nRow, nCol);
-			
+
 			let extraAmt = 0;
 			let feeAmt = 0;
 			let ctrtSdPymt = 0;
@@ -1750,107 +1775,107 @@
 			let acmlFund = 0;
 			let ddcAmt = 0;
 			let advncAmt = 0;
-			
+
 			let rsltQntt = 0;
 			let rsltWght = 0;
 			let rsltAmt = 0;
-			
+
 			switch (usrAttr.colType) {
-			
+
 			case _RSLT_KND__SEED_:	// 종자
-				
+
 				if (usrAttr.hasOwnProperty('prcs')
 						&& _.isEqual(usrAttr.prcs, "C")) {
-					
+
   					const colNmUntprc = usrAttr["colNmUntprc"];
   					const colNmAmt = usrAttr["colNmAmt"];
-					
+
 					const untprc = parseInt(rowData[colNmUntprc]) || 0;
 					const amt = val * untprc;
-					
+
 					rowData[colNmAmt] = amt;
 				}
-				
+
 				// 종자대금 set
-				jsonSeed.forEach((item, index) => { 
+				jsonSeed.forEach((item, index) => {
 					const colNmAmt = _COL_PRFX_SEED_ + _COL_PRFX_AMT_ + (index+1);
 					const amt = parseInt(rowData[colNmAmt]) || 0;
-					
+
 					ctrtSdPymt += amt;
 				});
-				
+
 				rowData["ctrtSdPymt"] = ctrtSdPymt;	// 종자대금 set
-				
+
 			case _AMT_KND__CTRT_AMT_:	// 계약금
 				// 계약금 합산
 				jsonCtrtAmt.forEach((item, index) => {
 		    		const ctrt = _.find(arrCtrtAmtKnd, {column: item.dtlCd});
 					const colNm = ctrt.property;
-					
+
 					const amt = parseInt(rowData[colNm]) || 0;
 
 					ctrtAmt += amt;
 				});
 
 				rowData["ctrtAmt"] = ctrtAmt;	// 계약금 합계 set
-				
+
 				break;
-			
+
 			case _RSLT_KND__WRHS_:	// 입고
 			case _RSLT_KND__SORT_:	// 선별
 			case _RSLT_KND__GDS_:	// 입고
-			
+
 				if (usrAttr.hasOwnProperty('prcs')
 						&& _.isEqual(usrAttr.prcs, "C")) {
-					
+
   					const colNmUntprc = usrAttr["colNmUntprc"];
   					const colNmAmt = usrAttr["colNmAmt"];
-					
+
 					const untprc = parseInt(rowData[colNmUntprc]) || 0;
 					const amt = val * untprc;
-					
+
 					rowData[colNmAmt] = amt;
 				}
-				
-				jsonWrhsGrd.forEach((item, index) => {    			
+
+				jsonWrhsGrd.forEach((item, index) => {
 
 	    			const colNmQntt = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
 	    			const colNmWght = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_WGHT_ + (index+1);
 	    			const colNmAmt = _COL_PRFX_WHRS_GRD_ + _COL_PRFX_AMT_ + (index+1);
-	    			
+
 	    			const qntt = parseInt(rowData[colNmQntt]) || 0;
 	    			const wght = parseInt(rowData[colNmWght]) || 0;
 	    			const amt = parseInt(rowData[colNmQntt]) || 0;
-	    			
+
 	    			rsltQntt += qntt;
 	    			rsltWght += wght;
 	    			rsltAmt += amt;
 				});
-				jsonSortGrd.forEach((item, index) => {    			
+				jsonSortGrd.forEach((item, index) => {
 
 	    			const colNmQntt = _COL_PRFX_SORT_GRD_ + _COL_PRFX_QNTT_ + (index+1);
 	    			const colNmWght = _COL_PRFX_SORT_GRD_ + _COL_PRFX_WGHT_ + (index+1);
 	    			const colNmAmt = _COL_PRFX_SORT_GRD_ + _COL_PRFX_AMT_ + (index+1);
-	    			
+
 	    			const qntt = parseInt(rowData[colNmQntt]) || 0;
 	    			const wght = parseInt(rowData[colNmWght]) || 0;
 	    			const amt = parseInt(rowData[colNmQntt]) || 0;
-	    			
+
 	    			rsltQntt += qntt;
 	    			rsltWght += wght;
 	    			rsltAmt += amt;
 				});
-				
-				jsonGdsGrd.forEach((item, index) => {    			
+
+				jsonGdsGrd.forEach((item, index) => {
 
 	    			const colNmQntt = _COL_PRFX_GDS_GRD_ + _COL_PRFX_QNTT_ + (index+1);
 	    			const colNmWght = _COL_PRFX_GDS_GRD_ + _COL_PRFX_WGHT_ + (index+1);
 	    			const colNmAmt = _COL_PRFX_GDS_GRD_ + _COL_PRFX_AMT_ + (index+1);
-	    			
+
 	    			const qntt = parseInt(rowData[colNmQntt]) || 0;
 	    			const wght = parseInt(rowData[colNmWght]) || 0;
 	    			const amt = parseInt(rowData[colNmQntt]) || 0;
-	    			
+
 	    			rsltQntt += qntt;
 	    			rsltWght += wght;
 	    			rsltAmt += amt;
@@ -1859,10 +1884,10 @@
 				rowData["clclnQntt"] = rsltQntt;
 				rowData["clclnWght"] = rsltQntt;
 				rowData["clclnAmt"] = rsltQntt;
-				
+
 				break;
 
-				
+
 			case _AMT_KND__ACML_FUND_:	// 적자금
 				// 적자금 합산
 				jsonAcmlFund.forEach((item, index) => {
@@ -1871,12 +1896,12 @@
 
 					acmlFund += amt;
 				});
-			
+
 				rowData["acmlFund"] = acmlFund;	// 적자금 합계 set
-				
+
 				break;
-				
-				
+
+
 			case _AMT_KND__EXTRA_AMT_:	// 추가지급
 				break;
 			case _AMT_KND__FEE_AMT_:	// 수수료
@@ -1884,61 +1909,61 @@
 			case _AMT_KND__ASST_CST_:	// 보조비용
 				break;
 			case _AMT_KND__DDC_AMT_:	// 공제비용
-				
+
 				jsonDdcAmt.forEach((item, index) => {
 					const ddc = _.find(arrDdcAmtKnd, {column: item.dtlCd});
 					const colNm = ddc.property;
 					const amt = parseInt(rowData[colNm]) || 0;
-					
+
 					ddcAmt += amt;
 				});
-			
+
 				rowData["ddcAmt"] = ddcAmt;
-				
+
 				break;
-				
+
 			case _AMT_KND__ADVNC_AMT_:	// 선지급
-			
+
 				jsonAdvncAmt.forEach((item, index) => {
 					const advnc = _.find(arrAdvncAmtKnd, {column: item.dtlCd});
 					const colNm = advnc.property;
 					const amt = parseInt(rowData[colNm]) || 0;
-										
+
 					advncAmt += amt;
 				});
-			
+
 				rowData["advncAmt"] = advncAmt;
-				
+
 				break;
-				
-			
+
+
 			case _AMT_KND__GIVE_AMT_:	// 최종지급액
 				// 합산 없음.
 				return;
-			
+
 			default:
-				break;	
+				break;
 
 			}
-					
+
 			// 합산 호출
 			fn_setRowTotalAmt(nRow);
-			
+
 			rowData["isUpdatedYn"] = "Y";
-			
+
 			grdClclnRslt.refresh();
 		}
-		
+
 	}
-	
+
 	/*
 	* @name fn_setRowRsltAmt
 	* @description 종자, 실적 합
 	*/
 	const fn_setRowTotalAmt = async function(_nRow) {
-		
+
 		const rowData = grdClclnRslt.getRowData(_nRow, false);	// deep copy
-		
+
 		const clclnAmt = parseInt(rowData["clclnAmt"]) || 0;
 		const extraAmt = parseInt(rowData["extraAmt"]) || 0;
 		const feeAmt = parseInt(rowData["feeAmt"]) || 0;
@@ -1946,8 +1971,8 @@
 		const acmlFund = parseInt(rowData["acmlFund"]) || 0;
 		const ddcAmt = parseInt(rowData["ddcAmt"]) || 0;
 		const advncAmt = parseInt(rowData["advncAmt"]) || 0;
-		
-		const giveAmt = 
+
+		const giveAmt =
 			clclnAmt
 			+ extraAmt
 			+ feeAmt
@@ -1955,10 +1980,10 @@
 			- acmlFund
 			- ddcAmt
 			+ advncAmt;
-		
+
 		rowData["giveAmt"] = giveAmt;
 	}
-	
+
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -1981,14 +2006,14 @@
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
-	
+
 	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	//const fn_onSelectPrdcrNm = function(value, label, item) {
 	function fn_onSelectPrdcrNm (value, label, item) {
-		
+
 		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
 		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
 			document.getElementById('btn-srch-prdcr').click();
@@ -2033,8 +2058,8 @@
 
 			//fn_setPrdcrForm(prdcr);
 		}
-	}	
-	
+	}
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -2061,8 +2086,8 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 	}
-	 
-	 
+
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

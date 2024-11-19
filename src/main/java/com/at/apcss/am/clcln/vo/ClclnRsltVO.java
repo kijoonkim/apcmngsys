@@ -30,7 +30,7 @@ public class ClclnRsltVO extends ComVO {
 	private String apcCd;
 	private String clclnYr;
 	private int clclnSn;
-	
+
 	private String clclnTrprType;
 	private String clclnCrtrType;
 	private String crtrCd;
@@ -42,13 +42,13 @@ public class ClclnRsltVO extends ComVO {
 	private String grdCd;
 	private String clclnSeCd;
 	private String clclnClsf;
-	
+
 	private String clclnSeNm;
 	private String clclnClsfNm;
-	
+
 	private String itemNm;
 	private String vrtyNm;
-	
+
 	private double clclnUntprc;
 	private int clclnQntt;
 	private double clclnWght;
@@ -56,8 +56,8 @@ public class ClclnRsltVO extends ComVO {
 	private double cfmtnAmt;
 	private String cfmtnYn;
 	private String dtlExtraCd;
-	
-	
+
+
 	// 농가정보
 	private String prdcrCd;
 	private String prdcrNm;
@@ -71,7 +71,7 @@ public class ClclnRsltVO extends ComVO {
 	private String ctrtArea;
 	private String ctrtAreaM;
 	private String plntngArea;
-		
+
 	// 추가지급금
 	private double extraUntprc;
 	private double extraAmt;
@@ -79,7 +79,7 @@ public class ClclnRsltVO extends ComVO {
 	private double ctrtSdPymt;	// 종자대금
 	private double ctrtCash;	// 현금
 	private double ctrtAmt;
-	
+
 	// 적자금
 	private double acmlFund1;
 	private double acmlFund2;
@@ -87,7 +87,7 @@ public class ClclnRsltVO extends ComVO {
 	private double acmlFund4;
 	private double acmlFund5;
 	private double acmlFund;
-	
+
 	// 농자재대금
 	private double ddcMtrlPymt;
 	// 운반비
@@ -104,17 +104,17 @@ public class ClclnRsltVO extends ComVO {
 	private double ddcNRtnDdc;
 	// 중도금
 	private double ddcPrtpay;
-	
+
 	private double ddcAmt;
-	
+
 	// 선금
 	double advncSdPymt;		// 종자대금(선금)
 	double advncPrvpyAmt;	// 가지불(선금
 	double advncAmt;		// 선금
-	
+
 	// 지급금
 	private double giveAmt;
-	
+
 	// 종자
 	private double seedClclnUntprc1;
 	private int seedClclnQntt1;
@@ -296,7 +296,11 @@ public class ClclnRsltVO extends ComVO {
 	private double gdsClclnWght10;
 	private double gdsClclnAmt10;
 	private double gdsCfmtnAmt10;
-	
+
+	private String bankCd;
+	private String bankNm;
+	private String actno;
+
 	private List<ClclnRsltDtlVO> clclnRsltDtlList;
 
 	public List<ClclnRsltDtlVO> getClclnRsltDtlList() {
