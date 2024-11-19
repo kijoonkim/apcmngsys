@@ -1,5 +1,6 @@
 package com.at.apcss.am.wrhs.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -216,4 +217,11 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhsPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 원물입고정보 조회 pltno :1 <> spmt :N
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<RawMtrWrhsVO> selectRawMtrWrhsToPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

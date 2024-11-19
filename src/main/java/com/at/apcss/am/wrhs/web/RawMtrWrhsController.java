@@ -1,11 +1,19 @@
 package com.at.apcss.am.wrhs.web;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.ArrayStack;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,6 +54,9 @@ public class RawMtrWrhsController extends BaseController {
 
 	@Resource(name = "cmnsVrtyService")
 	private CmnsVrtyService cmnsVrtyService;
+
+	@Resource(name = "pltWrhsSpmtService")
+	private PltWrhsSpmtService pltWrhsSpmtService;
 
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
@@ -455,6 +466,89 @@ public class RawMtrWrhsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wrhs/insertRawMtrWrhsListAndPlt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsListAndPlt(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = 0;
 
+		Object rawMtrWrhsListData = param.get("rawMtrWrhsList");
+		Object pltWrhsSpmtVOData = param.get("pltWrhsSpmt");
 
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<RawMtrWrhsVO> rawMtrWrhsList = objectMapper.convertValue(
+				rawMtrWrhsListData,
+				new TypeReference<List<RawMtrWrhsVO>>() {
+				}
+		);
+		List<PltWrhsSpmtVO> pltWrhsSpmtList = objectMapper.convertValue(
+				pltWrhsSpmtVOData,
+				new TypeReference<List<PltWrhsSpmtVO>>() {
+				}
+		);
+		try {
+			for (RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList) {
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+				pltWrhsSpmtVO.setSysFrstInptUserId(getUserId());
+				pltWrhsSpmtVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pltWrhsSpmtVO.setSysLastChgUserId(getUserId());
+				pltWrhsSpmtVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			cnt = rawMtrWrhsService.insertRawMtrWrhsListAndPlt(rawMtrWrhsList, pltWrhsSpmtList);
+			if (cnt < 1) {
+				return getErrorResponseEntity(new Exception());
+			}
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, cnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+	}
+	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsToPltno.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsToPltno(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrWrhsVO> resultList = new ArrayList<>();
+		List<PltWrhsSpmtVO> pltMap = new ArrayList<>();
+
+		try {
+			resultList = rawMtrWrhsService.selectRawMtrWrhsToPltno(rawMtrWrhsVO);
+			Set<String> seen = new HashSet<>();
+			List<RawMtrWrhsVO> uniqueList = resultList.stream()
+					.filter(vo -> seen.add(vo.getPltno()))
+					.collect(Collectors.toList());
+
+			for(RawMtrWrhsVO pltno : uniqueList){
+				PltWrhsSpmtVO pltWrhsSpmtVO =  new PltWrhsSpmtVO();
+				BeanUtils.copyProperties(pltno,pltWrhsSpmtVO);
+				pltWrhsSpmtVO.setPrcsNo(pltno.getPltno());
+				pltWrhsSpmtVO.setJobYmd(pltno.getWrhsYmd());
+				pltWrhsSpmtVO.setWrhsSpmtSeCd("2");
+				pltMap = pltWrhsSpmtService.selectPltWrhsSpmtList(pltWrhsSpmtVO);
+				resultMap.put(pltno.getPltno(), pltMap);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

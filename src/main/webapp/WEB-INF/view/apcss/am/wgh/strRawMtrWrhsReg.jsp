@@ -52,6 +52,16 @@
     #tab_spmtPrfmncReg, #tab_spmtPrfmnc{
       border: 0 !important;
     }
+    .td_add{
+      text-align: center;
+      font-weight: bold;
+      font-size: 25px;
+    }
+    #searchTable  tr:hover{
+      background-color : #FFF8DC;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body oncontextmenu="return false">
@@ -72,7 +82,7 @@
                  text-align: center;font-weight: bold;border-radius:0}">
       </sbux-tabs>
       <div class="tab-content">
-        <div id="tab_spmtPrfmncReg" style="height: 500px">
+        <div id="tab_spmtPrfmncReg">
           <div style="margin-right: auto;">
             <sbux-button
                     id="btnCmndDocspmt"
@@ -131,12 +141,18 @@
               <td class="td_input" colspan="3">
                 <sbux-datepicker
                         uitype="popup"
-                        id="reg-dtp-wghYmd"
-                        name="reg-dtp-wghYmd"
+                        id="reg-dtp-wrhsYmd"
+                        name="reg-dtp-wrhsYmd"
                         class="form-control pull-right inpt_data_reqed inpt-mbl"
                         date-format="yyyy-mm-dd"
                         wrap-style="width: 50%"
                 ></sbux-datepicker>
+                <sbux-input
+                        uitype="text"
+                        id="reg-inp-pltno"
+                        name="reg-inp-pltno"
+                        style="display: none"
+                ></sbux-input>
               </td>
             </tr>
             <tr>
@@ -259,7 +275,46 @@
           <!--[pp] 검색 -->
         </div>
         <div id="tab_spmtPrfmnc">
-
+          <div style="height: 600px">
+            <table class="table table-bordered tbl_fixed" style="border: 0;margin-top: 10px; width: 40%">
+                <colgroup>
+                  <col style="width: 30%">
+                  <col style="width: 70%">
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row" class="th_bg th-mbl">
+                      입고일자
+                    </th>
+                    <td class="td_input" style="border: 0">
+                      <sbux-datepicker
+                      uitype="popup"
+                      id="srch-dtp-wrhsYmd"
+                      name="srch-dtp-wrhsYmd"
+                      class="form-control pull-right inpt_data_reqed inpt-mbl"
+                      date-format="yyyy-mm-dd"
+                      ></sbux-datepicker>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            <table id="searchTable"class="table table-bordered tbl_fixed" style="margin-top: 10px; width: 70%">
+            <colgroup>
+              <col style="width: 30%">
+              <col style="width: 30%">
+              <col style="width: 20%">
+              <col style="width: 20%">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th scope="row" class="th_bg th-mbl" style="text-align: center">팔레트번호</th>
+              <th scope="row" class="th_bg th-mbl" style="text-align: center">입고일자</th>
+              <th scope="row" class="th_bg th-mbl" style="text-align: center">농가</th>
+              <th scope="row" class="th_bg th-mbl" style="text-align: center">상세</th>
+            </tr>
+            </tbody>
+          </table>
+          </div>
         </div>
       </div>
 
@@ -284,6 +339,9 @@
   var jsonPrdcr				= [];
   var jsonPrdcrAutocomplete	= [];
 
+  /** 수정 대응 searchData **/
+  var jsonSearchData = [];
+
 
   window.addEventListener("DOMContentLoaded",function(e){
     document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
@@ -301,11 +359,12 @@
    * @description form init
    */
   const fn_init = async function() {
-    SBUxMethod.set("reg-dtp-wghYmd", gfn_dateToYmd(new Date()));
+    SBUxMethod.set("reg-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+    SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
     SBUxMethod.set("reg-slt-chckr", gv_userNm);
     let rst = await Promise.all([
       gfn_setApcItemSBSelect('reg-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
-      gfn_setApcVrtySBSelect('reg-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+      gfn_setApcVrtySBSelect('reg-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd,"0804"),	// 품종
       gfn_getApcGdsGrd(gv_selectedApcCd,"0804","01")
     ]);// 품종
 
@@ -326,7 +385,6 @@
             }, {})
     );
     let idx = 4;
-    console.log(result,"ㅎ");
     result.forEach(function(item){
       item.sort((a,b) => {
         if(parseInt(a.grdCd) < parseInt(b.grdCd)) return -1
@@ -392,8 +450,6 @@
    * @description 생산자 선택 popup callback 처리
    */
   const fn_setPrdcr = async function(prdcr) {
-    SBUxMethod.set("srch-inp-wrhsno", "");
-
     if (!gfn_isEmpty(prdcr)) {
       SBUxMethod.set("reg-inp-prdcrCd", prdcr.prdcrCd);
       SBUxMethod.set("reg-inp-prdcrNm", prdcr.prdcrNm);
@@ -448,12 +504,191 @@
 
 
   const fn_save = async function(){
-    let regObj = gfn_getTableElement("regTable","reg-",[]);
-    console.log(regObj);
+    let wrhsYmd = SBUxMethod.get("reg-dtp-wrhsYmd");
+    let regList = [];
+    /** 1. pltno select **/
+    const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
+    let pltno = data.pltno;
+    /** 2. 공통정보 table get **/
+    let regObj = gfn_getTableElement("regTable","reg-",["reg-slt-box","reg-slt-kingBox"]);
+    /** 3. 품목 갯수별 obj **/
     let regEl = Array.from($("#regTable tbody tr td div div input"));
-    console.log(Array.from(regEl),"regEl");
+    jsonApcVrty.forEach(function(item){
+      obj = {...regObj};
+      obj.apcCd = gv_selectedApcCd;
+      obj.pltno = pltno;
+      obj.bxQntt = 0;
+      let stdGrdList = regEl
+              .filter(inner => {
+                let vrtyCd = $(inner).attr("data-vrty-cd");
+                let qntt = $(inner).val() || 0;
+                return vrtyCd == item.vrtyCd && qntt > 0;
+              })
+              .map(el => {
+                let qntt = $(el).val() || 0;
+                obj.bxQntt += parseInt(qntt);
+                  return {
+                    itemCd: $(el).data("itemCd"),
+                    vrtyCd: $(el).data("vrtyCd"),
+                    grdCd: $(el).data("grdCd"),
+                    grdSeCd: "01",
+                    grdKnd: "01",
+                    wrhsQntt: qntt,
+                    grdQntt : qntt
+                  }
+              });
+      obj.stdGrdList = stdGrdList;
+      obj.vrtyCd = item.vrtyCd;
+      obj.wrhsQntt = obj.bxQntt;
+      obj.inptQntt = obj.bxQntt;
+
+      if(obj.bxQntt > 0){
+        regList.push(obj);
+      }
+    });
+    /** plt 반출 VO **/
+    let kingPlt = SBUxMethod.get("reg-slt-kingBox") || 0;
+    let box = SBUxMethod.get("reg-slt-box") || 0;
+    let prdcrCd = SBUxMethod.get("reg-inp-prdcrCd");
+    let pltWrhsSpmt = [];
+    if(kingPlt > 0){
+       pltWrhsSpmt.push({
+        apcCd : gv_selectedApcCd,
+        jobYmd : wrhsYmd,
+        wrhsSpmtSeCd : "2",
+        pltBxSeCd : "2",
+        pltBxCd : "0001",
+        prcsNo : pltno,
+        prdcrCd : prdcrCd,
+        qntt : kingPlt
+      });
+    }
+    if(box > 0){
+      pltWrhsSpmt.push({
+        apcCd : gv_selectedApcCd,
+        jobYmd : wrhsYmd,
+        wrhsSpmtSeCd : "2",
+        pltBxSeCd : "2",
+        pltBxCd : "0002",
+        prcsNo : pltno,
+        prdcrCd : prdcrCd,
+        qntt : box
+      });
+    }
+
+    try{
+      const postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrWrhsListAndPlt.do",
+              {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
+      const data = await postJsonPromise;
+      if(data.resultStatus === 'S'){
+        fn_reset();
+      }
+    }catch (e) {
+      console.error(e);
+    }
   }
 
+  const fn_search = async function(){
+    let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");
+    const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsToPltno.do",
+            {apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
+    const data = await postJsonPromise;
+    data.resultList.forEach(function(item){
+      for (let key in item) {
+        if (item[key] === null) {
+          delete item[key];
+        }
+      }
+     item.stdGrdList.forEach(function(inner){
+       for (let key in inner) {
+         if (inner[key] === null) {
+           delete inner[key];
+         }
+       }
+     });
+    });
+    const merged = data.resultList.reduce((acc, item) => {
+      const existingItem = acc.find(obj => obj.pltno === item.pltno);
+
+      if (existingItem) {
+        // 동일한 키 값을 가진 객체가 이미 있으면 내부 배열을 합침
+        existingItem.stdGrdList = [
+          ...existingItem.stdGrdList,
+          ...item.stdGrdList
+        ];
+      } else {
+        // 기존에 없는 경우 그대로 추가
+        acc.push({ ...item });
+      }
+
+      return acc;
+    }, []);
+    /** 박스분출 정보 **/
+    merged.forEach(function(item){
+      if(data.hasOwnProperty(item.pltno)){
+        item.kingBox = data[item.pltno].find((el) => el.pltBxCd === '0001').qntt;
+        item.box = data[item.pltno].find((el) => el.pltBxCd === '0002').qntt;
+      }
+    });
+    jsonSearchData = [...merged];
+    fn_setSearchTable();
+  }
+
+  const fn_setSearchTable = function(){
+    $("#searchTable > tbody tr").slice(1).remove();
+    jsonSearchData.forEach(function(item,idx){
+      let el = `
+        <tr>
+            <td class="td_add">${'${item.pltno}'}</td>
+            <td class="td_add">${'${item.wrhsYmd}'}</td>
+            <td class="td_add">${'${item.prdcrNm}'}</td>
+            <td><button class="btn btn-lg btn-primary" style="min-width:100% !important" onclick="fn_searchDetail(this)">조회</button></td>
+        </tr>
+        `;
+      $("#searchTable > tbody").append(el);
+    });
+  }
+
+  const fn_searchDetail = function(_el){
+    let idx = $(_el).closest("tr").index()-1;
+    let selectJson = jsonSearchData[idx];
+
+    /** 저장했던 값 다시 입력 **/
+    SBUxMethod.set("reg-inp-prdcrIdentno",selectJson.prdcrIdentno);
+    SBUxMethod.set("reg-inp-prdcrNm",selectJson.prdcrNm);
+    SBUxMethod.set("reg-inp-prdcrCd",selectJson.prdcrCd);
+    SBUxMethod.set("reg-dtp-wrhsYmd",selectJson.wrhsYmd);
+    /** 수정모드 플래그 > pltno **/
+    SBUxMethod.set("reg-inp-pltno",selectJson.pltno);
+    /** 팔레트 분출 정보 **/
+    SBUxMethod.set("reg-slt-kingBox",selectJson.kingBox);
+    SBUxMethod.set("reg-slt-box",selectJson.box);
+
+    let regEl = Array.from($("#regTable tbody tr td div div input"));
+    regEl.forEach((item) => $(item).val(''));
+    /** 원물입고 등급에 관해 품종 지정없이 grdCd 로 구분이 가능함 좀이상함**/
+    selectJson.stdGrdList.forEach(function(item,idx){
+      let EL = regEl.find((el) => $(el).data("grdCd") == item.grdCd);
+      $(EL).val(item.grdQntt);
+    });
+
+    SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmncReg');
+  }
+
+  const fn_reset = function(){
+    let regEl = Array.from($("#regTable tbody tr td div div input"));
+    regEl.forEach((item) => $(item).val(''));
+    SBUxMethod.set("reg-inp-prdcrNm",'');
+    SBUxMethod.set("reg-inp-prdcrCd",'');
+    SBUxMethod.set("reg-inp-prdcrIdentno",'');
+    SBUxMethod.set("reg-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+    SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+    SBUxMethod.set("reg-slt-kingBox",'');
+    SBUxMethod.set("reg-slt-box",'');
+    SBUxMethod.set("reg-inp-pltno",'');
+    $("#searchTable > tbody tr").slice(1).remove();
+    jsonSearchData.length = 0;
+  }
 
 </script>
 </html>

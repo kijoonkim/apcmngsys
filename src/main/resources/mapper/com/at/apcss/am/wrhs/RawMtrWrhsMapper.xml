@@ -1570,4 +1570,58 @@
 		</if>
 		<!-- End 페이징 -->
 	</select>
+
+
+	<resultMap id="StdGrdList" type="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+		<id property="wrhsno" column="WRHSNO"/>
+		<result property="apcCd" column="APC_CD"/>
+		<result property="pltno" column="PLTNO"/>
+		<result property="wrhsYmd" column="WRHS_YMD"/>
+		<result property="itemCd" column="ITEM_CD"/>
+		<result property="vrtyCd" column="VRTY_CD"/>
+		<collection
+				property="stdGrdList"
+				column="{apcCd=APC_CD,wrhsno=WRHSNO,itemCd=ITEM_CD}"
+				ofType="com.at.apcss.am.invntr.vo.RawMtrStdGrdVO"
+				select="selectStdGrdList"/>
+	</resultMap>
+
+	<select id="selectStdGrdList" parameterType="map" resultType="com.at.apcss.am.invntr.vo.RawMtrStdGrdVO">
+		SELECT
+			 APC_CD
+			,WRHSNO
+			,ITEM_CD
+			,GRD_KND
+			,GRD_CD
+			,GRD_NV
+			,GRD_QNTT
+			,GRD_WGHT
+		FROM
+			TB_RAW_MTR_STD_GRD
+		WHERE
+			APC_CD = #{apcCd}
+		AND WRHSNO = #{wrhsno}
+		AND ITEM_CD = #{itemCd}
+	</select>
+	<select id="selectRawMtrWrhsToPltno" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultMap="StdGrdList">
+		SELECT
+			pt0.*,
+			(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+		FROM (
+				 SELECT
+					   RMWP.APC_CD AS APC_CD
+					  ,RMWP.WRHSNO AS WRHSNO
+					  ,RMWP.PRDCR_CD AS PRDCR_CD
+					  ,RMWP.PLTNO AS PLTNO
+					  ,RMWP.WRHS_YMD AS WRHS_YMD
+					  ,RMI.ITEM_CD AS ITEM_CD
+					  ,RMI.VRTY_CD AS VRTY_CD
+				 FROM usram.TB_RAW_MTR_WRHS_PRFMNC AS RMWP
+						  JOIN usram.TB_RAW_MTR_INVNTR AS RMI
+							   ON RMWP.APC_CD = RMI.APC_CD
+								   AND RMWP.WRHSNO  = RMI.WRHSNO
+								   AND RMWP.APC_CD = #{apcCd}
+								   AND RMWP.WRHS_YMD = #{wrhsYmd}
+				 ORDER BY RMWP.PLTNO) AS pt0;
+	</select>
 </mapper>
