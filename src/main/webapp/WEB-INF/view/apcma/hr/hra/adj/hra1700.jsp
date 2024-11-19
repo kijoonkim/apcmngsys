@@ -2225,8 +2225,8 @@
     }
 
     var tabJsonData = [
-        { "id" : "0", "pid" : "-1", "order" : "1", "text" : "소득명세",     "targetid" : "tabInfo1" ,     "targetvalue" : "소득명세"},
-        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "정산명세", "targetid" : "tabInfo2" ,     "targetvalue" : "정산명세"},
+        { "id" : "0", "pid" : "-1", "order" : "1", "text" : "소득명세"  , "targetid" : "tabInfo1" ,     "targetvalue" : "소득명세"},
+        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "정산명세"  , "targetid" : "tabInfo2" ,     "targetvalue" : "정산명세"},
         /*{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "정산명세",     "targetid" : "tabInfo3" ,     "targetvalue" : "정산명세"} = 정산명세 이전버전*/
     ];
 
