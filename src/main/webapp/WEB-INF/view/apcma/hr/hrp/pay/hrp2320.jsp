@@ -329,7 +329,7 @@
                         <td colspan="8" class="td_input" data-group="DEPT">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    text="찾기" uitype="modal"
+                                    text="…" uitype="modal"
                                     target-id="modal-compopup1"
                                     onclick="fn_compopup1"
                             ></sbux-button>
@@ -569,8 +569,9 @@
         <div>
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
-                    <li><span>계산 이력(로그)</span></li>
-                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                    <li><span>계산 이력(로그)</span>
+                        <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                    </li>
                 </ul>
             </div>
             <div>

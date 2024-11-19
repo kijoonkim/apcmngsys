@@ -389,7 +389,7 @@
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
-<div id="div-rpt-clipReportPrint"></div>
+<%--<div id="div-rpt-clipReportPrint"></div>--%>
 
 </body>
 <script type="text/javascript">

@@ -283,7 +283,7 @@
                                 <sbux-button
                                         id="deptBtn"
                                         class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_compopup1"
                                 ></sbux-button>
