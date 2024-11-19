@@ -25,6 +25,7 @@
     <title>title : 급여대장</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+	<%@ include file="../../../../frame/inc/clipreport.jsp" %>    
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -38,10 +39,10 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-           <%-- <div style="margin-left: auto;">
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="출력"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-            </div>--%>
+            <div style="margin-left: auto;">
+                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
+                              class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
+             </div>
         </div>
 
         <div class="box-search-ma">
@@ -307,7 +308,7 @@
 
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -841,12 +842,139 @@
         }
     }
 
+    const downloadJSON = async ({ data, fileName ,fileType }) => {
+    	
+    	const blob = new Blob([data], { type: fileType });
+    	
+    	const link = document.createElement('a');
+    	link.download = fileName;
+    	link.href = await URL.createObjectURL(blob);
 
+    	const clickEvt = new MouseEvent('click', {
+    	  view: window,
+    	  bubbles: true,
+    	  cancelable: true,
+    	});
+    	link.dispatchEvent(clickEvt);
+    	link.remove();
+    };
     /**
      * 출력
      */
-    const fn_btnFile = async function (/*tabMoveVal*/) {
+    const fn_btnPrint = async function () {
+    	
+    	let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+    	let gvwInfoGridRows 	= gvwInfoGrid.getRows();
+    	let conn = '';
+        
+        if (gvwInfoGridRows <= 1) {
+            return;
+        }
+        
+        conn = await fn_getReportData();
+        conn = await fn_setReportData(conn);
+        conn = await gfnma_convertDataForReport(conn);
+    	if (PRINT_TYPE == "EMP" || PRINT_TYPE == "EMP_COST"  ) {
+    		gfn_popClipReportPost("급여대장", "ma/RPT_HRP2425_EMP.crf", null, conn );	
+    		
+        } else if(PRINT_TYPE == "DEPT" || PRINT_TYPE == "COST_DEPT" ) {
+    		gfn_popClipReportPost("급여대장", "ma/RPT_HRP2425_DEPT.crf", null, conn );
+    		
+        }
+    }
+    
+    const fn_getReportData = async function(){
+    	
+        let SITE_CODE	        = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
+        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let PARENT_DEPT01	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PARENT_DEPT01'));//부서(실)
+        let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let PARENT_DEPT02	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_PARENT_DEPT02'));//부서(팀)
+        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let JOB_GROUP           = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP")); //직군
+        let SUM_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_SUM_TYPE")); //소급구분
+        let PRINT_TYPE          = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let WORK_REGION_CODE    = gfn_nvl(SBUxMethod.get("SRCH_WORK_REGION_CODE")); //근무지
 
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_PAY_YYYYMM         : PAY_YYYYMM
+            ,V_P_PAY_TYPE           : PAY_TYPE
+            ,V_P_PAY_DATE           : PAY_DATE
+            ,V_P_SITE_CODE          : SITE_CODE
+
+            ,V_P_PARENT_DEPT01	    : PARENT_DEPT01
+            ,V_P_PARENT_DEPT02	    : PARENT_DEPT02
+
+            ,V_P_DEPT_CODE          : DEPT_CODE
+            ,V_P_EMP_CODE           : EMP_CODE
+            ,V_P_WORK_REGION_CODE   : WORK_REGION_CODE
+            ,V_P_JOB_GROUP          : JOB_GROUP
+            ,V_P_PRINT_TYPE         : PRINT_TYPE   //'10' -- '10' : 개인별, '20' : 팀별
+            ,V_P_PAY_AREA_TYPE      : PAY_AREA_TYPE
+            ,V_P_SUM_TYPE           : SUM_TYPE   //--소급구분자 20171130 추가
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420Report.do", {
+            getType				: 'json',
+            workType			: 'REPORT',
+            cv_count			: '9',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+        
+        return data;
+    }
+	
+    const fn_setReportData = async function(data){
+    	//결재라인 데이터가 없으면 보이지 않게하기 위해 데이터 널값 추가함
+    	if(data.cv_4.length == 0){
+    		data.cv_4[0] = { WF_DISP_TITLE : "null"};
+    	}
+    	
+    	//리포트 내에 페이지 헤더에 들어가는 커서에 리스트가 여러개가 있으면 그 수 만큼 페이지 헤더가 반복되기 때문에 한개의 리스트로 수정
+    	//cv_10은 프로시저에 없는 커서여서 cv_10으로 추가
+    	let obj = {};
+    	let key = '';
+    	let value = '';
+    	data.cv_6.forEach((item, index) => {
+       		key = item.PAY_CODE;
+       		value = item.PAY_ITEM_NAME;
+       		obj[key] = value;
+    	})
+    	//cv_10 생성
+		if (!Array.isArray(data.cv_10)) {
+			data.cv_10 = [];
+		}
+    	data.cv_10[0] = obj;
+    	
+    	return data;
     }
 
 </script>
