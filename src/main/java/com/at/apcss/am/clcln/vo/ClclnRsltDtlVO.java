@@ -53,12 +53,14 @@ public class ClclnRsltDtlVO extends ComVO {
 	private double clclnAmt;
 	private double cfmtnAmt;
 	private String cfmtnYn;
+	private String clclnRmrk;
 	private String dtlExtraCd;
 	
 	private String elmtQntt;
 	private String elmtWght;
 	private String elmtUntprc;
 	private String elmtAmt;
+	private String elmtRmrk;
 	
 	private boolean needsInsert;	
 }
