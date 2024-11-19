@@ -229,7 +229,6 @@
 		let rst = await Promise.all([
 			//재직구분
 		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-		    and comp_code = comp_code '
 			//사업장코드
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
