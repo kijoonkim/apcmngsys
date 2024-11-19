@@ -153,7 +153,7 @@
                     <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup1"
                         ></sbux-button>
@@ -179,7 +179,7 @@
                     <td class="td_input" style="border-right: hidden;" data-group="EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="modal"
+                                text="…" uitype="modal"
                                 target-id="modal-compopup1"
                                 onclick="fn_compopup2"
                         ></sbux-button>

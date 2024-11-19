@@ -220,7 +220,7 @@
                     <td colspan="3" class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="찾기" uitype="normal"
+                                text="…" uitype="normal"
                                 onclick="fn_file"
                         ></sbux-button>
                     </td>

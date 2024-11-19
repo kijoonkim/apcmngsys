@@ -1921,7 +1921,7 @@
                                     <td <%--colspan="2"--%> class="td_input" data-group="BANK">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_compopup1"
                                         ></sbux-button>
@@ -2140,7 +2140,7 @@
                                     <td colspan="2" <%--colspan="2"--%> class="td_input" data-group="CS">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="찾기" uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_compopup2"
                                         ></sbux-button>
@@ -2573,9 +2573,9 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }, disabled: true
             },
-            {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true, hidden : true},
-            {caption: ['정산일'], ref: 'RET_CALC_DAT', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['정산일'], ref: 'RET_CALC_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["직군"], ref: 'JOB_GROUP', type: 'output', width: '100px', style: 'text-align:left', hidden : true },
             {caption: ["평균급여산정기준"], ref: 'AVG_PAY_TYPE', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
@@ -2600,7 +2600,24 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [1],
+                sum : [2,3,4,8]
+            },
+            grandtotalrow : {
+                titlecol 	: 0,
+                titlevalue	: '합계',
+                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: true,
+            usedecimal : false
+        };
+       /* SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
             columns		: {
@@ -2623,24 +2640,24 @@
             },
             datasorting	: false,
             usedecimal : false,
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'PEAK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, disabled : false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
             {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###',  emptyvalue:'0'}},
             {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["급여금액"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2673,9 +2690,9 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
+            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayItemCode',  label : 'label', value : 'value'}
@@ -2713,9 +2730,9 @@
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPositionCode',  label : 'label', value : 'value'}
             },
-            {caption: ['적용시작일'], ref: 'ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["년"], ref: 'YY_CNT', type: 'output', width: '140px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4},  format : { type:'number' , rule:'#' }},
@@ -2808,10 +2825,18 @@
         }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwPayGrid.addRow(true, msg);
+            //gvwPayGrid.addRow(true, msg);
+            jsonPayList.push(msg);
+
         }else{
-            gvwPayGrid.insertRow(rowVal, 'below', msg);
+            //gvwPayGrid.insertRow(rowVal, 'below', msg);
+
+            jsonPayList.splice(rowVal, 0, msg);
+
+            console.log('jsonPayList', jsonPayList);
         }
+
+        gvwPayGrid.rebuild();
     }
 
     // 행삭제( 급여내역 리스트 )
@@ -2823,7 +2848,9 @@
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-            gvwPayGrid.deleteRow(rowVal);
+            //gvwPayGrid.deleteRow(rowVal);
+            jsonPayList.splice(rowVal-1, 1);
+            gvwPayGrid.rebuild();
 
             // 삭제시 적용금액의 합계 / 3 을 평균급여에 넣어줌
             let dSum = 0;
@@ -3459,7 +3486,7 @@
 
                 if (jsonPayList.length > 0) {
                     jsonPayList.forEach((item, index) => {
-                        gvwPayGrid.setCellDisabled(index + 1, 1, index + 1, 1, true, false, true);
+                        gvwPayGrid.setCellDisabled(index + 1, gvwPayGrid.getColRef('PAY_YYYYMM'), index + 1, gvwPayGrid.getColRef('PAY_YYYYMM'), true, false, false);
                     })
                 }
                 /** @type {number} **/

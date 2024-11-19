@@ -175,7 +175,7 @@
                         <sbux-select
                                 id="SRCH_EMP_STATE"
                                 uitype="single"
-                                jsondata-ref="jsonPrintType"
+                                jsondata-ref="jsonEmpState"
                                 unselected-text="선택"
                                 class="form-control input-sm"
                         <%--onchange="fn_payType"--%>>
@@ -227,6 +227,7 @@
     var jsonEmpState = []; //출력구분 ( L_HRI009 )SRCH_EMP_STATE
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )SRCH_PAY_AREA_TYPE
     var jsonSiteCode = []; //사업장 ( L_ORG001 )SRCH_SITE_CODE
+    var jsonEmpState = []; //재직구분 ( L_HRI009 )SRCH_EMP_STATE
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -234,6 +235,7 @@
             gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['SRCH_EMP_STATE','gvwInfoGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장

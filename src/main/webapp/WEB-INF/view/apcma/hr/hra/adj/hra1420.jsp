@@ -477,7 +477,7 @@
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["사원검색"], 			ref: 'POP_BTN',    				type:'button',  	width:'150px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
             {caption : ["재직구분"], ref : 'EMP_STATE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,

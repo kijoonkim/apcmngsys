@@ -249,6 +249,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>급여정보</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -678,6 +679,7 @@
 
                     jsonDetailList.length = 0;
                     jsonDetailList = data.cv_3;
+                    document.querySelector('#listCount2').innerText = data.cv_3.length;
                     gvwDetailGrid.rebuild();
 
 

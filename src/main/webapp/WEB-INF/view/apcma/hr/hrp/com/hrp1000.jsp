@@ -283,7 +283,7 @@
                                 <sbux-button
                                         id="deptBtn"
                                         class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_compopup1"
                                 ></sbux-button>
@@ -1458,8 +1458,8 @@
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, /*disabled: true,*/ //수정
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,
@@ -1500,7 +1500,7 @@
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,  disabled: true,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false, hidden: true,

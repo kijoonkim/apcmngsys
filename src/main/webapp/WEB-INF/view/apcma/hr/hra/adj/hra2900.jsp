@@ -251,7 +251,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwYearEndTaxResult" style="height:760px; width:100%;"></div>
+                    <div id="sb-area-gvwYearEndTaxResult" style="height:660px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -554,6 +554,12 @@
                 standard : [1],
                 sum : [13,14,15,16,17,18,19,20,21]
             },
+            grandtotalrow : {
+                titlecol 	: 0,
+                titlevalue	: '합계',
+                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
             /*subtotalrow : {
                 1: {
                     titlecol: 0,
@@ -633,11 +639,11 @@
 
         ];
 
-        gvwYearEndTaxResultGrid = _SBGrid.create(SBGridProperties);
-
-        if (rowData != null){
+        if (_.isEmpty(rowData) == false){
             gvwYearEndTaxResultGrid.push(rowData);
         }
+
+        gvwYearEndTaxResultGrid = _SBGrid.create(SBGridProperties);
 
         /*gvwYearEndTaxResultGrid.bind('valuechanged','gridValueChanged');*/
     }
