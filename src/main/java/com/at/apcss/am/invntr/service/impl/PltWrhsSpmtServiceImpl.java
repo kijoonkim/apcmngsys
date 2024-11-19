@@ -90,6 +90,32 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 		}
 		return null;
 	}
+	@Override
+	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO, boolean flag) throws Exception {
+		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
+		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
+
+		if(flag) {
+			if (insertedCnt > 0) {
+				if ("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+					int returnBssInvntrQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
+					pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
+				} else if ("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+					int returnBssInvntrQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
+					if (returnBssInvntrQntt > 0) {
+						pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
+					} else {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "현팔레트수량||입력팔레트수량")));
+					}
+				}
+				insertedCnt = pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
+			} else {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "수량||현재고수량")));
+			}
+			return null;
+		}
+		return null;
+	}
 
 	@Override
 	public HashMap<String, Object> insertPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
@@ -134,5 +160,10 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+		return pltWrhsSpmtMapper.selectWrhsSpmtSN(pltWrhsSpmtVO);
 	}
 }

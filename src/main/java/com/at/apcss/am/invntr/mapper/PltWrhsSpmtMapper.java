@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -86,4 +87,11 @@ public interface PltWrhsSpmtMapper {
 	 * @throws Exception
 	 */
 	public int updateBssInvntrQnttPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고 SN 조회
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO)throws Exception;
 }

@@ -59,6 +59,7 @@ public interface PltWrhsSpmtService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO,boolean flag) throws Exception;
 	/**
 	 * 팔레트 입출고 등록
 	 * @param pltWrhsSpmtVO
@@ -81,4 +82,11 @@ public interface PltWrhsSpmtService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateDelYnPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception;
+	/**
+	 * 팔레트 입출고 SN 조회
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 }

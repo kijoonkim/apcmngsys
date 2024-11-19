@@ -1,11 +1,15 @@
 package com.at.apcss.am.wrhs.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wrhs.mapper.PltWrhsMapper;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +64,10 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Resource(name="cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
+
+	@Resource(name="pltWrhsSpmtService")
+	private PltWrhsSpmtService pltWrhsSpmtService;
+
 
 
 	@Override
@@ -598,7 +606,51 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
 	}
 
+	@Override
+	public int insertRawMtrWrhsListAndPlt(List<RawMtrWrhsVO> rawMtrWrhsList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+		HashMap<String, Object> rtnObj;
+		int resultCnt = 0;
+		rtnObj = insertRawMtrWrhsList(rawMtrWrhsList);
+		if(rtnObj != null){
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		for(RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList){
+			PltWrhsSpmtVO pltWrhsSpmtVO = new PltWrhsSpmtVO();
+			BeanUtils.copyProperties(rawMtrWrhsVO, pltWrhsSpmtVO);
+			pltWrhsSpmtVO.setApcCd(rawMtrWrhsVO.getApcCd());
+			pltWrhsSpmtVO.setJobYmd(rawMtrWrhsVO.getWrhsYmd());
+			pltWrhsSpmtVO.setWrhsSpmtSeCd("1");
+			pltWrhsSpmtVO.setPltBxSeCd("2");
+			pltWrhsSpmtVO.setQntt(rawMtrWrhsVO.getBxQntt());
+			pltWrhsSpmtVO.setPrcsNo(rawMtrWrhsVO.getPltno());
+			if(rawMtrWrhsVO.getVrtyCd().equals("9901")){
+				pltWrhsSpmtVO.setPltBxCd("0001");
+			}else{
+				pltWrhsSpmtVO.setPltBxCd("0002");
+			}
+
+			pltWrhsSpmtList.add(pltWrhsSpmtVO);
+		 	resultCnt++;
+		}
+		int sn = pltWrhsSpmtService.selectWrhsSpmtSN(pltWrhsSpmtList.get(0)).getSn();
+
+		for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
+			pltWrhsSpmtVO.setSn(sn);
+			rtnObj = pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO, false);
+			if(rtnObj != null){
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			sn++;
+		}
 
 
 
+		return resultCnt;
+	}
+
+	@Override
+	public List<RawMtrWrhsVO> selectRawMtrWrhsToPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		return rawMtrWrhsMapper.selectRawMtrWrhsToPltno(rawMtrWrhsVO);
+	}
 }

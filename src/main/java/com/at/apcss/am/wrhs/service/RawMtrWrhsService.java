@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
@@ -276,5 +277,19 @@ public interface RawMtrWrhsService {
 	 * @return
 	 * @throws Exception
 	 */
-    String selectPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;;
+    String selectPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 입고간편등록 팔레트번호단일 및 팔레트,박스 반출입 정보생성
+	 * @param rawMtrWrhsList,pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+    int insertRawMtrWrhsListAndPlt(List<RawMtrWrhsVO> rawMtrWrhsList, List<PltWrhsSpmtVO> pltWrhsSpmtVO)throws Exception;
+	/**
+	 * 원물입고정보 조회 pltno :1 <> spmt :N
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<RawMtrWrhsVO> selectRawMtrWrhsToPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

@@ -238,6 +238,12 @@
         <if test='jobYmd != null and jobYmd != ""'>
 				    	AND PWS.JOB_YMD 				= #{jobYmd}
 		</if>
+		<if test='prcsNo != null and prcsNo != ""'>
+						AND PWS.PRCS_NO					= #{prcsNo}
+		</if>
+		<if test='wrhsSpmtSeCd != null and wrhsSpmtSeCd != ""'>
+						AND PWS.WRHS_SPMT_SE_CD			= #{wrhsSpmtSeCd}
+		</if>
 		<![CDATA[
 			        ) pt0
 		]]>
@@ -288,4 +294,21 @@
 			  AND PLT_BX_CD 				= #{pltBxCd}
 		]]>
 	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectWrhsSpmtSN	        -->
+	<!-- DESC : 팔레트 입출내역 순번  				                       	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.18  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectWrhsSpmtSN" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		SELECT NVL(TO_NUMBER(MAX(SN)), 0) + 1 AS SN
+		FROM TB_PLT_WRHS_SPMT
+		WHERE APC_CD   = #{apcCd}
+		  AND JOB_YMD = #{jobYmd}
+		  AND WRHS_SPMT_SE_CD = #{wrhsSpmtSeCd}
+		  AND PLT_BX_SE_CD = #{pltBxSeCd}
+		  AND PLT_BX_CD = #{pltBxCd}
+	</select>
 </mapper>
