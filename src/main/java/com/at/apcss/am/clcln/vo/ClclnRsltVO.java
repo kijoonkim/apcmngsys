@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : ClclnApcUntprcVO.java
- * @Description : APC정산단가에 대한 VO 클래스
+ * @Class Name : ClclnRsltVO.java
+ * @Description : APC정산실적에 대한 VO 클래스
  * @author 신정철
  * @since 2023.10.21
  * @version 1.0
@@ -102,6 +102,9 @@ public class ClclnRsltVO extends ComVO {
 	private double ddcVlntrlEndw;
 	// 미반납공제
 	private double ddcNRtnDdc;
+	// 미반납수량
+	private int ddcNRtnDdcQntt;
+	
 	// 중도금
 	private double ddcPrtpay;
 
@@ -114,6 +117,9 @@ public class ClclnRsltVO extends ComVO {
 
 	// 지급금
 	private double giveAmt;
+	
+	// 정산비고
+	private String clclnRmrk;
 
 	// 종자
 	private double seedClclnUntprc1;

@@ -265,6 +265,7 @@
 		{property: "ddcRntlCrg", column: "RNTL_CRG"},
 		{property: "ddcVlntrlEndw", column: "VLNTRL_ENDW"},
 		{property: "ddcDtyVlntrlEndw", column: "DTY_VLNTRL_ENDW"},
+		{property: "ddcNRtnDdcQntt", column: "N_RTN_DDC_QNTT"},
 		{property: "ddcNRtnDdc", column: "N_RTN_DDC"},
 		{property: "ddcPrtpay", column: "PRTPAY"},
 	];
@@ -1222,6 +1223,33 @@
 			const ddc = _.find(arrDdcAmtKnd, {column: item.dtlCd});
 			const colNm = ddc.property;
 
+			// DDC_N_RTN_DDC
+			// 백미반납수량입력셀 추가요청
+			if (_.isEqual("N_RTN_DDC", item.dtlCd)) {
+				SBGridProperties.columns.push(
+		   				{
+		    				caption: ["공제내역", "백미반납수량"],
+		            		ref: 'ddcNRtnDdcQntt',
+		            		datatype: 'number',
+		      				type:'input',
+		      				width:'60px',
+		      				style: 'text-align:right;',
+		      				userattr: {
+		      					colType: _AMT_KND__DDC_AMT_,
+		      					colNm: colNm,
+		      					dtlCd: item.dtlCd
+		      				},
+		      				typeinfo: {
+		      	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
+		      	                maxlength: 14,
+		      	                oneclickedit: true
+		                    },
+							format : {type:'number', rule:'#,###'}
+		           		}
+					);
+			}
+			
+			
    			SBGridProperties.columns.push(
    				{
     				caption: ["공제내역", item.dtlIndctNm],
@@ -1308,8 +1336,16 @@
   				width:'130px',
   				style: 'text-align:center;',
        		},
+       		{
+       			caption: ["비고","비고"],
+        		ref: "clclnRmrk",
+  				type:'input',
+  				width:'200px',
+  				style: 'text-align:left;',
+       		}
 		);
 
+    	
     	//console.log("columns");
     	console.log(SBGridProperties.columns);
 
@@ -1403,8 +1439,6 @@
 			if (rowSts === 0 && !_.isEqual(isUpdatedYn, "Y")) {
 				continue;
 			}
-
-
 
 			const clclnRsltDtlList = [];
 
@@ -1603,15 +1637,31 @@
 				const ddc = _.find(arrDdcAmtKnd, {column: item.dtlCd});
 				const colNm = ddc.property;
 				const amt = rowData[colNm];
-
-				clclnRsltDtlList.push({
-					clclnCrtrType: item.clclnCrtrType,
-					crtrCd: item.crtrCd,
-					dtlCd: item.dtlCd,
-					clclnAmt: amt,
-					elmtAmt: "Y"
-				});
-
+				
+				// 백미반납공제금앞쪽에 백미반납수량입력셀 추가요청
+				if (_.isEqual('N_RTN_DDC', item.dtlCd)) {
+					const qntt = rowData['ddcNRtnDdcQntt'];
+					
+					clclnRsltDtlList.push({
+						clclnCrtrType: item.clclnCrtrType,
+						crtrCd: item.crtrCd,
+						dtlCd: item.dtlCd,
+						clclnAmt: amt,
+						clclnQntt: qntt,
+						elmtAmt: "Y",
+						elmtQntt: "Y"
+					});
+					
+				} else {
+					clclnRsltDtlList.push({
+						clclnCrtrType: item.clclnCrtrType,
+						crtrCd: item.crtrCd,
+						dtlCd: item.dtlCd,
+						clclnAmt: amt,
+						elmtAmt: "Y"
+					});
+				}
+				
 				ddcAmt += amt || 0;
 			});
 
@@ -1637,11 +1687,14 @@
 
 			// 최종지급금	**************************************************
 			giveAmt = rowData["giveAmt"] || 0;
+			clclnRmrk = gfn_nvl(rowData["clclnRmrk"]);
 			clclnRsltDtlList.push({
 				clclnCrtrType: _CLCLN_AMT_KND_,
 				crtrCd: _AMT_KND__GIVE_AMT_,
 				clclnAmt: giveAmt,
-				elmtAmt: "Y"
+				clclnRmrk: clclnRmrk,
+				elmtAmt: "Y",
+				elmtRmrk: "Y"
 			});
 
 			rowData.clclnRsltDtlList = clclnRsltDtlList;
