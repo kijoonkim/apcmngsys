@@ -1835,6 +1835,46 @@ const gfnma_convertDataForReport = async function(data) {
 }
 
 /**
+ * @name gfnma_convertMultiRowDataForReport
+ * @description 데이터를 동적으로 중첩하는 함수
+ * @param {Object} rowData - 모든 데이터 객체 (cv_* 포함)
+ * @param {string} masterKey - 마스터 데이터의 키 이름 (예: "cv_6")
+ * @param {Array<string>} slaveKeys - 슬레이브 데이터의 키 이름 배열 (예: ["cv_7", "cv_14"])
+ * @param {string} matchingKey - 마스터와 슬레이브를 매핑하는 키 이름 (예: "EMP_CODE")
+ * @returns {Array} 중첩된 데이터
+ */
+const gfnma_convertMultiRowDataForReport = async function(rowData, masterKey, slaveKeys, matchingKey) {
+	const param = {};
+	let regx = /^cv_\d+$/;
+	let keys = Object.keys(rowData);
+
+	for (var i = 0; i < keys.length; i++) {
+		if(regx.test(keys[i])) {
+			param[keys[i]] = rowData[keys[i]];
+		}
+	}
+
+	const masterData = param[masterKey]; // 마스터 데이터 추출
+
+	var convertData = masterData.map((masterItem) => {
+		const masterKeyValue = masterItem[matchingKey];
+
+		const nestedData = {};
+		// 지정된 슬레이브 키들만 처리
+		slaveKeys.forEach((key) => {
+			const slaveData = param[key] || []; // 슬레이브 데이터 추출
+			nestedData[key] = slaveData.filter(
+				(slaveItem) => slaveItem[matchingKey] === masterKeyValue
+			);
+		});
+
+		return { ...masterItem, ...nestedData };
+	});
+
+	return {data: { root: convertData}};
+}
+
+/**
  * @name 		gfnma_generateUUID
  * @description uuid생성
  * @function
