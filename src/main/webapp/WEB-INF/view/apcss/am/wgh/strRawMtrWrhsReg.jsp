@@ -21,6 +21,7 @@
   <title>title : 딸기입고등록(모두)</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
+  <%@ include file="../../../frame/inc/clipreport.jsp" %>
   <style>
     .th-mbl {
       text-align: left;
@@ -85,6 +86,7 @@
                 class="btn btn-lg btn-primary"
                 style="padding: 7px 35px"
                 onclick="fn_docRawMtrWrhs"
+                disabled
                 text="입고전표"
         ></sbux-button>
         <sbux-button
@@ -512,7 +514,7 @@
     if (!gfn_isEmpty(prdcr)) {
       SBUxMethod.set("reg-inp-prdcrCd", prdcr.prdcrCd);
       SBUxMethod.set("reg-inp-prdcrNm", prdcr.prdcrNm);
-      // SBUxMethod.set("srch-inp-bxQntt", "");
+      SBUxMethod.set("reg-inp-prdcrIdentno", prdcr.prdcrIdentno);
       $("#srch-inp-bxQntt").val("");
       SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
@@ -562,6 +564,7 @@
     if(gfn_isEmpty(pltno)){
       const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
       pltno = data.pltno;
+      SBUxMethod.set("reg-inp-pltno",pltno);
     }
 
     /** 2. 공통정보 table get **/
@@ -623,6 +626,9 @@
               {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
       const data = await postJsonPromise;
       if(data.resultStatus === 'S'){
+        if(gfn_comConfirm("Q0001","전표출력")){
+          await fn_docRawMtrWrhs();
+        }
         fn_reset();
       }
     }catch (e) {
@@ -706,6 +712,7 @@
     SBUxMethod.set("reg-dtp-wrhsYmd",selectJson.wrhsYmd);
     /** 수정모드 플래그 > pltno **/
     SBUxMethod.set("reg-inp-pltno",selectJson.pltno);
+    SBUxMethod.attr("btnCmndDocspmt","disabled","false");
     /** 팔레트 분출 정보 **/
     SBUxMethod.set("reg-slt-kingBox",selectJson.kingBox);
     SBUxMethod.set("reg-slt-box",selectJson.box);
@@ -732,6 +739,7 @@
     SBUxMethod.set("reg-slt-kingBox",'');
     SBUxMethod.set("reg-slt-box",'');
     SBUxMethod.set("reg-inp-pltno",'');
+    SBUxMethod.attr("btnCmndDocspmt","disabled","true");
     $("#searchTable > tbody tr").slice(1).remove();
     jsonSearchData.length = 0;
   }
@@ -754,6 +762,41 @@
         document.msExitFullscreen();
       }
     }
+  }
+  const fn_docRawMtrWrhs = async function(){
+    /** 전표번호 확인 **/
+    let pltno = SBUxMethod.get("reg-inp-pltno");
+    if(gfn_isEmpty(pltno)){
+      gfn_comAlert("W0003","출력");
+      return;
+    }
+    let regObj = gfn_getTableElement("regTable","reg-",["box","kingBox","pltno"]);
+    if(gfn_isEmpty(regObj)){
+      gfn_comAlert("E0003","출력");
+      return;
+    }
+    let regEl = Array.from($("#regTable tbody tr td div div input"));
+    regEl.forEach(function(item){
+      if(gfn_isEmpty($(item).val())){
+        return;
+      }
+      let key = $(item).data("grdCd");
+      regObj[key] = $(item).val();
+    });
+
+    const data = {
+      "root":[regObj]
+    }
+
+    const conn = [];
+    conn.push({data: data});
+
+    gfn_popClipReportPost(
+            "딸기 입고전표",
+            "am/rawMtrIdntyDoc_0523.crf",
+            null,
+            conn,
+    );
   }
 
 </script>
