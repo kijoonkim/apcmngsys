@@ -152,7 +152,7 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">자산구분</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="SCH_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonAssetCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
+			                                <sbux-select id="SCH_ASSET_CATEGORY" uitype="single" jsondata-ref="jsonAssetCategory" unselected-text="선택" class="form-control input-sm" onChange="fn_CngAssetCategory(SCH_ASSET_CATEGORY)"></sbux-select>
 	                                    </td>                        
                       				</tr>
 	                                <tr>
@@ -164,7 +164,7 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">중분류</th>
 	                                    <td colspan="2" class="td_input">
-			                                <sbux-select id="SCH_ASSET_LEVEL2" uitype="single" jsondata-ref="jsonAssetLevel2" unselected-text="선택" class="form-control input-sm"></sbux-select>
+			                                <sbux-select id="SCH_ASSET_LEVEL2" uitype="single" jsondata-ref="jsonAssetLevel2" unselected-text="선택" class="form-control input-sm" onChange="fn_CngAssetLevel(SCH_ASSET_LEVEL2)"></sbux-select>
 	                                    </td>                        
                       				</tr>
 	                                <tr>
@@ -224,11 +224,16 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	
-	var p_ss_languageID	= '${loginVO.maLanguageID}';
+	var p_ss_languageID			= '${loginVO.maLanguageID}';
+	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
+	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
+	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
 
 	var p_sel_rowData =  null;
 	
+    var p_sel_tab			= 1;	// 현재탭
+    
     //grid 초기화
     var Fia3200GridMast; 			// 그리드를 담기위한 객체 선언
     var jsonFia3200Mast 	= []; 	// 그리드의 참조 데이터 주소 선언
@@ -261,8 +266,6 @@
             gfnma_setComSelect(['SCH_DEPRECIATE_YN'],			jsonDepreciateYn,	'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 중분류
             gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
-            // 소분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -280,7 +283,7 @@
 		)
   		
 		//화면셋팅
-    	fn_state('L');
+    	fn_state();
   		
 		fn_createFia3200Grid01();
 		fn_createFia3200Grid02();
@@ -305,27 +308,29 @@
      */
     function fn_state(type) {
     
-// 		SBUxMethod.attr('FM_VAT_TYPE_CODE', 	'readonly', true);
+ 		SBUxMethod.set('SCH_FI_ORG_CODE', 		p_ss_fiOrgCode);
+ 		SBUxMethod.set('SCH_SITE_CODE', 		p_ss_siteCode);
+ 		SBUxMethod.set('FM_BASE_DATE', 			gfnma_date4());
+ 		SBUxMethod.set('SCH_ACCT_RULE_CODE', 	p_ss_defaultAcctRule);
     	
-//     	if(type=='L'){
-// 			$('#main-btn-new', parent.document).attr('disabled', true);
-// 			$('#main-btn-save', parent.document).attr('disabled', true);
-// 			$('#main-btn-del', 	parent.document).attr('disabled', true);
-// 			//fn_fmDisabled(true);
-//     	} else if(type=='N'){
-//     		SBUxMethod.attr('SCH_DEPRECIATION_METHOD2', 		'readonly', false);
-//     		$('#main-btn-save', parent.document).attr('disabled', false);
-//     		$('#main-btn-del', 	parent.document).attr('disabled', false);
-// 			//fn_fmDisabled(false);
-//     	}
     }    
     
     /**
      * 목록 조회
      */
  	function cfn_search() {
- 		fn_state('L');
-    	//fn_setFia3200GridMast('LIST');
+    	if(p_sel_tab==1){
+	    	fn_setFia3200Grid01('Q');
+    	} else {
+    		fn_setFia3200Grid02('Q3');
+    	}
+    }
+    
+    /**
+     * 탭클릭
+     */
+    const fn_tabClick = function(val) {
+    	p_sel_tab = val;
     }
     
     function fn_createFia3200Grid01() {
@@ -335,6 +340,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFia3200Grid01';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.frozencols 		= 1;
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozenbottomrows 	= 1;
@@ -342,11 +348,11 @@
                 type 		: 'grand',
                 position	: 'bottom',
                 columns		: {
-                    standard : [0],
-                    sum : [10]
+                    standard : [6,7,8,9,12,13,14,15,16,17,18,20],
+                    sum : [6,7,8,9,12,13,14,15,16,17,18,20]
                 },
                 grandtotalrow : {
-                    titlecol 		: 9,
+                    titlecol 		: 5,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -361,25 +367,25 @@
             {caption: ["소분류"],				ref: 'ASSET_LEVEL3', 		  	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점명"],			ref: 'COST_CENTER_CODE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             
-            {caption: ["신규취득가액"],				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대체입고금액"],				ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["자본적지출"],				ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},         
-            {caption: ["보조금"],					ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["신규취득가액"],				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대체입고금액"],				ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["자본적지출"],				ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},         
+            {caption: ["보조금"],					ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["처분유형"],					ref: 'DISPOSAL_TYPE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["처분일"],					ref: 'DISPOSAL_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             
-            {caption: ["처분취득가액"],				ref: 'OUT_ACQUISITION_AMOUNT',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대체출고금액"],				ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분보조금"],				ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분보조금상각누계액"],		ref: 'OUT_SUBSIDIES_ACC_DEPR',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분상각누계액"],			ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["기말상각누계액"],			ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["기말보조금상각누계액"],		ref: 'END_SUBSIDES_ACCUM_DEPR', type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["처분취득가액"],				ref: 'OUT_ACQUISITION_AMOUNT',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대체출고금액"],				ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금"],				ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금상각누계액"],		ref: 'OUT_SUBSIDIES_ACC_DEPR',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분상각누계액"],			ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말상각누계액"],			ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말보조금상각누계액"],		ref: 'END_SUBSIDES_ACCUM_DEPR', type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["수량"],						ref: 'ASSET_QTY',  				type:'output',  	width:'100px',  	style:'text-align:left'},
             
-            {caption: ["장부가액"],					ref: 'BOOK_VALUE',  			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["장부가액"],					ref: 'BOOK_VALUE',  			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["프로젝트번호"],				ref: 'PROJECT_CODE',  			type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["취득일자"],					ref: 'ACQUIRE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -403,11 +409,11 @@
                 type 		: 'grand',
                 position	: 'bottom',
                 columns		: {
-                    standard : [2,3,4,5,6,7,8,9,10,11,12,13],
-                    sum : [10]
+                    standard : [1,2,3,4,5,6,7,8,9,10,11,12],
+                    sum : [1,2,3,4,5,6,7,8,9,10,11,12]
                 },
                 grandtotalrow : {
-                    titlecol 		: 1,
+                    titlecol 		: 0,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -415,20 +421,20 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["구분"],				ref: 'TXN_DATE', 				type:'output',  	width:'150px', 		style:'text-align:left'},
+            {caption: ["구분"],					ref: 'ASSET_CATEGORY', 				type:'output',  	width:'150px', 		style:'text-align:left'},
 
-            {caption: ["신규취득가액"],			ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},  
-            {caption: ["대체입고금액"],			ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["자본적지출"],			ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["보조금"],				ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대체출고금액"],			ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분취득가액"],			ref: 'OUT_ACQUISITION_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분보조금"],			ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분보조금상각누계액"], ref: 'OUT_SUBSIDIES_ACC_DEPR', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["처분상각누계액"], 		ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["기말상각누계액"], 		ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["기말보조금상각누계액"],	ref: 'END_SUBSIDES_ACCUM_DEPR',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["장부가액"],				ref: 'BOOK_VALUE',		 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["신규취득가액"],			ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  
+            {caption: ["대체입고금액"],			ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["자본적지출"],			ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["보조금"],				ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대체출고금액"],			ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분취득가액"],			ref: 'OUT_ACQUISITION_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금"],			ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금상각누계액"], ref: 'OUT_SUBSIDIES_ACC_DEPR', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분상각누계액"], 		ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말상각누계액"], 		ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말보조금상각누계액"],	ref: 'END_SUBSIDES_ACCUM_DEPR',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["장부가액"],				ref: 'BOOK_VALUE',		 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["비고"],				ref: 'MEMO',    				type:'output',  	width:'200px',  	style:'text-align:left'},
         ];
@@ -437,8 +443,250 @@
         //Fia3200Grid02.bind('click', 			'fn_viewFia3200Grid02Event');
     }
     
+    /**
+     * 목록 가져오기
+     */
+    const fn_setFia3200Grid01 = async function(wtype) {
+    	
+    	Fia3200Grid01.clearStatus();
+
+		let p_sch_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let p_sch_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let p_sch_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_sch_asset_category	= gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
+		let p_sch_asset_level2		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
+		let p_sch_asset_level3		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL3"));
+		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_BASE_DATE"));
+		
+		let p_sch_depreciate_yn		= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATE_YN"));
+		p_sch_depreciate_yn			= (p_sch_depreciate_yn) ? p_sch_depreciate_yn['SCH_DEPRECIATE_YN'] : '';
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
+			,V_P_ACCT_RULE_CODE     : p_sch_acct_rule_code 
+			,V_P_SITE_CODE          : p_sch_site_code
+			,V_P_DEPRECIATE_YN      : p_sch_depreciate_yn
+			,V_P_ASSET_CATEGORY     : p_sch_asset_category
+			,V_P_ASSET_LEVEL2     	: p_sch_asset_level2
+			,V_P_ASSET_LEVEL3   	: p_sch_asset_level3
+			,V_P_BASE_DATE         	: p_fm_base_date
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia3200List.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '1',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	    		jsonFia3200Grid01.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+						ACQUIRE_DATE				: gfnma_nvl2(item.ACQUIRE_DATE),			
+						ASSET_CATEGORY				: gfnma_nvl2(item.ASSET_CATEGORY),			
+						ASSET_CATEGORY_NAME			: gfnma_nvl2(item.ASSET_CATEGORY_NAME),			
+						ASSET_LEVEL2				: gfnma_nvl2(item.ASSET_LEVEL2),			
+						ASSET_LEVEL2_NAME			: gfnma_nvl2(item.ASSET_LEVEL2_NAME),			
+						ASSET_LEVEL3				: gfnma_nvl2(item.ASSET_LEVEL3),			
+						ASSET_LEVEL3_NAME			: gfnma_nvl2(item.ASSET_LEVEL3_NAME),			
+						ASSET_NO					: gfnma_nvl2(item.ASSET_NO),			
+						ASSET_QTY					: gfnma_nvl2(item.ASSET_QTY),			
+						BOOK_VALUE					: gfnma_nvl2(item.BOOK_VALUE),			
+						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CAPITAL_EXPENDITURE),			
+						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.COST_CENTER_CODE),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.COST_CENTER_NAME),			
+						DEPRECIATE_YN				: gfnma_nvl2(item.DEPRECIATE_YN),			
+						DISPOSAL_DATE				: gfnma_nvl2(item.DISPOSAL_DATE),			
+						DISPOSAL_TYPE				: gfnma_nvl2(item.DISPOSAL_TYPE),			
+						END_ACCUM_DEPR				: gfnma_nvl2(item.END_ACCUM_DEPR),			
+						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.END_SUBSIDES_ACCUM_DEPR),			
+						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),			
+						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),			
+						OUT_ACCUM_DEPR				: gfnma_nvl2(item.OUT_ACCUM_DEPR),			
+						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.OUT_ACQUISITION_AMOUNT),			
+						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.OUT_SUBSIDIES_ACC_DEPR),			
+						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.OUT_SUBSIDIES_AMOUNT),			
+						PROJECT_CODE				: gfnma_nvl2(item.PROJECT_CODE),			
+						SITE_CODE					: gfnma_nvl2(item.SITE_CODE),			
+						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.SUBSIDIES_AMOUNT),			
+						TRANSFER_IN_AMOUNT			: gfnma_nvl2(item.TRANSFER_IN_AMOUNT),			
+						TRANSFER_OUT_AMOUNT			: gfnma_nvl2(item.TRANSFER_OUT_AMOUNT),			
+  					}
+  					jsonFia3200Grid01.push(msg);
+  					totalRecordCount ++;
+  				});
+
+  	        	Fia3200Grid01.rebuild();
+  	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
+  	        	
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }    
     
-        
+    /**
+     * 목록 가져오기
+     */
+    const fn_setFia3200Grid02 = async function(wtype) {
+    	
+    	Fia3200Grid02.clearStatus();
+
+		let p_sch_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let p_sch_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let p_sch_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_sch_asset_category	= gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
+		let p_sch_asset_level2		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
+		let p_sch_asset_level3		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL3"));
+		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_BASE_DATE"));
+		
+		let p_sch_depreciate_yn		= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATE_YN"));
+		p_sch_depreciate_yn			= (p_sch_depreciate_yn) ? p_sch_depreciate_yn['SCH_DEPRECIATE_YN'] : '';
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_FI_ORG_CODE        : p_sch_fi_org_code
+			,V_P_ACCT_RULE_CODE     : p_sch_acct_rule_code 
+			,V_P_SITE_CODE          : p_sch_site_code
+			,V_P_DEPRECIATE_YN      : p_sch_depreciate_yn
+			,V_P_ASSET_CATEGORY     : p_sch_asset_category
+			,V_P_ASSET_LEVEL2     	: p_sch_asset_level2
+			,V_P_ASSET_LEVEL3   	: p_sch_asset_level3
+			,V_P_BASE_DATE         	: p_fm_base_date
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia3200List.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '1',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	    		jsonFia3200Grid02.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+						ACQUIRE_DATE				: gfnma_nvl2(item.ACQUIRE_DATE),			
+						ASSET_CATEGORY				: gfnma_nvl2(item.ASSET_CATEGORY),			
+						ASSET_QTY					: gfnma_nvl2(item.ASSET_QTY),			
+						BOOK_VALUE					: gfnma_nvl2(item.BOOK_VALUE),			
+						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CAPITAL_EXPENDITURE),			
+						END_ACCUM_DEPR				: gfnma_nvl2(item.END_ACCUM_DEPR),			
+						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.END_SUBSIDES_ACCUM_DEPR),			
+						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),			
+						OUT_ACCUM_DEPR				: gfnma_nvl2(item.OUT_ACCUM_DEPR),			
+						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.OUT_ACQUISITION_AMOUNT),			
+						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.OUT_SUBSIDIES_ACC_DEPR),			
+						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.OUT_SUBSIDIES_AMOUNT),			
+						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.SUBSIDIES_AMOUNT),			
+						TRANSFER_IN_AMOUNT			: gfnma_nvl2(item.TRANSFER_IN_AMOUNT),			
+						TRANSFER_OUT_AMOUNT			: gfnma_nvl2(item.TRANSFER_OUT_AMOUNT),			
+  					}
+  					jsonFia3200Grid02.push(msg);
+  					totalRecordCount ++;
+  				});
+	  	  		console.log('jsonFia3200Grid02:', jsonFia3200Grid02);
+
+  	        	Fia3200Grid02.rebuild();
+  	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
+  	        	
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }    
+    
+    /**
+     * 자산구분 선택 이벤트
+     */
+    const fn_CngAssetCategory = function(val) {
+    	console.log('val:', val);
+    	
+    	var where1 = gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
+    	where1 = (where1) ? " AND ASSET_CATEGORY = '" + where1 + "' " : '';
+    	
+    	var where2  = '';
+    	var where21 = gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
+    	var where22 = gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
+    	where2 += (where21) ? " AND ASSET_CATEGORY = '" + where21 + "' " : '';
+    	where2 += (where22) ? " AND PARENT_ASSET_GROUP = '" + where22 + "' " : '';
+    	
+        // 중분류
+        gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', where1, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+        // 소분류
+        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+    }
+    
+    /**
+     * 중분류 선택 이벤트
+     */
+    const fn_CngAssetLevel = function(val) {
+    	console.log('val:', val);
+    	
+    	var where2  = '';
+    	var where21 = gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
+    	var where22 = gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
+    	where2 += (where21) ? " AND ASSET_CATEGORY = '" + where21 + "'" : '';
+    	where2 += (where22) ? " AND PARENT_ASSET_GROUP = '" + where22 + "'" : '';
+    	
+        // 소분류
+        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+    }
+    
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
