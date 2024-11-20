@@ -60,33 +60,41 @@
       		</div>
         </div>
         <div class="box-body">
-        	
-			<div style="padding-bottom:10px">
+        	<div class="box-search-ma">
 	        	<!--[APC] START -->
 	            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 	            <!--[APC] END -->
 	            
-	            <table class="table table-bordered tbl_fixed">
+	            <table class="table table-bordered tbl_fixed table-search-ma">
 	                <colgroup>
-	                    <col style="width: 7%">
-	                    <col style="width: 6%">
-	                    <col style="width: 6%">
-	                    <col style="width: 3%">
-	
-	                    <col style="width: 7%">
-	                    <col style="width: 6%">
-	                    <col style="width: 6%">
-	                    <col style="width: 3%">
-	
-	                    <col style="width: 7%">
-	                    <col style="width: 6%">
-	                    <col style="width: 6%">
-	                    <col style="width: 3%">
+                    	<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 	                </colgroup>
 	                <tbody>
 	                <tr>
-	                    <th scope="row" class="th_bg">예적금유형</th>
-						<td colspan="2" class="td_input" style="border-right:hidden;">
+	                    <th scope="row" class="th_bg_search">예적금유형</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
 							<sbux-select
 	                        	unselected-text="전체"
 	                            uitype="single"
@@ -97,7 +105,7 @@
 							/>					
 						</td>
 						<td></td>			
-						<th scope="row" class="th_bg">금융기관</th>
+						<th scope="row" class="th_bg_search">금융기관</th>
 	                    <td class="td_input" style="border-right: hidden;">
 	                    	<sbux-input 
 	                    		uitype="text" 
@@ -107,7 +115,7 @@
 	                    		readonly
 	                    	></sbux-input>  
 						</td>
-						<td class="td_input" style="border-right: hidden;">
+						<td colspan="2" class="td_input" style="border-right: hidden;">
 							<sbux-input 
 								uitype="text" 
 								id="srch-inp-bankCsName" 
@@ -118,14 +126,14 @@
 	                    <td class="td_input">
 	                    	<sbux-button 
 	                    		class="btn btn-xs btn-outline-dark" 
-	                    		text="찾기" 
+	                    		text="..." 
 	                    		uitype="modal" 
 	                    		target-id="modal-compopup1" 
 	                    		onclick="fn_compopupComBank('srch-inp-bankCsCode', 'srch-inp-bankCsName')"
 	                    	></sbux-button>
 	                    </td>
-						<th scope="row" class="th_bg">사업단위</th>
-	                    <td colspan="2" class="td_input" style="border-right: hidden;">
+						<th scope="row" class="th_bg_search">APC</th>
+	                    <td colspan="3" class="td_input" style="border-right: hidden;">
 	                    	  <div class="dropdown">
 								<button 
 									style="width:100%;text-align:left" 
@@ -149,22 +157,22 @@
 	                    <td></td>
 	                </tr>
 	                <tr>
-	                    <th scope="row" class="th_bg">조회기준일자</th>
-						<td colspan="2" class="td_input" style="border-right:hidden;">
+	                    <th scope="row" class="th_bg_search">조회기준일자</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
 							<sbux-datepicker
 								uitype="popup" 
 								id="srch-dtp-txnDate" 
 								name="srch-dtp-txnDate"
 								date-format="yyyy-mm-dd" 
-								class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+								class="table-datepicker-ma inpt_data_reqed"
 								wrap-style="border:0;padding:0;"
 								group-id="panHeader"
 	                            required
 							/>						
 						</td>
 						<td></td>
-						<th scope="row" class="th_bg">경과예금포함여부</th>
-						<td colspan="2" class="td_input" style="border-right:hidden;">
+						<th scope="row" class="th_bg_search">경과예금포함여부</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
 							<sbux-select
 	                        	unselected-text="전체"
 	                            uitype="single"
@@ -175,8 +183,8 @@
 							/>					
 						</td>
 						<td></td>
-						<th scope="row" class="th_bg">계좌번호</th>
-	                    <td colspan="2" class="td_input" style="border-right: hidden;">
+						<th scope="row" class="th_bg_search">계좌번호</th>
+	                    <td colspan="3" class="td_input" style="border-right: hidden;">
 	                    	<sbux-input 
 	                    		id="srch-inp-accountNum" 
 	                    		class="form-control input-sm" 
@@ -227,7 +235,7 @@
                                 <col style="width:10%">
                           	</colgroup>
                             <tr>
-                            	<th scope="row" class="th_bg">사업단위</th>
+                            	<th scope="row" class="th_bg">APC</th>
                                 <td class="td_input">
 									<sbux-select
 			                        	unselected-text="선택"
@@ -266,7 +274,8 @@
                                 <th scope="row" class="th_bg">예금주</th>
                                 <td colspan="3" class="td_input">
                                     <sbux-input 
-                                    	id="dtl-inp-accountOwner"ACCOUNT_OWNER 
+                                    	id="dtl-inp-accountOwner"
+                                    	name="dtl-inp-accountOwner"  
                                     	class="form-control input-sm" 
                                     	uitype="text" 
                                     	required 
@@ -355,7 +364,7 @@
 								<td class="td_input">
 									<sbux-button 
 										class="btn btn-xs btn-outline-dark" 
-										text="찾기" 
+										text="..." 
 										uitype="modal" 
 										target-id="modal-compopup1" 
 										onclick="fn_compopupComBankD" 
@@ -388,7 +397,7 @@
                                 <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                 	<sbux-button
                                     	class="btn btn-xs btn-outline-dark"
-                                        text="찾기" 
+                                        text="..." 
                                         uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_compopupBankD"
@@ -582,7 +591,7 @@
 												id="estbl-dtp-openDate" 
 												name="estbl-dtp-openDate"
 												date-format="yyyy-mm-dd" 
-												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+												class="table-datepicker-ma"
 												wrap-class="displayFlex" 
 												wrap-style="border:0;padding:0;"
 												group-id="pan-estbl"
@@ -595,7 +604,7 @@
 												id="estbl-dtp-expireDate" 
 												name="estbl-dtp-expireDate"
 												date-format="yyyy-mm-dd" 
-												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+												class="table-datepicker-ma"
 												wrap-class="displayFlex" 
 												wrap-style="border:0;padding:0;"
 												group-id="pan-estbl"
@@ -683,7 +692,7 @@
 												id="estbl-dtp-payinDate" 
 												name="estbl-dtp-payinDate"
 												date-format="yyyy-mm-dd" 
-												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+												class="table-datepicker-ma"
 												wrap-class="displayFlex" 
 												wrap-style="border:0;padding:0;"
 												group-id="pan-estbl"
@@ -779,7 +788,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupBankEstbl"
@@ -830,7 +839,7 @@
 												id="cncl-dtp-cancelDate" 
 												name="cncl-dtp-cancelDate"
 												date-format="yyyy-mm-dd" 
-												class="form-control pull-right input-sm-ast input-sm"
+												class="table-datepicker-ma"
 												wrap-class="displayFlex" 
 												wrap-style="border:0;padding:0;"
 												group-id="pan-cncl"
@@ -981,7 +990,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-depositAccount', 'acnt-inp-depositAccountName')"
@@ -1012,7 +1021,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-advancedIncomeAccount', 'acnt-inp-advancedIncomeAccountName')"
@@ -1043,7 +1052,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-accruedIncomeAccount', 'acnt-inp-accruedIncomeAccountName')"
@@ -1074,7 +1083,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-ctaxWithholdAccount', 'acnt-inp-ctaxWithholdAccountName')"
@@ -1105,7 +1114,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-ptaxWithholdAccount', 'acnt-inp-ptaxWithholdAccountName')"
@@ -1136,7 +1145,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-billAccount', 'acnt-inp-billAccountName')"
@@ -1167,7 +1176,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-receiptAccount', 'acnt-inp-receiptAccountName')"
@@ -1210,7 +1219,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-interestIncomeAccount', 'acnt-inp-interestIncomeAccountName')"
@@ -1241,7 +1250,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-exchangeGainAccount', 'acnt-inp-exchangeGainAccountName')"
@@ -1272,7 +1281,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-exchangeLossAccount', 'acnt-inp-exchangeLossAccountName')"
@@ -1303,7 +1312,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-valGainAccount', 'acnt-inp-valGainAccountName')"
@@ -1334,7 +1343,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-valLossAccount', 'acnt-inp-valLossAccountName')"
@@ -1365,7 +1374,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupAccountCode('acnt-inp-feeAccount', 'acnt-inp-feeAccountName')"
@@ -1408,7 +1417,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-depositInTrType', 'fund-inp-depositInTrName')"
@@ -1439,7 +1448,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-depositOutTrType', 'fund-inp-depositOutTrName')"
@@ -1470,7 +1479,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-interestInTrType', 'fund-inp-interestInTrName')"
@@ -1501,7 +1510,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-ctaxWithholdTrType', 'fund-inp-ctaxWithholdTrName')"
@@ -1532,7 +1541,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-ptaxWithholdTrType', 'fund-inp-ptaxWithholdTrName')"
@@ -1563,7 +1572,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-receiptTrType', 'fund-inp-receiptTrName')"
@@ -1594,7 +1603,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-feeTrType', 'fund-inp-feeTrName')"
@@ -1637,7 +1646,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-exchangeGainTrType', 'fund-inp-exchangeGainTrName')"
@@ -1668,7 +1677,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-exchangeLossTrType', 'fund-inp-exchangeLossTrName')"
@@ -1699,7 +1708,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-billInTrType', 'fund-inp-billInTrName')"
@@ -1730,7 +1739,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupFundCode('fund-inp-billOutTrType', 'fund-inp-billOutTrName')"
@@ -1774,7 +1783,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupDeptCode('ognz-inp-deptCode', 'ognz-inp-deptName')"
@@ -1805,7 +1814,7 @@
 	                                    <td class="td_input">
 	                                    	<sbux-button
 		                                    	class="btn btn-xs btn-outline-dark"
-		                                        text="찾기" 
+		                                        text="..." 
 		                                        uitype="modal"
 		                                        target-id="modal-compopup1"
 		                                        onclick="fn_compopupCostCenterCode('ognz-inp-costCenterCode', 'ognz-inp-costCenterName')"

@@ -39,93 +39,96 @@
         </div>
         <div class="box-body">
             <div class="box-search-ma">
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
-                <colgroup>
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">부가세코드</th>
-                    <td colspan="3" style="border-right: hidden" class="td_input">
-                        <sbux-input 
-                        	id="srch-inp-vatCode" 
-                        	name="srch-inp-vatCode" 
-                        	uitype="text" 
-                        	class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="8" style="border-top: hidden"></td>
-                </tr>
-                </tbody>
-            </table>
+            	<!--[APC] START -->
+            	<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            	<!--[APC] END -->
+            	<table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
+	                <colgroup>
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	                </colgroup>
+	                <tbody>
+	                <tr>
+	                    <th scope="row" class="th_bg_search">부가세코드</th>
+	                    <td colspan="3" style="border-right: hidden" class="td_input">
+	                        <sbux-input 
+	                        	id="srch-inp-vatCode" 
+	                        	name="srch-inp-vatCode" 
+	                        	uitype="text" 
+	                        	class="form-control input-sm"
+	                        ></sbux-input>
+	                    </td>
+	                    <td colspan="16" style="border-top: hidden"></td>
+	                </tr>
+	                </tbody>
+            	</table>
             </div>
-            <div class="ad_tbl_top" style="margin-top: 10px">
-                <ul class="ad_tbl_count">
-                    <li><span>◎ 부가세 정보</span></li>
-                </ul>
-                <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
-                	<sbux-button
-                       	id="btn-grd-switchMode"
-                           name="btn-grd-switchMode"
-                           uitype="normal"
-                           text="🚫복사해제모드" <%--그리드 복사 불가. 붙여넣기 불가.--%>
-                           class="btn btn-sm btn-outline-danger"
-                           onclick="fn_switchGridMode"
-                           is-change-text="true"
-                           style="margin-right:15px"
-					></sbux-button>
-					<sbux-button 
-						id="btn-grd-addRow"
-						name="btn-grd-addRow" 
-						uitype="normal" 
-						text="행추가" 
-						class='btn btn-sm btn-outline-danger' 
-						onClick="fn_addRow"
-						style="margin-right:5px"
-						image-src="/static/resource/svg/grdPlus.svg"
-                           image-style="width:3rem;height:20px"
-						image-placement="front"
-					></sbux-button>
-					<sbux-button 
-						id="btn-grd-delRow"
-						name="btn-grd-delRow" 
-						uitype="normal" 
-						text="행삭제" 
-						class='btn btn-sm btn-outline-danger' 
-						onClick="fn_delRow"
-						style="margin-right:5px"
-						image-src="/static/resource/svg/grdMinus.svg"
-                           image-style="width:3rem;height:20px"
-						image-placement="front"
-					></sbux-button>
-				</div>
-            </div>
-            <div id="sb-area-grdVat" style="width: 100%; height: 550px"></div>
+            
+            <div class="row">
+	            <div class="ad_tbl_top" style="margin-top: 10px">
+	                <ul class="ad_tbl_count">
+	                    <li><span>◎ 부가세 정보</span></li>
+	                </ul>
+	                <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+	                	<sbux-button
+	                       	id="btn-grd-switchMode"
+	                           name="btn-grd-switchMode"
+	                           uitype="normal"
+	                           text="🚫복사해제모드" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+	                           class="btn btn-sm btn-outline-danger"
+	                           onclick="fn_switchGridMode"
+	                           is-change-text="true"
+	                           style="margin-right:15px"
+						></sbux-button>
+						<sbux-button 
+							id="btn-grd-addRow"
+							name="btn-grd-addRow" 
+							uitype="normal" 
+							text="행추가" 
+							class='btn btn-sm btn-outline-danger' 
+							onClick="fn_addRow"
+							style="margin-right:5px"
+							image-src="/static/resource/svg/grdPlus.svg"
+	                           image-style="width:3rem;height:20px"
+							image-placement="front"
+						></sbux-button>
+						<sbux-button 
+							id="btn-grd-delRow"
+							name="btn-grd-delRow" 
+							uitype="normal" 
+							text="행삭제" 
+							class='btn btn-sm btn-outline-danger' 
+							onClick="fn_delRow"
+							style="margin-right:5px"
+							image-src="/static/resource/svg/grdMinus.svg"
+	                           image-style="width:3rem;height:20px"
+							image-placement="front"
+						></sbux-button>
+					</div>
+	            </div>
+	            <div id="sb-area-grdVat" style="width: 100%; height: 550px"></div>
+			</div>
         </div>
     </div>
 </section>
