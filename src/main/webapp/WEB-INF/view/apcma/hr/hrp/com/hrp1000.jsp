@@ -328,11 +328,11 @@
                             <th scope="row" class="th_bg">퇴사일</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        uitype="popup"
                                         id="RETIRE_DATE"
                                         name="RETIRE_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                         </tr>
@@ -344,7 +344,7 @@
                                         name="TEMP_END_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -355,8 +355,8 @@
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast"
-                                        ></sbux-datepicker>
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
                             </td>
                         </tr>
                     </table>
@@ -425,8 +425,10 @@
                         </td>
                         <th scope="row" class="th_bg">급여계좌</th>
                         <td colspan="" class="td_input" style="border-right:hidden;">
-                            <sbux-input id="BANK_ACCOUNT_REAL" uitype="text" style="width:100%" placeholder=""
-                                        class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}"></sbux-input>
+                            <%--<sbux-input id="BANK_ACCOUNT_REAL" uitype="text" style="width:100%" placeholder=""
+                                        class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                            ></sbux-input>--%>
+                            <sbux-input id="BANK_ACCOUNT_REAL" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
                         <td style="border-right: hidden;">&nbsp;</td>
                         <td style="border-right: hidden;">&nbsp;</td>
@@ -458,8 +460,10 @@
                         </td>
                         <th scope="row" class="th_bg">연차계좌</th>
                         <td colspan="" class="td_input" style="border-right:hidden;">
-                            <sbux-input id="BANK_ACCOUNT2_REAL" uitype="text" style="width:100%" placeholder=""
-                                        class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}"></sbux-input>
+                            <%--<sbux-input id="BANK_ACCOUNT2_REAL" uitype="text" style="width:100%" placeholder=""
+                                        class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                            ></sbux-input>--%>
+                            <sbux-input id="BANK_ACCOUNT2_REAL" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
                         <th scope="row" class="th_bg">2계좌지급급여</th>
                         <td class="td_input" style="border-right: hidden;">
@@ -501,8 +505,10 @@
                         </td>
                         <th scope="row" class="th_bg">IRP계좌</th>
                         <td colspan="" class="td_input" style="border-right:hidden;">
-                            <sbux-input id="RET_PENS_BANK_ACC_REAL" uitype="text" style="width:100%" placeholder=""
-                                        class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}"></sbux-input>
+                            <%--<sbux-input id="RET_PENS_BANK_ACC_REAL" uitype="text" style="width:100%" placeholder=""
+                                        class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                            ></sbux-input>--%>
+                            <sbux-input id="RET_PENS_BANK_ACC_REAL" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         </td>
                     </tr>
                     <tr>
@@ -2573,18 +2579,23 @@
         let PAY_GROUP_CODE          = gfn_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
         let BANK_CODE               = gfn_nvl(SBUxMethod.get("BANK_CODE"));
         let BANK_ACCOUNT_REAL       = gfn_nvl(SBUxMethod.get("BANK_ACCOUNT_REAL"));
+        //BANK_ACCOUNT_REAL           = BANK_ACCOUNT_REAL.replace(/,/gi,'');
 
         let PAY_YN                  = gfn_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
         let BONUS_PAY_YN            = gfn_nvl(SBUxMethod.get("BONUS_PAY_YN").BONUS_PAY_YN);
         let RETIRE_PAY_YN           = gfn_nvl(SBUxMethod.get("RETIRE_PAY_YN").RETIRE_PAY_YN);
         let BANK_CODE2              = gfn_nvl(SBUxMethod.get("BANK_CODE2"));
         let BANK_ACCOUNT2_REAL      = gfn_nvl(SBUxMethod.get("BANK_ACCOUNT2_REAL"));
+        //BANK_ACCOUNT2_REAL          = BANK_ACCOUNT2_REAL.replace(/,/gi,'');
+
         let BANK2_PAY_ITEM          = gfn_nvl(SBUxMethod.get("BANK2_PAY_ITEM"));
         let LUNCH_PAY_YN            = gfn_nvl(SBUxMethod.get("LUNCH_PAY_YN").LUNCH_PAY_YN);
         let OVER_TIME_PAY_YN        = gfn_nvl(SBUxMethod.get("OVER_TIME_PAY_YN").OVER_TIME_PAY_YN);
         let OT_TAX_FREE_YN          = gfn_nvl(SBUxMethod.get("OT_TAX_FREE_YN").OT_TAX_FREE_YN);
         let RET_PENS_BANK_CODE      = gfn_nvl(SBUxMethod.get("RET_PENS_BANK_CODE"));
         let RET_PENS_BANK_ACC_REAL  = gfn_nvl(SBUxMethod.get("RET_PENS_BANK_ACC_REAL"));
+        //RET_PENS_BANK_ACC_REAL      = RET_PENS_BANK_ACC_REAL.replace(/,/gi,'');
+
         let MUTUAL_AID_MEMBER_YN    = gfn_nvl(SBUxMethod.get("MUTUAL_AID_MEMBER_YN").MUTUAL_AID_MEMBER_YN);
         let MONTHLY_DONATION_YN     = gfn_nvl(SBUxMethod.get("MONTHLY_DONATION_YN").MONTHLY_DONATION_YN);
         let INCOME_TAX_YN           = gfn_nvl(SBUxMethod.get("INCOME_TAX_YN").INCOME_TAX_YN);
@@ -2839,9 +2850,9 @@
             }
         });
 
-        let strBank_account   = gfn_nvl(SBUxMethod.get("BANK_ACCOUNT_REAL"));
-        let strBank_account2  = gfn_nvl(SBUxMethod.get("BANK_ACCOUNT2_REAL"));
-        let strBank_account3  = gfn_nvl(SBUxMethod.get("BANK_ACCOUNT3_REAL"));
+        let strBank_account     = BANK_ACCOUNT_REAL;
+        let strBank_account2    = BANK_ACCOUNT2_REAL;
+        let strBank_account3    = RET_PENS_BANK_ACC_REAL;
 
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''

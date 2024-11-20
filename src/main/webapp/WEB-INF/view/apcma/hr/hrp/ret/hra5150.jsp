@@ -287,23 +287,22 @@
                             <th scope="row" class="th_bg">입사일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        uitype="popup"
                                         id="ENTER_DATE"
                                         name="ENTER_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
-                                        style="background-color: #FFFFFF !important;"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                         readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">피크시작일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        uitype="popup"
                                         id="PEAK_START_DATE"
                                         name="PEAK_START_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                         onchange="fn_peakStartDate"
                                 ></sbux-datepicker>
                             </td>
@@ -312,7 +311,7 @@
 
                             <th scope="row" class="th_bg">퇴사일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="RET_DAT"
                                         name="RET_DAT"
@@ -320,59 +319,104 @@
                                         autocomplete="off"
                                         style="background-color: #FFFFFF !important;"
                                         readonly
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="RET_DAT"
+                                        name="RET_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">정산시작일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="CALC_ST_DAT"
                                         name="CALC_ST_DAT"
                                         class="input-sm"
                                         autocomplete="off"
                                         readonly
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="CALC_ST_DAT"
+                                        name="CALC_ST_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">정산종료일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="CALC_END_DAT"
                                         name="CALC_END_DAT"
                                         class="input-sm"
                                         autocomplete="off"
                                         readonly
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="CALC_END_DAT"
+                                        name="CALC_END_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">피크정산기간</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                               <%-- <sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_CALC_START_DATE"
                                         name="PEAK_CALC_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_CALC_START_DATE"
+                                        name="PEAK_CALC_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_CALC_END_DATE"
                                         name="PEAK_CALC_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_CALC_END_DATE"
+                                        name="PEAK_CALC_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">확정급여형 퇴직연금제도 가입일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="RET_PENS_ST_DAT"
                                         name="RET_PENS_ST_DAT"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="RET_PENS_ST_DAT"
+                                        name="RET_PENS_ST_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td colspan="3" class="td_input" style="border-right: hidden;">
@@ -394,28 +438,42 @@
                             </td>
                             <th scope="row" class="th_bg">피크급여기간</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_PAY_START_DATE"
                                         name="PEAK_PAY_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_PAY_START_DATE"
+                                        name="PEAK_PAY_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_PAY_END_DATE"
                                         name="PEAK_PAY_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_PAY_END_DATE"
+                                        name="PEAK_PAY_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">귀속연월 시작일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="JOB_ST_DAT"
                                         name="JOB_ST_DAT"
@@ -423,11 +481,19 @@
                                         autocomplete="off"
                                         style="background-color: #FFFFFF !important;"
                                         readonly
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
+                                    <sbux-datepicker
+                                            id="JOB_ST_DAT"
+                                            name="JOB_ST_DAT"
+                                            uitype="popup"
+                                            date-format="yyyy-mm-dd"
+                                            class="table-datepicker-ma"
+                                            readonly
+                                    ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">귀속연월 종료일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="JOB_END_DAT"
                                         name="JOB_END_DAT"
@@ -435,11 +501,19 @@
                                         autocomplete="off"
                                         style="background-color: #FFFFFF !important;"
                                         readonly
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="JOB_END_DAT"
+                                        name="JOB_END_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">최근중도 정산일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="LAST_CALC_DAT"
                                         name="LAST_CALC_DAT"
@@ -447,25 +521,47 @@
                                         autocomplete="off"
                                         style="background-color: #FFFFFF !important;"
                                         readonly
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="LAST_CALC_DAT"
+                                        name="LAST_CALC_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">피크상여기간</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_BONUS_START_DATE"
                                         name="PEAK_BONUS_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_BONUS_START_DATE"
+                                        name="PEAK_BONUS_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="PEAK_BONUS_END_DATE"
                                         name="PEAK_BONUS_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="PEAK_BONUS_END_DATE"
+                                        name="PEAK_BONUS_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                         </tr>
@@ -528,62 +624,104 @@
                         <tr>
                             <th scope="row" class="th_bg">정상정산기간</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-datepicker
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_CALC_START_DATE"
                                         name="NORM_CALC_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
+                                ></sbux-datepicker>--%>
+                                <sbux-datepicker
+                                        id="NORM_CALC_START_DATE"
+                                        name="NORM_CALC_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
                                 ></sbux-datepicker>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
+                                        id="NORM_CALC_END_DATE"
+                                        name="NORM_CALC_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_CALC_END_DATE"
                                         name="NORM_CALC_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
                             </td>
                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
                             <th scope="row" class="th_bg">정상급여기간</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
+                                        id="NORM_PAY_START_DATE"
+                                        name="NORM_PAY_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_PAY_START_DATE"
                                         name="NORM_PAY_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
+                                        id="NORM_PAY_END_DATE"
+                                        name="NORM_PAY_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_PAY_END_DATE"
                                         name="NORM_PAY_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
                             </td>
                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
                             <th scope="row" class="th_bg">정상상여기간</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
+                                        id="NORM_BONUS_START_DATE"
+                                        name="NORM_BONUS_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_BONUS_START_DATE"
                                         name="NORM_BONUS_START_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
                             </td>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
+                                        id="NORM_BONUS_END_DATE"
+                                        name="NORM_BONUS_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                ></sbux-datepicker>
+                                <%--<sbux-datepicker
                                         uitype="popup"
                                         id="NORM_BONUS_END_DATE"
                                         name="NORM_BONUS_END_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                ></sbux-datepicker>
+                                ></sbux-datepicker>--%>
                             </td>
                             <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                         </tr>
@@ -2047,14 +2185,22 @@
                                 <tr>
                                     <th scope="row" class="th_bg">귀속년월</th>
                                     <td class="td_input">
-                                        <sbux-datepicker
+                                        <%--<sbux-datepicker
                                                 uitype="popup"
                                                 id="PAY_YYYYMM"
                                                 name="PAY_YYYYMM"
                                                 date-format="yyyy-mm"
                                                 datepicker-mode="month"
                                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm">
-                                        </sbux-datepicker>
+                                        </sbux-datepicker>--%>
+                                        <sbux-datepicker
+                                                id="PAY_YYYYMM"
+                                                name="PAY_YYYYMM"
+                                                uitype="popup"
+                                                date-format="yyyy-mm"
+                                                datepicker-mode="month"
+                                                class="table-datepicker-ma inpt_data_reqed"
+                                        ></sbux-datepicker>
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">퇴직정산구분</th>
@@ -2071,7 +2217,7 @@
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">퇴직일자</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
+                                        <%--<sbux-datepicker
                                                 uitype="popup"
                                                 id="PAY_DATE"
                                                 name="PAY_DATE"
@@ -2079,7 +2225,15 @@
                                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                 onchange="fn_payDate()"
                                         >
-                                        </sbux-datepicker>
+                                        </sbux-datepicker>--%>
+                                        <sbux-datepicker
+                                                id="PAY_DATE"
+                                                name="PAY_DATE"
+                                                uitype="popup"
+                                                date-format="yyyy-mm-dd"
+                                                class="table-datepicker-ma"
+                                                onchange="fn_payDate()"
+                                        ></sbux-datepicker>
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">진행상태</th>
@@ -2101,24 +2255,38 @@
                                 <tr>
                                     <th scope="row" class="th_bg">회계처리일자</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
+                                        <%--<sbux-datepicker
                                                 uitype="popup"
                                                 id="POSTING_DATE"
                                                 name="POSTING_DATE"
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                        />
+                                        />--%>
+                                        <sbux-datepicker
+                                                id="POSTING_DATE"
+                                                name="POSTING_DATE"
+                                                uitype="popup"
+                                                date-format="yyyy-mm-dd"
+                                                class="table-datepicker-ma"
+                                        ></sbux-datepicker>
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">지급일</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
+                                        <%--<sbux-datepicker
                                                 uitype="popup"
                                                 id="EXPECTED_PAY_DATE"
                                                 name="EXPECTED_PAY_DATE"
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                        />
+                                        />--%>
+                                        <sbux-datepicker
+                                                id="EXPECTED_PAY_DATE"
+                                                name="EXPECTED_PAY_DATE"
+                                                uitype="popup"
+                                                date-format="yyyy-mm-dd"
+                                                class="table-datepicker-ma"
+                                        ></sbux-datepicker>
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">거래처</th>
@@ -2833,7 +3001,6 @@
 
             jsonPayList.splice(rowVal, 0, msg);
 
-            console.log('jsonPayList', jsonPayList);
         }
 
         gvwPayGrid.rebuild();

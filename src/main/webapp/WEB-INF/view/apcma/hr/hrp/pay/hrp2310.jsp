@@ -441,13 +441,17 @@
                             <th scope="row" class="th_bg">급여기본급</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SALARY_BASE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">상여기본급</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="BONUS_BASE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -455,19 +459,25 @@
                             <th scope="row" class="th_bg">급여총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">상여총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="BONUS_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">비과세액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="TAX_FREE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -475,13 +485,17 @@
                             <th scope="row" class="th_bg">지급총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_TOTAL_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">공제총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_DEDUCTION_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -489,20 +503,25 @@
                             <th scope="row" class="th_bg">실지급액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_NET_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">현금지급액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_CASH_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}"
-                                            onchange="fn_payCashAmt"></sbux-input>
+                                            class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            onchange="fn_payCashAmt"
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">이체액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="TRANSFER_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="tpgTd" init="0" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                            readonly
+                                ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -931,7 +950,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["기초항목"], ref : 'pay_item_code', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["기초항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode3',  label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
@@ -1177,16 +1196,16 @@
                         SBUxMethod.set("TEMP_END_DATE"          , gfn_nvl(item.TEMP_END_DATE));
                         SBUxMethod.set("BONUS_APPLY_START_DATE" , gfn_nvl(item.BONUS_APPLY_START_DATE));
                         SBUxMethod.set("PAY_DATE"               , gfn_nvl(item.PAY_DATE));
-                        SBUxMethod.set("PAY_AMT"                , gfn_nvl(item.PAY_AMT));
-                        SBUxMethod.set("BONUS_AMT"              , gfn_nvl(item.BONUS_AMT));
-                        SBUxMethod.set("TAX_FREE_AMT"           , gfn_nvl(item.TAX_FREE_AMT));
-                        SBUxMethod.set("PAY_TOTAL_AMT"          , gfn_nvl(item.PAY_TOTAL_AMT));
-                        SBUxMethod.set("PAY_DEDUCTION_AMT"      , gfn_nvl(item.PAY_DEDUCTION_AMT));
-                        SBUxMethod.set("PAY_NET_AMT"            , gfn_nvl(item.PAY_NET_AMT));
-                        SBUxMethod.set("PAY_CASH_AMT"           , gfn_nvl(item.PAY_CASH_AMT));
-                        SBUxMethod.set("TRANSFER_AMT"           , gfn_nvl(item.TRANSFER_AMT));
-                        SBUxMethod.set("SALARY_BASE_AMT"        , gfn_nvl(item.SALARY_BASE_AMT));
-                        SBUxMethod.set("BONUS_BASE_AMT"         , gfn_nvl(item.BONUS_BASE_AMT));
+                        SBUxMethod.set("PAY_AMT"                , gfn_nvl(item.PAY_AMT) == '' ? 0 : gfn_nvl(item.PAY_AMT));
+                        SBUxMethod.set("BONUS_AMT"              , gfn_nvl(item.BONUS_AMT) == '' ? 0 : gfn_nvl(item.BONUS_AMT));
+                        SBUxMethod.set("TAX_FREE_AMT"           , gfn_nvl(item.TAX_FREE_AMT) == '' ? 0 : gfn_nvl(item.TAX_FREE_AMT));
+                        SBUxMethod.set("PAY_TOTAL_AMT"          , gfn_nvl(item.PAY_TOTAL_AMT) == '' ? 0 : gfn_nvl(item.PAY_TOTAL_AMT));
+                        SBUxMethod.set("PAY_DEDUCTION_AMT"      , gfn_nvl(item.PAY_DEDUCTION_AMT) == '' ? 0 : gfn_nvl(item.PAY_DEDUCTION_AMT));
+                        SBUxMethod.set("PAY_NET_AMT"            , gfn_nvl(item.PAY_NET_AMT) == '' ? 0 : gfn_nvl(item.PAY_NET_AMT));
+                        SBUxMethod.set("PAY_CASH_AMT"           , gfn_nvl(item.PAY_CASH_AMT) == '' ? 0 : gfn_nvl(item.PAY_CASH_AMT));
+                        SBUxMethod.set("TRANSFER_AMT"           , gfn_nvl(item.TRANSFER_AMT) == '' ? 0 : gfn_nvl(item.TRANSFER_AMT));
+                        SBUxMethod.set("SALARY_BASE_AMT"        , gfn_nvl(item.SALARY_BASE_AMT) == '' ? 0 : gfn_nvl(item.SALARY_BASE_AMT));
+                        SBUxMethod.set("BONUS_BASE_AMT"         , gfn_nvl(item.BONUS_BASE_AMT) == '' ? 0 : gfn_nvl(item.BONUS_BASE_AMT));
                        /* SBUxMethod.set("INCENTIVE_BASE_AMT", gfn_nvl(item.INCENTIVE_BASE_AMT));
                         SBUxMethod.set("COMPETENCE_BASE_AMT", gfn_nvl(item.COMPETENCE_BASE_AMT));*/
 
@@ -1653,12 +1672,12 @@
 
                 dtSource1.forEach((item, index1) => {
 
-                    TRNUD_TYPE          += index + '|';
-                    TRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
-                    TRPAY_AMT           += item.PAY_AMT + '|';
-                    TRTAX_FREE_AMT      += item.TAX_FREE_AMT + '|';
-                    TRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
-                    TRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
+                    STRNUD_TYPE          += index + '|';
+                    STRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
+                    STRPAY_AMT           += item.PAY_AMT + '|';
+                    STRTAX_FREE_AMT      += item.TAX_FREE_AMT + '|';
+                    STRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
+                    STRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
 
 
                 })
@@ -1668,12 +1687,12 @@
 
                 dtSource2.forEach((item, index1) => {
 
-                    TRNUD_TYPE          += index + '|';
-                    TRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
-                    TRPAY_AMT           += item.PAY_AMT + '|';
-                    TRTAX_FREE_AMT      +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
-                    TRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
-                    TRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
+                    STRNUD_TYPE          += index + '|';
+                    STRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
+                    STRPAY_AMT           += item.PAY_AMT + '|';
+                    STRTAX_FREE_AMT      +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
+                    STRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
+                    STRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
 
 
                 })
@@ -1683,12 +1702,12 @@
 
                 dtSource3.forEach((item, index1) => {
 
-                    TRNUD_TYPE          += index + '|';
-                    TRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
-                    TRPAY_AMT           += item.PAY_AMT + '|';
-                    TRTAX_FREE_AMT      +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
-                    TRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
-                    TRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
+                    STRNUD_TYPE          += index + '|';
+                    STRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
+                    STRPAY_AMT           += item.PAY_AMT + '|';
+                    STRTAX_FREE_AMT      +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
+                    STRRE_PAY_YYYYMM     += item.RE_PAY_YYYYMM_P + '|';
+                    STRTAX_PAY_DATE      += item.TAX_PAY_DATE + '|';
 
 
                 })
@@ -1750,7 +1769,7 @@
             ,V_P_PAY_TYPE            : PAY_TYPE
             ,V_P_PAY_DATE            : PAY_DATE
             ,V_P_EMP_CODE            : EMP_CODE
-            ,V_P_PAY_CASH_AMT        : PAY_CASH_AMT
+            ,V_P_PAY_CASH_AMT        : PAY_CASH_AMT.replace(/,/gi,'')
             ,V_P_TAX_RE_CALCULATE_YN : strReCalculate
             ,V_P_PAY_AREA            : PAY_AREA_TYPE
 
@@ -1797,6 +1816,7 @@
         const data = await postJsonPromise;
 
         try {
+
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
                     await alert(data.resultMessage);
@@ -1868,9 +1888,11 @@
         let PAY_NET_AMT     = gfn_nvl(SBUxMethod.get("PAY_NET_AMT")); //실지급액
         let PAY_CASH_AMT    = gfn_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현금지급액
 
+
+        let total = Number(PAY_NET_AMT.replace(/,/gi,'')) - Number(PAY_CASH_AMT.replace(/,/gi,''));
         //이체액
         // 이체액 = 실지급액 - 현금지급액
-        SBUxMethod.set("TRANSFER_AMT", Number(PAY_NET_AMT) - Number(PAY_CASH_AMT));
+        SBUxMethod.set("TRANSFER_AMT", total);
 
         //numtransfer_amt.Value = numpay_net_amt.Value - numpay_cash_amt.Value;
 

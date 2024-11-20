@@ -431,7 +431,7 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:60px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:60px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…<!--<img src='../../../resource/images/find2.png' width='12px' />--></button>";
                     //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
