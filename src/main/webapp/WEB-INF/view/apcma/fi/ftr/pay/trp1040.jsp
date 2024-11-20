@@ -126,7 +126,7 @@
                         <th scope="row" class="th_bg_search">통화</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
                             <div class="dropdown">
-                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_CURRENCY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_CURRENCY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -1647,7 +1647,7 @@
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
         SBUxMethod.set("SRCH_EXPECTED_PAY_DT", gfn_dateToYmd(new Date()));
         SBUxMethod.set("SRCH_HOLD_INCLUDE_YN", "Y");
-        SBUxMethod.set("SRCH_CURRENCY_TYPE", "2");
+        await gfnma_multiSelectSet('#SRCH_CURRENCY_TYPE', 'SUB_CODE', 'CODE_NAME', "1");
 
         SBUxMethod.set("SRCH_MULTI_YN", "N");
         SBUxMethod.set("SRCH_MULTI_CS_YN", "N");

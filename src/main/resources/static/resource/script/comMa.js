@@ -800,8 +800,7 @@ async function gfnma_multiSelectInit(obj) {
  * @param 		{string} findValue
  * @returns 	{void}
  */
-const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
-	
+const gfnma_multiSelectSet = async function (id, colValue, colLabel, findValue) {
 	var f_value = "";
 	var find	= false;
 	if(findValue){
