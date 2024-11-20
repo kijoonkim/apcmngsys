@@ -396,7 +396,7 @@
 					     , CQ.SD_QNTT_3         AS SD_QNTT_3
 					     , CQ.SD_QNTT_4         AS SD_QNTT_4
 					     , CQ.SD_QNTT_5         AS SD_QNTT_5
-					     , CQ.CTRT_PRCL         AS CTRT_PRCL
+					     , CQ.CRTR_PRCL         AS CRTR_PRCL
 					     , CQ.PLNTNG_PRCL       AS PLNTNG_PRCL
 					     , CQ.SDNG_YMD          AS SDNG_YMD
 					     , CQ.SDNG_STTS_CD      AS SDNG_STTS_CD
@@ -473,7 +473,7 @@
 					     , ''   AS SD_QNTT_3
 					     , ''   AS SD_QNTT_4
 					     , ''   AS SD_QNTT_5
-					     , ''   AS CTRT_PRCL
+					     , ''   AS CRTR_PRCL
 					     , ''   AS PLNTNG_PRCL
 					     , ''   AS SDNG_YMD
 					     , ''   AS SDNG_STTS_CD
@@ -570,7 +570,7 @@
 				 , SD_QNTT_3
 				 , SD_QNTT_4
 				 , SD_QNTT_5
-				 , CTRT_PRCL
+				 , CRTR_PRCL
 				 , PLNTNG_PRCL
 				 , SDNG_YMD
 				 , SDNG_STTS_CD
@@ -621,7 +621,7 @@
 				 , #{sdQntt3}
 				 , #{sdQntt4}
 				 , #{sdQntt5}
-				 , #{ctrtPrcl}
+				 , #{crtrPrcl}
 				 , #{plntngPrcl}
 				 , #{sdngYmd}
 				 , #{sdngSttsCd}
@@ -684,7 +684,7 @@
 				 , SD_QNTT_3                = #{sdQntt3}
 				 , SD_QNTT_4                = #{sdQntt4}
 				 , SD_QNTT_5                = #{sdQntt5}
-				 , CTRT_PRCL                = #{ctrtPrcl}
+				 , CRTR_PRCL                = #{crtrPrcl}
 				 , PLNTNG_PRCL              = #{plntngPrcl}
 				 , SDNG_YMD                 = #{sdngYmd}
 				 , SDNG_STTS_CD             = #{sdngSttsCd}

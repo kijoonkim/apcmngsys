@@ -224,10 +224,11 @@
 
 	var jsonApcItemCd		= [];	// 대표품목 rprsItemCd	Grid
 	var jsonApcVrtyCd		= [];	// 대표품종 rprsVrtyCd	Grid
-	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd	Grid
+	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd		Grid
 	var jsonComWrhsSeCd		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCd	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtrCd	= [];	// 정산기준 clclnCrtr	Grid
+	var jsonbankCd			= [];	// 은행코드 bankCd		Grid
 	var excelYn = "N";
 
 
@@ -239,6 +240,7 @@
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComTrsprtSeCd, 	'TRSPRT_SE_CD'),						// 운송구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD'),						// 정산기준
+			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonbankCd, 		'BANK_CD'),								// 은행코드
 			//gfn_setComCdSBSelect('prdcrDtl-slt-frmhsCtpv', jsonCtpvPrdcrDtlPop, 'CTPV', '0000'),		// 지역
 
 		]);
@@ -364,9 +366,12 @@
 	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
-			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'inputbutton',   width:'100px', style: 'text-align:center',
+			{caption: ["산지코드"],    	ref: 'plorCd',        		type:'inputbutton',   width:'100px', style: 'text-align:center',
 				typeinfo : {callback: fn_grdComCd}},
-			{caption: ["외부연결코드"],    	ref: 'extrnlLnkgCd',     type:'input',   width:'100px', style: 'text-align:center'},
+			{caption: ["외부연결코드"],    	ref: 'extrnlLnkgCd',    type: 'input',   width:'100px', style: 'text-align:center'},
+			{caption: ["은행"],    			ref: 'bankCd',     		type: 'inputcombo', 	width: '120px', 	style: 'text-align:center', sortable: false,
+				typeinfo: {ref:'jsonbankCd', 	label:'label', value:'value', itemcount: 10}},
+			{caption: ["계좌번호"],    		ref: 'actno',     		type: 'input',   width:'130px', style: 'text-align:center'},
 	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '300px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -499,6 +504,8 @@
 				  , itemVrtyCd		: gfn_isEmpty(item.rprsItemCd) ? item.rprsVrtyCd : item.rprsItemCd + item.rprsVrtyCd
 				  , agrcYn			: item.agrcYn
 				  , useYn			: item.useYn
+				  , bankCd			: item.bankCd
+				  , actno			: item.actno
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});

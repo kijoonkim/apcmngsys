@@ -291,10 +291,12 @@ public class PrdcrVO extends ComVO {
 
 	private int crtrArea;
 	private int plntngArea;
+	private int landCrtrArea;
+	private int landPlntngArea;
 	private int prchsQntt;
 	private int prchsAmt;
 
-	private int ctrtPrcl;
+	private int crtrPrcl;
 	private int plntngPrcl;
 	private String yr;
 
