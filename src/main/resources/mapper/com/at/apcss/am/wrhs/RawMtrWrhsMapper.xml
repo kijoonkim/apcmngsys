@@ -1605,23 +1605,29 @@
 	</select>
 	<select id="selectRawMtrWrhsToPltno" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultMap="StdGrdList">
 		SELECT
-			pt0.*,
-			(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+			pt0.*
 		FROM (
 				 SELECT
 					   RMWP.APC_CD AS APC_CD
 					  ,RMWP.WRHSNO AS WRHSNO
-					  ,RMWP.PRDCR_CD AS PRDCR_CD
+					  ,TPI.PRDCR_CD AS PRDCR_CD
+					  ,TPI.PRDCR_IDENTNO AS PRDCR_IDENTNO
+					  ,TPI.PRDCR_NM AS PRDCR_NM
 					  ,RMWP.PLTNO AS PLTNO
 					  ,RMWP.WRHS_YMD AS WRHS_YMD
 					  ,RMI.ITEM_CD AS ITEM_CD
 					  ,RMI.VRTY_CD AS VRTY_CD
+					  ,RMI.WRHS_QNTT AS WRHS_QNTT
+					  ,RMI.GRD_CD AS GRD_CD
 				 FROM usram.TB_RAW_MTR_WRHS_PRFMNC AS RMWP
 						  JOIN usram.TB_RAW_MTR_INVNTR AS RMI
 							   ON RMWP.APC_CD = RMI.APC_CD
 								   AND RMWP.WRHSNO  = RMI.WRHSNO
 								   AND RMWP.APC_CD = #{apcCd}
 								   AND RMWP.WRHS_YMD = #{wrhsYmd}
+						  JOIN usram.TB_PRDCR_INFO AS TPI
+							   ON RMWP.APC_CD = TPI.APC_CD
+								   AND RMWP.PRDCR_CD = TPI.PRDCR_CD
 				 ORDER BY RMWP.PLTNO) AS pt0;
 	</select>
 </mapper>
