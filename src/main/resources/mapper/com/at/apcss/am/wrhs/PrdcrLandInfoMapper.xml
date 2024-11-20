@@ -47,6 +47,8 @@
 			     , PLI.FRLN_SNO             AS FRLN_SNO
 			     , PLI.MNGMST_REGNO         AS MNGMST_REGNO
 			     , PLI.FRMERNO              AS FRMERNO
+			     , PLI.CRTR_AREA			AS CRTR_AREA
+				 , PLI.PLNTNG_AREA 			AS PLNTNG_AREA
 			     , PLI.DEL_YN               AS DEL_YN
 			  FROM TB_PRDCR_LAND_INFO PLI
 			 WHERE PLI.DEL_YN = 'N'
@@ -77,6 +79,8 @@
 					, FRLN_SNO
 					, MNGMST_REGNO
 					, FRMERNO
+					, CRTR_AREA
+					, PLNTNG_AREA
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -95,6 +99,8 @@
 					, #{frlnSno}
 					, #{mngmstRegno}
 					, #{frmerno}
+					, #{crtrArea}
+					, #{plntngArea}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -124,6 +130,8 @@
 				 , FRLN_SNO         		= #{frlnSno}
 				 , MNGMST_REGNO     		= #{mngmstRegno}
 				 , FRMERNO          		= #{frmerno}
+				 , CRTR_AREA				= #{crtrArea}
+				 , PLNTNG_AREA 				= #{plntngArea}
 				 , SYS_LAST_CHG_DT          = SYSDATE
 				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
 				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}

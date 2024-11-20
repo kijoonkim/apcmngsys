@@ -76,7 +76,7 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 계약필지
 	 * */
-	private int ctrtPrcl;
+	private int crtrPrcl;
 	/*
 	 * 정식필지
 	 * */

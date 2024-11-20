@@ -147,17 +147,15 @@
 								<table class="table table-bordered tbl_fixed">
 									<caption>일반현황</caption>
 									<colgroup>
-										<col style="width:10%">
-										<col style="width:10%">
-										<col style="width:10%">
-										<col style="width:10%">
-										<col style="width:20%">
-										<col style="width:5%">
-										<col style="width:5%">
 										<col style="width:8%">
-										<col style="width:5%">
-										<col style="width:5%">
+										<col style="width:6%">
+										<col style="width:6%">
 										<col style="width:8%">
+										<col style="width:6%">
+										<col style="width:6%">
+										<col style="width:8%">
+										<col style="width:6%">
+										<col style="width:6%">
 									</colgroup>
 									<tbody>
 										<tr>
@@ -175,7 +173,6 @@
 				    								oninput="fn_onInputPrdcrNmDtl(event)"
 				    								autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
 				    								autocomplete-height="270px"
-
 				   								></sbux-input>
 											</td>
 											<td class="td_input" style="border-right: hidden;">
@@ -190,12 +187,12 @@
 												></sbux-button>
 											</td>
 											<th scope="row" class="th_bg" >농가번호</th>
-											<td>
+											<td colspan="2">
 												<sbux-input id="dtl-inp-frmerno" name="dtl-inp-frmerno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 												<sbux-input id="dtl-inp-prdcrLinkCd" name="dtl-inp-prdcrLinkCd" class="form-control input-sm" uitype="hidden"></sbux-input>
 											</td>
-											<th colspan="2" scope="row" class="th_bg" >연락처</th>
-											<td colspan="4">
+											<th colspan="1" scope="row" class="th_bg" >연락처</th>
+											<td colspan="2">
 												<sbux-input
 													id="dtl-inp-frmhsTelno"
 													name="dtl-inp-frmhsTelno"
@@ -216,11 +213,34 @@
 				   								></sbux-input>
 											</td>
 											<th scope="row" class="th_bg" >상세주소</th>
-											<td >
+											<td colspan="2">
 												<sbux-input id="dtl-inp-frmhsAddr" name="dtl-inp-frmhsAddr" class="form-control input-sm" uitype="text" ></sbux-input>
 											</td>
-											<th colspan="2" scope="row" class="th_bg" >계약면적(평)</th>
-											<td colspan="4">
+											<th scope="row" class="th_bg" >계약면적(평)/(m2)</th>
+											<td>
+												<sbux-input
+													id="dtl-inp-crtrPrcl"
+													name="dtl-inp-crtrPrcl"
+													class="form-control input-sm"
+													uitype="text"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+													readonly
+												></sbux-input>
+											</td>
+											<td>
+												<sbux-input
+													id="dtl-inp-crtrPrclSquareFootage"
+													name="dtl-inp-crtrPrclSquareFootage"
+													class="form-control input-sm"
+													uitype="text"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+													readonly
+												></sbux-input>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row" class="th_bg" >정식면적(평)(m2)</th>
+											<td>
 												<sbux-input
 													id="dtl-inp-plntngPrcl"
 													name="dtl-inp-plntngPrcl"
@@ -230,32 +250,39 @@
 													readonly
 												></sbux-input>
 											</td>
-										</tr>
-										<tr>
-											<th scope="row" class="th_bg" >계약면적(m2)</th>
-											<td colspan="2">
-												<sbux-input
-													id="dtl-inp-squareFootage"
-													name="dtl-inp-squareFootage"
-													class="form-control input-sm"
-													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
-													readonly
-												></sbux-input>
-											</td>
-											<th scope="row" class="th_bg" >정식면적(평)</th>
 											<td>
 												<sbux-input
-													id="dtl-inp-ctrtPrcl"
-													name="dtl-inp-ctrtPrcl"
+													id="dtl-inp-plntngPrclSquareFootage"
+													name="dtl-inp-plntngPrclSquareFootage"
 													class="form-control input-sm"
 													uitype="text"
 													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 													readonly
 												></sbux-input>
 											</td>
-											<th colspan="2" scope="row" class="th_bg" >수매량(망)</th>
-											<td >
+											<th scope="row" class="th_bg" >농지면적(계약)/(정식)</th>
+											<td>
+												<sbux-input
+													id="dtl-inp-landPlntngArea"
+													name="dtl-inp-landPlntngArea"
+													class="form-control input-sm"
+													uitype="text"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+													readonly
+												></sbux-input>
+											</td>
+											<td>
+												<sbux-input
+													id="dtl-inp-landCrtrArea"
+													name="dtl-inp-landCrtrArea"
+													class="form-control input-sm"
+													uitype="text"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+													readonly
+												></sbux-input>
+											</td>
+											<th scope="row" class="th_bg" >수매량(망)/금액(원)</th>
+											<td>
 												<sbux-input
 													id="dtl-inp-prchsQntt"
 													name="dtl-inp-prchsQntt"
@@ -265,7 +292,6 @@
 													readonly
 												></sbux-input>
 											</td>
-											<th colspan="2" scope="row" class="th_bg" >수매금액(원)</th>
 											<td>
 												<sbux-input
 													id="dtl-inp-prchsAmt"
@@ -543,20 +569,24 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 
-	    	{caption : ["처리"], 	ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	{caption : ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procPrdcrLandInfo(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procPrdcrLandInfo(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	    	{caption : ['위치'], 	ref: 'frlnAddr', 	type: 'input', 	width: '360px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
-	    	{caption : ['법정동'], 	ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 10}},
-	    	{caption : ['본번'], 	ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
-	    	{caption : ['부번'], 	ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
-        	{caption : ['지도'], 	ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
+	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '220px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 10}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
+	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '70px', style: 'text-align: right; background:#FFF8DC;',
+                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right; background:#FFF8DC;',
+                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+        	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
-	    	{caption : ["이력"], 	ref: 'prdcrLandInfoNo',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	{caption : ["이력"], 		ref: 'prdcrLandInfoNo',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "";
 	        	}else{
@@ -654,7 +684,7 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		    {caption : ['품종(캔)', '찬스볼'], 		ref: 'sdQntt5', 	type: 'input', 		width: '80px',  style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['필지(평)', '계약'], 		ref: 'ctrtPrcl', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
+		    {caption : ['필지(평)', '계약'], 		ref: 'crtrPrcl', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		    {caption : ['필지(평)', '정식'], 		ref: 'plntngPrcl', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
@@ -911,9 +941,6 @@
 			let rowData = grdFrmhsExpctWrhs.getRowData(nRow);
 			let crtrYr = rowData.crtrYm.substring(0, 4);
 			let yr = SBUxMethod.get("srch-dtp-yr");
-
-			console.log("crtrYr", crtrYr)
-			console.log("yr", yr)
 
 			if (crtrYr != yr) {
 	  			gfn_comAlert("E0000", "조회연도와 입력연도가 다릅니다. 다른 연도 입력시 조회 후 입력 해주세요.");				//	E0000	{0}
@@ -1354,7 +1381,7 @@
 	   	        	  , sdQntt3             : fn_zero(item.sdQntt3)
 	   	        	  , sdQntt4             : fn_zero(item.sdQntt4)
 	   	        	  , sdQntt5             : fn_zero(item.sdQntt5)
-	   	        	  , ctrtPrcl            : fn_zero(item.ctrtPrcl)
+	   	        	  , crtrPrcl            : fn_zero(item.crtrPrcl)
 	   	        	  , plntngPrcl          : fn_zero(item.plntngPrcl)
 	   	        	  , sdngYmd             : item.sdngYmd
 	   	        	  , sdngSttsCd          : item.sdngSttsCd
@@ -1362,7 +1389,7 @@
 	   	        	  , plntngSttsCd        : item.plntngSttsCd
 	   	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
 	   	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
-	   	        	  , expctQntt           : item.expctQntt
+	   	        	  , expctQntt           : fn_zero(item.expctQntt)
 	   	        	  , qltEvl              : item.qltEvl
 	   	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
 	   	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
@@ -1625,7 +1652,7 @@
  	        	  , sdQntt3             : fn_zero(item.sdQntt3)
  	        	  , sdQntt4             : fn_zero(item.sdQntt4)
  	        	  , sdQntt5             : fn_zero(item.sdQntt5)
- 	        	  , ctrtPrcl            : fn_zero(item.ctrtPrcl)
+ 	        	  , crtrPrcl            : fn_zero(item.crtrPrcl)
  	        	  , plntngPrcl          : fn_zero(item.plntngPrcl)
  	        	  , sdngYmd             : item.sdngYmd
  	        	  , sdngSttsCd          : item.sdngSttsCd
@@ -1633,7 +1660,7 @@
  	        	  , plntngSttsCd        : item.plntngSttsCd
  	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
  	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
- 	        	  , expctQntt           : item.expctQntt
+ 	        	  , expctQntt           : fn_zero(item.expctQntt)
  	        	  , qltEvl              : item.qltEvl
  	        	  , tyEvl           	: fn_zero(item.tyEvl)
  	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
@@ -1976,7 +2003,7 @@
 		let plntngPrcl = SBUxMethod.get("dtl-inp-plntngPrcl");
 		let prchsQntt = SBUxMethod.get("dtl-inp-prchsQntt");
 		let prchsAmt = SBUxMethod.get("dtl-inp-prchsAmt");
-		let ctrtPrcl = SBUxMethod.get("dtl-inp-ctrtPrcl");
+		let crtrPrcl = SBUxMethod.get("dtl-inp-crtrPrcl");
 		let prdcrLinkCd = SBUxMethod.get("dtl-inp-prdcrLinkCd");
 		let frmerno = SBUxMethod.get("dtl-inp-frmerno");
 
@@ -2574,11 +2601,14 @@
 		SBUxMethod.set("dtl-inp-frmhsTelno", "");
 		SBUxMethod.set("dtl-inp-frmhsCtpv", "");
 		SBUxMethod.set("dtl-inp-frmhsAddr", "");
-		SBUxMethod.set("dtl-inp-ctrtPrcl", "");
+		SBUxMethod.set("dtl-inp-crtrPrcl", "");
 		SBUxMethod.set("dtl-inp-plntngPrcl", "");
+		SBUxMethod.set("dtl-inp-landCrtrArea", "");
+		SBUxMethod.set("dtl-inp-landPlntngArea", "");
 		SBUxMethod.set("dtl-inp-prchsQntt", "");
 		SBUxMethod.set("dtl-inp-prchsAmt", "");
-		SBUxMethod.set("dtl-inp-squareFootage", "");
+		SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", "");
+		SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", "");
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
  	}
 
@@ -2604,16 +2634,23 @@
 			SBUxMethod.set("dtl-inp-frmhsTelno", jsonPrdcrDtl.frmhsTelno);
 			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv);
 			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr);
-			SBUxMethod.set("dtl-inp-ctrtPrcl", jsonPrdcrDtl.ctrtPrcl);
+			SBUxMethod.set("dtl-inp-crtrPrcl", jsonPrdcrDtl.crtrPrcl);
 			SBUxMethod.set("dtl-inp-plntngPrcl", jsonPrdcrDtl.plntngPrcl);
+			SBUxMethod.set("dtl-inp-landCrtrArea", jsonPrdcrDtl.landCrtrArea);
+			SBUxMethod.set("dtl-inp-landPlntngArea", jsonPrdcrDtl.landPlntngArea);
 			SBUxMethod.set("dtl-inp-prchsQntt", jsonPrdcrDtl.prchsQntt);
 			SBUxMethod.set("dtl-inp-prchsAmt", jsonPrdcrDtl.prchsAmt);
 			SBUxMethod.set("dtl-inp-frmerno", jsonPrdcrDtl.frmerno);
 
-			if (!gfn_isEmpty(jsonPrdcrDtl.ctrtPrcl)) {
-				SBUxMethod.set("dtl-inp-squareFootage", Math.round(parseInt(jsonPrdcrDtl.ctrtPrcl) * 3.3));
+			if (!gfn_isEmpty(jsonPrdcrDtl.crtrPrcl)) {
+				SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", Math.round(parseInt(jsonPrdcrDtl.crtrPrcl) * 3.3));
 			} else {
-				SBUxMethod.set("dtl-inp-squareFootage", "");
+				SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", "");
+			}
+			if (!gfn_isEmpty(jsonPrdcrDtl.plntngPrcl)) {
+				SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", Math.round(parseInt(jsonPrdcrDtl.plntngPrcl) * 3.3));
+			} else {
+				SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", "");
 			}
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
@@ -2624,7 +2661,6 @@
 	}
 
 	const fn_setPrdcrFormDtl = async function(prdcrDtl) {
-
 		if (!gfn_isEmpty(prdcrDtl)) {
 			SBUxMethod.set("dtl-inp-prdcrNm", prdcrDtl.prdcrNm);
 			SBUxMethod.set("dtl-inp-prdcrCd", prdcrDtl.prdcrCd);
@@ -2632,15 +2668,22 @@
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", prdcrDtl.prdcrLinkCd);
 			SBUxMethod.set("dtl-inp-frmhsCtpv", prdcrDtl.frmhsCtpv);
 			SBUxMethod.set("dtl-inp-frmhsAddr", prdcrDtl.frmhsAddr);
-			SBUxMethod.set("dtl-inp-ctrtPrcl", prdcrDtl.ctrtPrcl);
+			SBUxMethod.set("dtl-inp-crtrPrcl", prdcrDtl.crtrPrcl);
 			SBUxMethod.set("dtl-inp-plntngPrcl", prdcrDtl.plntngPrcl);
+			SBUxMethod.set("dtl-inp-landCrtrArea", prdcrDtl.landCrtrArea);
+			SBUxMethod.set("dtl-inp-landPlntngArea", prdcrDtl.landPlntngArea);
 			SBUxMethod.set("dtl-inp-prchsQntt", prdcrDtl.prchsQntt);
 			SBUxMethod.set("dtl-inp-prchsAmt", prdcrDtl.prchsAmt);
 			SBUxMethod.set("dtl-inp-frmerno", prdcrDtl.frmerno);
-			if (!gfn_isEmpty(prdcrDtl.ctrtPrcl)) {
-				SBUxMethod.set("dtl-inp-squareFootage", Math.round(parseInt(prdcrDtl.ctrtPrcl) * 3.3));
+			if (!gfn_isEmpty(prdcrDtl.crtrPrcl)) {
+				SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", Math.round(parseInt(prdcrDtl.crtrPrcl) * 3.3));
 			} else {
-				SBUxMethod.set("dtl-inp-squareFootage", "");
+				SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", "");
+			}
+			if (!gfn_isEmpty(prdcrDtl.plntngPrcl)) {
+				SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", Math.round(parseInt(prdcrDtl.plntngPrcl) * 3.3));
+			} else {
+				SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", "");
 			}
 		} else {
 			SBUxMethod.set("dtl-inp-frmerno", "");
@@ -2648,11 +2691,14 @@
 			SBUxMethod.set("dtl-inp-frmhsTelno", "");
 			SBUxMethod.set("dtl-inp-frmhsCtpv", "");
 			SBUxMethod.set("dtl-inp-frmhsAddr", "");
-			SBUxMethod.set("dtl-inp-ctrtPrcl", "");
+			SBUxMethod.set("dtl-inp-crtrPrcl", "");
 			SBUxMethod.set("dtl-inp-plntngPrcl", "");
+			SBUxMethod.set("dtl-inp-landCrtrArea", "");
+			SBUxMethod.set("dtl-inp-landPlntngArea", "");
 			SBUxMethod.set("dtl-inp-prchsQntt", "");
 			SBUxMethod.set("dtl-inp-prchsAmt", "");
-			SBUxMethod.set("dtl-inp-squareFootage", "");
+			SBUxMethod.set("dtl-inp-crtrPrclSquareFootage", "");
+			SBUxMethod.set("dtl-inp-plntngPrclSquareFootage", "");
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 		}
 	}

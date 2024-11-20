@@ -177,13 +177,13 @@
 			     , FN_UTL_DECRYPT_ARIA(PR.ACTNO) AS ACTNO
 		]]>
 		<if test='yr != null and yr != ""'>
-				 , (SELECT CTRT_PRCL
+				 , (SELECT CRTR_PRCL
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
-                   ) AS CTRT_PRCL
+                   ) AS CRTR_PRCL
                  , (SELECT PLNTNG_PRCL
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
@@ -214,6 +214,16 @@
                  , FI.FRMERNO           AS FRMERNO
                  , NVL(PR.AGRC_YN, 'N')			AS AGRC_YN
 	    		 , PR.USE_YN			AS USE_YN
+	    		 , (SELECT SUM(CRTR_AREA)
+                      FROM TB_PRDCR_LAND_INFO X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                   ) AS LAND_CRTR_AREA
+                 , (SELECT SUM(PLNTNG_AREA)
+                      FROM TB_PRDCR_LAND_INFO X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                   ) AS LAND_PLNTNG_AREA
 
 			  FROM TB_PRDCR_INFO PR
 			     , TB_AX_FRMER_INFO FI

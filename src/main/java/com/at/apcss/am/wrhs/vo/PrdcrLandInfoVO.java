@@ -52,6 +52,15 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * */
 	private int frlnSno;
 	/*
+	 * 계약면적
+	 * */
+	private int crtrArea;
+	/*
+	 * 정식면적
+	 * */
+	private int plntngArea;
+
+	/*
 	 * 경영체등록번호
 	 * */
 	private String mngmstRegno;
