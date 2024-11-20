@@ -56,7 +56,7 @@
                 <table class="table table-bordered tbl_fixed table-search-ma" >
                 	<caption>검색 조건 설정</caption>
                     <colgroup>
-						<col style="width: 8%">
+							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
@@ -107,7 +107,7 @@
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg_search">지급기준명</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-input
                                 	uitype="text"
                                     id="srch-inp-payTermName"
@@ -144,7 +144,7 @@
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg_search">기준일자</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
 									uitype="popup" 
 									id="srch-dtp-standardDay" 
@@ -156,9 +156,9 @@
 		                            required
 								/>	
                             </td>
-                            <td colspan="3"></td>  
+                            <td></td>  
 							<th scope="row" class="th_bg_search">지급예정일</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-input
                                 	uitype="text"
                                     id="srch-inp-expectedDate"
@@ -167,7 +167,7 @@
                                     autocomplete="off"
                                 />	
                             </td>
-                            <td></td>
+                            <td colspan="6"></td>
                         </tr>
                  	</tbody>
                	</table>
