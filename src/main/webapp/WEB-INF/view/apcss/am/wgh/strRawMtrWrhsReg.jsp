@@ -685,8 +685,8 @@
     merged.forEach(function(item){
       if(data.hasOwnProperty(item.pltno)){
         if(data[item.pltno].length > 0){
-          item.kingBox = data[item.pltno].find((el) => el.pltBxCd === '0001').qntt;
-          item.box = data[item.pltno].find((el) => el.pltBxCd === '0002').qntt;
+          item.kingBox = data[item.pltno].find((el) => el.pltBxCd === '0001')?.qntt || 0;
+          item.box = data[item.pltno].find((el) => el.pltBxCd === '0002')?.qntt || 0;
         }
 
       }
@@ -752,6 +752,7 @@
     SBUxMethod.set("reg-slt-box",'');
     SBUxMethod.set("reg-inp-pltno",'');
     SBUxMethod.attr("btnCmndDocspmt","disabled","true");
+    SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:''");
     $("#searchTable > tbody tr").slice(1).remove();
     jsonSearchData.length = 0;
   }
