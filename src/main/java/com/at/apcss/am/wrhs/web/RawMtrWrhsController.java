@@ -536,7 +536,9 @@ public class RawMtrWrhsController extends BaseController {
 				pltWrhsSpmtVO.setJobYmd(pltno.getWrhsYmd());
 				pltWrhsSpmtVO.setWrhsSpmtSeCd("2");
 				pltMap = pltWrhsSpmtService.selectPltWrhsSpmtList(pltWrhsSpmtVO);
-				resultMap.put(pltno.getPltno(), pltMap);
+				if(pltMap.size() > 0 ){
+					resultMap.put(pltno.getPltno(), pltMap);
+				}
 			}
 
 		} catch (Exception e) {
