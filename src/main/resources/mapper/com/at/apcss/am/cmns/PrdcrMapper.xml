@@ -173,6 +173,8 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', PR.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', PR.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', PR.PLOR_CD) FROM DUAL) AS PLOR_NM
+			     , PR.BANK_CD			AS BANK_CD
+			     , FN_UTL_DECRYPT_ARIA(PR.ACTNO) AS ACTNO
 		]]>
 		<if test='yr != null and yr != ""'>
 				 , (SELECT CTRT_PRCL
@@ -513,6 +515,8 @@
 					, EXTRNL_LNKG_CD
 					, AGRC_YN
 					, USE_YN
+					, BANK_CD
+					, ACTNO
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
 	    		  	, SYS_FRST_INPT_PRGRM_ID
@@ -539,6 +543,8 @@
 					, #{extrnlLnkgCd}
 					, #{agrcYn}
 					, #{useYn}
+					, #{bankCd}
+					, FN_UTL_ENCRYPT_ARIA(#{actno})
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
 	   			  	, #{sysFrstInptPrgrmId}
@@ -580,6 +586,8 @@
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 				, AGRC_YN = #{agrcYn}
 			    , USE_YN = #{useYn}
+			    , BANK_CD = #{bankCd}
+				, ACTNO = FN_UTL_ENCRYPT_ARIA(#{actno})
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}
@@ -622,6 +630,8 @@
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 				, AGRC_YN = #{agrcYn}
 			    , USE_YN = #{useYn}
+			    , BANK_CD = #{bankCd}
+				, ACTNO = FN_UTL_ENCRYPT_ARIA(#{actno})
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}

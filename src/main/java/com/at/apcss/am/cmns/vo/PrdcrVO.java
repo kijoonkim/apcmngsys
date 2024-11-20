@@ -278,6 +278,15 @@ public class PrdcrVO extends ComVO {
 	 * 사용여부
 	 */
 	private String useYn;
+	/**
+	 * 은행코드
+	 */
+	private String bankCd;
+	private String bankNm;
+	/**
+	 * 계좌번호
+	 */
+	private String actno;
 
 
 	private int crtrArea;
