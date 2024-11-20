@@ -492,6 +492,7 @@
       SBUxMethod.set("reg-inp-prdcrCd", value);
       SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
       let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+      SBUxMethod.set("reg-inp-prdcrIdentno",prdcr.prdcrIdentno);
       prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
     }
   }
