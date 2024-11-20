@@ -536,7 +536,7 @@
 		//console.log("******************fn_pagingFcltInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-input-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){

@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.FcltPrgrsService;
-
+import com.at.apcss.fm.fclt.vo.FcltAllRawDataVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
  * @Class Name : FcltPrgrsController.java
  * @Description : 진척도에 대한 Controller 클래스
- * @author 임준완
+ * @author ljw
  * @since 2024.07.23
  * @version 1.0
  * @see
@@ -33,7 +33,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2024.07.23  임준완        최초 생성
+ * 2024.07.23  ljw        최초 생성
  * </pre>
  */
 @Controller
@@ -208,6 +208,24 @@ public class FcltPrgrsController extends BaseController {
 
 		try {
 			resultList = fcltPrgrsService.selectPrgrsRawData(fcltPrgrsVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 전체 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectAllRawData.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectAllRawData(Model model, @RequestBody FcltAllRawDataVO fcltAllRawDataVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltAllRawDataVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = fcltPrgrsService.selectAllRawData(fcltAllRawDataVO);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

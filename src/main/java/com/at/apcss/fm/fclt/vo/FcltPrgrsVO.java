@@ -75,6 +75,7 @@ public class FcltPrgrsVO extends ComVO{
 	private String ctpv;
 	private String sgg;
 	/*20241118 추가*/
+	private String apcAdmCd;	//APC행정구역코드(법정동코드)
 	private String ctpvNm;	//시도명
 	private String sggNm;	//시군구명
 
