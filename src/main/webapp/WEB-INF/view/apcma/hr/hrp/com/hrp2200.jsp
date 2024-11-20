@@ -673,29 +673,29 @@
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', /*hidden: true,*/
+            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '100px', style: 'text-align:center', /*hidden: true,*/
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 
-                    return "<button type='button' class='ma-btn1' style='width:40px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:40px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…<!--<img src='../../../resource/images/find2.png' width='12px' />--></button>";
                     //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
+            {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["TXN_ID"], ref: 'TXN_ID', type: 'input', width: '100px', style: 'text-align:left', hidden: true},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
