@@ -495,10 +495,9 @@ async function cfn_search() {
 	        	type:'output',
 	        	width:'100px',
 	        	style:'text-align:right',
-	        	typeinfo : {mask : {alias : 'numeric'}},
 	        	format : {
 	        		type:'number',
-	        		rule:'#,###  '
+	        		rule:'#.###'
 	        	}
 	        },
 	        {
@@ -754,7 +753,6 @@ async function cfn_search() {
 	 	  		});
 
  	        const data = await postJsonPromise;
-
 
  	    	if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
