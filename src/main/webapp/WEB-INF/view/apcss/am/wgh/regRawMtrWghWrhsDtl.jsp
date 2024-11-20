@@ -184,8 +184,8 @@
 
         _json.grdQntt1 = bxQntt[0];
         _json.grdQntt2 = bxQntt[1];
-        _json.bxQntt = parseInt(bxQntt[0]) + parseInt(bxQntt[1]);
-        _json.clacWght = parseInt(_json.wrhsWght) / parseInt(_json.bxQntt);
+        _json.bxQntt = parseFloat(bxQntt[0]) + parseFloat(bxQntt[1]);
+        _json.clacWght = parseFloat(_json.wrhsWght) / parseFloat(_json.bxQntt);
         jsonRawMtrWrhs.push(_json);
     }
     const fn_init = async function(){
@@ -203,20 +203,20 @@
         SBGridProperties.columns = [
             {caption: ["처리","처리"],		ref: 'apcCd',      type:'output',  width:'4%',    style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";}},
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_deleteWghPrfmnc(" + nRow + ")'>삭제</button>";}},
             {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["품목","품목"],		ref: 'itemNm',      type:'output',  width:'6%',    style:'text-align:center'},
             {caption: ["농가","농가"],		ref: 'prdcrNm',      type:'output',  width:'6%',    style:'text-align:center'},
             {caption: ["산지","산지"],		ref: 'plorNm',      type:'output',  width:'11%',    style:'text-align:center'},
             {caption: ["차량번호","차량번호"],		ref: 'vhclno',      type:'output',  width:'11%',    style:'text-align:center'},
-            {caption: ["총중량","총중량"],		ref: 'wholWght',      type:'output',  width:'6%',    style:'text-align:center'},
-            {caption: ["공차<br>중량","공차<br>중량"],		ref: 'emptVhclWght',      type:'output',  width:'6%',    style:'text-align:center'},
-            {caption: ["실중량","실중량"],		ref: 'wrhsWght',      type:'output',  width:'6%',    style:'text-align:center'},
-            {caption: ["콘티수","콘티수"],		ref: 'bxQntt',      type:'output',  width:'6%',    style:'text-align:center'},
-            {caption: ["상품출고","정품"],		ref: 'grdQntt1',      type:'output',  width:'4%',    style:'text-align:center'},
-            {caption: ["상품출고","비품"],		ref: 'grdQntt2',      type:'output',  width:'4%',    style:'text-align:center'},
+            {caption: ["총중량","총중량"],		ref: 'wholWght',      type:'output',  width:'6%',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
+            {caption: ["공차<br>중량","공차<br>중량"],		ref: 'emptVhclWght',      type:'output',  width:'6%',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["실중량","실중량"],		ref: 'wrhsWght',      type:'output',  width:'6%',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["콘티수","콘티수"],		ref: 'bxQntt',      type:'output',  width:'6%',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["상품출고","정품"],		ref: 'grdQntt1',      type:'output',  width:'4%',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["상품출고","비품"],		ref: 'grdQntt2',      type:'output',  width:'4%',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["파렛트수","파렛트수"],		ref: 'pltQntt',      type:'output',  width:'6%',    style:'text-align:center'},
-            {caption: ["실중량<br>콘티","실중량<br>콘티"],		ref: 'clacWght',      type:'output',  width:'5%',    style:'text-align:center'},
+            {caption: ["실중량<br>콘티","실중량<br>콘티"],		ref: 'clacWght',      type:'output',  width:'5%',    style:'text-align:right', format : {type:'number', rule:'#,###.#'}},
             {caption: ["비고","비고"],		ref: 'rmrk',      type:'output',  width:'12%',    style:'text-align:center'},
         ];
         grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
@@ -258,6 +258,33 @@
             stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
         ]);
     }
+
+
+    const fn_deleteWghPrfmnc = async function (nRow) {
+    	let rowData = grdRawMtrWrhs.getRowData(nRow);
+		let deleteList = [];
+
+		deleteList.push(rowData);
+
+    	const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncList.do", deleteList);
+    	const data = await postJsonPromise;
+
+    	try {
+    		if (_.isEqual("S", data.resultStatus)) {
+       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+       			grdRawMtrWrhs.deleteRow(nRow);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+    }
+
     const fn_search = async function(){
         let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");
         let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");
