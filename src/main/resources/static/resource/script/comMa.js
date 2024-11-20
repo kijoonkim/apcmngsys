@@ -284,6 +284,23 @@ const gfnma_nvl = function (val) {
 }
 
 /**
+ * @name 		gfnma_nvl2
+ * @description undefined 를 '' 로 변환 / 숫자는 그대로 리턴
+ * @function
+ * @param 		{string} 
+ * @returns 	{string}
+ */
+const gfnma_nvl2 = function (val) {
+	var str = '';
+	if(val==='' || val===null || val===undefined || val==='undefined'){
+		str = '';
+	} else {
+		return val;
+	}
+	return str;
+}
+
+/**
  * @name 		gfnma_formIdStr
  * @description url 에서 formId 추출하기
  * @function
