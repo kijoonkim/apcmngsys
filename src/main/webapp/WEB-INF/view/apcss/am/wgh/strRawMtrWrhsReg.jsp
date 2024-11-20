@@ -556,22 +556,28 @@
 
 
   const fn_save = async function(){
+    if(!gfn_comConfirm("Q0001","저장")){
+      return;
+    }
     let wrhsYmd = SBUxMethod.get("reg-dtp-wrhsYmd");
     let regList = [];
     /** 수정모드 확인 **/
     let pltno = SBUxMethod.get("reg-inp-pltno");
-    let updateFlag = false;
+    let updateFlag = true;
 
     /** 1. pltno select **/
     if(gfn_isEmpty(pltno)){
       const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
       pltno = data.pltno;
       SBUxMethod.set("reg-inp-pltno",pltno);
-      updateFlag = true;
+      updateFlag = false;
     }
 
     /** 2. 공통정보 table get **/
     let regObj = gfn_getTableElement("regTable","reg-",["box","kingBox","pltno"]);
+    if(!regObj){
+      return;
+    }
     /** 3. 품목 갯수별 obj **/
     let regEl = Array.from($("#regTable tbody tr td div div input"));
     regEl.forEach(function(item){
@@ -635,10 +641,8 @@
       }
       const data = await postJsonPromise;
       if(data.resultStatus === 'S'){
-        if(gfn_comConfirm("Q0001","전표출력")){
-          await fn_docRawMtrWrhs();
-        }
-        fn_reset();
+        gfn_comAlert("I0001");
+        SBUxMethod.attr("btnCmndDocspmt","disabled","false");
       }
     }catch (e) {
       console.error(e);

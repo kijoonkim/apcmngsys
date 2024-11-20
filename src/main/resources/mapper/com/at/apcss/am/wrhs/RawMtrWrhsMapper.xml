@@ -1625,6 +1625,7 @@
 								   AND RMWP.WRHSNO  = RMI.WRHSNO
 								   AND RMWP.APC_CD = #{apcCd}
 								   AND RMWP.WRHS_YMD = #{wrhsYmd}
+								   AND RMWP.DEL_YN ='N'
 						  JOIN usram.TB_PRDCR_INFO AS TPI
 							   ON RMWP.APC_CD = TPI.APC_CD
 								   AND RMWP.PRDCR_CD = TPI.PRDCR_CD
