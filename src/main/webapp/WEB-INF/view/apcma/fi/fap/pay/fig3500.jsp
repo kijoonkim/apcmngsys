@@ -941,7 +941,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'94px',  style:'text-align:left'},
+            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'94px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
             {caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'182px',  style:'text-align:left'},
             {caption: ["적요"],         ref: 'DESCRIPTION',    type:'output',  	width:'217px',  style:'text-align:left'},
             {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',

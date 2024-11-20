@@ -1613,7 +1613,7 @@
                 ]
                 , callback : function(value) {
                     if (!bnew) return;
-                    console.log(jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value))
+
                     SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
                     SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
                     SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
@@ -1635,10 +1635,10 @@
         ]);
     }
 
-    var fn_getBankAccountSeq = function () {
+    var fn_getBankAccountSeq = async function () {
         // 계좌정보
-        gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
-        gfnma_multiSelectInit({
+        await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
+        await gfnma_multiSelectInit({
             target: ['#BANK_ACCOUNT_SEQ']
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
@@ -1666,7 +1666,7 @@
             ]
             , callback : function(value) {
                 if (!bnew) return;
-                console.log(jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value))
+
                 SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
                 SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
                 SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
@@ -1683,7 +1683,7 @@
             return;
 
         SBUxMethod.set("DIFF_DAY", (gfn_diffDate(SBUxMethod.get('PAY_BASE_DATE'))/ (1000 * 60 * 60 * 24), value));
-        fn_getBankAccountSeq();
+        await fn_getBankAccountSeq();
 
         if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
             let ht1 = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
@@ -1758,7 +1758,7 @@
                 SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NAME));
                 SBUxMethod.set('PAY_METHOD', gfn_nvl(data.PAY_METHOD));
                 SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CURRENCY_CODE));
-                SBUxMethod.set('BANK_ACCOUNT_SEQ', gfn_nvl(data.BANK_ACCOUNT_SEQ));
+
                 SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
                 SBUxMethod.set('WITHHOLD_TAX_YN', gfn_nvl(data.WITHHOLD_TAX_YN));
                 SBUxMethod.set('STEEL_SCRAP_PAY_YN', gfn_nvl(data.STEEL_SCRAP_PAY_YN));
@@ -3687,7 +3687,7 @@
 
         fn_getExchange();
 
-        fn_getBankAccountSeq();
+        await fn_getBankAccountSeq();
 
         if (gfn_nvl(SBUxMethod.get("PAY_TERM_CODE")) == "" || value == "")
             return;
@@ -5306,7 +5306,8 @@
                     SBUxMethod.set('CONFIRM_EMP_CODE', formData.CONFIRM_EMP_CODE);
                     SBUxMethod.set('PROXY_EMP_CODE', formData.PROXY_EMP_CODE);
                     SBUxMethod.set('TEMP_AREA', formData.TEMP_AREA);
-                    gfnma_multiSelectSet('#BANK_ACCOUNT_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', gfn_nvl(formData.BANK_ACCOUNT_SEQ));
+                    await fn_getBankAccountSeq();
+
                     SBUxMethod.set('BANK_CODE', formData.BANK_CODE);
                     SBUxMethod.set('BANK_ACCOUNT_NO', formData.BANK_ACCOUNT_NO);
                     SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', formData.BANK_ACCOUNT_DESCRIPTION);
@@ -5325,6 +5326,7 @@
                     SBUxMethod.set('BEFORE_PROXY_EMP_CODE', formData.BEFORE_PROXY_EMP_CODE);
                     SBUxMethod.set('NEXT_APPR_EMP', formData.NEXT_APPR_EMP);
                     SBUxMethod.set('BILL_NO', formData.BILL_NO);
+                    await gfnma_multiSelectSet('#BANK_ACCOUNT_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', gfn_nvl(formData.BANK_ACCOUNT_SEQ));
                 }
 
                 listData.cv_2.forEach((item, index) => {
@@ -5843,7 +5845,7 @@
             SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "true");
 
             // 지급만기일 - 지급기산일 = 일수
-            SBUxMethod.set("DIFF_DAY", ((gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")), gfn_diffDate(SBUxMethod.get("EXPECTED_PAY_DATE"))/ (1000 * 60 * 60 * 24)));
+            SBUxMethod.set("DIFF_DAY", gfn_diffDate((gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")), (SBUxMethod.get("EXPECTED_PAY_DATE"))) / (1000 * 60 * 60 * 24));
         }
     }
 
