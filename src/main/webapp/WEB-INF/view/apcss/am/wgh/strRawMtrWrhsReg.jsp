@@ -560,12 +560,14 @@
     let regList = [];
     /** 수정모드 확인 **/
     let pltno = SBUxMethod.get("reg-inp-pltno");
+    let updateFlag = false;
 
     /** 1. pltno select **/
     if(gfn_isEmpty(pltno)){
       const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
       pltno = data.pltno;
       SBUxMethod.set("reg-inp-pltno",pltno);
+      updateFlag = true;
     }
 
     /** 2. 공통정보 table get **/
@@ -623,8 +625,14 @@
     }
 
     try{
-      const postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrWrhsListAndPlt.do",
-              {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
+      let postJsonPromise;
+      if(updateFlag){
+        postJsonPromise = gfn_postJSON("/am/wrhs/updateRawMtrWrhsListAndPlt.do",
+                {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
+      }else{
+        postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrWrhsListAndPlt.do",
+                {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
+      }
       const data = await postJsonPromise;
       if(data.resultStatus === 'S'){
         if(gfn_comConfirm("Q0001","전표출력")){
@@ -676,8 +684,11 @@
     /** 박스분출 정보 **/
     merged.forEach(function(item){
       if(data.hasOwnProperty(item.pltno)){
-        item.kingBox = data[item.pltno].find((el) => el.pltBxCd === '0001').qntt;
-        item.box = data[item.pltno].find((el) => el.pltBxCd === '0002').qntt;
+        if(data[item.pltno].length > 0){
+          item.kingBox = data[item.pltno].find((el) => el.pltBxCd === '0001').qntt;
+          item.box = data[item.pltno].find((el) => el.pltBxCd === '0002').qntt;
+        }
+
       }
     });
     jsonSearchData = [...merged];

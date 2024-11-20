@@ -551,4 +551,43 @@ public class RawMtrWrhsController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/wrhs/updateRawMtrWrhsListAndPlt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateRawMtrWrhsListAndPlt(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = 0;
+
+		Object rawMtrWrhsListData = param.get("rawMtrWrhsList");
+		Object pltWrhsSpmtVOData = param.get("pltWrhsSpmt");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<RawMtrWrhsVO> rawMtrWrhsList = objectMapper.convertValue(
+				rawMtrWrhsListData,
+				new TypeReference<List<RawMtrWrhsVO>>() {
+				}
+		);
+		List<PltWrhsSpmtVO> pltWrhsSpmtList = objectMapper.convertValue(
+				pltWrhsSpmtVOData,
+				new TypeReference<List<PltWrhsSpmtVO>>() {
+				}
+		);
+		try {
+//			cnt = rawMtrWrhsService.insertRawMtrWrhsListAndPlt(rawMtrWrhsList, pltWrhsSpmtList);
+//			if (cnt < 1) {
+//				return getErrorResponseEntity(new Exception());
+//			}
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			resultMap.put(ComConstants.PROP_UPDATED_CNT, cnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+	}
+
+
 }
