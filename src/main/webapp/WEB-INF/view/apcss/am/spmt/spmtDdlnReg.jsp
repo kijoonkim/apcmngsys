@@ -28,7 +28,12 @@
 			display: flex;
 			gap: 10px;
 		}
+
+		#dhtyJobTab, #jobCnTab, #mrktAnls, #invntrSttn1, #invntrSttn2, #wrhsSttn{
+			padding:0px
+		}
 	</style>
+
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -111,9 +116,14 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>출고일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>기준일자</th>
 							<td colspan="24" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="range" id="srch-dtp-spmtYmd" name="srch-dtp-spmtYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+								<sbux-datepicker
+									uitype="range"
+									id="srch-dtp-spmtYmd"
+									name="srch-dtp-spmtYmd"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
 							</td>
 						</tr>
 
@@ -172,7 +182,7 @@
 
 				<!-- 엑셀 시트별 데이터 영역 -->
 			</div>
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData" >
+				<sbux-tabs id="idxTab_norm" class="sbuxTabContent" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData" >
 				</sbux-tabs>
 				<div class="tab-content" >
 					<div id="dhtyJobTab">
@@ -314,8 +324,9 @@
 			 	fn_callSelectPltList(jsonBx,"B"),
 			 	fn_callSelectPltList(jsonPlt,"P")
 			]);
-
-		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+		let today = gfn_dateToYmd(new Date());
+		SBUxMethod.set("srch-dtp-spmtYmd", [today,today]);
+		SBUxMethod.set("srch-dtp-spmtDdlnYmd", today);
 	}
 
 
