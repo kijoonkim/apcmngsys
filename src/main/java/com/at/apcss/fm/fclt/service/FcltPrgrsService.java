@@ -2,12 +2,13 @@ package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
 
+import com.at.apcss.fm.fclt.vo.FcltAllRawDataVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
  * 진척도 Service 인터페이스
- * @author
+ * @author ljw
  * @since 2024.07.23
  * @version 1.0
  * @see
@@ -16,7 +17,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2024.07.23          최초 생성
+ * 2024.07.23  ljw        최초 생성
  * </pre>
  */
 public interface FcltPrgrsService {
@@ -84,5 +85,13 @@ public interface FcltPrgrsService {
 	 * @throws Exception
 	 */
 	public List<FcltPrgrsVO> selectPrgrsRawData(FcltPrgrsVO fcltPrgrsVO) throws Exception;
+
+	/**
+	 * 전체 로우데이터를 조회한다.
+	 * @param fcltAllRawDataVO
+	 * @return List<FcltAllRawDataVO>
+	 * @throws Exception
+	 */
+	public List<FcltAllRawDataVO> selectAllRawData(FcltAllRawDataVO fcltAllRawDataVO) throws Exception;
 
 }
