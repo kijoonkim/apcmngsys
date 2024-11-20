@@ -706,7 +706,7 @@
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right', sortable: false,
-	        	format : {type:'number', rule:'#,###'}
+	        	format : {type:'number', rule:'#.###'}
 	        },
 	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'100px',    style:'text-align:center', sortable: false},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',	type:'output',  width:'100px',    style:'text-align:center'},

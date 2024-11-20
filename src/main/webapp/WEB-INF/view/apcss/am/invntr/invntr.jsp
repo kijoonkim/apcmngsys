@@ -329,19 +329,19 @@
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["입고","중량 (Kg)"],		ref: 'wrhsWght',      	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["투입","수량"],				ref: 'inptQntt',      	type:'output',  width:'85px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["투입","중량 (Kg)"],		ref: 'inptWght',      	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
         	},
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'200px', style:'text-align:center',  filtering : {usemode : false}},
 	        {caption: ["_","_"],				ref: '_',      		type:'output',  width:'1px',  filtering : {usemode : false}}
@@ -751,19 +751,19 @@
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["선별","중량 (Kg)"],		ref: 'sortWght',      	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["포장","중량 (Kg)"],		ref: 'pckgWght',     	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number', rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'200px', style:'text-align:center',  filtering : {usemode : false}},
 	        {caption: ["_","_"],				ref: '_',      		type:'output',  width:'1px',  filtering : {usemode : false}}
@@ -1092,19 +1092,19 @@
 	        	format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["포장","중량 (Kg)"],		ref: 'pckgWght',      	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number',rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["출하","수량"],				ref: 'spmtQntt',      	type:'output',  width:'85px',    style:'text-align:right',
        			format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
         	},
 	        {caption: ["출하","중량 (Kg)"],		ref: 'spmtWght',      	type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number',rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:right',
 	        	format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
         	},
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:right',
-	        	format : {type:'number',rule:'#,###'},  filtering : {usemode : false}
+	        	format : {type:'number',rule:'#.###'},  filtering : {usemode : false}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'200px', style:'text-align:center',  filtering : {usemode : false}},
 	        {caption: ["_","_"],				ref: '_',      		type:'output',  width:'1px',  filtering : {usemode : false}}
