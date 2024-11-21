@@ -225,7 +225,6 @@
 	//-----------------------------------------------------------
 	var jsonEmpState = []; // 재직구분
 	const fn_initSBSelect = async function() {
-		"AND COMP_CODE ='" + gv_ma_selectedCorpCd + "'"
 		let rst = await Promise.all([
 			//재직구분
 		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
