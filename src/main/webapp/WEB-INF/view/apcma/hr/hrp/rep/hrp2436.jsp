@@ -1122,14 +1122,14 @@
         if (SENDTYPE == "ALL") {
             conn = await fn_GetReportData('REPORT5', rowData);
             conn = await gfnma_convertDataForReport(conn);
-
             gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_ALL.crf", conn, 'testFile');
+
         } else if(SENDTYPE == "PAY") {
             conn = await fn_GetReportData('REPORT3', rowData);
             conn = await gfnma_convertDataForReport(conn);
-
             //fn_pdfDowmload("급여명세서",  "ma/RPT_HRP2436_Q_PAY.crf", '', conn );
             gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_PAY.crf", conn, '급여명세서');
+
         } else if(SENDTYPE == "WORK") {
             conn = await fn_GetReportData('REPORT4', rowData);
             conn = await gfnma_convertDataForReport(conn);
