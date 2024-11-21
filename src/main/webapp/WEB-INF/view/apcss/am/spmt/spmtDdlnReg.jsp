@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 출고마감 등록(지우)</title>
+	<title>title : 생산속보(지우)</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -47,7 +47,14 @@
 				</div>
 				<div style="margin-left: auto;">
 
-
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_save"
+						text="저장"
+					></sbux-button>
 					<sbux-button
 						id="btnReset"
 						name="btnReset"
@@ -141,7 +148,7 @@
 					<tbody>
 						<tr>
 							<td style="border-left:hidden"></td>
-							<td style="border-left:hidden">
+							<td class="td_input" style="border-left:hidden">
 								<sbux-datepicker
 									uitype="popup"
 									id="srch-dtp-spmtDdlnYmd"
@@ -187,32 +194,32 @@
 				<div class="tab-content" >
 					<div id="dhtyJobTab">
 						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdDhtyJob" style="height:350px;"></div>
+							<div id="sb-area-grdDhtyJob" style="height:530px;"></div>
 						</div>
 					</div>
 					<div id="jobCnTab">
-						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdJobCn" style="height:350px;"></div>
+						<div class="table-responsive tbl_scroll_sm"  >
+							<div id="sb-area-grdJobCn" style="height:530px;"></div>
 						</div>
 					</div>
 					<div id="mrktAnls">
 						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdMrktAnls" style="height:350px;"></div>
+							<div id="sb-area-grdMrktAnls" style="height:530px;"></div>
 						</div>
 					</div>
 					<div id="invntrSttn1">
 						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdInvntrSttn1" style="height:350px;"></div>
+							<div id="sb-area-grdInvntrSttn1" style="height:530px;"></div>
 						</div>
 					</div>
 					<div id="invntrSttn2">
 						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdInvntrSttn2" style="height:350px;"></div>
+							<div id="sb-area-grdInvntrSttn2" style="height:530px;"></div>
 						</div>
 					</div>
 					<div id="wrhsSttn">
 						<div class="table-responsive tbl_scroll_sm" >
-							<div id="sb-area-grdWrhsSttn" style="height:350px;"></div>
+							<div id="sb-area-grdWrhsSttn" style="height:530px;"></div>
 						</div>
 					</div>
 
@@ -374,7 +381,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
+	    //SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리"],
@@ -389,7 +396,7 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdDhtyJob," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["출고일자"],		ref: 'spmtYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["출고일자"],		ref: 'spmtYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 	        {caption: ["총작업인원"],		ref: 'jobNope',      type:'input',  width:'120px',    style:'text-align:center', sortable: false,
 	        	dataType : 'number' ,format : {type:'number', rule:'#,###'}
 	        },
@@ -402,14 +409,14 @@
 	        {caption: ["Kg당 작업비용(원)"],	ref: 'unitWorkPrc',    type:'input',  width:'120px',    style:'text-align:center', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["인당 작업량(Kg)"],	ref: 'totSpmtWght',    type:'input',  width:'120px',    style:'text-align:center', sortable: false,
+	        {caption: ["인당 작업량(Kg)"],	ref: 'workSpmtWght',    type:'input',  width:'120px',    style:'text-align:center', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["ISSUE"],	ref: 'issue',    type:'input',  width:'120px',    style:'text-align:center', sortable: false}
 	        ];
 
 	    grdDhtyJob = _SBGrid.create(SBGridProperties);
-	    //grdRawMtrWrhs.bind('valuechanged','fn_grdValueChanged');
+	    grdDhtyJob.bind('valuechanged','fn_grdDhtyJobValueChanged');
 	    grdDhtyJob.addRow();
 	}
 
@@ -427,7 +434,7 @@
 		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
+	    //SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"],
@@ -442,7 +449,7 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdJobCn," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["선별일자","선별일자"],		ref: 'sortYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["선별일자","선별일자"],		ref: 'sortYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 	        {caption: ["선별수량(가구)","선별수량(가구)"],		ref: 'sortQntt',      type:'input',  width:'120px',    style:'text-align:center', sortable: false,
 	        	dataType : 'number' ,format : {type:'number', rule:'#,###'}
 	        },
@@ -454,7 +461,7 @@
 	    jsonCnpt.forEach(item => {
 	    	var col1 = {
 	    	caption: [item.cnptNm,"검품출고"]
-	    	, ref: 'igiSpmtQntt' + item.cnptCd
+	    	, ref: 'igiSpmtQntt' + "_" + item.cnptCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -465,7 +472,7 @@
 		        	;
 	    	var col2 = {
 	    	caption: [item.cnptNm,"실출고"]
-	    	, ref: 'realSpmtQntt' + item.cnptCd
+	    	, ref: 'realSpmtQntt' +"_"+ item.cnptCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -506,7 +513,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
+	    //SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"],
@@ -521,12 +528,12 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdMrktAnls," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["시황일자","시황일자"],		ref: 'mrktCndYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["시황일자","시황일자"],		ref: 'mrktCndYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 	        ];
 	    	jsonCnpt.forEach(item => {
 	    	var col1 = {
 	    	caption: [item.cnptNm,"실 출고량"]
-	    	, ref: 'realSpmtQntt' + item.cnptCd
+	    	, ref: 'realSpmtQntt' + "_" + item.cnptCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -537,7 +544,7 @@
 		        	;
 	    	var col2 = {
 	    	caption: [item.cnptNm,"판매금액"]
-	    	, ref: 'ntslAmt' + item.cnptCd
+	    	, ref: 'ntslAmt' + "_" + item.cnptCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -579,7 +586,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
+	    //SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"],
@@ -594,7 +601,7 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdInvntrSttn1," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 
 
 	        ];
@@ -602,7 +609,7 @@
 	    jsonGrd.forEach(item => {
 	    	var col1 = {
 	    	caption: [item.grdNm,"빨강"]
-	    	, ref: 'red' + item.grdCd
+	    	, ref: 'gds_red' + "_" + item.grdCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -613,7 +620,7 @@
 		        	;
 	    	var col2 = {
    	    	caption: [item.grdNm,"노랑"]
-   	    	, ref: 'ylw' + item.grdCd
+   	    	, ref: 'gds_ylw' + "_" + item.grdCd
    	    	, type:'input'
    	    	, width:'80px'
    	    	, style:'text-align:center'
@@ -623,7 +630,7 @@
    	    	}
 	    	var col3 = {
     	    caption: [item.grdNm,"주황"]
-    	    , ref: 'org' + item.grdCd
+    	    , ref: 'gds_org' + "_" + item.grdCd
     	    , type:'input'
     	    , width:'80px'
     	    , style:'text-align:center'
@@ -638,7 +645,7 @@
 	    });
 	    var col1 = {
 		    	caption: ["아이보리","아이보리"]
-		    	, ref: 'ivory'
+		    	, ref: 'gds_ivory'
 		    	, type:'input'
 		    	, width:'80px'
 		    	, style:'text-align:center'
@@ -648,7 +655,7 @@
 		    	}
 	    var col2 = {
 		    	caption: ["보라","보라"]
-		    	, ref: 'purple'
+		    	, ref: 'gds_purple'
 		    	, type:'input'
 		    	, width:'80px'
 		    	, style:'text-align:center'
@@ -658,7 +665,7 @@
 		    	}
 	    var col3 = {
 		    	caption: ["녹색","녹색"]
-		    	, ref: 'green'
+		    	, ref: 'gds_green'
 		    	, type:'input'
 		    	, width:'80px'
 		    	, style:'text-align:center'
@@ -673,7 +680,7 @@
 	    jsonBx.forEach(item => {
 	    	var col1 = {
 	    	caption: [item.pltBxNm,item.pltBxNm]
-	    	, ref: item.pltBxSeCd + item.pltBxCd
+	    	, ref: item.pltBxSeCd +"_"+ item.pltBxCd
 	    	, type:'output'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -687,7 +694,7 @@
 	    jsonPlt.forEach(item => {
 	    	var col1 = {
 	    	caption: [item.pltBxNm,item.pltBxNm]
-	    	, ref: item.pltBxSeCd + item.pltBxCd
+	    	, ref: item.pltBxSeCd +"_"+ item.pltBxCd
 	    	, type:'input'
 	    	, width:'80px'
 	    	, style:'text-align:center'
@@ -716,7 +723,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
+	    //SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"],
@@ -731,7 +738,7 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdInvntrSttn2," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 
 	        ];
 		var gdsSe = [
@@ -752,7 +759,7 @@
 			colorSe.forEach(item2 =>{
 				var col1 = {
 				    	caption: [item.nm,item2.nm]
-				    	, ref: item.cd + item2.cd
+				    	, ref: item.cd + "_" + item2.cd
 				    	, type:'input'
 				    	, width:'80px'
 				    	, style:'text-align:center'
@@ -782,7 +789,6 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"],
@@ -797,7 +803,7 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdWrhsSttn," + nRow + ")'>삭제</button>";
 					}
 		    }},
-		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yyyy-mm-dd'},  width:'120px',    style:'text-align:center', sortable: false},
+		    {caption: ["재고일자","재고일자"],		ref: 'invntrYmd',      type:'datepicker', typeinfo : {dateformat :'yymmdd'},  width:'120px',    style:'text-align:center', sortable: false},
 
 	        ];
 		var gdsSe = [
@@ -820,7 +826,7 @@
 			colorSe.forEach(item2 =>{
 				var col1 = {
 				    	caption: [item.nm,item2.nm]
-				    	, ref: item.cd + item2.cd
+				    	, ref: item.cd + "_" +item2.cd
 				    	, type:'input'
 				    	, width:'80px'
 				    	, style:'text-align:center'
@@ -960,7 +966,7 @@
      * @name fn_save
      * @description 저장 버튼
      */
-    const fn_save = async function() {
+    const fn_realsave = async function() {
 
 		let prcsType = SBUxMethod.get("srch-inp-prcsType");
 		let allData = grdRawMtrWrhs.getGridDataAll();
@@ -1188,7 +1194,90 @@
         }
 	}
 
+	const fn_grdDhtyJobValueChanged = function(){
+		let rowIdx = grdDhtyJob.getRow();
+		let rowData = grdDhtyJob.getRowData(rowIdx);
 
+		if (rowData.jobNope ==="" || rowData.totLbrco ==="" || rowData.totSpmtWght ===""){
+			return;
+		}
+		let jobNope = parseInt(rowData.jobNope); //총작업인원
+		let totLbrco = parseInt(rowData.totLbrco); //총인건비
+		let totSpmtWght = parseInt(rowData.totSpmtWght); //당일출고량
+
+		rowData.unitWorkPrc =  totLbrco / totSpmtWght;
+		rowData.workSpmtWght = totSpmtWght / jobNope;
+
+		grdDhtyJob.setRowData(rowIdx,rowData);
+
+	}
+
+
+	const fn_save = function(){
+		let lastTab = SBUxMethod.get("idxTab_norm")
+
+		if(lastTab === "dhtyJobTab"){
+
+		}else if(lastTab === "jobCnTab" ){
+
+		}else if(lastTab === "mrktAnls" ){
+
+		}else if(lastTab === "invntrSttn1" ){
+			fn_grdInvntrSttn1Save();
+		}else if(lastTab === "invntrSttn2" ){
+
+		}else if(lastTab === "wrhsSttn" ){
+
+		}
+
+	}
+
+	const fn_grdInvntrSttn1Save = async function(){
+		let allData = grdInvntrSttn1.getGridDataAll();
+		let saveData = [];
+		allData.forEach(item => {
+			if(item.prcs === "TEST"){
+				let invntrYmd = item.invntrYmd;
+				Object.entries(item).forEach(([key, value]) => {
+				    let keySplit = key.split("_");
+				    let obj = {
+				    	apcCd : gv_apcCd
+				    	, itemCd : '1326'
+				    	, invntrYmd : invntrYmd.replace(/-/g, "")
+				    	, gubun : keySplit[0]
+				    	, colorSeCd : keySplit[1]
+				    	, etcSeCd : keySplit[2]
+				    	, qntt : value
+				    	, delYn : 'N'
+				    }
+				    saveData.push(obj);
+				});
+			}
+		})
+		saveData.splice(0,2); //gubun이 prcs, invntrYmd삭제
+		let postUrl = "/am/spmt/insertInvntrSttnOne.do";
+
+
+     	const postJsonPromise = gfn_postJSON(postUrl, saveData);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		//fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
+	}
 
 
 

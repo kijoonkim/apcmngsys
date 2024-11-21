@@ -77,6 +77,12 @@ while ( params.hasMoreElements() ){
 			const fileName = "<%=fileName%>";
 			const exePrintYn = "<%=exePrintYn%>";
 			const param = {<%=param%>};
+
+			//textarea 값 디코딩
+			if (param.hasOwnProperty('textarea') && typeof param.textarea === 'string') {
+		        param.textarea = decodeURIComponent(param.textarea);
+		    }
+
 			const reportKey = await gfn_getReportKey(fileName, param);
 			const check = {
 					exePrintYn : exePrintYn
