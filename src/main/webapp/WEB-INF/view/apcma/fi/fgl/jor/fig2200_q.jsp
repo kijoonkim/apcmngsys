@@ -127,7 +127,6 @@
 									        uitype="popup"
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
-									        style="width:80px"
 									        class="form-control input-sm input-sm-ast table-datepicker-ma"
 									        onchange = "fn_payDate"
 									        required>
@@ -646,16 +645,28 @@
             {caption: ["역발행승인"],    			ref: 'SIGN_YN', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["전표구분"],    				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'80px',  		style:'text-align:left'},
-            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            
+            //{caption: ["전표번호"],    			ref: 'DOC_NAME', 				type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             		if(objRowData['DOC_STATUS']=='3'){
-    	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
             		} else {
-            			return "";
+		        		return objRowData['DOC_NAME'];
             		}
             	}	
             },
+            
+//             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+//             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+//             		if(objRowData['DOC_STATUS']=='3'){
+//     	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+//             		} else {
+//             			return "";
+//             		}
+//             	}	
+//             },
+            
             {caption: ["적요"], 	   				ref: 'DESCRIPTION', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -932,23 +943,40 @@
         Fig2200Grid.clearSelection();    	
     }
     
+//     /**
+//      * 그리드내 전표번호 조회
+//      */
+// 	function fn_gridPopup1(event, row, col) {
+// 		event.preventDefault();	
+//         let rowData = Fig2200Grid.getRowData(row);
+//         console.log('fn_gridPopup1 rowData:', rowData);
+        
+//         var obj = {
+//         	'MENU_MOVE'		: 'Y'	
+//         	,'DOC_ID' 		: rowData['DOC_ID']
+//         	,'WORK_TYPE'	: 'VIEW'
+//         	,'target'		: 'MA_A20_030_020_150'
+//         }
+//         let json = JSON.stringify(obj);
+//         window.parent.cfn_openTabSearch(json);
+// 	}
+    
     /**
-     * 그리드내 전표번호 조회
+     * 그리드내 링크(전표번호) 조회
      */
-	function fn_gridPopup1(event, row, col) {
+ 	function fn_gridPopup1(event, doc_id) {
 		event.preventDefault();	
-        let rowData = Fig2200Grid.getRowData(row);
-        console.log('fn_gridPopup1 rowData:', rowData);
+		console.log('doc_id:', doc_id);		
         
         var obj = {
         	'MENU_MOVE'		: 'Y'	
-        	,'DOC_ID' 		: rowData['DOC_ID']
-        	,'WORK_TYPE'	: 'VIEW'
+        	,'DOC_ID' 		: doc_id
+         	,'WORK_TYPE'	: 'VIEW'
         	,'target'		: 'MA_A20_030_020_150'
         }
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
-	}
+    }	    
     
     /**
      * 작성부서 팝업
@@ -1737,7 +1765,17 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            //{caption: ["전표번호"],    			ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		} else {
+		        		return "";
+            		}
+            	}	
+            },
+            
             {caption: ["전표유형"],					ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["전표상태"], 				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 					ref: 'ITEM_SEQ', 				type:'output',		width:'60px',  		style:'text-align:left'},
