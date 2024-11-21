@@ -630,18 +630,19 @@
         console.log('rowData:', rowData);
 		
 		if(rowData['ASSET_LEVEL_TYPE']=='LEVEL1'){
-			fn_fmDisabled(true);
+			//fn_fmDisabled(true);
 			$('#main-btn-del', 	parent.document).attr('disabled', true);
 		} else {
-			fn_fmDisabled(false);
+			//fn_fmDisabled(false);
 			$('#main-btn-del', 	parent.document).attr('disabled', false);
 		}
 		
 		if(rowData['DEPRECIATE_YN']=='Y'){
-			fn_fmDisabled(true);
+			//fn_fmDisabled(false);
 		} else {
-			fn_fmDisabled(false);
+			//fn_fmDisabled(true);
 		}
+		fn_fmDisabled(false);
 		
 		fn_setFia1100Detail('Q1', rowData);
     }  
