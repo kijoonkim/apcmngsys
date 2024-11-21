@@ -1887,7 +1887,7 @@ const gfnma_convertMultiRowDataForReport = async function(rowData, masterKey, sl
 		return { ...masterItem, ...nestedData };
 	});
 
-	return {data: { root: convertData}};
+	return [{data: { root: convertData}}];
 }
 
 /**
