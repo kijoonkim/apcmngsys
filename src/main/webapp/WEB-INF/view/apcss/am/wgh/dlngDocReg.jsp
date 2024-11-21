@@ -221,12 +221,12 @@
 								</div>
 							</div>
 							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-grdRawMtrWrhs" style="height:280px;"></div>
+								<div id="sb-area-grdRawMtrWrhs" style="height:450px;"></div>
 							</div>
 						</div>
 						<div id=listTab>
 							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-grdRegList" style="height:280px;"></div>
+								<div id="sb-area-grdRegList" style="height:450px;"></div>
 							</div>
 						</div>
 					</div>
