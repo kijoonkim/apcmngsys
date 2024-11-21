@@ -643,6 +643,7 @@
       if(data.resultStatus === 'S'){
         gfn_comAlert("I0001");
         SBUxMethod.attr("btnCmndDocspmt","disabled","false");
+        SBUxMethod.attr("btnSave","disabled","true");
       }
     }catch (e) {
       console.error(e);
@@ -732,6 +733,8 @@
     /** 팔레트 분출 정보 **/
     SBUxMethod.set("reg-slt-kingBox",selectJson.kingBox);
     SBUxMethod.set("reg-slt-box",selectJson.box);
+    /** 수정모드 임시 대기 **/
+    SBUxMethod.attr("btnSave","disabled","true");
 
     let regEl = Array.from($("#regTable tbody tr td div div input"));
     regEl.forEach((item) => $(item).val(''));
@@ -757,6 +760,7 @@
     SBUxMethod.set("reg-inp-pltno",'');
     SBUxMethod.attr("btnCmndDocspmt","disabled","true");
     SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:''");
+    SBUxMethod.attr("btnSave","disabled","false");
     $("#searchTable > tbody tr").slice(1).remove();
     jsonSearchData.length = 0;
   }
