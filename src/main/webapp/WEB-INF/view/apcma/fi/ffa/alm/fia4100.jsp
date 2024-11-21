@@ -36,6 +36,11 @@
                     </h3><!-- 이동내역등록 -->
                 </div>
                 <div style="margin-left: auto;">
+                    <sbux-button uitype="normal" text="전표조회"  		id="sch-btn-transfer" 			class="btn btn-sm btn-outline-danger" onclick="fn_BtnTransfer"></sbux-button>
+                    <font style="margin-right:5px"></font>
+                    <sbux-button uitype="normal" text="전표생성"  		id="sch-btn-account" 			class="btn btn-sm btn-outline-danger" onclick="fn_BtnAccount"></sbux-button>
+                    <font style="margin-right:5px"></font>
+                    <sbux-button uitype="normal" text="전표취소"  		id="sch-btn-cancel" 			class="btn btn-sm btn-outline-danger" onclick="fn_BtnCancel"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -184,7 +189,6 @@
 			                    
 			                    	<!-- hidden  -->
  									<sbux-input style="display:none" id="FM_ACCT_RULE_CODE" uitype="text" class="form-control input-sm"></sbux-input>
- 									<sbux-input style="display:none" id="FM_DOC_ID" uitype="text" class="form-control input-sm"></sbux-input>
 			                    	<!-- /hidden  -->
 			                    
 	                                <tr>
@@ -302,9 +306,12 @@
 			  									
 			  									<font style="width:10px"></font>
 			  									
-	                                        	<font>전표번호</font>
+			  									<span style="padding-top:5px">
+		                                        	<font>전표번호</font>
+			  									</span>
 			  									<font style="width:5px"></font>
-			  									<sbux-input style="display:none" id="FM_DOC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+			  									<sbux-input id="FM_DOC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+ 												<sbux-input style="display:none" id="FM_DOC_ID" uitype="text" class="form-control input-sm"></sbux-input>
 				                           	</div>
 	                                	</td>
 	                                </tr>
@@ -425,6 +432,8 @@
 	 		SBUxMethod.set('SCH_SITE_CODE1', 			p_ss_siteCode);
 	 		SBUxMethod.set('SCH_FI_ORG_CODE2', 			p_ss_fiOrgCode);
 	 		SBUxMethod.set('SCH_SITE_CODE2', 			p_ss_siteCode);
+	 		
+	    	gfnma_uxDataClear('#dataArea1');
     	}
     	
     }    
@@ -434,6 +443,7 @@
      */
  	function cfn_search() {
     	
+    	gfnma_uxDataClear('#dataArea1');
     	fn_setFia4100Grid('LIST');
     }
     
@@ -488,8 +498,8 @@
     	Fia4100Grid.clearStatus();
 
 		let p_sch_fi_org_code1		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE1"));
-		let p_sch_site_code1		= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE1"));
 		let p_sch_fi_org_code2		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE2"));
+		let p_sch_site_code1		= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE1"));
 		let p_sch_site_code2		= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE2"));
 		
 		let p_sch_transfer_date_from	= gfnma_nvl(SBUxMethod.get("SCH_TRANSFER_DATE_FROM"));
@@ -506,8 +516,8 @@
 			,V_P_COMP_CODE_FROM     	: gv_ma_selectedCorpCd
 			,V_P_COMP_CODE_TO       	: gv_ma_selectedCorpCd
 			,V_P_FI_ORG_CODE_FROM 		: p_sch_fi_org_code1
-			,V_P_FI_ORG_CODE_TO     	: p_sch_site_code1
-			,V_P_SITE_CODE_FROM     	: p_sch_fi_org_code2
+			,V_P_FI_ORG_CODE_TO     	: p_sch_fi_org_code2
+			,V_P_SITE_CODE_FROM     	: p_sch_site_code1
 			,V_P_SITE_CODE_TO	 		: p_sch_site_code2
 			,IV_P_TRANSFER_DATE_FROM	: p_sch_transfer_date_from
 			,IV_P_TRANSFER_DATE_TO		: p_sch_acquire_date_to
@@ -540,27 +550,28 @@
   	    		jsonFia4100.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ASSET_TRANSFER_NO			: gfnma_nvl2(item.ASSET_TRANSFER_NO),			
-  						TRANSFER_DATE				: gfnma_nvl2(item.TRANSFER_DATE),	
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
   						ASSET_NAME					: gfnma_nvl2(item.ASSET_NAME),	
-  						SITE_CODE_FROM				: gfnma_nvl2(item.SITE_CODE_FROM),	
-  						SITE_CODE_TO				: gfnma_nvl2(item.SITE_CODE_TO),	
-  						DEPT_CODE_FROM				: gfnma_nvl2(item.DEPT_CODE_FROM),	
-  						DEPT_NAME_FROM				: gfnma_nvl2(item.DEPT_NAME_FROM),	
-  						DEPT_CODE_TO				: gfnma_nvl2(item.DEPT_CODE_TO),	
-  						DEPT_NAME_TO				: gfnma_nvl2(item.DEPT_NAME_TO),	
-  						COST_CENTER_CODE_FROM		: gfnma_nvl2(item.COST_CENTER_CODE_FROM),	
-  						COST_CENTER_NAME_FROM		: gfnma_nvl2(item.COST_CENTER_NAME_FROM),	
-  						COST_CENTER_CODE_TO			: gfnma_nvl2(item.COST_CENTER_CODE_TO),	
-  						COST_CENTER_NAME_TO			: gfnma_nvl2(item.COST_CENTER_NAME_TO),	
-  						MEMO						: gfnma_nvl2(item.MEMO),	
+  						ASSET_NO					: gfnma_nvl2(item.ASSET_NO),	
+  						ASSET_TRANSFER_NO			: gfnma_nvl2(item.ASSET_TRANSFER_NO),			
   						COMP_CODE_FROM				: gfnma_nvl2(item.COMP_CODE_FROM),	
   						COMP_CODE_TO				: gfnma_nvl2(item.COMP_CODE_TO),	
-  						FI_ORG_CODE_FROM			: gfnma_nvl2(item.FI_ORG_CODE_FROM),	
-  						FI_ORG_CODE_TO				: gfnma_nvl2(item.FI_ORG_CODE_TO),	
+  						COST_CENTER_CODE_FROM		: gfnma_nvl2(item.COST_CENTER_CODE_FROM),	
+  						COST_CENTER_CODE_TO			: gfnma_nvl2(item.COST_CENTER_CODE_TO),	
+  						COST_CENTER_NAME_FROM		: gfnma_nvl2(item.COST_CENTER_NAME_FROM),	
+  						COST_CENTER_NAME_TO			: gfnma_nvl2(item.COST_CENTER_NAME_TO),	
+  						DEPT_CODE_FROM				: gfnma_nvl2(item.DEPT_CODE_FROM),	
+  						DEPT_CODE_TO				: gfnma_nvl2(item.DEPT_CODE_TO),	
+  						DEPT_NAME_FROM				: gfnma_nvl2(item.DEPT_NAME_FROM),	
+  						DEPT_NAME_TO				: gfnma_nvl2(item.DEPT_NAME_TO),	
   						DOC_ID						: gfnma_nvl2(item.DOC_ID),	
   						DOC_NAME					: gfnma_nvl2(item.DOC_NAME),	
-  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),		
+  						FI_ORG_CODE_FROM			: gfnma_nvl2(item.FI_ORG_CODE_FROM),	
+  						FI_ORG_CODE_TO				: gfnma_nvl2(item.FI_ORG_CODE_TO),	
+  						MEMO						: gfnma_nvl2(item.MEMO),	
+  						SITE_CODE_FROM				: gfnma_nvl2(item.SITE_CODE_FROM),	
+  						SITE_CODE_TO				: gfnma_nvl2(item.SITE_CODE_TO),	
+  						TRANSFER_DATE				: gfnma_nvl2(item.TRANSFER_DATE),	
   					}
   					jsonFia4100.push(msg);
   					totalRecordCount ++;
@@ -824,7 +835,7 @@
     }      
     
     /**
-     * 메인 저장
+     * 저장
      */
     const fn_processFia4100S = async function (wtype){
 
@@ -876,6 +887,7 @@
         
         try {
         	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001","");
         		if(wtype=='N'){
 	    			SBUxMethod.set('FM_ASSET_TRANSFER_NO',	data.v_returnStr);
         		}
@@ -893,7 +905,99 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }  
+    
+    /**
+     * 전표생성
+     */
+    const fn_processFia4100S1 = async function (wtype){
+
+		let p_fm_acct_rule_code			= gfnma_nvl(SBUxMethod.get("FM_ACCT_RULE_CODE"));
+		let p_fm_asset_transfer_no		= gfnma_nvl(SBUxMethod.get("FM_ASSET_TRANSFER_NO"));
+		
+		if(!p_fm_acct_rule_code || !p_fm_asset_transfer_no){
+			return;
+		}
+		
+ 	    var paramObj = { 
+			V_P_DEBUG_MODE_YN			: ''
+			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+			,V_P_ACCT_RULE_CODE			: p_fm_acct_rule_code    
+			,V_P_ASSET_TRANSFER_NO		: p_fm_asset_transfer_no    
+			
+			,V_P_FORM_ID				: p_formId
+			,V_P_MENU_ID				: p_menuId
+			,V_P_PROC_ID				: ''
+			,V_P_USERID					: p_userId
+			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/modifyFia4100S1.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+	 	console.log('data:', data);
+        
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001","");
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        	
+        	fn_state('L');
+       		cfn_search();
+       		
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }       
+    
+    /**
+     * 전표조회
+     */
+    function fn_BtnTransfer(){
+    	
+        var nRow = Fia4100Grid.getRow();
+		if (nRow < 1) {
+            return;
+		}
+        let rowData = Fia4100Grid.getRowData(nRow);
+		console.log('rowData:', rowData);      
+		if(rowData['DOC_ID']!='0' && rowData['DOC_ID']!= ''){
+	        var obj = {
+	            	'MENU_MOVE'		: 'Y'	
+	            	,'DOC_ID' 		: rowData['DOC_ID']
+	            	,'target'		: 'MA_A20_030_020_150'
+	            }
+            let json = JSON.stringify(obj);
+            window.parent.cfn_openTabSearch(json);
+		}
+    }
+    
+    /**
+     * 전표생성
+     */
+    function fn_BtnAccount(){
+    	fn_processFia4100S1('ACCOUNT');
+    }
+    
+    /**
+     * 전표취소
+     */
+    function fn_BtnCancel(){
+    	fn_processFia4100S1('CANCEL');
+    }
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

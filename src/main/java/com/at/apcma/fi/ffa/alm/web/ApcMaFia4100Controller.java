@@ -69,7 +69,7 @@ public class ApcMaFia4100Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 이동내역등록 저장,수정,삭제
+	// 이동내역등록 
 	@PostMapping(value = "/fi/ffa/alm/modifyFia4100S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> modifyFia4100S(
 			@RequestBody Map<String, Object> param
@@ -91,6 +91,31 @@ public class ApcMaFia4100Controller extends BaseController {
 		}
 		
 		logger.info("=============modifyFia4100S=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 전표생성, 취소 
+	@PostMapping(value = "/fi/ffa/alm/modifyFia4100S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> modifyFia4100S1(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============modifyFia4100S1=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIA4100_S1");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============modifyFia4100S1=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 	
