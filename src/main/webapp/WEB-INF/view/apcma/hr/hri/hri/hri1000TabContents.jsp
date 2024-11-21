@@ -106,7 +106,7 @@
                     </div>
                 </td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직책</th>
-                <td colspan="3" class="td_input">
+                <td colspan="2" class="td_input">
                     <%--<sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                     <div class="dropdown">
                         <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -117,13 +117,14 @@
                         </div>
                     </div>
                 </td>
+                <td></td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직군</th>
                 <td colspan="2" class="td_input">
                     <sbux-select id="JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                 </td>
                 <td></td>
                 <th scope="row" class="th_bg">겸직직책</th>
-                <td class="td_input">
+                <td colspan="2" class="td_input">
                     <%--<sbux-select id="DUTY_CODE2" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
                     <div class="dropdown">
                         <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -157,7 +158,7 @@
                 </td>
                 <td></td>
                 <th scope="row" class="th_bg">호봉</th>
-                <td class="td_input">
+                <td colspan="2" class="td_input">
                     <sbux-select id="SALARY_CLASS" uitype="single" jsondata-ref="jsonSalaryClass" unselected-text="선택" class="form-control input-sm"></sbux-select>
                 </td>
             </tr>
@@ -434,7 +435,7 @@
                 </td>
                 <td></td>
                 <th scope="row" class="th_bg">퇴직기산일</th>
-                <td class="td_input" style="border-right:hidden;">
+                <td colspan="2" class="td_input" style="border-right:hidden;">
                     <sbux-datepicker
                             uitype="popup"
                             id="RETIRE_BASE_DATE"

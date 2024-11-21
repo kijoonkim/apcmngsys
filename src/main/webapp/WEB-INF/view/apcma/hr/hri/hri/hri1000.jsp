@@ -179,7 +179,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwList" style="height:1200px;"></div>
+                        <div id="sb-area-gvwList" style="height:900px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-10">
@@ -222,10 +222,11 @@
                                         <sbux-input id="SIGN_IMG_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
-                                    <td colspan="3" class="td_input">
+                                    <td colspan="2" class="td_input">
                                         <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%;"></sbux-input>
                                         <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" required></sbux-input>
                                     </td>
+                                    <td></td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
                                     <td class="td_input">
                                         <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
