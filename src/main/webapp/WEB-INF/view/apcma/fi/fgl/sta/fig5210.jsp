@@ -104,7 +104,7 @@
 											id="SCH_YMDPERIOD_FR"
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
-									        style="width:80px"
+									        style="width:70px"
 											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
 										></sbux-datepicker>
 									    <font style="padding-left:5px;padding-right:5px">-</font>  
@@ -113,7 +113,7 @@
 											id="SCH_YMDPERIOD_TO"
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
-									        style="width:80px"
+									        style="width:70px"
 											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
 										></sbux-datepicker>
 									    <font style="padding-left:5px;"></font>  
@@ -189,7 +189,7 @@
 					
 					<div class="tab-content">
 						<div id="sb_area_tab1" >
-							<div id="SB_TAB1_GRID" style="height:465px; width:100%;">
+							<div id="SB_TAB1_GRID" style="height:500px; width:100%;">
 							</div>
 						</div>
 						<div id="sb_area_tab2" >
@@ -198,7 +198,7 @@
 			                    <span style="width:5px"></span>
 			                    <sbux-button uitype="normal" text="트리접기"  	class="btn btn-sm btn-outline-danger" onclick="fn_treeClose()" ></sbux-button>
 							</div>
-							<div id="SB_TAB2_GRID" style="height:465px; width:100%;">
+							<div id="SB_TAB2_GRID" style="height:500px; width:100%;">
 							</div>
 						</div>
 					</div>
@@ -269,6 +269,7 @@
 		//화면셋팅
     	fn_state();
   		fn_createFig5210Grid();
+  		fn_createFig5210Tree();  		
 	}    
 	
     // only document

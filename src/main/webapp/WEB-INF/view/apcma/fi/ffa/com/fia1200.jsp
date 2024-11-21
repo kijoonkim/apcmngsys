@@ -96,7 +96,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid1" style="height:590px; width:100%;"></div>
+                            <div id="sb_area_grid1" style="height:580px; width:100%;"></div>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                                 <li><span>감가상각률정보편집</span></li>
                             </ul>
                         </div>
-                        <div style="height:590px;overflow:auto;">
+                        <div style="height:580px;overflow:auto;">
                         	<table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
 			                        <col style="width: 10%">
@@ -752,7 +752,7 @@
      	 	console.log('data:', data);
      	 	try {
      	 		if (_.isEqual("S", data.resultStatus)) {
-     	 			gfn_comAlert("I0001");
+     	 			gfn_comAlert("I0001", "");
      	 		} else {
      	 			alert(data.resultMessage);
      	 		}

@@ -39,133 +39,135 @@
                 <div style="margin-left: auto;">
                 </div>
             </div>
-			<div class="box-search-ma" >
+            <div class="box-body">
 
-                <!--[pp] 검색 -->
-				<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed table-search-ma">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-						
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 1%">
-						<col style="width: 7%">
-						<col style="width: 2%">
-                    </colgroup>
-                    <tbody>
-                    
-                           	<!-- hidden  -->
-  							<sbux-input  id="SCH_YMDPERIOD_1"  			name="SCH_YMDPERIOD_1" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_2_FR"  		name="SCH_YMDPERIOD_2_FR" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_2_TO"  		name="SCH_YMDPERIOD_2_TO" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_3"  			name="SCH_YMDPERIOD_3" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_4"  			name="SCH_YMDPERIOD_4" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_5_FR"  		name="SCH_YMDPERIOD_5_FR" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_5_TO"  		name="SCH_YMDPERIOD_5_TO" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="SCH_YMDPERIOD_6"  			name="SCH_YMDPERIOD_6" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
-                       		<!-- /hidden -->
-                       		                    
-                        <tr>
-                            <th scope="row" class="th_bg_search">APC</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">사업장</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">회계기준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-                            
-                            <th scope="row" class="th_bg_search">기준년월</th>
-                            <td class="td_input" >
-								<sbux-datepicker
-									uitype="popup"
-									id="SCH_YMDPERIOD_CODE_FR"
-							        datepicker-mode="month"
-							        date-format="yyyy-mm"
-									class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
-							        onchange = "fn_cngBasicDate"
-								></sbux-datepicker>
-							</td>
-							<td id="SCH_LBLBETWEEN" >-</td>
-                            <td class="td_input" >
-								<sbux-datepicker
-									uitype="popup"
-									id="SCH_YMDPERIOD_CODE_TO"
-							        datepicker-mode="month"
-							        date-format="yyyy-mm"
-									class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
-							        onchange = "fn_cngBasicDate"
-								></sbux-datepicker>
-							</td>
-                            <td></td>
-                            
-                        </tr>
-                        
-                        <tr>
-							                            
-                            <th scope="row" class="th_bg_search">계정수준</th>
-                            <td colspan="3" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_ACCOUNT_LEVEL" uitype="single" jsondata-ref="jsonAccountLevel" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                            </td>
-                            <td></td>
-							                            
-                            <th scope="row" class="th_bg_search">기간</th>
-                            <td colspan="2" class="td_input" >
-                                <sbux-select style="width:150px" id="SCH_CBODESCR1" uitype="single" jsondata-ref="jsonCbodescr1" unselected-text="선택" class="form-control input-sm" onchange="fn_cngCbodescr1(SCH_CBODESCR1)"></sbux-select>
-                            </td>
-                            <td colspan="2" class="td_input" >
-								<sbux-datepicker
-									uitype="popup"
-									id="SCH_YMDSELECT_PERIOD1"
-							        datepicker-mode="month"
-							        date-format="yyyy-mm"
-							        style="width:80px"
-									class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
-								></sbux-datepicker>
-                            </td>
-							                            
-                            <th scope="row" class="th_bg_search">조건</th>
-                            <td colspan="9" class="td_input" >
-                            	<div style="display:flex;float:left">
-	                            	<font>Zero포함</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
-                            	</div>
-                            </td>
-                            
-                        </tr>
-                        
-                    </tbody>
-                </table>
+				<div class="box-search-ma" >
+	                <!--[pp] 검색 -->
+					<!--[APC] START -->
+						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<!--[APC] END -->
+	                <table class="table table-bordered tbl_fixed table-search-ma">
+	                    <caption>검색 조건 설정</caption>
+	                    <colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+	                    </colgroup>
+	                    <tbody>
+	                    
+	                           	<!-- hidden  -->
+	  							<sbux-input  id="SCH_YMDPERIOD_1"  			name="SCH_YMDPERIOD_1" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_2_FR"  		name="SCH_YMDPERIOD_2_FR" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_2_TO"  		name="SCH_YMDPERIOD_2_TO" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_3"  			name="SCH_YMDPERIOD_3" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_4"  			name="SCH_YMDPERIOD_4" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_5_FR"  		name="SCH_YMDPERIOD_5_FR" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_5_TO"  		name="SCH_YMDPERIOD_5_TO" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	  							<sbux-input  id="SCH_YMDPERIOD_6"  			name="SCH_YMDPERIOD_6" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+	                       		<!-- /hidden -->
+	                       		                    
+	                        <tr>
+	                            <th scope="row" class="th_bg_search">APC</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">사업장</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">회계기준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                            <th scope="row" class="th_bg_search">기준년월</th>
+	                            <td class="td_input" >
+									<sbux-datepicker
+										uitype="popup"
+										id="SCH_YMDPERIOD_CODE_FR"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+								        onchange = "fn_cngBasicDate"
+									></sbux-datepicker>
+								</td>
+								<td id="SCH_LBLBETWEEN" >-</td>
+	                            <td class="td_input" >
+									<sbux-datepicker
+										uitype="popup"
+										id="SCH_YMDPERIOD_CODE_TO"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+								        onchange = "fn_cngBasicDate"
+									></sbux-datepicker>
+								</td>
+	                            <td></td>
+	                            
+	                        </tr>
+	                        
+	                        <tr>
+								                            
+	                            <th scope="row" class="th_bg_search">계정수준</th>
+	                            <td colspan="3" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_ACCOUNT_LEVEL" uitype="single" jsondata-ref="jsonAccountLevel" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+								                            
+	                            <th scope="row" class="th_bg_search">기간</th>
+	                            <td colspan="2" class="td_input" >
+	                                <sbux-select style="width:150px" id="SCH_CBODESCR1" uitype="single" jsondata-ref="jsonCbodescr1" unselected-text="선택" class="form-control input-sm" onchange="fn_cngCbodescr1(SCH_CBODESCR1)"></sbux-select>
+	                            </td>
+	                            <td colspan="2" class="td_input" >
+									<sbux-datepicker
+										uitype="popup"
+										id="SCH_YMDSELECT_PERIOD1"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+								        style="width:80px"
+										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+									></sbux-datepicker>
+	                            </td>
+								                            
+	                            <th scope="row" class="th_bg_search">조건</th>
+	                            <td colspan="9" class="td_input" >
+	                            	<div style="display:flex;float:left">
+		                            	<font>Zero포함</font>
+									    <font style="padding-left:10px;"></font>  
+		                            	<sbux-checkbox id="SCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+	                            	</div>
+	                            </td>
+	                            
+	                        </tr>
+	                        
+	                    </tbody>
+	                </table>
+                </div>
                 
 				<div class="table-responsive tbl_scroll_sm" style="padding-top:10px">
 				
@@ -184,7 +186,7 @@
 									<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger btnPrint" text="리포트 출력"></sbux-button>
 								</div>
 							</div>
-							<div id="SB_TAB1_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB1_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						
@@ -195,7 +197,7 @@
 									<sbux-button id="btnPrint2" name="btnPrint2" uitype="normal" class="btn btn-sm btn-outline-danger btnPrint" text="리포트 출력"></sbux-button>
 								</div>
 							</div>
-							<div id="SB_TAB2_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB2_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						
@@ -205,7 +207,7 @@
                 				<div style="margin-left: auto;">
 								</div>
 							</div>
-							<div id="SB_TAB3_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB3_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						
@@ -218,7 +220,7 @@
 				                    <sbux-button uitype="normal" text="트리접기"  	class="btn btn-sm btn-outline-danger" onclick="fn_treeClose1()" ></sbux-button>
 								</div>
 							</div>
-							<div id="SB_TAB4_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB4_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						
@@ -231,7 +233,7 @@
 				                    <sbux-button uitype="normal" text="트리접기"  	class="btn btn-sm btn-outline-danger" onclick="fn_treeClose2()" ></sbux-button>
 								</div>
 							</div>
-							<div id="SB_TAB5_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB5_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						
@@ -244,7 +246,7 @@
 				                    <sbux-button uitype="normal" text="트리접기"  	class="btn btn-sm btn-outline-danger" onclick="fn_treeClose3()" ></sbux-button>
 								</div>
 							</div>
-							<div id="SB_TAB6_GRID" style="height:470px; width:100%;">
+							<div id="SB_TAB6_GRID" style="height:460px; width:100%;">
 							</div>
 						</div>
 						

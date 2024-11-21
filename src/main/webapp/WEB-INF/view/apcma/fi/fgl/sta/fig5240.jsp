@@ -357,6 +357,9 @@
 		//화면셋팅
     	fn_state();
   		fn_createFig5240Grid1();
+  		fn_createFig5240Grid2();
+  		fn_createFig5240Grid3();
+  		fn_createFig5240Grid4();
 	}    
 	
     // only document

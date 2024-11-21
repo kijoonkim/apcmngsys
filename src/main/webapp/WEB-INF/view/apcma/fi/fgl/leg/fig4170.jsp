@@ -108,6 +108,13 @@
 	                    	</tr>
 	                    	
 	                    	<tr>
+	                            
+	                            <th scope="row" class="th_bg_search">사업장</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                    	
 	                            <th scope="row" class="th_bg_search">년월</th>
 	                            <td colspan="3" class="td_input" >
 									<sbux-datepicker
@@ -122,26 +129,12 @@
 	                            </td>
 	                            <td></td>
 	                            
-	                            <th scope="row" class="th_bg_search">사업장</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
-	                            
-	                            <th scope="row" class="th_bg_search">전표유형</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                    	</tr>
-	                    	
-	                    	<tr>
+
 	                            <th scope="row" class="th_bg_search">회계일자</th>
 	                            <td class="td_input" >
 								    <sbux-datepicker
@@ -162,6 +155,16 @@
 								            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                            
 	                            </td>	                    	
+	                            <td></td>
+	                            
+	                    	</tr>
+	                    	
+	                    	<tr>
+	                            
+	                            <th scope="row" class="th_bg_search">전표유형</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
 	                            <td></td>
 	                    	
 	                            <th scope="row" class="th_bg_search">거래처</th>
@@ -331,30 +334,38 @@
                 </div>
 				
                 <div>
-                    <div id="SB_AREA_GRDTOP" style="height:400px; width:100%;">
+                    <div id="SB_AREA_GRDTOP" style="height:410px; width:100%;">
                     </div>
                 </div>
                 
-               	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+               	<div style="display:flex;float:left;vertical-align:middle;padding-top:5px;width:100%">
 
  					<font style="width:300px"></font>
-               	
-                	<font>순금액(전표)</font>
+               		
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">순금액(전표)</font>
+               		</span>
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_1" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>
                	
-                	<font>순금액(통화)</font>
+               		<span style="padding-top:5px">
+                		<font style="font-size:12px">순금액(통화)</font>
+                	</span>
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_2" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>
                	
-                	<font>평가금액</font>
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">평가금액</font>
+	                </span>	
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_3" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>
                	
-                	<font>당초금액</font>
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">당초금액</font>
+	                </span>	
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_4" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>

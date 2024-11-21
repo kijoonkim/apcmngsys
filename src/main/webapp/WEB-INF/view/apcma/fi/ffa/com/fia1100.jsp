@@ -1024,6 +1024,8 @@
     	
 		$('#main-btn-save', parent.document).attr('disabled', false);
 		$('#main-btn-del', 	parent.document).attr('disabled', true);
+		
+		SBUxMethod.set('FM_ASSET_GROUP_CODE', '');
     }
     
     /**
@@ -1213,6 +1215,7 @@
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001","");
         	} else {
           		alert(data.resultMessage);
         	}
