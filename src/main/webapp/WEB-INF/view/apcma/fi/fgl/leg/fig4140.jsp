@@ -37,7 +37,9 @@
                 </div>
                 <div style="margin-left: auto;">
 					<sbux-button class="btn btn-sm btn-outline-danger" text="엑셀다운" 	onclick="fn_excelDown()"></sbux-button>
+					<!-- 
 					<sbux-button class="btn btn-sm btn-outline-danger" text="출력" 		onclick="fn_print()"></sbux-button>
+					 -->
                 </div>
             </div>
             <div class="box-body">

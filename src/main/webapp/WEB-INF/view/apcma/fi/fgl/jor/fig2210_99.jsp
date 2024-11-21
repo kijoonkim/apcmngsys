@@ -40,17 +40,21 @@
                     </h3><!-- 전표등록 -->
                 </div>
                 <div id="top_lable1" style="margin-left:auto">
-                    <font style="top:5px">전표템플릿</font>
+                	<!-- 
+                    <font style="font-size:11px">전표템플릿</font>
+                	 -->
                 </div>
                 <div id="top_lable2" style="padding-left:10px;padding-right:10px">
+                	<!-- 
 					<div class="dropdown">
 					    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-compopup1-rulecode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    	<font>원가마감전표</font>
+					    	원가마감전표
 					        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 					    </button>
 					    <div class="dropdown-menu" aria-labelledby="srch-compopup1-rulecode" style="width:600px;height:150px;padding-top:0px;overflow:auto">
 					    </div>
 					</div> 
+                	 -->
                 </div>
                 <div>
         			<sbux-checkbox 

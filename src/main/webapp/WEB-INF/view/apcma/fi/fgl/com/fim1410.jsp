@@ -106,11 +106,6 @@
 	                        </li>
 	                    </ul>
 	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-	                    	<!-- 
-							<a href="#" id="btn-copy-clear" class="cu-btn-clear" >
-								<img src="../../../resource/images/clear.png" width="20px" /> 복사모드해제
-							</a>
-	                    	 -->
 							<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
 								<img src="../../../resource/images/plus.png" width="20px" /> 행추가
 							</a>
@@ -120,7 +115,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdTop" style="height:590px; width:100%;">
+	                    <div id="sb-area-grdTop" style="height:580px; width:100%;">
 	                    </div>
 	                </div>
                 </div>

@@ -139,7 +139,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdAcct" style="height:710px; width:100%;">
+	                    <div id="sb-area-grdAcct" style="height:530px; width:100%;">
 	                    </div>
 	                </div>
                 </div>

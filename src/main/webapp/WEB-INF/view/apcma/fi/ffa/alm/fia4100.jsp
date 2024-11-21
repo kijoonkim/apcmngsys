@@ -160,7 +160,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid1" style="height:360px; width:100%;"></div>
+                            <div id="sb_area_grid1" style="height:280px; width:100%;"></div>
                         </div>
                     </div>
                 

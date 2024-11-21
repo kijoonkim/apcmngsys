@@ -339,8 +339,10 @@
 	                            <span style="font-size:12px">(조회건수 <span id="listCount1">0</span>건)</span>
 	                        </li>
 	                    </ul>
-	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-	                    	<font style="padding-top:5px">결재의견</font>
+	                    <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+	                    	<span style="padding-top:5px">
+		                    	<font style="font-size:11px" >결재의견</font>
+	                    	</span>
 		                    <span style="width:5px"></span>
 	                        <sbux-input id="SCH_APPR_OPINION" name="SCH_APPR_OPINION" class="form-control input-sm" uitype="text" style="width:250px;" ></sbux-input>
 		                    <span style="width:5px"></span>
@@ -350,7 +352,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="SB_AREA_GRDTOP" style="height:290px; width:100%;">
+	                    <div id="SB_AREA_GRDTOP" style="height:200px; width:100%;">
 	                    </div>
 	                </div>
 	                

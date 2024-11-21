@@ -266,17 +266,19 @@
 	                        
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">전표번호</th>
-								<td colspan="3"  class="td_input" >
+								<td colspan="4"  class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				                        <sbux-input id="srch-txtdoc-name" name="srch-txtdoc-name" class="form-control input-sm" uitype="text" style="width:120px;" ></sbux-input>
+				                        <sbux-input id="srch-txtdoc-name" name="srch-txtdoc-name" class="form-control input-sm" uitype="text" ></sbux-input>
 									    <font style="padding-right:10px"></font>  
-		                       			<sbux-checkbox 
-		                       				id="srch-chkmulti-doc-yn" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" 
-	                       				></sbux-checkbox>
+									    <span style="padding-top:7px">
+			                       			<sbux-checkbox 
+			                       				id="srch-chkmulti-doc-yn" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" 
+		                       				></sbux-checkbox>
+									    </span>
 									    <font style="padding-right:10px"></font>  
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -285,7 +287,6 @@
 										></sbux-button>
 	                            	</div>
 								</td>
-								<td></td>
 								
 	                            <th scope="row" class="th_bg_search">제목</th>
 								<td colspan="9"  class="td_input" >
@@ -334,8 +335,10 @@
 	                            <span style="font-size:12px">(조회건수 <span id="listCount1">0</span>건)</span>
 	                        </li>
 	                    </ul>
-	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-	                    	<font>결재의견</font>
+	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:5px;margin-right:auto">
+	                    	<span style="padding-top:5px">
+		                    	<font style="font-size:11px">결재의견</font>
+	                    	</span>
 		                    <span style="width:5px"></span>
 	                        <sbux-input id="srch-txtappr-opinion" name="srch-txtappr-opinion" class="form-control input-sm" uitype="text" style="width:250px;" ></sbux-input>
 		                    <span style="width:5px"></span>
@@ -345,7 +348,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdTop" style="height:300px; width:100%;">
+	                    <div id="sb-area-grdTop" style="height:190px; width:100%;">
 	                    </div>
 	                </div>
 	                

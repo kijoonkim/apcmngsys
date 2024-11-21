@@ -305,7 +305,7 @@
 	                    </div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdComMsg" style="height:580px; width:100%;"></div>
+	                    <div id="sb-area-grdComMsg" style="height:500px; width:100%;"></div>
 	                </div>
                 </div>
                 

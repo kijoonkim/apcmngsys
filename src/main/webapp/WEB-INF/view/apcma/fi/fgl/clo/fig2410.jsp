@@ -134,17 +134,23 @@
 
  					<font style="width:300px"></font>
                	
-                	<font>전표번호</font>
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">전표번호</font>
+               		</span>
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_INTERFACE_DOC_NAME" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>
                	
-                	<font>건수</font>
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">건수</font>
+               		</span>
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_INTERFACE_DOC_COUNT" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>
                	
-                	<font>적요</font>
+               		<span style="padding-top:5px">
+	                	<font style="font-size:12px">적요</font>
+               		</span>
 					<font style="width:5px"></font>
 					<sbux-input style="width:150px;text-align:right;"  id="TOT_INTERFACE_DOC_STATUS" uitype="text" class="form-control input-sm" readonly></sbux-input>
 					<font style="width:10px"></font>

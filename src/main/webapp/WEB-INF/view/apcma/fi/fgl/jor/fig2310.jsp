@@ -36,9 +36,12 @@
                     </h3><!-- 미결반제전표 -->
                 </div>
                 <div id="top_lable1" style="margin-left:auto">
-                    <font style="top:5px">전표템플릿</font>
+                	<!-- 
+                    <font style="font-size:11px">전표템플릿</font>
+                	 -->
                 </div>
                 <div id="top_lable2" style="padding-left:10px;padding-right:10px">
+                	<!-- 
 					<div class="dropdown">
 					    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-compopup1-rulecode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    	<font>선택</font>
@@ -47,6 +50,7 @@
 					    <div class="dropdown-menu" aria-labelledby="srch-compopup1-rulecode" style="width:600px;height:150px;padding-top:0px;overflow:auto">
 					    </div>
 					</div> 
+					-->
                 </div>
                 <div>
                     <font style="margin-right:10px"></font>

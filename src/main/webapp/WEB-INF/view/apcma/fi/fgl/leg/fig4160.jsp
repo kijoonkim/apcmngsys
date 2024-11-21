@@ -40,7 +40,7 @@
            				id="SCH_CAL_FLAG" 
            				uitype="normal" 
            				text="3개월이상 집계" 
-           				style="padding-right:10px !important"
+           				style="padding-right:10px !important;font-size:12px"
            				true-value="Y" 
            				false-value="N" >
            			</sbux-checkbox>
@@ -108,6 +108,27 @@
 	                            	</div>
 	                            </td>
 	                            
+	                            <th scope="row" class="th_bg_search">소속사업장</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+
+	                            <th scope="row" class="th_bg_search">전표구분</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+	                            
+	                    	</tr>
+	                    	<tr>
+	                            
+	                            <th scope="row" class="th_bg_search">전표상태</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_DOC_STATUS" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            <td></td>
+
 	                            <th scope="row" class="th_bg_search">년월</th>
 	                            <td colspan="3" class="td_input" >
 									<sbux-datepicker
@@ -123,27 +144,6 @@
 	                            </td>
 	                            <td></td>
 	                            
-	                            <th scope="row" class="th_bg_search">소속사업장</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            
-	                    	</tr>
-	                    	<tr>
-	                            
-	                            <th scope="row" class="th_bg_search">전표구분</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            
-	                            <th scope="row" class="th_bg_search">전표상태</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_DOC_STATUS" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                    	
 	                            <th scope="row" class="th_bg_search">회계일자</th>
 	                            <td class="td_input" >
 								    <sbux-datepicker
@@ -196,7 +196,7 @@
 	                            <th scope="row" class="th_bg_search">계정과목</th>
 	                            <td colspan="9" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	   									<sbux-input style="width:100px" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px" placeholder="코드" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -204,11 +204,11 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('1')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px"  id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="계정과목명" id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 					                    <font>~</font>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px"  id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -216,7 +216,7 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('2')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px" placeholder="계정과목명" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
 	   									<span style="padding-top:5px">
 			                       			<sbux-checkbox 
@@ -252,7 +252,7 @@
                 </div>
 				
                 <div>
-                    <div id="SB_AREA_GRDTOP" style="height:480px; width:100%;">
+                    <div id="SB_AREA_GRDTOP" style="height:500px; width:100%;">
                     </div>
                 </div>
             </div>
