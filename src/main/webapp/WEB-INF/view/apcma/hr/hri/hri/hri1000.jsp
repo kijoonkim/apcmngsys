@@ -179,7 +179,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwList" style="height:1200px;"></div>
+                        <div id="sb-area-gvwList" style="height:900px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-10">
@@ -195,19 +195,15 @@
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:10%">
-                                    <col style="width:7%">
-                                    <col style="width:8%">
-                                    <col style="width:8%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
-                                    <col style="width:8%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
-                                    <col style="width:8%">
-                                    <col style="width:7%">
-                                    <col style="width:7%">
-                                    <col style="width:8%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:10%">
                                 </colgroup>
                                 <tr>
                                     <td rowspan="5" id="empPhotoArea" class="td_input" style="position: relative; vertical-align: top;">
@@ -226,16 +222,14 @@
                                         <sbux-input id="SIGN_IMG_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
-                                    <td colspan="3" class="td_input">
+                                    <td colspan="2" class="td_input">
                                         <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%;"></sbux-input>
                                         <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" required></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>직위</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-select id="POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
+                                    <td></td>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
                                     <td class="td_input">
-                                        <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -261,13 +255,22 @@
                                                 true-value="Y" false-value="N"
                                         />
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>직군</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-select id="JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg">호봉</th>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>사원구분</th>
                                     <td class="td_input">
-                                        <sbux-select id="SALARY_CLASS" uitype="single" jsondata-ref="jsonSalaryClass" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-select id="EMP_TYPE" uitype="single" jsondata-ref="jsonEmpType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                    </td>
+                                    <td class="td_input">
+                                        <p class="ad_input_row">
+                                            <sbux-checkbox
+                                                    uitype="normal"
+                                                    id="PARTNER_FIRM_EMP_YN"
+                                                    name="PARTNER_FIRM_EMP_YN"
+                                                    uitype="normal"
+                                                    class="form-control input-sm check"
+                                                    text="협력사사원"
+                                                    true-value="Y" false-value="N"
+                                            />
+                                        </p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,12 +286,9 @@
                                     <td class="td_input">
                                         <sbux-input id="AGE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>직원하위그룹</th>
+                                    <th scope="row" class="th_bg">협력사</th>
                                     <td class="td_input">
-                                        <sbux-select id="JOB_FAMILY" uitype="single" jsondata-ref="jsonJobFamily" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <td class="td_input">
-                                        <sbux-input id="SALARY_LEVEL" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-select id="PARTNER_FIRM_CODE" uitype="single" jsondata-ref="jsonPartnerFirmCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -296,277 +296,6 @@
                                     <td class="td_input">
                                         <sbux-input id="EMP_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>직책</th>
-                                    <td colspan="2" class="td_input">
-                                        <%--<sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="DUTY_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="td_input">
-                                        <sbux-input id="DUTY_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">직무</th>
-                                    <td colspan="2" class="td_input">
-                                        <%--<sbux-select id="JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="JOB_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="JOB_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="td_input">
-                                        <%--<sbux-select id="JOB_SUB_CODE" uitype="single" jsondata-ref="jsonSubJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="JOB_SUB_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="JOB_SUB_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="td_input">
-                                        <%--<sbux-select id="JOB_DETAIL_CODE" uitype="single" jsondata-ref="jsonDetailJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="JOB_DETAIL_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="JOB_DETAIL_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="td_input">
-                                        <sbux-input id="JOB_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>인건비분류</th>
-                                    <td class="td_input">
-                                        <%--<sbux-select id="LABOR_COST_GROUP" uitype="single" jsondata-ref="jsonLaborCostGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LABOR_COST_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="LABOR_COST_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>직급</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-select id="JOB_RANK" uitype="single" jsondata-ref="jsonJobRank" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <td class="td_input">
-                                        <sbux-input id="JOB_RANK_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td colspan="5" class="td_input">
-                                        <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="BOARD_DIRECTOR_YN"
-                                                    name="BOARD_DIRECTOR_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="등기이사"
-                                                    true-value="Y" false-value="N"
-                                            />
-                                        </p>
-                                        <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="SALES_EMP_YN"
-                                                    name="SALES_EMP_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="영업사원"
-                                                    true-value="Y" false-value="N"
-                                            />
-                                        </p>
-                                        <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="RE_ENTER_YN"
-                                                    name="RE_ENTER_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="재입사"
-                                                    true-value="Y" false-value="N"
-                                            />
-                                        </p>
-                                        <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="TO_YN"
-                                                    name="TO_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="TO여부"
-                                                    true-value="Y" false-value="N"
-                                            />
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="8"></td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
-                                    <td class="td_input">
-                                        <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
-                                    <td class="td_input" data-group="DEPT">
-                                        <sbux-input id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="DEPT">
-                                        <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findDeptCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <th scope="row" class="th_bg">상위부서</th>
-                                    <td class="td_input" data-group="PARENT_DEPT">
-                                        <sbux-input id="PARENT_DEPT" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="PARENT_DEPT">
-                                        <sbux-input id="PARENT_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="PARENT_DEPT">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findParentDeptCode"
-                                        ></sbux-button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>신고사업장</th>
-                                    <td class="td_input">
-                                        <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>귀속부서</th>
-                                    <td class="td_input" data-group="COST_DEPT">
-                                        <sbux-input id="COST_DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="COST_DEPT">
-                                        <sbux-input id="COST_DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="COST_DEPT">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findCostDeptCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <th scope="row" class="th_bg">겸직부서</th>
-                                    <td class="td_input" data-group="DEPT2">
-                                        <sbux-input id="DEPT_CODE2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="DEPT2">
-                                        <sbux-input id="DEPT_NAME2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT2">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findDeptCode2"
-                                        ></sbux-button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>근무지</th>
-                                    <td class="td_input">
-                                        <%--<sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="WORK_REGION" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>사원구분</th>
-                                    <td class="td_input">
-                                        <sbux-select id="EMP_TYPE" uitype="single" jsondata-ref="jsonEmpType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <td colspan="2" class="td_input">
-                                        <p class="ad_input_row">
-                                            <sbux-checkbox
-                                                    uitype="normal"
-                                                    id="PARTNER_FIRM_EMP_YN"
-                                                    name="PARTNER_FIRM_EMP_YN"
-                                                    uitype="normal"
-                                                    class="form-control input-sm check"
-                                                    text="협력사사원"
-                                                    true-value="Y" false-value="N"
-                                            />
-                                        </p>
-                                    </td>
-                                    <th scope="row" class="th_bg">협력사</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-select id="PARTNER_FIRM_CODE" uitype="single" jsondata-ref="jsonPartnerFirmCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg">겸직직책</th>
-                                    <td class="td_input">
-                                        <%--<sbux-select id="DUTY_CODE2" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="DUTY_CODE2" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
-                                    <td class="td_input">
-                                        <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg">종전사원</th>
-                                    <td class="td_input" data-group="OLD_EMP">
-                                        <sbux-input id="OLD_EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="OLD_EMP">
-                                        <sbux-input id="OLD_EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="OLD_EMP">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findOldEmpCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <th scope="row" class="th_bg">입사직위</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-select id="START_POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg">인정경력</th>
-                                    <td class="td_input" style="display: flex; align-items: center;">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
-                                        <span style="text-align: center; width: 30px;">개월</span>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사구분</th>
                                     <td class="td_input">
                                         <%--<sbux-select id="ENTER_TYPE" uitype="single" jsondata-ref="jsonEnterType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
@@ -579,50 +308,6 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <th scope="row" class="th_bg">추천자</th>
-                                    <td class="td_input" data-group="INTRODUCER">
-                                        <sbux-input id="INTRODUCER_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" data-group="INTRODUCER">
-                                        <sbux-input id="INTRODUCER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="INTRODUCER">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="…" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findIntroducerCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <th scope="row" class="th_bg">근속기준일</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="CAREER_DATE"
-                                                name="CAREER_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                                style="width:100%;"
-                                        />
-                                    </td>
-                                    <th scope="row" id="START_PAY_GRADE_TH" class="th_bg">PayGrade(입사)</th>
-                                    <td class="td_input" id="START_PAY_GRADE_TD" style="display: flex; align-items: center;">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
-                                        <span style="text-align: center; width: 30px;">개월</span>
-                                    </td>
-                                    <th scope="row" id="CAREER_TRACK_ENTER_DATE_TH" class="th_bg">기준일(PG)</th>
-                                    <td class="td_input" id="CAREER_TRACK_ENTER_DATE_TD">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="CAREER_TRACK_ENTER_DATE"
-                                                name="CAREER_TRACK_ENTER_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                                style="width:100%;"
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>입사일</th>
                                     <td class="td_input">
                                         <sbux-datepicker
@@ -635,45 +320,59 @@
                                                 required
                                         />
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>연차기산일(재직)</th>
-                                    <td colspan="2" class="td_input">
+                                    <th scope="row" class="th_bg">근속기준일</th>
+                                    <td class="td_input">
                                         <sbux-datepicker
                                                 uitype="popup"
-                                                id="ANNUAL_INITIAL_DATE"
-                                                name="ANNUAL_INITIAL_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                                style="width:100%;"
-                                                required
-                                        />
-                                    </td>
-                                    <td></td>
-                                    <th scope="row" class="th_bg">연차기산일(퇴사)</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="ANNUAL_BASE_DATE"
-                                                name="ANNUAL_BASE_DATE"
+                                                id="CAREER_DATE"
+                                                name="CAREER_DATE"
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                 style="width:100%;"
                                         />
                                     </td>
-                                    <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg">PayGrade(현재)</th>
-                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD" style="display: flex; align-items: center; gap:4px;">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
+                                    <td class="td_input" style="display:none;">
+                                        <sbux-input id="DUTY_CODE_PERIOD" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">그룹입사일</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="GROUP_ENTER_DATE"
+                                                name="GROUP_ENTER_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                style="width:100%;"
+                                        />
+                                    </td>
+                                    <th scope="row" class="th_bg">당사입사일</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="COMP_ENTER_DATE"
+                                                name="COMP_ENTER_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                style="width:100%;"
+                                        />
+                                    </td>
+                                    <th scope="row" class="th_bg">승진기준일</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="PROMOTION_BASE_DATE"
+                                                name="PROMOTION_BASE_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                style="width:100%;"
+                                        />
+                                    </td>
+                                    <th scope="row" class="th_bg">인정경력</th>
+                                    <td class="td_input" style="display: flex; align-items: center;">
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25"></sbux-input>
                                         <span style="text-align: center; width: 30px;">개월</span>
-                                    </td>
-                                    <th scope="row" id="CURRENT_PAY_GRADE_DATE_TH" class="th_bg">기준일(PG)</th>
-                                    <td class="td_input" id="CURRENT_PAY_GRADE_DATE_TD">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="CURRENT_PAY_GRADE_DATE"
-                                                name="CURRENT_PAY_GRADE_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                                style="width:100%;"
-                                        />
                                     </td>
                                 </tr>
                             </table>
@@ -798,31 +497,32 @@
 
     // Tab Data
     var jsonTabData = [
-        { "id" : "0",   "pid" : "-1",   "order" : "1",      "text" : "기본인적",             "targetid" : "tpgMasterSub",    "targetvalue" : "기본인적" },
-        { "id" : "1",   "pid" : "-1",   "order" : "2",      "text" : "주거/생활/신체",        "targetid" : "tpgMasterSubDetail",    "targetvalue" : "주거/생활/신체" },
-        { "id" : "2",   "pid" : "-1",   "order" : "3",      "text" : "가족사항",             "targetid" : "tpgFAMILY",    "targetvalue" : "가족사항" },
-        { "id" : "3",   "pid" : "-1",   "order" : "4",      "text" : "학력사항",             "targetid" : "tpgSCHOOL",    "targetvalue" : "학력사항" },
-        { "id" : "4",   "pid" : "-1",   "order" : "5",      "text" : "경력사항",             "targetid" : "tpgCAREER",    "targetvalue" : "경력사항" },
-        { "id" : "5",   "pid" : "-1",   "order" : "6",      "text" : "자격사항",             "targetid" : "tpgLICENSE",    "targetvalue" : "자격사항" },
-        { "id" : "6",   "pid" : "-1",   "order" : "7",      "text" : "어학/컴퓨터활용능력",    "targetid" : "tpgLANGUAGE",    "targetvalue" : "어학/컴퓨터활용능력" },
-        { "id" : "7",   "pid" : "-1",   "order" : "8",      "text" : "파일",                "targetid" : "tpgFILE",    "targetvalue" : "파일" },
-        { "id" : "8",   "pid" : "-1",   "order" : "9",      "text" : "교육사항",             "targetid" : "tpgEducation",    "targetvalue" : "교육사항" },
-        { "id" : "9",   "pid" : "-1",   "order" : "10",     "text" : "병역사항",             "targetid" : "tpgMasterSubDetail2",    "targetvalue" : "병역사항" },
-        { "id" : "10",  "pid" : "-1",   "order" : "11",     "text" : "보훈/장애/여권/비자",    "targetid" : "tpgMasterSubDetail3",    "targetvalue" : "보훈/장애/여권/비자" },
-        { "id" : "11",  "pid" : "-1",   "order" : "12",     "text" : "보증보험",            "targetid" : "tpgMasterSubDetail4",    "targetvalue" : "보증보험" },
-        { "id" : "12",  "pid" : "-1",   "order" : "13",     "text" : "상벌사항",            "targetid" : "tpgPrize",    "targetvalue" : "상벌사항" },
-        { "id" : "13",  "pid" : "-1",   "order" : "14",     "text" : "건강검진내역",         "targetid" : "tpgHealth",    "targetvalue" : "건강검진내역" },
-        { "id" : "14",  "pid" : "-1",   "order" : "15",     "text" : "발령사항",            "targetid" : "tpgAppointment",    "targetvalue" : "발령사항" },
-        { "id" : "15",  "pid" : "-1",   "order" : "16",     "text" : "겸직",               "targetid" : "tabPageEx1",    "targetvalue" : "겸직" },
-        { "id" : "16",  "pid" : "-1",   "order" : "17",     "text" : "휴직이력",            "targetid" : "tpgTimeOffHistory",    "targetvalue" : "휴직이력" },
-        { "id" : "17",  "pid" : "-1",   "order" : "18",     "text" : "단체보험",            "targetid" : "tpgGroupInsurance",    "targetvalue" : "단체보험" },
-        { "id" : "18",  "pid" : "-1",   "order" : "19",     "text" : "상해/질병",           "targetid" : "tpgDisease",    "targetvalue" : "상해/질병" },
-        { "id" : "19",  "pid" : "-1",   "order" : "20",     "text" : "평가",                "targetid" : "tpgPersonnelEvaluation",    "targetvalue" : "평가" },
-        { "id" : "20",  "pid" : "-1",   "order" : "21",     "text" : "공상발생",             "targetid" : "tpgOfficialInjury",    "targetvalue" : "공상발생" },
-        { "id" : "21",  "pid" : "-1",   "order" : "22",     "text" : "계약차수",             "targetid" : "tpgContractDeg",    "targetvalue" : "계약차수" },
-        { "id" : "22",  "pid" : "-1",   "order" : "23",     "text" : "근무계획",             "targetid" : "tpgWORKPLAN",    "targetvalue" : "근무계획" },
-        { "id" : "23",  "pid" : "-1",   "order" : "24",     "text" : "근무조",               "targetid" : "tpgEmp",    "targetvalue" : "근무조" },
-        { "id" : "24",  "pid" : "-1",   "order" : "25",     "text" : "경조사비내역",          "targetid" : "tpgExpenditurewelfare",    "targetvalue" : "경조사비내역" }
+        { "id" : "0",   "pid" : "-1",   "order" : "1",      "text" : "소속정보",             "targetid" : "tpgMaster",    "targetvalue" : "소속정보" },
+        { "id" : "1",   "pid" : "-1",   "order" : "2",      "text" : "기본인적",             "targetid" : "tpgMasterSub",    "targetvalue" : "기본인적" },
+        { "id" : "2",   "pid" : "-1",   "order" : "3",      "text" : "주거/생활/신체",        "targetid" : "tpgMasterSubDetail",    "targetvalue" : "주거/생활/신체" },
+        { "id" : "3",   "pid" : "-1",   "order" : "4",      "text" : "가족사항",             "targetid" : "tpgFAMILY",    "targetvalue" : "가족사항" },
+        { "id" : "4",   "pid" : "-1",   "order" : "5",      "text" : "학력사항",             "targetid" : "tpgSCHOOL",    "targetvalue" : "학력사항" },
+        { "id" : "5",   "pid" : "-1",   "order" : "6",      "text" : "경력사항",             "targetid" : "tpgCAREER",    "targetvalue" : "경력사항" },
+        { "id" : "6",   "pid" : "-1",   "order" : "7",      "text" : "자격사항",             "targetid" : "tpgLICENSE",    "targetvalue" : "자격사항" },
+        { "id" : "7",   "pid" : "-1",   "order" : "8",      "text" : "어학/컴퓨터활용능력",    "targetid" : "tpgLANGUAGE",    "targetvalue" : "어학/컴퓨터활용능력" },
+        { "id" : "8",   "pid" : "-1",   "order" : "9",      "text" : "파일",                "targetid" : "tpgFILE",    "targetvalue" : "파일" },
+        { "id" : "9",   "pid" : "-1",   "order" : "10",      "text" : "교육사항",             "targetid" : "tpgEducation",    "targetvalue" : "교육사항" },
+        { "id" : "10",   "pid" : "-1",   "order" : "11",     "text" : "병역사항",             "targetid" : "tpgMasterSubDetail2",    "targetvalue" : "병역사항" },
+        { "id" : "11",  "pid" : "-1",   "order" : "12",     "text" : "보훈/장애/여권/비자",    "targetid" : "tpgMasterSubDetail3",    "targetvalue" : "보훈/장애/여권/비자" },
+        { "id" : "12",  "pid" : "-1",   "order" : "13",     "text" : "보증보험",            "targetid" : "tpgMasterSubDetail4",    "targetvalue" : "보증보험" },
+        { "id" : "13",  "pid" : "-1",   "order" : "14",     "text" : "상벌사항",            "targetid" : "tpgPrize",    "targetvalue" : "상벌사항" },
+        { "id" : "14",  "pid" : "-1",   "order" : "15",     "text" : "건강검진내역",         "targetid" : "tpgHealth",    "targetvalue" : "건강검진내역" },
+        { "id" : "15",  "pid" : "-1",   "order" : "16",     "text" : "발령사항",            "targetid" : "tpgAppointment",    "targetvalue" : "발령사항" },
+        { "id" : "16",  "pid" : "-1",   "order" : "17",     "text" : "겸직",               "targetid" : "tabPageEx1",    "targetvalue" : "겸직" },
+        { "id" : "17",  "pid" : "-1",   "order" : "18",     "text" : "휴직이력",            "targetid" : "tpgTimeOffHistory",    "targetvalue" : "휴직이력" },
+        { "id" : "18",  "pid" : "-1",   "order" : "19",     "text" : "단체보험",            "targetid" : "tpgGroupInsurance",    "targetvalue" : "단체보험" },
+        { "id" : "19",  "pid" : "-1",   "order" : "20",     "text" : "상해/질병",           "targetid" : "tpgDisease",    "targetvalue" : "상해/질병" },
+        { "id" : "20",  "pid" : "-1",   "order" : "21",     "text" : "평가",                "targetid" : "tpgPersonnelEvaluation",    "targetvalue" : "평가" },
+        { "id" : "21",  "pid" : "-1",   "order" : "22",     "text" : "공상발생",             "targetid" : "tpgOfficialInjury",    "targetvalue" : "공상발생" },
+        { "id" : "22",  "pid" : "-1",   "order" : "23",     "text" : "계약차수",             "targetid" : "tpgContractDeg",    "targetvalue" : "계약차수" },
+        { "id" : "23",  "pid" : "-1",   "order" : "24",     "text" : "근무계획",             "targetid" : "tpgWORKPLAN",    "targetvalue" : "근무계획" },
+        { "id" : "24",  "pid" : "-1",   "order" : "25",     "text" : "근무조",               "targetid" : "tpgEmp",    "targetvalue" : "근무조" },
+        { "id" : "25",  "pid" : "-1",   "order" : "26",     "text" : "경조사비내역",          "targetid" : "tpgExpenditurewelfare",    "targetvalue" : "경조사비내역" }
     ];
 
     const fn_initSBSelect = async function() {
