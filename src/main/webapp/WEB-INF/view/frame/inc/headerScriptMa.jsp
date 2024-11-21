@@ -29,6 +29,10 @@
 	<jsp:include page="../../../com/popup/comPopAppvMng.jsp"></jsp:include>
 </div>
 <script>
+
+/*
+ * 화면 비율을 줄였을 때 그리드내에 있는 셀렉트, 인풋등등 위치를 찾지못할때
+ 
     const bodyTransform = window.getComputedStyle(document.body).transform;
     let scaleX = 1;
     let scaleY = 1;
@@ -175,7 +179,6 @@
                         if (inputElement) {
                             // input의 스타일을 td와 맞추어 설정
                             inputElement.style.left = (leftDifference * scaleX) + 'px';
-                            /*inputElement.style.top = (topDifference * scaleY) + 'px';*/
                         }
                     }
                 }
@@ -248,4 +251,6 @@
         // 대상 노드에 대해 감시 시작
         observer.observe(targetNode, config);
     });
+*/
+*
 </script>
