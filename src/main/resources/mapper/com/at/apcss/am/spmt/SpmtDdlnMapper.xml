@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SpmtDdlnMapper.xml                                   				-->
+<!-- DESC : 생산속보 mapper                   				                -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.spmt.mapper.SpmtDdlnMapper">
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectDhtyJobList	-->
+	<!-- DESC : 생산속보 당일작업단가 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectDhtyJobList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+  		SELECT
+			APC_CD
+			, SPMT_YMD
+			, JOB_NOPE
+			, TOT_LBRCO
+			, TOT_SPMT_WGHT
+			, ISSUE
+			, DEL_YN
+			, TOT_SPMT_WGHT / JOB_NOPE AS WORK_SPMT_WGHT
+			, TOT_LBRCO / TOT_SPMT_WGHT AS UNIT_WORK_PRC
+
+		FROM TB_DOC_DHTY_JOB
+		WHERE 1=1
+		  AND DEL_YN = 'N'
+		  AND APC_CD = #{apcCd}
+		]]>
+  		<if test="spmtYmdFrom != null and spmtYmdFrom != ''">
+        	AND SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+    	</if>
+
+	    <if test="spmtYmdTo != null and spmtYmdTo != ''">
+	        AND SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+	    </if>
+   	</select>
+
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertDhtyJobList			-->
+	<!-- DESC : 생산속보 당일작업단가 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertDhtyJobList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_DHTY_JOB
+			(
+				APC_CD
+				, SPMT_YMD
+				, JOB_NOPE
+				, TOT_LBRCO
+				, TOT_SPMT_WGHT
+				, ISSUE
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+			)
+		VALUES
+			(
+				#{apcCd}
+				,#{spmtYmd}
+				,#{jobNope}
+				,#{totLbrco}
+				,#{totSpmtWght}
+				,#{issue}
+				,#{delYn}
+				,SYSDATE
+				,#{sysFrstInptUserId}
+				,#{sysFrstInptPrgrmId}
+				,SYSDATE
+				,#{sysLastChgUserId}
+				,#{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateDhtyJobList			-->
+	<!-- DESC : 생산속보 당일작업단가 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateDhtyJobList" parameterType="hashmap">
+		<![CDATA[
+		UPDATE TB_DOC_DHTY_JOB SET
+				JOB_NOPE = #{jobNope}
+				, TOT_LBRCO = #{totLbrco}
+				, TOT_SPMT_WGHT = #{totSpmtWght}
+				, ISSUE = #{issue}
+				, SYS_LAST_CHG_DT = SYSDATE
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+		]]>
+		<if test="spmtYmd != null and spmtYmd != ''">
+        	AND SPMT_YMD = #{spmtYmd}
+    	</if>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectDhtyJobList	-->
+	<!-- DESC : 생산속보 작업내용 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectJobCnList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT
+	        APC_CD,
+	        SORT_YMD,
+	        SORT_QNTT,
+	        SORT_WGHT,
+	        CNPT_CD,
+	        IGI_SPMT_QNTT,
+	        REAL_SPMT_QNTT,
+	        DEL_YN
+	    FROM
+	        TB_DOC_JOB_CN
+	    WHERE APC_CD = #{apcCd}
+	      AND DEL_YN = 'N'
+		]]>
+		<if test="sortYmdFrom != null and sortYmdFrom != ''">
+        	AND SORT_YMD <![CDATA[>=]]> #{sortYmdFrom}
+    	</if>
+	    <if test="sortYmdTo != null and sortYmdTo != ''">
+	        AND SORT_YMD <![CDATA[<=]]> #{sortYmdTo}
+	    </if>
+
+
+   	</select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertJobCnList			-->
+	<!-- DESC : 생산속보 작업내용 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertJobCnList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_JOB_CN
+			(
+				APC_CD
+				, SORT_YMD
+				, CNPT_CD
+				, SORT_QNTT
+				, SORT_WGHT
+				, IGI_SPMT_QNTT
+				, REAL_SPMT_QNTT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+			#{apcCd}
+			, #{sortYmd}
+			, #{cnptCd}
+			, #{sortQntt}
+			, #{sortWght}
+			, #{igiSpmtQntt}
+			, #{realSpmtQntt}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateJobCnList			-->
+	<!-- DESC : 생산속보 작업내용 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateJobCnList" parameterType="hashmap">
+		<![CDATA[
+		UPDATE TB_DOC_JOB_CN SET
+			SORT_QNTT = #{sortQntt}
+			, SORT_WGHT = #{sortWght}
+			, IGI_SPMT_QNTT = #{igiSpmtQntt}
+			, REAL_SPMT_QNTT = #{realSpmtQntt}
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+		]]>
+		<if test="sortYmd != null and sortYmd != ''">
+        	AND SORT_YMD = #{sortYmd}
+    	</if>
+    	<if test="cnptCd != null and cnptCd != ''">
+        	AND CNPT_CD = #{cnptCd}
+    	</if>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectMrktAnlsList	-->
+	<!-- DESC : 생산속보 작업내용 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectMrktAnlsList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT
+	        APC_CD
+			, MRKT_CND_YMD
+			, CNPT_CD
+			, REAL_SPMT_QNTT
+			, NTSL_AMT
+			, DEL_YN
+
+	    FROM
+	        TB_DOC_MRKT_ANLS
+	    WHERE APC_CD = #{apcCd}
+	      AND DEL_YN = 'N'
+		]]>
+		<if test="mrktCndYmdFrom != null and mrktCndYmdFrom != ''">
+        	AND MRKT_CND_YMD <![CDATA[>=]]> #{mrktCndYmdFrom}
+    	</if>
+	    <if test="mrktCndYmdTo != null and mrktCndYmdTo != ''">
+	        AND MRKT_CND_YMD <![CDATA[<=]]> #{mrktCndYmdTo}
+	    </if>
+
+
+   	</select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertMrktAnlsList			-->
+	<!-- DESC : 시황분석 작업내용 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertMrktAnlsList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_MRKT_ANLS
+			(
+				APC_CD
+				, MRKT_CND_YMD
+				, CNPT_CD
+				, REAL_SPMT_QNTT
+				, NTSL_AMT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+			#{apcCd}
+			, #{mrktCndYmd}
+			, #{cnptCd}
+			, #{realSpmtQntt}
+			, #{ntslAmt}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateMrktAnlsList			-->
+	<!-- DESC : 시황분석 작업내용 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateMrktAnlsList" parameterType="hashmap">
+		<![CDATA[
+		UPDATE TB_DOC_MRKT_ANLS SET
+			REAL_SPMT_QNTT = #{realSpmtQntt}
+			, NTSL_AMT = #{ntslAmt}
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+			AND DEL_YN = "N"
+		]]>
+		<if test="mrktCndYmd != null and mrktCndYmd != ''">
+        	AND MRKT_CND_YMD = #{mrktCndYmd}
+    	</if>
+    	<if test="cnptCd != null and cnptCd != ''">
+        	AND CNPT_CD = #{cnptCd}
+    	</if>
+    </update>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertDhtyJobList			-->
+	<!-- DESC : 재고현황1 당일작업단가 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertInvntrSttn1" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_INVNTR_STTN_SORT
+			(
+				APC_CD
+				, INVNTR_YMD
+				, ITEM_CD
+				, COLR_SE_CD
+				, ETC_SE_CD
+				, QNTT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+				#{apcCd}
+				,#{invntrYmd}
+				,#{itemCd}
+				,#{colrSeCd}
+				,#{etcSeCd}
+				,#{qntt}
+				,#{delYn}
+				,SYSDATE
+				,#{sysFrstInptUserId}
+				,#{sysFrstInptPrgrmId}
+				,SYSDATE
+				,#{sysLastChgUserId}
+				,#{sysLastChgPrgrmId}
+
+			)
+		]]>
+    </insert>
+
+
+
+</mapper>
+
+
