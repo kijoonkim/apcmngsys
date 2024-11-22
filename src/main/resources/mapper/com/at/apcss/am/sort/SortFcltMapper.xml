@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SortFcltMapper.xml                                   				-->
+<!-- DESC : 선별설비정보 mapper                                            			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.09.03  	박승진    		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.sort.mapper.SortFcltMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfoList	-->
+	<!-- DESC : 선별설비 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltInfoList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+			SELECT
+			DTL.APC_CD
+			, DTL.CD_ID AS FCLT_TYPE
+			, DTL.CD_VL AS FCLT_CD
+			, DTL.CD_VL_NM AS FCLT_NM
+			, DTL.EXTRNL_LNKG_CD
+			, OAF.FCLT_EXPLN
+			, OAF.OPRTNG_HR
+			, OAF.N_OPRTNG_HR
+			, OAF.HR_UNIT
+			, OAF.FCLT_CPCT
+			, OAF.CPCT_UNIT
+			, OAF.WGHT_MIN
+			, OAF.WGHT_MAX
+			, OAF.WGHT_UNIT
+			, OAF.PRCS_NMTM
+			, OAF.BGNG_YMD
+			, OAF.END_YMD
+			, OAF.FCLT_RMRK
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_ITEM_CD' ) AS RPRS_ITEM
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_VRTY_CD' ) AS RPRS_VRTY
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'STD_PCKG_CD' ) AS UNIT
+
+			 FROM (SELECT *
+						  FROM TB_COM_CD_DTL DTL
+				    	WHERE
+				    	]]>
+				    	<if test='apcCd != null and apcCd != ""'>
+				    		DTL.APC_CD = #{apcCd}
+						</if>
+						<if test='fcltCd != null and fcltCd != ""'>
+				    		AND DTL.CD_VL = #{fcltCd}
+						</if>
+				    	<![CDATA[
+				     		 AND DTL.CD_ID  = 'SORT_FCLT_CD') DTL
+			 	 ,(SELECT * FROM TB_OPRTNG_APC_FCLT WHERE DEL_YN = 'N') OAF
+
+			 WHERE 1=1
+			 	  AND DTL.APC_CD = OAF.APC_CD(+)
+		    	  AND DTL.CD_ID = OAF.FCLT_TYPE(+)
+		    	  AND DTL.CD_VL = OAF.FCLT_CD(+)
+
+
+
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfo		-->
+	<!-- DESC : 선별설비 목록 단건 조회.                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltInfo" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+    		SELECT
+    		*
+    		FROM TB_OPRTNG_APC_FCLT OAF
+
+			 WHERE 1=1
+			 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+			 	  AND OAF.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+	          AND OAF.APC_CD = #{apcCd}
+		</if>
+		<if test='fcltCd != null and fcltCd != ""'>
+	          AND OAF.FCLT_CD = #{fcltCd}
+		</if>
+
+
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortOprtngCrtrList		-->
+	<!-- DESC : 가동기준관리(선별) 조회.                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortOprtngCrtrList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+    		SELECT
+    			DTL.APC_CD
+	    		, DTL.CD_ID AS FCLT_TYPE
+	    		, DTL.CD_VL AS FCLT_CD
+	    		, DTL.CD_VL_NM AS FCLT_NM
+	    		, OAFI.ITEM_CD AS RPRS_ITEM
+	    		, OAFI.VRTY_CD AS RPRS_VRTY
+	    		, OAFI.SPCFCT_CD
+	    		, OAFI.INPT_QNTT
+	    		, OAFI.INPT_WGHT
+	    		, OAFI.RSLT_QNTT
+	    		, OAFI.RSLT_WGHT
+	    		, OAFI.DEL_YN
+    		FROM (SELECT *
+						  FROM TB_COM_CD_DTL DTL
+				    	WHERE
+				    	]]>
+				    	<if test='apcCd != null and apcCd != ""'>
+				    		DTL.APC_CD = #{apcCd}
+						</if>
+				    	<![CDATA[
+				     		 AND DTL.CD_ID  = 'SORT_FCLT_CD') DTL
+    			,(SELECT * FROM TB_OPRTNG_APC_FCLT_ITEM WHERE DEL_YN = 'N') OAFI
+
+			 WHERE 1=1
+		 		  AND DTL.APC_CD = OAFI.APC_CD(+)
+		    	  AND DTL.CD_ID = OAFI.FCLT_TYPE(+)
+ 	    		  AND DTL.CD_VL = OAFI.FCLT_CD(+)
+
+		]]>
+
+
+
+
+    </select>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltAtrb		-->
+	<!-- DESC : 선별설비 속성 목록 조회.	                                    	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+			SELECT
+			*
+			FROM TB_OPRTNG_APC_FCLT_ATRB OAFA
+			 WHERE 1=1
+			 	  AND OAFA.FCLT_TYPE = 'SORT_FCLT_CD'
+			 	  AND OAFA.DEL_YN = 'N'
+
+
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+	          AND OAFA.APC_CD = #{apcCd}
+		</if>
+		<if test='fcltType != null and fcltType != ""'>
+	          AND OAFA.FCLT_TYPE = #{fcltType}
+		</if>
+		<if test='fcltAtrbType != null and fcltAtrbType != ""'>
+	          AND OAFA.FCLT_ATRB_TYPE = #{fcltAtrbType}
+		</if>
+		<if test='fcltCd != null and fcltCd != ""'>
+	          AND OAFA.FCLT_CD = #{fcltCd}
+		</if>
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltDtl		-->
+	<!-- DESC : 선별설비 목록 단건 조회.                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+    		SELECT
+    		*
+    		FROM TB_OPRTNG_APC_FCLT_DTL OAFD
+
+			 WHERE 1=1
+			 	  AND OAFD.FCLT_TYPE = 'SORT_FCLT_CD'
+			 	  AND OAFD.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+	          AND OAFD.APC_CD = #{apcCd}
+		</if>
+		<if test='fcltCd != null and fcltCd != ""'>
+	          AND OAFD.FCLT_CD = #{fcltCd}
+		</if>
+
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPlanList	-->
+	<!-- DESC : 선별설비 운영계획 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltOprtngPlanList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+			SELECT * FROM
+			(SELECT
+			OAF.APC_CD
+			, OAF.FCLT_TYPE
+			, OAF.FCLT_CD
+			, OAF.FCLT_NM
+			, OAF.FCLT_EXPLN
+			, OAF.OPRTNG_HR
+			, OAF.N_OPRTNG_HR
+			, OAF.HR_UNIT
+			, OAF.FCLT_CPCT
+			, OAF.CPCT_UNIT
+			, OAF.WGHT_MIN
+			, OAF.WGHT_MAX
+			, OAF.WGHT_UNIT
+			, OAF.PRCS_NMTM
+			, OAF.BGNG_YMD
+			, OAF.END_YMD
+			, OAF.FCLT_RMRK
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_ITEM_CD' ) AS RPRS_ITEM
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_VRTY_CD' ) AS RPRS_VRTY
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'STD_PCKG_CD' ) AS UNIT
+
+			 FROM TB_OPRTNG_APC_FCLT OAF
+
+			 WHERE 1=1
+		 	  AND OAF.DEL_YN = 'N'
+		 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	  ]]>
+		 	  <if test='apcCd != null and apcCd != ""'>
+	          	AND OAF.APC_CD = #{apcCd}
+			  </if>
+			  <if test='fcltCd != null and fcltCd != ""'>
+	            AND OAF.FCLT_CD = #{fcltCd}
+			  </if>
+	  <![CDATA[
+		) A,
+		(SELECT APC_CD
+				, FCLT_TYPE
+				, FCLT_CD
+				, OPRTNG_BGNG_DT
+				, OPRTNG_END_DT
+				, PLAN_DTL_CD
+				, INPT_QNTT
+				, INPT_WGHT
+				, PLAN_QNTT
+				, PLAN_WGHT
+				, PLAN_RMRK
+				, DEL_YN
+		 FROM TB_OPRTNG_APC_PLAN OAP
+
+		 WHERE 1=1
+		 	AND OAP.DEL_YN = 'N'
+		 	AND OAP.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	]]>
+				<if test='apcCd != null and apcCd != ""'>
+			          AND OAP.APC_CD = #{apcCd}
+
+				</if>
+				<if test='fcltCd != null and fcltCd != ""'>
+			          AND OAP.FCLT_CD = #{fcltCd}
+				</if>
+			)B
+
+		WHERE 1=1
+			AND A.APC_CD = B.APC_CD(+)
+			AND A.FCLT_TYPE = B.FCLT_TYPE(+)
+			AND A.FCLT_CD = B.FCLT_CD(+)
+
+
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPrfmncList	-->
+	<!-- DESC : 선별설비 운영계획 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <select id="selectSortFcltOprtngPrfmncList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    	<![CDATA[
+			SELECT * FROM
+			(SELECT
+			OAF.APC_CD
+			, OAF.FCLT_TYPE
+			, OAF.FCLT_CD
+			, OAF.FCLT_NM
+			, OAF.FCLT_EXPLN
+			, OAF.OPRTNG_HR
+			, OAF.N_OPRTNG_HR
+			, OAF.HR_UNIT
+			, OAF.FCLT_CPCT
+			, OAF.CPCT_UNIT
+			, OAF.WGHT_MIN
+			, OAF.WGHT_MAX
+			, OAF.WGHT_UNIT
+			, OAF.PRCS_NMTM
+			, OAF.BGNG_YMD
+			, OAF.END_YMD
+			, OAF.FCLT_RMRK
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_ITEM_CD' ) AS RPRS_ITEM
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'RPRS_VRTY_CD' ) AS RPRS_VRTY
+			, (SELECT MAX(X.ATRB_CD)
+				FROM TB_OPRTNG_APC_FCLT_ATRB X
+					WHERE OAF.APC_CD = X.APC_CD
+						AND OAF.FCLT_TYPE = X.FCLT_TYPE
+						AND OAF.FCLT_CD  = X.FCLT_CD
+						AND X.FCLT_ATRB_TYPE = 'STD_PCKG_CD' ) AS UNIT
+
+			 FROM TB_OPRTNG_APC_FCLT OAF
+
+			 WHERE 1=1
+		 	  AND OAF.DEL_YN = 'N'
+		 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	  ]]>
+		 	  <if test='apcCd != null and apcCd != ""'>
+	          	AND OAF.APC_CD = #{apcCd}
+			  </if>
+			  <if test='fcltCd != null and fcltCd != ""'>
+	            AND OAF.FCLT_CD = #{fcltCd}
+			  </if>
+	  <![CDATA[
+		) A,
+		(SELECT
+			 X.APC_CD
+				, X.FCLT_TYPE
+				, X.FCLT_CD
+				, X.OPRTNG_BGNG_DT AS ORG_OPRTNG_BGNG_DT
+				, X.OPRTNG_END_DT AS ORG_OPRTNG_END_DT
+				, X.PLAN_DTL_CD
+				, X.PLAN_QNTT
+				, X.PLAN_WGHT
+				, X.INPT_QNTT
+				, X.INPT_WGHT
+				, Y.OPRTNG_BGNG_DT
+				, Y.OPRTNG_END_DT
+				, Y.OPRTNG_DTL_CD
+				, Y.OPRTNG_QNTT
+				, Y.OPRTNG_WGHT
+				, Y.OPRTNG_RMRK
+				, Y.OPRTNG_SN AS SN
+				, Y.DEL_YN
+
+
+			  FROM TB_OPRTNG_APC_PLAN X
+   	             , TB_OPRTNG_APC_PRFMNC Y
+			WHERE 1=1
+				AND X.APC_CD = Y.APC_CD(+)
+				AND X.FCLT_TYPE = Y.FCLT_TYPE(+)
+				AND X.FCLT_CD = Y.FCLT_CD(+)
+				AND X.PLAN_DTL_CD = Y.OPRTNG_DTL_CD(+)
+				AND X.DEL_YN = 'N'
+		 	]]>
+				<if test='apcCd != null and apcCd != ""'>
+			          AND X.APC_CD = #{apcCd}
+				</if>
+				<if test='fcltCd != null and fcltCd != ""'>
+			          AND X.FCLT_CD = #{fcltCd}
+				</if>
+			)B
+
+		WHERE 1=1
+			AND A.APC_CD = B.APC_CD(+)
+			AND A.FCLT_TYPE = B.FCLT_TYPE(+)
+			AND A.FCLT_CD = B.FCLT_CD(+)
+		ORDER BY B.PLAN_DTL_CD
+    </select>
+
+        <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비 수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+				TB_OPRTNG_APC_FCLT
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, FCLT_NM = #{fcltNm}
+				, FCLT_EXPLN = #{fcltExpln}
+				, OPRTNG_HR = #{oprtngHr}
+				, N_OPRTNG_HR = #{nOprtngHr}
+				, HR_UNIT = #{hrUnit}
+				, FCLT_CPCT = #{fcltCpct}
+				, CPCT_UNIT = #{cpctUnit}
+				, WGHT_MIN = #{wghtMin}
+				, WGHT_MAX = #{wghtMax}
+				, WGHT_UNIT = #{wghtUnit}
+				, PRCS_NMTM = #{prcsNmtm}
+				, BGNG_YMD = #{bgngYmd}
+				, END_YMD = #{endYmd}
+				, FCLT_RMRK = #{fcltRmrk}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_CD = #{fcltCd}
+			   AND FCLT_TYPE = #{fcltType}
+		]]>
+	</update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비속성 수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+				TB_OPRTNG_APC_FCLT_ATRB
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, ATRB_CD = #{atrbCd}
+				, ATRB_VL = #{atrbVl}
+				, ATRB_INDCT_NM = #{atrbIndctNm}
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_ATRB_TYPE = #{fcltAtrbType}
+			   AND FCLT_TYPE = #{fcltType}
+		]]>
+	</update>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- DESC : 선별설비 등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_FCLT
+				(
+					APC_CD
+					, FCLT_TYPE
+					, FCLT_CD
+					, FCLT_NM
+					, FCLT_EXPLN
+					, OPRTNG_HR
+					, N_OPRTNG_HR
+					, HR_UNIT
+					, FCLT_CPCT
+					, CPCT_UNIT
+					, WGHT_MIN
+					, WGHT_MAX
+					, WGHT_UNIT
+					, PRCS_NMTM
+					, BGNG_YMD
+					, END_YMD
+					, FCLT_RMRK
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+
+				)
+			VALUES
+			    (
+				 	#{apcCd}
+					, #{fcltType}
+					, #{fcltCd}
+					, #{fcltNm}
+					, #{fcltExpln}
+					, #{oprtngHr}
+					, #{nOprtngHr}
+					, #{hrUnit}
+					, #{fcltCpct}
+					, #{cpctUnit}
+					, #{wghtMin}
+					, #{wghtMax}
+					, #{wghtUnit}
+					, #{prcsNmtm}
+					, #{bgngYmd}
+					, #{endYmd}
+					, #{fcltRmrk}
+					, #{delYn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+
+				)
+
+		]]>
+
+	</insert>
+
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- DESC : 선별설비속성 등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_FCLT_ATRB
+				(
+					APC_CD
+					, FCLT_TYPE
+					, FCLT_CD
+					, FCLT_ATRB_TYPE
+					, SN
+					, ATRB_CD
+					, ATRB_VL
+					, ATRB_INDCT_NM
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+			    (
+				 	#{apcCd}
+					, #{fcltType}
+					, #{fcltCd}
+					, #{fcltAtrbType}
+					, #{sn}
+					, #{atrbCd}
+					, #{atrbVl}
+					, #{atrbIndctNm}
+					, #{delYn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+
+		]]>
+
+	</insert>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- DESC : 선별설비상세 등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_FCLT_DTL
+				(
+					APC_CD
+					,  FCLT_TYPE
+					,  FCLT_CD
+					,  FCLT_DTL_TYPE
+					,  DTL_CD
+					,  DTL_VL
+					,  DTL_INDCT_NM
+					,  DEL_YN
+					,  SYS_FRST_INPT_DT
+					,  SYS_FRST_INPT_USER_ID
+					,  SYS_FRST_INPT_PRGRM_ID
+					,  SYS_LAST_CHG_DT
+					,  SYS_LAST_CHG_USER_ID
+					,  SYS_LAST_CHG_PRGRM_ID
+					,  FCLT_EXPLN
+				)
+			VALUES
+			    (
+				   #{apcCd}
+					, #{ fcltType}
+					, #{ fcltCd}
+					, #{ fcltDtlType}
+					, #{ dtlCd}
+					, #{ dtlVl}
+					, #{ dtlIndctNm}
+					, #{ delYn}
+					, SYSDATE
+					, #{ sysFrstInptUserId}
+					, #{ sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{ sysLastChgUserId}
+					, #{ sysLastChgPrgrmId}
+					, #{ fcltExpln}
+
+				)
+
+		]]>
+
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비상세 수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+				TB_OPRTNG_APC_FCLT_DTL
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DTL_CD = #{dtlCd}
+				, DTL_VL = #{dtlVl}
+				, DTL_INDCT_NM = #{dtlIndctNm}
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_DTL_TYPE = #{fcltAtrbType}
+			   AND FCLT_CD = #{fcltCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비정보 삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="deleteSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFclt */
+				TB_OPRTNG_APC_FCLT
+			   SET
+			   	  DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_TYPE = #{fcltType}
+			   AND FCLT_CD = #{fcltCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비속성 삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="deleteSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltAtrb */
+				TB_OPRTNG_APC_FCLT_ATRB
+			   SET
+			   	  DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_DTL_TYPE = #{fcltAtrbType}
+			   AND FCLT_CD = #{fcltCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- DESC : 선별설비상세 삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="deleteSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltDtl */
+				TB_OPRTNG_APC_FCLT_DTL
+			   SET
+			   	  DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND FCLT_TYPE = #{fcltType}
+			   AND FCLT_DTL_TYPE = #{fcltDtlType}
+			   AND FCLT_CD = #{fcltCd}
+		]]>
+	</update>
+
+
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPlan		-->
+	<!-- DESC : 선별설비계획 등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_PLAN
+				(
+					APC_CD,
+					FCLT_TYPE,
+					FCLT_CD,
+					OPRTNG_BGNG_DT,
+					OPRTNG_END_DT,
+					PLAN_DTL_CD,
+					INPT_QNTT,
+					INPT_WGHT,
+					PLAN_QNTT,
+					PLAN_WGHT,
+					PLAN_RMRK,
+					DEL_YN,
+					SYS_FRST_INPT_DT,
+					SYS_FRST_INPT_USER_ID,
+					SYS_FRST_INPT_PRGRM_ID,
+					SYS_LAST_CHG_DT,
+					SYS_LAST_CHG_USER_ID,
+					SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+			    (
+				 	#{apcCd},
+					#{fcltType},
+					#{fcltCd},
+					TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),
+					TO_DATE(#{oprtngEndDt}, 'YYYYMMDDHH24MISS'),
+					#{planDtlCd},
+					#{inptQntt},
+					#{inptWght},
+					#{planQntt},
+					#{planWght},
+					#{planRmrk},
+					'N',
+					SYSDATE,
+					#{sysFrstInptUserId},
+					#{sysFrstInptPrgrmId},
+					SYSDATE,
+					#{sysLastChgUserId},
+					#{sysLastChgPrgrmId}
+
+
+				)
+
+		]]>
+
+	</insert>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPlan		-->
+	<!-- DESC : 선별설비계획 수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<update id="updateSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		UPDATE TB_OPRTNG_APC_PLAN SET
+			OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),
+			OPRTNG_END_DT = TO_DATE(#{oprtngEndDt}, 'YYYYMMDDHH24MISS'),
+			PLAN_DTL_cD = #{planDtlCd},
+			INPT_QNTT = #{inptQntt},
+			INPT_WGHT = #{inptWght},
+			PLAN_QNTT = #{planQntt},
+			PLAN_WGHT = #{planWght},
+			PLAN_RMRK = #{planRmrk},
+			SYS_LAST_CHG_DT = SYSDATE,
+			SYS_LAST_CHG_USER_ID = #{sysLastChgUserId},
+			SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+		WHERE APC_CD = #{apcCd}
+		  AND FCLT_CD = #{fcltCd}
+		  AND FCLT_TYPE = 'SORT_FCLT_CD'
+		  AND OPRTNG_BGNG_DT = TO_DATE(#{orgOprtngBgngDt}, 'YYYYMMDDHH24MISS')
+		]]>
+
+	</update>
+
+
+
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPlan		-->
+	<!-- DESC : 선별설비계획 삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<delete id="deleteSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		DELETE FROM TB_OPRTNG_APC_PLAN
+		WHERE APC_CD = #{apcCd}
+		  AND FCLT_CD = #{fcltCd}
+		  AND FCLT_TYPE = 'SORT_FCLT_CD'
+		  AND OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS')
+		]]>
+
+	</delete>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPrfmnc		-->
+	<!-- DESC : 선별설비계획 삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<delete id="deleteSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		DELETE FROM TB_OPRTNG_APC_PRFMNC
+		WHERE APC_CD = #{apcCd}
+		  AND FCLT_CD = #{fcltCd}
+		  AND FCLT_TYPE = 'SORT_FCLT_CD'
+		  AND OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS')
+		  AND OPRTNG_DTL_CD = #{oprtngDtlCd}
+		  AND OPRTNG_SN = #{sn}
+		]]>
+
+	</delete>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- DESC : 가동기준관리(선별)등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_FCLT_ITEM
+				(
+					APC_CD
+					, FCLT_TYPE
+					, FCLT_CD
+					, ITEM_CD
+					, VRTY_CD
+					, SPCFCT_CD
+					, INPT_QNTT
+					, INPT_WGHT
+					, RSLT_QNTT
+					, RSLT_WGHT
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+
+
+				)
+			VALUES
+			    (
+				 	#{apcCd},
+					#{fcltType},
+					#{fcltCd},
+					#{rprsItem},
+					#{rprsVrty},
+					#{spcfctCd},
+					#{inptQntt},
+					#{inptWght},
+					#{rsltQntt},
+					#{rsltWght},
+					#{delYn},
+					SYSDATE,
+					#{sysFrstInptUserId},
+					#{sysFrstInptPrgrmId},
+					SYSDATE,
+					#{sysLastChgUserId},
+					#{sysLastChgPrgrmId}
+				)
+
+		]]>
+
+	</insert>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- DESC : 가동기준관리(선별)수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="updateSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		UPDATE
+			TB_OPRTNG_APC_FCLT_ITEM
+		SET
+			FCLT_TYPE = #{fcltType}
+			, FCLT_CD = #{fcltCd}
+			, ITEM_CD = #{rprsItem}
+			, VRTY_CD = #{rprsVrty}
+			, SPCFCT_CD = #{spcfctCd}
+			, INPT_QNTT = #{inptQntt}
+			, INPT_WGHT = #{inptWght}
+			, RSLT_QNTT = #{rsltQntt}
+			, RSLT_WGHT = #{rsltWght}
+
+			WHERE APC_CD = #{apcCd}
+			  AND FCLT_TYPE = #{fcltType}
+			  AND FCLT_CD = #{fcltCd}
+			  AND ITEM_CD = #{rprsItem}
+			  AND VRTY_CD = #{rprsVrty}
+			  AND SPCFCT_CD = #{spcfctCd}
+
+		]]>
+
+	</insert>
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltInfo		-->
+	<!-- DESC : 가동기준관리(선별)삭제 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="deleteSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		DELETE FROM TB_OPRTNG_APC_FCLT_ITEM
+		WHERE APC_CD = #{apcCd}
+		  AND FCLT_TYPE = #{fcltType}
+		  AND FCLT_CD = #{fcltCd}
+		  AND ITEM_CD = #{rprsItem}
+		  AND VRTY_CD = #{rprsVrty}
+		  AND SPCFCT_CD = #{spcfctCd}
+
+		]]>
+
+	</insert>
+
+
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPrfmnc		-->
+	<!-- DESC : 가동실적(선별)등록 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		INSERT
+			INTO TB_OPRTNG_APC_PRFMNC
+				(
+					APC_CD
+					, FCLT_TYPE
+					, FCLT_CD
+					, OPRTNG_BGNG_DT
+					, OPRTNG_END_DT
+					, OPRTNG_SN
+					, OPRTNG_DTL_CD
+					, OPRTNG_QNTT
+					, OPRTNG_WGHT
+					, OPRTNG_RMRK
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+			    (
+				 	#{apcCd}
+					, #{fcltType}
+					, #{fcltCd}
+					, TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS')
+					, TO_DATE(#{oprtngEndDt}, 'YYYYMMDDHH24MISS')
+					, (SELECT CASE
+								WHEN MAX(OPRTNG_SN) IS NOT NULL THEN MAX(OPRTNG_SN) +1
+								WHEN MAX(OPRTNG_SN) IS NULL THEN 1 END
+	 					FROM USRAM.TB_OPRTNG_APC_PRFMNC WHERE OPRTNG_DTL_CD = #{oprtngDtlCd} )
+					, #{oprtngDtlCd}
+					, #{oprtngQntt}
+					, #{oprtngWght}
+					, #{oprtngRmrk}
+					, #{delYn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+
+				)
+
+		]]>
+
+	</insert>
+
+
+
+
+</mapper>

@@ -1,0 +1,143 @@
+package com.at.apcss.am.tot.web;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.tot.service.TotMngService;
+import com.at.apcss.am.tot.vo.TotMngVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.controller.BaseController;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+
+/**
+ * @Class Name : totController.java
+ * @Description : 집계정보관리
+ * @author 박승진
+ * @since 2024.10.23
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2024.10.23   박승진         최초 생성
+ * </pre>
+ */
+@Controller
+public class TotMngController extends BaseController {
+
+	@Resource(name = "totMngService")
+	private TotMngService totMngService;
+
+	@PostMapping(value = "/am/tot/insertTotCrtrInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertAsstMtrCrtrInfoList(@RequestBody List<Object> data, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		/** 집계기준 속성 VO **/
+        ObjectMapper mapper = new ObjectMapper();
+        TotMngVO totMngVO = mapper.convertValue(data.get(0), TotMngVO.class);
+        totMngVO.setDelYn("N");
+        totMngVO.setSysFrstInptUserId(getUserId());
+        totMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+        totMngVO.setSysLastChgUserId(getUserId());
+        totMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		/** 집계기준 상세 propertise VO **/
+        List<Map<String,Object>> cmnsTotCrtrList = (List<Map<String, Object>>) data.get(1);
+        CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, TotMngVO.class);
+        List<TotMngVO> totMngDtlVOList = mapper.convertValue(cmnsTotCrtrList, listType);
+
+		try {
+			totMngVO.setSysFrstInptUserId(getUserId());
+			totMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			totMngVO.setSysLastChgUserId(getUserId());
+			totMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			totMngVO.setDelYn("N");
+			result = totMngService.insertTotCrtrInfo(totMngVO);
+
+			totMngDtlVOList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			result = totMngService.insertTotCrtrDtlInfo(totMngDtlVOList);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectTotCrtrInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTotCrtrInfoList(@RequestBody TotMngVO TotMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<TotMngVO> resultList = new ArrayList<>();
+		List<TotMngVO> resultList2 = new ArrayList<>();
+
+		try {
+			resultList = totMngService.selectTotCrtrInfoList(TotMngVO);
+			resultList2 = totMngService.selectTotCrtrInfoDtlList(TotMngVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("resultList1", resultList);
+		resultMap.put("resultList2", resultList2);
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/tot/deleteTotMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteTotMngInfo(@RequestBody TotMngVO totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+
+			result = totMngService.deleteTotCrtrInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+
+}

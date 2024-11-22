@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : asstMapper.xml                                   			-->
+<!-- DESC : 집계 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.10.08  	박승진       Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.tot.mapper.TotMngMapper">
+
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.inserttotMngInfo  	-->
+	<!-- DESC : 집계 기준 등록.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.tot.mapper.insertTotMngInfo  */
+	    	  INTO TB_TOT_CRTR (
+				APC_CD
+				, TOT_CRTR_TYPE
+				, CRTR_CD
+				, CRTR_VL
+				, CRTR_INDCT_NM
+				, TOT_DTL_TYPE
+				, INDCT_SEQ
+				, USE_YN
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+
+
+	    	  ) VALUES (
+
+				#{apcCd}
+				, #{totCrtrType}
+				, #{crtrCd}
+				, #{crtrVl}
+				, #{crtrIndctNm}
+				, #{totDtlType}
+				, #{indctSeq}
+				, #{useYn}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+	    	  )
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.inserttotMngDtlInfo  	-->
+	<!-- DESC : 집계 상세 기준 등록.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.tot.mapper.inserttotMngDtlInfo  */
+	    	  INTO TB_TOT_CRTR_DTL (
+				APC_CD
+				, TOT_CRTR_TYPE
+				, CRTR_CD
+				, DTL_SN
+				, DTL_CD
+				, DTL_VL
+				, DTL_INDCT_NM
+				, TOT_DTL_PRCS_CD
+				, INDCT_SEQ
+				, USE_YN
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+
+	    	  ) VALUES (
+				#{apcCd}
+				, #{totCrtrType}
+				, #{crtrCd}
+				, (SELECT COALESCE(MAX(DTL_SN), 0) + 1 FROM TB_TOT_CRTR_DTL)
+				, #{dtlCd}
+				, #{dtlVl}
+				, #{dtlIndctNm}
+				, #{totDtlPrcsCd}
+				, #{indctSeq}
+				, #{useYn}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+	    	  )
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
+	<!-- DESC : 집계 기준 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectTotMngInfoList" parameterType="com.at.apcss.am.tot.vo.TotMngVO" resultType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.tot.mapper.selecttotMngInfoList */
+				*
+			  FROM TB_TOT_CRTR TC
+			 WHERE TC.APC_CD = #{apcCd}
+		  ORDER BY TC.INDCT_SEQ
+
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
+	<!-- DESC : 집계 기준상세 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectTotMngInfoDtlList" parameterType="com.at.apcss.am.tot.vo.TotMngVO" resultType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.tot.mapper.selectTotMngInfoDtlList */
+				*
+			  FROM TB_TOT_CRTR_DTL TCD
+			 WHERE TCD.APC_CD = #{apcCd}
+
+		  ORDER BY TCD.DTL_SN
+
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.updatetotMngInfo  	-->
+	<!-- DESC : 집계 기준 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngInfo */
+	    	  TB_TOT_CRTR SET
+				CRTR_VL = #{crtrVl}
+				, CRTR_INDCT_NM = #{crtrIndctNm}
+				, TOT_DTL_TYPE = #{totDtlType}
+				, INDCT_SEQ = #{indctSeq}
+				, USE_YN = #{useYn}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+
+			 WHERE APC_CD = #{apcCd}
+			   AND TOT_CRTR_TYPE = #{totCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+		]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.updatetotMngDtlInfo  	-->
+	<!-- DESC : 집계 상세기준 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngDtlInfo */
+	    	  TB_TOT_CRTR_DTL SET
+				DTL_CD = #{dtlCd}
+				, DTL_VL = #{dtlVl}
+				, DTL_INDCT_NM = #{dtlIndctNm}
+				, TOT_DTL_PRCS_CD = #{totDtlPrcsCd}
+				, INDCT_SEQ = #{indctSeq}
+				, USE_YN = #{useYn}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+
+
+			 WHERE APC_CD = #{apcCd}
+			   AND TOT_CRTR_TYPE = #{totCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+			   AND DTL_SN = #{dtlSn}
+		]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
+	<!-- DESC : 집계기준정보 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
+			  FROM TB_TOT_CRTR
+			 WHERE APC_CD = #{apcCd}
+			   AND TOT_CRTR_TYPE = #{totCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
+	<!-- DESC : 집계기준상세정보 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
+			  FROM TB_TOT_CRTR_DTL
+			 WHERE APC_CD = #{apcCd}
+			   AND TOT_CRTR_TYPE = #{totCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+			   AND DTL_SN = #{dtlSn}
+		]]>
+	</delete>
+
+
+
+</mapper>
