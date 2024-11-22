@@ -292,7 +292,7 @@ const gfnma_nvl = function (val) {
  */
 const gfnma_nvl2 = function (val) {
 	var str = '';
-	if(val==='' || val===null || val===undefined || val==='undefined'){
+	if(val==='' || val===null || val===undefined || val==='undefined' || val==='NaN'){
 		str = '';
 	} else {
 		return val;
