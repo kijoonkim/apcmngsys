@@ -41,11 +41,14 @@
                     </h3><!-- 미결반제전표 신규 -->
                 </div>
                 <div id="top_lable1" style="margin-left:auto">
+                	<!-- 
                 	<span style="padding-top:7px">
 	                    <font>전표템플릿</font>
                 	</span>
+                	 -->
                 </div>
                 <div id="top_lable2" style="padding-left:10px;padding-right:100px">
+                	<!-- 
 					<div class="dropdown">
 					    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-compopup1-rulecode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    	<font>선택</font>
@@ -54,6 +57,7 @@
 					    <div class="dropdown-menu" aria-labelledby="srch-compopup1-rulecode" style="width:600px;height:150px;padding-top:0px;overflow:auto">
 					    </div>
 					</div> 
+					-->
                 </div>
                 <div>
                 	<!-- 
@@ -286,20 +290,30 @@
                             <span>미결항목</span>
                         </li>
                     </ul>
-                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-                    	<font style="visibility:hidden;" >잔액(통화)</font>
+                    <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font style="visibility:hidden;" >잔액(통화)</font>
+                    	</span>
 						<sbux-input style="width:150px;visibility:hidden" id="sch-numremain-original-amount" uitype="text" class="form-control input-sm" ></sbux-input>
 						
-                    	<font style="visibility:hidden;" >잔액(전표)</font>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font style="visibility:hidden;" >잔액(전표)</font>
+                    	</span>
 						<sbux-input style="width:150px;visibility:hidden" id="sch-numremain-functional-amount" uitype="text" class="form-control input-sm" ></sbux-input>
 						
-                    	<font>반제(통화)</font>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+                    		<font>반제(통화)</font>
+                    	</span>
 						<sbux-input style="width:150px" id="sch-numapply-original-amount" uitype="text" class="form-control input-sm" ></sbux-input>
 						
-                    	<font style="visibility:hidden;" >반제(전표)</font>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font style="visibility:hidden;" >반제(전표)</font>
+                    	</span>
 						<sbux-input style="width:150px;visibility:hidden" id="sch-numapply-functional-amount" uitype="text" class="form-control input-sm" ></sbux-input>
 						
-                    	<font style="visibility:hidden;" >반제(순금액-통화)</font>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font style="visibility:hidden;" >반제(순금액-통화)</font>
+                    	</span>
 						<sbux-input style="width:150px;visibility:hidden" id="sch-numapply-original-amount-raw" uitype="text" class="form-control input-sm" ></sbux-input>
 					</div>
                 </div>
@@ -313,23 +327,31 @@
                             <span>미결반제항목 등록</span>
                         </li>
                     </ul>
-                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-                    	<font>반제(통화)</font>
+                    <div style="display:flex;vertical-align:middle;float:right;padding-top:5px;margin-right:auto">
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font>반제(통화)</font>
+                    	</span>
 						<sbux-input style="width:150px" id="sch-numapply-original-amount2" uitype="text" class="form-control input-sm" ></sbux-input>
 						
 						<font style="width:10px"></font>
 						
-                    	<font>반제(전표)</font>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+	                    	<font>반제(전표)</font>
+                    	</span>
 						<sbux-input style="width:150px" id="sch-numapply-functional-amount2" uitype="text" class="form-control input-sm" ></sbux-input>
 
 						<font style="width:10px"></font>
 						
-						<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
-							<img src="../../../resource/images/plus.png" width="20px" /> 행추가
-						</a>
-						<a href="#" id="btn1-row-del" class="cu-btn-minus" style="padding-left:10px">
-							<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
-						</a>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+							<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
+								<img src="../../../resource/images/plus.png" width="20px" /> 행추가
+							</a>
+						</span>
+                    	<span style="padding-top:5px;padding-right:5px;font-size:12px">
+							<a href="#" id="btn1-row-del" class="cu-btn-minus" style="padding-left:10px">
+								<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
+							</a>
+						</span>
 					</div>
                 </div>
 				
@@ -1039,16 +1061,18 @@
         var cr_apply_functional_amount2 = 0;
         var dr_apply_functional_amount2 = 0;
     	
+		//console.log('jsonFig2310Edit:', jsonFig2310Edit);   		
    		var editAllList = Fig2310GridEdit.getGridDataAll();
+		//console.log('editAllList:', editAllList);   		
     	for (var i = 0; i < editAllList.length; i++) {
     		var obj = editAllList[i];
     		if(obj['CHECK_YN']=='Y'){
-    			daply_functional_amount2	+= Number(obj['FUNCTIONAL_AMT']);
-    			dapply_original_amount2		+= Number(obj['ORIGINAL_AMT']);
+    			daply_functional_amount2	+= Number(gfnma_nvl2(obj['FUNCTIONAL_AMT']));
+    			dapply_original_amount2		+= Number(gfnma_nvl2(obj['ORIGINAL_AMT']));
     			if(obj['DEBIT_CREDIT'] =='D'){
-    				dr_apply_functional_amount2 += Number(obj['FUNCTIONAL_AMT']);
+    				dr_apply_functional_amount2 += Number(gfnma_nvl2(obj['FUNCTIONAL_AMT']));
     			} else {
-    				cr_apply_functional_amount2 += Number(obj['FUNCTIONAL_AMT']);
+    				cr_apply_functional_amount2 += Number(gfnma_nvl2(obj['FUNCTIONAL_AMT']));
     			}
     		}
     	}
@@ -1119,9 +1143,9 @@
             },
             
             {caption: ["거래처"], 					ref: 'CS_CODE',    				type:'input',  		width:'70px',  		style:'text-align:left'},
-            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1129,7 +1153,7 @@
             {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1151,7 +1175,7 @@
             {caption: ["부서"], 					ref: 'DEPT_NAME', 				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["부서코드"],					ref: 'DEPT_CODE', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1159,7 +1183,7 @@
             {caption: ["원가중심점"], 				ref: 'COST_CENTER_CODE',		type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn4',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME', 		type:'input',		width:'150px',  	style:'text-align:left'},
@@ -1177,7 +1201,7 @@
             {caption: ["프로젝트코드"], 			ref: 'PROJECT_CODE',			type:'input',  		width:'100px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn5',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup5(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["프로젝트명"], 				ref: 'PROJECT_NAME', 			type:'input',		width:'250px',  	style:'text-align:left'},
@@ -1185,7 +1209,7 @@
             {caption: ["지급기준"], 				ref: 'PAY_TERM_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["지급기준명"], 				ref: 'PAY_TERM_NAME', 			type:'output',		width:'150px',  	style:'text-align:left'},
@@ -1199,7 +1223,7 @@
             {caption: ["원천징수세금코드"], 		ref: 'WITHHOLD_TAX_TYPE',		type:'input',  		width:'120px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn7',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup7(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_TYPE_CODE', 	type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1209,7 +1233,7 @@
             {caption: ["원천징수세금코드2"], 		ref: 'WITHHOLD_TAX_TYPE2',		type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn8',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
             {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_TYPE2_CODE', type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
@@ -1350,6 +1374,7 @@
         }
         	
         if (Fig2310GridEdit.getRefOfCol(nCol) == 'ORIGINAL_AMT') {		
+			var p_exchange_rate = gfnma_nvl(SBUxMethod.get('sch-exchange-rate'));
         	if( !rowData['BASE_SCALE'] || Number(rowData['ORIGINAL_AMT']) == 0 ){
         		var tmp1 = gfnma_getRound((Number(rowData['ORIGINAL_AMT']) * Number(p_exchange_rate) / Number(SBUxMethod.get('sch-numbase-scale'))), Number(p_ss_currUnit));
 				Fig2310GridEdit.setCellData(nRow, 12, tmp1, true, true);
@@ -1556,8 +1581,14 @@
      */
 	function fn_gridPopup2(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2310GridEdit.getCellData(row, 8) 
-        let cellData2 = Fig2310GridEdit.getCellData(row, 10) 
+		let line_type = Fig2310GridEdit.getCellData(row, 3); 
+		console.log('line_type:', line_type);		
+		if(!line_type || line_type=='1'){
+			gfn_comAlert("E0000","라인유형을 먼저 선택하세요");
+			return;
+		}
+        let cellData1 = Fig2310GridEdit.getCellData(row, 8); 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 10); 
     	fn_gridPopup2Show(row, col, cellData1, cellData2);
 	}
     
@@ -1950,10 +1981,17 @@
         	idx = 0;
         }
         Fig2310GridEdit.insertRow(idx-1, 'below');
+        Fig2310GridEdit.setCellData(idx, 1, 'Y', true, true);
         Fig2310GridEdit.setCellData(idx, 2, idx, true, true);
-        Fig2310GridEdit.setCellData(idx, 14, 0, true, true);
-        Fig2310GridEdit.setCellData(idx, 15, 0, true, true);
-        Fig2310GridEdit.setCellData(idx, 32, 1, true, true);
+        Fig2310GridEdit.setCellData(idx, 11, 0, true, true);
+        Fig2310GridEdit.setCellData(idx, 12, 0, true, true);
+        Fig2310GridEdit.setCellData(idx, 13, gfnma_nvl(SBUxMethod.get('sch-currency-code')), true, true);
+        
+		jsonFig2310Edit[idx-1]['EXCHANGE_RATE'] = gfnma_nvl(SBUxMethod.get('sch-exchange-rate'));
+        Fig2310GridEdit.setCellData(idx, 14, gfnma_nvl(SBUxMethod.get('sch-description')), true, true);
+        Fig2310GridEdit.setCellData(idx, 15, gfnma_nvl(SBUxMethod.get('sch-dept-name')), true, true);
+        Fig2310GridEdit.setCellData(idx, 17, gfnma_nvl(SBUxMethod.get('sch-dept-code')), true, true);
+        Fig2310GridEdit.setCellData(idx, 21, gfnma_nvl(SBUxMethod.get('sch-site-code')), true, true);
     }
     
     /**
