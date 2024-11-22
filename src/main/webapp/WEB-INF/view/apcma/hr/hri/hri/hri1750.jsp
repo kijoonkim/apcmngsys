@@ -167,7 +167,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="table-responsive tbl_scroll_sm">
+                <div>
                     <table class="table table-bordered tbl_fixed">
                         <caption>증명서발급 신청</caption>
                         <colgroup>
