@@ -44,9 +44,9 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	}
 
 	@Override
-	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception {
+	public List<PltBxVO> selectPltBxMngList(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 
-		List<PltBxVO> resultList = pltWrhsSpmtMapper.selectPltBxMngList(pltBxVO);
+		List<PltBxVO> resultList = pltWrhsSpmtMapper.selectPltBxMngList(pltWrhsSpmtVO);
 
 		return resultList;
 	}
@@ -166,4 +166,11 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	public PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 		return pltWrhsSpmtMapper.selectWrhsSpmtSN(pltWrhsSpmtVO);
 	}
+
+	@Override
+	public void updatePltBxInfoBssInvntrQntt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+		pltWrhsSpmtMapper.updatePltBxInfoBssInvntrQntt(pltWrhsSpmtVO);
+	}
+
+
 }

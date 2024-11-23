@@ -41,13 +41,13 @@ public class PltWrhsSpmtController extends BaseController {
 
 	// 원물입고 - 원물 팔레트/박스 재고 목록 조회
 	@PostMapping(value = "/am/cmns/selectPltBxMngList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectPltBxMngList(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectPltBxMngList(@RequestBody PltWrhsSpmtVO pltWrhsSpmtVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<PltBxVO> resultList = new ArrayList<>();
 		try {
 
-			resultList = pltWrhsSpmtService.selectPltBxMngList(pltBxVO);
+			resultList = pltWrhsSpmtService.selectPltBxMngList(pltWrhsSpmtVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

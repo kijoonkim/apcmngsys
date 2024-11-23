@@ -486,7 +486,7 @@ async function cfn_search() {
 	        	typeinfo : {mask : {alias : 'numeric'}},
 	        	format : {
 	        		type:'number',
-	        		rule:'#,###  '
+	        		rule:'#,###.###'
 	        	}
 	        },
 	        {
@@ -497,7 +497,7 @@ async function cfn_search() {
 	        	style:'text-align:right',
 	        	format : {
 	        		type:'number',
-	        		rule:'#.###'
+	        		rule:'#,###.###'
 	        	}
 	        },
 	        {
@@ -507,7 +507,7 @@ async function cfn_search() {
 	        	width:'100px',
 	        	style:'text-align:right',
 	        	typeinfo : {mask : {alias : 'numeric'}},
-	        	format : {type:'number', rule:'#,##0  '}
+	        	format : {type:'number', rule:'#,###.###'}
 	        },
 	        {
 	        	caption: ["현재고중량 (Kg)"],
@@ -516,7 +516,7 @@ async function cfn_search() {
 	        	width:'100px',
 	        	style:'text-align:right',
 	        	typeinfo : {mask : {alias : 'numeric'}},
-	        	format : {type:'number', rule:'#,##0  '}
+	        	format : {type:'number', rule:'#,###.###'}
 	        },
 	        {caption: ["단가"],ref: 'untPrc',type:'output',width:'100px',style:'text-align:right',typeinfo : {mask : {alias : 'numeric'}},format : {type:'number', rule:'#,##0  '}},
 	        {caption: ["공급가"],ref: 'splyPrc',type:'output',width:'100px',style:'text-align:right',typeinfo : {mask : {alias : 'numeric'}},format : {type:'number', rule:'#,##0  '}},

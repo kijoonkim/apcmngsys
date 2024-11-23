@@ -34,7 +34,7 @@ public interface PltWrhsSpmtService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception;
+	public List<PltBxVO> selectPltBxMngList(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 	
 	/**
 	 * 팔레트 입출고 단건 조회
@@ -89,4 +89,11 @@ public interface PltWrhsSpmtService {
 	 * @throws Exception
 	 */
 	public PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고실적 생성후 파레트정보내 현수량 업데이트
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	void updatePltBxInfoBssInvntrQntt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 }

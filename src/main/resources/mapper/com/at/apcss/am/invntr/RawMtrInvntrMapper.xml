@@ -1055,6 +1055,7 @@
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
 					, SPCFCT_CD
+					, PLOR_CD
 	    		)
 	   		VALUES
 	   			(
@@ -1090,6 +1091,7 @@
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
 					, #{spcfctCd}
+					, #{plorCd}
 	   			)
     	]]>
     </insert>

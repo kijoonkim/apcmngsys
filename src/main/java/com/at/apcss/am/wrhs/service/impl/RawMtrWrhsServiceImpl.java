@@ -621,8 +621,9 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			pltWrhsSpmtVO.setApcCd(rawMtrWrhsVO.getApcCd());
 			pltWrhsSpmtVO.setJobYmd(rawMtrWrhsVO.getWrhsYmd());
 			pltWrhsSpmtVO.setWrhsSpmtSeCd("1");
-			pltWrhsSpmtVO.setPltBxSeCd("2");
-			pltWrhsSpmtVO.setQntt(rawMtrWrhsVO.getBxQntt());
+			pltWrhsSpmtVO.setPltBxSeCd("B");
+			/** 24.11.22 모두 수량 소수점 등록 **/
+			pltWrhsSpmtVO.setQntt((int)Math.ceil(rawMtrWrhsVO.getBxQntt()));
 			pltWrhsSpmtVO.setPrcsNo(rawMtrWrhsVO.getPltno());
 			if(rawMtrWrhsVO.getVrtyCd().equals("9901")){
 				pltWrhsSpmtVO.setPltBxCd("0001");
@@ -641,6 +642,12 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			if(rtnObj != null){
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
+			/** 24.11.22 모두유통 팔레트 현재고 업데이트 **/
+			String wrhsSpmtSeCd =pltWrhsSpmtVO.getWrhsSpmtSeCd();
+			if(wrhsSpmtSeCd.equals("2")){
+				pltWrhsSpmtVO.setQntt(pltWrhsSpmtVO.getQntt() * -1 );
+			}
+			pltWrhsSpmtService.updatePltBxInfoBssInvntrQntt(pltWrhsSpmtVO);
 			sn++;
 		}
 

@@ -420,6 +420,12 @@ public class RawMtrInvntrVO extends ComVO {
      * */
     private String chckr;
 
+	/*
+	 * 산지코드
+	 * */
+	private String plorCd;
+
+
 
 
 	/**
