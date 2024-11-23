@@ -511,7 +511,11 @@
 
 	//초기화
 	function cfn_init() {
-	    
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -577,7 +581,24 @@
 	// 회계처리
 	var grdAcntg;
 	var jsonAcntg = [];
-	
+
+	const srchElements = [
+		{"id": "srch-dtp-txnDateFrom", "default": ""},
+		{"id": "srch-dtp-txnDateTo", "default": ""},
+		{"id": "srch-fiOrgCode", "default": ""},
+		{"id": "srch-slt-payMethod", "default": ""},
+		{"id": "srch-slt-confirmFlag", "default": ""},
+		{"id": "srch-inp-payerCode", "default": ""},
+		{"id": "srch-inp-payerName", "default": ""},
+		{"id": "srch-inp-costCenterCode", "default": ""},
+		{"id": "srch-inp-costCenterName", "default": ""},
+		{"id": "srch-inp-empCode", "default": ""},
+		{"id": "srch-inp-empName", "default": ""},
+		{"id": "srch-currencyCode", "default": ""},
+		{"id": "srch-inp-description", "default": ""},
+		{"id": "srch-rdo-retraAccount", "default": "111061%"},
+	]
+
     window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
     });
@@ -588,25 +609,32 @@
      * @function
      */
     const fn_init = async function() {
-    	
-    	let nowDate = new Date();
+
+		srchElements.forEach((item) => {
+			SBUxMethod.set(item.id, item.default);
+		});
+
+
+		let nowDate = new Date();
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
-		
-		console.log("firstYmd", firstYmd);
-		console.log("lastYmd", lastYmd);
-		
+
+
 		SBUxMethod.set("srch-dtp-txnDateFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-txnDateTo", lastYmd);
-		
 		await fn_initSBSelect();
-		
+
+		jsonSvg.length = 0;
+		jsonRetra.length = 0;
+		jsonFund.length = 0;
+		jsonAcntg.length = 0;
+
 		// 그리드 생성
     	fn_createGridSvg();
     	fn_createGridFund();
     	fn_createGridAcntg();
     	fn_createGridRetra();
-    	
+
     	SBUxMethod.set("srch-rdo-retraAccount", "111061%");
     }
     

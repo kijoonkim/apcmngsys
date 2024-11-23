@@ -109,7 +109,7 @@
                     <tbody>
                     <tr>
                         <th scope="row" >기준연도</th>
-                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <td class="td_input" style="border-right: hidden;">
                             <sbux-datepicker
                                     id="srch-dtp-yyyy"
                                     name="srch-dtp-yyyy"
@@ -119,13 +119,12 @@
                                     class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                             ></sbux-datepicker>
                         </td>
-                        <td></td>
+                        <td colspan="3" ></td>
                         <th scope="row" >신고구분명</th>
                         <td colspan="3" class="td_input" style="border-right: hidden;">
-                            <div style="display: flex;gap: 5px">
-                                <div class="dropdown">
+                                <div class="dropdown" style="width:100%;">
                                     <button
-                                            style="width:200px;text-align:left"
+                                            style="width:100%;text-align:left"
                                             class="btn btn-sm btn-light dropdown-toggle"
                                             type="button"
                                             id="srch-ddm-seq"
@@ -133,7 +132,7 @@
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                     >
-                                        <font>선택</font>
+                                        <span>선택</span>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
                                     <div
@@ -142,24 +141,27 @@
                                             style="width:750px;height:150px;padding-top:0px;overflow:auto"
                                     ></div>
                                 </div>
-                                <sbux-input
-                                        readonly
-                                        id="srch-inp-termFr"
-                                        name="srch-inp-termFr"
-                                        uitype="text"
-                                        class="form-control input-sm"
-                                ></sbux-input>
-                                <p style="text-align: center;line-height: 30px">~</p>
-                                <sbux-input
-                                        readonly
-                                        id="srch-inp-termTo"
-                                        name="srch-inp-termTo"
-                                        uitype="text"
-                                        class="form-control input-sm"
-                                ></sbux-input>
-                            </div>
                         </td>
                         <td></td>
+                        <td>
+                            <sbux-input
+                                    readonly
+                                    id="srch-inp-termFr"
+                                    name="srch-inp-termFr"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td>
+                            <sbux-input
+                                    readonly
+                                    id="srch-inp-termTo"
+                                    name="srch-inp-termTo"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                            ></sbux-input>
+                        </td>
+                        <td colspan="3"></td>
                     </tr>
                     <tr>
                         <th scope="row" >신고사업장</th>
@@ -210,7 +212,7 @@
                                     readonly
                             ></sbux-input>
                         </td>
-                        <td class="td_input" style="border-right: hidden;">
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
                             <sbux-input
                                     uitype="text"
                                     id="srch-inp-csName"
@@ -227,6 +229,7 @@
                                     onclick="fn_popSrchCsCode"
                             ></sbux-button>
                         </td>
+                        <td colspan="5"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -382,6 +385,16 @@
 	//-----------------------------------------------------------
     
     /** 공통버튼 **/
+
+    function cfn_init() {
+
+        if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        fn_init();
+    }
+
     function cfn_search() {
         fn_search();
     }
@@ -544,7 +557,10 @@
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
 
         await fn_initSBSelect();
-        
+
+        jsonGrdTaxSite.length = 0;
+        fn_clearDetailData();
+
         /** tab 정렬 **/
         SBUxMethod.selectTab('tabTopJson', 'grdAR_AP');
         

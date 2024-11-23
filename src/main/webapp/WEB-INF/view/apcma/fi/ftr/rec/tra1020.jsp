@@ -293,7 +293,11 @@
 
 	//초기화
 	function cfn_init() {
-	    
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -351,7 +355,18 @@
 	// 반제처리
 	var grdRetra;
 	var jsonRetra = [];
-	
+
+
+	const srchElements = [
+		{"id": "srch-slt-payMethod", "default": ""},
+		{"id": "srch-inp-payerCode", "default": ""},
+		{"id": "srch-inp-payerName", "default": ""},
+		{"id": "srch-inp-costCenterCode", "default": ""},
+		{"id": "srch-inp-costCenterName", "default": ""},
+		{"id": "srch-inp-receiptNo", "default": ""},
+		{"id": "srch-slt-regType", "default": ""},
+	];
+
     window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
     });
@@ -363,7 +378,16 @@
      * @function
      */
     const fn_init = async function() {
-    	
+
+		srchElements.forEach((item) => {
+			SBUxMethod.set(item.id, item.default);
+		});
+
+		jsonSvg.length = 0;
+		jsonRetra.length = 0;
+		jsonFund.length = 0;
+		jsonAcntg.length = 0;
+
     	let nowDate = new Date();
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);

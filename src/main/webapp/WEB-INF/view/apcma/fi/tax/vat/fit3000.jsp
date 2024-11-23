@@ -347,7 +347,11 @@
 	
 	//초기화
 	function cfn_init() {
-	    
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -397,6 +401,12 @@
 		{"type": "string", "col": "BIZ_REGNO", 			"elmt": "dtl-inp-bizRegno"},
 	];
 
+
+	let dirHandle = undefined;
+
+	const files = [];
+
+
 	const fn_setSiteInfo = function(_data) {
 		
 		if (gfn_isEmpty(_data)) {
@@ -435,7 +445,19 @@
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
         
         await fn_initSBSelect();
-        
+
+		// 파일경로 handler 초기화
+		dirHandle = undefined;
+		files.length = 0;
+		SBUxMethod.set("dtl-inp-filePath", "");
+
+		SBUxMethod.set("srch-inp-termFr", "");
+		SBUxMethod.set("srch-inp-termTo", "");
+
+		jsonTaxSite.length = 0;
+		jsonDoc.length = 0;
+		jsonFileLog.length = 0;
+
         fn_createGridTaxSite();
         fn_createGridDoc();
         fn_createGridFileLog();
@@ -950,10 +972,7 @@
         }
 	}
 	
-	
-	let dirHandle = undefined;
-	
-	const files = [];
+
 	
     const fn_getFiles = async (dirHandle, path = dirHandle.name) => {
 

@@ -26,18 +26,42 @@
     <title>title : 은행계좌정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-    <style>
-		#resizer{
-	            background-image:url('/static/resource/svg/dot_h.svg');
-	            background-repeat: no-repeat;
-	            background-position: center;
-	            background-size: 17px;
-	            cursor:ew-resize;
-	            background-color: rgba(43, 45, 48, 0.07);
-	            height: 100%;
-	            width: 5px;
-	        }
-    </style>
+<style>
+	#resizer{
+			background-image:url('/static/resource/svg/dot_h.svg');
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 17px;
+			cursor:ew-resize;
+			background-color: rgba(43, 45, 48, 0.07);
+			height: 100%;
+			width: 5px;
+		}
+
+
+	.splitter {
+		width: 100%;
+		height: 100px;
+		display: flex;
+	}
+
+	#separator {
+		cursor: col-resize;
+		background-color: #aaa;
+		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30'><path d='M2 0 v30 M5 0 v30 M8 0 v30' fill='none' stroke='black'/></svg>");
+		background-repeat: no-repeat;
+		background-position: center;
+		width: 10px;
+		height: 100%;
+
+		/* Prevent the browser's built-in drag from interfering */
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+
+</style>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -197,9 +221,11 @@
 	                </tbody>
 	            </table>
 			</div>
-			
-			<div class="row">
-            	<div class="col-sm-6 col-md-7">
+
+			<div style=" height: 80vh; display: flex">
+			<!--<div class="row">-->
+				<div style="width: 30%;padding: 10px">
+            	<!--<div class="col-sm-6 col-md-7">-->
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
                         	<li>
@@ -208,10 +234,12 @@
                      	</ul>
 					</div>
 					<div>
-                    	<div id="sb-area-grdSvgGnlgr" style="height:500px; width:100%;"></div>
+                    	<div id="sb-area-grdSvgGnlgr" style="height:700px; width:100%;"></div>
                    	</div>
 				</div>
-				<div class="col-sm-6 col-md-5">
+				<div id="resizer"></div>
+				<div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
+				<!--div class="col-sm-6 col-md-5">-->
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
                         	<li>
@@ -1973,11 +2001,22 @@
 		{"type": "string", "id": "billAccountName", "col": "BILL_ACCOUNT_NAME", "elmt": "acnt-inp-billAccountName"},
 	];
 	
-	
+	const srchElements = [
+		{"id": "srch-slt-depositType"},
+		{"id": "srch-inp-bankCsCode"},
+		{"id": "srch-inp-bankCsName"},
+		{"id": "srch-slt-allYn"},
+		{"id": "srch-inp-accountNum"},
+	];
+
 	
 	//초기화
 	function cfn_init() {
-   
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -2041,14 +2080,21 @@
 		let lastYmd = gfn_dateToYmd(nowDate);
 		
 		SBUxMethod.set("srch-dtp-txnDate", lastYmd);
-		
+
+		srchElements.forEach((item) => {
+			SBUxMethod.set(item.id, "");
+		});
+
 		await fn_initSBSelect();
-		
+
+		jsonSvgGnlgr.length = 0;
+
 		// 그리드 생성
     	fn_createGridSvgGnlgr();
     	fn_createGridTngtrn();
     	
 		fn_setElmtDisabled(true);
+		fn_clearDetail();
     }
     
     
@@ -3471,8 +3517,62 @@
             },
         });
     }
-	
-	
+
+	/** resizer set **/
+
+	const resizer = document.getElementById('resizer');
+	const leftSide = resizer.previousElementSibling;
+	const rightSide = resizer.nextElementSibling;
+
+	let x = 0;
+	let y = 0;
+
+	let leftWidth = 0;
+
+	const mouseDownHandler = function (e) {
+		x = e.clientX;
+		y = e.clientY;
+		leftWidth = leftSide.getBoundingClientRect().width;
+
+		document.addEventListener('mousemove', mouseMoveHandler);
+		document.addEventListener('mouseup', mouseUpHandler);
+	};
+
+	const mouseMoveHandler = function (e) {
+		const dx = e.clientX - x;
+		const dy = e.clientY - y;
+
+		document.body.style.cursor = 'col-resize';
+
+		leftSide.style.userSelect = 'none';
+		leftSide.style.pointerEvents = 'none';
+
+		rightSide.style.userSelect = 'none';
+		rightSide.style.pointerEvents = 'none';
+
+		const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
+		leftSide.style.width = `${'${newLeftWidth}'}%`;
+		grdSvgGnlgr.resize();
+		grdTngtrn.resize();
+	};
+
+	const mouseUpHandler = function () {
+		resizer.style.removeProperty('cursor');
+		document.body.style.removeProperty('cursor');
+
+		leftSide.style.removeProperty('user-select');
+		leftSide.style.removeProperty('pointer-events');
+
+		rightSide.style.removeProperty('user-select');
+		rightSide.style.removeProperty('pointer-events');
+
+		document.removeEventListener('mousemove', mouseMoveHandler);
+		document.removeEventListener('mouseup', mouseUpHandler);
+	};
+
+	resizer.addEventListener('mousedown', mouseDownHandler);
+
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

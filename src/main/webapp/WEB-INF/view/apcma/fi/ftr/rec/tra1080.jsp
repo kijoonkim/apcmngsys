@@ -362,7 +362,11 @@
 	
 	//초기화
 	function cfn_init() {
-	    
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -409,8 +413,21 @@
 	// 예금입금내역
 	var grdSvg;
 	var jsonSvg = [];
-		
-    window.addEventListener("DOMContentLoaded",function(){
+
+	const srchElements = [
+		{"id": "srch-slt-payMethod", "default": ""},
+		{"id": "srch-slt-confirmFlag", "default": ""},
+		{"id": "srch-inp-payerCode", "default": ""},
+		{"id": "srch-inp-payerName", "default": ""},
+		{"id": "srch-inp-costCenterCode", "default": ""},
+		{"id": "srch-inp-costCenterName", "default": ""},
+		{"id": "srch-inp-empCode", "default": ""},
+		{"id": "srch-inp-empName", "default": ""},
+		{"id": "srch-inp-description", "default": ""},
+		{"id": "srch-slt-regType", "default": ""},
+	];
+
+	window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
     });
 
@@ -421,7 +438,13 @@
      * @function
      */
     const fn_init = async function() {
-    	
+
+		srchElements.forEach((item) => {
+			SBUxMethod.set(item.id, item.default);
+		});
+
+		jsonSvg.length = 0;
+
     	let nowDate = new Date();
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
