@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
  * 원물재고 Service 인터페이스
@@ -232,4 +233,11 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteRawMtrInvntrDelPltno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	/**
+	 * 딸기입고 재고수정
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    void updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

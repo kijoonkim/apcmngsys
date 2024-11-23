@@ -660,4 +660,26 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	public List<RawMtrWrhsVO> selectRawMtrWrhsToPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		return rawMtrWrhsMapper.selectRawMtrWrhsToPltno(rawMtrWrhsVO);
 	}
+
+	@Override
+	public int updateRawMtrWrhsListAndPlt(List<RawMtrWrhsVO> rawMtrWrhsList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+		int updateCnt = 0;
+		/** 수정모드에서 해당 수량이 있엇다가 없어진 경우 > DELTE **/
+		for(RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList){
+			/** 수정시 새로운 수량입력시 입고번호 발번 **/
+			if (!StringUtils.hasText(rawMtrWrhsVO.getWrhsno())) {
+				String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+				rawMtrWrhsVO.setWrhsno(wrhsno);
+			}
+			/** 입고실적 update[변경 or DEL_YN ='Y'] OR insert **/
+			updateCnt += rawMtrWrhsMapper.updateRawMtrWrhsListAndPlt(rawMtrWrhsVO);
+			/** 재고정보 update[변경 or DEL_YN ='Y'] OR insert **/
+			rawMtrInvntrService.updateRawMtrWrhsListAndPlt(rawMtrWrhsVO);
+
+		}
+		/****/
+
+		return updateCnt;
+	}
+
 }

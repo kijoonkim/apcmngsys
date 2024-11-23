@@ -1618,6 +1618,7 @@
 					  ,RMI.ITEM_CD AS ITEM_CD
 					  ,RMI.VRTY_CD AS VRTY_CD
 					  ,RMI.WRHS_QNTT AS WRHS_QNTT
+					  ,RMI.WRHS_WGHT AS WRHS_WGHT
 					  ,RMI.GRD_CD AS GRD_CD
 				 FROM usram.TB_RAW_MTR_WRHS_PRFMNC AS RMWP
 						  JOIN usram.TB_RAW_MTR_INVNTR AS RMI
@@ -1631,4 +1632,77 @@
 								   AND RMWP.PRDCR_CD = TPI.PRDCR_CD
 				 ORDER BY RMWP.PLTNO) AS pt0;
 	</select>
+	<update id="updateRawMtrWrhsListAndPlt" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+		MERGE INTO TB_RAW_MTR_WRHS_PRFMNC T
+		USING (
+			SELECT
+			#{apcCd} AS APC_CD,
+			#{wrhsno} AS WRHSNO,
+			#{pltno} AS PLTNO,
+			#{wrhsYmd} AS WRHS_YMD
+			FROM DUAL
+			) S
+			ON (
+			T.APC_CD = S.APC_CD
+			AND T.WRHSNO = S.WRHSNO
+			AND T.PLTNO = S.PLTNO
+			AND T.WRHS_YMD = S.WRHS_YMD
+			)
+		WHEN MATCHED THEN
+		<choose>
+			<when test="wrhsQntt > 0">
+				UPDATE SET
+				BX_QNTT = #{bxQntt},
+				WRHS_WGHT = #{wrhsWght}
+			</when>
+			<otherwise>
+				UPDATE  SET
+				DEL_YN = 'Y'
+			</otherwise>
+		</choose>
+		WHEN NOT MATCHED THEN
+		INSERT (
+		APC_CD,
+		WRHSNO,
+		WGHNO,
+		PLTNO,
+		WRHS_YMD,
+		PRDCR_CD,
+		VHCLNO,
+		WRHS_WGHT,
+		BX_QNTT,
+		UNTPRC,
+		SPLY_PRC,
+		INQ_YN,
+		RMRK,
+		SYS_FRST_INPT_DT,
+		SYS_FRST_INPT_USER_ID,
+		SYS_FRST_INPT_PRGRM_ID,
+		SYS_LAST_CHG_DT,
+		SYS_LAST_CHG_USER_ID,
+		SYS_LAST_CHG_PRGRM_ID
+		)
+		VALUES (
+		#{apcCd},
+		#{wrhsno},
+		#{wghno},
+		#{pltno},
+		#{wrhsYmd},
+		#{prdcrCd},
+		#{vhclno},
+		#{wrhsWght},
+		#{bxQntt},
+		#{untPrc},
+		#{splyPrc},
+		#{inqYn},
+		#{rmrk},
+		SYSDATE,
+		#{sysFrstInptUserId},
+		#{sysFrstInptPrgrmId},
+		SYSDATE,
+		#{sysLastChgUserId},
+		#{sysLastChgPrgrmId}
+		)
+	</update>
+
 </mapper>

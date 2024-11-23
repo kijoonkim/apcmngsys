@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -917,6 +918,11 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> deleteRawMtrInvntrDelPltno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 		rawMtrInvntrMapper.deleteRawMtrInvntrDelPltno(rawMtrInvntrVO);
 		return null;
+	}
+
+	@Override
+	public void updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
 	}
 
 }
