@@ -25,6 +25,7 @@
     <title>title : 지금방법/조건</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -156,7 +157,7 @@
 		                            required
 								/>	
                             </td>
-                            <td></td>  
+                            <td></td>
 							<th scope="row" class="th_bg_search">지급예정일</th>
                             <td colspan="3" class="td_input" style="border-right: hidden;">
                                 <sbux-input
@@ -233,7 +234,11 @@
 
 	//초기화
 	function cfn_init() {
-		fn_create();
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -345,7 +350,9 @@
 		let lastYmd = gfn_dateToYmd(nowDate);
 		
 		SBUxMethod.set("srch-dtp-standardDay", lastYmd);
-		
+
+		jsonPayDate.length = 0;
+
     	await fn_initSBSelect();
     	
         fn_createGrid(lv_mode);

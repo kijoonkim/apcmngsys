@@ -163,7 +163,12 @@
 
 	//초기화
 	function cfn_init() {
-	    
+
+		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		fn_init();
 	}
 	
 	// 신규
@@ -259,10 +264,12 @@
      * @function
      */
     const fn_init = async function() {
-    	
-    	
+
+		SBUxMethod.set("srch-inp-vatCode", "");
+
     	await fn_initSBSelect();
-    	
+
+		jsonVat.length = 0;
     	fn_createGrid();
     	
     }
@@ -720,24 +727,24 @@
         var replaceText1 	= "_ACCOUNT_NAME_"; 
         var searchText0		= gfn_nvl(_code);
         var searchText1		= gfn_nvl(_name);
-        
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
-    	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
+        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+		//var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME  LIKE '%" + replaceText1 + "%' AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "' AND A.CLIENT_CODE = '" + gv_ma_selectedClntCd +  "'";
+
+		SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_ACCT_DOC_IN'
+    		,bizcompId				: 'P_FIM044'	//'P_ACCT_DOC_IN'
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
    			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
    			,searchInputValues		: [searchText0, 	searchText1]
-			,width					: '500px'
+			,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
    			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
-   			,tableColumnWidths		: ["100px", 		"300px"]
+   			,tableColumnWidths		: ["200px", 		"400px"]
 			,itemSelectEvent		: function (data) {
 				if (typeof _callbackFnc === 'function') {
 					_callbackFnc(_nRow, data.ACCOUNT_CODE, data.ACCOUNT_NAME);
