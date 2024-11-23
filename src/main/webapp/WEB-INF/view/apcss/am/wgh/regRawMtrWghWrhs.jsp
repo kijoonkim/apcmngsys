@@ -773,12 +773,13 @@
             const data = await postJsonPromise;
             if(data.resultStatus === 'S'){
                 gfn_comAlert("I0001");
-                SBUxMethod.attr("jsonSearchData","disabled","false");
+                SBUxMethod.attr("btnSave","disabled","false");
             }
         }
     }
     const fn_reset = async function() {
-        SBUxMethod.attr("jsonSearchData","disabled","true");
+        SBUxMethod.attr("btnSave","disabled","true");
+        SBUxMethod.attr("btnCmndDocspmt","disabled","true");
         let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
         elements.forEach(function(item) {
            SBUxMethod.set(item.id,'');
@@ -836,7 +837,8 @@
         let selectJson = jsonSearchData[idx];
 
         /** 저장했던 값 다시 입력 **/
-        SBUxMethod.set("reg-inp-itemCd",selectJson.itemCd);
+        SBUxMethod.set("reg-slt-itemCd",selectJson.itemCd);
+        SBUxMethod.set("reg-slt-vrtyCd",selectJson.itemCd + selectJson.vrtyCd);
         SBUxMethod.set("reg-inp-prdcrCd",selectJson.prdcrCd);
         SBUxMethod.set("reg-inp-prdcrNm",selectJson.prdcrNm);
         SBUxMethod.set("reg-inp-prdcrIdentno",selectJson.prdcrIdentno);
@@ -846,15 +848,25 @@
         SBUxMethod.set("reg-inp-wholWght",selectJson.wholWght);
         SBUxMethod.set("reg-inp-emptVhclWght",selectJson.emptVhclWght);
         SBUxMethod.set("reg-inp-wrhsWght",selectJson.wrhsWght);
-        SBUxMethod.set("reg-inp-bxQntt",selectJson.bxQntt);
-        SBUxMethod.set("reg-inp-bxQntt",selectJson.bxQntt);
+        SBUxMethod.set("reg-inp-pltQntt",selectJson.pltQntt);
+        SBUxMethod.set("reg-inp-rmrk",selectJson.rmrk);
+
+        /** 비품이 있을경우 대비 **/
+        let qntt = selectJson.bxQntt.split(',');
+        SBUxMethod.set("reg-inp-grdQntt1",qntt[0]);
+        SBUxMethod.set("reg-inp-grdQntt2",qntt[1]);
+        SBUxMethod.set("reg-inp-bxQntt",(parseInt(qntt[0]) + (parseInt(qntt[1])|| 0)));
+
+        let wrhsWght = selectJson.wrhsWght;
+        let bxQntt =  SBUxMethod.get("reg-inp-bxQntt");
+
+        SBUxMethod.set("reg-inp-avgWght",parseInt(wrhsWght) / parseInt(bxQntt));
         /** 콘티중량 역연산 해야할듯? **/
-
-
+        SBUxMethod.set("wghno",selectJson.wghno);
         SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");
+        SBUxMethod.attr("btnCmndDocspmt", "disabled", "false");
 
         SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmncReg');
-
     }
 
     /**
