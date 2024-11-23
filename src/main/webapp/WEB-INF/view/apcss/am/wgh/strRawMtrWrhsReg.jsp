@@ -393,11 +393,15 @@
     );
     let idx = 4;
     result.forEach(function(item){
+    });
+    const sortedData = result.sort((a, b) => a[0].sn - b[0].sn);
+    result.forEach(function(item){
       item.sort((a,b) => {
         if(parseInt(a.grdCd) < parseInt(b.grdCd)) return -1
         if(parseInt(a.grdCd) > parseInt(b.grdCd)) return 1
         return 0;
       });
+
 
       /** 공통 부분 셋팅 **/
       const table = document.querySelector('#regTable > tbody');
@@ -550,8 +554,6 @@
     SBUxMethod.set("reg-inp-prdcrCd", prdcrInfo.prdcrCd);
     SBUxMethod.set("reg-inp-prdcrNm", prdcrInfo.prdcrNm);
     SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-
-
   }
 
 
@@ -588,7 +590,7 @@
       obj.apcCd = gv_selectedApcCd;
       obj.pltno = pltno;
       obj.bxQntt = $(item).val();
-      obj.wrhsWght = ($(item).data("unitWght") * obj.bxQntt).toFixed(1);
+      obj.wrhsWght = ($(item).data("unitWght") * obj.bxQntt).toFixed(3);
       obj.vrtyCd = $(item).data("vrtyCd");
       obj.grdCd = $(item).data("grdCd");
 
@@ -610,7 +612,7 @@
         apcCd : gv_selectedApcCd,
         jobYmd : wrhsYmd,
         wrhsSpmtSeCd : "2",
-        pltBxSeCd : "2",
+        pltBxSeCd : "B",
         pltBxCd : "0001",
         prcsNo : pltno,
         prdcrCd : prdcrCd,
@@ -622,7 +624,7 @@
         apcCd : gv_selectedApcCd,
         jobYmd : wrhsYmd,
         wrhsSpmtSeCd : "2",
-        pltBxSeCd : "2",
+        pltBxSeCd : "B",
         pltBxCd : "0002",
         prcsNo : pltno,
         prdcrCd : prdcrCd,

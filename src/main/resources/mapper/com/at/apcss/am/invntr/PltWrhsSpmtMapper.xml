@@ -48,7 +48,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.22  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPltBxMngList" parameterType="com.at.apcss.am.cmns.vo.PltBxVO" resultType="com.at.apcss.am.cmns.vo.PltBxVO">
+    <select id="selectPltBxMngList" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="com.at.apcss.am.cmns.vo.PltBxVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.am.cmns.mapper.PltBxMapper.selectPltWrhsSpmtList */
 					pt0.*
@@ -72,7 +72,7 @@
 			                WHERE X.APC_CD= PBI.APC_CD
 			                  AND X.PLT_BX_SE_CD = PBI.PLT_BX_SE_CD
 			                  AND X.PLT_BX_CD = PBI.PLT_BX_CD
-			                  AND X.JOB_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			                  AND X.JOB_YMD = #{jobYmd}
 			                  AND X.WRHS_SPMT_SE_CD = '1'
 			                  AND X.DEL_YN = 'N'
 			               ) AS WRHS_QNTT
@@ -81,7 +81,7 @@
 			                WHERE X.APC_CD = PBI.APC_CD
 			                  AND X.PLT_BX_SE_CD = PBI.PLT_BX_SE_CD
 			                  AND X.PLT_BX_CD = PBI.PLT_BX_CD
-			                  AND X.JOB_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			                  AND X.JOB_YMD = #{jobYmd}
 			                  AND X.WRHS_SPMT_SE_CD = '2'
 			                  AND X.DEL_YN = 'N'
 			              ) AS SPMT_QNTT
@@ -311,4 +311,14 @@
 		  AND PLT_BX_SE_CD = #{pltBxSeCd}
 		  AND PLT_BX_CD = #{pltBxCd}
 	</select>
+	<update id="updatePltBxInfoBssInvntrQntt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		UPDATE
+			TB_PLT_BX_INFO
+			SET
+				BSS_INVNTR_QNTT = BSS_INVNTR_QNTT + #{qntt}
+		WHERE
+			APC_CD = #{apcCd}
+		AND PLT_BX_SE_CD = #{pltBxSeCd}
+		AND PLT_BX_CD = #{pltBxCd}
+	</update>
 </mapper>

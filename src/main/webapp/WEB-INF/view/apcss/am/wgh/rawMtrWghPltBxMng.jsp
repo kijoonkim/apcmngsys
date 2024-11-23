@@ -40,7 +40,10 @@
 			</div>
 			<div class="box-body">
 			<!--[APC] START -->
-				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<jsp:include page="../../../frame/inc/apcSelectColSize.jsp">
+					<jsp:param name="colgroupData" value="[{width:20%},{width:30%},{width:20%},{width:30%}]"/>
+					<jsp:param name="addElements" value=""/>
+				</jsp:include>
 			<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -244,6 +247,7 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-jobYmd", gfn_dateToYmd(new Date()));
 
 		fn_createGrid();
 		fn_createGrid2();
@@ -312,8 +316,10 @@
 	}
 
 	const fn_setPltBxMngList = async function(){
+		let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
-			apcCd: gv_selectedApcCd
+			apcCd: gv_selectedApcCd,
+			jobYmd : jobYmd,
   		});
 
         const data = await postJsonPromise;
@@ -829,6 +835,17 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
+	function apcSelectAdd(){
+		$("#apcTable tbody tr").append(`
+        <th scope="row" class="th_bg">입고일자</th>
+        <td class="td_input">
+        <div style="display:flex;gap: 10px">
+			<sbux-datepicker uitype="popup" id="srch-dtp-jobYmd" name="srch-dtp-jobYmd" wrap-style="border:0!important" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+        </div>
+        </td>
+        `);
+	}
+	apcSelectAdd();
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
