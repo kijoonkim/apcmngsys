@@ -392,9 +392,9 @@
             }, {})
     );
     let idx = 4;
-    result.forEach(function(item){
-    });
-    const sortedData = result.sort((a, b) => a[0].sn - b[0].sn);
+
+    /** 환경설정 입고등급 지정시 순서대로 정렬 **/
+    result.sort((a, b) => a[0].sn - b[0].sn);
     result.forEach(function(item){
       item.sort((a,b) => {
         if(parseInt(a.grdCd) < parseInt(b.grdCd)) return -1
