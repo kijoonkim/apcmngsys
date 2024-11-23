@@ -224,4 +224,11 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
     List<RawMtrWrhsVO> selectRawMtrWrhsToPltno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 딸기입고 수정
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    int updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

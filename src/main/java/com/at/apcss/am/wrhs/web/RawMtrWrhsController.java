@@ -575,10 +575,23 @@ public class RawMtrWrhsController extends BaseController {
 				}
 		);
 		try {
-//			cnt = rawMtrWrhsService.insertRawMtrWrhsListAndPlt(rawMtrWrhsList, pltWrhsSpmtList);
-//			if (cnt < 1) {
-//				return getErrorResponseEntity(new Exception());
-//			}
+			for(RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList){
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+				pltWrhsSpmtVO.setSysFrstInptUserId(getUserId());
+				pltWrhsSpmtVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pltWrhsSpmtVO.setSysLastChgUserId(getUserId());
+				pltWrhsSpmtVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			cnt = rawMtrWrhsService.updateRawMtrWrhsListAndPlt(rawMtrWrhsList, pltWrhsSpmtList);
+			if (cnt < 1) {
+				return getErrorResponseEntity(new Exception());
+			}
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 		} finally {

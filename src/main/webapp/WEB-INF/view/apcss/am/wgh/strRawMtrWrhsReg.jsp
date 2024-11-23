@@ -402,7 +402,6 @@
         return 0;
       });
 
-
       /** 공통 부분 셋팅 **/
       const table = document.querySelector('#regTable > tbody');
       const newRow = document.createElement('tr');
@@ -583,16 +582,19 @@
     /** 3. 품목 갯수별 obj **/
     let regEl = Array.from($("#regTable tbody tr td div div input"));
     regEl.forEach(function(item){
-      if(gfn_isEmpty($(item).val())){
+      let bxQntt = $(item).val();
+      let wrhsno = $(item).data("wrhsno");
+      if(gfn_isEmpty(bxQntt) && gfn_isEmpty(wrhsno)){
         return;
       }
       obj = {...regObj};
       obj.apcCd = gv_selectedApcCd;
       obj.pltno = pltno;
-      obj.bxQntt = $(item).val();
+      obj.bxQntt = bxQntt;
       obj.wrhsWght = ($(item).data("unitWght") * obj.bxQntt).toFixed(3);
       obj.vrtyCd = $(item).data("vrtyCd");
       obj.grdCd = $(item).data("grdCd");
+      obj.wrhsno = wrhsno;
 
       obj.wrhsQntt = obj.bxQntt;
       obj.inptQntt = obj.bxQntt;
@@ -635,6 +637,12 @@
     try{
       let postJsonPromise;
       if(updateFlag){
+        /** 조회결과 값과 현재 수정된 값이 일치할경우 목록에서 제외(변동없음) **/
+        let compareTarget = jsonSearchData.filter((item) => item.pltno === pltno);
+        let updateRegList = regList.filter(function(item,idx){
+          return !compareTarget[0].list.some((inner) => inner.wrhsno == item.wrhsno && inner.wrhsQntt == item.wrhsQntt);
+        });
+        console.log(updateRegList,"저장전");
         postJsonPromise = gfn_postJSON("/am/wrhs/updateRawMtrWrhsListAndPlt.do",
                 {rawMtrWrhsList:regList,pltWrhsSpmt:pltWrhsSpmt});
       }else{
@@ -671,6 +679,7 @@
        }
      });
     });
+    console.log(data,"여기서 너가 왜 중량을 안가져오지?");
     const merged = data.resultList.reduce((acc, item) => {
       let group = acc.find(obj => obj.pltno === item.pltno);
 
@@ -744,6 +753,7 @@
     selectJson.list.forEach(function(item,idx){
       let EL = regEl.find((el) => $(el).data("grdCd") == item.grdCd);
       $(EL).val(item.wrhsQntt);
+      $(EL).attr("data-wrhsno",item.wrhsno);
     });
 
     SBUxMethod.selectTab('tab_norm', 'tab_spmtPrfmncReg');
