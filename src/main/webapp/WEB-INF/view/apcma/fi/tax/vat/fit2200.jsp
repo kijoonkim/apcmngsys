@@ -130,7 +130,7 @@
                     </td>
                     <td></td>
                     <th scope="row" >신고구분명</th>
-                    <td colspan="3" class="td_input">
+                    <td colspan="8" class="td_input">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
                                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -140,9 +140,9 @@
                                 <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
                                 </div>
                             </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
                             <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
                         </div>
                     </td>
                     <td></td>
@@ -1088,7 +1088,20 @@
         fn_reset();
     }
     function fn_reset(){
+        jsonGrdList.length = 0;
+        grdListGrid.rebuild();
 
+        jsonGrdFarmer.length = 0;
+        grdFarmer.rebuild();
+
+        gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
+
+        let inputs = document.querySelectorAll("div.tab-content table input");
+        inputs.forEach(function(item){
+           $(item).val(0);
+        });
     }
     function cfn_search() {
         fn_search();

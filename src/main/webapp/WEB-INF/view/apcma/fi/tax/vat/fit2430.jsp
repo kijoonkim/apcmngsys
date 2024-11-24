@@ -25,7 +25,7 @@
 <head>
     <title>title : 단위과세부가세납부세액명세서</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #Sales > table > tbody > tr > td,#Purchase > table > tbody > tr > td{
             text-align: center;
@@ -45,8 +45,8 @@
     </style>
 </head>
 <body oncontextmenu="return false">
-<section>
-    <div class="box box-solid">
+<section class="content container-fluid">
+    <div class="box box-solid" style="border-radius: 0">
         <div class="box-header">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -55,39 +55,49 @@
             </div>
         </div>
         <div class="box-body">
+            <div class="box-search-ma">
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
             <!-- content_header start -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
                 <colgroup>
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준연도</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <th scope="row" >기준연도</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                          date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                         >
                         </sbux-datepicker>
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">신고구분명</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                    <th scope="row" >신고구분명</th>
+                    <td colspan="8" class="td_input" style="border-right: hidden;">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
                                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,18 +107,21 @@
                                 <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
                                 </div>
                             </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm" style="text-align: center;"></sbux-input>
                             <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">단위과세승인번호</th>
+                    <td></td>
+                    <th scope="row" >단위과세승인번호</th>
                     <td colspan="3" class="td_input">
-                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
+                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm" ></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div>
                 <div id="sb-area-grdListGrid" style="width: 100%; height: 600px"></div>
             </div>
@@ -242,6 +255,32 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+    }
+    function cfn_search(){
+        fn_search();
+    }
+    const fn_search = async function(){
+        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
+        if(gfn_isEmpty(_value)){
+            gfn_comAlert("W0002", "신고구분명");
+            return;
+        }
+        await fn_choice(_value);
+    }
+    function cfn_init(){
+        fn_reset();
+    }
+    function fn_reset(){
+        jsonGrdList.length = 0;
+        grdListGrid.rebuild();
+        jsonGrdAr.length = 0;
+        grdAr.rebuild();
+        jsonGrdAp.length = 0;
+        grdAp.rebuild();
+
+        gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
