@@ -478,10 +478,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				String wrhsSeCd = inv.getWrhsSeCd();
 
 				// 지정 투입수량, 투입중량
-				int inptQntt = inv.getInptQntt();
+				double inptQntt = inv.getInptQntt();
 				double inptWght = inv.getInptWght();
 
-				int sortQntt = inv.getSortQntt();
+				double sortQntt = inv.getSortQntt();
 				double sortWght = inv.getSortWght();
 
 				if (AmConstants.CON_INVNTR_VL_MNG_TYPE_QNTT.equals(rawMtrVlType)) {
@@ -509,7 +509,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							continue;
 						}
 
-						int applQntt = 0;
+						double applQntt = 0;
 						double applWght = 0;
 
 						if (inptWght - sortWght < sort.getRmnWght()) {
@@ -531,7 +531,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							sort.setRmnQntt(0);
 							sort.setRmnWght(0);
 						}else{
-							sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+							sort.setRmnQntt((int) (sort.getRmnQntt() - applQntt));
 							sort.setRmnWght(sort.getRmnWght() - applWght);
 						}
 
@@ -620,7 +620,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				BeanUtils.copyProperties(inv, sortInptVO);
 				sortInptVO.setSortno(sortno);
 
-				sortInptVO.setQntt(inv.getInptQntt());
+				sortInptVO.setQntt((int) inv.getInptQntt());
 				sortInptVO.setWght(inv.getInptWght());
 
 				if(!StringUtils.hasText(sortInptVO.getInptYmd())){
@@ -893,7 +893,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					int inptQntt = sort.getInptQntt();
 					double inptWght = sort.getInptWght();
 
-					int sortQntt = sort.getRmnQntt();
+					double sortQntt = sort.getRmnQntt();
 					double sortWght = sort.getRmnWght();
 
 					// 감량률 조회
@@ -949,10 +949,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									orgnInv.getInptQntt(),
 									orgnInv.getSortQntt());
 
-							int wrhsQntt = orgnInv.getWrhsQntt();
+							double wrhsQntt = orgnInv.getWrhsQntt();
 							double wrhsWght = orgnInv.getWrhsWght();
 
-							int invRmnQntt = orgnInv.getRmnQntt();
+							double invRmnQntt = orgnInv.getRmnQntt();
 							double invRmnWght = orgnInv.getRmnWght();
 
 							if (wrhsQntt <= 0) {
@@ -1082,10 +1082,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							// 재고정보 조회
 							for ( RawMtrInvntrVO orgnInv : invntrForSortList ) {
 
-								int wrhsQntt = orgnInv.getWrhsQntt();
+								double wrhsQntt = orgnInv.getWrhsQntt();
 								double wrhsWght = orgnInv.getWrhsWght();
 
-								int invRmnQntt = orgnInv.getInvntrQntt();
+								double invRmnQntt = orgnInv.getInvntrQntt();
 								double invRmnWght = orgnInv.getInvntrWght();
 
 								if (wrhsQntt <= 0) {
@@ -1190,7 +1190,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									orgnInv.getInptWght(),
 									orgnInv.getSortWght());
 
-							int invRmnQntt = orgnInv.getRmnQntt();
+							double invRmnQntt = orgnInv.getRmnQntt();
 							double invRmnWght = orgnInv.getRmnWght();
 
 							if (invRmnWght <= 0) {
@@ -1304,7 +1304,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							// 재고정보 조회
 							for ( RawMtrInvntrVO orgnInv : invntrForSortList ) {
 
-								int invRmnQntt = orgnInv.getInvntrQntt();
+								double invRmnQntt = orgnInv.getInvntrQntt();
 								double invRmnWght = orgnInv.getInvntrWght();
 
 								if (invRmnWght <= 0) {
@@ -1434,10 +1434,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				String prdctnYr = inv.getPrdctnYr();
 
 				// 지정 투입수량, 투입중량
-				int inptQntt = inv.getInptQntt();
+				double inptQntt = inv.getInptQntt();
 				double inptWght = inv.getInptWght();
 
-				int sortQntt = inv.getSortQntt();
+				double sortQntt = inv.getSortQntt();
 				double sortWght = inv.getSortWght();
 
 				for ( SortPrfmncVO sort : prfmncList ) {
@@ -1446,7 +1446,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						continue;
 					}
 
-					int applQntt = 0;
+					double applQntt = 0;
 					double applWght = 0;
 
 					if (inptWght - sortWght < sort.getRmnWght()) {
@@ -1466,7 +1466,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					sortQntt += applQntt;
 					sortWght += applWght;
 
-					sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+					sort.setRmnQntt((int) (sort.getRmnQntt() - applQntt));
 					sort.setRmnWght(sort.getRmnWght() - applWght);
 
 					if (!StringUtils.hasText(inptYmd)) {
@@ -1541,7 +1541,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			BeanUtils.copyProperties(inv, sortInptVO);
 			sortInptVO.setSortno(sortno);
 
-			sortInptVO.setQntt(inv.getInptQntt());
+			sortInptVO.setQntt((int) inv.getInptQntt());
 			sortInptVO.setWght(inv.getInptWght());
 
 			// 투입실적 항목 set
@@ -1848,7 +1848,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
 		//prfmncVO.setSortRealDelY(ComConstants.CON_YES);
-		prfmncVO.setSortQntt(sortMngVO.getQntt());
+		prfmncVO.setSortQntt((int) sortMngVO.getQntt());
 		prfmncVO.setSortWght(sortMngVO.getWght());
 
 
@@ -1867,7 +1867,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			pckgPrfmncVO.setPckgSn(sortsn);
 			pckgPrfmncVO.setPckgYmd(sortYmd);
 			pckgPrfmncVO.setPckgWght(sortMngVO.getWght());
-			pckgPrfmncVO.setPckgQntt(sortMngVO.getQntt());
+			pckgPrfmncVO.setPckgQntt((int) sortMngVO.getQntt());
 
 
 
@@ -1883,7 +1883,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			pckgInptVO.setPckgno(pckgno);
 			pckgInptVO.setSortSn(sortsn);
 			pckgInptVO.setWght(sortMngVO.getWght());
-			pckgInptVO.setQntt(sortMngVO.getQntt());
+			pckgInptVO.setQntt((int) sortMngVO.getQntt());
 			pckgInptVO.setInptYmd(sortMngVO.getInptYmd());
 
 			int rtn = pckgInptService.updatePckgInpt(pckgInptVO);
@@ -1899,9 +1899,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			gdsInvntrVO = gdsInvntrService.selectGdsInvntr(gdsInvntrVO);
 
-			gdsInvntrVO.setPckgQntt(sortMngVO.getQntt());
+			gdsInvntrVO.setPckgQntt((int) sortMngVO.getQntt());
 			gdsInvntrVO.setPckgWght(sortMngVO.getWght());
-			gdsInvntrVO.setInvntrQntt(sortMngVO.getQntt());
+			gdsInvntrVO.setInvntrQntt((int) sortMngVO.getQntt());
 			gdsInvntrVO.setInvntrWght(sortMngVO.getWght());
 			gdsInvntrVO.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
 			gdsInvntrVO.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());

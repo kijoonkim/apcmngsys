@@ -115,7 +115,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 입고수량
 	 */
-	private int wrhsQntt;
+	private double wrhsQntt;
 
 	/**
 	 * 입고중량
@@ -125,7 +125,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 투입수량
 	 */
-	private int inptQntt;
+	private double inptQntt;
 
 	/**
 	 * 투입중량
@@ -140,7 +140,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 수량 - 계산용 temp
 	 */
-	private int qntt;
+	private double qntt;
 
 	/**
 	 * 중량 - 계산용 temp
@@ -150,7 +150,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 선별수량
 	 */
-	private int sortQntt;
+	private double sortQntt;
 
 	/**
 	 * 선별중량
@@ -160,7 +160,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 처리수량
 	 */
-	private int prcsQntt;
+	private double prcsQntt;
 
 	/**
 	 * 처리중량
@@ -170,7 +170,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 재고수량
 	 */
-	private int invntrQntt;
+	private double invntrQntt;
 
 	/**
 	 * 재고중량
@@ -181,7 +181,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 잔여 수량
 	 */
-	private int rmnQntt;
+	private double rmnQntt;
 	/**
 	 * 잔여 중량
 	 */
@@ -262,7 +262,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 지시수량
 	 */
-	private int cmndQntt;
+	private double cmndQntt;
 
 	/**
 	 * 지시중량
@@ -272,7 +272,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 지시제외재고수량
 	 */
-	private int invntrCmndQntt;
+	private double invntrCmndQntt;
 
 	/**
 	 * 지시재외재고중량
@@ -282,7 +282,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 이송수량
 	 */
-	private int trnsfQntt;
+	private double trnsfQntt;
 
 	/**
 	 * 이송중량
@@ -292,7 +292,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 투입진행수량
 	 */
-	private int inptPrgrsQntt;
+	private double inptPrgrsQntt;
 	/**
 	 * 투입진행중량
 	 */
