@@ -168,12 +168,12 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 				rawMtrInvntr.setSysLastChgPrgrmId(invntrTrnsfVO.getSysLastChgPrgrmId());
 				rawMtrInvntr.setSysLastChgUserId(invntrTrnsfVO.getSysLastChgUserId());
 
-				int qntt = rawMtrInvntr.getInvntrQntt() + invntrTrnsfVO.getTrnsfQntt();
+				int qntt = (int) (rawMtrInvntr.getInvntrQntt() + invntrTrnsfVO.getTrnsfQntt());
 				Double wght = rawMtrInvntr.getInvntrWght() + invntrTrnsfVO.getTrnsfWght();
 				rawMtrInvntr.setInvntrQntt(qntt);
 				rawMtrInvntr.setInvntrWght(wght);
 
-				int trnsfQntt = rawMtrInvntr.getTrnsfQntt() - invntrTrnsfVO.getTrnsfQntt();
+				int trnsfQntt = (int) (rawMtrInvntr.getTrnsfQntt() - invntrTrnsfVO.getTrnsfQntt());
 				Double trnsfWght = rawMtrInvntr.getTrnsfWght() - invntrTrnsfVO.getTrnsfWght();
 
 				rawMtrInvntr.setTrnsfQntt(trnsfQntt);

@@ -105,7 +105,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			labelLoop:
 				for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
 
-					rePrcs.setRmnQntt(rePrcs.getWrhsQntt());
+					rePrcs.setRmnQntt((int) rePrcs.getWrhsQntt());
 					rePrcs.setRmnWght(rePrcs.getWrhsWght());
 
 					// 품목
@@ -120,7 +120,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 					for ( RawMtrInvntrVO orgnInv : rawMtrInvntrVOList ) {
 
-						int invRmnQntt = orgnInv.getRmnQntt();
+						int invRmnQntt = (int) orgnInv.getRmnQntt();
 						double invRmnWght = orgnInv.getRmnWght();
 
 						if (invRmnWght <= 0) {
@@ -187,7 +187,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 						// 재고정보 조회
 						for ( RawMtrInvntrVO orgnInv : invntrForPrcsList ) {
 
-							int invRmnQntt = orgnInv.getInvntrQntt();
+							int invRmnQntt = (int) orgnInv.getInvntrQntt();
 							double invRmnWght = orgnInv.getInvntrWght();
 
 							if (invRmnWght <= 0) {
@@ -246,7 +246,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		} else {
 
 			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
-				rePrcs.setRmnQntt(rePrcs.getWrhsQntt());
+				rePrcs.setRmnQntt((int) rePrcs.getWrhsQntt());
 				rePrcs.setRmnWght(rePrcs.getWrhsWght());
 			}
 
@@ -257,7 +257,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 					String[] wrhsnos = orgnInv.getWrhsno().split(",");
 	
 					// 지정 투입수량, 투입중량
-					int inptQntt = orgnInv.getInptQntt();
+					int inptQntt = (int) orgnInv.getInptQntt();
 					double inptWght = orgnInv.getInptWght();
 					
 					if (inptQntt <= 0) {
@@ -285,7 +285,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 								return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 							}
 							
-							int invntrQntt = invntrInfo.getInvntrQntt();
+							int invntrQntt = (int) invntrInfo.getInvntrQntt();
 							double invntrWght = invntrInfo.getInvntrWght();
 							
 							// 투입량 차감 - 수량기준
