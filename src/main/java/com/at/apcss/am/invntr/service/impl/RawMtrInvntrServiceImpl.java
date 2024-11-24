@@ -130,10 +130,10 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			String apcCd = rawMtrInvntrVO.getApcCd();
 			String prcsType = rawMtrInvntrVO.getPrcsType();
 
-			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
+			int wrhsQntt = (int) rawMtrInvntrVO.getWrhsQntt();
 			double wrhsWght = rawMtrInvntrVO.getWrhsWght();
 			if (ComConstants.CON_YES.equals(rawMtrInvntrVO.getExcelYn())) {
-				wrhsQntt = rawMtrInvntrVO.getInvntrQntt();
+				wrhsQntt = (int) rawMtrInvntrVO.getInvntrQntt();
 				wrhsWght = rawMtrInvntrVO.getInvntrWght();
 			}
 
@@ -405,7 +405,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			rawMtrInvntrVO.setInptPrgrsWght(0);
 
 			// 투입량
-			int inptQntt = invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt();
+			int inptQntt = (int) (invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt());
 			double inptWght = invntrInfo.getInptWght() + rawMtrInvntrVO.getInptWght();
 			rawMtrInvntrVO.setInptQntt(inptQntt);
 			rawMtrInvntrVO.setInptWght(inptWght);
@@ -427,7 +427,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			}
 
 			// 재고량
-			int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptQntt();
+			int invntrQntt = (int) (invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptQntt());
 			double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptWght();
 			if("RR".equals(rawMtrInvntrVO.getPrcsType())){
 				rawMtrInvntrVO.setInvntrQntt(0);
@@ -438,7 +438,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			}
 
 			// 투입량
-			int inptQntt = invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt();
+			int inptQntt = (int) (invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt());
 			double inptWght = invntrInfo.getInptWght() + rawMtrInvntrVO.getInptWght();
 			rawMtrInvntrVO.setInptQntt(inptQntt);
 			rawMtrInvntrVO.setInptWght(inptWght);
@@ -554,13 +554,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptQntt());
 		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getInptWght();
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
 		// 선별량
-		int sortQntt = invntrInfo.getSortQntt() - rawMtrInvntrVO.getInptQntt();
+		int sortQntt = (int) (invntrInfo.getSortQntt() - rawMtrInvntrVO.getInptQntt());
 		double sortWght = invntrInfo.getSortWght() - rawMtrInvntrVO.getInptWght();
 		rawMtrInvntrVO.setInptQntt(sortQntt);
 		rawMtrInvntrVO.setInptWght(sortWght);
@@ -593,12 +593,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getTrnsfQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getTrnsfQntt());
 		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getTrnsfWght();
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
-		int trnsfQntt = invntrInfo.getTrnsfQntt() + rawMtrInvntrVO.getTrnsfQntt();
+		int trnsfQntt = (int) (invntrInfo.getTrnsfQntt() + rawMtrInvntrVO.getTrnsfQntt());
 		double trnsfWght = invntrInfo.getTrnsfWght() + rawMtrInvntrVO.getTrnsfWght();
 		rawMtrInvntrVO.setTrnsfQntt(trnsfQntt);
 		rawMtrInvntrVO.setTrnsfWght(trnsfWght);
@@ -644,9 +644,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
-		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptPrgrsQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptPrgrsQntt());
 		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptPrgrsWght();
-		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() + rawMtrInvntrVO.getInptPrgrsQntt();
+		int inptPrgrsQntt = (int) (invntrInfo.getInptPrgrsQntt() + rawMtrInvntrVO.getInptPrgrsQntt());
 		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() + rawMtrInvntrVO.getInptPrgrsWght();
 
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
@@ -684,9 +684,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "진행량||취소량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
-		int invntrQntt = invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptPrgrsQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptPrgrsQntt());
 		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getInptPrgrsWght();
-		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() - rawMtrInvntrVO.getInptPrgrsQntt();
+		int inptPrgrsQntt = (int) (invntrInfo.getInptPrgrsQntt() - rawMtrInvntrVO.getInptPrgrsQntt());
 		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() - rawMtrInvntrVO.getInptPrgrsWght();
 
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
@@ -723,13 +723,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getPrcsQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getPrcsQntt());
 		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getPrcsWght();
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
 		// 재처리량
-		int prcsQntt = invntrInfo.getPrcsQntt() + rawMtrInvntrVO.getPrcsQntt();
+		int prcsQntt = (int) (invntrInfo.getPrcsQntt() + rawMtrInvntrVO.getPrcsQntt());
 		double prcsWght = invntrInfo.getPrcsWght() + rawMtrInvntrVO.getPrcsWght();
 		rawMtrInvntrVO.setPrcsQntt(prcsQntt);
 		rawMtrInvntrVO.setPrcsWght(prcsWght);
@@ -759,7 +759,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 
 		/** 총 처리 수량 중량 **/
-		int prcsQntt = rawMtrInvntrVO.getPrcsQntt();
+		int prcsQntt = (int) rawMtrInvntrVO.getPrcsQntt();
 		double prcsWght = rawMtrInvntrVO.getPrcsWght();
 
 		/** 상단 재고 내역에서 로우당 여러개의 입고실적이 있을경우 info를 가져옴 **/
@@ -843,13 +843,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getPrcsQntt();
+		int invntrQntt = (int) (invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getPrcsQntt());
 		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getPrcsWght();
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
 		// 재처리량
-		int prcsQntt = invntrInfo.getPrcsQntt() - rawMtrInvntrVO.getPrcsQntt();
+		int prcsQntt = (int) (invntrInfo.getPrcsQntt() - rawMtrInvntrVO.getPrcsQntt());
 		double prcsWght = invntrInfo.getPrcsWght() - rawMtrInvntrVO.getPrcsWght();
 		rawMtrInvntrVO.setPrcsQntt(prcsQntt);
 		rawMtrInvntrVO.setPrcsWght(prcsWght);
@@ -879,9 +879,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		RawMtrInvntrVO chgHstryVO = new RawMtrInvntrVO();
 		BeanUtils.copyProperties(rawMtrInvntrVO, chgHstryVO);
-		chgHstryVO.setChgBfrQntt(invntrInfo.getInvntrQntt());
+		chgHstryVO.setChgBfrQntt((int) invntrInfo.getInvntrQntt());
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
-		chgHstryVO.setChgAftrQntt(rawMtrInvntrVO.getInvntrQntt());
+		chgHstryVO.setChgAftrQntt((int) rawMtrInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(rawMtrInvntrVO.getInvntrWght());
 		chgHstryVO.setChgRsn(rawMtrInvntrVO.getRmrk());
 
