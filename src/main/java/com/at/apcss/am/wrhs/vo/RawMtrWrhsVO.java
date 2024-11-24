@@ -139,12 +139,12 @@ public class RawMtrWrhsVO extends ComVO {
 	/**
 	 * 박스수량
 	 */
-	private int bxQntt;
+	private double bxQntt;
 
 	/**
 	 * 수량
 	 */
-	private int qntt;
+	private double qntt;
 
 	/**
 	 * 중량
@@ -154,7 +154,7 @@ public class RawMtrWrhsVO extends ComVO {
 	/**
 	 * 입고수량
 	 */
-	private int wrhsQntt;
+	private double wrhsQntt;
 	/**
 	 * 입고중량
 	 */
@@ -198,7 +198,7 @@ public class RawMtrWrhsVO extends ComVO {
 	/**
 	 * 투입수량
 	 */
-	private int inptQntt;
+	private double inptQntt;
 	/**
 	 * 투입중량
 	 */
@@ -206,7 +206,7 @@ public class RawMtrWrhsVO extends ComVO {
 	/**
 	 * 재고수량
 	 */
-	private int invntrQntt;
+	private double invntrQntt;
 	/**
 	 * 재고중량
 	 */
