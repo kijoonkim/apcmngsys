@@ -64,7 +64,7 @@
 </head>
 <body oncontextmenu="return false">
 <section>
-  <div class="box box-solid">
+  <div class="box box-solid" style="border-radius: 0">
     <div class="box-header" style="display:flex; justify-content: flex-start;">
       <div>
         <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -115,7 +115,7 @@
           </td>
           <td></td>
           <th scope="row" >신고구분명</th>
-          <td colspan="3" class="td_input" style="border-right: hidden;">
+          <td colspan="8" class="td_input" style="border-right: hidden;">
             <div style="display: flex;gap: 5px">
               <div class="dropdown">
                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,9 +125,9 @@
                 <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
                 </div>
               </div>
-              <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+              <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
               <p style="text-align: center;line-height: 30px">~</p>
-              <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+              <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
             </div>
           </td>
           <td></td>
@@ -615,6 +615,10 @@
     /** reset **/
     jsonGrdList.length = 0;
     grdListGrid.rebuild();
+
+    gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
+    SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+    SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
 
     const inputs = document.querySelectorAll('#panRightHeader input, #panRightMiddle input');
     inputs.forEach(input => {

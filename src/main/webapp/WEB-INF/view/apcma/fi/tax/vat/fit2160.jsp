@@ -25,7 +25,6 @@
 <head>
     <title>Title</title><title>title : 공제받지못할매입세액명세서</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #tab-wrap > table > tbody > tr > td,#Purchase > table > tbody > tr > td{
@@ -66,38 +65,48 @@
             </div>
         </div>
         <div class="box-body">
+            <div class="box-search-ma">
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table id="srchTable" class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
                 <colgroup>
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
 
+                    <col style="width: 8%">
                     <col style="width: 7%">
-                    <col style="width: 6%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
+
+                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 1%">
+                    <col style="width: 7%">
+                    <col style="width: 2%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준연도</th>
+                    <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                          date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                         >
                         </sbux-datepicker>
                     </td>
-
-                    <th scope="row" class="th_bg">신고구분명</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
+                    <td></td>
+                    <th scope="row" >신고구분명</th>
+                    <td colspan="8" class="td_input" style="border-right: hidden;">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
                                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,19 +121,23 @@
                             <sbux-input readonly id="srch-dtp-ymdstandardTermTo" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">신고사업장</th>
+                    <th scope="row" >신고사업장</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
+                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
-                    <th scope="row" class="th_bg">사업자번호</th>
-                    <td colspan="7" class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
+                    <td></td>
+                    <th scope="row" >사업자번호</th>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
+            </div>
             <div style=" height: 90vh; display: flex">
                 <div style="flex: 1">
                     <div class="ad_tbl_top">
@@ -486,6 +499,10 @@
         grdDivision.rebuild();
         grdCalc.rebuild();
         grdReCalc.rebuild();
+
+        gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
