@@ -851,6 +851,11 @@
         SBUxMethod.set("reg-inp-pltQntt",selectJson.pltQntt);
         SBUxMethod.set("reg-inp-rmrk",selectJson.rmrk);
 
+        SBUxMethod.set("wghno",selectJson.wghno);
+        SBUxMethod.set("itemCd",selectJson.itemCd);
+        SBUxMethod.set("prdcrCd",selectJson.prdcrCd);
+        SBUxMethod.set("wrhsYmd",selectJson.wrhsYmd);
+
         /** 비품이 있을경우 대비 **/
         let qntt = selectJson.bxQntt.split(',');
         SBUxMethod.set("reg-inp-grdQntt1",qntt[0]);
@@ -862,7 +867,6 @@
 
         SBUxMethod.set("reg-inp-avgWght",parseInt(wrhsWght) / parseInt(bxQntt));
         /** 콘티중량 역연산 해야할듯? **/
-        SBUxMethod.set("wghno",selectJson.wghno);
         SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");
         SBUxMethod.attr("btnCmndDocspmt", "disabled", "false");
 
