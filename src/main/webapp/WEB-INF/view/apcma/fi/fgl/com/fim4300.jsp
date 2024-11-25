@@ -551,7 +551,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFim4300Detail';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};

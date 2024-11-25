@@ -818,13 +818,14 @@
 	    SBGridProperties.jsonref 			= 'jsonFim3100List';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["APC"],				ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["APC"],					ref: 'FI_ORG_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["카드번호"], 			ref: 'CARD_NO',    				type:'output',  	width:'350px',  	style:'text-align:left'},
             {caption: ["카드명"],  				ref: 'CARD_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["법인개인구분"],    		ref: 'BIZ_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},

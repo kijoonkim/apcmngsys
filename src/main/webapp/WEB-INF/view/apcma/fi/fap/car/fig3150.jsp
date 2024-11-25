@@ -403,10 +403,11 @@
 	    SBGridProperties.jsonref 			= 'jsonFig3150List';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
         	
