@@ -252,5 +252,4 @@
         observer.observe(targetNode, config);
     });
 */
-*
 </script>

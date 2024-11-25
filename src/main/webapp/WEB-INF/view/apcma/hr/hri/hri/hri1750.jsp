@@ -196,6 +196,7 @@
                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                         style="width:100%;"
                                         group-id="panBottom"
+                                        placement="top"
                                         required
                                 />
                             </td>
@@ -787,7 +788,7 @@
                 document.querySelector('#listCount').innerText = jsonReportList.length;
 
                 if(jsonReportList.length > 0) {
-                    bandgvwInfo.clickRow(1);
+                    bandgvwInfo.clickRow(2);
                 }
             } else {
                 alert(data.resultMessage);
@@ -1200,6 +1201,7 @@
         }
 
         let rowData = bandgvwInfo.getRowData(nRow);
+        console.log(rowData);
         let reportType = rowData.REPORT_TYPE;
         SBUxMethod.attr('REQUEST_DATE',"disabled","true");
 
