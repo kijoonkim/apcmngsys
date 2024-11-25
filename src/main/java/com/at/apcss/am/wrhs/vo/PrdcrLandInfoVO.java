@@ -68,6 +68,10 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * 농업인번호
 	 * */
 	private String frmerno;
+	/*
+	 * 연도
+	 * */
+	private String yr;
 
 
 }

@@ -1568,10 +1568,11 @@
       * @param {String} prdcrCdDtl
       */
 	const fn_setPrdcrLandInfo = async function(prdcrCdDtl) {
-
+		let yr = SBUxMethod.get("srch-dtp-yr")
 		const param = {
 			apcCd		: gv_selectedApcCd
 		  , prdcrCd		: prdcrCdDtl
+		  , yr 			: yr
 		}
 		jsonPrdcrLandInfo.length = 0;
 		try {
@@ -1989,7 +1990,7 @@
 	}
 
 	const fn_saveFrmerInfo = async function () {
-
+		let yr = SBUxMethod.get("srch-dtp-yr");
 		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");
 		let prdcr = _.find(jsonPrdcrDtl, {prdcrCd: prdcrCd});
 		let prdcrChgYn = false;
@@ -2064,8 +2065,9 @@
 					rowData.rowSts 		= "I";
 					rowData.apcCd 		= gv_selectedApcCd;
 					rowData.prdcrCd 	= prdcrCd;
-					rowData.mngmstRegno = prdcrLinkCd
-					rowData.frmerno 	= frmerno
+					rowData.mngmstRegno = prdcrLinkCd;
+					rowData.frmerno 	= frmerno;
+					rowData.yr			= yr;
 					prdcrLandInfoList.push(rowData)
 				}
 
@@ -2073,8 +2075,8 @@
 					rowData.rowSts 		= "U";
 					rowData.apcCd 		= gv_selectedApcCd;
 					rowData.prdcrCd 	= prdcrCd;
-					rowData.mngmstRegno = prdcrLinkCd
-					rowData.frmerno 	= frmerno
+					rowData.mngmstRegno = prdcrLinkCd;
+					rowData.frmerno 	= frmerno;
 					prdcrLandInfoList.push(rowData)
 				}
 			}
