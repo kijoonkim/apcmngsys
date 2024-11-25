@@ -169,9 +169,10 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 	//var totalPageCount   = report.callGetTotalPageCount();
 
 		//report.setDefaultSavePDFOption();
-	report.callPDFPrint()
+	//report.callPDFPrint();
+	//report.runPDFPrint()
 	//report.printPDFDirect();
-	//report.callSaveFileDownLoad(pdfName, 3, 1/*, selectedPageCount , totalPageCount*/);
+	report.callSaveFileDownLoad(pdfName, 3, 1/*, selectedPageCount , totalPageCount*/);
 }
 
 
