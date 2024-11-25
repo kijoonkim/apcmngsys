@@ -162,8 +162,10 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 		document.getElementById(gv_dvClipReportPrint)
 			);
 
-	report.printPDFDirect();
-	//report.callSaveFileDownLoad(pdfName, 1, 1);
+	//report.setDefaultSavePDFOption();
+
+	//report.printPDFDirect();
+	report.callSaveFileDownLoad(pdfName, 3, 1);
 }
 
 
