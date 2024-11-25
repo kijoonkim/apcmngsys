@@ -179,7 +179,7 @@
 	    SBGridProperties.jsonref 			= 'jsonNationList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sort';
 	    //SBGridProperties.useinitsorting 	= true;
 	    //SBGridProperties.oneclickedit 	= true;
         SBGridProperties.rowheader 			= 'seq';

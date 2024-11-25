@@ -607,6 +607,8 @@
 	    SBGridProperties.jsonref 			= 'jsonFig2200';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.frozencols 		= 9;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -655,9 +657,9 @@
             
             {caption: ["적요"], 	   				ref: 'DESCRIPTION', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["부가세"],	   				ref: 'VAT_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["부가세"],	   				ref: 'VAT_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["거래처명"],	   				ref: 'CS_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["상신일자"],	   				ref: 'INSERT_DATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -845,7 +847,7 @@
   						APPROVE_DATE			: gfnma_date5(gfnma_nvl(item.APPROVE_DATE)),
   						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
   						EXCHANGE_RATE			: gfnma_nvl(item.EXCHANGE_RATE),
-  						DOC_AMT					: gfnma_nvl(item.DOC_AMT),
+  						DOC_AMT					: gfnma_nvl2(item.DOC_AMT),
   						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),
   						DOC_TYPE_NAME			: gfnma_nvl(item.DOC_TYPE_NAME),
   						DOC_NAME				: gfnma_nvl(item.DOC_NAME),
@@ -862,8 +864,8 @@
   						UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
   						CS_NAME					: gfnma_nvl(item.CS_NAME),
   						BIZ_REGNO				: gfnma_nvl(item.BIZ_REGNO),
-  						SUPPLY_AMT				: gfnma_nvl(item.SUPPLY_AMT),
-  						VAT_AMT					: gfnma_nvl(item.VAT_AMT),
+  						SUPPLY_AMT				: gfnma_nvl2(item.SUPPLY_AMT),
+  						VAT_AMT					: gfnma_nvl2(item.VAT_AMT),
   						DOC_BATCH_NO			: gfnma_nvl(item.DOC_BATCH_NO),
   						FI_ORG_CODE1			: gfnma_nvl(item.FI_ORG_CODE1),
   						REVERSE_FLAG			: gfnma_nvl(item.REVERSE_FLAG),
@@ -1656,6 +1658,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab1Fig2210';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -1705,10 +1709,12 @@
             {caption: ["부가세유형"],  				ref: 'VAT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["계정코드"],    				ref: 'ACCOUNT_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정과목명"],  				ref: 'ACCOUNT_NAME', 			type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["차변(통화)"],				ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(통화)"],				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변(전표)"],				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(전표)"],				ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
+            {caption: ["차변(통화)"],				ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(통화)"],				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변(전표)"],				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(전표)"],				ref: 'FUNCTIONAL_CR_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            
             {caption: ["부서"],	   					ref: 'DEPT_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["원가중심점"],				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["적요"],						ref: 'DESCRIPTION',				type:'output',  	width:'250px',  	style:'text-align:left'},
@@ -1777,10 +1783,12 @@
   						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),
   						COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),
   						PROJECT_CODE			: gfnma_nvl(item.PROJECT_CODE),
-  						ORIGINAL_CR_AMT			: gfnma_nvl(item.ORIGINAL_CR_AMT),
-  						ORIGINAL_DR_AMT			: gfnma_nvl(item.ORIGINAL_DR_AMT),
-  						FUNCTIONAL_CR_AMT		: gfnma_nvl(item.FUNCTIONAL_CR_AMT),
-  						FUNCTIONAL_DR_AMT		: gfnma_nvl(item.FUNCTIONAL_DR_AMT),
+  						
+  						ORIGINAL_CR_AMT			: gfnma_nvl2(item.ORIGINAL_CR_AMT),
+  						ORIGINAL_DR_AMT			: gfnma_nvl2(item.ORIGINAL_DR_AMT),
+  						FUNCTIONAL_CR_AMT		: gfnma_nvl2(item.FUNCTIONAL_CR_AMT),
+  						FUNCTIONAL_DR_AMT		: gfnma_nvl2(item.FUNCTIONAL_DR_AMT),
+  						
   						TXN_QTY					: gfnma_nvl(item.TXN_QTY),
   						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
   						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
@@ -1910,6 +1918,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab2Fig2200';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -1946,8 +1956,10 @@
             {caption: ["지급요청일자"], 			ref: 'PLANNED_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["지급일"], 					ref: 'PAY_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["통화"], 					ref: 'CURRENCY_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화금액"], 				ref: 'ORIGINAL_AMOUNT', 		type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["전표금액"], 				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
+            {caption: ["통화금액"], 				ref: 'ORIGINAL_AMOUNT', 		type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["전표금액"], 				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            
             {caption: ["비고"], 					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -2025,8 +2037,8 @@
   						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),
   						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),
   						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
-  						ORIGINAL_AMOUNT			: gfnma_nvl(item.ORIGINAL_AMOUNT),
-  						FUNCTIONAL_AMOUNT		: gfnma_nvl(item.FUNCTIONAL_AMOUNT),  
+  						ORIGINAL_AMOUNT			: gfnma_nvl2(item.ORIGINAL_AMOUNT),
+  						FUNCTIONAL_AMOUNT		: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),  
   						ETC						: ''
   					}
   					jsonTab2Fig2200.push(msg);
@@ -2060,6 +2072,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab3Fim3420';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -2067,15 +2081,15 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["순번"],						ref: 'STEP_SEQ', 				type:'output',  	width:'60px', 		style:'text-align:left'},
-            {caption: ["구분"],    					ref: 'APPR_TYPE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["결재구분"], 				ref: 'APPR_CATEGORY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["구분"],    					ref: 'APPR_TYPE_NAME', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["결재구분"], 				ref: 'APPR_CATEGORY_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["부서명"], 					ref: 'DEPT_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["직책"], 					ref: 'DUTY_CODE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["직책"], 					ref: 'DUTY_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["이름"], 					ref: 'EMP_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["수임자명"], 				ref: 'PROXY_EMP_NAME', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["결재자명"], 				ref: 'UPDATE_EMP_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["승인결과"], 				ref: 'APPR_STATUS', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["결재의견"], 				ref: 'APPR_OPINION', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["승인결과"], 				ref: 'APPR_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["결재의견"], 				ref: 'APPR_OPINION', 			type:'output',  	width:'300px',  	style:'text-align:left'},
             {caption: ["비고"], 					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -2128,14 +2142,18 @@
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						STEP_SEQ				: gfnma_nvl(item.STEP_SEQ),			
-  						APPR_TYPE				: gfnma_nvl(item.APPR_TYPE), 		// L_FIM004			
-  						APPR_CATEGORY			: gfnma_nvl(item.APPR_CATEGORY), 	// L_FIM065			
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME), 		// P_ORG001
-  						DUTY_CODE				: gfnma_nvl(item.DUTY_CODE), 		// L_HRI003
+  						APPR_TYPE				: gfnma_nvl(item.APPR_TYPE), 					
+  						APPR_TYPE_NAME			: gfnma_nvl(item.APPR_TYPE_NAME), 				
+  						APPR_CATEGORY			: gfnma_nvl(item.APPR_CATEGORY), 				
+  						APPR_CATEGORY_NAME		: gfnma_nvl(item.APPR_CATEGORY_NAME),			
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME), 		
+  						DUTY_CODE				: gfnma_nvl(item.DUTY_CODE), 	
+  						DUTY_NAME				: gfnma_nvl(item.DUTY_NAME), 	
   						EMP_NAME				: gfnma_nvl(item.EMP_NAME),
   						PROXY_EMP_NAME			: gfnma_nvl(item.PROXY_EMP_NAME),
   						UPDATE_EMP_NAME			: gfnma_nvl(item.UPDATE_EMP_NAME),
-  						APPR_STATUS				: gfnma_nvl(item.APPR_STATUS),	// L_FIG002
+  						APPR_STATUS				: gfnma_nvl(item.APPR_STATUS),	
+  						APPR_STATUS_NAME		: gfnma_nvl(item.APPR_STATUS_NAME),	
   						APPR_DATE				: gfnma_date5(gfnma_nvl(item.APPR_DATE)),			
   						APPR_OPINION			: gfnma_nvl(item.APPR_OPINION),
   						ETC						: ''

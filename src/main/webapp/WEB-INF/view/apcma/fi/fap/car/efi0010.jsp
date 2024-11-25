@@ -231,11 +231,12 @@
 	    SBGridProperties.jsonref 			= 'jsonEfi0010List';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+// 	    SBGridProperties.explorerbar 		= 'sort';
+// 	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["집계단위코드"],				ref: 'ZACCD_G', 				type:'output',  	width:'100px',  	style:'text-align:left'},
