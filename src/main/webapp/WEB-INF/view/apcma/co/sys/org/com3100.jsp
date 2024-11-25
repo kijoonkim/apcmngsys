@@ -96,12 +96,16 @@
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
-                            <div class="ad_tbl_toplist">
-	                            <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delRow" style="float: right;"></sbux-button>
-	                            <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-	                            <sbux-button id="btnCopyClear" name="btnCopyClear" uitype="normal" text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyClear" style="float: right; display: block"></sbux-button>
-	                            <sbux-button id="btnCopyLine" name="btnCopyLine" uitype="normal" text="행복사모드" <%--행단위로 복사--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyLine" style="float: right; display: none;"></sbux-button>
-	                            <sbux-button id="btnCopyCell" name="btnCopyCell" uitype="normal" text="셀복사모드" <%--셀단위로 복사--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyCell" style="float: right; display: none;" ></sbux-button>
+	                    	<div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+	                            <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delRow" ></sbux-button>
+	                            <font style="padding-left:5px"></font>
+	                            <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>
+	                            <font style="padding-left:5px"></font>
+	                            <sbux-button id="btnCopyClear" name="btnCopyClear" uitype="normal" text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyClear" ></sbux-button>
+	                            <font style="padding-left:5px"></font>
+	                            <sbux-button id="btnCopyLine" name="btnCopyLine" uitype="normal" text="행복사모드" <%--행단위로 복사--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyLine" style="display:none;"></sbux-button>
+	                            <font style="padding-left:5px"></font>
+	                            <sbux-button id="btnCopyCell" name="btnCopyCell" uitype="normal" text="셀복사모드" <%--셀단위로 복사--%> class="btn btn-sm btn-outline-danger" onclick="fn_gridCopyCell" style="display:none;" ></sbux-button>
                             </div>                            
                         </div>
                         <div>
@@ -175,15 +179,16 @@
 	    SBGridProperties.jsonref 			= 'jsonNationList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
-	    SBGridProperties.oneclickedit 		= true;
+	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.useinitsorting 	= true;
+	    //SBGridProperties.oneclickedit 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'input',  		width:'5%',  	style:'text-align:center'},
-            {caption: ["국가약어"], 			ref: 'NATION_CODE_ABBR',    	type:'input',  	width:'5%',  	style:'text-align:center'},
+            {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'input',  	width:'5%',  	style:'text-align:center'},
             {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'input',  	width:'15%',  	style:'text-align:center'},
