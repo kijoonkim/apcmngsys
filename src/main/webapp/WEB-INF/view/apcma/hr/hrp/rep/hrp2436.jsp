@@ -366,12 +366,13 @@
                 </tbody>
             </table>
         </div>
-        <form id="reportPdfDownload">
+        <%--<form id="reportPdfDownload">
             <input type="hidden" name="title" value="">
             <input type="hidden" name="fileName" value="">
             <input type="hidden" name="param" value="">
             <input type="hidden" name="conn" value="">
-        </form>
+        </form>--%>
+        <div id="div-rpt-clipReportPrint" style="width:1000px;height:80vh;"></div>
     </div>
 </section>
 <!-- 팝업 Modal -->
@@ -1112,7 +1113,7 @@
     const fn_btnFile = async function () {
 
         var nRow = gvwInfoGrid.getRow();
-        var conn = '';
+        var _conn = '';
         var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
         if (nRow < 1) {
             return;
@@ -1120,22 +1121,24 @@
         let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (SENDTYPE == "ALL") {
-            conn = await fn_GetReportData('REPORT5', rowData);
-            conn = await gfnma_convertDataForReport(conn);
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_ALL.crf", conn, 'testFile');
+            _conn = await fn_GetReportData('REPORT5', rowData);
+            _conn = await gfnma_convertDataForReport(_conn);
+            /*const conn = JSON.stringify(_conn);*/
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_ALL.crf", _conn, 'testFile');
 
         } else if(SENDTYPE == "PAY") {
-            conn = await fn_GetReportData('REPORT3', rowData);
-            conn = await gfnma_convertDataForReport(conn);
+            _conn = await fn_GetReportData('REPORT3', rowData);
+            _conn = await gfnma_convertDataForReport(_conn);
+            /*const conn = JSON.stringify(_conn);*/
             //fn_pdfDowmload("급여명세서",  "ma/RPT_HRP2436_Q_PAY.crf", '', conn );
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_PAY.crf", conn, '급여명세서');
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_PAY.crf", _conn, '급여명세서');
 
         } else if(SENDTYPE == "WORK") {
-            conn = await fn_GetReportData('REPORT4', rowData);
-            conn = await gfnma_convertDataForReport(conn);
-
+            _conn = await fn_GetReportData('REPORT4', rowData);
+            _conn = await gfnma_convertDataForReport(_conn);
+           /* const conn = JSON.stringify(_conn);*/
             //fn_pdfDowmload("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", '', conn );
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_WORK.crf", conn, '근태현황');
+            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_WORK.crf", _conn, '근태현황');
         }
 
     }
@@ -1286,7 +1289,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-        console.log('fn_GetReportData data=>',data);
         return data;
     }
 </script>
