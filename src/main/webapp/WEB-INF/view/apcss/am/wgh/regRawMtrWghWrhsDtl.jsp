@@ -180,13 +180,17 @@
         let grdCd = _json.grdCd.split(',');
         let bxQntt = _json.bxQntt.split(',');
 
-        if(grdCd.length < 2)return;
-
-        _json.grdQntt1 = bxQntt[0];
-        _json.grdQntt2 = bxQntt[1];
-        _json.bxQntt = parseFloat(bxQntt[0]) + parseFloat(bxQntt[1]);
-        _json.clacWght = parseFloat(_json.wrhsWght) / parseFloat(_json.bxQntt);
-        jsonRawMtrWrhs.push(_json);
+        if(grdCd.length < 2){
+            _json.grdQntt1 = bxQntt[0];
+            _json.clacWght = parseFloat(_json.wrhsWght) / parseFloat(_json.bxQntt);
+            jsonRawMtrWrhs.push(_json);
+        }else{
+            _json.grdQntt1 = bxQntt[0];
+            _json.grdQntt2 = bxQntt[1];
+            _json.bxQntt = parseFloat(bxQntt[0]) + parseFloat(bxQntt[1]);
+            _json.clacWght = parseFloat(_json.wrhsWght) / parseFloat(_json.bxQntt);
+            jsonRawMtrWrhs.push(_json);
+        }
     }
     const fn_init = async function(){
         let date = gfn_dateToYmd(new Date());
@@ -293,6 +297,7 @@
         obj.wghYmdFrom = wrhsYmdFrom;
         obj.wghYmdTo = wrhsYmdTo;
         obj.apcCd = gv_selectedApcCd;
+
 
         const postJsonPromise = gfn_postJSON("/am/wgh/selectMultiWghPrfmncList.do", obj);
         const data = await postJsonPromise;

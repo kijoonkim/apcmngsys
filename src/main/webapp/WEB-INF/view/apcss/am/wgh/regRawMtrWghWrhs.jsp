@@ -333,7 +333,8 @@
                                             style="width: 85%"
                                             class="form-control inpt_data_reqed inpt-mbl"
                                             autocomplete="off"
-                                            onchange="fn_calcInput()"
+                                            init="2kg"
+                                            disabled
                                     ></sbux-input>
                                 </td>
                             </tr>
@@ -371,6 +372,7 @@
                                             style="width: 85%"
                                             class="form-control inpt_data_reqed inpt-mbl"
                                             autocomplete="off"
+                                            onchange="fn_calcInput()"
                                     ></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">파렛트 중량(Kg)</th>
@@ -382,7 +384,8 @@
                                             style="width: 85%"
                                             class="form-control inpt_data_reqed inpt-mbl"
                                             autocomplete="off"
-                                            onchange="fn_calcInput()"
+                                            init="20kg"
+                                            disabled
                                     ></sbux-input>
                                 </td>
                             </tr>
@@ -773,12 +776,12 @@
             const data = await postJsonPromise;
             if(data.resultStatus === 'S'){
                 gfn_comAlert("I0001");
-                SBUxMethod.attr("btnSave","disabled","false");
+                SBUxMethod.attr("btnSave","disabled","true");
             }
         }
     }
     const fn_reset = async function() {
-        SBUxMethod.attr("btnSave","disabled","true");
+        SBUxMethod.attr("btnSave","disabled","false");
         SBUxMethod.attr("btnCmndDocspmt","disabled","true");
         let elements = Array.from(document.querySelectorAll("[id^='reg-']"));
         elements.forEach(function(item) {
