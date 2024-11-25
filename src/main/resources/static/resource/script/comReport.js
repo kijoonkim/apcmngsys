@@ -155,13 +155,15 @@ const gfn_getReportKeyByJson = async function(_fileName, _param, _conn) {
  */
 const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 	const reportKey = await gfn_getReportKey(fileName, param);
+
 	const report = createOOFReport(
 				gv_reportUrl,
 				reportKey,
-				document.getElementById(gv_dvClipReportPrint)
+		document.getElementById(gv_dvClipReportPrint)
 			);
 
-	report.callSaveFileDownLoad(pdfName, 1, 1);
+	report.printPDFDirect();
+	//report.callSaveFileDownLoad(pdfName, 1, 1);
 }
 
 
