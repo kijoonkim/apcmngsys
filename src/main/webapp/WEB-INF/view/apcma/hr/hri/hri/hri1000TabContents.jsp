@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="tab-content">
-    <div id="tpgMaster">
+    <div id="tpgMaster" style="height:480px;">
         <table class="table table-bordered tbl_fixed">
             <colgroup>
                 <col style="width:8%">
@@ -516,7 +516,7 @@
             </tr>
         </table>
     </div>
-    <div id="tpgMasterSub" style="height: 596px;">
+    <div id="tpgMasterSub" style="height: 480px;">
         <table class="table table-bordered tbl_fixed">
             <caption>기본인적</caption>
             <colgroup>
@@ -717,7 +717,7 @@
             </tbody>
         </table>
     </div>
-    <div id="tpgMasterSubDetail" style="height: 596px;">
+    <div id="tpgMasterSubDetail" style="height: 480px;">
         <div class="col-sm-4">
             <div class="ad_tbl_top2">
                 <ul class="ad_tbl_count">
@@ -1009,7 +1009,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwFamily" style="height:560px;"></div>
+            <div id="sb-area-gvwFamily" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgSCHOOL">
@@ -1023,7 +1023,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwSchool" style="height:560px;"></div>
+            <div id="sb-area-gvwSchool" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgCAREER">
@@ -1037,7 +1037,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwCareer" style="height:560px;"></div>
+            <div id="sb-area-gvwCareer" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgLICENSE">
@@ -1051,7 +1051,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwLicense" style="height:560px;"></div>
+            <div id="sb-area-gvwLicense" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgLANGUAGE">
@@ -1065,7 +1065,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwLanguage" style="height:200px;"></div>
+            <div id="sb-area-gvwLanguage" style="height:150px;"></div>
         </div>
         <div class="ad_tbl_top2">
             <ul class="ad_tbl_count">
@@ -1077,7 +1077,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwComputerSkill" style="height:320px;"></div>
+            <div id="sb-area-gvwComputerSkill" style="height:250px;"></div>
         </div>
     </div>
     <div id="tpgFILE">
@@ -1091,7 +1091,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwFile" style="height:560px;"></div>
+            <div id="sb-area-gvwFile" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgEducation">
@@ -1105,10 +1105,10 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwEducation" style="height:560px;"></div>
+            <div id="sb-area-gvwEducation" style="height:480px;"></div>
         </div>
     </div>
-    <div id="tpgMasterSubDetail2" style="height: 596px;">
+    <div id="tpgMasterSubDetail2" style="height: 480px;">
         <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>병역사항</caption>
@@ -1254,7 +1254,7 @@
             </table>
         </div>
     </div>
-    <div id="tpgMasterSubDetail3" style="height: 596px;">
+    <div id="tpgMasterSubDetail3" style="height: 480px;">
         <div class="ad_tbl_top2">
             <ul class="ad_tbl_count">
                 <li><span>보훈</span></li>
@@ -1462,7 +1462,7 @@
             </table>
         </div>
     </div>
-    <div id="tpgMasterSubDetail4" style="height: 596px;">
+    <div id="tpgMasterSubDetail4" style="height: 480px;">
         <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보증구분</caption>
@@ -1732,7 +1732,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwPrize" style="height:560px;"></div>
+            <div id="sb-area-gvwPrize" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgHealth">
@@ -1746,7 +1746,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwHealth" style="height:560px;"></div>
+            <div id="sb-area-gvwHealth" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgAppointment">
@@ -1756,7 +1756,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwAppointment" style="height:560px;"></div>
+            <div id="sb-area-gvwAppointment" style="height:440px;"></div>
         </div>
     </div>
     <div id="tabPageEx1">
@@ -1766,7 +1766,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwAddJob" style="height:560px;"></div>
+            <div id="sb-area-gvwAddJob" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgTimeOffHistory">
@@ -1780,7 +1780,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwTimeOffHistory" style="height:560px;"></div>
+            <div id="sb-area-gvwTimeOffHistory" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgGroupInsurance">
@@ -1794,7 +1794,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwGroupInsurance" style="height:560px;"></div>
+            <div id="sb-area-gvwGroupInsurance" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgDisease">
@@ -1808,7 +1808,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwDisease" style="height:560px;"></div>
+            <div id="sb-area-gvwDisease" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgPersonnelEvaluation">
@@ -1822,7 +1822,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwPersonnelEvaluation" style="height:560px;"></div>
+            <div id="sb-area-gvwPersonnelEvaluation" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgOfficialInjury">
@@ -1836,7 +1836,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwOfficialInjury" style="height:560px;"></div>
+            <div id="sb-area-gvwOfficialInjury" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgContractDeg">
@@ -1850,7 +1850,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwContractDeg" style="height:560px;"></div>
+            <div id="sb-area-gvwContractDeg" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgWORKPLAN">
@@ -1864,7 +1864,7 @@
             </div>
         </div>
         <div>
-            <div id="sb-area-gvwWorkPlan" style="height:560px;"></div>
+            <div id="sb-area-gvwWorkPlan" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgEmp">
@@ -1874,7 +1874,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwEmp" style="height:560px;"></div>
+            <div id="sb-area-gvwEmp" style="height:440px;"></div>
         </div>
     </div>
     <div id="tpgExpenditurewelfare">
@@ -1884,7 +1884,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwExpenditurewelfare" style="height:560px;"></div>
+            <div id="sb-area-gvwExpenditurewelfare" style="height:440px;"></div>
         </div>
     </div>
 </div>

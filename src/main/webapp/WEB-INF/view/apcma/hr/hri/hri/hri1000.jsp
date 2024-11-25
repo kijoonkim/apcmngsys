@@ -179,7 +179,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwList" style="height:900px;"></div>
+                        <div id="sb-area-gvwList" style="height:750px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-10">
