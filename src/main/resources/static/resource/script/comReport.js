@@ -162,6 +162,8 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 		document.getElementById(gv_dvClipReportPrint)
 			);
 
+	//report.sendFileDownCheck();
+
 	//리포트의 현재 페이지를 반환합니다.
 	//var selectedPageCount   = report.callGetSlectedPageNumber();
 
@@ -171,8 +173,9 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 		//report.setDefaultSavePDFOption();
 	//report.callPDFPrint();
 	//report.runPDFPrint()
-	//report.printPDFDirect();
-	report.callSaveFileDownLoad(pdfName, 3, 1/*, selectedPageCount , totalPageCount*/);
+	report.setUseDownloadSubOptionFrame(false);
+	report.printPDFDirect();
+	//report.callSaveFileDownLoad(pdfName, 3, 1/*, selectedPageCount , totalPageCount*/);
 }
 
 
