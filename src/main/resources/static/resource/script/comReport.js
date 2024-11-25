@@ -162,10 +162,16 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 		document.getElementById(gv_dvClipReportPrint)
 			);
 
-	//report.setDefaultSavePDFOption();
+	//리포트의 현재 페이지를 반환합니다.
+	//var selectedPageCount   = report.callGetSlectedPageNumber();
 
+	//리포트의 전체 페이지수를 반환합니다.
+	//var totalPageCount   = report.callGetTotalPageCount();
+
+		//report.setDefaultSavePDFOption();
+	report.callPDFPrint()
 	//report.printPDFDirect();
-	report.callSaveFileDownLoad(pdfName, 3, 1);
+	//report.callSaveFileDownLoad(pdfName, 3, 1/*, selectedPageCount , totalPageCount*/);
 }
 
 
