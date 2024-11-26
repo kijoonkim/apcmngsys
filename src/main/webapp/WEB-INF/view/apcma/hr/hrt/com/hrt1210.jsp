@@ -1359,7 +1359,7 @@
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
         let SHIFT_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SHIFT_CODE'));
         let SHIFT_NAME	    = gfn_nvl(SBUxMethod.get("SRCH_SHIFT_NAME"));
-        let USE_YN	    = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
+        let USE_YN	    = gfn_nvl(SBUxMethod.get("SRCH_USE_YN"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
