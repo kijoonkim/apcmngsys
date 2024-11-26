@@ -96,6 +96,21 @@
                         <sbux-select id="SRCH_WORK_TIME_YN" uitype="single" jsondata-ref="jsonWorkTimeYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td></td>
+                    <th scope="row" class="th_bg_search">직종</th>
+                    <td colspan="3" class="td_input">
+                        <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_JOB_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg_search">년월</th>
                     <td class="td_input">
                         <sbux-datepicker
@@ -110,8 +125,6 @@
                         />
                     </td>
                     <td colspan="3"></td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg_search">부서</th>
                     <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -127,20 +140,42 @@
                                 onclick="fn_findSrchDeptCode"
                         ></sbux-button>
                     </td>
-                    <th scope="row" class="th_bg_search">직종</th>
-                    <td colspan="3" class="td_input">
-                        <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
-                        <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_JOB_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                            </div>
-                        </div>
+                    <th scope="row" class="th_bg_search">사원</th>
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td></td>
-
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                        <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="…" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findEmpCode"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg_search">
+                        <sbux-checkbox
+                                uitype="normal"
+                                id="SRCH_MULTI_YN"
+                                name="SRCH_MULTI_YN"
+                                uitype="normal"
+                                class="form-control input-sm"
+                                text="복수선택"
+                                true-value="Y" false-value="N"
+                        />
+                    </th>
+                    <td colspan="4" class="td_input">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="복수선택" uitype="modal"
+                                target-id="modal-compopup3"
+                                onclick="fn_multiSelect"
+                        ></sbux-button>
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg_search">적용기간</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -170,42 +205,6 @@
                         />
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg_search">사원</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="…" uitype="modal"
-                                target-id="modal-compopup1"
-                                onclick="fn_findEmpCode"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg_search">
-                        <sbux-checkbox
-                                uitype="normal"
-                                id="SRCH_MULTI_YN"
-                                name="SRCH_MULTI_YN"
-                                uitype="normal"
-                                class="form-control input-sm"
-                                text="복수선택"
-                                true-value="Y" false-value="N"
-                        />
-                    </th>
-                    <td colspan="4" class="td_input">
-                        <sbux-button
-                                class="btn btn-xs btn-outline-dark"
-                                text="복수선택" uitype="modal"
-                                target-id="modal-compopup3"
-                                onclick="fn_multiSelect"
-                        ></sbux-button>
-                    </td>
                 </tr>
                 </tbody>
             </table>
