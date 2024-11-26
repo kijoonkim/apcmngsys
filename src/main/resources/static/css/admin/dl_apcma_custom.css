@@ -181,6 +181,13 @@ select.form-control {
 .btn-sm {
 	font-size: 11px !important;
 }
+.form-control {
+    font-size: 11px !important;
+}
+.table-datepicker-ma{
+	padding-right: 0px !important;
+    font-size: 11px !important;
+}
 
 /*그리드*/
 .sbgrid_common {
