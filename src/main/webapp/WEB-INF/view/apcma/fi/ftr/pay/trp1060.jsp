@@ -183,6 +183,13 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+<!-- 리포트 출력 팝업 -->
+<div>
+	<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-comPopFig1000Report">
+	<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -2088,18 +2095,27 @@
     }
 
     const fn_print = async function() {
-        // TODO : 레포트 개발 필요
         if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "")
             return;
+        if (gvwList.getRows() == 1)
+            return;
 
-        var param = {};
-
-        param["WORK_TYPE"] = "TREASURY";
-        param["PRINT_TYPE"] = "PREVIEW";
-        param["TREASURY_BATCH_NO"] = gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO"));
-
-        gfn_popClipReport("", reportFilePath, param);
-        //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
+        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
+    		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+    		SBUxMethod.openModal('modal-comPopFig1000Report');
+    		comPopFig1000Report({
+    			height			: '200px'
+    			,width			: '400px'
+    			,param			: {
+    				P_WORK_TYPE		: "TREASURY"
+    				,P_TREASURY_BATCH_NO	: gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO"))
+    				,P_COMP_CODE	: gv_ma_selectedCorpCd
+    				,P_CLIENT_CODE	: gv_ma_selectedClntCd
+    			}
+    		});
+        }
+        
+        
     }
 
     const fn_addInvoiceItem = async function() {
