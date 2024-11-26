@@ -118,8 +118,25 @@
     	</if>
     </update>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteDhtyJobList		-->
+	<!-- DESC : 생산속보 당일작업단가 삭제.	                         	            -->
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectDhtyJobList	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="deleteDhtyJobList" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_DHTY_JOB
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND SPMT_YMD = #{spmtYmd}
+       ]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectJobCnList	-->
 	<!-- DESC : 생산속보 작업내용 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -226,6 +243,23 @@
     </update>
 
     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteJobCnList			-->
+	<!-- DESC : 생산속보 작업내용 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteJobCnList" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_JOB_CN
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND SORT_YMD = #{sortYmd}
+       	]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectMrktAnlsList	-->
 	<!-- DESC : 생산속보 작업내용 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
@@ -257,6 +291,326 @@
 
 
    	</select>
+
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectInvntrSortList	-->
+	<!-- DESC : 생산속보 재고현황 1 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectInvntrSortList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT *
+		FROM (
+		    SELECT
+		        APC_CD ,
+		        INVNTR_YMD ,
+		        ITEM_CD ,
+		        VRTY_CD || '_' || GRD_CD AS SORT_KEY, -- VRTY_CD와 GRD_CD를 결합하여 PIVOT에 사용할 키 생성
+		        QNTT
+		    FROM TB_DOC_INVNTR_STTN_SORT
+		    WHERE APC_CD = #{apcCd}
+		     AND DEL_YN = 'N'
+		      ]]>
+			<if test="mrktCndYmdFrom != null and mrktCndYmdFrom != ''">
+	        	AND MRKT_CND_YMD <![CDATA[>=]]> #{mrktCndYmdFrom}
+	    	</if>
+		    <if test="mrktCndYmdTo != null and mrktCndYmdTo != ''">
+		        AND MRKT_CND_YMD <![CDATA[<=]]> #{mrktCndYmdTo}
+		    </if>
+		)
+		PIVOT (
+		    MAX(QNTT)
+		    FOR SORT_KEY IN (
+		 '9901_01' AS "9901_01"
+		, '9901_02' AS "9901_02"
+		, '9901_03' AS "9901_03"
+		, '9901_04' AS "9901_04"
+		, '9901_05' AS "9901_05"
+		, '9901_06' AS "9901_06"
+		, '9901_07' AS "9901_07"
+		, '9901_08' AS "9901_08"
+		, '9901_09' AS "9901_09"
+		, '9902_01' AS "9902_01"
+		, '9902_02' AS "9902_02"
+		, '9902_03' AS "9902_03"
+		, '9902_04' AS "9902_04"
+		, '9902_05' AS "9902_05"
+		, '9902_06' AS "9902_06"
+		, '9902_07' AS "9902_07"
+		, '9902_08' AS "9902_08"
+		, '9902_09' AS "9902_09"
+		, '9903_01' AS "9903_01"
+		, '9903_02' AS "9903_02"
+		, '9903_03' AS "9903_03"
+		, '9903_04' AS "9903_04"
+		, '9903_05' AS "9903_05"
+		, '9903_06' AS "9903_06"
+		, '9903_07' AS "9903_07"
+		, '9903_08' AS "9903_08"
+		, '9903_09' AS "9903_09"
+		, '9906_00' AS "9906_00"
+		, '9907_00' AS "9907_00"
+		, '9934_00' AS "9934_00"
+
+		        -- 필요한 값에 따라 항목 추가
+		    )
+		) A,
+		(
+		SELECT *
+			FROM (
+			    SELECT
+			    	APC_CD ,
+			        INVNTR_YMD ,
+			        PLT_BX_SE_CD || '_' || PLT_BX_CD AS PLT_BX_KEY,
+			        QNTT
+			        , DEL_YN
+			    FROM TB_DOC_INVNTR_STTN_BX
+			    WHERE 1=1
+			      AND APC_CD = #{apcCd}
+			      AND DEL_YN = 'N'
+
+		<if test="mrktCndYmdFrom != null and mrktCndYmdFrom != ''">
+        	AND MRKT_CND_YMD <![CDATA[>=]]> #{mrktCndYmdFrom}
+    	</if>
+	    <if test="mrktCndYmdTo != null and mrktCndYmdTo != ''">
+	        AND MRKT_CND_YMD <![CDATA[<=]]> #{mrktCndYmdTo}
+	    </if>
+
+
+			)
+			PIVOT (
+			    MAX(QNTT)
+			    FOR PLT_BX_KEY IN (
+			        'B_0001' AS B_0001,
+			        'B_0002' AS B_0002,
+			        'B_0003' AS B_0003,
+			        'B_0004' AS B_0004,
+			        'B_0005' AS B_0005,
+			        'B_0006' AS B_0006,
+			        'B_0007' AS B_0007,
+			        'B_0008' AS B_0008,
+			        'B_0009' AS B_0009,
+			        'B_0010' AS B_0010,
+			        'B_0011' AS B_0011,
+			        'P_0001' AS P_0001,
+			        'P_0002' AS P_0002,
+			        'P_0003' AS P_0003,
+			        'P_0004' AS P_0004,
+			        'P_0005' AS P_0005,
+			        'P_0006' AS P_0006
+			    )
+			)
+		)B
+		WHERE 1=1
+			AND A.APC_CD = B.APC_CD
+			AND A.INVNTR_YMD = B.INVNTR_YMD;
+
+
+
+
+   	</select>
+
+   		<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectWrhsSttnList	-->
+	<!-- DESC : 생산속보 입고현황 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectWrhsSttnList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT *
+			FROM (
+			    SELECT
+			    	APC_CD
+			        , WRHS_YMD
+					, VRTY_CD
+			        , QNTT
+			        , DEL_YN
+			    FROM TB_DOC_WRHS_STTN
+			    WHERE 1=1
+			      AND APC_CD = #{apcCd}
+			      AND DEL_YN = 'N'
+		]]>
+		<if test="wrhsYmdFrom != null and wrhsYmdFrom != ''">
+        	AND WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+    	</if>
+	    <if test="wrhsYmdTo != null and wrhsYmdTo != ''">
+	        AND WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+	    </if>
+			)
+			PIVOT (
+			    MAX(QNTT)
+			    FOR VRTY_CD IN (
+					'9901' AS "9901"
+					, '9902' AS "9902"
+					, '9903' AS "9903"
+					, '9906' AS "9906"
+					, '9907' AS "9907"
+					, '9908' AS "9908"
+					, '9909' AS "9909"
+					, '9910' AS "9910"
+					, '9911' AS "9911"
+					, '9915' AS "9915"
+					, '9916' AS "9916"
+					, '9917' AS "9917"
+					, '9918' AS "9918"
+					, '9922' AS "9922"
+					, '9923' AS "9923"
+					, '9924' AS "9924"
+					, '9925' AS "9925"
+					, '9926' AS "9926"
+					, '9927' AS "9927"
+					, '9928' AS "9928"
+					, '9929' AS "9929"
+					, '9930' AS "9930"
+					, '9931' AS "9931"
+					, '9932' AS "9932"
+					, '9933' AS "9933"
+					, '9934' AS "9934"
+			    )
+			)
+
+   	</select>
+
+   		<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.selectInvntrTwoList	-->
+	<!-- DESC : 생산속보 재고현황2 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.21  	박승진        	Initial 쿼리 수정                           -->
+	<!-- ==========================================================================	-->
+	<select id="selectInvntrTwoList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT
+			A.APC_CD
+			, A.INVNTR_YMD
+			, S_9908, S_9909, S_9910, S_9911, S_9916, S_9915, S_9917, S_9918, S_9922, S_9923, S_9924, S_9925, S_9926
+			, G_0072, G_0073, G_0074, G_0075, G_0076
+			, D_01, D_02, D_03, D_04
+			, A.DEL_YN
+			 FROM
+			(SELECT
+				APC_CD
+				, INVNTR_YMD
+				, ITEM_CD
+				, VRTY_CD
+				, GRD_CD
+				, QNTT
+				, DEL_YN
+
+			  FROM TB_DOC_INVNTR_STTN_SORT
+			WHERE 1=1
+				AND APC_CD = '0532'
+				AND DEL_YN = 'N'
+				]]>
+				<if test="invntrYmdFrom != null and invntrYmdFrom != ''">
+		        	AND INVNTR_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+		    	</if>
+			    <if test="invntrYmdTo != null and invntrYmdTo != ''">
+			        AND INVNTR_YMD <![CDATA[<=]]> #{invntrYmdTo}
+			    </if>
+				AND VRTY_CD IN (
+						SELECT VRTY_CD
+					       FROM TB_APC_VRTY_CRTR
+						WHERE REGEXP_LIKE(VRTY_NM, '^(길쭉이|미니|당조고추|보라고추)')
+					)
+				AND GRD_CD = '00' )
+
+				PIVOT (
+						    MAX(QNTT)
+						    FOR VRTY_CD IN (
+								'9908' AS "S_9908"
+								, '9909' AS "S_9909"
+								, '9910' AS "S_9910"
+								, '9911' AS "S_9911"
+								, '9916' AS "S_9916"
+								, '9915' AS "S_9915"
+								, '9917' AS "S_9917"
+								, '9918' AS "S_9918"
+								, '9922' AS "S_9922"
+								, '9923' AS "S_9923"
+								, '9924' AS "S_9924"
+								, '9925' AS "S_9925"
+								, '9926' AS "S_9926"
+						    )
+						) A,
+			(SELECT
+				APC_CD
+				, INVNTR_YMD
+				, GDS_CD
+				, QNTT
+			--	, WGHT
+				, DEL_YN
+			FROM TB_DOC_INVNTR_STTN_GDS
+			WHERE 1=1
+				AND APC_CD = '0532'
+				AND DEL_YN = 'N'
+				<if test="invntrYmdFrom != null and invntrYmdFrom != ''">
+		        	AND INVNTR_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+		    	</if>
+			    <if test="invntrYmdTo != null and invntrYmdTo != ''">
+			        AND INVNTR_YMD <![CDATA[<=]]> #{invntrYmdTo}
+			    </if>
+				AND GDS_CD IN (
+					SELECT SPMT_PCKG_UNIT_CD FROM TB_SPMT_PCKG_UNIT WHERE APC_CD = '0532'  AND REGEXP_LIKE(SPMT_PCKG_UNIT_NM,'^(시장|후레쉬|시장미니|길쭉이)')
+				))
+
+			PIVOT(
+				MAX(QNTT)
+			--	MAX(WGHT) AS W
+				FOR GDS_CD IN(
+					'0072' AS "G_0072"
+					,'0073' AS "G_0073"
+					,'0074' AS "G_0074"
+					,'0075' AS "G_0075"
+					,'0076' AS "G_0076"
+				)
+			) B,
+			(SELECT
+				APC_CD
+				, INVNTR_YMD
+				, DICE_SE_CD
+				, QNTT
+			   FROM TB_DOC_INVNTR_STTN_DICE
+			WHERE 1=1
+				AND APC_CD = '0532'
+				AND DEL_YN = 'N'
+				<if test="invntrYmdFrom != null and invntrYmdFrom != ''">
+		        	AND INVNTR_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+		    	</if>
+			    <if test="invntrYmdTo != null and invntrYmdTo != ''">
+			        AND INVNTR_YMD <![CDATA[<=]]> #{invntrYmdTo}
+			    </if>
+				)
+			PIVOT(
+				MAX(QNTT)
+				FOR DICE_SE_CD IN(
+					'01' AS "D_01"
+					, '02' AS "D_02"
+					, '03' AS "D_03"
+					, '04' AS "D_04"
+				)
+			)	C
+
+
+			WHERE 1=1
+				AND A.INVNTR_YMD = B.INVNTR_YMD
+				AND A.INVNTR_YMD = C.INVNTR_YMD
+
+
+
+
+   	</select>
+
+
+
+
 
      <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertMrktAnlsList			-->
@@ -316,7 +670,7 @@
 			, NTSL_AMT = #{ntslAmt}
 		WHERE 1=1
 			AND APC_CD = #{apcCd}
-			AND DEL_YN = "N"
+			AND DEL_YN = 'N'
 		]]>
 		<if test="mrktCndYmd != null and mrktCndYmd != ''">
         	AND MRKT_CND_YMD = #{mrktCndYmd}
@@ -326,8 +680,86 @@
     	</if>
     </update>
 
+        <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteMrktAnlsList			-->
+	<!-- DESC : 시황분석 작업내용 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteMrktAnlsList" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_MRKT_ANLS
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND MRKT_CND_YMD = #{mrktCndYmd}
+        ]]>
+    </delete>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteInvntrSort			-->
+	<!-- DESC : 재고현황1 선별 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteInvntrSort1" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_INVNTR_STTN_SORT
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND INVNTR_YMD = #{invntrYmd}
+			AND VRTY_CD IN
+        	]]>
+        	<foreach item="vrtyList" collection="vrtyCd" open="(" separator="," close=")">
+        	  #{vrtyList}
+    		</foreach>
+
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteInvntrSort2			-->
+	<!-- DESC : 재고현황2 선별 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteInvntrSort2" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_INVNTR_STTN_SORT
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND INVNTR_YMD = #{invntrYmd}
+        	AND GRD_CD = '00'
+        	AND VRTY_CD IN
+        	]]>
+        	<foreach item="vrtyList" collection="vrtyCd" open="(" separator="," close=")">
+        	  #{vrtyList}
+    		</foreach>
+
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteInvntrPltbx			-->
+	<!-- DESC : 재고현황1 팔레트박스 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteInvntrPltbx" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_INVNTR_STTN_BX
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND INVNTR_YMD = #{invntrYmd}
+        ]]>
+    </delete>
+
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertDhtyJobList			-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertInvntrSttn1			-->
 	<!-- DESC : 재고현황1 당일작업단가 등록.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -371,6 +803,417 @@
 			)
 		]]>
     </insert>
+
+      <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertInvntrSort			-->
+	<!-- DESC : 재고현황1 선별 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertInvntrSort" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TB_DOC_INVNTR_STTN_SORT
+			(
+				APC_CD
+				, INVNTR_YMD
+				, ITEM_CD
+				, VRTY_CD
+				, GRD_CD
+				, QNTT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+			VALUES(
+				#{apcCd}
+				, #{invntrYmd}
+				, #{itemCd}
+				, #{vrtyCd}
+				, #{grdCd}
+				, #{qntt}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertPltBx			-->
+	<!-- DESC : 재고현황1 팔레트박스 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertPltBx" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TB_DOC_INVNTR_STTN_BX
+			(
+				 APC_CD
+				, INVNTR_YMD
+				, PLT_BX_SE_CD
+				, PLT_BX_CD
+				, QNTT
+				, WGHT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+			VALUES(
+				 #{apcCd}
+				, #{invntrYmd}
+				, #{pltBxSeCd}
+				, #{pltBxCd}
+				, #{qntt}
+				, #{wght}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			)
+
+		]]>
+    </insert>
+
+       <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateInvntrSort			-->
+	<!-- DESC : 재고현황1 선별 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="updateInvntrSort" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_INVNTR_STTN_SORT SET
+				QNTT = #{qntt}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND INVNTR_YMD = #{invntrYmd}
+			  AND ITEM_CD = #{itemCd}
+			  AND VRTY_CD = #{vrtyCd}
+	 		  AND GRD_CD = #{grdCd}
+		]]>
+    </insert>
+
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updatePltBx			-->
+	<!-- DESC : 재고현황1 팔레트박스 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePltBx" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_INVNTR_STTN_BX SET
+				QNTT = #{qntt}
+				, WGHT = #{wght}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND INVNTR_YMD = #{invntrYmd}
+		      AND PLT_BX_SE_CD = #{pltBxSeCd}
+			  AND PLT_BX_CD = #{pltBxCd}
+
+
+
+		]]>
+    </update>
+
+       <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateInvntr2List			-->
+	<!-- DESC : 재고현황2 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntr2List" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_INVNTR_STTN_SORT SET
+				QNTT = #{qntt}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND INVNTR_YMD = #{invntrYmd}
+			  AND ITEM_CD = #{itemCd}
+			  AND VRTY_CD = #{vrtyCd}
+	 		  AND GRD_CD = #{grdCd}
+		]]>
+    </update>
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertInvntr2List			-->
+	<!-- DESC : 재고현황2 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertInvntr2List" parameterType="hashmap">
+		<![CDATA[
+
+		]]>
+    </insert>
+
+
+       <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateWrhsSttnList			-->
+	<!-- DESC : 입고현황 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateWrhsSttnList" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_WRHS_STTN SET
+				QNTT = #{qntt}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND WRHS_YMD = #{wrhsYmd}
+			  AND VRTY_CD = #{vrtyCd}
+
+		]]>
+    </update>
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertWrhsSttnList			-->
+	<!-- DESC : 입고현황 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertWrhsSttnList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_WRHS_STTN
+		(
+		APC_CD
+		, WRHS_YMD
+		, VRTY_CD
+		, QNTT
+		, DEL_YN
+		, SYS_FRST_INPT_DT
+		, SYS_FRST_INPT_USER_ID
+		, SYS_FRST_INPT_PRGRM_ID
+		, SYS_LAST_CHG_DT
+		, SYS_LAST_CHG_USER_ID
+		, SYS_LAST_CHG_PRGRM_ID
+		)VALUES(
+		#{apcCd}
+		, #{wrhsYmd}
+		, #{vrtyCd}
+		, #{qntt}
+		, #{delYn}
+		, SYSDATE
+		, #{sysFrstInptUserId}
+		, #{sysFrstInptPrgrmId}
+		, SYSDATE
+		, #{sysLastChgUserId}
+		, #{sysLastChgPrgrmId}
+		)
+		]]>
+    </insert>
+
+
+       <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateInvntr2GdsList			-->
+	<!-- DESC : 재고현황2 상품 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntr2GdsList" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_INVNTR_STTN_GDS SET
+				QNTT = #{qntt}
+				, WGHT = #{wght}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND INVNTR_YMD = #{invntrYmd}
+			  AND GDS_CD = #{gdsCd}
+
+		]]>
+    </update>
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertInvntr2GdsList			-->
+	<!-- DESC : 재고현황2 상품 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertInvntr2GdsList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_INVNTR_STTN_GDS
+		(
+			 APC_CD
+			, INVNTR_YMD
+			, GDS_CD
+			, QNTT
+			, WGHT
+			, DEL_YN
+			, SYS_FRST_INPT_DT
+			, SYS_FRST_INPT_USER_ID
+			, SYS_FRST_INPT_PRGRM_ID
+			, SYS_LAST_CHG_DT
+			, SYS_LAST_CHG_USER_ID
+			, SYS_LAST_CHG_PRGRM_ID
+
+		)VALUES(
+			#{apcCd}
+			, #{invntrYmd}
+			, #{gdsCd}
+			, #{qntt}
+			, #{wght}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+
+		)
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteInvntrDice			-->
+	<!-- DESC : 재고현황2 다이스 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteInvntrDice" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_INVNTR_STTN_DICE
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND INVNTR_YMD = #{invntrYmd}
+        ]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteInvntrGds			-->
+	<!-- DESC : 재고현황2 상품 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteInvntrGds" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_INVNTR_STTN_GDS
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND INVNTR_YMD = #{invntrYmd}
+        ]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.deleteWrhsSttnList			-->
+	<!-- DESC : 입고현황 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteWrhsSttnList" parameterType="hashmap">
+		<![CDATA[
+		DELETE FROM TB_DOC_WRHS_STTN
+		WHERE 1=1
+			AND APC_CD = #{apcCd}
+        	AND WRHS_YMD = #{wrhsYmd}
+        ]]>
+    </delete>
+
+
+
+
+
+           <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.updateInvntr2DiceList			-->
+	<!-- DESC : 재고현황2 다이스 수정.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntr2DiceList" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_DOC_INVNTR_STTN_DICE SET
+				QNTT = #{qntt}
+			WHERE 1=1
+			  AND APC_CD = #{apcCd}
+			  AND INVNTR_YMD = #{invntrYmd}
+			  AND DICE_SE_CD = #{diceSeCd}
+
+		]]>
+    </update>
+
+          <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDdlnMapper.insertInvntr2DiceList			-->
+	<!-- DESC : 재고현황2 다이스 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertInvntr2DiceList" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO TB_DOC_INVNTR_STTN_DICE
+		(
+			APC_CD
+			, INVNTR_YMD
+			, DICE_SE_CD
+			, QNTT
+			, DEL_YN
+			, SYS_FRST_INPT_DT
+			, SYS_FRST_INPT_USER_ID
+			, SYS_FRST_INPT_PRGRM_ID
+			, SYS_LAST_CHG_DT
+			, SYS_LAST_CHG_USER_ID
+			, SYS_LAST_CHG_PRGRM_ID
+
+		)VALUES(
+			#{apcCd}
+			, #{invntrYmd}
+			, #{diceSeCd}
+			, #{qntt}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+		)
+		]]>
+    </insert>
+
 
 
 

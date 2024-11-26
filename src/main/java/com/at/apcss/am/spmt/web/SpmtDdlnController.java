@@ -148,25 +148,25 @@ public class SpmtDdlnController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	// 작업내용 리스트 조회
-		@PostMapping(value = "/am/spmt/selectMrktAnlsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> selectMrktAnlsList(@RequestBody HashMap<String,Object> ordrVO, HttpServletRequest request) throws Exception {
-			HashMap<String, Object> resultMap = new HashMap<String,Object>();
-			List<HashMap<String, Object>> resultList = new ArrayList<>();
-			try {
-				resultList = spmtDdlnService.selectMrktAnlsList(ordrVO);
-			} catch (Exception e) {
-				return getErrorResponseEntity(e);
-			} finally {
-				HashMap<String, Object> rtnObj = setMenuComLog(request);
-				if (rtnObj != null) {
-					return getErrorResponseEntity(rtnObj);
-				}
+	@PostMapping(value = "/am/spmt/selectMrktAnlsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMrktAnlsList(@RequestBody HashMap<String,Object> ordrVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
+		try {
+			resultList = spmtDdlnService.selectMrktAnlsList(ordrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
-
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-			return getSuccessResponseEntity(resultMap);
 		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
 	// 시황분석 등록
@@ -201,8 +201,58 @@ public class SpmtDdlnController extends BaseController {
 	}
 
 	// 재고현황1 등록
-		@PostMapping(value = "/am/spmt/insertInvntrSttnOne.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> invntrSttn1Save(@RequestBody List<HashMap<String,Object>> insertList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/spmt/insertInvntrSttnOne.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertInvntrSttnOne(@RequestBody List<HashMap<String,Object>> insertList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int insertedCnt = 0;
+		try {
+			for (HashMap<String,Object> spmtVO : insertList) {
+				spmtVO.put("sysFrstInptUserId",getUserId());
+				spmtVO.put("sysFrstInptPrgrmId",getPrgrmId());
+				spmtVO.put("sysLastChgUserId",getUserId());
+				spmtVO.put("sysLastChgPrgrmId",getPrgrmId());
+			}
+			insertedCnt = spmtDdlnService.insertInvntrSttn1(insertList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 재고현황1 조회
+	@PostMapping(value = "/am/spmt/selectInvntrSttnOneList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectInvntrSttnOneList(@RequestBody HashMap<String,Object> ordrVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
+		try {
+			resultList = spmtDdlnService.selectInvntrSttnOneList(ordrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 재고현황2 등록
+		@PostMapping(value = "/am/spmt/insertInvntrSttnTwo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> insertInvntrSttnTwo(@RequestBody List<HashMap<String,Object>> insertList, HttpServletRequest request) throws Exception {
 
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			int insertedCnt = 0;
@@ -213,7 +263,7 @@ public class SpmtDdlnController extends BaseController {
 					spmtVO.put("sysLastChgUserId",getUserId());
 					spmtVO.put("sysLastChgPrgrmId",getPrgrmId());
 				}
-				insertedCnt = spmtDdlnService.insertInvntrSttn1(insertList);
+				insertedCnt = spmtDdlnService.insertInvntrSttn2(insertList);
 
 			} catch (Exception e) {
 				return getErrorResponseEntity(e);
@@ -228,6 +278,207 @@ public class SpmtDdlnController extends BaseController {
 
 			return getSuccessResponseEntity(resultMap);
 		}
+
+		// 재고현황 2 조회
+		@PostMapping(value = "/am/spmt/selectInvntrSttnTwoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectInvntrSttnTwoList(@RequestBody HashMap<String,Object> ordrVO, HttpServletRequest request) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String,Object>();
+			List<HashMap<String, Object>> resultList = new ArrayList<>();
+			try {
+				resultList = spmtDdlnService.selectInvntrSttnTwoList(ordrVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 재고현황 2 조회
+		@PostMapping(value = "/am/spmt/selectWrhsSttnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectWrhsSttnList(@RequestBody HashMap<String,Object> ordrVO, HttpServletRequest request) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String,Object>();
+			List<HashMap<String, Object>> resultList = new ArrayList<>();
+			try {
+				resultList = spmtDdlnService.selectWrhsSttnList(ordrVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 재고현황2 등록
+		@PostMapping(value = "/am/spmt/insertWrhsSttn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> insertWrhsSttn(@RequestBody List<HashMap<String,Object>> insertList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				for (HashMap<String,Object> spmtVO : insertList) {
+					spmtVO.put("sysFrstInptUserId",getUserId());
+					spmtVO.put("sysFrstInptPrgrmId",getPrgrmId());
+					spmtVO.put("sysLastChgUserId",getUserId());
+					spmtVO.put("sysLastChgPrgrmId",getPrgrmId());
+				}
+				insertedCnt = spmtDdlnService.insertWrhsSttn(insertList);
+
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+
+		// 당일작업단가 삭제
+		@PostMapping(value = "/am/spmt/deleteDhtyJobList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteDhtyJobList(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteDhtyJobList(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 작업내용 삭제
+		@PostMapping(value = "/am/spmt/deleteJobCnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteJobCnList(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteJobCnList(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+
+		// 시황분석 삭제
+		@PostMapping(value = "/am/spmt/deleteMrktAnlsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteMrktAnlsList(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteMrktAnlsList(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 재고현황1 삭제
+		@PostMapping(value = "/am/spmt/deleteInvntrOne.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteInvntrOne(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteInvntrOne(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 재고현황2 삭제
+		@PostMapping(value = "/am/spmt/deleteInvntrTwo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteInvntrTwo(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteInvntrTwo(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 입고현황 삭제
+		@PostMapping(value = "/am/spmt/deleteWrhsSttnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> deleteWrhsSttnList(@RequestBody HashMap<String,Object> deleteList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertedCnt = 0;
+			try {
+				insertedCnt = spmtDdlnService.deleteWrhsSttnList(deleteList);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+
 
 
 }
