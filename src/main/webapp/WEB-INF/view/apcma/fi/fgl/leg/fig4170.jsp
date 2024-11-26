@@ -571,15 +571,15 @@
             {caption: ["거래처코드"],				ref: 'CS_CODE', 				type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',		width:'150px',  	style:'text-align:left'},
             
-            {caption: ["순금액(전표)"], 	 		ref: 'FUNCTIONAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["순금액(통화)"], 			ref: 'ORIGINAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(통화)"],	   			ref: 'ORIGINAL_BALANCE_AMT',	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(전표)"], 	   			ref: 'FUNCTIONAL_BALANCE_AMT', 	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["순금액(전표)"], 	 		ref: 'FUNCTIONAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["순금액(통화)"], 			ref: 'ORIGINAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["잔액(통화)"],	   			ref: 'ORIGINAL_BALANCE_AMT',	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["잔액(전표)"], 	   			ref: 'FUNCTIONAL_BALANCE_AMT', 	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["평가일"], 					ref: 'VALUATION_DATE', 			type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["평가환율"], 				ref: 'VAL_EXCHANGE_RATE', 		type:'output',		width:'100px',  	style:'text-align:left'},
             
-            {caption: ["평가금액"], 	   			ref: 'AFTER_VAL_AMOUNT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["평가금액"], 	   			ref: 'AFTER_VAL_AMOUNT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
 
             {caption: ["당초환율"], 				ref: 'ORIGINAL_EXCHANGE_RATE', 	type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["당초금액"], 				ref: 'BEFORE_VAL_AMOUNT', 		type:'output',		width:'100px',  	style:'text-align:left'},

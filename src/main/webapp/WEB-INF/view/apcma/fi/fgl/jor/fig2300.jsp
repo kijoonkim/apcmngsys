@@ -300,12 +300,14 @@
 											class="form-control input-sm"									
 		   								></sbux-input>	                            
 		   								<font style="width:10px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_MULTI_YN" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
+		   								<span style="padding-top:5px">
+			                       			<sbux-checkbox 
+			                       				id="SCH_MULTI_YN" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" ></sbux-checkbox>
+		   								</span>
 		   								<font style="width:10px"></font>
 										<sbux-button
 											id="SCH_BTN_MULTI_DOC"
@@ -593,6 +595,8 @@
 	    SBGridProperties.jsonref 			= 'jsonFig2300';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.frozencols 		= 8;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -605,10 +609,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [20,21,22,28]
+                    sum : [21,22,23]
                 },
                 grandtotalrow : {
-                    titlecol 		: 19,
+                    titlecol 		: 20,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -661,9 +665,9 @@
             {caption: ["회계승인취소일"],			ref: 'UNPOSTING_DATE', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["배치번호"],					ref: 'DOC_BATCH_NO', 			type:'output',  	width:'250px',  	style:'text-align:left'},
             
-            {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["공급가액"],    				ref: 'SUPPLY_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["부가세"], 	   				ref: 'VAT_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["공급가액"],    				ref: 'SUPPLY_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["부가세"], 	   				ref: 'VAT_AMT', 				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["적요"],    					ref: 'DESCRIPTION', 			type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["결의부서명"], 				ref: 'DEPT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -727,6 +731,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab1Fig2210';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         //SBGridProperties.frozencols 		= 8;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -770,10 +776,10 @@
             {caption: ["계정코드"],  				ref: 'ACCOUNT_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정과목명"],  				ref: 'ACCOUNT_NAME', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: ["차변(통화)"],  				ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(통화)"],  				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변(전표)"],  				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(전표)"],  				ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변(통화)"],  				ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(통화)"],  				ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변(전표)"],  				ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(전표)"],  				ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["부서"], 	 				ref: 'DEPT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["원가중심점"], 				ref: 'COST_CENTER_CODE',		type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -791,6 +797,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab2Fig2300';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         //SBGridProperties.frozencols 		= 8;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -803,7 +811,13 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [8]
+                    sum : [7,8]
+                },
+                grandtotalrow : {
+                    titlecol 		: 6,
+                    titlevalue		: '합계',
+                    style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol	: 0
                 },
                 datasorting	: true,
         };
@@ -815,9 +829,9 @@
             {caption: ["지급일"], 					ref: 'PAY_DATE', 				type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["통화"], 					ref: 'CURRENCY_CODE', 			type:'output',  	width:'80px',  		style:'text-align:left'},
             
-            {caption: ["통화금액"],  				ref: 'ORIGINAL_AMOUNT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["전표금액"],  				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["비고"],  					ref: 'ETC', 					type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["통화금액"],  				ref: 'ORIGINAL_AMOUNT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["전표금액"],  				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["비고"],  					ref: 'ETC', 					type:'output',  	width:'250px',  	style:'text-align:left'},
         ];
 
         tab2Fig2300Grid = _SBGrid.create(SBGridProperties);
@@ -830,6 +844,8 @@
 	    SBGridProperties.jsonref 			= 'jsonTab3Fim3420';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         //SBGridProperties.frozencols 		= 8;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -966,70 +982,70 @@
   	        	jsonFig2300.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),
-  						APPROVE_DATE			: gfnma_date5(gfnma_nvl(item.APPROVE_DATE)),
-  						APPR_ID					: gfnma_nvl(item.APPR_ID),
-  						APPR_SOURCE_TYPE		: gfnma_nvl(item.APPR_SOURCE_TYPE),
-  						AP_DOC_VIEW_YN			: gfnma_nvl(item.AP_DOC_VIEW_YN),
-  						AP_DOC_WRITE_YN			: gfnma_nvl(item.AP_DOC_WRITE_YN),
-  						AP_DOC_YN				: gfnma_nvl(item.AP_DOC_YN),
-  						AR_DOC_WRITE_YN			: gfnma_nvl(item.AR_DOC_WRITE_YN),
-  						AR_DOC_YN				: gfnma_nvl(item.AR_DOC_YN),
-  						BEFORE_APPR_EMP			: gfnma_nvl(item.BEFORE_APPR_EMP),
-  						BEFORE_PROXY_EMP		: gfnma_nvl(item.BEFORE_PROXY_EMP),
-						CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
-						COMP_CODE				: gfnma_nvl(item.COMP_CODE),			
-  						CONFIRM_EMP_CODE		: gfnma_nvl(item.CONFIRM_EMP_CODE),
-  						CS_NAME					: gfnma_nvl(item.CS_NAME),
-  						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
-						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-  						DOC_AMT					: gfnma_nvl(item.DOC_AMT),
-  						DOC_BATCH_NO			: gfnma_nvl(item.DOC_BATCH_NO),
-  						DOC_DATE				: gfnma_date5(gfnma_nvl(item.DOC_DATE)),
-						DOC_ID					: gfnma_nvl(item.DOC_ID),			
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),
-  						DOC_NUM					: gfnma_nvl(item.DOC_NUM),
-  						DOC_NUM_TOTAL			: gfnma_nvl(item.DOC_NUM_TOTAL),
-  						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),
-  						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),
-  						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),
-  						DOC_TYPE_NAME			: gfnma_nvl(item.DOC_TYPE_NAME),
-  						ESS_DOC_YN				: gfnma_nvl(item.ESS_DOC_YN),
-						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),			
-						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),			
-  						HOLD_FLAG				: gfnma_nvl(item.HOLD_FLAG),
-  						HOLD_USER				: gfnma_nvl(item.HOLD_USER),
-  						INSERT_PC				: gfnma_nvl(item.INSERT_PC),
-  						INSERT_TIME				: gfnma_nvl(item.INSERT_TIME),
-  						INSERT_USERID			: gfnma_nvl(item.INSERT_USERID),
-  						INSERT_USER_NAME		: gfnma_nvl(item.INSERT_USER_NAME),
-  						MANUAL_DOC_WRITE_YN		: gfnma_nvl(item.MANUAL_DOC_WRITE_YN),
-  						NULTI_AP_WRITE_YN		: gfnma_nvl(item.NULTI_AP_WRITE_YN),
-  						NEXT_APPR_EMP			: gfnma_nvl(item.NEXT_APPR_EMP),
-  						NEXTE_PROXY_EMP			: gfnma_nvl(item.NEXT_PROXY_EMP),
-  						POSTING_DATE			: gfnma_date5(gfnma_nvl(item.POSTING_DATE)),
-  						POSTING_USER			: gfnma_nvl(item.POSTING_USER),
-  						PROXY_EMP_CODE			: gfnma_nvl(item.PROXY_EMP_CODE),
-  						RELEASE_USER			: gfnma_nvl(item.RELEASE_USER),
-  						REQUEST_EMP				: gfnma_nvl(item.REQUEST_EMP),
-  						REVERSE_FLAG			: gfnma_nvl(item.REVERSE_FLAG),
-						SITE_CODE				: gfnma_nvl(item.SITE_CODE),			
-						SITE_NAME				: gfnma_nvl(item.SITE_NAME),			
-  						SOURCE_ID				: gfnma_nvl(item.SOURCE_ID),
-  						SOURCE_TYPE				: gfnma_nvl(item.SOURCE_TYPE),
-  						SUPPLY_AMT				: gfnma_nvl(item.SUPPLY_AMT),
-  						UNPOSTING_DATE			: gfnma_nvl(item.UNPOSTING_DATE),
-  						UNPOSTING_USER			: gfnma_nvl(item.UNPOSTING_USER),
-  						UPDATE_PC				: gfnma_nvl(item.UPDATE_PC),
-  						UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
-  						UPDATE_USERID			: gfnma_nvl(item.UPDATE_USERID),
-  						VAT_AMT					: gfnma_nvl(item.VAT_AMT),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						APPROVE_DATE			: gfnma_date5(gfnma_nvl2(item.APPROVE_DATE)),
+  						APPR_ID					: gfnma_nvl2(item.APPR_ID),
+  						APPR_SOURCE_TYPE		: gfnma_nvl2(item.APPR_SOURCE_TYPE),
+  						AP_DOC_VIEW_YN			: gfnma_nvl2(item.AP_DOC_VIEW_YN),
+  						AP_DOC_WRITE_YN			: gfnma_nvl2(item.AP_DOC_WRITE_YN),
+  						AP_DOC_YN				: gfnma_nvl2(item.AP_DOC_YN),
+  						AR_DOC_WRITE_YN			: gfnma_nvl2(item.AR_DOC_WRITE_YN),
+  						AR_DOC_YN				: gfnma_nvl2(item.AR_DOC_YN),
+  						BEFORE_APPR_EMP			: gfnma_nvl2(item.BEFORE_APPR_EMP),
+  						BEFORE_PROXY_EMP		: gfnma_nvl2(item.BEFORE_PROXY_EMP),
+						CHECK_YN				: gfnma_nvl2(item.CHECK_YN),			
+						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),			
+  						CONFIRM_EMP_CODE		: gfnma_nvl2(item.CONFIRM_EMP_CODE),
+  						CS_NAME					: gfnma_nvl2(item.CS_NAME),
+  						CURRENCY_CODE			: gfnma_nvl2(item.CURRENCY_CODE),
+						DEPT_CODE				: gfnma_nvl2(item.DEPT_CODE),			
+  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),
+  						DESCRIPTION				: gfnma_nvl2(item.DESCRIPTION),
+  						DOC_AMT					: gfnma_nvl2(item.DOC_AMT),
+  						DOC_BATCH_NO			: gfnma_nvl2(item.DOC_BATCH_NO),
+  						DOC_DATE				: gfnma_date5(gfnma_nvl2(item.DOC_DATE)),
+						DOC_ID					: gfnma_nvl2(item.DOC_ID),			
+  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
+  						DOC_NUM					: gfnma_nvl2(item.DOC_NUM),
+  						DOC_NUM_TOTAL			: gfnma_nvl2(item.DOC_NUM_TOTAL),
+  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+  						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
+  						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+  						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
+  						ESS_DOC_YN				: gfnma_nvl2(item.ESS_DOC_YN),
+						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),			
+						FI_ORG_NAME				: gfnma_nvl2(item.FI_ORG_NAME),			
+  						HOLD_FLAG				: gfnma_nvl2(item.HOLD_FLAG),
+  						HOLD_USER				: gfnma_nvl2(item.HOLD_USER),
+  						INSERT_PC				: gfnma_nvl2(item.INSERT_PC),
+  						INSERT_TIME				: gfnma_nvl2(item.INSERT_TIME),
+  						INSERT_USERID			: gfnma_nvl2(item.INSERT_USERID),
+  						INSERT_USER_NAME		: gfnma_nvl2(item.INSERT_USER_NAME),
+  						MANUAL_DOC_WRITE_YN		: gfnma_nvl2(item.MANUAL_DOC_WRITE_YN),
+  						NULTI_AP_WRITE_YN		: gfnma_nvl2(item.NULTI_AP_WRITE_YN),
+  						NEXT_APPR_EMP			: gfnma_nvl2(item.NEXT_APPR_EMP),
+  						NEXTE_PROXY_EMP			: gfnma_nvl2(item.NEXT_PROXY_EMP),
+  						POSTING_DATE			: gfnma_date5(gfnma_nvl2(item.POSTING_DATE)),
+  						POSTING_USER			: gfnma_nvl2(item.POSTING_USER),
+  						PROXY_EMP_CODE			: gfnma_nvl2(item.PROXY_EMP_CODE),
+  						RELEASE_USER			: gfnma_nvl2(item.RELEASE_USER),
+  						REQUEST_EMP				: gfnma_nvl2(item.REQUEST_EMP),
+  						REVERSE_FLAG			: gfnma_nvl2(item.REVERSE_FLAG),
+						SITE_CODE				: gfnma_nvl2(item.SITE_CODE),			
+						SITE_NAME				: gfnma_nvl2(item.SITE_NAME),			
+  						SOURCE_ID				: gfnma_nvl2(item.SOURCE_ID),
+  						SOURCE_TYPE				: gfnma_nvl2(item.SOURCE_TYPE),
+  						SUPPLY_AMT				: gfnma_nvl2(item.SUPPLY_AMT),
+  						UNPOSTING_DATE			: gfnma_nvl2(item.UNPOSTING_DATE),
+  						UNPOSTING_USER			: gfnma_nvl2(item.UNPOSTING_USER),
+  						UPDATE_PC				: gfnma_nvl2(item.UPDATE_PC),
+  						UPDATE_TIME				: gfnma_nvl2(item.UPDATE_TIME),
+  						UPDATE_USERID			: gfnma_nvl2(item.UPDATE_USERID),
+  						VAT_AMT					: gfnma_nvl2(item.VAT_AMT),
 						
-  						DOC_ID1					: gfnma_nvl(item.DOC_ID1),
-						FI_ORG_CODE1			: gfnma_nvl(item.FI_ORG_CODE1),			
-  						APPROVE_DATE1			: gfnma_nvl(item.APPROVE_DATE1),
+  						DOC_ID1					: gfnma_nvl2(item.DOC_ID1),
+						FI_ORG_CODE1			: gfnma_nvl2(item.FI_ORG_CODE1),			
+  						APPROVE_DATE1			: gfnma_nvl2(item.APPROVE_DATE1),
   					}
   					jsonFig2300.push(msg);
   					totalRecordCount ++;
@@ -1276,119 +1292,119 @@
   	    		jsonTab1Fig2210.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
-						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
-						ACC_CHARACTER			: gfnma_nvl(item.ACC_CHARACTER),
+						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
+						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
+						ACC_CHARACTER			: gfnma_nvl2(item.ACC_CHARACTER),
 						
-						ACC_ITEM_CODE1			: gfnma_nvl(item.ACC_ITEM_CODE1),
-						ACC_ITEM_CODE2			: gfnma_nvl(item.ACC_ITEM_CODE2),
-						ACC_ITEM_CODE3			: gfnma_nvl(item.ACC_ITEM_CODE3),
-						ACC_ITEM_CODE4			: gfnma_nvl(item.ACC_ITEM_CODE4),
-						ACC_ITEM_CODE5			: gfnma_nvl(item.ACC_ITEM_CODE5),
-						ACC_ITEM_CODE6			: gfnma_nvl(item.ACC_ITEM_CODE6),
-						ACC_ITEM_CODE7			: gfnma_nvl(item.ACC_ITEM_CODE7),
-						ACC_ITEM_CODE8			: gfnma_nvl(item.ACC_ITEM_CODE8),
-						ACC_ITEM_CODE9			: gfnma_nvl(item.ACC_ITEM_CODE9),
-						ACC_ITEM_CODE10			: gfnma_nvl(item.ACC_ITEM_CODE10),
+						ACC_ITEM_CODE1			: gfnma_nvl2(item.ACC_ITEM_CODE1),
+						ACC_ITEM_CODE2			: gfnma_nvl2(item.ACC_ITEM_CODE2),
+						ACC_ITEM_CODE3			: gfnma_nvl2(item.ACC_ITEM_CODE3),
+						ACC_ITEM_CODE4			: gfnma_nvl2(item.ACC_ITEM_CODE4),
+						ACC_ITEM_CODE5			: gfnma_nvl2(item.ACC_ITEM_CODE5),
+						ACC_ITEM_CODE6			: gfnma_nvl2(item.ACC_ITEM_CODE6),
+						ACC_ITEM_CODE7			: gfnma_nvl2(item.ACC_ITEM_CODE7),
+						ACC_ITEM_CODE8			: gfnma_nvl2(item.ACC_ITEM_CODE8),
+						ACC_ITEM_CODE9			: gfnma_nvl2(item.ACC_ITEM_CODE9),
+						ACC_ITEM_CODE10			: gfnma_nvl2(item.ACC_ITEM_CODE10),
 
-						ACC_ITEM_NAME1			: gfnma_nvl(item.ACC_ITEM_NAME1),
-						ACC_ITEM_NAME2			: gfnma_nvl(item.ACC_ITEM_NAME2),
-						ACC_ITEM_NAME3			: gfnma_nvl(item.ACC_ITEM_NAME3),
-						ACC_ITEM_NAME4			: gfnma_nvl(item.ACC_ITEM_NAME4),
-						ACC_ITEM_NAME5			: gfnma_nvl(item.ACC_ITEM_NAME5),
-						ACC_ITEM_NAME6			: gfnma_nvl(item.ACC_ITEM_NAME6),
-						ACC_ITEM_NAME7			: gfnma_nvl(item.ACC_ITEM_NAME7),
-						ACC_ITEM_NAME8			: gfnma_nvl(item.ACC_ITEM_NAME8),
-						ACC_ITEM_NAME9			: gfnma_nvl(item.ACC_ITEM_NAME9),
-						ACC_ITEM_NAME10			: gfnma_nvl(item.ACC_ITEM_NAME10),
+						ACC_ITEM_NAME1			: gfnma_nvl2(item.ACC_ITEM_NAME1),
+						ACC_ITEM_NAME2			: gfnma_nvl2(item.ACC_ITEM_NAME2),
+						ACC_ITEM_NAME3			: gfnma_nvl2(item.ACC_ITEM_NAME3),
+						ACC_ITEM_NAME4			: gfnma_nvl2(item.ACC_ITEM_NAME4),
+						ACC_ITEM_NAME5			: gfnma_nvl2(item.ACC_ITEM_NAME5),
+						ACC_ITEM_NAME6			: gfnma_nvl2(item.ACC_ITEM_NAME6),
+						ACC_ITEM_NAME7			: gfnma_nvl2(item.ACC_ITEM_NAME7),
+						ACC_ITEM_NAME8			: gfnma_nvl2(item.ACC_ITEM_NAME8),
+						ACC_ITEM_NAME9			: gfnma_nvl2(item.ACC_ITEM_NAME9),
+						ACC_ITEM_NAME10			: gfnma_nvl2(item.ACC_ITEM_NAME10),
 
-						ACC_ITEM_VALUE1			: gfnma_nvl(item.ACC_ITEM_VALUE1),
-						ACC_ITEM_VALUE2			: gfnma_nvl(item.ACC_ITEM_VALUE2),
-						ACC_ITEM_VALUE3			: gfnma_nvl(item.ACC_ITEM_VALUE3),
-						ACC_ITEM_VALUE4			: gfnma_nvl(item.ACC_ITEM_VALUE4),
-						ACC_ITEM_VALUE5			: gfnma_nvl(item.ACC_ITEM_VALUE5),
-						ACC_ITEM_VALUE6			: gfnma_nvl(item.ACC_ITEM_VALUE6),
-						ACC_ITEM_VALUE7			: gfnma_nvl(item.ACC_ITEM_VALUE7),
-						ACC_ITEM_VALUE8			: gfnma_nvl(item.ACC_ITEM_VALUE8),
-						ACC_ITEM_VALUE9			: gfnma_nvl(item.ACC_ITEM_VALUE9),
-						ACC_ITEM_VALUE10		: gfnma_nvl(item.ACC_ITEM_VALUE10),
+						ACC_ITEM_VALUE1			: gfnma_nvl2(item.ACC_ITEM_VALUE1),
+						ACC_ITEM_VALUE2			: gfnma_nvl2(item.ACC_ITEM_VALUE2),
+						ACC_ITEM_VALUE3			: gfnma_nvl2(item.ACC_ITEM_VALUE3),
+						ACC_ITEM_VALUE4			: gfnma_nvl2(item.ACC_ITEM_VALUE4),
+						ACC_ITEM_VALUE5			: gfnma_nvl2(item.ACC_ITEM_VALUE5),
+						ACC_ITEM_VALUE6			: gfnma_nvl2(item.ACC_ITEM_VALUE6),
+						ACC_ITEM_VALUE7			: gfnma_nvl2(item.ACC_ITEM_VALUE7),
+						ACC_ITEM_VALUE8			: gfnma_nvl2(item.ACC_ITEM_VALUE8),
+						ACC_ITEM_VALUE9			: gfnma_nvl2(item.ACC_ITEM_VALUE9),
+						ACC_ITEM_VALUE10		: gfnma_nvl2(item.ACC_ITEM_VALUE10),
 						
-						ACC_ITEM_YN1			: gfnma_nvl(item.ACC_ITEM_YN1),
-						ACC_ITEM_YN2			: gfnma_nvl(item.ACC_ITEM_YN2),
-						ACC_ITEM_YN3			: gfnma_nvl(item.ACC_ITEM_YN3),
-						ACC_ITEM_YN4			: gfnma_nvl(item.ACC_ITEM_YN4),
-						ACC_ITEM_YN5			: gfnma_nvl(item.ACC_ITEM_YN5),
-						ACC_ITEM_YN6			: gfnma_nvl(item.ACC_ITEM_YN6),
-						ACC_ITEM_YN7			: gfnma_nvl(item.ACC_ITEM_YN7),
-						ACC_ITEM_YN8			: gfnma_nvl(item.ACC_ITEM_YN8),
-						ACC_ITEM_YN9			: gfnma_nvl(item.ACC_ITEM_YN9),
-						ACC_ITEM_YN10			: gfnma_nvl(item.ACC_ITEM_YN10),
+						ACC_ITEM_YN1			: gfnma_nvl2(item.ACC_ITEM_YN1),
+						ACC_ITEM_YN2			: gfnma_nvl2(item.ACC_ITEM_YN2),
+						ACC_ITEM_YN3			: gfnma_nvl2(item.ACC_ITEM_YN3),
+						ACC_ITEM_YN4			: gfnma_nvl2(item.ACC_ITEM_YN4),
+						ACC_ITEM_YN5			: gfnma_nvl2(item.ACC_ITEM_YN5),
+						ACC_ITEM_YN6			: gfnma_nvl2(item.ACC_ITEM_YN6),
+						ACC_ITEM_YN7			: gfnma_nvl2(item.ACC_ITEM_YN7),
+						ACC_ITEM_YN8			: gfnma_nvl2(item.ACC_ITEM_YN8),
+						ACC_ITEM_YN9			: gfnma_nvl2(item.ACC_ITEM_YN9),
+						ACC_ITEM_YN10			: gfnma_nvl2(item.ACC_ITEM_YN10),
 						
-						ACC_VALUE_NAME1			: gfnma_nvl(item.ACC_VALUE_NAME1),
-						ACC_VALUE_NAME2			: gfnma_nvl(item.ACC_VALUE_NAME2),
-						ACC_VALUE_NAME3			: gfnma_nvl(item.ACC_VALUE_NAME3),
-						ACC_VALUE_NAME4			: gfnma_nvl(item.ACC_VALUE_NAME4),
-						ACC_VALUE_NAME5			: gfnma_nvl(item.ACC_VALUE_NAME5),
-						ACC_VALUE_NAME6			: gfnma_nvl(item.ACC_VALUE_NAME6),
-						ACC_VALUE_NAME7			: gfnma_nvl(item.ACC_VALUE_NAME7),
-						ACC_VALUE_NAME8			: gfnma_nvl(item.ACC_VALUE_NAME8),
-						ACC_VALUE_NAME9			: gfnma_nvl(item.ACC_VALUE_NAME9),
-						ACC_VALUE_NAME10		: gfnma_nvl(item.ACC_VALUE_NAME10),
+						ACC_VALUE_NAME1			: gfnma_nvl2(item.ACC_VALUE_NAME1),
+						ACC_VALUE_NAME2			: gfnma_nvl2(item.ACC_VALUE_NAME2),
+						ACC_VALUE_NAME3			: gfnma_nvl2(item.ACC_VALUE_NAME3),
+						ACC_VALUE_NAME4			: gfnma_nvl2(item.ACC_VALUE_NAME4),
+						ACC_VALUE_NAME5			: gfnma_nvl2(item.ACC_VALUE_NAME5),
+						ACC_VALUE_NAME6			: gfnma_nvl2(item.ACC_VALUE_NAME6),
+						ACC_VALUE_NAME7			: gfnma_nvl2(item.ACC_VALUE_NAME7),
+						ACC_VALUE_NAME8			: gfnma_nvl2(item.ACC_VALUE_NAME8),
+						ACC_VALUE_NAME9			: gfnma_nvl2(item.ACC_VALUE_NAME9),
+						ACC_VALUE_NAME10		: gfnma_nvl2(item.ACC_VALUE_NAME10),
 						
-						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),
-						COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),
+						COST_CENTER_CODE		: gfnma_nvl2(item.COST_CENTER_CODE),
+						COST_CENTER_NAME		: gfnma_nvl2(item.COST_CENTER_NAME),
 						
-						DATA_TYPE1				: gfnma_nvl(item.DATA_TYPE1),
-						DATA_TYPE2				: gfnma_nvl(item.DATA_TYPE2),
-						DATA_TYPE3				: gfnma_nvl(item.DATA_TYPE3),
-						DATA_TYPE4				: gfnma_nvl(item.DATA_TYPE4),
-						DATA_TYPE5				: gfnma_nvl(item.DATA_TYPE5),
-						DATA_TYPE6				: gfnma_nvl(item.DATA_TYPE6),
-						DATA_TYPE7				: gfnma_nvl(item.DATA_TYPE7),
-						DATA_TYPE8				: gfnma_nvl(item.DATA_TYPE8),
-						DATA_TYPE9				: gfnma_nvl(item.DATA_TYPE9),
-						DATA_TYPE10				: gfnma_nvl(item.DATA_TYPE10),
+						DATA_TYPE1				: gfnma_nvl2(item.DATA_TYPE1),
+						DATA_TYPE2				: gfnma_nvl2(item.DATA_TYPE2),
+						DATA_TYPE3				: gfnma_nvl2(item.DATA_TYPE3),
+						DATA_TYPE4				: gfnma_nvl2(item.DATA_TYPE4),
+						DATA_TYPE5				: gfnma_nvl2(item.DATA_TYPE5),
+						DATA_TYPE6				: gfnma_nvl2(item.DATA_TYPE6),
+						DATA_TYPE7				: gfnma_nvl2(item.DATA_TYPE7),
+						DATA_TYPE8				: gfnma_nvl2(item.DATA_TYPE8),
+						DATA_TYPE9				: gfnma_nvl2(item.DATA_TYPE9),
+						DATA_TYPE10				: gfnma_nvl2(item.DATA_TYPE10),
 						
-						DEBIT_CREDIT			: gfnma_nvl(item.DEBIT_CREDIT),
-						DEBIT_CREDIT_NAME		: gfnma_nvl(item.DEBIT_CREDIT_NAME),
-						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),
-						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-						DOC_ID					: gfnma_nvl(item.DOC_ID),
-						DOC_NAME				: gfnma_nvl(item.DOC_NAME),
-						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),
-						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),
+						DEBIT_CREDIT			: gfnma_nvl2(item.DEBIT_CREDIT),
+						DEBIT_CREDIT_NAME		: gfnma_nvl2(item.DEBIT_CREDIT_NAME),
+						DEPT_CODE				: gfnma_nvl2(item.DEPT_CODE),
+						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),
+						DESCRIPTION				: gfnma_nvl2(item.DESCRIPTION),
+						DOC_ID					: gfnma_nvl2(item.DOC_ID),
+						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
+						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
 						
-						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),
-						DOC_TYPE_NAME			: gfnma_nvl(item.DOC_TYPE_NAME),
-						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
-						FUNCTIONAL_CR_AMT		: gfnma_nvl(item.FUNCTIONAL_CR_AMT),
-						FUNCTIONAL_DR_AMT		: gfnma_nvl(item.FUNCTIONAL_DR_AMT),
-						ITEM_CODE				: gfnma_nvl(item.ITEM_CODE),
-						ITEM_ID					: gfnma_nvl(item.ITEM_ID),
-						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),
-						KEY_ID					: gfnma_nvl(item.KEY_ID),
-						LINE_TYPE				: gfnma_nvl(item.LINE_TYPE),
-						LINE_TYPE_NAME			: gfnma_nvl(item.LINE_TYPE_NAME),
-						ORIGINAL_CR_AMT			: gfnma_nvl(item.ORIGINAL_CR_AMT),
-						ORIGINAL_DR_AMT			: gfnma_nvl(item.ORIGINAL_DR_AMT),
+						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
+						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
+						FUNCTIONAL_CR_AMT		: gfnma_nvl2(item.FUNCTIONAL_CR_AMT),
+						FUNCTIONAL_DR_AMT		: gfnma_nvl2(item.FUNCTIONAL_DR_AMT),
+						ITEM_CODE				: gfnma_nvl2(item.ITEM_CODE),
+						ITEM_ID					: gfnma_nvl2(item.ITEM_ID),
+						ITEM_SEQ				: gfnma_nvl2(item.ITEM_SEQ),
+						KEY_ID					: gfnma_nvl2(item.KEY_ID),
+						LINE_TYPE				: gfnma_nvl2(item.LINE_TYPE),
+						LINE_TYPE_NAME			: gfnma_nvl2(item.LINE_TYPE_NAME),
+						ORIGINAL_CR_AMT			: gfnma_nvl2(item.ORIGINAL_CR_AMT),
+						ORIGINAL_DR_AMT			: gfnma_nvl2(item.ORIGINAL_DR_AMT),
 						
-						POPUP_ID1				: gfnma_nvl(item.POPUP_ID1),
-						POPUP_ID2				: gfnma_nvl(item.POPUP_ID2),
-						POPUP_ID3				: gfnma_nvl(item.POPUP_ID3),
-						POPUP_ID4				: gfnma_nvl(item.POPUP_ID4),
-						POPUP_ID5				: gfnma_nvl(item.POPUP_ID5),
-						POPUP_ID6				: gfnma_nvl(item.POPUP_ID6),
-						POPUP_ID7				: gfnma_nvl(item.POPUP_ID7),
-						POPUP_ID8				: gfnma_nvl(item.POPUP_ID8),
-						POPUP_ID9				: gfnma_nvl(item.POPUP_ID9),
-						POPUP_ID10				: gfnma_nvl(item.POPUP_ID10),
+						POPUP_ID1				: gfnma_nvl2(item.POPUP_ID1),
+						POPUP_ID2				: gfnma_nvl2(item.POPUP_ID2),
+						POPUP_ID3				: gfnma_nvl2(item.POPUP_ID3),
+						POPUP_ID4				: gfnma_nvl2(item.POPUP_ID4),
+						POPUP_ID5				: gfnma_nvl2(item.POPUP_ID5),
+						POPUP_ID6				: gfnma_nvl2(item.POPUP_ID6),
+						POPUP_ID7				: gfnma_nvl2(item.POPUP_ID7),
+						POPUP_ID8				: gfnma_nvl2(item.POPUP_ID8),
+						POPUP_ID9				: gfnma_nvl2(item.POPUP_ID9),
+						POPUP_ID10				: gfnma_nvl2(item.POPUP_ID10),
 						
-						PROJECT_CODE			: gfnma_nvl(item.PROJECT_CODE),
-						TXN_QTY					: gfnma_nvl(item.TXN_QTY),
-						UOM						: gfnma_nvl(item.UOM),
-						VAT_NAME				: gfnma_nvl(item.VAT_NAME),
-						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),
+						PROJECT_CODE			: gfnma_nvl2(item.PROJECT_CODE),
+						TXN_QTY					: gfnma_nvl2(item.TXN_QTY),
+						UOM						: gfnma_nvl2(item.UOM),
+						VAT_NAME				: gfnma_nvl2(item.VAT_NAME),
+						VAT_TYPE				: gfnma_nvl2(item.VAT_TYPE),
   					}
   					jsonTab1Fig2210.push(msg);
   					totalRecordCount ++;
@@ -1495,17 +1511,17 @@
   	    		jsonTab2Fig2300.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
-  						DOC_BATCH_NO			: gfnma_nvl(item.DOC_BATCH_NO),
-						DOC_ID					: gfnma_nvl(item.DOC_ID),			
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),
-  						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),
-  						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),
-  						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),
-  						DOC_TYPE_NAME			: gfnma_nvl(item.DOC_TYPE_NAME),
-  						FUNCTIONAL_AMOUNT		: gfnma_nvl(item.FUNCTIONAL_AMOUNT),
-  						ORIGINAL_AMOUNT			: gfnma_nvl(item.ORIGINAL_AMOUNT),
-  						PAY_DATE				: gfnma_date5(gfnma_nvl(item.PAY_DATE)),
+  						CURRENCY_CODE			: gfnma_nvl2(item.CURRENCY_CODE),
+  						DOC_BATCH_NO			: gfnma_nvl2(item.DOC_BATCH_NO),
+						DOC_ID					: gfnma_nvl2(item.DOC_ID),			
+  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
+  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+  						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
+  						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+  						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
+  						FUNCTIONAL_AMOUNT		: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),
+  						ORIGINAL_AMOUNT			: gfnma_nvl2(item.ORIGINAL_AMOUNT),
+  						PAY_DATE				: gfnma_date5(gfnma_nvl2(item.PAY_DATE)),
 
   						ETC						: ''
   					}

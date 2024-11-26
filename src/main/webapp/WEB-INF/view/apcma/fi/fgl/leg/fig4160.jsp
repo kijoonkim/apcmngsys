@@ -395,6 +395,8 @@
 	    SBGridProperties.jsonref 			= 'jsonFig4160';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
         //SBGridProperties.frozencols 		= 4;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= ['seq'];
@@ -447,12 +449,12 @@
             {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
             {caption: ["계정명"], 					ref: 'ACCOUNT_NAME', 			type:'output',		width:'200px',  	style:'text-align:left'},
             
-            {caption: ["차변(전표)"], 	   			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["순액(전표)"],	   			ref: 'FUNCTIONAL_NET_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변(통화)"], 	   			ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(통화)"], 	   			ref: 'ORIGINAL_CR_AMT',			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["순액(통화)"], 	   			ref: 'ORIGINAL_NET_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변(전표)"], 	   			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["순액(전표)"],	   			ref: 'FUNCTIONAL_NET_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변(통화)"], 	   			ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변(통화)"], 	   			ref: 'ORIGINAL_CR_AMT',			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["순액(통화)"], 	   			ref: 'ORIGINAL_NET_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["거래처코드"],				ref: 'CS_CODE', 				type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["라인순번"],					ref: 'ITEM_SEQ', 				type:'output',  	width:'80', 		style:'text-align:left'},
@@ -575,71 +577,71 @@
   	        	var list = [];
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),			
-						ACCOUNT_CODE_A				: gfnma_nvl(item.ACCOUNT_CODE_A),		
-						ACCOUNT_CODE_B				: gfnma_nvl(item.ACCOUNT_CODE_B),		
-						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),			
-						ACCOUNT_NAME_A				: gfnma_nvl(item.ACCOUNT_NAME_A),			
-						ACCOUNT_NAME_B				: gfnma_nvl(item.ACCOUNT_NAME_B),			
+						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),			
+						ACCOUNT_CODE_A				: gfnma_nvl2(item.ACCOUNT_CODE_A),		
+						ACCOUNT_CODE_B				: gfnma_nvl2(item.ACCOUNT_CODE_B),		
+						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),			
+						ACCOUNT_NAME_A				: gfnma_nvl2(item.ACCOUNT_NAME_A),			
+						ACCOUNT_NAME_B				: gfnma_nvl2(item.ACCOUNT_NAME_B),			
 						
-						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),			
-						ACCT_RULE_NAME				: gfnma_nvl(item.ACCT_RULE_NAME),			
-						ACC_CHARACTER				: gfnma_nvl(item.ACC_CHARACTER),			
+						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),			
+						ACCT_RULE_NAME				: gfnma_nvl2(item.ACCT_RULE_NAME),			
+						ACC_CHARACTER				: gfnma_nvl2(item.ACC_CHARACTER),			
 						
-						APPLY_DOC_DATE				: gfnma_date5(gfnma_nvl(item.APPLY_DOC_DATE)),		
-						APPLY_DOC_ID				: gfnma_nvl(item.APPLY_DOC_ID),		
-						APPLY_DOC_NAME				: gfnma_nvl(item.APPLY_DOC_NAME),	
-						COST_CENTER_CODE			: gfnma_nvl(item.COST_CENTER_CODE),	
-						COST_CENTER_CODE1			: gfnma_nvl(item.COST_CENTER_CODE1),	
-						COST_CENTER_NAME			: gfnma_nvl(item.COST_CENTER_NAME),	
+						APPLY_DOC_DATE				: gfnma_date5(gfnma_nvl2(item.APPLY_DOC_DATE)),		
+						APPLY_DOC_ID				: gfnma_nvl2(item.APPLY_DOC_ID),		
+						APPLY_DOC_NAME				: gfnma_nvl2(item.APPLY_DOC_NAME),	
+						COST_CENTER_CODE			: gfnma_nvl2(item.COST_CENTER_CODE),	
+						COST_CENTER_CODE1			: gfnma_nvl2(item.COST_CENTER_CODE1),	
+						COST_CENTER_NAME			: gfnma_nvl2(item.COST_CENTER_NAME),	
 						
-						CS_CODE						: gfnma_nvl(item.CS_CODE),
-						CS_NAME						: gfnma_nvl(item.CS_NAME),
-						CURRENCY_CODE				: gfnma_nvl(item.CURRENCY_CODE),
+						CS_CODE						: gfnma_nvl2(item.CS_CODE),
+						CS_NAME						: gfnma_nvl2(item.CS_NAME),
+						CURRENCY_CODE				: gfnma_nvl2(item.CURRENCY_CODE),
 						
-						DEBIT_CREDIT				: gfnma_nvl(item.DEBIT_CREDIT),
-						DEBIT_CREDIT_NAME			: gfnma_nvl(item.DEBIT_CREDIT_NAME),
-						DEPT_NAME					: gfnma_nvl(item.DEPT_NAME),
-						DESCRIPTION					: gfnma_nvl(item.DESCRIPTION),
-						DOC_DATE					: gfnma_date5(gfnma_nvl(item.DOC_DATE)),
-						DOC_ID						: gfnma_nvl(item.DOC_ID),
-						DOC_NAME					: gfnma_nvl(item.DOC_NAME),
-						DOC_NUM						: gfnma_nvl(item.DOC_NUM),
+						DEBIT_CREDIT				: gfnma_nvl2(item.DEBIT_CREDIT),
+						DEBIT_CREDIT_NAME			: gfnma_nvl2(item.DEBIT_CREDIT_NAME),
+						DEPT_NAME					: gfnma_nvl2(item.DEPT_NAME),
+						DESCRIPTION					: gfnma_nvl2(item.DESCRIPTION),
+						DOC_DATE					: gfnma_date5(gfnma_nvl2(item.DOC_DATE)),
+						DOC_ID						: gfnma_nvl2(item.DOC_ID),
+						DOC_NAME					: gfnma_nvl2(item.DOC_NAME),
+						DOC_NUM						: gfnma_nvl2(item.DOC_NUM),
 						
-						DOC_STATUS					: gfnma_nvl(item.DOC_STATUS),
-						DOC_STATUS_NAME				: gfnma_nvl(item.DOC_STATUS_NAME),
-						DOC_TYPE					: gfnma_nvl(item.DOC_TYPE),
-						DOC_TYPE_NAME				: gfnma_nvl(item.DOC_TYPE_NAME),
+						DOC_STATUS					: gfnma_nvl2(item.DOC_STATUS),
+						DOC_STATUS_NAME				: gfnma_nvl2(item.DOC_STATUS_NAME),
+						DOC_TYPE					: gfnma_nvl2(item.DOC_TYPE),
+						DOC_TYPE_NAME				: gfnma_nvl2(item.DOC_TYPE_NAME),
 						
-						FUNCTIONAL_CR_AMT			: gfnma_nvl(item.FUNCTIONAL_CR_AMT),		
-						FUNCTIONAL_DR_AMT			: gfnma_nvl(item.FUNCTIONAL_DR_AMT),		
-						FUNCTIONAL_NET_AMT			: gfnma_nvl(item.FUNCTIONAL_NET_AMT),		
-						GUBUN						: gfnma_nvl(item.GUBUN),		
-						INSERT_USERNAME				: gfnma_nvl(item.INSERT_USERNAME),		
+						FUNCTIONAL_CR_AMT			: gfnma_nvl2(item.FUNCTIONAL_CR_AMT),		
+						FUNCTIONAL_DR_AMT			: gfnma_nvl2(item.FUNCTIONAL_DR_AMT),		
+						FUNCTIONAL_NET_AMT			: gfnma_nvl2(item.FUNCTIONAL_NET_AMT),		
+						GUBUN						: gfnma_nvl2(item.GUBUN),		
+						INSERT_USERNAME				: gfnma_nvl2(item.INSERT_USERNAME),		
 						
-						ITEM_ID						: gfnma_nvl(item.ITEM_ID),
-						ITEM_SEQ					: gfnma_nvl(item.ITEM_SEQ),
-						LINE_TYPE					: gfnma_nvl(item.LINE_TYPE),
-						LINE_TYPE_NAME				: gfnma_nvl(item.LINE_TYPE_NAME),
+						ITEM_ID						: gfnma_nvl2(item.ITEM_ID),
+						ITEM_SEQ					: gfnma_nvl2(item.ITEM_SEQ),
+						LINE_TYPE					: gfnma_nvl2(item.LINE_TYPE),
+						LINE_TYPE_NAME				: gfnma_nvl2(item.LINE_TYPE_NAME),
 
-						ORIGINAL_CR_AMT				: gfnma_nvl(item.ORIGINAL_CR_AMT),		
-						ORIGINAL_DR_AMT				: gfnma_nvl(item.ORIGINAL_DR_AMT),		
-						ORIGINAL_NET_AMT			: gfnma_nvl(item.ORIGINAL_NET_AMT),		
+						ORIGINAL_CR_AMT				: gfnma_nvl2(item.ORIGINAL_CR_AMT),		
+						ORIGINAL_DR_AMT				: gfnma_nvl2(item.ORIGINAL_DR_AMT),		
+						ORIGINAL_NET_AMT			: gfnma_nvl2(item.ORIGINAL_NET_AMT),		
 						
-						POSTING_DATE				: gfnma_date5(gfnma_nvl(item.POSTING_DATE)),		
-						POSTING_USER				: gfnma_nvl(item.POSTING_USER),		
+						POSTING_DATE				: gfnma_date5(gfnma_nvl2(item.POSTING_DATE)),		
+						POSTING_USER				: gfnma_nvl2(item.POSTING_USER),		
 
-						PROJECT_CODE				: gfnma_nvl(item.PROJECT_CODE),		
-						PROJECT_NAME				: gfnma_nvl(item.PROJECT_NAME),		
-						REVERSE_DOC_ID				: gfnma_nvl(item.REVERSE_DOC_ID),		
-						REVERSE_DOC_NAME			: gfnma_nvl(item.REVERSE_DOC_NAME),		
+						PROJECT_CODE				: gfnma_nvl2(item.PROJECT_CODE),		
+						PROJECT_NAME				: gfnma_nvl2(item.PROJECT_NAME),		
+						REVERSE_DOC_ID				: gfnma_nvl2(item.REVERSE_DOC_ID),		
+						REVERSE_DOC_NAME			: gfnma_nvl2(item.REVERSE_DOC_NAME),		
 						
-						SITE_CODE					: gfnma_nvl(item.SITE_CODE),
-						SOURCE_DOC_ID				: gfnma_nvl(item.SOURCE_DOC_ID),
-						SOURCE_DOC_NAME				: gfnma_nvl(item.SOURCE_DOC_NAME),
-						SOURCE_ID					: gfnma_nvl(item.SOURCE_ID),
-						SOURCE_TYPE					: gfnma_nvl(item.SOURCE_TYPE),
-						SUBJECT_NAME				: gfnma_nvl(item.SUBJECT_NAME),
+						SITE_CODE					: gfnma_nvl2(item.SITE_CODE),
+						SOURCE_DOC_ID				: gfnma_nvl2(item.SOURCE_DOC_ID),
+						SOURCE_DOC_NAME				: gfnma_nvl2(item.SOURCE_DOC_NAME),
+						SOURCE_ID					: gfnma_nvl2(item.SOURCE_ID),
+						SOURCE_TYPE					: gfnma_nvl2(item.SOURCE_TYPE),
+						SUBJECT_NAME				: gfnma_nvl2(item.SUBJECT_NAME),
   					}
   					list.push(msg);
   					totalRecordCount ++;
