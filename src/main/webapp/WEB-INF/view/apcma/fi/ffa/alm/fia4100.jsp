@@ -454,7 +454,9 @@
 	    SBGridProperties.jsonref 			= 'jsonFia4100';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["항목",			"이동번호"],	ref: 'ASSET_TRANSFER_NO', 		type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -580,6 +582,11 @@
   	        	Fia4100Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
+  	        	//grid 첫번째 행 선택
+				if(jsonFia4100.length>0){
+					fn_viewFia4100GridReload(2);					
+				}
+  	        	
         	} else {
           		alert(data.resultMessage);
         	}
@@ -592,6 +599,16 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }      
+    
+    //상세정보 보기
+    function fn_viewFia4100GridReload(idx) {
+    	
+    	Fia4100Grid.setRow(idx);
+        let rowData = Fia4100Grid.getRowData(idx);
+		console.log(rowData);        
+		
+		gfnma_uxDataSet2('#dataArea1', rowData, '', 'FM_', '');
+    }    
     
     /**
      * 이동자산
