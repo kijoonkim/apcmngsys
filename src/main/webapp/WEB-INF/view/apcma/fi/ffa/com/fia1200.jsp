@@ -276,7 +276,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFia1200Mast';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["감가상각방법"],		ref: 'DEPRECIATION_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -325,7 +325,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFia1200Detail';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["내용년수"],				ref: 'USEFUL_LIFE_SEQ', 			type:'output',  	width:'100px',  	style:'text-align:left'},

@@ -424,7 +424,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5240Grid1';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["계정과목",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			hidden:false,		type:'output',  	width:'80px'	,  	style:'text-align:left'},
@@ -448,14 +448,14 @@
             {caption: ["보고서계정",	"보고서계정코드"],	ref: 'REPORT_ACCOUNT_CODE', 	hidden:!gd1_col_6_visible,		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["보고서계정",	"보고서계정명"],	ref: 'REPORT_ACCOUNT_NAME',		hidden:!gd1_col_7_visible,		type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: [gd1_title_1,		"당기세부"],		ref: 'THIS_DETAIL_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd1_title_1,		gd1_title_1_1],		ref: 'THIS_SUMMARY_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd1_title_1,		"당기세부"],		ref: 'THIS_DETAIL_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd1_title_1,		gd1_title_1_1],		ref: 'THIS_SUMMARY_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
-            {caption: [gd1_title_2,		"전기말세부"],		ref: 'PREV_END_DETAIL_AMT', 	hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd1_title_2,		"전기말요약"],		ref: 'PREV_END_SUMMARY_AMT', 	hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd1_title_2,		"전기말세부"],		ref: 'PREV_END_DETAIL_AMT', 	hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd1_title_2,		"전기말요약"],		ref: 'PREV_END_SUMMARY_AMT', 	hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
-            {caption: [gd1_title_3,		"전동기세부"],		ref: 'PREV_DETAIL_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd1_title_3,		"전동기요약"],		ref: 'PREV_SUMMARY_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd1_title_3,		"전동기세부"],		ref: 'PREV_DETAIL_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd1_title_3,		"전동기요약"],		ref: 'PREV_SUMMARY_AMT', 		hidden:false,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["비고",			""],				ref: 'ETC', 					hidden:false,		type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
@@ -476,7 +476,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5240Grid2';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.tree = {
 	            col: 0,
@@ -485,7 +485,7 @@
 	            lock: true
 	    },
         SBGridProperties.columns = [
-            {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'150px', 		style:'text-align:left'},
+            {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'180px', 		style:'text-align:left'},
             {caption: ["계정코드"], 		ref: 'ACCOUNT_CODE_VIEW', 		type:'button',  	width:'100px', 		style:'text-align:left', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             		if(objRowData['ACCOUNT_CODE_VIEW']){
@@ -506,13 +506,13 @@
             {caption: ["보고서계정코드"],	ref: 'REPORT_ACCOUNT_CODE', 	hidden:!gd2_col_6_visible,		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["보고서계정명"],		ref: 'REPORT_ACCOUNT_NAME',		hidden:!gd2_col_7_visible,		type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: [gd2_title_0],		ref: 'THIS_SUMMARY_AMT', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_1],		ref: 'PREV_END_SUMMARY_AMT', 		hidden:!gd2_col_9_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_2],		ref: 'PREV_SUMMARY_AMT', 			hidden:!gd2_col_10_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_3],		ref: 'PREV_MONTH_SUMMARY_AMT', 		hidden:!gd2_col_11_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_4],		ref: 'PREV_PREV_MONTH_SUMMARY_AMT', hidden:!gd2_col_12_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_5],		ref: 'SELECT_MONTH_SUMMARY_AMT1', 	hidden:!gd2_col_13_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_6],		ref: 'SELECT_MONTH_SUMMARY_AMT2', 	hidden:!gd2_col_14_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd2_title_0],		ref: 'THIS_SUMMARY_AMT', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_1],		ref: 'PREV_END_SUMMARY_AMT', 		hidden:!gd2_col_9_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_2],		ref: 'PREV_SUMMARY_AMT', 			hidden:!gd2_col_10_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_3],		ref: 'PREV_MONTH_SUMMARY_AMT', 		hidden:!gd2_col_11_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_4],		ref: 'PREV_PREV_MONTH_SUMMARY_AMT', hidden:!gd2_col_12_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_5],		ref: 'SELECT_MONTH_SUMMARY_AMT1', 	hidden:!gd2_col_13_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_6],		ref: 'SELECT_MONTH_SUMMARY_AMT2', 	hidden:!gd2_col_14_visible,		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고"],				ref: 'ETC', 						type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -531,7 +531,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5240Grid3';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["계정구분"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'70px', 		style:'text-align:left'},
@@ -555,18 +555,18 @@
             {caption: ["보고서계정코드"],	ref: 'REPORT_ACCOUNT_CODE', 	hidden:!gd3_col_6_visible,		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["보고서계정명"],		ref: 'REPORT_ACCOUNT_NAME',		hidden:!gd3_col_7_visible,		type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: ["1월"],				ref: 'MON_1',			 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["2월"],				ref: 'MON_2', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["3월"],				ref: 'MON_3', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["4월"],				ref: 'MON_4', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["5월"],				ref: 'MON_5', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["6월"],				ref: 'MON_6', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["7월"],				ref: 'MON_7', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["8월"],				ref: 'MON_8', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["9월"],				ref: 'MON_9', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["10월"],				ref: 'MON_10', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["11월"],				ref: 'MON_11', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["12월"],				ref: 'MON_12', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["1월"],				ref: 'MON_1',			 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["2월"],				ref: 'MON_2', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["3월"],				ref: 'MON_3', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["4월"],				ref: 'MON_4', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["5월"],				ref: 'MON_5', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["6월"],				ref: 'MON_6', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["7월"],				ref: 'MON_7', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["8월"],				ref: 'MON_8', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["9월"],				ref: 'MON_9', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["10월"],				ref: 'MON_10', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["11월"],				ref: 'MON_11', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["12월"],				ref: 'MON_12', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
@@ -587,7 +587,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5240Grid4';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.tree = {
 	            col: 0,
@@ -617,18 +617,18 @@
             {caption: ["보고서계정코드"],	ref: 'REPORT_ACCOUNT_CODE', 	hidden:!gd4_col_6_visible,		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["보고서계정명"],		ref: 'REPORT_ACCOUNT_NAME',		hidden:!gd4_col_7_visible,		type:'output',  	width:'200px',  	style:'text-align:left'},
             
-            {caption: ["1월"],				ref: 'MON_1',			 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["2월"],				ref: 'MON_2', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["3월"],				ref: 'MON_3', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["4월"],				ref: 'MON_4', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["5월"],				ref: 'MON_5', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["6월"],				ref: 'MON_6', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["7월"],				ref: 'MON_7', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["8월"],				ref: 'MON_8', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["9월"],				ref: 'MON_9', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["10월"],				ref: 'MON_10', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["11월"],				ref: 'MON_11', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["12월"],				ref: 'MON_12', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["1월"],				ref: 'MON_1',			 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["2월"],				ref: 'MON_2', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["3월"],				ref: 'MON_3', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["4월"],				ref: 'MON_4', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["5월"],				ref: 'MON_5', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["6월"],				ref: 'MON_6', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["7월"],				ref: 'MON_7', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["8월"],				ref: 'MON_8', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["9월"],				ref: 'MON_9', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["10월"],				ref: 'MON_10', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["11월"],				ref: 'MON_11', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["12월"],				ref: 'MON_12', 					type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
@@ -770,45 +770,45 @@
   	        	jsonFig5240Grid1.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW			: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
   						
-  						BEFORE_BEFORE_MONTH_PERIOD	: gfnma_nvl(item.BEFORE_BEFORE_MONTH_PERIOD),
-  						BEFORE_MONTH_PERIOD			: gfnma_nvl(item.BEFORE_MONTH_PERIOD),
+  						BEFORE_BEFORE_MONTH_PERIOD	: gfnma_nvl2(item.BEFORE_BEFORE_MONTH_PERIOD),
+  						BEFORE_MONTH_PERIOD			: gfnma_nvl2(item.BEFORE_MONTH_PERIOD),
   						
-  						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
+  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
+  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl(item.HQ_ACCOUNT_NAME),
-  						PREV_DETAIL_AMT 			: gfnma_nvl(item.PREV_DETAIL_AMT),
-  						PREV_END_DETAIL_AMT 		: gfnma_nvl(item.PREV_END_DETAIL_AMT),
-  						PREV_END_SUMMARY_AMT 		: gfnma_nvl(item.PREV_END_SUMMARY_AMT),
-  						PREV_MONTH_DETAIL_AMT 		: gfnma_nvl(item.PREV_MONTH_DETAIL_AMT),
-  						PREV_MONTH_SUMMARY_AMT 		: gfnma_nvl(item.PREV_MONTH_SUMMARY_AMT),
+  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						PREV_DETAIL_AMT 			: gfnma_nvl2(item.PREV_DETAIL_AMT),
+  						PREV_END_DETAIL_AMT 		: gfnma_nvl2(item.PREV_END_DETAIL_AMT),
+  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_END_SUMMARY_AMT),
+  						PREV_MONTH_DETAIL_AMT 		: gfnma_nvl2(item.PREV_MONTH_DETAIL_AMT),
+  						PREV_MONTH_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_MONTH_SUMMARY_AMT),
   						
-  						PREV_PERIOD 				: gfnma_nvl(item.PREV_PERIOD),
-  						PREV_PERIOD_END 			: gfnma_nvl(item.PREV_PERIOD_END),
-  						PREV_PREV_MONTH_DETAIL_AMT	: gfnma_nvl(item.PREV_PREV_MONTH_DETAIL_AMT),
-  						PREV_PREV_MONTH_SUMMARY_AMT : gfnma_nvl(item.PREV_PREV_MONTH_SUMMARY_AMT),
-  						PREV_SUMMARY_AMT 			: gfnma_nvl(item.PREV_SUMMARY_AMT),
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
+  						PREV_PERIOD 				: gfnma_nvl2(item.PREV_PERIOD),
+  						PREV_PERIOD_END 			: gfnma_nvl2(item.PREV_PERIOD_END),
+  						PREV_PREV_MONTH_DETAIL_AMT	: gfnma_nvl2(item.PREV_PREV_MONTH_DETAIL_AMT),
+  						PREV_PREV_MONTH_SUMMARY_AMT : gfnma_nvl2(item.PREV_PREV_MONTH_SUMMARY_AMT),
+  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PREV_SUMMARY_AMT),
+  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
   						
-  						SELECT_MONTH_DETAIL_AMT1 	: gfnma_nvl(item.SELECT_MONTH_DETAIL_AMT1),
-  						SELECT_MONTH_DETAIL_AMT2 	: gfnma_nvl(item.SELECT_MONTH_DETAIL_AMT2),
-  						SELECT_MONTH_SUMMARY_AMT1 	: gfnma_nvl(item.SELECT_MONTH_SUMMARY_AMT1),
-  						SELECT_MONTH_SUMMARY_AMT2 	: gfnma_nvl(item.SELECT_MONTH_SUMMARY_AMT2),
+  						SELECT_MONTH_DETAIL_AMT1 	: gfnma_nvl2(item.SELECT_MONTH_DETAIL_AMT1),
+  						SELECT_MONTH_DETAIL_AMT2 	: gfnma_nvl2(item.SELECT_MONTH_DETAIL_AMT2),
+  						SELECT_MONTH_SUMMARY_AMT1 	: gfnma_nvl2(item.SELECT_MONTH_SUMMARY_AMT1),
+  						SELECT_MONTH_SUMMARY_AMT2 	: gfnma_nvl2(item.SELECT_MONTH_SUMMARY_AMT2),
   						
-  						SELECT_PERIOD1				: gfnma_nvl(item.SELECT_PERIOD1),
-  						SELECT_PERIOD2				: gfnma_nvl(item.SELECT_PERIOD2),
-  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
-  						THIS_DETAIL_AMT 			: gfnma_nvl(item.THIS_DETAIL_AMT),
-  						THIS_SUMMARY_AMT			: gfnma_nvl(item.THIS_SUMMARY_AMT),
+  						SELECT_PERIOD1				: gfnma_nvl2(item.SELECT_PERIOD1),
+  						SELECT_PERIOD2				: gfnma_nvl2(item.SELECT_PERIOD2),
+  						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
+  						THIS_DETAIL_AMT 			: gfnma_nvl2(item.THIS_DETAIL_AMT),
+  						THIS_SUMMARY_AMT			: gfnma_nvl2(item.THIS_SUMMARY_AMT),
   					}
   					jsonFig5240Grid1.push(msg);
   					totalRecordCount ++;
@@ -898,47 +898,47 @@
   	    		jsonFig5240Grid2.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						LVL							: gfnma_nvl(item.LVL),
+  						LVL							: gfnma_nvl2(item.LVL),
   						
-  						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW			: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
   						
-  						BEFORE_BEFORE_MONTH_PERIOD	: gfnma_nvl(item.BEFORE_BEFORE_MONTH_PERIOD),
-  						BEFORE_MONTH_PERIOD			: gfnma_nvl(item.BEFORE_MONTH_PERIOD),
+  						BEFORE_BEFORE_MONTH_PERIOD	: gfnma_nvl2(item.BEFORE_BEFORE_MONTH_PERIOD),
+  						BEFORE_MONTH_PERIOD			: gfnma_nvl2(item.BEFORE_MONTH_PERIOD),
   						
-  						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
+  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
+  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl(item.HQ_ACCOUNT_NAME),
-  						PREV_DETAIL_AMT 			: gfnma_nvl(item.PREV_DETAIL_AMT),
-  						PREV_END_DETAIL_AMT 		: gfnma_nvl(item.PREV_END_DETAIL_AMT),
-  						PREV_END_SUMMARY_AMT 		: gfnma_nvl(item.PREV_END_SUMMARY_AMT),
-  						PREV_MONTH_DETAIL_AMT 		: gfnma_nvl(item.PREV_MONTH_DETAIL_AMT),
-  						PREV_MONTH_SUMMARY_AMT 		: gfnma_nvl(item.PREV_MONTH_SUMMARY_AMT),
+  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						PREV_DETAIL_AMT 			: gfnma_nvl2(item.PREV_DETAIL_AMT),
+  						PREV_END_DETAIL_AMT 		: gfnma_nvl2(item.PREV_END_DETAIL_AMT),
+  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_END_SUMMARY_AMT),
+  						PREV_MONTH_DETAIL_AMT 		: gfnma_nvl2(item.PREV_MONTH_DETAIL_AMT),
+  						PREV_MONTH_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_MONTH_SUMMARY_AMT),
   						
-  						PREV_PERIOD 				: gfnma_nvl(item.PREV_PERIOD),
-  						PREV_PERIOD_END 			: gfnma_nvl(item.PREV_PERIOD_END),
-  						PREV_PREV_MONTH_DETAIL_AMT	: gfnma_nvl(item.PREV_PREV_MONTH_DETAIL_AMT),
-  						PREV_PREV_MONTH_SUMMARY_AMT : gfnma_nvl(item.PREV_PREV_MONTH_SUMMARY_AMT),
-  						PREV_SUMMARY_AMT 			: gfnma_nvl(item.PREV_SUMMARY_AMT),
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
+  						PREV_PERIOD 				: gfnma_nvl2(item.PREV_PERIOD),
+  						PREV_PERIOD_END 			: gfnma_nvl2(item.PREV_PERIOD_END),
+  						PREV_PREV_MONTH_DETAIL_AMT	: gfnma_nvl2(item.PREV_PREV_MONTH_DETAIL_AMT),
+  						PREV_PREV_MONTH_SUMMARY_AMT : gfnma_nvl2(item.PREV_PREV_MONTH_SUMMARY_AMT),
+  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PREV_SUMMARY_AMT),
+  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
   						
-  						SELECT_MONTH_DETAIL_AMT1 	: gfnma_nvl(item.SELECT_MONTH_DETAIL_AMT1),
-  						SELECT_MONTH_DETAIL_AMT2 	: gfnma_nvl(item.SELECT_MONTH_DETAIL_AMT2),
-  						SELECT_MONTH_SUMMARY_AMT1 	: gfnma_nvl(item.SELECT_MONTH_SUMMARY_AMT1),
-  						SELECT_MONTH_SUMMARY_AMT2 	: gfnma_nvl(item.SELECT_MONTH_SUMMARY_AMT2),
+  						SELECT_MONTH_DETAIL_AMT1 	: gfnma_nvl2(item.SELECT_MONTH_DETAIL_AMT1),
+  						SELECT_MONTH_DETAIL_AMT2 	: gfnma_nvl2(item.SELECT_MONTH_DETAIL_AMT2),
+  						SELECT_MONTH_SUMMARY_AMT1 	: gfnma_nvl2(item.SELECT_MONTH_SUMMARY_AMT1),
+  						SELECT_MONTH_SUMMARY_AMT2 	: gfnma_nvl2(item.SELECT_MONTH_SUMMARY_AMT2),
   						
-  						SELECT_PERIOD1				: gfnma_nvl(item.SELECT_PERIOD1),
-  						SELECT_PERIOD2				: gfnma_nvl(item.SELECT_PERIOD2),
-  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
-  						THIS_DETAIL_AMT 			: gfnma_nvl(item.THIS_DETAIL_AMT),
-  						THIS_SUMMARY_AMT			: gfnma_nvl(item.THIS_SUMMARY_AMT)
+  						SELECT_PERIOD1				: gfnma_nvl2(item.SELECT_PERIOD1),
+  						SELECT_PERIOD2				: gfnma_nvl2(item.SELECT_PERIOD2),
+  						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
+  						THIS_DETAIL_AMT 			: gfnma_nvl2(item.THIS_DETAIL_AMT),
+  						THIS_SUMMARY_AMT			: gfnma_nvl2(item.THIS_SUMMARY_AMT)
   					}
   					jsonFig5240Grid2.push(msg);
   					totalRecordCount ++;
@@ -1050,52 +1050,52 @@
   	    		jsonFig5240Grid3.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW			: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
   						
-  						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
+  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
+  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE				: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME				: gfnma_nvl(item.HQ_ACCOUNT_NAME),
+  						HQ_ACCOUNT_CODE				: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME				: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
   						
-  						PREV_DETAIL_AMT 			: gfnma_nvl(item.PREV_DETAIL_AMT),
+  						PREV_DETAIL_AMT 			: gfnma_nvl2(item.PREV_DETAIL_AMT),
   						
-  						MON_1 						: gfnma_nvl(item.MON_1),
-  						MON_2 						: gfnma_nvl(item.MON_2),
-  						MON_3 						: gfnma_nvl(item.MON_3),
-  						MON_4 						: gfnma_nvl(item.MON_4),
-  						MON_5 						: gfnma_nvl(item.MON_5),
-  						MON_6 						: gfnma_nvl(item.MON_6),
-  						MON_7 						: gfnma_nvl(item.MON_7),
-  						MON_8 						: gfnma_nvl(item.MON_8),
-  						MON_9 						: gfnma_nvl(item.MON_9),
-  						MON_10 						: gfnma_nvl(item.MON_10),
-  						MON_11 						: gfnma_nvl(item.MON_11),
-  						MON_12 						: gfnma_nvl(item.MON_12),
+  						MON_1 						: gfnma_nvl2(item.MON_1),
+  						MON_2 						: gfnma_nvl2(item.MON_2),
+  						MON_3 						: gfnma_nvl2(item.MON_3),
+  						MON_4 						: gfnma_nvl2(item.MON_4),
+  						MON_5 						: gfnma_nvl2(item.MON_5),
+  						MON_6 						: gfnma_nvl2(item.MON_6),
+  						MON_7 						: gfnma_nvl2(item.MON_7),
+  						MON_8 						: gfnma_nvl2(item.MON_8),
+  						MON_9 						: gfnma_nvl2(item.MON_9),
+  						MON_10 						: gfnma_nvl2(item.MON_10),
+  						MON_11 						: gfnma_nvl2(item.MON_11),
+  						MON_12 						: gfnma_nvl2(item.MON_12),
   						
-  						MON_Q1 						: gfnma_nvl(item.MON_Q1),
-  						MON_Q2 						: gfnma_nvl(item.MON_Q2),
-  						MON_Q3 						: gfnma_nvl(item.MON_Q3),
-  						MON_Q4 						: gfnma_nvl(item.MON_Q4),
-  						MON_Q5 						: gfnma_nvl(item.MON_Q5),
-  						MON_Q6 						: gfnma_nvl(item.MON_Q6),
-  						MON_Q7 						: gfnma_nvl(item.MON_Q7),
-  						MON_Q8 						: gfnma_nvl(item.MON_Q8),
-  						MON_Q9 						: gfnma_nvl(item.MON_Q9),
-  						MON_Q10 					: gfnma_nvl(item.MON_Q10),
-  						MON_Q11 					: gfnma_nvl(item.MON_Q11),
-  						MON_Q12 					: gfnma_nvl(item.MON_Q12),
+  						MON_Q1 						: gfnma_nvl2(item.MON_Q1),
+  						MON_Q2 						: gfnma_nvl2(item.MON_Q2),
+  						MON_Q3 						: gfnma_nvl2(item.MON_Q3),
+  						MON_Q4 						: gfnma_nvl2(item.MON_Q4),
+  						MON_Q5 						: gfnma_nvl2(item.MON_Q5),
+  						MON_Q6 						: gfnma_nvl2(item.MON_Q6),
+  						MON_Q7 						: gfnma_nvl2(item.MON_Q7),
+  						MON_Q8 						: gfnma_nvl2(item.MON_Q8),
+  						MON_Q9 						: gfnma_nvl2(item.MON_Q9),
+  						MON_Q10 					: gfnma_nvl2(item.MON_Q10),
+  						MON_Q11 					: gfnma_nvl2(item.MON_Q11),
+  						MON_Q12 					: gfnma_nvl2(item.MON_Q12),
   						
-  						PARENT_ACCOUNT 				: gfnma_nvl(item.PARENT_ACCOUNT),
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
+  						PARENT_ACCOUNT 				: gfnma_nvl2(item.PARENT_ACCOUNT),
+  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
   						
-  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
+  						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5240Grid3.push(msg);
   					totalRecordCount ++;
@@ -1187,56 +1187,56 @@
   	    		jsonFig5240Grid4.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
-  						LVL							: gfnma_nvl(item.LVL),
+  						LVL							: gfnma_nvl2(item.LVL),
   						
-  						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW			: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
   						
-  						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
+  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
+  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE				: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME				: gfnma_nvl(item.HQ_ACCOUNT_NAME),
+  						HQ_ACCOUNT_CODE				: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME				: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
   						
-  						KEYID 						: gfnma_nvl(item.KEYID),
+  						KEYID 						: gfnma_nvl2(item.KEYID),
   						
-  						MON_1 						: gfnma_nvl(item.MON_1),
-  						MON_2 						: gfnma_nvl(item.MON_2),
-  						MON_3 						: gfnma_nvl(item.MON_3),
-  						MON_4 						: gfnma_nvl(item.MON_4),
-  						MON_5 						: gfnma_nvl(item.MON_5),
-  						MON_6 						: gfnma_nvl(item.MON_6),
-  						MON_7 						: gfnma_nvl(item.MON_7),
-  						MON_8 						: gfnma_nvl(item.MON_8),
-  						MON_9 						: gfnma_nvl(item.MON_9),
-  						MON_10 						: gfnma_nvl(item.MON_10),
-  						MON_11 						: gfnma_nvl(item.MON_11),
-  						MON_12 						: gfnma_nvl(item.MON_12),
+  						MON_1 						: gfnma_nvl2(item.MON_1),
+  						MON_2 						: gfnma_nvl2(item.MON_2),
+  						MON_3 						: gfnma_nvl2(item.MON_3),
+  						MON_4 						: gfnma_nvl2(item.MON_4),
+  						MON_5 						: gfnma_nvl2(item.MON_5),
+  						MON_6 						: gfnma_nvl2(item.MON_6),
+  						MON_7 						: gfnma_nvl2(item.MON_7),
+  						MON_8 						: gfnma_nvl2(item.MON_8),
+  						MON_9 						: gfnma_nvl2(item.MON_9),
+  						MON_10 						: gfnma_nvl2(item.MON_10),
+  						MON_11 						: gfnma_nvl2(item.MON_11),
+  						MON_12 						: gfnma_nvl2(item.MON_12),
   						
-  						MON_Q1 						: gfnma_nvl(item.MON_Q1),
-  						MON_Q2 						: gfnma_nvl(item.MON_Q2),
-  						MON_Q3 						: gfnma_nvl(item.MON_Q3),
-  						MON_Q4 						: gfnma_nvl(item.MON_Q4),
-  						MON_Q5 						: gfnma_nvl(item.MON_Q5),
-  						MON_Q6 						: gfnma_nvl(item.MON_Q6),
-  						MON_Q7 						: gfnma_nvl(item.MON_Q7),
-  						MON_Q8 						: gfnma_nvl(item.MON_Q8),
-  						MON_Q9 						: gfnma_nvl(item.MON_Q9),
-  						MON_Q10 					: gfnma_nvl(item.MON_Q10),
-  						MON_Q11 					: gfnma_nvl(item.MON_Q11),
-  						MON_Q12 					: gfnma_nvl(item.MON_Q12),
+  						MON_Q1 						: gfnma_nvl2(item.MON_Q1),
+  						MON_Q2 						: gfnma_nvl2(item.MON_Q2),
+  						MON_Q3 						: gfnma_nvl2(item.MON_Q3),
+  						MON_Q4 						: gfnma_nvl2(item.MON_Q4),
+  						MON_Q5 						: gfnma_nvl2(item.MON_Q5),
+  						MON_Q6 						: gfnma_nvl2(item.MON_Q6),
+  						MON_Q7 						: gfnma_nvl2(item.MON_Q7),
+  						MON_Q8 						: gfnma_nvl2(item.MON_Q8),
+  						MON_Q9 						: gfnma_nvl2(item.MON_Q9),
+  						MON_Q10 					: gfnma_nvl2(item.MON_Q10),
+  						MON_Q11 					: gfnma_nvl2(item.MON_Q11),
+  						MON_Q12 					: gfnma_nvl2(item.MON_Q12),
   						
-  						PARENTKEYID 				: gfnma_nvl(item.PARENTKEYID),
+  						PARENTKEYID 				: gfnma_nvl2(item.PARENTKEYID),
   						
-  						PARENT_ACCOUNT 				: gfnma_nvl(item.PARENT_ACCOUNT),
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
+  						PARENT_ACCOUNT 				: gfnma_nvl2(item.PARENT_ACCOUNT),
+  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
   						
-  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
+  						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5240Grid4.push(msg);
   					totalRecordCount ++;
