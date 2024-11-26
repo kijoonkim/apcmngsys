@@ -341,7 +341,9 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.frozencols 		= 1;
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
@@ -402,7 +404,9 @@
 	    SBGridProperties.jsonref 			= 'jsonFia3200Grid02';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {

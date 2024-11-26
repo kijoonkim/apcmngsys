@@ -310,7 +310,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5210Grid';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
@@ -329,9 +329,9 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["차변",			"차변기초잔액"],	ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변",			"차변잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변",			gd1_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변",			"차변기초잔액"],	ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변",			"차변잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변",			gd1_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: [gd1_title_gigan,	"계정Level"],		ref: 'ACCOUNT_GROUP',			type:'output',  	width:'100px',  	style:'text-align:left'},
             
             {caption: [gd1_title_gigan,	"계정코드"], 		ref: 'ACCOUNT_CODE', 			type:'button',  	width:'100px', 		style:'text-align:left', 
@@ -347,9 +347,9 @@
             },
             
             {caption: [gd1_title_gigan,	"계정과목"],		ref: 'ACCOUNT_NAME',			type:'output',  	width:'300px',  	style:'text-align:left'},
-            {caption: ["대변",			gd1_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변",			"대변잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변",			"대변기초잔액"],	ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["대변",			gd1_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변",			"대변잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변",			"대변기초잔액"],	ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -367,7 +367,7 @@
 	    SBGridProperties.jsonref 			= 'jsonFig5210Tree';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.tree = {
 	            col: 0,
@@ -406,12 +406,12 @@
             },
             
             {caption: [gd2_title_gigan],	ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
-            {caption: ["차변기초잔액"],		ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["차변기말잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: [gd2_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변기말잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변기초잔액"],		ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변기초잔액"],		ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["차변기말잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: [gd2_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변기말잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대변기초잔액"],		ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
@@ -508,29 +508,29 @@
   	        	jsonFig5210Grid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW		: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP			: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),
-  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
-  						CREDIT_BALANCE_AMT_F	: gfnma_nvl(item.CREDIT_BALANCE_AMT_F),
-  						CREDIT_BALANCE_AMT_O	: gfnma_nvl(item.CREDIT_BALANCE_AMT_O),
-  						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_F_BEGIN),
-  						CREDIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_O_BEGIN),
-  						CREDIT_SUM_AMT_F		: gfnma_nvl(item.CREDIT_SUM_AMT_F),
-  						CREDIT_SUM_AMT_O		: gfnma_nvl(item.CREDIT_SUM_AMT_O),
-  						DEBIT_BALANCE_AMT_F		: gfnma_nvl(item.DEBIT_BALANCE_AMT_F),
-  						DEBIT_BALANCE_AMT_O		: gfnma_nvl(item.DEBIT_BALANCE_AMT_O),
-  						DEBIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_F_BEGIN),
-  						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_O_BEGIN),
-  						DEBIT_SUM_AMT_F			: gfnma_nvl(item.DEBIT_SUM_AMT_F),
-  						DEBIT_SUM_AMT_O			: gfnma_nvl(item.DEBIT_SUM_AMT_O),
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 				: gfnma_nvl(item.FONT_SIZE),
-  						HQ_ACCOUNT_CODE 		: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 		: gfnma_nvl(item.HQ_ACCOUNT_NAME),
-  						SORT_SEQ 				: gfnma_nvl(item.SORT_SEQ),
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW		: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),
+  						CREDIT_BALANCE_AMT_F	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_F),
+  						CREDIT_BALANCE_AMT_O	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_O),
+  						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_F_BEGIN),
+  						CREDIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_O_BEGIN),
+  						CREDIT_SUM_AMT_F		: gfnma_nvl2(item.CREDIT_SUM_AMT_F),
+  						CREDIT_SUM_AMT_O		: gfnma_nvl2(item.CREDIT_SUM_AMT_O),
+  						DEBIT_BALANCE_AMT_F		: gfnma_nvl2(item.DEBIT_BALANCE_AMT_F),
+  						DEBIT_BALANCE_AMT_O		: gfnma_nvl2(item.DEBIT_BALANCE_AMT_O),
+  						DEBIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_F_BEGIN),
+  						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_O_BEGIN),
+  						DEBIT_SUM_AMT_F			: gfnma_nvl2(item.DEBIT_SUM_AMT_F),
+  						DEBIT_SUM_AMT_O			: gfnma_nvl2(item.DEBIT_SUM_AMT_O),
+  						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 				: gfnma_nvl2(item.FONT_SIZE),
+  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						SORT_SEQ 				: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5210Grid.push(msg);
   					totalRecordCount ++;
@@ -630,34 +630,34 @@
   	        	jsonFig5210Tree.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_CODE_VIEW		: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP			: gfnma_nvl(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),
-  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
-  						CREDIT_BALANCE_AMT_F	: gfnma_nvl(item.CREDIT_BALANCE_AMT_F),
-  						CREDIT_BALANCE_AMT_O	: gfnma_nvl(item.CREDIT_BALANCE_AMT_O),
-  						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_F_BEGIN),
-  						CREDIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_O_BEGIN),
-  						CREDIT_SUM_AMT_F		: gfnma_nvl(item.CREDIT_SUM_AMT_F),
-  						CREDIT_SUM_AMT_O		: gfnma_nvl(item.CREDIT_SUM_AMT_O),
-  						DEBIT_BALANCE_AMT_F		: gfnma_nvl(item.DEBIT_BALANCE_AMT_F),
-  						DEBIT_BALANCE_AMT_O		: gfnma_nvl(item.DEBIT_BALANCE_AMT_O),
-  						DEBIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_F_BEGIN),
-  						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_O_BEGIN),
-  						DEBIT_SUM_AMT_F			: gfnma_nvl(item.DEBIT_SUM_AMT_F),
-  						DEBIT_SUM_AMT_O			: gfnma_nvl(item.DEBIT_SUM_AMT_O),
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
-  						FONT_SIZE 				: gfnma_nvl(item.FONT_SIZE),
-  						HQ_ACCOUNT_CODE 		: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 		: gfnma_nvl(item.HQ_ACCOUNT_NAME),
-  						KEYID 					: gfnma_nvl(item.KEYID),
-  						LEVEL 					: gfnma_nvl(item.LEVEL),
-  						PARENTKEYID 			: gfnma_nvl(item.PARENTKEYID),
-  						REPORT_ACCOUNT_CODE 	: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 	: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
-  						SORT_SEQ 				: gfnma_nvl(item.SORT_SEQ),
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW		: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),
+  						CREDIT_BALANCE_AMT_F	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_F),
+  						CREDIT_BALANCE_AMT_O	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_O),
+  						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_F_BEGIN),
+  						CREDIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_O_BEGIN),
+  						CREDIT_SUM_AMT_F		: gfnma_nvl2(item.CREDIT_SUM_AMT_F),
+  						CREDIT_SUM_AMT_O		: gfnma_nvl2(item.CREDIT_SUM_AMT_O),
+  						DEBIT_BALANCE_AMT_F		: gfnma_nvl2(item.DEBIT_BALANCE_AMT_F),
+  						DEBIT_BALANCE_AMT_O		: gfnma_nvl2(item.DEBIT_BALANCE_AMT_O),
+  						DEBIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_F_BEGIN),
+  						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_O_BEGIN),
+  						DEBIT_SUM_AMT_F			: gfnma_nvl2(item.DEBIT_SUM_AMT_F),
+  						DEBIT_SUM_AMT_O			: gfnma_nvl2(item.DEBIT_SUM_AMT_O),
+  						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
+  						FONT_SIZE 				: gfnma_nvl2(item.FONT_SIZE),
+  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						KEYID 					: gfnma_nvl2(item.KEYID),
+  						LEVEL 					: gfnma_nvl2(item.LEVEL),
+  						PARENTKEYID 			: gfnma_nvl2(item.PARENTKEYID),
+  						REPORT_ACCOUNT_CODE 	: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 	: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
+  						SORT_SEQ 				: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5210Tree.push(msg);
   					totalRecordCount ++;

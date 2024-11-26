@@ -246,6 +246,7 @@
 			  									<sbux-input style="width:80px" id="FM_DEPT_CODE_FROM" uitype="text" class="form-control input-sm"></sbux-input>
 			  									<font style="width:5px"></font>
 												<sbux-button
+													id="BTN_FM_DEPT_CODE_FROM" 
 													style="width:20px"
 													class="btn btn-xs btn-outline-dark"
 													text=".." uitype="modal"
@@ -280,6 +281,7 @@
 			  									<sbux-input style="width:80px" id="FM_COST_CENTER_CODE_FROM" uitype="text" class="form-control input-sm"></sbux-input>
 			  									<font style="width:5px"></font>
 												<sbux-button
+													id="BTN_FM_COST_CENTER_CODE_FROM" 
 													style="width:20px"
 													class="btn btn-xs btn-outline-dark"
 													text=".." uitype="modal"
@@ -395,7 +397,7 @@
   		await fn_initSBSelect()
   		
 		//화면셋팅
- 		fn_state('L');
+ 		fn_state('A');
   		
 		fn_createFia4100Grid();
 	} 
@@ -418,7 +420,7 @@
      */
     function fn_state(type) {
     
-    	if(type=='L'){
+    	if(type=='A'){
     		
     		cfn_init();
     		
@@ -434,6 +436,23 @@
 	 		SBUxMethod.set('SCH_SITE_CODE2', 			p_ss_siteCode);
 	 		
 	    	gfnma_uxDataClear('#dataArea1');
+	    	
+	    	SBUxMethod.attr('FM_ASSET_TRANSFER_NO', 	'disabled', true);
+	    	SBUxMethod.attr('FM_SITE_CODE_FROM', 		'disabled', true);
+	    	
+	    	SBUxMethod.attr('FM_DEPT_CODE_FROM', 		'disabled', true);
+	    	SBUxMethod.attr('BTN_FM_DEPT_CODE_FROM', 	'disabled', true);
+	    	SBUxMethod.attr('FM_DEPT_NAME_FROM', 		'disabled', true);
+	    	
+	    	SBUxMethod.attr('FM_COST_CENTER_CODE_FROM', 		'disabled', true);
+	    	SBUxMethod.attr('BTN_FM_COST_CENTER_CODE_FROM', 	'disabled', true);
+	    	SBUxMethod.attr('FM_COST_CENTER_NAME_FROM', 		'disabled', true);
+	    	
+    	} else if('B'){
+    		
+			$('#main-btn-add', parent.document).attr('disabled', false);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			$('#main-btn-del', parent.document).attr('disabled', false);
     	}
     	
     }    
@@ -442,6 +461,8 @@
      * 목록 조회
      */
  	function cfn_search() {
+    	
+ 		fn_state('B');
     	
     	gfnma_uxDataClear('#dataArea1');
     	fn_setFia4100Grid('LIST');
@@ -454,7 +475,9 @@
 	    SBGridProperties.jsonref 			= 'jsonFia4100';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    //SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'sort';
+	    SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["항목",			"이동번호"],	ref: 'ASSET_TRANSFER_NO', 		type:'output',  	width:'150px',  	style:'text-align:left'},
@@ -580,6 +603,11 @@
   	        	Fia4100Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
+  	        	//grid 첫번째 행 선택
+				if(jsonFia4100.length>0){
+					fn_viewFia4100GridReload(2);					
+				}
+  	        	
         	} else {
           		alert(data.resultMessage);
         	}
@@ -592,6 +620,16 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }      
+    
+    //상세정보 보기
+    function fn_viewFia4100GridReload(idx) {
+    	
+    	Fia4100Grid.setRow(idx);
+        let rowData = Fia4100Grid.getRowData(idx);
+		console.log(rowData);        
+		
+		gfnma_uxDataSet2('#dataArea1', rowData, '', 'FM_', '');
+    }    
     
     /**
      * 이동자산
@@ -895,7 +933,7 @@
           		alert(data.resultMessage);
         	}
         	
-        	fn_state('L');
+        	fn_state('A');
        		cfn_search();
        		
         } catch (e) {
@@ -951,7 +989,7 @@
           		alert(data.resultMessage);
         	}
         	
-        	fn_state('L');
+        	fn_state('A');
        		cfn_search();
        		
         } catch (e) {
@@ -998,6 +1036,23 @@
     function fn_BtnCancel(){
     	fn_processFia4100S1('CANCEL');
     }
+    
+    
+    /**
+     * 삭제
+     */
+   	var cfn_del = async function() {
+    	
+		let p_fm_asset_transfer_no	= gfnma_nvl(SBUxMethod.get("FM_ASSET_TRANSFER_NO"));
+    	if(p_fm_asset_transfer_no){
+			if(gfn_comConfirm("Q0001", "선택하신 이동번호를 삭제하시 겠습니까?")){
+		        fn_processFia4100S('D');
+			} 
+    	} else {
+    		gfn_comAlert("E0000","삭제하실 이동번호가 선택되지 않았습니다.");
+    	}
+    }
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
