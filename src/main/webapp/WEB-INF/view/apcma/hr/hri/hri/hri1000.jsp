@@ -1594,6 +1594,7 @@
 
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
+        gvwList.bind('keyup', 'fn_keyup')
     }
 
     // 신규
@@ -2233,6 +2234,12 @@
 
         $("#btnRegistResignation").attr('disabled', 'false');
         $("#btnCopyHistory").attr('disabled', 'false');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기
