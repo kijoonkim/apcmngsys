@@ -1193,43 +1193,56 @@
 
     }
 
-
-    
     /**
-    * 출력
-	*/
+     * 출력
+ 	*/
     const fn_btnPrint = async function() {
         var nRow = gvwInfoGrid.getRow();
-    	var conn = '';
-    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-    	if (nRow < 1) {
-            return;
+     	var conn = '';
+     	var connTest = '';
+     	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+     	if (nRow < 1) {
+             return;
         }
-        
+         
+        let checkData = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
         let rowData = gvwInfoGrid.getRowData(nRow);
-        
-    	if (SENDTYPE == "ALL") {
-            conn = await fn_GetReportData('REPORT5', rowData);
+         
+     	if (SENDTYPE == "ALL") {
+            conn = await fn_GetReportData('REPORT5', checkData);
             conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("", "ma/RPT_HRP2436_Q_ALL.crf", null, conn );
+     		gfn_popClipReportPost("", "ma/RPT_HRP2436_Q_ALL.crf", null, conn );
         } else if(SENDTYPE == "PAY") {
-            conn = await fn_GetReportData('REPORT3', rowData);
+            conn = await fn_GetReportData('REPORT3', checkData);
             conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("급여명세서", "ma/RPT_HRP2436_Q_PAY.crf", null, conn );
+     		gfn_popClipReportPost("급여명세서", "ma/RPT_HRP2436_Q_PAY.crf", null, conn );
         } else if(SENDTYPE == "WORK") {
-            conn = await fn_GetReportData('REPORT4', rowData);
+            conn = await fn_GetReportData('REPORT4', checkData);
             conn = await gfnma_convertDataForReport(conn);
-    		gfn_popClipReportPost("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", null, conn );
+     		gfn_popClipReportPost("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", null, conn );
         }
     }
-    const fn_GetReportData = async function(workType, obj) {
-    	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+    
+    const fn_GetReportData = async function(workType, checkData) {
+    	let SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+     	let obj = checkData[0].data;
+ 	   	let EMP_CODE_LIST 	= '';
+ 	   	let PAY_YYYYMM2 	= '';
+ 	   	let PAY_TYPE1 		= '';
+ 	   	let PAY_DATE 		= '';
+ 	   	for(var i=0; checkData.length > i; i++){
+ 	   		EMP_CODE_LIST += checkData[i].data.EMP_CODE + '|';
+ 	   		PAY_YYYYMM2 += checkData[i].data.PAY_YYYYMM + '|';
+ 	   		PAY_TYPE1 += checkData[i].data.PAY_TYPE + '|';
+ 	   		PAY_DATE += checkData[i].data.PAY_DATE + '|';
+ 	   	}
+    		
         var paramObj = {
             V_P_DEBUG_MODE_YN 		: '',
             V_P_LANG_ID 			: '',
             V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
-            
+             
             V_P_SITE_CODE 			: '',
             V_P_DEPT_CODE 			: '',
             V_P_EMP_CODE     		: gfn_nvl(obj.EMP_CODE),
@@ -1237,13 +1250,13 @@
             V_P_PAY_YYYYMM1       	: gfn_nvl(obj.PAY_YYYYMM),
             V_P_PAY_TYPE        	: gfn_nvl(obj.PAY_TYPE),
             V_P_PAY_DATE			: gfn_nvl(obj.PAY_DATE),
-            V_P_EMP_CODE_LIST 		: gfn_nvl(obj.EMP_CODE),
-            V_P_PAY_YYYYMM2 		: gfn_nvl(obj.PAY_YYYYMM),
-            V_P_PAY_TYPE1     		: gfn_nvl(obj.PAY_TYPE),
-            V_P_PAY_DATE1    		: gfn_nvl(obj.PAY_DATE),
+            V_P_EMP_CODE_LIST 		: EMP_CODE_LIST.substring(0, EMP_CODE_LIST.length-1),
+            V_P_PAY_YYYYMM2 		: PAY_YYYYMM2.substring(0, PAY_YYYYMM2.length-1),
+            V_P_PAY_TYPE1     		: PAY_TYPE1.substring(0, PAY_TYPE1.length-1),
+            V_P_PAY_DATE1    		: PAY_DATE.substring(0, PAY_DATE.length-1),
             V_P_PAY_AREA_TYPE       : '',
             V_P_REPORT_TYPE        	: SENDTYPE,
-        	
+         	
             V_P_FORM_ID 			: p_formId,
             V_P_MENU_ID 			: p_menuId,
             V_P_PROC_ID 			: '',
@@ -1259,26 +1272,19 @@
         });
         const data = await postJsonPromise;
 
-        try { 
+        try {
             if (_.isEqual("S", data.resultStatus)) {
-
-                if(data.cv_6.length > 0){
-					if(SENDTYPE == 'WORK'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+               	for(var i=0; data.cv_6.length > i; i++){
+	 				if(SENDTYPE == 'WORK'){
+    	                data.cv_6[i].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}else if(SENDTYPE == 'PAY'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[i].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[i].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}else if(SENDTYPE == 'ALL'){
-    	                data.cv_6[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_6[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[i].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+    	                data.cv_6[i].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 	}
-                }
-                if(data.cv_13.length > 0){
-					if(SENDTYPE == 'ALL'){
-    	                data.cv_13[0].COMP_LOGO = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
-    	                data.cv_13[0].COMP_STAMP = data.SERVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_6[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
-                	}
-                }
+               	}
             } else {
                 alert(data.resultMessage);
             }
