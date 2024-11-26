@@ -58,100 +58,129 @@
 
 
 .button {
-  background-color: #04AA6D; /* Green */
-  border: none;
-  color: white;
-  padding: 2px 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 2px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 8px;
+    color: #4d4f51;
+    padding: 5px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 5px 3px;
+    transition-duration: 0.15s;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 84px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.55); */
+    background-color: #ffffff;
+    border: 1px solid #4d4f51;
 }
-
+.button:hover{
+    color: white;
+    border: 0px;
+    background-color: #149FFF;
+}
 .button:disabled {
   background: #CCC;
   border: 1px solid #CCC;
   pointer-events: none;
 }
-
-.button-green {
-  background-color: #04AA6D;
-  color: white;
-  border: 1px solid #04AA6D;
+.button_1{
+    background-color : #2193b0;
+}
+.button_2{
+    background-color : #6dd5ed;
+}
+.button_3{
+    background-color : #4F86C6;
+}
+.button_4{
+    background-color : #548687;
 }
 
-.button-green:hover {
-  background-color: white;
-  color: black;
+.button_5{
+    background-color : #3d855b;
+}
+.button_6{
+    background-color : #8FBC94;
+}
+.button_7{
+    background-color : #C5E99B;
 }
 
-.button-blue {
-  background-color: #008CBA;
-  color: white;
-  border: 1px solid #008CBA;
-}
 
-.button-blue:hover {
-  background-color: white;
-  color: black;
-}
+/*.button-green {*/
+/*  background-color: #04AA6D;*/
+/*  color: white;*/
+/*  border: 1px solid #04AA6D;*/
+/*}*/
 
-.button-red {
-  background-color: #f44336;
-  color: white;
-  border: 1px solid #f44336;
-}
+/*.button-green:hover {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
 
-.button-red:hover {
-  background-color: white;
-  color: black;
-}
+/*.button-blue {*/
+/*  background-color: #008CBA;*/
+/*  color: white;*/
+/*  border: 1px solid #008CBA;*/
+/*}*/
 
-.button-gray {
-  background-color: #e7e7e7;
-  color: black;
-  border: 1px solid #e7e7e7;
-}
+/*.button-blue:hover {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
 
-.button-gray:hover {
-  background-color: white;
-  color: black;
-}
+/*.button-red {*/
+/*  background-color: #f44336;*/
+/*  color: white;*/
+/*  border: 1px solid #f44336;*/
+/*}*/
 
-.button-black {
-  background-color: #555555;
-  color: white;
-  border: 1px solid #555555;
-}
+/*.button-red:hover {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
 
-.button-black:hover {
-  background-color: white;
-  color: black;
-}
+/*.button-gray {*/
+/*  background-color: #e7e7e7;*/
+/*  color: black;*/
+/*  border: 1px solid #e7e7e7;*/
+/*}*/
 
-.button-brown{
-    background-color: #6b3111;
-    color: white;
-    border: 1px solid #6b3111;
-}
+/*.button-gray:hover {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
 
-.button-brown:hover {
-    background-color: white;
-    color: black;
-}
-.button-goldenBrown{
-    background-color: #bd8e1e;
-    color: white;
-    border: 1px solid #bd8e1e;
-}
-.button-goldenBrown:hover{
-    background-color: white;
-    color: black;
-}
+/*.button-black {*/
+/*  background-color: #555555;*/
+/*  color: white;*/
+/*  border: 1px solid #555555;*/
+/*}*/
+
+/*.button-black:hover {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
+
+/*.button-brown{*/
+/*    background-color: #6b3111;*/
+/*    color: white;*/
+/*    border: 1px solid #6b3111;*/
+/*}*/
+
+/*.button-brown:hover {*/
+/*    background-color: white;*/
+/*    color: black;*/
+/*}*/
+/*.button-goldenBrown{*/
+/*    background-color: #bd8e1e;*/
+/*    color: white;*/
+/*    border: 1px solid #bd8e1e;*/
+/*}*/
+/*.button-goldenBrown:hover{*/
+/*    background-color: white;*/
+/*    color: black;*/
+/*}*/
 /*#idxSide_menu > div.sbux-vscroll-wrap{*/
 /*    height: 100% !important;*/
 /*}*/
@@ -905,15 +934,22 @@
 		                    onclick="fn_bmkYn()"
 		            ></sbux-breadcrumb>
         		</div>
-        		<div class="col-sm-6">
+        		<div class="col-sm-6" style="position: absolute; right: 2vw">
 					<div style="position: relative; text-align: right; margin: 3px;">
-                        <button id="main-btn-attach" class="button button-goldenBrown" style="display:none" onclick="mfn_attach()">파일첨부 📂</button>
-                        <button id="main-btn-appr" class="button button-brown" style="display:none" onclick="mfn_appr()">결재처리 ✒️</button>
-						<button id="main-btn-init" class="button button-blue" style="display:none" onclick="mfn_init()">초기화 🔃</button>
-        				<button id="main-btn-add" class="button button-blue" style="display:none" onclick="mfn_add()">신규 ➕</button>
-        				<button id="main-btn-save" class="button button-red" style="display:none" onclick="mfn_save()">저장 💾</button>
-        				<button id="main-btn-del" class="button button-black" style="display:none" onclick="mfn_del()">삭제 🗑️</button>
-        				<button id="main-btn-search" class="button button-green" style="display:none" onclick="mfn_search()">조회 🔍(ALT+F)</button>
+                        <button id="main-btn-attach" class="button"
+                                style="display:none" onclick="mfn_attach()">파일첨부</button>
+                        <button id="main-btn-appr" class="button"
+                                style="display:none" onclick="mfn_appr()">결재처리</button>
+						<button id="main-btn-init" class="button"
+                                style="display:none" onclick="mfn_init()">초기화</button>
+        				<button id="main-btn-add" class="button"
+                                style="display:none" onclick="mfn_add()">신규</button>
+        				<button id="main-btn-save" class="button"
+                                style="display:none" onclick="mfn_save()">저장</button>
+        				<button id="main-btn-del" class="button"
+                                style="display:none" onclick="mfn_del()">삭제</button>
+        				<button id="main-btn-search" class="button"
+                                style="display:none;" onclick="mfn_search()">조회</button>
         			</div>
         		</div>
         	</div>
@@ -1449,7 +1485,16 @@
                     btnAppr.style.display = _uiInfo.cmnsAppr['visible'] ? "" : "none";
                 }
             }
-
+            // /** 공통버튼 css 순차적용 **/
+            // let btns = document.querySelectorAll("button.button");
+            // /** 공통버튼 css 초기화 **/
+            // btns.forEach(function(item){
+            //    item.className = "button"
+            // });
+            // let activeBtn = Array.from(btns).filter(btn => window.getComputedStyle(btn).display !== 'none');
+            // activeBtn.forEach(function(item,idx){
+            //    item.classList.add("button_" + (idx + 1));
+            // });
     	} catch (e) {
     		console.log(e.message);
     	}
