@@ -24,7 +24,6 @@
 <head>
 	<title>title : 감가상각계산 </title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -42,30 +41,42 @@
                 </div>
             </div>
             <div class="box-body">
+				<div class="box-search-ma">
+				<!--[APC] START -->
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				<!--[APC] END -->
 
-
-                <table id="searchTable" class="table table-bordered tbl_fixed">
+                <table id="searchTable" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+                        <col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
                     </colgroup>
                     <tbody>
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -85,7 +96,7 @@
                             <td></td>
 
                             <th scope="row" class="th_bg">사업단위</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -104,7 +115,7 @@
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
 
 									<div class="dropdown">
 										    <button
@@ -128,23 +139,22 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">감가상각년월</th>
-							<td colspan="1" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-depreciationYyyymm"
 									name="srch-dtp-depreciationYyyymm"
 									uitype="popup"
 									date-format="yyyy-mm"
 									datepicker-mode="month"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									group-id="search1"
 								></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-
+							<td>
 							</td>
                             <th scope="row" class="th_bg">감가상각기준</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr" group-id="search1" ></sbux-select>
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
                         </tr>
@@ -158,7 +168,7 @@
                         </tr>
                     </tbody>
                 </table>
-
+				</div>
 
 				<div class="row">
 					<div class="ad_tbl_top">

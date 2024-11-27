@@ -26,7 +26,6 @@
 <head>
 <title>title : 자산정산내역</title>
 <%@ include file="../../../../frame/inc/headerMeta.jsp"%>
-<%@ include file="../../../../frame/inc/headerScript.jsp"%>
 <%@ include file="../../../../frame/inc/headerScriptMa.jsp"%>
 </head>
 <body oncontextmenu="return false">
@@ -55,36 +54,46 @@
 				</div>
 			</div>
 			<div class="box-body">
+				<div class="box-search-ma">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<div style="display: none">
+				<div >
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp"%>
 				</div>
 				<!--[APC] END -->
 
 
-				<table id="searchTable" class="table table-bordered tbl_fixed">
+				<table id="searchTable" class="table table-bordered tbl_fixed table-search-ma">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -104,7 +113,7 @@
 							<td></td>
 
 							<th scope="row" class="th_bg">사업단위</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -123,7 +132,7 @@
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">사업장</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 									<button style="width: 160px; text-align: left"
 										class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
@@ -144,21 +153,23 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">정산일자</th>
-							<td colspan="1" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-startDate"
 									name="srch-dtp-startDate" uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									onchange="fn_dtpChange(srch-dtp-startDate)"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td>-</td>
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-endDate" name="srch-dtp-endDate"
 									uitype="popup" date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									onchange="fn_dtpChange(srch-dtp-endDate)"></sbux-datepicker>
 							</td>
+							<td></td>
 							<th scope="row" class="th_bg">취득구분</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 									<button style="width: 160px; text-align: left"
 										class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
@@ -175,28 +186,34 @@
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">프로젝트</th>
-							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-projectCode"
-									name="srch-inp-projectCode" class="form-control input-sm"></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-projectName"
-									name="srch-inp-projectName" class="form-control input-sm"
-									uitype="search" button-back-text="···"
-									button-back-event="fn_bizPopup"></sbux-input>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									<sbux-input uitype="text" id="srch-inp-projectCode"
+										name="srch-inp-projectCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+									<font style="width:5px"></font>
+									<sbux-button
+										id="BTN_POP1"
+										class="btn btn-xs btn-outline-dark"
+										text="…" uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_bizPopup">
+									</sbux-button>
+									<font style="width:5px"></font>
+									<sbux-input style="width:100%" id="srch-inp-projectName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+								</div>
 							</td>
 						</tr>
 						<tr>
 
 							<th scope="row" class="th_bg">정산번호</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-cipTransferNo"
 									name="srch-inp-cipTransferNo" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
 
 							<th scope="row" class="th_bg">회계기준</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-acctRuleCode"
 									name="srch-slt-acctRuleCode" class="form-control input-sm"
 									uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
@@ -205,6 +222,7 @@
 						</tr>
 					</tbody>
 				</table>
+				</div>
 
 
 				<div class="row">

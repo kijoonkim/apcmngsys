@@ -24,7 +24,6 @@
 <head>
 	<title>title : 원천세 집계표</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -43,32 +42,39 @@
                 </div>
             </div>
             <div class="box-body">
-
-				<div style="display:none">
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-				</div>
-                <table id="searchTable" class="table table-bordered tbl_fixed">
+				<div class="box-search-ma">
+				<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table id="searchTable" class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+                        	<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
                     </colgroup>
                     <tbody>
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -88,7 +94,7 @@
                             <td></td>
 
                             <th scope="row" class="th_bg">급여영역</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택"></sbux-select>
                             </td>
                         </tr>
@@ -101,10 +107,11 @@
 									uitype="popup"
 									date-format="yyyy-mm"
 									datepicker-mode="month"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									onchange="fn_dtpChange(srch-dtp-submitYyyymmFr)"
 								></sbux-datepicker>
 							</td>
+							<td>-</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-submitYyyymmTo"
@@ -112,22 +119,23 @@
 									uitype="popup"
 									date-format="yyyy-mm"
 									datepicker-mode="month"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									onchange="fn_dtpChange(srch-dtp-submitYyyymmTo)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 
-                            <td class="ad_input" style="border-right: hidden;">
+                            <td colspan="1" class="ad_input" style="border-right: hidden;">
                             	<sbux-checkbox uitype="normal" id="srch-chk-originalFlag" name="srch-chk-originalFlag" class="form-control input-sm check" text="원천보기" true-value="Y" false-value="N">
                             </td>
-                            <td class="ad_input" style="border-right: hidden;">
+
+                            <td colspan="3" class="ad_input" style="border-right: hidden;">
                             	<sbux-checkbox uitype="normal" id="srch-chk-allYn" name="srch-chk-allYn" class="form-control input-sm check" text="전체여부" true-value="Y" false-value="N">
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
+				</div>
 
 				<div class="row">
 					<div class="col-sm-3">
