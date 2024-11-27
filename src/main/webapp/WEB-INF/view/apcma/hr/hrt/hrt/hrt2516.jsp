@@ -312,6 +312,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["차수"],         ref: 'SEQ',    type:'output',  	width:'40px',  style:'text-align:left'},
             {caption: ["처리구분"], 		ref: 'TIME_SUMMARY_ACTION_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
@@ -352,6 +353,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["선택여부"],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'69px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["순번"],         ref: 'TXN_ID',    type:'output',  	width:'75px',  style:'text-align:right', hidden: true},

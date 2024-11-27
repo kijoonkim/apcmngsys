@@ -270,6 +270,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["근무패턴코드"], 		ref: 'WORK_PATTERN_CODE',   	    type:'output', style:'text-align:left' ,width: '110px'},
             {caption: ["근무패턴명"],        ref: 'WORK_PATTERN_NAME', 		         type:'output',  	width:'156px',  	style:'text-align:left'},

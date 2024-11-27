@@ -278,6 +278,7 @@
         };
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
@@ -445,6 +446,7 @@
         gvwInfo = _SBGrid.create(SBGridProperties);
         gvwInfo.bind('click', 'fn_view');
         gvwInfo.bind('valuechanged', 'fn_gvwInfoValueChanged');
+        gvwInfo.bind('keyup', 'fn_keyup');
     }
 
     const fn_gvwInfoValueChanged = async function () {
@@ -1276,8 +1278,15 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         var nRow = gvwInfo.getRow();
+        if(nRow < 1) return;
         var rowData = gvwInfo.getRowData(nRow);
 
         // 확정일 경우 수정 불가능

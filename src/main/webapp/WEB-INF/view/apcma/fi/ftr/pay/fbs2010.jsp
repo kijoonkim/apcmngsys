@@ -1019,6 +1019,7 @@
 
         gvwDetail = _SBGrid.create(SBGridProperties);
         gvwDetail.bind('click', 'fn_view');
+        gvwDetail.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwActGrid() {
@@ -1030,6 +1031,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["품의번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'76px',  style:'text-align:left'},
             {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
@@ -1503,9 +1505,15 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         if (bDetailSelect) {
-            if (gvwDetail.getRow() < 0)
+            if (gvwDetail.getRow() < 1)
                 return;
 
             fnQRY_P_FBS2010_Q("DETAIL");

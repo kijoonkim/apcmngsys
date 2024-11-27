@@ -637,6 +637,7 @@
         gvwInfo = _SBGrid.create(SBGridProperties);
         gvwInfo.bind('click', 'fn_view');
         gvwInfo.bind('valuechanged','fn_gvwInfoValueChanged');
+        gvwInfo.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwDetailGrid() {
@@ -765,6 +766,12 @@
 
             // 잔여연차 = 총 발생연차 - 사용연차
             gvwInfo.setCellData(nRow, gvwInfo.getColRef("BALANCE_DAY"), (tot_day - use_day));
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

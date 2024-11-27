@@ -509,6 +509,7 @@
 		gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
 		/*gvwList.bind('dblclick', 'fn_gvwListDblclick');*/
 		gvwList.bind('click', 'fn_view');
+		gvwList.bind('keyup', 'fn_keyup');
 	}
 
 	function fn_createGvwItemGrid() {
@@ -519,6 +520,7 @@
 		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
 		SBGridProperties.allowcopy = true; //복사
 		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.useinitsorting = true;
 		SBGridProperties.columns = [
 			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'input',  	width:'190px',  style:'text-align:left'},
 			{caption: ["품목순번"],         ref: 'SEQ',    type:'input',  	width:'60px',  style:'text-align:left'},
@@ -734,12 +736,19 @@
 		});
 	}
 
+	const fn_keyup = async function(event) {
+		if(event.keyCode == 38 || event.keyCode == 40) {
+			fn_view();
+		}
+	}
+
 	const fn_view = async function () {
 		if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
 			return false;
 		}
 
 		var nRow = gvwList.getRow();
+		if(nRow < 1) return;
 		var nCol = gvwList.getCol();
 		var rowData = gvwList.getRowData(nRow);
 		var rowStatus = gvwList.getRowStatus(nRow);

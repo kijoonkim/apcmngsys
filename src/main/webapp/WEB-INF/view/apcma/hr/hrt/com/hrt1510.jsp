@@ -464,6 +464,7 @@
         SBGridProperties.jsonref 			= 'jsonEmpList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["부서"],         ref: 'DEPT_CODE',    type:'output',  	width:'85px',  style:'text-align:left'},
@@ -551,6 +552,7 @@
 
         gvwShift = _SBGrid.create(SBGridProperties);
         gvwShift.bind('click', 'fn_view');
+        gvwShift.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwShiftInfoGrid() {
@@ -1029,6 +1031,12 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

@@ -536,6 +536,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["문서번호"], 	        ref: 'DOC_NUM',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
             {caption: ["신청일","신청일 "],  		ref: 'REQUEST_DATE',    			type:'inputdate',  	width:'108px',  	style:'text-align:left',
@@ -676,6 +677,7 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('click', 'fn_view');
+        bandgvwInfo.bind('keyup', 'fn_keyup');
     }
 
     // 초기화
@@ -1189,6 +1191,12 @@
             SBUxMethod.show('btnAdminApproval');
 
             fn_search();
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

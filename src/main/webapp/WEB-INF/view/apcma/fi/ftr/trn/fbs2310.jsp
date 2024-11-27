@@ -377,6 +377,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         /*        SBGridProperties.total = {
                     type 		: 'grand',
                     position	: 'bottom',
@@ -440,9 +441,18 @@
 
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
+        gvwList.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     const fn_view = async function () {
+        if(gvwList.getRow() < 1) return;
+
         fnQRY_P_FBS2310_Q("DETAIL");
     }
 

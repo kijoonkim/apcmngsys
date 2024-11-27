@@ -663,6 +663,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.useinitsorting = true;
 
         if (copyMode == 'clear') { //복사해제모드
             SBGridProperties.selectmode = 'free';
@@ -838,6 +839,7 @@
         gvwList.bind('valuechanged','fn_gvwListValueChanged');
         gvwList.bind('click', 'fn_view');
         gvwList.bind('dblclick', 'fn_gvwListDblclick');
+        gvwList.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwDetailGrid() {
@@ -849,6 +851,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["APPR_ID"],         ref: 'APPR_ID',    type:'output',  	width:'60px',  style:'text-align:left', hidden: true},
             {caption: ["순번"],         ref: 'STEP_SEQ',    type:'output',  	width:'61px',  style:'text-align:left'},
@@ -929,8 +932,16 @@
         fn_createGvwListGrid();
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         var nRow = gvwList.getRow();
+
+        if(nRow < 1) return;
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',

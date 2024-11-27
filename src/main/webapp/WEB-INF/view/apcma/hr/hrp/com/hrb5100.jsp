@@ -226,6 +226,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["급여체계코드"],         ref: 'PAY_GROUP_CODE',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["급여체계명"],         ref: 'PAY_GROUP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
@@ -234,6 +235,7 @@
 
         gvwMaster = _SBGrid.create(SBGridProperties);
         gvwMaster.bind('click', 'fn_view');
+        gvwMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createBandgvwDetailGrid() {
@@ -353,10 +355,17 @@
         bandgvwDetail = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         editType = "U";
         SBUxMethod.attr("PAY_GROUP_CODE", "readonly", true);
         var nRow = gvwMaster.getRow();
+        if(nRow < 1) return;
         var rowData = gvwMaster.getRowData(nRow);
 
         if(gfn_nvl(rowData) == "") return;

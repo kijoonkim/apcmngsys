@@ -713,6 +713,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
@@ -795,6 +796,7 @@
 
         gvwResident = _SBGrid.create(SBGridProperties);
         gvwResident.bind('click', 'fn_view');
+        gvwResident.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwNonresidentGrid() {
@@ -805,6 +807,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
@@ -888,6 +891,13 @@
 
         gvwNonresident = _SBGrid.create(SBGridProperties);
         gvwNonresident.bind('click', 'fn_view');
+        gvwNonresident.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     const fn_view = async function () {
@@ -895,6 +905,7 @@
 
         if(enableTab == "tpgResident") {
             var nRow = gvwResident.getRow();
+            if(nRow < 1) return;
             let rowData = gvwResident.getRowData(nRow);
 
             SBUxMethod.set("EARNER_CODE", gfn_nvl(rowData.EARNER_CODE));
@@ -927,6 +938,7 @@
             SBUxMethod.set("JUMIN", "");
         } else if(enableTab == "tpgNonresident") {
             var nRow = gvwNonresident.getRow();
+            if(nRow < 1) return;
             let rowData = gvwNonresident.getRowData(nRow);
 
             SBUxMethod.set("EARNER_CODE1", gfn_nvl(rowData.EARNER_CODE));

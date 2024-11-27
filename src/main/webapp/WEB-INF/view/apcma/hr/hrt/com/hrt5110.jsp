@@ -426,6 +426,7 @@
         SBGridProperties.jsonref 			= 'jsonStatusList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연차유형"], 		ref: 'PAID_ANNUAL_TYPE',   	    type:'combo', style:'text-align:left' ,width: '129px',
                 typeinfo: {

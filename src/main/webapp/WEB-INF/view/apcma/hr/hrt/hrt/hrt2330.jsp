@@ -293,6 +293,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'85px',  style:'text-align:left', hidden: true},
@@ -355,6 +356,7 @@
 
         gvwShift = _SBGrid.create(SBGridProperties);
         gvwShift.bind('click', 'fn_view');
+        gvwShift.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwDetailGrid() {
@@ -543,12 +545,19 @@
         gvwDetail = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         if(!SBUxMethod.validateRequired({group_id: "panHeader"})) {
             return false;
         }
 
         var nRow = gvwShift.getRow();
+        if(nRow < 1) return;
         var rowData = gvwShift.getRowData(nRow);
 
         let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));

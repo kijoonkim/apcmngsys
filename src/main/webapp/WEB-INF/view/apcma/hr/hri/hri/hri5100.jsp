@@ -173,6 +173,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["구분"],		ref: 'GUBUN', 			type:'output',  	width:'154px',  	style:'text-align:left'},
             {caption: ["년초"], 		ref: 'CNT',    	        type:'output',  	width:'75px',  	    style:'text-align:left'},

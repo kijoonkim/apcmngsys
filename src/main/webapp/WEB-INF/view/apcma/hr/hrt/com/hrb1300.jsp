@@ -279,6 +279,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], 		ref: 'SEQ',   	type:'output', style:'text-align:center' ,width: '46px'},
             {caption: ["구분"], 	        ref: 'CALENDAR_TYPE',    	    type:'combo',  	width:'68px',  	style:'text-align:left',

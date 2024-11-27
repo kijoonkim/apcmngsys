@@ -793,6 +793,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["급여항목구분"],           ref: 'PAY_ITEM_CATEGORY', 		        type:'combo',  	width:'100px', style:'text-align:left',
                 typeinfo: {
@@ -972,6 +973,7 @@
 
         gvwMaster = _SBGrid.create(SBGridProperties);
         gvwMaster.bind('click', 'fn_view');
+        gvwMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwExceptGrid() {
@@ -1036,9 +1038,16 @@
         });
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         SBUxMethod.attr("PAY_ITEM_CODE", "readonly", true);
         var nRow = gvwMaster.getRow();
+        if(nRow < 1) return;
         var rowData = gvwMaster.getRowData(nRow);
 
         if(gfn_nvl(rowData) == "") return;
