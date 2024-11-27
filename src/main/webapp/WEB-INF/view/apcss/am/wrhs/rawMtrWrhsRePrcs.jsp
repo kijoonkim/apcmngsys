@@ -40,15 +40,30 @@
 						text="초기화"
 						onclick="fn_reset"
 					></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_search"
+						text="조회"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
-				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-				<sbux-input id="srch-inp-unitWght" name="srch-inp-unitWght" uitype="hidden"></sbux-input>
+				<sbux-input
+						id="srch-inp-prdcrCd"
+						name="srch-inp-prdcrCd"
+						uitype="hidden"
+				></sbux-input>
+				<sbux-input
+						id="srch-inp-unitWght"
+						name="srch-inp-unitWght"
+						uitype="hidden"
+				></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -57,10 +72,12 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 3%">
@@ -70,10 +87,26 @@
 						<tr style="border-top: hidden">
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)" callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdFrom','srch-dtp-wrhsYmdTo')"></sbux-datepicker>
+								<sbux-datepicker
+										id="srch-dtp-wrhsYmdFrom"
+										name="srch-dtp-wrhsYmdFrom"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+										onchange="fn_dtpChange(this)"
+										callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdFrom','srch-dtp-wrhsYmdTo')"
+								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)" callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdTo','srch-dtp-wrhsYmdFrom')"></sbux-datepicker>
+								<sbux-datepicker
+										id="srch-dtp-wrhsYmdTo"
+										name="srch-dtp-wrhsYmdTo"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+										onchange="fn_dtpChange(this)"
+										callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdTo','srch-dtp-wrhsYmdFrom')"
+								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -302,7 +335,14 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
+						<sbux-button 
+							id="btnSave" 
+							name="btnSave" 
+							uitype="normal" 
+							class="btn btn-sm btn-outline-dark" 
+							onclick="fn_save" 
+							text="저장"
+						></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -315,7 +355,15 @@
 	</section>
 
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal
+				id="modal-prdcr"
+				name="modal-prdcr"
+				uitype="middle"
+				header-title="생산자 선택"
+				body-html-id="body-modal-prdcr"
+				footer-is-close-button="false"
+				style="width:1000px"
+		></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
@@ -346,6 +394,11 @@
 	}
 
 	/* SB Select */
+	var jsonApcAtrb			= [];
+	const _FIXED_WGHT_CNTNR_ = "FIXED_WGHT_CNTNR";
+	let fixedWghtCntr = 0;
+
+
 	var jsonApcItem			= [];	// 품목 		itemCd
 	var jsonApcVrty			= [];	// 품종 		vrtyCd
 	var jsonComWarehouse	= [];	// 창고		WAREHOUSE_SE_CD
@@ -407,11 +460,19 @@
 		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
 
 		let result = await Promise.all([
+				gfn_getComCdDtls('APC_ATRB', gv_selectedApcCd),
 				fn_initSBSelect(),
 				fn_getPrdcrs(),
 				fn_getComJson(),
 			 	fn_getStdGrd()
 			]);
+		jsonApcAtrb = result[0];
+
+		for ( let codeObj of jsonApcAtrb ) {
+			if (_.isEqual(codeObj.cdVl, _FIXED_WGHT_CNTNR_)) {
+				fixedWghtCntr = codeObj.cdNumVl;
+			}
+		}
 
 		fn_createGridRawMtrInvntr();
 		fn_createGridRawMtrRePrcs();
@@ -456,18 +517,81 @@
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-        	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'10%', style: 'text-align:center',
-            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
+        	{
+            	caption: ["입고일자","입고일자"],		
+            	ref: 'wrhsYmd',			
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center',
+            	format : {
+            		type:'date', 
+            		rule:'yyyy-mm-dd', 
+            		origin:'yyyymmdd'
+            	}
             },
-            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'10%', style: 'text-align:center'},
-            {caption: ["톤백수량","원물재고"],  		ref: 'invntrQntt',   	type:'output',  width:'13%', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
+            {
+            	caption: ["생산자","생산자"],    	
+            	ref: 'prdcrNm',     	
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["품목","품목"],	    	
+            	ref: 'itemNm',   		
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["품종","품종"],	    	
+            	ref: 'vrtyNm',   		
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["등급","등급"],	    	
+            	ref: 'grdNm',   		
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["상품구분","상품구분"],		
+            	ref: 'gdsSeNm', 		
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["창고","창고"],	    	
+            	ref: 'warehouseSeNm', 	
+            	type:'output',  
+            	width:'10%', 
+            	style: 'text-align:center'
+            },
+            {
+            	caption: ["톤백수량","원물재고"],  		
+            	ref: 'invntrQntt',   	
+            	type:'output',  
+            	width:'13%', 
+            	style: 'text-align:right', 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}, 
+            	typeinfo : {
+            		mask : {alias : 'numeric'}
+            	}
+            },
             // {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'8%', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["톤백수량","투입"], 			ref: 'inptQntt',  		type:'input',  width:'13%', style: 'text-align:right;background-color:#FFF8DC;',
+            {
+            	caption: ["톤백수량","투입"], 			
+            	ref: 'inptQntt',  		
+            	type:'input',  
+            	width:'13%', 
+            	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -560,16 +684,32 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
-        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'5%', style: 'text-align:center',
+        	{
+        		caption: ["처리"], 		
+        		ref: 'itemCd', 		
+        		type:'button', 
+        		width:'5%', 
+        		style: 'text-align:center',
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if (gfn_isEmpty(strValue)){
 	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
 	            	} else {
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 					}
-		    }},
-            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'6%', style: 'text-align:center',
-            	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
+		    	}
+        	},
+            {
+        		caption: ["품목"], 		
+        		ref: 'itemCd',		
+        		type:'combo',  
+        		width:'6%', 
+        		style: 'text-align:center',
+            	typeinfo: {
+            		ref:'jsonApcItem', 
+            		label:'label', 
+            		value:'value', 
+            		displayui : false
+            	}
             },
             {
             	caption: ["품종"], 		
@@ -730,7 +870,6 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd").slice(4,8);				// 품종
-
 
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
@@ -932,8 +1071,12 @@
 			const warehouseSeCd = rowData.warehouseSeCd;
 			const pltno = rowData.pltno;
 			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
-			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
-			
+			let wrhsWght = parseInt(rowData.wrhsWght) || 0;
+
+			if (fixedWghtCntr > 0 && wrhsWght < fixedWghtCntr) {
+				wrhsWght = fixedWghtCntr;
+			}
+
 			const avg = wrhsWght / wrhsQntt;
 						
 			if (gfn_isEmpty(itemCd)) {
@@ -996,8 +1139,7 @@
 					grdCd: grdCd
 				}
 
-
-				if (_.isEqual(stdGrdType, "WT")) {
+				if (_.isEqual(stdGrdType, "WT") || _.isEqual(stdGrdType, "QT")) {
 					cntWt++;
 					/** 여기 중량을 수량으로 바꿔야함. 그리고 중량 위쪽 그리드 중량 땡겨와서 단량 측정후에
 					 * 일단은 수량대비 중량 보여준뒤에 수정가능하게 > 뒤쪽 validation 체크해야함. **/
@@ -1015,11 +1157,6 @@
 					
 					stdGrd.grdCd = "";
 
-
-					// if (gfn_isEmpty(grdCd)) {
-					// 	grdCd = "*";
-					// }
-					
 					grdQnttSum += stdGrd.grdQntt;
 
 				} else {
@@ -1037,6 +1174,8 @@
 
 				stdGrdList.push(stdGrd);
 			});
+
+			console.log("stdGrdList", stdGrdList);
 
 			// wrhsQntt += grdQnttSum;
 			if (cntGrdError > 0) {
@@ -1076,7 +1215,7 @@
 			totalWrhsWght += wrhsWght;
    		}
 
-		if (rawMtrRePrcsList.length == 0) {
+		if (rawMtrRePrcsList.length === 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
@@ -1364,18 +1503,27 @@
 					break;
 				case "stdGrdWght":
 					let grdWghtSum = 0;
-					let grdQntt = 0;
+					let grdQnttSum = 0;
  					gjsonStdGrdObjKnd.forEach((item, index) => {
 						if (_.isEqual(item.stdGrdType, "RT")) {
 							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
 							grdWghtSum += parseInt(rowData[colNm]) * qnttWghtAvg || 0;
-							grdQntt += parseInt(rowData[colNm]) || 0;
+							grdQnttSum += parseInt(rowData[colNm]) || 0;
+						} else if (_.isEqual(item.stdGrdType, "QT")) {
+							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
+							grdWghtSum += parseInt(rowData[colNm]) * qnttWghtAvg || 0;
+							grdQnttSum += parseInt(rowData[colNm]) || 0;
 						}
 				  	});
+
+					if (fixedWghtCntr > 0 && grdWghtSum < fixedWghtCntr) {
+						grdWghtSum = fixedWghtCntr;
+					}
+
 					fn_setPrcsInfo();
 
 					rowData.wrhsWght = grdWghtSum;
-					rowData.wrhsQntt = grdQntt;
+					rowData.wrhsQntt = grdQnttSum;
 					grdRawMtrRePrcs.refresh();
 
 					let wght = 0;
@@ -1390,6 +1538,7 @@
 					SBUxMethod.set("lbl-grdInptQntt",""+qntt);
 					SBUxMethod.set("lbl-grdInptWght",""+wght);
  					break;
+
 				default:
 					return;
 			}

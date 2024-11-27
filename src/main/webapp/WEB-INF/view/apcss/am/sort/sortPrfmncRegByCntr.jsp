@@ -76,10 +76,24 @@
 						<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker
+										id="srch-dtp-wrhsYmdFrom"
+										name="srch-dtp-wrhsYmdFrom"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+										onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
+								<sbux-datepicker
+										id="srch-dtp-wrhsYmdTo"
+										name="srch-dtp-wrhsYmdTo"
+										uitype="popup"
+										date-format="yyyy-mm-dd"
+										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+										onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
+								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -242,7 +256,6 @@
 										id="dtl-inp-inptWght"
 										name="dtl-inp-inptWght"
 										class="form-control input-sm"
-	<%--									maxlength="6"--%>
 										autocomplete="off"
 										readonly
 										mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
@@ -254,7 +267,6 @@
 											id="dtl-inp-actlWght"
 											name="dtl-inp-actlWght"
 											class="form-control input-sm input-sm-ast"
-									<%--									maxlength="6"--%>
 											autocomplete="off"
 											mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									/>
@@ -265,7 +277,6 @@
 											id="dtl-inp-sortWght"
 											name="dtl-inp-sortWght"
 											class="form-control input-sm input-sm-ast"
-									<%--									maxlength="6"--%>
 											autocomplete="off"
 											readonly
 											mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
@@ -277,7 +288,6 @@
 											id="dtl-inp-lossWght"
 											name="dtl-inp-lossWght"
 											class="form-control input-sm input-sm-ast"
-									<%--									maxlength="6"--%>
 											autocomplete="off"
 											readonly
 											mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
@@ -499,6 +509,10 @@
 	var jsonRawMtrInvntr = [];
     var jsonSortPrfmnc = [];
 
+	/**
+	 * @name fn_initSBSelect
+	 * @description 공통 Data 설정
+	 */
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let result = await Promise.all([
@@ -1018,6 +1032,7 @@
 
   	      	if (!_.isEqual("S", data.resultStatus)) {
   	      		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+				return;
 	      	}
 
           	/** @type {number} **/
@@ -1079,11 +1094,7 @@
           		}
 
           		jsonRawMtrInvntr.push(rawMtrInvntr);
-				/*
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-				 */
+
   			});
 
           	grdRawMtrInvntr.rebuild();
@@ -1111,7 +1122,10 @@
      */
 	const fn_search = async function() {
 
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))) {
+		if (
+				gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom"))
+				||
+				gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))) {
     		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
