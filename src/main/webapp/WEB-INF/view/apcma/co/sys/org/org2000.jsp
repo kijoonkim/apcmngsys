@@ -94,7 +94,7 @@
 	                </table>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -112,7 +112,7 @@
 						title-target-id-array="INFO^MNG"
 						title-text-array="기본정보^관리항목">
 					</sbux-tabs>
-                    <div class="col-sm-6 tab-content">
+                    <div class="col-sm-8 tab-content">
                         <div id="INFO" style="height:95vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
@@ -582,7 +582,7 @@
 	    SBGridProperties.jsonref 			= 'jsonMasterTreeList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.explorerbar 		= 'move';
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -596,8 +596,8 @@
         SBGridProperties.columns = [
             {caption : ["부서명"],			ref: 'DEPT_NAME', 		type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption : ["부서코드"],			ref: 'DEPT_CODE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["사업장"],			ref: 'SITE_NAME',		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption : ["정렬순서"],			ref: 'SORT_SEQ',		type:'output',  	width:'200px',  	style:'text-align:right'},
+            {caption : ["사업장"],			ref: 'SITE_NAME',		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption : ["정렬순서"],			ref: 'SORT_SEQ',		type:'output',  	width:'100px',  	style:'text-align:right'},
             {caption : ['적용시작일'],     	ref: 'START_DATE',      type:'datepicker' ,   
             	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'
             },

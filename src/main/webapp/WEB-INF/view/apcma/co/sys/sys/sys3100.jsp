@@ -87,7 +87,7 @@
             </table>
         </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li>
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li><span>세부정보</span></li>
@@ -322,13 +322,13 @@
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["소수유형명"], ref: 'DECIMAL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '35%', style: 'text-align:left'},
+            {caption: ["소수유형명"], ref: 'DECIMAL_NAME', type: 'output', width: '35%', style: 'text-align:left'},
             //{caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'input', width: '20%', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {
-                caption: ["사용여부"], ref: 'USE_YN', type: 'checkbox', width: '130px', style: 'text-align:center',
+                caption: ["사용여부"], ref: 'USE_YN', type: 'checkbox', width: '10%', style: 'text-align:center',
                 typeinfo: {
                     ignoreupdate: true,
                     fixedcellcheckbox: {
@@ -340,7 +340,7 @@
                     uncheckedvalue: 'N'
                 }, disabled: true,
             },
-            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', disabled: true}//스타일상 빈값
+            {caption: [""], ref: 'empty', type: 'output', width: '0%', style: 'text-align:left', disabled: true}//스타일상 빈값
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);

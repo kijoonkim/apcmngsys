@@ -156,9 +156,9 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//지역
-			gfnma_setComSelect(['nationGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//통화
-			gfnma_setComSelect(['nationGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -170,18 +170,18 @@
     });
 
     //grid 초기화
-    var nationGrid; 			// 그리드를 담기위한 객체 선언
-    var jsonNationList = []; 	// 그리드의 참조 데이터 주소 선언
+    var masterGrid; 			// 그리드를 담기위한 객체 선언
+    var jsonMasterList = []; 	// 그리드의 참조 데이터 주소 선언
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdCom3100';
-	    SBGridProperties.id 				= 'nationGrid';
-	    SBGridProperties.jsonref 			= 'jsonNationList';
+	    SBGridProperties.id 				= 'masterGrid';
+	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-	    //SBGridProperties.explorerbar 		= 'sort';
-	    //SBGridProperties.useinitsorting 	= true;
-	    //SBGridProperties.oneclickedit 	= true;
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
+	    SBGridProperties.oneclickedit 		= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -212,7 +212,7 @@
             {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'},
             {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'}
         ];
-        nationGrid = _SBGrid.create(SBGridProperties);
+        masterGrid = _SBGrid.create(SBGridProperties);
     }
 
 	
@@ -239,7 +239,7 @@
     	// form clear
     	fn_clearForm();
 
-		nationGrid.clearStatus();
+		masterGrid.clearStatus();
 
 		let NATION_CODE	= gfn_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
 		let NATION_NAME	= gfn_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
@@ -269,7 +269,7 @@
   			if (_.isEqual("S", data.resultStatus)) {
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-  	        	jsonNationList.length = 0;
+  	        	jsonMasterList.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						NATION_CODE				: item.NATION_CODE,
@@ -283,10 +283,10 @@
   						SORT_SEQ				: item.SORT_SEQ,
   						USE_YN 					: item.USE_YN
   					}
-  					jsonNationList.push(msg);
+  					jsonMasterList.push(msg);
   					totalRecordCount ++;
   				});
-  	        	nationGrid.rebuild();
+  	        	masterGrid.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
         	} else {
           		alert(data.resultMessage);
@@ -307,7 +307,7 @@
     }
 
     const fn_clearForm = function() {
-    	jsonNationList = [];
+    	jsonMasterList = [];
     }
 
     //저장
@@ -318,14 +318,14 @@
     }
 
     const fn_save = async function (){
-        let nationGridLength 		= nationGrid.getUpdateData(true, 'all').length;
-        let nationGridUpdateData 	= nationGrid.getUpdateData(true, 'all');
-        if(nationGridLength <= 0){
+        let masterGridLength 		= masterGrid.getUpdateData(true, 'all').length;
+        let masterGridUpdateData 	= masterGrid.getUpdateData(true, 'all');
+        if(masterGridLength <= 0){
         	gfn_comAlert('W0003', '저장'); //W0003 {0}할 대상이 없습니다.
         	return;
         }
         let listData = [];
-        nationGridUpdateData.forEach((item, index) => {
+        masterGridUpdateData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',
@@ -377,23 +377,23 @@
 
     // 행 추가
     const fn_addRow = function () {
-        let rowVal = nationGrid.getRow();
+        let rowVal = masterGrid.getRow();
 	   	//데이터가 없고 행선택이 없을경우.
         if (rowVal == -1){ 
-        	nationGrid.addRow(true);
+        	masterGrid.addRow(true);
         }else{
-        	nationGrid.insertRow(rowVal);
+        	masterGrid.insertRow(rowVal);
         }
     }
 
     // 행 삭제
     const fn_delRow = async function () {
-        let rowVal = nationGrid.getRow();
+        let rowVal = masterGrid.getRow();
         if (rowVal == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-        	nationGrid.deleteRow(rowVal);
+        	masterGrid.deleteRow(rowVal);
         }
     }
     
@@ -403,10 +403,10 @@
         $('#btnCopyLine').show();
         $('#btnCopyCell').hide();
 
-        let data = nationGrid.getGridDataAll();
-        jsonNationList = [];
+        let data = masterGrid.getGridDataAll();
+        jsonMasterList = [];
 		mode = 'byrow'; //행 단위 단일  선택
-        fn_drawNationGrid(mode, data, true);
+        fn_drawMasterGrid(mode, data, true);
 
     }
     
@@ -416,11 +416,11 @@
         $('#btnCopyLine').hide();
         $('#btnCopyCell').show();
 
-        let data = nationGrid.getGridDataAll();
-        jsonNationList = [];
+        let data = masterGrid.getGridDataAll();
+        jsonMasterList = [];
 
 		mode = 'byrows'; //행 단위 다중 선택
-		fn_drawNationGrid(mode, data, true);
+		fn_drawMasterGrid(mode, data, true);
 
     }
     
@@ -430,18 +430,18 @@
         $('#btnCopyLine').hide();
         $('#btnCopyCell').hide();
         
-        let data = nationGrid.getGridDataAll();
-        jsonNationList = [];
+        let data = masterGrid.getGridDataAll();
+        jsonMasterList = [];
 	 
         mode = 'free'; //셀 단위 다중 선택
-        fn_drawNationGrid(mode, data, true);
+        fn_drawMasterGrid(mode, data, true);
     }
     
-    function fn_drawNationGrid(mode, data, copymode) {
+    function fn_drawMasterGrid(mode, data, copymode) {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdCom3100';
-	    SBGridProperties.id 				= 'nationGrid';
-	    SBGridProperties.jsonref 			= 'jsonNationList';
+	    SBGridProperties.id 				= 'masterGrid';
+	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= mode;
         SBGridProperties.allowcopy 			= copymode;
@@ -477,9 +477,9 @@
             {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'},
             {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'}
         ];
-        jsonNationList = [];
-        _SBGrid.destroy('nationGrid');
-        nationGrid = _SBGrid.create(SBGridProperties);
+        jsonMasterList = [];
+        _SBGrid.destroy('masterGrid');
+        masterGrid = _SBGrid.create(SBGridProperties);
         
         data.forEach((item, index) => {
 			const msg = {
@@ -494,9 +494,9 @@
 					SORT_SEQ				: item.SORT_SEQ,
 					USE_YN 					: item.USE_YN
 			}
-			jsonNationList.push(msg);
+			jsonMasterList.push(msg);
 		});
-		nationGrid.rebuild();
+		masterGrid.rebuild();
     }
     
     

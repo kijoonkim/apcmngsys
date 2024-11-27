@@ -575,10 +575,10 @@
 	}
 	
 	const fn_createSubGrid = async function(){
-	    //조직도 편집 
+	    //조직도 편집  
 	    var SBSubGridProperties = {};
 	    SBSubGridProperties.parentid = 'sb-area-subGrdOrg2100';
-	    SBSubGridProperties.id = 'subTreeGrid';
+	    SBSubGridProperties.id = '';
 	    SBSubGridProperties.jsonref = 'jsonSubTreeList';
 	    SBSubGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBSubGridProperties.selectmode = 'byrow';
@@ -961,6 +961,7 @@
     	
     	let SITE_CODE = gfnma_multiSelectGet("#SITE_CODE1");
     	let DEPT_CODE = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+    	let PARENT_DEPT = gfn_nvl(SBUxMethod.get("PARENT_DEPT"));
     	let DEPT_NAME = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
     	let SORT_SEQ  = gfn_nvl(SBUxMethod.get("SORT_SEQ"));
     	let CHANGE_DATE  = gfn_nvl(SBUxMethod.get("CHANGE_DATE"))
@@ -991,7 +992,12 @@
         } else if( gfn_nvl($('#DEPT_CODE').attr('readonly')) == "" && gfn_nvl(workType) == ""){
         	workType = 'N';
         }
-    	
+        
+        let subTreeGridData =  subTreeGrid.getGridDataAll();
+       	if(DEPT_CODE == PARENT_DEPT){
+       		gfn_comAlert('E0000', '부서코드와 상위부서 코드가 동일합니다.');
+       		return;
+       	}
         var paramObj = {
        		   V_P_DEBUG_MODE_YN       : ""
    			  ,V_P_LANG_ID             : ""
@@ -1004,7 +1010,7 @@
    			  ,V_P_DEPT_NAME_FOR       : gfn_nvl(SBUxMethod.get("DEPT_NAME_FOR"))
    			  ,V_P_DEPT_ABBR_NAME      : gfn_nvl(SBUxMethod.get("DEPT_ABBR_NAME"))
    			  ,V_P_SITE_CODE           : SITE_CODE
-   			  ,V_P_PARENT_DEPT         : gfn_nvl(SBUxMethod.get("PARENT_DEPT"))
+   			  ,V_P_PARENT_DEPT         : PARENT_DEPT
    			  ,V_P_DEPT_LEADER         : gfn_nvl(SBUxMethod.get("DEPT_LEADER"))
    			  ,V_P_DEPT_CATEGORY       : gfnma_multiSelectGet("#DEPT_CATEGORY")  
    			  ,V_P_LABOR_COST_GROUP    : gfnma_multiSelectGet("#LABOR_COST_GROUP")  
