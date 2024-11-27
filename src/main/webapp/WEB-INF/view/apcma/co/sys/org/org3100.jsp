@@ -154,7 +154,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>원가중심점 리스트</span>
+                                    <span>◎ 원가중심점 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -182,26 +182,8 @@
 									<col style="width:10%">
 								</colgroup>
 								<tr>
-									<th scope="row" class="th_bg">법인</th>
-									<td class="td_input" style="border-right: hidden;" colspan="3">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left;" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="COMP_CODE" 
-												aria-haspopup="true" 
-												aria-expanded="false"
-												readonly>
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=COMP_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>                                    
-									</td>	                                    
 									<th scope="row" class="th_bg">APC</th>
-									<td class="td_input" style="border-right: hidden;" colspan="3">
+									<td class="td_input" style="border-right: hidden;" colspan="7">
 										<div class="dropdown">
 											<button 
 												style="width:160px;text-align:left" 
@@ -242,7 +224,7 @@
 									</td>
 								</tr> 
 								<tr>
-									<th scope="row" class="th_bg">상위원가중심점</th>
+									<th scope="row" class="th_bg">본지점계정</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="PARENT_COST_CENTER" class="form-control input-sm" ></sbux-input>
 									</td>
@@ -619,26 +601,6 @@
 				]
 			}),
 		    
-		    //법인
-			gfnma_multiSelectInit({
-				target			: ['#COMP_CODE']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",		ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'100px',  	style:'text-align:left'},
-				]
-			}),
-		    
 			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
@@ -831,6 +793,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -851,7 +814,7 @@
             		style : 'text-align:center',
             		disabled : true
             },
-            {caption : ["상위원가중심점명"],	ref: 'PARENT_COST_CENTER',		type:'output',  	width:'200px',  	style:'text-align:center'},
+            {caption : ["본지점계정명"],	ref: 'PARENT_COST_CENTER',		type:'output',  	width:'200px',  	style:'text-align:center'},
             {caption : ["부서코드"],			ref: 'DEPT_CODE',		type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption : ["부서명"],			ref: 'DEPT_NAME',		type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption: ['예산관리여부'],   		ref: 'BUDGET_YN',		type:'checkbox',	width: '80px', 
@@ -867,8 +830,13 @@
         ];
         masterTreeGrid	= _SBGrid.create(SBGridProperties);
         masterTreeGrid.bind('click', 'fn_viewSubTable');
+        masterTreeGrid.bind('keyup', 'fn_keyup');
     }
-    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_viewSubTable();
+    	}
+    }
     /**
      * 코드목록 조회
      */
@@ -1000,7 +968,6 @@
     	SBUxMethod.set("BUDGET_YN", 				"N");
     	SBUxMethod.set("DOC_INPUT_YN", 				"N");
 
-    	gfnma_multiSelectSet("#COMP_CODE", 			"", "", "");
     	gfnma_multiSelectSet("#FI_ORG_CODE", 		"", "", "");
     	gfnma_multiSelectSet("#COST_CLASS", 		"", "", "");
     	gfnma_multiSelectSet("#DIV_CODE", 			"", "", "");
@@ -1271,7 +1238,6 @@
 	        	SBUxMethod.set("BUDGET_YN", 				gfn_nvl(obj.BUDGET_YN));
 	        	SBUxMethod.set("DOC_INPUT_YN", 				gfn_nvl(obj.DOC_INPUT_YN));
 	        	
-	        	gfnma_multiSelectSet("#COMP_CODE", 			"COMP_CODE", "COMP_NAME", gfn_nvl(obj.COMP_CODE));
 	        	gfnma_multiSelectSet("#FI_ORG_CODE", 		"FI_ORG_CODE", "FI_ORG_NAME", gfn_nvl(obj.FI_ORG_CODE));
 	        	gfnma_multiSelectSet("#COST_CLASS", 		"SUB_CODE", "CODE_NAME", gfn_nvl(obj.COST_CLASS));
 	        	gfnma_multiSelectSet("#DIV_CODE", 			"SUB_CODE", "CODE_NAME", gfn_nvl(obj.DIV_CODE));
@@ -1295,14 +1261,14 @@
     }
 	/**
 	 * 공통팝업
-	 * 상위원가중심점 공통팝업
+	 * 본지점계정 공통팝업
 	 */
     var fn_compopupParent = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'" + "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%'" + "AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({

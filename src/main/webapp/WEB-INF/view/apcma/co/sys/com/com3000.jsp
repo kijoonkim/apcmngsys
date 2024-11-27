@@ -94,70 +94,6 @@
 	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                        </tr>
-	                        <tr>
-		                        <th scope="row" class="th_bg_search">datepicker 테스트</th>
-	                            <td class="td_input"  style="border-right:hidden;">
-	                                <sbux-datepicker id="TEST_DATE" name="TEST_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
-	                            </td>
-	                            <td colspan="3"></td>
-		                        <th scope="row" class="th_bg_search">datepicker reqed 테스트</th>
-	                            <td class="td_input"  style="border-right:hidden;">
-	                                <sbux-datepicker id="TEST_DATE1" name="TEST_DATE1" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
-	                            </td>	
-	                            <td colspan="3"></td>	                        
-	                        </tr>
-	                        <tr>
-	                        	<th scope="row" class="th_bg_search">라디오버튼 테스트</th>
-                                <td class="td_input " colspan="3">
-									<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" text="차변" uitype="normal" value="D" class="radio_label" checked></sbux-radio>
-									<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" text="대변" uitype="normal" value="C" class="radio_label"></sbux-radio>
-								</td>	                        
-								<td></td>
-	                        	<th scope="row" class="th_bg_search">셀렉트 테스트</th>
-                                <td class="td_input" colspan="3">
-				                    <sbux-select
-				                            id="SRCH_PAY_DATE"
-				                            uitype="single"
-				                            jsondata-ref="selectJsonData"
-				                            unselected-text="선택"
-				                            class="form-control input-sm"
-				                    </sbux-select>
-								</td>
-								<td></td>                        
-	                        	<th scope="row" class="th_bg_search">셀렉트 테스트 reqed</th>
-                                <td class="td_input" colspan="3">
-				                    <sbux-select
-				                            id="SRCH_PAY_DATE1"
-				                            uitype="single"
-				                            jsondata-ref="selectJsonData"
-				                            unselected-text="선택"
-				                            class="form-control input-sm inpt_data_reqed"
-				                            required
-				                    </sbux-select>                                
-								</td>	
-								<td></td>                        
-	                        </tr>
-	                        <tr>
-								<th scope="row" class="th_bg_search">팝업 테스트</th>
-								<td class="td_input" >
-	   								<sbux-input uitype="text" id="BUDGET_ACC_CODE" class="form-control input-sm" ></sbux-input>
-								</td>
-								<td class="td_input"  colspan="2">
-									<sbux-input uitype="text" id="BUDGET_ACC_NAME" class="form-control input-sm" ></sbux-input>
-								</td>
-	                            <td class="td_input">
-									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBudgetAcc" ></sbux-button>
-	                            </td>	                        
-								<th scope="row" class="th_bg_search">datepicker 2개 테스트</th>
-								<td class="td_input" >
-	                                <sbux-datepicker id="TEST_DATE3" name="TEST_DATE3" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
-								</td>
-								<td>~</td>
-								<td class="td_input" >
-	                                <sbux-datepicker id="TEST_DATE4" name="TEST_DATE4" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
-								</td>
-	                            <td></td>	                        
-	                        </tr>
 	                    </tbody>
 	                </table>
                 </div>
@@ -166,7 +102,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 공통코드 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -584,6 +520,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -594,7 +531,13 @@
         ];
         CMNSCDGrid	= _SBGrid.create(SBGridProperties);
         CMNSCDGrid.bind('click', 'fn_view');
-
+        CMNSCDGrid.bind('keyup', 'fn_keyup');
+    }
+    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
     }
     
     var CMNSCDSubGrid; 				// 세부코드 정보 그리드를 담기위한 객체 선언

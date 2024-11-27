@@ -93,7 +93,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 관리항목 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -426,6 +426,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -436,6 +437,13 @@
         ];
         MNGARTCLGrid	= _SBGrid.create(SBGridProperties);
         MNGARTCLGrid.bind('click', 'fn_view');
+        MNGARTCLGrid.bind('keyup', 'fn_keyup');
+    }
+    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
     }
     
     var MNGARTCLSubGrid; 				// 세부코드 정보 그리드를 담기위한 객체 선언

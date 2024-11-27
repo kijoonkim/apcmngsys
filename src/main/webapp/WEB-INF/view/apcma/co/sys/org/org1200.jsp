@@ -391,6 +391,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;	
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -403,7 +404,15 @@
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_viewSubTable');
+        masterGrid.bind('keyup', 'fn_keyup');
     }
+    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_searchSubTable();
+    	}
+    }
+    
     function fn_createDetailGrid() {
     	//코드목록 
         var SBGridProperties 				= {};

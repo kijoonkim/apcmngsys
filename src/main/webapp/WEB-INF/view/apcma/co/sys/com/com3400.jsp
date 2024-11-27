@@ -26,27 +26,27 @@
 	<title>title : 거래처 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-<!-- 	<style>     -->
-<!--  			body{  -->
-<!--  				zoom: 0.9 !important;      -->
-<!--  			}  -->
-<!-- 	</style> -->
+    <style>
+		.table-search-ma > tbody > tr > th {
+ 			padding-top : 0px; 
+ 			padding-bottom : 0px; 
+ 			padding-left : 0px;
+		}
+		.table-search-ma > tbody > tr > td {
+			padding: 0px;;
+		}
+    </style>
 </head>
 <body oncontextmenu="return false">
     <section>
         <div class="box box-solid">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div class="box-header" style="display:flex; justify-content: flex-start; padding-bottom:0px;">
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3>
                 </div>
                 <div style="margin-left: auto;">
-                </div>
-            </div>
-            <div class="box-body">
-                <!-- 거래처 정보 버튼 모음-->
-				<div id="divBtn" style="display:flex;margin-bottom:5px;">
 					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -55,27 +55,20 @@
 					<sbux-button id="btnErrorSearch" name="btnErrorSearch" uitype="normal" text="오류 조회" class="btn btn-sm btn-outline-danger" onclick="fn_errorSearch" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnList" name="btnList" uitype="normal" text="리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_list" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnOld" name="btnOld" uitype="normal" text="이력 조회" class="btn btn-sm btn-outline-danger" onclick="fn_old" style="float: right;margin-right:1rem;" ></sbux-button>
-				</div>
-            	<div class="box-search-ma">
-	                <!--[pp] 검색 -->
-					<!--[APC] START -->
-						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-					<!--[APC] END -->
-	                <table class="table table-bordered tbl_fixed table-search-ma">
-	                    <caption>검색 조건 설정</caption>
-	                    <colgroup>
+                </div>
+            </div>
+			<div class="box-body">
+				<div class="box-search-ma">
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+						<caption>검색 조건 설정</caption>
+						<colgroup>
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-	
-							<col style="width: 8%">
-							<col style="width: 7%">
-							<col style="width: 1%">
-							<col style="width: 7%">
-							<col style="width: 2%">
-							
+
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -87,1056 +80,1063 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-	                    </colgroup>
-	                    <tbody>
-	                        <tr>
-	                            <th scope="row" class="th_bg_search">거래처유형</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-									<div class="dropdown">
-									    <button 
-									    	style="width:160px;text-align:left" 
-									    	class="btn btn-sm btn-light dropdown-toggle " 
-									    	type="button"
-									    	id="SRCH_CS_GROUP_P" 
-									    	data-toggle="dropdown" 
-									    	aria-haspopup="true" 
-									    	aria-expanded="false">
-									    	<font>선택</font>
-									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-									    </button>
-									    <div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
-									    </div>
-									</div>                                
-	                            </td>
-	                            <td></td>
-	                            <th scope="row" class="th_bg_search">사업자번호</th>
-	                            <td class="td_input" colspan="3" style="border-right: hidden;">
-									<sbux-input id="SRCH_BIZ_REGNO1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
-	                            </td>
-	                            <td></td>
-	                            <th scope="row" class="th_bg_search">대표자명</th>
-	                            <td class="td_input" colspan="3" style="border-right: hidden;">
-									<sbux-input id="SRCH_CHIEF_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
-	                            </td>
-	                            <td></td>                            
-	                        </tr>
-	                        <tr>
-	                            <th scope="row" class="th_bg_search">거래처구분</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-									<div class="dropdown">
-									    <button 
-									    	style="width:160px;text-align:left" 
-									    	class="btn btn-sm btn-light dropdown-toggle " 
-									    	type="button"
-									    	id="SRCH_CS_TYPE" 
-									    	data-toggle="dropdown" 
-									    	aria-haspopup="true" 
-									    	aria-expanded="false">
-									    	<font>선택</font>
-									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-									    </button>
-									    <div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-									    </div>
-									</div>                              
-	                            </td>
-	                            <td></td>
-	                            <th scope="row" class="th_bg_search">거래처코드</th>
-	                            <td class="td_input" style="border-right:hidden;">
-	                                <sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
-	                            </td>
-								<td>~</td>
-	                            <td style="border-right: hidden;">
-	                                <sbux-input id="SRCH_CS_CODE_TO" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+							
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg_search">거래처유형</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
+									<div class="dropdown btn-group">
+										<button
+											class="btn btn-sm btn-light dropdown-toggle " 
+											style="width:160px;text-align:left" 
+											type="button"
+											id="SRCH_CS_GROUP_P" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false"
+											data-bs-reference="parent">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>
 								</td>
 								<td></td>
-	                            <th scope="row" class="th_bg_search">거래처명</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-									<sbux-input id="SRCH_CS_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                          
-	                            </td>                            
+								<th scope="row" class="th_bg_search">사업자번호</th>
+								<td class="td_input" colspan="3" style="border-right: hidden;">
+									<sbux-input id="SRCH_BIZ_REGNO1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
+								</td>
 								<td></td>
-	                        </tr>
-	                        <tr>
-	                            <th scope="row" class="th_bg_search">확정여부</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-	                  				<sbux-select id="SRCH_USE_YN1" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            <th scope="row" class="th_bg_search">거래중지여부</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-	                  				<sbux-select id="SRCH_USE_YN2" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                            <th scope="row" class="th_bg_search">삭제여부</th>
-	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-	                  				<sbux-select id="SRCH_DELETE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            <td></td>
-	                        </tr>
-	                        <tr>
-	                            <th scope="row" class="th_bg_search">복수선택</th>
-	                            <td class="td_input" colspan="" style="border-right:hidden;">
+								<th scope="row" class="th_bg_search">대표자명</th>
+								<td class="td_input" colspan="3" style="border-right: hidden;">
+									<sbux-input id="SRCH_CHIEF_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                            
+								</td>
+								<td></td>     
+								<th scope="row" class="th_bg_search">복수선택</th>
+								<td class="td_input" colspan="" style="border-right:hidden;">
 									<sbux-checkbox uitype="normal" id="SRCH_MULTI_YN" class="form-control input-sm check" text="사용여부" true-value="Y" false-value="N"/>
-	                            </td>
-	                            <td style="border-right: hidden;">
-		                        	<sbux-button uitype="normal" text="복수선택 팝업" class="btn btn-sm btn-outline-danger" onclick="fn_multiSelect"></sbux-button>
-	                            </td>
-	                        </tr>                        
-	                    </tbody>
-	                </table>
-	            </div>    
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>◎ 거래처리스트</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div id="sb-area-grdCom3400" style="height:80vh; width:100%;"></div>
-                        </div>
-                    </div>
-                    <div style="display:flex">
-                        <sbux-tabs id="idxTab_detail" name="idxTab_detail" uitype="normal"
-                            is-scrollable="false"
-                            title-target-id-array="tabInfo^tabAddress^tabFinance^tabPurchase^tabSales^tabSalesShipTo^tabSalesCategory^tabTax^tabHistory^tabMapping"
-                            title-text-array="거래처 기본정보 편집^주소/연락처^자금정보^구매정보^판매정보^판매납품처^판매처분류^세금 등^변경이력관리^매핑이력">
-                        </sbux-tabs>   
-                    </div>
-                    <div class="col-sm-8 tab-content">
-                        <div id="tabInfo" style="height:76vh;">
-	                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:10%">
-									<col style="width:10%">
-									<col style="width:15%">
-									<col style="width:10%">
-									<col style="width:15%">
-									<col style="width:10%">
-									<col style="width:15%">
-									<col style="width:15%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">거래처 코드</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input id="CS_CODE" class="form-control input-sm"  uitype="text"  style="width:100%" readonly></sbux-input>
-									</td>	                                    
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="코드확정" true-value="Y" false-value="N"/>
-									</td>	                                    
-									<th scope="row" class="th_bg">약칭</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input id="CS_ABBR_NAME" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-									</td>	                                    
-									<th scope="row" class="th_bg">대표 거래처 코드</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="REF_CS_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-									</td>	                                    
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">거래처명</th>
-									<td class="td_input" colspan="4">
-										<sbux-input id="CS_NAME" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-									</td>
-									<th scope="row" class="th_bg">통화</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle" 
-												type="button"
-												id="CURRENCY_CODE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=CURRENCY_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>   	
-									</td>
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">거래처정식명</th>
-									<td colspan="4" class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="CS_FULLNAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<th id='EMP_TH' scope="row" class="th_bg">사번</th>
-									<td id='EMP_TD' class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="EMP_CODE" class="form-control input-sm" ></sbux-input>
-									</td>	
-									<td id='EMP_BTN'class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
-									</td>								
-								</tr>                                   
-								<tr>
-									<th scope="row" class="th_bg">영문 거래처명</th>
-									<td colspan="4" class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="CS_NAME_ENG" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-									</td>										
-									<td class="td_input" style="border-right: hidden;">
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">거래처유형</th>
-									<td id="TD_CS_GROUP" class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="CS_GROUP" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=CS_GROUP style="width:600px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>
-									</td>
-									<td class="td_input" style="border-right: hidden;text-align:right !important;">
-										<sbux-checkbox uitype="normal" id="FOREIGN_YN" class="form-control input-sm check" text="해외여부" true-value="Y" false-value="N" style="margin-right:1rem;"/>
-									</td>
-									<th scope="row" class="th_bg">금융기관코드</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="BANK_NO_H" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input uitype="text" id="BANK_NAME_H" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
-									</td>
-								</tr>   
-								<tr>
-									<th scope="row" class="th_bg">국가</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle" 
-												type="button"
-												id="NATION_CODE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=NATION_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>                                    
-									</td>
-									<th scope="row" class="th_bg">지역</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle" 
-												type="button"
-												id="REGION_CODE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=REGION_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>  									
-									</td>		
-									<td class="td_input" style="border-right: hidden;">	
-									</td>		
-									<td class="td_input" style="border-right: hidden; text-align:center !important;">	
-										<sbux-checkbox uitype="normal" id="PURCHASE_YN" class="form-control input-sm check" text="매입처여부" true-value="Y" false-value="N"/>
-									</td>		
-									<td class="td_input" style="border-right: hidden;">	
-										<sbux-checkbox uitype="normal" id="SALE_YN" class="form-control input-sm check" text="매출처여부" true-value="Y" false-value="N"/>
-									</td>		
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">법인구분</th>
-									<td class="td_input " colspan="2" id="rdotd">
-										<p class="ad_input_row">
-											<sbux-radio id="BIZ_TYPE1" name="BIZ_TYPE" uitype="normal" value="C" class="radio_label" checked></sbux-radio>
-											<label class="radio_label" for-id="BIZ_TYPE1">법인</label>
-										</p>
-										<p class="ad_input_row">
-											<sbux-radio id="BIZ_TYPE2" name="BIZ_TYPE" uitype="normal" value="P" class="radio_label"></sbux-radio>
-											<label class="radio_label" for-id="BIZ_TYPE2">개인</label>
-										</p>
-									</td>						
-									<th scope="row" class="th_bg">법인번호</th>
-									<td class="td_input" style="border-right: hidden;" >
-										<sbux-input uitype="text" id="COMP_REGNO" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">	
-									</td>										
-									<td class="td_input" style="border-right: hidden;  text-align:center !important;">	
-										<sbux-checkbox uitype="normal" id="RESIDENT_YN" class="form-control input-sm check" text="주민분여부" true-value="Y" false-value="N"/>
-									</td>										
-									<td class="td_input" style="border-right: hidden;">	
-										<sbux-checkbox uitype="normal" id="OSP_YN" class="form-control input-sm check" text="외주사여부" true-value="Y" false-value="N" readonly/>
-									</td>										
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">기업규모</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="COM_TYPE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=COM_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>                                    
-									</td>
-									<th scope="row" class="th_bg">과세유형</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="TAX_TYPE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=TAX_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>                                    
-									</td>
-									<td class="td_input" style="border-right: hidden;text-align:right !important;"><b>기업분류</b></td>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="CS_CATEGORY" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=CS_CATEGORY style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>                                    
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">사업자번호</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input uitype="text" id="BIZ_REGNO" class="form-control input-sm" ></sbux-input>
-									</td>
-									<th scope="row" class="th_bg">종사업장번호</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="SUB_NO" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input hidden-td" style="border-right: hidden; text-align:right !important;"><b>(</b>
-										<sbux-checkbox uitype="normal" id="OSP_YN1" class="form-control input-sm check hidden-check" text="가공업체" true-value="Y" false-value="N"/>
-									</td>									
-									<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
-										<sbux-checkbox uitype="normal" id="OSP_YN2" class="form-control input-sm check hidden-check" text="열처리업체" true-value="Y" false-value="N"/>
-									</td>									
-									<td class="td_input hidden-td" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="OSP_YN3" class="form-control input-sm check hidden-check" text="포장업체 )" true-value="Y" false-value="N"/>
-									</td>									
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">대표자</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm "></sbux-input>
-									</td>
-									<th scope="row" class="th_bg">주민번호</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">	
-									</td>									
-									<td class="td_input hidden-td" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="SHIPPING_YN" class="form-control input-sm check hidden-check" text="해운사여부" true-value="Y" false-value="N"/>
-									</td>									
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">업태</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2" >
-										<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " ></sbux-input>
-									</td>								
-									<th scope="row" class="th_bg">종목</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm " ></sbux-input>
-									</td>								
-									<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
-										<sbux-checkbox uitype="normal" id="TRANSPORT_YN" class="form-control input-sm check hidden-check" text="운송사여부" true-value="Y" false-value="N"/>
-									</td>										
-									<td class="td_input hidden-td" style="border-right: hidden;">	
-										<sbux-checkbox uitype="normal" id="BANKRUPTCY_YN" class="form-control input-sm check hidden-check" text="신용시스템전송여부" true-value="Y" false-value="N"/>
-									</td>										
-								</tr>		
-								<tr>
-									<th scope="row" class="th_bg">지급보류여부</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="DEFER_YN" class="form-control input-sm check" text="예" true-value="Y" false-value="N"/>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:130px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="DEFER_REASON" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=DEFER_REASON style="width:250px;height:200px;padding-top:0px;overflow:auto">
-											</div>
-										</div>   									
-									</td>
-									<th scope="row" class="th_bg">상태</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="STATUS_CODE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=STATUS_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>  									
-									</td>
-									<td class="td_input" style="border-right: hidden;">	
-									</td>
-									<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
-										<sbux-checkbox uitype="normal" id="CARGO_YN" class="form-control input-sm check hidden-check" text="하역사여부" true-value="Y" false-value="N"/>
-									</td>
-									<td class="td_input hidden-td" style="border-right: hidden;">	
-										<sbux-checkbox uitype="normal" id="STEEL_SCRAP_PAY_YN" class="form-control input-sm check hidden-check" text="철스크랩거래여부" true-value="Y" false-value="N"/>
-									</td>
-								</tr>  													
-								<tr>
-									<th scope="row" class="th_bg">거래중지여부</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="TXN_STOP_YN" class="form-control input-sm check" text="예" true-value="Y" false-value="N"/>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:130px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle"
-												type="button"
-												id="TXN_STOP_REASON" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=TXN_STOP_REASON style="width:350px;height:200px;padding-top:0px;overflow:auto">
-											</div>
-										</div>   									
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height: 3.6vh;" placement="top" date-format="yyyy-mm-dd" class="table-datepicker-ma"></sbux-datepicker>
-									</td>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-									</td>
-									<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">
-										<sbux-checkbox uitype="normal" id="LIQUOR_YN" class="form-control input-sm check hidden-check" text="주류업여부" true-value="Y" false-value="N"/>
-									</td>
-									<td class="td_input hidden-td" style="border-right: hidden;">	
-										<sbux-checkbox uitype="normal" id="EXPECTED_CUSTOMER_YN" class="form-control input-sm check hidden-check" text="잠재고객" true-value="Y" false-value="N"/>
-									</td>
-								</tr>
-	                    	</table>
-                    	</div>
-                        <!-- 주소 ~ 매핑이력 - 주소/연락처 -->
-						<div id="tabAddress" style="height:76vh;">
-							<table id="addressTable" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:15%">
-									<col style="width:10%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">우편번호</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input id="ZIP_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="…" class="btn btn-xs btn-outline-dark"></sbux-button>
-									</td>	                                    
-									<th scope="row" class="th_bg">거래시작일</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd"></sbux-datepicker>
-									</td>	                                    
-									<th scope="row" class="th_bg">거래종료일</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd"></sbux-datepicker> 
-									</td>	                                    
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">주소</th>
-									<td class="td_input" style="border-right: hidden;" colspan="6">
-										<sbux-input id="ADDRESS" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-									</td>	
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">대표전화</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	
-									<th scope="row" class="th_bg">팩스</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	                                    
-									<th scope="row" class="th_bg">이메일</th>
-									<td class="td_input" style="border-right: hidden;" colspan="">
-										<sbux-input id="EMAIL_ID" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	 
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">홈페이지</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="WEB_URL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	
-									<th scope="row" class="th_bg">채권채무조회서 Email</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="RESULT1" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	 
-									<td class="td_input" style="border-right: hidden;"></td>	 
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">비고</th>
-									<td class="td_input" style="border-right: hidden;" colspan="6">
-										<sbux-textarea id="MEMO" name="MEMO" uitype="normal" style="width:100%" auto-resize="true"></sbux-textarea>											
-									</td>	
-								</tr> 
-								<tr>
-									<th scope="row" class="th_bg">SAP 고객사코드</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="SAP_CUSTOMER_CODE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									</td>	
-									<th scope="row" class="th_bg">SAP 공급사코드</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input id="SAP_VENDOR_CODE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									
-									</td>	                                    
-									<td class="td_input" style="border-right: hidden;" colspan="2"></td>	 
-								</tr>    										   
-							</table>									
-						</div>
-						<!-- 주소 ~ 매핑이력 - 자금정보 -->
-						<div id="tabFinance" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:ruby;float: right;">
-									<span style="vertical-align:middle; text-align:center;">FBS 서비스</span>
+								</td>
+								<td></td>
+								<td style="border-right: hidden;">
+									<sbux-button uitype="normal" text="복수선택 팝업" class="btn btn-sm btn-outline-danger" onclick="fn_multiSelect"></sbux-button>
+								</td>                       
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg_search">거래처구분</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
 									<div class="dropdown">
 										<button 
 											style="width:160px;text-align:left" 
 											class="btn btn-sm btn-light dropdown-toggle " 
 											type="button"
-											id="FBS_SERVICE" 
+											id="SRCH_CS_TYPE" 
 											data-toggle="dropdown" 
 											aria-haspopup="true" 
 											aria-expanded="false">
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
-										<div class="dropdown-menu" aria-labelledby=FBS_SERVICE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										<div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
 										</div>
-									</div>   			                        	
-									<sbux-button id="btnDelFinanceRow" name="btnDelFinanceRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delFinanceRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnAddFinanceRow" name="btnAddFinanceRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addFinanceRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;padding-right: 3px;"></sbux-button>
-								</div>
-							</div>									
-							<div>
-								<div id="sb-area-grdFinance" style="height:315px; width:100%;"></div>
+									</div>                              
+								</td>
+								<td></td>
+								<th scope="row" class="th_bg_search">거래처코드</th>
+								<td class="td_input" style="border-right:hidden;">
+									<sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>~</td>
+								<td style="border-right: hidden;">
+									<sbux-input id="SRCH_CS_CODE_TO" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+								</td>
+								<td></td>
+								<th scope="row" class="th_bg_search">거래처명</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
+									<sbux-input id="SRCH_CS_NAME1" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>                          
+								</td>                            
+								<td></td>
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg_search">확정여부</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
+									<sbux-select id="SRCH_USE_YN1" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								</td>
+								<td></td>
+								<th scope="row" class="th_bg_search">거래중지여부</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
+									<sbux-select id="SRCH_USE_YN2" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								</td>
+								<td></td>
+								<th scope="row" class="th_bg_search">삭제여부</th>
+								<td class="td_input" colspan="3" style="border-right:hidden;">
+									<sbux-select id="SRCH_DELETE_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>    
+               <div class="row">
+                   <div class="col-sm-4">
+                       <div class="ad_tbl_top">
+                           <ul class="ad_tbl_count">
+                               <li>
+                                   <span>◎ 거래처 리스트</span>
+                                   <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                               </li>
+                           </ul>
+                       </div>
+                       <div>
+                           <div id="sb-area-grdCom3400" style="height:80vh; width:100%;"></div>
+                       </div>
+                   </div>
+                   <div style="display:flex">
+                       <sbux-tabs id="idxTab_detail" name="idxTab_detail" uitype="normal"
+                           is-scrollable="false"
+                           title-target-id-array="tabInfo^tabAddress^tabFinance^tabPurchase^tabSales^tabSalesShipTo^tabSalesCategory^tabTax^tabHistory^tabMapping"
+                           title-text-array="거래처 기본정보 편집^주소/연락처^자금정보^구매정보^판매정보^판매납품처^판매처분류^세금 등^변경이력관리^매핑이력">
+                       </sbux-tabs>   
+                   </div>
+                   <div class="col-sm-8 tab-content">
+                       <div id="tabInfo" style="height:76vh;">
+                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:10%">
+								<col style="width:10%">
+								<col style="width:15%">
+								<col style="width:10%">
+								<col style="width:15%">
+								<col style="width:10%">
+								<col style="width:15%">
+								<col style="width:15%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">거래처 코드</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input id="CS_CODE" class="form-control input-sm"  uitype="text"  style="width:100%" readonly></sbux-input>
+								</td>	                                    
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="코드확정" true-value="Y" false-value="N"/>
+								</td>	                                    
+								<th scope="row" class="th_bg">약칭</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input id="CS_ABBR_NAME" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+								</td>	                                    
+								<th scope="row" class="th_bg">대표 거래처 코드</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="REF_CS_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+								</td>	                                    
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">거래처명</th>
+								<td class="td_input" colspan="4">
+									<sbux-input id="CS_NAME" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+								</td>
+								<th scope="row" class="th_bg">통화</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle" 
+											type="button"
+											id="CURRENCY_CODE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=CURRENCY_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>   	
+								</td>
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">거래처정식명</th>
+								<td colspan="4" class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="CS_FULLNAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<th id='EMP_TH' scope="row" class="th_bg">사번</th>
+								<td id='EMP_TD' class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="EMP_CODE" class="form-control input-sm" ></sbux-input>
+								</td>	
+								<td id='EMP_BTN'class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupEmpCode" ></sbux-button>
+								</td>								
+							</tr>                                   
+							<tr>
+								<th scope="row" class="th_bg">영문 거래처명</th>
+								<td colspan="4" class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="CS_NAME_ENG" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+								</td>										
+								<td class="td_input" style="border-right: hidden;">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">거래처유형</th>
+								<td id="TD_CS_GROUP" class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="CS_GROUP" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=CS_GROUP style="width:600px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>
+								</td>
+								<td class="td_input" style="border-right: hidden;text-align:right !important;">
+									<sbux-checkbox uitype="normal" id="FOREIGN_YN" class="form-control input-sm check" text="해외여부" true-value="Y" false-value="N" style="margin-right:1rem;"/>
+								</td>
+								<th scope="row" class="th_bg">금융기관코드</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="BANK_NO_H" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input uitype="text" id="BANK_NAME_H" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupBank" ></sbux-button>
+								</td>
+							</tr>   
+							<tr>
+								<th scope="row" class="th_bg">국가</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle" 
+											type="button"
+											id="NATION_CODE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=NATION_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>                                    
+								</td>
+								<th scope="row" class="th_bg">지역</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle" 
+											type="button"
+											id="REGION_CODE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=REGION_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>  									
+								</td>		
+								<td class="td_input" style="border-right: hidden;">	
+								</td>		
+								<td class="td_input" style="border-right: hidden; text-align:center !important;">	
+									<sbux-checkbox uitype="normal" id="PURCHASE_YN" class="form-control input-sm check" text="매입처여부" true-value="Y" false-value="N"/>
+								</td>		
+								<td class="td_input" style="border-right: hidden;">	
+									<sbux-checkbox uitype="normal" id="SALE_YN" class="form-control input-sm check" text="매출처여부" true-value="Y" false-value="N"/>
+								</td>		
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">법인구분</th>
+								<td class="td_input " colspan="2" id="rdotd">
+									<p class="ad_input_row">
+										<sbux-radio id="BIZ_TYPE1" name="BIZ_TYPE" uitype="normal" value="C" class="radio_label" checked></sbux-radio>
+										<label class="radio_label" for-id="BIZ_TYPE1">법인</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="BIZ_TYPE2" name="BIZ_TYPE" uitype="normal" value="P" class="radio_label"></sbux-radio>
+										<label class="radio_label" for-id="BIZ_TYPE2">개인</label>
+									</p>
+								</td>						
+								<th scope="row" class="th_bg">법인번호</th>
+								<td class="td_input" style="border-right: hidden;" >
+									<sbux-input uitype="text" id="COMP_REGNO" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">	
+								</td>										
+								<td class="td_input" style="border-right: hidden;  text-align:center !important;">	
+									<sbux-checkbox uitype="normal" id="RESIDENT_YN" class="form-control input-sm check" text="주민분여부" true-value="Y" false-value="N"/>
+								</td>										
+								<td class="td_input" style="border-right: hidden;">	
+									<sbux-checkbox uitype="normal" id="OSP_YN" class="form-control input-sm check" text="외주사여부" true-value="Y" false-value="N" readonly/>
+								</td>										
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">기업규모</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="COM_TYPE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=COM_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>                                    
+								</td>
+								<th scope="row" class="th_bg">과세유형</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="TAX_TYPE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=TAX_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>                                    
+								</td>
+								<td class="td_input" style="border-right: hidden;text-align:right !important;"><b>기업분류</b></td>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="CS_CATEGORY" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=CS_CATEGORY style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>                                    
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">사업자번호</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input uitype="text" id="BIZ_REGNO" class="form-control input-sm" ></sbux-input>
+								</td>
+								<th scope="row" class="th_bg">종사업장번호</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="SUB_NO" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input hidden-td" style="border-right: hidden; text-align:right !important;"><b>(</b>
+									<sbux-checkbox uitype="normal" id="OSP_YN1" class="form-control input-sm check hidden-check" text="가공업체" true-value="Y" false-value="N"/>
+								</td>									
+								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
+									<sbux-checkbox uitype="normal" id="OSP_YN2" class="form-control input-sm check hidden-check" text="열처리업체" true-value="Y" false-value="N"/>
+								</td>									
+								<td class="td_input hidden-td" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="OSP_YN3" class="form-control input-sm check hidden-check" text="포장업체 )" true-value="Y" false-value="N"/>
+								</td>									
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">대표자</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm "></sbux-input>
+								</td>
+								<th scope="row" class="th_bg">주민번호</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">	
+								</td>									
+								<td class="td_input hidden-td" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="SHIPPING_YN" class="form-control input-sm check hidden-check" text="해운사여부" true-value="Y" false-value="N"/>
+								</td>									
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg">업태</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2" >
+									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " ></sbux-input>
+								</td>								
+								<th scope="row" class="th_bg">종목</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm " ></sbux-input>
+								</td>								
+								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
+									<sbux-checkbox uitype="normal" id="TRANSPORT_YN" class="form-control input-sm check hidden-check" text="운송사여부" true-value="Y" false-value="N"/>
+								</td>										
+								<td class="td_input hidden-td" style="border-right: hidden;">	
+									<sbux-checkbox uitype="normal" id="BANKRUPTCY_YN" class="form-control input-sm check hidden-check" text="신용시스템전송여부" true-value="Y" false-value="N"/>
+								</td>										
+							</tr>		
+							<tr>
+								<th scope="row" class="th_bg">지급보류여부</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="DEFER_YN" class="form-control input-sm check" text="예" true-value="Y" false-value="N"/>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:130px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="DEFER_REASON" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=DEFER_REASON style="width:250px;height:200px;padding-top:0px;overflow:auto">
+										</div>
+									</div>   									
+								</td>
+								<th scope="row" class="th_bg">상태</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="STATUS_CODE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=STATUS_CODE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>  									
+								</td>
+								<td class="td_input" style="border-right: hidden;">	
+								</td>
+								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
+									<sbux-checkbox uitype="normal" id="CARGO_YN" class="form-control input-sm check hidden-check" text="하역사여부" true-value="Y" false-value="N"/>
+								</td>
+								<td class="td_input hidden-td" style="border-right: hidden;">	
+									<sbux-checkbox uitype="normal" id="STEEL_SCRAP_PAY_YN" class="form-control input-sm check hidden-check" text="철스크랩거래여부" true-value="Y" false-value="N"/>
+								</td>
+							</tr>  													
+							<tr>
+								<th scope="row" class="th_bg">거래중지여부</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="TXN_STOP_YN" class="form-control input-sm check" text="예" true-value="Y" false-value="N"/>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:130px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle"
+											type="button"
+											id="TXN_STOP_REASON" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=TXN_STOP_REASON style="width:350px;height:200px;padding-top:0px;overflow:auto">
+										</div>
+									</div>   									
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height: 3.6vh;" placement="top" date-format="yyyy-mm-dd" class="table-datepicker-ma"></sbux-datepicker>
+								</td>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+								</td>
+								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">
+									<sbux-checkbox uitype="normal" id="LIQUOR_YN" class="form-control input-sm check hidden-check" text="주류업여부" true-value="Y" false-value="N"/>
+								</td>
+								<td class="td_input hidden-td" style="border-right: hidden;">	
+									<sbux-checkbox uitype="normal" id="EXPECTED_CUSTOMER_YN" class="form-control input-sm check hidden-check" text="잠재고객" true-value="Y" false-value="N"/>
+								</td>
+							</tr>
+                    	</table>
+                   	</div>
+                       <!-- 주소 ~ 매핑이력 - 주소/연락처 -->
+					<div id="tabAddress" style="height:76vh;">
+						<table id="addressTable" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:15%">
+								<col style="width:10%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">우편번호</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input id="ZIP_CODE" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="…" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</td>	                                    
+								<th scope="row" class="th_bg">거래시작일</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd" class="table-datepicker-ma"></sbux-datepicker>
+								</td>	                                    
+								<th scope="row" class="th_bg">거래종료일</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" style="width:100px;height: 3.6vh;" date-format="yyyy-mm-dd" class="table-datepicker-ma"></sbux-datepicker> 
+								</td>	                                    
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">주소</th>
+								<td class="td_input" style="border-right: hidden;" colspan="6">
+									<sbux-input id="ADDRESS" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+								</td>	
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">대표전화</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	
+								<th scope="row" class="th_bg">팩스</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	                                    
+								<th scope="row" class="th_bg">이메일</th>
+								<td class="td_input" style="border-right: hidden;" colspan="">
+									<sbux-input id="EMAIL_ID" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	 
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">홈페이지</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="WEB_URL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	
+								<th scope="row" class="th_bg">채권채무조회서 Email</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="RESULT1" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	 
+								<td class="td_input" style="border-right: hidden;"></td>	 
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">비고</th>
+								<td class="td_input" style="border-right: hidden;" colspan="6">
+									<sbux-textarea id="MEMO" name="MEMO" uitype="normal" style="width:100%";></sbux-textarea>											
+								</td>	
+							</tr> 
+							<tr>
+								<th scope="row" class="th_bg">SAP 고객사코드</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="SAP_CUSTOMER_CODE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								</td>	
+								<th scope="row" class="th_bg">SAP 공급사코드</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input id="SAP_VENDOR_CODE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								
+								</td>	                                    
+								<td class="td_input" style="border-right: hidden;" colspan="2"></td>	 
+							</tr>    										   
+						</table>									
+					</div>
+					<!-- 주소 ~ 매핑이력 - 자금정보 -->
+					<div id="tabFinance" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:ruby;float: right;">
+								<span style="vertical-align:middle; text-align:center;">FBS 서비스</span>
+								<div class="dropdown">
+									<button 
+										style="width:160px;text-align:left" 
+										class="btn btn-sm btn-light dropdown-toggle " 
+										type="button"
+										id="FBS_SERVICE" 
+										data-toggle="dropdown" 
+										aria-haspopup="true" 
+										aria-expanded="false">
+										<font>선택</font>
+										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+									</button>
+									<div class="dropdown-menu" aria-labelledby=FBS_SERVICE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+									</div>
+								</div>   			                        	
+								<sbux-button id="btnDelFinanceRow" name="btnDelFinanceRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delFinanceRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnAddFinanceRow" name="btnAddFinanceRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addFinanceRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;padding-right: 3px;"></sbux-button>
 							</div>
+						</div>									
+						<div>
+							<div id="sb-area-grdFinance" style="height:315px; width:100%;"></div>
 						</div>
-						<!-- 주소 ~ 매핑이력 - 구매정보 -->
-						<div id="tabPurchase" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddPurchaseRow" name="btnAddPurchaseRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addPurchaseRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelPurchaseRow" name="btnDelPurchaseRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delPurchaseRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<table id="addressTable" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:12%">
-									<col style="width:12%">
-									<col style="width:16%">
-									<col style="width:8%">
-									<col style="width:12%">
-									<col style="width:16%">
-									<col style="width:16%">
-									<col style="width:8%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">부가세</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="TAX_CODE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=TAX_CODE style="width:730px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-									</td>
-									<th scope="row" class="th_bg">업체전표마감구분</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="SLIP_CLS" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=SLIP_CLS style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-									</td>
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">지급조건</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="PAY_DATE_RULE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=PAY_DATE_RULE style="width:710px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-									</td>												
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="TAX_SEND" class="form-control input-sm check" text="정발행대상여부" true-value="Y" false-value="N"/>
-									</td>												
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="INTERNAL_PAY_RULE_YN" class="form-control input-sm check" text="회사기준지급대상여부" true-value="Y" false-value="N"/>
-									</td>												
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">인도조건</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="PUR_HANDOV_CNDT_CD" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=PUR_HANDOV_CNDT_CD style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>    
-									</td>	
-									<td class="td_input" style="border-right: hidden;">
-									</td>	
-									<th scope="row" class="th_bg">CHECK한도(%)</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<sbux-input id="RCPT_CHK_RANGE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
-									
-									</td>	                                    
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">채무계정코드</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_ACC_CODE" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_ACC_NAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
-									</td>
-									<th scope="row" class="th_bg">채무정산계정</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_CLR_ACC" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_CLR_ACC_NAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
-									</td> 
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">채무계정코드외화</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_ACC_CODE_FOREIGN" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AP_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
-									</td>
-									<th scope="row" class="th_bg">선급금계정</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="PREPAY_ACC_CODE" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="PREPAY_ACC_NAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
-									</td> 
-								</tr>    
-							</table>		
-							<div>
-								<div id="sb-area-grdPurchase" style="height:350px; width:100%;"></div>
+					</div>
+					<!-- 주소 ~ 매핑이력 - 구매정보 -->
+					<div id="tabPurchase" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddPurchaseRow" name="btnAddPurchaseRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addPurchaseRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelPurchaseRow" name="btnDelPurchaseRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delPurchaseRow" style="float: right;"></sbux-button>
 							</div>
+						</div>										
+						<table id="addressTable" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:12%">
+								<col style="width:12%">
+								<col style="width:16%">
+								<col style="width:8%">
+								<col style="width:12%">
+								<col style="width:16%">
+								<col style="width:16%">
+								<col style="width:8%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">부가세</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="TAX_CODE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=TAX_CODE style="width:730px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+								</td>
+								<th scope="row" class="th_bg">업체전표마감구분</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="SLIP_CLS" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=SLIP_CLS style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+								</td>
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">지급조건</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="PAY_DATE_RULE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=PAY_DATE_RULE style="width:710px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+								</td>												
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="TAX_SEND" class="form-control input-sm check" text="정발행대상여부" true-value="Y" false-value="N"/>
+								</td>												
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="INTERNAL_PAY_RULE_YN" class="form-control input-sm check" text="회사기준지급대상여부" true-value="Y" false-value="N"/>
+								</td>												
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">인도조건</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="PUR_HANDOV_CNDT_CD" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=PUR_HANDOV_CNDT_CD style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>    
+								</td>	
+								<td class="td_input" style="border-right: hidden;">
+								</td>	
+								<th scope="row" class="th_bg">CHECK한도(%)</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<sbux-input id="RCPT_CHK_RANGE" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+								
+								</td>	                                    
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">채무계정코드</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_ACC')" ></sbux-button>
+								</td>
+								<th scope="row" class="th_bg">채무정산계정</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_CLR_ACC" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_CLR_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AP_CLR')" ></sbux-button>
+								</td> 
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">채무계정코드외화</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_ACC_CODE_FOREIGN" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AP_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('FOREIGN')" ></sbux-button>
+								</td>
+								<th scope="row" class="th_bg">선급금계정</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="PREPAY_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="PREPAY_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('PREPAY')" ></sbux-button>
+								</td> 
+							</tr>    
+						</table>		
+						<div>
+							<div id="sb-area-grdPurchase" style="height:350px; width:100%;"></div>
 						</div>
-						<!-- 주소 ~ 매핑이력 - 판매정보 -->
-						<div id="tabSales" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddSalesRow" name="btnAddSalesRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelSalesRow" name="btnDelSalesRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<table id="salesTable" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:15%">
-									<col style="width:17%">
-									<col style="width:17%">
-									<col style="width:17%">
-									<col style="width:17%">
-									<col style="width:17%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">인도조건</th>
-									<td class="td_input" style="border-right: hidden;">
+					</div>
+					<!-- 주소 ~ 매핑이력 - 판매정보 -->
+					<div id="tabSales" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddSalesRow" name="btnAddSalesRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelSalesRow" name="btnDelSalesRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesRow" style="float: right;"></sbux-button>
+							</div>
+						</div>										
+						<table id="salesTable" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:15%">
+								<col style="width:17%">
+								<col style="width:17%">
+								<col style="width:17%">
+								<col style="width:17%">
+								<col style="width:17%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">인도조건</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="DELIVERY_TYPE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=DELIVERY_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<th scope="row" class="th_bg">수금조건</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="RECEIPT_DATE_RULE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=RECEIPT_DATE_RULE style="width:400px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<th scope="row" class="th_bg">세금계산서발행조건</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="VAT_ISSUE_COND" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=VAT_ISSUE_COND style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+							</tr>    
+							<tr>
+								<th scope="row" class="th_bg">출하조건</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="SHIPPING_TYPE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=SHIPPING_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>       											
+								</td>	
+								<th scope="row" class="th_bg">역발행</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="SALES_TAX_SEND" class="form-control input-sm check" text="역발행대상" true-value="Y" false-value="N"/>
+								</td>												
+							</tr>    
+						</table>		
+						<div>
+							<div id="sb-area-grdSales" style="height:350px; width:100%;"></div>
+						</div>									
+					</div>
+					<!-- 주소 ~ 매핑이력 - 판매납품처 -->
+					<div id="tabSalesShipTo" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddSalesShipToRow" name="btnAddSalesShipToRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesShipToRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelSalesShipToRow" name="btnDelSalesShipToRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesShipToRow" style="float: right;"></sbux-button>
+							</div>
+						</div>										
+						<div>
+							<div id="sb-area-grdSalesShipTo" style="height:315px; width:100%;"></div>
+						</div>										
+					</div>
+					<!-- 주소 ~ 매핑이력 - 판매처분류 -->
+					<div id="tabSalesCategory" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddSalesCategoryRow" name="btnAddSalesCategoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesCategoryRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelSalesCategoryRow" name="btnDelSalesCategoryRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesCategoryRow" style="float: right;"></sbux-button>
+							</div>
+						</div>										
+						<table id="salesCategoryTable" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">채권계정코드</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AR_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AR_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
+								</td>
+								<th scope="row" class="th_bg">채권계정코드외화</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AR_ACC_CODE_FOREIGN" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="AR_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
+								</td> 
+							</tr>  										
+							<tr>
+								<th scope="row" class="th_bg">선수금계정</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="ADVANCE_ACC_CODE" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-input uitype="text" id="ADVANCE_ACC_NAME" class="form-control input-sm" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
+								</td>
+							</tr>  										
+						</table>		
+						<div>
+							<div id="sb-area-grdSalesCategory" style="height:250px; width:100%;"></div>
+						</div>										
+					</div>
+					<!-- 주소 ~ 매핑이력 - 세금 등 -->
+					<div id="tabTax" style="height:76vh;">
+						<table id="taxTable" class="table table-bordered tbl_fixed">
+							<colgroup>
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+								<col style="width:15%">
+							</colgroup>
+							<tr>
+								<th scope="row" class="th_bg">원천세대상여부</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-checkbox uitype="normal" id="WITHHOLD_TAX_YN" class="form-control input-sm check" text="대    상" true-value="Y" false-value="N"/>
+								</td>
+							</tr>  										
+							<tr>
+								<th scope="row" class="th_bg">원천세납부세무서</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle " 
+											type="button"
+											id="WITHHOLD_TAX_OFFICE" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_OFFICE style="width:700px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>  											
+								</td>
+								<th scope="row" class="th_bg">원천세납부구청</th>
+								<td class="td_input" style="border-right: hidden;">
+									<div class="dropdown">
+										<button 
+											style="width:160px;text-align:left" 
+											class="btn btn-sm btn-light dropdown-toggle"
+											type="button"
+											id="WITHHOLD_TAX_OFFICE2" 
+											data-toggle="dropdown" 
+											aria-haspopup="true" 
+											aria-expanded="false">
+											<font>선택</font>
+											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										</button>
+										<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_OFFICE2 style="width:700px;height:250px;padding-top:0px;overflow:auto">
+										</div>
+									</div>  											
+								</td>
+							</tr>  										
+							<tr>
+								<th scope="row" class="th_bg">원천세유형</th>
+								<td class="td_input" style="border-right: hidden;" colspan="2">
+									<div style="display:flex">
 										<div class="dropdown">
 											<button 
-												style="width:160px;text-align:left" 
+												style="width:260px;text-align:left" 
 												class="btn btn-sm btn-light dropdown-toggle " 
 												type="button"
-												id="DELIVERY_TYPE" 
+												id="WITHHOLD_TAX_TYPE" 
 												data-toggle="dropdown" 
 												aria-haspopup="true" 
 												aria-expanded="false">
 												<font>선택</font>
 												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 											</button>
-											<div class="dropdown-menu" aria-labelledby=DELIVERY_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<th scope="row" class="th_bg">수금조건</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="RECEIPT_DATE_RULE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=RECEIPT_DATE_RULE style="width:400px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<th scope="row" class="th_bg">세금계산서발행조건</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="VAT_ISSUE_COND" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=VAT_ISSUE_COND style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-								</tr>    
-								<tr>
-									<th scope="row" class="th_bg">출하조건</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="SHIPPING_TYPE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=SHIPPING_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>       											
-									</td>	
-									<th scope="row" class="th_bg">역발행</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="SALES_TAX_SEND" class="form-control input-sm check" text="역발행대상" true-value="Y" false-value="N"/>
-									</td>												
-								</tr>    
-							</table>		
-							<div>
-								<div id="sb-area-grdSales" style="height:350px; width:100%;"></div>
-							</div>									
-						</div>
-						<!-- 주소 ~ 매핑이력 - 판매납품처 -->
-						<div id="tabSalesShipTo" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddSalesShipToRow" name="btnAddSalesShipToRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesShipToRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelSalesShipToRow" name="btnDelSalesShipToRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesShipToRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<div>
-								<div id="sb-area-grdSalesShipTo" style="height:315px; width:100%;"></div>
-							</div>										
-						</div>
-						<!-- 주소 ~ 매핑이력 - 판매처분류 -->
-						<div id="tabSalesCategory" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddSalesCategoryRow" name="btnAddSalesCategoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesCategoryRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelSalesCategoryRow" name="btnDelSalesCategoryRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delSalesCategoryRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<table id="salesCategoryTable" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">채권계정코드</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AR_ACC_CODE" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AR_ACC_NAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC')" ></sbux-button>
-									</td>
-									<th scope="row" class="th_bg">채권계정코드외화</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AR_ACC_CODE_FOREIGN" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="AR_ACC_NAME_FOREIGN" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('AR_ACC_FOREIGN')" ></sbux-button>
-									</td> 
-								</tr>  										
-								<tr>
-									<th scope="row" class="th_bg">선수금계정</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="ADVANCE_ACC_CODE" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="ADVANCE_ACC_NAME" class="form-control input-sm" ></sbux-input>
-									</td>
-									<td class="td_input">
-										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupAccountCode('ADVANCE_ACC')"></sbux-button>
-									</td>
-								</tr>  										
-							</table>		
-							<div>
-								<div id="sb-area-grdSalesCategory" style="height:250px; width:100%;"></div>
-							</div>										
-						</div>
-						<!-- 주소 ~ 매핑이력 - 세금 등 -->
-						<div id="tabTax" style="height:76vh;">
-							<table id="taxTable" class="table table-bordered tbl_fixed">
-								<colgroup>
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-									<col style="width:15%">
-								</colgroup>
-								<tr>
-									<th scope="row" class="th_bg">원천세대상여부</th>
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="WITHHOLD_TAX_YN" class="form-control input-sm check" text="대    상" true-value="Y" false-value="N"/>
-									</td>
-								</tr>  										
-								<tr>
-									<th scope="row" class="th_bg">원천세납부세무서</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle " 
-												type="button"
-												id="WITHHOLD_TAX_OFFICE" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_OFFICE style="width:700px;height:250px;padding-top:0px;overflow:auto">
+											<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_TYPE style="width:600px;height:250px;padding-top:0px;overflow:auto">
 											</div>
 										</div>  											
-									</td>
-									<th scope="row" class="th_bg">원천세납부구청</th>
-									<td class="td_input" style="border-right: hidden;">
-										<div class="dropdown">
-											<button 
-												style="width:160px;text-align:left" 
-												class="btn btn-sm btn-light dropdown-toggle"
-												type="button"
-												id="WITHHOLD_TAX_OFFICE2" 
-												data-toggle="dropdown" 
-												aria-haspopup="true" 
-												aria-expanded="false">
-												<font>선택</font>
-												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-											</button>
-											<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_OFFICE2 style="width:700px;height:250px;padding-top:0px;overflow:auto">
-											</div>
-										</div>  											
-									</td>
-								</tr>  										
-								<tr>
-									<th scope="row" class="th_bg">원천세유형</th>
-									<td class="td_input" style="border-right: hidden;" colspan="2">
-										<div style="display:flex">
-											<div class="dropdown">
-												<button 
-													style="width:260px;text-align:left" 
-													class="btn btn-sm btn-light dropdown-toggle " 
-													type="button"
-													id="WITHHOLD_TAX_TYPE" 
-													data-toggle="dropdown" 
-													aria-haspopup="true" 
-													aria-expanded="false">
-													<font>선택</font>
-													<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
-												</button>
-												<div class="dropdown-menu" aria-labelledby=WITHHOLD_TAX_TYPE style="width:600px;height:250px;padding-top:0px;overflow:auto">
-												</div>
-											</div>  											
-										</div>
-									</td>
-									<td class="td_input" style="border-right: hidden;" >
-										<sbux-input uitype="text" id="TAX_RATE" class="form-control input-xs" readonly></sbux-input>
-									</td>
-								</tr>  										
-							</table>											
-						</div>
-						<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
-						<div id="tabHistory" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddHistoryRow" name="btnAddHistoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelHistoryRow" name="btnDelHistoryRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delHistoryRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<div>
-								<div id="sb-area-grdHistory" style="height:315px; width:100%;"></div>
-							</div>										
-						</div>
-						<!-- 주소 ~ 매핑이력 - 매핑이력 -->
-						<div id="tabMapping" style="height:76vh;">
-							<div class="ad_tbl_toplist">
-								<div style="display:flex;float: right;">
-									<sbux-button id="btnAddMappingRow" name="btnAddMappingRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addMappingRow" style="float: right;"></sbux-button>
-									<sbux-button id="btnDelMappingRow" name="btnDelMappingRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delMappingRow" style="float: right;"></sbux-button>
-								</div>
-							</div>										
-							<div>
-								<div id="sb-area-grdMapping" style="height:315px; width:100%;"></div>
-							</div>										
-						</div>      	
-                </div>
-            </div>
-        </div>
-    </section>
+									</div>
+								</td>
+								<td class="td_input" style="border-right: hidden;" >
+									<sbux-input uitype="text" id="TAX_RATE" class="form-control input-xs" readonly></sbux-input>
+								</td>
+							</tr>  										
+						</table>											
+					</div>
+					<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
+					<div id="tabHistory" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddHistoryRow" name="btnAddHistoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelHistoryRow" name="btnDelHistoryRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delHistoryRow" style="float: right;"></sbux-button>
+							</div>
+						</div>										
+						<div>
+							<div id="sb-area-grdHistory" style="height:315px; width:100%;"></div>
+						</div>										
+					</div>
+					<!-- 주소 ~ 매핑이력 - 매핑이력 -->
+					<div id="tabMapping" style="height:76vh;">
+						<div class="ad_tbl_toplist">
+							<div style="display:flex;float: right;">
+								<sbux-button id="btnAddMappingRow" name="btnAddMappingRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addMappingRow" style="float: right;"></sbux-button>
+								<sbux-button id="btnDelMappingRow" name="btnDelMappingRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delMappingRow" style="float: right;"></sbux-button>
+							</div>
+						</div>										
+						<div>
+							<div id="sb-area-grdMapping" style="height:315px; width:100%;"></div>
+						</div>										
+					</div>      	
+               </div>
+			</div>
+		</div>
+	</div>
+</section>
     
 	<!-- 사용자 선택 Modal -->
     <div>
@@ -2031,6 +2031,8 @@
 							if(await fn_save_S7() == true){
 								if(await fn_save_S8() == true){
 									if(await fn_save_S9() == true){
+										//한개 이상의 탭의 정보를 저장했을 경우 알림창이 어려개 떠서 정상적으로 저장이 됐을 경우 처리되었습니다 알림창이 뜨도록
+										gfn_comAlert('I0001');
 										await fn_search();
 									}
 								}
@@ -2054,6 +2056,14 @@
 			}
 	    }
 	}
+    
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	gfnma_uxDataClear('#srchArea1');
+    }
+    
 	//조회
 	function cfn_search() {
 		workType = 'N';
@@ -2078,7 +2088,7 @@
     var jsonHistoryList			= []; 	// 변경이력관리 그리드의 참조 데이터 주소 선언
     var jsonMappingList			= []; 	// 매핑이력관리 그리드의 참조 데이터 주소 선언
     
-    function fn_createGrid() {
+    const fn_createGrid = async function() {
     	//코드목록 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdCom3400';
@@ -2147,8 +2157,14 @@
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_viewSubTable');
+        masterGrid.bind('keyup', 'fn_keyup');
     }
     
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_viewSubTable();
+    	}
+    }
     const fn_createFinanceGrid = async function() {
     	//코드목록 
         var SBGridProperties 				= {};
@@ -2757,7 +2773,7 @@
 		            }else{
 		            	$('#btnSubmit').hide();
 		            }
-		        	
+		            fn_changeTXN_STOP_YN(gfn_nvl(cv_1.TXN_STOP_YN));
 		        	//주소 ~ 매핑이력 - 구매정보 -> 업체전표마감구분 데이터
 		        	// 구매정보 탭은 cv_4에서 데이터 가져오는데 SLIP_CLS는 CV_1에서 데이터 가져옴
 		        	gfnma_multiSelectSet("#SLIP_CLS", 			"SUB_CODE", 		"SUB_CODE",		gfn_nvl(cv_1.SLIP_CLS));
@@ -3298,15 +3314,24 @@
                 $('#DEFER_REASON').removeClass('inpt_data_reqed');
 			}
 		});
+		
 		$('#TXN_STOP_YN').change(function(){
-			if($(this).val() == 'Y'){
-                $('#TXN_STOP_REASON').addClass('inpt_data_reqed');
-                $('#TXN_STOP_DATE').addClass('inpt_data_reqed');
-			}else{
-                $('#TXN_STOP_REASON').removeClass('inpt_data_reqed');
-                $('#TXN_STOP_DATE').removeClass('inpt_data_reqed');
-			}
+			fn_changeTXN_STOP_YN($(this).val());
 		});
+    }
+    
+    const fn_changeTXN_STOP_YN = async function(val){
+		if(val == 'Y'){
+            $('#TXN_STOP_REASON').addClass('inpt_data_reqed');
+            $('#TXN_STOP_DATE').addClass('inpt_data_reqed');
+            $('#TXN_STOP_REASON').prop('disabled', false);
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','false')
+		}else{
+            $('#TXN_STOP_REASON').removeClass('inpt_data_reqed');
+            $('#TXN_STOP_DATE').removeClass('inpt_data_reqed');
+            $('#TXN_STOP_REASON').prop('disabled', true);
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','true')
+		}
     }
     
     /**
@@ -3400,7 +3425,7 @@
     	SBUxMethod.set("EXPECTED_CUSTOMER_YN", 		"N");
     	SBUxMethod.set("DEFER_YN", 					"N");
     	SBUxMethod.set("TXN_STOP_YN",				"N");
-    	
+    	fn_changeTXN_STOP_YN("N");
     	SBUxMethod.set("TAX_SEND", 					"N");
     	SBUxMethod.set("INTERNAL_PAY_RULE_YN",		"N");
     	SBUxMethod.set("LIQUOR_YN", 				"N");
@@ -3429,6 +3454,8 @@
     	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE",	"", "", "");
     	gfnma_multiSelectSet("#WITHHOLD_TAX_OFFICE2",	"", "", "");
     	gfnma_multiSelectSet("#WITHHOLD_TAX_TYPE",		"", "", "");
+    	
+    	
     }
     
     //기본정보, 관리항목 탭 내역 저장

@@ -162,7 +162,7 @@
                     <div class="ad_tbl_top2">
                         <ul class="ad_tbl_count">
                             <li>
-                                <span>환율 정보</span>
+                                <span>◎ 환율 리스트</span>
                                 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
@@ -241,7 +241,7 @@
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>계정 리스트</span>
+                                    <span>◎ 계정 리스트</span>
                                 </li>
                             </ul>
                         </div>
@@ -332,7 +332,7 @@
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>통화유형</span>
+                                    <span>◎ 통화유형 리스트</span>
                                 </li>
                             </ul>
                         </div>
@@ -1226,6 +1226,7 @@
         SBGridPropertiesMonthType.jsonref 			= 'jsonMonthTypeList';
         SBGridPropertiesMonthType.emptyrecords 		= '데이터가 없습니다.';
         SBGridPropertiesMonthType.selectmode 		= 'byrow';
+        SBGridPropertiesMonthType.useinitsorting 	= true;
         SBGridPropertiesMonthType.allowcopy 		= true; //복사
         SBGridPropertiesMonthType.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridPropertiesMonthType.explorerbar 		= 'sortmove';

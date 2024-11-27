@@ -43,7 +43,7 @@
 				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
-						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
 	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
@@ -499,6 +499,7 @@
 	    SBGridProperties.emptyrecords 	= '데이터가 없습니다.';
 	    SBGridProperties.selectmode 	= 'byrow';
 	    SBGridProperties.explorerbar 	= 'sortmove';
+	    SBGridProperties.useinitsorting = true;	    
 	    SBGridProperties.rowheader 		= 'seq';
 	    SBGridProperties.rowheadercaption = {seq: 'No'};
 	    SBGridProperties.rowheaderwidth = {seq: '60'};
@@ -509,8 +510,14 @@
 	    ];
 	    masterGrid = _SBGrid.create(SBGridProperties);
 	    masterGrid.bind('click', 'fn_searchSubTable');
+	    masterGrid.bind('keyup', 'fn_keyup');
 	}
 
+	const fn_keyup = async function(event){
+		if(event.keyCode == 38 || event.keyCode == 40 ){
+			await fn_searchSubTable();
+		}
+	}
 	/*
 	*신규 버튼 기본 법인정보 추가
 	*/

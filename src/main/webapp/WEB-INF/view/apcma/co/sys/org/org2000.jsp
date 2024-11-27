@@ -98,7 +98,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>부서 리스트</span>
+                                    <span>◎ 부서 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -607,7 +607,15 @@
         ];
         masterTreeGrid	= _SBGrid.create(SBGridProperties);
         masterTreeGrid.bind('click', 'fn_viewSubTable');
+        masterTreeGrid.bind('keyup', 'fn_keyup');
     }
+    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_viewSubTable();
+    	}
+    }
+    
     /**
      * 코드목록 조회
      */

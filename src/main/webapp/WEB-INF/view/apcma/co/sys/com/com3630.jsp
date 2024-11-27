@@ -89,17 +89,17 @@
 	                </table>
 	            </div>    
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>코드목록</span>
+                                    <span>◎ 계정과목 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3630" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdCom3630" style="height:75vh; width:100%;"></div>
                         </div>
                     </div>
                     
@@ -108,8 +108,8 @@
 						title-target-id-array="tab1^tab2^tab3^tab4^tab5"
 						title-text-array="기본정보^회계관리^예산관리^관리항목^외화관련계정">
 					</sbux-tabs>
-                    <div class="col-sm-6 tab-content">
-                        <div id="tab1" style="height:97vh;">
+                    <div class="col-sm-8 tab-content">
+                        <div id="tab1" style="height:72vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:16%">
@@ -444,7 +444,7 @@
                                 </tr>                                                                                                                                                                                     
                             </table>
                         </div>
-                        <div id="tab2" style="height:97vh;">
+                        <div id="tab2" style="height:72vh;">
                             <table id="dataArea2" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
@@ -477,7 +477,7 @@
 											onclick="fn_compopupTtrType"
 										></sbux-button>
 		                            </td>
-                                </tr>    
+                                </tr>
 								<tr>
                                     <th scope="row" class="th_bg">원가요소</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -609,7 +609,7 @@
 								</tr>                                                                                                                                                                        
                             </table>
                         </div>
-                        <div id="tab3" style="height:97vh;">
+                        <div id="tab3" style="height:72vh;">
 							<table id="dataArea3" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:18%">
@@ -845,7 +845,7 @@
                                 </tr>																                                                                                                                                                                
                             </table>                        	
                         </div>
-                        <div id="tab4" style="height:97vh;">
+                        <div id="tab4" style="height:72vh;">
                             <table id="dataArea4" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
@@ -1359,7 +1359,14 @@
         ];
         masterTreeGrid	= _SBGrid.create(SBGridProperties);
         masterTreeGrid.bind('click', 'fn_view');
+        masterTreeGrid.bind('keyup', 'fn_keyup');
     }
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
+    }
+    
     /**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
