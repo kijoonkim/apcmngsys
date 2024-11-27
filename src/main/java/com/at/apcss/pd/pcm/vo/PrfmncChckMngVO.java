@@ -38,4 +38,6 @@ public class PrfmncChckMngVO extends ComVO{
 	private String expctPrfmncAmt;	//24년말 기준(예상치)
 	private String prfmncAmtRt;		//연말전망치 기준 증감률(%)
 
+	//20241127 전문 육성 구분 추가
+	private String sttgUpbrItemNm;	//전문/육성 구분
 }

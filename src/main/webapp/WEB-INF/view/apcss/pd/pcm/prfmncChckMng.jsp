@@ -232,7 +232,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		//SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["승인연도"], 	ref: 'slctnYr',		type:'output',  width:'60px',	style:'text-align:center'},
@@ -273,7 +273,8 @@
 		SBGridProperties.columns = [
 			{caption: ["승인연도","승인연도"], 	ref: 'slctnYr',		type:'output',  width:'60px',	style:'text-align:center'},
 			{caption: ["통합조직명","통합조직명"], 	ref: 'corpNm',		type:'output',  width:'200px',	style:'text-align:center'},
-			{caption: ["전문품목","전문품목"], 	ref: 'itemNm',		type:'output',  width:'100px',	style:'text-align:center'},
+			{caption: ["품목","구분"], 			ref: 'sttgUpbrItemNm',	type:'output',  width:'100px',	style:'text-align:center'},
+			{caption: ["품목","품목명"], 		ref: 'itemNm',		type:'output',  width:'100px',	style:'text-align:center'},
 
 			{caption: ["통합조직 총취급액(판매액)","1월"], 		ref: 'prfmncAmt1',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
@@ -288,7 +289,7 @@
 			{caption: ["통합조직 총취급액(판매액)","6월"], 		ref: 'prfmncAmt6',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","상반기 누적 소계\n(백만원)"], 		ref: 'prfmncAmtHalfTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","상반기 누적 소계\n(백만원)"], 		ref: 'prfmncAmtHalfTot',	type:'output',  width:'105px',	style:'text-align:center; background-color: lightgray;'
 				, calc : 'fn_prfmncAmtHalfSum',	format : { type:'number' , rule:'#,###' }},
 
 			{caption: ["통합조직 총취급액(판매액)","7월"], 		ref: 'prfmncAmt7',	type:'input',  width:'100px',	style:'text-align:center'
@@ -474,7 +475,8 @@
 						,prevYrPrfmncAmt	: item.prevYrPrfmncAmt
 						,expctPrfmncAmt		: item.expctPrfmncAmt
 						,prfmncAmtRt		: item.prfmncAmtRt
-
+						/* 20241127 전문 육성 구분 추가 */
+						,sttgUpbrItemNm		: item.sttgUpbrItemNm
 				}
 				jsonPrfmncChckMng.push(itemVO);
 				if (index === 0) {
