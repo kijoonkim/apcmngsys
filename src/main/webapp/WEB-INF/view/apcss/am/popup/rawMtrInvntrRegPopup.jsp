@@ -338,9 +338,12 @@
 			SBUxMethod.set("rawMtrPop-inp-apcCd", this.param.apcCd);
 			SBUxMethod.set("rawMtrPop-inp-apcNm", this.param.apcNm);
 
+			jsonRawMtrPop.length = 0;
 			if (grdRawMtrPop == null || !_.isEqual(this.param.apcCd, prvApcCd)) {
 				await this.initCode();
 				this.createGrid();
+			} else {
+				grdRawMtrPop.refresh();
 			}
 
 			// 기본값 설정
@@ -405,6 +408,7 @@
 						origin:'yyyymmdd'
 					},
 					typeinfo: {
+						dateformat :'yymmdd',
 						oneclickedit: true,
 					},
 					hideeditesckeyvaluechanged: true,
@@ -517,14 +521,14 @@
 					width: '80px',
 					type: 'inputdate',
 					style: 'text-align:center',
-					calendartype: 'year',
-					dateformat: 'yymmdd',
 					format : {
 						type:'date',
 						rule:'yyyy',
 						origin:'yyyy'
 					},
 					typeinfo: {
+						dateformat :'yymmdd',
+						calendartype: 'year',
 						oneclickedit: true,
 					},
 					hideeditesckeyvaluechanged: true,
@@ -642,8 +646,6 @@
 					gfn_comAlert("W0002", "운송구분");		//	W0002	{0}을/를 입력하세요.
 					return;
 				}
-
-				console.log("stdGrd", stdGrd);
 
 				if (gfn_isEmpty(stdGrd)) {
 					gfn_comAlert("W0001", "등급");		//	W0001	{0}을/를 선택하세요.
