@@ -820,6 +820,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["교대조정보", "교대조코드"], 	        ref: 'SHIFT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["교대조정보", "교대조명"], 	        ref: 'SHIFT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'},
@@ -989,6 +990,7 @@
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('click', 'fn_view');
         bandgvwInfo.bind('afterrebuild','fn_afterRebuild');
+        bandgvwInfo.bind('keyup', 'fn_keyup');
     }
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -1557,6 +1559,12 @@
     const fn_copy = async function() {
         editType = "N";
         SBUxMethod.attr("SHIFT_CODE", "readonly", false);
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     const fn_view = async function() {

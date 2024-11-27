@@ -524,11 +524,18 @@
         gvwList.bind('valuechanged','fn_gvwListValueChanged');
         gvwList.bind('afterrebuild','fn_gvwListAfterRebuild');
         gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
+        gvwList.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     const fn_view = async function () {
         var nRow = gvwList.getRow();
-        if (nRow < 0)
+        if (nRow < 1)
             return;
 
         if(gvwList.getRowStatus(nRow) != 0)
@@ -619,6 +626,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -769,6 +777,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["ITEM_ID"], 	        ref: 'ITEM_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["KEY_ID"], 	        ref: 'KEY_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},

@@ -271,6 +271,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["NO"],		ref: 'CNT', 		type:'output',  	width:'28px',  	    style:'text-align:center'},
             {caption: ["구분"],		ref: 'DEPT_CODE', 		type:'output',  	width:'74px',  	    style:'text-align:left'},

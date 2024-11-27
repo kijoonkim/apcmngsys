@@ -588,6 +588,7 @@
 
         treeMaster = _SBGrid.create(SBGridProperties);
         treeMaster.bind('click', 'fn_view');
+        treeMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwPatternGrid() {
@@ -1025,15 +1026,16 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function() {
         editType = "U";
         cfn_add();
 
-        var nCol = treeMaster.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 0) {
-            return;
-        }
         var nRow = treeMaster.getRow();
         if (nRow < 1) {
             return;

@@ -336,6 +336,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'70px',  style:'text-align:left', hidden: true},
@@ -504,12 +505,19 @@
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
         gvwList.bind('valuechanged','fn_gvwListValueChanged');
+        gvwList.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     const fn_view = async function () {
         var nRow = gvwList.getRow();
         var nCol = gvwList.getCol();
-        if (nRow < 0)
+        if (nRow < 1)
             return;
 
         if(nCol == gvwList.getColRef("INTEREST_IN_PLAN_AMT_O") || nCol == gvwList.getColRef("CTAX_RATE")
@@ -597,6 +605,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["id"],         ref: 'TREASURY_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["자금배치번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
@@ -711,6 +720,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["ITEM_ID"], 	        ref: 'ITEM_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["KEY_ID"], 	        ref: 'KEY_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},

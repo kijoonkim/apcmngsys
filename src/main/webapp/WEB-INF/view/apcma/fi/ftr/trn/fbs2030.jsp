@@ -311,6 +311,7 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.frozencols = 8;
+        SBGridProperties.useinitsorting = true;
         /*        SBGridProperties.total = {
                     type 		: 'grand',
                     position	: 'bottom',
@@ -321,6 +322,7 @@
                     datasorting	: true,
                     usedecimal : false,
                 };*/
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["처리예정일"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -429,6 +431,7 @@
         gvwInfo = _SBGrid.create(SBGridProperties);
         gvwInfo.bind('click', 'fn_view');
         gvwInfo.bind('dblclick', 'fn_gvwInfoDblclick');
+        gvwInfo.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwActGrid() {
@@ -506,9 +509,15 @@
         gvwAct.bind('dblclick', 'fn_gvwActDblclick');
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         var nRow = gvwInfo.getRow();
-        if (nRow < 0)
+        if (nRow < 1)
             return;
 
         fnQRY_P_FBS2030_Q("DETAIL");

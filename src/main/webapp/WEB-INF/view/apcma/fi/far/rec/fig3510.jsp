@@ -3389,6 +3389,7 @@
 
     const fn_view = async function () {
         var nRow = gvwWFItem.getRow();
+        if(nRow < 1) return;
         var nCol = gvwWFItem.getCol();
 
         fn_baseFocusedRowChanged(nRow, nCol);

@@ -731,6 +731,7 @@
 
         gvwMaster = _SBGrid.create(SBGridProperties);
         gvwMaster.bind('click', 'fn_view');
+        gvwMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwInfoGrid() {
@@ -742,6 +743,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["증빙수취일"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
@@ -901,6 +903,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
             type 		: 'grand',
@@ -1188,6 +1191,7 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.total 				= {
             type 		: 'grand',
             position	: 'bottom',
@@ -1300,6 +1304,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["APPR_ID"], 	        ref: 'APPR_ID',    	        type:'output',  	width:'60px',  	style:'text-align:left', hidden: true},
             {caption: ["순번"], 	        ref: 'STEP_SEQ',    	        type:'output',  	width:'61px',  	style:'text-align:right'},
@@ -1674,8 +1679,15 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         var nRow = gvwMaster.getRow();
+        if(nRow < 1) return;
         var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
         if(gfn_nvl(rowData) == "") return;

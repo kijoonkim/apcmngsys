@@ -183,6 +183,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["기준년도"],         ref: 'YYYY',    type:'inputdate',  	width:'70px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
@@ -204,6 +205,7 @@
 
         gvwMaster = _SBGrid.create(SBGridProperties);
         gvwMaster.bind('click', 'fn_view');
+        gvwMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwDetailGrid() {
@@ -224,10 +226,17 @@
         gvwDetail = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     const fn_view = async function () {
         editType = "U";
         SBUxMethod.attr("YYYY", "readonly", true);
         var nRow = gvwMaster.getRow();
+        if(nRow < 1) return;
         var rowData = gvwMaster.getRowData(nRow);
 
         if(gfn_nvl(rowData) == "") return;
