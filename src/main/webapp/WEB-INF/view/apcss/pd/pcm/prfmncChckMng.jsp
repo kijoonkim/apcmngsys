@@ -287,6 +287,10 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","6월"], 		ref: 'prfmncAmt6',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
+
+			{caption: ["통합조직 총취급액(판매액)","상반기 누적 소계\n(백만원)"], 		ref: 'prfmncAmtHalfTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+				, calc : 'fn_prfmncAmtHalfSum',	format : { type:'number' , rule:'#,###' }},
+
 			{caption: ["통합조직 총취급액(판매액)","7월"], 		ref: 'prfmncAmt7',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","8월"], 		ref: 'prfmncAmt8',	type:'input',  width:'100px',	style:'text-align:center'
@@ -300,10 +304,10 @@
 			{caption: ["통합조직 총취급액(판매액)","12월"], 		ref: 'prfmncAmt12',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","소계"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","누적 소계\n(백만원)"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				, calc : 'fn_prfmncAmtSum',	format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","23년말 실적"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","23년말 실적\n(백만원)"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				,format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","24년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
@@ -334,11 +338,12 @@
 		let nCol = grdPrfmncChckMng.getCol();
 		let nRef = grdPrfmncChckMng.getRefOfCol(nCol);
 		if(columnsToRefresh.includes(nRef)){
+
 			grdPrfmncChckMng.refresh();
 		}
 	}
 
-	//소계
+	//증감률
 	function fn_prfmncAmtRt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
@@ -355,7 +360,7 @@
 		return resultVal.toFixed(2);
 	}
 
-	//소계
+	//누적 소계
 	function fn_prfmncAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
@@ -363,6 +368,15 @@
 				+ Number(rowData.prfmncAmt4) + Number(rowData.prfmncAmt5) + Number(rowData.prfmncAmt6)
 				+ Number(rowData.prfmncAmt7) + Number(rowData.prfmncAmt8) + Number(rowData.prfmncAmt9)
 				+ Number(rowData.prfmncAmt10) + Number(rowData.prfmncAmt11) + Number(rowData.prfmncAmt12);
+		return sumVal;
+	}
+
+	//상반기 누적 소계
+	function fn_prfmncAmtHalfSum(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.prfmncAmt1) + Number(rowData.prfmncAmt2) + Number(rowData.prfmncAmt3)
+				+ Number(rowData.prfmncAmt4) + Number(rowData.prfmncAmt5) + Number(rowData.prfmncAmt6);
 		return sumVal;
 	}
 
