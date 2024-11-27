@@ -53,9 +53,17 @@
 			     , PLI.DEL_YN               AS DEL_YN
 			  FROM TB_PRDCR_LAND_INFO PLI
 			 WHERE PLI.DEL_YN = 'N'
+		]]>
+			<if test='apcCd != null and apcCd !=""'>
 			   AND PLI.APC_CD 	= #{apcCd}
+			</if>
+			<if test='prdcrCd != null and prdcrCd !=""'>
 			   AND PLI.PRDCR_CD = #{prdcrCd}
+			</if>
+			<if test='yr != null and yr !=""'>
 			   AND PLI.YR		= #{yr}
+			</if>
+		<![CDATA[
 		]]>
 	</select>
 

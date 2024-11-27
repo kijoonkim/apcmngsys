@@ -7,6 +7,7 @@ import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 
@@ -201,5 +202,21 @@ public interface FrmerInfoService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteFrmhsExpct(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 마감 조회
+	 * @param FrmhsExpctWrhsDdlnVO
+	 * @return FrmhsExpctWrhsDdlnVO
+	 * @throws Exception
+	 */
+	public FrmhsExpctWrhsDdlnVO selectFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
+
+	/**
+	 * 농가예상입고 마감 저장
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
 
 }

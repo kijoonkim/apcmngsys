@@ -20,6 +20,7 @@ import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -428,6 +429,73 @@ public class FrmerInfoController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 입고예상 마감 조회
+	 * @param cltvtnFrmhsQltVO
+	 * @param request
+	 * @return List<CltvtnFrmhsQltVO>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/selectFrmhsExpctWrhsDdln.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectFrmhsExpctWrhsDdln(@RequestBody FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		FrmhsExpctWrhsDdlnVO resultJson = new FrmhsExpctWrhsDdlnVO();
+		try {
+
+			resultJson = frmerInfoService.selectFrmhsExpctWrhsDdln(frmhsExpctWrhsDdlnVO);
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_JSON, resultJson);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 입고예상 마감 저장
+	 * @param FrmhsExpctWrhsDdlnVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/updateFrmhsExpctWrhsDdln.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateFrmhsExpctWrhsDdln(@RequestBody FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			frmhsExpctWrhsDdlnVO.setSysFrstInptPrgrmId(getPrgrmId());
+			frmhsExpctWrhsDdlnVO.setSysFrstInptUserId(getUserId());
+			frmhsExpctWrhsDdlnVO.setSysLastChgPrgrmId(getPrgrmId());
+			frmhsExpctWrhsDdlnVO.setSysLastChgUserId(getUserId());
+
+			HashMap<String, Object> rtnObj = frmerInfoService.updateFrmhsExpctWrhsDdln(frmhsExpctWrhsDdlnVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }

@@ -61,4 +61,12 @@ public interface PrdcrLandInfoService {
 	 */
 	public HashMap<String, Object> deletePrdcrLandInfo(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception;
 
+	/**
+	 * 생산자농지정보 다중 저장
+	 * @param prdcrLandInfoVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiPrdcrLandInfoList(List<PrdcrLandInfoVO> prdcrLandInfoList) throws Exception;
+
 }
