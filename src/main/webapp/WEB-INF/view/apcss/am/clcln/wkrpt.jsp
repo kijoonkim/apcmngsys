@@ -44,7 +44,7 @@
                         name="btn-search"
                         uitype="normal"
                         class="btn btn-sm btn-outline-dark"
-                        onclick="fn_onchangeYmd"
+                        onclick="fn_search"
                         text="조회"
                 ></sbux-button>
             </div>
@@ -53,13 +53,12 @@
             <!--[APC] START -->
             <%@ include file="../../../frame/inc/apcSelect.jsp" %>
             <!--[APC] END -->
-            <div id="sb-area-report" style="height: 500px; margin-bottom: 10px; margin-top: 10px"></div>
+            <div id="sb-area-wkrpt" style="height: 560px; margin-bottom: 10px; margin-top: 10px"></div>
             <table class="table table-bordered tbl_fixed">
                 <colgroup>
                     <col style="width: 10%">
                     <col style="width: 20%">
                     <col style="width: 10%">
-
                     <col style="width: 20%">
                     <col style="width: 10%">
                     <col style="width: 20%">
@@ -72,9 +71,10 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="info-inp-crtrCd"
-                                    name="info-inp-crtrCd"
+                                    id="info-inp-totWrhsQntt"
+                                    name="info-inp-totWrhsQntt"
                                     class="form-control input-sm"
+                                    disabled
                                     autocomplete="off"
                             />
                         </td>
@@ -84,10 +84,11 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="srch-inp-crtrCd1"
-                                    name="srch-inp-crtrCd1"
+                                    id="info-inp-totSpmtQntt"
+                                    name="info-inp-totSpmtQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
+                                    disabled
                             />
                         </td>
                         <th scope="row" class="th_bg">
@@ -96,10 +97,11 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="srch-inp-crtrCd2"
-                                    name="srch-inp-crtrCd2"
+                                    id="info-inp-totQntt"
+                                    name="info-inp-totQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
+                                    disabled
                             />
                         </td>
                     </tr>
@@ -115,86 +117,197 @@
         fn_init();
     });
 
-    const fn_init = async function(){
+    const fn_init = async function () {
         fn_createGrid();
-        SBUxMethod.set("srch-dtp-wrhsYmd",gfn_dateToYmd(new Date()));
-        await fn_onchangeYmd();
+        SBUxMethod.set("srch-dtp-wghYmd", gfn_dateToYmd(new Date()));
+        await fn_dtpChange(gfn_dateToYmd(new Date()));
     }
 
-    var jsonReport = [];
-    var grdReport;
+    var jsonWkrpt = [];
+    var grdWkrpt;
 
-    const fn_createGrid = function(){
+    const fn_createGrid = async function () {
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-report';
-        SBGridProperties.id = 'grdReport';
-        SBGridProperties.jsonref = 'jsonClclnCrtr';
+        SBGridProperties.parentid = 'sb-area-wkrpt';
+        SBGridProperties.id = 'grdWkrpt';
+        SBGridProperties.jsonref = 'jsonWkrpt';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.total = {
+        		  type 		: 'sub',
+        		  position	: 'bottom',
+        		  columns		: {
+        		      standard : [0],
+        		      sum : [2,4,6,8,10,12,14],
+        		  },
+        		  subtotalrow : {
+        			  0 : {
+        	                titlecol    : 0,
+        	                titlevalue  : '소계',
+        	                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+        	                stylestartcol   : 0
+        	            },
+        		  },
+        		  datasorting	: true,
+        		  usedecimal : false,
+        		};
         SBGridProperties.columns = [
-            {caption : ['구분','구분'],	ref : "col0",	width : '8%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/15 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/15 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/16 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/16 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/17 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/17 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/18 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/18 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/19 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/19 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/20 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/20 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/21 월','거래처'],	ref : "col0",	width : '9%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['4/21 월','수량'],	ref : "col0",	width : '3%',		style : 'text-align:center',	type : 'input'},
-            {caption : ['재고','재고'],	ref : "col0",	width : '8%',		style : 'text-align:center',	type : 'input'},
+            {caption : ['구분','구분'],			ref : 'wrhsSpmtTypeNm',	width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/15 월','거래처'],	ref : 'prdcrNmMon',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/15 월','수량'],		ref : 'bxQnttMon',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/16 월','거래처'],	ref : 'prdcrNmTue',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/16 월','수량'],		ref : 'bxQnttTue',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/17 월','거래처'],	ref : 'prdcrNmWed',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/17 월','수량'],		ref : 'bxQnttWed',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/18 월','거래처'],	ref : 'prdcrNmThu',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/18 월','수량'],		ref : 'bxQnttThu',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/19 월','거래처'],	ref : 'prdcrNmFri',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/19 월','수량'],		ref : 'bxQnttFri',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/20 월','거래처'],	ref : 'prdcrNmSat',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/20 월','수량'],		ref : 'bxQnttSat',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
+            {caption : ['4/21 월','거래처'],	ref : 'prdcrNmSun',		width : '9%',		style : 'text-align:center',	type : 'output'},
+            {caption : ['4/21 월','수량'],		ref : 'bxQnttSun',		width : '4%',		style : 'text-align:right',		type : 'output', format : {type:'number', rule:'#,### '}},
         ]
-        grdReport = _SBGrid.create(SBGridProperties);
+        grdWkrpt = _SBGrid.create(SBGridProperties);
     }
 
-    const fn_search = async function(){
-        console.log("지이이잉 서치중");
-        await fn_onchangeYmd();
+    const fn_search = async function () {
+
+    	let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");		// 기준일자
+
+    	// 입력된 날짜 문자열을 Date 객체로 변환 (YYYYMMDD 형식)
+        const year = parseInt(wghYmd.slice(0, 4), 10);
+        const month = parseInt(wghYmd.slice(4, 6), 10) - 1; // 월은 0부터 시작
+        const day = parseInt(wghYmd.slice(6, 8), 10);
+
+        const currentDate = new Date(year, month, day);
+
+        // 현재 날짜의 요일을 구합니다. (0: 일요일, 1: 월요일, ..., 6: 토요일)
+        const dayOfWeek = currentDate.getDay();
+
+        // 월요일까지의 차이를 구합니다.
+        const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+
+        // 월요일 날짜 구하기
+        const monday = new Date(currentDate);
+        monday.setDate(currentDate.getDate() + diffToMonday);
+
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+
+    	let wghYmdFrom = gfn_dateToYmd(monday);
+    	let wghYmdTo = gfn_dateToYmd(sunday);
+
+		const postJsonPromise = gfn_postJSON("/am/clcln/selectWkrptList.do", {
+			apcCd		: gv_selectedApcCd,
+			wghYmd		: wghYmd,
+			wghYmdFrom 	: wghYmdFrom,
+			wghYmdTo	: wghYmdTo
+  		});
+
+		jsonWkrpt.length = 0;
+
+  		try {
+
+	        const data = await postJsonPromise;
+
+	        if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
+
+          	data.resultList.forEach((item, index) => {
+  				const wkrpt = {
+  						apcCd 			: item.apcCd
+  					  , bxQnttMon		: item.bxQnttMon
+  					  , bxQnttTue		: item.bxQnttTue
+  					  , bxQnttWed		: item.bxQnttWed
+  					  , bxQnttThu		: item.bxQnttThu
+  					  , bxQnttFri		: item.bxQnttFri
+  					  , bxQnttSat		: item.bxQnttSat
+  					  , bxQnttSun		: item.bxQnttSun
+  					  , prdcrNmMon		: item.prdcrNmMon
+  					  , prdcrNmTue		: item.prdcrNmTue
+  					  , prdcrNmWed		: item.prdcrNmWed
+  					  , prdcrNmThu		: item.prdcrNmThu
+  					  , prdcrNmFri		: item.prdcrNmFri
+  					  , prdcrNmSat		: item.prdcrNmSat
+  					  , prdcrNmSun		: item.prdcrNmSun
+  					  , wrhsSpmtTypeNm	: item.wrhsSpmtTypeNm
+  				}
+  				jsonWkrpt.push(wkrpt);
+  			});
+
+          	if (data.resultList.length > 0) {
+
+		        let totWrhsQntt = data.resultList[0].totWrhsQntt;
+		        let totSpmtQntt = data.resultList[0].totSpmtQntt;
+
+		        if (!gfn_isEmpty(totWrhsQntt)) {
+
+			        SBUxMethod.set("info-inp-totWrhsQntt", totWrhsQntt)
+				}
+
+		        if (!gfn_isEmpty(totSpmtQntt)) {
+
+			        SBUxMethod.set("info-inp-totSpmtQntt", totSpmtQntt)
+				}
+          	}
+
+          	grdWkrpt.refresh();
+          	//fn_dtpChange(wghYmd);
+
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
-    function formatDateWithDay(date) {
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
 
-        const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-        const dayOfWeek = daysOfWeek[date.getDay()];
+    const fn_dtpChange = async function (ymd) {
+    	jsonWkrpt.length = 0;
+    	grdWkrpt.rebuild();
 
-        return `${'${month}/${day} ${dayOfWeek}'}`
-    }
+    	// 입력된 날짜 문자열을 Date 객체로 변환 (YYYYMMDD 형식)
+        const year = parseInt(ymd.slice(0, 4), 10);
+        const month = parseInt(ymd.slice(4, 6), 10) - 1; // 월은 0부터 시작
+        const day = parseInt(ymd.slice(6, 8), 10);
 
-    function getDateRange(date) {
-        const result = [];
-        const startDate = new Date(date.substr(0,4) + "-" + date.substr(4,2) + "-" + date.substr(6,2));
+        const currentDate = new Date(year, month, day);
 
-        for (let i = -3; i <= 3; i++) {
-            const currentDate = new Date(startDate);
-            currentDate.setDate(startDate.getDate() + i);
-            result.push(formatDateWithDay(currentDate));
-            result.push(formatDateWithDay(currentDate));
+        // 현재 날짜의 요일을 구합니다. (0: 일요일, 1: 월요일, ..., 6: 토요일)
+        const dayOfWeek = currentDate.getDay();
+
+        // 월요일까지의 차이를 구합니다.
+        const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+
+        // 월요일 날짜 구하기
+        const monday = new Date(currentDate);
+        monday.setDate(currentDate.getDate() + diffToMonday);
+
+		let daysofWeek = ['월','화','수','목','금','토','일']
+
+        let mon = fn_formatDateToMMDD(monday, daysofWeek[0]);
+
+        grdWkrpt.setCellData(0, 1, mon, true);
+        let dayDiff = 3;
+        for (var i=1; i<=6; i++) {
+
+        	const setDay = new Date(monday);
+        	setDay.setDate(monday.getDate() + i);
+
+        	grdWkrpt.setCellData(0, dayDiff, fn_formatDateToMMDD(setDay, daysofWeek[i]), true);
+        	dayDiff = parseInt(dayDiff) + 2;
         }
 
-        return result;
+        grdWkrpt.refresh();
     }
-    const fn_onchangeYmd = function(){
-        const givenDate = SBUxMethod.get("srch-dtp-wrhsYmd"); // 주어진 날짜
-        const dateRange = getDateRange(givenDate);
-        dateRange.push("재고");
-        dateRange.unshift("구분");
-        console.log(dateRange,"날짜 포맷팅한거 받은거");
-        console.log(grdReport.getCaption('array'));
 
-        let prevCaptions = grdReport.getCaption('array')[1];
-        let caption = prevCaptions.map((item,index) => [dateRange[index],item]);
-
-        console.log(caption,"포맷끝");
-        /** 근본적인 해결이 아님
-         * rebuild 하면 원복 단순 조회 페이지니깐 json data바인딩 후에 caption만 바꾸는걸로 **/
-        grdReport.setCaption(caption);
-        // grdReport.setCaption([newCaptions,newArray]);
-        // grdReport.rebuild();
+    const fn_formatDateToMMDD = function (date, toDay) {
+        const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
+        const day = date.getDate();
+        return month+'/'+day + " " + toDay;
     }
 
     /** 마지막 셀 병합 수정 **/
@@ -205,15 +318,15 @@
 							<td colspan="3" class="td_input"style="border-right: hidden;">
 								<sbux-datepicker
 									uitype="popup"
-									id="srch-dtp-wrhsYmd"
-									name="srch-dtp-wrhsYmd"
+									id="srch-dtp-wghYmd"
+									name="srch-dtp-wghYmd"
 									date-format="yyyy-mm-dd"
 									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+									onchange="fn_dtpChange(srch-dtp-wghYmd)"
 								></sbux-datepicker>
 							</td>
 							<td colspan="4"></td>
-`);
+	`);
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

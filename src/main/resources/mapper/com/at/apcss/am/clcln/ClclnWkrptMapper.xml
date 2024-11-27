@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ClclnWkrptMapper.xml                                   				-->
+<!-- DESC : 주간 입고출고현황 mapper                   				            -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.11.12  	김호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnWkrptMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
+	<!-- DESC : 주간 입출고현황 			                        	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.11.12  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWkrptList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList */
+			       Z.APC_CD
+			     , Z.WRHS_SPMT_TYPE
+			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', z.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
+			     , Z.PRDCR_CD
+			     , MAX(Z.BX_QNTT_MON)               AS BX_QNTT_MON
+			     , MAX(Z.PRDCR_NM_MON)              AS PRDCR_NM_MON
+			     , MAX(Z.BX_QNTT_TUE)               AS BX_QNTT_TUE
+			     , MAX(Z.PRDCR_NM_TUE)              AS PRDCR_NM_TUE
+			     , MAX(Z.BX_QNTT_WED)               AS BX_QNTT_WED
+			     , MAX(Z.PRDCR_NM_WED)              AS PRDCR_NM_WED
+			     , MAX(Z.BX_QNTT_THU)               AS BX_QNTT_THU
+			     , MAX(Z.PRDCR_NM_THU)              AS PRDCR_NM_THU
+			     , MAX(Z.BX_QNTT_FRI)               AS BX_QNTT_FRI
+			     , MAX(Z.PRDCR_NM_FRI)              AS PRDCR_NM_FRI
+			     , MAX(Z.BX_QNTT_SAT)               AS BX_QNTT_SAT
+			     , MAX(Z.PRDCR_NM_SAT)              AS PRDCR_NM_SAT
+			     , MAX(Z.BX_QNTT_SUN)               AS BX_QNTT_SUN
+			     , MAX(Z.PRDCR_NM_SUN)              AS PRDCR_NM_SUN
+		         , MAX(Z.TOT_WRHS_QNTT)             AS TOT_WRHS_QNTT
+     			 , MAX(Z.TOT_SPMT_QNTT)             AS TOT_SPMT_QNTT
+			  FROM( SELECT Y.APC_CD
+			             , Y.WRHS_SPMT_TYPE
+			             , Y.PRDCR_CD
+			             , Y.WGH_YMD
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw'), 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_MON
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw'), 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_MON
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+1, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_TUE
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+1, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_TUE
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+2, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_WED
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+2, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_WED
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+3, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_THU
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+3, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_THU
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+4, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_FRI
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+4, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_FRI
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+5, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_SAT
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+5, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_SAT
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+6, 'YYYYMMDD') THEN Y.BX_QNTT END BX_QNTT_SUN
+			             , CASE WHEN WGH_YMD = TO_CHAR(TRUNC(TO_DATE(Y.WGH_YMD,'YYYYMMDD'),'iw')+6, 'YYYYMMDD')
+			                    THEN FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) END PRDCR_NM_SUN
+			             , SUM(TOT_WRHS_QNTT) OVER()     AS TOT_WRHS_QNTT
+			             , SUM(TOT_SPMT_QNTT) OVER()     AS TOT_SPMT_QNTT
+			          FROM (
+			                SELECT X.APC_CD                 AS APC_CD
+			                     , X.WRHS_SPMT_TYPE         AS WRHS_SPMT_TYPE
+			                     , X.WGH_YMD                AS WGH_YMD
+			                     , X.PRDCR_CD               AS PRDCR_CD
+			                     , SUM(X.BX_QNTT)           AS BX_QNTT
+			                     , CASE WHEN X.WRHS_SPMT_TYPE = 'RT' THEN SUM(X.BX_QNTT) END TOT_WRHS_QNTT
+			                     , CASE WHEN X.WRHS_SPMT_TYPE = 'DT' THEN SUM(X.BX_QNTT) END TOT_SPMT_QNTT
+			                  FROM (
+			                        SELECT WC.APC_CD
+			                             , WC.WGHNO
+			                             , WC.WGH_YMD
+			                             , WC.WRHS_SPMT_TYPE
+			                             , WD.BX_QNTT
+			                             , WC.PRDCR_CD
+			                          FROM TB_WGH_PRFMNC_COM WC
+			                             , TB_WGH_PRFMNC_DTL WD
+			                         WHERE WC.APC_CD = WD.APC_CD
+			                           AND WC.WGHNO = WD.WGHNO
+			                           AND WC.DEL_YN = 'N'
+			                           AND WD.DEL_YN = 'N'
+		]]>
+			<if test='apcCd != null and apcCd != ""'>
+			                   		   AND WC.APC_CD = #{apcCd}
+			</if>
+			<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+			   				   		   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+			</if>
+			<if test='wghYmdTo != null and wghYmdTo != ""'>
+			   				   		   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+			</if>
+		<![CDATA[
+
+			                       ) X
+			                 GROUP BY X.APC_CD, X.WRHS_SPMT_TYPE, X.WGH_YMD, X.PRDCR_CD
+			                 ORDER BY X.WRHS_SPMT_TYPE DESC
+			            ) Y
+			    ) Z
+			 GROUP BY Z.APC_CD, Z.WRHS_SPMT_TYPE, Z.PRDCR_CD
+    	]]>
+    </select>
+
+</mapper>
+
+
