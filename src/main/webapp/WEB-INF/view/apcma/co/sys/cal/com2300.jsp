@@ -116,7 +116,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 달력 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -286,6 +286,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};

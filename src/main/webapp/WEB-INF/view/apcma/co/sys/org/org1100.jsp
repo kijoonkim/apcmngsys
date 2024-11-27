@@ -94,11 +94,11 @@
 	                </table>
 	            </div>    
                 <div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>신고사업장 리스트</span>
+                                    <span>◎ 신고사업장 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -110,11 +110,11 @@
 							is-scrollable="false"
 							title-target-id-array="HISTORY^LIMIT"
 							title-text-array="변경이력관리^발행한도관리"
-							onclick = "fn_clickTab"
 							style="margin-top:1rem;">
 						</sbux-tabs>
+<!-- 							onclick = "fn_clickTab" -->
 						<div class="tab-content">
-							<div id="HISTORY" style="height:52vh;">
+							<div id="HISTORY">
 		                        <div class="ad_tbl_top2">
 		                        	<sbux-button id="btnSaveHistoryGrid" name="btnSaveHistoryGrid" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveHistoryGrid" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnDelHistoryRow"  name="btnDelHistoryRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delHistoryRow" style="float: right; margin-right:1rem;"></sbux-button>
@@ -122,7 +122,7 @@
 		                        </div>							
 	                            <div id="sb-area-grdHistoryOrg1100" style="width:100%;height:47vh;"></div>
 							</div>
-							<div id="LIMIT" style="height:52vh;">
+							<div id="LIMIT">
 								<div class="ad_tbl_top2">
 		                        	<sbux-button id="btnSaveLimitGrid" name="btnSaveLimitGrid" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveLimitGrid" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnDelLimitRow"  name="btnDelLimitRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delLimitRow" style="float: right; margin-right:1rem;"></sbux-button>
@@ -132,7 +132,7 @@
 							</div>
 						</div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -579,6 +579,7 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;	
 	    SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.rowheadercaption = {seq: 'No'};
 	    SBGridProperties.rowheaderwidth = {seq: '60'};
@@ -590,6 +591,13 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    ];
 	    masterGrid = _SBGrid.create(SBGridProperties);
 	    masterGrid.bind('click', 'fn_searchSubTable');
+	    masterGrid.bind('keyup', 'fn_keyup');
+	}
+	
+	const fn_keyup = async function(event){
+		if(event.keyCode == 38 || event.keyCode == 40 ){
+			await fn_searchSubTable();
+		}
 	}
 	
 	function fn_createHistoryGrid() {

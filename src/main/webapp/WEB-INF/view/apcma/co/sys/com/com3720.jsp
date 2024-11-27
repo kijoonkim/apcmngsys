@@ -76,12 +76,12 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">그룹코드</th>
 	                            <td class="td_input" colspan="3" style="border-right:hidden;">
-	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+	                                <sbux-input id="SRCH_GROUP_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
 	                            <th scope="row" class="th_bg_search">코드그룹명</th>
 	                            <td class="td_input" colspan="3" style="border-right: hidden;">
-	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+	                                <sbux-input id="SRCH_GROUP_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
 	                        </tr>
@@ -93,13 +93,13 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 프로젝트코드 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdcom3720" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdcom3720" style="height:75vh; width:100%;"></div>
                         </div>
                     </div>
 
@@ -112,13 +112,13 @@
                         <div>
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
-                                    <col style="width:14%">
-                                    <col style="width:14%">
+                                    <col style="width:10%">
                                     <col style="width:16%">
-                                    <col style="width:14%">
-                                    <col style="width:14%">
-                                    <col style="width:14%">
-                                    <col style="width:14%">
+                                    <col style="width:18%">
+                                    <col style="width:10%">
+                                    <col style="width:18%">
+                                    <col style="width:10%">
+                                    <col style="width:18%">
                                 </colgroup>
                                 <tr>
                                     <th scope="row" class="th_bg">그룹코드</th>
@@ -204,7 +204,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">사용여부</th>
-                                    <td class="td_input" >
+                                    <td class="td_input" colspan="2">
                             			<sbux-checkbox 
                             				id="USE_YN"
                             				uitype="normal"
@@ -214,7 +214,7 @@
                             			</sbux-checkbox>
 									</td>
                                     <th scope="row" class="th_bg">채번사용</th>
-                                    <td class="td_input" >
+                                    <td class="td_input" style="border-right:hidden;" >
                             			<sbux-checkbox 
                             				id="NUMBER_YN"
                             				uitype="normal"
@@ -282,7 +282,7 @@
                         </div>
                         <div class="ad_tbl_top2">
 	                        <div>
-	                            <div id="sb-area-subGrdcom3720" style="height:54vh; width:100%;"></div>
+	                            <div id="sb-area-subGrdcom3720" style="height:30vh; width:100%;"></div>
 	                        </div>
                         </div>
                     </div>
@@ -404,6 +404,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -414,9 +415,14 @@
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_view');
+        masterGrid.bind('keyup', 'fn_keyup');
 
     }
-    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
+    }
     var subGrid; 				// 세부코드 정보 그리드를 담기위한 객체 선언
     var jsonSubList 	= []; 	// 세부코드 정보 그리드의 참조 데이터 주소 선언
     

@@ -112,7 +112,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 기간 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
@@ -653,8 +653,13 @@
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_view');
+        masterGrid.bind('keyup', 'fn_keyup');
     }
-    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
+    }
     /*
      * 현업OPEN 일괄개설
      */

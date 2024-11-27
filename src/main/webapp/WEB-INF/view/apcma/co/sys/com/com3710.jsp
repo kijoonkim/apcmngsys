@@ -89,17 +89,17 @@
 	                </table>
 	            </div>    
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>◎ 코드목록</span>
+                                    <span>◎ 프로젝트 리스트</span>
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3710" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdCom3710" style="height:75vh; width:100%;"></div>
                         </div>
                     </div>
 	                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
@@ -107,8 +107,8 @@
 						title-target-id-array="tab1^tab2^tab3"
 						title-text-array="기본정보^채번관리^관리항목">
 					</sbux-tabs>
-                    <div class="col-sm-6 tab-content">
-						<div id="tab1" style="height:97vh;">
+                    <div class="col-sm-8 tab-content">
+						<div id="tab1" style="height:71vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -312,7 +312,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">마감일자</th>
                                     <td class="td_input" >
-										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" date-format="yyyy-mm-dd" uitype="popup" placement="top" style="width:120px;height: 3.6vh;"></sbux-datepicker>
+										<sbux-datepicker id="DATE_CLOSED" name="DATE_CLOSED" class="table-datepicker-ma" date-format="yyyy-mm-dd" uitype="popup" placement="top" style="width:120px;height: 3.6vh;"></sbux-datepicker>
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input" >
@@ -327,7 +327,7 @@
                                 </tr>                                                                                                                                                                                   
                             </table>
                         </div>
-						<div id="tab2" style="height:97vh;">
+						<div id="tab2" style="height:71vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -535,7 +535,7 @@
                                 </tr>  																					                                                                                                                                                         
                             </table>
                         </div>                        
-						<div id="tab3"  style="height:97vh;">
+						<div id="tab3"  style="height:71vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -705,6 +705,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -740,8 +741,13 @@
         ];
         masterTreeGrid	= _SBGrid.create(SBGridProperties);
         masterTreeGrid.bind('click', 'fn_view');
+        masterTreeGrid.bind('keyup', 'fn_keyup');
     }
-    
+    const fn_keyup = async function(event){
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+    		await fn_view();
+    	}
+    }
     /**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -1383,7 +1389,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_NAME"));
         var replaceText0 	= "_PARENT_CODE_";
         var replaceText1 	= "_PARENT_NAME_";
-        var strWhereClause 	= "AND A.PROJECT_CODE  LIKE '%" + replaceText0 + "%' AND A.PROJECT_NAME  LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.COMP_CODE  LIKE '%" + gv_ma_selectedCorpCd + "%' AND A.PROJECT_CODE  LIKE '%" + replaceText0 + "%' AND A.PROJECT_NAME  LIKE '%" + replaceText1 + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '상위코드 조회');
     	compopup1({
@@ -1412,32 +1418,30 @@
      */
     var fn_compopupDept = function() {
     	
-        var searchCode 		= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchName 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
-        var replaceText0 	= "_DEPT_CODE_";
-        var replaceText1 	= "_DEPT_NAME_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
-        
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '관리부서 팝업');
-    	compopup1({
-    		compCode				: gv_ma_selectedCorpCd
-    		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_FI_DEPT'
-        	,popupType				: 'A'
-    		,whereClause			: ""
-   			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
-   			,searchInputValues		: [searchCode, 			searchName]
-    		,height					: '400px'
-   			,tableHeader			: ["부서코드", 	"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME"]
-   			,tableColumnWidths		: ["80px", 	"80px"]
-			,itemSelectEvent		: function (data){
+        var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
+        var param		 	= null;
+        SBUxMethod.attr('modal-compopup1', 'header-title', '관리부서');
+        compopup1({
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FI_DEPT'
+            ,popupType				: 'B'
+       		,whereClause			: param
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: [searchText1, 	searchText2,	""]
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+            ,width					: '500px'
+            ,height					: '400px'
+            ,tableHeader			: ["부서코드",		"부서명" 		]
+            ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
+            ,tableColumnWidths		: ["100px", 		"200px" 		]
+            ,itemSelectEvent		: function (data){
 				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CODE);
-				SBUxMethod.set('DEPT_NAME',		data.DEPT_NAME);
-			},
-    	});
-    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NAME);
+            },
+        });
   	}
     
     /**
@@ -1450,7 +1454,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'"  + " AND A.COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점 팝업');
     	compopup1({
@@ -1461,11 +1465,11 @@
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 			"계정명"]
    			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
-   			,searchInputValues		: [searchCode, 			searchName]
+   			,searchInputValues		: ["", 			""]
     		,height					: '400px'
    			,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
    			,tableColumnNames		: ["COST_CENTER_CODE",	"COST_CENTER_NAME",	"DEPT_CODE",	"COST_CENTER_NAME",	"COST_CLASS",	"SITE_CODE",	"CREDIT_AREA"]
-   			,tableColumnWidths		: ["80px", 				"80px", 			"80px", 		"80px", 			"80px", 		"80px", 		"80px"]
+   			,tableColumnWidths		: ["100px", 			"150PX", 			"100px", 		"100px", 			"100px", 		"100px", 		"100px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
 				SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
@@ -1481,9 +1485,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get(target + "_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get(target + "_NAME"));
-        var replaceText0 	= "_" + target + "_CODE_";
-        var replaceText1 	= "_" + target + "_NAME_";        
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + searchCode + "%' AND ACCOUNT_NAME LIKE '%" + searchName + "%'";
+        var replaceText0 	= "_ACCOUNT_CODE_";
+        var replaceText1 	= "_ACCOUNT_NAME_";        
+        var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'" + " AND COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 정보 팝업');
     	compopup1({
@@ -1494,7 +1498,7 @@
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
-   			,searchInputValues		: [searchCode, 	searchName]
+   			,searchInputValues		: ['', 	'']
     		,height					: '400px'
    			,tableHeader			: ["코드", 			"계정명"]
    			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME"]
