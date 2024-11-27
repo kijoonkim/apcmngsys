@@ -86,4 +86,35 @@ public class PrdcrLandInfoServiceImpl extends BaseServiceImpl implements PrdcrLa
 		}
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> multiPrdcrLandInfoList(List<PrdcrLandInfoVO> prdcrLandInfoList) throws Exception {
+
+
+		for (PrdcrLandInfoVO prdcrLandInfoVO : prdcrLandInfoList) {
+
+			if (ComConstants.ROW_STS_INSERT.equals(prdcrLandInfoVO.getRowSts())) {
+
+				String prdcrLandInfoNo = selectGetPrdcrLandInfoNo(prdcrLandInfoVO);
+
+				prdcrLandInfoVO.setPrdcrLandInfoNo(prdcrLandInfoNo);
+
+				if (0 == insertPrdcrLandInfo(prdcrLandInfoVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			}
+
+			if (ComConstants.ROW_STS_UPDATE.equals(prdcrLandInfoVO.getRowSts())) {
+
+				if (0 == updatePrdcrLandInfo(prdcrLandInfoVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			}
+		}
+
+		return null;
+	}
+
+
+
 }

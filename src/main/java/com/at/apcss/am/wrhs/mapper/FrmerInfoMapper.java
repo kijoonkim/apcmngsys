@@ -7,6 +7,7 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 /**
@@ -201,4 +202,20 @@ public interface FrmerInfoMapper {
 	 * @throws Exception
 	 */
 	public int deleteFrmhsExpctWrhsDtl(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 마감 조회
+	 * @param FrmhsExpctWrhsDdlnVO
+	 * @return FrmhsExpctWrhsDdlnVO
+	 * @throws Exception
+	 */
+	public FrmhsExpctWrhsDdlnVO selectFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
+
+	/**
+	 * 농가예상입고마감 저장
+	 * @param FrmhsExpctWrhsDdlnVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
 }

@@ -141,6 +141,15 @@ public class FrmhsExpctWrhsVO extends ComVO {
     private int tot;
 
     /*
+     * 입고마감사용여부
+     * */
+    private String useYn;
+    /*
+     * 입고마감일자
+     * */
+    private String ddlnYmd;
+
+    /*
 	 * 농가예상입고상세
 	 * */
 	private List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList;

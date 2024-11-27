@@ -106,4 +106,47 @@ public class PrdcrLandInfoController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	/**
+	 * 생산농지정보 저장
+	 * @param List<prdcrLandInfoVO>
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/multiPrdcrLandInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiPrdcrLandInfoList(@RequestBody List<PrdcrLandInfoVO> prdcrLandInfoList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+
+			for (PrdcrLandInfoVO prdcrLandInfoVO : prdcrLandInfoList) {
+
+				prdcrLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrLandInfoVO.setSysFrstInptUserId(getUserId());
+				prdcrLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+				prdcrLandInfoVO.setSysLastChgUserId(getUserId());
+			}
+
+
+
+			HashMap<String, Object> rtnObj = prdcrLandInfoService.multiPrdcrLandInfoList(prdcrLandInfoList);
+
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

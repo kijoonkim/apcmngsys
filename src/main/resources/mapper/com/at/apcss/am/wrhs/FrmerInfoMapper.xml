@@ -396,8 +396,18 @@
 					     , CQ.SD_QNTT_3         AS SD_QNTT_3
 					     , CQ.SD_QNTT_4         AS SD_QNTT_4
 					     , CQ.SD_QNTT_5         AS SD_QNTT_5
-					     , CQ.CRTR_PRCL         AS CRTR_PRCL
-					     , CQ.PLNTNG_PRCL       AS PLNTNG_PRCL
+					     , (SELECT SUM(PLNTNG_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = CQ.APC_CD
+                               AND X.YR = CQ.YR
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS PLNTNG_PRCL
+                         , (SELECT SUM(CRTR_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = CQ.APC_CD
+                               AND X.YR = CQ.YR
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS CRTR_PRCL
 					     , CQ.SDNG_YMD          AS SDNG_YMD
 					     , CQ.SDNG_STTS_CD      AS SDNG_STTS_CD
 					     , CQ.PLNTNG_YMD        AS PLNTNG_YMD
@@ -473,8 +483,18 @@
 					     , ''   AS SD_QNTT_3
 					     , ''   AS SD_QNTT_4
 					     , ''   AS SD_QNTT_5
-					     , ''   AS CRTR_PRCL
-					     , ''   AS PLNTNG_PRCL
+					     , (SELECT SUM(PLNTNG_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = CQ.APC_CD
+                               AND X.YR = CQ.YR
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS PLNTNG_PRCL
+                         , (SELECT SUM(CRTR_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = CQ.APC_CD
+                               AND X.YR = CQ.YR
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS CRTR_PRCL
 					     , ''   AS SDNG_YMD
 					     , ''   AS SDNG_STTS_CD
 					     , ''   AS PLNTNG_YMD
@@ -570,8 +590,6 @@
 				 , SD_QNTT_3
 				 , SD_QNTT_4
 				 , SD_QNTT_5
-				 , CRTR_PRCL
-				 , PLNTNG_PRCL
 				 , SDNG_YMD
 				 , SDNG_STTS_CD
 				 , PLNTNG_YMD
@@ -621,8 +639,6 @@
 				 , #{sdQntt3}
 				 , #{sdQntt4}
 				 , #{sdQntt5}
-				 , #{crtrPrcl}
-				 , #{plntngPrcl}
 				 , #{sdngYmd}
 				 , #{sdngSttsCd}
 				 , #{plntngYmd}
@@ -684,8 +700,6 @@
 				 , SD_QNTT_3                = #{sdQntt3}
 				 , SD_QNTT_4                = #{sdQntt4}
 				 , SD_QNTT_5                = #{sdQntt5}
-				 , CRTR_PRCL                = #{crtrPrcl}
-				 , PLNTNG_PRCL              = #{plntngPrcl}
 				 , SDNG_YMD                 = #{sdngYmd}
 				 , SDNG_STTS_CD             = #{sdngSttsCd}
 				 , PLNTNG_YMD               = #{plntngYmd}
@@ -752,7 +766,7 @@
 
     <!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList	-->
-	<!-- DESC : 영농관리 - 재배농가품질 수정.                    						-->
+	<!-- DESC : 영농관리 - 농가예상입고 목록 조회.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
@@ -773,7 +787,8 @@
 			     , MAX(pt0.FRMHS_CTPV)              AS FRMHS_CTPV
 			     , MAX(pt0.FRMHS_TELNO)             AS FRMHS_TELNO
 			     , MAX(CQ.EXPCT_QNTT)               AS EXPCT_QNTT
-			     , MAX(CQ.PLNTNG_PRCL)              AS PLNTNG_PRCL
+			     , MAX(pt0.PLNTNG_PRCL)             AS PLNTNG_PRCL
+                 , MAX(pt0.CRTR_PRCL)               AS CRTR_PRCL
 			     , MAX(CQ.PIC)                      AS PIC
 			     , MAX(CQ.QLT_EVL)                  AS QLT_EVL
 			     , SUM(QNTT) - MAX(CQ.EXPCT_QNTT)    AS EXPCT_VLM_VRSS
@@ -816,6 +831,16 @@
 			     , SUM(pt0.YMD_30)                  AS YMD_30_QNTT
 			     , SUM(pt0.YMD_31)                  AS YMD_31_QNTT
 			     , SUM(QNTT)                        AS TOT
+			     , (SELECT MAX(X.YMD)
+                      FROM TB_FRMHS_EXPCT_WRHS_DDLN X
+                     WHERE X.APC_CD = pt0.APC_CD
+                       AND X.YR = pt0.CRTR_YR
+                   ) AS DDLN_YMD
+                 , (SELECT MAX(X.USE_YN)
+                      FROM TB_FRMHS_EXPCT_WRHS_DDLN X
+                     WHERE X.APC_CD = pt0.APC_CD
+                       AND X.YR = pt0.CRTR_YR
+                   ) AS USE_YN
 			  FROM (SELECT
 					       PI.APC_CD                    AS APC_CD
 					     , PI.PRDCR_CD                  AS PRDCR_CD
@@ -823,9 +848,19 @@
 					     , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
 					     , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
 					     , PI.FRMHS_ADDR                AS FRMHS_ADDR
-					     , PI.PLNTNG_AREA               AS PLNTNG_AREA
 					     , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
-					     , PI.CRTR_AREA                 AS CRTR_AREA
+					     , (SELECT SUM(PLNTNG_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = PI.APC_CD
+                               AND X.YR = #{yr}
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS PLNTNG_PRCL
+					     , (SELECT SUM(CRTR_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = PI.APC_CD
+                               AND X.YR = #{yr}
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
 					     , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
 					     , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
@@ -901,9 +936,19 @@
 					     , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
 					     , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
 					     , PI.FRMHS_ADDR                AS FRMHS_ADDR
-					     , PI.PLNTNG_AREA               AS PLNTNG_AREA
 					     , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
-					     , PI.CRTR_AREA                 AS CRTR_AREA
+					     , (SELECT SUM(PLNTNG_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = PI.APC_CD
+                               AND X.YR = #{yr}
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS PLNTNG_PRCL
+					     , (SELECT SUM(CRTR_AREA)
+                              FROM TB_PRDCR_LAND_INFO X
+                             WHERE X.APC_CD = PI.APC_CD
+                               AND X.YR = #{yr}
+                               AND X.PRDCR_CD = PI.PRDCR_CD
+                           )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
 					     , '' AS FRMHS_EXPCT_WRHS_NO
 					     , '' AS HDOFC_EXTRNL_SE_CD
@@ -1230,6 +1275,83 @@
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRDCR_CD 				= #{prdcrCd}
 			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
+		]]>
+	</update>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln	-->
+	<!-- DESC : 영농관리 - 농가예상입고마감조회.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.11.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectFrmhsExpctWrhsDdln" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln */
+			       EWD.APC_CD 		AS APC_CD
+			     , EWD.YR			AS YR
+			     , EWD.YMD			AS YMD
+			     , EWD.USE_YN		AS USE_YN
+			     , EWD.DEL_YN		AS DEL_YN
+			  FROM TB_FRMHS_EXPCT_WRHS_DDLN EWD
+			 WHERE APC_CD 		= #{apcCd}
+			   AND YR 			= #{yr}
+		]]>
+	</select>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln	-->
+	<!-- DESC : 영농관리 - 농가예상입고마감 저장.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.11.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateFrmhsExpctWrhsDdln" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
+		<![CDATA[
+			MERGE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln */
+			 INTO TB_FRMHS_EXPCT_WRHS_DDLN A
+			USING DUAL
+			   ON (
+			       	   A.APC_CD 					= #{apcCd}
+			       AND A.YR 						= #{yr}
+			      )
+			 WHEN MATCHED THEN
+					UPDATE
+				       SET
+						   A.YMD					= #{ymd}
+						 , A.USE_YN					= #{useYn}
+						 , A.SYS_LAST_CHG_DT        = SYSDATE
+						 , A.SYS_LAST_CHG_USER_ID   = #{sysLastChgUserId}
+						 , A.SYS_LAST_CHG_PRGRM_ID  = #{sysLastChgPrgrmId}
+					 WHERE A.APC_CD 				= #{apcCd}
+					   AND A.YR 					= #{yr}
+		     WHEN NOT MATCHED THEN
+		     		INSERT
+					     (
+					       APC_CD
+					     , YR
+					     , YMD
+					     , USE_YN
+					     , SYS_FRST_INPT_DT
+						 , SYS_FRST_INPT_USER_ID
+						 , SYS_FRST_INPT_PRGRM_ID
+						 , SYS_LAST_CHG_DT
+						 , SYS_LAST_CHG_USER_ID
+						 , SYS_LAST_CHG_PRGRM_ID
+						 )
+					VALUES
+						 (
+						   #{apcCd}
+					     , #{yr}
+					     , #{ymd}
+					     , #{useYn}
+					     , SYSDATE
+						 , #{sysFrstInptUserId}
+						 , #{sysFrstInptPrgrmId}
+						 , SYSDATE
+						 , #{sysLastChgUserId}
+						 , #{sysLastChgPrgrmId}
+						 )
 		]]>
 	</update>
 </mapper>
