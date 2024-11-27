@@ -150,7 +150,7 @@
 	                </table>
                 </div>
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -168,7 +168,7 @@
 						title-target-id-array="NORMAL^CATEGORY"
 						title-text-array="기본정보^관리항목">
 					</sbux-tabs>
-                    <div class="col-sm-7 tab-content">
+                    <div class="col-sm-8 tab-content">
                         <div id="NORMAL" style="height:93vh;">
 	                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
 								<colgroup>

@@ -94,7 +94,7 @@
 	                </table>
 	            </div>    
                 <div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -132,7 +132,7 @@
 							</div>
 						</div>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-8">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -585,9 +585,9 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-			{ 	caption: ["사업장코드"], 	ref: 'TAX_SITE_CODE', 	type: 'output', 	width: '220px', 	style: 'text-align:left' 	}, 	
-		    { 	caption: ["사업장명"], 	ref: 'TAX_SITE_NAME', 	type: 'output', 	width: '220px', 	style: 'text-align:left' 	}, 	
-		    { 	caption: ["사업자번호"], 	ref: 'BIZ_REGNO', 	type: 'output', 	width: '220px', 	style: 'text-align:left' 	},
+			{ 	caption: ["사업장코드"], 	ref: 'TAX_SITE_CODE', 	type: 'output', 	width: '20%', 	style: 'text-align:left' 	}, 	
+		    { 	caption: ["사업장명"], 	ref: 'TAX_SITE_NAME', 	type: 'output', 	width: '20%', 	style: 'text-align:left' 	}, 	
+		    { 	caption: ["사업자번호"], 	ref: 'BIZ_REGNO', 	type: 'output', 	width: '60%', 	style: 'text-align:left' 	},
 	    ];
 	    masterGrid = _SBGrid.create(SBGridProperties);
 	    masterGrid.bind('click', 'fn_searchSubTable');

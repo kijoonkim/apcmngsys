@@ -1457,7 +1457,7 @@
 					//초기화
 					$('#' + strsubmodule).html("");
 					//줄바꿈 스타일
-					$('#' + strsubmodule).css('white-space','pre-line');					
+					$('#' + strsubmodule).css('white-space','pre-line');				
 					//텍스트 입력
 					$('#' + strsubmodule).html(strbtntxt);
 				}	

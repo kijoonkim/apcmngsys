@@ -90,7 +90,7 @@
 	                </table>
 	            </div>    
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -103,7 +103,7 @@
                             <div id="sb-area-grdOrg1000" style="height:778px; width:100%;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -131,14 +131,14 @@
 										<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm inpt_data_reqed"></sbux-input>	
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
-		                            </td>		                            
+		                            </td>
 		                            <th scope="row" class="th_bg" colspan="2" style="text-align:left !important">법인 로고</th>
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인명</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
 										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
-		                            </td>		                        
+		                            </td>
 		                            <td id="COMP_LOGO_AREA" class="td_input"  style="border-right:hidden;width:100%;" colspan="2" rowspan="3">
                                         <img id="COMP_LOGO" style="width: 410px; height: 105px;object-fit: contain;">
                                         <input type="file" name="COMP_LOGO_FILE" id="COMP_LOGO_FILE" accept="image/*" style="display: none;">		                            
@@ -168,7 +168,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인설립일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.5vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
