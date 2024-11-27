@@ -388,6 +388,35 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
+				if (ComConstants.CON_YES.equals(orgnInv.getNeedInsertYn())) {
+
+					RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(sortMngVO, rawMtrWrhsVO);
+					rawMtrWrhsVO.setWrhsYmd(invntrVO.getWrhsYmd());
+					rawMtrWrhsVO.setPrdctnYr(invntrVO.getPrdctnYr());
+					rawMtrWrhsVO.setApcCd(apcCd);
+					rawMtrWrhsVO.setPltno(invntrVO.getPltno());
+					rawMtrWrhsVO.setItemCd(invntrVO.getItemCd());
+					rawMtrWrhsVO.setVrtyCd(invntrVO.getVrtyCd());
+					rawMtrWrhsVO.setPrdcrCd(invntrVO.getPrdcrCd());
+					rawMtrWrhsVO.setWarehouseSeCd(invntrVO.getWarehouseSeCd());
+					rawMtrWrhsVO.setBxQntt(invntrVO.getInvntrQntt());
+					rawMtrWrhsVO.setWrhsWght(invntrVO.getInvntrWght());
+					rawMtrWrhsVO.setGdsSeCd(invntrVO.getGdsSeCd());
+					rawMtrWrhsVO.setWrhsSeCd(invntrVO.getWrhsSeCd());
+					rawMtrWrhsVO.setTrsprtSeCd(invntrVO.getTrsprtSeCd());
+					rawMtrWrhsVO.setGrdCd(invntrVO.getGrdCd());
+					rawMtrWrhsVO.setStdGrdList(invntrVO.getStdGrdList());
+
+					rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+					invntrVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+				}
+
 				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
 
 				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
@@ -439,6 +468,35 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						ComConstants.PROP_SYS_LAST_CHG_DT,
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+				if (ComConstants.CON_YES.equals(orgnInv.getNeedInsertYn())) {
+
+					RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(sortMngVO, rawMtrWrhsVO);
+					rawMtrWrhsVO.setWrhsYmd(invntrVO.getWrhsYmd());
+					rawMtrWrhsVO.setPrdctnYr(invntrVO.getPrdctnYr());
+					rawMtrWrhsVO.setApcCd(apcCd);
+					rawMtrWrhsVO.setPltno(invntrVO.getPltno());
+					rawMtrWrhsVO.setItemCd(invntrVO.getItemCd());
+					rawMtrWrhsVO.setVrtyCd(invntrVO.getVrtyCd());
+					rawMtrWrhsVO.setPrdcrCd(invntrVO.getPrdcrCd());
+					rawMtrWrhsVO.setWarehouseSeCd(invntrVO.getWarehouseSeCd());
+					rawMtrWrhsVO.setBxQntt(invntrVO.getInvntrQntt());
+					rawMtrWrhsVO.setWrhsWght(invntrVO.getInvntrWght());
+					rawMtrWrhsVO.setGdsSeCd(invntrVO.getGdsSeCd());
+					rawMtrWrhsVO.setWrhsSeCd(invntrVO.getWrhsSeCd());
+					rawMtrWrhsVO.setTrsprtSeCd(invntrVO.getTrsprtSeCd());
+					rawMtrWrhsVO.setGrdCd(invntrVO.getGrdCd());
+					rawMtrWrhsVO.setStdGrdList(invntrVO.getStdGrdList());
+
+					rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+					invntrVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+				}
 
 				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
 

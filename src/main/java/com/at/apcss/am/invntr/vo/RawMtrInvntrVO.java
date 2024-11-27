@@ -425,7 +425,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * */
 	private String plorCd;
 
-
+	/**
+	 * 등록필요여부
+	 */
+	private String needInsertYn;
 
 
 	/**

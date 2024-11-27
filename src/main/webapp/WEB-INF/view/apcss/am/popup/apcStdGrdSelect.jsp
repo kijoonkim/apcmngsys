@@ -611,6 +611,7 @@ const stdGrdSelect = {
 			const _id = gStdGrdObj.idList[index];
 
 			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + _id);
+			let grdNm = SBUxMethod.getText('stdGrdSlt-slt-knd-' + _id);
 			let grdNv = parseFloat(SBUxMethod.get('stdGrdSlt-inp-knd-' + _id)) || 0;
 			if (_.isEqual(item.stdGrdType, "RT")) {
 				if (this.param.isWght) {
@@ -639,6 +640,7 @@ const stdGrdSelect = {
 					stdGrdType: item.stdGrdType,
 					grdCd: grdCd,
 					grdNv: grdNv,
+					grdNm: grdNm,
 					grdWght: item.grdWght || null,
 					grdQntt: item.grdQntt || null,
 				}
@@ -659,7 +661,7 @@ const stdGrdSelect = {
 					jgmtGrdCd = grdCd;
 				}
 				
-				jgmtGrdNm = item.grdKndNm;
+				jgmtGrdNm = item.grdKndNm + ":" + grdNm;
 			}
 		});
 
@@ -675,7 +677,7 @@ const stdGrdSelect = {
 			result.grdWght = sumGrdNv;
 		}
 
-		if (gjsonStdGrdObjJgmt.length > 0) {
+		if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 			jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
 			jgmtGrdNm = SBUxMethod.getText('stdGrdSlt-slt-jgmt');
 		}
