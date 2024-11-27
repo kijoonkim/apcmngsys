@@ -767,8 +767,7 @@
             return;
         }
         /** 출하통지서 인쇄 미리보기 **/
-
-        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DO_DOC');
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
         let param = flag.join("','");
         await gfn_popClipReport("출하통지서", rptUrl, {apcCd: gv_selectedApcCd, spmtno: param});
         jsonPckgPrfmnc.length = 0;
