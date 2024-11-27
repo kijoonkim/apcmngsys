@@ -45,6 +45,14 @@ public interface SpmtDdlnService {
 	 */
 	public List<HashMap<String, Object>> selectMrktAnlsList(HashMap<String,Object> spmtVO) throws Exception;
 
+	/**
+	 * 재고현황1 조회
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectInvntrSttnOneList(HashMap<String,Object> spmtVO) throws Exception;
+
 
 	/**
 	 * 시황분석 등록
@@ -82,6 +90,99 @@ public interface SpmtDdlnService {
 	 * @throws Exception
 	 */
 	public int insertInvntrSttn1(List<HashMap<String,Object>> spmtVO) throws Exception;
+
+
+
+	/**
+	 * 재고현황2 등록
+	 *
+	 * @param List<HashMap<String,Object>>
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertInvntrSttn2(List<HashMap<String,Object>> spmtVO) throws Exception;
+
+	/**
+	 * 재고현황2 조회
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectInvntrSttnTwoList(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 입고현황 조회
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectWrhsSttnList(HashMap<String,Object> spmtVO) throws Exception;
+
+
+	/**
+	 * 입고현황 등록
+	 *
+	 * @param List<HashMap<String,Object>>
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertWrhsSttn(List<HashMap<String,Object>> spmtVO) throws Exception;
+
+	/**
+	 * 당일작업단가 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteDhtyJobList(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 작업내용 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteJobCnList(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 시황분석 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteMrktAnlsList(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 재고현황1 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteInvntrOne(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 재고현황2 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteInvntrTwo(HashMap<String,Object> spmtVO) throws Exception;
+
+	/**
+	 * 입고현황 삭제
+	 *
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteWrhsSttnList(HashMap<String,Object> spmtVO) throws Exception;
+
+
 
 
 }
