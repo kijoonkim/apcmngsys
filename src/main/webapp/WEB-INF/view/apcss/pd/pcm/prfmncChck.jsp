@@ -181,6 +181,10 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","6월"], 		ref: 'prfmncAmt6',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
+
+			{caption: ["통합조직 총취급액(판매액)","상반기 누적 소계\n(백만원)"], 	ref: 'prfmncAmtHalfTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+				, calc : 'fn_prfmncAmtHalfSum',	format : { type:'number' , rule:'#,###' }},
+
 			{caption: ["통합조직 총취급액(판매액)","7월"], 		ref: 'prfmncAmt7',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","8월"], 		ref: 'prfmncAmt8',	type:'input',  width:'100px',	style:'text-align:center'
@@ -194,10 +198,10 @@
 			{caption: ["통합조직 총취급액(판매액)","12월"], 		ref: 'prfmncAmt12',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","소계"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","누적 소계\n(백만원)"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				, calc : 'fn_prfmncAmtSum',	format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","23년말 실적"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","23년말 실적\n(백만원)"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				,format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","24년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
@@ -234,7 +238,7 @@
 		}
 	}
 
-	//소계
+	//증감률
 	function fn_prfmncAmtRt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
@@ -262,17 +266,24 @@
 		return sumVal;
 	}
 
+	//1~6월 소계
+	function fn_prfmncAmtHalfSum(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.prfmncAmt1) + Number(rowData.prfmncAmt2) + Number(rowData.prfmncAmt3)
+				+ Number(rowData.prfmncAmt4) + Number(rowData.prfmncAmt5) + Number(rowData.prfmncAmt6);
+		return sumVal;
+	}
+
 	const fn_clearForm = async function (){
 		jsonPrfmncChckMng.length=0;
 		grdPrfmncChckMng.rebuild();
 	}
 
-
 	/* 승인형 조직 조회*/
 	const fn_search = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
-		brno = '5658200459';//테스트 거창한거창조합공동사업법인
 
 		let postJsonPromise = gfn_postJSON("/pd/pcm/selectUoAprv.do", {
 			brno : brno
@@ -282,15 +293,14 @@
 			console.log(data);
 			let item = data.resultList;
 
-			SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm));
-			SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno));
-			SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno));
-
-			if(!gfn_isEmpty(brno) && item.brno == brno){
+			if(!gfn_isEmpty(item)){
+				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm));
+				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno));
+				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno));
 				fn_dtlSearch();
 			}else{
-				alert('승인형 조직만 이용가능한 메뉴입니다');
 				$(".btn").hide();
+				alert('승인형 조직만 이용가능한 메뉴입니다');
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
