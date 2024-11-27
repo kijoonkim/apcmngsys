@@ -1,3 +1,4 @@
+
 <%
 /**
  * @Class Name 		: fia4300.jsp
@@ -14,670 +15,875 @@
  *
  */
 %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 매각/폐기내역 등록 </title>
-	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+<title>title : 매각/폐기내역 등록</title>
+<%@ include file="../../../../frame/inc/headerMeta.jsp"%>
+<%@ include file="../../../../frame/inc/headerScriptMa.jsp"%>
 </head>
 <body oncontextmenu="return false">
-    <section>
-        <div class="box box-solid">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
-                <div>
-                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 매각/폐기내역 등록  -->
-                </div>
-                <div style="margin-left: auto;">
-                    <sbux-button id="btnCreateAccount" name="btnCreateAccount" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnAccountClick"></sbux-button>
-                    <sbux-button id="btnCancelAccount" name="btnCancelAccount" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancelClick"></sbux-button>
-                    <sbux-button id="btnDisposalSearch" name="btnDisposalSearch" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="btnDisposalClick"></sbux-button>
-                    <sbux-button id="btnExpenseSearch" name="btnExpenseSearch" 	uitype="normal" text="비용 전표 조회" class="btn btn-sm btn-outline-danger" onclick="fn_expenseSearch"></sbux-button>
-                </div>
-            </div>
-            <div class="box-body">
+	<section>
+		<div class="box box-solid">
+			<div class="box-header"
+				style="display: flex; justify-content: flex-start;">
+				<div>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title">
+						▶
+						<c:out value='${menuNm}'></c:out>
+					</h3>
+					<!-- 매각/폐기내역 등록  -->
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnCreateAccount" name="btnCreateAccount"
+						uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger"
+						onclick="btnAccountClick"></sbux-button>
+					<sbux-button id="btnCancelAccount" name="btnCancelAccount"
+						uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger"
+						onclick="btnCancelClick"></sbux-button>
+					<sbux-button id="btnDisposalSearch" name="btnDisposalSearch"
+						uitype="normal" text="처분 전표 조회"
+						class="btn btn-sm btn-outline-danger" onclick="btnDisposalClick"></sbux-button>
+					<sbux-button id="btnExpenseSearch" name="btnExpenseSearch"
+						uitype="normal" text="비용 전표 조회"
+						class="btn btn-sm btn-outline-danger" onclick="fn_expenseSearch"></sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="box-search-ma">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<div style="display:none">
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				<div>
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp"%>
 				</div>
 				<!--[APC] END -->
 
-                <table id = "topTable" class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+				<table id="topTable" class="table table-bordered tbl_fixed table-search-ma">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-compCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-                            <th scope="row" class="th_bg">사업단위</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-fiOrgCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
-                            <th scope="row" class="th_bg">사업장</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg_search">법인</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div class="dropdown">
+									<button style="width: 160px; text-align: left"
+										class="btn btn-sm btn-light dropdown-toggle " type="button"
+										id="srch-slt-compCode" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										<font>선택</font> <i style="padding-left: 10px"
+											class="sbux-sidemeu-ico fas fa-angle-down"></i>
+									</button>
+									<div class="dropdown-menu bplc"
+										aria-labelledby="srch-slt-siteCode"
+										style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+									</div>
+								</div>
+							</td>
+							<td></td>
 
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-siteCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
+							<th scope="row" class="th_bg_search">사업단위</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div class="dropdown">
+									<button style="width: 160px; text-align: left"
+										class="btn btn-sm btn-light dropdown-toggle " type="button"
+										id="srch-slt-fiOrgCode" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										<font>선택</font> <i style="padding-left: 10px"
+											class="sbux-sidemeu-ico fas fa-angle-down"></i>
+									</button>
+									<div class="dropdown-menu bplc"
+										aria-labelledby="srch-slt-fiOrgCode"
+										style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+									</div>
+								</div>
+							</td>
+							<td></td>
+							<th scope="row" class="th_bg_search">사업장</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">처분일</th>
+								<div class="dropdown">
+									<button style="width: 160px; text-align: left"
+										class="btn btn-sm btn-light dropdown-toggle " type="button"
+										id="srch-slt-siteCode" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										<font>선택</font> <i style="padding-left: 10px"
+											class="sbux-sidemeu-ico fas fa-angle-down"></i>
+									</button>
+									<div class="dropdown-menu bplc"
+										aria-labelledby="srch-slt-siteCode"
+										style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+									</div>
+								</div>
+							</td>
+							<td></td>
+
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg_search">처분일</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-disposalDateFrom"
-									name="srch-dtp-disposalDateFrom"
-									uitype="popup"
+								<sbux-datepicker id="srch-dtp-disposalDateFrom"
+									name="srch-dtp-disposalDateFrom" uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-disposalDateFrom)"
-								></sbux-datepicker>
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
+									onchange="fn_dtpChange(srch-dtp-disposalDateFrom)"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-disposalDateTo"
-									name="srch-dtp-disposalDateTo"
-									uitype="popup"
+							<td>-</td>
+							<td colspan="1" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-disposalDateTo"
+									name="srch-dtp-disposalDateTo" uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-disposalDateTo)"
-								></sbux-datepicker>
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
+									onchange="fn_dtpChange(srch-dtp-disposalDateTo)"></sbux-datepicker>
 							</td>
-                            <th scope="row" class="th_bg">처분유형</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-disposalType" name="srch-slt-disposalType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDspsUnit" onchange="cbodisposal_type_EditValueChanged(srch-slt-disposalType)"></sbux-select>
-                            </td>
-                            <td></td>
-                            <th scope="row" class="th_bg">회계기준</th>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-acctRuleCodeP" name="srch-slt-acctRuleCodeP" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                        	<th scope="row" class="th_bg">거래처</th>
-                            <td colspan="1" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-csCode" name="srch-inp-csCode" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-csName" name="srch-inp-csName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_cnptPopup('srch-inp-csName')"></sbux-input>
-                            </td>
+							<td></td>
+							<th scope="row" class="th_bg_search">처분유형</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-disposalType"
+									name="srch-slt-disposalType" class="form-control input-sm"
+									uitype="single" jsondata-ref="jsonDspsUnit"
+									onchange="cbodisposal_type_EditValueChanged(srch-slt-disposalType)"></sbux-select>
+							</td>
+							<td></td>
+							<th scope="row" class="th_bg_search">회계기준</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-acctRuleCodeP"
+									name="srch-slt-acctRuleCodeP" class="form-control input-sm"
+									uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg_search">거래처</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									<sbux-input uitype="text" id="srch-inp-csCode"
+										name="srch-inp-csCode" class="form-control input-sm"></sbux-input>
+									<font style="width:5px"></font>
+									<sbux-button
+										id="BTN_POP1"
+										class="btn btn-xs btn-outline-dark"
+										text="…" uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_cnptPopup('srch-inp-csName')">
+									</sbux-button>
+									<font style="width:5px"></font>
+									<sbux-input style="width:100%" id="srch-inp-csName" uitype="text" class="form-control input-sm"></sbux-input>
+								</div>
+							</td>
 
-                           	<th scope="row" class="th_bg">담당부서</th>
-                            <td colspan="1" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-deptCode" name="srch-inp-deptCode" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-deptName" name="srch-inp-deptName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_tkcgDeptPopup('srch-inp-deptName')"></sbux-input>
-                            </td>
+							<td></td>
+							<th scope="row" class="th_bg_search">담당부서</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									<sbux-input uitype="text" id="srch-inp-deptCode"
+										name="srch-inp-deptCode" class="form-control input-sm"></sbux-input>
+									<font style="width:5px"></font>
+									<sbux-button
+										id="BTN_POP2"
+										class="btn btn-xs btn-outline-dark"
+										text="…" uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_tkcgDeptPopup('srch-inp-deptName')">
+									</sbux-button>
+									<font style="width:5px"></font>
+									<sbux-input style="width:100%" id="srch-inp-deptName" uitype="text" class="form-control input-sm"></sbux-input>
+								</div>
+							</td>
 
-                            <th scope="row" class="th_bg">담당자</th>
-                            <td colspan="1" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-empCode" name="srch-inp-empCode" class="form-control input-sm"></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-empName" name="srch-inp-empName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_picPopup('srch-inp-empName')"></sbux-input>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+							<td></td>
+							<th scope="row" class="th_bg_search">담당자</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									<sbux-input uitype="text" id="srch-inp-deptCode"
+										name="srch-inp-empCode" class="form-control input-sm"></sbux-input>
+									<font style="width:5px"></font>
+									<sbux-button
+										id="BTN_POP3"
+										class="btn btn-xs btn-outline-dark"
+										text="…" uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_picPopup('srch-inp-empName')">
+									</sbux-button>
+									<font style="width:5px"></font>
+									<sbux-input style="width:100%" id="srch-inp-empName" uitype="text" class="form-control input-sm"></sbux-input>
+								</div>
+							</td>
 
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 				<div class="row">
 					<div class="ad_tbl_top">
 						<div class="ad_tbl_count">
-							<li>
-								<span>자산처분 리스트</span>
-							</li>
+							<li><span>자산처분 리스트</span></li>
 						</div>
 					</div>
 
 
-					<div id="sb-area-grdAstDsps" style="height:258px;width:100%"></div>
+					<div id="sb-area-grdAstDsps" style="height: 258px; width: 100%"></div>
 
 				</div>
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-				</sbux-tabs>
+				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc"
+					is-scrollable="false" jsondata-ref="tabJsonData"> </sbux-tabs>
 
 				<div class="tab-content">
-					<div id="astTab" >
-						<table id = "astTable" class="table table-bordered tbl_fixed">
-		                    <caption>자산내역</caption>
-		                    <colgroup>
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+					<div id="astTab">
+						<table id="astTable" class="table table-bordered tbl_fixed">
+							<caption>자산내역</caption>
+							<colgroup>
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                    </colgroup>
-		                    <tbody>
-		                        <tr>
-		                            <th scope="row" class="th_bg">처분번호</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-assetDisposalNo" name="srch-ast-assetDisposalNo" class="form-control input-sm" uitype="text" onchange="fn_dspsNoChange(srch-ast-assetDisposalNo)"></sbux-input>
-		                            </td>
+								<col style="width: 8%">
+								<col style="width: 8%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row" class="th_bg">처분번호</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-assetDisposalNo" name="srch-ast-assetDisposalNo"
+											class="form-control input-sm" uitype="text"
+											onchange="fn_dspsNoChange(srch-ast-assetDisposalNo)"></sbux-input>
+									</td>
 
-		                            <th scope="row" class="th_bg">회계기준</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-select id="srch-ast-acctRuleCode" name="srch-ast-acctRuleCode" class="form-control input-sm inpt_data_reqed" uitype="single" jsondata-ref="jsonAcntgCrtr" group-id="ast1"  ></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg acqsAmt1">취득가액</th>
-		                            <td  class="td_input acqsAmt1" style="border-right:hidden;">
-											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="ast1" ></sbux-input>
-		                            </td>
+									<th scope="row" class="th_bg">회계기준</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-select
+											id="srch-ast-acctRuleCode" name="srch-ast-acctRuleCode"
+											class="form-control input-sm inpt_data_reqed" uitype="single"
+											jsondata-ref="jsonAcntgCrtr" group-id="ast1">
+										</sbux-input></td>
+									<th scope="row" class="th_bg acqsAmt1">취득가액</th>
+									<td class="td_input acqsAmt1" style="border-right: hidden;">
+										<sbux-input id="srch-ast-acquisitionAmount"
+											name="srch-ast-acquisitionAmount"
+											class="form-control input-sm inpt_data_reqed"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text" group-id="ast1"></sbux-input>
+									</td>
 
-		                            <th scope="row" class="th_bg">상각누계액</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-accumDepr" name="srch-ast-accumDepr" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" ></sbux-input>
-		                            </td>
-                                    <th scope="row" class="th_bg group2" hidden>취득가액</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionAmount" name="srch-ast-acquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
+									<th scope="row" class="th_bg">상각누계액</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-accumDepr" name="srch-ast-accumDepr"
+											class="form-control input-sm"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text"></sbux-input></td>
+									<th scope="row" class="th_bg group2" hidden>취득가액</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-acquisitionAmount"
+											name="srch-ast-acquisitionAmount"
+											class="form-control input-sm"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="input" group-id="group2"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>기초취득가액</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-beginAcquisitionAmount" name="srch-ast-beginAcquisitionAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-beginAcquisitionAmount"
+											name="srch-ast-beginAcquisitionAmount"
+											class="form-control input-sm"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="input" group-id="group2"></sbux-input></td>
 
-		                        </tr>
-		                        <tr>
-		                            <th scope="row" class="th_bg">처분유형</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-select
-												id="srch-ast-disposalType"
-												name="srch-ast-disposalType"
-												class="form-control input-sm inpt_data_reqed"
-												uitype="single"
-												jsondata-ref="jsonDspsUnit"
-												group-id="ast1"
-												onchange="fn_cbodisposalTypeEditValueChanged(srch-slt-disposalType)"
-												></sbux-input>
-		                            </td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">처분유형</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-select
+											id="srch-ast-disposalType" name="srch-ast-disposalType"
+											class="form-control input-sm inpt_data_reqed" uitype="single"
+											jsondata-ref="jsonDspsUnit" group-id="ast1"
+											onchange="fn_cbodisposalTypeEditValueChanged(srch-slt-disposalType)">
+										</sbux-input></td>
 
-		                            <th scope="row" class="th_bg">처분일</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-datepicker
-												id="srch-dtp-disposalDate"
-												name="srch-dtp-disposalDate"
-												uitype="popup"
-												date-format="yyyy-mm-dd"
-												class="form-control input-sm input-sm-ast inpt_data_reqed"
-												onchange="fn_dspsChange(srch-dtp-disposalDate)"
-												callback-after-close="fn_dspsCloseAfter()"
-												group-id="ast1"
-												onchange="ymddisposal_date_Closed(srch-dtp-disposalDate)"
-											></sbux-datepicker>
+									<th scope="row" class="th_bg">처분일</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-datepicker
+											id="srch-dtp-disposalDate" name="srch-dtp-disposalDate"
+											uitype="popup" date-format="yyyy-mm-dd"
+											class="form-control input-sm input-sm-ast table-datepicker-ma"
+											onchange="fn_dspsChange(srch-dtp-disposalDate)"
+											callback-after-close="fn_dspsCloseAfter()" group-id="ast1"
+											onchange="ymddisposal_date_Closed(srch-dtp-disposalDate)"></sbux-datepicker>
 
-		                            </td>
-		                            <th scope="row" class="th_bg ntAsstncAmt2">국고보조금</th>
-		                            <td  class="td_input ntAsstncAmt2" style="border-right:hidden;">
-											<sbux-input id="srch-out-subsidiesAmount" name="srch-out-subsidiesAmount" class="form-control input-sm"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" ></sbux-input>
-		                            </td>
+									</td>
+									<th scope="row" class="th_bg ntAsstncAmt2">국고보조금</th>
+									<td class="td_input ntAsstncAmt2" style="border-right: hidden;">
+										<sbux-input id="srch-out-subsidiesAmount"
+											name="srch-out-subsidiesAmount" class="form-control input-sm"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text"></sbux-input>
+									</td>
 
-		                            <th scope="row" class="th_bg asstncDprcAtAmt">보조금상각누계액</th>
-		                            <td  class="td_input asstncDprcAtAmt" style="border-right:hidden;">
-											<sbux-input id="srch-ast-subsidiesAccDepr"
+									<th scope="row" class="th_bg asstncDprcAtAmt">보조금상각누계액</th>
+									<td class="td_input asstncDprcAtAmt"
+										style="border-right: hidden;"><sbux-input
+											id="srch-ast-subsidiesAccDepr"
 											name="srch-ast-subsidiesAccDepr"
-											class="form-control input-sm" uitype="text"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
+											class="form-control input-sm" uitype="text"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
 									</td>
-		                            <th scope="row" class="th_bg group2"hidden>국고보조금</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-num-subsidiesAmount" name="srch-num-subsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
+									<th scope="row" class="th_bg group2" hidden>국고보조금</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-num-subsidiesAmount"
+											name="srch-num-subsidiesAmount" class="form-control input-sm"
+											uitype="text"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="input" group-id="group2"></sbux-input></td>
 
-		                            <th scope="row" class="th_bg group2"hidden>기초국고보조금</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-beginSubsidiesAmount" name="srch-ast-beginSubsidiesAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
+									<th scope="row" class="th_bg group2" hidden>기초국고보조금</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-beginSubsidiesAmount"
+											name="srch-ast-beginSubsidiesAmount"
+											class="form-control input-sm" uitype="text"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="input" group-id="group2"></sbux-input></td>
 
-		                        </tr>
-                    		     <tr>
-		                            <th scope="row" class="th_bg">자산</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-assetNo" name="srch-ast-assetNo" class="form-control input-sm inpt_data_reqed" uitype="text"  onchange="txtasset_no_EditValueChanged(srch-ast-assetNo)" group-id="ast1"></sbux-input>
-		                            </td>
-		                            <td colspan="2" class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-assetName" name="srch-ast-assetName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_astPopup" group-id="ast1" required></sbux-input>
-		                            </td>
-
-
-		                            <th scope="row" class="th_bg">감가상각비</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-depreciationAmount" name="srch-ast-depreciationAmount" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" ></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg">장부가액</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-bookValue" name="srch-ast-bookValue" class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="ast1" required></sbux-input>
-		                            </td>
-								    <th scope="row" class="th_bg group2"hidden>감가상각누계액</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-accumulatedDepreciation" name="srch-ast-accumulatedDepreciation" class="form-control input-sm" uitype="text" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg group2"hidden>처분비율</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionRate" name="srch-ast-acquisitionRate" class="form-control input-sm" uitype="input" group-id="group2"></sbux-input>
-		                            </td>
-
-		                        </tr>
-
-		                        <tr>
-		                            <th scope="row" class="th_bg">사업장</th>
-		                            <td colspan="2" class="td_input" style="border-right:hidden;">
-											<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-ast-siteCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-ast-siteCode" style="width:150px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">자산</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-ast-assetNo"
+												name="srch-ast-assetNo" class="form-control input-sm"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP4"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_astPopup">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-ast-assetName" uitype="text" class="form-control input-sm"></sbux-input>
 										</div>
-		                            </td>
-
-		                            <th scope="row" class="th_bg intlDspsNo"hidden>당초처분번호</th>
-		                            <td  class="td_input intlDspsNo" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-originalAssetDispNo" name="srch-ast-originalAssetDispNo" class="form-control input-sm" uitype="hidden" ></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg">국고보조금상각</th>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-subsidiesDepr" name="srch-ast-subsidiesDepr" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            </td>
-		                            <td colspan="2" class="td_input" style="border-right:hidden;"hidden>
-										<sbux-input id="srch-ast-subsidiesDeprName" name="srch-ast-subsidiesDeprName" class="form-control input-sm" uitype="hidden" ></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg group2"hidden>보조금상각누계액</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-subsidiesAccDepreciation" name="srch-ast-subsidiesAccDepreciation" class="form-control input-sm" uitype="input"  group-id="group2"></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg group2"hidden>처분금액</th>
-		                            <td  class="td_input group2" style="border-right:hidden;"hidden>
-											<sbux-input id="srch-ast-acquisitionAmountEvent" name="srch-ast-acquisitionAmountEvent" class="form-control input-sm" uitype="input"
-											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)" group-id="group2"></sbux-input>
-		                            </td>
-
-              	                </tr>
-		                        <tr>
-		                        	<th scope="row" class="th_bg">비고</th>
-		                            <td colspan="6" class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-memomemo" name="srch-ast-astTab-rmrk1" class="form-control input-sm" uitype="text"></sbux-input>
-		                            </td>
-		                        </tr>
-		                        <tr>
-		                        	<th scope="row" class="th_bg">처분 ▶ 소스ID</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-sourceId" name="srch-ast-sourceId" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg">전표명</th>
-		                            <td colspan="4"class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-docName" name="srch-ast-docName" class="form-control input-sm" uitype="text" wrap-style="width:100%"></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg">작성자</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-insetUserName" name="srch-ast-insetUserName" class="form-control input-sm" uitype="text"></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg"  hidden>전표명</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-docBatchNo1" name="srch-ast-docBatchNo1" class="form-control input-sm" uitype="hidden"  ></sbux-input>
-		                            </td>
-
-		                        </tr>
-                 		          <tr>
-		                        	<th scope="row" class="th_bg">처분 ▶ 소스ID</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-sourceIdDisposal" name="srch-ast-sourceIdDisposal" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg">전표명</th>
-		                            <td colspan="4"class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-docNameDisposal" name="srch-ast-docNameDisposal" class="form-control input-sm" uitype="text" wrap-style="width:100%"></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg">작성자</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-insetUserNameDisposal" name="srch-ast-insetUserNameDisposal" class="form-control input-sm" uitype="text"></sbux-input>
-		                            </td>
-		                            <th scope="row" class="th_bg" hidden>전표명</th>
-		                            <td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-ast-docBatchNo2" name="srch-ast-docBatchNo2" class="form-control input-sm" uitype="hidden"  ></sbux-input>
-		                            </td>
-
-		                        </tr>
-
-		                    </tbody>
-		                </table>
-					</div>
-					<div id="dspsTab" >
-						<table id="dspsTable" class="table table-bordered tbl_fixed">
-		                    <caption>처분내역</caption>
-		                    <colgroup>
+									</td>
 
 
-                 		        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+									<th scope="row" class="th_bg">감가상각비</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-depreciationAmount"
+											name="srch-ast-depreciationAmount"
+											class="form-control input-sm" uitype="text"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
+									</td>
+									<th scope="row" class="th_bg">장부가액</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-bookValue" name="srch-ast-bookValue"
+											class="form-control input-sm inpt_data_reqed"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text" group-id="ast1" required></sbux-input></td>
+									<th scope="row" class="th_bg group2" hidden>감가상각누계액</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-accumulatedDepreciation"
+											name="srch-ast-accumulatedDepreciation"
+											class="form-control input-sm" uitype="text"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="input" group-id="group2"></sbux-input></td>
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+									<th scope="row" class="th_bg group2" hidden>처분비율</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-acquisitionRate"
+											name="srch-ast-acquisitionRate" class="form-control input-sm"
+											uitype="input" group-id="group2"></sbux-input></td>
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
+								</tr>
 
-		                        <col style="width: 8%">
-		                        <col style="width: 8%">
-
-		                    </colgroup>
-		                    <tbody>
-		                    	<tr>
-		                        	<th scope="row" class="th_bg">거래처</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-csCode" name="srch-dsps-csCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1" ></sbux-input>
-		                            </td>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-csName" name="srch-dsps-csName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_cnptPopup('srch-dsps-csName')" group-id="dsps1" ></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg">통화</th>
-		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
-										    	type="button"
-										    	id="srch-dsps-currencyCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-											    <div class="dropdown-menu currency" aria-labelledby="srch-dsps-currencyCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-											    </div>
+								<tr>
+									<th scope="row" class="th_bg">사업장</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<div class="dropdown">
+											<button style="width: 160px; text-align: left"
+												class="btn btn-sm btn-light dropdown-toggle " type="button"
+												id="srch-ast-siteCode" data-toggle="dropdown"
+												aria-haspopup="true" aria-expanded="false">
+												<font>선택</font> <i style="padding-left: 10px"
+													class="sbux-sidemeu-ico fas fa-angle-down"></i>
+											</button>
+											<div class="dropdown-menu bplc"
+												aria-labelledby="srch-ast-siteCode"
+												style="width: 150px; height: 150px; padding-top: 0px; overflow: auto">
 											</div>
-		                            	</td>
-
-
-		                            <th scope="row" class="th_bg">신고사업장</th>
-		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-select id="srch-dsps-taxSiteCode" name="srch-dsps-taxSiteCode" class="form-control input-sm " uitype="single" jsondata-ref="jsonDclrBplc" group-id="dsps1" required></sbux-select>
-		                            	</td>
-
-		                            <th scope="row" class="th_bg">장부가액</th>
-		                            	<td colspan="3" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-bookValueCopy" name="srch-dsps-bookValueCopy" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            	</td>
-		                        </tr>
-
-		                        <tr>
-		                        	<th scope="row" class="th_bg">담당부서</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-deptCode" name="srch-dsps-deptCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1" ></sbux-input>
-		                            </td>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-deptName" name="srch-dsps-deptName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_tkcgDeptPopup('srch-dsps-deptName')" group-id="dsps1" ></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg">환율</th>
-		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-exchangeRate" name="srch-dsps-exchangeRate" class="form-control input-sm inpt_data_reqed" uitype="text" mask = "{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true }" group-id="dsps1" onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)"></sbux-select>
-		                            	</td>
-
-
-		                            <th scope="row" class="th_bg">부가세유형</th>
-		                            	<td class="td_input" style="border-right:hidden;">
-		                            		<div class="dropdown">
-										    <button
-										    	style="width:100px;text-align:left;overflow:hidden"
-										    	class="btn btn-sm btn-light dropdown-toggle"
-										    	type="button"
-										    	id="srch-dsps-vatType"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu vat" aria-labelledby=srch-dsps-vatType style="width:100px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
 										</div>
-		                            	</td>
-		                            	<td class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-vatRate" name="srch-dsps-vatRate" class="form-control input-sm" uitype="text" readonly></sbux-input>
-		                            	</td>
-
-		                            <th scope="row" class="th_bg">처분손익</th>
-		                            	<td colspan="3" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-disposalPl" name="srch-dsps-disposalPl" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
-		                            	</td>
-		                        </tr>
-							  <tr>
-		                        	<th scope="row" class="th_bg">담당자</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-empCode" name="srch-dsps-empCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
-		                            </td>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-empName" name="srch-dsps-empName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_picPopup('srch-dsps-empName')" group-id="dsps1"></sbux-input>
-		                            </td>
-
-		                            <th scope="row" class="th_bg">매각금액</th>
-		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-disposalOriginalAmount" name="srch-dsps-disposalOriginalAmount" class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"uitype="text" group-id="dsps1"></sbux-select>
-		                            	</td>
-
-
-		                            <th scope="row" class="th_bg">부가세</th>
-		                            	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-vatAmount" name="srch-dsps-vatAmount" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1"></sbux-input>
-		                            	</td>
-
-		                            <th scope="row" class="th_bg">처분수량</th>
-		                            	<td colspan="3" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-disposalQty" name="srch-dsps-disposalQty" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            	</td>
-
-		                        </tr>
-
-		                        <tr>
-		                        	<th scope="row" class="th_bg">원가중심점명</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-costCenterCode" name="srch-dsps-costCenterCode" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="dsps1" ></sbux-input>
-		                            </td>
-		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-costCenterName" name="srch-dsps-costCenterName" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···" button-back-event="fn_costCenterPopup" group-id="dsps1"></sbux-input>
-		                            </td>
-
-		                        	<th scope="row" class="th_bg">환산금액</th>
-		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-dispFunctionalAmt" name="srch-dsps-dispFunctionalAmt" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="dsps1"></sbux-input>
-	                            	</td>
-		                        	<th scope="row" class="th_bg">금액합계</th>
-		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-		                            		<sbux-input id="srch-dsps-totalAmount" name="srch-dsps-totalAmount" class="form-control input-sm inpt_data_reqed"mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" uitype="text" group-id="dsps1"></sbux-input>
-	                            	</td>
-		                        </tr>
-
-		                        <tr>
-		                        	<th scope="row" class="th_bg">비용거래처</th>
-	                        		<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-expenseCsCode" name="srch-dsps-expenseCsCode" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            </td>
-		                            <td class="td_input" style="border-right:hidden;">
-										<sbux-input id="srch-dsps-expenseCsName" name="srch-dsps-expenseCsName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_cstCnptPopup"></sbux-input>
-		                            </td>
-
-		                        	<th scope="row" class="th_bg">통화</th>
-		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-	                            		<div class="dropup">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-dsps-expenseCurrencyCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu" aria-labelledby="srch-dsps-expenseCurrencyCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-	                            	</td>
-		                        	<th scope="row" class="th_bg">비용부가세유형</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-	                            		<div class="dropdown">
-										    <button
-										    	style="width:100px;text-align:left;overflow:hidden"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-dsps-expenseVatType"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu cstVat" aria-labelledby="srch-dsps-expenseVatType" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-	                            	</td>
-	                            	<td class="td_input" style="border-right:hidden;">
-	                            		<sbux-input id="srch-dsps-expenseVatRate" name="srch-dsps-expenseVatRate" class="form-control input-sm" uitype="text" readonly></sbux-input>
-	                            	</td>
-		                        </tr>
-
-		                        <tr>
-		                        	<th scope="row" class="th_bg">처분비용계정</th>
-		                        	<td class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-expenseAccount" name="srch-dsps-expenseAccount" class="form-control input-sm" uitype="text" ></sbux-input>
-		                            </td>
-		                            <td class="td_input" style="border-right:hidden;">
-										<sbux-input id="srch-dsps-expenseAccountName" name="srch-dsps-expenseAccountName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_dspsCstCnptPopup"></sbux-input>
-		                            </td>
-		                        	<th scope="row" class="th_bg">환율</th>
-		                        	<td colspan="2" class="td_input" style="border-right:hidden;">
-	                            		<sbux-input id="srch-dsps-expenseExchangeRate" name="srch-dsps-expenseExchangeRate" class="form-control input-sm" uitype="text"></sbux-select>
-	                            	</td>
-		                        	<th scope="row" class="th_bg">처분비용</th>
-		                        	<td colspan ="2" class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-expenseAmount" name="srch-dsps-expenseAmount" class="form-control input-sm" uitype="text" ></sbux-input>
 									</td>
-		                        	<th scope="row" class="th_bg">처분비용부가세</th>
-		                        	<td colspan="3" class="td_input" style="border-right:hidden;">
-											<sbux-input id="srch-dsps-expenseVatAmount" name="srch-dsps-expenseVatAmount" class="form-control input-sm" uitype="text" ></sbux-input>
-									</td>
-		                        </tr>
 
-		                    </tbody>
-	                    </table>
+									<th scope="row" class="th_bg intlDspsNo" hidden>당초처분번호</th>
+									<td class="td_input intlDspsNo" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-originalAssetDispNo"
+											name="srch-ast-originalAssetDispNo"
+											class="form-control input-sm" uitype="hidden"></sbux-input>
+									</td>
+
+									<th scope="row" class="th_bg">국고보조금상각</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-subsidiesDepr" name="srch-ast-subsidiesDepr"
+											class="form-control input-sm" uitype="text"></sbux-input></td>
+									<td colspan="2" class="td_input" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-subsidiesDeprName"
+											name="srch-ast-subsidiesDeprName"
+											class="form-control input-sm" uitype="hidden"></sbux-input>
+									</td>
+
+									<th scope="row" class="th_bg group2" hidden>보조금상각누계액</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-subsidiesAccDepreciation"
+											name="srch-ast-subsidiesAccDepreciation"
+											class="form-control input-sm" uitype="input"
+											group-id="group2"></sbux-input></td>
+
+									<th scope="row" class="th_bg group2" hidden>처분금액</th>
+									<td class="td_input group2" style="border-right: hidden;"
+										hidden><sbux-input id="srch-ast-acquisitionAmountEvent"
+											name="srch-ast-acquisitionAmountEvent"
+											class="form-control input-sm" uitype="input"
+											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)"
+											group-id="group2"></sbux-input></td>
+
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">비고</th>
+									<td colspan="6" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-ast-memomemo"
+											name="srch-ast-astTab-rmrk1" class="form-control input-sm"
+											uitype="text"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">처분 ▶ 소스ID</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-sourceId" name="srch-ast-sourceId"
+											class="form-control input-sm" uitype="text"></sbux-input></td>
+									<th scope="row" class="th_bg">전표명</th>
+									<td colspan="4" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-ast-docName" name="srch-ast-docName"
+											class="form-control input-sm" uitype="text"
+											wrap-style="width:100%"></sbux-input>
+									</td>
+									<th scope="row" class="th_bg">작성자</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-insetUserName" name="srch-ast-insetUserName"
+											class="form-control input-sm" uitype="text"></sbux-input></td>
+									<th scope="row" class="th_bg" hidden>전표명</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-docBatchNo1" name="srch-ast-docBatchNo1"
+											class="form-control input-sm" uitype="hidden"></sbux-input>
+									</td>
+
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">처분 ▶ 소스ID</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-sourceIdDisposal"
+											name="srch-ast-sourceIdDisposal"
+											class="form-control input-sm" uitype="text"></sbux-input></td>
+									<th scope="row" class="th_bg">전표명</th>
+									<td colspan="4" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-ast-docNameDisposal"
+											name="srch-ast-docNameDisposal" class="form-control input-sm"
+											uitype="text" wrap-style="width:100%"></sbux-input>
+									</td>
+									<th scope="row" class="th_bg">작성자</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-insetUserNameDisposal"
+											name="srch-ast-insetUserNameDisposal"
+											class="form-control input-sm" uitype="text"></sbux-input></td>
+									<th scope="row" class="th_bg" hidden>전표명</th>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-ast-docBatchNo2" name="srch-ast-docBatchNo2"
+											class="form-control input-sm" uitype="hidden"></sbux-input>
+									</td>
+
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<div id="dspsTab">
+						<table id="dspsTable" class="table table-bordered tbl_fixed">
+							<caption>처분내역</caption>
+							<colgroup>
+
+
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+
+								<col style="width: 8%">
+								<col style="width: 8%">
+								<col style="width: 8%">
+
+								<col style="width: 8%">
+								<col style="width: 8%">
+
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row" class="th_bg">거래처</th>
+
+
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-csCode"
+												name="srch-dsps-csCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP5"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_cnptPopup('srch-dsps-csName')">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-csName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+
+									<th scope="row" class="th_bg">통화</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<div class="dropdown">
+											<button style="width: 160px; text-align: left"
+												class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+												type="button" id="srch-dsps-currencyCode"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<font>선택</font> <i style="padding-left: 10px"
+													class="sbux-sidemeu-ico fas fa-angle-down"></i>
+											</button>
+											<div class="dropdown-menu currency"
+												aria-labelledby="srch-dsps-currencyCode"
+													style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+											</div>
+										</div>
+									</td>
+
+
+									<th scope="row" class="th_bg">신고사업장</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-select id="srch-dsps-taxSiteCode"
+											name="srch-dsps-taxSiteCode" class="form-control input-sm "
+											uitype="single" jsondata-ref="jsonDclrBplc" group-id="dsps1"
+											required></sbux-select>
+									</td>
+
+									<th scope="row" class="th_bg">장부가액</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-bookValueCopy"
+											name="srch-dsps-bookValueCopy" class="form-control input-sm"
+											uitype="text"></sbux-input>
+									</td>
+								</tr>
+
+								<tr>
+									<th scope="row" class="th_bg">담당부서</th>
+
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-deptCode"
+												name="srch-dsps-deptCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP6"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_tkcgDeptPopup('srch-dsps-deptName')">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-deptName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+
+									<th scope="row" class="th_bg">환율</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-exchangeRate"
+											name="srch-dsps-exchangeRate"
+											class="form-control input-sm inpt_data_reqed" uitype="text"
+											mask="{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true }"
+											group-id="dsps1"
+											onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)">
+										</sbux-select>
+									</td>
+
+
+									<th scope="row" class="th_bg">부가세유형</th>
+									<td class="td_input" style="border-right: hidden;">
+										<div class="dropdown">
+											<button
+												style="width: 100px; text-align: left; overflow: hidden"
+												class="btn btn-sm btn-light dropdown-toggle" type="button"
+												id="srch-dsps-vatType" data-toggle="dropdown"
+												aria-haspopup="true" aria-expanded="false">
+												<font>선택</font> <i style="padding-left: 10px"
+													class="sbux-sidemeu-ico fas fa-angle-down"></i>
+											</button>
+											<div class="dropdown-menu vat"
+												aria-labelledby=srch-dsps-vatType
+												style="width: 100px; height: 150px; padding-top: 0px; overflow: auto">
+											</div>
+										</div>
+									</td>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-dsps-vatRate" name="srch-dsps-vatRate"
+											class="form-control input-sm" uitype="text" readonly></sbux-input>
+									</td>
+
+									<th scope="row" class="th_bg">처분손익</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-disposalPl"
+											name="srch-dsps-disposalPl"
+											class="form-control input-sm inpt_data_reqed" uitype="text"
+											group-id="dsps1"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">담당자</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-empCode"
+												name="srch-dsps-empCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP8"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_picPopup('srch-dsps-empName')">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-empName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+									<th scope="row" class="th_bg">매각금액</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-disposalOriginalAmount"
+											name="srch-dsps-disposalOriginalAmount"
+											class="form-control input-sm inpt_data_reqed"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text" group-id="dsps1">
+										</sbux-select>
+									</td>
+
+
+									<th scope="row" class="th_bg">부가세</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-vatAmount"
+											name="srch-dsps-vatAmount"
+											class="form-control input-sm inpt_data_reqed" uitype="text"
+											group-id="dsps1"></sbux-input>
+									</td>
+
+									<th scope="row" class="th_bg">처분수량</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-disposalQty"
+											name="srch-dsps-disposalQty" class="form-control input-sm"
+											uitype="text"></sbux-input>
+									</td>
+
+								</tr>
+
+								<tr>
+									<th scope="row" class="th_bg">원가중심점명</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-costCenterCode"
+												name="srch-dsps-costCenterCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP9"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_costCenterPopup">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-costCenterName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+
+									<th scope="row" class="th_bg">환산금액</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-dispFunctionalAmt"
+											name="srch-dsps-dispFunctionalAmt"
+											class="form-control input-sm inpt_data_reqed"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text" group-id="dsps1"></sbux-input>
+									</td>
+									<th scope="row" class="th_bg">금액합계</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-totalAmount"
+											name="srch-dsps-totalAmount"
+											class="form-control input-sm inpt_data_reqed"
+											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+											uitype="text" group-id="dsps1"></sbux-input>
+									</td>
+								</tr>
+
+								<tr>
+									<th scope="row" class="th_bg">비용거래처</th>
+
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-expenseCsCode"
+												name="srch-dsps-expenseCsCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP10"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_cstCnptPopup">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-expenseCsName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+
+
+									<th scope="row" class="th_bg">통화</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<div class="dropup">
+											<button style="width: 160px; text-align: left"
+												class="btn btn-sm btn-light dropdown-toggle " type="button"
+												id="srch-dsps-expenseCurrencyCode" data-toggle="dropdown"
+												aria-haspopup="true" aria-expanded="false">
+												<font>선택</font> <i style="padding-left: 10px"
+													class="sbux-sidemeu-ico fas fa-angle-down"></i>
+											</button>
+											<div class="dropdown-menu"
+												aria-labelledby="srch-dsps-expenseCurrencyCode"
+												style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+											</div>
+										</div>
+									</td>
+									<th scope="row" class="th_bg">비용부가세유형</th>
+									<td class="td_input" style="border-right: hidden;">
+										<div class="dropdown">
+											<button
+												style="width: 100px; text-align: left; overflow: hidden"
+												class="btn btn-sm btn-light dropdown-toggle " type="button"
+												id="srch-dsps-expenseVatType" data-toggle="dropdown"
+												aria-haspopup="true" aria-expanded="false">
+												<font>선택</font> <i style="padding-left: 10px"
+													class="sbux-sidemeu-ico fas fa-angle-down"></i>
+											</button>
+											<div class="dropdown-menu cstVat"
+												aria-labelledby="srch-dsps-expenseVatType"
+												style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
+											</div>
+										</div>
+									</td>
+									<td class="td_input" style="border-right: hidden;"><sbux-input
+											id="srch-dsps-expenseVatRate" name="srch-dsps-expenseVatRate"
+											class="form-control input-sm" uitype="text" readonly></sbux-input>
+									</td>
+								</tr>
+
+								<tr>
+									<th scope="row" class="th_bg">처분비용계정</th>
+
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<div style="display:flex;float:left;vertical-align:middle;width:100%">
+											<sbux-input uitype="text" id="srch-dsps-expenseAccount"
+												name="srch-dsps-expenseAccount" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<font style="width:5px"></font>
+											<sbux-button
+												id="BTN_POP11"
+												class="btn btn-xs btn-outline-dark"
+												text="…" uitype="modal"
+												target-id="modal-compopup1"
+												onclick="fn_dspsCstCnptPopup">
+											</sbux-button>
+											<font style="width:5px"></font>
+											<sbux-input style="width:100%" id="srch-dsps-expenseAccountName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+										</div>
+									</td>
+									<th scope="row" class="th_bg">환율</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-expenseExchangeRate"
+											name="srch-dsps-expenseExchangeRate"
+											class="form-control input-sm" uitype="text">
+										</sbux-select>
+									</td>
+									<th scope="row" class="th_bg">처분비용</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-expenseAmount"
+											name="srch-dsps-expenseAmount" class="form-control input-sm"
+											uitype="text"></sbux-input>
+									</td>
+									<th scope="row" class="th_bg">처분비용부가세</th>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<sbux-input id="srch-dsps-expenseVatAmount"
+											name="srch-dsps-expenseVatAmount"
+											class="form-control input-sm" uitype="text"></sbux-input>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
 
 					</div>
 
 				</div>
 
-            </div>
-        </div>
-    </section>
+			</div>
+		</div>
+	</section>
 
 	<!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:800px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-    </div>
-    <div id="body-modal-compopup1">
-    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal style="width:800px" id="modal-compopup1"
+			name="modal-compopup1" uitype="middle" header-title=""
+			body-html-id="body-modal-compopup1" header-is-close-button="true"
+			footer-is-close-button="false"></sbux-modal>
+	</div>
+	<div id="body-modal-compopup1">
+		<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+	</div>
 
 </body>
 
@@ -2843,5 +3049,5 @@
     }
 
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+<%@ include file="../../../../frame/inc/bottomScript.jsp"%>
 </html>

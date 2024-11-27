@@ -23,7 +23,6 @@
 <head>
 <title>title : 간이지급명세서</title>
 <%@ include file="../../../../frame/inc/headerMeta.jsp"%>
-<%@ include file="../../../../frame/inc/headerScript.jsp"%>
 <%@ include file="../../../../frame/inc/headerScriptMa.jsp"%>
 </head>
 <body oncontextmenu="return false">
@@ -46,30 +45,39 @@
 				</div>
 			</div>
 			<div class="box-body">
-
-
-				<table id="searchTable" class="table table-bordered tbl_fixed">
+				<div class="box-search-ma">
+				<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				<table id="searchTable" class="table table-bordered tbl_fixed table-search-ma">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
+
+							<col style="width: 8%">
+							<col style="width: 7%">
+							<col style="width: 1%">
+							<col style="width: 7%">
+							<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -88,7 +96,7 @@
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">급여영역</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-payAreaType"
 									name="srch-slt-payAreaType" class="form-control input-sm"
 									uitype="single" jsondata-ref="jsonPayAreaType"></sbux-select>
@@ -97,16 +105,16 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">귀속연도</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyy" name="srch-dtp-jobYyyy"
 									uitype="popup" date-format="yyyy" datepicker-mode="year"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									onchange="fn_dtpChange(srch-dtp-jobYyyy)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 
 							<th scope="row" class="th_bg">근무시기</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-harfyearlyType"
 									name="srch-slt-harfyearlyType" class="form-control input-sm"
 									uitype="single" jsondata-ref="jsonWorkEr"></sbux-select>
@@ -117,20 +125,21 @@
 								<sbux-datepicker id="srch-dtp-jobYyyymmFr"
 									name="srch-dtp-jobYyyymmFr" uitype="popup" date-format="yyyymm"
 									datepicker-mode="month"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									readonly></sbux-datepicker>
 							</td>
+							<td>-</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyymmTo"
 									name="srch-dtp-jobYyyymmTo" uitype="popup" date-format="yyyymm"
 									datepicker-mode="month"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									readonly></sbux-datepicker>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-
+				</div>
 
 				<div class="row">
 					<div class="col-sm-3">
@@ -154,32 +163,44 @@
 								<li><span>파일생성정보</span></li>
 							</ul>
 						</div>
-						<table class="table table-bordered tbl_fixed">
+						<div class="box-search-ma">
+						<table class="table table-bordered tbl_fixed table-search-ma">
 							<caption>검색 조건 설정</caption>
 							<colgroup>
+								<col style="width: 8%">
 								<col style="width: 7%">
-								<col style="width: 6%">
-								<col style="width: 6%">
-								<col style="width: 3%">
+								<col style="width: 1%">
 								<col style="width: 7%">
-								<col style="width: 6%">
-								<col style="width: 6%">
-								<col style="width: 3%">
+								<col style="width: 2%">
+
+								<col style="width: 8%">
 								<col style="width: 7%">
-								<col style="width: 6%">
-								<col style="width: 6%">
-								<col style="width: 3%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
+
+								<col style="width: 8%">
+								<col style="width: 7%">
+								<col style="width: 1%">
+								<col style="width: 7%">
+								<col style="width: 2%">
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="th_bg">홈택스ID</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
+									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-homeTaxId"
 											name="srch-inp-homeTaxId" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
 									<th scope="row" class="th_bg">제출일</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
+									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-datepicker id="srch-inp-submitDate"
 											name="srch-inp-submitDate" uitype="popup"
 											date-format="yyyy-mm-dd"
@@ -189,24 +210,29 @@
 								</tr>
 								<tr>
 									<th scope="row" class="th_bg">담당자 부서</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
+									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-deptName"
 											name="srch-inp-deptName" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
 									<th scope="row" class="th_bg">담당자 성명</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
+									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-empName"
 											name="srch-inp-empName" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
 									<th scope="row" class="th_bg">담당자 전화번호</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
+									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-tel"
 											name="srch-inp-tel" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
 								</tr>
+								<th scope="row" class="th_bg">파일생성경로</th>
+		                            <td colspan="3" class="td_input" style="border-right:hidden;">
+										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_showDirPicker" wrap-style="width:100%"></sbux-input>
+		                            </td>
+		                        </tr>
 
 								<tr>
 									<th scope="row" class="th_bg">비고</th>
@@ -219,7 +245,7 @@
 
 							</tbody>
 						</table>
-
+						</div>
 
 
 
@@ -1092,6 +1118,36 @@
             console.error("파일 저장 중 오류 발생:", error);
         }
     }
+
+
+    let dirHandle = undefined;
+
+	const fn_showDirPicker = async () => {
+
+        try {
+
+            dirHandle = await showDirectoryPicker();
+
+            console.log("name", dirHandle.name);
+
+            if (!dirHandle) {
+            	SBUxMethod.set("dtl-inp-filePath", "");
+            	return;
+            }
+
+            SBUxMethod.set("srch-inp-filePath", dirHandle.name);
+
+            fn_getFiles(dirHandle, undefined);
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+	const fn_pickFilePath = async function() {
+		fn_showDirPicker();
+	}
+
 
 
 
