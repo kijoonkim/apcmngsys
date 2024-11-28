@@ -122,6 +122,7 @@
 	                            	name="srch-inp-termFr"
 	                            	uitype="text" 
 	                            	class="form-control input-sm"
+									style="text-align:center;"
 	                            ></sbux-input>
 	                            <p style="text-align: center;line-height: 30px">~</p>
 	                            <sbux-input
@@ -130,6 +131,7 @@
 	                            	name="srch-inp-termTo" 
 	                            	uitype="text" 
 	                            	class="form-control input-sm"
+									style="text-align:center;"
 	                            ></sbux-input>
 	                        </div>
 	                    </td>
@@ -343,6 +345,9 @@
 			if (!gfn_isEmpty(vatType)) {
 				SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
+
+				let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
+				SBUxMethod.set('srch-dtp-yyyy', year);
 			}
 			
 			fn_search();	

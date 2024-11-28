@@ -110,6 +110,7 @@
 	                            	name="srch-inp-termFr"
 	                            	uitype="text" 
 	                            	class="form-control input-sm"
+									style="text-align:center;"
 	                            ></sbux-input>
 	                            <p style="text-align: center;line-height: 30px">~</p>
 	                            <sbux-input
@@ -118,6 +119,7 @@
 	                            	name="srch-inp-termTo" 
 	                            	uitype="text" 
 	                            	class="form-control input-sm"
+									style="text-align:center;"
 	                            ></sbux-input>
 	                        </div>
 	                    </td>
@@ -318,7 +320,7 @@
                                 <li><span>◎ 첨부 신고서류 리스트</span></li>
                             </ul>
                         </div>
-                        <div id="sb-area-grdDoc" style="width: 50%"></div>
+                        <div id="sb-area-grdDoc" style="width: 100%"></div>
                     </div>
                     <div>
                         <div class="ad_tbl_top">
@@ -519,6 +521,9 @@
 			if (!gfn_isEmpty(vatType)) {
 				SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
+
+				let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
+				SBUxMethod.set('srch-dtp-yyyy', year);
 			}
 			
 			fn_search();	
@@ -568,6 +573,8 @@
         SBGridProperties.id = 'grdDoc';
         SBGridProperties.jsonref = 'jsonDoc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.useinitsorting = true;
+		SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {
             	caption: ['연번'],               
@@ -600,6 +607,8 @@
         SBGridProperties.id = 'grdFileLog';
         SBGridProperties.jsonref = 'jsonFileLog';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.useinitsorting = true;
+		SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {
             	caption : ['연번'],               
@@ -683,13 +692,14 @@
 		const seq = gfn_nvl(gfnma_multiSelectGet("#srch-ddm-seq"));
 		const taxSiteName = gfn_nvl(SBUxMethod.get('srch-inp-taxSiteName'));
 		const bizRegno = gfn_nvl(SBUxMethod.get('srch-inp-bizRegno'));
-		
+
+		/*
         if (gfn_isEmpty(taxSiteName)) {
             gfn_comAlert("W0002", "신고구분명");
             return;
         }
-		
-		
+		*/
+
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
