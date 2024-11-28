@@ -503,8 +503,9 @@
 	}
 	//초기화
 	function cfn_init(){
-		SBUxMethod.clearGroupData('group1');
-		SBUxMethod.clearGroupData('group2');
+		//SBUxMethod.clearGroupData('group1');
+		//SBUxMethod.clearGroupData('group2');
+		SBUxMethod.refreshAll()
 	}
 
 	const fn_initSBSelect = async function() {
@@ -914,8 +915,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
     	compopup1({
@@ -923,7 +923,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -951,8 +951,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-astNo2"));
         var replaceText0 	= "_ASSET_NO_";
         var replaceText1 	= "_ASSET_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
@@ -960,7 +959,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LIST'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["번호", 				"명칭"]
    			,searchInputFields		: ["ASSET_NO", 	"ASSET_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]

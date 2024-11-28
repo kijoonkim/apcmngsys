@@ -204,7 +204,7 @@
 										<sbux-datepicker id="srch-inp-submitDate"
 											name="srch-inp-submitDate" uitype="popup"
 											date-format="yyyy-mm-dd"
-											class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
+											class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>
 									</td>
 									<td style="border-right: hidden;"></td>
 								</tr>
@@ -279,8 +279,8 @@
 <script type="text/javascript">
 
 
-	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
-	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
+	//var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
@@ -321,6 +321,11 @@
 	// 조회
 	function cfn_search() {
 		fn_queryClick();
+	}
+
+	// 초기화
+	function cfn_init() {
+		SBUxMethod.refreshAll()
 	}
 
 
