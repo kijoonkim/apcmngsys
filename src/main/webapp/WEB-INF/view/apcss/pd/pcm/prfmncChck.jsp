@@ -360,24 +360,10 @@
 						,sttgUpbrItemNm		: item.sttgUpbrItemNm
 				}
 				jsonPrfmncChckMng.push(itemVO);
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
 			});
 
-			if (jsonPrfmncChckMng.length > 0) {
-
-				if(grdPrfmncChckMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdPrfmncChckMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdPrfmncChckMng.rebuild();
-				}else{
-					grdPrfmncChckMng.refresh()
-				}
-			} else {
-				grdPrfmncChckMng.setPageTotalCount(totalRecordCount);
-				grdPrfmncChckMng.rebuild();
-			}
-			document.querySelector('#listCount').innerText = totalRecordCount;
+			grdPrfmncChckMng.rebuild();
+			document.querySelector('#listCount').innerText = jsonPrfmncChckMng.length;
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
