@@ -194,6 +194,7 @@
 						<tr>
 							<th scopr="row" class="th_bg">자산구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-assetCategoryCode" name="srch-inp-assetCategoryCode" uitype="hidden"></sbux-input>
 								<sbux-input id="srch-inp-assetCategoryName" name="srch-inp-assetCategoryName"
 									class="form-control input-sm" uitype="search"
 									button-back-text="···" button-back-event="fn_astSePopup"></sbux-input>
@@ -294,8 +295,8 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
-	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
+	//var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
@@ -320,6 +321,11 @@
 	// 마스터 그리드 삭제
 	function cfn_del() {
 
+	}
+
+	// 초기화
+	function cfn_init() {
+		SBUxMethod.refreshAll()
 	}
 
 	// 조회
@@ -1015,12 +1021,11 @@
      //
     var fn_costCenterPopup= function() {
 
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterCode"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterName"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterCode"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterName"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
@@ -1028,7 +1033,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -1048,11 +1053,12 @@
 
     // P_ASSET_CATEGORY
     const fn_astSePopup = function(){
-    	var searchCode 		= "";
+    	var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryName"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_SUB_CODE_";
+        var replaceText1 	= "_CODE_NAME_";
+
+        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
     	compopup1({
@@ -1060,7 +1066,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA001'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -1069,6 +1075,7 @@
    			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
+				SBUxMethod.set("srch-inp-assetCategoryCode",        data.SUB_CODE)
 				SBUxMethod.set('srch-inp-assetCategoryName',		data.CODE_NAME);
 			},
     	});
@@ -1080,9 +1087,9 @@
     const fn_assetLevel2 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_ASSET_GROUP_CODE_";
+        var replaceText1 	= "_ASSET_GROUP_NAME_";
+        var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
     	compopup1({
@@ -1090,7 +1097,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA005'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -1110,9 +1117,9 @@
     const fn_assetLevel3 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_ASSET_GROUP_CODE_";
+        var replaceText1 	= "_ASSET_GROUP_NAME_";
+        var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
     	compopup1({
@@ -1120,7 +1127,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'L_FIA006'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]

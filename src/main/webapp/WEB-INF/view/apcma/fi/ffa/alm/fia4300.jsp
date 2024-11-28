@@ -301,7 +301,6 @@
 										<sbux-input id="srch-ast-acquisitionAmount"
 											name="srch-ast-acquisitionAmount"
 											class="form-control input-sm inpt_data_reqed"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text" group-id="ast1"></sbux-input>
 									</td>
 
@@ -309,14 +308,12 @@
 									<td class="td_input" style="border-right: hidden;"><sbux-input
 											id="srch-ast-accumDepr" name="srch-ast-accumDepr"
 											class="form-control input-sm"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text"></sbux-input></td>
 									<th scope="row" class="th_bg group2" hidden>취득가액</th>
 									<td class="td_input group2" style="border-right: hidden;"
 										hidden><sbux-input id="srch-ast-acquisitionAmount"
 											name="srch-ast-acquisitionAmount"
 											class="form-control input-sm"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="input" group-id="group2"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>기초취득가액</th>
@@ -324,7 +321,6 @@
 										hidden><sbux-input id="srch-ast-beginAcquisitionAmount"
 											name="srch-ast-beginAcquisitionAmount"
 											class="form-control input-sm"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="input" group-id="group2"></sbux-input></td>
 
 								</tr>
@@ -351,7 +347,6 @@
 									<td class="td_input ntAsstncAmt2" style="border-right: hidden;">
 										<sbux-input id="srch-out-subsidiesAmount"
 											name="srch-out-subsidiesAmount" class="form-control input-sm"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text"></sbux-input>
 									</td>
 
@@ -360,15 +355,13 @@
 										style="border-right: hidden;"><sbux-input
 											id="srch-ast-subsidiesAccDepr"
 											name="srch-ast-subsidiesAccDepr"
-											class="form-control input-sm" uitype="text"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
+											class="form-control input-sm" uitype="text"></sbux-input>
 									</td>
 									<th scope="row" class="th_bg group2" hidden>국고보조금</th>
 									<td class="td_input group2" style="border-right: hidden;"
 										hidden><sbux-input id="srch-num-subsidiesAmount"
 											name="srch-num-subsidiesAmount" class="form-control input-sm"
 											uitype="text"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="input" group-id="group2"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>기초국고보조금</th>
@@ -376,7 +369,6 @@
 										hidden><sbux-input id="srch-ast-beginSubsidiesAmount"
 											name="srch-ast-beginSubsidiesAmount"
 											class="form-control input-sm" uitype="text"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="input" group-id="group2"></sbux-input></td>
 
 								</tr>
@@ -404,21 +396,19 @@
 									<td class="td_input" style="border-right: hidden;"><sbux-input
 											id="srch-ast-depreciationAmount"
 											name="srch-ast-depreciationAmount"
-											class="form-control input-sm" uitype="text"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"></sbux-input>
+											class="form-control input-sm" uitype="text">
+											</sbux-input>
 									</td>
 									<th scope="row" class="th_bg">장부가액</th>
 									<td class="td_input" style="border-right: hidden;"><sbux-input
 											id="srch-ast-bookValue" name="srch-ast-bookValue"
 											class="form-control input-sm inpt_data_reqed"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text" group-id="ast1" required></sbux-input></td>
 									<th scope="row" class="th_bg group2" hidden>감가상각누계액</th>
 									<td class="td_input group2" style="border-right: hidden;"
 										hidden><sbux-input id="srch-ast-accumulatedDepreciation"
 											name="srch-ast-accumulatedDepreciation"
 											class="form-control input-sm" uitype="text"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="input" group-id="group2"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>처분비율</th>
@@ -643,7 +633,6 @@
 										<sbux-input id="srch-dsps-exchangeRate"
 											name="srch-dsps-exchangeRate"
 											class="form-control input-sm inpt_data_reqed" uitype="text"
-											mask="{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true }"
 											group-id="dsps1"
 											onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)">
 										</sbux-select>
@@ -703,7 +692,6 @@
 										<sbux-input id="srch-dsps-disposalOriginalAmount"
 											name="srch-dsps-disposalOriginalAmount"
 											class="form-control input-sm inpt_data_reqed"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text" group-id="dsps1">
 										</sbux-select>
 									</td>
@@ -750,7 +738,6 @@
 										<sbux-input id="srch-dsps-dispFunctionalAmt"
 											name="srch-dsps-dispFunctionalAmt"
 											class="form-control input-sm inpt_data_reqed"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text" group-id="dsps1"></sbux-input>
 									</td>
 									<th scope="row" class="th_bg">금액합계</th>
@@ -758,7 +745,6 @@
 										<sbux-input id="srch-dsps-totalAmount"
 											name="srch-dsps-totalAmount"
 											class="form-control input-sm inpt_data_reqed"
-											mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 											uitype="text" group-id="dsps1"></sbux-input>
 									</td>
 								</tr>
@@ -918,6 +904,7 @@
 		fn_hiddenChange(true);
 		SBUxMethod.clearGroupData('group1');
 		SBUxMethod.clearGroupData('group2');
+		SBUxMethod.refreshAll();
 	}
 
 	// ${comMenuVO.menuId}
@@ -2275,46 +2262,46 @@
 		var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID         :     ''
-	   		    ,V_P_COMP_CODE       :     gv_ma_selectedCorpCd
-    		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
+	   		    ,V_P_COMP_CODE       :     gfnma_nvl(gv_ma_selectedCorpCd)
+    		    ,V_P_CLIENT_CODE     :     gfnma_nvl(gv_ma_selectedClntCd)
 
-    		    ,V_P_ACCT_RULE_CODE  :    acntgCrtr
-    		    ,IV_P_ASSET_DISPOSAL_NO : dspsNo
-    		    ,V_P_SITE_CODE       :  bplc
-    		    ,V_P_DISPOSAL_DATE   : dspsYmdFrom
-    		    ,V_P_DISPOSAL_TYPE   : dspsYmdTo
-    		    ,V_P_ASSET_NO        : astno
-    		    ,V_P_CS_CODE         : cnpt
-    		    ,V_P_DEPT_CODE       : tkcgdept
-    		    ,V_P_EMP_CODE        : pic
-    		    ,V_P_COST_CENTER_CODE  : costCenter
-    		    ,V_P_OUT_ACQUISITION_AMOUNT : rowData.outAcquisitionAmount
-    		    ,V_P_OUT_SUBSIDIES_AMOUNT   : rowData.outSubsidiesAmount
-    		    ,V_P_OUT_DEPRECIATION_AMOUNT : rowData.outDepreciationAmount
-    		    ,V_P_OUT_SUBSIDIES_DEPR      : rowData.outSubsidiesDepr
-    		    ,V_P_OUT_ACCUM_DEPR          : rowData.outAccumDepr
-    		    ,V_P_OUT_SUBSIDIES_ACC_DEPR  : rowData.outSubsidiesAccDepr
-    		    ,V_P_BOOK_VALUE              : bookValue
-    		    ,V_P_DISPOSAL_PL             : disposalPl
-    		    ,V_P_TAX_SITE_CODE           : taxSiteCode
-    		    ,V_P_VAT_TYPE                : vatType
-    		    ,V_P_VAT_RATE                : vatRate
-    		    ,V_P_CURRENCY_CODE           : currencyCode
-    		    ,V_P_EXCHANGE_RATE           : exchangeRate
-    		    ,V_P_DISPOSAL_ORIGINAL_AMOUNT: disposalOriginalAmount
-    		    ,V_P_DISP_FUNCTIONAL_AMT     : dispFunctionalAmt
-    		    ,V_P_VAT_AMOUNT              : vatAmount
-    		    ,V_P_EXPENSE_CS_CODE         : expenseCsCode
-    		    ,V_P_EXPENSE_VAT_TYPE        : expenseVatType
-    		    ,V_P_EXPENSE_VAT_RATE        : expenseVatRate
-    		    ,V_P_EXPENSE_ACCOUNT         : expenseAccount
-    		    ,V_P_EXPENSE_CURRENCY_CODE   : expenseCurrencyCode
-    		    ,V_P_EXPENSE_EXCHANGE_RATE   : expenseExchangeRate
-    		    ,V_P_EXPENSE_AMOUNT          : expenseAmount
-    		    ,V_P_EXPENSE_VAT_AMOUNT      : expenseVatAmount
-    		    ,V_P_MEMO                    : memomemo
-    		    ,V_P_ORIG_ASSET_DISP_NO      : originalAssetDispNo
-    		    ,V_P_DISPOSAL_QTY            : disposalQty
+    		    ,V_P_ACCT_RULE_CODE  :    gfnma_nvl(acntgCrtr)
+    		    ,IV_P_ASSET_DISPOSAL_NO : gfnma_nvl(dspsNo)
+    		    ,V_P_SITE_CODE       :  gfnma_nvl(bplc)
+    		    ,V_P_DISPOSAL_DATE   : gfnma_nvl(dspsYmdFrom)
+    		    ,V_P_DISPOSAL_TYPE   : gfnma_nvl(dspsYmdTo)
+    		    ,V_P_ASSET_NO        : gfnma_nvl(astno)
+    		    ,V_P_CS_CODE         : gfnma_nvl(cnpt)
+    		    ,V_P_DEPT_CODE       : gfnma_nvl(tkcgdept)
+    		    ,V_P_EMP_CODE        : gfnma_nvl(pic)
+    		    ,V_P_COST_CENTER_CODE  : gfnma_nvl(costCenter)
+    		    ,V_P_OUT_ACQUISITION_AMOUNT : gfnma_nvl(rowData.outAcquisitionAmount)
+    		    ,V_P_OUT_SUBSIDIES_AMOUNT   : gfnma_nvl(rowData.outSubsidiesAmount)
+    		    ,V_P_OUT_DEPRECIATION_AMOUNT : gfnma_nvl(rowData.outDepreciationAmount)
+    		    ,V_P_OUT_SUBSIDIES_DEPR      : gfnma_nvl(rowData.outSubsidiesDepr)
+    		    ,V_P_OUT_ACCUM_DEPR          : gfnma_nvl(rowData.outAccumDepr)
+    		    ,V_P_OUT_SUBSIDIES_ACC_DEPR  : gfnma_nvl(rowData.outSubsidiesAccDepr)
+    		    ,V_P_BOOK_VALUE              : gfnma_nvl(bookValue)
+    		    ,V_P_DISPOSAL_PL             : gfnma_nvl(disposalPl)
+    		    ,V_P_TAX_SITE_CODE           : gfnma_nvl(taxSiteCode)
+    		    ,V_P_VAT_TYPE                : gfnma_nvl(vatType)
+    		    ,V_P_VAT_RATE                : gfnma_nvl(vatRate)
+    		    ,V_P_CURRENCY_CODE           : gfnma_nvl(currencyCode)
+    		    ,V_P_EXCHANGE_RATE           : gfnma_nvl(exchangeRate)
+    		    ,V_P_DISPOSAL_ORIGINAL_AMOUNT: gfnma_nvl(disposalOriginalAmount)
+    		    ,V_P_DISP_FUNCTIONAL_AMT     : gfnma_nvl(dispFunctionalAmt)
+    		    ,V_P_VAT_AMOUNT              : gfnma_nvl(vatAmount)
+    		    ,V_P_EXPENSE_CS_CODE         : gfnma_nvl(expenseCsCode)
+    		    ,V_P_EXPENSE_VAT_TYPE        : gfnma_nvl(expenseVatType)
+    		    ,V_P_EXPENSE_VAT_RATE        : gfnma_nvl(expenseVatRate)
+    		    ,V_P_EXPENSE_ACCOUNT         : gfnma_nvl(expenseAccount)
+    		    ,V_P_EXPENSE_CURRENCY_CODE   : gfnma_nvl(expenseCurrencyCode)
+    		    ,V_P_EXPENSE_EXCHANGE_RATE   : gfnma_nvl(expenseExchangeRate)
+    		    ,V_P_EXPENSE_AMOUNT          : gfnma_nvl(expenseAmount)
+    		    ,V_P_EXPENSE_VAT_AMOUNT      : gfnma_nvl(expenseVatAmount)
+    		    ,V_P_MEMO                    : gfnma_nvl(memomemo)
+    		    ,V_P_ORIG_ASSET_DISP_NO      : gfnma_nvl(originalAssetDispNo)
+    		    ,V_P_DISPOSAL_QTY            : gfnma_nvl(disposalQty)
 
     		    ,V_P_FORM_ID      : p_formId
     		    ,V_P_MENU_ID     :  p_menuId
@@ -2326,7 +2313,7 @@
     	 const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300S.do", {
          	getType				: 'json',
          	workType			: workType,
-         	cv_count			: '1',
+         	cv_count			: '0',
          	params				: gfnma_objectToString(paramObj)
  		});
 
@@ -2349,7 +2336,6 @@
 	const fnSET_P_FIA4300_S1 = async function(workType) {
     	var rowNo    = grdAstDsps.getRow();
     	var rowData = grdAstDsps.getRowData(rowNo);
-
     	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-assetDisposalNo"));// 처분번호
     	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-ast-acctRuleCode")); //회계기준
 		var rmrk = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-rmrk1")); //비고
@@ -2387,7 +2373,7 @@
     	 const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300S1.do", {
          	getType				: 'json',
          	workType			: workType,
-         	cv_count			: '1',
+         	cv_count			: '0',
          	params				: gfnma_objectToString(paramObj)
  		});
 
@@ -2528,8 +2514,8 @@
         //txtcost_center_name.Properties.Popup.WhereQuery = "COST_CLASS = '2'";
     }
 	const saveClick = function(){
-            if (!fnDataValidation())
-                return;
+            //if (!fnDataValidation())
+            //    return;
 
 		  // gvwDetail의 값이 언제 셋팅되는지 확인하고 어떤 값인지도 확인해야함 (숨어있음) -> 처분 그리드인듯...?
           //  for (int i = 0; i < gvwDetail.RowCount; i++){
@@ -2743,9 +2729,13 @@
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
+
+
+
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' ";
+
         //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
@@ -2754,7 +2744,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COM008'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["CS_CODE", 	"CS_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -2793,6 +2783,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
         var replaceText0 	= "_DEPT_CODE_";
         var replaceText1 	= "_DEPT_NAME_";
+
 
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
@@ -2844,8 +2835,8 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
+
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
     	compopup1({
@@ -2853,7 +2844,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -2882,8 +2873,8 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-ast-assetName"));
         var replaceText0 	= "_ASSET_NO_";
         var replaceText1 	= "_ASSET_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
+
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
@@ -2891,7 +2882,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ASSET_LIST'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["번호", 				"명칭"]
    			,searchInputFields		: ["ASSET_NO", 	"ASSET_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -2919,8 +2910,8 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterName"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
@@ -2928,7 +2919,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -2956,8 +2947,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-expenseCsName"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '비용거래처');
     	compopup1({
@@ -2965,7 +2955,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_CS_PURCHASE'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["CS_CODE", 	"CS_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
@@ -2993,8 +2983,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-expenseAccountName"));
         var replaceText0 	= "_ACCOUNT_CODE_";
         var replaceText1 	= "_ACCOUNT_NAME_";
-        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
-        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '처분비용계정');
     	compopup1({
@@ -3002,7 +2991,7 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ACCT_DOC_IN'
         	,popupType				: 'A'
-    		,whereClause			: ''
+    		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
    			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]

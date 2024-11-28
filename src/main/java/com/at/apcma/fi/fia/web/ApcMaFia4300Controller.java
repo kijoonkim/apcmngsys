@@ -89,35 +89,59 @@ public class ApcMaFia4300Controller extends BaseController {
 			logger.info("=============selectFia4300Q1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 	}
+	// 공통코드 정보 조회
+	@PostMapping(value = "/fi/fia/selectFia4300S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia4300S(
+		@RequestBody Map<String, Object> param
+		,Model model
+		,HttpSession session
+		,HttpServletRequest request) throws Exception{
 
-		// 공통코드 정보 조회
-		@PostMapping(value = "/fi/fia/selectFia4300S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectFia4300S1(
-			@RequestBody Map<String, Object> param
-			,Model model
-			,HttpSession session
-			,HttpServletRequest request) throws Exception{
+		logger.info("=============selectFia4300S=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
-			logger.info("=============selectFia4300S1=====start========");
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		try {
 
-			try {
+			param.put("procedure", 		"P_FIA4300_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
-				param.put("procedure", 		"P_FIA4300_S1");
-				resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			logger.info("=============selectFia4300S1=====end========");
-			return getSuccessResponseEntityMa(resultMap);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
 
-		// 공통코드 정보 조회
-				@PostMapping(value = "/fi/fia/selectFia4300S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectFia4300S2(
+		logger.info("=============selectFia4300S=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}
+
+	// 공통코드 정보 조회
+	@PostMapping(value = "/fi/fia/selectFia4300S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia4300S1(
+		@RequestBody Map<String, Object> param
+		,Model model
+		,HttpSession session
+		,HttpServletRequest request) throws Exception{
+
+		logger.info("=============selectFia4300S1=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			param.put("procedure", 		"P_FIA4300_S1");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============selectFia4300S1=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}
+
+	// 공통코드 정보 조회
+	@PostMapping(value = "/fi/fia/selectFia4300S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFia4300S2(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session

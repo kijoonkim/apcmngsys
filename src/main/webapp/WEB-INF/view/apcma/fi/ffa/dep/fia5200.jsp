@@ -218,8 +218,8 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
-	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
+	//var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
@@ -250,6 +250,11 @@
 	// 마스터 그리드 삭제
 	function cfn_del() {
 
+	}
+
+	// 초기화
+	function cfn_init() {
+		SBUxMethod.refreshAll()
 	}
 
 	// 조회

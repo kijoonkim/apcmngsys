@@ -224,6 +224,11 @@
 
 	}
 
+	// 초기화
+	function cfn_init() {
+		SBUxMethod.refreshAll()
+	}
+
 	// 조회
 	function cfn_search() {
 		fn_queryClick();
@@ -237,8 +242,8 @@
 
 	var jsonRegionCode		= [];	// 지역
 
-	var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
-    var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
+    //var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
  // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
@@ -256,7 +261,7 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//회계단위
 			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			gfnma_multiSelectInit({
