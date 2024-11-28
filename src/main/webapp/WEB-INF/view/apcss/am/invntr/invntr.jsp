@@ -277,7 +277,7 @@
 	function fn_createGrid1() {
 
 		SBUxMethod.set("srch-slt-spcfctCd", "");
-		
+
 		checkSection = 1;
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'rawMtrInvntrGridArea';
@@ -298,10 +298,10 @@
 				position: 'bottom',
 				columns: {
 					standard: [9],
-					sum: [10,11,12,13,14,15]
+					sum: [11,12,13,14,15,16]
 				},
 			grandtotalrow: {
-				titlecol: 9,
+				titlecol: 10,
 				titlevalue: '합계',
 				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
 				stylestartcol: 0
@@ -1408,10 +1408,10 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
-		
+
 		jsonComSpcfct.length = 0;
 		SBUxMethod.refresh("srch-slt-spcfctCd");
-		
+
 		if (!gfn_isEmpty(itemCd)) {
 			let rst = await Promise.all([
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd)				// 규격
@@ -1611,7 +1611,7 @@
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 			fn_setPrdcrForm(prdcr);
-			
+
 		}
  	}
  	/* End */
