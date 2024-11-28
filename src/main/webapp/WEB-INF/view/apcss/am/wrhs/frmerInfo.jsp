@@ -641,6 +641,7 @@
 		    }},
 	    ];
 	    grdPrdcrLandInfo = _SBGrid.create(SBGridProperties);
+        grdPrdcrLandInfo.bind('click', 'fn_setFrlnInput');
 	}
 
 	const fn_createCltvtnHstryPrdcr = function () {
