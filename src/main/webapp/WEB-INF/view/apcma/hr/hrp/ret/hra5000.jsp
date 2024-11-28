@@ -154,7 +154,7 @@
                                         id="APPLY_START_DATE"
                                         name="APPLY_START_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                        class="table-datepicker-ma inpt_data_reqed"
                                         style="width:100%;"
                                 />
                             </td>
@@ -167,7 +167,7 @@
                                         id="APPLY_END_DATE"
                                         name="APPLY_END_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                        class="table-datepicker-ma inpt_data_reqed"
                                         style="width:100%;"
                                 />
                             </td>
@@ -451,7 +451,7 @@
         SBGridProperties.id = 'gvwMasterGrid';
         SBGridProperties.jsonref = 'jsonMasterList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/

@@ -134,7 +134,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwDeduction" style="height:500px; width:100%;"></div>
+                    <div id="sb-area-gvwDeduction" style="height:300px; width:100%;"></div>
                 </div>
 
                 <div class="row">

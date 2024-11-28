@@ -38,10 +38,10 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
+            <%--<div style="margin-left: auto;">
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-            </div>
+            </div>--%>
         </div>
 
         <div class="box-search-ma">
@@ -447,7 +447,7 @@
         SBGridProperties.id = 'gvwInfoGrid';
         SBGridProperties.jsonref = 'jsonInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/

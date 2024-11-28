@@ -1237,7 +1237,7 @@
         SBGridProperties.id = 'gvwInfoGrid';
         SBGridProperties.jsonref = 'jsonGvwInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         /*SBGridProperties.allowcopy = true; //복사*/
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
