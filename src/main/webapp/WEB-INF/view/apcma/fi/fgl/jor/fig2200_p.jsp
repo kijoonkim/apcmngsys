@@ -1105,13 +1105,6 @@
   	}       
         
     /**
-     * 세부내역
-     */
-    var fn_btnDocDetail = function() {
-    	alert('매입송장등록 화면(매입전표작성) FIG3510_AP 으로 이동');
-  	}       
-        
-    /**
      * 전기처리
      */
     var fn_btnEnd = function() {
@@ -2232,6 +2225,32 @@
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
     }
+    
+    /**
+     * 세부내역
+     */
+    var fn_btnDocDetail = function() {
+    	//alert('매입송장등록 화면(매입전표작성) FIG3510_AP 으로 이동');
+    	
+        var nRow = Fig2200Grid.getRow();
+		if (nRow < 1) {
+            return;
+		}
+        let rowData = Fig2200Grid.getRowData(nRow);
+		console.log(rowData);        
+		
+        var obj = {
+            	'MENU_MOVE'			: 'Y'	
+               	,'DOC_BATCH_NO'		: gfnma_nvl2(rowData['DOC_BATCH_NO'])
+               	,'SOURCE_TYPE'		: gfnma_nvl2(rowData['SOURCE_TYPE'])
+               	,'DOC_NUM'			: gfnma_nvl2(rowData['DOC_NUM'])
+               	,'FI_ORG_CODE'		: gfnma_nvl2(rowData['FI_ORG_CODE'])
+            	,'target'			: 'MA_A20_020_010_060'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+  	}       
+        
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

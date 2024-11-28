@@ -422,12 +422,6 @@
         	idx = 0;
         }
 		Fim1410Grid.insertRow(idx, 'below');
-		//USE_YN
-		Fim1410Grid.setCellData((idx+1), 19, 'Y', true, true);
-		//detail 초기화
-    	jsonFim1410Detail = [];
-      	Fim1410GridDetail.rebuild();
-      	$('#listCount2').text('0');
     }
     
     /**
@@ -435,9 +429,6 @@
      */
     var fn_gridRowDel = function() {
     	Fim1410Grid.deleteRow(Fim1410Grid.getRow());
-		//detail 초기화
-    	jsonFim1410Detail = [];
-      	Fim1410GridDetail.rebuild();
     }
     
     /**

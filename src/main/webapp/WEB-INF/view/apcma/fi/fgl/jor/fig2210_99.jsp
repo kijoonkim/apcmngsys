@@ -2528,7 +2528,7 @@ console.log('fn_enableSet(code):', code);
     
     //그리드 값 가져오기
     function fn_getFig2210Grid(rowData) {
-		//console.log('fn_getFig2210Grid:', rowData);        
+		console.log('fn_getFig2210Grid:', rowData);        
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	$('.cu-tab2-fom-area').text('');
