@@ -1907,7 +1907,87 @@
      * 이력복사
      */
     const fn_copyHistory = async function() {
+        if (gfn_nvl(SBUxMethod.get("RETIRE_DATE")) == "") {
+            gfn_comAlert("E0000", "퇴직일자가 없으면 처리할수 없습니다.");
+            return ;
+        }
 
+        SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
+
+        SBUxMethod.set("OLD_EMP_CODE", SBUxMethod.get("EMP_CODE"));
+        SBUxMethod.set("OLD_EMP_NAME", SBUxMethod.get("EMP_NAME"));
+
+        SBUxMethod.attr('JOB_GROUP', 'readonly', 'false');
+        SBUxMethod.attr('JOB_RANK', 'readonly', 'false');
+
+        SBUxMethod.set('EMP_CODE', "");
+
+        SBUxMethod.set('ENTER_DATE', gfn_dateToYmd(new Date()));
+
+        SBUxMethod.focus("ENTER_TYPE");
+
+        SBUxMethod.attr('POSITION_CODE', 'readonly', 'false');
+        SBUxMethod.attr('DUTY_CODE', 'readonly', 'false');
+        SBUxMethod.attr('JOB_FAMILY', 'readonly', 'false');
+
+        //가족사항
+        for(var i = 1; i <= jsonFamilyList.length; i++) {
+            gvwFamily.setRowStatus(i, 0);
+        }
+
+        // 학력사항
+        for(var i = 1; i <= jsonSchoolList.length; i++) {
+            gvwSchool.setRowStatus(i, 0);
+        }
+
+        // 경력사항
+        for(var i = 1; i <= jsonCareerList.length; i++) {
+            gvwCareer.setRowStatus(i, 0);
+        }
+
+        // 자격사항
+        for(var i = 1; i <= jsonLicenseList.length; i++) {
+            gvwLicense.setRowStatus(i, 0);
+        }
+
+        // 어학/컴퓨터활용능력
+        for(var i = 1; i <= jsonLanguageList.length; i++) {
+            gvwLanguage.setRowStatus(i, 0);
+        }
+
+        for(var i = 1; i <= jsonComputerSkillList.length; i++) {
+            gvwComputerSkill.setRowStatus(i, 0);
+        }
+
+        // 파일
+        for(var i = 1; i <= jsonFileList.length; i++) {
+            gvwFile.setRowStatus(i, 0);
+        }
+
+        // 상벌사항
+        for(var i = 1; i <= jsonPrizeList.length; i++) {
+            gvwPrize.setRowStatus(i, 0);
+        }
+
+        // 건강검진내역
+        for(var i = 1; i <= jsonHealthList.length; i++) {
+            gvwHealth.setRowStatus(i, 0);
+        }
+
+        //상해질병
+        for(var i = 1; i <= jsonDiseaseList.length; i++) {
+            gvwDisease.setRowStatus(i, 0);
+        }
+
+        //공상발생
+        for(var i = 1; i <= jsonOfficialInjuryList.length; i++) {
+            gvwOfficialInjury.setRowStatus(i, 0);
+        }
+
+        //근무계획
+        for(var i = 1; i <= jsonWorkPlanList.length; i++) {
+            gvwWorkPlan.setRowStatus(i, 0);
+        }
     }
 
     /**
@@ -2233,8 +2313,8 @@
         $('#CURRENT_PAY_GRADE_DATE_TH').hide();
         $('#CURRENT_PAY_GRADE_DATE_TD').hide();
 
-        $("#btnRegistResignation").attr('disabled', 'false');
-        $("#btnCopyHistory").attr('disabled', 'false');
+        $("#btnRegistResignation").removeAttr('disabled');
+        $("#btnCopyHistory").removeAttr('disabled');
     }
 
     const fn_keyup = async function(event) {
