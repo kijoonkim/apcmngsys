@@ -47,28 +47,28 @@
             <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
 
-                    <col style="width: 10%">
-                    <col style="width: 6%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                     <col style="width: 1%">
-                    <col style="width: 6%">
+                    <col style="width: 7%">
                     <col style="width: 2%">
                 </colgroup>
                 <tbody>
@@ -128,13 +128,13 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li>
-                        <span>  급여체계별급여항목</span>
+                        <span>급여체계별급여항목</span>
                         <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                     </li>
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwMaster" style="height:350px; width:100%;"></div>
+                <div id="sb-area-gvwMaster" style="height:170px; width:100%;"></div>
             </div>
         </div>
 
@@ -143,7 +143,7 @@
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li>
-                            <span>  급여산식설정</span>
+                            <span>급여산식설정</span>
                         </li>
                     </ul>
                 </div>
@@ -154,17 +154,17 @@
             <div class="tab-content">
                 <div id="salaryTab" >
                     <div>
-                        <div id="sb-area-gvwSalary" style="height:200px; width:100%;"></div>
+                        <div id="sb-area-gvwSalary" style="height:150px; width:100%;"></div>
                     </div>
                 </div>
                 <div id="workTab" >
                     <div>
-                        <div id="sb-area-gvwWork" style="height:200px; width:100%;"></div>
+                        <div id="sb-area-gvwWork" style="height:150px; width:100%;"></div>
                     </div>
                 </div>
                 <div id="settingTab" >
                     <div>
-                        <div id="sb-area-gvwSetting" style="height:200px; width:100%;"></div>
+                        <div id="sb-area-gvwSetting" style="height:150px; width:100%;"></div>
                     </div>
                 </div>
             </div>
@@ -218,7 +218,7 @@
             </sbux-button>
         </div>
     </div>
-    <table class="table table-bordered tbl_fixed">
+    <table id="dataArea2" class="table table-bordered tbl_fixed">
         <caption>검색 조건 설정</caption>
         <colgroup>
             <col style="width: 7%">
@@ -739,6 +739,12 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
+
+                    SBUxMethod.set("PAY_FORMULA"        , '');
+                    SBUxMethod.set("PAY_FORMULA_DESC"   , '');
+                    SBUxMethod.set("QTY_FORMULA"        , '');
+                    SBUxMethod.set("QTY_FORMULA_DESC"   , '');
+                    SBUxMethod.set("QTY_UNIT"           , '');
 
                     jsonSalaryList.length = 0;
                     data.cv_2.forEach((item, index) => {

@@ -298,7 +298,9 @@
                     <div>
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
                         <input type="file" name="excelFile2" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
-                        <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="Excel 업로드" onclick="fn_uld"></sbux-button>
+                        <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal"
+                                     class="btn btn-sm btn-outline-danger" text="Excel 업로드"
+                                     onclick="fn_uld"></sbux-button>
                        <%-- <sbux-button
                                 id="btnUpload"
                                 name="btnUpload"
@@ -309,15 +311,6 @@
                                 style="float: right;"
                         ></sbux-button>--%>
                         <sbux-button
-                                id="btnDownload"
-                                name="btnDownload"
-                                uitype="normal"
-                                text="Excel 양식받기"
-                                class="btn btn-sm btn-outline-danger"
-                                onclick="fn_exportData"
-                                style="float: right;"
-                        ></sbux-button>
-                        <sbux-button
                                 id="btnSearchItem"
                                 name="btnSearchItem"
                                 uitype="normal"
@@ -326,6 +319,16 @@
                                 onclick="fn_payInfoDelRow"
                                 style="float: right;"
                         ></sbux-button>
+                        <sbux-button
+                                id="btnDownload"
+                                name="btnDownload"
+                                uitype="normal"
+                                text="Excel 양식받기"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_exportData"
+                                style="float: right;"
+                        ></sbux-button>
+
                     </div>
                 </div>
                 <div>

@@ -290,7 +290,7 @@
                                         uitype="popup"
                                         datepicker-mode="year"
                                         date-format="yyyy"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         style="width: 95%;"
                                         required>
                                     <%--onchange="fn_payDate"--%>
@@ -1009,7 +1009,7 @@
         SBGridProperties.id = 'gvwEmpListGrid';
         SBGridProperties.jsonref = 'jsonEmpList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';

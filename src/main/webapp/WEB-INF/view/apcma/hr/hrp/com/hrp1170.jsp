@@ -410,7 +410,7 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.rowheader =['update'];
         if (chMode == 'clear') { //복사해제모드
-            SBGridProperties.selectmode = 'free';
+            SBGridProperties.selectmode = 'byrow';
         } else if(chMode == 'line'){ //행복사모드
             SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
@@ -420,9 +420,6 @@
             SBGridProperties.selectmode = 'free';
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         }
-        /*SBGridProperties.explorerbar = 'move';*/				// 개인화 컬럼 이동 가능
-        /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
-        /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
@@ -431,8 +428,7 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:60px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…<!--<img src='../../../resource/images/find2.png' width='12px' />--></button>";
-                    //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                    return "<button type='button' class='ma-btn1' style='width:30px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},

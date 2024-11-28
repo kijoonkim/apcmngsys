@@ -121,7 +121,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-bandgvwInfo" style="height:530px; width:100%;"></div>
+                <div id="sb-area-bandgvwInfo" style="height:330px; width:100%;"></div>
             </div>
         </div>
         <div>
@@ -898,7 +898,7 @@
         SBGridProperties.id = 'gvwBandgvwInfoGrid';
         SBGridProperties.jsonref = 'jsonBandgvwInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';

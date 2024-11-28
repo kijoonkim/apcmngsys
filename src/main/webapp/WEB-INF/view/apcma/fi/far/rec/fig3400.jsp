@@ -299,7 +299,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwMaster" style="height:400px;"></div>
+                                    <div id="sb-area-gvwMaster" style="height:200px;"></div>
                                 </div>
                                 <div>
                                     <sbux-tabs id="idxTabSub" name="idxTabSub" uitype="normal" is-scrollable="false" jsondata-ref="jsonSubTabData">
