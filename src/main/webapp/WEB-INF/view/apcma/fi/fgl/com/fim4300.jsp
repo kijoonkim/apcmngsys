@@ -249,7 +249,7 @@
 	    SBGridProperties.id 				= 'Fim4300GridMast';
 	    SBGridProperties.jsonref 			= 'jsonFim4300Mast';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'free';
+        SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.frozencols 		= 2;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';

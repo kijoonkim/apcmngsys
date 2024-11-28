@@ -498,9 +498,10 @@
 
         Fia4100Grid = _SBGrid.create(SBGridProperties);
         Fia4100Grid.bind('click', 		'fn_viewFia4100GridEvent');
+        Fia4100Grid.bind('keyup', 		'fn_keyUpFia4100GridEvent');
     }
     
-    //상세정보 보기
+    //상세정보 보기 - click
     function fn_viewFia4100GridEvent() {
     	
         var nRow = Fia4100Grid.getRow();
@@ -511,6 +512,21 @@
 		console.log('rowData:', rowData);      
 		
 		gfnma_uxDataSet2('#dataArea1', rowData, '', 'FM_', '');
+    }    
+    
+    //상세정보 보기 - keyup
+    function fn_keyUpFia4100GridEvent(event) {
+    	
+    	if(event.keyCode == 38 || event.keyCode == 40 ){
+	        var nRow = Fia4100Grid.getRow();
+			if (nRow < 1) {
+	            return;
+			}
+	        let rowData = Fia4100Grid.getRowData(nRow);
+			console.log('rowData:', rowData);      
+			
+			gfnma_uxDataSet2('#dataArea1', rowData, '', 'FM_', '');
+    	}
     }    
     
     /**
