@@ -219,10 +219,10 @@
                                 id="srch-inp-prdcrIdentno"
                                 name="srch-inp-prdcrIdentno"
                                 class="inpt-mbl"
-                                maxlength="2"
+                                maxlength="3"
                                 autocomplete="off"
                                 onchange="fn_onChangeSrchPrdcrIdentno(this)"
-                        />
+                        ></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <sbux-button
