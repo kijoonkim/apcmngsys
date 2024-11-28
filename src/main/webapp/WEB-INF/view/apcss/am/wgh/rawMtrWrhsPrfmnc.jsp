@@ -451,6 +451,22 @@ async function cfn_search() {
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.total = {
+	      type 		: 'grand',
+	      position	: 'bottom',
+	      columns		: {
+	          standard : [1,2],
+	          sum : [12,13,14,15,16,17]
+	      },
+	      grandtotalrow : {
+	          titlecol 	: 1,
+	          titlevalue	: '합계',
+	          style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+	          stylestartcol	: 1
+	      },
+	      datasorting	: true,
+	      usedecimal : false,
+	    };
 	    //SBGridProperties.paging = {
 		//	'type' : 'page',
 		//  	'count' : 5,
