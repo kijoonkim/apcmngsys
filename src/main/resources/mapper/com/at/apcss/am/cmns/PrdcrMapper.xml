@@ -218,11 +218,13 @@
                       FROM TB_PRDCR_LAND_INFO X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
                    ) AS LAND_CRTR_AREA
                  , (SELECT SUM(PLNTNG_AREA)
                       FROM TB_PRDCR_LAND_INFO X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
                    ) AS LAND_PLNTNG_AREA
 
 			  FROM TB_PRDCR_INFO PR
