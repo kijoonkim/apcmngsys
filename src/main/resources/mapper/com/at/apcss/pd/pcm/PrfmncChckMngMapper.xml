@@ -66,6 +66,10 @@
 		WHERE 1=1
 		  AND TEA.APRV = '1'
 		  AND TEA.APO_SE = '1'
+		  AND TEA.SLCTN_YR IS NOT NULL
+		<if test='yr != null and yr != ""'>
+		  AND #{yr} >= TEA.SLCTN_YR
+		</if>
 		<if test='brno != null and brno != ""'>
 		  AND TEA.BRNO = #{brno}
 		</if>
@@ -136,7 +140,7 @@
 		  AND ITEM.YR = EPC.YR(+)
 		  AND ITEM.BRNO = EPC.BRNO(+)
 		  AND ITEM.ITEM_CD = EPC.ITEM_CD(+)
-		ORDER BY ITEM_NM
+		ORDER BY STTG_UPBR_ITEM_SE, ITEM_NM
 	</select>
 
 	<!-- ==========================================================================	-->
