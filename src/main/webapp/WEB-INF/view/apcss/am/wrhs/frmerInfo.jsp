@@ -288,8 +288,8 @@
 											<th scope="row" class="th_bg" >농지면적(계약)/(정식)</th>
 											<td>
 												<sbux-input
-													id="dtl-inp-landPlntngArea"
-													name="dtl-inp-landPlntngArea"
+													id="dtl-inp-landCrtrArea"
+													name="dtl-inp-landCrtrArea"
 													class="form-control input-sm"
 													uitype="text"
 													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
@@ -298,8 +298,8 @@
 											</td>
 											<td>
 												<sbux-input
-													id="dtl-inp-landCrtrArea"
-													name="dtl-inp-landCrtrArea"
+													id="dtl-inp-landPlntngArea"
+													name="dtl-inp-landPlntngArea"
 													class="form-control input-sm"
 													uitype="text"
 													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"

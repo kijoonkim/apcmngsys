@@ -404,12 +404,14 @@
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
                          , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , CQ.SDNG_YMD          AS SDNG_YMD
 					     , CQ.SDNG_STTS_CD      AS SDNG_STTS_CD
@@ -491,12 +493,14 @@
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
                          , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , ''   AS SDNG_YMD
 					     , ''   AS SDNG_STTS_CD
@@ -857,12 +861,14 @@
                              WHERE X.APC_CD = PI.APC_CD
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
 					     , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
 					     , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
@@ -945,12 +951,14 @@
                              WHERE X.APC_CD = PI.APC_CD
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
 					     , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
+                               AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
 					     , '' AS FRMHS_EXPCT_WRHS_NO
