@@ -1780,7 +1780,25 @@
      * 세부내역
      */
     var fn_btnDetailView = function() {
-    	alert('매입송장등록(매입) 화면 FIG3510 으로 이동');
+    	//alert('매입송장등록 화면(매입전표작성) FIG3510_AP 으로 이동');
+    	
+        var nRow = Fig2300Grid.getRow();
+		if (nRow < 1) {
+            return;
+		}
+        let rowData = Fig2300Grid.getRowData(nRow);
+		console.log(rowData);        
+		
+        var obj = {
+            	'MENU_MOVE'			: 'Y'	
+               	,'DOC_BATCH_NO'		: gfnma_nvl2(rowData['DOC_BATCH_NO'])
+               	,'SOURCE_TYPE'		: gfnma_nvl2(rowData['SOURCE_TYPE'])
+               	,'DOC_NUM'			: gfnma_nvl2(rowData['DOC_NUM'])
+               	,'FI_ORG_CODE'		: gfnma_nvl2(rowData['FI_ORG_CODE'])
+            	,'target'			: 'MA_A20_020_010_060'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
   	}       
     
     /**
