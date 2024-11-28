@@ -2205,6 +2205,7 @@
     }
 
     const fn_setMasterData = async function(data) {
+        SBUxMethod.set("APPOINT_YN", data.APPOINT_YN);
         SBUxMethod.set("EMP_CODE", data.EMP_CODE);
         SBUxMethod.set("DISPLAY_SOCIAL_NUM", data.DISPLAY_SOCIAL_NUM);
         SBUxMethod.set("SOCIAL_NUM", data.SOCIAL_NUM);
