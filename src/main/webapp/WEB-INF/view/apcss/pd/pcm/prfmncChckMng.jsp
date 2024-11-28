@@ -197,7 +197,7 @@
 			const el = elements.item(i);
 			el.addEventListener("keyup", (event) => {
 				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-					fn_dtlSearch();
+					fn_search();
 				}
 				//key	Enter
 				//keyCode
@@ -266,7 +266,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		//SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheight = 72;
 		SBGridProperties.rowheader="seq";
@@ -386,10 +386,12 @@
 
 		let brno = SBUxMethod.get('srch-input-brno');
 		let yr = SBUxMethod.get('srch-input-yr');
+		let corpNm = SBUxMethod.get('srch-input-corpNm');
 
 		let postJsonPromise = gfn_postJSON("/pd/pcm/selectUoAprvList.do", {
 			brno : brno
 			,yr : yr
+			,corpNm : corpNm
 		});
 		let data = await postJsonPromise;
 		try{
@@ -407,23 +409,9 @@
 						,itemNmList	: item.itemNmList
 				}
 				jsonUoAprv.push(itemVO);
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
 			});
-
-			if (jsonUoAprv.length > 0) {
-				if(grdUoAprv.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdUoAprv.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdUoAprv.rebuild();
-				}else{
-					grdUoAprv.refresh()
-				}
-			} else {
-				grdUoAprv.setPageTotalCount(totalRecordCount);
-				grdUoAprv.rebuild();
-			}
-			document.querySelector('#listCount1').innerText = totalRecordCount;
+			grdUoAprv.rebuild();
+			document.querySelector('#listCount1').innerText = jsonUoAprv.length;
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -479,24 +467,9 @@
 						,sttgUpbrItemNm		: item.sttgUpbrItemNm
 				}
 				jsonPrfmncChckMng.push(itemVO);
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
 			});
-
-			if (jsonPrfmncChckMng.length > 0) {
-
-				if(grdPrfmncChckMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdPrfmncChckMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdPrfmncChckMng.rebuild();
-				}else{
-					grdPrfmncChckMng.refresh()
-				}
-			} else {
-				grdPrfmncChckMng.setPageTotalCount(totalRecordCount);
-				grdPrfmncChckMng.rebuild();
-			}
-			document.querySelector('#listCount2').innerText = totalRecordCount;
+			grdPrfmncChckMng.rebuild();
+			document.querySelector('#listCount2').innerText = jsonPrfmncChckMng.length;
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
