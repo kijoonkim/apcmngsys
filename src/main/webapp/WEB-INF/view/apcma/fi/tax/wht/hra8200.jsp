@@ -73,33 +73,13 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-compCode1"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
-
-                            <th scope="row" class="th_bg">급여영역</th>
+                            <th scope="row" class="th_bg_search">급여영역</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택"></sbux-select>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">제출연월</th>
+                            <th scope="row" class="th_bg_search">제출연월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-submitYyyymmFr"
@@ -211,25 +191,7 @@ var p_userId = '${loginVO.id}';
 			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 급여영역
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-          //법인
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			})
+
 		]);
 
 

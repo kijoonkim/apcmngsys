@@ -75,27 +75,7 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-compCode1"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
-
-                            <th scope="row" class="th_bg">회계단위</th>
+                            <th scope="row" class="th_bg_search">APC</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
@@ -114,7 +94,7 @@
 										</div>
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">사업장</th>
+                            <th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 
 									<div class="dropdown">
@@ -137,7 +117,7 @@
 
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">기간</th>
+                            <th scope="row" class="th_bg_search">기간</th>
 							<td  class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-periodFr"
@@ -162,7 +142,7 @@
 								></sbux-datepicker>
 							</td>
 							<td></td>
-                            <th scope="row" class="th_bg">감가상각기준</th>
+                            <th scope="row" class="th_bg_search">감가상각기준</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr"></sbux-select>
                             </td>
@@ -316,25 +296,7 @@
 		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			//법인
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			})
+
 
 		]);
 		SBUxMethod.set("srch-dtp-ymdFrom", gfn_dateFirstYmd(new Date()));

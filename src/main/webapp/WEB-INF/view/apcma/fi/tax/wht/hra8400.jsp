@@ -76,26 +76,8 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">법인</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-compCode1"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">급여영역</th>
+
+							<th scope="row" class="th_bg_search">급여영역</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-payAreaType"
 									name="srch-slt-payAreaType" class="form-control input-sm"
@@ -104,7 +86,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">귀속연도</th>
+							<th scope="row" class="th_bg_search">귀속연도</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyy" name="srch-dtp-jobYyyy"
 									uitype="popup" date-format="yyyy" datepicker-mode="year"
@@ -113,14 +95,14 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 
-							<th scope="row" class="th_bg">근무시기</th>
+							<th scope="row" class="th_bg_search">근무시기</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-harfyearlyType"
 									name="srch-slt-harfyearlyType" class="form-control input-sm"
 									uitype="single" jsondata-ref="jsonWorkEr"></sbux-select>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">귀속연월</th>
+							<th scope="row" class="th_bg_search">귀속연월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyymmFr"
 									name="srch-dtp-jobYyyymmFr" uitype="popup" date-format="yyyymm"
@@ -193,13 +175,13 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="th_bg">홈택스ID</th>
+									<th scope="row" class="th_bg_search">홈택스ID</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-homeTaxId"
 											name="srch-inp-homeTaxId" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
-									<th scope="row" class="th_bg">제출일</th>
+									<th scope="row" class="th_bg_search">제출일</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-datepicker id="srch-inp-submitDate"
 											name="srch-inp-submitDate" uitype="popup"
@@ -209,33 +191,33 @@
 									<td style="border-right: hidden;"></td>
 								</tr>
 								<tr>
-									<th scope="row" class="th_bg">담당자 부서</th>
+									<th scope="row" class="th_bg_search">담당자 부서</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-deptName"
 											name="srch-inp-deptName" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
-									<th scope="row" class="th_bg">담당자 성명</th>
+									<th scope="row" class="th_bg_search">담당자 성명</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-empName"
 											name="srch-inp-empName" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
-									<th scope="row" class="th_bg">담당자 전화번호</th>
+									<th scope="row" class="th_bg_search">담당자 전화번호</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="srch-inp-tel"
 											name="srch-inp-tel" class="form-control input-sm"></sbux-input>
 									</td>
 									<td style="border-right: hidden;"></td>
 								</tr>
-								<th scope="row" class="th_bg">파일생성경로</th>
+								<th scope="row" class="th_bg_search">파일생성경로</th>
 		                            <td colspan="3" class="td_input" style="border-right:hidden;">
 										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_showDirPicker" wrap-style="width:100%"></sbux-input>
 		                            </td>
 		                        </tr>
 
 								<tr>
-									<th scope="row" class="th_bg">비고</th>
+									<th scope="row" class="th_bg_search">비고</th>
 									<td colspan="9" style="border-right: hidden;"><sbux-input
 											uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo"
 											class="form-control input-sm">
@@ -290,6 +272,8 @@
 	//-----------------------------------------------------------
 
 	var editType			= "N";
+	let dirHandle = undefined;
+	let files = [];
 
 	var jsonRegionCode		= [];	// 지역
 	var tabJsonData = [
@@ -342,25 +326,7 @@
             gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             //사업장
             gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-          //법인
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			})
+
 
 		]);
 
@@ -1018,23 +984,10 @@
 			socialNumList = socialNumList.substring(0,socialNumList.length-1);
     	}
 
-    	if(fnQRY_P_HRA8400_Q2("FILE")){
-			let strbizRegno = ds["bizRegno"].replace("-","");
 
-			ds.forEach(item => {
-				let strfileType = "SC";
-				strFileName = filePath + "\\" + strfile_type + strbizRegno.substring(0, 7) + "." + strbizRegno.substring(7, 3);
+		let content = fnQRY_P_HRA8400_Q2("FILE")
 
-				// 현재경로에 동일한 파일의 이름이 존재하는지 확인하고 덮어씌울건지 확인
-
-			})
-    	}
-
-    	// 여기서 fnQRY_P_HRA8400_Q2("FILE") -> ds에 저장된 content를 서버에 보내면됨
-    	let resultString = ds.filter(item => item.content) // content가 있는 항목만 필터링
-        					 .map(item => item.content)     // content 값만 추출
-        					 .join("|");
-    	await fn_saveFile(resultString);
+    	await fn_fileCreate(content);
     }
 
 	const fn_compopup1 = function(list) {
@@ -1105,27 +1058,117 @@
         });
     }
 
-    const fn_saveFile = async function(text) {
-        try {
-            const handle = await window.showSaveFilePicker({
-                suggestedName: "간이지급명세서.txt",
-                types: [
-                    {
-                        description: "Text file",
-                        accept: { "text/plain": [".txt"] },
-                    },
-                ],
-            });
-            const writable = await handle.createWritable();
-            await writable.write(text);
-            await writable.close();
-        } catch (error) {
-            console.error("파일 저장 중 오류 발생:", error);
-        }
-    }
 
 
-    let dirHandle = undefined;
+	const fn_pickFilePath = async function() {
+		fn_showDirPicker();
+	}
+
+    const fn_getFiles = async (dirHandle, path = dirHandle.name) => {
+
+    	files.length = 0;
+        for await (const entry of dirHandle.values()) {
+
+          	if (entry.kind === "file") {
+          		files.push({
+          			name: entry.name
+          		});
+          	}
+		}
+
+        console.log("files", files);
+
+	};
+
+	/**
+     * @name fn_fileCreate
+     * @description 명세서 파일 생성
+     */
+	const fn_fileCreate = async function(contents) {
+
+		// 파일경로 선택 확인
+		if (!dirHandle) {
+			gfn_comAlert("W0005", "파일저장경로");		//	W0005	{0}이/가 없습니다.
+ 			return;
+		}
+
+		// 파일경로 선택 확인
+		if (contents.length < 0) {
+			gfn_comAlert("W0005", "내용");		//	W0005	{0}이/가 없습니다.
+ 			return;
+		}
+
+
+		if (!gfn_comConfirm("Q0001", "파일생성")) {	//	Q0001 {1} 하시겠습니까?
+     		return;
+     	}
+
+    	const nowDate = new Date();
+		const nowYmd = gfn_dateToYmd(nowDate);
+
+		let isSuccess = true;
+
+
+
+		let filename = "test" + "." + "per";;
+
+		try {
+
+
+
+			if (isSuccess) {
+
+
+				/* jsonVatContents.forEach((item) => {
+
+					if (!gfn_isEmpty(contents)) {
+                		contents += "\n";
+                	}
+
+					contents += item.VAT_CONTENTS;
+
+				}); */
+				console.log("contents", contents);
+				const checkFile = _.find(files, {name: filename});
+
+				let needPushFile = false;
+				if (!gfn_isEmpty(checkFile)) {
+					if (!gfn_comConfirm("Q0002", "동일파일", "덮어쓰기")) {	//	Q0002 {0}이/가 있습니다. {1} 하시겠습니까?
+			     		return;
+			     	}
+					needPushFile = true;
+				}
+
+				const fileHandle = await dirHandle.getFileHandle(filename, {create: true});
+				console.log("fileHandle", fileHandle);
+				const writable = await fileHandle.createWritable();
+				await writable.write(contents);
+				await writable.close();
+
+				if (needPushFile) {
+					files.push({name: filename});
+				}
+			}
+
+		} catch (e) {
+			isSuccess = false;
+		} finally {
+			// 생성로그 추가
+			/* const insertLog = fn_insertCreateLog(taxSiteCode, isSuccess);
+			if (!insertLog) {
+				return;
+			} */
+		}
+
+
+		if (isSuccess) {
+			gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		}
+
+		// 로그조회
+		//fn_setGrdFileLog();
+
+	}
 
 	const fn_showDirPicker = async () => {
 
@@ -1136,7 +1179,7 @@
             console.log("name", dirHandle.name);
 
             if (!dirHandle) {
-            	SBUxMethod.set("dtl-inp-filePath", "");
+            	SBUxMethod.set("srch-inp-filePath", "");
             	return;
             }
 
@@ -1148,10 +1191,6 @@
             console.log(e);
         }
     };
-
-	const fn_pickFilePath = async function() {
-		fn_showDirPicker();
-	}
 
 
 
