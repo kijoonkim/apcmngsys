@@ -118,6 +118,9 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 	 */
 	@Override
 	public int insertCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception {
+		String cltvtnHstryNo = frmerInfoMapper.selectGetCltvtnHstryNo(cltvtnHstryVO);
+		cltvtnHstryVO.setCltvtnHstryNo(cltvtnHstryNo);
+
 		int insertedCnt = frmerInfoMapper.insertCltvtnHstry(cltvtnHstryVO);
 		return insertedCnt;
 	}

@@ -266,6 +266,9 @@
 		<if test='prdcrLandInfoNo != null and prdcrLandInfoNo !=""'>
 			   AND CH.PRDCR_LAND_INFO_NO = #{prdcrLandInfoNo}
 		</if>
+		<if test='cfmtnYmd != null and cfmtnYmd !=""'>
+			AND CH.CFMTN_YMD = #{cfmtnYmd}
+		</if>
 		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO
 		]]>
