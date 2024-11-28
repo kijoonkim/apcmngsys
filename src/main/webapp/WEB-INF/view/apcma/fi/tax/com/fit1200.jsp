@@ -28,8 +28,8 @@
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
-    <section>
-    <div class="box box-solid">
+<section class="content container-fluid">
+        <div class="box box-solid" style="border-radius: 0">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -73,7 +73,13 @@
                 <tr>
                     <th scope="row">기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year" date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
+                        <sbux-datepicker id="srch-dtp-yyyy"
+                                         name="srch-dtp-yyyy"
+                                         uitype="popup"
+                                         datepicker-mode="year"
+                                         date-format="yyyy"
+                                         class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -130,7 +136,7 @@
                                 <div style="display: flex;position: relative">
                                     <sbux-input id="reg-slt-taxSiteName" name="reg-slt-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
                                     <button style="background-image:url('/static/resource/svg/dot_w.svg');background-repeat: no-repeat; background-position: center;
-                                    background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white;" onclick="fn_openPopup()"></button>
+                                    background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white; width: 10px;" onclick="fn_openPopup()"></button>
                                 </div>
                                 </div>
                             </td>
@@ -201,9 +207,6 @@
     </div>
 </body>
 <script type="text/javascript">
-    var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
-    var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
-    // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
     //----------------------------------------------------------
@@ -222,15 +225,18 @@
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
 
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
-
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy',yyyy);
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy){
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
@@ -281,6 +287,13 @@
     }
     /** fit1200_Q_Detail **/
     const fn_search = async function(){
+        /** 조회전 reset **/
+        let table = document.getElementById("regTable");
+        let elements = table.querySelectorAll("[id^='reg-']");
+        for (const item of elements) {
+            await SBUxMethod.set(item.id,'');
+        }
+
        let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
        let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
 
@@ -365,7 +378,7 @@
            ,V_P_USERID			           : ''
            ,V_P_PC				           : ''
        }
-       let postFlag = gfnma_getTableElement("regTable","reg-",paramObj,"V_P_");
+       let postFlag = gfnma_getTableElement("regTable","reg-",paramObj,"V_P_",[]);
 
        if(!postFlag){
            return;
@@ -382,6 +395,11 @@
            workType             : 'N',
            params				: gfnma_objectToString(paramObj)
        });
+       const data = await postJsonPromise;
+       if(data.resultStatus === 'S'){
+           gfn_comAlert("Q0000",data.resultMessage);
+           await fn_search();
+       }
 
 
     }
@@ -406,6 +424,8 @@
         for (const item of elements) {
             await SBUxMethod.set(item.id,'');
         }
+        let yyyy = SBUxMethod.get('srch-dtp-yyyy');
+        await fn_setMultSelect(yyyy);
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
