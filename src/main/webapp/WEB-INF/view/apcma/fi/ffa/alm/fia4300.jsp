@@ -94,25 +94,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg_search">법인</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-									<button style="width: 160px; text-align: left"
-										class="btn btn-sm btn-light dropdown-toggle " type="button"
-										id="srch-slt-compCode" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">
-										<font>선택</font> <i style="padding-left: 10px"
-											class="sbux-sidemeu-ico fas fa-angle-down"></i>
-									</button>
-									<div class="dropdown-menu bplc"
-										aria-labelledby="srch-slt-siteCode"
-										style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
-									</div>
-								</div>
-							</td>
-							<td></td>
-
-							<th scope="row" class="th_bg_search">사업단위</th>
+							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 									<button style="width: 160px; text-align: left"
@@ -1251,7 +1233,6 @@
     //workType = DISP / LIST /SAVE /DETAIL
     const fnQRY_P_FIA4300_Q = async function(workType){
 
-    	var corp = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-compCode")); //법인 cbocomp_code1
     	var acntgUnit = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
     	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acctRuleCodeP")); // 회계기준 cboacct_rule_code_p
     	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-originalAssetDispNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
@@ -1336,7 +1317,6 @@
     	var dspsRt = SBUxMethod.get("srch-inp-astTab-dspsRt");//처분비율
     	var dspsAmt =  SBUxMethod.get("srch-inp-astTab-dspsAmt");
     	var acntgCrtr = SBUxMethod.get("srch-slt-acctRuleCodeP"); //회계기준
-    	var corp = gfnma_multiSelectGet("#srch-slt-compCode"); //법인 cbocomp_code1
     	var bssAcqsAmt = SBUxMethod.get("srch-inp-astTab-bssAcqsAmt");
     	var astNo = SBUxMethod.get("srch-inp-assetNo"); // 자산번호
 
@@ -1601,7 +1581,7 @@
 				, sourceType : 'AP'
 				, txnFromDate : ''
 				, txnToDate : ''
-				, compCode : compCode
+				, compCode : gv_ma_selectedCorpCd
 				, fiOrgCode : ''
 				, voucherType : ''
 				, voucherNo : ''
@@ -2098,7 +2078,7 @@
 				, docNum : 0
 				, txnFromDate : ''
 				, txnToDate : ''
-				, compCode : compCode
+				, compCode : gv_ma_selectedCorpCd
 				, fiOrgCode : fiOrgCode
 				, voucherType : ''
 				, voucherNo : ''
@@ -2125,7 +2105,7 @@
 				, sourceType : 'AP'
 				, txnFromDate : ''
 				, txnToDate : ''
-				, compCode : compCode
+				, compCode : gv_ma_selectedCorpCd
 				, fiOrgCode : ''
 				, voucherType : ''
 				, voucherNo : ''

@@ -92,27 +92,9 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">법인</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-compCode1"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-							</td>
-							<td></td>
 
-							<th scope="row" class="th_bg">사업단위</th>
+
+							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 										    <button
@@ -131,7 +113,7 @@
 										</div>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">사업장</th>
+							<th scope="row" class="th_bg_search">사업장</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 									<button style="width: 160px; text-align: left"
@@ -152,7 +134,7 @@
 
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">정산일자</th>
+							<th scope="row" class="th_bg_search">정산일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-startDate"
 									name="srch-dtp-startDate" uitype="popup"
@@ -168,7 +150,7 @@
 									onchange="fn_dtpChange(srch-dtp-endDate)"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">취득구분</th>
+							<th scope="row" class="th_bg_search">취득구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div class="dropdown">
 									<button style="width: 160px; text-align: left"
@@ -185,7 +167,7 @@
 								</div>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">프로젝트</th>
+							<th scope="row" class="th_bg_search">프로젝트</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div style="display:flex;float:left;vertical-align:middle;width:100%">
 									<sbux-input uitype="text" id="srch-inp-projectCode"
@@ -205,14 +187,14 @@
 						</tr>
 						<tr>
 
-							<th scope="row" class="th_bg">정산번호</th>
+							<th scope="row" class="th_bg_search">정산번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-cipTransferNo"
 									name="srch-inp-cipTransferNo" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
 
-							<th scope="row" class="th_bg">회계기준</th>
+							<th scope="row" class="th_bg_search">회계기준</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-acctRuleCode"
 									name="srch-slt-acctRuleCode" class="form-control input-sm"
@@ -396,25 +378,7 @@
 		            {caption: "명", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			//법인
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-compCode1']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			}),
+
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-fiOrgCode1']

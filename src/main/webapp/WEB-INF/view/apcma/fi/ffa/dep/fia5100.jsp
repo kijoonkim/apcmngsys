@@ -75,27 +75,8 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">법인</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-comp"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
-                            </td>
-                            <td></td>
 
-                            <th scope="row" class="th_bg">사업단위</th>
+                            <th scope="row" class="th_bg_search">APC</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
@@ -114,7 +95,7 @@
 										</div>
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">사업장</th>
+                            <th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<div class="dropdown">
 										    <button
@@ -137,7 +118,7 @@
 
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">중지시작년월</th>
+                            <th scope="row" class="th_bg_search">중지시작년월</th>
 							<td  class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-stopBgngYmdFrom"
@@ -164,7 +145,7 @@
 								></sbux-datepicker>
 							</td>
 							<td></td>
-                            <th scope="row" class="th_bg">중지종료년월</th>
+                            <th scope="row" class="th_bg_search">중지종료년월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-stopEndYmdFrom"
@@ -191,7 +172,7 @@
 								></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">회계기준</th>
+							<th scope="row" class="th_bg_search">회계기준</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-select id="srch-slt-acntgCrtr1" name="srch-slt-acntgCrtr1" class="form-control input-sm"  uitype="single" jsondata-ref="jsonAcntgCrtr" group-id="group1"></sbux-select>
                             </td>
@@ -199,7 +180,7 @@
 
                         </tr>
                         <tr>
-                        	<th scope="row" class="th_bg">담당부서</th>
+                        	<th scope="row" class="th_bg_search">담당부서</th>
                              <td colspan="3" class="td_input" style="border-right: hidden;">
 								<div style="display:flex;float:left;vertical-align:middle;width:100%">
 									<sbux-input uitype="text" id="srch-inp-dspsTab-pic1"
@@ -217,7 +198,7 @@
 								</div>
 							</td>
                             <td></td>
-                            <th scope="row" class="th_bg">담당자</th>
+                            <th scope="row" class="th_bg_search">담당자</th>
                             <td colspan="3" class="td_input" style="border-right: hidden;">
 								<div style="display:flex;float:left;vertical-align:middle;width:100%">
 									<sbux-input uitype="text" id="srch-inp-dspsTab-pic1"
@@ -535,25 +516,7 @@
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
 			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
-			//법인
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-comp']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_ORG000'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
-				,columns		:[
-		            {caption: "법인코드",	ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			}),
+
 			//회계단위
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-bizUnit']
@@ -676,7 +639,6 @@
     //감가상각 일시중지등록 로직인듯
     //strStauts : N, U
     const fnSET_P_FIA5100_S = async function(strStauts) {
-    	let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
         let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
         let bplc = gfnma_multiSelectGet("#srch-slt-bplc2")//사업장,site_code
         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
