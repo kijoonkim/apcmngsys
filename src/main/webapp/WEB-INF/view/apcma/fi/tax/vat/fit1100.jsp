@@ -150,6 +150,7 @@
                                     name="srch-inp-termFr"
                                     uitype="text"
                                     class="form-control input-sm"
+                                    style="text-align:center;"
                             ></sbux-input>
                         </td>
                         <td>
@@ -159,6 +160,7 @@
                                     name="srch-inp-termTo"
                                     uitype="text"
                                     class="form-control input-sm"
+                                    style="text-align:center;"
                             ></sbux-input>
                         </td>
                         <td colspan="3"></td>
@@ -685,6 +687,9 @@
 			if (!gfn_isEmpty(vatDclr)) {
 				SBUxMethod.set('srch-inp-termFr', vatDclr['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatDclr['STANDARD_TERM_TO']);
+
+                let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
+                SBUxMethod.set('srch-dtp-yyyy', year);
 			}
 			
 			fn_search();	
@@ -981,6 +986,7 @@
         SBGridProperties.id = 'grdTaxSite';
         SBGridProperties.jsonref = 'jsonGrdTaxSite';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
         	{
