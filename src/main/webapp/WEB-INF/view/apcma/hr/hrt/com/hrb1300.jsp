@@ -375,7 +375,8 @@
 
     // 초기화
     function cfn_init() {
-        gfnma_uxDataClear('#srchArea');
+        calendarYear(new Date());
+        fn_search();
     }
 
     // 조회

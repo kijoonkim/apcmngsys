@@ -1242,7 +1242,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
-            rownum: item.rownum,
+            rownum: 0,
             workType : 'APPLY',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1326,7 +1326,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
-            rownum: item.rownum,
+            rownum: 0,
             workType : 'CONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1410,7 +1410,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
-            rownum: item.rownum,
+            rownum: 0,
             workType : 'UNCONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
