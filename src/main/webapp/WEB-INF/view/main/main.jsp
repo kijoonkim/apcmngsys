@@ -720,6 +720,9 @@
 
         if (prvTabMenuId !== menuId) {
             fn_afterSeletTab(menuId);
+        }else{
+            /** 해당페이지는 그대로 다른 탭만 닫힐경우 공통버튼 사라짐 24.11.27 **/
+            fn_setTabInfo(menuId);
         }
     }
 
