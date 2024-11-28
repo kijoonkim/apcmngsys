@@ -68,5 +68,30 @@ public class ApcMaFig4160Controller extends BaseController {
     	return getSuccessResponseEntityMa(resultMap);
     }   
     
+    // 집계작업
+    @PostMapping(value = "/fi/fgl/leg/modifyFig4160S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> modifyFig4160S(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============modifyFig4160S=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG4160_S");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============modifyFig4160S=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
+    
 
 }

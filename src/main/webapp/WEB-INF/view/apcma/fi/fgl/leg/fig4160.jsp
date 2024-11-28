@@ -890,6 +890,88 @@
         window.parent.cfn_openTabSearch(json);			
 	}        
     
+    /**
+     * 집계작업
+     */
+    const fn_btnCal = async function (wtype){
+
+		let p_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		
+		let p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
+		if(p_account_code_fr == 'N'){
+			p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR"));
+		} else {
+			p_account_code_fr		= '';
+		}
+		
+		let p_account_code_to		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
+		if(p_account_code_to == 'N'){
+			p_account_code_to		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"));
+		} else {
+			p_account_code_to		= '';
+		}
+		
+		let p_entry_date_fr			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_FR"));
+		let p_entry_date_to			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_TO"));
+		let p_doc_type				= gfnma_nvl(SBUxMethod.get("SCH_DOC_TYPE"));
+		let p_doc_status			= gfnma_nvl(SBUxMethod.get("SCH_DOC_STATUS"));
+		let p_yes_no				= gfnma_nvl(SBUxMethod.get("SCH_YES_NO"));
+		let p_related_cd_type		= gfnma_nvl(SBUxMethod.get("SCH_RELATED_CS_TYPE"));
+		let p_site_code				= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_cal_flag				= gfnma_nvl(SBUxMethod.get("SCH_CAL_FLAG")['SCH_CAL_FLAG']);
+		
+  	    var paramObj = { 
+ 			V_P_DEBUG_MODE_YN			: ''
+ 			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+ 			,V_P_FI_ORG_CODE			: p_fi_org_code
+ 			,V_P_ACCOUNT_CODE_FR		: p_account_code_fr
+ 			,V_P_ACCOUNT_CODE_TO		: p_account_code_to
+ 			,V_P_DOC_DATE_FR			: p_entry_date_fr
+ 			,V_P_DOC_DATE_TO			: p_entry_date_to
+ 			,V_P_DOC_TYPE				: p_doc_type
+ 			,V_P_DOC_STATUS     		: p_doc_status
+ 			,V_P_RELATED_CS_YN			: p_yes_no
+ 			,V_P_RELATED_CS_TYPE		: p_related_cd_type
+ 			,V_P_ACCOUNT_CODE_D			: p_strAccountCodeList
+ 			,V_P_SITE_CODE				: p_site_code
+ 			,V_P_CAL_FLAG				: p_cal_flag
+ 				
+ 			,V_P_FORM_ID				: p_formId
+ 			,V_P_MENU_ID				: p_menuId
+ 			,V_P_PROC_ID				: ''
+ 			,V_P_USERID					: p_userId
+ 			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/leg/modifyFig4160S.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		} else {
+        			gfn_comAlert("E0000","처리되었습니다.");
+        		}
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  
+    }        
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
