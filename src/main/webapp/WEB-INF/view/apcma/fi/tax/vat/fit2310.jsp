@@ -41,24 +41,58 @@
             border: solid 1px blue;
             padding: 5px;
         }
-        .resizer[data-direction="horizontal"] {
-            background-color: #cbd5e0;
-            cursor: ew-resize;
-            height: 100%;
-            width: 2px;
-        }
-        .resizer[data-direction="vertical"] {
-            background-color: #cbd5e0;
-            cursor: ns-resize;
-            height: 2px;
-            width: 100%;
-        }
         .tpgTd{
             border: 0 !important;
             background-color : white !important;
             border-radius: 0 !important;
             padding: 0px 12px !important;
             height: auto;
+        }
+        #page{
+            display: grid;
+            grid-template-rows: 1fr 5px 2fr;
+            grid-template-columns: 1fr 5px 3fr;
+            height: 80vh;
+            grid-template-areas:
+            'leftcol leftresizer rightTop'
+            'leftcol leftresizer rightresizer'
+            'leftcol leftresizer rightBottom'
+        }
+        #leftcol{
+            padding: 10px;
+            grid-area: leftcol;
+            overflow: hidden;
+        }
+        #rightTop{
+            padding: 10px;
+            grid-area: rightTop;
+            overflow: hidden;
+        }
+        #rightBottom{
+            grid-area: rightBottom;
+            overflow: hidden;
+        }
+        #leftresizer{
+            cursor: ew-resize;
+            grid-area: leftresizer;
+            background-image:url('/static/resource/svg/dot_h.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px;
+            background-color: rgba(43, 45, 48, 0.07);
+            height: 100%;
+            width: 5px;
+        }
+        #rightresizer{
+            cursor: ns-resize;
+            grid-area: rightresizer;
+            background-image:url('/static/resource/svg/dot_w.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px;
+            background-color: rgba(43, 45, 48, 0.07);
+            height: 5px;
+            width: 100%;
         }
     </style>
 </head>
@@ -108,9 +142,13 @@
                 <tr>
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                        <sbux-datepicker id="srch-dtp-yyyy"
+                                         name="srch-dtp-yyyy"
+                                         uitype="popup"
+                                         datepicker-mode="year"
+                                         date-format="yyyy"
+                                         class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -147,8 +185,8 @@
                 </tbody>
             </table>
             </div>
-                <div style=" height: 80vh; display: flex">
-                <div style="width: 30%;padding: 10px">
+                <div id="page" onmouseup="EndDrag()" onmousemove="OnDrag(event)">
+                <div id="leftcol">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li><span>◎ 사업장 리스트</span></li>
@@ -156,104 +194,102 @@
                     </div>
                     <div id="sb-area-grdListGrid" style="width: 100%"></div>
                 </div>
-                <div class="resizer" data-direction="horizontal"></div>
-                <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
-                    <div style="height: 50%">
+                <div id="leftresizer" onmousedown="StartHDrag(1)"></div>
+                <div id="rightTop">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li><span>◎ 수출재화 집계내역</span></li>
+                        </ul>
+                    </div>
+                    <table id="panRightHeader" style="width: 100%;">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="td_headP">구분</td>
+                            <td class="td_headP">건&emsp;&emsp;수</td>
+                            <td class="td_headP">외화금액</td>
+                            <td class="td_headP">원화금액</td>
+                        </tr>
+                        <tr>
+                            <td class="td_headP">⑨합&emsp;&emsp;계</td>
+                            <td>
+                                <sbux-input id="SUM_CNT" name="SUM_CNT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="EXPORT_SUM_AMT" name="EXPORT_SUM_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="EXPORT_SUM_KRW_AMT" name="EXPORT_SUM_KRW_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_headP">⑩ 수출재화</td>
+                            <td>
+                                <sbux-input id="EXPORT_CNT" name="EXPORT_CNT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="EXPORT_KRW_AMT" name="EXPORT_KRW_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_headP">⑪ 기타 영세율적용</td>
+                            <td>
+                                <sbux-input id="ETC_CNT" name="ETC_CNT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="ETC_AMT" name="ETC_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                            <td>
+                                <sbux-input id="ETC_KRW_AMT" name="ETC_KRW_AMT" uitype="text"
+                                            class="tpgTd" init="0" readonly
+                                            mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                </sbux-input>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="rightresizer" onmousedown="StartVDrag(1)"></div>
+                <div id="rightBottom">
+                    <div style="flex: 1; display: flex; flex-direction: column; height: 100%">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
-                                <li><span>◎ 수출재화 집계내역</span></li>
+                                <li><span>◎ 수출재화신고내역</span></li>
                             </ul>
                         </div>
-                        <table id="panRightHeader" style="width: 100%;">
-                            <colgroup>
-                                <col style="width: 25%">
-                                <col style="width: 25%">
-                                <col style="width: 25%">
-                                <col style="width: 25%">
-                            </colgroup>
-                            <tbody>
-                            <tr>
-                                <td class="td_headP">구분</td>
-                                <td class="td_headP">건&emsp;&emsp;수</td>
-                                <td class="td_headP">외화금액</td>
-                                <td class="td_headP">원화금액</td>
-                            </tr>
-                            <tr>
-                                <td class="td_headP">⑨합&emsp;&emsp;계</td>
-                                <td>
-                                    <sbux-input id="SUM_CNT" name="SUM_CNT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="EXPORT_SUM_AMT" name="EXPORT_SUM_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="EXPORT_SUM_KRW_AMT" name="EXPORT_SUM_KRW_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td_headP">⑩ 수출재화</td>
-                                <td>
-                                    <sbux-input id="EXPORT_CNT" name="EXPORT_CNT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="EXPORT_KRW_AMT" name="EXPORT_KRW_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td_headP">⑪ 기타 영세율적용</td>
-                                <td>
-                                    <sbux-input id="ETC_CNT" name="ETC_CNT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="ETC_AMT" name="ETC_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="ETC_KRW_AMT" name="ETC_KRW_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="resizer" data-direction="vertical"></div>
-                    <div style="flex: 1; background-color: white">
-                        <div style="flex: 1; display: flex; flex-direction: column; height: 100%">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li><span>◎ 수출재화신고내역</span></li>
-                                </ul>
-                            </div>
-                            <div id="sb-area-grdDetailGrid" style="flex: 1"></div>
-                        </div>
+                        <div id="sb-area-grdDetailGrid" style="flex: 1"></div>
                     </div>
                 </div>
             </div>
@@ -272,6 +308,19 @@
 
     var grdDetailGrid;
     var grdListGrid;
+    /** resizer **/
+    let cols = ['1fr','5px','3fr'];
+    let colns = ['leftcol','','rightBottom'];
+    let Tcols = [];
+
+    let rows = ['1fr','5px','2fr'];
+    let rowns = ['rightTop','','rightBottom'];
+    let Trows = [];
+    let CLfactor;
+    let CRfactor;
+    let gWcol = -1;
+    let gWrow = -1;
+
 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -285,21 +334,29 @@
         jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
-        /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
 
+        /** 기준연도 **/
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy',yyyy);
+
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy){
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TYPE_NAME'
             ,columns		:[
@@ -312,7 +369,7 @@
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
-        })
+        });
     }
     async function fn_choice(_value) {
         /** reset **/
@@ -366,6 +423,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        console.log(data,"첫번째");
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
@@ -448,58 +506,6 @@
         ];
         grdDetailGrid = _SBGrid.create(SBGridProperties);
     }
-
-    /** resizer set **/
-    const resizer = document.getElementById('resizer');
-    const leftSide = resizer.previousElementSibling;
-    const rightSide = resizer.nextElementSibling;
-
-    let x = 0;
-    let y = 0;
-
-    let leftWidth = 0;
-
-    const mouseDownHandler = function (e) {
-        x = e.clientX;
-        y = e.clientY;
-        leftWidth = leftSide.getBoundingClientRect().width;
-
-        document.addEventListener('mousemove', mouseMoveHandler);
-        document.addEventListener('mouseup', mouseUpHandler);
-    };
-
-    const mouseMoveHandler = function (e) {
-        const dx = e.clientX - x;
-        const dy = e.clientY - y;
-
-        document.body.style.cursor = 'col-resize';
-
-        leftSide.style.userSelect = 'none';
-        leftSide.style.pointerEvents = 'none';
-
-        rightSide.style.userSelect = 'none';
-        rightSide.style.pointerEvents = 'none';
-
-        const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
-        leftSide.style.width = `${'${newLeftWidth}'}%`;
-        grdListGrid.resize();
-        grdDetailGrid.resize();
-    };
-
-    const mouseUpHandler = function () {
-        resizer.style.removeProperty('cursor');
-        document.body.style.removeProperty('cursor');
-
-        leftSide.style.removeProperty('user-select');
-        leftSide.style.removeProperty('pointer-events');
-
-        rightSide.style.removeProperty('user-select');
-        rightSide.style.removeProperty('pointer-events');
-
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-    };
-    resizer.addEventListener('mousedown', mouseDownHandler);
     /** 공통버튼 **/
     function cfn_init(){
         fn_reset();
@@ -558,6 +564,53 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+    }
+
+    /** resizer fn **/
+    function StartHDrag(pWcol) {
+        isHDragging = true;
+        CLfactor = parseFloat(cols[pWcol - 1]) / document.getElementById(colns[pWcol - 1]).clientWidth;
+        CRfactor = parseFloat(cols[pWcol + 1]) / document.getElementById(colns[pWcol + 1]).clientWidth;
+        Tcols = cols.map(parseFloat);
+        gWcol = pWcol;
+    }
+
+    function StartVDrag(pRow) {
+        isVDragging = true;
+        CLfactor = parseFloat(rows[pRow - 1]) / document.getElementById(rowns[pRow - 1]).clientHeight;
+        CRfactor = parseFloat(rows[pRow + 1]) / document.getElementById(rowns[pRow + 1]).clientHeight;
+        Trows = rows.map(parseFloat);
+        gWrow = pRow;
+    }
+
+    function EndDrag() {
+        isHDragging = false;
+        isVDragging = false;
+        grdListGrid.rebuild();
+        grdDetailGrid.rebuild();
+    }
+
+    function OnDrag(event) {
+        if (isHDragging) {
+            Tcols[gWcol - 1] += (CLfactor * event.movementX);
+            Tcols[gWcol + 1] -= (CLfactor * event.movementX);
+
+            cols[gWcol - 1] = Math.max(Tcols[gWcol - 1], 0.01) + "fr";
+            cols[gWcol + 1] = Math.max(Tcols[gWcol + 1], 0.01) + "fr";
+            let newColDefn = cols.join(" ");
+            page.style.gridTemplateColumns = newColDefn;
+
+        } else if (isVDragging) {
+            Trows[gWrow - 1] += (CLfactor * event.movementY);
+            Trows[gWrow + 1] -= (CLfactor * event.movementY);
+
+            rows[gWrow - 1] = Math.max(Trows[gWrow - 1], 0.01) + "fr";
+            rows[gWrow + 1] = Math.max(Trows[gWrow + 1], 0.01) + "fr";
+            let newRowDefn = rows.join(" ");
+            page.style.gridTemplateRows = newRowDefn;
+            document.getElementById("footer").innerHTML = newRowDefn;
+        }
+        event.preventDefault()
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
