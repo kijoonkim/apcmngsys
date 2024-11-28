@@ -2250,6 +2250,11 @@
             return;
         }
 
+        var nCol = gvwList.getCol();
+        if (nCol < 1) {
+            return;
+        }
+
         cfn_add();
         editType = "U";
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
@@ -3012,11 +3017,16 @@
             conn = await gfnma_convertDataForReport(conn);
             await gfn_popClipReportPost("인사기록카드", "ma/RPT_HRI1000.crf", null, conn );	
         }else{
-            for(var i=0; gvwListCheckedRowsData.length > i; i++){
-                conn = await fn_GetReportData(gvwListCheckedRowsData[i].data);
-                conn = await gfnma_convertDataForReport(conn);
-                await gfn_popClipReportPost("인사기록카드" + i, "ma/RPT_HRI1000.crf", null, conn );
-            }
+            let empCodeList = "";
+            gvwListCheckedList.forEach((item, index) => {
+                empCodeList += gvwList.getCellData(item, gvwList.getColRef("EMP_CODE")) + "|";
+            });
+
+            empCodeList = empCodeList.substring(0, empCodeList.length - 1);
+
+            conn = await fn_GetReportData({EMP_CODE: empCodeList});
+            conn = await gfnma_convertDataForReport(conn);
+            await gfn_popClipReportPost("인사기록카드" + i, "ma/RPT_HRI1000.crf", null, conn );
         }
     }
 
