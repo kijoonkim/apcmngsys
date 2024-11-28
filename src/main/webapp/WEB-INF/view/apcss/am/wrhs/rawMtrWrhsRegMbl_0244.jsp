@@ -127,7 +127,7 @@
 <section class="content container-fluid">
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
-            <div>
+            <div ondblclick="fn_fullScreen()">
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 태블릿 -->
             </div>
@@ -1473,6 +1473,26 @@
         rawMtrWrhs[0].rprsItemCd =rawMtrWrhs[0].itemCd;
         await fn_setPrdcrForm(rawMtrWrhs[0]);
         fn_onChangeBxQntt();
+    }
+    const fn_fullScreen =function(){
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
+            }
+        }
     }
 
 </script>
