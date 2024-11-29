@@ -1057,7 +1057,7 @@
             }
         }
 
-        if (Row == gvwList.getColRef("EXCHANGE_RATE")) {
+        if (nRow == gvwList.getColRef("EXCHANGE_RATE")) {
             if (gvwList.getCellData(nRow, gvwList.getColRef("PAY_CURRENCY_CODE")) == gvwList.getCellData(nRow, gvwList.getColRef("CURRENCY_CODE"))) {
                 gvwList.setCellData(nRow, gvwList.getColRef("PAY_FUNCTIONAL_AMT_CONV"), Math.round(Number(gvwList.getCellData(nRow, gvwList.getColRef("EXCHANGE_RATE"))) * Number(gvwList.getCellData(nRow, gvwList.getColRef("PAY_ORIGINAL_AMOUNT"))) / SBUxMethod.get("SRCH_EXCHANGE_BASE_SCALE"), p_currUnit));
                 gvwList.setCellData(nRow, gvwList.getColRef("PAY_EXCHANGE_PL_AMT"), (Number(gvwList.getCellData(nRow, gvwList.getColRef("PAY_FUNCTIONAL_AMOUNT"))) - Number(gvwList.getCellData(nRow, gvwList.getColRef("PAY_FUNCTIONAL_AMT_CONV")))) * dsign);
