@@ -75,7 +75,7 @@
 }
 .button:hover{
     color: white;
-    border: 0px;
+    border: 1px solid #149FFF;
     background-color: #149FFF;
 }
 .button:disabled {
@@ -937,7 +937,7 @@
 		                    onclick="fn_bmkYn()"
 		            ></sbux-breadcrumb>
         		</div>
-        		<div class="col-sm-6" style="position: absolute; right: 2vw">
+        		<div class="col-sm-6">
 					<div style="position: relative; text-align: right; margin: 3px;">
                         <button id="main-btn-attach" class="button"
                                 style="display:none" onclick="mfn_attach()">파일첨부</button>

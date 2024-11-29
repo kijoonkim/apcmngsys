@@ -110,8 +110,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy" class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -643,26 +643,33 @@
         fn_init();
     });
 
-    const fn_init = async function(){
+    const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'COMP_CODE', "COMP_NAME");
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
+        SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy',yyyy);
 
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy){
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TYPE_NAME'
             ,columns		:[
@@ -675,14 +682,10 @@
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
-        })
+        });
     }
-    async function fn_choice(_value){
-        /** reset **/
-        gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
-        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
-        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
 
+    async function fn_choice(_value){
        let tabType = SBUxMethod.get('tabVATtax');
        let inputs;
        if(tabType === 'tpgAR'){
@@ -884,6 +887,14 @@
     function cfn_search() {
         fn_search();
     }
+    function cfn_init(){
+        fn_reset();
+    }
+    const fn_reset = async function(){
+        gfnma_multiSelectSet('#src-btn-currencyCode','','','');
+        await fn_choice('');
+
+    };
     const fn_search = async function(){
         let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
         if(gfn_isEmpty(_value)){
