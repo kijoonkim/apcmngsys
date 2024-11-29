@@ -109,8 +109,8 @@
           <th scope="row" >기준연도</th>
           <td colspan="3" class="td_input" style="border-right: hidden;">
             <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                             date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-            >
+                             date-format="yyyy" class="table-datepicker-ma"
+                             onchange="fn_setMultSelect(srch-dtp-yyyy)">
             </sbux-datepicker>
           </td>
           <td></td>
@@ -222,20 +222,25 @@
     /** 제출사유 **/
     SBUxMethod.refresh('SUBMIS_REASON_CODE');
     /** 기준연도 **/
-    SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+    let yyyy = gfn_dateToYear(new Date());
+    SBUxMethod.set('srch-dtp-yyyy',yyyy);
 
+    /** 신고구분명 select **/
+    await fn_setMultSelect(yyyy);
+  }
+  async function fn_setMultSelect(yyyy){
     /** 신고구분명 select **/
     gfnma_multiSelectInit({
       target			: ['#src-btn-currencyCode']
       ,compCode		: gv_ma_selectedCorpCd
       ,clientCode		: gv_ma_selectedClntCd
       ,bizcompId		: 'L_FIT030'
-      ,whereClause	: ''
+      ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
       ,formId			: p_formId
       ,menuId			: p_menuId
       ,selectValue	: ''
       ,dropType		: 'down' 	// up, down
-      ,dropAlign		: 'right' 	// left, right
+      ,dropAlign		: '' 	// left, right
       ,colValue		: 'SEQ'
       ,colLabel		: 'VAT_TYPE_NAME'
       ,columns		:[
@@ -248,7 +253,7 @@
         {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
       ]
       ,callback       : fn_choice
-    })
+    });
   }
   async function fn_choice(_value) {
     /** reset **/
@@ -320,7 +325,6 @@
           params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"두번째");
 
         if (data.resultStatus === 'S') {
           let SUBMIS_REASON_CODE = data.cv_2[0];
