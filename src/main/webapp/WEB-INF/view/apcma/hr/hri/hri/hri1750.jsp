@@ -1099,7 +1099,7 @@
         let iprint_end_date = new Date(rowData.PRINT_END_DATE.replace("-", "") == "" ? "99999999": rowData.PRINT_END_DATE.replace("-", ""));
 
         // 인사총무관리자가 아닐 경우 출력가능여부가 "N"이면 출력이 안되도록 처리
-        if (isHrManager != null) {
+        if (!isHrManager) {
             if (strDate < iprint_start_date || strDate > iprint_end_date) {
                 alert("출력기간이 아니므로 출력이 불가능합니다.");
                 return;
@@ -1173,11 +1173,6 @@
 
             fn_search();
         } else {
-            SBUxMethod.set("SRCH_DEPT_CODE", p_deptCode);
-            SBUxMethod.set("SRCH_DEPT_NAME", p_deptName);
-            SBUxMethod.set("SRCH_EMP_CODE", p_empCode);
-            SBUxMethod.set("SRCH_EMP_NAME", p_empName);
-
             SBUxMethod.attr("SRCH_DEPT_CODE", "readonly", false);
             SBUxMethod.attr("SRCH_DEPT_NAME", "readonly", false);
             SBUxMethod.attr("SRCH_EMP_CODE", "readonly", false);
