@@ -54,7 +54,7 @@ public class ApcMaHra1900Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA1900_2022_Q");
+            param.put("procedure", "P_HRA1900_2023_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
