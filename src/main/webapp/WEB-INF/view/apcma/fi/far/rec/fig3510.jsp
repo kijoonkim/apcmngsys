@@ -614,25 +614,24 @@
                                                             uitype="popup"
                                                             id="STANDARD_DATE1"
                                                             name="STANDARD_DATE1"
-                                                            grid-ref="STANDARD_DATE"
-                                                            grid-id="gvwWFItem"
                                                             date-format="yyyy-mm-dd"
                                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
+                                                            onchange="fn_changeRowData('STANDARD_DATE', STANDARD_DATE1)"
                                                     />
                                                 </td>
                                                 <th scope="row" class="th_bg">공급가액</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="SUPPLY_AMT" name="SUPPLY_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="SUPPLY_AMT1" name="SUPPLY_AMT1" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('SUPPLY_AMT', SUPPLY_AMT1)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">수출신고번호</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_LICENSE_NO" name="EXPORT_LICENSE_NO" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="EXPORT_LICENSE_NO" name="EXPORT_LICENSE_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_LICENSE_NO', EXPORT_LICENSE_NO)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">당기제출금_외화</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"  group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -649,7 +648,7 @@
                                                 </td>
                                                 <th scope="row" class="th_bg">카드번호</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="CARD_NUM" name="EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="CARD_NUM" name="CARD_NUM" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">내국신용장구분</th>
                                                 <td class="td_input" style="border-right:hidden;">
@@ -668,16 +667,16 @@
                                                             uitype="popup"
                                                             id="SHIPPING_DATE"
                                                             name="SHIPPING_DATE"
-                                                            grid-id="gvwWFItem"
                                                             date-format="yyyy-mm-dd"
                                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
+                                                            onchange="fn_changeRowData('SHIPPING_DATE', SHIPPING_DATE)"
                                                     />
                                                 </td>
                                                 <th scope="row" class="th_bg">당기제출금_원화</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_AMT_KRW" name="EXPORT_AMT_KRW" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="EXPORT_AMT_KRW" name="EXPORT_AMT_KRW" uitype="text" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT_KRW', EXPORT_AMT_KRW)"></sbux-input>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -705,15 +704,15 @@
                                                 </td>
                                                 <th scope="row" class="th_bg">서류명</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="DOCUMENT_NAME" name="DOCUMENT_NAME" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="DOCUMENT_NAME" name="DOCUMENT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NAME', DOCUMENT_NAME)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">수출외화금액</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="FOREIGN_AMT" name="FOREIGN_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="FOREIGN_AMT" name="FOREIGN_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('FOREIGN_AMT', FOREIGN_AMT)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">당기신고해당분_외화</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="VAT_EXPORT_AMT" name="VAT_EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="VAT_EXPORT_AMT" name="VAT_EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT', VAT_EXPORT_AMT)"></sbux-input>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -741,15 +740,15 @@
                                                 </td>
                                                 <th scope="row" class="th_bg">발급자</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ISSUE_NAME" name="ISSUE_NAME" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="ISSUE_NAME" name="ISSUE_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('ISSUE_NAME', ISSUE_NAME)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">수출원화금액</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="WON_AMT" name="WON_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="WON_AMT" name="WON_AMT"uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('WON_AMT', WON_AMT)"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">당기신고해당분_원화</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="VAT_EXPORT_AMT_KRW" name="VAT_EXPORT_AMT_KRW" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="VAT_EXPORT_AMT_KRW" name="VAT_EXPORT_AMT_KRW" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT_KRW', VAT_EXPORT_AMT_KRW)"></sbux-input>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -781,11 +780,11 @@
                                                             uitype="popup"
                                                             id="DOCUMENT_ISSUE_DATE"
                                                             name="DOCUMENT_ISSUE_DATE"
-                                                            grid-id="gvwWFItem"
                                                             date-format="yyyy-mm-dd"
                                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
+                                                            onchange="fn_changeRowData('DOCUMENT_ISSUE_DATE', DOCUMENT_ISSUE_DATE)"
                                                     />
                                                 </td>
                                             </tr>
@@ -814,7 +813,7 @@
                                                 </td>
                                                 <th scope="row" class="th_bg">내국신용장서류번호</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="DOCUMENT_NO" name="DOCUMENT_NO" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
+                                                    <sbux-input id="DOCUMENT_NO" name="DOCUMENT_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NO', DOCUMENT_NO)"></sbux-input>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -841,10 +840,10 @@
                                             <tr>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" grid-id="gvwWFItem" grid-event="valuechanged" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE1', ACC_ITEM_VALUE1)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -857,10 +856,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -873,10 +872,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE9', ACC_ITEM_VALUE9)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME9', ACC_VALUE_NAME9)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -891,10 +890,10 @@
                                             <tr>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE2', ACC_ITEM_VALUE2)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME2', ACC_VALUE_NAME2)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -907,10 +906,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE6', ACC_ITEM_VALUE6)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME6', ACC_VALUE_NAME6)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -923,10 +922,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE10', ACC_ITEM_VALUE10)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME10', ACC_VALUE_NAME10)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -941,10 +940,10 @@
                                             <tr>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE3', ACC_ITEM_VALUE3)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME3', ACC_VALUE_NAME3)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -957,10 +956,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE7', ACC_ITEM_VALUE7)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME7', ACC_VALUE_NAME7)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -975,10 +974,10 @@
                                             <tr>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE4', ACC_ITEM_VALUE4)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME4', ACC_VALUE_NAME4)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -991,10 +990,10 @@
                                                 </td>
                                                 <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE8', ACC_ITEM_VALUE8)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
+                                                    <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME8', ACC_VALUE_NAME8)"></sbux-input>
                                                 </td>
                                                 <td class="td_input" style="border-right:hidden;">
                                                     <sbux-button
@@ -1007,9 +1006,9 @@
                                                 </td>
                                                 <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
                                                 <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
-                                                <sbux-input id="DESCRIPTION" name="DESCRIPTION" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
-                                                <sbux-input id="PROJECT_CODE" name="PROJECT_CODE" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
-                                                <sbux-input id="PROJECT_NAME" name="PROJECT_NAME" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                                <sbux-input id="DESCRIPTION" name="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('DESCRIPTION', DESCRIPTION)"></sbux-input>
+                                                <sbux-input id="PROJECT_CODE" name="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_CODE', PROJECT_CODE)"></sbux-input>
+                                                <sbux-input id="PROJECT_NAME" name="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_NAME', PROJECT_NAME)"></sbux-input>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -3367,20 +3366,65 @@
         }
     }
 
-    const fn_baseFocusedRowChanged = async function (nRow, nCol) {
-        fn_changeControlSettings(gvwWFItem.getRowData(nRow));
+    const fn_changeRowData = async function (ref, data) {
+        var nRow = gvwWFItem.getRow();
+        if(nRow < 1) return;
+        gvwWFItem.setCellData(nRow, gvwWFItem.getColRef(ref), data, true, true);
+    }
 
+    const fn_baseFocusedRowChanged = async function (nRow, nCol) {
+        var rowData = gvwWFItem.getRowData(nRow);
+        fn_changeControlSettings(rowData);
+        console.log(rowData);
         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "3") {
             SBUxMethod.enableTab('idxTab','tabPage2')
             SBUxMethod.setTab('idxTab','tabPage2');
             $("#btnDeleteRow").attr('disabled', 'true');
+
+            gfnma_multiSelectSet('#ETAX_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.ETAX_TYPE);
+            gfnma_multiSelectSet('#CARD_USE_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.CARD_USE_TYPE);
+            gfnma_multiSelectSet('#LOCAL_CREDIT_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.LOCAL_CREDIT_TYPE);
+            gfnma_multiSelectSet('#VAT_NOT_DEDUCTION_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.VAT_NOT_DEDUCTION_TYPE);
+            gfnma_multiSelectSet('#REPORT_OMIT_YN', 'SUB_CODE', 'CODE_NAME', rowData.REPORT_OMIT_YN);
+            gfnma_multiSelectSet('#DUP_ISSUE_BILL_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.DUP_ISSUE_BILL_TYPE);
+            gfnma_multiSelectSet('#VAT_ASSET_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.VAT_ASSET_TYPE);
+            gfnma_multiSelectSet('#AFTER_DUE_DATE_YN', 'SUB_CODE', 'CODE_NAME', rowData.AFTER_DUE_DATE_YN);
+            gfnma_multiSelectSet('#ZERO_REPORT_YN', 'SUB_CODE', 'CODE_NAME', rowData.ZERO_REPORT_YN);
+            gfnma_multiSelectSet('#EXCLUDE_REVENUE_AMT_YN', 'SUB_CODE', 'CODE_NAME', rowData.EXCLUDE_REVENUE_AMT_YN);
+            gfnma_multiSelectSet('#ZERO_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.ZERO_TYPE);
+
+            SBUxMethod.set("STANDARD_DATE1", rowData.STANDARD_DATE);
+            SBUxMethod.set("SUPPLY_AMT1", rowData.SUPPLY_AMT);
+            SBUxMethod.set("EXPORT_LICENSE_NO", rowData.EXPORT_LICENSE_NO);
+            SBUxMethod.set("EXPORT_AMT", rowData.EXPORT_AMT);
+            SBUxMethod.set("CARD_NUM", rowData.CARD_NUM);
+            SBUxMethod.set("SHIPPING_DATE", rowData.SHIPPING_DATE);
+            SBUxMethod.set("EXPORT_AMT_KRW", rowData.EXPORT_AMT_KRW);
+            SBUxMethod.set("DOCUMENT_NAME", rowData.DOCUMENT_NAME);
+            SBUxMethod.set("FOREIGN_AMT", rowData.FOREIGN_AMT);
+            SBUxMethod.set("VAT_EXPORT_AMT", rowData.VAT_EXPORT_AMT);
+            SBUxMethod.set("ISSUE_NAME", rowData.ISSUE_NAME);
+            SBUxMethod.set("WON_AMT", rowData.WON_AMT);
+            SBUxMethod.set("VAT_EXPORT_AMT_KRW", rowData.VAT_EXPORT_AMT_KRW);
+            SBUxMethod.set("DOCUMENT_ISSUE_DATE", rowData.DOCUMENT_ISSUE_DATE);
+            SBUxMethod.set("DOCUMENT_NO", rowData.DOCUMENT_NO);
         } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "1") {
             SBUxMethod.disableTab('idxTab','tabPage2');
             SBUxMethod.setTab('idxTab','tabPage1');
             $("#btnDeleteRow").removeAttr('disabled');
+
+            for(var i = 1; i <= 10; i++) {
+                SBUxMethod.set("ACC_ITEM_VALUE"+i, rowData['ACC_ITEM_VALUE'+i]);
+                SBUxMethod.set("ACC_VALUE_NAME"+i, rowData['ACC_VALUE_NAME'+i]);
+            }
         } else {
             SBUxMethod.disableTab('idxTab','tabPage2');
             SBUxMethod.setTab('idxTab','tabPage1');
+
+            for(var i = 1; i <= 10; i++) {
+                SBUxMethod.set("ACC_ITEM_VALUE"+i, rowData['ACC_ITEM_VALUE'+i]);
+                SBUxMethod.set("ACC_VALUE_NAME"+i, rowData['ACC_VALUE_NAME'+i]);
+            }
 
             if (gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')) == "1")
                 $("#btnDeleteRow").removeAttr('disabled');
@@ -4739,7 +4783,7 @@
                     strreport_omit_yn += gfn_nvl(thisdr["REPORT_OMIT_YN"]) + "|";
                     strstandard_date += gfn_nvl(thisdr["STANDARD_DATE"]) == "" ? "" + "|" : gfn_nvl(thisdr["STANDARD_DATE"]).substring(0, 8) + "|";
                     strvat_asset_type += gfn_nvl(thisdr["VAT_ASSET_TYPE"]) + "|";
-                    strsupply_amt += gfn_nvl(thisdr["SUPPLY_AMT"]) + "|";
+                    strsupply_amt += gfn_nvl(Number(thisdr["SUPPLY_AMT"].replace('/,/g', ''))) + "|";
 
                     strzero_report_yn += gfn_nvl(thisdr["ZERO_REPORT_YN"]) + "|";
                     strlocal_credit_type += gfn_nvl(thisdr["LOCAL_CREDIT_TYPE"]) + "|";
@@ -4749,15 +4793,15 @@
                     strexport_license_no += gfn_nvl(thisdr["EXPORT_LICENSE_NO"]) + "|";
                     strshipping_date += gfn_nvl(thisdr["SHIPPING_DATE"]) + "|";
 
-                    strexport_amt += gfn_nvl(thisdr["EXPORT_AMT"]) + "|";
-                    strexport_amt_krw += gfn_nvl(thisdr["EXPORT_AMT_KRW"]) + "|";
-                    strvat_export_amt += gfn_nvl(thisdr["VAT_EXPORT_AMT"]) + "|";
-                    strvat_export_amt_krw += gfn_nvl(thisdr["VAT_EXPORT_AMT_KRW"]) + "|";
-                    strforeign_amt += gfn_nvl(thisdr["FOREIGN_AMT"]) + "|";
-                    strwon_amt += gfn_nvl(thisdr["WON_AMT"]) + "|";
+                    strexport_amt += gfn_nvl(Number(thisdr["EXPORT_AMT"].replace('/,/g', ''))) + "|";
+                    strexport_amt_krw += gfn_nvl(Number(thisdr["EXPORT_AMT_KRW"].replace('/,/g', ''))) + "|";
+                    strvat_export_amt += gfn_nvl(Number(thisdr["VAT_EXPORT_AMT"].replace('/,/g', ''))) + "|";
+                    strvat_export_amt_krw += gfn_nvl(Number(thisdr["VAT_EXPORT_AMT_KRW"].replace('/,/g', ''))) + "|";
+                    strforeign_amt += gfn_nvl(Number(thisdr["FOREIGN_AMT"].replace('/,/g', ''))) + "|";
+                    strwon_amt += gfn_nvl(Number(thisdr["WON_AMT"].replace('/,/g', ''))) + "|";
                     strdocument_no += gfn_nvl(thisdr["DOCUMENT_NO"]) + "|";
                     strzero_type += gfn_nvl(thisdr["ZERO_TYPE"]) + "|";
-                    strvat_amt += gfn_nvl(thisdr["VAT_AMT"]) + "|";
+                    strvat_amt += gfn_nvl(Number(thisdr["VAT_AMT"].replace('/,/g', ''))) + "|";
                 }
 
             if (dSumdr_amt != dSumCr_amt) {

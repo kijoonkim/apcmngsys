@@ -1950,6 +1950,11 @@
     }
 
     const fn_create = async function () {
+
+        SBUxMethod.attr('btnAddAll', 'disabled', 'false');
+        SBUxMethod.attr('btnReflectionInfo', 'disabled', 'false');
+        SBUxMethod.attr('btnDeleteAll', 'disabled', 'false');
+
         editType = "N";
         SBUxMethod.set("APPOINT_NUM", "");
         SBUxMethod.set("APPOINT_DATE", "");
