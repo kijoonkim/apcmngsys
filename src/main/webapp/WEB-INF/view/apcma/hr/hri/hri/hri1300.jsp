@@ -788,6 +788,7 @@
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI041'
+            ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["발령코드", 		"발령구분"]
             ,searchInputFields		: ["SUB_CODE", 		"CODE_NAME"]
@@ -797,6 +798,7 @@
             ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
+                console.log(data);
                 SBUxMethod.set('APPOINT_TYPE_NAME', data.CODE_NAME);
                 SBUxMethod.set('APPOINT_TYPE', data.SUB_CODE);
             },
@@ -1370,7 +1372,7 @@
             {caption: ["발령정보","발령부서명"], ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findDeptCodeForBandgvwDetail(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
-                }
+                }, hidden: commonHiddenYn, disabled: disableOption
             },
             {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'output', width: '113px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
             {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'output', width: '128px', style: 'text-align:left'
@@ -1378,7 +1380,7 @@
             {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostDeptCodeForBandgvwDetail(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
-                }
+                }, hidden: commonHiddenYn, disabled: disableOption
             },
             {
                 caption: ["발령정보","직위"], ref: 'POSITION_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
