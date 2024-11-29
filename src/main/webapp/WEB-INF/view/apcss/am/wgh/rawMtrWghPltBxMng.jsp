@@ -99,7 +99,7 @@
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입출고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" uitype="single" jsondata-ref="jsonWrhsSpmtSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-wrhsSpmtSeCd" name="srch-slt-wrhsSpmtSeCd" uitype="single" jsondata-ref="jsonWrhsSpmtSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="3" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
@@ -233,7 +233,7 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE_CD'),	// 창고
+			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSeCd', jsonWrhsSpmtSe, 'WRHS_SPMT_SE_CD'),	// 창고
 			gfn_setComCdSBSelect('srch-slt-pltBxSe', jsonPltBxSe, 'PLT_BX_SE_CD'),			// 창고
 		]);
 		fn_search();
@@ -303,8 +303,6 @@
 
 		var getColRef = grdPltWrhsSpmt.getColRef("checkedYn");
 		grdPltWrhsSpmt.setFixedcellcheckboxChecked(0, getColRef, false);
-
-		fn_clearForm();
 
     	// grid clear
     	jsonPltBxMngList.length = 0;
@@ -515,10 +513,16 @@
 
 	const fn_setPltWrhsSpmtList = async function(){
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
+		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
+		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSeCd");
+		let pltNm = SBUxMethod.get("srch-slt-pltBxNm");
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
 			apcCd: gv_selectedApcCd,
 			jobYmd: cmndYmd,
-			delYn: 'N'
+			delYn: 'N',
+			pltBxSeCd: pltBxSeCd,
+			wrhsSpmtSeCd : wrhsSpmtSeCd,
+			pltNm: pltNm
   		});
 
         const data = await postJsonPromise;
@@ -564,7 +568,7 @@
 	const fn_save = async function() {
 		let apcCd = gv_selectedApcCd;
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
-		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
+		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSeCd");
 		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
@@ -683,7 +687,7 @@
 		fn_clearForm();
 	}
 	const fn_clearForm = async function() {
-		SBUxMethod.set("srch-slt-wrhsSpmtSe", "");
+		SBUxMethod.set("srch-slt-wrhsSpmtSeCd", "");
 		SBUxMethod.set("srch-slt-pltBxSe", "");
 		SBUxMethod.set("srch-slt-pltBxNm", "");
 		fn_clearPrdcr();

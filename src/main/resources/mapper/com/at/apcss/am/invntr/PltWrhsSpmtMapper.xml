@@ -232,6 +232,12 @@
         <if test='delYn != null and delYn != ""'>
 				    	AND PWS.DEL_YN 					= #{delYn}
 		</if>
+		<if test='pltNm != null and pltNm != ""'>
+						AND PWS.PLT_NM 					= #{pltNm}
+		</if>
+		<if test='pltBxSeCd != null and pltBxSeCd != ""'>
+						AND PWS.PLT_BX_SE_CD 			= #{pltBxSeCd}
+		</if>
         <if test='apcCd != null and apcCd != ""'>
 				    	AND PWS.APC_CD 					= #{apcCd}
 		</if>
