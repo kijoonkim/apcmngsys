@@ -112,7 +112,6 @@
 							title-text-array="변경이력관리^발행한도관리"
 							style="margin-top:1rem;">
 						</sbux-tabs>
-<!-- 							onclick = "fn_clickTab" -->
 						<div class="tab-content">
 							<div id="HISTORY">
 		                        <div class="ad_tbl_top2">
@@ -120,7 +119,7 @@
 		                        	<sbux-button id="btnDelHistoryRow"  name="btnDelHistoryRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delHistoryRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnAddHistoryRow"  name="btnAddHistoryRow"  uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        </div>							
-	                            <div id="sb-area-grdHistoryOrg1100" style="width:100%;height:47vh;"></div>
+	                            <div id="sb-area-grdHistoryOrg1100" style="width:100%;height:26vh;"></div>
 							</div>
 							<div id="LIMIT">
 								<div class="ad_tbl_top2">
@@ -128,7 +127,7 @@
 		                        	<sbux-button id="btnDelLimitRow"  name="btnDelLimitRow"  uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delLimitRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        	<sbux-button id="btnAddLimitRow"  name="btnAddLimitRow"  uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addLimitRow" style="float: right; margin-right:1rem;"></sbux-button>
 		                        </div>							
-	                            <div id="sb-area-grdLimitOrg1100" style="width:100%;height:47vh;"></div>
+	                            <div id="sb-area-grdLimitOrg1100" style="width:100%;height:26vh;"></div>
 							</div>
 						</div>
                     </div>

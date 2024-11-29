@@ -423,7 +423,8 @@
 
     const fn_today = async function() {
         calendarYear(new Date());
-        fn_search();
+        await fn_search();
+        await fn_view( gfn_dateToYmd(new Date()) );
     }
 
     const fn_view = async function(date) {

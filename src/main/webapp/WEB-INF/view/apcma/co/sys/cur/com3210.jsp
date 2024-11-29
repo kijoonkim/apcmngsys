@@ -10,6 +10,7 @@
      * @ 수정일       	수정자      수정내용
      * @ ----------		----------	---------------------------
      * @ 2024.05.13   	표주완		최초 생성
+     * @ 2024.07.13   	천용진		기능 추가
      * @see
      *
      */
@@ -55,8 +56,8 @@
                         	onclick="fn_mailingList" 
                         	style="margin-right: 1rem;">
                         	</sbux-button>
-                        <sbux-button id="btn_currencyData" name="btn_currencyData" uitype="normal" text="환율(외부) 가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_currencyData" style="margin-right: 1rem;"></sbux-button>
-                        <sbux-button id="btn_fbsExchangeRate" name="btn_fbsExchangeRate" uitype="normal" text="환율요청" class="btn btn-sm btn-outline-danger" onclick="fn_fbsExchangeRate"></sbux-button>
+                        <sbux-button id="btn_currencyData" name="btn_currencyData" uitype="normal" text="환율(외부) 가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_currencyData"></sbux-button>
+<!--                         <sbux-button id="btn_fbsExchangeRate" name="btn_fbsExchangeRate" uitype="normal" text="환율요청" class="btn btn-sm btn-outline-danger" onclick="fn_fbsExchangeRate"></sbux-button> -->
                     </div>
                     <div class="box-search-ma">
 	                    <!--[APC] START -->
@@ -180,7 +181,7 @@
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-dailyDayGrid" style="height:80vh; width:100%;"></div>
+                        <div id="sb-area-dailyDayGrid" style="height:55vh; width:100%;"></div>
                     </div>
                 </div>
                 
@@ -246,10 +247,10 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageInfo" style="height:92vh;"></div>
+                            <div id="sb-area-grdAverageInfo" style="height:67vh;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-8 tab-content">
+                    <div class="col-sm-8 tab-content" style="max-height:77vh">
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -258,7 +259,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageAvg" style="height:40vh;"></div>
+                            <div id="sb-area-grdAverageAvg" style="height:30vh;"></div>
                         </div>
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
@@ -268,7 +269,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdAverageDetail" style="height:48vh;"></div>
+                            <div id="sb-area-grdAverageDetail" style="height:35vh;"></div>
                         </div>
                     </div>
                 </div>
@@ -337,7 +338,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdMonthType" style="height:93vh;"></div>
+                            <div id="sb-area-grdMonthType" style="height:67vh;"></div>
                         </div>
                     </div>
                     <div class="col-sm-9 tab-content">
@@ -349,7 +350,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-grdMonthMonth" style="height:94vh;"></div>
+                            <div id="sb-area-grdMonthMonth" style="height:67vh;"></div>
                         </div>
                     </div>
                 </div>
@@ -1289,7 +1290,7 @@
 	
 	}
 
-	let gridMod = 'byrow';
+	let gridMode = 'byrow';
     const fn_gridCopyClear = function() {
         $('#btnCopyClear').hide();
         $('#btnCopyLine').show();
@@ -1297,8 +1298,8 @@
 
         let data = dailyDayGrid.getGridDataAll();
         jsonDailyDayList = [];
-		gridMod = 'byrow'; //행 단위 단일  선택
-		fn_drawdailyDayGrid(gridMod, data, true);
+		gridMode = 'byrow'; //행 단위 단일  선택
+		fn_drawdailyDayGrid(gridMode, data, true);
     }
     /*행 복사 (행복사모드)*/
     const fn_gridCopyLine = function() {
@@ -1308,8 +1309,8 @@
 
         let data = dailyDayGrid.getGridDataAll();
         jsonDailyDayList = [];
-		gridMod = 'byrows'; //행 단위 단일  선택
-		fn_drawdailyDayGrid(gridMod, data, true);
+		gridMode = 'byrows'; //행 단위 단일  선택
+		fn_drawdailyDayGrid(gridMode, data, true);
     }
     /*셀 복사 (셀복사모드)*/
     const fn_gridCopyCell = function() {
@@ -1319,8 +1320,8 @@
 
         let data = dailyDayGrid.getGridDataAll();
         jsonDailyDayList = [];
-		gridMod = 'free'; //행 단위 단일  선택
-		fn_drawdailyDayGrid(gridMod, data, true);
+		gridMode = 'free'; //행 단위 단일  선택
+		fn_drawdailyDayGrid(gridMode, data, true);
     }
     
     // 행 추가
@@ -1329,7 +1330,7 @@
     	let data = dailyDayGrid.getGridDataAll();
         let rowVal = dailyDayGrid.getRow();
     	jsonDailyDayList = [];
-        fn_drawdailyDayGrid(gridMod, data, true, 'input');
+        fn_drawdailyDayGrid(gridMode, data, true, 'input');
         //데이터가 없고 행선택이 없을경우.
         if (rowVal == -1) {
             dailyDayGrid.addRow(true,
@@ -1616,7 +1617,7 @@
 		for(var i=0; dayGridData.length > i; i ++){
 			for(var j=0; data.length > j; j++){
 				if(dayGridData[i].CURRENCY_CODE == data[j].CUR_UNIT && 
-					dayGridData[i].BASE_DATE == "20240717"){
+					dayGridData[i].BASE_DATE == "20241128"){
 		            const param = {
 		                    cv_count: '0',
 		                    getType: 'json',

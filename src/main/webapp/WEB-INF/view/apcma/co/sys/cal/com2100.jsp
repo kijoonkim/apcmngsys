@@ -154,7 +154,7 @@
                             ></sbux-button>
                         </div>                        
                         <div>
-                            <div id="sb-area-grdCom2100" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdCom2100" style="height:75vh; width:100%;"></div>
                         </div>
                 </div>
             </div>

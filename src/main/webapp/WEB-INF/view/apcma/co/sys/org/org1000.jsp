@@ -100,7 +100,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg1000" style="height:778px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1000" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -137,7 +137,13 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인명</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
+<!-- 										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input> -->
+										<sbux-input id="COMP_NAME" name="COMP_NAME" model-name="COMP_NAME" uitype="text" 
+											grid-id="masterGrid" 
+											class="form-control input-sm inpt_data_reqed"
+											grid-direction="both"
+											grid-event="valuechanged">
+										</sbux-input>
 		                            </td>
 		                            <td id="COMP_LOGO_AREA" class="td_input"  style="border-right:hidden;width:100%;" colspan="2" rowspan="3">
                                         <img id="COMP_LOGO" style="width: 410px; height: 105px;object-fit: contain;">
@@ -511,6 +517,9 @@
 	    masterGrid = _SBGrid.create(SBGridProperties);
 	    masterGrid.bind('click', 'fn_searchSubTable');
 	    masterGrid.bind('keyup', 'fn_keyup');
+	    masterGrid.bind("valuechanged", "fnChange");
+	}
+	function fnChange(){
 	}
 
 	const fn_keyup = async function(event){

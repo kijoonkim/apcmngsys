@@ -858,9 +858,9 @@
                 	masterTreeGrid.clickRow(1);
                 }
                 
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
+    		} else {
+    	  		alert(data.resultMessage);
+    		}
 
     	} catch (e) {
     	if (!(e instanceof Error)) {

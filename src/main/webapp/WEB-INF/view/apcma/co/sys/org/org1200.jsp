@@ -89,7 +89,7 @@
 	                </table>
 	            </div>    
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -99,10 +99,10 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg1200" style="height:778px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1200" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -149,10 +149,10 @@
                                 <tr>
                                     <th scope="row" class="th_bg">법인코드</th>
 									<td class="td_input" style="border-right: hidden;">
-		   								<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm" ></sbux-input>
+		   								<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm" readonly></sbux-input>
 									</td>
 									<td colspan="2"  class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm" ></sbux-input>
+										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm" readonly></sbux-input>
 									</td>
 		                            <td class="td_input">
 										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupComp" ></sbux-button>
@@ -172,23 +172,23 @@
 							style="margin-top:2rem;">
 						</sbux-tabs>
 						<div class="tab-content" >
-	                        <div id="DETAIL" style="height:65vh;">
+	                        <div id="DETAIL" style="height:40vh;">
 								<div class="ad_tbl_top">
 		                            <sbux-button id="btnDelDetail"  name="btnDelDetail" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delDetailRow" style="float: right;">
 		                            </sbux-button>
 		                            <sbux-button id="btnAddDetail"  name="btnAddDetail" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addDetailRow" style="float: right;">
 		                            </sbux-button>
 		                        </div>     
-	                        	<div id="sb-area-grdOrgDetail" style="height:60vh; width:100%;"></div>
+	                        	<div id="sb-area-grdOrgDetail" style="width:100%;height:35vh;"></div>
 	                        </div>
-	                        <div id="AUTHORITY" style="height:65vh;">
+	                        <div id="AUTHORITY" style="height:40vh;">
 								<div class="ad_tbl_top">
 		                            <sbux-button id="btnDelAuthority"  name="btnDelAuthority" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delAuthorityRow" style="float: right;">
 		                            </sbux-button>
 		                            <sbux-button id="btnAddAuthority"  name="btnAddAuthority" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAuthorityRow" style="float: right;">
 		                            </sbux-button>
 		                        </div>     
-	                        	<div id="sb-area-grdOrgAuthority" style="height:60vh; width:100%;"></div>
+	                        	<div id="sb-area-grdOrgAuthority" style="width:100%;height:35vh;"></div>
 	                        </div>
 						</div>
                     </div>
@@ -397,10 +397,10 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["APC"],			ref: 'FI_ORG_CODE', 	type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption : ["APC명"],		ref: 'FI_ORG_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption : ["본지점계정"],		ref: 'SITE_ACC_CODE',	type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption : ["법인명"],			ref: 'COMP_NAME',		type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption : ["APC"],			ref: 'FI_ORG_CODE', 	type:'output',  	width:'15%',  	style:'text-align:left'},
+            {caption : ["APC명"],		ref: 'FI_ORG_NAME', 	type:'output',  	width:'25%',  	style:'text-align:left'},
+            {caption : ["본지점계정"],		ref: 'SITE_ACC_CODE',	type:'output',  	width:'20%',  	style:'text-align:left'},
+            {caption : ["법인명"],			ref: 'COMP_NAME',		type:'output',  	width:'40%',  	style:'text-align:left'}
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
         masterGrid.bind('click', 'fn_viewSubTable');
@@ -409,7 +409,7 @@
     
     const fn_keyup = async function(event){
     	if(event.keyCode == 38 || event.keyCode == 40 ){
-    		await fn_searchSubTable();
+    		await fn_viewSubTable();
     	}
     }
     
@@ -422,6 +422,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;	
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -433,7 +434,7 @@
             		uncheckedvalue : "N" }, 
            		style : 'text-align:center'
             },
-            {caption: [''],ref: 'btn1',    				type:'button',  	width:'50px',  		style:'text-align:center', 
+            {caption: [''],ref: 'BTN1',    				type:'button',  	width:'50px',  		style:'text-align:center', 
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'>…</button>";
 	        	}	
@@ -454,12 +455,13 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;	
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [''],ref: 'btn2',    				type:'button',  	width:'10%',  		style:'text-align:center', 
+            {caption: [''],ref: 'BTN2',    				type:'button',  	width:'10%',  		style:'text-align:center', 
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        		return "<button type='button' class='ma-btn1' style='width:25px' onClick='fn_gridPopup2(event, " + nRow + ", " + nCol + ")'>…</button>";
 	        	}	
@@ -993,7 +995,7 @@
     	
         var replaceText0 	= "_USER_ID_";
         var replaceText1 	= "_USER_NAME_"; 
-        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' AND D.COMP_CODE LIKE '" + gv_ma_selectedCorpCd + "\'";
+        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' AND D.COMP_CODE LIKE '" + gv_ma_selectedCorpCd + "'";
     	
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd

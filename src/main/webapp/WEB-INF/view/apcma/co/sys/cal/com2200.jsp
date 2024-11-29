@@ -144,7 +144,7 @@
 						    </sbux-button >
                         </div>
                         <div>
-                            <div id="sb-area-grdCom2200" style="height:95vh; width:100%;"></div>
+                            <div id="sb-area-grdCom2200" style="height:73vh; width:100%;"></div>
                         </div>
                     </div>
 	                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
@@ -154,7 +154,7 @@
 					</sbux-tabs>
 
                     <div class="col-sm-6 tab-content">
-						<div id="tab1" style="height:96vh;">
+						<div id="tab1" style="height:73vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed"  >
                                 <colgroup>
                                     <col style="width:25%">
@@ -217,7 +217,7 @@
                                 </tr>
                             </table>
                         </div>
-						<div id="tab2" style="height:96vh;">
+						<div id="tab2" style="height:73vh;">
 						<div style="display: inline-block; margin: 0 5px;  float: right;">
 						   <sbux-button 
 						    	style="text-align:center; vertical-align:middle;"  
@@ -318,7 +318,7 @@
                                 </tr>                 
                             </table>
                         </div>                        
-						<div id="tab3" style="height:96vh;">
+						<div id="tab3" style="height:73vh;">
 						<div style="display: inline-block; margin: 0 5px;  float: right;">
 						   <sbux-button 
 						    	style="text-align:center; vertical-align:middle;" 
@@ -443,7 +443,7 @@
                                 </tr>                 
                             </table>
                         </div>                        
-						<div id="tab4" style="height:96vh;">
+						<div id="tab4" style="height:73vh;">
                             <table id="dataArea4" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:33%">

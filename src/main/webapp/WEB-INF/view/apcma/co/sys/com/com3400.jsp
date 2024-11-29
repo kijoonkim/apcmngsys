@@ -194,7 +194,7 @@
                            </ul>
                        </div>
                        <div>
-                           <div id="sb-area-grdCom3400" style="height:80vh; width:100%;"></div>
+                           <div id="sb-area-grdCom3400" style="height:69vh; width:100%;"></div>
                        </div>
                    </div>
                    <div style="display:flex">
@@ -205,7 +205,7 @@
                        </sbux-tabs>   
                    </div>
                    <div class="col-sm-8 tab-content">
-                       <div id="tabInfo" style="height:76vh;">
+                       <div id="tabInfo" style="height:65vh;">
                     	<table id="dataArea1" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:10%">
@@ -237,7 +237,7 @@
 							<tr>
 								<th scope="row" class="th_bg">거래처명</th>
 								<td class="td_input" colspan="4">
-									<sbux-input id="CS_NAME" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="CS_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">통화</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -289,7 +289,7 @@
 									<div class="dropdown">
 										<button 
 											style="width:160px;text-align:left" 
-											class="btn btn-sm btn-light dropdown-toggle " 
+											class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" 
 											type="button"
 											id="CS_GROUP" 
 											data-toggle="dropdown" 
@@ -467,7 +467,7 @@
 							<tr>
 								<th scope="row" class="th_bg">대표자</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm "></sbux-input>
+									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed"></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">주민번호</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -482,11 +482,11 @@
 							<tr>
 								<th scope="row" class="th_bg">업태</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2" >
-									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 								</td>								
 								<th scope="row" class="th_bg">종목</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm " ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm inpt_data_reqed" ></sbux-input>
 								</td>								
 								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
 									<sbux-checkbox uitype="normal" id="TRANSPORT_YN" class="form-control input-sm check hidden-check" text="운송사여부" true-value="Y" false-value="N"/>
@@ -581,7 +581,7 @@
                     	</table>
                    	</div>
                        <!-- 주소 ~ 매핑이력 - 주소/연락처 -->
-					<div id="tabAddress" style="height:76vh;">
+					<div id="tabAddress" style="height:65vh;">
 						<table id="addressTable" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:15%">
@@ -661,7 +661,7 @@
 						</table>									
 					</div>
 					<!-- 주소 ~ 매핑이력 - 자금정보 -->
-					<div id="tabFinance" style="height:76vh;">
+					<div id="tabFinance" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:ruby;float: right;">
 								<span style="vertical-align:middle; text-align:center;">FBS 서비스</span>
@@ -686,11 +686,11 @@
 							</div>
 						</div>									
 						<div>
-							<div id="sb-area-grdFinance" style="height:315px; width:100%;"></div>
+							<div id="sb-area-grdFinance" style="height:60vh; width:100%;"></div>
 						</div>
 					</div>
 					<!-- 주소 ~ 매핑이력 - 구매정보 -->
-					<div id="tabPurchase" style="height:76vh;">
+					<div id="tabPurchase" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddPurchaseRow" name="btnAddPurchaseRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addPurchaseRow" style="float: right;"></sbux-button>
@@ -855,7 +855,7 @@
 						</div>
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매정보 -->
-					<div id="tabSales" style="height:76vh;">
+					<div id="tabSales" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesRow" name="btnAddSalesRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesRow" style="float: right;"></sbux-button>
@@ -957,7 +957,7 @@
 						</div>									
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매납품처 -->
-					<div id="tabSalesShipTo" style="height:76vh;">
+					<div id="tabSalesShipTo" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesShipToRow" name="btnAddSalesShipToRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesShipToRow" style="float: right;"></sbux-button>
@@ -965,11 +965,11 @@
 							</div>
 						</div>										
 						<div>
-							<div id="sb-area-grdSalesShipTo" style="height:315px; width:100%;"></div>
+							<div id="sb-area-grdSalesShipTo" style="height:60vh; width:100%;"></div>
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매처분류 -->
-					<div id="tabSalesCategory" style="height:76vh;">
+					<div id="tabSalesCategory" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesCategoryRow" name="btnAddSalesCategoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesCategoryRow" style="float: right;"></sbux-button>
@@ -1023,11 +1023,11 @@
 							</tr>  										
 						</table>		
 						<div>
-							<div id="sb-area-grdSalesCategory" style="height:250px; width:100%;"></div>
+							<div id="sb-area-grdSalesCategory" style="height:300px; width:100%;"></div>
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 세금 등 -->
-					<div id="tabTax" style="height:76vh;">
+					<div id="tabTax" style="height:65vh;">
 						<table id="taxTable" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:15%">
@@ -1109,7 +1109,7 @@
 						</table>											
 					</div>
 					<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
-					<div id="tabHistory" style="height:76vh;">
+					<div id="tabHistory" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddHistoryRow" name="btnAddHistoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right;"></sbux-button>
@@ -1117,11 +1117,11 @@
 							</div>
 						</div>										
 						<div>
-							<div id="sb-area-grdHistory" style="height:315px; width:100%;"></div>
+							<div id="sb-area-grdHistory" style="height:60vh; width:100%;"></div>
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 매핑이력 -->
-					<div id="tabMapping" style="height:76vh;">
+					<div id="tabMapping" style="height:65vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddMappingRow" name="btnAddMappingRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addMappingRow" style="float: right;"></sbux-button>
@@ -1129,7 +1129,7 @@
 							</div>
 						</div>										
 						<div>
-							<div id="sb-area-grdMapping" style="height:315px; width:100%;"></div>
+							<div id="sb-area-grdMapping" style="height:60vh; width:100%;"></div>
 						</div>										
 					</div>      	
                </div>
@@ -1972,6 +1972,17 @@
 		workType = 'N';
 		fn_clearSubForm();
 		
+		//신규 작성시 거래처 기본정보 편집 탭 제외한 나머지탭으로 이동하지 못하게 수정
+		SBUxMethod.disableTab('tabAddress');
+		SBUxMethod.disableTab('tabFinance');
+		SBUxMethod.disableTab('tabPurchase');
+		SBUxMethod.disableTab('tabSales');
+		SBUxMethod.disableTab('tabSalesShipTo');
+		SBUxMethod.disableTab('tabSalesCategory');
+		SBUxMethod.disableTab('tabTax');
+		SBUxMethod.disableTab('tabHistory');
+		SBUxMethod.disableTab('tabMapping');
+	
 	    financeGrid.rebuild(); 			// 자금정보관리 그리드 초기화
 	    purchaseGrid.rebuild(); 		// 구매정보 그리드 초기화
 	    salesGrid.rebuild(); 			// 판매정보 그리드 초기화
@@ -2662,11 +2673,20 @@
     	
     	// 그리드의 빈곳을 눌렀을 때 리턴
     	const nRow = masterGrid.getRow();
-    	console.log('nRow ==>', nRow);
 	    if (nRow == -1) {
 	        return;
 	    }
 
+		SBUxMethod.enableTab('tabAddress');
+		SBUxMethod.enableTab('tabFinance');
+		SBUxMethod.enableTab('tabPurchase');
+		SBUxMethod.enableTab('tabSales');
+		SBUxMethod.enableTab('tabSalesShipTo');
+		SBUxMethod.enableTab('tabSalesCategory');
+		SBUxMethod.enableTab('tabTax');
+		SBUxMethod.enableTab('tabHistory');
+		SBUxMethod.enableTab('tabMapping');
+		
     	// 코드목록 그리드 초기화
     	await fn_clearSubForm();
 	    const selectRowVal = masterGrid.getRowData(nRow);
