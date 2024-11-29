@@ -360,7 +360,7 @@
 	        {caption: ['정산기준'], 		ref: 'clclnCrtrCd', 	type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonComClclnCrtrCd', label:'label', value:'value', itemcount: 10}},
 	        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '110px', style: 'text-align:center', sortable: false,
-				validate : gfn_chkByte.bind({byteLimit: 40})},
+				validate : gfn_chkByte.bind({byteLimit: 17})},
 	        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '110px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
 	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
@@ -541,12 +541,6 @@
 				gfn_comAlert("W0002", "생산자명");		//	W0002	{0}을/를 입력하세요.
 	            return;
 			}
-			if(!gfn_isEmpty(rowData.vhclno)){
-	    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
-		    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
-	    			return;
-	    		}
-	    	}
 
 			if (!gfn_isEmpty(rowData.rprsItemCd)) {
 				rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);

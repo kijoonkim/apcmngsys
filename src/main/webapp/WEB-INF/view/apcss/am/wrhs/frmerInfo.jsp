@@ -623,22 +623,22 @@
 	        	}
 		    }},
 	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '220px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
-	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right; background:#FFF8DC;',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-        	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
-        		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
-	    	{caption : ["이력"], 		ref: 'prdcrLandInfoNo',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	{caption : ["이력"], 		ref: 'prdcrLandInfoNo',  type:'button',  width:'55px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_setCltvtnHstryPrdcr(" + nRow + ")'>상세</button>";
 	        	}
 		    }},
+	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
+                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
+                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+        	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '55px', style: 'text-align:center',
+        		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
 	    ];
 	    grdPrdcrLandInfo = _SBGrid.create(SBGridProperties);
         grdPrdcrLandInfo.bind('click', 'fn_setFrlnInput');
