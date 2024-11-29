@@ -1012,7 +1012,7 @@
                                 </tr>   															   								 												                                                                                                                                                                 
                             </table>                        	
                         </div>
-                        <div id="tab5">
+                        <div id="tab5" style="height:72vh">
 							<table id="dataArea5" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">

@@ -109,7 +109,7 @@
                             </div>                            
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3100" style="height:775px; width:100%;"></div>
+                            <div id="sb-area-grdCom3100" style="height:600px; width:100%;"></div>
                         </div>
                     </div>
                 </div>

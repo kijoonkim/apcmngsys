@@ -94,7 +94,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg2100" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdOrg2100" style="height:75vh;width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -155,7 +155,7 @@
                         </div>
 		                <div class="col-sm-5">
 	                        <div>
-	                            <div id="sb-area-subGrdOrg2100" style="height:86vh; width:100%;"></div>
+	                            <div id="sb-area-subGrdOrg2100" style="height:62vh;width:100%;"></div>
 	                        </div>
 		                </div>
 		                <div class="col-sm-7">

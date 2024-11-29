@@ -122,7 +122,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom2300" style="height:100vh; width:100%;"></div>
+                            <div id="sb-area-grdCom2300" style="height:75vh; width:100%;"></div>
                         </div>
                     </div>
 
@@ -182,7 +182,7 @@
                         </div>
                         <div class="ad_tbl_top2">
 	                        <div>
-	                            <div id="sb-area-subGrdCom2300" style="height:100vh; width:100%;"></div>
+	                            <div id="sb-area-subGrdCom2300" style="height:75vh; width:100%;"></div>
 	                        </div>
                         </div>
                     </div>

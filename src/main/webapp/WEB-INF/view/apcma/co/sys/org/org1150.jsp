@@ -13,7 +13,6 @@
  * @see
  *
  */
- 
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -43,7 +42,7 @@
 				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
-						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
 	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
@@ -65,7 +64,7 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-							
+
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -87,18 +86,20 @@
 	                        </tr>
 	                    </tbody>
 	                </table>
-	            </div>    
-                <div class="row">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>◎ 사업장 리스트</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-                                </li>
-                            </ul>
-                        </div>                        
-                        <div id="sb-area-grdOrg1150" style="width:100%;height:100vh"></div>
-                </div>
+	            </div>
+	            <div class="row">
+	                <div class="ad_tbl_top">
+	                    <ul class="ad_tbl_count">
+	                        <li>
+	                            <span>◎ 사업장 리스트</span>
+	                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+	                        </li>
+	                    </ul>
+	                </div>  
+	                <div>
+	                	<div id="sb-area-grdOrg1150" style="width:100%;"></div>
+	                </div>                      
+            	</div>    
             </div>
         </div>
     </section>
@@ -184,17 +185,17 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["법인"], ref : 'COMP_CODE', width : '15%', style : 'text-align:center', type: 'combo',
+            {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type: 'combo',
                 typeinfo : {
                     ref : 'jsonCompCode',
                     label : 'label',
                     value : 'value'
                 }
             },
-            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'15%',  style:'text-align:left'},
-            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'15%',  style:'text-align:left'},
-            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'55%',  style:'text-align:left'},
-            {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'10%', 	
+            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left'},
+            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left'},
+            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'800px',  style:'text-align:left'},
+            {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'100px',
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
            	},
         ];
