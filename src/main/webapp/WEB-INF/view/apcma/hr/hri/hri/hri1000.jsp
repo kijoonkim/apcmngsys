@@ -1995,14 +1995,13 @@
      */
     const fn_joinCompnay = async function() {
         let EMP_CODE_LIST = "";
-        const allData = gvwList.getGridDataAll();
+        let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
 
-        allData.forEach((item, index) => {
-            let rowData = gvwList.getRowData(index);
-            if (item.CHK_YN === "Y") {
-                EMP_CODE_LIST += rowData.EMP_CODE + '|'
-            }
+        gvwListCheckedList.forEach((item, index) => {
+            EMP_CODE_LIST += gvwList.getCellData(item, gvwList.getColRef("EMP_CODE")) + "|";
         });
+
+        EMP_CODE_LIST = EMP_CODE_LIST.substring(0, EMP_CODE_LIST.length - 1);
 
         if (EMP_CODE_LIST.length == 0) {
             gfn_comAlert("W0001", "사원");		//	W0001	{0}을/를 선택하세요.
