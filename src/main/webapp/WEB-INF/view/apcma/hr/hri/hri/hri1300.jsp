@@ -803,6 +803,66 @@
         });
     }
 
+    const fn_findCostDeptCodeForBandgvwDetail = function(nRow) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
+
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+
+        compopup1({
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_COST_CENTER'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", 				"명칭"]
+            ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+            ,searchInputValues		: ["", 			""]
+            ,height					: '400px'
+            ,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+            ,tableColumnWidths		: ["80px", 	"80px"]
+            ,itemSelectEvent		: function (data){
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2"), data['COST_CENTER_CODE']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2_NAME"), data['COST_CENTER_NAME']);
+            },
+        });
+        SBUxMethod.openModal('modal-compopup1');
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findDeptCodeForBandgvwDetail = function(nRow) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				"",		gfn_dateToYmd(new Date())]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log(data);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("DEPT_CODE2"), data['DEPT_CODE']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("DEPT_NAME2"), data['DEPT_NAME']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2"), data['CC_CODE']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2_NAME"), data['CC_NAME']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("SITE_CODE2"), data['SITE_CODE']);
+            },
+        });
+        SBUxMethod.openModal('modal-compopup1');
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
     const fn_findSrchAppointNum = function() {
         const getData = async function() {
             let APPOINT_TYPE = gfn_nvl(gfnma_multiSelectGet('#POP_APPOINT_TYPE'));
@@ -1304,12 +1364,22 @@
                 , hidden: (commonHiddenYn || (REGION_APPOINT_YN != "Y"))
                 , disabled: disableOption
             },
-            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'input', width: '82px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
-            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'input', width: '120px', style: 'text-align:left'
+            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'output', width: '82px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'output', width: '120px', style: 'text-align:left'
                 , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
-            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'input', width: '113px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
-            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'input', width: '128px', style: 'text-align:left'
+            {caption: ["발령정보","발령부서명"], ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findDeptCodeForBandgvwDetail(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'output', width: '113px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'output', width: '128px', style: 'text-align:left'
                 , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostDeptCodeForBandgvwDetail(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {
                 caption: ["발령정보","직위"], ref: 'POSITION_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
