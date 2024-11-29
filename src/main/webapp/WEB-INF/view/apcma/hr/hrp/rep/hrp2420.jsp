@@ -535,7 +535,7 @@
 
     // 조회
     function cfn_search() {
-        fn_search('Q');
+        fn_search();
     }
 
     /**
@@ -656,7 +656,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function (type) {
+    const fn_search = async function () {
 
         let SITE_CODE	        = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
         let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
@@ -721,7 +721,7 @@
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2420List.do", {
             getType				: 'json',
-            workType			: type,
+            workType			: 'Q',
             cv_count			: '9',
             params				: gfnma_objectToString(paramObj)
         });

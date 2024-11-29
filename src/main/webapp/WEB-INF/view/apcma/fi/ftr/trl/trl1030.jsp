@@ -157,7 +157,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid_top" style="height:280px; width:100%;"></div>
+                            <div id="sb_area_grid_top" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
                 
@@ -1005,7 +1005,7 @@
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap5" style="height:380px; width:100%;"></div>
+		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
 		                        </div>							
 							</div>
 						
