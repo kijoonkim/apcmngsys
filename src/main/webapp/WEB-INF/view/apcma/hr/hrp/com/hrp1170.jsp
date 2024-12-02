@@ -451,11 +451,6 @@
         ];
 
         grdExceptionList = _SBGrid.create(SBGridProperties);
-
-        if (rowData != null){
-            grdExceptionList.push(rowData);
-            grdExceptionList.rebuild();
-        }
         grdExceptionList.bind('valuechanged','gridValueChanged');
         grdExceptionList.bind('click', 'fn_view');
         grdExceptionList.bind('keyup', 'fn_keyup');

@@ -219,7 +219,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:700px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:500px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2">
@@ -282,7 +282,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:730px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -559,13 +559,15 @@
 
     //국민연금 실적 리스트
     function fn_createGrid(chMode, rowData) {
+        jsonGvwList = jsonGvwList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwList';
         SBGridProperties.id = 'gvwListGrid';
         SBGridProperties.jsonref = 'jsonGvwList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
-
         if (_.isEqual(chMode, 'clear')) { //복사해제모드
             SBGridProperties.selectmode = 'free';
         } else if(_.isEqual(chMode, 'line')){ //행복사모드
@@ -581,7 +583,9 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -589,18 +593,10 @@
                 standard : [0],
                 sum : [11,12,13,14,15,16,17,18,19,20,21]
             },
-            subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
             grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                titlecol 		: 20,
+                titlevalue		: '합계',
+                style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
             },
             datasorting	: false,
@@ -699,10 +695,6 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
 
-        //행복사모드 일시 ctrl + v 시 맨아래행 추가 후 복사된 행 데이터 set
-        if (_.isEqual(chMode, 'line')){
-            gvwListGrid.bind('beforepaste','gridBeforePaste');
-        }
     }
 
     /*const columns1 = [
@@ -774,10 +766,8 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.mergecells = 'bycolrec';
-
-
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [];
-
         columns1.forEach((col) => {
             SBGridProperties.columns.push(col);
         });
@@ -1026,7 +1016,7 @@
     //행복사모드 일시 ctrl + v 시 맨아래행 추가 후 복사된 행 데이터 set
     async function gridBeforePaste() {
 
-        var nRow = gvwListGrid.getRow();
+       /* var nRow = gvwListGrid.getRow();
         var nCol = gvwListGrid.getCol();
 
         if (nCol < 1) {
@@ -1038,7 +1028,7 @@
 
         var rowData = gvwListGrid.getRowData(nRow);
 
-        gvwListGrid.addRow(true, rowData);
+        gvwListGrid.addRow(true, rowData);*/
     }
 
     // 지급구분 변경시 국민연금 내역 관리 재조회

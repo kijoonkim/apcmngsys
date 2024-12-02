@@ -709,13 +709,6 @@
 
         gvwDetallGrid = _SBGrid.create(SBGridProperties);
 
-        if (_.isEmpty(rowData) == false){
-            jsonDetallList.length = 0;
-            jsonDetallList.push(rowData);
-            gvwDetallGrid.rebuild();
-        }
-
-
         gvwDetallGrid.bind('click', 'fn_viewDetaill');
         gvwDetallGrid.bind('valuechanged','gridValueChanged');
     }

@@ -368,7 +368,6 @@
 
     //1000만원이하
     const fn_createDetailGrid = function(chMode, rowData) {
-
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-bandgvwDetail';
         SBGridProperties.id = 'grdDetail';
@@ -442,9 +441,6 @@
 
         grdDetail = _SBGrid.create(SBGridProperties);
 
-        if (rowData != null){
-            grdDetail.push(rowData);
-        }
 
         grdDetail.bind('valuechanged','gridValueChanged');
 

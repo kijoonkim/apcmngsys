@@ -222,7 +222,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:700px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:500px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2">
@@ -285,7 +285,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:730px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -606,6 +606,7 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
         SBGridProperties.columns = [
             {
@@ -667,9 +668,9 @@
         gvwListGrid = _SBGrid.create(SBGridProperties);
 
         //행복사모드 일시 ctrl + v 시 맨아래행 추가 후 복사된 행 데이터 set
-        if (_.isEqual(chMode, 'line')) {
+        /*if (_.isEqual(chMode, 'line')) {
             gvwListGrid.bind('beforepaste', 'gridBeforePaste');
-        }
+        }*/
     }
 
     let columns1 = [
@@ -705,6 +706,7 @@
         SBGridProperties.selectmode = 'byrow';
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.mergecells = 'bycolrec';
 
 

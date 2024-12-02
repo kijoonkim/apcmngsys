@@ -525,6 +525,9 @@
 
     //계산결과 마감 리스트
     function fn_createResultGrid(chMode, rowData) {
+        jsonYearEndTaxResultList = jsonYearEndTaxResultList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwYearEndTaxResult';
         SBGridProperties.id = 'gvwYearEndTaxResultGrid';
@@ -640,10 +643,6 @@
             {caption: ["생성PC"], ref: 'INSERT_PC', type: 'output', width: '140px', style: 'text-align:left'},
 
         ];
-
-        if (_.isEmpty(rowData) == false){
-            gvwYearEndTaxResultGrid.push(rowData);
-        }
 
         gvwYearEndTaxResultGrid = _SBGrid.create(SBGridProperties);
 

@@ -218,7 +218,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:700px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:500px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2">
@@ -281,7 +281,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:730px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -312,6 +312,7 @@
     //-----------------------------------------------------------
 
     var editType = "N";
+    var gridMode = 'clear';
 
     //grid 초기화
     var gvwListGrid; 			// 그리드를 담기위한 객체 선언
@@ -561,6 +562,10 @@
 
     //국민연금 실적 리스트
     function fn_createGrid(chMode, rowData) {
+        jsonGvwList = jsonGvwList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwList';
         SBGridProperties.id = 'gvwListGrid';
@@ -583,7 +588,9 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -591,14 +598,14 @@
                 standard : [0],
                 sum : [10,11]
             },
-            subtotalrow : {
+            /*subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
                     style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol: 0
                 },
-            },
+            },*/
             grandtotalrow : {
                 titlecol 	: 0,
                 titlevalue	: '합계',
@@ -657,10 +664,11 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
 
+        //gvwListGrid.bind('beforepaste','gridBeforePaste');
         //행복사모드 일시 ctrl + v 시 맨아래행 추가 후 복사된 행 데이터 set
-        if (_.isEqual(chMode, 'line')){
+       /* if (_.isEqual(chMode, 'line')){
             gvwListGrid.bind('beforepaste','gridBeforePaste');
-        }
+        }*/
     }
     let columns1 = [
         {
@@ -718,10 +726,8 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.mergecells = 'bycolrec';
-
-
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [];
-
         columns1.forEach((col) => {
             SBGridProperties.columns.push(col);
         });
@@ -959,6 +965,10 @@
     //행복사모드 일시 ctrl + v 시 맨아래행 추가 후 복사된 행 데이터 set
     async function gridBeforePaste() {
 
+        if (_.isEqual(gridMode, 'line') == false){
+            return;
+        }
+
         var nRow = gvwListGrid.getRow();
         var nCol = gvwListGrid.getCol();
 
@@ -971,7 +981,8 @@
 
         var rowData = gvwListGrid.getRowData(nRow);
 
-        gvwListGrid.addRow(true, rowData);
+        //gvwListGrid.addRow(true, rowData);
+        gvwListGrid.insertRow(nRow, 'below', rowData);
     }
 
     // 지급구분 변경시 국민연금 내역 관리 재조회
@@ -1173,9 +1184,9 @@
         let datas = gvwListGrid.getGridDataAll();
         _SBGrid.destroy('gvwListGrid');
 
-        let line = 'line'; //그리드 프로퍼티스 라인모드
+        gridMode = 'line'; //그리드 프로퍼티스 라인모드
 
-        fn_createGrid(line, datas);
+        fn_createGrid(gridMode, datas);
 
 
     }
@@ -1187,9 +1198,9 @@
         let datas = gvwListGrid.getGridDataAll();
         _SBGrid.destroy('gvwListGrid');
 
-        let cell = 'cell'; //그리드 프로퍼티스 셀모드
+        gridMode = 'cell'; //그리드 프로퍼티스 셀모드
 
-        fn_createGrid(cell, datas);
+        fn_createGrid(gridMode, datas);
 
     }
     const fn_gridCopyCell = function () { /*셀복사 (셀복사모드)*/
@@ -1200,9 +1211,9 @@
         let datas = gvwListGrid.getGridDataAll();
         _SBGrid.destroy('gvwListGrid');
 
-        let clear = 'clear'; //그리드 프로퍼티스 클리어모드
+        gridMode = 'clear'; //그리드 프로퍼티스 클리어모드
 
-        fn_createGrid(clear, datas);
+        fn_createGrid(gridMode, datas);
     }
 
     //급여반영,취소
