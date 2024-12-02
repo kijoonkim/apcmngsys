@@ -165,8 +165,6 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            //gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
             //로그유형
             gfnma_multiSelectInit({
                 target			: ['#SRCH_LOG_TYPE']
@@ -240,15 +238,10 @@
         SBGridProperties.id = 'gvwInfoGrid';
         SBGridProperties.jsonref = 'jsonGvwInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
-        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
-        SBGridProperties.explorerbar = 'sortmove';*/
-        /* SBGridProperties.rowheader = 'seq';*/
-        /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
-        /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
-        //SBGridProperties.filtering = true;
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["사용자ID"], ref: 'USER_ID', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["사용자명"], ref: 'USER_NAME', type: 'output', width: '200px', style: 'text-align:left'},
@@ -365,11 +358,6 @@
                     document.querySelector('#listCount').innerText = totalRecordCount;
                 }
 
-                /*if(jsonGvwInfoList.length > 0) {
-                    gvwInfoGrid.clickRow(1);
-                }*/
-
-                //fn_setData();
             } else {
                 alert(data.resultMessage);
             }

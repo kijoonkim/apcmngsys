@@ -613,14 +613,10 @@
         SBGridProperties.id = 'gvwInfoGrid';
         SBGridProperties.jsonref = 'jsonGvwInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
-        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
-        SBGridProperties.explorerbar = 'sortmove';*/
-        /* SBGridProperties.rowheader = 'seq';*/
-        /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
-        /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         //SBGridProperties.filtering = true;
         SBGridProperties.columns = [
             {caption: ["채번 ID"], ref: 'NUMBERING_ID', type: 'output', width: '150px', style: 'text-align:left'},
@@ -690,9 +686,14 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
-        /* gvwInfoGrid.bind('beforepagechanged', 'fn_pagingComMsgList');*/
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
     /**
      * 목록 조회
      */
@@ -993,6 +994,7 @@
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '300px', style: 'text-align:left'},
             {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '300px', style: 'text-align:right'
@@ -1002,8 +1004,6 @@
         ];
 
         gvwHistoryGrid = _SBGrid.create(SBGridProperties);
-        //gvwHistoryGrid.bind('click', 'fn_view');
-        /* gvwInfoGrid.bind('beforepagechanged', 'fn_pagingComMsgList');*/
     }
 
     //상세정보 보기
