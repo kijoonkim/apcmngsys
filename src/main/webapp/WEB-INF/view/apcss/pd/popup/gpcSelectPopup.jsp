@@ -27,6 +27,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<sbux-input id="uoGpc-inp-brno" name="uoGpc-inp-brno" uitype="hidden"></sbux-input>
+				<sbux-input id="uoGpc-inp-yr" name="uoGpc-inp-yr" uitype="hidden"></sbux-input>
 				<sbux-input id="uoGpc-inp-selType" name="uoGpc-inp-selType" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -87,9 +88,10 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_callbackFnc , _selType , _brno) {
+		init: async function(_callbackFnc , _selType , _brno , _yr) {
 			console.log('pd gpcSelectPopup init');
 			SBUxMethod.set("uoGpc-inp-brno", _brno);
+			SBUxMethod.set("uoGpc-inp-yr", _yr);
 			SBUxMethod.set("uoGpc-inp-selType", _selType);
 			SBUxMethod.hide('btnEditGpc');
 			SBUxMethod.hide('btnCancelGpc');
@@ -99,7 +101,7 @@
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
-			this.createGrid();
+			this.createGrid(_selType);
 			this.search();
 			/*
 			if (grdGpcPop === null || this.prvGpcCd != _gpcCd) {
@@ -121,7 +123,7 @@
 			//console.log(this.modalId);
 			gfn_closeModal(this.modalId, this.callbackFnc, _gpc);
 		},
-		createGrid: function(/** {boolean} */ isEditable) {
+		createGrid: function(_selType) {
 			var SBGridProperties = {};
 			SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
 			SBGridProperties.id = this.gridId;			//'grdGpcPop';					//'grdGpcPop';
@@ -141,18 +143,27 @@
 				'sorttype' : 'page',
 				'showgoalpageui' : true
 			};
-			SBGridProperties.columns = [
-				{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
-				{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
-				/*
-				{caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
-				*/
-				{caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
-				{caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
-				/*
-				{caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
-				*/
-			];
+			if(_selType == 'Y'){
+				SBGridProperties.columns = [
+					{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+					{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+					//{caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
+					{caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
+					{caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
+					//{caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
+					{caption: ['사업자번호'], 	ref: 'brno', 	width: '200px', type: 'input', style: 'text-align:center'},
+					{caption: ['법인명'], 	ref: 'corpNm', 	width: '200px', type: 'input', style: 'text-align:center'},
+				];
+			}else{
+				SBGridProperties.columns = [
+					{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+					{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+					//{caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
+					{caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
+					{caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
+					//{caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
+				];
+			}
 
 			grdGpcPop = _SBGrid.create(SBGridProperties);
 			grdGpcPop.bind('beforepagechanged', this.paging);
@@ -179,6 +190,7 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 			let itemNm = SBUxMethod.get("uoGpc-inp-itemNm");
 			let brno = SBUxMethod.get("uoGpc-inp-brno");
+			let yr = SBUxMethod.get("uoGpc-inp-yr");
 			let selType = SBUxMethod.get("uoGpc-inp-selType");
 
 			console.log(itemNm,brno,selType);
@@ -186,6 +198,7 @@
 			const postJsonPromise = gfn_postJSON("/fm/popup/selectGpcListPopup.do", {
 				itemNm : itemNm,
 				brno : brno,
+				yr : yr,
 				selType : selType,
 				// pagination
 				pagingYn : 'Y',
@@ -205,7 +218,9 @@
 							ctgryCd : item.ctgryCd,
 							ctgryNm : item.ctgryNm,
 							itemCd 	: item.itemCd,
-							itemNm 	: item.itemNm
+							itemNm 	: item.itemNm,
+							brno : item.brno,
+							corpNm : item.corpNm
 							//rmrk 	: item.rmrk
 					}
 					jsonGpcPop.push(gpc);
