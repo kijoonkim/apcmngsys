@@ -2353,8 +2353,9 @@
 			selType = 'N';
 		}
 		let brno = SBUxMethod.get('dtl-input-brno');//
-		console.log('fn_openMaodalGpcSelect',selType);
-		popGpcSelect.init(fn_setGridItem , selType , brno);
+		let yr = SBUxMethod.get('dtl-input-yr');//
+		if(gfn_isEmpty(brno)){return}
+		popGpcSelect.init(fn_setGridItem , selType , brno , yr);
 		SBUxMethod.openModal('modal-gpcList');
 	}
 
