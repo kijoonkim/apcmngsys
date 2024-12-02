@@ -202,7 +202,7 @@
     <div class="ad_tbl_top">
         <ul class="ad_tbl_count">
             <li>
-                <span>  급여산식결과</span>
+                <span>급여산식결과</span>
             </li>
         </ul>
         <div class="ad_tbl_toplist">
@@ -431,11 +431,12 @@
         SBGridProperties.id = 'gvwMasterGrid';
         SBGridProperties.jsonref = 'jsonMasterList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["□"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -493,6 +494,7 @@
 
         gvwMasterGrid = _SBGrid.create(SBGridProperties);
         gvwMasterGrid.bind('click', 'fn_view');
+        gvwMasterGrid.bind('keyup', 'fn_keyup');
     }
 
 
@@ -509,6 +511,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCategory',  label : 'label', value : 'value'}
@@ -534,6 +537,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
@@ -556,6 +560,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["항목코드"], ref: 'ITEM_CODE', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["항목명"], ref: 'ITEM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
@@ -658,7 +663,6 @@
                 if(jsonMasterList.length > 0) {
                     gvwMasterGrid.clickRow(1);
                 }
-                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -670,6 +674,12 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

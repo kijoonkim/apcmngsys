@@ -625,11 +625,12 @@
         SBGridProperties.id = 'gvwMasterGrid';
         SBGridProperties.jsonref = 'jsonMasterList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         /*SBGridProperties.allowcopy = true; //복사*/
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["급여항목구분"], ref : 'PAY_ITEM_CATEGORY', width : '170px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCategory', label : 'label', value : 'value'}
@@ -649,6 +650,7 @@
 
         gvwMasterGrid = _SBGrid.create(SBGridProperties);
         gvwMasterGrid.bind('click', 'fn_view');
+        gvwMasterGrid.bind('keyup', 'fn_keyup');
     }
 
     //급여변동항목 등록 리스트
@@ -659,7 +661,7 @@
         SBGridProperties.jsonref = 'jsonDetallList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
-
+        SBGridProperties.useinitsorting = true;
         if (chMode == 'clear') { //복사해제모드
             SBGridProperties.selectmode = 'free';
         } else if(chMode == 'line'){ //행복사모드
@@ -820,6 +822,11 @@
 
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
 
     //상세정보 보기
     async function fn_view() {

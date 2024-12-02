@@ -395,11 +395,12 @@
         SBGridProperties.id = 'gvwListGrid';
         SBGridProperties.jsonref = 'jsonGvwList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         /*SBGridProperties.allowcopy = true; //복사*/
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode1', displayui : true, label : 'label', value : 'value'}
@@ -417,6 +418,7 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
         gvwListGrid.bind('click', 'fn_view');
+        gvwListGrid.bind('keyup', 'fn_keyup');
     }
 
     //적용기준 상세
@@ -431,6 +433,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'output', width: '200px', style: 'text-align:left'},
@@ -590,6 +593,12 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기
