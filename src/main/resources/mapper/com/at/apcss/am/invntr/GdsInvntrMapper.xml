@@ -552,8 +552,8 @@
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
 		<!-- 	 상품재고 내역 검색조건 -->
-		<if test='prdcrCd != null and prdcrCd != ""'>
-			   AND GI.RPRS_PRDCR_CD = #{prdcrCd}
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
 		</if>
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
 			   AND GI.WRHS_SE_CD = #{wrhsSeCd}
@@ -1872,6 +1872,7 @@
 			AND ITEM_CD = #{itemCd}
 			AND VRTY_CD = #{vrtyCd}
 			AND SPCFCT_CD = #{spcfctCd}
+			AND GDS_GRD = #{gdsGrd}
 			AND DEL_YN = 'N'
 			AND (INVNTR_STTS_CD <> 'D1' OR INVNTR_STTS_CD IS NULL)
 		]]>

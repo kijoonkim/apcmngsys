@@ -70,11 +70,10 @@
             position: relative;
         }
         .cell{
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            flex: 0 0 100%;
-            justify-content: center;
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: repeat(5,1fr);
+            padding: 0px 5px;
         }
         .carouselBtn{
             width: 100%;
@@ -244,6 +243,18 @@
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row" class="th_bg">등급</th>
+                            <td id="grdCdWrap" class="td_input_mob" style="background: #e8f1f9;">
+                                <button class="carouselBtn" onclick="fn_left('grdCdWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('grdCdWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" style="padding: 0; font-size: 28px; font-weight: bold;">
                                 <div style="background: #275f81;flex-shrink: 0; padding: 10px 5vw; display: flex;gap: 5vw;color: white">
                                     <div style="display: flex;gap: 10px; flex-shrink: 0;">재고 <input id="invntrQntt" type="number" style="color: #0a199e; border: 1px solid black;width: 10vw; background: white; padding-left: 10px" readonly /></div>
@@ -251,6 +262,7 @@
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">생산자: <div id="prdcrcd" type="text" style="color: #fff"></div></div>
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">품종: <div id="vrtycd" type="text" style="color: #fff"></div></div>
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">규격: <div id="spcfctcd" type="text" style="color: #fff"></div></div>
+                                    <div style="display: flex;gap: 2px; flex-shrink: 0;">등급: <div id="grdcd" type="text" style="color: #fff"></div></div>
                                 </div>
                             </td>
                         </tr>
@@ -340,6 +352,10 @@
         vrtyInfoWrap : {
             CAROUSEL_LENGTH : 0,
             current : 0
+        },
+        grdCdWrap : {
+            CAROUSEL_LENGTH : 0,
+            current : 0
         }
     };
     let CAROUSEL_LENGTH = 0;
@@ -349,15 +365,21 @@
         let id = _el;
 
         if (carouselObj[id].current !== 0) {
+            let current = carouselObj[id].current + 1;
+            const nextElement = document.querySelector(`#${'${id}'} > div > div.carousel > .cell:nth-child(${'${current - 1}'})`);
+            const nextElementPosition = current === 2 ? 0 : nextElement.getBoundingClientRect().width * (current - 2);
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(-${'${nextElementPosition}'}px)`);
             carouselObj[id].current--;
-            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * -76.7}'}vw)`);
         }
     }
     function fn_right(_el){
         let id = _el;
 
         if (carouselObj[id].current !== carouselObj[id].CAROUSEL_LENGTH) {
-            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * -76.7}'}vw)`);
+            let current = carouselObj[id].current + 1;
+            const nextElement = document.querySelector(`#${'${id}'} > div > div.carousel > .cell:nth-child(${'${current + 1}'})`);
+            const nextElementPosition = nextElement.getBoundingClientRect().width * current;
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(-${'${nextElementPosition}'}px)`);
             carouselObj[id].current++;
         }
     }
@@ -386,16 +408,17 @@
         SBGridProperties.mergecells = 'bycol';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false,
+            {caption: ["처리"], ref: 'pckgno', type:'button', width:'10%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                 }
             },
-            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["생산자"],	ref: 'prdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
-            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
-            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
             {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["등급"],	ref: 'grdNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
             {caption: ["수량"],	ref: 'spmtQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
@@ -411,8 +434,24 @@
     const fn_search_prdcr = async function(){
         const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
-        await fn_append_button(data,"prdcrInfoWrap","prdcrNm","prdcrCd");
+        let filterData = await fn_search_prdcr_invntrY(data);
+        await fn_append_button(filterData,"prdcrInfoWrap","prdcrNm","prdcrCd");
         carouselObj.prdcrInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#prdcrInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    }
+    const fn_search_prdcr_invntrY = async function(origin){
+        const postJsonPromise = gfn_postJSON("/am/invntr/selectUpdateGdsInvntrList.do",{apcCd: gv_apcCd});
+        const data = await postJsonPromise;
+        let set = new Set();
+
+        if(data.resultStatus === 'S'){
+            data.resultList.forEach(function(item){
+                if(item.rprsPrdcrCd !== null){
+                    set.add(item.rprsPrdcrCd);
+                }
+            });
+        }
+        let uniqueArr = [...set];
+        return {resultList: origin.resultList.filter((items) =>  uniqueArr.some(unique => JSON.stringify(unique) === JSON.stringify(items.prdcrCd)))};
     }
     const fn_search_item = async function(){
         const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: gv_apcCd, delYn: "N"}, null, true);
@@ -430,6 +469,11 @@
         const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
+    }
+    const fn_search_stdGrd = async function(_itemCd){
+        const postJsonPromise = gfn_postJSON("/am/cmns/apcStdGrdDtls", {apcCd: gv_apcCd, grdSeCd:"03", itemCd: _itemCd, delYn:"N"});
+        const data = await postJsonPromise;
+        await fn_append_button(data,"grdCdWrap","grdNm","grdCd");
     }
 
     const fn_append_button = async function(data, id, label, value, flag = false){
@@ -519,6 +563,7 @@
             if(key == 'itemcd'){
                 await fn_search_spcfct(dataObj[key]);
                 await fn_search_vrty(dataObj[key]);
+                await fn_search_stdGrd(dataObj[key]);
                 /** 품목별 품종, 규격 셋팅시 active가 없으면 재고탭 refresh **/
                 /** 품종 **/
                 if(!$(`#vrtyInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
@@ -545,7 +590,7 @@
             $(`#${'${key}'}`).val($(_el).data(key));
         }
             /** 모든 탭이 선택될시 재고 조회 **/
-            fn_check_buttonAll();
+            await fn_check_buttonAll();
     }
     const fn_cntAdd = function(_el){
         let value = parseInt($(_el).text());
@@ -650,7 +695,7 @@
         /** 재고 조회시 옆탭에 json에 있는가 확인해야함. **/
         let activeCnt = $("div.tabBox.active").length;
 
-        if(activeCnt < 5)return;
+        if(activeCnt < 6)return;
 
         let elements = $("div.tabBox.active");
         let param = {
@@ -669,6 +714,8 @@
                 param[newKey] = String(value);
             });
         }
+        /** 등급추가 **/
+        param.gdsGrd = param.grdCd;
 
         const postJsonPromise = gfn_postJSON("/am/invntr/selectSimpGdsInvntr.do",param);
         const data = await postJsonPromise;
@@ -685,8 +732,8 @@
                 if(resultQntt <= 0){
                     if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
                         gfn_comAlert("W0017","재고");
-                        $("#invntrQntt").val(0);
                     }
+                    $("#invntrQntt").val(0);
                 }else{
                     $("#invntrQntt").val(resultQntt);
                 }
@@ -730,6 +777,10 @@
             gfn_comAlert("W0005","규격");
             return;
         }
+        if(!$("#grdCdWrap > div > div > div > div.tabBox.active").get(0)){
+            gfn_comAlert("W0005","등급");
+            return;
+        }
         if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
             if(!gfn_comConfirm("Q0001","추가")){
                 return;
@@ -737,6 +788,8 @@
         }
 
         spmtObj.spmtQntt = addCnt;
+        /** 등급추가 **/
+        spmtObj.gdsGrd = spmtObj.grdCd;
         let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(obj,spmtObj));
         if(prevObj){
             prevObj.invntrQntt += addCnt;
