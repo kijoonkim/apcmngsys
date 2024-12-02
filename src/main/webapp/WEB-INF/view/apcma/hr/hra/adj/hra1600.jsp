@@ -281,7 +281,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:550px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:330px; width:100%;"></div>
         </div>
 
         <div class="ad_tbl_top">
@@ -580,6 +580,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -632,7 +633,7 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-        /*gvwInfoGrid.bind('click', 'fn_view');*/
+       /* gvwInfoGrid.bind('click', 'fn_view');*/
     }
 
 

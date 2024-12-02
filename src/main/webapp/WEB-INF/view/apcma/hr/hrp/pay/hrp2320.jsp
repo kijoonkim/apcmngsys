@@ -575,13 +575,13 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwLog" style="height:800px; width:100%;"></div>
+                <div id="sb-area-gvwLog" style="height:250px; width:100%;"></div>
             </div>
             <div style="display: none">
-                <div id="sb-area-gvwBonus" style="height:800px; width:100%;"></div>
+                <div id="sb-area-gvwBonus" style="height:250px; width:100%;"></div>
             </div>
             <div style="display: none">
-                <div id="sb-area-gvwException" style="height:800px; width:100%;"></div>
+                <div id="sb-area-gvwException" style="height:250px; width:100%;"></div>
             </div>
         </div>
     </div>
@@ -802,6 +802,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
@@ -836,6 +837,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["근속기간(~개월 이상)"], ref : 'PAY_WORK_MONTHS', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonWorkMonthsType',  label : 'label', value : 'value'}
@@ -863,6 +865,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCodeType',  label : 'label', value : 'value'}

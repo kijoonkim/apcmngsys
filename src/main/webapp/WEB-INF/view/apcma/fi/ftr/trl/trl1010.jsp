@@ -1573,6 +1573,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.useinitsorting 	= true;
 	    SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
                 type 		: 'grand',
@@ -1626,6 +1627,7 @@
 
         Trl1010GridTop = _SBGrid.create(SBGridProperties);
         Trl1010GridTop.bind('click', 'fn_view');
+		Trl1010GridTop.bind('keyup', 'fn_keyup');
     }
 
 	//이율변동정보
@@ -1638,6 +1640,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["차입금번호"],		ref: 'LOAN_NUM', 			type:'input',  	width:'250px',  	style:'text-align:left'},
             //TODO : 화면상에는 순번 컬럼이지만 C#코드에서는 계획연변으로 되어있는 것으로 추측
@@ -2375,6 +2378,11 @@
 		}
 
 	}*/
+	const fn_keyup = async function(event) {
+		if(event.keyCode == 38 || event.keyCode == 40) {
+			fn_view();
+		}
+	}
 
 	//상세정보 보기
 	async function fn_view() {

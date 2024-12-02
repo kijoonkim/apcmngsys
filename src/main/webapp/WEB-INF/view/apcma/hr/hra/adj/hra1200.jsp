@@ -1014,6 +1014,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1033,6 +1034,13 @@
 
         gvwEmpListGrid = _SBGrid.create(SBGridProperties);
         gvwEmpListGrid.bind('click', 'fn_view');
+        gvwEmpListGrid.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
 
@@ -1048,6 +1056,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns =[
             {caption : ["비과세코드"], ref : 'TXFREE_CODE', width : '170px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonTxfreeCode',  label : 'label', value : 'value'}

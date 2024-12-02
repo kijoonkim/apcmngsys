@@ -1242,6 +1242,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["등록"], ref: 'CREATE', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -1293,6 +1294,7 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
 
     }
 
@@ -1308,6 +1310,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['시작일자'], 		ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -1376,6 +1379,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1415,6 +1419,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1455,6 +1460,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1496,6 +1502,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1538,6 +1545,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1583,6 +1591,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'INSU_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonInsuType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1634,6 +1643,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["사회보험"], ref : 'APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonApplyType', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1676,6 +1686,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['시작일'], ref: 'APPLY_START_DATE', 	width:'150px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -1706,6 +1717,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         //!*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["급여체계"], ref : 'PAY_GROUP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayGroupCode', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1744,6 +1756,11 @@
         gvwHrpMasterGrid = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
 
     //상세정보 보기
     async function fn_view() {

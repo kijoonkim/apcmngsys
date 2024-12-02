@@ -903,6 +903,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 5;
         SBGridProperties.columns = [
             {caption : ["구분","구 분"], ref : 'PAY_ITEM_CATEGORY', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -973,6 +974,7 @@
 
         gvwBandgvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwBandgvwInfoGrid.bind('click', 'fn_view');
+        gvwBandgvwInfoGrid.bind('keyup', 'fn_keyup');
     }
 
     /**
@@ -1093,6 +1095,12 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기

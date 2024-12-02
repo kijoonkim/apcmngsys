@@ -106,7 +106,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwMaster" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwMaster" style="height:540px; width:100%;"></div>
                 </div>
             </div>
 
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDetail" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-gvwDetail" style="height:350px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="dayTab" >
@@ -274,7 +274,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDay" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-gvwDay" style="height:350px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="convertTab" >
@@ -308,7 +308,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwConvertIncome" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-gvwConvertIncome" style="height:350px; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -457,6 +457,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['기준년도'], ref: 'YYYY', width:'170px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}, disabled: true},
@@ -472,7 +473,8 @@
         ];
 
         gvwMasterGrid = _SBGrid.create(SBGridProperties);
-        gvwMasterGrid.bind('click', 'fn_view')
+        gvwMasterGrid.bind('click', 'fn_view');
+        gvwMasterGrid.bind('keyup', 'fn_keyup');
     }
 
     //근속연수공제 리스트
@@ -488,6 +490,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
@@ -517,6 +520,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
@@ -544,6 +548,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
@@ -747,6 +752,12 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

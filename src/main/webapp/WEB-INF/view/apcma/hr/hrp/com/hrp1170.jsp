@@ -241,7 +241,7 @@
                 </div>
             </div>
             <div>
-                <div id="sb-area-gvwException" style="height:730px; width:100%;"></div>
+                <div id="sb-area-gvwException" style="height:550px; width:100%;"></div>
             </div>
         </div>
 
@@ -401,29 +401,29 @@
 
 
     const fn_createGrid = function(chMode, rowData) {
-
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwException';
         SBGridProperties.id = 'grdExceptionList';
         SBGridProperties.jsonref = 'jsonExceptionList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.rowheader =['update'];
-        if (chMode == 'clear') { //복사해제모드
-            SBGridProperties.selectmode = 'byrow';
-        } else if(chMode == 'line'){ //행복사모드
+        //SBGridProperties.rowheader =['update'];
+        if (_.isEqual(chMode, 'clear')) { //복사해제모드
+            SBGridProperties.selectmode = 'free';
+        } else if(_.isEqual(chMode, 'line')){ //행복사모드
             SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
             SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
 
-        } else if(chMode == 'cell'){ //셀복사모드
+        } else if(_.isEqual(chMode, 'cell')){ //셀복사모드
             SBGridProperties.selectmode = 'free';
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         }
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /*disabled: true,*/
@@ -433,14 +433,14 @@
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
             {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}/*, disabled: true*/},
             {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonApplyType',  displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',
                 format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
@@ -451,13 +451,15 @@
         ];
 
         grdExceptionList = _SBGrid.create(SBGridProperties);
-
-        if (rowData != null){
-            grdExceptionList.push(rowData);
-        }
-
         grdExceptionList.bind('valuechanged','gridValueChanged');
         grdExceptionList.bind('click', 'fn_view');
+        grdExceptionList.bind('keyup', 'fn_keyup');
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기

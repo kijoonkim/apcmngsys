@@ -144,7 +144,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwDocList" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwDocList" style="height:585px; width:100%;"></div>
                 </div>
             </div>
 
@@ -381,7 +381,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwInfo" style="height:630px; width:100%;"></div>
+                    <div id="sb-area-gvwInfo" style="height:440px; width:100%;"></div>
                 </div>
 
             </div>
@@ -570,6 +570,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['기준일(퇴직일)'], ref: 'EXPECTED_PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -595,6 +596,7 @@
 
         gvwDocListGrid = _SBGrid.create(SBGridProperties);
         gvwDocListGrid.bind('click', 'fn_view');
+        gvwDocListGrid.bind('keyup', 'fn_keyup');
     }
 
 
@@ -611,6 +613,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -677,6 +680,12 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기

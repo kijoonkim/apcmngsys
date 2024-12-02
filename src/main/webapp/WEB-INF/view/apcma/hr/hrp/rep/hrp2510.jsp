@@ -240,7 +240,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwInfo" style="height:780px; width:100%;"></div>
+                    <div id="sb-area-gvwInfo" style="height:530px; width:100%;"></div>
                 </div>
             </div>
 
@@ -254,7 +254,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwDetail" style="height:780px; width:100%;"></div>
+                    <div id="sb-area-gvwDetail" style="height:530px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -453,6 +453,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
@@ -471,6 +472,7 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
     }
 
     let columns1 = [
@@ -492,8 +494,8 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [];
-
         columns1.forEach((col) => {
             SBGridProperties.columns.push(col);
         });
@@ -598,6 +600,12 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

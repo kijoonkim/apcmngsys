@@ -321,6 +321,7 @@
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '35%', style: 'text-align:left'},
             {caption: ["소수유형명"], ref: 'DECIMAL_NAME', type: 'output', width: '35%', style: 'text-align:left'},
@@ -345,7 +346,14 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
-        /* gvwInfoGrid.bind('beforepagechanged', 'fn_pagingComMsgList');*/
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
+
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기

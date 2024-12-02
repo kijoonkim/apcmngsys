@@ -243,17 +243,17 @@
         <div class="tab-content">
             <div id="tabInfo1" >
                 <div>
-                    <div id="sb-area-gvwC" style="height:380px; width:100%;"></div>
+                    <div id="sb-area-gvwC" style="height:180px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2" >
                 <div>
-                    <div id="sb-area-gvwCA" style="height:380px; width:100%;"></div>
+                    <div id="sb-area-gvwCA" style="height:180px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo3" >
                 <div>
-                    <div id="sb-area-gvwH" style="height:380px; width:100%;"></div>
+                    <div id="sb-area-gvwH" style="height:180px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -266,7 +266,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwHistory" style="height:380px; width:100%;"></div>
+            <div id="sb-area-gvwHistory" style="height:180px; width:100%;"></div>
         </div>
 
     </div>
@@ -495,12 +495,13 @@
         SBGridProperties.id = 'gvwCGrid';
         SBGridProperties.jsonref = 'jsonCList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
             {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -537,12 +538,13 @@
         SBGridProperties.id = 'gvwCAGrid';
         SBGridProperties.jsonref = 'jsonCAList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
             {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -582,12 +584,13 @@
         SBGridProperties.id = 'gvwHGrid';
         SBGridProperties.jsonref = 'jsonHList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
             {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '230px', style : 'text-align:center', type : 'combo', disabled: true,
@@ -618,12 +621,13 @@
         SBGridProperties.id = 'gvwHistoryGrid';
         SBGridProperties.jsonref = 'jsonHistoryList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.rowheader =['update'];
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'SEQ', type: 'output', width: '230px', style: 'text-align:left'},

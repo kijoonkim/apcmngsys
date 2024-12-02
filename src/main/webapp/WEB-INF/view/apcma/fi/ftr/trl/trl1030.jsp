@@ -1213,6 +1213,7 @@
 		SBGridProperties.selectmode 		= 'byrow';
 		SBGridProperties.explorerbar 		= 'sortmove';
 		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.useinitsorting 	= true;
 		SBGridProperties.frozenbottomrows 	= 1;
 		SBGridProperties.total 				= {
 			type 		: 'grand',
@@ -1266,6 +1267,7 @@
 
 		Trl1030GridTop = _SBGrid.create(SBGridProperties);
 		Trl1030GridTop.bind('click', 'fn_view');
+		Trl1030GridTop.bind('keyup', 'fn_keyup');
 	}
     
     /*function fn_createTrl1030GridTop() {
@@ -1349,6 +1351,7 @@
 		SBGridProperties.selectmode 		= 'byrow';
 		SBGridProperties.explorerbar 		= 'sortmove';
 		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.useinitsorting 	= true;
 		SBGridProperties.columns = [
 			{caption: ["차입금번호"], 		ref: 'LOAN_NUM', 			  	type:'output',  	width:'230px',  	style:'text-align:left'},
 			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -2059,6 +2062,12 @@
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 
+	}
+
+	const fn_keyup = async function(event) {
+		if(event.keyCode == 38 || event.keyCode == 40) {
+			fn_view();
+		}
 	}
 
 	//상세정보 보기

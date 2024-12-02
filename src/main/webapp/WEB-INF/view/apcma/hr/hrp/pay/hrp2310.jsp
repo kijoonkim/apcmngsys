@@ -180,7 +180,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:585px; width:100%;"></div>
                 </div>
             </div>
 
@@ -561,7 +561,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwPay" style="height:400px; width:100%;"></div>
+                            <div id="sb-area-gvwPay" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -595,7 +595,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDeduct" style="height:400px; width:100%;"></div>
+                            <div id="sb-area-gvwDeduct" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -608,7 +608,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-gvwBasic" style="height:400px; width:100%;"></div>
+                            <div id="sb-area-gvwBasic" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -811,12 +811,13 @@
         SBGridProperties.id = 'gvwListGrid';
         SBGridProperties.jsonref = 'jsonGvwList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true;
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["□"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -861,6 +862,7 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
         gvwListGrid.bind('click', 'fn_view');
+        gvwListGrid.bind('keyup', 'fn_keyup');
     }
 
     //지급항목 리스트
@@ -876,6 +878,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["수당항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode1',  label : 'label', value : 'value'}
@@ -913,6 +916,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode2',  label : 'label', value : 'value'}
@@ -949,6 +953,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["기초항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode3',  label : 'label', value : 'value'}
@@ -1121,6 +1126,11 @@
 
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
 
     //상세정보 보기
     async function fn_view() {

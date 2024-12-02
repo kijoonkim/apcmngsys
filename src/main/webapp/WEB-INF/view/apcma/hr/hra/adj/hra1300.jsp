@@ -697,6 +697,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -720,6 +721,7 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
         gvwListGrid.bind('click', 'fn_view');
+        gvwListGrid.bind('keyup', 'fn_keyup');
     }
 
 
@@ -735,6 +737,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonWorkCompanyType',  label : 'label', value : 'value'}
@@ -795,7 +798,6 @@
         ];
 
         gvwWorkComGrid = _SBGrid.create(SBGridProperties);
-        /*gvwHistoryGrid.bind('click', 'fn_view');*/
     }
 
 
@@ -834,7 +836,6 @@
         ];
 
         gvwTaxFreeGrid = _SBGrid.create(SBGridProperties);
-       /* gvwListGrid.bind('click', 'fn_view');*/
     }
 
     /**
@@ -844,6 +845,12 @@
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기
