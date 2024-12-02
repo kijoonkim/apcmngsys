@@ -143,16 +143,23 @@
 				    	<if test='apcCd != null and apcCd != ""'>
 				    		DTL.APC_CD = #{apcCd}
 						</if>
-				    	<![CDATA[
+						<if test='fcltCd != null and fcltCd != ""'>
+				    		AND DTL.CD_VL = #{fcltCd}
+					  	</if>
+
 				     		 AND DTL.CD_ID  = #{fcltType}) DTL
-    			,(SELECT * FROM TB_OPRTNG_APC_FCLT_ITEM WHERE DEL_YN = 'N') OAFI
+    			,(SELECT
+    				*
+    				FROM TB_OPRTNG_APC_FCLT_ITEM
+   					WHERE DEL_YN = 'N'
+   					) OAFI
 
 			 WHERE 1=1
 		 		  AND DTL.APC_CD = OAFI.APC_CD(+)
 		    	  AND DTL.CD_ID = OAFI.FCLT_TYPE(+)
  	    		  AND DTL.CD_VL = OAFI.FCLT_CD(+)
 
-		]]>
+
 
 
 

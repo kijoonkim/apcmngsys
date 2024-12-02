@@ -206,11 +206,11 @@ public class SortFcltServiceImpl extends BaseServiceImpl implements SortFcltServ
 	@Override
 	public int insertSortOprtngCrtr(List<SortFcltVO> sortFcltVO) throws Exception {
 		sortFcltVO.forEach(item -> {
-			String status = item.getStatus();
+			String gubun = item.getGubun();
 			try {
-				if(status.equals("3") ) {
+				if(gubun.equals("insert") ) {
 					sortFcltMapper.insertSortOprtngCrtr(item);
-				}else if(status.equals("2")) {
+				}else if(gubun.equals("update")) {
 					sortFcltMapper.updateSortOprtngCrtr(item);
 				}
 			} catch (Exception e) {
