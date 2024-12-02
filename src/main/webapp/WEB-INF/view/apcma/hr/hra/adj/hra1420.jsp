@@ -220,7 +220,7 @@
             ></sbux-button>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:780px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:550px; width:100%;"></div>
         </div>
     </div>
 </section>
@@ -467,6 +467,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["사업장"], ref : 'SITE_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSiteCode',  label : 'label', value : 'value'}, hidden : true

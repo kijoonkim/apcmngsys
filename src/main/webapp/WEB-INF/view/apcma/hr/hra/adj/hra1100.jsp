@@ -2049,6 +2049,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2065,7 +2066,6 @@
         ];
 
         gvwDeductionGrid = _SBGrid.create(SBGridProperties);
-        /*gvwDeductionGrid.bind('click', 'fn_view');*/
     }
 
     //신규 작성

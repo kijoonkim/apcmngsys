@@ -207,7 +207,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwInfo" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwInfo" style="height:550px; width:100%;"></div>
                 </div>
             </div>
 
@@ -345,7 +345,7 @@
                 <div class="tab-content">
                     <div id="tabInfo1" >
                         <div>
-                            <div id="sb-area-gvwIncome" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-gvwIncome" style="height:350px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="tabInfo2" >
@@ -2293,6 +2293,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '200px', style: 'text-align:left'},
@@ -2311,6 +2312,7 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
     }
 
     //소득명세 리스트
@@ -2326,6 +2328,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
@@ -2465,6 +2468,13 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

@@ -250,7 +250,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwInfo" style="height:730px; width:100%;"></div>
+                <div id="sb-area-gvwInfo" style="height:530px; width:100%;"></div>
             </div>
         </div>
     </div>
@@ -497,6 +497,7 @@
         //그리드 총계 하단 고정
         /*SBGridProperties.frozenbottomrows 	= 1;*/
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -539,7 +540,6 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-        /*gvwInfoGrid.bind('click', 'fn_view');*/
     }
 
     /**

@@ -2024,7 +2024,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -2053,7 +2053,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -2143,8 +2143,8 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-            let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+            let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+            let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
             let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
             if (!YE_TX_YYYY) {
@@ -2176,7 +2176,9 @@
             }*/
 
             //연금보험료공제, 특별소득공제, 그밖의 소득공제, 세금감면/세액공제, 저장
-            fn_saveS1('U'); //P_HRA1400_2023_S1
+            if (fn_saveS1('U') == false){
+                return;
+            }
 
             //인적공제 및 소득공제 명세 리스트
             let supportData = gvwSupportGrid.getUpdateData(true, 'all');
@@ -2277,6 +2279,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -2334,6 +2337,7 @@
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
         gvwListGrid.bind('click', 'fn_view');
+        gvwListGrid.bind('keyup', 'fn_keyup');
     }
 
     //인적공제 및 소득공제 명세 리스트
@@ -2348,6 +2352,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
             {caption: ["가족성명"], ref: 'FAMILY_NAME', type: 'input', width: '100px', style: 'text-align:left'},
@@ -2564,6 +2569,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'PENS_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["소득공제구분"], ref : 'PENS_DED_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
@@ -2613,6 +2619,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'HS_MM_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["월세액 임대인 성명(상호)"], ref: 'HS_MM_LESSOR_NAME', type: 'input', width: '170px', style: 'text-align:left'},
@@ -2674,6 +2681,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'MED_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'MED_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
@@ -2732,6 +2740,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'DON_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption : ["기부자"], ref : 'DONATION_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
@@ -2775,6 +2784,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
@@ -2812,6 +2822,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
@@ -2850,6 +2861,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
@@ -2887,6 +2899,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'INSURE_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'INSURE_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
@@ -2913,7 +2926,7 @@
      */
     const fn_search = async function (workType) {
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!YE_TX_YYYY) {
@@ -2925,14 +2938,14 @@
             return;
         }
 
-        let RET_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_FR")); //퇴사일
-        let RET_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_TO")); //퇴사일
+        let RET_DATE_FR     = gfnma_nvl2(SBUxMethod.get("SRCH_RET_DATE_FR")); //퇴사일
+        let RET_DATE_TO     = gfnma_nvl2(SBUxMethod.get("SRCH_RET_DATE_TO")); //퇴사일
         let SITE_CODE	    = gfnma_multiSelectGet('#SRCH_SITE_CODE');//사업장
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let DEPT_NAME       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME")); //부서
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-        let EMP_NAME        = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //사원
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let DEPT_NAME       = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_NAME")); //부서
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let EMP_NAME        = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_NAME")); //사원
 
 
         var paramObj = {
@@ -2976,25 +2989,25 @@
                 jsonList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHECK_YN                : gfn_nvl(item.CHECK_YN),
-                        EMP_CODE                : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME                : gfn_nvl(item.EMP_NAME),
-                        EMP_FULL_NAME           : gfn_nvl(item.EMP_FULL_NAME),
-                        RETIRE_DATE             : gfn_nvl(item.RETIRE_DATE),
-                        SOCNO                   : gfn_nvl(item.SOCNO),
-                        SOCIAL_NO_REAL          : gfn_nvl(item.SOCIAL_NO_REAL),
-                        SITE_CODE               : gfn_nvl(item.SITE_CODE),
-                        WORK_DATE               : gfn_nvl(item.WORK_DATE),
-                        LIVE_YN                 : gfn_nvl(item.LIVE_YN),
-                        LIVE_NATION_CODE        : gfn_nvl(item.LIVE_NATION_CODE),
-                        FAMILY_OWNER_YN         : gfn_nvl(item.FAMILY_OWNER_YN),
-                        BEF_YEAR_EQUAL_YN       : gfn_nvl(item.BEF_YEAR_EQUAL_YN),
-                        FOREI_TX_YN             : gfn_nvl(item.FOREI_TX_YN),
-                        FOREITX_DISPATCH_WRK_YN : gfn_nvl(item.FOREITX_DISPATCH_WRK_YN),
-                        CLOSE_STATE             : gfn_nvl(item.CLOSE_STATE),
-                        DEPT_NAME               : gfn_nvl(item.DEPT_NAME),
-                        UPLOAD_TIME             : gfn_nvl(item.UPLOAD_TIME),
-                        UPLOAD_USERID           : gfn_nvl(item.UPLOAD_USERID),
+                        CHECK_YN                : gfnma_nvl2(item.CHECK_YN),
+                        EMP_CODE                : gfnma_nvl2(item.EMP_CODE),
+                        EMP_NAME                : gfnma_nvl2(item.EMP_NAME),
+                        EMP_FULL_NAME           : gfnma_nvl2(item.EMP_FULL_NAME),
+                        RETIRE_DATE             : gfnma_nvl2(item.RETIRE_DATE),
+                        SOCNO                   : gfnma_nvl2(item.SOCNO),
+                        SOCIAL_NO_REAL          : gfnma_nvl2(item.SOCIAL_NO_REAL),
+                        SITE_CODE               : gfnma_nvl2(item.SITE_CODE),
+                        WORK_DATE               : gfnma_nvl2(item.WORK_DATE),
+                        LIVE_YN                 : gfnma_nvl2(item.LIVE_YN),
+                        LIVE_NATION_CODE        : gfnma_nvl2(item.LIVE_NATION_CODE),
+                        FAMILY_OWNER_YN         : gfnma_nvl2(item.FAMILY_OWNER_YN),
+                        BEF_YEAR_EQUAL_YN       : gfnma_nvl2(item.BEF_YEAR_EQUAL_YN),
+                        FOREI_TX_YN             : gfnma_nvl2(item.FOREI_TX_YN),
+                        FOREITX_DISPATCH_WRK_YN : gfnma_nvl2(item.FOREITX_DISPATCH_WRK_YN),
+                        CLOSE_STATE             : gfnma_nvl2(item.CLOSE_STATE),
+                        DEPT_NAME               : gfnma_nvl2(item.DEPT_NAME),
+                        UPLOAD_TIME             : gfnma_nvl2(item.UPLOAD_TIME),
+                        UPLOAD_USERID           : gfnma_nvl2(item.UPLOAD_USERID),
 
                     }
                     jsonList.push(msg);
@@ -3022,6 +3035,12 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
+
     //상세정보 보기
     async function fn_view() {
 
@@ -3037,7 +3056,7 @@
 
         let rowData = gvwListGrid.getRowData(nRow);
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!YE_TX_YYYY) {
@@ -3049,12 +3068,12 @@
             return;
         }
 
-        let RET_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_FR")); //퇴사일
-        let RET_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_RET_DATE_TO")); //퇴사일
+        let RET_DATE_FR     = gfnma_nvl2(SBUxMethod.get("SRCH_RET_DATE_FR")); //퇴사일
+        let RET_DATE_TO     = gfnma_nvl2(SBUxMethod.get("SRCH_RET_DATE_TO")); //퇴사일
         let SITE_CODE	    = gfnma_multiSelectGet('#SRCH_SITE_CODE');//사업장
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE       = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-       /* let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원*/
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+       /* let EMP_CODE = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원*/
 
 
         if (_.isEmpty(rowData) == false) {
@@ -3104,100 +3123,100 @@
                     jsonSupportList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            FAMILY_NAME                 : gfn_nvl(item.FAMILY_NAME),
-                            FAMILY_SOCNO                : gfn_nvl(item.FAMILY_SOCNO),
-                            FAMILY_SOCIAL_NO_REAL       : gfn_nvl(item.FAMILY_SOCIAL_NO_REAL),
-                            FAMILY_BIRTHDAY             : gfn_nvl(item.FAMILY_BIRTHDAY),
-                            FAMILY_YE_TX_REL            : gfn_nvl(item.FAMILY_YE_TX_REL),
-                            FAMILY_FOREI_YN             : gfn_nvl(item.FAMILY_FOREI_YN),
-                            FAMILY_BASIC_DED_YN         : gfn_nvl(item.FAMILY_BASIC_DED_YN),
-                            FAMILY_SENIOR_YN            : gfn_nvl(item.FAMILY_SENIOR_YN),
-                            FAMILY_WOMAN_YN             : gfn_nvl(item.FAMILY_WOMAN_YN),
-                            FAMILY_SINGLE_PARENT_YN     : gfn_nvl(item.FAMILY_SINGLE_PARENT_YN),
-                            FAMILY_HDCP_TYPE            : gfn_nvl(item.FAMILY_HDCP_TYPE),
-                            FAMILY_BRING_CHILD_YN       : gfn_nvl(item.FAMILY_BRING_CHILD_YN),
-                            FAMILY_CHILDBIRTH_YN        : gfn_nvl(item.FAMILY_CHILDBIRTH_YN),
-                            INSURANCE_AMT_NTS           : gfn_nvl(item.INSURANCE_AMT_NTS),
-                            INSURANCE_AMT_ETC           : gfn_nvl(item.INSURANCE_AMT_ETC),
-                            HDCP_INSURANCE_AMT_NTS      : gfn_nvl(item.HDCP_INSURANCE_AMT_NTS),
-                            HDCP_INSURANCE_AMT_ETC      : gfn_nvl(item.HDCP_INSURANCE_AMT_ETC),
-                            MED_EXP_AMT_NTS             : gfn_nvl(item.MED_EXP_AMT_NTS),
-                            MED_EXP_AMT_ETC             : gfn_nvl(item.MED_EXP_AMT_ETC),
-                            EDU_EXP_TYPE                : gfn_nvl(item.EDU_EXP_TYPE),
-                            EDU_EXP_AMT_NTS             : gfn_nvl(item.EDU_EXP_AMT_NTS),
-                            EDU_EXP_AMT_ETC             : gfn_nvl(item.EDU_EXP_AMT_ETC),
-                            EDU_HDCP_TYPE               : gfn_nvl(item.EDU_HDCP_TYPE),
-                            EDU_EXP_HDCP_AMT_NTS        : gfn_nvl(item.EDU_EXP_HDCP_AMT_NTS),
-                            EDU_EXP_HDCP_AMT_ETC        : gfn_nvl(item.EDU_EXP_HDCP_AMT_ETC),
-                            CD_USE_AMT_NTS              : gfn_nvl(item.CD_USE_AMT_NTS),
-                            CD_USE_AMT_ETC              : gfn_nvl(item.CD_USE_AMT_ETC),
-                            CHKCD_USE_AMT_NTS           : gfn_nvl(item.CHKCD_USE_AMT_NTS),
-                            CHKCD_USE_AMT_ETC           : gfn_nvl(item.CHKCD_USE_AMT_ETC),
-                            CASH_USE_AMT_NTS            : gfn_nvl(item.CASH_USE_AMT_NTS),
-                            TDMK_AMT_NTS                : gfn_nvl(item.TDMK_AMT_NTS),
-                            TDMK_AMT_ETC                : gfn_nvl(item.TDMK_AMT_ETC),
-                            TDMK_AMT1_NTS               : gfn_nvl(item.TDMK_AMT1_NTS),
-                            TDMK_AMT1_ETC               : gfn_nvl(item.TDMK_AMT1_ETC),
-                            TDMK_AMT2_NTS               : gfn_nvl(item.TDMK_AMT2_NTS),
-                            TDMK_AMT2_ETC               : gfn_nvl(item.TDMK_AMT2_ETC),
-                            PBTRN_AMT_NTS               : gfn_nvl(item.PBTRN_AMT_NTS),
-                            PBTRN_AMT_A_NTS             : gfn_nvl(item.PBTRN_AMT_A_NTS),
-                            PBTRN_AMT_B_NTS             : gfn_nvl(item.PBTRN_AMT_B_NTS),
-                            PBTRN_AMT_ETC               : gfn_nvl(item.PBTRN_AMT_ETC),
-                            PBTRN_AMT_A_ETC             : gfn_nvl(item.PBTRN_AMT_A_ETC),
-                            PBTRN_AMT_B_ETC             : gfn_nvl(item.PBTRN_AMT_B_ETC),
-                            BOOK_PERF_AMT_NTS           : gfn_nvl(item.BOOK_PERF_AMT_NTS),
-                            BOOK_PERF_AMT_ETC           : gfn_nvl(item.BOOK_PERF_AMT_ETC),
-                            BOOK_PERF_AMT1_NTS          : gfn_nvl(item.BOOK_PERF_AMT1_NTS),
-                            BOOK_PERF_AMT1_ETC          : gfn_nvl(item.BOOK_PERF_AMT1_ETC),
-                            BOOK_PERF_AMT2_NTS          : gfn_nvl(item.BOOK_PERF_AMT2_NTS),
-                            BOOK_PERF_AMT2_ETC          : gfn_nvl(item.BOOK_PERF_AMT2_ETC),
-                            CD_BOOK_PERF_AMT_NTS        : gfn_nvl(item.CD_BOOK_PERF_AMT_NTS),
-                            CD_BOOK_PERF_AMT_ETC        : gfn_nvl(item.CD_BOOK_PERF_AMT_ETC),
-                            CD_BOOK_PERF_AMT1_NTS       : gfn_nvl(item.CD_BOOK_PERF_AMT1_NTS),
-                            CD_BOOK_PERF_AMT1_ETC       : gfn_nvl(item.CD_BOOK_PERF_AMT1_ETC),
-                            CD_BOOK_PERF_AMT2_NTS       : gfn_nvl(item.CD_BOOK_PERF_AMT2_NTS),
-                            CD_BOOK_PERF_AMT2_ETC       : gfn_nvl(item.CD_BOOK_PERF_AMT2_ETC),
-                            CHKCD_BOOK_PERF_AMT_NTS     : gfn_nvl(item.CHKCD_BOOK_PERF_AMT_NTS),
-                            CHKCD_BOOK_PERF_AMT_ETC     : gfn_nvl(item.CHKCD_BOOK_PERF_AMT_ETC),
-                            CHKCD_BOOK_PERF_AMT1_NTS    : gfn_nvl(item.CHKCD_BOOK_PERF_AMT1_NTS),
-                            CHKCD_BOOK_PERF_AMT1_ETC    : gfn_nvl(item.CHKCD_BOOK_PERF_AMT1_ETC),
-                            CHKCD_BOOK_PERF_AMT2_NTS    : gfn_nvl(item.CHKCD_BOOK_PERF_AMT2_NTS),
-                            CHKCD_BOOK_PERF_AMT2_ETC    : gfn_nvl(item.CHKCD_BOOK_PERF_AMT2_ETC),
-                            CASH_BOOK_PERF_AMT_NTS      : gfn_nvl(item.CASH_BOOK_PERF_AMT_NTS),
-                            CASH_BOOK_PERF_AMT1_NTS     : gfn_nvl(item.CASH_BOOK_PERF_AMT1_NTS),
-                            CASH_BOOK_PERF_AMT2_NTS     : gfn_nvl(item.CASH_BOOK_PERF_AMT2_NTS),
-                            CD_USE_PREV_AMT_NTS         : gfn_nvl(item.CD_USE_PREV_AMT_NTS),
-                            CD_USE_PREV_AMT_ETC         : gfn_nvl(item.CD_USE_PREV_AMT_ETC),
-                            CD_USE_THIS_AMT_NTS         : gfn_nvl(item.CD_USE_THIS_AMT_NTS),
-                            CD_USE_THIS_AMT_ETC         : gfn_nvl(item.CD_USE_THIS_AMT_ETC),
-                            TDMK_PREV_AMT_NTS           : gfn_nvl(item.TDMK_PREV_AMT_NTS),
-                            TDMK_PREV_AMT_ETC           : gfn_nvl(item.TDMK_PREV_AMT_ETC),
-                            TDMK_THIS_AMT_NTS           : gfn_nvl(item.TDMK_THIS_AMT_NTS),
-                            TDMK_THIS_AMT_ETC           : gfn_nvl(item.TDMK_THIS_AMT_ETC),
-                            DON_AMT_NTS                 : gfn_nvl(item.DON_AMT_NTS),
-                            DON_AMT_ETC                 : gfn_nvl(item.DON_AMT_ETC),
-                            MED_INFERTILITY_AMT         : gfn_nvl(item.MED_INFERTILITY_AMT),
-                            POSTPARTUM_CARE_CENTER_AMT  : gfn_nvl(item.POSTPARTUM_CARE_CENTER_AMT),
-                            LOSS_MEDICAL_INSURANCE_AMT  : gfn_nvl(item.LOSS_MEDICAL_INSURANCE_AMT),
-                            PREEMIE_BABY_AMT            : gfn_nvl(item.PREEMIE_BABY_AMT),
-                            EDU_SCH_UNIFORM_AMT_NTS     : gfn_nvl(item.EDU_SCH_UNIFORM_AMT_NTS),
-                            EDU_SCH_UNIFORM_AMT_ETC     : gfn_nvl(item.EDU_SCH_UNIFORM_AMT_ETC),
-                            EDU_EXP_TRAINING_AMT_NTS    : gfn_nvl(item.EDU_EXP_TRAINING_AMT_NTS),
-                            EDU_EXP_TRAINING_AMT_ETC    : gfn_nvl(item.EDU_EXP_TRAINING_AMT_ETC),
-                            EDU_EXP_SAT_PAY_AMT_NTS     : gfn_nvl(item.EDU_EXP_SAT_PAY_AMT_NTS),
-                            EDU_EXP_SAT_PAY_AMT_ETC     : gfn_nvl(item.EDU_EXP_SAT_PAY_AMT_ETC),
-                            FAMILY_CHILD_SEQ_TYPE       : gfn_nvl(item.FAMILY_CHILD_SEQ_TYPE),
-                            MED_SENIOR_HDCP_AMT_NTS     : gfn_nvl(item.MED_SENIOR_HDCP_AMT_NTS),
-                            MED_SENIOR_HDCP_AMT_ETC     : gfn_nvl(item.MED_SENIOR_HDCP_AMT_ETC),
-                            FAMILY_65AGE_HDC_YN         : gfn_nvl(item.FAMILY_65AGE_HDC_YN),
-                            MED_SENIOR_HDCP_AMT_NTS     : gfn_nvl(item.MED_SENIOR_HDCP_AMT_NTS),
-                            MED_SENIOR_HDCP_AMT_ETC     : gfn_nvl(item.MED_SENIOR_HDCP_AMT_ETC),
-                            FAMILY_50AGE_YN             : gfn_nvl(item.FAMILY_50AGE_YN),
-                            R101_BUSNID                 : gfn_nvl(item.R101_BUSNID),
-                            R101_TRADE_NM               : gfn_nvl(item.R101_TRADE_NM),
-                            R101_PWD_CD                 : gfn_nvl(item.R101_PWD_CD),
-                            DATA_SOURCE                 : gfn_nvl(item.DATA_SOURCE),
+                            FAMILY_NAME                 : gfnma_nvl2(item.FAMILY_NAME),
+                            FAMILY_SOCNO                : gfnma_nvl2(item.FAMILY_SOCNO),
+                            FAMILY_SOCIAL_NO_REAL       : gfnma_nvl2(item.FAMILY_SOCIAL_NO_REAL),
+                            FAMILY_BIRTHDAY             : gfnma_nvl2(item.FAMILY_BIRTHDAY),
+                            FAMILY_YE_TX_REL            : gfnma_nvl2(item.FAMILY_YE_TX_REL),
+                            FAMILY_FOREI_YN             : gfnma_nvl2(item.FAMILY_FOREI_YN),
+                            FAMILY_BASIC_DED_YN         : gfnma_nvl2(item.FAMILY_BASIC_DED_YN),
+                            FAMILY_SENIOR_YN            : gfnma_nvl2(item.FAMILY_SENIOR_YN),
+                            FAMILY_WOMAN_YN             : gfnma_nvl2(item.FAMILY_WOMAN_YN),
+                            FAMILY_SINGLE_PARENT_YN     : gfnma_nvl2(item.FAMILY_SINGLE_PARENT_YN),
+                            FAMILY_HDCP_TYPE            : gfnma_nvl2(item.FAMILY_HDCP_TYPE),
+                            FAMILY_BRING_CHILD_YN       : gfnma_nvl2(item.FAMILY_BRING_CHILD_YN),
+                            FAMILY_CHILDBIRTH_YN        : gfnma_nvl2(item.FAMILY_CHILDBIRTH_YN),
+                            INSURANCE_AMT_NTS           : gfnma_nvl2(item.INSURANCE_AMT_NTS),
+                            INSURANCE_AMT_ETC           : gfnma_nvl2(item.INSURANCE_AMT_ETC),
+                            HDCP_INSURANCE_AMT_NTS      : gfnma_nvl2(item.HDCP_INSURANCE_AMT_NTS),
+                            HDCP_INSURANCE_AMT_ETC      : gfnma_nvl2(item.HDCP_INSURANCE_AMT_ETC),
+                            MED_EXP_AMT_NTS             : gfnma_nvl2(item.MED_EXP_AMT_NTS),
+                            MED_EXP_AMT_ETC             : gfnma_nvl2(item.MED_EXP_AMT_ETC),
+                            EDU_EXP_TYPE                : gfnma_nvl2(item.EDU_EXP_TYPE),
+                            EDU_EXP_AMT_NTS             : gfnma_nvl2(item.EDU_EXP_AMT_NTS),
+                            EDU_EXP_AMT_ETC             : gfnma_nvl2(item.EDU_EXP_AMT_ETC),
+                            EDU_HDCP_TYPE               : gfnma_nvl2(item.EDU_HDCP_TYPE),
+                            EDU_EXP_HDCP_AMT_NTS        : gfnma_nvl2(item.EDU_EXP_HDCP_AMT_NTS),
+                            EDU_EXP_HDCP_AMT_ETC        : gfnma_nvl2(item.EDU_EXP_HDCP_AMT_ETC),
+                            CD_USE_AMT_NTS              : gfnma_nvl2(item.CD_USE_AMT_NTS),
+                            CD_USE_AMT_ETC              : gfnma_nvl2(item.CD_USE_AMT_ETC),
+                            CHKCD_USE_AMT_NTS           : gfnma_nvl2(item.CHKCD_USE_AMT_NTS),
+                            CHKCD_USE_AMT_ETC           : gfnma_nvl2(item.CHKCD_USE_AMT_ETC),
+                            CASH_USE_AMT_NTS            : gfnma_nvl2(item.CASH_USE_AMT_NTS),
+                            TDMK_AMT_NTS                : gfnma_nvl2(item.TDMK_AMT_NTS),
+                            TDMK_AMT_ETC                : gfnma_nvl2(item.TDMK_AMT_ETC),
+                            TDMK_AMT1_NTS               : gfnma_nvl2(item.TDMK_AMT1_NTS),
+                            TDMK_AMT1_ETC               : gfnma_nvl2(item.TDMK_AMT1_ETC),
+                            TDMK_AMT2_NTS               : gfnma_nvl2(item.TDMK_AMT2_NTS),
+                            TDMK_AMT2_ETC               : gfnma_nvl2(item.TDMK_AMT2_ETC),
+                            PBTRN_AMT_NTS               : gfnma_nvl2(item.PBTRN_AMT_NTS),
+                            PBTRN_AMT_A_NTS             : gfnma_nvl2(item.PBTRN_AMT_A_NTS),
+                            PBTRN_AMT_B_NTS             : gfnma_nvl2(item.PBTRN_AMT_B_NTS),
+                            PBTRN_AMT_ETC               : gfnma_nvl2(item.PBTRN_AMT_ETC),
+                            PBTRN_AMT_A_ETC             : gfnma_nvl2(item.PBTRN_AMT_A_ETC),
+                            PBTRN_AMT_B_ETC             : gfnma_nvl2(item.PBTRN_AMT_B_ETC),
+                            BOOK_PERF_AMT_NTS           : gfnma_nvl2(item.BOOK_PERF_AMT_NTS),
+                            BOOK_PERF_AMT_ETC           : gfnma_nvl2(item.BOOK_PERF_AMT_ETC),
+                            BOOK_PERF_AMT1_NTS          : gfnma_nvl2(item.BOOK_PERF_AMT1_NTS),
+                            BOOK_PERF_AMT1_ETC          : gfnma_nvl2(item.BOOK_PERF_AMT1_ETC),
+                            BOOK_PERF_AMT2_NTS          : gfnma_nvl2(item.BOOK_PERF_AMT2_NTS),
+                            BOOK_PERF_AMT2_ETC          : gfnma_nvl2(item.BOOK_PERF_AMT2_ETC),
+                            CD_BOOK_PERF_AMT_NTS        : gfnma_nvl2(item.CD_BOOK_PERF_AMT_NTS),
+                            CD_BOOK_PERF_AMT_ETC        : gfnma_nvl2(item.CD_BOOK_PERF_AMT_ETC),
+                            CD_BOOK_PERF_AMT1_NTS       : gfnma_nvl2(item.CD_BOOK_PERF_AMT1_NTS),
+                            CD_BOOK_PERF_AMT1_ETC       : gfnma_nvl2(item.CD_BOOK_PERF_AMT1_ETC),
+                            CD_BOOK_PERF_AMT2_NTS       : gfnma_nvl2(item.CD_BOOK_PERF_AMT2_NTS),
+                            CD_BOOK_PERF_AMT2_ETC       : gfnma_nvl2(item.CD_BOOK_PERF_AMT2_ETC),
+                            CHKCD_BOOK_PERF_AMT_NTS     : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT_NTS),
+                            CHKCD_BOOK_PERF_AMT_ETC     : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT_ETC),
+                            CHKCD_BOOK_PERF_AMT1_NTS    : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT1_NTS),
+                            CHKCD_BOOK_PERF_AMT1_ETC    : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT1_ETC),
+                            CHKCD_BOOK_PERF_AMT2_NTS    : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT2_NTS),
+                            CHKCD_BOOK_PERF_AMT2_ETC    : gfnma_nvl2(item.CHKCD_BOOK_PERF_AMT2_ETC),
+                            CASH_BOOK_PERF_AMT_NTS      : gfnma_nvl2(item.CASH_BOOK_PERF_AMT_NTS),
+                            CASH_BOOK_PERF_AMT1_NTS     : gfnma_nvl2(item.CASH_BOOK_PERF_AMT1_NTS),
+                            CASH_BOOK_PERF_AMT2_NTS     : gfnma_nvl2(item.CASH_BOOK_PERF_AMT2_NTS),
+                            CD_USE_PREV_AMT_NTS         : gfnma_nvl2(item.CD_USE_PREV_AMT_NTS),
+                            CD_USE_PREV_AMT_ETC         : gfnma_nvl2(item.CD_USE_PREV_AMT_ETC),
+                            CD_USE_THIS_AMT_NTS         : gfnma_nvl2(item.CD_USE_THIS_AMT_NTS),
+                            CD_USE_THIS_AMT_ETC         : gfnma_nvl2(item.CD_USE_THIS_AMT_ETC),
+                            TDMK_PREV_AMT_NTS           : gfnma_nvl2(item.TDMK_PREV_AMT_NTS),
+                            TDMK_PREV_AMT_ETC           : gfnma_nvl2(item.TDMK_PREV_AMT_ETC),
+                            TDMK_THIS_AMT_NTS           : gfnma_nvl2(item.TDMK_THIS_AMT_NTS),
+                            TDMK_THIS_AMT_ETC           : gfnma_nvl2(item.TDMK_THIS_AMT_ETC),
+                            DON_AMT_NTS                 : gfnma_nvl2(item.DON_AMT_NTS),
+                            DON_AMT_ETC                 : gfnma_nvl2(item.DON_AMT_ETC),
+                            MED_INFERTILITY_AMT         : gfnma_nvl2(item.MED_INFERTILITY_AMT),
+                            POSTPARTUM_CARE_CENTER_AMT  : gfnma_nvl2(item.POSTPARTUM_CARE_CENTER_AMT),
+                            LOSS_MEDICAL_INSURANCE_AMT  : gfnma_nvl2(item.LOSS_MEDICAL_INSURANCE_AMT),
+                            PREEMIE_BABY_AMT            : gfnma_nvl2(item.PREEMIE_BABY_AMT),
+                            EDU_SCH_UNIFORM_AMT_NTS     : gfnma_nvl2(item.EDU_SCH_UNIFORM_AMT_NTS),
+                            EDU_SCH_UNIFORM_AMT_ETC     : gfnma_nvl2(item.EDU_SCH_UNIFORM_AMT_ETC),
+                            EDU_EXP_TRAINING_AMT_NTS    : gfnma_nvl2(item.EDU_EXP_TRAINING_AMT_NTS),
+                            EDU_EXP_TRAINING_AMT_ETC    : gfnma_nvl2(item.EDU_EXP_TRAINING_AMT_ETC),
+                            EDU_EXP_SAT_PAY_AMT_NTS     : gfnma_nvl2(item.EDU_EXP_SAT_PAY_AMT_NTS),
+                            EDU_EXP_SAT_PAY_AMT_ETC     : gfnma_nvl2(item.EDU_EXP_SAT_PAY_AMT_ETC),
+                            FAMILY_CHILD_SEQ_TYPE       : gfnma_nvl2(item.FAMILY_CHILD_SEQ_TYPE),
+                            MED_SENIOR_HDCP_AMT_NTS     : gfnma_nvl2(item.MED_SENIOR_HDCP_AMT_NTS),
+                            MED_SENIOR_HDCP_AMT_ETC     : gfnma_nvl2(item.MED_SENIOR_HDCP_AMT_ETC),
+                            FAMILY_65AGE_HDC_YN         : gfnma_nvl2(item.FAMILY_65AGE_HDC_YN),
+                            MED_SENIOR_HDCP_AMT_NTS     : gfnma_nvl2(item.MED_SENIOR_HDCP_AMT_NTS),
+                            MED_SENIOR_HDCP_AMT_ETC     : gfnma_nvl2(item.MED_SENIOR_HDCP_AMT_ETC),
+                            FAMILY_50AGE_YN             : gfnma_nvl2(item.FAMILY_50AGE_YN),
+                            R101_BUSNID                 : gfnma_nvl2(item.R101_BUSNID),
+                            R101_TRADE_NM               : gfnma_nvl2(item.R101_TRADE_NM),
+                            R101_PWD_CD                 : gfnma_nvl2(item.R101_PWD_CD),
+                            DATA_SOURCE                 : gfnma_nvl2(item.DATA_SOURCE),
 
                         }
                         jsonSupportList.push(msg);
@@ -3216,157 +3235,157 @@
                     data.cv_3.forEach((item, index) => {
 
                         //- 연금보험료
-                        SBUxMethod.set("PENS_AMT", 	                gfn_nvl(item.PENS_AMT ));
-                        SBUxMethod.set("OFFICIAL_PENS_AMT", 	    gfn_nvl(item.OFFICIAL_PENS_AMT ));
-                        SBUxMethod.set("MILITARY_PENS_AMT", 	    gfn_nvl(item.MILITARY_PENS_AMT ));
-                        SBUxMethod.set("SCHOOL_PENS_AMT", 	        gfn_nvl(item.SCHOOL_PENS_AMT ));
-                        SBUxMethod.set("POST_PENS_AMT", 	        gfn_nvl(item.POST_PENS_AMT ));
+                        SBUxMethod.set("PENS_AMT", 	                gfnma_nvl2(item.PENS_AMT ));
+                        SBUxMethod.set("OFFICIAL_PENS_AMT", 	    gfnma_nvl2(item.OFFICIAL_PENS_AMT ));
+                        SBUxMethod.set("MILITARY_PENS_AMT", 	    gfnma_nvl2(item.MILITARY_PENS_AMT ));
+                        SBUxMethod.set("SCHOOL_PENS_AMT", 	        gfnma_nvl2(item.SCHOOL_PENS_AMT ));
+                        SBUxMethod.set("POST_PENS_AMT", 	        gfnma_nvl2(item.POST_PENS_AMT ));
                         //-- 보험료
-                        SBUxMethod.set("HEALTH_INSURE_AMT", 	    gfn_nvl(item.HEALTH_INSURE_AMT ));
-                        SBUxMethod.set("SENIOR_HEALTH_INSURE_AMT", 	gfn_nvl(item.SENIOR_HEALTH_INSURE_AMT ));
-                        SBUxMethod.set("EMP_INSURE_AMT", 	        gfn_nvl(item.EMP_INSURE_AMT ));
+                        SBUxMethod.set("HEALTH_INSURE_AMT", 	    gfnma_nvl2(item.HEALTH_INSURE_AMT ));
+                        SBUxMethod.set("SENIOR_HEALTH_INSURE_AMT", 	gfnma_nvl2(item.SENIOR_HEALTH_INSURE_AMT ));
+                        SBUxMethod.set("EMP_INSURE_AMT", 	        gfnma_nvl2(item.EMP_INSURE_AMT ));
                         //- 주택자금
-                        SBUxMethod.set("HSRENT_PRIN_ORG_AMT", 	    gfn_nvl(item.HSRENT_PRIN_ORG_AMT ));
-                        SBUxMethod.set("HSRENT_PRIN_PERS_AMT", 	    gfn_nvl(item.HSRENT_PRIN_PERS_AMT ));
-                        SBUxMethod.set("HS_MM_RENT_AMT", 	        gfn_nvl(item.HS_MM_RENT_AMT ));
-                        SBUxMethod.set("HS_INT_AMT1", 	            gfn_nvl(item.HS_INT_AMT1 ));
-                        SBUxMethod.set("HS_INT_AMT2", 	            gfn_nvl(item.HS_INT_AMT2 ));
-                        SBUxMethod.set("HS_INT_AMT3", 	            gfn_nvl(item.HS_INT_AMT3 ));
-                        SBUxMethod.set("HS_INT_AMT4", 	            gfn_nvl(item.HS_INT_AMT4 ));
-                        SBUxMethod.set("HS_INT_AMT5", 	            gfn_nvl(item.HS_INT_AMT5 ));
+                        SBUxMethod.set("HSRENT_PRIN_ORG_AMT", 	    gfnma_nvl2(item.HSRENT_PRIN_ORG_AMT ));
+                        SBUxMethod.set("HSRENT_PRIN_PERS_AMT", 	    gfnma_nvl2(item.HSRENT_PRIN_PERS_AMT ));
+                        SBUxMethod.set("HS_MM_RENT_AMT", 	        gfnma_nvl2(item.HS_MM_RENT_AMT ));
+                        SBUxMethod.set("HS_INT_AMT1", 	            gfnma_nvl2(item.HS_INT_AMT1 ));
+                        SBUxMethod.set("HS_INT_AMT2", 	            gfnma_nvl2(item.HS_INT_AMT2 ));
+                        SBUxMethod.set("HS_INT_AMT3", 	            gfnma_nvl2(item.HS_INT_AMT3 ));
+                        SBUxMethod.set("HS_INT_AMT4", 	            gfnma_nvl2(item.HS_INT_AMT4 ));
+                        SBUxMethod.set("HS_INT_AMT5", 	            gfnma_nvl2(item.HS_INT_AMT5 ));
                         //--주택자금 2015년 추가
-                        SBUxMethod.set("HS_INT_AMT6", 	            gfn_nvl(item.HS_INT_AMT6 ));
-                        SBUxMethod.set("HS_INT_AMT7", 	            gfn_nvl(item.HS_INT_AMT7 ));
-                        SBUxMethod.set("HS_INT_AMT8", 	            gfn_nvl(item.HS_INT_AMT8 ));
-                        SBUxMethod.set("HS_INT_AMT9", 	            gfn_nvl(item.HS_INT_AMT9 ));
+                        SBUxMethod.set("HS_INT_AMT6", 	            gfnma_nvl2(item.HS_INT_AMT6 ));
+                        SBUxMethod.set("HS_INT_AMT7", 	            gfnma_nvl2(item.HS_INT_AMT7 ));
+                        SBUxMethod.set("HS_INT_AMT8", 	            gfnma_nvl2(item.HS_INT_AMT8 ));
+                        SBUxMethod.set("HS_INT_AMT9", 	            gfnma_nvl2(item.HS_INT_AMT9 ));
                         //-- 그밖의 소득공제
-                        SBUxMethod.set("PRIV_PENS_SV_AMT", 	        gfn_nvl(item.PRIV_PENS_SV_AMT ));
-                        SBUxMethod.set("SM_COM_AMT", 	            gfn_nvl(item.SM_COM_AMT ));
-                        SBUxMethod.set("SM_COM_AMT_DED_JOIN_DAT", 	gfn_nvl(item.SM_COM_AMT_DED_JOIN_DAT ));
-                        SBUxMethod.set("SM_COM_AMT_TGT_P_END_DAT", 	gfn_nvl(item.SM_COM_AMT_TGT_P_END_DAT ));
-                        SBUxMethod.set("SM_COM_RULE_YN", 	        gfn_nvl(item.SM_COM_RULE_YN ));
+                        SBUxMethod.set("PRIV_PENS_SV_AMT", 	        gfnma_nvl2(item.PRIV_PENS_SV_AMT ));
+                        SBUxMethod.set("SM_COM_AMT", 	            gfnma_nvl2(item.SM_COM_AMT ));
+                        SBUxMethod.set("SM_COM_AMT_DED_JOIN_DAT", 	gfnma_nvl2(item.SM_COM_AMT_DED_JOIN_DAT ));
+                        SBUxMethod.set("SM_COM_AMT_TGT_P_END_DAT", 	gfnma_nvl2(item.SM_COM_AMT_TGT_P_END_DAT ));
+                        SBUxMethod.set("SM_COM_RULE_YN", 	        gfnma_nvl2(item.SM_COM_RULE_YN ));
                         //-- 주택마련저축
-                        SBUxMethod.set("HS_SUBS_SV_AMT", 	        gfn_nvl(item.HS_SUBS_SV_AMT ));
-                        SBUxMethod.set("HS_EMP_SV_AMT", 	        gfn_nvl(item.HS_EMP_SV_AMT ));
-                        SBUxMethod.set("HS_TOT_SV_AMT", 	        gfn_nvl(item.HS_TOT_SV_AMT ));
+                        SBUxMethod.set("HS_SUBS_SV_AMT", 	        gfnma_nvl2(item.HS_SUBS_SV_AMT ));
+                        SBUxMethod.set("HS_EMP_SV_AMT", 	        gfnma_nvl2(item.HS_EMP_SV_AMT ));
+                        SBUxMethod.set("HS_TOT_SV_AMT", 	        gfnma_nvl2(item.HS_TOT_SV_AMT ));
                         //- 투자조합 출자 등
-                        SBUxMethod.set("INVEST_AMT1", 	            gfn_nvl(item.INVEST_AMT1 ));
-                        SBUxMethod.set("INVEST_AMT2", 	            gfn_nvl(item.INVEST_AMT2 ));
-                        SBUxMethod.set("INVEST_AMT3", 	            gfn_nvl(item.INVEST_AMT3 ));
-                        SBUxMethod.set("INVEST_AMT4", 	            gfn_nvl(item.INVEST_AMT4 ));
-                        SBUxMethod.set("INVEST_PREV2_AMT_1", 	    gfn_nvl(item.INVEST_PREV2_AMT_1 ));
-                        SBUxMethod.set("INVEST_PREV2_AMT_2", 	    gfn_nvl(item.INVEST_PREV2_AMT_2 ));
-                        SBUxMethod.set("INVEST_PREV2_AMT_3", 	    gfn_nvl(item.INVEST_PREV2_AMT_3 ));
-                        SBUxMethod.set("INVEST_PREV_AMT_1", 	    gfn_nvl(item.INVEST_PREV_AMT_1 ));
-                        SBUxMethod.set("INVEST_PREV_AMT_2", 	    gfn_nvl(item.INVEST_PREV_AMT_2 ));
-                        SBUxMethod.set("INVEST_PREV_AMT_3", 	    gfn_nvl(item.INVEST_PREV_AMT_3 ));
-                        SBUxMethod.set("INVEST_THIS_AMT_1", 	    gfn_nvl(item.INVEST_THIS_AMT_1 ));
-                        SBUxMethod.set("INVEST_THIS_AMT_2", 	    gfn_nvl(item.INVEST_THIS_AMT_2 ));
-                        SBUxMethod.set("INVEST_THIS_AMT_3", 	    gfn_nvl(item.INVEST_THIS_AMT_3 ));
+                        SBUxMethod.set("INVEST_AMT1", 	            gfnma_nvl2(item.INVEST_AMT1 ));
+                        SBUxMethod.set("INVEST_AMT2", 	            gfnma_nvl2(item.INVEST_AMT2 ));
+                        SBUxMethod.set("INVEST_AMT3", 	            gfnma_nvl2(item.INVEST_AMT3 ));
+                        SBUxMethod.set("INVEST_AMT4", 	            gfnma_nvl2(item.INVEST_AMT4 ));
+                        SBUxMethod.set("INVEST_PREV2_AMT_1", 	    gfnma_nvl2(item.INVEST_PREV2_AMT_1 ));
+                        SBUxMethod.set("INVEST_PREV2_AMT_2", 	    gfnma_nvl2(item.INVEST_PREV2_AMT_2 ));
+                        SBUxMethod.set("INVEST_PREV2_AMT_3", 	    gfnma_nvl2(item.INVEST_PREV2_AMT_3 ));
+                        SBUxMethod.set("INVEST_PREV_AMT_1", 	    gfnma_nvl2(item.INVEST_PREV_AMT_1 ));
+                        SBUxMethod.set("INVEST_PREV_AMT_2", 	    gfnma_nvl2(item.INVEST_PREV_AMT_2 ));
+                        SBUxMethod.set("INVEST_PREV_AMT_3", 	    gfnma_nvl2(item.INVEST_PREV_AMT_3 ));
+                        SBUxMethod.set("INVEST_THIS_AMT_1", 	    gfnma_nvl2(item.INVEST_THIS_AMT_1 ));
+                        SBUxMethod.set("INVEST_THIS_AMT_2", 	    gfnma_nvl2(item.INVEST_THIS_AMT_2 ));
+                        SBUxMethod.set("INVEST_THIS_AMT_3", 	    gfnma_nvl2(item.INVEST_THIS_AMT_3 ));
                         //-- 신용카드 등 사용액
-                        SBUxMethod.set("CD_USE_BEF_AMT", 	        gfn_nvl(item.CD_USE_BEF_AMT ));
-                        SBUxMethod.set("CHKCD_USE_BEF_AMT", 	    gfn_nvl(item.CHKCD_USE_BEF_AMT ));
-                        SBUxMethod.set("CASH_RECEIPT_BEF_AMT", 	    gfn_nvl(item.CASH_RECEIPT_BEF_AMT ));
-                        SBUxMethod.set("TDMK_USE_BEF_AMT", 	        gfn_nvl(item.TDMK_USE_BEF_AMT ));
-                        SBUxMethod.set("PBTRN_USE_BEF_AMT", 	    gfn_nvl(item.PBTRN_USE_BEF_AMT ));
+                        SBUxMethod.set("CD_USE_BEF_AMT", 	        gfnma_nvl2(item.CD_USE_BEF_AMT ));
+                        SBUxMethod.set("CHKCD_USE_BEF_AMT", 	    gfnma_nvl2(item.CHKCD_USE_BEF_AMT ));
+                        SBUxMethod.set("CASH_RECEIPT_BEF_AMT", 	    gfnma_nvl2(item.CASH_RECEIPT_BEF_AMT ));
+                        SBUxMethod.set("TDMK_USE_BEF_AMT", 	        gfnma_nvl2(item.TDMK_USE_BEF_AMT ));
+                        SBUxMethod.set("PBTRN_USE_BEF_AMT", 	    gfnma_nvl2(item.PBTRN_USE_BEF_AMT ));
                         //--2015년 추가
-                        SBUxMethod.set("CD_USE_BEF_AMT2", 	        gfn_nvl(item.CD_USE_BEF_AMT2 ));
-                        SBUxMethod.set("CHKCD_USE_BEF_AMT2", 	    gfn_nvl(item.CHKCD_USE_BEF_AMT2 ));
-                        SBUxMethod.set("CASH_RECEIPT_BEF_AMT2", 	gfn_nvl(item.CASH_RECEIPT_BEF_AMT2 ));
-                        SBUxMethod.set("TDMK_USE_BEF_AMT2", 	    gfn_nvl(item.TDMK_USE_BEF_AMT2 ));
-                        SBUxMethod.set("PBTRN_USE_BEF_AMT2", 	    gfn_nvl(item.PBTRN_USE_BEF_AMT2 ));
-                        SBUxMethod.set("CD_USE_AMT", 	            gfn_nvl(item.CD_USE_AMT ));
-                        SBUxMethod.set("CHKCD_USE_AMT", 	        gfn_nvl(item.CHKCD_USE_AMT ));
-                        SBUxMethod.set("CASH_RECEIPT_AMT", 	        gfn_nvl(item.CASH_RECEIPT_AMT ));
-                        SBUxMethod.set("TDMK_USE_AMT", 	            gfn_nvl(item.TDMK_USE_AMT ));
-                        SBUxMethod.set("TDMK_USE_AMT1", 	        gfn_nvl(item.TDMK_USE_AMT1 ));
-                        SBUxMethod.set("TDMK_USE_AMT2", 	        gfn_nvl(item.TDMK_USE_AMT2 ));
-                        SBUxMethod.set("PBTRN_USE_AMT", 	        gfn_nvl(item.PBTRN_USE_AMT ));
-                        SBUxMethod.set("PBTRN_USE_A_AMT", 	        gfn_nvl(item.PBTRN_USE_A_AMT ));
-                        SBUxMethod.set("PBTRN_USE_B_AMT", 	        gfn_nvl(item.PBTRN_USE_B_AMT ));
-                        SBUxMethod.set("BOOK_PERF_USE_AMT", 	    gfn_nvl(item.BOOK_PERF_USE_AMT ));
-                        SBUxMethod.set("BOOK_PERF_USE_AMT1", 	    gfn_nvl(item.BOOK_PERF_USE_AMT1 ));
-                        SBUxMethod.set("BOOK_PERF_USE_AMT2", 	    gfn_nvl(item.BOOK_PERF_USE_AMT2 ));
-                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT", 	    gfn_nvl(item.CD_BOOK_PERF_USE_AMT ));
-                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT1", 	gfn_nvl(item.CD_BOOK_PERF_USE_AMT1 ));
-                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT2", 	gfn_nvl(item.CD_BOOK_PERF_USE_AMT2 ));
-                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT", 	gfn_nvl(item.CHKCD_BOOK_PERF_USE_AMT ));
-                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT1", 	gfn_nvl(item.CHKCD_BOOK_PERF_USE_AMT1 ));
-                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT2", 	gfn_nvl(item.CHKCD_BOOK_PERF_USE_AMT2 ));
-                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT", 	gfn_nvl(item.CASH_BOOK_PERF_USE_AMT ));
-                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT1", 	gfn_nvl(item.CASH_BOOK_PERF_USE_AMT1 ));
-                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT2", 	gfn_nvl(item.CASH_BOOK_PERF_USE_AMT2 ));
-                        SBUxMethod.set("CARD_PREV_YEAR_USE_AMT", 	gfn_nvl(item.CARD_PREV_YEAR_USE_AMT ));
-                        SBUxMethod.set("CARD_THIS_YEAR_USE_AMT", 	gfn_nvl(item.CARD_THIS_YEAR_USE_AMT ));
-                        SBUxMethod.set("TDMK_PREV_AMT", 	        gfn_nvl(item.TDMK_PREV_AMT ));
-                        SBUxMethod.set("TDMK_THIS_AMT", 	        gfn_nvl(item.TDMK_THIS_AMT ));
-                        SBUxMethod.set("PERSONAL_CD_USE_AMT", 	    gfn_nvl(item.PERSONAL_CD_USE_AMT ));
-                        SBUxMethod.set("CD_USE_HALF_AMT", 	        gfn_nvl(item.CD_USE_HALF_AMT ));
-                        SBUxMethod.set("CD_USE_HALF_AMT2", 	        gfn_nvl(item.CD_USE_HALF_AMT2 ));
-                        SBUxMethod.set("CARD_BIZ_REL_AMT", 	        gfn_nvl(item.CARD_BIZ_REL_AMT ));
-                        SBUxMethod.set("CHK_CD_BIZ_REL_AMT", 	    gfn_nvl(item.CHK_CD_BIZ_REL_AMT ));
-                        SBUxMethod.set("EMP_STOCK_GIVE_AMT", 	    gfn_nvl(item.EMP_STOCK_GIVE_AMT ));
-                        SBUxMethod.set("EMP_STOCK_DON_AMT", 	    gfn_nvl(item.EMP_STOCK_DON_AMT ));
-                        SBUxMethod.set("SALARY_DECREASE_AMT", 	    gfn_nvl(item.SALARY_DECREASE_AMT ));
-                        SBUxMethod.set("LEASE_INTEREST_REDEEM_AMT", gfn_nvl(item['LEASE_INT-RDM_AMT'] ));
-                        SBUxMethod.set("LT_INV_ST_SAV_AMT", 	    gfn_nvl(item.LT_INV_ST_SAV_AMT ));
-                        SBUxMethod.set("LT_COL_INV_SV_AMT", 	    gfn_nvl(item.LT_COL_INV_SV_AMT ));
+                        SBUxMethod.set("CD_USE_BEF_AMT2", 	        gfnma_nvl2(item.CD_USE_BEF_AMT2 ));
+                        SBUxMethod.set("CHKCD_USE_BEF_AMT2", 	    gfnma_nvl2(item.CHKCD_USE_BEF_AMT2 ));
+                        SBUxMethod.set("CASH_RECEIPT_BEF_AMT2", 	gfnma_nvl2(item.CASH_RECEIPT_BEF_AMT2 ));
+                        SBUxMethod.set("TDMK_USE_BEF_AMT2", 	    gfnma_nvl2(item.TDMK_USE_BEF_AMT2 ));
+                        SBUxMethod.set("PBTRN_USE_BEF_AMT2", 	    gfnma_nvl2(item.PBTRN_USE_BEF_AMT2 ));
+                        SBUxMethod.set("CD_USE_AMT", 	            gfnma_nvl2(item.CD_USE_AMT ));
+                        SBUxMethod.set("CHKCD_USE_AMT", 	        gfnma_nvl2(item.CHKCD_USE_AMT ));
+                        SBUxMethod.set("CASH_RECEIPT_AMT", 	        gfnma_nvl2(item.CASH_RECEIPT_AMT ));
+                        SBUxMethod.set("TDMK_USE_AMT", 	            gfnma_nvl2(item.TDMK_USE_AMT ));
+                        SBUxMethod.set("TDMK_USE_AMT1", 	        gfnma_nvl2(item.TDMK_USE_AMT1 ));
+                        SBUxMethod.set("TDMK_USE_AMT2", 	        gfnma_nvl2(item.TDMK_USE_AMT2 ));
+                        SBUxMethod.set("PBTRN_USE_AMT", 	        gfnma_nvl2(item.PBTRN_USE_AMT ));
+                        SBUxMethod.set("PBTRN_USE_A_AMT", 	        gfnma_nvl2(item.PBTRN_USE_A_AMT ));
+                        SBUxMethod.set("PBTRN_USE_B_AMT", 	        gfnma_nvl2(item.PBTRN_USE_B_AMT ));
+                        SBUxMethod.set("BOOK_PERF_USE_AMT", 	    gfnma_nvl2(item.BOOK_PERF_USE_AMT ));
+                        SBUxMethod.set("BOOK_PERF_USE_AMT1", 	    gfnma_nvl2(item.BOOK_PERF_USE_AMT1 ));
+                        SBUxMethod.set("BOOK_PERF_USE_AMT2", 	    gfnma_nvl2(item.BOOK_PERF_USE_AMT2 ));
+                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT", 	    gfnma_nvl2(item.CD_BOOK_PERF_USE_AMT ));
+                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT1", 	gfnma_nvl2(item.CD_BOOK_PERF_USE_AMT1 ));
+                        SBUxMethod.set("CD_BOOK_PERF_USE_AMT2", 	gfnma_nvl2(item.CD_BOOK_PERF_USE_AMT2 ));
+                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT", 	gfnma_nvl2(item.CHKCD_BOOK_PERF_USE_AMT ));
+                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT1", 	gfnma_nvl2(item.CHKCD_BOOK_PERF_USE_AMT1 ));
+                        SBUxMethod.set("CHKCD_BOOK_PERF_USE_AMT2", 	gfnma_nvl2(item.CHKCD_BOOK_PERF_USE_AMT2 ));
+                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT", 	gfnma_nvl2(item.CASH_BOOK_PERF_USE_AMT ));
+                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT1", 	gfnma_nvl2(item.CASH_BOOK_PERF_USE_AMT1 ));
+                        SBUxMethod.set("CASH_BOOK_PERF_USE_AMT2", 	gfnma_nvl2(item.CASH_BOOK_PERF_USE_AMT2 ));
+                        SBUxMethod.set("CARD_PREV_YEAR_USE_AMT", 	gfnma_nvl2(item.CARD_PREV_YEAR_USE_AMT ));
+                        SBUxMethod.set("CARD_THIS_YEAR_USE_AMT", 	gfnma_nvl2(item.CARD_THIS_YEAR_USE_AMT ));
+                        SBUxMethod.set("TDMK_PREV_AMT", 	        gfnma_nvl2(item.TDMK_PREV_AMT ));
+                        SBUxMethod.set("TDMK_THIS_AMT", 	        gfnma_nvl2(item.TDMK_THIS_AMT ));
+                        SBUxMethod.set("PERSONAL_CD_USE_AMT", 	    gfnma_nvl2(item.PERSONAL_CD_USE_AMT ));
+                        SBUxMethod.set("CD_USE_HALF_AMT", 	        gfnma_nvl2(item.CD_USE_HALF_AMT ));
+                        SBUxMethod.set("CD_USE_HALF_AMT2", 	        gfnma_nvl2(item.CD_USE_HALF_AMT2 ));
+                        SBUxMethod.set("CARD_BIZ_REL_AMT", 	        gfnma_nvl2(item.CARD_BIZ_REL_AMT ));
+                        SBUxMethod.set("CHK_CD_BIZ_REL_AMT", 	    gfnma_nvl2(item.CHK_CD_BIZ_REL_AMT ));
+                        SBUxMethod.set("EMP_STOCK_GIVE_AMT", 	    gfnma_nvl2(item.EMP_STOCK_GIVE_AMT ));
+                        SBUxMethod.set("EMP_STOCK_DON_AMT", 	    gfnma_nvl2(item.EMP_STOCK_DON_AMT ));
+                        SBUxMethod.set("SALARY_DECREASE_AMT", 	    gfnma_nvl2(item.SALARY_DECREASE_AMT ));
+                        SBUxMethod.set("LEASE_INTEREST_REDEEM_AMT", gfnma_nvl2(item['LEASE_INT-RDM_AMT'] ));
+                        SBUxMethod.set("LT_INV_ST_SAV_AMT", 	    gfnma_nvl2(item.LT_INV_ST_SAV_AMT ));
+                        SBUxMethod.set("LT_COL_INV_SV_AMT", 	    gfnma_nvl2(item.LT_COL_INV_SV_AMT ));
                         // -- 세액감면
-                        SBUxMethod.set("FOREI_VISIT_PURP", 	        gfn_nvl(item.FOREI_VISIT_PURP ));
-                        SBUxMethod.set("TECH_INTRO_CONTRACT_DAT", 	gfn_nvl(item.TECH_INTRO_CONTRACT_DAT ));
-                        SBUxMethod.set("TECH_INTRO_RED_END_DAT", 	gfn_nvl(item.TECH_INTRO_RED_END_DAT ));
-                        SBUxMethod.set("FOREI_INC_RED_RECV_DAT", 	gfn_nvl(item.FOREI_INC_RED_RECV_DAT ));
-                        SBUxMethod.set("FOREI_INC_RED_SUBMIT_DAT", 	gfn_nvl(item.FOREI_INC_RED_SUBMIT_DAT ));
-                        SBUxMethod.set("TX_TREATY_RED_RECV_DAT", 	gfn_nvl(item.TX_TREATY_RED_RECV_DAT ));
-                        SBUxMethod.set("TX_TREATY_RED_SUBMIT_DAT", 	gfn_nvl(item.TX_TREATY_RED_SUBMIT_DAT ));
-                        SBUxMethod.set("EMP_YOUTH_ST_DAT", 	        gfn_nvl(item.EMP_YOUTH_ST_DAT ));
-                        SBUxMethod.set("EMP_YOUTH_RED_END_DAT", 	gfn_nvl(item.EMP_YOUTH_RED_END_DAT ));
+                        SBUxMethod.set("FOREI_VISIT_PURP", 	        gfnma_nvl2(item.FOREI_VISIT_PURP ));
+                        SBUxMethod.set("TECH_INTRO_CONTRACT_DAT", 	gfnma_nvl2(item.TECH_INTRO_CONTRACT_DAT ));
+                        SBUxMethod.set("TECH_INTRO_RED_END_DAT", 	gfnma_nvl2(item.TECH_INTRO_RED_END_DAT ));
+                        SBUxMethod.set("FOREI_INC_RED_RECV_DAT", 	gfnma_nvl2(item.FOREI_INC_RED_RECV_DAT ));
+                        SBUxMethod.set("FOREI_INC_RED_SUBMIT_DAT", 	gfnma_nvl2(item.FOREI_INC_RED_SUBMIT_DAT ));
+                        SBUxMethod.set("TX_TREATY_RED_RECV_DAT", 	gfnma_nvl2(item.TX_TREATY_RED_RECV_DAT ));
+                        SBUxMethod.set("TX_TREATY_RED_SUBMIT_DAT", 	gfnma_nvl2(item.TX_TREATY_RED_SUBMIT_DAT ));
+                        SBUxMethod.set("EMP_YOUTH_ST_DAT", 	        gfnma_nvl2(item.EMP_YOUTH_ST_DAT ));
+                        SBUxMethod.set("EMP_YOUTH_RED_END_DAT", 	gfnma_nvl2(item.EMP_YOUTH_RED_END_DAT ));
                         //-- 세액공제
                         //-- 연금계좌
-                        SBUxMethod.set("SCNT_PENS_TX_DEAMT", 	    gfn_nvl(item.SCNT_PENS_TX_DEAMT ));
-                        SBUxMethod.set("RET_PENS_TX_DEAMT", 	    gfn_nvl(item.RET_PENS_TX_DEAMT ));
-                        SBUxMethod.set("PENS_SV_TX_DEAMT", 	        gfn_nvl(item.PENS_SV_TX_DEAMT ));
+                        SBUxMethod.set("SCNT_PENS_TX_DEAMT", 	    gfnma_nvl2(item.SCNT_PENS_TX_DEAMT ));
+                        SBUxMethod.set("RET_PENS_TX_DEAMT", 	    gfnma_nvl2(item.RET_PENS_TX_DEAMT ));
+                        SBUxMethod.set("PENS_SV_TX_DEAMT", 	        gfnma_nvl2(item.PENS_SV_TX_DEAMT ));
                         //--2021년 ISA
-                        SBUxMethod.set("PENS_ISA_TX_DEAMT", 	    gfn_nvl(item.PENS_ISA_TX_DEAMT ));
+                        SBUxMethod.set("PENS_ISA_TX_DEAMT", 	    gfnma_nvl2(item.PENS_ISA_TX_DEAMT ));
                         //-- 특별세액공제
-                        SBUxMethod.set("GENERAL_INSURE_TX_DEAMT", 	    gfn_nvl(item.GENERAL_INSURE_TX_DEAMT ));
-                        SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 	        gfn_nvl(item.HDCP_INSURE_TX_DEAMT ));
-                        SBUxMethod.set("PERSONAL_MED_TX_DEAMT", 	    gfn_nvl(item.PERSONAL_MED_TX_DEAMT ));
-                        SBUxMethod.set("SENIOR_MED_TX_DEAMT", 	        gfn_nvl(item.SENIOR_MED_TX_DEAMT ));
-                        SBUxMethod.set("HDCP_MED_TX_DEAMT", 	        gfn_nvl(item.HDCP_MED_TX_DEAMT ));
-                        SBUxMethod.set("EXCP_MED_TX_DEAMT", 	        gfn_nvl(item.EXCP_MED_TX_DEAMT ));
-                        SBUxMethod.set("INFTY_MED_TX_DEAMT", 	        gfn_nvl(item.INFTY_MED_TX_DEAMT ));
-                        SBUxMethod.set("POSTPARTUM_CARE_CENTER_AMT", 	gfn_nvl(item.POSTPARTUM_CARE_CENTER_AMT ));
-                        SBUxMethod.set("LOSS_MEDICAL_INSURANCE_AMT", 	gfn_nvl(item.LOSS_MEDICAL_INSURANCE_AMT ));
-                        SBUxMethod.set("LOSS_MED_INSUR_EXEC_AMT", 	    gfn_nvl(item.LOSS_MED_INSUR_EXEC_AMT ));
-                        SBUxMethod.set("LOSS_MED_INSUR_ME_AMT", 	    gfn_nvl(item.LOSS_MED_INSUR_ME_AMT ));
-                        SBUxMethod.set("PERSONAL_EDU_TX_DEAMT", 	    gfn_nvl(item.PERSONAL_EDU_TX_DEAMT ));
-                        SBUxMethod.set("PRESCHOOL_EDU_TAX_DED_COUNT", 	gfn_nvl(item.PRESCHOOL_EDU_TAX_DED_COUNT ));
-                        SBUxMethod.set("PRESCHOOL_EDU_TX_DEAMT", 	    gfn_nvl(item.PRESCHOOL_EDU_TX_DEAMT ));
-                        SBUxMethod.set("SCHOOL_EDU_TAX_DED_COUNT", 	    gfn_nvl(item.SCHOOL_EDU_TAX_DED_COUNT ));
-                        SBUxMethod.set("SCHOOL_EDU_TX_DEAMT", 	        gfn_nvl(item.SCHOOL_EDU_TX_DEAMT ));
-                        SBUxMethod.set("UNIVERSITY_EDU_TAX_DED_COUNT", 	gfn_nvl(item.UNIVERSITY_EDU_TAX_DED_COUNT ));
-                        SBUxMethod.set("UNIVERSITY_EDU_TX_DEAMT", 	    gfn_nvl(item.UNIVERSITY_EDU_TX_DEAMT ));
-                        SBUxMethod.set("HANDICAP_EDU_TAX_DED_COUNT", 	gfn_nvl(item.HANDICAP_EDU_TAX_DED_COUNT ));
-                        SBUxMethod.set("HDCP_EDU_TX_DEAMT", 	        gfn_nvl(item.HDCP_EDU_TX_DEAMT ));
-                        SBUxMethod.set("DON_POL_TX_DEAMT", 	            gfn_nvl(item.DON_POL_TX_DEAMT ));
-                        SBUxMethod.set("DON_LGL_TX_DEAMT", 	            gfn_nvl(item.DON_LGL_TX_DEAMT ));
-                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	    gfn_nvl(item.DON_EMP_STOCK_TX_DEAMT ));
-                        SBUxMethod.set("DON_OUT_OF_REL_TX_DEAMT", 	    gfn_nvl(item.DON_OUT_OF_REL_TX_DEAMT ));
-                        SBUxMethod.set("DON_REL_TX_DEAMT", 	            gfn_nvl(item.DON_REL_TX_DEAMT ));
+                        SBUxMethod.set("GENERAL_INSURE_TX_DEAMT", 	    gfnma_nvl2(item.GENERAL_INSURE_TX_DEAMT ));
+                        SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 	        gfnma_nvl2(item.HDCP_INSURE_TX_DEAMT ));
+                        SBUxMethod.set("PERSONAL_MED_TX_DEAMT", 	    gfnma_nvl2(item.PERSONAL_MED_TX_DEAMT ));
+                        SBUxMethod.set("SENIOR_MED_TX_DEAMT", 	        gfnma_nvl2(item.SENIOR_MED_TX_DEAMT ));
+                        SBUxMethod.set("HDCP_MED_TX_DEAMT", 	        gfnma_nvl2(item.HDCP_MED_TX_DEAMT ));
+                        SBUxMethod.set("EXCP_MED_TX_DEAMT", 	        gfnma_nvl2(item.EXCP_MED_TX_DEAMT ));
+                        SBUxMethod.set("INFTY_MED_TX_DEAMT", 	        gfnma_nvl2(item.INFTY_MED_TX_DEAMT ));
+                        SBUxMethod.set("POSTPARTUM_CARE_CENTER_AMT", 	gfnma_nvl2(item.POSTPARTUM_CARE_CENTER_AMT ));
+                        SBUxMethod.set("LOSS_MEDICAL_INSURANCE_AMT", 	gfnma_nvl2(item.LOSS_MEDICAL_INSURANCE_AMT ));
+                        SBUxMethod.set("LOSS_MED_INSUR_EXEC_AMT", 	    gfnma_nvl2(item.LOSS_MED_INSUR_EXEC_AMT ));
+                        SBUxMethod.set("LOSS_MED_INSUR_ME_AMT", 	    gfnma_nvl2(item.LOSS_MED_INSUR_ME_AMT ));
+                        SBUxMethod.set("PERSONAL_EDU_TX_DEAMT", 	    gfnma_nvl2(item.PERSONAL_EDU_TX_DEAMT ));
+                        SBUxMethod.set("PRESCHOOL_EDU_TAX_DED_COUNT", 	gfnma_nvl2(item.PRESCHOOL_EDU_TAX_DED_COUNT ));
+                        SBUxMethod.set("PRESCHOOL_EDU_TX_DEAMT", 	    gfnma_nvl2(item.PRESCHOOL_EDU_TX_DEAMT ));
+                        SBUxMethod.set("SCHOOL_EDU_TAX_DED_COUNT", 	    gfnma_nvl2(item.SCHOOL_EDU_TAX_DED_COUNT ));
+                        SBUxMethod.set("SCHOOL_EDU_TX_DEAMT", 	        gfnma_nvl2(item.SCHOOL_EDU_TX_DEAMT ));
+                        SBUxMethod.set("UNIVERSITY_EDU_TAX_DED_COUNT", 	gfnma_nvl2(item.UNIVERSITY_EDU_TAX_DED_COUNT ));
+                        SBUxMethod.set("UNIVERSITY_EDU_TX_DEAMT", 	    gfnma_nvl2(item.UNIVERSITY_EDU_TX_DEAMT ));
+                        SBUxMethod.set("HANDICAP_EDU_TAX_DED_COUNT", 	gfnma_nvl2(item.HANDICAP_EDU_TAX_DED_COUNT ));
+                        SBUxMethod.set("HDCP_EDU_TX_DEAMT", 	        gfnma_nvl2(item.HDCP_EDU_TX_DEAMT ));
+                        SBUxMethod.set("DON_POL_TX_DEAMT", 	            gfnma_nvl2(item.DON_POL_TX_DEAMT ));
+                        SBUxMethod.set("DON_LGL_TX_DEAMT", 	            gfnma_nvl2(item.DON_LGL_TX_DEAMT ));
+                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	    gfnma_nvl2(item.DON_EMP_STOCK_TX_DEAMT ));
+                        SBUxMethod.set("DON_OUT_OF_REL_TX_DEAMT", 	    gfnma_nvl2(item.DON_OUT_OF_REL_TX_DEAMT ));
+                        SBUxMethod.set("DON_REL_TX_DEAMT", 	            gfnma_nvl2(item.DON_REL_TX_DEAMT ));
                         //-- 외국납부세액
-                        SBUxMethod.set("FOREI_INC_AMT", 	            gfn_nvl(item.FOREI_INC_AMT ));
-                        SBUxMethod.set("FOREI_PAY_TX_FOREI_AMT", 	    gfn_nvl(item.FOREI_PAY_TX_FOREI_AMT ));
-                        SBUxMethod.set("FOREI_PAY_TX_WON_AMT", 	        gfn_nvl(item.FOREI_PAY_TX_WON_AMT ));
-                        SBUxMethod.set("FOREI_PAY_TX_NATION_NAME", 	    gfn_nvl(item.FOREI_PAY_TX_NATION_NAME ));
-                        SBUxMethod.set("FOREI_PAY_TX_DAT", 	            gfn_nvl(item.FOREI_PAY_TX_DAT ));
-                        SBUxMethod.set("FOREI_REQ_SUBMIT_DAT", 	        gfn_nvl(item.FOREI_REQ_SUBMIT_DAT ));
-                        SBUxMethod.set("FOREI_COM_NAME", 	            gfn_nvl(item.FOREI_COM_NAME ));
-                        SBUxMethod.set("FOREI_DUTY_NAME", 	            gfn_nvl(item.FOREI_DUTY_NAME ));
-                        SBUxMethod.set("FOREI_WORK_ST_DAT", 	        gfn_nvl(item.FOREI_WORK_ST_DAT ));
-                        SBUxMethod.set("FOREI_WORK_END_DAT", 	        gfn_nvl(item.FOREI_WORK_END_DAT ));
-                        SBUxMethod.set("HSRENT_INT_TX_DEAMT", 	        gfn_nvl(item.HSRENT_INT_TX_DEAMT ));
-                        SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 	        gfn_nvl(item.HS_MM_RENT_TX_DEAMT ));
+                        SBUxMethod.set("FOREI_INC_AMT", 	            gfnma_nvl2(item.FOREI_INC_AMT ));
+                        SBUxMethod.set("FOREI_PAY_TX_FOREI_AMT", 	    gfnma_nvl2(item.FOREI_PAY_TX_FOREI_AMT ));
+                        SBUxMethod.set("FOREI_PAY_TX_WON_AMT", 	        gfnma_nvl2(item.FOREI_PAY_TX_WON_AMT ));
+                        SBUxMethod.set("FOREI_PAY_TX_NATION_NAME", 	    gfnma_nvl2(item.FOREI_PAY_TX_NATION_NAME ));
+                        SBUxMethod.set("FOREI_PAY_TX_DAT", 	            gfnma_nvl2(item.FOREI_PAY_TX_DAT ));
+                        SBUxMethod.set("FOREI_REQ_SUBMIT_DAT", 	        gfnma_nvl2(item.FOREI_REQ_SUBMIT_DAT ));
+                        SBUxMethod.set("FOREI_COM_NAME", 	            gfnma_nvl2(item.FOREI_COM_NAME ));
+                        SBUxMethod.set("FOREI_DUTY_NAME", 	            gfnma_nvl2(item.FOREI_DUTY_NAME ));
+                        SBUxMethod.set("FOREI_WORK_ST_DAT", 	        gfnma_nvl2(item.FOREI_WORK_ST_DAT ));
+                        SBUxMethod.set("FOREI_WORK_END_DAT", 	        gfnma_nvl2(item.FOREI_WORK_END_DAT ));
+                        SBUxMethod.set("HSRENT_INT_TX_DEAMT", 	        gfnma_nvl2(item.HSRENT_INT_TX_DEAMT ));
+                        SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 	        gfnma_nvl2(item.HS_MM_RENT_TX_DEAMT ));
                     });
 
                     /** @type {number} **/
@@ -3375,21 +3394,21 @@
                     jsonPensionSavingList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            PENS_SEQ                : gfn_nvl(item.PENS_SEQ),
-                            PENS_DED_TYPE           : gfn_nvl(item.PENS_DED_TYPE),
-                            PENS_BANK_CODE          : gfn_nvl(item.PENS_BANK_CODE),
-                            PENSION_BANK_NAME       : gfn_nvl(item.PENSION_BANK_NAME),
-                            PENS_ACC                : gfn_nvl(item.PENS_ACC),
-                            PENSION_ACCOUNT_REAL    : gfn_nvl(item.PENSION_ACCOUNT_REAL),
-                            PENS_PAY_AMT            : gfn_nvl(item.PENS_PAY_AMT),
-                            PENS_DEAMT              : gfn_nvl(item.PENS_DEAMT),
-                            PENS_JOIN_DAT           : gfn_nvl(item.PENS_JOIN_DAT),
-                            INVESTMENT_YYYY         : gfn_nvl(item.INVESTMENT_YYYY),
-                            INVESTMENT_TYPE         : gfn_nvl(item.INVESTMENT_TYPE),
-                            ISA_ANN_TOT_AMT         : gfn_nvl(item.ISA_ANN_TOT_AMT),
-                            ISA_TAX_YEAR_AMT        : gfn_nvl(item.ISA_TAX_YEAR_AMT),
-                            ISA_DDCT_BS_ASS_AMT     : gfn_nvl(item.ISA_DDCT_BS_ASS_AMT),
-                            PENS_CTR_TERM_MM_CNT    : gfn_nvl(item.PENS_CTR_TERM_MM_CNT),
+                            PENS_SEQ                : gfnma_nvl2(item.PENS_SEQ),
+                            PENS_DED_TYPE           : gfnma_nvl2(item.PENS_DED_TYPE),
+                            PENS_BANK_CODE          : gfnma_nvl2(item.PENS_BANK_CODE),
+                            PENSION_BANK_NAME       : gfnma_nvl2(item.PENSION_BANK_NAME),
+                            PENS_ACC                : gfnma_nvl2(item.PENS_ACC),
+                            PENSION_ACCOUNT_REAL    : gfnma_nvl2(item.PENSION_ACCOUNT_REAL),
+                            PENS_PAY_AMT            : gfnma_nvl2(item.PENS_PAY_AMT),
+                            PENS_DEAMT              : gfnma_nvl2(item.PENS_DEAMT),
+                            PENS_JOIN_DAT           : gfnma_nvl2(item.PENS_JOIN_DAT),
+                            INVESTMENT_YYYY         : gfnma_nvl2(item.INVESTMENT_YYYY),
+                            INVESTMENT_TYPE         : gfnma_nvl2(item.INVESTMENT_TYPE),
+                            ISA_ANN_TOT_AMT         : gfnma_nvl2(item.ISA_ANN_TOT_AMT),
+                            ISA_TAX_YEAR_AMT        : gfnma_nvl2(item.ISA_TAX_YEAR_AMT),
+                            ISA_DDCT_BS_ASS_AMT     : gfnma_nvl2(item.ISA_DDCT_BS_ASS_AMT),
+                            PENS_CTR_TERM_MM_CNT    : gfnma_nvl2(item.PENS_CTR_TERM_MM_CNT),
 
                         }
                         jsonPensionSavingList.push(msg);
@@ -3405,33 +3424,33 @@
                     jsonHouseMonthlyList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            HS_MM_SEQ                       : gfn_nvl(item.HS_MM_SEQ),
-                            HS_MM_LESSOR_NAME               : gfn_nvl(item.HS_MM_LESSOR_NAME),
-                            HS_MM_LESSOR_SOCNO              : gfn_nvl(item.HS_MM_LESSOR_SOCNO),
-                            HS_MM_LESSOR_SOCNO_REAL         : gfn_nvl(item.HS_MM_LESSOR_SOCNO_REAL),
-                            HS_MM_RENT_TYPE                 : gfn_nvl(item.HS_MM_RENT_TYPE),
-                            HS_MM_RENT_AREA                 : gfn_nvl(item.HS_MM_RENT_AREA),
-                            HS_MM_LEASE_ADDRESS             : gfn_nvl(item.HS_MM_LEASE_ADDRESS),
-                            HS_MM_ST_DAT                    : gfn_nvl(item.HS_MM_ST_DAT),
-                            HS_MM_END_DAT                   : gfn_nvl(item.HS_MM_END_DAT),
-                            HS_MM_RENT_AMT                  : gfn_nvl(item.HS_MM_RENT_AMT),
-                            HSRENT_RDM_LEN_NAME             : gfn_nvl(item.HSRENT_RDM_LEN_NAME),
-                            HSRENT_RDM_LEN_SOCNO            : gfn_nvl(item.HSRENT_RDM_LEN_SOCNO),
-                            HSRENT_RDM_LEN_SOCNO_REAL       : gfn_nvl(item.HSRENT_RDM_LEN_SOCNO_REAL),
-                            HSRENT_RDM_SPD_ST_DAT           : gfn_nvl(item.HSRENT_RDM_SPD_ST_DAT),
-                            HSRENT_RDM_SPD_END_DAT          : gfn_nvl(item.HSRENT_RDM_SPD_END_DAT),
-                            HSRENT_RDM_INT_R                : gfn_nvl(item.HSRENT_RDM_INT_R),
-                            HSRENT_RDM_PRIN_AMT             : gfn_nvl(item.HSRENT_RDM_PRIN_AMT),
-                            HSRENT_RDM_INT_AMT              : gfn_nvl(item.HSRENT_RDM_INT_AMT),
-                            HSRENT_RDM_LESSOR_NAME          : gfn_nvl(item.HSRENT_RDM_LESSOR_NAME),
-                            HSRENT_RDM_LESSOR_SOCNO         : gfn_nvl(item.HSRENT_RDM_LESSOR_SOCNO),
-                            HSRENT_RDM_LESSOR_SOCNO_REAL    : gfn_nvl(item.HSRENT_RDM_LESSOR_SOCNO_REAL),
-                            HSRENT_RDM_LEASE_TYPE           : gfn_nvl(item.HSRENT_RDM_LEASE_TYPE),
-                            HSRENT_RDM_LEASE_AREA           : gfn_nvl(item.HSRENT_RDM_LEASE_AREA),
-                            HSRENT_RDM_LEASE_ADDRESS        : gfn_nvl(item.HSRENT_RDM_LEASE_ADDRESS),
-                            HSRENT_RDM_LEASE_ST_DAT         : gfn_nvl(item.HSRENT_RDM_LEASE_ST_DAT),
-                            HSRENT_RDM_LEASE_END_DAT        : gfn_nvl(item.HSRENT_RDM_LEASE_END_DAT),
-                            HSRENT_RDM_LEASE_DEP_AMT        : gfn_nvl(item.HSRENT_RDM_LEASE_DEP_AMT),
+                            HS_MM_SEQ                       : gfnma_nvl2(item.HS_MM_SEQ),
+                            HS_MM_LESSOR_NAME               : gfnma_nvl2(item.HS_MM_LESSOR_NAME),
+                            HS_MM_LESSOR_SOCNO              : gfnma_nvl2(item.HS_MM_LESSOR_SOCNO),
+                            HS_MM_LESSOR_SOCNO_REAL         : gfnma_nvl2(item.HS_MM_LESSOR_SOCNO_REAL),
+                            HS_MM_RENT_TYPE                 : gfnma_nvl2(item.HS_MM_RENT_TYPE),
+                            HS_MM_RENT_AREA                 : gfnma_nvl2(item.HS_MM_RENT_AREA),
+                            HS_MM_LEASE_ADDRESS             : gfnma_nvl2(item.HS_MM_LEASE_ADDRESS),
+                            HS_MM_ST_DAT                    : gfnma_nvl2(item.HS_MM_ST_DAT),
+                            HS_MM_END_DAT                   : gfnma_nvl2(item.HS_MM_END_DAT),
+                            HS_MM_RENT_AMT                  : gfnma_nvl2(item.HS_MM_RENT_AMT),
+                            HSRENT_RDM_LEN_NAME             : gfnma_nvl2(item.HSRENT_RDM_LEN_NAME),
+                            HSRENT_RDM_LEN_SOCNO            : gfnma_nvl2(item.HSRENT_RDM_LEN_SOCNO),
+                            HSRENT_RDM_LEN_SOCNO_REAL       : gfnma_nvl2(item.HSRENT_RDM_LEN_SOCNO_REAL),
+                            HSRENT_RDM_SPD_ST_DAT           : gfnma_nvl2(item.HSRENT_RDM_SPD_ST_DAT),
+                            HSRENT_RDM_SPD_END_DAT          : gfnma_nvl2(item.HSRENT_RDM_SPD_END_DAT),
+                            HSRENT_RDM_INT_R                : gfnma_nvl2(item.HSRENT_RDM_INT_R),
+                            HSRENT_RDM_PRIN_AMT             : gfnma_nvl2(item.HSRENT_RDM_PRIN_AMT),
+                            HSRENT_RDM_INT_AMT              : gfnma_nvl2(item.HSRENT_RDM_INT_AMT),
+                            HSRENT_RDM_LESSOR_NAME          : gfnma_nvl2(item.HSRENT_RDM_LESSOR_NAME),
+                            HSRENT_RDM_LESSOR_SOCNO         : gfnma_nvl2(item.HSRENT_RDM_LESSOR_SOCNO),
+                            HSRENT_RDM_LESSOR_SOCNO_REAL    : gfnma_nvl2(item.HSRENT_RDM_LESSOR_SOCNO_REAL),
+                            HSRENT_RDM_LEASE_TYPE           : gfnma_nvl2(item.HSRENT_RDM_LEASE_TYPE),
+                            HSRENT_RDM_LEASE_AREA           : gfnma_nvl2(item.HSRENT_RDM_LEASE_AREA),
+                            HSRENT_RDM_LEASE_ADDRESS        : gfnma_nvl2(item.HSRENT_RDM_LEASE_ADDRESS),
+                            HSRENT_RDM_LEASE_ST_DAT         : gfnma_nvl2(item.HSRENT_RDM_LEASE_ST_DAT),
+                            HSRENT_RDM_LEASE_END_DAT        : gfnma_nvl2(item.HSRENT_RDM_LEASE_END_DAT),
+                            HSRENT_RDM_LEASE_DEP_AMT        : gfnma_nvl2(item.HSRENT_RDM_LEASE_DEP_AMT),
 
                         }
                         jsonHouseMonthlyList.push(msg);
@@ -3446,24 +3465,24 @@
                     jsonMedExpenseList.length = 0;
                     data.cv_6.forEach((item, index) => {
                         const msg = {
-                            MED_SEQ                     : gfn_nvl(item.MED_SEQ),
-                            MED_SOCNO                   : gfn_nvl(item.MED_SOCNO),
-                            MED_SOCIAL_NO_REAL          : gfn_nvl(item.MED_SOCIAL_NO_REAL),
-                            MED_COM_NUM                 : gfn_nvl(item.MED_COM_NUM),
-                            MED_NAME                    : gfn_nvl(item.MED_NAME),
-                            MED_CERTIFICATE_CODE        : gfn_nvl(item.MED_CERTIFICATE_CODE),
-                            MED_COUNT                   : gfn_nvl(item.MED_COUNT),
-                            MED_EXP_AMT                 : gfn_nvl(item.MED_EXP_AMT),
-                            MED_INFTY_TREATMENT_YN      : gfn_nvl(item.MED_INFTY_TREATMENT_YN),
-                            EYEGLASS_PUR_COST_YN        : gfn_nvl(item.EYEGLASS_PUR_COST_YN),
-                            POSTPARTUM_CARE_CENTER_YN   : gfn_nvl(item.POSTPARTUM_CARE_CENTER_YN),
-                            LOSS_MEDICAL_INSURANCE_YN   : gfn_nvl(item.LOSS_MEDICAL_INSURANCE_YN),
-                            PREEMIE_BABY_YN             : gfn_nvl(item.PREEMIE_BABY_YN),
+                            MED_SEQ                     : gfnma_nvl2(item.MED_SEQ),
+                            MED_SOCNO                   : gfnma_nvl2(item.MED_SOCNO),
+                            MED_SOCIAL_NO_REAL          : gfnma_nvl2(item.MED_SOCIAL_NO_REAL),
+                            MED_COM_NUM                 : gfnma_nvl2(item.MED_COM_NUM),
+                            MED_NAME                    : gfnma_nvl2(item.MED_NAME),
+                            MED_CERTIFICATE_CODE        : gfnma_nvl2(item.MED_CERTIFICATE_CODE),
+                            MED_COUNT                   : gfnma_nvl2(item.MED_COUNT),
+                            MED_EXP_AMT                 : gfnma_nvl2(item.MED_EXP_AMT),
+                            MED_INFTY_TREATMENT_YN      : gfnma_nvl2(item.MED_INFTY_TREATMENT_YN),
+                            EYEGLASS_PUR_COST_YN        : gfnma_nvl2(item.EYEGLASS_PUR_COST_YN),
+                            POSTPARTUM_CARE_CENTER_YN   : gfnma_nvl2(item.POSTPARTUM_CARE_CENTER_YN),
+                            LOSS_MEDICAL_INSURANCE_YN   : gfnma_nvl2(item.LOSS_MEDICAL_INSURANCE_YN),
+                            PREEMIE_BABY_YN             : gfnma_nvl2(item.PREEMIE_BABY_YN),
                             //  --2020년 연말정산
-                            MED_ACC_NO                  : gfn_nvl(item.MED_ACC_NO),
-                            MED_GOODS_NM                : gfn_nvl(item.MED_GOODS_NM),
-                            MED_INSU_RESID              : gfn_nvl(item.MED_INSU_RESID),
-                            MED_INSU_NM                 : gfn_nvl(item.MED_INSU_NM),
+                            MED_ACC_NO                  : gfnma_nvl2(item.MED_ACC_NO),
+                            MED_GOODS_NM                : gfnma_nvl2(item.MED_GOODS_NM),
+                            MED_INSU_RESID              : gfnma_nvl2(item.MED_INSU_RESID),
+                            MED_INSU_NM                 : gfnma_nvl2(item.MED_INSU_NM),
                         }
                         jsonMedExpenseList.push(msg);
 
@@ -3475,18 +3494,18 @@
                     jsonDonationList.length = 0;
                     data.cv_7.forEach((item, index) => {
                         const msg = {
-                            DON_SEQ                     : gfn_nvl(item.DON_SEQ),
-                            DON_SOCNO                   : gfn_nvl(item.DON_SOCNO),
-                            DONATION_SOCIAL_NO_REAL     : gfn_nvl(item.DONATION_SOCIAL_NO_REAL),
-                            DON_YE_TX_REL               : gfn_nvl(item.DON_YE_TX_REL),
-                            DON_TYPE_NTS_YN             : gfn_nvl(item.DON_TYPE_NTS_YN),
-                            DON_TYPE                    : gfn_nvl(item.DON_TYPE),
-                            DON_COM_NUM                 : gfn_nvl(item.DON_COM_NUM),
-                            DON_NAME                    : gfn_nvl(item.DON_NAME),
-                            DON_COUNT                   : gfn_nvl(item.DON_COUNT),
-                            DON_AMT                     : gfn_nvl(item.DON_AMT),
-                            DED_TGT_DON_AMT             : gfn_nvl(item.DED_TGT_DON_AMT),
-                            DON_INCENTIVES_APPLY_AMT    : gfn_nvl(item.DON_INCENTIVES_APPLY_AMT),
+                            DON_SEQ                     : gfnma_nvl2(item.DON_SEQ),
+                            DON_SOCNO                   : gfnma_nvl2(item.DON_SOCNO),
+                            DONATION_SOCIAL_NO_REAL     : gfnma_nvl2(item.DONATION_SOCIAL_NO_REAL),
+                            DON_YE_TX_REL               : gfnma_nvl2(item.DON_YE_TX_REL),
+                            DON_TYPE_NTS_YN             : gfnma_nvl2(item.DON_TYPE_NTS_YN),
+                            DON_TYPE                    : gfnma_nvl2(item.DON_TYPE),
+                            DON_COM_NUM                 : gfnma_nvl2(item.DON_COM_NUM),
+                            DON_NAME                    : gfnma_nvl2(item.DON_NAME),
+                            DON_COUNT                   : gfnma_nvl2(item.DON_COUNT),
+                            DON_AMT                     : gfnma_nvl2(item.DON_AMT),
+                            DED_TGT_DON_AMT             : gfnma_nvl2(item.DED_TGT_DON_AMT),
+                            DON_INCENTIVES_APPLY_AMT    : gfnma_nvl2(item.DON_INCENTIVES_APPLY_AMT),
                         }
                         jsonDonationList.push(msg);
 
@@ -3499,14 +3518,14 @@
                     jsonAdjustList.length = 0;
                     data.cv_8.forEach((item, index) => {
                         const msg = {
-                            DON_YYYY                    : gfn_nvl(item.DON_YYYY),
-                            DON_TYPE                    : gfn_nvl(item.DON_TYPE),
-                            DON_AMT                     : gfn_nvl(item.DON_AMT),
-                            DON_ADJ_LAST_YEAR_DEAMT     : gfn_nvl(item.DON_ADJ_LAST_YEAR_DEAMT),
-                            DON_ADJ_TGT_DEAMT           : gfn_nvl(item.DON_ADJ_TGT_DEAMT),
-                            DON_ADJ_CURR_YEAR_DEAMT     : gfn_nvl(item.DON_ADJ_CURR_YEAR_DEAMT),
-                            DON_ADJ_DESTROY_AMT         : gfn_nvl(item.DON_ADJ_DESTROY_AMT),
-                            DON_ADJ_TRANSFER_AMT        : gfn_nvl(item.DON_ADJ_TRANSFER_AMT),
+                            DON_YYYY                    : gfnma_nvl2(item.DON_YYYY),
+                            DON_TYPE                    : gfnma_nvl2(item.DON_TYPE),
+                            DON_AMT                     : gfnma_nvl2(item.DON_AMT),
+                            DON_ADJ_LAST_YEAR_DEAMT     : gfnma_nvl2(item.DON_ADJ_LAST_YEAR_DEAMT),
+                            DON_ADJ_TGT_DEAMT           : gfnma_nvl2(item.DON_ADJ_TGT_DEAMT),
+                            DON_ADJ_CURR_YEAR_DEAMT     : gfnma_nvl2(item.DON_ADJ_CURR_YEAR_DEAMT),
+                            DON_ADJ_DESTROY_AMT         : gfnma_nvl2(item.DON_ADJ_DESTROY_AMT),
+                            DON_ADJ_TRANSFER_AMT        : gfnma_nvl2(item.DON_ADJ_TRANSFER_AMT),
 
                         }
                         jsonAdjustList.push(msg);
@@ -3519,14 +3538,14 @@
                     jsonAdjust2List.length = 0;
                     data.cv_9.forEach((item, index) => {
                         const msg = {
-                            DON_YYYY                    : gfn_nvl(item.DON_YYYY),
-                            DON_TYPE                    : gfn_nvl(item.DON_TYPE),
-                            DON_AMT                     : gfn_nvl(item.DON_AMT),
-                            DON_ADJ_LAST_YEAR_DEAMT     : gfn_nvl(item.DON_ADJ_LAST_YEAR_DEAMT),
-                            DON_ADJ_TGT_DEAMT           : gfn_nvl(item.DON_ADJ_TGT_DEAMT),
-                            DON_ADJ_CURR_YEAR_DEAMT     : gfn_nvl(item.DON_ADJ_CURR_YEAR_DEAMT),
-                            DON_ADJ_DESTROY_AMT         : gfn_nvl(item.DON_ADJ_DESTROY_AMT),
-                            DON_ADJ_TRANSFER_AMT        : gfn_nvl(item.DON_ADJ_TRANSFER_AMT),
+                            DON_YYYY                    : gfnma_nvl2(item.DON_YYYY),
+                            DON_TYPE                    : gfnma_nvl2(item.DON_TYPE),
+                            DON_AMT                     : gfnma_nvl2(item.DON_AMT),
+                            DON_ADJ_LAST_YEAR_DEAMT     : gfnma_nvl2(item.DON_ADJ_LAST_YEAR_DEAMT),
+                            DON_ADJ_TGT_DEAMT           : gfnma_nvl2(item.DON_ADJ_TGT_DEAMT),
+                            DON_ADJ_CURR_YEAR_DEAMT     : gfnma_nvl2(item.DON_ADJ_CURR_YEAR_DEAMT),
+                            DON_ADJ_DESTROY_AMT         : gfnma_nvl2(item.DON_ADJ_DESTROY_AMT),
+                            DON_ADJ_TRANSFER_AMT        : gfnma_nvl2(item.DON_ADJ_TRANSFER_AMT),
 
                         }
                         jsonAdjust2List.push(msg);
@@ -3540,17 +3559,17 @@
                     jsonInsureList.length = 0;
                     data.cv_10.forEach((item, index) => {
                         const msg = {
-                            INSURE_SEQ              : gfn_nvl(item.INSURE_SEQ),
-                            INSURE_SOCNO            : gfn_nvl(item.INSURE_SOCNO),
-                            INSURE_SOCIAL_NO_REAL   : gfn_nvl(item.INSURE_SOCIAL_NO_REAL),
-                            INSURE_COM_NUM          : gfn_nvl(item.INSURE_COM_NUM),
-                            INSURE_NAME             : gfn_nvl(item.INSURE_NAME),
-                            INSURE_TYPE             : gfn_nvl(item.INSURE_TYPE),
-                            INSURE_NO               : gfn_nvl(item.INSURE_NO),
-                            INSURE_COUNT            : gfn_nvl(item.INSURE_COUNT),
-                            INSURE_AMT              : gfn_nvl(item.INSURE_AMT),
-                            AAAAAAAAAAAA            : gfn_nvl(item.DON_YYYY),
-                            AAAAAAAAAAAA            : gfn_nvl(item.DON_YYYY),
+                            INSURE_SEQ              : gfnma_nvl2(item.INSURE_SEQ),
+                            INSURE_SOCNO            : gfnma_nvl2(item.INSURE_SOCNO),
+                            INSURE_SOCIAL_NO_REAL   : gfnma_nvl2(item.INSURE_SOCIAL_NO_REAL),
+                            INSURE_COM_NUM          : gfnma_nvl2(item.INSURE_COM_NUM),
+                            INSURE_NAME             : gfnma_nvl2(item.INSURE_NAME),
+                            INSURE_TYPE             : gfnma_nvl2(item.INSURE_TYPE),
+                            INSURE_NO               : gfnma_nvl2(item.INSURE_NO),
+                            INSURE_COUNT            : gfnma_nvl2(item.INSURE_COUNT),
+                            INSURE_AMT              : gfnma_nvl2(item.INSURE_AMT),
+                            AAAAAAAAAAAA            : gfnma_nvl2(item.DON_YYYY),
+                            AAAAAAAAAAAA            : gfnma_nvl2(item.DON_YYYY),
 
                         }
                         jsonInsureList.push(msg);
@@ -3986,8 +4005,8 @@
         let updateData;
         let returnData = [];
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
        /* if (!YE_TX_YYYY) {
@@ -4168,7 +4187,7 @@
     //연금보험료공제, 특별소득공제, 그밖의 소득공제, 세금감면/세액공제, 저장
     const fn_saveS1 = async function (type) {
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         /*if (!YE_TX_YYYY) {
@@ -4303,154 +4322,154 @@
             ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
-            ,V_P_YE_TX_YYYY                      : gfn_nvl(SBUxMethod.get("YE_TX_YYYY"))
-            ,V_P_YEAR_END_TX_TYPE                : gfn_nvl(SBUxMethod.get("YEAR_END_TX_TYPE"))
-            ,V_P_EMP_CODE                        : gfn_nvl(SBUxMethod.get("EMP_CODE"))
-            ,V_P_LIVE_YN                         : gfn_nvl(SBUxMethod.get("LIVE_YN"))
-            ,V_P_LIVE_NATION_CODE                : gfn_nvl(SBUxMethod.get("LIVE_NATION_CODE"))
-            ,V_P_FAMILY_OWNER_YN                 : gfn_nvl(SBUxMethod.get("FAMILY_OWNER_YN"))
-            ,V_P_BEF_YEAR_EQUAL_YN               : gfn_nvl(SBUxMethod.get("BEF_YEAR_EQUAL_YN"))
-            ,V_P_FOREI_TX_YN                     : gfn_nvl(SBUxMethod.get("FOREI_TX_YN"))
-            ,V_P_FOREITX_DISPATCH_WRK_YN         : gfn_nvl(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN"))
-            ,V_P_PENS_AMT                        : gfn_nvl(SBUxMethod.get("PENS_AMT"))
-            ,V_P_OFFICIAL_PENS_AMT               : gfn_nvl(SBUxMethod.get("OFFICIAL_PENS_AMT"))
-            ,V_P_MILITARY_PENS_AMT               : gfn_nvl(SBUxMethod.get("MILITARY_PENS_AMT"))
-            ,V_P_SCHOOL_PENS_AMT                 : gfn_nvl(SBUxMethod.get("SCHOOL_PENS_AMT"))
-            ,V_P_POST_PENS_AMT                   : gfn_nvl(SBUxMethod.get("POST_PENS_AMT"))
-            ,V_P_HEALTH_INSURE_AMT               : gfn_nvl(SBUxMethod.get("HEALTH_INSURE_AMT"))
-            ,V_P_SENIOR_HEALTH_INSURE_AMT        : gfn_nvl(SBUxMethod.get("SENIOR_HEALTH_INSURE_AMT"))
-            ,V_P_EMP_INSURE_AMT                  : gfn_nvl(SBUxMethod.get("EMP_INSURE_AMT"))
-            ,V_P_HSRENT_PRIN_ORG_AMT             : gfn_nvl(SBUxMethod.get("HSRENT_PRIN_ORG_AMT"))
-            ,V_P_HSRENT_PRIN_PERS_AMT            : gfn_nvl(SBUxMethod.get("HSRENT_PRIN_PERS_AMT"))
-            ,V_P_HS_INT_AMT1                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT1"))
-            ,V_P_HS_INT_AMT2                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT2"))
-            ,V_P_HS_INT_AMT3                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT3"))
-            ,V_P_HS_INT_AMT4                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT4"))
-            ,V_P_HS_INT_AMT5                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT5"))
-            ,V_P_HS_INT_AMT6                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT6"))
-            ,V_P_HS_INT_AMT7                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT7"))
-            ,V_P_HS_INT_AMT8                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT8"))
-            ,V_P_HS_INT_AMT9                     : gfn_nvl(SBUxMethod.get("HS_INT_AMT9"))
-            ,V_P_PRIVATE_PENS_SV_AMT             : gfn_nvl(SBUxMethod.get("PRIV_PENS_SV_AMT"))
-            ,V_P_SM_COM_AMT                      : gfn_nvl(SBUxMethod.get("SM_COM_AMT"))
-            ,V_P_SM_COM_AMT_DED_JOI_DAT          : gfn_nvl(SBUxMethod.get("SM_COM_AMT_DED_JOIN_DAT"))
-            ,V_P_SM_COM_AMT_TGT_PEND_DAT         : gfn_nvl(SBUxMethod.get("SM_COM_AMT_TGT_P_END_DAT"))
-            ,V_P_HS_SUBS_SV_AMT                  : gfn_nvl(SBUxMethod.get("HS_SUBS_SV_AMT"))
-            ,V_P_HS_EMP_SV_AMT                   : gfn_nvl(SBUxMethod.get("HS_EMP_SV_AMT"))
-            ,V_P_HS_TOT_SV_AMT                   : gfn_nvl(SBUxMethod.get("HS_TOT_SV_AMT"))
-            ,V_P_INVEST_AMT1                     : gfn_nvl(SBUxMethod.get("INVEST_AMT1"))
-            ,V_P_INVEST_AMT2                     : gfn_nvl(SBUxMethod.get("INVEST_AMT2"))
-            ,V_P_INVEST_AMT3                     : gfn_nvl(SBUxMethod.get("INVEST_AMT3"))
-            ,V_P_INVEST_AMT4                     : gfn_nvl(SBUxMethod.get("INVEST_AMT4"))
-            ,V_P_INVEST_PREV2_AMT_1              : gfn_nvl(SBUxMethod.get("INVEST_PREV2_AMT_1"))
-            ,V_P_INVEST_PREV2_AMT_2              : gfn_nvl(SBUxMethod.get("INVEST_PREV2_AMT_2"))
-            ,V_P_INVEST_PREV2_AMT_3              : gfn_nvl(SBUxMethod.get("INVEST_PREV2_AMT_3"))
-            ,V_P_INVEST_PREV_AMT_1               : gfn_nvl(SBUxMethod.get("INVEST_PREV_AMT_1"))
-            ,V_P_INVEST_PREV_AMT_2               : gfn_nvl(SBUxMethod.get("INVEST_PREV_AMT_2"))
-            ,V_P_INVEST_PREV_AMT_3               : gfn_nvl(SBUxMethod.get("INVEST_PREV_AMT_3"))
-            ,V_P_INVEST_THIS_AMT_1               : gfn_nvl(SBUxMethod.get("INVEST_THIS_AMT_1"))
-            ,V_P_INVEST_THIS_AMT_2               : gfn_nvl(SBUxMethod.get("INVEST_THIS_AMT_2"))
-            ,V_P_INVEST_THIS_AMT_3               : gfn_nvl(SBUxMethod.get("INVEST_THIS_AMT_3"))
+            ,V_P_YE_TX_YYYY                      : gfnma_nvl2(SBUxMethod.get("YE_TX_YYYY"))
+            ,V_P_YEAR_END_TX_TYPE                : gfnma_nvl2(SBUxMethod.get("YEAR_END_TX_TYPE"))
+            ,V_P_EMP_CODE                        : gfnma_nvl2(SBUxMethod.get("EMP_CODE"))
+            ,V_P_LIVE_YN                         : gfnma_nvl2(SBUxMethod.get("LIVE_YN"))
+            ,V_P_LIVE_NATION_CODE                : gfnma_nvl2(SBUxMethod.get("LIVE_NATION_CODE"))
+            ,V_P_FAMILY_OWNER_YN                 : gfnma_nvl2(SBUxMethod.get("FAMILY_OWNER_YN"))
+            ,V_P_BEF_YEAR_EQUAL_YN               : gfnma_nvl2(SBUxMethod.get("BEF_YEAR_EQUAL_YN"))
+            ,V_P_FOREI_TX_YN                     : gfnma_nvl2(SBUxMethod.get("FOREI_TX_YN"))
+            ,V_P_FOREITX_DISPATCH_WRK_YN         : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN"))
+            ,V_P_PENS_AMT                        : gfnma_nvl2(SBUxMethod.get("PENS_AMT"))
+            ,V_P_OFFICIAL_PENS_AMT               : gfnma_nvl2(SBUxMethod.get("OFFICIAL_PENS_AMT"))
+            ,V_P_MILITARY_PENS_AMT               : gfnma_nvl2(SBUxMethod.get("MILITARY_PENS_AMT"))
+            ,V_P_SCHOOL_PENS_AMT                 : gfnma_nvl2(SBUxMethod.get("SCHOOL_PENS_AMT"))
+            ,V_P_POST_PENS_AMT                   : gfnma_nvl2(SBUxMethod.get("POST_PENS_AMT"))
+            ,V_P_HEALTH_INSURE_AMT               : gfnma_nvl2(SBUxMethod.get("HEALTH_INSURE_AMT"))
+            ,V_P_SENIOR_HEALTH_INSURE_AMT        : gfnma_nvl2(SBUxMethod.get("SENIOR_HEALTH_INSURE_AMT"))
+            ,V_P_EMP_INSURE_AMT                  : gfnma_nvl2(SBUxMethod.get("EMP_INSURE_AMT"))
+            ,V_P_HSRENT_PRIN_ORG_AMT             : gfnma_nvl2(SBUxMethod.get("HSRENT_PRIN_ORG_AMT"))
+            ,V_P_HSRENT_PRIN_PERS_AMT            : gfnma_nvl2(SBUxMethod.get("HSRENT_PRIN_PERS_AMT"))
+            ,V_P_HS_INT_AMT1                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT1"))
+            ,V_P_HS_INT_AMT2                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT2"))
+            ,V_P_HS_INT_AMT3                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT3"))
+            ,V_P_HS_INT_AMT4                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT4"))
+            ,V_P_HS_INT_AMT5                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT5"))
+            ,V_P_HS_INT_AMT6                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT6"))
+            ,V_P_HS_INT_AMT7                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT7"))
+            ,V_P_HS_INT_AMT8                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT8"))
+            ,V_P_HS_INT_AMT9                     : gfnma_nvl2(SBUxMethod.get("HS_INT_AMT9"))
+            ,V_P_PRIVATE_PENS_SV_AMT             : gfnma_nvl2(SBUxMethod.get("PRIV_PENS_SV_AMT"))
+            ,V_P_SM_COM_AMT                      : gfnma_nvl2(SBUxMethod.get("SM_COM_AMT"))
+            ,V_P_SM_COM_AMT_DED_JOI_DAT          : gfnma_nvl2(SBUxMethod.get("SM_COM_AMT_DED_JOIN_DAT"))
+            ,V_P_SM_COM_AMT_TGT_PEND_DAT         : gfnma_nvl2(SBUxMethod.get("SM_COM_AMT_TGT_P_END_DAT"))
+            ,V_P_HS_SUBS_SV_AMT                  : gfnma_nvl2(SBUxMethod.get("HS_SUBS_SV_AMT"))
+            ,V_P_HS_EMP_SV_AMT                   : gfnma_nvl2(SBUxMethod.get("HS_EMP_SV_AMT"))
+            ,V_P_HS_TOT_SV_AMT                   : gfnma_nvl2(SBUxMethod.get("HS_TOT_SV_AMT"))
+            ,V_P_INVEST_AMT1                     : gfnma_nvl2(SBUxMethod.get("INVEST_AMT1"))
+            ,V_P_INVEST_AMT2                     : gfnma_nvl2(SBUxMethod.get("INVEST_AMT2"))
+            ,V_P_INVEST_AMT3                     : gfnma_nvl2(SBUxMethod.get("INVEST_AMT3"))
+            ,V_P_INVEST_AMT4                     : gfnma_nvl2(SBUxMethod.get("INVEST_AMT4"))
+            ,V_P_INVEST_PREV2_AMT_1              : gfnma_nvl2(SBUxMethod.get("INVEST_PREV2_AMT_1"))
+            ,V_P_INVEST_PREV2_AMT_2              : gfnma_nvl2(SBUxMethod.get("INVEST_PREV2_AMT_2"))
+            ,V_P_INVEST_PREV2_AMT_3              : gfnma_nvl2(SBUxMethod.get("INVEST_PREV2_AMT_3"))
+            ,V_P_INVEST_PREV_AMT_1               : gfnma_nvl2(SBUxMethod.get("INVEST_PREV_AMT_1"))
+            ,V_P_INVEST_PREV_AMT_2               : gfnma_nvl2(SBUxMethod.get("INVEST_PREV_AMT_2"))
+            ,V_P_INVEST_PREV_AMT_3               : gfnma_nvl2(SBUxMethod.get("INVEST_PREV_AMT_3"))
+            ,V_P_INVEST_THIS_AMT_1               : gfnma_nvl2(SBUxMethod.get("INVEST_THIS_AMT_1"))
+            ,V_P_INVEST_THIS_AMT_2               : gfnma_nvl2(SBUxMethod.get("INVEST_THIS_AMT_2"))
+            ,V_P_INVEST_THIS_AMT_3               : gfnma_nvl2(SBUxMethod.get("INVEST_THIS_AMT_3"))
 
             //--BEF 신용카드등
-            ,V_P_CD_USE_BEF_AMT                  : gfn_nvl(SBUxMethod.get("CD_USE_BEF_AMT"))
-            ,V_P_CHECK_CD_USE_BEF_AMT            : gfn_nvl(SBUxMethod.get("CHKCD_USE_BEF_AMT"))
-            ,V_P_CASH_RECEIPT_BEF_AMT            : gfn_nvl(SBUxMethod.get("CASH_RECEIPT_BEF_AMT"))
-            ,V_P_TDMK_USE_BEF_AMT                : gfn_nvl(SBUxMethod.get("TDMK_USE_BEF_AMT"))
-            ,V_P_PBTRN_USE_BEF_AMT               : gfn_nvl(SBUxMethod.get("PBTRN_USE_BEF_AMT"))
-            ,V_P_CD_USE_BEF_AMT2                 : gfn_nvl(SBUxMethod.get("CD_USE_BEF_AMT2"))
-            ,V_P_CHECK_CD_USE_BEF_AMT2           : gfn_nvl(SBUxMethod.get("CHKCD_USE_BEF_AMT2"))
-            ,V_P_CASH_RECEIPT_BEF_AMT2           : gfn_nvl(SBUxMethod.get("CASH_RECEIPT_BEF_AMT2"))
-            ,V_P_TDMK_USE_BEF_AMT2               : gfn_nvl(SBUxMethod.get("TDMK_USE_BEF_AMT2"))
-            ,V_P_PBTRN_USE_BEF_AMT2              : gfn_nvl(SBUxMethod.get("PBTRN_USE_BEF_AMT2"))
+            ,V_P_CD_USE_BEF_AMT                  : gfnma_nvl2(SBUxMethod.get("CD_USE_BEF_AMT"))
+            ,V_P_CHECK_CD_USE_BEF_AMT            : gfnma_nvl2(SBUxMethod.get("CHKCD_USE_BEF_AMT"))
+            ,V_P_CASH_RECEIPT_BEF_AMT            : gfnma_nvl2(SBUxMethod.get("CASH_RECEIPT_BEF_AMT"))
+            ,V_P_TDMK_USE_BEF_AMT                : gfnma_nvl2(SBUxMethod.get("TDMK_USE_BEF_AMT"))
+            ,V_P_PBTRN_USE_BEF_AMT               : gfnma_nvl2(SBUxMethod.get("PBTRN_USE_BEF_AMT"))
+            ,V_P_CD_USE_BEF_AMT2                 : gfnma_nvl2(SBUxMethod.get("CD_USE_BEF_AMT2"))
+            ,V_P_CHECK_CD_USE_BEF_AMT2           : gfnma_nvl2(SBUxMethod.get("CHKCD_USE_BEF_AMT2"))
+            ,V_P_CASH_RECEIPT_BEF_AMT2           : gfnma_nvl2(SBUxMethod.get("CASH_RECEIPT_BEF_AMT2"))
+            ,V_P_TDMK_USE_BEF_AMT2               : gfnma_nvl2(SBUxMethod.get("TDMK_USE_BEF_AMT2"))
+            ,V_P_PBTRN_USE_BEF_AMT2              : gfnma_nvl2(SBUxMethod.get("PBTRN_USE_BEF_AMT2"))
 
             //--신용카드등
-            ,V_P_CD_USE_AMT                     : gfn_nvl(SBUxMethod.get("CD_USE_AMT"))
-            ,V_P_CHECK_CD_USE_AMT               : gfn_nvl(SBUxMethod.get("CHECK_CD_USE_AMT"))
-            ,V_P_CASH_RECEIPT_AMT               : gfn_nvl(SBUxMethod.get("CASH_RECEIPT_AMT"))
-            ,V_P_TDMK_USE_AMT                   : gfn_nvl(SBUxMethod.get("TDMK_USE_AMT"))
-            ,V_P_TDMK_USE_AMT1                  : gfn_nvl(SBUxMethod.get("TDMK_USE_AMT1"))
-            ,V_P_TDMK_USE_AMT2                  : gfn_nvl(SBUxMethod.get("TDMK_USE_AMT2"))
-            ,V_P_PBTRN_USE_AMT                  : gfn_nvl(SBUxMethod.get("PBTRN_USE_AMT"))
-            ,V_P_PBTRN_USE_A_AMT                : 0/*gfn_nvl(SBUxMethod.get("PBTRN_USE_A_AMT"))//*/
-            ,V_P_PBTRN_USE_B_AMT                : 0/*gfn_nvl(SBUxMethod.get("PBTRN_USE_B_AMT"))//*/
-            ,V_P_BOOK_PERF_USE_AMT              : gfn_nvl(SBUxMethod.get("BOOK_PERF_USE_AMT"))
-            ,V_P_BOOK_PERF_USE_AMT1             : gfn_nvl(SBUxMethod.get("BOOK_PERF_USE_AMT1"))
-            ,V_P_BOOK_PERF_USE_AMT2             : gfn_nvl(SBUxMethod.get("BOOK_PERF_USE_AMT2"))
-            ,V_P_CD_BOOK_PERF_USE_AMT           : gfn_nvl(SBUxMethod.get("CD_BOOK_PERF_USE_AMT"))
-            ,V_P_CD_BOOK_PERF_USE_AMT1          : gfn_nvl(SBUxMethod.get("CD_BOOK_PERF_USE_AMT1"))
-            ,V_P_CD_BOOK_PERF_USE_AMT2          : gfn_nvl(SBUxMethod.get("CD_BOOK_PERF_USE_AMT2"))
-            ,V_P_CHKCD_BOOK_PERF_USE_AMT        : gfn_nvl(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT"))
-            ,V_P_CHKCD_BOOK_PERF_USE_AMT1       : gfn_nvl(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT1"))
-            ,V_P_CHKCD_BOOK_PERF_USE_AMT2       : gfn_nvl(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT2"))
-            ,V_P_CASH_BOOK_PERF_USE_AMT         : gfn_nvl(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT"))
-            ,V_P_CASH_BOOK_PERF_USE_AMT1        : gfn_nvl(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT1"))
-            ,V_P_CASH_BOOK_PERF_USE_AMT2        : gfn_nvl(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT2"))
-            ,V_P_CARD_PREV_YEAR_USE_AMT         : 0/*gfn_nvl(SBUxMethod.get("CARD_PREV_YEAR_USE_AMT"))*/
-            ,V_P_CARD_THIS_YEAR_USE_AMT         : 0/*gfn_nvl(SBUxMethod.get("CARD_THIS_YEAR_USE_AMT"))*/
-            ,V_P_TDMK_PREV_AMT                  : 0/*gfn_nvl(SBUxMethod.get("TDMK_PREV_AMT"))*/
-            ,V_P_TDMK_THIS_AMT                  : 0/*gfn_nvl(SBUxMethod.get("TDMK_THIS_AMT"))*/
-            ,V_P_PERSONAL_CD_USE_AMT            : gfn_nvl(SBUxMethod.get("PERSONAL_CD_USE_AMT"))
-            ,V_P_CD_USE_HALF_AMT                : gfn_nvl(SBUxMethod.get("CD_USE_HALF_AMT"))
-            ,V_P_CD_USE_HALF_AMT2               : gfn_nvl(SBUxMethod.get("CD_USE_HALF_AMT2"))
-            ,V_P_CARD_BIZ_REL_AMT               : gfn_nvl(SBUxMethod.get("CARD_BIZ_REL_AMT"))
-            ,V_P_CHK_CD_BIZ_REL_AMT             : gfn_nvl(SBUxMethod.get("CHK_CD_BIZ_REL_AMT"))
-            ,V_P_EMP_STOCK_GIVE_AMT             : gfn_nvl(SBUxMethod.get("EMP_STOCK_GIVE_AMT"))
-            ,V_P_EMP_STOCK_DON_AMT              : gfn_nvl(SBUxMethod.get("EMP_STOCK_DON_AMT"))
-            ,V_P_SALARY_DECREASE_AMT            : gfn_nvl(SBUxMethod.get("SALARY_DECREASE_AMT"))
-            ,V_P_LEASE_INT_RDM_AMT              : gfn_nvl(SBUxMethod.get("LEASE_INTEREST_REDEEM_AMT"))//numlease_interest_redeem_amt
-            ,V_P_LT_INV_STOCK_SV_AMT            : gfn_nvl(SBUxMethod.get("LT_INV_ST_SAV_AMT"))//numlt_inv_st_sav_amt
-            ,V_P_PENS_ISA_TX_DEAMT              : gfn_nvl(SBUxMethod.get("PENS_ISA_TX_DEAMT"))
-            ,V_P_FOREI_VISIT_PURP               : gfn_nvl(SBUxMethod.get("FOREI_VISIT_PURP"))
-            ,V_P_TECH_INTRO_CONTCT_DAT          : gfn_nvl(SBUxMethod.get("TECH_INTRO_CONTRACT_DAT"))
-            ,V_P_TECH_INTRO_RED_END_DAT         : gfn_nvl(SBUxMethod.get("TECH_INTRO_RED_END_DAT"))
-            ,V_P_FOREI_INC_RED_RECV_DAT         : gfn_nvl(SBUxMethod.get("FOREI_INC_RED_RECV_DAT"))
-            ,V_P_FOREI_INC_RED_SBT_DAT          : gfn_nvl(SBUxMethod.get("FOREI_INC_RED_SUBMIT_DAT"))
-            ,V_P_TX_TREATY_RED_RECV_DAT         : gfn_nvl(SBUxMethod.get("TX_TREATY_RED_RECV_DAT"))
-            ,V_P_TX_TREATY_RED_SUBMIT_DAT       : gfn_nvl(SBUxMethod.get("TX_TREATY_RED_SUBMIT_DAT"))
-            ,V_P_EMPLOY_YOUTH_ST_DAT            : gfn_nvl(SBUxMethod.get("EMP_YOUTH_ST_DAT"))
-            ,V_P_EMPLOY_YTH_RED_END_DAT         : gfn_nvl(SBUxMethod.get("EMP_YOUTH_RED_END_DAT"))
-            ,V_P_SCNT_PENS_TX_DEAMT             : gfn_nvl(SBUxMethod.get("SCNT_PENS_TX_DEAMT"))
-            ,V_P_RET_PENS_TX_DEAMT              : gfn_nvl(SBUxMethod.get("RET_PENS_TX_DEAMT"))
-            ,V_P_PENS_SV_TX_DEAMT               : gfn_nvl(SBUxMethod.get("PENS_SV_TX_DEAMT"))
-            ,V_P_GEN_INSURE_TX_DEAMT            : gfn_nvl(SBUxMethod.get("GENERAL_INSURE_TX_DEAMT"))
-            ,V_P_HDCP_INSURE_TX_DEAMT           : gfn_nvl(SBUxMethod.get("HDCP_INSURE_TX_DEAMT"))
-            ,V_P_PERSONAL_MED_TX_DEAMT          : gfn_nvl(SBUxMethod.get("PERSONAL_MED_TX_DEAMT"))
-            ,V_P_SENIOR_MED_TX_DEAMT            : gfn_nvl(SBUxMethod.get("SENIOR_MED_TX_DEAMT"))
-            ,V_P_HDCP_MED_TX_DEAMT              : gfn_nvl(SBUxMethod.get("HDCP_MED_TX_DEAMT"))
-            ,V_P_EXCP_MED_TX_DEAMT              : gfn_nvl(SBUxMethod.get("EXCP_MED_TX_DEAMT"))
-            ,V_P_INFTY_MED_TX_DEAMT             : gfn_nvl(SBUxMethod.get("INFTY_MED_TX_DEAMT"))
-            ,V_P_PREEMIE_BABY_MED_TX_DEAMT      : gfn_nvl(SBUxMethod.get("PREEMIE_BABY_MED_TX_DEAMT"))
-            ,V_P_DON_POL_TX_DEAMT               : gfn_nvl(SBUxMethod.get("DON_POL_TX_DEAMT"))
-            ,V_P_DON_HLE_TX_DEAMT               : gfn_nvl(SBUxMethod.get("DON_HLE_TX_DEAMT"))
-            ,V_P_DON_LGL_TX_DEAMT               : gfn_nvl(SBUxMethod.get("DON_LGL_TX_DEAMT"))
-            ,V_P_DON_EMP_STOCK_TX_DEAMT         : gfn_nvl(SBUxMethod.get("DON_EMP_STOCK_TX_DEAMT"))
-            ,V_P_DON_OUT_OF_REL_TX_DEAMT        : gfn_nvl(SBUxMethod.get("DON_OUT_OF_REL_TX_DEAMT"))
-            ,V_P_DON_REL_TX_DEAMT               : gfn_nvl(SBUxMethod.get("DON_REL_TX_DEAMT"))
-            ,V_P_FOREIGN_INC_AMT                : gfn_nvl(SBUxMethod.get("FOREI_INC_AMT"))
-            ,V_P_FOREI_PAY_TX_FOREI_AMT         : gfn_nvl(SBUxMethod.get("FOREI_PAY_TX_FOREI_AMT"))
-            ,V_P_FOREI_PAY_TX_WON_AMT           : gfn_nvl(SBUxMethod.get("FOREI_PAY_TX_WON_AMT"))
-            ,V_P_FOREI_PAY_TX_NATION_NM         : gfn_nvl(SBUxMethod.get("FOREI_PAY_TX_NATION_NAME"))
-            ,V_P_FOREI_PAY_TX_DAT               : gfn_nvl(SBUxMethod.get("FOREI_PAY_TX_DAT"))
-            ,V_P_FOREI_REQ_SUBMIT_DAT           : gfn_nvl(SBUxMethod.get("FOREI_REQ_SUBMIT_DAT"))
-            ,V_P_FOREI_COM_NAME                 : gfn_nvl(SBUxMethod.get("FOREI_COM_NAME"))
-            ,V_P_FOREIGN_WORK_ST_DAT            : gfn_nvl(SBUxMethod.get("FOREI_WORK_ST_DAT"))
-            ,V_P_FOREIGN_WORK_END_DAT           : gfn_nvl(SBUxMethod.get("FOREI_WORK_END_DAT"))
-            ,V_P_FOREI_DUTY_NAME                : gfn_nvl(SBUxMethod.get("FOREI_DUTY_NAME"))
-            ,V_P_HSRENT_INT_TX_DEAMT            : gfn_nvl(SBUxMethod.get("HSRENT_INT_TX_DEAMT"))
-            ,V_P_HS_MM_RENT_TX_DEAMT            : gfn_nvl(SBUxMethod.get("HS_MM_RENT_TX_DEAMT"))
+            ,V_P_CD_USE_AMT                     : gfnma_nvl2(SBUxMethod.get("CD_USE_AMT"))
+            ,V_P_CHECK_CD_USE_AMT               : gfnma_nvl2(SBUxMethod.get("CHECK_CD_USE_AMT"))
+            ,V_P_CASH_RECEIPT_AMT               : gfnma_nvl2(SBUxMethod.get("CASH_RECEIPT_AMT"))
+            ,V_P_TDMK_USE_AMT                   : gfnma_nvl2(SBUxMethod.get("TDMK_USE_AMT"))
+            ,V_P_TDMK_USE_AMT1                  : gfnma_nvl2(SBUxMethod.get("TDMK_USE_AMT1"))
+            ,V_P_TDMK_USE_AMT2                  : gfnma_nvl2(SBUxMethod.get("TDMK_USE_AMT2"))
+            ,V_P_PBTRN_USE_AMT                  : gfnma_nvl2(SBUxMethod.get("PBTRN_USE_AMT"))
+            ,V_P_PBTRN_USE_A_AMT                : 0/*gfnma_nvl2(SBUxMethod.get("PBTRN_USE_A_AMT"))//*/
+            ,V_P_PBTRN_USE_B_AMT                : 0/*gfnma_nvl2(SBUxMethod.get("PBTRN_USE_B_AMT"))//*/
+            ,V_P_BOOK_PERF_USE_AMT              : gfnma_nvl2(SBUxMethod.get("BOOK_PERF_USE_AMT"))
+            ,V_P_BOOK_PERF_USE_AMT1             : gfnma_nvl2(SBUxMethod.get("BOOK_PERF_USE_AMT1"))
+            ,V_P_BOOK_PERF_USE_AMT2             : gfnma_nvl2(SBUxMethod.get("BOOK_PERF_USE_AMT2"))
+            ,V_P_CD_BOOK_PERF_USE_AMT           : gfnma_nvl2(SBUxMethod.get("CD_BOOK_PERF_USE_AMT"))
+            ,V_P_CD_BOOK_PERF_USE_AMT1          : gfnma_nvl2(SBUxMethod.get("CD_BOOK_PERF_USE_AMT1"))
+            ,V_P_CD_BOOK_PERF_USE_AMT2          : gfnma_nvl2(SBUxMethod.get("CD_BOOK_PERF_USE_AMT2"))
+            ,V_P_CHKCD_BOOK_PERF_USE_AMT        : gfnma_nvl2(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT"))
+            ,V_P_CHKCD_BOOK_PERF_USE_AMT1       : gfnma_nvl2(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT1"))
+            ,V_P_CHKCD_BOOK_PERF_USE_AMT2       : gfnma_nvl2(SBUxMethod.get("CHKCD_BOOK_PERF_USE_AMT2"))
+            ,V_P_CASH_BOOK_PERF_USE_AMT         : gfnma_nvl2(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT"))
+            ,V_P_CASH_BOOK_PERF_USE_AMT1        : gfnma_nvl2(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT1"))
+            ,V_P_CASH_BOOK_PERF_USE_AMT2        : gfnma_nvl2(SBUxMethod.get("CASH_BOOK_PERF_USE_AMT2"))
+            ,V_P_CARD_PREV_YEAR_USE_AMT         : 0/*gfnma_nvl2(SBUxMethod.get("CARD_PREV_YEAR_USE_AMT"))*/
+            ,V_P_CARD_THIS_YEAR_USE_AMT         : 0/*gfnma_nvl2(SBUxMethod.get("CARD_THIS_YEAR_USE_AMT"))*/
+            ,V_P_TDMK_PREV_AMT                  : 0/*gfnma_nvl2(SBUxMethod.get("TDMK_PREV_AMT"))*/
+            ,V_P_TDMK_THIS_AMT                  : 0/*gfnma_nvl2(SBUxMethod.get("TDMK_THIS_AMT"))*/
+            ,V_P_PERSONAL_CD_USE_AMT            : gfnma_nvl2(SBUxMethod.get("PERSONAL_CD_USE_AMT"))
+            ,V_P_CD_USE_HALF_AMT                : gfnma_nvl2(SBUxMethod.get("CD_USE_HALF_AMT"))
+            ,V_P_CD_USE_HALF_AMT2               : gfnma_nvl2(SBUxMethod.get("CD_USE_HALF_AMT2"))
+            ,V_P_CARD_BIZ_REL_AMT               : gfnma_nvl2(SBUxMethod.get("CARD_BIZ_REL_AMT"))
+            ,V_P_CHK_CD_BIZ_REL_AMT             : gfnma_nvl2(SBUxMethod.get("CHK_CD_BIZ_REL_AMT"))
+            ,V_P_EMP_STOCK_GIVE_AMT             : gfnma_nvl2(SBUxMethod.get("EMP_STOCK_GIVE_AMT"))
+            ,V_P_EMP_STOCK_DON_AMT              : gfnma_nvl2(SBUxMethod.get("EMP_STOCK_DON_AMT"))
+            ,V_P_SALARY_DECREASE_AMT            : gfnma_nvl2(SBUxMethod.get("SALARY_DECREASE_AMT"))
+            ,V_P_LEASE_INT_RDM_AMT              : gfnma_nvl2(SBUxMethod.get("LEASE_INTEREST_REDEEM_AMT"))//numlease_interest_redeem_amt
+            ,V_P_LT_INV_STOCK_SV_AMT            : gfnma_nvl2(SBUxMethod.get("LT_INV_ST_SAV_AMT"))//numlt_inv_st_sav_amt
+            ,V_P_PENS_ISA_TX_DEAMT              : gfnma_nvl2(SBUxMethod.get("PENS_ISA_TX_DEAMT"))
+            ,V_P_FOREI_VISIT_PURP               : gfnma_nvl2(SBUxMethod.get("FOREI_VISIT_PURP"))
+            ,V_P_TECH_INTRO_CONTCT_DAT          : gfnma_nvl2(SBUxMethod.get("TECH_INTRO_CONTRACT_DAT"))
+            ,V_P_TECH_INTRO_RED_END_DAT         : gfnma_nvl2(SBUxMethod.get("TECH_INTRO_RED_END_DAT"))
+            ,V_P_FOREI_INC_RED_RECV_DAT         : gfnma_nvl2(SBUxMethod.get("FOREI_INC_RED_RECV_DAT"))
+            ,V_P_FOREI_INC_RED_SBT_DAT          : gfnma_nvl2(SBUxMethod.get("FOREI_INC_RED_SUBMIT_DAT"))
+            ,V_P_TX_TREATY_RED_RECV_DAT         : gfnma_nvl2(SBUxMethod.get("TX_TREATY_RED_RECV_DAT"))
+            ,V_P_TX_TREATY_RED_SUBMIT_DAT       : gfnma_nvl2(SBUxMethod.get("TX_TREATY_RED_SUBMIT_DAT"))
+            ,V_P_EMPLOY_YOUTH_ST_DAT            : gfnma_nvl2(SBUxMethod.get("EMP_YOUTH_ST_DAT"))
+            ,V_P_EMPLOY_YTH_RED_END_DAT         : gfnma_nvl2(SBUxMethod.get("EMP_YOUTH_RED_END_DAT"))
+            ,V_P_SCNT_PENS_TX_DEAMT             : gfnma_nvl2(SBUxMethod.get("SCNT_PENS_TX_DEAMT"))
+            ,V_P_RET_PENS_TX_DEAMT              : gfnma_nvl2(SBUxMethod.get("RET_PENS_TX_DEAMT"))
+            ,V_P_PENS_SV_TX_DEAMT               : gfnma_nvl2(SBUxMethod.get("PENS_SV_TX_DEAMT"))
+            ,V_P_GEN_INSURE_TX_DEAMT            : gfnma_nvl2(SBUxMethod.get("GENERAL_INSURE_TX_DEAMT"))
+            ,V_P_HDCP_INSURE_TX_DEAMT           : gfnma_nvl2(SBUxMethod.get("HDCP_INSURE_TX_DEAMT"))
+            ,V_P_PERSONAL_MED_TX_DEAMT          : gfnma_nvl2(SBUxMethod.get("PERSONAL_MED_TX_DEAMT"))
+            ,V_P_SENIOR_MED_TX_DEAMT            : gfnma_nvl2(SBUxMethod.get("SENIOR_MED_TX_DEAMT"))
+            ,V_P_HDCP_MED_TX_DEAMT              : gfnma_nvl2(SBUxMethod.get("HDCP_MED_TX_DEAMT"))
+            ,V_P_EXCP_MED_TX_DEAMT              : gfnma_nvl2(SBUxMethod.get("EXCP_MED_TX_DEAMT"))
+            ,V_P_INFTY_MED_TX_DEAMT             : gfnma_nvl2(SBUxMethod.get("INFTY_MED_TX_DEAMT"))
+            ,V_P_PREEMIE_BABY_MED_TX_DEAMT      : gfnma_nvl2(SBUxMethod.get("PREEMIE_BABY_MED_TX_DEAMT"))
+            ,V_P_DON_POL_TX_DEAMT               : gfnma_nvl2(SBUxMethod.get("DON_POL_TX_DEAMT"))
+            ,V_P_DON_HLE_TX_DEAMT               : gfnma_nvl2(SBUxMethod.get("DON_HLE_TX_DEAMT"))
+            ,V_P_DON_LGL_TX_DEAMT               : gfnma_nvl2(SBUxMethod.get("DON_LGL_TX_DEAMT"))
+            ,V_P_DON_EMP_STOCK_TX_DEAMT         : gfnma_nvl2(SBUxMethod.get("DON_EMP_STOCK_TX_DEAMT"))
+            ,V_P_DON_OUT_OF_REL_TX_DEAMT        : gfnma_nvl2(SBUxMethod.get("DON_OUT_OF_REL_TX_DEAMT"))
+            ,V_P_DON_REL_TX_DEAMT               : gfnma_nvl2(SBUxMethod.get("DON_REL_TX_DEAMT"))
+            ,V_P_FOREIGN_INC_AMT                : gfnma_nvl2(SBUxMethod.get("FOREI_INC_AMT"))
+            ,V_P_FOREI_PAY_TX_FOREI_AMT         : gfnma_nvl2(SBUxMethod.get("FOREI_PAY_TX_FOREI_AMT"))
+            ,V_P_FOREI_PAY_TX_WON_AMT           : gfnma_nvl2(SBUxMethod.get("FOREI_PAY_TX_WON_AMT"))
+            ,V_P_FOREI_PAY_TX_NATION_NM         : gfnma_nvl2(SBUxMethod.get("FOREI_PAY_TX_NATION_NAME"))
+            ,V_P_FOREI_PAY_TX_DAT               : gfnma_nvl2(SBUxMethod.get("FOREI_PAY_TX_DAT"))
+            ,V_P_FOREI_REQ_SUBMIT_DAT           : gfnma_nvl2(SBUxMethod.get("FOREI_REQ_SUBMIT_DAT"))
+            ,V_P_FOREI_COM_NAME                 : gfnma_nvl2(SBUxMethod.get("FOREI_COM_NAME"))
+            ,V_P_FOREIGN_WORK_ST_DAT            : gfnma_nvl2(SBUxMethod.get("FOREI_WORK_ST_DAT"))
+            ,V_P_FOREIGN_WORK_END_DAT           : gfnma_nvl2(SBUxMethod.get("FOREI_WORK_END_DAT"))
+            ,V_P_FOREI_DUTY_NAME                : gfnma_nvl2(SBUxMethod.get("FOREI_DUTY_NAME"))
+            ,V_P_HSRENT_INT_TX_DEAMT            : gfnma_nvl2(SBUxMethod.get("HSRENT_INT_TX_DEAMT"))
+            ,V_P_HS_MM_RENT_TX_DEAMT            : gfnma_nvl2(SBUxMethod.get("HS_MM_RENT_TX_DEAMT"))
 
-            ,V_P_POSTPARTUM_CARE_CENTER_AMT     : gfn_nvl(SBUxMethod.get("POSTPARTUM_CARE_CENTER_AMT"))
-            ,V_P_POSTPARTUM_CARE_CENTER_TY      : ''/*gfn_nvl(SBUxMethod.get("POSTPARTUM_CARE_CENTER_TYPE"))*///
-            ,V_P_LOSS_MEDICAL_INSURANCE_AMT     : gfn_nvl(SBUxMethod.get("LOSS_MEDICAL_INSURANCE_AMT"))
-            ,V_P_LOSS_MED_INSUR_ME_AMT          : gfn_nvl(SBUxMethod.get("LOSS_MED_INSUR_ME_AMT"))
-            ,V_P_LOSS_MED_INSUR_EXEC_AMT        : gfn_nvl(SBUxMethod.get("LOSS_MED_INSUR_EXEC_AMT"))
+            ,V_P_POSTPARTUM_CARE_CENTER_AMT     : gfnma_nvl2(SBUxMethod.get("POSTPARTUM_CARE_CENTER_AMT"))
+            ,V_P_POSTPARTUM_CARE_CENTER_TY      : ''/*gfnma_nvl2(SBUxMethod.get("POSTPARTUM_CARE_CENTER_TYPE"))*///
+            ,V_P_LOSS_MEDICAL_INSURANCE_AMT     : gfnma_nvl2(SBUxMethod.get("LOSS_MEDICAL_INSURANCE_AMT"))
+            ,V_P_LOSS_MED_INSUR_ME_AMT          : gfnma_nvl2(SBUxMethod.get("LOSS_MED_INSUR_ME_AMT"))
+            ,V_P_LOSS_MED_INSUR_EXEC_AMT        : gfnma_nvl2(SBUxMethod.get("LOSS_MED_INSUR_EXEC_AMT"))
 
-            ,V_P_CLOSE_STATE                    : gfn_nvl(SBUxMethod.get("CLOSE_STATE"))
-            ,V_P_RELIGIOUS_WORKER_YN            : gfn_nvl(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN1"))//chkreligious_worker_yn
+            ,V_P_CLOSE_STATE                    : gfnma_nvl2(SBUxMethod.get("CLOSE_STATE"))
+            ,V_P_RELIGIOUS_WORKER_YN            : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN1"))//chkreligious_worker_yn
 
-            ,V_P_SM_COM_RULE_YN                 : gfn_nvl(SBUxMethod.get("SM_COM_RULE_YN"))
-            ,V_P_LT_COL_INV_SV_AMT              : gfn_nvl(SBUxMethod.get("LT_COL_INV_SV_AMT"))
+            ,V_P_SM_COM_RULE_YN                 : gfnma_nvl2(SBUxMethod.get("SM_COM_RULE_YN"))
+            ,V_P_LT_COL_INV_SV_AMT              : gfnma_nvl2(SBUxMethod.get("LT_COL_INV_SV_AMT"))
 
             ,V_P_FORM_ID            : p_formId
             ,V_P_MENU_ID            : p_menuId
@@ -4473,14 +4492,13 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                }else {
-                    alert(data.resultMessage);
-                    /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    fn_view();*/
                 }
+                return true;
 
             } else {
                 alert(data.resultMessage);
+
+                return false;
             }
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -4534,8 +4552,8 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY  = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME    = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
         let YE_TX_TYPE  = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!_.isEmpty(pensionSavingData)) {
@@ -4555,18 +4573,18 @@
 
                         ,V_P_YE_TX_YYYY             : YE_TX_YYYY
                         ,V_P_EMP_CODE               : EMP_NAME
-                        ,V_P_PENS_SEQ               : gfn_nvl(item.data.PENS_SEQ)
-                        ,V_P_PENS_DED_TYPE          : gfn_nvl(item.data.PENS_DED_TYPE)
-                        ,V_P_PENS_BANK_CODE         : gfn_nvl(item.data.PENS_BANK_CODE)
-                        ,V_P_PENS_ACC               : gfn_nvl(item.data.PENSION_ACCOUNT_REAL)
-                        ,V_P_PENS_PAY_AMT           : gfn_nvl(item.data.PENS_PAY_AMT)
-                        ,V_P_PENS_JOIN_DAT          : gfn_nvl(item.data.PENS_JOIN_DAT)
-                        ,V_P_INVESTMENT_YYYY        : gfn_nvl(item.data.INVESTMENT_YYYY)
-                        ,V_P_INVESTMENT_TYPE        : gfn_nvl(item.data.INVESTMENT_TYPE)
-                        ,V_P_ISA_ANN_TOT_AMT        : gfn_nvl(item.data.ISA_ANN_TOT_AMT)
-                        ,V_P_ISA_TAX_YEAR_AMT       : gfn_nvl(item.data.ISA_TAX_YEAR_AMT)
-                        ,V_P_ISA_DDCT_BS_ASS_AMT    : gfn_nvl(item.data.ISA_DDCT_BS_ASS_AMT)
-                        ,V_P_PENS_CTR_TERM_MM_CNT   : gfn_nvl(item.data.PENS_CTR_TERM_MM_CNT)
+                        ,V_P_PENS_SEQ               : gfnma_nvl2(item.data.PENS_SEQ)
+                        ,V_P_PENS_DED_TYPE          : gfnma_nvl2(item.data.PENS_DED_TYPE)
+                        ,V_P_PENS_BANK_CODE         : gfnma_nvl2(item.data.PENS_BANK_CODE)
+                        ,V_P_PENS_ACC               : gfnma_nvl2(item.data.PENSION_ACCOUNT_REAL)
+                        ,V_P_PENS_PAY_AMT           : gfnma_nvl2(item.data.PENS_PAY_AMT)
+                        ,V_P_PENS_JOIN_DAT          : gfnma_nvl2(item.data.PENS_JOIN_DAT)
+                        ,V_P_INVESTMENT_YYYY        : gfnma_nvl2(item.data.INVESTMENT_YYYY)
+                        ,V_P_INVESTMENT_TYPE        : gfnma_nvl2(item.data.INVESTMENT_TYPE)
+                        ,V_P_ISA_ANN_TOT_AMT        : gfnma_nvl2(item.data.ISA_ANN_TOT_AMT)
+                        ,V_P_ISA_TAX_YEAR_AMT       : gfnma_nvl2(item.data.ISA_TAX_YEAR_AMT)
+                        ,V_P_ISA_DDCT_BS_ASS_AMT    : gfnma_nvl2(item.data.ISA_DDCT_BS_ASS_AMT)
+                        ,V_P_PENS_CTR_TERM_MM_CNT   : gfnma_nvl2(item.data.PENS_CTR_TERM_MM_CNT)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -4627,8 +4645,8 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
 
         if (!_.isEmpty(houseMonthlyData)) {
 
@@ -4647,30 +4665,30 @@
 
                         ,V_P_YE_TX_YYYY              : YE_TX_YYYY
                         ,V_P_EMP_CODE                : EMP_NAME
-                        ,V_P_HS_MM_SEQ               : gfn_nvl(item.data.HS_MM_SEQ) == '' ? 0 : gfn_nvl(item.HS_MM_SEQ)
-                        ,V_P_HS_MM_LESSOR_NAME       : gfn_nvl(item.data.HS_MM_LESSOR_NAME)
-                        ,V_P_HOUSE_MM_LESSOR_SOCNO   : gfn_nvl(item.data.HOUSE_MM_LESSOR_SOCNO)
-                        ,V_P_HS_MM_RENT_TYPE         : gfn_nvl(item.data.HS_MM_RENT_TYPE)
-                        ,V_P_HS_MM_RENT_AREA         : gfn_nvl(item.data.HS_MM_RENT_AREA) == '' ? 0 : gfn_nvl(item.data.HS_MM_RENT_AREA)
-                        ,V_P_HS_MM_LEASE_ADDRESS     : gfn_nvl(item.data.HS_MM_LEASE_ADDRESS)
-                        ,V_P_HOUSE_MM_ST_DAT         : gfn_nvl(item.data.HOUSE_MM_ST_DAT)
-                        ,V_P_HOUSE_MM_END_DAT        : gfn_nvl(item.data.HOUSE_MM_END_DAT)
-                        ,V_P_HS_MM_RENT_AMT          : gfn_nvl(item.data.HS_MM_RENT_AMT) == '' ? 0 : gfn_nvl(item.data.HS_MM_RENT_AMT)
-                        ,V_P_HSRNT_RDM_LEN_NAME      : gfn_nvl(item.data.HSRNT_RDM_LEN_NAME)
-                        ,V_P_HSRNT_RDM_LENDER_SOCNO  : gfn_nvl(item.data.HSRNT_RDM_LENDER_SOCNO)
-                        ,V_P_HSRNT_RDM_SPEND_ST_DAT  : gfn_nvl(item.data.HSRNT_RDM_SPEND_ST_DAT)
-                        ,V_P_HSRNT_RDM_SPEND_END_DAT : gfn_nvl(item.data.HSRNT_RDM_SPEND_END_DAT)
-                        ,V_P_HSRNT_RDM_INT_R         : gfn_nvl(item.data.HSRNT_RDM_INT_R) == '' ? 0 : gfn_nvl(item.data.HSRNT_RDM_INT_R)
-                        ,V_P_HSRNT_RDM_PRIN_AMT      : gfn_nvl(item.data.HSRNT_RDM_PRIN_AMT) == '' ? 0 : gfn_nvl(item.data.HSRNT_RDM_PRIN_AMT)
-                        ,V_P_HSRNT_RDM_INT_AMT       : gfn_nvl(item.data.HSRNT_RDM_INT_AMT) == '' ? 0 : gfn_nvl(item.data.HSRNT_RDM_INT_AMT)
-                        ,V_P_HSRNT_RDM_LESSOR_NAME   : gfn_nvl(item.data.HSRNT_RDM_LESSOR_NAME)
-                        ,V_P_HSRNT_RDM_LESSOR_SOCNO  : gfn_nvl(item.data.HSRNT_RDM_LESSOR_SOCNO)
-                        ,V_P_HSRNT_RDM_LEASE_TYPE    : gfn_nvl(item.data.HSRNT_RDM_LEASE_TYPE)
-                        ,V_P_HSRNT_RDM_LEASE_AREA    : gfn_nvl(item.data.HSRNT_RDM_LEASE_AREA)
-                        ,V_P_HSRNT_RDM_LEASE_ADDRESS : gfn_nvl(item.data.HSRNT_RDM_LEASE_ADDRESS) == '' ? 0 : gfn_nvl(item.data.HSRNT_RDM_LEASE_ADDRESS)
-                        ,V_P_HSRNT_RDM_LEASE_ST_DAT  : gfn_nvl(item.data.HSRNT_RDM_LEASE_ST_DAT )
-                        ,V_P_HSRNT_RDM_LEASE_END_DAT : gfn_nvl(item.data.HSRNT_RDM_LEASE_END_DAT)
-                        ,V_P_HSRNT_RDM_LEASE_DEP_AMT : gfn_nvl(item.data.HSRNT_RDM_LEASE_DEP_AMT) == '' ? 0 : gfn_nvl(item.data.HSRNT_RDM_LEASE_DEP_AMT)
+                        ,V_P_HS_MM_SEQ               : gfnma_nvl2(item.data.HS_MM_SEQ) == '' ? 0 : gfnma_nvl2(item.HS_MM_SEQ)
+                        ,V_P_HS_MM_LESSOR_NAME       : gfnma_nvl2(item.data.HS_MM_LESSOR_NAME)
+                        ,V_P_HOUSE_MM_LESSOR_SOCNO   : gfnma_nvl2(item.data.HOUSE_MM_LESSOR_SOCNO)
+                        ,V_P_HS_MM_RENT_TYPE         : gfnma_nvl2(item.data.HS_MM_RENT_TYPE)
+                        ,V_P_HS_MM_RENT_AREA         : gfnma_nvl2(item.data.HS_MM_RENT_AREA) == '' ? 0 : gfnma_nvl2(item.data.HS_MM_RENT_AREA)
+                        ,V_P_HS_MM_LEASE_ADDRESS     : gfnma_nvl2(item.data.HS_MM_LEASE_ADDRESS)
+                        ,V_P_HOUSE_MM_ST_DAT         : gfnma_nvl2(item.data.HOUSE_MM_ST_DAT)
+                        ,V_P_HOUSE_MM_END_DAT        : gfnma_nvl2(item.data.HOUSE_MM_END_DAT)
+                        ,V_P_HS_MM_RENT_AMT          : gfnma_nvl2(item.data.HS_MM_RENT_AMT) == '' ? 0 : gfnma_nvl2(item.data.HS_MM_RENT_AMT)
+                        ,V_P_HSRNT_RDM_LEN_NAME      : gfnma_nvl2(item.data.HSRNT_RDM_LEN_NAME)
+                        ,V_P_HSRNT_RDM_LENDER_SOCNO  : gfnma_nvl2(item.data.HSRNT_RDM_LENDER_SOCNO)
+                        ,V_P_HSRNT_RDM_SPEND_ST_DAT  : gfnma_nvl2(item.data.HSRNT_RDM_SPEND_ST_DAT)
+                        ,V_P_HSRNT_RDM_SPEND_END_DAT : gfnma_nvl2(item.data.HSRNT_RDM_SPEND_END_DAT)
+                        ,V_P_HSRNT_RDM_INT_R         : gfnma_nvl2(item.data.HSRNT_RDM_INT_R) == '' ? 0 : gfnma_nvl2(item.data.HSRNT_RDM_INT_R)
+                        ,V_P_HSRNT_RDM_PRIN_AMT      : gfnma_nvl2(item.data.HSRNT_RDM_PRIN_AMT) == '' ? 0 : gfnma_nvl2(item.data.HSRNT_RDM_PRIN_AMT)
+                        ,V_P_HSRNT_RDM_INT_AMT       : gfnma_nvl2(item.data.HSRNT_RDM_INT_AMT) == '' ? 0 : gfnma_nvl2(item.data.HSRNT_RDM_INT_AMT)
+                        ,V_P_HSRNT_RDM_LESSOR_NAME   : gfnma_nvl2(item.data.HSRNT_RDM_LESSOR_NAME)
+                        ,V_P_HSRNT_RDM_LESSOR_SOCNO  : gfnma_nvl2(item.data.HSRNT_RDM_LESSOR_SOCNO)
+                        ,V_P_HSRNT_RDM_LEASE_TYPE    : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_TYPE)
+                        ,V_P_HSRNT_RDM_LEASE_AREA    : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_AREA)
+                        ,V_P_HSRNT_RDM_LEASE_ADDRESS : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_ADDRESS) == '' ? 0 : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_ADDRESS)
+                        ,V_P_HSRNT_RDM_LEASE_ST_DAT  : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_ST_DAT )
+                        ,V_P_HSRNT_RDM_LEASE_END_DAT : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_END_DAT)
+                        ,V_P_HSRNT_RDM_LEASE_DEP_AMT : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_DEP_AMT) == '' ? 0 : gfnma_nvl2(item.data.HSRNT_RDM_LEASE_DEP_AMT)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -4762,8 +4780,8 @@
         });
 
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
 
         if (!_.isEmpty(medExpenseData)) {
 
@@ -4782,23 +4800,23 @@
 
                         ,V_P_YE_TX_YYYY                  : YE_TX_YYYY
                         ,V_P_EMP_CODE                    : EMP_NAME
-                        ,V_P_MED_SEQ                     : gfn_nvl(item.data.MED_SEQ)
-                        ,V_P_MED_COM_NUM                 : gfn_nvl(item.data.MED_COM_NUM)
-                        ,V_P_MED_NAME                    : gfn_nvl(item.data.MED_NAME)
-                        ,V_P_MED_CERTIFICATE_CODE        : gfn_nvl(item.data.MED_CERTIFICATE_CODE)
-                        ,V_P_MED_COUNT                   : gfn_nvl(item.data.MED_COUNT)
-                        ,V_P_MED_EXP_AMT                 : gfn_nvl(item.data.MED_EXP_AMT)
-                        ,V_P_MED_INFTY_TREATMENT_YN      : gfn_nvl(item.data.MED_INFTY_TREATMENT_YN)
-                        ,V_P_EYEGLASS_PUR_COST_YN        : gfn_nvl(item.data.EYEGLASS_PUR_COST_YN)
-                        ,V_P_POSTPARTUM_CARE_CENTER_YN   : gfn_nvl(item.data.POSTPARTUM_CARE_CENTER_YN)
-                        ,V_P_LOSS_MEDICAL_INSURANCE_YN   : gfn_nvl(item.data.LOSS_MEDICAL_INSURANCE_YN)
-                        ,V_P_PREEMIE_BABY_YN             : gfn_nvl(item.data.PREEMIE_BABY_YN)
-                        ,V_P_MED_SOCNO                   : gfn_nvl(item.data.MED_SOCNO)
+                        ,V_P_MED_SEQ                     : gfnma_nvl2(item.data.MED_SEQ)
+                        ,V_P_MED_COM_NUM                 : gfnma_nvl2(item.data.MED_COM_NUM)
+                        ,V_P_MED_NAME                    : gfnma_nvl2(item.data.MED_NAME)
+                        ,V_P_MED_CERTIFICATE_CODE        : gfnma_nvl2(item.data.MED_CERTIFICATE_CODE)
+                        ,V_P_MED_COUNT                   : gfnma_nvl2(item.data.MED_COUNT)
+                        ,V_P_MED_EXP_AMT                 : gfnma_nvl2(item.data.MED_EXP_AMT)
+                        ,V_P_MED_INFTY_TREATMENT_YN      : gfnma_nvl2(item.data.MED_INFTY_TREATMENT_YN)
+                        ,V_P_EYEGLASS_PUR_COST_YN        : gfnma_nvl2(item.data.EYEGLASS_PUR_COST_YN)
+                        ,V_P_POSTPARTUM_CARE_CENTER_YN   : gfnma_nvl2(item.data.POSTPARTUM_CARE_CENTER_YN)
+                        ,V_P_LOSS_MEDICAL_INSURANCE_YN   : gfnma_nvl2(item.data.LOSS_MEDICAL_INSURANCE_YN)
+                        ,V_P_PREEMIE_BABY_YN             : gfnma_nvl2(item.data.PREEMIE_BABY_YN)
+                        ,V_P_MED_SOCNO                   : gfnma_nvl2(item.data.MED_SOCNO)
 
-                        ,V_P_MED_ACC_NO                  : gfn_nvl(item.data.MED_ACC_NO)
-                        ,V_P_MED_GOODS_NM                : gfn_nvl(item.data.MED_GOODS_NM)
-                        ,V_P_MED_INSU_RESID              : gfn_nvl(item.data.MED_INSU_RESID)
-                        ,V_P_MED_INSU_NM                 : gfn_nvl(item.data.MED_INSU_NM)
+                        ,V_P_MED_ACC_NO                  : gfnma_nvl2(item.data.MED_ACC_NO)
+                        ,V_P_MED_GOODS_NM                : gfnma_nvl2(item.data.MED_GOODS_NM)
+                        ,V_P_MED_INSU_RESID              : gfnma_nvl2(item.data.MED_INSU_RESID)
+                        ,V_P_MED_INSU_NM                 : gfnma_nvl2(item.data.MED_INSU_NM)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -4859,8 +4877,8 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
 
         if (!_.isEmpty(donationData)) {
 
@@ -4879,16 +4897,16 @@
 
                         ,V_P_YE_TX_YYYY               : YE_TX_YYYY
                         ,V_P_EMP_CODE                 : EMP_NAME
-                        ,V_P_DON_SEQ                  : gfn_nvl(item.data.DON_SEQ)
-                        ,V_P_DON_TYPE                 : gfn_nvl(item.data.DON_TYPE)
-                        ,V_P_DON_COM_NUM              : gfn_nvl(item.data.DON_COM_NUM)
-                        ,V_P_DON_NAME                 : gfn_nvl(item.data.DON_NAME)
-                        ,V_P_DON_COUNT                : gfn_nvl(item.data.DON_COUNT)
-                        ,V_P_DED_TARGET_DON_AMT       : gfn_nvl(item.data.DED_TGT_DON_AMT)
-                        ,V_P_DON_INCENTIVES_APPLY_AMT : gfn_nvl(item.data.DON_INCENTIVES_APPLY_AMT)
-                        ,V_P_DONATION_SOCNO           : gfn_nvl(item.data.DONATION_SOCIAL_NO_REAL)
-                        ,V_P_DON_YE_TX_REL            : gfn_nvl(item.data.DON_YE_TX_REL)
-                        ,V_P_DON_TYPE_NTS_YN          : gfn_nvl(item.data.DON_TYPE_NTS_YN)
+                        ,V_P_DON_SEQ                  : gfnma_nvl2(item.data.DON_SEQ)
+                        ,V_P_DON_TYPE                 : gfnma_nvl2(item.data.DON_TYPE)
+                        ,V_P_DON_COM_NUM              : gfnma_nvl2(item.data.DON_COM_NUM)
+                        ,V_P_DON_NAME                 : gfnma_nvl2(item.data.DON_NAME)
+                        ,V_P_DON_COUNT                : gfnma_nvl2(item.data.DON_COUNT)
+                        ,V_P_DED_TARGET_DON_AMT       : gfnma_nvl2(item.data.DED_TGT_DON_AMT)
+                        ,V_P_DON_INCENTIVES_APPLY_AMT : gfnma_nvl2(item.data.DON_INCENTIVES_APPLY_AMT)
+                        ,V_P_DONATION_SOCNO           : gfnma_nvl2(item.data.DONATION_SOCIAL_NO_REAL)
+                        ,V_P_DON_YE_TX_REL            : gfnma_nvl2(item.data.DON_YE_TX_REL)
+                        ,V_P_DON_TYPE_NTS_YN          : gfnma_nvl2(item.data.DON_TYPE_NTS_YN)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -4948,8 +4966,8 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
 
         if (!_.isEmpty(adjust3Data)) {
 
@@ -4967,16 +4985,16 @@
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                         ,V_P_YE_TX_YYYY              : YE_TX_YYYY
-                        ,V_P_DON_YYYY                : gfn_nvl(item.data.DON_YYYY)
+                        ,V_P_DON_YYYY                : gfnma_nvl2(item.data.DON_YYYY)
                         ,V_P_EMP_CODE                : EMP_NAME
-                        ,V_P_DON_TYPE                : gfn_nvl(item.data.DON_TYPE)
-                        ,V_P_DON_AMT                 : gfn_nvl(item.data.DON_AMT)
-                        ,V_P_DON_ADJ_LAST_YEAR_DEAMT : gfn_nvl(item.data.DON_ADJ_LAST_YEAR_DEAMT)
-                        ,V_P_DON_ADJ_TGT_DEAMT       : gfn_nvl(item.data.DON_ADJ_TGT_DEAMT)
-                        ,V_P_DON_ADJ_CURR_YEAR_DEAMT : gfn_nvl(item.data.DON_ADJ_CURR_YEAR_DEAMT)
-                        ,V_P_DON_ADJ_DESTROY_AMT     : gfn_nvl(item.data.DON_ADJ_DESTROY_AMT)
-                        ,V_P_DON_ADJ_TRANSFER_AMT    : gfn_nvl(item.data.DON_ADJ_TRANSFER_AMT)
-                        ,V_P_TRANSFER_LIM_YYYY       : ''/*gfn_nvl(item.data.TRANSFER_LIM_YYYY)*/
+                        ,V_P_DON_TYPE                : gfnma_nvl2(item.data.DON_TYPE)
+                        ,V_P_DON_AMT                 : gfnma_nvl2(item.data.DON_AMT)
+                        ,V_P_DON_ADJ_LAST_YEAR_DEAMT : gfnma_nvl2(item.data.DON_ADJ_LAST_YEAR_DEAMT)
+                        ,V_P_DON_ADJ_TGT_DEAMT       : gfnma_nvl2(item.data.DON_ADJ_TGT_DEAMT)
+                        ,V_P_DON_ADJ_CURR_YEAR_DEAMT : gfnma_nvl2(item.data.DON_ADJ_CURR_YEAR_DEAMT)
+                        ,V_P_DON_ADJ_DESTROY_AMT     : gfnma_nvl2(item.data.DON_ADJ_DESTROY_AMT)
+                        ,V_P_DON_ADJ_TRANSFER_AMT    : gfnma_nvl2(item.data.DON_ADJ_TRANSFER_AMT)
+                        ,V_P_TRANSFER_LIM_YYYY       : ''/*gfnma_nvl2(item.data.TRANSFER_LIM_YYYY)*/
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -5038,8 +5056,8 @@
 
         let returnData = [];
 
-        let YE_TX_YYYY  = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME    = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
+        let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
 
         if (!_.isEmpty(insureData)) {
 
@@ -5058,14 +5076,14 @@
 
                         ,V_P_YE_TX_YYYY             : YE_TX_YYYY
                         ,V_P_EMP_CODE               : EMP_NAME
-                        ,V_P_INSURE_SEQ             : gfn_nvl(item.data.INSURE_SEQ)
-                        ,V_P_INSURE_COM_NUM         : gfn_nvl(item.data.INSURE_COM_NUM)
-                        ,V_P_INSURE_NAME            : gfn_nvl(item.data.INSURE_NAME)
-                        ,V_P_INSURE_TYPE            : gfn_nvl(item.data.INSURE_TYPE)
-                        ,V_P_INSURE_NO              : gfn_nvl(item.data.INSURE_NO)
-                        ,V_P_INSURE_COUNT           : gfn_nvl(item.data.INSURE_COUNT)
-                        ,V_P_INSURE_AMT             : gfn_nvl(item.data.INSURE_AMT)
-                        ,V_P_INSURE_SOCNO           : gfn_nvl(item.data.INSURE_SOCNO)
+                        ,V_P_INSURE_SEQ             : gfnma_nvl2(item.data.INSURE_SEQ)
+                        ,V_P_INSURE_COM_NUM         : gfnma_nvl2(item.data.INSURE_COM_NUM)
+                        ,V_P_INSURE_NAME            : gfnma_nvl2(item.data.INSURE_NAME)
+                        ,V_P_INSURE_TYPE            : gfnma_nvl2(item.data.INSURE_TYPE)
+                        ,V_P_INSURE_NO              : gfnma_nvl2(item.data.INSURE_NO)
+                        ,V_P_INSURE_COUNT           : gfnma_nvl2(item.data.INSURE_COUNT)
+                        ,V_P_INSURE_AMT             : gfnma_nvl2(item.data.INSURE_AMT)
+                        ,V_P_INSURE_SOCNO           : gfnma_nvl2(item.data.INSURE_SOCNO)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -5088,10 +5106,10 @@
     //   정산자료등록(개인) 상태변경
     const fn_saveS8 = async function () {
 
-        let YE_TX_YYYY  = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE  = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let EMP_NAME    = gfn_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
-        let CLOSE_STATE = gfn_nvl(SBUxMethod.get("CLOSE_STATE")); //등록완효
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let CLOSE_STATE = gfnma_nvl2(SBUxMethod.get("CLOSE_STATE")); //등록완효
 
 
 
@@ -5150,14 +5168,20 @@
     //인사정보에서 가져오기
     const fn_btnSupportFamilyImport = async function () {
 
-        fn_saveS1('IMPORT');
+        if (fn_saveS1('IMPORT')){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_view();
+        }
 
     }
 
     //작년도 자료 가져오기
     const fn_btnSupportFamilyPreYear = async function () {
 
-        fn_saveS1('PREYEAR');
+        if ( fn_saveS1('PREYEAR')){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_view();
+        }
 
     }
 
@@ -5196,7 +5220,7 @@
             stremp_code = stremp_code.slice(0, -1);
         }
 
-        let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -5262,7 +5286,7 @@
      */
     const fn_btnTab = async function () {
 
-        let tabId = gfn_nvl(SBUxMethod.get('tabJson'));
+        let tabId = gfnma_nvl2(SBUxMethod.get('tabJson'));
 
         if (tabId == ''){
             return;

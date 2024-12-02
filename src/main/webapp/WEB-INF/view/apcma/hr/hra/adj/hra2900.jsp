@@ -217,7 +217,7 @@
         <div class="tab-content">
             <div id="tabInfo1" >
                 <div>
-                    <div id="sb-area-gvwYearEndTaxBase" style="height:730px; width:100%;"></div>
+                    <div id="sb-area-gvwYearEndTaxBase" style="height:500px; width:100%;"></div>
                 </div>
             </div>
             <div id="tabInfo2" >
@@ -251,7 +251,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwYearEndTaxResult" style="height:660px; width:100%;"></div>
+                    <div id="sb-area-gvwYearEndTaxResult" style="height:500px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -474,6 +474,7 @@
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '90px', style: 'text-align:center',
@@ -546,6 +547,7 @@
         /*SBGridProperties.frozencols = 3;*/
         //그리드 총계 하단 고정
         SBGridProperties.rowheader = ['update'];
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',

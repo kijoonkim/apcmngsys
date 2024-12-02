@@ -176,7 +176,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:780px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:540px; width:100%;"></div>
         </div>
 
     </div>
@@ -349,6 +349,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.rowheader =['update'];
         SBGridProperties.frozencols = 6;
         SBGridProperties.columns = [

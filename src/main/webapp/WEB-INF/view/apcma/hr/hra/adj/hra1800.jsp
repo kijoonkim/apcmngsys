@@ -50,7 +50,7 @@
             <!--[pp] 검색 -->
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <table id="dataArea1" class="table table-bordered tbl_fixed">
+            <table id="dataArea1" class="table table-bordered tbl_fixed table-search-ma">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 8%">
@@ -181,7 +181,7 @@
                         <%--onchange="fn_payType"--%>>
                         </sbux-select>
                     </td>
-                    <td colspan="6" style="border-right: hidden;">&nbsp;</td>
+                    <td colspan="6" style="border-right: hidden;"></td>
                 </tr>
                 </tbody>
             </table>
@@ -196,7 +196,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:780px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:540px; width:100%;"></div>
         </div>
 
     </div>
@@ -385,6 +385,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
