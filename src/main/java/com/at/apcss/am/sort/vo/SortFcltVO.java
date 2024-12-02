@@ -256,4 +256,9 @@ public class SortFcltVO extends ComVO {
 	**/
 	private String gubun;
 
+	/**
+	계획연월
+	**/
+	private String planYm;
+
 }

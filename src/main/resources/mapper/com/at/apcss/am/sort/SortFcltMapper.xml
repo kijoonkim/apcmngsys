@@ -71,7 +71,7 @@
 				    		AND DTL.CD_VL = #{fcltCd}
 						</if>
 				    	<![CDATA[
-				     		 AND DTL.CD_ID  = 'SORT_FCLT_CD') DTL
+				     		 AND DTL.CD_ID  = #{fcltType}) DTL
 			 	 ,(SELECT * FROM TB_OPRTNG_APC_FCLT WHERE DEL_YN = 'N') OAF
 
 			 WHERE 1=1
@@ -99,7 +99,7 @@
     		FROM TB_OPRTNG_APC_FCLT OAF
 
 			 WHERE 1=1
-			 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+			 	  AND OAF.FCLT_TYPE = #{fcltType}
 			 	  AND OAF.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -144,7 +144,7 @@
 				    		DTL.APC_CD = #{apcCd}
 						</if>
 				    	<![CDATA[
-				     		 AND DTL.CD_ID  = 'SORT_FCLT_CD') DTL
+				     		 AND DTL.CD_ID  = #{fcltType}) DTL
     			,(SELECT * FROM TB_OPRTNG_APC_FCLT_ITEM WHERE DEL_YN = 'N') OAFI
 
 			 WHERE 1=1
@@ -174,10 +174,7 @@
 			*
 			FROM TB_OPRTNG_APC_FCLT_ATRB OAFA
 			 WHERE 1=1
-			 	  AND OAFA.FCLT_TYPE = 'SORT_FCLT_CD'
 			 	  AND OAFA.DEL_YN = 'N'
-
-
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 	          AND OAFA.APC_CD = #{apcCd}
@@ -209,7 +206,7 @@
     		FROM TB_OPRTNG_APC_FCLT_DTL OAFD
 
 			 WHERE 1=1
-			 	  AND OAFD.FCLT_TYPE = 'SORT_FCLT_CD'
+			 	  AND OAFD.FCLT_TYPE = #{fcltType}
 			 	  AND OAFD.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -274,7 +271,7 @@
 
 			 WHERE 1=1
 		 	  AND OAF.DEL_YN = 'N'
-		 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	  AND OAF.FCLT_TYPE = #{fcltType}
 		 	  ]]>
 		 	  <if test='apcCd != null and apcCd != ""'>
 	          	AND OAF.APC_CD = #{apcCd}
@@ -300,7 +297,8 @@
 
 		 WHERE 1=1
 		 	AND OAP.DEL_YN = 'N'
-		 	AND OAP.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	AND OAP.FCLT_TYPE = #{fcltType}
+		 	AND TO_CHAR(OPRTNG_BGNG_DT,'YYYYMM') = #{planYm}
 		 	]]>
 				<if test='apcCd != null and apcCd != ""'>
 			          AND OAP.APC_CD = #{apcCd}
@@ -372,7 +370,7 @@
 
 			 WHERE 1=1
 		 	  AND OAF.DEL_YN = 'N'
-		 	  AND OAF.FCLT_TYPE = 'SORT_FCLT_CD'
+		 	  AND OAF.FCLT_TYPE = #{fcltType}
 		 	  ]]>
 		 	  <if test='apcCd != null and apcCd != ""'>
 	          	AND OAF.APC_CD = #{apcCd}
@@ -465,7 +463,7 @@
 	</update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltAtrb		-->
 	<!-- DESC : 선별설비속성 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -489,7 +487,7 @@
 		]]>
 	</update>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFclt		-->
 	<!-- DESC : 선별설비 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -562,7 +560,7 @@
 	</insert>
 
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltAtrb		-->
 	<!-- DESC : 선별설비속성 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -614,7 +612,7 @@
 
 	</insert>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltDtl		-->
 	<!-- DESC : 선별설비상세 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -668,7 +666,7 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl		-->
 	<!-- DESC : 선별설비상세 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -677,7 +675,7 @@
 	<!-- ==========================================================================	-->
     <update id="updateSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl */
 				TB_OPRTNG_APC_FCLT_DTL
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -687,7 +685,7 @@
 				, DTL_VL = #{dtlVl}
 				, DTL_INDCT_NM = #{dtlIndctNm}
 			 WHERE APC_CD = #{apcCd}
-			   AND FCLT_DTL_TYPE = #{fcltAtrbType}
+			   AND FCLT_DTL_TYPE = #{fcltDtlType}
 			   AND FCLT_CD = #{fcltCd}
 		]]>
 	</update>
@@ -840,8 +838,8 @@
 
 		WHERE APC_CD = #{apcCd}
 		  AND FCLT_CD = #{fcltCd}
-		  AND FCLT_TYPE = 'SORT_FCLT_CD'
-		  AND OPRTNG_BGNG_DT = TO_DATE(#{orgOprtngBgngDt}, 'YYYYMMDDHH24MISS')
+		  AND FCLT_TYPE = #{fcltType}
+		  AND TO_CHAR(OPRTNG_BGNG_DT,'YYYYMMDD') = #{orgOprtngBgngDt}
 		]]>
 
 	</update>
@@ -862,8 +860,8 @@
 		DELETE FROM TB_OPRTNG_APC_PLAN
 		WHERE APC_CD = #{apcCd}
 		  AND FCLT_CD = #{fcltCd}
-		  AND FCLT_TYPE = 'SORT_FCLT_CD'
-		  AND OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS')
+		  AND FCLT_TYPE = #{fcltType}
+		  AND TO_CHAR(OPRTNG_BGNG_DT,'YYYYMMDD') = #{oprtngBgngDt}
 		]]>
 
 	</delete>
@@ -881,7 +879,7 @@
 		DELETE FROM TB_OPRTNG_APC_PRFMNC
 		WHERE APC_CD = #{apcCd}
 		  AND FCLT_CD = #{fcltCd}
-		  AND FCLT_TYPE = 'SORT_FCLT_CD'
+		  AND FCLT_TYPE = #{fcltType}
 		  AND OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS')
 		  AND OPRTNG_DTL_CD = #{oprtngDtlCd}
 		  AND OPRTNG_SN = #{sn}
