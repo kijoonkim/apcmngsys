@@ -251,7 +251,9 @@
 		let prevYrPrfmncAmt = Number(rowData.prevYrPrfmncAmt);
 		//증감률 공식 올해 매출 - 전년도 매출 / 전년도 매출
 		if(!gfn_isEmpty(rowData.prevYrPrfmncAmt)){
-			resultVal = ( sumVal - prevYrPrfmncAmt ) / prevYrPrfmncAmt * 100 ;
+			if(prevYrPrfmncAmt > 0){
+				resultVal = ( sumVal - prevYrPrfmncAmt ) / prevYrPrfmncAmt * 100 ;
+			}
 		}
 		return resultVal.toFixed(2);
 	}
@@ -285,7 +287,6 @@
 	const fn_search = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
-		brno = '5658200459';//테스트 거창한거창조합공동사업법인
 
 		let postJsonPromise = gfn_postJSON("/pd/pcm/selectUoAprv.do", {
 			brno : brno

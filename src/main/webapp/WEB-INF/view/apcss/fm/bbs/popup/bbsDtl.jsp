@@ -58,7 +58,7 @@
 					<sbux-button id="bbsDtl-btn-btnDelete" name="bbsDtl-btn-btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="popBbsDtl.fn_delete"></sbux-button>
 					<sbux-button id="bbsDtl-btn-btnEdit" name="bbsDtl-btn-btnEdit" uitype="normal" text="수정" class="btn btn-sm btn-outline-danger" onclick="popBbsDtl.fn_edit"></sbux-button>
 					<sbux-button id="bbsDtl-btn-btnSave" name="bbsDtl-btn-btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popBbsDtl.fn_save"></sbux-button>
-					<sbux-button id="bbsDtl-btn-btnEnd" name="bbsDtl-btn-btnEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popBbsDtl.fn_close"></sbux-button>
+					<sbux-button id="bbsDtl-btn-btnEnd" name="bbsDtl-btn-btnEnd" uitype="normal" text="닫기" class="btn btn-sm btn-outline-danger" onclick="popBbsDtl.fn_close"></sbux-button>
 				</div>
 			</div>
 

@@ -356,7 +356,9 @@
 		let prevYrPrfmncAmt = Number(rowData.prevYrPrfmncAmt);
 		//증감률 공식 올해 매출 - 전년도 매출 / 전년도 매출
 		if(!gfn_isEmpty(rowData.prevYrPrfmncAmt)){
-			resultVal = ( sumVal - prevYrPrfmncAmt ) / prevYrPrfmncAmt * 100 ;
+			if(prevYrPrfmncAmt > 0){
+				resultVal = ( sumVal - prevYrPrfmncAmt ) / prevYrPrfmncAmt * 100 ;
+			}
 		}
 		return resultVal.toFixed(2);
 	}
