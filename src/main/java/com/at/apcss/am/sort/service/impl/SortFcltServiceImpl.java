@@ -180,10 +180,10 @@ public class SortFcltServiceImpl extends BaseServiceImpl implements SortFcltServ
 	@Override
 	public int insertSortFcltOprtngPlan(SortFcltVO sortFcltVO) throws Exception {
 		int result = 0;
-		String status = sortFcltVO.getStatus();
-		if(status.equals("3") ) {
+		String gubun = sortFcltVO.getGubun();
+		if(gubun.equals("insert") ) {
 			sortFcltMapper.insertSortFcltOprtngPlan(sortFcltVO);
-		}else if(status.equals("2")) {
+		}else if(gubun.equals("update")) {
 			sortFcltMapper.updateSortFcltOprtngPlan(sortFcltVO);
 		}
 		return result;
