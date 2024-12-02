@@ -250,6 +250,10 @@
 			         WHERE CA.PRNTS_TBL_NO = 'CQ' || CH.APC_CD || CH.PRDCR_CD || CH.PRDCR_LAND_INFO_NO || CH.CLTVTN_HSTRY_NO
 			           AND CA.PRNTS_TBL_SE_CD = '01'
 			       ) AS ATCHFL_ORGN_NM
+			     , (SELECT USER_NM
+                      FROM TB_COM_USER X
+                     WHERE CH.SYS_FRST_INPT_USER_ID = X.USER_ID
+                   ) AS PIC
 			  FROM TB_CLTVTN_HSTRY CH
 			     , TB_PRDCR_INFO PI
 			 WHERE CH.APC_CD = PI.APC_CD
@@ -268,6 +272,12 @@
 		</if>
 		<if test='cfmtnYmd != null and cfmtnYmd !=""'>
 			AND CH.CFMTN_YMD = #{cfmtnYmd}
+		</if>
+		<if test='cfmtnYmdFrom != null and cfmtnYmdFrom !=""'>
+			AND CH.CFMTN_YMD <![CDATA[>=]]> #{cfmtnYmdFrom}
+		</if>
+		<if test='cfmtnYmdTo != null and cfmtnYmdTo !=""'>
+			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
 		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO

@@ -89,6 +89,8 @@ public class CltvtnHstryVO extends ComVO {
 	 * 확정일자
 	 * */
 	private String cfmtnYmd;
+	private String cfmtnYmdFrom;
+	private String cfmtnYmdTo;
 	/*
 	 * 농가지역
 	 * */
@@ -97,5 +99,9 @@ public class CltvtnHstryVO extends ComVO {
 	 * 파일부모번호
 	 * */
 	private String prntsTblNo;
+	/*
+	 * 담당자
+	 * */
+	private String pic;
 
 }

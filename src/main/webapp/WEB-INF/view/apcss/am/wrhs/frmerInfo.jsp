@@ -121,19 +121,29 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"
 								></sbux-datepicker>
 							</td>
-							<th class="ta_r th_bg">품목</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select
-									id="srch-slt-itemCd"
-									name="srch-slt-itemCd"
-									uitype="single"
-									jsondata-ref="jsonApcItem"
-									unselected-text="전체"
-									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
-								 ></sbux-select>
+							<th scope="row" class="th_bg" >확인일자</th>
+							<td class="td_input"style="border-right: hidden;">
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-cfmtnYmdFrom"
+									name="srch-dtp-cfmtnYmdFrom"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-wghYmdFrom)"
+								></sbux-datepicker>
 							</td>
-
+							<td class="td_input"style="border-right: hidden;">
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-cfmtnYmdTo"
+									name="srch-dtp-cfmtnYmdTo"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-cfmtnYmdTo)"
+								></sbux-datepicker>
+							</td>
+							<td>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -484,7 +494,6 @@
     	fn_frmhsExpctWrhs();
 
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 				gv_selectedApcCd),		// 품목
 			gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd),		// Grid 생산자
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdSdngStts,  			'SDNG_STTS_CD'),		// 파종상태
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPlntngStts, 			'PLNTNG_STTS_CD'),		// 정식상태
@@ -498,13 +507,7 @@
 
     	grdFrmhsExpctWrhs.refresh({"combo":true})
 
-    	if (jsonApcItem.length == 1) {
-    		let itemCd = jsonApcItem[0].itemCd;
-    		SBUxMethod.set("srch-slt-itemCd", itemCd);
-    	}
-
-		SBUxMethod.set("srch-dtp-yr", gfn_dateToYear(new Date()))
-
+		SBUxMethod.set("srch-dtp-yr", gfn_dateToYear(new Date()));
 	}
 
 	var tabJsonData = [
@@ -537,7 +540,7 @@
 	    SBGridProperties.jsonref = "jsonCltvtnHstry";
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
-	    SBGridProperties.explorerbar = 'move';
+	    SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
@@ -554,6 +557,7 @@
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_imagePop("+ nRow +")'>사진</button>";
 	        	}
         	}},
+        	{caption : ['담당자'], 			ref: 'pic', 		type: 'output', 		width: '100px', style: 'text-align:center;'},
         	{caption : ['표시구분'], 		ref: 'rmrk', 		type: 'output', 		width: '200px', style: 'text-align:left;'},
         	{caption : ['수확 후 관리'], 	ref: 'cn', 			type: 'output', 		width: '400px', style: 'text-align:left;'},
 
@@ -1068,6 +1072,11 @@
 		if (choiceTab == "frmhsQltTab") {
 			nRow = grdCltvtnFrmhsQlt.getRow();
 			nCol = grdCltvtnFrmhsQlt.getCol();
+
+			if (nRow <= 0) {
+				return;
+			}
+
 			let prdcrNmCol = grdCltvtnFrmhsQlt.getColRef("prdcrNm");
 			if (nCol == prdcrNmCol) {
 
@@ -1090,6 +1099,11 @@
 		if (choiceTab == "frmhsExpctWrhsTab") {
 			nRow = grdFrmhsExpctWrhs.getRow();
 			nCol = grdFrmhsExpctWrhs.getCol();
+
+			if (nRow <= 0) {
+				return;
+			}
+
 			let prdcrNmCol = grdFrmhsExpctWrhs.getColRef("prdcrNm");
 			if (nCol == prdcrNmCol) {
 
@@ -1112,6 +1126,11 @@
 		if (choiceTab == "cltvtnHstryTab") {
 			nRow = grdCltvtnHstry.getRow();
 			nCol = grdCltvtnHstry.getCol();
+
+			if (nRow <= 0) {
+				return;
+			}
+
 			let prdcrNmCol = grdCltvtnHstry.getColRef("prdcrNm");
 			if (nCol == prdcrNmCol) {
 
@@ -1576,6 +1595,7 @@
 						false
 					);
 	        const data = await postJsonPromise;
+	        console.log("data", data)
 	        data.resultList.forEach((item, index) => {
 
 	        	const cltvtnHstryVO = {
@@ -1591,6 +1611,7 @@
 	        		  , filePath		: item.filePath
 	        		  , atchflOrgnNm	: item.atchflOrgnNm
 	        		  , cfmtnYmd		: item.cfmtnYmd
+	        		  , pic				: item.pic
 	        	}
 
 	        	if (!gfn_isEmpty(item.cltvtnHstryNo)) {
@@ -1626,9 +1647,14 @@
 
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 
+		let cfmtnYmdFrom = SBUxMethod.get("srch-dtp-cfmtnYmdFrom");
+		let cfmtnYmdTo = SBUxMethod.get("srch-dtp-cfmtnYmdTo");
+
 		const param = {
 			apcCd			: gv_selectedApcCd
 		  , prdcrCd			: prdcrCd
+		  , cfmtnYmdTo 		: cfmtnYmdTo
+		  , cfmtnYmdFrom	: cfmtnYmdFrom
 		}
 		jsonCltvtnHstry.length = 0;
 		try {
@@ -1655,6 +1681,7 @@
 	        		  , atchflOrgnNm	: item.atchflOrgnNm
 	        		  , frmhsCtpv		: item.frmhsCtpv
 	        		  , cfmtnYmd		: item.cfmtnYmd
+	        		  , pic				: item.pic
 	        	}
 	        	jsonCltvtnHstry.push(cltvtnHstryVO);
 	        });
