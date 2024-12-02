@@ -788,6 +788,8 @@
         }
 
         spmtObj.spmtQntt = addCnt;
+        /** 등급추가 **/
+        spmtObj.gdsGrd = spmtObj.grdCd;
         let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(obj,spmtObj));
         if(prevObj){
             prevObj.invntrQntt += addCnt;
