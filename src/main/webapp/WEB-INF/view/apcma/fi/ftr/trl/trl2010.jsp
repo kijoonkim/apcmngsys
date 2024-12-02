@@ -156,7 +156,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb_area_grid_top" style="height:280px; width:100%;"></div>
+                            <div id="sb_area_grid_top" style="height:200px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-6" style="width:100%;padding-top:10px">
@@ -364,6 +364,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
 	    SBGridProperties.frozencols 		= 12;
 	    SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
@@ -449,6 +450,7 @@
 
         Trl2010GridTop = _SBGrid.create(SBGridProperties);
         Trl2010GridTop.bind('click', 'fn_view');
+        Trl2010GridTop.bind('keyup', 'fn_keyup');
         //Trl2010GridTop.bind('click', 			'fn_viewTrl2010GridTopEvent');
     }
     
@@ -461,6 +463,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.columns = [
             {caption: ["ID"],			ref: 'TREASURY_ID', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["자금배치번호"], 	ref: 'TREASURY_BATCH_NO', 	  	type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -511,6 +514,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
             type 		: 'grand',
@@ -756,6 +760,12 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
     }
 
     //상세정보 보기
