@@ -312,7 +312,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:500px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:300px; width:100%;"></div>
         </div>
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -612,7 +612,7 @@
         SBGridProperties.id = 'gvwInfoGrid';
         SBGridProperties.jsonref = 'jsonInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
+        SBGridProperties.selectmode = 'byrow';
         SBGridProperties.allowcopy = true; //복사
         //SBGridProperties.filtering = true; //필터링
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
@@ -620,6 +620,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.frozencols = 11;
         SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -695,6 +696,8 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
+        gvwInfoGrid.bind('keyup', 'fn_keyup');
+
     }
 
     /**
@@ -830,6 +833,11 @@
         }
     }
 
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
+        }
+    }
 
     //상세정보 보기
     async function fn_view() {
