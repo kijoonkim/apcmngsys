@@ -112,14 +112,31 @@
 			,EPC.PRFMNC_AMT_10
 			,EPC.PRFMNC_AMT_11
 			,EPC.PRFMNC_AMT_12
-			,(SELECT FLOOR( ( NVL(SLS_TRST_AMT,0) + NVL(SLS_EMSPAP_AMT,0) + NVL(ETC_AMT,0) ) / 1000 )
-				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+			,(SELECT
+					FLOOR( SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) / 1000 ) )
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 				WHERE 1=1
 				  AND APO_SE = '1'
-				  AND PRCHS_SLS_SE = '2'
-				  AND YR = ITEM.YR
+				  AND TYPE_SE_NO IN ('2','3','6','7')
+				  AND (
+						(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+											FROM TB_EV_FRMHS_APO
+											WHERE 1=1
+											  AND STBLT_YN = 'Y'
+											  AND NVL(EXCL_YN,'N') != 'Y'
+											  AND APO_SE = '1'
+											  AND BRNO = ITEM.BRNO
+											  AND ITEM_CD = ITEM.ITEM_CD
+											  AND YR = ITEM.YR
+											)
+						)
+						OR
+						(PRDCR_OGNZ_SN = '0')
+						)
 				  AND BRNO = ITEM.BRNO
+				  AND YR = ITEM.YR
 				  AND ITEM_CD = ITEM.ITEM_CD
+				GROUP BY  BRNO , ITEM_CD
 			) AS PREV_YR_PRFMNC_AMT
 			,EPC.EXPCT_PRFMNC_AMT
 			,EPC.PRFMNC_AMT_RT
@@ -131,6 +148,7 @@
 					,STTG_UPBR_ITEM_SE
 				FROM TB_EV_APO_YR_GPC_CD
 				WHERE 1=1
+				  AND STTG_UPBR_ITEM_SE IN ('1','2')
 				  AND APO_SE = '1'
 				  AND BRNO = #{brno}
 				  AND YR = #{yr}
