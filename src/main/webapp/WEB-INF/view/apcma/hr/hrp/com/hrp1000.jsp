@@ -439,7 +439,7 @@
                                            false-value="N"></sbux-checkbox>
                         </td>
                         <td colspan="" class="td_input" style="border-right:hidden;">
-                            <sbux-checkbox id="BONUS_PAY_YN" name="BONUS_PAY_YN" uitype="normal" text="상여지금" true-value="Y"
+                            <sbux-checkbox id="BONUS_PAY_YN" name="BONUS_PAY_YN" uitype="normal" text="상여지급" true-value="Y"
                                            false-value="N"></sbux-checkbox>
                         </td>
                         <td colspan="" class="td_input" style="border-right:hidden;">
@@ -2130,7 +2130,8 @@
                     gvwWithholdGrid.rebuild();
                     //document.querySelector('#listCount10').innerText = totalRecordCount10;
 
-                    fn_setData(rowData.EMP_CODE);
+                    //TODO : 이게 왜 있는지 모르겠음
+                    fn_setData(gfn_nvl(rowData.EMP_CODE));
 
                 } else {
                     alert(data.resultMessage);
@@ -2232,6 +2233,7 @@
 
     const fn_setData = async function (EMP_CODE){
 
+        console.log('------EMP_CODE-------', EMP_CODE);
         //TODO : 원본로우가 중복되어 에러가 나기 때문에 COMP_CODE를 추가해서 대처해놓음
         //let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
         let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " + " AND comp_code = '" + gv_ma_selectedCorpCd + "'";
@@ -2246,7 +2248,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
-                if (_.isEmpty(data.EMP_CODE) == false){
+                if (_.isEmpty(gfn_nvl(data.EMP_CODE))){
 
                     SBUxMethod.set("PENSION_YN"         , 'Y');
                     SBUxMethod.set("HEALTH_INSURE_YN"   , 'Y');
@@ -2956,9 +2958,9 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+                /*if (data.resultMessage) {
                     alert(data.resultMessage);
-                }
+                }*/
 
                 return true;
 
@@ -2997,9 +2999,9 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    if (data.resultMessage) {
+                    /*if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }
+                    }*/
                     return true;
 
                 } else {
@@ -3037,9 +3039,9 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    if (data.resultMessage) {
+                    /*if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }
+                    }*/
 
                     return true;
 
@@ -3079,9 +3081,9 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    if (data.resultMessage) {
+                    /*if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }
+                    }*/
 
                     return true;
 
@@ -3122,9 +3124,9 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    if (data.resultMessage) {
+                   /* if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }
+                    }*/
                     return true;
 
                 } else {
