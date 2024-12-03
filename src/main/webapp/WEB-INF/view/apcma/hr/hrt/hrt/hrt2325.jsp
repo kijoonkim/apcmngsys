@@ -177,12 +177,12 @@
                         ></sbux-button>
                     </td>
                     <td colspan="5">
-                        <div style="margin-left: 100px; display: grid; grid-auto-flow: column;">
-                            <span style="background-color: #DEB887; width: 70px; height: 25px; margin-left: 10px; text-align: center;">미작성</span>
-                            <span style="background-color: #FFB6C1; width: 70px; height: 25px; margin-left: 10px; text-align: center;">미확정</span>
-                            <span style="background-color: #D3D3D3; width: 70px; height: 25px; margin-left: 10px; text-align: center;">미승인</span>
-                            <span style="background-color: #ADD8E6; width: 70px; height: 25px; margin-left: 10px; text-align: center;">승인중</span>
-                            <span style="background-color: #FF6347; width: 70px; height: 25px; margin-left: 10px; text-align: center;">반려</span>
+                        <div style="margin-left: 15%">
+                            <span style="background-color: #DEB887; width: 55px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center; text-align: center;">미작성</span>
+                            <span style="background-color: #FFB6C1; width: 55px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center; text-align: center;">미확정</span>
+                            <span style="background-color: #D3D3D3; width: 55px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center; text-align: center;">미승인</span>
+                            <span style="background-color: #ADD8E6; width: 55px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center; text-align: center;">승인중</span>
+                            <span style="background-color: #FF6347; width: 55px; height: 25px; margin-left: 10px; float: left; display:grid; align-items:center; text-align: center;">반려</span>
                         </div>
                     </td>
                 </tr>

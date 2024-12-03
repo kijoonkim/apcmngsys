@@ -924,6 +924,40 @@
                     {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
+                ,callback : function(data) {
+                    if(data == "3") {
+                        $("#ARMY_PART").attr("disabled", true);
+                        $("#ARMY_KIND").attr("disabled", true);
+                        $("#ARMY_DISCHARGE_TYPE").attr("disabled", true);
+                        $("#ARMY_GRADE").attr("disabled", true);
+                        SBUxMethod.attr("ARMY_INDUSTRY_YN", "disabled", "true");
+                        SBUxMethod.attr("ARMY_START_DATE", "disabled", "true");
+                        SBUxMethod.attr("ARMY_END_DATE", "disabled", "true");
+                        SBUxMethod.attr("ARMY_EXEMPTION_DESCR", "disabled", "true");
+                        SBUxMethod.attr("ARMY_DESCR", "disabled", "true");
+
+                        gfnma_multiSelectSet('#ARMY_TYPE', '', '', '');
+                        SBUxMethod.set("ARMY_INDUSTRY_YN", "N");
+                        gfnma_multiSelectSet('#ARMY_PART', '', '', '');
+                        gfnma_multiSelectSet('#ARMY_KIND', '', '', '');
+                        gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', '', '', '');
+                        gfnma_multiSelectSet('#ARMY_GRADE', '', '', '');
+                        SBUxMethod.set("ARMY_START_DATE", "");
+                        SBUxMethod.set("ARMY_END_DATE", "");
+                        SBUxMethod.set("ARMY_EXEMPTION_DESCR", "");
+                        SBUxMethod.set("ARMY_DESCR", "");
+
+                    } else {
+                        $("#ARMY_PART").removeAttr("disabled", false);
+                        $("#ARMY_KIND").removeAttr("disabled", false);
+                        $("#ARMY_DISCHARGE_TYPE").removeAttr("disabled", false);
+                        $("#ARMY_GRADE").removeAttr("disabled", false);
+                        SBUxMethod.attr("ARMY_START_DATE", "disabled", "false");
+                        SBUxMethod.attr("ARMY_END_DATE", "disabled", "false");
+                        SBUxMethod.attr("ARMY_EXEMPTION_DESCR", "disabled", "false");
+                        SBUxMethod.attr("ARMY_DESCR", "disabled", "false");
+                    }
+                }
             }),
             // 병역병과
             /*gfnma_setComSelect(['ARMY_PART'], jsonArmyPart, 'L_HRI021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
@@ -2189,6 +2223,8 @@
 
                 if(jsonEmpTotalList.length > 0) {
                     gvwList.clickRow(1);
+                } else {
+                    fn_create();
                 }
             } else {
                 alert(data.resultMessage);
@@ -2334,6 +2370,14 @@
         if (nCol < 1) {
             return;
         }
+
+        let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+
+        gvwListCheckedList.forEach((item, index) => {
+            gvwList.setCellData(item, gvwList.getColRef("CHK_YN"), "N");
+        });
+
+        gvwList.setCellData(nRow, gvwList.getColRef("CHK_YN"), "Y");
 
         cfn_add();
         editType = "U";

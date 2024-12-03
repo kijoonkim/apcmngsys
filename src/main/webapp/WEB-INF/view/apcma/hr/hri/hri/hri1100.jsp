@@ -344,6 +344,7 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.useinitsorting 	= true;
+        SBGridProperties.frozencols = 10;
         SBGridProperties.columns = [
             {caption: ["담당"],		        	ref: 'DEPT_CODE1', 			        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["담당명"], 	        	ref: 'DEPT_NAME1',    	            type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},

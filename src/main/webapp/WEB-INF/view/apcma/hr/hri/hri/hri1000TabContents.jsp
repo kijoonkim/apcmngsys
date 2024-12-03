@@ -536,7 +536,7 @@
             <tr>
                 <th scope="row" class="th_bg">국적</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm" onchange="fn_changeNationCode(NATION_CODE)"></sbux-select>
                 </td>
                 <td colspan="2" class="td_input" style="border-right:hidden;">
                     <sbux-checkbox
@@ -1235,6 +1235,7 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_changeArmyEndDate(ARMY_END_DATE)"
                         />
                     </td>
                 </tr>
@@ -4848,5 +4849,23 @@
 
         SBUxMethod.set(addressLocation+"_ZIP_CODE", zipNo);//우편번호
         SBUxMethod.set(addressLocation+"_ADDRESS", roadFullAddr + " " + addrDetail);//도로명주소
+    }
+
+    const fn_changeArmyEndDate = async function(data){
+        let armyStartDate = gfn_nvl(SBUxMethod.get("ARMY_START_DATE"), 0);
+        if(data < armyStartDate){
+        	gfn_comAlert("W0015", "복무종료일", "복무시작일");
+            SBUxMethod.set("ARMY_END_DATE", armyStartDate);
+        	return;
+        }
+    }
+
+    const fn_changeNationCode = async function(data) {
+        if(data == 'KR') {
+            SBUxMethod.set("FOREIGNER_YN", "N");
+            SBUxMethod.attr("FOREIGNER_YN", "disabled", "true");
+        } else {
+            SBUxMethod.attr("FOREIGNER_YN", "disabled", "false");
+        }
     }
 </script>
