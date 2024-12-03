@@ -527,6 +527,7 @@
 
 
 		SBUxMethod.set("dtl-inp-itemCd",rowData.rprsItem);
+		SBUxMethod.refresh("dtl-inp-vrtyCd");
 		SBUxMethod.set("dtl-inp-vrtyCd",rowData.rprsVrty);
 		SBUxMethod.set("dtl-inp-planNo",rowData.planDtlCd);
 		SBUxMethod.set("dtl-inp-inptQntt",rowData.inptQntt);

@@ -630,7 +630,7 @@
                 strsite_code = row.siteCode;
                 intsource_id = row.sourceId;
                 strdescription = row.description;
-                bresult = fnSET_P_FIA5300_S1(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription);
+                bresult = fnSET_P_FIA5300_S1_TEST(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription);
                 intprogram_seq = intprogram_seq + 1;
         	}
         })
@@ -837,7 +837,9 @@
 	        }
 
     }
-
+	const fnSET_P_FIA5300_S1_TEST = async function(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription){
+		await fnSET_P_FIA5300_S1(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription);
+	}
     const fnSET_P_FIA5300_S1 = async function(strWorkType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription){
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
     	let depreciationYyyymm = SBUxMethod.get("srch-dtp-depreciationYyyymm");

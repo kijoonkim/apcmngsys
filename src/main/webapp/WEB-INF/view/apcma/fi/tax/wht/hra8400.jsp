@@ -720,18 +720,23 @@
 		let tel = SBUxMethod.get("srch-inp-tel");
 		let memomemo = SBUxMethod.get("srch-inp-memomemo")
 		let filePath = SBUxMethod.get("srch-inp-filePath")
+		let jobYYYY = SBUxMethod.get("srch-dtp-jobYyyy")
+		let harfYealyType = SBUxMethod.get("srch-slt-harfyearlyType")
+		let payAreaType = SBUxMethod.get("srch-slt-payAreaType")
+		let jobYyyymmFr = SBUxMethod.get("srch-dtp-jobYyyymmFr")
+		let jobYyyymmTo = SBUxMethod.get("srch-dtp-jobYyyymmTo")
 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
 			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_JOB_YYYY          : ''
+			,V_P_JOB_YYYY          : gfnma_nvl(jobYYYY)
 			,V_P_DATA_HANDOUT_DATE : gfnma_nvl(submitDate)
-			,V_P_HALFYEARLY_TYPE   : ''
-			,V_P_PAY_AREA_TYPE     : ''
-			,V_P_JOB_YYYYMM_FR     : ''
-			,V_P_JOB_YYYYMM_TO     : ''
+			,V_P_HALFYEARLY_TYPE   : gfnma_nvl(harfYealyType)
+			,V_P_PAY_AREA_TYPE     : gfnma_nvl(payAreaType)
+			,V_P_JOB_YYYYMM_FR     : gfnma_nvl(jobYyyymmFr)
+			,V_P_JOB_YYYYMM_TO     : gfnma_nvl(jobYyyymmTo)
 			,V_P_FILE_PATH         : gfnma_nvl(filePath)
 			,V_P_MEMO              : gfnma_nvl(memomemo)
 			,V_P_HOMETAXID         : gfnma_nvl(homeTaxId)
@@ -985,7 +990,7 @@
     	}
 
 
-		let content = fnQRY_P_HRA8400_Q2("FILE")
+		let content = await fnQRY_P_HRA8400_Q2("FILE")
 
     	await fn_fileCreate(content);
     }
@@ -1092,10 +1097,10 @@
  			return;
 		}
 
-		// 파일경로 선택 확인
-		if (contents.length < 0) {
-			gfn_comAlert("W0005", "내용");		//	W0005	{0}이/가 없습니다.
- 			return;
+		// contents 확인
+		if (gfnma_nvl(contents) === "") {
+			//gfn_comAlert("W0005", "내용");		//	W0005	{0}이/가 없습니다.
+ 			contents = "내용이 없습니다.";
 		}
 
 
@@ -1174,7 +1179,11 @@
 
         try {
 
-            dirHandle = await showDirectoryPicker();
+            dirHandle = await showDirectoryPicker({
+            	  mode: 'readwrite',
+            	  //startIn: 'pictures'
+            	});
+
 
             console.log("name", dirHandle.name);
 

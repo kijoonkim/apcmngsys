@@ -9,7 +9,7 @@
  * @Modification Information
  * @
  * @ 수정일       	수정자      수정내용
- * @ ----------		----------	---------------------------
+ * @ ----------		----------	--------------------------
  * @ 2024.07.02   	장성주		최초 생성
  * @see
  *
@@ -643,7 +643,7 @@
     const fn_saveClick = async function(){
 
     	let rowId = grdClclnList.getRow();
-    	// 자산정산리스 에 행이 없을때
+    	// 자산정산리스 에 선택된 행이 없을때
     	if ( rowId < 0){
     		return;
     	}
@@ -862,8 +862,8 @@
 			let dtData = {
 					V_P_DEBUG_MODE_YN : ''
 						,V_P_LANG_ID : ''
-						,V_P_COMP_CODE : ''
-						,V_P_CLIENT_CODE : ''
+						,V_P_COMP_CODE          : gv_ma_selectedCorpCd
+	   				    ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
 
 						,V_P_ACCT_RULE_CODE : gfnma_nvl(stracct_rule_code)
 						,V_P_TXN_ID : gfnma_nvl(strtxn_id)
