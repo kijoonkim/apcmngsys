@@ -98,7 +98,7 @@
 
 	var jsonComCtpv 			= [];	// 시/도
 	var jsonComSgg 				= [];	// 시/군/구
-	
+
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
@@ -109,11 +109,11 @@
 			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd),
 		]);
-		
+
 		jsonComCtpv = result[0];
 		jsonComSgg = result[1];
-				
-        
+
+
 	}
 
 	const fn_init = async function() {
@@ -121,7 +121,7 @@
 		fn_createApcInfoMngGrid();
 		//fn_search();
 	}
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	})
@@ -138,6 +138,8 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.contextmenu = true;
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.frozencols = 2;
     	SBGridProperties.paging = {
 			'type' : 'page',
@@ -153,50 +155,50 @@
             {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
             {
-        		caption: ['시도명'], 	
-        		ref: 'ctpvNm',	 	
-        		width: '70px', 		
-        		type: 'input',		
-        		style:'text-align: center', 
+        		caption: ['시도명'],
+        		ref: 'ctpvNm',
+        		width: '70px',
+        		type: 'input',
+        		style:'text-align: center',
         		sortable: false,
         		hidden : true,
 		        validate : gfn_chkByte.bind({byteLimit: 20})
 			},
             {
-				caption: ['시군명'], 	
-				ref: 'sigunNm',	 	
-				width: '70px', 		
-				type: 'input',		
-				style:'text-align: center', 
+				caption: ['시군명'],
+				ref: 'sigunNm',
+				width: '70px',
+				type: 'input',
+				style:'text-align: center',
 				sortable: false,
         		hidden : true,
 		        validate : gfn_chkByte.bind({byteLimit: 20})},
-		        
+
 	        {
-        	    caption: ["시/도"],	
-        	    ref: 'ctpv',	
-        	    type:'combo',  		
-        	    width:'140px', 
+        	    caption: ["시/도"],
+        	    ref: 'ctpv',
+        	    type:'combo',
+        	    width:'140px',
         	    style:'text-align:center',
         	    typeinfo : {
-        	        ref:'jsonComCtpv', 
-        	        label:'cdVlNm', 
-        	        value:'cdVl', 
+        	        ref:'jsonComCtpv',
+        	        label:'cdVlNm',
+        	        value:'cdVl',
             	    itemcount: 10,
         	        displayui : true
         	    },
         	    userattr: {colNm: "ctpv"},
         	},
         	{
-        	    caption: ["시/군/구"],	
-        	    ref: 'sgg',	
-        	    type:'combo',  		
-        	    width:'140px', 
+        	    caption: ["시/군/구"],
+        	    ref: 'sgg',
+        	    type:'combo',
+        	    width:'140px',
         	    style:'text-align:center',
         	    typeinfo : {
-        	        ref:'jsonComSgg', 
-        	        label:'cdVlExpln', 
-        	        value:'cdVl', 
+        	        ref:'jsonComSgg',
+        	        label:'cdVlExpln',
+        	        value:'cdVl',
         	        displayui : true,
             	    itemcount: 10,
         	        filtering: {
@@ -208,7 +210,7 @@
         	    },
     	        userattr: {colNm: "sgg"},
         	},
-        	
+
 			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
         		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value', itemcount: 10}},
             {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input', 									sortable: false,
@@ -391,6 +393,26 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
+
+	const objMenuList1 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld1,			//콜백함수명
+	        }
+	    };
+
+	// 엑셀 다운로드
+    function fn_excelDwnld1() {
+
+    	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
+    		grdApcInfoMng.exportData("xlsx","APC정보관리",true);
+    	}else{
+    		grdApcInfoMng.exportLocalExcel("APC정보관리", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	}
+
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
