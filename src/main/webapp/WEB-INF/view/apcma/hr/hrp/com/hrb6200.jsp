@@ -54,7 +54,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwMaster" style="height:800px; width:100%;"></div>
+                <div id="sb-area-gvwMaster" style="height:530px; width:100%;"></div>
             </div>
         </div>
 
@@ -188,7 +188,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-bandgvwDetail" style="height:530px; width:100%;"></div>
+                            <div id="sb-area-bandgvwDetail" style="height:390px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="gvwItemTab" >
@@ -247,7 +247,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwItem" style="height:530px; width:100%;"></div>
+                            <div id="sb-area-gvwItem" style="height:390px; width:100%;"></div>
                         </div>
                     </div>
                 </div>

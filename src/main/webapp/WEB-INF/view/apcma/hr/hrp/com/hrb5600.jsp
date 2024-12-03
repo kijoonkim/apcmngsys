@@ -126,7 +126,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:530px; width:100%;"></div>
                 </div>
             </div>
 
@@ -285,7 +285,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-gvwBandgvwDetailList" style="height:550px; width:100%;"></div>
+                    <div id="sb-area-gvwBandgvwDetailList" style="height:350px; width:100%;"></div>
                 </div>
             </div>
         </div>

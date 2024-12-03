@@ -152,7 +152,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwMaster" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwMaster" style="height:570px; width:100%;"></div>
                 </div>
             </div>
 
@@ -370,10 +370,10 @@
                 </div>
 
                 <div>
-                    <div id="sb-area-gvwDetall" style="height:600px; width:100%;" ></div>
+                    <div id="sb-area-gvwDetall" style="height:410px; width:100%;" ></div>
                 </div>
 
-                <div>
+               <%-- <div>
                     <table class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width:3%">
@@ -398,7 +398,7 @@
                             <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                         </tr>
                     </table>
-                </div>
+                </div>--%>
 
             </div>
         </div>
@@ -655,6 +655,9 @@
 
     //급여변동항목 등록 리스트
     function fn_createDetallGrid(chMode, rowData) {
+        jsonDetallList = jsonDetallList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwDetall';
         SBGridProperties.id = 'gvwDetallGrid';
@@ -677,6 +680,23 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [0],
+                sum : [5]
+            },
+            grandtotalrow : {
+                titlecol 		: 20,
+                titlevalue		: '합계',
+                style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: false,
+            usedecimal : false,
+        };
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '100px', style: 'text-align:center', /*hidden: true,*/
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -687,7 +707,6 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-
                     return "<button type='button' class='ma-btn1' style='width:40px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…<!--<img src='../../../resource/images/find2.png' width='12px' />--></button>";
                     //return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
@@ -717,6 +736,11 @@
      * 그리드내 팝업 조회
      */
     function fn_gridPopup(event, row, col) {
+
+        //마지막 로우( 합계 ) 일때
+        if (_.isEqual(data.length, row)){
+            return;
+        }
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);
@@ -916,7 +940,7 @@
                     gvwDetallGrid.rebuild();
                     document.querySelector('#listCount2').innerText = totalRecordCount;
 
-                    SBUxMethod.set("ROW_COUNT", totalRecordCount);
+                    /*SBUxMethod.set("ROW_COUNT", totalRecordCount);*/
 
 
                     gfnma_uxDataClear('#dataArea2');
@@ -970,14 +994,14 @@
             SBUxMethod.set("EMP_FULL_NAME"  , rowData.EMP_FULL_NAME); //이름
         }
 
-        let chdate = gvwDetallGrid.getGridDataAll();
+        /*let chdate = gvwDetallGrid.getGridDataAll();
         let totalPay = 0;
 
         chdate.forEach((item, index2) => {
            totalPay += Number(item.PAY_AMT);
         });
 
-        SBUxMethod.set("PAY_AMT_TOTAL", totalPay);
+        SBUxMethod.set("PAY_AMT_TOTAL", totalPay);*/
 
     }
 
