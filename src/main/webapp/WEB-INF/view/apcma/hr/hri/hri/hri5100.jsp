@@ -96,7 +96,7 @@
                 </tr>
                 <tr id="srchYmddate2Section" style="display: none;">
                     <th scope="row" class="th_bg_search">기준일자2</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_YMDDATE2"
