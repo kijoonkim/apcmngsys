@@ -435,10 +435,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'input', width: '200px', style: 'text-align:left'},
 
             {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 14},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -578,8 +578,6 @@
                     gvwListGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
                 }
 
-                //fn_view();
-
 
             } else {
                 alert(data.resultMessage);
@@ -691,6 +689,13 @@
 
                     gvwBandgvwDetailGrid.rebuild();
                     //document.querySelector('#listCount2').innerText = totalRecordCount;
+
+                    if (jsonBandgvwDetailList.length > 0){
+                        jsonBandgvwDetailList.forEach((item, index) => {
+                            gvwBandgvwDetailGrid.setCellDisabled(index+2, gvwBandgvwDetailGrid.getColRef("PAY_ITEM_RANGE_CODE1")
+                                , index+2, gvwBandgvwDetailGrid.getColRef("PAY_ITEM_RANGE_NAME2"), true, false, true);
+                        });
+                    }
 
                     fn_settings('true');
 
