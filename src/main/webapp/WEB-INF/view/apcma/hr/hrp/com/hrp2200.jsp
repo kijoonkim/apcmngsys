@@ -737,8 +737,10 @@
      */
     function fn_gridPopup(event, row, col) {
 
+        let allData = gvwDetallGrid.getGridDataAll();
+
         //마지막 로우( 합계 ) 일때
-        if (_.isEqual(data.length, row)){
+        if (_.isEqual(allData.length, row)){
             return;
         }
 
