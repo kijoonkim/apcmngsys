@@ -419,7 +419,7 @@
             {caption: ["전표상태"],				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             
             //{caption: ["전표번호"], 			ref: 'DOC_NAME',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ['전표번호'], 			ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            {caption: ['전표번호'], 			ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:left', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             		if(objRowData['DOC_ID']){
 		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
@@ -431,8 +431,8 @@
             
             {caption: ["결재자"],  				ref: 'FINAL_STEP_SEQ', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["거래구분"],      		ref: 'APPR_CANCEL_TYPE_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부서명"],				ref: 'DEPT_NAME',				type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["사용자명"], 			ref: 'EMP_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서명"],				ref: 'DEPT_NAME',				type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["사용자명"], 			ref: 'EMP_NAME', 				type:'output',  	width:'100px',  	style:'text-align:center'},
             {caption: ["카드번호"], 			ref: 'CARD_NO',  				type:'output',  	width:'300px',  	style:'text-align:left'},
             {caption: ["승인번호"], 			ref: 'APPR_NO',  				type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["코스트센터(전표)"],		ref: 'COST_CENTER_CODE',  		type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -445,9 +445,11 @@
             {caption: ["업종코드"], 			ref: 'BIZ_CODE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["업종명"], 				ref: 'BIZ_ITEMS',  				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["카드유형"], 			ref: 'ZCARD_KIND_NAME',  		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["매입금액"], 			ref: 'CARD_AMT',  				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["매입부가세"], 			ref: 'CARD_VAT_AMT',  			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["총액"], 				ref: 'SUM_AMOUNT',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            
+            {caption: ["매입금액"], 			ref: 'CARD_AMT',  				type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["매입부가세"], 			ref: 'CARD_VAT_AMT',  			type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["총액"], 				ref: 'SUM_AMOUNT',  			type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            
             {caption: ["전표담당자명"], 		ref: 'ACCOUNT_EMP_NAME',  		type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["결재예정일자"], 		ref: 'SETTLE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["제외사유코드"], 		ref: 'EXCEPT_CODE',  			type:'output',  	width:'120px',  	style:'text-align:left'},
@@ -457,9 +459,11 @@
             {caption: ["과세유형"], 			ref: 'TAX_GUBUN_NAME',  		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일/증빙일"], 		ref: 'ZTRAN_DATE2',  			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["전표ID"], 				ref: 'DOC_ID',  				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표금액"], 			ref: 'HEADER_INVOICE_AMOUNT',  	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표공급가액"], 		ref: 'HEADER_CARD_AMT',  		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표부가세금액"], 		ref: 'HEADER_VAT_AMOUNT',  		type:'output',  	width:'150px',  	style:'text-align:left'},
+            
+            {caption: ["전표금액"], 			ref: 'HEADER_INVOICE_AMOUNT',  	type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["전표공급가액"], 		ref: 'HEADER_CARD_AMT',  		type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["전표부가세금액"], 		ref: 'HEADER_VAT_AMOUNT',  		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            
             {caption: ["적요"], 				ref: 'HEADER_DESC',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["폐업일자"], 			ref: 'BIZ_CLOSE_DATE',  		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["세무일자"], 			ref: 'TAX_DATE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -585,57 +589,57 @@
   	        	jsonFig3150List.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						CHK_YN					: "",							//checkbox
-  						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),				//전표상태			--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
-  						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),			//전표상태명		--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),					//전표번호
-  						FINAL_STEP_SEQ			: gfnma_nvl(item.FINAL_STEP_SEQ),			//결재자			--> ?
-  						APPR_CANCEL_TYPE		: gfnma_nvl(item.APPR_CANCEL_TYPE),			//거래구분			--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
-  						APPR_CANCEL_TYPE_NAME	: gfnma_nvl(item.APPR_CANCEL_TYPE_NAME),	//거래구분명		--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),				//부서명			
-  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),					//사용자명
-  						CARD_NO					: gfnma_nvl(item.CARD_NO),					//카드번호
-  						APPR_NO					: gfnma_nvl(item.APPR_NO),					//승인번호
-  						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),			//코스트센터(전표)
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
-  						DOC_DATE				: gfnma_nvl(item.DOC_DATE),					//전기일자
-  						TXN_DATE				: gfnma_nvl(item.TXN_DATE),					//거래일자
-  						CS_NAME					: gfnma_nvl(item.CS_NAME),					//거래처명
-  						CS_BIZ_REGNO			: gfnma_nvl(item.CS_BIZ_REGNO),				//가맹점 사업자번호
-  						BIZ_CS_NAME				: gfnma_nvl(item.BIZ_CS_NAME),				//가맹점명
-  						BIZ_CODE				: gfnma_nvl(item.BIZ_CODE),					//업종코드
-  						BIZ_ITEMS				: gfnma_nvl(item.BIZ_ITEMS),				//업종명
-  						ZCARD_KIND				: gfnma_nvl(item.ZCARD_KIND),				//카드유형			--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
-  						ZCARD_KIND_NAME			: gfnma_nvl(item.ZCARD_KIND_NAME),			//카드유형명		--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
-  						CARD_AMT				: gfnma_nvl(item.CARD_AMT),					//매입금액
-  						CARD_VAT_AMT			: gfnma_nvl(item.CARD_VAT_AMT),				//매입부가세
-  						SUM_AMOUNT				: gfnma_nvl(item.SUM_AMOUNT),				//총액
-  						ACCOUNT_EMP_CODE		: gfnma_nvl(item.ACCOUNT_EMP_CODE),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
-  						ACCOUNT_EMP_NAME		: gfnma_nvl(item.ACCOUNT_EMP_NAME),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
-  						SETTLE_DATE				: gfnma_nvl(item.SETTLE_DATE),				//결재예정일자
-  						EXCEPT_CODE				: gfnma_nvl(item.EXCEPT_CODE),				//제외사유코드 		--> ?
-  						EXCEPT_REASON			: gfnma_nvl(item.EXCEPT_REASON),			//제외사유	 		--> ?
-  						EXCEPT_AMOUNT			: gfnma_nvl(item.EXCEPT_AMOUNT),			//제외금액	 		--> ?
-  						TAX_TYPE				: gfnma_nvl(item.TAX_TYPE),					//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
-  						TAX_TYPE_NAME			: gfnma_nvl(item.TAX_TYPE_NAME),			//가맹점과세구분명	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
-  						TAX_GUBUN_NAME			: gfnma_nvl(item.TAX_GUBUN_NAME),			//과세유형			--> ?
-  						ZTRAN_DATE2				: gfnma_nvl(item.ZTRAN_DATE2),				//전기일/증빙일	
-  						DOC_ID					: gfnma_nvl(item.DOC_ID),					//전표ID	
-  						HEADER_INVOICE_AMOUNT	: gfnma_nvl(item.HEADER_INVOICE_AMOUNT),	//전표금액	
-  						HEADER_CARD_AMT			: gfnma_nvl(item.HEADER_CARD_AMT),			//전표공급가액
-  						HEADER_VAT_AMOUNT		: gfnma_nvl(item.HEADER_VAT_AMOUNT),		//전표부가세금액
-  						HEADER_DESC				: gfnma_nvl(item.HEADER_DESC),				//적요				--> ?
-  						BIZ_CLOSE_DATE			: gfnma_nvl(item.BIZ_CLOSE_DATE),			//폐업일자			--> ?
-  						TAX_DATE				: gfnma_nvl(item.TAX_DATE),					//세무일자			--> ?
-  						ZVENDOR_CLOSE_IN		: gfnma_nvl(item.ZVENDOR_CLOSE_IN),			//가맹점휴폐업정보	--> ?
-  						ZUPDATE_DATE			: gfnma_nvl(item.ZUPDATE_DATE),				//수정일자			--> ?
-  						APPR_DATE				: gfnma_nvl(item.APPR_DATE),				//승인일자			
-  						APPR_TIME				: gfnma_nvl(item.APPR_TIME),				//승인시각			
-  						ZCHARGE_DATE			: gfnma_nvl(item.ZCHARGE_DATE),				//지급일자			--> ?
-  						APPR_STATUS_COUNT		: gfnma_nvl(item.APPR_STATUS_COUNT),		//남은결재자		
-  						TRANS_DATE				: gfnma_nvl(item.TRANS_DATE),				//매입일자
-  						CARD_ID					: gfnma_nvl(item.CARD_ID)				
+  						CHK_YN					: "",										//checkbox
+  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),				//전표상태			--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
+  						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),			//전표상태명		--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
+  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),					//전표번호
+  						FINAL_STEP_SEQ			: gfnma_nvl2(item.FINAL_STEP_SEQ),			//결재자			--> ?
+  						APPR_CANCEL_TYPE		: gfnma_nvl2(item.APPR_CANCEL_TYPE),			//거래구분			--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
+  						APPR_CANCEL_TYPE_NAME	: gfnma_nvl2(item.APPR_CANCEL_TYPE_NAME),	//거래구분명		--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
+  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),				//부서명			
+  						EMP_NAME				: gfnma_nvl2(item.EMP_NAME),					//사용자명
+  						CARD_NO					: gfnma_nvl2(item.CARD_NO),					//카드번호
+  						APPR_NO					: gfnma_nvl2(item.APPR_NO),					//승인번호
+  						COST_CENTER_CODE		: gfnma_nvl2(item.COST_CENTER_CODE),			//코스트센터(전표)
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						DOC_DATE				: gfnma_nvl2(item.DOC_DATE),					//전기일자
+  						TXN_DATE				: gfnma_nvl2(item.TXN_DATE),					//거래일자
+  						CS_NAME					: gfnma_nvl2(item.CS_NAME),					//거래처명
+  						CS_BIZ_REGNO			: gfnma_nvl2(item.CS_BIZ_REGNO),				//가맹점 사업자번호
+  						BIZ_CS_NAME				: gfnma_nvl2(item.BIZ_CS_NAME),				//가맹점명
+  						BIZ_CODE				: gfnma_nvl2(item.BIZ_CODE),					//업종코드
+  						BIZ_ITEMS				: gfnma_nvl2(item.BIZ_ITEMS),				//업종명
+  						ZCARD_KIND				: gfnma_nvl2(item.ZCARD_KIND),				//카드유형			--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
+  						ZCARD_KIND_NAME			: gfnma_nvl2(item.ZCARD_KIND_NAME),			//카드유형명		--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
+  						CARD_AMT				: gfnma_nvl2(item.CARD_AMT),					//매입금액
+  						CARD_VAT_AMT			: gfnma_nvl2(item.CARD_VAT_AMT),				//매입부가세
+  						SUM_AMOUNT				: gfnma_nvl2(item.SUM_AMOUNT),				//총액
+  						ACCOUNT_EMP_CODE		: gfnma_nvl2(item.ACCOUNT_EMP_CODE),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
+  						ACCOUNT_EMP_NAME		: gfnma_nvl2(item.ACCOUNT_EMP_NAME),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
+  						SETTLE_DATE				: gfnma_nvl2(item.SETTLE_DATE),				//결재예정일자
+  						EXCEPT_CODE				: gfnma_nvl2(item.EXCEPT_CODE),				//제외사유코드 		--> ?
+  						EXCEPT_REASON			: gfnma_nvl2(item.EXCEPT_REASON),			//제외사유	 		--> ?
+  						EXCEPT_AMOUNT			: gfnma_nvl2(item.EXCEPT_AMOUNT),			//제외금액	 		--> ?
+  						TAX_TYPE				: gfnma_nvl2(item.TAX_TYPE),					//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_TYPE_NAME			: gfnma_nvl2(item.TAX_TYPE_NAME),			//가맹점과세구분명	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_GUBUN_NAME			: gfnma_nvl2(item.TAX_GUBUN_NAME),			//과세유형			--> ?
+  						ZTRAN_DATE2				: gfnma_nvl2(item.ZTRAN_DATE2),				//전기일/증빙일	
+  						DOC_ID					: gfnma_nvl2(item.DOC_ID),					//전표ID	
+  						HEADER_INVOICE_AMOUNT	: gfnma_nvl2(item.HEADER_INVOICE_AMOUNT),	//전표금액	
+  						HEADER_CARD_AMT			: gfnma_nvl2(item.HEADER_CARD_AMT),			//전표공급가액
+  						HEADER_VAT_AMOUNT		: gfnma_nvl2(item.HEADER_VAT_AMOUNT),		//전표부가세금액
+  						HEADER_DESC				: gfnma_nvl2(item.HEADER_DESC),				//적요				--> ?
+  						BIZ_CLOSE_DATE			: gfnma_nvl2(item.BIZ_CLOSE_DATE),			//폐업일자			--> ?
+  						TAX_DATE				: gfnma_nvl2(item.TAX_DATE),					//세무일자			--> ?
+  						ZVENDOR_CLOSE_IN		: gfnma_nvl2(item.ZVENDOR_CLOSE_IN),			//가맹점휴폐업정보	--> ?
+  						ZUPDATE_DATE			: gfnma_nvl2(item.ZUPDATE_DATE),				//수정일자			--> ?
+  						APPR_DATE				: gfnma_nvl2(item.APPR_DATE),				//승인일자			
+  						APPR_TIME				: gfnma_nvl2(item.APPR_TIME),				//승인시각			
+  						ZCHARGE_DATE			: gfnma_nvl2(item.ZCHARGE_DATE),				//지급일자			--> ?
+  						APPR_STATUS_COUNT		: gfnma_nvl2(item.APPR_STATUS_COUNT),		//남은결재자		
+  						TRANS_DATE				: gfnma_nvl2(item.TRANS_DATE),				//매입일자
+  						CARD_ID					: gfnma_nvl2(item.CARD_ID)				
   					}
   					jsonFig3150List.push(msg);
   					totalRecordCount ++;
