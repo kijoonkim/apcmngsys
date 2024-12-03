@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : pckgFcltOprtngPlan.jsp
-     * @Description : 가동 계획 등록(포장)
+     * @Class Name : pckgFcltOprtngPrfmnc.jsp
+     * @Description : 가동 실적 등록(포장)
      * @author SI개발부
      * @since 2024.09.10
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 가동 계획 등록(포장)</title>
+    <title>title : 가동 실적 등록(포장)</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -33,7 +33,7 @@
             <div class="box-header" style="display:flex; justify-content: flex-start;">
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 가동 계획 등록(포장) -->
+                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 가동 실적 등록(포장) -->
                 </div>
                 <div style="margin-left: auto;">
 
@@ -65,16 +65,16 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">계획연월</th>
+							<th scope="row" class="th_bg">가동연월</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-planYm"
-									name="srch-dtp-planYm"
+									id="srch-dtp-oprtngYm"
+									name="srch-dtp-oprtngYm"
 									uitype="popup"
 									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-planYm)"
+									onchange="fn_dtpChange(srch-dtp-oprtngYm)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -127,11 +127,11 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>선별 계획</span>
+                                    <span>포장기별 가동실적</span>
                                 </li>
                             </ul>
                         </div>
-                        <div id="sb-area-grdSortPlan"></div>
+                        <div style="display: flex;gap: 3vw" id="sb-area-grdSortFcltPrfmnc"></div>
                     </div>
                     <div style="display: flex;gap: 3vw">
                         <div style="flex: 1.6">
@@ -183,38 +183,28 @@
                                                     jsondata-ref="jsonInptType"
                                                     unselected-text="전체"
                                                     class="form-control input-sm input-sm-ast"
-                                                    group-id="group1"
+                                                    readonly
                                             ></sbux-select>
                                         </td>
                                         <th scope="row" class="th_bg">계획번호</th>
                                         <td class="td_input">
-                                            <sbux-input id="dtl-inp-planNo" name="dtl-inp-planNo" uitype="text" class="form-control input-sm" group-id="group1">
+                                            <sbux-input id="dtl-inp-planNo" name="dtl-inp-planNo" uitype="text" class="form-control input-sm" group-id="group1" readonly>
                                             </sbux-input>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="th_bg">투입수량</th>
+
+                                        <th scope="row" class="th_bg">가동수량</th>
                                         <td class="td_input">
-                                            <sbux-input id="dtl-inp-inptQntt" name="dtl-inp-inptQntt" uitype="text" class="form-control input-sm"  group-id="group1"
-                                            		 permit-keycodes-set="num" exclude-kr="kr">
-                                            </sbux-input>
-                                        </td>
-                                        <th scope="row" class="th_bg">투입중량</th>
-                                        <td class="td_input">
-                                            <sbux-input id="dtl-inp-inptWght" name="dtl-inp-inptWght" uitype="text" class="form-control input-sm" group-id="group1"
+                                            <sbux-input id="dtl-inp-oprtngQntt" name="dtl-inp-oprtngQntt" uitype="text" class="form-control input-sm" group-id="group1"
                                             		 permit-keycodes-set="num" exclude-kr="kr">
                                             </sbux-input>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="th_bg">작업수량</th>
+                                        <th scope="row" class="th_bg">가동중량</th>
                                         <td class="td_input" >
-                                            <sbux-input id="dtl-inp-planQntt" name="dtl-inp-planQntt" uitype="text" class="form-control input-sm" group-id="group1"
-                                            		 permit-keycodes-set="num" exclude-kr="kr">
-                                        </td>
-                                        <th scope="row" class="th_bg">작업중량</th>
-                                        <td class="td_input" >
-                                            <sbux-input id="dtl-inp-planWght" name="dtl-inp-planWght" uitype="text" class="form-control input-sm" group-id="group1"
+                                            <sbux-input id="dtl-inp-oprtngWght" name="dtl-inp-oprtngWght" uitype="text" class="form-control input-sm" group-id="group1"
                                             		 permit-keycodes-set="num" exclude-kr="kr">
                                         </td>
                                     </tr>
@@ -241,7 +231,7 @@
 												date-format="yyyy/mm/dd HH:MM"
 												show-time-bar="true"
 												class="form-control input-sm sbux-pik-group-apc input-sm-ast"
-												onchange="fn_dtpValidate"
+												onchange = "fn_dtpValidate"
 												group-id="group1">
 											</sbux-datepicker>
                                         </td>
@@ -252,10 +242,8 @@
                                             <sbux-input wrap-style="height: 100%" id="dtl-inp-fcltRmrk" name="dtl-inp-fcltRmrk" uitype="text" class="form-control input-sm" group-id="group1">
                                             </sbux-input>
                                         </td>
-                                        <sbux-input id="dtl-inp-gubun" name="dtl-inp-gubun" uitype="hidden" class="form-control input-sm" group-id="group1" > </sbux-input>
-
                                     </tr>
-
+									<sbux-input id="dtl-inp-gubun" name="dtl-inp-gubun" uitype="hidden" class="form-control input-sm" group-id="group1" > </sbux-input>
                                 </tbody>
 
                             </table>
@@ -278,8 +266,8 @@
 </body>
 <script>
     /** 상단 grid ref Json **/
-    var jsonSortPlan =[];
-    var grdSortPlan;
+    var jsonSortFcltPrfmnc =[];
+    var grdSortFcltPrfmnc;
 
 
 
@@ -310,7 +298,7 @@
     	let nowDate = new Date();
 		let firstYmd = gfn_dateToYmd(nowDate);
 
-		SBUxMethod.set("srch-dtp-planYm", firstYmd);
+		SBUxMethod.set("srch-dtp-oprtngYm", firstYmd);
 		planYmCheck = firstYmd;
 
         let result = await Promise.all([
@@ -322,21 +310,23 @@
 			gfn_setApcVrtySBSelect("dtl-inp-vrtyCd", 		jsonApcVrtyCd, 	gv_apcCd)			// APC 품종(저장)
         ]);
         fn_search();
+        SBUxMethod.set("dtl-slt-inptType","PCKG_FCLT_CD");
     }
 
     const fn_search = async function(){
     	SBUxMethod.refreshGroup("group1");
+    	var planYm = SBUxMethod.get("srch-dtp-oprtngYm");
     	SBUxMethod.set("dtl-inp-gubun","insert");
-    	var planYm = SBUxMethod.get("srch-dtp-planYm");
+    	//현재 연월이랑 가동연월이랑 값이 다를 경우 그리드 destroy 후 새로 생성(컬럼 다시만들어야하기 때문)
     	if(planYm !== planYmCheck){
-    		grdSortPlan.destroy();
+    		grdSortFcltPrfmnc.destroy();
     		fn_createSortListGrid();
-    		planYmCehck = planYm;
+    		planYmCheck = planYm;
     	}
 
         try{
 
-            let postJsonPromise = gfn_postJSON("/am/sort/selectSortFcltOprtngPlanList.do",{apcCd:gv_apcCd, fcltType: 'PCKG_FCLT_CD', planYm : planYm });
+            let postJsonPromise = gfn_postJSON("/am/sort/selectSortFcltOprtngPrfmncList.do",{apcCd:gv_apcCd,fcltType : 'PCKG_FCLT_CD',planYm : planYm});
             let data = await postJsonPromise;
 
             if (!_.isEqual("S", data.resultStatus)) {
@@ -344,72 +334,97 @@
                 return;
             }
             if(data.resultList.length > 0){
-                jsonSortPlan.length = 0;
+            	jsonSortFcltPrfmnc.length = 0;
+            	let planDtlCd;
                 data.resultList.forEach((item,index) => {
                 	const itemArr = jsonApcItem.find(obj => obj.itemCd === item.rprsItem);
-                	var dupIndex = jsonSortPlan.findIndex(obj => obj.apcCd === item.apcCd && obj.fcltCd === item.fcltCd);
-                	if(item.oprtngBgngDt !== null){
-                		if (dupIndex !== -1) {
-                    		var org = jsonSortPlan[dupIndex];
-                        	var oprtngBgngDt = new Date(item.oprtngBgngDt);
-                        	var oprtngEndDt = new Date(item.oprtngEndDt);
-                        	var startDate = oprtngBgngDt.getDate();
-                        	var endDate = oprtngEndDt.getDate();
-                        	item["startDate"] = startDate;
-                        	item["endDate"] = endDate;
-                        	org["startEndDate"].push(item);
+					var planChk = true;
+					//시작일자
+					// orgOprtngBgngDt -> TB_OPRTNG_APC_PLAN 테이블의 계획시간
+					// oprtngBgngDt -> TB_OPRTNG_APC_PRFMNC 테이블의 실적으로 등록된 시작시간
+                	var bgngDt = item.oprtngBgngDt;
+                	var bgngDtTest = new Date(item.oprtngBgngDt).getDate();
+                	var planBgngDt = item.orgOprtngBgngDt;
+                	//종료일자
+                	var endDt = item.oprtngEndDt;
+                	var endDtTest = new Date(item.oprtngEndDt).getDate();
+             		var planEndDt = item.orgOprtngEndDt;
 
-                        	for(startDate; startDate < endDate +1 ; startDate++){
-                        		org[startDate.toString()] = item.oprtngBgngDt + " " + itemArr.itemNm + " # " + item.planDtlCd ;
-                        		//org[startDate.toString()] = "test";
-                        	}
+             		var oprtngBgngDt;
+                	var oprtngEndDt;
+					//계획번호 (계획등록에서 등록됨)
+               		planDtlCd = item.planDtlCd
 
-                   		} else {
-                        	var oprtngBgngDt = new Date(item.oprtngBgngDt);
-                        	var oprtngEndDt = new Date(item.oprtngEndDt);
-                        	var startDate = oprtngBgngDt.getDate();
-                        	var endDate = oprtngEndDt.getDate();
-                        	var obj = {startDate : startDate,endDate : endDate};
-                        	item["startDate"] = startDate;
-                        	item["endDate"] = endDate;
-                        	item["startEndDate"] = [item];
 
-                        	for(startDate; startDate < endDate +1 ; startDate++){
-                        		item[startDate.toString()] = item.oprtngBgngDt + " " + itemArr.itemNm + " # " + item.planDtlCd ;
-                        		//item[startDate.toString()] = "test";
-                        	}
-                        	jsonSortPlan.push(item);
-                   		}
-                	}else{
-               			jsonSortPlan.push(item);
+               		oprtngBgngDt = new Date(planBgngDt);
+                   	oprtngEndDt = new Date(planEndDt);
+
+
+                	var oprtngDtlCd = item.oprtngDtlCd  === null ? item.planDtlCd : item.oprtngDtlCd
+                	var startDate = oprtngBgngDt.getDate();
+                	var endDate = oprtngEndDt.getDate();
+                	var obj = {startDate : startDate,endDate : endDate};
+                	const test = Object.assign({}, item);
+                	item["startDate"] = startDate;
+                	item["endDate"] = endDate;
+                	item["startEndDate"] = [item];
+
+
+                	//planBgngDt는 계획테이블 시간 bgngDt는 실적시간
+                	for(startDate; startDate < endDate +1 ; startDate++){
+                		item[startDate.toString()] = bgngDt === null ? planBgngDt + " " + itemArr.itemNm + " # " + oprtngDtlCd
+                														: bgngDt + " " + itemArr.itemNm + " # " + oprtngDtlCd ;
+                	}
+
+               		const plan = Object.assign({}, item);
+               		plan["sn"] = "0";
+					plan["oprtngQntt"] = plan.planQntt
+               		plan["oprtngWght"] = plan.planWght
+               		plan["gubun"] = "plan";
+					if(gfn_nvl(plan.planDtlCd) === ""){
+						return;
+					}else{
+						jsonSortFcltPrfmnc.push(plan);
+					}
+
+
+					// 실적시간이 있으면 계획시간 밑에 실적row 추가
+               		if(bgngDt != null && bgngDt != undefined){
+               			startDate = new Date(bgngDt).getDate();
+   						endDate = new Date(endDt).getDate();
+                   		for(startDate; startDate < endDate +1 ; startDate++){
+                       		test[startDate.toString()] = bgngDt === null ? planBgngDt: bgngDt   + " " + itemArr.itemNm + " # " + oprtngDtlCd ;
+                       	}
+                   		test["startDate"] = bgngDtTest;
+                       	test["endDate"] = endDtTest;
+                       	test["startEndDate"] = [test];
+                       	test["gubun"] = "prfmnc";
+               			jsonSortFcltPrfmnc.push(test);
                		}
-
-
-
-
                 });
-
-                grdSortPlan.rebuild();
+                grdSortFcltPrfmnc.rebuild();
             }else{
-                jsonSortPlan.length = 0;
-                grdSortPlan.rebuild();
+            	jsonSortFcltPrfmnc.length = 0;
+                grdSortFcltPrfmnc.rebuild();
 
 
-                const inputs = document.querySelectorAll('input[id^="dtl"]');
-                inputs.forEach((item) => {
-                    SBUxMethod.set(item.id, null);
-                });
+                //const inputs = document.querySelectorAll('input[id^="dtl"]');
+                //inputs.forEach((item) => {
+                //    SBUxMethod.set(item.id, null);
+                //});
             }
 
         }catch (e){
             console.log(e);
         }
     }
+
     const fn_save = async function(){
-    	let rowIdx = grdSortPlan.getRow();
-    	let colIdx = grdSortPlan.getCol();
-    	let rowData = grdSortPlan.getRowData(rowIdx);
-    	let cellData = grdSortPlan.getCellData(rowIdx,colIdx);
+    	let rowIdx = grdSortFcltPrfmnc.getRow();
+    	let colIdx = grdSortFcltPrfmnc.getCol();
+    	let rowData = grdSortFcltPrfmnc.getRowData(rowIdx);
+    	let cellData = grdSortFcltPrfmnc.getCellData(rowIdx,colIdx);
+    	let gubun = SBUxMethod.get("dtl-inp-gubun");
 
 
 
@@ -419,38 +434,35 @@
     	let oprtngBgngDt = SBUxMethod.get("dtl-dtp-bgngYmd");
     	let oprtngEndDt = SBUxMethod.get("dtl-dtp-endYmd");
     	let planDtlCd = SBUxMethod.get("dtl-inp-planNo");
-    	let inptQntt = SBUxMethod.get("dtl-inp-inptQntt");
-    	let inptWght = SBUxMethod.get("dtl-inp-inptWght");
-    	let planQntt = SBUxMethod.get("dtl-inp-planQntt");
-    	let planWght = SBUxMethod.get("dtl-inp-planWght");
-    	let planRmrk = SBUxMethod.get("dtl-inp-fcltRmrk");
-    	let gubun = SBUxMethod.get("dtl-inp-gubun");
+    	let oprtngQntt = SBUxMethod.get("dtl-inp-oprtngQntt");
+    	let oprtngWght = SBUxMethod.get("dtl-inp-oprtngWght");
+    	let oprtngRmrk = SBUxMethod.get("dtl-inp-fcltRmrk");
 
-
+		if (planDtlCd === ""){
+			return;
+		}
 
 
         try{
-            let sortFcltPlanInfo ={
+            let sortFcltPrfmncInfo ={
             		apcCd : apcCd
             		, fcltType : fcltType
             		, fcltCd : fcltCd
             		, oprtngBgngDt : oprtngBgngDt
             		, oprtngEndDt : oprtngEndDt
-            		, planDtlCd : planDtlCd
-            		, inptQntt : inptQntt
-            		, inptWght : inptWght
-            		, planQntt : planQntt
-            		, planWght : planWght
-            		, planRmrk : planRmrk
-            		, status : cellData.length > 0 ? "2": "3"
-            		, orgOprtngBgngDt : cellData.length > 0 ? cellData.split(" ")[0].replaceAll("-","") : ""
+            		, oprtngQntt : oprtngQntt
+            		, oprtngWght : oprtngWght
+            		, oprtngRmrk : oprtngRmrk
+            		, oprtngDtlCd  : planDtlCd
+            		, orgOprtngBgngDt : rowData.orgOprtngBgngDt.replace(/[- :]/g, '')
+            		, oprtngSn : "1"
             		, gubun : gubun
+            		, sn : rowData.sn
             		};
-            //let sortFcltDtlData = grdSortFcltDtlList.getGridDataAll();
 
 
 
-            let postJsonPromise = gfn_postJSON("/am/sort/insertSortFcltOprtngPlan.do",sortFcltPlanInfo);
+            let postJsonPromise = gfn_postJSON("/am/sort/insertSortFcltOprtngPrfmnc.do",sortFcltPrfmncInfo);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
@@ -469,21 +481,27 @@
     const fn_delete = async function(){
 
 
-        let rowidx = grdSortPlan.getRow();
-        let colidx = grdSortPlan.getCol();
+        let rowidx = grdSortFcltPrfmnc.getRow();
+        let colidx = grdSortFcltPrfmnc.getCol();
         if(rowidx == -1){
         	return;
         }
 
-        let vo = grdSortPlan.getRowData(rowidx);
-        let cellData = grdSortPlan.getCellData(rowidx,colidx);
+        let vo = grdSortFcltPrfmnc.getRowData(rowidx);
+        let cellData = grdSortFcltPrfmnc.getCellData(rowidx,colidx);
+
+        if(vo.sn === "0" || vo.sn === null){
+        	return;
+        }
         let planVO = {
         		apcCd : vo.apcCd
         		, fcltCd : vo.fcltCd
-        		, oprtngBgngDt : cellData.split(" ")[0].replaceAll("-","")
+        		, oprtngBgngDt : cellData.split(" ")[0].replaceAll("-","") + cellData.split(" ")[1].replaceAll(":","")
+        		, oprtngDtlCd : vo.oprtngDtlCd
+        		, sn :  vo.sn
         		, fcltType : 'PCKG_FCLT_CD'
         }
-        let postJsonPromise = gfn_postJSON("/am/sort/deleteSortFcltOprtngPlan.do",planVO);
+        let postJsonPromise = gfn_postJSON("/am/sort/deleteSortFcltOprtngPrfmnc.do",planVO);
         let data = await postJsonPromise;
 
         try{
@@ -500,24 +518,24 @@
     /** 상단 목록 grid create **/
     const fn_createSortListGrid = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdSortPlan';
-        SBGridProperties.id = 'grdSortPlan';
-        SBGridProperties.jsonref = 'jsonSortPlan';
+        SBGridProperties.parentid = 'sb-area-grdSortFcltPrfmnc';
+        SBGridProperties.id = 'grdSortFcltPrfmnc';
+        SBGridProperties.jsonref = 'jsonSortFcltPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.clickeventarea = {fixed: true, empty: false};
         SBGridProperties.mergecells = 'byrow';
         SBGridProperties.columns = columnData();
-        grdSortPlan = _SBGrid.create(SBGridProperties);
+        grdSortFcltPrfmnc = _SBGrid.create(SBGridProperties);
 
-        grdSortPlan.bind('afterrebuild','gridAfterRebuild');
-        grdSortPlan.bind('click','fn_grdSortPlanDataBind');
+        grdSortFcltPrfmnc.bind('afterrebuild','gridAfterRebuild');
+        grdSortFcltPrfmnc.bind('click','fn_grdSortFcltPrfmncDataBind');
 
 
     }
-	const fn_grdSortPlanDataBind = function(){
-		let rowIdx = grdSortPlan.getRow();
-		let colIdx = grdSortPlan.getCol();
-		let row = grdSortPlan.getRowData(rowIdx);
+	const fn_grdSortFcltPrfmncDataBind = function(){
+		let rowIdx = grdSortFcltPrfmnc.getRow();
+		let colIdx = grdSortFcltPrfmnc.getCol();
+		let row = grdSortFcltPrfmnc.getRowData(rowIdx);
 		let rowData = row.startEndDate.find(obj => obj.startDate === colIdx);
 		if(gfn_nvl(rowData) === ""){
 			SBUxMethod.refreshGroup("group1");
@@ -525,30 +543,39 @@
 			return;
 		}
 
+		if(rowData.gubun === "plan"){
+			SBUxMethod.set("dtl-inp-gubun","insert");
+		}else if(rowData.gubun === "prfmnc"){
+			SBUxMethod.set("dtl-inp-gubun","update");
+		}
+
 
 		SBUxMethod.set("dtl-inp-itemCd",rowData.rprsItem);
-		SBUxMethod.refresh("dtl-inp-vrtyCd");
+		SBUxMethod.refresh('dtl-inp-vrtyCd')
 		SBUxMethod.set("dtl-inp-vrtyCd",rowData.rprsVrty);
 		SBUxMethod.set("dtl-inp-planNo",rowData.planDtlCd);
-		SBUxMethod.set("dtl-inp-inptQntt",rowData.inptQntt);
-		SBUxMethod.set("dtl-inp-inptWght",rowData.inptWght);
-		SBUxMethod.set("dtl-inp-planQntt",rowData.planQntt);
-		SBUxMethod.set("dtl-inp-planWght",rowData.planWght);
+
+		SBUxMethod.set("dtl-inp-oprtngQntt",rowData.oprtngQntt);
+		SBUxMethod.set("dtl-inp-oprtngWght",rowData.oprtngWght);
+
 		SBUxMethod.set("dtl-dtp-bgngYmd",rowData.oprtngBgngDt);
 		SBUxMethod.set("dtl-dtp-endYmd",rowData.oprtngEndDt);
-		SBUxMethod.set("dtl-inp-fcltRmrk",rowData.planRmrk);
-		SBUxMethod.set("dtl-inp-gubun","update");
-
-
+		SBUxMethod.set("dtl-inp-fcltRmrk",rowData.oprtngRmrk);
 	}
     const gridAfterRebuild = function(){
-		let allData = grdSortPlan.getGridDataAll();
+		let allData = grdSortFcltPrfmnc.getGridDataAll();
 		allData.forEach((item,index) => {
 			if(item.hasOwnProperty('startEndDate')){
 				item.startEndDate.forEach((item)=>{
 					var startDate = item.startDate;
 					var endDate = item.endDate;
-					grdSortPlan.setCellStyle('background-color', index+2, startDate, index+2, endDate, '#e3dde3');
+					var rowData = grdSortFcltPrfmnc.getRowData(index+2);
+					if(rowData.sn === "0" ||  rowData.sn === null){
+						grdSortFcltPrfmnc.setCellStyle('background-color', index+2, startDate, index+2, endDate, '#86c1d7');
+					}else{
+						grdSortFcltPrfmnc.setCellStyle('background-color', index+2, startDate, index+2, endDate, '#e3dde3');
+					}
+
 				});
 			}
 		});
@@ -567,6 +594,7 @@
         let lastDay = new Date(yyyy,parseInt(mm), 0).getDate();
 		let startDay = yyyy + '/' + mm + '/01';
 		let endDay = yyyy + '/' + mm + '/' + lastDay.toString();
+
         SBUxMethod.setDatepickerMinDate('dtl-dtp-bgngYmd',startDay );
         SBUxMethod.setDatepickerMaxDate('dtl-dtp-bgngYmd',endDay);
 
@@ -591,10 +619,10 @@
 
     const columnData = function(){
     	let columnsData = [];
-    	let planYm = SBUxMethod.get("srch-dtp-planYm");
+    	let planYm = SBUxMethod.get("srch-dtp-oprtngYm");
 
 
-    	let topColumn = {caption: ['포장기','포장기'], ref: 'fcltNm', width: '20%', type: 'output', style:'text-align:center'};
+    	let topColumn = {caption: ['선별기','선별기'], ref: 'fcltNm', width: '20%', type: 'output', style:'text-align:center'};
         columnsData.push(topColumn);
         for(var i = 1; i<32 ; i++){
         	var column = {width: '2.5%', type: 'output', style:'text-align:center'}
@@ -605,7 +633,48 @@
         return columnsData;
 
 	}
+    /**
+     * @name fn_selectWghInfo
+     * @description 상단 그리드 click event => 상세 목록 조회
+     * @function
+     */
+    const fn_selectSortFcltDtlInfo = async function(){
 
+        let rowIdx = grdSortFcltPrfmnc.getRow();
+        let sortFcltVO = grdSortFcltPrfmnc.getRowData(rowIdx);
+        if(gfn_isEmpty(sortFcltVO)){
+            return;
+        }
+        sortFcltVO.apcCd = gv_apcCd;
+		SBUxMethod.set("dtl-inp-fcltCd",sortFcltVO.fcltCd);
+		SBUxMethod.set("dtl-inp-rmrk",sortFcltVO.fcltExpln);
+		SBUxMethod.set("dtl-inp-sortCapa",sortFcltVO.cpctUnit);
+		SBUxMethod.set("dtl-inp-fcltRmrk",sortFcltVO.fcltRmrk);
+		SBUxMethod.set("dtl-inp-rprsItem",sortFcltVO.rprsItem);
+		SBUxMethod.set("dtl-inp-rprsVrty",sortFcltVO.rprsVrty);
+		SBUxMethod.set("dtl-slt-unit",sortFcltVO.unit);
+		SBUxMethod.set("dtl-dtp-oprtngHr",sortFcltVO.oprtngHr);
+		SBUxMethod.set("dtl-dtp-noprtngHr",sortFcltVO.noprtngHr);
+		SBUxMethod.set("dtl-dtp-bgngYmd",sortFcltVO.bgngYmd);
+		SBUxMethod.set("dtl-dtp-endYmd",sortFcltVO.endYmd);
+		SBUxMethod.set("dtl-inp-alias",sortFcltVO.fcltNm);
+
+
+
+        let postJsonPromise = gfn_postJSON("/am/sort/selectSortFcltDtl.do",sortFcltVO);
+        let data = await postJsonPromise;
+
+        try{
+            if(data.resultStatus == "S"){
+                if(data.resultList.length >= 0){
+
+                }
+            }
+        }catch (e){
+            console.error();
+        }
+
+    }
 
     function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");

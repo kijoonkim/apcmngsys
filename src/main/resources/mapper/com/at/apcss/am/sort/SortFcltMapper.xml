@@ -385,6 +385,9 @@
 			  <if test='fcltCd != null and fcltCd != ""'>
 	            AND OAF.FCLT_CD = #{fcltCd}
 			  </if>
+
+
+
 	  <![CDATA[
 		) A,
 		(SELECT
@@ -423,6 +426,13 @@
 				<if test='fcltCd != null and fcltCd != ""'>
 			          AND X.FCLT_CD = #{fcltCd}
 				</if>
+				<if test='fcltType != null and fcltType != ""'>
+			          AND X.FCLT_TYPE = #{fcltType}
+				</if>
+				<if test='planYm != null and planYm != ""'>
+	            	  AND TO_CHAR(X.OPRTNG_BGNG_DT,'YYYYMM') = #{planYm}
+			  	</if>
+
 			)B
 
 		WHERE 1=1
@@ -821,7 +831,7 @@
 	</insert>
 
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPlan		-->
-	<!-- DESC : 선별설비계획 수정 : 											-->
+		<!-- DESC : 선별설비계획 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -1068,6 +1078,36 @@
 		]]>
 
 	</insert>
+
+		<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPrfmnc		-->
+	<!-- DESC : 가동실적등록 수정 : 											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	박승진		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+
+	<update id="updateSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+		<![CDATA[
+		UPDATE TB_OPRTNG_APC_PRFMNC SET
+			OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),
+			OPRTNG_END_DT = TO_DATE(#{oprtngEndDt}, 'YYYYMMDDHH24MISS'),
+			OPRTNG_QNTT = #{oprtngQntt},
+			OPRTNG_WGHT = #{oprtngWght},
+			OPRTNG_RMRK = #{oprtngRmrk},
+			SYS_LAST_CHG_DT = SYSDATE,
+			SYS_LAST_CHG_USER_ID = #{sysLastChgUserId},
+			SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+		WHERE APC_CD = #{apcCd}
+		  AND FCLT_CD = #{fcltCd}
+		  AND FCLT_TYPE = #{fcltType}
+		  AND OPRTNG_DTL_CD = #{oprtngDtlCd}
+		  AND OPRTNG_SN = #{sn}
+		]]>
+
+	</update>
+
 
 
 

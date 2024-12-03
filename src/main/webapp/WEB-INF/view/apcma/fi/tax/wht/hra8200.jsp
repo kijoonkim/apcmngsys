@@ -410,7 +410,7 @@ var p_userId = '${loginVO.id}';
 
 
 
-    const queryClick = function(){
+    const queryClick = async function(){
 
         //InitControls(grdList);
         //InitControls(grdDetail);
@@ -422,7 +422,7 @@ var p_userId = '${loginVO.id}';
         //int iBefore = gvwList.FocusedRowHandle;
         let iBefore = grdDclrList.getRow();
 
-        fnQRY_P_HRA8200_Q("LIST");
+        await fnQRY_P_HRA8200_Q("LIST");
 
 
 
@@ -439,8 +439,8 @@ var p_userId = '${loginVO.id}';
 
 
 
-    const focusedRowChanged = function(){
-        fnQRY_P_HRA8200_Q("DETAIL");
+    const focusedRowChanged = async function(){
+        await fnQRY_P_HRA8200_Q("DETAIL");
     }
 
     const fnQRY_P_HRA8200_Q = async function(workType){
@@ -678,14 +678,14 @@ var p_userId = '${loginVO.id}';
     }
 
     //확정버튼
-    const fn_defBtnClick = function(){
-        fnQRY_P_HRA8200_Q("DEF");
+    const fn_defBtnClick = async function(){
+        await fnQRY_P_HRA8200_Q("DEF");
         queryClick();
     }
 
     //확정취소
-    const fn_defCancelClick = function(){
-        fnQRY_P_HRA8200_Q("DEF_CANCEL");
+    const fn_defCancelClick = async function(){
+        await fnQRY_P_HRA8200_Q("DEF_CANCEL");
         queryClick();
     }
 
