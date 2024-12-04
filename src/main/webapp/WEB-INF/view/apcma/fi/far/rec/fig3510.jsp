@@ -5169,12 +5169,12 @@
                     return;
                 }
 
-                if (Number(gfn_nvl(SBUxMethod.get("DOC_AMT"))) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
+                if (Number(gfn_nvl(SBUxMethod.get("DOC_AMT")).replace(/,/g, '')) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
                     gfn_comAlert("E0000", "총지급액과 전표라인정보를 확인하세요.");
                     return;
                 }
             } else if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3" && gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("VAT_TYPE")) != "VE") {
-                if (Number(gfn_nvl(SBUxMethod.get("VAT_AMOUNT"))) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
+                if (Number(gfn_nvl(SBUxMethod.get("VAT_AMOUNT")).replace(/,/g, '')) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
                     gfn_comAlert("E0000", "부가세금액과 전표라인정보를 확인하세요.");
                     return;
                 }
@@ -5207,11 +5207,11 @@
             return;
 
         if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
-            if (!fnSET_P_FIG3510_S("GEN"))
-                return;
+            if (!await fnSET_P_FIG3510_S("GEN")) {
+                return false;
+            }
         }
-
-        if (fnSET_P_FIG3510_S("")) {
+        if (await fnSET_P_FIG3510_S("")) {
             SBUxMethod.set("APPROVAL_NO", "");
             fn_search();
         }
@@ -5239,7 +5239,7 @@
         }
 
         if (gfn_comConfirm("정말 삭제하시겠습니까? 삭제하시려면 예를 클릭하세요.")) {
-            if (fnSET_P_FIG3510_S("D")) {
+            if (await fnSET_P_FIG3510_S("D")) {
                 fn_create();
             }
         }
