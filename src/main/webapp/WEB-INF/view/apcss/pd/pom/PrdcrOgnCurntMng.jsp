@@ -242,6 +242,60 @@
 
 			</c:if>
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<!-- 통합조직 정보 , 통합조직 진척도 -->
+				<c:if test="${loginVO.userType eq '21'}">
+					<table class="table table-bordered tbl_fixed">
+						<caption>통합조직 정보 표기</caption>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg th_border_right">법인명</th>
+								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userCorpNm"
+										name="dtl-input-userCorpNm"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+								<th scope="row" class="th_bg th_border_right">사업자번호</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userBrno"
+										name="dtl-input-userBrno"
+										class="form-control input-sm"
+										mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+								</td>
+								<th scope="row" class="th_bg th_border_right">법인등록번호</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userCrno"
+										name="dtl-input-userCrno"
+										class="form-control input-sm"
+										mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+							</tr>
+						</tbody>
+					</table>
+					<%@ include file="../prgrs/PrgrsUo.jsp" %>
+				</c:if>
+
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -266,7 +320,7 @@
 						<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
 						</c:if>
-
+						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
 						<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 하위 농가리스트 출력" onclick="fn_report4"></sbux-button>
 					</div>
@@ -353,6 +407,12 @@
 						</tr>
 					</tbody>
 				</table>
+
+				<!-- 출자출하조직 진척도 -->
+				<c:if test="${loginVO.userType eq '22'}">
+					<%@ include file="../prgrs/PrgrsIso.jsp" %>
+				</c:if>
+
 				<!--[pp] 검색결과 상세보기-->
 				<!-- 생산자조직 리스트 그리드 -->
 				<div class="ad_section_top">
@@ -723,37 +783,37 @@
 
 
 	const objMenuList01 = {
-	        "excelDwnld": {
-	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-	            "accesskey": "e",					//단축키
-	            "callback": fn_excelDwnld01,			//콜백함수명
-	        }
-	    };
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
 
 
 	function fn_excelDwnld01() {
 		grdPrdcrOgnCurntMng01.exportLocalExcel("생산자조직 현황(생산자조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 	/* Grid 화면 그리기 기능*/
 	//생산자조직 리스트
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
-	    SBGridProperties.fixedrowheight=45;
-	    SBGridProperties.rowheader="seq";
-	    //SBGridProperties.explorerbar = 'sort';//정렬
-	    SBGridProperties.columns = [
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheader="seq";
+		//SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.columns = [
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02'}">
 				//법인체 마감 추가
@@ -829,23 +889,23 @@
 				,typeinfo : {ref:'jsonComGrdExclYn', label:'label', value:'value', displayui : true}},
 		</c:if>
 
-	        {caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
-	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'uoApoCd',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',		hidden : true}
-	    ];
+			{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
+			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoApoCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'crno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdcrOgnzCd',		hidden : true}
+		];
 
-	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 
-	    grdPrdcrOgnCurntMng01.bind('click','fn_view01');
-	    grdPrdcrOgnCurntMng01.bind('dblclick','gridClick');
+		grdPrdcrOgnCurntMng01.bind('click','fn_view01');
+		grdPrdcrOgnCurntMng01.bind('dblclick','gridClick');
 
 	}
 
@@ -854,17 +914,17 @@
 
 
 	const objMenuList02 = {
-	        "excelDwnld": {
-	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-	            "accesskey": "e",					//단축키
-	            "callback": fn_excelDwnld02,			//콜백함수명
-	        }
-	    };
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld02,			//콜백함수명
+			}
+		};
 
 
 	function fn_excelDwnld02() {
 		grdPrdcrOgnCurntMng02.exportLocalExcel("생산자조직 현황(농가 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 	/* Grid 화면 그리기 기능*/
 	//농가 리스트
@@ -1200,6 +1260,11 @@
 
 			//grdPrdcrOgnCurntMng.rebuild();
 
+			<c:if test="${loginVO.userType eq '21'}">
+			//통합조직 진척도 조회
+			cfn_selectPrgrs();
+			</c:if>
+
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1391,9 +1456,6 @@
 			return;
 		}
 
-
-		//문제가 생길 여지가 있어
-		//test dtl 부분이 변경될떄 클리어폼 한번해 줄필요가 있슴
 		let apoCd = SBUxMethod.get('dtl-input-apoCd01');
 		let apoSe = SBUxMethod.get('dtl-input-apoSe01');
 		let crno = SBUxMethod.get('dtl-input-crno01');
@@ -1405,7 +1467,6 @@
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
-		//let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 
 		for(var i=1+1; i<=gridData.length+1; i++ ){
 
@@ -1526,53 +1587,53 @@
 	function fn_procRow01(gubun, grid, nRow, nCol) {
 		console.log("======fn_procRow01=========");
 		if (gubun === "ADD") {
-            if (grid === "grdPrdcrOgnCurntMng01") {
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
-            	//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
-            	grdPrdcrOgnCurntMng01.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grdPrdcrOgnCurntMng01") {
-            	if(grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
-            			fn_deleteRsrc01(rowVal);
-            			fn_dtlGridSearch01();
-            		}
-            	}else{
-            		grdPrdcrOgnCurntMng01.deleteRow(nRow);
-            	}
-            }
-        }
+			if (grid === "grdPrdcrOgnCurntMng01") {
+				grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
+				//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
+				grdPrdcrOgnCurntMng01.addRow(true);
+			}
+		}
+		else if (gubun === "DEL") {
+			if (grid === "grdPrdcrOgnCurntMng01") {
+				if(grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 2){
+					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+					if(confirm(delMsg)){
+						var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
+						fn_deleteRsrc01(rowVal);
+						fn_dtlGridSearch01();
+					}
+				}else{
+					grdPrdcrOgnCurntMng01.deleteRow(nRow);
+				}
+			}
+		}
 	}
 
 	/* Grid Row 추가 및 삭제 기능*/
 	function fn_procRow02(gubun, grid, nRow, nCol) {
 		console.log("======fn_procRow02=========");
-        if (gubun === "ADD") {
-            if (grid === "grdPrdcrOgnCurntMng02") {
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
-            	//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
-            	grdPrdcrOgnCurntMng02.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grdPrdcrOgnCurntMng02") {
-            	if(grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
-            			fn_deleteRsrc02(rowVal);
-            			fn_dtlGridSearch02();
-            		}
-            	}else{
-            		grdPrdcrOgnCurntMng02.deleteRow(nRow);
-            	}
-            }
-        }
-    }
+		if (gubun === "ADD") {
+			if (grid === "grdPrdcrOgnCurntMng02") {
+				grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
+				//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
+				grdPrdcrOgnCurntMng02.addRow(true);
+			}
+		}
+		else if (gubun === "DEL") {
+			if (grid === "grdPrdcrOgnCurntMng02") {
+				if(grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 2){
+					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+					if(confirm(delMsg)){
+						var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
+						fn_deleteRsrc02(rowVal);
+						fn_dtlGridSearch02();
+					}
+				}else{
+					grdPrdcrOgnCurntMng02.deleteRow(nRow);
+				}
+			}
+		}
+	}
 
 	//생산자조직 리스트 선택 데이터 삭제
 	async function fn_deleteRsrc01(PrdcrOgnCurntMngVO){
@@ -1666,7 +1727,7 @@
 
 
 		fn_clearForm();
-    }
+	}
 
 	var comUoBrno = [];//통합조직 선택
 
@@ -2177,31 +2238,50 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 		_columns.push(
+			/*
 			{caption: ["조직원명","조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
-	        {caption: ["생산","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
-	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["생산","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
+			{caption: ["기준","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["생산","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 
-	        {caption: ["생산","생산계획량(톤)"], 	ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-		    {caption: ["생산","생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["생산","생산계획량(톤)"], 	ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["생산","생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 
-		    {caption: ["계약","전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-		    {caption: ["출하","전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-		    {caption: ["출하","출하대금\n지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
-		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가입일\n(YYYY-MM-DD)","가입일\n(YYYY-MM-DD)"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        //{caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'input',  width:'110px',    style:'text-align:center'
-	        	//,typeinfo : {mask : {alias : 'numeric'}}},
-	        //{caption: ["탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-	        	//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["비고","비고"],				ref: 'cltvtnAreaRmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
+			{caption: ["계약","전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하","전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하","출하대금\n지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["가입일\n(YYYY-MM-DD)","가입일\n(YYYY-MM-DD)"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+			{caption: ["비고","비고"],				ref: 'cltvtnAreaRmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
+			*/
+
+			{caption: ["조직원명","조직원명"],			ref: 'flnm',				type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["재배지 주소","재배지 주소"],	ref: 'cltvtnLandAddr',		type:'input',  width:'600px',    style:'text-align:center'},
+			{caption: ["기준","재배면적(㎡)"],		ref: 'cltvtnSfc',			type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기준","(평년)생산량(톤)"],		ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+
+			{caption: ["계약","계약면적(㎡)"],		ref: 'ecCltvtnSfc',			type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["계약","전속(약정)\n출하계약량(톤)"],	ref: 'ecSpmtPlanVlm',	type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+
+			{caption: ["결과","전속(약정)\n출하량(톤)"],	ref: 'ecSpmtVlm',		type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["결과","출하대금\n지급액(천원)"],		ref: 'spmtPrc',			type:'input',  width:'140px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["가입일\n(YYYY-MM-DD)","가입일\n(YYYY-MM-DD)"], 	ref: 'joinDay',  	type:'datepicker',  width:'140px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+			{caption: ["비고","비고"],				ref: 'cltvtnAreaRmrk',		type:'input',  width:'300px',    style:'text-align:center'},
 		);
 
 		return _columns;
@@ -2285,6 +2365,8 @@
 			await fn_cltbtnSnDeleteRsrc(prdcrOgnzSn , yr);
 		}
 
+
+
 		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 
 			const rowData = _grdImp.getRowData(iRow);
@@ -2354,28 +2436,23 @@
 				yr: rowData.yr,
 				rowSts: "I",
 
-				prdcrOgnzSn: rowData.prdcrOgnzSn,
-				prdcrOgnzCd: rowData.prdcrOgnzCd,
-				prdcrOgnzNm: rowData.prdcrOgnzNm,
-
 				flnm: rowData.flnm,
 				cltvtnLandAddr: rowData.cltvtnLandAddr,
 
 				joinDay: rowData.joinDay,
-				//whdwlDay: rowData.whdwlDay,
 				cltvtnSfc: rowData.cltvtnSfc,
+				ecCltvtnSfc: rowData.ecCltvtnSfc,
+
 				avgYrPrdctnVlm: rowData.avgYrPrdctnVlm,
 				cltvtnAreaRmrk: rowData.cltvtnAreaRmrk,
 
-				prdctnPlanVlm: 	rowData.prdctnPlanVlm,
 				ecSpmtPlanVlm: 	rowData.ecSpmtPlanVlm,
 
-				prdctnVlm: rowData.prdctnVlm,
 				ecSpmtVlm: rowData.ecSpmtVlm,
 				spmtPrc: rowData.spmtPrc
 			}
 
-			pckgPrfmncList.push(pckgPrfmnc);
+			pckgPrfmncList.push(rowData);
 		}
 
 		if (pckgPrfmncList.length == 0) {
@@ -2874,10 +2951,10 @@
 
 		let postJsonPromise = gfn_postJSON("/pd/pom/selectRawData02.do", {
 			yr : yr
-			});
+		});
 
-			let data = await postJsonPromise;
-			try{
+		let data = await postJsonPromise;
+		try{
 			jsonHiddenGrd01.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
@@ -2967,6 +3044,29 @@
 		 */
 		//console.log(hiddenGrd.exportData);
 		hiddenGrd01.exportData("xlsx" , fileName , true , true);
+	}
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){return;}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/PrdcrOgnHisPopup.do"
+		var title = "제출서류 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//새창에서 변수 확인
+	function fn_getBrno() {
+		let brno = SBUxMethod.get("dtl-input-brno");
+		return brno ;
 	}
 
 </script>

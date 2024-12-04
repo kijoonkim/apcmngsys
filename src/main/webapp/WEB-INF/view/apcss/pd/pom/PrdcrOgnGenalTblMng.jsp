@@ -588,7 +588,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.columns = [
-			{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			//{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["조직명"], 			ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["조직구분"], 			ref: 'apoSeNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
@@ -773,44 +773,44 @@
 		</c:if>
 
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
-    		,yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			brno : brno
+			,yr : yr
 
-    		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
+			,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
 
-    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-    		,cmptnInst : cmptnInst
-    		,ctpv : ctpv
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			,cmptnInst : cmptnInst
+			,ctpv : ctpv
 
-    		,corpSeCd : corpSeCd
-    		,corpDtlSeCd : corpDtlSeCd
+			,corpSeCd : corpSeCd
+			,corpDtlSeCd : corpDtlSeCd
 
-    		,corpNm : corpNm
+			,corpNm : corpNm
 
-    		,aprv : aprv
-    		,apoSe : apoSe
-    		,frmhsHldYn : frmhsHldYn
-    		,yrChk : yrChkVal
-    		,uoBrnoUo : uoBrno
-    		</c:if>
+			,aprv : aprv
+			,apoSe : apoSe
+			,frmhsHldYn : frmhsHldYn
+			,yrChk : yrChkVal
+			,uoBrnoUo : uoBrno
+			</c:if>
 
-    		<c:if test="${loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
-    		</c:if>
+			</c:if>
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -830,28 +830,28 @@
 				}
 			});
 
-        	if (jsonPrdcrOgnCurntMng.length > 0) {
+			if (jsonPrdcrOgnCurntMng.length > 0) {
 
-        		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdPrdcrOgnCurntMng.rebuild();
+				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdPrdcrOgnCurntMng.rebuild();
 				}else{
 					grdPrdcrOgnCurntMng.refresh()
 				}
-        	} else {
-        		grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
-        		grdPrdcrOgnCurntMng.rebuild();
-        	}
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+			} else {
+				grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
+				grdPrdcrOgnCurntMng.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-        	//grdPrdcrOgnCurntMng.rebuild();
+			//grdPrdcrOgnCurntMng.rebuild();
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	//사용자 화면 조회
@@ -863,16 +863,16 @@
 		let year = now.getFullYear();
 		let yr = year;
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
 			,yr : yr
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
@@ -880,15 +880,15 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
 			//생산자조직 리스트 조회
-        	//fn_dtlGridSearch01();
+			//fn_dtlGridSearch01();
 			//출자출하조직이 속한 통합조직 리스트 콤보 생성
-        	fn_searchUoList();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			fn_searchUoList();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
@@ -897,14 +897,14 @@
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
-	    if (nCol < 0) {
-	        return;
-	    }
-	    var nRow = grdPrdcrOgnCurntMng.getRow();
+		if (nCol < 0) {
+			return;
+		}
+		var nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
@@ -931,7 +931,7 @@
 		}
 
 		fn_clearForm();
-    }
+	}
 
 	var comUoBrno = [];//통합조직 선택
 
@@ -1088,11 +1088,11 @@
 			,uoBrno : uoBrnoVal
 			,yr : yr
 		});
-        let data = await postJsonPromise01;
-        try{
-        	jsonPrdcrOgnCurntMng01.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise01;
+		try{
+			jsonPrdcrOgnCurntMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let itemVO = {
 						brno: 	item.brno
 						,uoBrno: item.uoBrno
