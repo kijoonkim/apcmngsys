@@ -367,7 +367,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.frozencols = 7;
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.frozenbottomrows = 1;
+        //SBGridProperties.frozenbottomrows = 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -392,7 +392,7 @@
         };
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: [" "],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["일자"],       ref: 'YYYYMMDD', 		type:'inputdate',  	width:'101px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -414,7 +414,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["확정"], 		ref: 'WORK_SUMMARY_CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '50px', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
+            {caption: ["확정"], 		ref: 'WORK_SUMMARY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '50px', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
             {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -541,7 +541,6 @@
             {caption: ["참조시간19"],         ref: 'ATTR19_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["참조시간20"],         ref: 'ATTR20_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
         ];
-
         gvwDetail = _SBGrid.create(SBGridProperties);
     }
 
@@ -549,6 +548,31 @@
         if(event.keyCode == 38 || event.keyCode == 40) {
             fn_view();
         }
+    }
+
+    const fn_makeDynamicColumn = async function(list) {
+        let columnList =
+            [
+                {caption: [" "],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}}
+            ];
+
+        list.forEach((item, index) => {
+            const msg = {
+                caption: [item.TIME_SUMMARY_NAME],
+                ref: item.TIME_FIELD_NAME.toUpperCase(),
+                type: 'output',
+                style: 'text-align:center;',
+                width: '75px',
+            }
+
+            if(item.USE_YN != "Y") {
+                msg['hidden'] = true;
+            }
+
+            columnList.push(msg);
+        });
+
+        return columnList;
     }
 
     const fn_view = async function () {
@@ -604,78 +628,137 @@
                 listData.cv_2.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        TXN_ID : item.TXN_ID,
-                        SEQ_NO : item.SEQ_NO,
-                        STATUS_CODE : item.STATUS_CODE,
-                        APPROVE_DATE : item.APPROVE_DATE,
+                        YYYYMM : item.YYYYMM,
+                        YYYYMMDD : item.YYYYMMDD,
+                        ACCT_YYYYMM : item.ACCT_YYYYMM,
                         SITE_CODE : item.SITE_CODE,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        POSITION_CODE : item.POSITION_CODE,
                         EMP_CODE : item.EMP_CODE,
                         EMP_NAME : item.EMP_NAME,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        GRADE_HOBONG_CODE : item.GRADE_HOBONG_CODE,
+                        POSITION_CODE : item.POSITION_CODE,
+                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        SHIFT_CODE : item.SHIFT_CODE,
                         HOLIDAY_YN : item.HOLIDAY_YN,
                         HOLIDAY2_YN : item.HOLIDAY2_YN,
                         WORK_DAY_TYPE : item.WORK_DAY_TYPE,
-                        WORK_TIMES : item.WORK_TIMES,
-                        TIME_CATEGORY : item.TIME_CATEGORY,
-                        TIME_ITEM_CODE : item.TIME_ITEM_CODE,
-                        TIME_ITEM_NAME : item.TIME_ITEM_NAME,
-                        TIME_ITEM_CODE_ORIG : item.TIME_ITEM_CODE_ORIG,
-                        BASE_YYYYMMDD : item.BASE_YYYYMMDD,
-                        WORK_YYYYMMDD : item.WORK_YYYYMMDD,
-                        START_DAY_TYPE : item.START_DAY_TYPE,
-                        TIME_START_HHMM : item.TIME_START_HHMM,
-                        END_DAY_TYPE : item.END_DAY_TYPE,
-                        TIME_END_HHMM : item.TIME_END_HHMM,
-                        TIME_HOURS : item.TIME_HOURS,
-                        MEMO : item.MEMO,
-                        CAUSE : item.CAUSE,
-                        POSITION_CODE_SEQ : item.POSITION_CODE_SEQ,
+                        WORK_SUMMARY_CONFIRM_YN : item.WORK_SUMMARY_CONFIRM_YN,
+                        CONFIRM_DATE : item.CONFIRM_DATE,
+                        TOT_DAY : item.TOT_DAY,
+                        WORK_DAY : item.WORK_DAY,
+                        PAID_HOLIDAY : item.PAID_HOLIDAY,
+                        NONPAID_HOLIDAY : item.NONPAID_HOLIDAY,
+                        REAL_WORK_DAY : item.REAL_WORK_DAY,
+                        WORK_YEARS : item.WORK_YEARS,
+                        OVER_TIME : item.OVER_TIME,
+                        NIGHT_TIME : item.NIGHT_TIME,
+                        HOLIDAY_TIME : item.HOLIDAY_TIME,
+                        HOLIDAY_OVER_TIME : item.HOLIDAY_OVER_TIME,
+                        ANNUAL_DAY : item.ANNUAL_DAY,
+                        ANNUAL_USE_DAY : item.ANNUAL_USE_DAY,
+                        ANNUAL_REMAIN_DAY : item.ANNUAL_REMAIN_DAY,
+                        CELEBRATE_DAY : item.CELEBRATE_DAY,
+                        REPLACE_VACATION_DAY : item.REPLACE_VACATION_DAY,
+                        EDU_DAY : item.EDU_DAY,
+                        HOLIDAY_WORK_DAY : item.HOLIDAY_WORK_DAY,
+                        ABSENCE_DAY : item.ABSENCE_DAY,
+                        ADD_DAY : item.ADD_DAY,
+                        TOTAL_WORK_TIME : item.TOTAL_WORK_TIME,
+                        AFTER_HOURS_TIME1 : item.AFTER_HOURS_TIME1,
+                        AFTER_HOURS_TIME2 : item.AFTER_HOURS_TIME2,
+                        OVER_TIME : item.OVER_TIME,
+                        NIGHT_TIME : item.NIGHT_TIME,
+                        HOLIDAY_TIME : item.HOLIDAY_TIME,
+                        HOLIDAY_OVER_TIME : item.HOLIDAY_OVER_TIME,
+                        TIME_SUM : item.TIME_SUM,
+                        LATE_CNT : item.LATE_CNT,
+                        LATE_TIME : item.LATE_TIME,
+                        EARLY_LEAVE_CNT : item.EARLY_LEAVE_CNT,
+                        EARLY_LEAVE_TIME : item.EARLY_LEAVE_TIME,
+                        GO_OUT_CNT : item.GO_OUT_CNT,
+                        GO_OUT_TIME : item.GO_OUT_TIME,
+                        OUTSIDE_CNT : item.OUTSIDE_CNT,
+                        OUTSIDE_TIME : item.OUTSIDE_TIME,
+                        MONTHLY_DAY : item.MONTHLY_DAY,
+                        MONTHLY_USE_DAY : item.MONTHLY_USE_DAY,
+                        MENSTRUEL_DAY : item.MENSTRUEL_DAY,
+                        MENSTRUEL_USE_DAY : item.MENSTRUEL_USE_DAY,
+                        NIGHT_DUTY_DAY : item.NIGHT_DUTY_DAY,
+                        SUNDAY_TIME : item.SUNDAY_TIME,
+                        SUNDAY_OVER_TIME : item.SUNDAY_OVER_TIME,
+                        OFFICIAL_INJURY_DAY : item.OFFICIAL_INJURY_DAY,
+                        WEEKLY_HOLIDAY_DAY : item.WEEKLY_HOLIDAY_DAY,
+                        EXTRA_FIELD1 : item.EXTRA_FIELD1,
+                        EXTRA_FIELD2 : item.EXTRA_FIELD2,
+                        EXTRA_FIELD3 : item.EXTRA_FIELD3,
+                        EXTRA_FIELD4 : item.EXTRA_FIELD4,
+                        EXTRA_FIELD5 : item.EXTRA_FIELD5,
+                        EXTRA_FIELD6 : item.EXTRA_FIELD6,
+                        EXTRA_FIELD7 : item.EXTRA_FIELD7,
+                        EXTRA_FIELD8 : item.EXTRA_FIELD8,
+                        EXTRA_FIELD9 : item.EXTRA_FIELD9,
+                        EXTRA_FIELD10 : item.EXTRA_FIELD10,
+                        ATTR1_DAY : item.ATTR1_DAY,
+                        ATTR2_DAY : item.ATTR2_DAY,
+                        ATTR3_DAY : item.ATTR3_DAY,
+                        ATTR4_DAY : item.ATTR4_DAY,
+                        ATTR5_DAY : item.ATTR5_DAY,
+                        ATTR6_DAY : item.ATTR6_DAY,
+                        ATTR7_DAY : item.ATTR7_DAY,
+                        ATTR8_DAY : item.ATTR8_DAY,
+                        ATTR9_DAY : item.ATTR9_DAY,
+                        ATTR10_DAY : item.ATTR10_DAY,
+                        ATTR1_TIME : item.ATTR1_TIME,
+                        ATTR2_TIME : item.ATTR2_TIME,
+                        ATTR3_TIME : item.ATTR3_TIME,
+                        ATTR4_TIME : item.ATTR4_TIME,
+                        ATTR5_TIME : item.ATTR5_TIME,
+                        ATTR6_TIME : item.ATTR6_TIME,
+                        ATTR7_TIME : item.ATTR7_TIME,
+                        ATTR8_TIME : item.ATTR8_TIME,
+                        ATTR9_TIME : item.ATTR9_TIME,
+                        ATTR10_TIME : item.ATTR10_TIME,
+                        EXTRA_FIELD11 : item.EXTRA_FIELD11,
+                        EXTRA_FIELD12 : item.EXTRA_FIELD12,
+                        EXTRA_FIELD13 : item.EXTRA_FIELD13,
+                        EXTRA_FIELD14 : item.EXTRA_FIELD14,
+                        EXTRA_FIELD15 : item.EXTRA_FIELD15,
+                        EXTRA_FIELD16 : item.EXTRA_FIELD16,
+                        EXTRA_FIELD17 : item.EXTRA_FIELD17,
+                        EXTRA_FIELD18 : item.EXTRA_FIELD18,
+                        EXTRA_FIELD19 : item.EXTRA_FIELD19,
+                        EXTRA_FIELD20 : item.EXTRA_FIELD20,
+                        ATTR11_DAY : item.ATTR11_DAY,
+                        ATTR12_DAY : item.ATTR12_DAY,
+                        ATTR13_DAY : item.ATTR13_DAY,
+                        ATTR14_DAY : item.ATTR14_DAY,
+                        ATTR15_DAY : item.ATTR15_DAY,
+                        ATTR16_DAY : item.ATTR16_DAY,
+                        ATTR17_DAY : item.ATTR17_DAY,
+                        ATTR18_DAY : item.ATTR18_DAY,
+                        ATTR19_DAY : item.ATTR19_DAY,
+                        ATTR20_DAY : item.ATTR20_DAY,
+                        ATTR11_TIME : item.ATTR11_TIME,
+                        ATTR12_TIME : item.ATTR12_TIME,
+                        ATTR13_TIME : item.ATTR13_TIME,
+                        ATTR14_TIME : item.ATTR14_TIME,
+                        ATTR15_TIME : item.ATTR15_TIME,
+                        ATTR16_TIME : item.ATTR16_TIME,
+                        ATTR17_TIME : item.ATTR17_TIME,
+                        ATTR18_TIME : item.ATTR18_TIME,
+                        ATTR19_TIME : item.ATTR19_TIME,
+                        ATTR20_TIME : item.ATTR20_TIME,
+                        WORK_SUMMARY_START_DATE : item.WORK_SUMMARY_START_DATE,
+                        WORK_SUMMARY_END_DATE : item.WORK_SUMMARY_END_DATE,
                         CONFIRM_YN : item.CONFIRM_YN,
-                        CONFIRM_TIME : item.CONFIRM_TIME,
-                        ACCRUAL_FLAG : item.ACCRUAL_FLAG,
-                        ACCT_YYYYMMDD : item.ACCT_YYYYMMDD,
-                        SOURCE_TYPE : item.SOURCE_TYPE,
-                        SOURCE_CODE : item.SOURCE_CODE,
-                        MODIFIED_YN : item.MODIFIED_YN,
+                        STATUS_CODE : item.STATUS_CODE,
                         DEPT_CATEGORY : item.DEPT_CATEGORY,
                         SORT_SEQ : item.SORT_SEQ,
                         PARENT_DEPT : item.PARENT_DEPT,
-                        NIGHT_TIME_ITEM_CODE : item.NIGHT_TIME_ITEM_CODE,
-                        NIGHT_START_DAY_TYPE : item.NIGHT_START_DAY_TYPE,
-                        NIGHT_START_HHMM : item.NIGHT_START_HHMM,
-                        NIGHT_END_DAY_TYPE : item.NIGHT_END_DAY_TYPE,
-                        NIGHT_END_HHMM : item.NIGHT_END_HHMM,
-                        NIGHT_HOURS : item.NIGHT_HOURS,
-                        APPROVE_GROUP : item.APPROVE_GROUP,
-                        INSERT_USERID : item.INSERT_USERID,
-                        INSERT_EMP_CODE : item.INSERT_EMP_CODE,
-                        INSERT_GROUP : item.INSERT_GROUP,
-                        INSERT_GROUP2 : item.INSERT_GROUP2,
-                        CURRENT_APPROVE_EMP_CODE : item.CURRENT_APPROVE_EMP_CODE,
-                        CURRENT_APPROVE_EMP_NAME : item.CURRENT_APPROVE_EMP_NAME,
-                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
-                        PROXY_EMP_NAME : item.PROXY_EMP_NAME,
-                        CURRENT_DUTY_CODE : item.CURRENT_DUTY_CODE,
-                        APPR_COUNT : item.APPR_COUNT,
-                        APPR_ID : item.APPR_ID,
-                        FINAL_APPROVER : item.FINAL_APPROVER,
-                        WORK_DATA_SOURCE : item.WORK_DATA_SOURCE,
-                        WORK_TIME : item.WORK_TIME,
-                        OVERTIME_CNT : item.OVERTIME_CNT,
-                        VACCINE_WORK_YN : item.VACCINE_WORK_YN,
-                        BREAK_APPLY_YN : item.BREAK_APPLY_YN,
-                        ALTER_WORK_YN : item.ALTER_WORK_YN,
-                        ALTER_REQ_YN : item.ALTER_REQ_YN,
-                        SHIFT_WORK_YN : item.SHIFT_WORK_YN,
-                        BREAK_START_DAY_TYPE1 : item.BREAK_START_DAY_TYPE1,
-                        BREAK_START_HHMM1 : item.BREAK_START_HHMM1,
-                        BREAK_END_DAY_TYPE1 : item.BREAK_END_DAY_TYPE1,
-                        BREAK_END_HHMM1 : item.BREAK_END_HHMM1,
-                        DINNER_YN : item.DINNER_YN
+                        POSITION_CODE_SEQ : item.POSITION_CODE_SEQ,
+                        YYYYMMDD : item.YYYYMMDD,
+                        TOTAL_WORK_TIME : item.TOTAL_WORK_TIME,
                     }
                     jsonDayShiftList.push(msg);
                 });
@@ -683,7 +766,8 @@
                 gvwDetail.rebuild();
 
                 if(listData.cv_3.length > 0) {
-                    let gvwDetailCaptionList = gvwDetail.getCaption('array');
+                    //fn_createGvwDetailGrid(await fn_makeDynamicColumn(listData.cv_3));
+                    let gvwDetailCaptionList = gvwDetail.getCaption('array')[0];
 
                     listData.cv_3.forEach((item, index) => {
                         let nCol = gvwDetail.getColRef(item.TIME_FIELD_NAME.toUpperCase());
@@ -697,10 +781,10 @@
                     });
 
                     let stringGvwDetailCaptionList = "";
-                    gvwDetailCaptionList.forEach((item, index) => {
-                        stringGvwDetailCaptionList += item + "^";
-                    });
 
+                    for(var i = 0; i < gvwDetailCaptionList.length; i++) {
+                        stringGvwDetailCaptionList += gvwDetailCaptionList[i]+"^";
+                    }
 
                     stringGvwDetailCaptionList = stringGvwDetailCaptionList.substring(0, stringGvwDetailCaptionList.length-1)
 
