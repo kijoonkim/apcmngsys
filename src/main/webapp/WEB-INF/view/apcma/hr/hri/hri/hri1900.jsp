@@ -274,54 +274,55 @@
         SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["NO"],		ref: 'CNT', 		type:'output',  	width:'28px',  	    style:'text-align:center'},
-            {caption: ["구분"],		ref: 'DEPT_CODE', 		type:'output',  	width:'74px',  	    style:'text-align:left'},
-            {caption: ["소속"], 		ref: 'DEPT_NAME',    	type:'output',  	width:'105px',  	style:'text-align:left'},
-            {caption: ["직위(년차)"], ref: 'POSITION_NAME',   type:'output',  	width:'69px',   	style:'text-align:left',
+            {caption: ["구분"],		ref: 'DEPT_CODE', 		type:'output',  	width:'90px',  	    style:'text-align:left'},
+            {caption: ["소속"], 		ref: 'DEPT_NAME',    	type:'output',  	width:'90px',  	style:'text-align:left'},
+            {caption: ["직위(년차)"], ref: 'POSITION_NAME',   type:'output',  	width:'90px',   	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
+                    /*return strValue ? strValue.replaceAll('\n', '<br>') : strValue;*/
+                    return strValue ? strValue.replaceAll('\n', '') : strValue;
                 }
             },
-            {caption: ["성명"],	    ref: 'EMP_NAME', 		type:'output',  	width:'54px',    	style:'text-align:left'},
-            {caption: ["사원사진"],	ref: 'EMP_PHOTO',   	type:'output',  	width:'83px',   	style:'text-align:left',
+            {caption: ["성명"],	    ref: 'EMP_NAME', 		type:'output',  	width:'90px',    	style:'text-align:left'},
+            {caption: ["사원사진"],	ref: 'EMP_PHOTO',   	type:'output',  	width:'90px',   	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     console.log(objRowData)
                     return '<img src="'+'/com/getFileImage.do?fkey='+objRowData.EMP_PHOTO_NAME+'&comp_code='+gv_ma_selectedCorpCd+'&client_code=' + gv_ma_selectedClntCd+'" style="width: 100%; height: 100%">';
                 }
             },
-            {caption: ["생년월일"],   ref: 'BIRTHDAY', 		type:'output',  	width:'69px',    	style:'text-align:left',
+            {caption: ["생년월일"],   ref: 'BIRTHDAY', 		type:'output',  	width:'90px',    	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["입사일자"], 	ref: 'ENTER_DATE', 		type:'output',  	width:'60px',    	style:'text-align:left',
+            {caption: ["입사일자"], 	ref: 'ENTER_DATE', 		type:'output',  	width:'90px',    	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["입사년수"],	ref: 'ENTER_YEAR',	    type:'output',  	width:'54px',   	style:'text-align:left'},
-            {caption: ["승진일자"], 	ref: 'POSITION_DATE',  	type:'output',  	width:'60px',   	style:'text-align:left',
+            {caption: ["입사년수"],	ref: 'ENTER_YEAR',	    type:'output',  	width:'90px',   	style:'text-align:left'},
+            {caption: ["승진일자"], 	ref: 'POSITION_DATE',  	type:'output',  	width:'90px',   	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["계약일자"], 	ref: 'CONTRACT_DATE', 	type:'output',		width:'49px',		style:'text-align:center'},
+            {caption: ["계약일자"], 	ref: 'CONTRACT_DATE', 	type:'output',		width:'90px',		style:'text-align:center'},
             {caption: ["학력"], 		ref: 'SCHOOL_MAJOR1', 	type:'output',		width:'90px',		style:'text-align:center',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["졸업"], 		ref: 'SCHOOL_MAJOR2', 	type:'output',		width:'39px',		style:'text-align:center',
+            {caption: ["졸업"], 		ref: 'SCHOOL_MAJOR2', 	type:'output',		width:'90px',		style:'text-align:center',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["학위"], 		ref: 'SCHOOL_MAJOR3', 	type:'output',		width:'59px',		style:'text-align:center'},
-            {caption: ["사내경력"], 	ref: 'INCAREER', 		type:'output',		width:'86px',		style:'text-align:center',
+            {caption: ["학위"], 		ref: 'SCHOOL_MAJOR3', 	type:'output',		width:'90px',		style:'text-align:center'},
+            {caption: ["사내경력"], 	ref: 'INCAREER', 		type:'output',		width:'90px',		style:'text-align:center',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["사외경력"], 	ref: 'OUTCAREER', 		type:'output',		width:'97px',		style:'text-align:center',
+            {caption: ["사외경력"], 	ref: 'OUTCAREER', 		type:'output',		width:'90px',		style:'text-align:center',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }

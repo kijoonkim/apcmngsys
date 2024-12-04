@@ -176,16 +176,16 @@
         SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["구분"],		ref: 'GUBUN', 			type:'output',  	width:'154px',  	style:'text-align:left'},
-            {caption: ["년초"], 		ref: 'CNT',    	        type:'output',  	width:'75px',  	    style:'text-align:left'},
-            {caption: ["기준일자"],  ref: 'CNT2',    		type:'output',  	width:'86px',   	style:'text-align:left', hidden: true},
-            {caption: ["전주증가"],	ref: 'UP2', 			type:'output',  	width:'63px',    	style:'text-align:left', hidden: true},
-            {caption: ["전주감소"],	ref: 'DOWN2',   		type:'output',  	width:'57px',   	style:'text-align:left', hidden: true},
-            {caption: ["현재"],      ref: 'CNT1', 		    type:'output',  	width:'69px',    	style:'text-align:left'},
-            {caption: ["전주계"], 	ref: 'GYE2', 			type:'output',  	width:'77px',    	style:'text-align:left', hidden: true},
-            {caption: ["비율"],	    ref: 'PER',	            type:'output',  	width:'58px',   	style:'text-align:left'},
-            {caption: ["증가"], 		ref: 'UP',  			type:'output',  	width:'60px',   	style:'text-align:left'},
-            {caption: ["감소"], 		ref: 'DOWN', 			type:'output',		width:'67px',		style:'text-align:center'},
-            {caption: ["계"], 		ref: 'GYE', 			type:'output',		width:'71px',		style:'text-align:center'},
+            {caption: ["년초"], 		ref: 'CNT',    	        type:'output',  	width:'75px',  	    style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20}},
+            {caption: ["기준일자"],  ref: 'CNT2',    		type:'output',  	width:'86px',   	style:'text-align:right', hidden: true},
+            {caption: ["전주증가"],	ref: 'UP2', 			type:'output',  	width:'63px',    	style:'text-align:right', hidden: true},
+            {caption: ["전주감소"],	ref: 'DOWN2',   		type:'output',  	width:'57px',   	style:'text-align:right', hidden: true},
+            {caption: ["현재"],      ref: 'CNT1', 		    type:'output',  	width:'69px',    	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20}},
+            {caption: ["전주계"], 	ref: 'GYE2', 			type:'output',  	width:'77px',    	style:'text-align:right', hidden: true},
+            {caption: ["비율"],	    ref: 'PER',	            type:'output',  	width:'58px',   	style:'text-align:right'},
+            {caption: ["증가"], 		ref: 'UP',  			type:'output',  	width:'60px',   	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20}},
+            {caption: ["감소"], 		ref: 'DOWN', 			type:'output',		width:'67px',		style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20}},
+            {caption: ["계"], 		ref: 'GYE', 			type:'output',		width:'71px',		style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20}},
             {caption: ["비고"], 		ref: 'BIGO', 			type:'output',		width:'160px',		style:'text-align:center'}
         ];
 

@@ -1971,16 +1971,9 @@
     var fn_findCostCenterCodeForGvwWFItem = function (row) {
         var replaceText0 = "_COST_CENTER_CODE_";
         var replaceText1 = "_COST_CENTER_NAME_";
-        var replaceText2 = "_COST_CLASS_";
         var strWhereClause = "AND A.COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME LIKE '%" + replaceText1 + "%'";
-        var rowData = gvwWFItem.getRowData(row);
-        if (gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.ACCOUNT_CODE) != "") {
-            if (gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.COST_CLASS) != "8" && gfn_nvl(rowData.COST_CLASS) != "9") {
-                strWhereClause += " AND A.COST_CLASS LIKE '%" + replaceText2 + "%'";
-            }
-        }
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode: gv_ma_selectedCorpCd
