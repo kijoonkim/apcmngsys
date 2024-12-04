@@ -1599,6 +1599,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1735,6 +1736,7 @@
         gvwListGrid.bind('afterrefresh','fn_gvwListAfterRebuild');
         gvwListGrid.bind('dblclick', 'fn_gvwListDblclick');
         gvwListGrid.bind('click', 'fn_view');
+        gvwListGrid.bind('keyup', 'fn_keyup');
     }
 
 
@@ -1751,6 +1753,7 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
         //그리드 총계 하단 고정
         /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
@@ -2061,6 +2064,12 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 

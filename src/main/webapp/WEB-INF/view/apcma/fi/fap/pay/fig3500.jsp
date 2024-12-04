@@ -912,6 +912,7 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
        /* SBGridProperties.frozencols = 10;*/
         SBGridProperties.frozenbottomrows = 1;
         SBGridProperties.total = {
@@ -1093,6 +1094,7 @@
         gvwMaster = _SBGrid.create(SBGridProperties);
         //gvwMaster.bind('dblclick', 'fn_gvwMasterDblclick');
         gvwMaster.bind('click', 'fn_view');
+        gvwMaster.bind('keyup', 'fn_keyup');
     }
 
     function fn_createGvwAccountGrid() {
@@ -1108,6 +1110,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
             type 		: 'grand',
@@ -1394,6 +1397,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total 				= {
             type 		: 'grand',
@@ -1498,6 +1502,7 @@
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["APPR_ID"], 	        ref: 'APPR_ID',    	        type:'output',  	width:'60px',  	style:'text-align:left', hidden: true},
@@ -1568,6 +1573,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.useinitsorting     = true;
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.total = {
             type 		: 'grand',
@@ -2126,6 +2132,12 @@
 
             return returnData;
 
+        }
+    }
+
+    const fn_keyup = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_view();
         }
     }
 
