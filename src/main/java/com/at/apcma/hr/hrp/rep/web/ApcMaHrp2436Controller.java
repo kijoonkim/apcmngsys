@@ -121,4 +121,31 @@ public class ApcMaHrp2436Controller extends BaseController {
     	
     }
 
+    // 급여명세서 SMS발송 저장
+    @PostMapping(value = "/hr/hrp/rep/insertHrp2436SMS.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2436SMS(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2436SMS=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "SP_COM_TRSM_SMS");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2436SMS=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+
 }
