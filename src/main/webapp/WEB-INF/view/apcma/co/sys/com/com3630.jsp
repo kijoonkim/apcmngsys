@@ -2173,7 +2173,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_ELEMENT_NAME"));
         var replaceText0 	= "_COST_ELEMENT_CODE_";
         var replaceText1 	= "_COST_ELEMENT_NAME_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.NAME LIKE '%" + replaceText1 + "%' AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가요소 팝업');
     	compopup1({

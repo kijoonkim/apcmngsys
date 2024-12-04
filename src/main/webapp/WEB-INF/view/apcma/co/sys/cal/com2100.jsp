@@ -88,7 +88,7 @@
 									    	<font>선택</font>
 									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 									    </button>
-									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:200px;height:200px;padding-top:0px;overflow:auto">
+									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:300px;height:150px;padding-top:0px;overflow:auto">
 									    </div>
 									</div>                                
 	                            </td>                
@@ -203,7 +203,7 @@
 				,colLabel		: 'COMP_NAME'
 				,columns		:[
 		            {caption: "법인코드",		ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'200px',  	style:'text-align:left'},
 				]
 			}),
 			//회기

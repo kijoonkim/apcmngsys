@@ -964,7 +964,7 @@
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
         var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'" + " AND X.CLIENT_CODE = '" + gv_ma_selectedClntCd +"' AND X.COMP_CODE = '" + gv_ma_selectedCorpCd + "'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({

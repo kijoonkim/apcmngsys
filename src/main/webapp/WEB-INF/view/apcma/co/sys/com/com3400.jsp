@@ -1241,7 +1241,7 @@
 			//버튼 숨김처리
 			$('.hidden-td').hide(),
 			gfnma_setComSelect([], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonCOM011, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonCOM011, 'L_COM011', "AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//원천세 유형
             gfnma_setComSelect([], jsonWithholdTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', ''),
 			// 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
@@ -1292,7 +1292,7 @@
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM011'
-				,whereClause	: ''
+				,whereClause	: "AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
@@ -1356,7 +1356,7 @@
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM011'
-				,whereClause	: ''
+				,whereClause	: "AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'"
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
@@ -4220,7 +4220,7 @@
         	searchText1 = gfn_nvl(SBUxMethod.get("ADVANCE_ACC_NAME"));
         }
         
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' " +"AND A.COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -5069,7 +5069,6 @@
    	    	return false;
    	    }
    	}
-    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
