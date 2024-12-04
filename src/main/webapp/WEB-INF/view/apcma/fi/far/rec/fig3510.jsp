@@ -4336,19 +4336,19 @@
         ];
 
         for (var index = 1; index <= 10; ++index) {
-            if (dr["DATA_TYPE" + index] != null && dr["ACC_ITEM_VALUE" + index] != null) {
+            if (gfn_nvl(dr["DATA_TYPE" + index]) != "" && gfn_nvl(dr["ACC_ITEM_VALUE" + index]) != "") {
                 switch (dr["DATA_TYPE" + index]) {
                     case "TEXT":
                     case "POPUP":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index] + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index] )+ "|";
                         continue;
                     case "NUM":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll(",", "") + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index].replaceAll(",", "")) + "|";
                         continue;
                     case "YYYY":
                     case "YYYYMM":
                     case "YYYYMMDD":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll("-", "") + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index].replaceAll("-", "")) + "|";
                         continue;
                     default:
                         removeMask[index - 1] = "|";
@@ -4660,7 +4660,7 @@
                         }
                     }
 
-                    stritem_id += gfn_nvl(thisdr["ITEM_ID"]) + "|";
+                    stritem_id += gfn_nvl(thisdr["ITEM_ID"], "0") + "|";
                     stritem_seq += gfn_nvl(thisdr["ITEM_SEQ"]) + "|";
                     strfi_org_code += p_fiOrgCode + "|";
                     strline_type += gfn_nvl(thisdr["LINE_TYPE"]) + "|";
@@ -4694,7 +4694,7 @@
                     stracc_item_code9 += gfn_nvl(thisdr["ACC_ITEM_CODE9"]) + "|";
                     stracc_item_code10 += gfn_nvl(thisdr["ACC_ITEM_CODE10"]) + "|";
 
-                    let strItem = StringToRemoveMask(thisdr);
+                    let strItem = await StringToRemoveMask(thisdr);
 
                     stracc_item_value1 += strItem[0];
                     stracc_item_value2 += strItem[1];
