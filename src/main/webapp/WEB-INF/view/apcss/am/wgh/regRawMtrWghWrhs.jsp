@@ -333,8 +333,6 @@
                                             style="width: 85%"
                                             class="form-control inpt_data_reqed inpt-mbl"
                                             autocomplete="off"
-                                            init="2kg"
-                                            disabled
                                     ></sbux-input>
                                 </td>
                             </tr>
@@ -867,6 +865,9 @@
 
         let wrhsWght = selectJson.wrhsWght;
         let bxQntt =  SBUxMethod.get("reg-inp-bxQntt");
+
+        let ctWght = (selectJson.wholWght - selectJson.emptVhclWght - (selectJson.pltQntt * 20) - selectJson.wrhsWght) / parseInt(selectJson.bxQntt);
+        SBUxMethod.set("boxWght",ctWght);
 
         SBUxMethod.set("reg-inp-avgWght",parseInt(wrhsWght) / parseInt(bxQntt));
         /** 콘티중량 역연산 해야할듯? **/
