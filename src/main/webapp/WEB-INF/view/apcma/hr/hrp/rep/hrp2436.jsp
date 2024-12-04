@@ -44,8 +44,10 @@
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                             class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
-                <sbux-button id="btnSendEmail" name="btnFile" uitype="normal" text="Email 발송"
+                <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnSendEmail"></sbux-button>
+                <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_btnSendSMS"></sbux-button>
             </div>
         </div>
 
@@ -1096,6 +1098,7 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
+                        fn_view();
                     }else {
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_view();
@@ -1199,6 +1202,96 @@
      */
     const fn_btnSendEmail = async function () {
 
+    }
+
+    /**
+     * SMS 발송
+     */
+    const fn_btnSendSMS = async function () {
+
+        /*let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+        let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+
+        if (!PAY_YYYYMM_FR) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일");
+            return;
+        }
+
+        let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
+        let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+        let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
+        let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
+
+       /!* if (!EMAIL_SUBJECT) {
+            gfn_comAlert("W0002", "메일제목");
+            return;
+        }
+        if (!EMAIL_BODY) {
+            gfn_comAlert("W0002", "메일내용");
+            return;
+        }*!/
+
+        var paramObj = {
+
+            V_P_DEBUG_MODE_YN	    : ''
+            ,V_P_LANG_ID		    : ''
+            ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
+            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
+
+            ,V_P_PAY_YYYYMM         : PAY_YYYYMM_FR
+            ,V_P_PAY_TYPE           : PAY_TYPE
+            ,V_P_PAY_DATE           : PAY_DATE
+            ,V_P_RAD_SEND_TYPE      : ''
+            ,V_P_EMP_CODE           : ''
+            ,V_P_SMS_SEND_YN        : ''
+            ,V_P_SMS_SEND_MSG 	    : EMAIL_BODY
+
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/rep/insertHrp2436SMS.do", {
+            getType: 'json',
+            workType: 'N',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                    fn_view();
+                }else {
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_view();
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }*/
     }
 
     /**
