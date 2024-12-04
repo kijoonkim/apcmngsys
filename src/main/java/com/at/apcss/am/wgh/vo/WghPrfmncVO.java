@@ -69,6 +69,11 @@ public class WghPrfmncVO extends ComVO {
 	 */
 	private String prdcrNm;
 
+	/*
+	 * 거래처
+	 * */
+	private String cnptCd;
+	private String cnptNm;
 	/**
 	 * 생산자인식번호
 	 */
@@ -170,9 +175,10 @@ public class WghPrfmncVO extends ComVO {
 	private double wrhsWght;
 
 	/**
-	 * 재고중량
+	 * 재고중량/ 수량
 	 */
 	private double invntrWght;
+	private int invntrQntt;
 	/**
 	 * 비고
 	 */

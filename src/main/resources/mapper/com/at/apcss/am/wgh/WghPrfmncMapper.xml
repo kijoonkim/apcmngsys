@@ -654,11 +654,10 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghInfoMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghInfoWrhsMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
 			       pt0.*
-			     , (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) 												AS APC_NM
 			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
 			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
@@ -686,7 +685,8 @@
 			             , WD.BX_KND			AS BX_KND
 			             , WD.BX_QNTT           AS BX_QNTT
 			             , WD.BX_WGHT           AS BX_WGHT
-			             , WP.WRHS_WGHT		    AS INVNTR_WGHT
+			             , INV.INVNTR_WGHT      AS INVNTR_WGHT
+                         , INV.INVNTR_QNTT      AS INVNTR_QNTT
 			             , INV.WAREHOUSE_SE_CD  AS WAREHOUSE_SE_CD
 			             , INV.ITEM_CD          AS ITEM_CD
 			             , INV.VRTY_CD          AS VRTY_CD
@@ -716,6 +716,102 @@
 		</if>
 		<if test='itemCd != null and itemCd !=""'>
 			           AND INV.ITEM_CD = #{itemCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+			           AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
+			           AND NVL(WC.WRHS_SPMT_TYPE, 'RT') = #{wrhsSpmtType}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+			           AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+			           AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<![CDATA[
+			       ) pt0
+		]]>
+	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
+	<!-- DESC : 계량관리정보 입고 목록 조회.		                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghInfoSpmtMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
+			       pt0.*
+			     , (SELECT FN_GET_PRDCR_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 									AS CNPT_NM
+			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+			     , pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT AS ACTL_WGHT
+			     , ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+			  FROM (SELECT
+			               WC.APC_CD		    AS APC_CD
+			             , WC.WGHNO		        AS WGHNO
+			             , WD.WGH_SN			AS WGH_SN
+			             , WD.WRHSNO		    AS WRHSNO
+			             , WC.WGH_YMD           AS WGH_YMD
+			             , WC.VHCLNO            AS VHCLNO
+			             , WC.PRDCR_CD	        AS PRDCR_CD
+			             , NVL(PC.CNPT_CD, WC.PRDCR_CD)			AS CNPT_CD
+			             , WC.WHOL_WGHT         AS WHOL_WGHT
+			             , WC.EMPT_VHCL_WGHT    AS EMPT_VHCL_WGHT
+			             , WC.RDCD_RT           AS RDCD_RT
+			             , WC.RDCD_WGHT         AS RDCD_WGHT
+			             , WC.WRHS_WGHT         AS WRHS_WGHT
+			             , WC.RMRK              AS RMRK
+			             , WD.GRD_CD            AS GRD_CD
+			             , WD.PLT_KND		    AS PLT_KND
+			             , WD.PLT_WGHT          AS PLT_WGHT
+			             , WD.BX_KND			AS BX_KND
+			             , WD.BX_QNTT           AS BX_QNTT
+			             , WD.BX_WGHT           AS BX_WGHT
+			             , GI.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
+			             , GI.ITEM_CD           AS ITEM_CD
+			             , GI.VRTY_CD           AS VRTY_CD
+			             , GI.STRG_LOCTN_CD     AS STRG_LOCTN_CD
+			             , SUBSTR(GI.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
+			             , SUBSTR(GI.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL
+			             , SUBSTR(GI.STRG_LOCTN_CD, 4, 2)  AS STRG_LOCTN_LVL
+			          FROM TB_WGH_PRFMNC_COM WC
+			             , TB_WGH_PRFMNC_DTL WD
+			             , TB_SPMT_PRFMNC_COM PC
+                         , TB_SPMT_PRFMNC_DTL PD
+			             , TB_GDS_INVNTR GI
+			         WHERE WC.APC_CD = WD.APC_CD(+)
+                       AND WC.WGHNO = WD.WGHNO(+)
+                       AND WD.APC_CD = PC.APC_CD(+)
+                       AND WD.SPMTNO = PC.SPMTNO(+)
+                       AND WD.APC_CD = PD.APC_CD(+)
+                       AND WD.SPMTNO = PD.SPMTNO(+)
+                       AND WD.WGH_SN = PD.SPMT_SN(+)
+                       AND PD.APC_CD = GI.APC_CD(+)
+                       AND PD.PCKGNO = GI.PCKGNO(+)
+                       AND PD.PCKG_SN = GI.PCKG_SN(+)
+			           AND WC.DEL_YN = 'N'
+			           AND WD.DEL_YN(+) = 'N'
+			           AND PC.DEL_YN(+) = 'N'
+                       AND PD.DEL_YN(+) = 'N'
+			           AND GI.DEL_YN(+) = 'N'
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+			           AND WC.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd !=""'>
+			           AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+			           AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
+			           AND NVL(WC.WRHS_SPMT_TYPE, 'RT') = #{wrhsSpmtType}
 		</if>
 		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
 			           AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}

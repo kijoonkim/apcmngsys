@@ -136,12 +136,20 @@ public interface WghPrfmncMapper {
 	public int updateWghPrfmncDtlForDelY(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
 
 	/**
-	 * 계량정보관리 목록 조회
+	 * 계량정보관리 입고 목록 조회
 	 * @param wghPrfmncVO
 	 * @return List<WghPrfmncVO>
 	 * @throws Exception
 	 */
-	public List<WghPrfmncVO> selectWghInfoMngList(WghPrfmncVO wghPrfmncVO) throws Exception;
+	public List<WghPrfmncVO> selectWghInfoWrhsMngList(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량정보관리 출고 목록 조회
+	 * @param wghPrfmncVO
+	 * @return List<WghPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghInfoSpmtMngList(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
 	 * 저장위치 변경

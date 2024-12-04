@@ -186,20 +186,48 @@ public class WghPrfmncController extends BaseController {
 	}
 
 	/**
-	 * 계량실적 목록 조회
+	 * 계량정보관리 출고 목록 조회
 	 * @param WghPrfmncVO
 	 * @param request
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping(value = "/am/wgh/selectWghInfoMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectWghInfoMngList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/wgh/selectWghInfoSpmtMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghInfoSpmtMngList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WghPrfmncVO> resultList;
 
 		try {
-			resultList = wghPrfmncService.selectWghInfoMngList(wghPrfmncVO);
+			resultList = wghPrfmncService.selectWghInfoSpmtMngList(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	/**
+	 * 계량정보관리 입고 목록 조회
+	 * @param WghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectWghInfoWrhsMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghInfoWrhsMngList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectWghInfoWrhsMngList(wghPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

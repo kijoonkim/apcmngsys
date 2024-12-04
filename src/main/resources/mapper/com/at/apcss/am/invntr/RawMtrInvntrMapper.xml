@@ -1161,6 +1161,10 @@
 			<if test='rmrk != null and rmrk != ""'>
 				, RMRK					= #{rmrk}
 			</if>
+			<if test='strgLoctnCd != null and strgLoctnCd != ""'>
+				, strgLoctnCd			= #{strgLoctnCd}
+			</if>
+
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND WRHSNO = #{wrhsno}
