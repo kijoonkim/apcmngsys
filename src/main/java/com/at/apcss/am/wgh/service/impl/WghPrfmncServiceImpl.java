@@ -371,8 +371,14 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public List<WghPrfmncVO> selectWghInfoMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoMngList(wghPrfmncVO);
+	public List<WghPrfmncVO> selectWghInfoWrhsMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoWrhsMngList(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghInfoSpmtMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoSpmtMngList(wghPrfmncVO);
 		return resultList;
 	}
 
