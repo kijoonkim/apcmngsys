@@ -3368,7 +3368,7 @@
     const fn_baseFocusedRowChanged = async function (nRow, nCol) {
         var rowData = gvwWFItem.getRowData(nRow);
         fn_changeControlSettings(rowData);
-        console.log(rowData);
+
         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "3") {
             SBUxMethod.enableTab('idxTab','tabPage2')
             SBUxMethod.setTab('idxTab','tabPage2');
@@ -4336,19 +4336,19 @@
         ];
 
         for (var index = 1; index <= 10; ++index) {
-            if (dr["DATA_TYPE" + index] != null && dr["ACC_ITEM_VALUE" + index] != null) {
+            if (gfn_nvl(dr["DATA_TYPE" + index]) != "" && gfn_nvl(dr["ACC_ITEM_VALUE" + index]) != "") {
                 switch (dr["DATA_TYPE" + index]) {
                     case "TEXT":
                     case "POPUP":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index] + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index] )+ "|";
                         continue;
                     case "NUM":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll(",", "") + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index].replaceAll(",", "")) + "|";
                         continue;
                     case "YYYY":
                     case "YYYYMM":
                     case "YYYYMMDD":
-                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll("-", "") + "|";
+                        removeMask[index - 1] = gfn_nvl(dr["ACC_ITEM_VALUE" + index].replaceAll("-", "")) + "|";
                         continue;
                     default:
                         removeMask[index - 1] = "|";
@@ -4363,6 +4363,7 @@
 
     const fnSET_P_FIG3510_S = async function(strWorkType) {
         try {
+
             let bResult = false;
 
             // 관리항목 필수 체크
@@ -4541,9 +4542,12 @@
             // 관리항목 필수 체크
             let dSumdr_amt = 0;
             let dSumCr_amt = 0;
-            let updatedData = gvwFile.getUpdateData(true, 'all');
-            for(let thisdr in updatedData) {
-                if (strRowStatus == "D" || thisdr == 'd')
+            let updatedData = gvwWFItem.getUpdateData(true, 'all');
+
+            for(var i = 0; i < updatedData.length; i++) {
+                let thisdr = updatedData[i].data;
+
+                if (strRowStatus == "D" || updatedData[i].status == 'd')
                     continue;
 
                 if (gfn_nvl(SBUxMethod.get("KEY_ID")) == gfn_nvl(thisdr["KEY_ID"])) {
@@ -4556,7 +4560,7 @@
 
                         let supply_amt1 = gfn_nvl(thisdr["SUPPLY_AMT"]) == "" ? 0 : Number(gfn_nvl(thisdr["SUPPLY_AMT"]));
 
-                        if ((gfn_nvl(thisdr["VAT_TYPE"]) != "VZ"|| gfn_nvl(thisdr["VAT_TYPE"]) != "AZ") && supply_amt1 == 0) {
+                        if ((gfn_nvl(thisdr["VAT_TYPE"]) != "VZ" || gfn_nvl(thisdr["VAT_TYPE"]) != "AZ") && supply_amt1 == 0) {
                             gfn_comAlert("E0000", "기타매입(부가세 무관)이 아닐 경우 부가세 공급가액은 0 일 수 없습니다.");
                             return false;
                         }
@@ -4582,7 +4586,7 @@
 
                         let Dsupply_amt = 0;
                         let Dsupply_amt_orig = 0;
-                        Dsupply_amt_orig = Number(gfn_nvl(thisdr["supply_amt"]) == "" ? "0" : gfn_nvl(thisdr["supply_amt"]));
+                        Dsupply_amt_orig = Number(gfn_nvl(thisdr["SUPPLY_AMT"]) == "" ? "0" : gfn_nvl(thisdr["SUPPLY_AMT"]));
 
                         if (Dsupply_amt_orig < 0) {
                             Dsupply_amt = Dsupply_amt_orig * -1;
@@ -4590,7 +4594,7 @@
                             Dsupply_amt = Dsupply_amt_orig;
                         }
 
-                        if (Dsupply_amt != Math.round(Number(SBUxMethod.get("SUPPLY_AMT")) * Number(SBUxMethod.get("EXCHANGE_RATE")))) {
+                        if (Dsupply_amt != Math.round(Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT")).replace(/,/g, '')) * Number(gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")).replace(/,/g, '')))) {
                             gfn_comAlert("E0000", "전표헤더의 공급가액과 부가세탭의 공급가액이 다릅니다.");
                             return false;
                         }
@@ -4609,7 +4613,7 @@
                         }
                     }
 
-                    if (gfn_nvl(thisdr["LINE_TYPE"]) != "3") //세금 아닌 경우만 체크{
+                    if (gfn_nvl(thisdr["LINE_TYPE"]) != "3") { //세금 아닌 경우만 체크{
                         if (Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) == 0) {
                             gfn_comAlert("E0000", "차대금액이 잘못 입력되었습니다. 금액을 확인해 주십시오");
                             return false;
@@ -4636,7 +4640,7 @@
 
                     }
 
-                    if (gfn_nvl(thisdr["COST_CLASS"]) == "1" || gfn_nvl(thisdr["COST_CLASS"]) == "2" || gfn_nvl(thisdr["COST_CLASS"]) == "8"|| gfn_nvl(thisdr["PROJECT_YN"]) == "Y") {
+                    if (gfn_nvl(thisdr["COST_CLASS"]) == "1" || gfn_nvl(thisdr["COST_CLASS"]) == "2" || gfn_nvl(thisdr["COST_CLASS"]) == "8" || gfn_nvl(thisdr["PROJECT_YN"]) == "Y") {
                         if (gfn_nvl(thisdr["COST_CENTER_CODE"]) == "") {
                             gfn_comAlert("E0000", "원가중심점은 필수 입력입니다.");
                             return false;
@@ -4646,7 +4650,7 @@
                     dSumdr_amt += gfn_nvl(thisdr["DEBIT_CREDIT"]) == "D" ? Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) : 0;
                     dSumCr_amt += gfn_nvl(thisdr["DEBIT_CREDIT"]) == "C" ? Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) : 0;
 
-                    for (var j = 1; j <= 10; j++){
+                    for (var j = 1; j <= 10; j++) {
                         if (gfn_nvl(thisdr["ACC_ITEM_YN" + j]) == "Y" && Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) != 0) {
                             if (gfn_nvl(thisdr["ACC_ITEM_CODE" + j]) != "") {
                                 if (gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "" || gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "0") {
@@ -4656,10 +4660,11 @@
                         }
                     }
 
-                    stritem_id += gfn_nvl(thisdr["ITEM_ID"]) + "|";
+                    stritem_id += gfn_nvl(thisdr["ITEM_ID"], "0") + "|";
                     stritem_seq += gfn_nvl(thisdr["ITEM_SEQ"]) + "|";
                     strfi_org_code += p_fiOrgCode + "|";
                     strline_type += gfn_nvl(thisdr["LINE_TYPE"]) + "|";
+                    console.log(gfn_nvl(thisdr["ACCOUNT_CODE"]));
                     straccount_code += gfn_nvl(thisdr["ACCOUNT_CODE"]) + "|";
                     strdebit_credit += gfn_nvl(thisdr["DEBIT_CREDIT"]) + "|";
 
@@ -4689,7 +4694,7 @@
                     stracc_item_code9 += gfn_nvl(thisdr["ACC_ITEM_CODE9"]) + "|";
                     stracc_item_code10 += gfn_nvl(thisdr["ACC_ITEM_CODE10"]) + "|";
 
-                    let strItem = StringToRemoveMask(thisdr);
+                    let strItem = await StringToRemoveMask(thisdr);
 
                     stracc_item_value1 += strItem[0];
                     stracc_item_value2 += strItem[1];
@@ -4776,7 +4781,7 @@
                     strreport_omit_yn += gfn_nvl(thisdr["REPORT_OMIT_YN"]) + "|";
                     strstandard_date += gfn_nvl(thisdr["STANDARD_DATE"]) == "" ? "" + "|" : gfn_nvl(thisdr["STANDARD_DATE"]).substring(0, 8) + "|";
                     strvat_asset_type += gfn_nvl(thisdr["VAT_ASSET_TYPE"]) + "|";
-                    strsupply_amt += gfn_nvl(Number(thisdr["SUPPLY_AMT"].replace('/,/g', ''))) + "|";
+                    strsupply_amt += Number(gfn_nvl(thisdr["SUPPLY_AMT"])) + "|";
 
                     strzero_report_yn += gfn_nvl(thisdr["ZERO_REPORT_YN"]) + "|";
                     strlocal_credit_type += gfn_nvl(thisdr["LOCAL_CREDIT_TYPE"]) + "|";
@@ -4786,16 +4791,17 @@
                     strexport_license_no += gfn_nvl(thisdr["EXPORT_LICENSE_NO"]) + "|";
                     strshipping_date += gfn_nvl(thisdr["SHIPPING_DATE"]) + "|";
 
-                    strexport_amt += gfn_nvl(Number(thisdr["EXPORT_AMT"].replace('/,/g', ''))) + "|";
-                    strexport_amt_krw += gfn_nvl(Number(thisdr["EXPORT_AMT_KRW"].replace('/,/g', ''))) + "|";
-                    strvat_export_amt += gfn_nvl(Number(thisdr["VAT_EXPORT_AMT"].replace('/,/g', ''))) + "|";
-                    strvat_export_amt_krw += gfn_nvl(Number(thisdr["VAT_EXPORT_AMT_KRW"].replace('/,/g', ''))) + "|";
-                    strforeign_amt += gfn_nvl(Number(thisdr["FOREIGN_AMT"].replace('/,/g', ''))) + "|";
-                    strwon_amt += gfn_nvl(Number(thisdr["WON_AMT"].replace('/,/g', ''))) + "|";
+                    strexport_amt += Number(gfn_nvl(thisdr["EXPORT_AMT"])) + "|";
+                    strexport_amt_krw += Number(gfn_nvl(thisdr["EXPORT_AMT_KRW"])) + "|";
+                    strvat_export_amt += Number(gfn_nvl(thisdr["VAT_EXPORT_AMT"])) + "|";
+                    strvat_export_amt_krw += Number(gfn_nvl(thisdr["VAT_EXPORT_AMT_KRW"])) + "|";
+                    strforeign_amt += Number(gfn_nvl(thisdr["FOREIGN_AMT"])) + "|";
+                    strwon_amt += Number(gfn_nvl(thisdr["WON_AMT"])) + "|";
                     strdocument_no += gfn_nvl(thisdr["DOCUMENT_NO"]) + "|";
                     strzero_type += gfn_nvl(thisdr["ZERO_TYPE"]) + "|";
-                    strvat_amt += gfn_nvl(Number(thisdr["VAT_AMT"].replace('/,/g', ''))) + "|";
+                    strvat_amt += Number(gfn_nvl(thisdr["VAT_AMT"])) + "|";
                 }
+            }
 
             if (dSumdr_amt != dSumCr_amt) {
                 gfn_comAlert("E0000", "차대금액이 맞지 않습니다. 금액을 확인해 주십시오.");
@@ -6092,6 +6098,7 @@
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("SITE_CODE"), SBUxMethod.get("SRCH_SITE_CODE"));
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DEPT_CODE"), SBUxMethod.get("DEPT_CODE"));
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DEPT_NAME"), SBUxMethod.get("DEPT_NAME"));
+                gvwWFItem.setRowStatus((i+1), 1);
             }
             gvwWFItem.clickRow(1);
 
@@ -6124,6 +6131,8 @@
 
         let dcmlimit_plus_amt = 0;
         let dcmlimit_minus_amt = 0;
+
+        if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "") return false;
 
         let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
         dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
