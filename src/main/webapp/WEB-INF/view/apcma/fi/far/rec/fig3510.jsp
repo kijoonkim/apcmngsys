@@ -4409,7 +4409,7 @@
 
             let strRowStatus = "";
 
-            if (strWorkType == "") {
+            if (gfn_nvl(strWorkType) == "") {
                 if (parseInt(gfn_nvl(SBUxMethod.get("DOC_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("DOC_ID"))) == 0)
                     strRowStatus = "N";
                 else
@@ -5111,7 +5111,7 @@
 
             const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3510List.do", {
                 getType: 'json',
-                workType: strWorkType,
+                workType: strRowStatus,
                 cv_count: '0',
                 params: gfnma_objectToString(paramObj)
             });
@@ -5122,8 +5122,13 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "")
-                        SBUxMethod.set("DOC_BATCH_NO", data.v_returnStr);
+                    if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
+                        if (data.v_returnStr.indexOf("_") > -1) {
+                            SBUxMethod.set("DOC_BATCH_NO", data.v_returnStr.split("_")[0]);
+                        } else {
+                            SBUxMethod.set("DOC_BATCH_NO", data.v_returnStr);
+                        }
+                    }
 
                     bResult = true;
                 } else {
