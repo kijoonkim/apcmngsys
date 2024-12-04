@@ -2375,6 +2375,8 @@
 			let colRefIdx3 = grdGpcList.getColRef("itemCd");//품목코드 인덱스
 			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
 			let colRefIdx5 = grdGpcList.getColRef("rmrk");//기타 인덱스
+			let colRefIdx6 = grdGpcList.getColRef("clsfCd");//신규부류 인덱스
+			let colRefIdx7 = grdGpcList.getColRef("sttgUpbrItemSe");//전문육성 구분 인덱스
 
 			let gridData = grdGpcList.getGridDataAll();
 			for(var i=1; i<=gridData.length; i++ ){
@@ -2391,6 +2393,8 @@
 			//그리드 값 세팅
 			if(!gfn_isEmpty(rowData.ctgryCd) && sttgUpbrItemSe != '3'){
 				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+				grdGpcList.setCellData(selGridRow,colRefIdx6,rowData.clsfCd,true);
+				grdGpcList.setCellData(selGridRow,colRefIdx7,rowData.sttgUpbrItemSe,true);
 			}
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);

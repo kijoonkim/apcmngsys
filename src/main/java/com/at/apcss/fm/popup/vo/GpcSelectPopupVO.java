@@ -18,4 +18,8 @@ public class GpcSelectPopupVO extends ComVO{
 	private String corpNm;//법인명
 	private String selType;//조회 타입
 	private String yr;//등록년도
+	//20241202 추가
+	private String clsfCd;//신규 부류코드
+	private String sttgUpbrItemSe;//전문/육성 구분
+	private String sttgUpbrItemNm;//전문/육성 구분
 }
