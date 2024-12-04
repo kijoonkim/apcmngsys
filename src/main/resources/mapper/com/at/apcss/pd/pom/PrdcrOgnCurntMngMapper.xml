@@ -358,42 +358,116 @@
 		<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList */
 				  CM.APO_CD
-		    	, CM.APO_SE
-		    	, CM.BRNO
-		    	, CM.CRNO
-		    	, CM.YR
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+				, CM.YR
 
-		    	, CM.STTG_UPBR_ITEM_SE
-		    	, CM.CTGRY_CD
-		    	,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CM.CTGRY_CD) AS CTGRY_NM
-		    	, CM.ITEM_CD
-		    	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
-		    	, CM.CLSF_CD
-		    	,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CM.CLSF_CD) AS CLSF_NM
-		    	, CM.TRMT_TYPE
-		    	, CM.PRDCR_OGNZ_SN
-		    	, CM.PRDCR_OGNZ_CD
-		    	, CM.PRDCR_OGNZ_NM
+				, (SELECT
+						(SELECT STTG_UPBR_ITEM_SE
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND YR = EFA.YR
+							  AND APO_SE = '1'
+							  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+							  AND ITEM_CD = EFA.ITEM_CD)
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS STTG_UPBR_ITEM_SE
 
-		    	, CM.JOIN_DAY
-		    	, CM.WHDWL_DAY
-		    	, CM.CLTVTN_SFC
-		    	, CM.EC_CLTVTN_SFC
-		    	, CM.AVG_YR_PRDCTN_VLM
-		    	, CM.CLTVTN_AREA_RMRK
+				, (SELECT
+						(SELECT CTGRY_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND YR = EFA.YR
+							  AND APO_SE = '1'
+							  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+							  AND ITEM_CD = EFA.ITEM_CD)
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS CTGRY_CD
+				, (SELECT
+						(SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CTGRY.CTGRY_CD)
+							FROM TB_EV_APO_YR_GPC_CD CTGRY
+							WHERE 1=1
+							  AND YR = EFA.YR
+							  AND APO_SE = '1'
+							  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+							  AND ITEM_CD = EFA.ITEM_CD)
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS CTGRY_NM
 
-		    	, CM.CLTVTN_LAND_SN
-		    	, CM.FLNM
-		    	, CM.CLTVTN_LAND_ADDR
+				, CM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 
-		    	, CM.PRDCTN_PLAN_VLM
+				, (SELECT
+						(SELECT CLSF_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND YR = EFA.YR
+							  AND APO_SE = '1'
+							  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+							  AND ITEM_CD = EFA.ITEM_CD)
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS CLSF_CD
+				, (SELECT
+						(SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CLSF.CLSF_CD)
+							FROM TB_EV_APO_YR_GPC_CD CLSF
+							WHERE 1=1
+							  AND YR = EFA.YR
+							  AND APO_SE = '1'
+							  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+							  AND ITEM_CD = EFA.ITEM_CD)
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS CLSF_NM
+				,(SELECT	TRMT_TYPE
+					FROM TB_EV_FRMHS_APO EFA
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND BRNO = CM.BRNO
+					  AND PRDCR_OGNZ_SN = CM.PRDCR_OGNZ_SN
+				) AS TRMT_TYPE
+				, CM.PRDCR_OGNZ_SN
+				, CM.PRDCR_OGNZ_CD
+				, CM.PRDCR_OGNZ_NM
+
+				, CM.JOIN_DAY
+				, CM.WHDWL_DAY
+				, CM.CLTVTN_SFC
+				, CM.EC_CLTVTN_SFC
+				, CM.AVG_YR_PRDCTN_VLM
+				, CM.CLTVTN_AREA_RMRK
+
+				, CM.CLTVTN_LAND_SN
+				, CM.FLNM
+				, CM.CLTVTN_LAND_ADDR
+
+				, CM.PRDCTN_PLAN_VLM
 				, CM.EC_SPMT_PLAN_VLM
-		    	, CM.PLAN_RMRK
+				, CM.PLAN_RMRK
 
-		    	, CM.PRDCTN_VLM
+				, CM.PRDCTN_VLM
 				, CM.EC_SPMT_VLM
 				, CM.SPMT_PRC
-		    	, CM.SPMT_RMRK
+				, CM.SPMT_RMRK
 
 				, CM.DEL_YN
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
@@ -404,8 +478,8 @@
 			  FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CM
 			 WHERE 1=1
 
-    	]]>
-    		<if test='apoCd != null and apoCd != ""'>
+		]]>
+			<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
@@ -413,12 +487,12 @@
 			</if>
 		ORDER BY CM.PRDCR_OGNZ_SN ASC
 
-    </select>
+	</select>
 
 
-    <!-- 생산자조직 조회 -->
+	<!-- 생산자조직 조회 -->
 	<select id="selectTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	<![CDATA[
+		<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -426,9 +500,39 @@
 				, CM.CRNO
 				, CM.YR
 
-				, CM.STTG_UPBR_ITEM_SE
+				, (SELECT STTG_UPBR_ITEM_SE
+					FROM TB_EV_APO_YR_GPC_CD
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND APO_SE = '1'
+					  AND BRNO = DECODE(CM.APO_SE,'1',CM.BRNO,'2',CM.UO_BRNO,'')
+					  AND ITEM_CD = CM.ITEM_CD
+				) AS STTG_UPBR_ITEM_SE
+				, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = STTG.STTG_UPBR_ITEM_SE)
+					FROM TB_EV_APO_YR_GPC_CD STTG
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND APO_SE = '1'
+					  AND BRNO = DECODE(CM.APO_SE,'1',CM.BRNO,'2',CM.UO_BRNO,'')
+					  AND ITEM_CD = CM.ITEM_CD
+				) AS STTG_UPBR_ITEM_NM
 				, CM.CTGRY_CD
-				,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CM.CTGRY_CD) AS CTGRY_NM
+				, (SELECT CTGRY_CD
+					FROM TB_EV_APO_YR_GPC_CD
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND APO_SE = '1'
+					  AND BRNO = DECODE(CM.APO_SE,'1',CM.BRNO,'2',CM.UO_BRNO,'')
+					  AND ITEM_CD = CM.ITEM_CD
+				) AS CTGRY_CD
+				, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CTGRY.CTGRY_CD)
+					FROM TB_EV_APO_YR_GPC_CD CTGRY
+					WHERE 1=1
+					  AND YR = CM.YR
+					  AND APO_SE = '1'
+					  AND BRNO = DECODE(CM.APO_SE,'1',CM.BRNO,'2',CM.UO_BRNO,'')
+					  AND ITEM_CD = CM.ITEM_CD
+				) AS CTGRY_NM
 				, CM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.CLSF_CD
@@ -472,8 +576,8 @@
 			 WHERE 1=1
 			   AND CM.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN(+)
 
-    	]]>
-    		<if test='apoCd != null and apoCd != ""'>
+		]]>
+			<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='brno != null and brno != ""'>
@@ -486,24 +590,24 @@
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    </select>
+		</if>
+	</select>
 
-    <!-- 생산자조직 리스트 조회 -->
+	<!-- 생산자조직 리스트 조회 -->
 	<select id="selectTbEvFrmhsApoList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
 
-    	<![CDATA[
+		<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoList */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -513,9 +617,12 @@
 				, CM.UO_BRNO
 				, CM.UO_CD
 
-				, CM.STTG_UPBR_ITEM_SE
-				, CM.CTGRY_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, ITEM.STTG_UPBR_ITEM_SE
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+				, ITEM.CTGRY_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+				, ITEM.CLSF_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = ITEM.CLSF_CD) AS CLSF_NM
 				, CM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.TRMT_TYPE
@@ -541,21 +648,28 @@
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 
-			  FROM TB_EV_FRMHS_APO CM
-			  , (SELECT
-			  		NVL (COUNT(PRDCR_OGNZ_SN),0) AS CNT
-			  		, NVL (SUM(PRDCTN_VLM),0) AS PRDCTN_VLM_TOT
-			  		, NVL (SUM(EC_SPMT_VLM),0)  AS EC_SPMT_VLM_TOT
-			  		, NVL (SUM(EC_SPMT_PLAN_VLM),0) AS EC_SPMT_PLAN_VLM_TOT
-			  		, NVL (SUM(SPMT_PRC),0) AS SPMT_PRC_TOT
-			  		,PRDCR_OGNZ_SN
-			  	FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
-			  	GROUP BY PRDCR_OGNZ_SN) TOT
-			 WHERE 1=1
-			   AND CM.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN(+)
+			FROM TB_EV_FRMHS_APO CM
+				,(SELECT
+						YR
+						, PRDCR_OGNZ_SN
+						, NVL (COUNT(PRDCR_OGNZ_SN),0) AS CNT
+						, NVL (SUM(PRDCTN_VLM),0) AS PRDCTN_VLM_TOT
+						, NVL (SUM(EC_SPMT_VLM),0)  AS EC_SPMT_VLM_TOT
+						, NVL (SUM(EC_SPMT_PLAN_VLM),0) AS EC_SPMT_PLAN_VLM_TOT
+						, NVL (SUM(SPMT_PRC),0) AS SPMT_PRC_TOT
+					FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+					GROUP BY YR, PRDCR_OGNZ_SN
+				) TOT
+				,TB_EV_APO_YR_GPC_CD ITEM
+			WHERE 1=1
+			  AND CM.YR = TOT.YR(+)
+			  AND CM.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN(+)
+			  AND CM.YR = ITEM.YR(+)
+			  AND CM.ITEM_CD = ITEM.ITEM_CD(+)
+			  AND CM.UO_BRNO = ITEM.BRNO(+)
 
-    	]]>
-    		<if test='apoCd != null and apoCd != ""'>
+		]]>
+			<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='brno != null and brno != ""'>
