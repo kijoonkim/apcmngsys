@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>E
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>title : 급여체계별 급여항목</title>

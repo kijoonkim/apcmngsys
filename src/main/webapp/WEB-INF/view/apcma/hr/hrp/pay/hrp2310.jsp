@@ -569,7 +569,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>공제항목</span>
-                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
+                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
                                 </li>
                             </ul>
                             <div class="ad_tbl_toplist">
@@ -1221,6 +1221,9 @@
 
                     });
 
+                    /** @type {number} **/
+                    let totalRecordCount1 = 0;
+
                     jsonPayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
@@ -1233,11 +1236,17 @@
                             RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
                             TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE),
 
+
                         }
                         jsonPayList.push(msg);
+                        totalRecordCount1++;
                     });
 
                     gvwPayGrid.rebuild();
+                    document.querySelector('#listCount1').innerText = totalRecordCount1;
+
+                    /** @type {number} **/
+                    let totalRecordCount2 = 0;
 
                     jsonDeductList.length = 0;
                     data.cv_4.forEach((item, index) => {
@@ -1251,9 +1260,15 @@
                             TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
                         }
                         jsonDeductList.push(msg);
+                        totalRecordCount2++;
                     });
 
                     gvwDeductGrid.rebuild();
+                    document.querySelector('#listCount2').innerText = totalRecordCount2;
+
+
+                    /** @type {number} **/
+                    let totalRecordCount3 = 0;
 
                     jsonBasicList.length = 0;
                     data.cv_5.forEach((item, index) => {
@@ -1267,9 +1282,11 @@
                             TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
                         }
                         jsonBasicList.push(msg);
+                        totalRecordCount3++;
                     });
 
                     gvwBasicGrid.rebuild();
+                    document.querySelector('#listCount3').innerText = totalRecordCount3;
 
                     let PAY_CONFIRM_YN  = rowData.PAY_CONFIRM_YN;
                     let PAY_APPLY_MONTH = rowData.PAY_APPLY_MONTH;
