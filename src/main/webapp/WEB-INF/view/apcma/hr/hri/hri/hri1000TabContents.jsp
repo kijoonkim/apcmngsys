@@ -2209,8 +2209,8 @@
                 }
             },
             {caption: ["최종학력"],     	ref: 'LAST_SCHOOL_YN', 		         type:'checkbox',  	width:'70px',  style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["이수학점"],        ref: 'COMPLE_POINT', 		         type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
-            {caption: ["평점"],        ref: 'GPA_POINT', 		     type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["이수학점"],        ref: 'COMPLE_POINT', 		         type:'input',  	width:'70px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["평점"],        ref: 'GPA_POINT', 		     type:'input',  	width:'70px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
             {caption: ["입학일"],  		ref: 'INTO_DATE',    			type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -2256,8 +2256,8 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
-            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
             {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
             {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'input',  	width:'120px',  style:'text-align:left'},
             {caption: ["직위"],      	ref: 'POSITION', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -2271,7 +2271,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["연봉수준"],        ref: 'SALARY_LEVEL', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["연봉수준"],        ref: 'SALARY_LEVEL', 		     type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["퇴직사유"],  		ref: 'RETIRE_MEMO',    			type:'inputdate',  	width:'200px',  	style:'text-align:left'},
             {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
@@ -2322,7 +2322,7 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["자격수당금액"],     	ref: 'LICENSE_WAGES_AMT', 		         type:'input',  	width:'100px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["자격수당금액"],     	ref: 'LICENSE_WAGES_AMT', 		         type:'input',  	width:'100px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["법정선임여부"],          ref: 'APPOINT_YN', 		        type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
@@ -2502,10 +2502,10 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["교육점수"],        ref: 'EDU_SCORE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["교육비용"],        ref: 'EDU_TOTAL_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["교육점수"],        ref: 'EDU_SCORE', 		     type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["교육비용"],        ref: 'EDU_TOTAL_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["고용보험환급액"],        ref: 'RETURN_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["실지급액"],        ref: 'PAYMENT_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["실지급액"],        ref: 'PAYMENT_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["이수여부"],  		ref: 'EDU_PASS_YN',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
@@ -2582,8 +2582,8 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["급여반영여부"],  		ref: 'APPLY_PAY_YN',    			type:'checkbox',  	width:'90px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'input',  	width:'80px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}},
-            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'input',  	width:'80px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}}
+            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'input',  	width:'80px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'input',  	width:'80px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}}
         ];
 
         gvwPrize = _SBGrid.create(SBGridProperties);
@@ -3132,7 +3132,7 @@
                 , hidden: true
             },
             {caption: ["경조대상자 이름"],        ref: 'NAME', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["비고"],        ref: 'DESCRIPTION', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
         ];
 
