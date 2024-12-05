@@ -48,6 +48,7 @@
 						target-id="modal_normal"
 						class="btn btn-sm btn-primary"
 						text="생산일보"
+						hidden
 					></sbux-button>
 					<sbux-button
 						id="btnCmndDocPckg"
@@ -391,6 +392,7 @@
 			]);
 		fn_createGrid();
 		fn_createGrid2();
+		SBUxMethod.hide('btnPrdctnDocModal')
 	}
 
 
@@ -650,9 +652,10 @@
        			if(item.wrhsWght == 0 || item.bxQntt == 0){
        				return;
        			}
-       			let spcfct = item.wrhsWght / item.bxQntt;
-       			let spcfctCd = jsonApcSpcfct.find(data2 => data2.wght === spcfct );
-       			item['spcfctCd'] = spcfctCd['spcfctCd'];
+       			if(gfn_nvl(item.spcfctCd) !== ""){
+       				item['spcfctCd'] = item.spcfctCd;
+       			}
+
        		})
 
 
@@ -703,6 +706,9 @@
            		grdRegList.refresh();
            		grdRegList.setRow(1);
            		grdRawMtrWrhs.refresh()
+           		//SBUxMethod.selectTab('idxTab_norm', {tabId: 'listTab'});
+           		SBUxMethod.setTab('idxTab_norm', 'listTab');
+
            	} else {
            		grdRegList.rebuild();
           	}
@@ -749,14 +755,19 @@
 
 		allData.pop();
  		allData.forEach(item => {
- 			let spc = jsonApcSpcfct.find(data => data.spcfctCd === item['spcfctCd'])['spcfctNm'].replace(/[^0-9]/g, '');
+ 			if(gfn_nvl(item.spcfctCd)===""){
+ 				return;
+ 			}
+ 			//let spc = jsonApcSpcfct.find(data => data.spcfctCd === item['spcfctCd'])['spcfctNm'].replace(/[^0-9]/g, '');
+ 			let spc = jsonApcSpcfct.find(data => data.spcfctCd === item['spcfctCd']);
+
 			item['apcCd'] = gv_apcCd
  			item['prdcrCd'] = prdcrCd;
  			item['wrhsYmd'] = wrhsYmd;
  			item['itemCd'] = '1326';
  			item['prdcrCd'] = prdcrCd;
  			item['wrhsQntt'] = (item['bxQntt'] === "" || item['bxQntt'] === undefined) ? 0 : item['bxQntt'];
- 			item['wrhsWght'] = parseInt(item['bxQntt']) * parseInt(spc);
+ 			item['wrhsWght'] = parseInt(item['bxQntt']) * parseFloat(spc.wght);
  			item['vhclno'] = vhclno;
  			item['prdctnYr'] = wrhsYmd.substring(0,4)
  			item["wghno"] = "";
@@ -764,6 +775,7 @@
  			item["trsprtSeCd"] = trsprtSeCd;
  			item["inqYn"] = "N";
  			item["gdsSeCd"] = gdsSeCd;
+ 			item["spcfctCd"] = item.spcfctCd;
  		})
 
 
@@ -786,7 +798,7 @@
 
     	//let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
     	let postUrl = "/am/wrhs/insertRawMtrWrhsListJiwoo.do";
-    	const filteredList = allData.filter(item => item.wrhsQntt !== "" || item.wrhsQntt === "undefined");
+    	const filteredList = allData.filter(item => gfn_nvl(item.wrhsQntt) !== "");
 
 
      	const postJsonPromise = gfn_postJSON(postUrl, filteredList);
