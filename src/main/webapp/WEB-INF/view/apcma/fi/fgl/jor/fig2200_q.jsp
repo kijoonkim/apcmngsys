@@ -277,13 +277,15 @@
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 				                        <sbux-input id="srch-txtdoc-name" name="srch-txtdoc-name" class="form-control input-sm" uitype="text" style="width:120px;" ></sbux-input>
 									    <font style="padding-right:10px"></font>  
-		                       			<sbux-checkbox 
-		                       				id="srch-chkmulti-doc-yn" 
-		                       				uitype="normal" 
-		                       				text="복수선택" 
-		                       				true-value="Y" 
-		                       				false-value="N" 
-	                       				></sbux-checkbox>
+									    <span style="padding-top:5px">
+			                       			<sbux-checkbox 
+			                       				id="srch-chkmulti-doc-yn" 
+			                       				uitype="normal" 
+			                       				text="복수선택" 
+			                       				true-value="Y" 
+			                       				false-value="N" 
+		                       				></sbux-checkbox>
+									    </span>
 									    <font style="padding-right:10px"></font>  
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
