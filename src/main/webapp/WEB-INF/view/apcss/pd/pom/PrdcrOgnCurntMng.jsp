@@ -293,7 +293,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<%@ include file="../prgrs/PrgrsUo.jsp" %>
+
 				</c:if>
 
 				<!--[pp] //검색 -->
