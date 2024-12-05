@@ -186,8 +186,11 @@
                                 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                             </li>
                         </ul>
+                        <div class="ad_tbl_toplist">
+                            <sbux-button id="btnExcelDownload" name="btnExcelDownload" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_excelDownload" style="float: right;"></sbux-button>
+                        </div>
                     </div>
-                    <div class="table-responsive tbl_scroll_sm">
+                    <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                         <div id="sb-area-gvwList" style="height: 80vh"></div>
                     </div>
 
@@ -662,6 +665,10 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    const fn_excelDownload = async function () {
+        gvwList.exportLocalExcel("인사정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 </script>

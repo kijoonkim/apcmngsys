@@ -2222,7 +2222,7 @@
                 document.querySelector('#listCount').innerText = jsonEmpTotalList.length;
 
                 if(jsonEmpTotalList.length > 0) {
-                    gvwList.clickRow(1);
+                    gvwList.clickCell(1, 1);
                 } else {
                     fn_create();
                 }
