@@ -573,14 +573,15 @@
             {caption: ["금액기준"], 				ref:'AMT_RULE', 		type:'combo', 		width:'100px', 		style:'text-align:center', disabled: false,
                 typeinfo : {ref : 'jsonGridAmtRule', 		label : 'label', value : 'value'}
             },
-            {caption: ["금액(최소)"],				ref: 'AMT_FR',					type:'input',  		width:'100px',  	style:'text-align:left'},
-            {caption: ["금액(최대)"],				ref: 'AMT_TO',					type:'input',  		width:'100px',  	style:'text-align:left'},
+            {caption: ["금액(최소)"],				ref: 'AMT_FR',					type:'input',  		width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["금액(최대)"],				ref: 'AMT_TO',					type:'input',  		width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            
             {caption: ["세부기준1"],				ref: 'SUB_CODE1',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["세부기준2"],				ref: 'SUB_CODE2',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["세부기준3"],				ref: 'SUB_CODE3',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["세부기준4"],				ref: 'SUB_CODE4',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["세부기준5"],				ref: 'SUB_CODE5',				type:'input',  		width:'100px',  	style:'text-align:left'},
-            {caption: ["순번"],						ref: 'SEQ',						type:'input',  		width:'100px',  	style:'text-align:left'},
+            {caption: ["순번"],						ref: 'SEQ',						type:'input',  		width:'50px',  		style:'text-align:center'},
             
             {caption: ["부서코드"],					ref: 'DEPT_CODE',				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 

@@ -525,10 +525,10 @@
 			return;      		 
 		}
 		
-		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
- 			gfn_comAlert("E0000","계정과목을 선택하세요");
-			return;      		 
-		}
+// 		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
+//  			gfn_comAlert("E0000","계정과목을 선택하세요");
+// 			return;      		 
+// 		}
 		
 		let p_sum_yn				= gfnma_nvl(SBUxMethod.get("SCH_SUM_YN")['SCH_SUM_YN']);
 		
