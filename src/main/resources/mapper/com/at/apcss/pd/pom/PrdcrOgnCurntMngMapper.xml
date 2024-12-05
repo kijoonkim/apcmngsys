@@ -475,10 +475,12 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CM
-			 WHERE 1=1
-
+			FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CM
+			WHERE 1=1
 		]]>
+			<if test='yr != null and yr != ""'>
+				AND CM.YR = #{yr}
+			</if>
 			<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD = #{apoCd}
 			</if>

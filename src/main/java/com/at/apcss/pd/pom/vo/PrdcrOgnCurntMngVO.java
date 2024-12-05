@@ -112,6 +112,5 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-
 }
 
