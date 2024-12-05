@@ -940,7 +940,7 @@
 		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.fixedrowheight=36;
 		SBGridProperties.rowheader="seq";
 		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.columns = [
@@ -1979,13 +1979,15 @@
 		}
 
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		fn_clearForm();
 
 		if(gfn_isEmpty(brno)){return;}
 
 		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectTbEvFrmhsApoList.do", {
-			brno : brno
+			yr : yr
+			,brno : brno
 			,uoBrno : uoBrnoVal
 		});
 		let data = await postJsonPromise01;
@@ -2073,11 +2075,13 @@
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
+		let yr = SBUxMethod.get('dtl-input-yr');
 		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		//let trmtType = SBUxMethod.get('dtl-input-trmtType');
 
 		let postJsonPromise02 = gfn_postJSON("/pd/pom/selectPrdcrOgnCurntMngDtlList.do", {
-			apoCd : apoCd
+			yr : yr
+			,apoCd : apoCd
 			,prdcrOgnzSn : prdcrOgnzSn
 		});
 		let data = await postJsonPromise02;
@@ -3064,9 +3068,11 @@
 	}
 
 	//새창에서 변수 확인
-	function fn_getBrno() {
-		let brno = SBUxMethod.get("dtl-input-brno");
-		return brno ;
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
 	}
 
 </script>
