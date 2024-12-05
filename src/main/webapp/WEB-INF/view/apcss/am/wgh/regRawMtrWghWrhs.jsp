@@ -767,8 +767,6 @@
             obj.bxQntt = obj.grdQntt1;
             saveList.push({...obj});
         }
-        console.log(saveList,"저장전");
-        return;
 
 
         if (gfn_comConfirm("Q0001", "저장")) {
