@@ -758,8 +758,14 @@
                 }
                 , disabled: true
             },
-            {caption: ["지급액(통화)"],         ref: 'PAY_ORIGINAL_AMOUNT',    type:'output',  	width:'132px',  style:'text-align:left'},
-            {caption: ["지급액(환산후)"],         ref: 'PAY_ORIGINAL_AMOUNT',    type:'output',  	width:'132px',  style:'text-align:left'},
+            {caption: ["지급액(통화)"],         ref: 'PAY_ORIGINAL_AMOUNT',    type:'output',  	width:'132px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["지급액(환산후)"],         ref: 'PAY_ORIGINAL_AMOUNT',    type:'output',  	width:'132px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
@@ -771,7 +777,7 @@
             },
             {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["적요"],         ref: 'DOC_DESC',    type:'output',  	width:'270px',  style:'text-align:left'},
-            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'100px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
             {caption: ["거래처계좌순번"],         ref: 'BANK_ACCOUNT_SEQ',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["계좌번호"],         ref: 'ACCOUNT_NUM',    type:'output',  	width:'140px',  style:'text-align:left'},
             {caption: ["계좌비고"],         ref: 'BANK_DESC',    type:'output',  	width:'200px',  style:'text-align:left'},
@@ -838,7 +844,6 @@
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('valuechanged','fn_gvwListValueChanged');
         gvwList.bind('click', 'fn_view');
-        gvwList.bind('dblclick', 'fn_gvwListDblclick');
         gvwList.bind('keyup', 'fn_keyup');
     }
 
@@ -940,83 +945,10 @@
 
     const fn_view = async function () {
         var nRow = gvwList.getRow();
-
-        if(nRow < 1) return;
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_APPR_ID : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID"))) == "" ? 0 : parseInt(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID")))),
-            V_P_SOURCE_NO : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID"))),
-            V_P_SOURCE_TYPE : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_TYPE"))),
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: '',
-        };
-
-        const postJsonPromise = gfn_postJSON("/fi/ftr/tri/selectFim3420List.do", {
-            getType				: 'json',
-            workType			: 'LIST',
-            cv_count			: '1',
-            params				: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                jsonApprovalList.length = 0;
-
-                data.cv_1.forEach((item, index) => {
-                    const msg = {
-                        APPR_ID : item.APPR_ID,
-                        STEP_SEQ : item.STEP_SEQ,
-                        APPR_TYPE : item.APPR_TYPE,
-                        APPR_CATEGORY : item.APPR_CATEGORY,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        DUTY_CODE : item.DUTY_CODE,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        APPR_STATUS : item.APPR_STATUS,
-                        APPR_DATE : item.APPR_DATE,
-                        APPR_OPINION : item.APPR_OPINION,
-                        UPDATE_USERID : item.UPDATE_USERID,
-                        UPDATE_EMP_NAME : item.UPDATE_EMP_NAME,
-                        UPDATE_TIME : item.UPDATE_TIME,
-                        UPDATE_PC : item.UPDATE_PC,
-                        DESCRIPTION : item.DESCRIPTION,
-                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
-                        PROXY_EMP_NAME : item.PROXY_EMP_NAME,
-                    }
-
-                    jsonApprovalList.push(msg);
-                });
-
-                gvwDetail.rebuild();
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_gvwListDblclick = async function () {
-        var nRow = gvwList.getRow();
         var nCol = gvwList.getCol();
 
-        if (nRow < 0)
-            return;
+        if(nRow < 1) return;
+        if(nCol < 1) return;
 
         if(nCol == gvwList.getColRef("DOC_NAME")) {
             var param = {
@@ -1027,6 +959,73 @@
 
             let json = JSON.stringify(param);
             window.parent.cfn_openTabSearch(json);
+        } else {
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: '',
+                V_P_LANG_ID: '',
+                V_P_COMP_CODE: gv_ma_selectedCorpCd,
+                V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                V_P_APPR_ID: gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID"))) == "" ? 0 : parseInt(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID")))),
+                V_P_SOURCE_NO: gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID"))),
+                V_P_SOURCE_TYPE: gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_TYPE"))),
+                V_P_FORM_ID: p_formId,
+                V_P_MENU_ID: p_menuId,
+                V_P_PROC_ID: '',
+                V_P_USERID: '',
+                V_P_PC: '',
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/ftr/tri/selectFim3420List.do", {
+                getType: 'json',
+                workType: 'LIST',
+                cv_count: '1',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    jsonApprovalList.length = 0;
+
+                    data.cv_1.forEach((item, index) => {
+                        const msg = {
+                            APPR_ID: item.APPR_ID,
+                            STEP_SEQ: item.STEP_SEQ,
+                            APPR_TYPE: item.APPR_TYPE,
+                            APPR_CATEGORY: item.APPR_CATEGORY,
+                            DEPT_CODE: item.DEPT_CODE,
+                            DEPT_NAME: item.DEPT_NAME,
+                            DUTY_CODE: item.DUTY_CODE,
+                            EMP_CODE: item.EMP_CODE,
+                            EMP_NAME: item.EMP_NAME,
+                            APPR_STATUS: item.APPR_STATUS,
+                            APPR_DATE: item.APPR_DATE,
+                            APPR_OPINION: item.APPR_OPINION,
+                            UPDATE_USERID: item.UPDATE_USERID,
+                            UPDATE_EMP_NAME: item.UPDATE_EMP_NAME,
+                            UPDATE_TIME: item.UPDATE_TIME,
+                            UPDATE_PC: item.UPDATE_PC,
+                            DESCRIPTION: item.DESCRIPTION,
+                            PROXY_EMP_CODE: item.PROXY_EMP_CODE,
+                            PROXY_EMP_NAME: item.PROXY_EMP_NAME,
+                        }
+
+                        jsonApprovalList.push(msg);
+                    });
+
+                    gvwDetail.rebuild();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
         }
     }
 
