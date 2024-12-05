@@ -1681,7 +1681,7 @@
         if (gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')) == "" || gfn_nvl(value) == "")
             return;
 
-        SBUxMethod.set("DIFF_DAY", (gfn_diffDate(SBUxMethod.get('PAY_BASE_DATE'))/ (1000 * 60 * 60 * 24), value));
+        SBUxMethod.set("DIFF_DAY", gfn_nvl(value) == "" ? 0 : (gfn_diffDate(SBUxMethod.get('PAY_BASE_DATE'), value)/ (1000 * 60 * 60 * 24)));
         await fn_getBankAccountSeq();
 
         if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
@@ -1755,7 +1755,7 @@
                 SBUxMethod.set('TXN_STOP_YN', gfn_nvl(data.TXN_STOP_YN));
                 SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CODE));
                 SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NAME));
-                SBUxMethod.set('PAY_METHOD', gfn_nvl(data.PAY_METHOD));
+                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
                 SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CURRENCY_CODE));
 
                 SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
@@ -1805,7 +1805,7 @@
                 }
 
                 if(gfn_nvl(data.PAY_TERM_CODE) != "") {
-                    SBUxMethod.set('PAY_METHOD', data.PAY_METHOD);
+                    gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
                 }
 
                 if(gfn_nvl(data.CURRENCY_CODE) != "") {
@@ -1855,6 +1855,8 @@
             , itemSelectEvent: function (data) {
                 SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
                 SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
+                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
+                SBUxMethod.set('BASIS_TYPE', data.BASIS_TYPE);
 
                 fn_payTermCodeOnchange(gfn_nvl(data.PAY_TERM_CODE));
             },
@@ -4664,7 +4666,7 @@
                     stritem_seq += gfn_nvl(thisdr["ITEM_SEQ"]) + "|";
                     strfi_org_code += p_fiOrgCode + "|";
                     strline_type += gfn_nvl(thisdr["LINE_TYPE"]) + "|";
-                    console.log(gfn_nvl(thisdr["ACCOUNT_CODE"]));
+
                     straccount_code += gfn_nvl(thisdr["ACCOUNT_CODE"]) + "|";
                     strdebit_credit += gfn_nvl(thisdr["DEBIT_CREDIT"]) + "|";
 
@@ -5885,16 +5887,17 @@
             SBUxMethod.set("PAY_BASE_DATE", SBUxMethod.get("DOC_DATE"));
             SBUxMethod.set("EXPECTED_PAY_DATE", "");
             SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "false");
+            SBUxMethod.set("DIFF_DAY", 0);
         } else {
-            SBUxMethod.set("PAY_BASE_DATE", ht.hasOwnProperty("PAY_BASE_DATE") ? !ht["PAY_BASE_DATE"] == "" ? ht["PAY_BASE_DATE"] : "" : "");
-            SBUxMethod.set("EXPECTED_PAY_DATE", ht.hasOwnProperty("EXPECTED_PAY_DATE") ? !ht["EXPECTED_PAY_DATE"] == "" ? ht["EXPECTED_PAY_DATE"] : "" : "");
-            SBUxMethod.set("BILL_DUE_DATE", ht.hasOwnProperty("BILL_DUE_DATE") ? !ht["BILL_DUE_DATE"] == "" ? ht["BILL_DUE_DATE"] : "" : "");
-            SBUxMethod.set("BILL_DUE_DAY", ht.hasOwnProperty("BILL_DUE_DAY") ? !ht["BILL_DUE_DAY"] == "" ? ht["BILL_DUE_DAY"] : "" : "");
-            SBUxMethod.set("BILL_DUE_PAY_DATE", ht.hasOwnProperty("BILL_DUE_PAY_DATE") ? !ht["BILL_DUE_PAY_DATE"] == "" ? ht["BILL_DUE_PAY_DATE"] : "" : "");
+            SBUxMethod.set("PAY_BASE_DATE", ht.hasOwnProperty("PAY_BASE_DATE") ? (ht["PAY_BASE_DATE"] != "" ? ht["PAY_BASE_DATE"] : "") : "");
+            SBUxMethod.set("EXPECTED_PAY_DATE", ht.hasOwnProperty("EXPECTED_PAY_DATE") ? (ht["EXPECTED_PAY_DATE"] != "" ? ht["EXPECTED_PAY_DATE"] : "") : "");
+            SBUxMethod.set("BILL_DUE_DATE", ht.hasOwnProperty("BILL_DUE_DATE") ? (ht["BILL_DUE_DATE"] != "" ? ht["BILL_DUE_DATE"] : "") : "");
+            SBUxMethod.set("BILL_DUE_DAY", ht.hasOwnProperty("BILL_DUE_DAY") ? (ht["BILL_DUE_DAY"] != "" ? ht["BILL_DUE_DAY"] : "") : "");
+            SBUxMethod.set("BILL_DUE_PAY_DATE", ht.hasOwnProperty("BILL_DUE_PAY_DATE") ? (ht["BILL_DUE_PAY_DATE"] != "" ? ht["BILL_DUE_PAY_DATE"] : "") : "");
             SBUxMethod.attr("EXPECTED_PAY_DATE", "readonly", "true");
 
             // 지급만기일 - 지급기산일 = 일수
-            SBUxMethod.set("DIFF_DAY", gfn_diffDate((gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")), (SBUxMethod.get("EXPECTED_PAY_DATE"))) / (1000 * 60 * 60 * 24));
+            SBUxMethod.set("DIFF_DAY", Number(gfn_diffDate((gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) == "" ? SBUxMethod.get("DOC_DATE") : SBUxMethod.get("PAY_BASE_DATE")), (SBUxMethod.get("EXPECTED_PAY_DATE"))) / (1000 * 60 * 60 * 24)));
         }
     }
 
