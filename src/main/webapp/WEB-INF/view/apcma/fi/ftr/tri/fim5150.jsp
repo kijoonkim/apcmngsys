@@ -661,7 +661,6 @@
             width:'120px',
             style:'text-align:center',
             typeinfo: {
-                ignoreupdate : true,
                 checkedvalue : 'Y',
                 uncheckedvalue : 'N'
             }
