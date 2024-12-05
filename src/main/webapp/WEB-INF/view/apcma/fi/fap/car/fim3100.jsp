@@ -207,7 +207,7 @@
 									            id="ISSUE_DATE"
 									            uitype="popup"
 									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+									            class="form-control input-sm input-sm-ast table-datepicker-ma">
 									    </sbux-datepicker>                          
                                     </td>
                                     <th scope="row" class="th_bg">유효기간</th>
@@ -218,7 +218,7 @@
 										        datepicker-mode="month"
 										        date-format="yyyy-mm"
 										        style="width:80px"
-										        class="form-control input-sm input-sm-ast inpt_data_reqed"
+										        class="form-control input-sm input-sm-ast table-datepicker-ma"
 										        >
 										</sbux-datepicker>                            
                                     </td>
@@ -234,7 +234,7 @@
 										        id="CANCEL_DATE"
 									            uitype="popup"
 									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+									            class="form-control input-sm input-sm-ast table-datepicker-ma">
 										        >
 										</sbux-datepicker>                            
                                     </td>
@@ -494,7 +494,7 @@
 											            id="PAY_DATE"
 											            uitype="popup"
 											            date-format="yyyy-mm-dd"
-											            class="form-control input-sm input-sm-ast inpt_data_reqed">
+											            class="form-control input-sm input-sm-ast table-datepicker-ma">
 											    </sbux-datepicker>                          
 		                                    </td>
 		                                    <th scope="row" class="th_bg">회수일</th>
@@ -503,7 +503,7 @@
 											            id="RECEIVE_DATE"
 											            uitype="popup"
 											            date-format="yyyy-mm-dd"
-											            class="form-control input-sm input-sm-ast inpt_data_reqed">
+											            class="form-control input-sm input-sm-ast table-datepicker-ma">
 											    </sbux-datepicker>                          
 		                                    </td>
 		                                </tr>
