@@ -682,4 +682,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return updateCnt;
 	}
 
+	@Override
+	public List<String> selectVrtyHistoryByPrdcr(PrdcrVO prdcrVO) throws Exception {
+		return rawMtrWrhsMapper.selectVrtyHistoryByPrdcr(prdcrVO);
+	}
 }

@@ -77,11 +77,16 @@
 				, RI.DEL_YN				AS DEL_YN
 				, PI.PRDCR_IDENTNO 		AS PRDCR_IDENTNO
 				, RI.SPCFCT_CD			AS SPCFCT_CD
+				, SC.WGHT				AS WGHT
 
 			  FROM TB_RAW_MTR_INVNTR RI
 			  LEFT JOIN TB_PRDCR_INFO PI
 			  ON RI.APC_CD = PI.APC_CD
 			  AND RI.PRDCR_CD = PI.PRDCR_CD
+			  LEFT JOIN TB_APC_SPCFCT_CRTR SC
+				ON  RI.APC_CD = SC.APC_CD
+				AND RI.ITEM_CD = SC.ITEM_CD
+				AND RI.SPCFCT_CD = SC.SPCFCT_CD
 			 WHERE RI.APC_CD = #{apcCd}
 		]]>
 		<if test='wrhsno != null and wrhsno != ""'>

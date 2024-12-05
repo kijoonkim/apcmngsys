@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -602,6 +603,26 @@ public class RawMtrWrhsController extends BaseController {
 			resultMap.put(ComConstants.PROP_UPDATED_CNT, cnt);
 			return getSuccessResponseEntity(resultMap);
 		}
+	}
+	@PostMapping(value = "/am/wrhs/selectVrtyHistoryByPrdcr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectVrtyHistoryByPrdcr(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<String> resultList = new ArrayList<String>();
+
+		try {
+			resultList = rawMtrWrhsService.selectVrtyHistoryByPrdcr(prdcrVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+		return getSuccessResponseEntity(resultMap);
 	}
 
 
