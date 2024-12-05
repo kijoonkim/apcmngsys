@@ -4023,6 +4023,7 @@
             }
 
             if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) != "") {
+                bnew = false;
                 fn_search();
             }
 
