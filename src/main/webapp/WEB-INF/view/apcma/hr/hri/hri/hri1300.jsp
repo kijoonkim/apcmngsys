@@ -781,7 +781,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
         var replaceText0 	= "_SUB_CODE_";
         var replaceText1 	= "_CODE_NAME_";
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' AND EXTRA_FIELD2 IS NULL AND EXTRA_FIELD3 IS NULL";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
         compopup1({
