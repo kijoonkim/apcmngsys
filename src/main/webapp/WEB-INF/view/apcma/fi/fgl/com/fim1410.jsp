@@ -208,7 +208,7 @@
             	}	
             },
             {caption: ["계정명"],					ref: 'ACCOUNT_NAME',			type:'input',  		width:'300px', 		style:'text-align:left'},
-            {caption: ["정렬순서"],					ref: 'SORT_SEQ',				type:'input',  		width:'80px', 		style:'text-align:left'},
+            {caption: ["정렬순서"],					ref: 'SORT_SEQ',				type:'input',  		width:'80px', 		style:'text-align:center'},
             {caption: [""],							ref: 'ETC',						type:'output',  	width:'80px', 		style:'text-align:left'},
         ];
 
