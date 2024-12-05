@@ -697,38 +697,41 @@ async function gfnma_multiSelectInit(obj) {
 	const innerCreat = function (tarId, data) {
 		
 		//중간에 버튼 삽입 -----------------------
-		$(tarId).closest('div').find('button').removeClass('btn-light').addClass('btn-outline-secondary');
-		$(tarId).closest('div').find('button').find('i').remove();
-		$(tarId).closest('div').find('button').css('border-right', 'none').css('border-radius', '0px');
-		
-		var tmpBtn = '';
-		tmpBtn += '<button type="button" style="width:25px;min-width:25px;padding-left:0px;padding-right:0px" class="btn btn-sm btn-outline-secondary dropdown-toggle">';
-		tmpBtn += '	<span class="visually-hidden">';
-		tmpBtn += '		<i class="sbux-sidemeu-ico fas fa-angle-down" style="font-size: 14px;color:#9b9ea1"></i>';        
-		tmpBtn += '	</span>';
-		tmpBtn += '</button>';
-		$(tarId).closest('div').find('button').after(tmpBtn);
-		$(tarId).closest('div').find('button').eq(1).click(function(event){
-			event.stopPropagation();
-			if($(this).closest('div').hasClass('open')===true){
-				$(this).closest('div').removeClass('open');
-				$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'false');
-			} else {
-				console.log($(this).closest('div'));
-				$(this).closest('div').addClass('open');
-				$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'true');
-			}
-		});
-		
-		console.log('id:', $(tarId).attr('id'));
-		var tmpWidth1 = $(tarId).closest('div').find('button').eq(0).width();
-		var tmpWidth2 = $(tarId).closest('div').find('button').eq(1).width();
-		var tmpWidth3 = tmpWidth1 + tmpWidth2;
-		console.log('tmpWidth3:', tmpWidth3);
-		$(tarId).closest('div').css('min-width', tmpWidth3);
-		tmpWidth3 = tmpWidth1 - tmpWidth2;
-		console.log('tmpWidth3:', tmpWidth3);
-		$(tarId).closest('div').find('button').eq(0).width(tmpWidth3);
+		var bchk = $(tarId).closest('div').find('button').length;
+		if(bchk==1){
+			$(tarId).closest('div').find('button').removeClass('btn-light').addClass('btn-outline-secondary');
+			$(tarId).closest('div').find('button').find('i').remove();
+			$(tarId).closest('div').find('button').css('border-right', 'none').css('border-radius', '0px');
+			
+			var tmpBtn = '';
+			tmpBtn += '<button type="button" style="width:25px;min-width:25px;padding-left:0px;padding-right:0px" class="btn btn-sm btn-outline-secondary dropdown-toggle">';
+			tmpBtn += '	<span class="visually-hidden">';
+			tmpBtn += '		<i class="sbux-sidemeu-ico fas fa-angle-down" style="font-size: 14px;color:#9b9ea1"></i>';        
+			tmpBtn += '	</span>';
+			tmpBtn += '</button>';
+			$(tarId).closest('div').find('button').after(tmpBtn);
+			$(tarId).closest('div').find('button').eq(1).click(function(event){
+				event.stopPropagation();
+				if($(this).closest('div').hasClass('open')===true){
+					$(this).closest('div').removeClass('open');
+					$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'false');
+				} else {
+					//console.log($(this).closest('div'));
+					$(this).closest('div').addClass('open');
+					$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'true');
+				}
+			});
+			
+			//console.log('id:', $(tarId).attr('id'));
+			var tmpWidth1 = $(tarId).closest('div').find('button').eq(0).width();
+			var tmpWidth2 = $(tarId).closest('div').find('button').eq(1).width();
+			var tmpWidth3 = tmpWidth1 + tmpWidth2;
+			//console.log('tmpWidth3:', tmpWidth3);
+			$(tarId).closest('div').css('min-width', tmpWidth3);
+			tmpWidth3 = tmpWidth1 - tmpWidth2;
+			//console.log('tmpWidth3:', tmpWidth3);
+			$(tarId).closest('div').find('button').eq(0).width(tmpWidth3);
+		}
 		//------------------------------------------
 		
 		//style set
