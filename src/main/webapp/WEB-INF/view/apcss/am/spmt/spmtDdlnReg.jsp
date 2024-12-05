@@ -308,6 +308,9 @@
     /*일반 품종제외 필터링 조회*/
     var jsonFilterVrty3 = [];
 
+    /* 다이스 */
+    var jsonDiceSeCd;
+
     /* SBGrid */
 	var grdDhtyJob;
 	var grdJobCn;
@@ -322,6 +325,7 @@
 	var jsonInvntrSttn1;
 	var jsonInvntrSttn2;
 	var jsonWrhsSttn;
+
 
     let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstrNm : null};
 
@@ -352,6 +356,8 @@
 			 	fn_callSelectPltList(jsonPlt,"P"),
 			 	fn_setGrdGds()
 			]);
+
+		jsonDiceSeCd = await gfn_getComCdDtls('DICE_SE_CD', gv_apcCd)	// 창고
 		let today = gfn_dateToYmd(new Date());
 		SBUxMethod.set("srch-dtp-spmtYmd", [today,today]);
 		SBUxMethod.set("srch-dtp-spmtDdlnYmd", today);
@@ -806,32 +812,38 @@
 			,{cd:"02",nm:"노랑"}
 			,{cd:"03",nm:"주황"}
 			];
-		diceSe.forEach(item =>{
-			var col1 = {
-			    	caption: ["다이스재고",item.nm]
-			    	, ref: "D_"+item.cd
-			    	, type:'input'
-			    	, width:'80px'
-			    	, style:'text-align:center'
-			    	, sortable: false
-			    	, dataType : 'number'
-			    	, format : {type:'number', rule:'#,###'}
-			    	};
-			SBGridProperties.columns.push(col1);
+		jsonDiceSeCd.forEach(item =>{
+			if(item.cdVlNm === "당일폐기가구"){
+				SBGridProperties.columns.push(
+						{
+					    	caption: [item.cdVlNm,item.cdVlNm]
+					    	, ref: "D_"+ item.cdVl
+					    	, type:'input'
+					    	, width:'80px'
+					    	, style:'text-align:center'
+					    	, sortable: false
+					    	, dataType : 'number'
+					    	, format : {type:'number', rule:'#,###'}
+					    	}
+				);
+
+
+			}else{
+				var col1 = {
+				    	caption: ["다이스재고",item.cdVlNm]
+				    	, ref: "D_"+item.cdVl
+				    	, type:'input'
+				    	, width:'80px'
+				    	, style:'text-align:center'
+				    	, sortable: false
+				    	, dataType : 'number'
+				    	, format : {type:'number', rule:'#,###'}
+				    	};
+				SBGridProperties.columns.push(col1);
+			}
+
 		})
 
-		SBGridProperties.columns.push(
-				{
-			    	caption: ["당일폐기가구","당일폐기가구"]
-			    	, ref: "D_"+"04"
-			    	, type:'input'
-			    	, width:'80px'
-			    	, style:'text-align:center'
-			    	, sortable: false
-			    	, dataType : 'number'
-			    	, format : {type:'number', rule:'#,###'}
-			    	}
-		);
 
 	    grdInvntrSttn2 = _SBGrid.create(SBGridProperties);
 	    //grdRawMtrWrhs.bind('valuechanged','fn_grdValueChanged');
