@@ -703,7 +703,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				}
 				HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
 				if (rtnMap != null) {
-					throw new EgovBizException(getMessageForMap(rtnObj));
+					throw new EgovBizException(getMessageForMap(rtnMap));
 				}
 			}
 		}

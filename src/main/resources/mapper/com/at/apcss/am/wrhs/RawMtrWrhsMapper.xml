@@ -1704,5 +1704,16 @@
 		#{sysLastChgPrgrmId}
 		)
 	</update>
+	<select id="selectVrtyHistoryByPrdcr" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="java.lang.String">
+		SELECT CONCAT(MI.ITEM_CD, MI.VRTY_CD)
+		FROM usram.TB_RAW_MTR_WRHS_PRFMNC AS WP
+		JOIN usram.TB_RAW_MTR_INVNTR AS MI
+	    ON WP.APC_CD = MI.APC_CD
+	    AND WP.WRHSNO = MI.WRHSNO
+	    AND WP.APC_CD = #{apcCd}
+	    AND WP.PRDCR_CD = #{prdcrCd}
+	    AND MI.VRTY_CD IS NOT NULL
+		GROUP BY MI.ITEM_CD,MI.VRTY_CD
+	</select>
 
 </mapper>

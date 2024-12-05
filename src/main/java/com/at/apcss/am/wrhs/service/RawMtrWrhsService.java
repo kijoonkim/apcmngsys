@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
@@ -299,4 +300,11 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	int updateRawMtrWrhsListAndPlt(List<RawMtrWrhsVO> rawMtrWrhsList, List<PltWrhsSpmtVO> pltWrhsSpmtList)throws Exception;
+	/**
+	 * 생산자 입고실적 이력 품종코드
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<String> selectVrtyHistoryByPrdcr(PrdcrVO prdcrVO) throws Exception;
 }

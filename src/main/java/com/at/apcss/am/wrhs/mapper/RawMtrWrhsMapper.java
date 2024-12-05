@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
@@ -231,4 +232,11 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
     int updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	/**
+	 * 생산자 입고실적 이력 품종코드
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<String> selectVrtyHistoryByPrdcr(PrdcrVO prdcrVO) throws Exception;
 }

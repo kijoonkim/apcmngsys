@@ -64,7 +64,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">생산자명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;border-top: hidden">
 								<sbux-input
 									uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm"
 									class="form-control input-sm" maxlength="33"
@@ -73,7 +73,7 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">영농관리여부</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-top: hidden" colspan="7">
 								<sbux-checkbox id="srch-chk-agrcYn" name="srch-chk-agrcYn" uitype="normal" text="사용" true-value="Y" false-value="" ></sbux-checkbox>
 							</td>
 						</tr>
