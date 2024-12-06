@@ -168,7 +168,7 @@
                         <th scope="row" class="th_bg">집계구분</th>
                         <td class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="POSTING_SUMMARY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="POSTING_SUMMARY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -564,7 +564,7 @@
                         <th scope="row" class="th_bg">전표급여항목</th>
                         <td class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ACCOUNT_PAY_ITEM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:100%; height: 30px; text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ACCOUNT_PAY_ITEM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -573,7 +573,6 @@
                             </div>
                         </td>
                         <td colspan="2" style="border-right: hidden;">&nbsp;</td>
-
                         <th scope="row" class="th_bg">급여항목명</th>
                         <td colspan="2" class="td_input" style="border-right: hidden;">
                             <sbux-input
@@ -671,7 +670,7 @@
 
             //전표구분
             gfnma_multiSelectInit({
-                target			: ['#POSTING_SUMMARY_TYPE', '#ACCOUNT_PAY_ITEM']
+                target			: ['#POSTING_SUMMARY_TYPE']
                 ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRP031'
@@ -680,7 +679,27 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "집계단위", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+            //전표구분
+            gfnma_multiSelectInit({
+                target			: ['#ACCOUNT_PAY_ITEM']
+                ,compCode		: gv_ma_selectedCorpCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRP031'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
