@@ -89,7 +89,7 @@
                                         uitype="single"
                                         jsondata-ref="jsonPayAreaType"
                                         unselected-text="선택"
-                                        class="form-control input-sm inpt_data_reqed"
+                                        class="form-control input-sm <%--inpt_data_reqed--%>"
                                         onchange="fn_payType">
                                 </sbux-select>
                             </td>
@@ -285,7 +285,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:520px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -427,16 +427,16 @@
             return;
         }
 
-        if (pay_area_type == "") {
-            gfn_comAlert("W0002", "지급구분");
+        /*if (pay_area_type == "") {
+            gfn_comAlert("W0002", "급여영역");
             return;
-        }
+        }*/
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '');
         SBUxMethod.openModal('modal-compopup2');
         compopup2({
             yyyymm: yyyymm_fr
-            , payAreaType: pay_area_type
+            , payAreaType: ''
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_HRB008'
@@ -584,6 +584,10 @@
 
     //국민연금 실적 리스트
     function fn_createGrid(chMode, rowData, type) {
+        jsonGvwList = jsonGvwList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwList';
         SBGridProperties.id = 'gvwListGrid';
@@ -608,6 +612,23 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [0],
+                sum : [9,10,11,12]
+            },
+            grandtotalrow : {
+                titlecol 	: 0,
+                titlevalue	: '합계',
+                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: false,
+            usedecimal : false,
+        };
         SBGridProperties.columns = [
             {
                 caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -993,6 +1014,7 @@
                 gfn_comAlert("W0002", "보험년월");
                 return;
             }
+
         } else if (_.isEqual(workType, 'SUMMARY')) { //국민연금 내역 조회 시
 
             YYYYMM          = '';

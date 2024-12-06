@@ -89,7 +89,7 @@
                                         uitype="single"
                                         jsondata-ref="jsonPayAreaType"
                                         unselected-text="선택"
-                                        class="form-control input-sm inpt_data_reqed"
+                                        class="form-control input-sm <%--inpt_data_reqed--%>"
                                         onchange="fn_payType">
                                 </sbux-select>
                             </td>
@@ -282,7 +282,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:520px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -410,16 +410,16 @@
             return;
         }
 
-        if (pay_area_type == "") {
-            gfn_comAlert("W0002", "지급구분");
+        /*if (pay_area_type == "") {
+            gfn_comAlert("W0002", "급여영역");
             return;
-        }
+        }*/
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '');
         SBUxMethod.openModal('modal-compopup2');
         compopup2({
             yyyymm: yyyymm_fr
-            , payAreaType: pay_area_type
+            , payAreaType: ''
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_HRB008'
@@ -591,7 +591,7 @@
             position	: 'bottom',
             columns		: {
                 standard : [0],
-                sum : [11,12,13,14,15,16,17,18,19,20,21]
+                sum : [9,10,11,12,13,14,15,16,17,18,19,20,21]
             },
             grandtotalrow : {
                 titlecol 		: 20,
