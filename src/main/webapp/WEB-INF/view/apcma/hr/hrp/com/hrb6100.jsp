@@ -82,7 +82,7 @@
                                                 name="YYYY"
                                                 date-format="yyyy"
                                                 datepicker-mode="year"
-                                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                                class="form-control pull-right input-sm-ast inpt_data_reqed input-sm table-datepicker-ma"
                                                 onchange="fn_srchYyyy(SRCH_YYYY)"
                                                 group-id="panInfo"
                                                 required
@@ -98,7 +98,7 @@
                                                 id="APPLY_START_DATE"
                                                 name="APPLY_START_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 group-id="panInfo"
                                                 required
@@ -113,7 +113,7 @@
                                                 id="APPLY_END_DATE"
                                                 name="APPLY_END_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 group-id="panInfo"
                                                 required
