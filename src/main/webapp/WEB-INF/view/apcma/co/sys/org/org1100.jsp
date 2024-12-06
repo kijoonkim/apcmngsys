@@ -245,11 +245,11 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">개업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;x;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;x;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">폐업일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="CLOSE_DATE" name="CLOSE_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" class="table-datepicker-ma" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>		                        
 		                        </tr>
 		                        <tr>

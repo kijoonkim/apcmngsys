@@ -99,7 +99,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg1200" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1200" style="height:66vh; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-8">

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
@@ -39,6 +40,9 @@ public class ApcMaCom2100Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
+	
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
 	
 	// 회기 정보 조회
 	@PostMapping(value = "/co/sys/cal/selectCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -66,7 +70,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
-	// 회기 정보 삭제
+	// 회기 정보 저장
 	@PostMapping(value = "/co/sys/cal/updateCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateCom2100(
 			@RequestBody Map<String, Object> param
@@ -75,6 +79,28 @@ public class ApcMaCom2100Controller extends BaseController {
 			,HttpServletRequest request) throws Exception{
 		
 		logger.info("=============updateCom2100=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM2100_S");
+			
+            logger.info("=============updateCom2100=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+	}	
+	
+	// 회기 정보 삭제
+	@PostMapping(value = "/co/sys/cal/deleteCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCom2100(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============deleteCom2100=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
@@ -87,7 +113,7 @@ public class ApcMaCom2100Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============updateCom2100=====end========");
+		logger.info("=============deleteCom2100=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}	
 

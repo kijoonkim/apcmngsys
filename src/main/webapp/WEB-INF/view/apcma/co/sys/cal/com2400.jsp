@@ -270,6 +270,7 @@
         fn_initSBSelect();
         calendarYear(new Date());
         fn_search();
+        fn_view( gfn_dateToYmd(new Date()) );
     });
 
     // 저장

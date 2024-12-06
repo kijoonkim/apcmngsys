@@ -666,7 +666,6 @@
      * 초기화
      */
     function cfn_init() {
-    	console.log('gv_selectedUserType ==>', gv_selectedUserType);
     	gfnma_uxDataClear('#srchArea1');
     }
     
