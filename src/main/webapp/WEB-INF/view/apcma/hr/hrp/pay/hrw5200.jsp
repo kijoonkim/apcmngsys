@@ -89,7 +89,7 @@
                                         uitype="single"
                                         jsondata-ref="jsonPayAreaType"
                                         unselected-text="선택"
-                                        class="form-control input-sm inpt_data_reqed"
+                                        class="form-control input-sm <%--inpt_data_reqed--%>"
                                         onchange="fn_payType">
                                 </sbux-select>
                             </td>
@@ -283,7 +283,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwgrdPivotList" style="height:530px; width:100%;"></div>
+                    <div id="sb-area-gvwgrdPivotList" style="height:520px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -411,16 +411,16 @@
             return;
         }
 
-        if (pay_area_type == "") {
-            gfn_comAlert("W0002", "지급구분");
+        /*if (pay_area_type == "") {
+            gfn_comAlert("W0002", "급여영역");
             return;
-        }
+        }*/
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '');
         SBUxMethod.openModal('modal-compopup2');
         compopup2({
             yyyymm: yyyymm_fr
-            , payAreaType: pay_area_type
+            , payAreaType: ''
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_HRB008'
@@ -490,13 +490,14 @@
     /**
      * 저장
      */
-    function cfn_save() {
+    async function cfn_save() {
 
         let gridUpdateData =gvwListGrid.getUpdateData(true, 'i');
         let gridInsertData =gvwListGrid.getUpdateData(true, 'u');
 
         if (_.isEmpty(gridUpdateData) || _.isEmpty(gridInsertData)){
             gfn_comConfirm("Q0000","신규 및 수정된 데이터가 존재하지 않습니다.");
+            return ;
         }
 
         //검증되지 않은 데이터가 있습니다. 검증 후 저장하세요.
@@ -509,17 +510,19 @@
 
         if (_.isEqual(editType, 'N')){
 
-            fn_check();
+            await fn_check();
 
             if(gfn_comConfirm("Q0001", "신규 등록")){
-                fn_save();
+               await fn_save();
+                fn_search('LIST');
             }
 
         }else if (_.isEqual(editType, 'E')){
 
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
-                fn_save();
+                await fn_save();
+                fn_search('LIST');
             }
 
         }
@@ -528,16 +531,18 @@
     /**
      * 삭제
      */
-    function cfn_del() {
+    async function cfn_del() {
 
-        let gridDeleteData =gvwListGrid.getUpdateData(true, 'd');
+        /*let gridDeleteData =gvwListGrid.getUpdateData(true, 'd');
 
-        if (_.isEmpty(gridUpdateData) || _.isEmpty(gridDeleteData)){
+        if (_.isEmpty(gridDeleteData)){
             gfn_comConfirm("Q0000","삭제 처리된 데이터가 존재하지 않습니다.");
-        }
+            return;
+        }*/
 
         if (gfn_comConfirm("Q0001", "삭제")) {
-            fn_del();
+            await fn_del();
+            fn_search('LIST');
         }
     }
     /**
@@ -572,6 +577,10 @@
 
     //국민연금 실적 리스트
     function fn_createGrid(chMode, rowData) {
+        jsonGvwList = jsonGvwList.filter(data => {
+            return gfn_nvl(data.EMP_CODE) != '';
+        });
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwList';
         SBGridProperties.id = 'gvwListGrid';
@@ -596,6 +605,23 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 3;
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [0],
+                sum : [9,10,11,12,13,14,15,16,17]
+            },
+            grandtotalrow : {
+                titlecol 	: 0,
+                titlevalue	: '합계',
+                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },
+            datasorting	: false,
+            usedecimal : false,
+        };
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1719,9 +1745,11 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                }
+                }else{
 
-                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+
+                }
 
             } else {
                 alert(data.resultMessage);
