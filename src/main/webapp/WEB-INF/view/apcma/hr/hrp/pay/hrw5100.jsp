@@ -507,6 +507,7 @@
 
         if (_.isEmpty(gridUpdateData) || _.isEmpty(gridInsertData)) {
             gfn_comConfirm("Q0000", "신규 및 수정된 데이터가 존재하지 않습니다.");
+            return;
         }
 
         //검증되지 않은 데이터가 있습니다. 검증 후 저장하세요.
