@@ -75,7 +75,7 @@
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyy-mm"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="table-datepicker-ma inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>
                                 </sbux-datepicker>
@@ -258,7 +258,7 @@
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyymm"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="table-datepicker-ma inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>
                                 </sbux-datepicker>
@@ -271,7 +271,7 @@
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyymm"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="table-datepicker-ma inpt_data_reqed"
                                         required>
                                     <%--onchange="fn_payDate"--%>
                                 </sbux-datepicker>
