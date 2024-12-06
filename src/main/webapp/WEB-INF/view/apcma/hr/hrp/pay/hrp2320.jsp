@@ -217,7 +217,7 @@
                                     uitype="popup"
                                     datepicker-mode="year"
                                     date-format="yyyy"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                         </td>
@@ -387,8 +387,10 @@
                         <td class="td_input" style="border-right: hidden;">
                             <sbux-datepicker id="YMDRESERVE_TIME" name="YMDRESERVE_TIME" uitype="popup"
                                              date-format="yyyy-mm-dd HH:MM"
-                                             show-time-bar="true" readonly>
-                            </sbux-datepicker>
+                                             show-time-bar="true"
+                                             class="table-datepicker-ma"
+                                             readonly
+                            ></sbux-datepicker>
                         </td>
                         <td colspan="9" class="td_input" style="border-right: hidden;">
                             <sbux-checkbox
@@ -411,7 +413,7 @@
                                     uitype="popup"
                                     datepicker-mode="month"
                                     date-format="yyyy-mm"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     >
                             </sbux-datepicker>
                         </td>

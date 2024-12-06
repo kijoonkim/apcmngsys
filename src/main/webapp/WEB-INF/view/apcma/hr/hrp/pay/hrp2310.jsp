@@ -333,7 +333,7 @@
                                         name="ENTER_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -345,7 +345,7 @@
                                         name="RETIRE_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -384,7 +384,7 @@
                                         name="TEMP_END_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -396,7 +396,7 @@
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -433,7 +433,7 @@
                                         name="PAY_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>

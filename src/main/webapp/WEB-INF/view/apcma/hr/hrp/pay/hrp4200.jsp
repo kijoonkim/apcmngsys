@@ -232,7 +232,7 @@
                                         name="EXPECTED_PAY_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast "
+                                        class="table-datepicker-ma"
                                         >
                                 </sbux-datepicker>
                             </td>
@@ -244,7 +244,7 @@
                                         name="POSTING_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast "
+                                        class="table-datepicker-ma"
                                         >
                                 </sbux-datepicker>
                             </td>
