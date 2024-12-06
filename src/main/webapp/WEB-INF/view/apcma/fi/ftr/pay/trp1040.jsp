@@ -943,25 +943,27 @@
                 gvwList.setCellData(row, gvwList.getColRef("BASIS_TYPE"), data.BASIS_TYPE);
             },
         });
+
+        SBUxMethod.openModal('modal-compopup1');
     }
 
     var fn_findAccountForGvwList = function (row) {
-        var replaceText0 = "_PAY_TERM_CODE_";
-        var replaceText1 = "_PAY_TERM_NAME_";
-        var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 = "_BANK_ACCOUNT_NO_";
+        var replaceText1 = "_BANK_ACCOUNT_OWNER_";
+        var strWhereClause = "AND BANK_ACCOUNT_NO LIKE '%" + replaceText0 + "%' AND BANK_ACCOUNT_OWNER LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 계좌 정보');
         compopup1({
             compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_PAY_DATE_P'
+            , bizcompId: 'P_CS_ACCOUNT_TR'
             , popupType: 'A'
             , whereClause: strWhereClause
-            , searchCaptions: ["코드", "명칭"]
-            , searchInputFields: ["PAY_TERM_CODE", "PAY_TERM_NAME"]
+            , searchCaptions: ["계좌번호", "예금주"]
+            , searchInputFields: ["BANK_ACCOUNT_NO", "BANK_ACCOUNT_OWNER"]
             , searchInputValues: ['', '']
             , height: '400px'
-            , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
+            , tableHeader: ["계좌순번", "기본계좌여부", "은행코드", "은행명", "계좌번호", "비고", "예금주명", "어음구분", "B2B코드", "거래처코드", "시작일", "종료일"]
             , tableColumnNames: ["SEQ_NAME", "MAIN_FLAG", "BANK_CODE", "BANK_NAME", "BANK_ACCOUNT_NO", "DESCRIPTION",
                 "BANK_ACCOUNT_OWNER", "NOTE_TYPE", "BTB_CODE", "CS_CODE", "EFFECT_START_DATE", "EFFECT_END_DATE"]
             , tableColumnWidths: ["70px", "100px", "60px", "120px", "130px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
@@ -976,6 +978,8 @@
                 gvwList.setCellData(row, gvwList.getColRef("BTB_CODE"), data.BTB_CODE);
             },
         });
+
+        SBUxMethod.openModal('modal-compopup1');
     }
 
     // 복사모드토글
