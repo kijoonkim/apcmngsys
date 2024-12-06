@@ -949,18 +949,18 @@
 
                 if (strWorkType == "Q"){
 
-                    jsonGvwLogList.length = 0;
+                    jsonExceptionList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
                             PAY_ITEM_CODE		     : gfn_nvl(item.PAY_ITEM_CODE),
                             PAY_APPLY_YYYYMM_FR		 : gfn_nvl(item.PAY_APPLY_YYYYMM_FR),
                             PAY_APPLY_YYYYMM_TO		 : gfn_nvl(item.PAY_APPLY_YYYYMM_TO),
                         }
-                        jsonGvwLogList.push(msg);
+                        jsonExceptionList.push(msg);
                         //totalRecordCount ++;
                     });
 
-                    gvwLogGrid.rebuild();
+                    gvwExceptionGrid.rebuild();
 
                     jsonBonusList.length = 0;
                     data.cv_4.forEach((item, index) => {
@@ -976,9 +976,8 @@
 
                     gvwBonusGrid.rebuild();
 
-
-                    jsonBonusList.length = 0;
-                    data.cv_3.forEach((item, index) => {
+                    jsonGvwLogList.length = 0;
+                    data.cv_5.forEach((item, index) => {
                         const msg = {
                             PAY_CALCULATE_SEQ		 : gfn_nvl(item.PAY_CALCULATE_SEQ),
                             CALCULATE_WORK_TYPE		 : gfn_nvl(item.CALCULATE_WORK_TYPE),
@@ -996,11 +995,11 @@
                             INSERT_PC		         : gfn_nvl(item.INSERT_PC),
                             PAY_AREA_TYPE		     : gfn_nvl(item.PAY_AREA_TYPE),
                         }
-                        jsonBonusList.push(msg);
+                        jsonGvwLogList.push(msg);
                         //totalRecordCount ++;
                     });
 
-                    gvwBonusGrid.rebuild();
+                    gvwLogGrid.rebuild();
 
                 } else if (strWorkType == "PAYDATE") {
 
@@ -1533,6 +1532,7 @@
         gfn_comAlert("I0002", "급여계산버튼을","실행");		//	W0001	{0}
 
         if (fn_P_HRP2320_CHECK('CHECK', 'N')){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
             fn_search('Q');
         }
     }
@@ -1547,6 +1547,7 @@
         gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");
 
         if (fn_P_HRP2320_CHECK('CANCEL', 'N')){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
             fn_search('Q');
         }
 
@@ -1726,7 +1727,7 @@
                 }
 
             } else {
-                alert(data.resultMessage);
+                alert(data.v_errorStr);
                 return false;
             }
 

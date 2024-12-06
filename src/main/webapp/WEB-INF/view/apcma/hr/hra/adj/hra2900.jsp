@@ -921,6 +921,7 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
+                    cfn_search()
                 }else{
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     cfn_search()
