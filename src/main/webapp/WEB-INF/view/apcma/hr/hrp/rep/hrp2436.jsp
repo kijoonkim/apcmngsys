@@ -131,7 +131,7 @@
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
                                 class="table-datepicker-ma inpt_data_reqed"
-                                style="width: 95%;"
+                                style="width: 100%;"
                                 required
                                 onchange="fn_payDate">
                         </sbux-datepicker>

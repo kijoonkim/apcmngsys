@@ -346,7 +346,7 @@
                                         name="ENTER_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -386,7 +386,7 @@
                                         name="RETIRE_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                 </sbux-datepicker>
                             </td>

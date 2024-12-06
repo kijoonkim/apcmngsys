@@ -83,7 +83,7 @@
                                 uitype="popup"
                                 datepicker-mode="year"
                                 date-format="yyyy"
-                                class="table-datepicker-ma inpt_data_reqed"
+                                class="table-datepicker-ma"
                                 required>
                             <%--onchange="fn_payDate"--%>
                         </sbux-datepicker>
@@ -141,7 +141,7 @@
                                         uitype="popup"
                                         datepicker-mode="year"
                                         date-format="yyyy"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="table-datepicker-ma"
                                         required>
                                     <%--onchange="fn_payDate"--%>
                                 </sbux-datepicker>
@@ -154,7 +154,7 @@
                                         id="APPLY_START_DATE"
                                         name="APPLY_START_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="table-datepicker-ma inpt_data_reqed"
+                                        class="table-datepicker-ma"
                                         style="width:100%;"
                                 />
                             </td>
@@ -167,7 +167,7 @@
                                         id="APPLY_END_DATE"
                                         name="APPLY_END_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="table-datepicker-ma inpt_data_reqed"
+                                        class="table-datepicker-ma"
                                         style="width:100%;"
                                 />
                             </td>

@@ -320,7 +320,7 @@
                                         uitype="popup"
                                         id="ENTER_DATE"
                                         name="ENTER_DATE"
-                                        class="input-sm"
+                                        class="table-datepicker-ma"
                                         autocomplete="off"
                                 ></sbux-datepicker>
                             </td>
@@ -584,7 +584,7 @@
                                     name="PENSION_JOIN_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                             <%--건강보험취득일--%>
@@ -593,7 +593,7 @@
                                     name="HEALTH_INSURE_JOIN_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                             <%--국민연금상실일--%>
@@ -602,7 +602,7 @@
                                     name="PENSION_CLOSE_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                             <%--건강보험상실일--%>
@@ -611,7 +611,7 @@
                                     name="HEALTH_INSURE_CLOSE_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                             <%--비율최종적용일--%>
@@ -620,7 +620,7 @@
                                     name="LAST_APPLICATION_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                         </td>

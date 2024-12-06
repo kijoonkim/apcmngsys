@@ -121,7 +121,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma inpt_data_reqed">
+                                class="table-datepicker-ma">
                         </sbux-datepicker>
                     </td>
                     <th>~</th>
@@ -132,7 +132,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma inpt_data_reqed">
+                                class="table-datepicker-ma">
                         </sbux-datepicker>
                     </td>
                     <td style="border-right: hidden;">&nbsp;</td>

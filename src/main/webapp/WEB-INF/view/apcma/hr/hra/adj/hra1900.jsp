@@ -163,7 +163,7 @@
                                 id="SUBMIT_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
-                                class="form-control input-sm input-sm-ast inpt_data_reqed">
+                                class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
                    <%-- <td style="border-right: hidden;"></td>--%>

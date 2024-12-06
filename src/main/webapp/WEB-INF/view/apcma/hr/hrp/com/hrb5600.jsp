@@ -79,7 +79,7 @@
                                 name="SRCH_APPLY_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
-                                class="table-datepicker-ma inpt_data_reqed">
+                                class="table-datepicker-ma">
                         </sbux-datepicker>
                     </td>
                     <td colspan="3" style="border-right: hidden;">&nbsp;</td>
@@ -202,7 +202,7 @@
                                         name="APPLY_START_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed">
+                                        class="table-datepicker-ma">
                                 </sbux-datepicker>
 
                             </td>
@@ -213,7 +213,7 @@
                                         name="APPLY_END_DATE"
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed">
+                                        class="table-datepicker-ma">
                                 </sbux-datepicker>
                             </td>
                             <td colspan="7" style="border-right: hidden;">&nbsp;</td>
