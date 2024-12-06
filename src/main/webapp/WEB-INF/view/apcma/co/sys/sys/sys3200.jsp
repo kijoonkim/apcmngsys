@@ -111,7 +111,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-grwInfo" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-grwInfo" style="height:600px; width:100%;"></div>
                 </div>
             </div>
             <div class="col-sm-8">
@@ -482,7 +482,7 @@
                         ></sbux-button>
                     </div>
                     <div>
-                        <div id="sb-area-gvwHistory" style="height:283px; width:100%;"></div>
+                        <div id="sb-area-gvwHistory" style="height:120px; width:100%;"></div>
                     </div>
                 </div>
                 <%--<div>

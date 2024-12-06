@@ -121,7 +121,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-bandgvwInfo" style="height:330px; width:100%;"></div>
+                <div id="sb-area-bandgvwInfo" style="height:320px; width:100%;"></div>
             </div>
         </div>
         <div>

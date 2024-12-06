@@ -251,7 +251,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwYearEndTaxResult" style="height:500px; width:100%;"></div>
+                    <div id="sb-area-gvwYearEndTaxResult" style="height:460px; width:100%;"></div>
                 </div>
             </div>
         </div>

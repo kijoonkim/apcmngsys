@@ -299,7 +299,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:500px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:480px; width:100%;"></div>
         </div>
 
 

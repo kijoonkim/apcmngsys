@@ -99,7 +99,7 @@
                     <td colspan="" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker id="SRCH_PAY_YYYYMM" name="SRCH_PAY_YYYYMM" uitype="popup"
                                          datepicker-mode="month" date-format="yyyy-mm"
-                                         class="table-datepicker-ma"></sbux-datepicker>
+                                         class="table-datepicker-ma inpt_data_reqed"></sbux-datepicker>
                     </td>
                     <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                     <th scope="row" class="th_bg_search">지급구분</th>

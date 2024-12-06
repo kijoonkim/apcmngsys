@@ -180,7 +180,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:585px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:565px; width:100%;"></div>
                 </div>
             </div>
 
@@ -561,7 +561,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwPay" style="height:200px; width:100%;"></div>
+                            <div id="sb-area-gvwPay" style="height:180px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -595,7 +595,7 @@
                             </div>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDeduct" style="height:200px; width:100%;"></div>
+                            <div id="sb-area-gvwDeduct" style="height:180px; width:100%;"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -608,7 +608,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-gvwBasic" style="height:200px; width:100%;"></div>
+                            <div id="sb-area-gvwBasic" style="height:180px; width:100%;"></div>
                         </div>
                     </div>
                 </div>

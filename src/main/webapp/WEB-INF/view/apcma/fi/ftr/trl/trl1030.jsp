@@ -172,7 +172,7 @@
 						   title-target-value-array="5"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
-						<div class="tab-content" style="height:430px;width:100%;padding-top:0px" >
+						<div class="tab-content" style="height:300px;width:100%;padding-top:0px" >
 						
 							<%--<div id="SB_TOP_TAB1" >
 		                        <div class="ad_tbl_top">
@@ -1005,7 +1005,7 @@
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
+		                            <div id="sb_area_grid_tap5" style="height:240px; width:100%;"></div>
 		                        </div>							
 							</div>
 						

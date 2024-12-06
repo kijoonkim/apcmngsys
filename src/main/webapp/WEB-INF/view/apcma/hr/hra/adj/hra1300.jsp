@@ -227,7 +227,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:520px; width:100%;"></div>
                 </div>
             </div>
 
@@ -360,7 +360,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwWorkComHistory" style="height:300px; width:100%;"></div>
+                    <div id="sb-area-gvwWorkComHistory" style="height:170px; width:100%;"></div>
                 </div>
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
@@ -390,7 +390,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwWorkComTaxFreeHistory" style="height:300px; width:100%;"></div>
+                    <div id="sb-area-gvwWorkComTaxFreeHistory" style="height:170px; width:100%;"></div>
                 </div>
             </div>
         </div>

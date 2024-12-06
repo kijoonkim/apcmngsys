@@ -121,7 +121,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma">
+                                class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
                     <th>~</th>
@@ -132,7 +132,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma">
+                                class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
                     <td style="border-right: hidden;">&nbsp;</td>
@@ -241,7 +241,7 @@
                 </div>
             </div>
             <div>
-                <div id="sb-area-gvwException" style="height:550px; width:100%;"></div>
+                <div id="sb-area-gvwException" style="height:530px; width:100%;"></div>
             </div>
         </div>
 

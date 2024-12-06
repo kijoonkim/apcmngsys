@@ -314,7 +314,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:300px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:280px; width:100%;"></div>
         </div>
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -374,7 +374,7 @@
             <input type="hidden" name="param" value="">
             <input type="hidden" name="conn" value="">
         </form>--%>
-        <div id="div-rpt-clipReportPrint" style="width:1000px;height:80vh;"></div>
+        <div id="div-rpt-clipReportPrint" style="width:1000px;height:80vh;display: none"></div>
     </div>
 </section>
 <!-- 팝업 Modal -->

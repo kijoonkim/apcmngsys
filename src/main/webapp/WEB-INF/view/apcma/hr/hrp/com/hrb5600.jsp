@@ -79,7 +79,7 @@
                                 name="SRCH_APPLY_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
-                                class="table-datepicker-ma">
+                                class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
                     <td colspan="3" style="border-right: hidden;">&nbsp;</td>

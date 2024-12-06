@@ -97,7 +97,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-grdSys3100" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-grdSys3100" style="height:600px; width:100%;"></div>
                 </div>
             </div>
 

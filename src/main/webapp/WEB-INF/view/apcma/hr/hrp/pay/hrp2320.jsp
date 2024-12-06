@@ -575,13 +575,13 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwLog" style="height:250px; width:100%;"></div>
+                <div id="sb-area-gvwLog" style="height:210px; width:100%;"></div>
             </div>
             <div style="display: none">
-                <div id="sb-area-gvwBonus" style="height:250px; width:100%;"></div>
+                <div id="sb-area-gvwBonus" style="height:210px; width:100%;"></div>
             </div>
             <div style="display: none">
-                <div id="sb-area-gvwException" style="height:250px; width:100%;"></div>
+                <div id="sb-area-gvwException" style="height:210px; width:100%;"></div>
             </div>
         </div>
     </div>
