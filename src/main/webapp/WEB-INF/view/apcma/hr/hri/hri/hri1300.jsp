@@ -149,7 +149,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwList" style="height:600px;"></div>
+                        <div id="sb-area-gvwList" style="height:570px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-9">
@@ -406,7 +406,7 @@
                             </table>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-bandgvwDetail" style="height:270px;"></div>
+                            <div id="sb-area-bandgvwDetail" style="height:250px;"></div>
                         </div>
                     </div>
                 </div>

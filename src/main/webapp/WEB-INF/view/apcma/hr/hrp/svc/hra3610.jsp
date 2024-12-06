@@ -96,7 +96,7 @@
                                 </ul>
                             </div>
                             <div class="table-responsive tbl_scroll_sm">
-                                <div id="sb-area-gvwResident" style="height:605px;"></div>
+                                <div id="sb-area-gvwResident" style="height:500px;"></div>
                             </div>
                         </div>
                         <div class="col-sm-9">
@@ -324,7 +324,7 @@
                                 </ul>
                             </div>
                             <div class="table-responsive tbl_scroll_sm">
-                                <div id="sb-area-gvwNonresident" style="height:605px;"></div>
+                                <div id="sb-area-gvwNonresident" style="height:500px;"></div>
                             </div>
                         </div>
                         <div class="col-sm-9">

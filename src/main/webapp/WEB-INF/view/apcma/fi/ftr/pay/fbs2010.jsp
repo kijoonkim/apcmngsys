@@ -292,7 +292,7 @@
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                        <div id="sb-area-gvwDetail" style="height:300px;"></div>
+                        <div id="sb-area-gvwDetail" style="height:200px;"></div>
                         <table class="table table-bordered tbl_fixed">
                             <caption>로그</caption>
                             <colgroup>
@@ -319,7 +319,7 @@
                                     </ul>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
-                                    <div id="sb-area-gvwAct" style="height:200px;"></div>
+                                    <div id="sb-area-gvwAct" style="height:130px;"></div>
                                 </div>
                             </div>
                             <div id="tabPageEx2">

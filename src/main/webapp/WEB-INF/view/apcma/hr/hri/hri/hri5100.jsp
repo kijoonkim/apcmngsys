@@ -121,7 +121,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwInfo" style="height:80vh;"></div>
+                        <div id="sb-area-gvwInfo" style="height:550px;"></div>
                     </div>
 
                 </div>

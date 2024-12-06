@@ -452,7 +452,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div id="sb-area-gvwList" style="height:480px;"></div>
+                    <div id="sb-area-gvwList" style="height:220px;"></div>
                 </div>
 
                 <div class="ad_tbl_top2">
@@ -463,7 +463,7 @@
                     </ul>
                 </div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-gvwDetail" style="height:200px;"></div>
+                    <div id="sb-area-gvwDetail" style="height:150px;"></div>
                 </div>
             </div>
         </div>
@@ -660,7 +660,6 @@
         SBGridProperties.id 				= 'gvwList';
         SBGridProperties.jsonref 			= 'jsonPaymentScheduledList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.useinitsorting = true;
@@ -689,7 +688,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -697,29 +696,30 @@
             {caption: ["기준일"],       ref: 'PAY_BASE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
-            {caption: ["승인일"],       ref: 'POSTING_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
+            {caption: ["승인일"],       ref: 'POSTING_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
             {caption: ["지급조건"],         ref: 'PAY_TERM_CODE',    type:'output',  	width:'98px',  style:'text-align:left'}, // TODO : P_PAY_DATE_P
             {caption: ["지급조건명"],         ref: 'PAY_TERM_NAME',    type:'output',  	width:'171px',  style:'text-align:left'},
+            {caption: ["지급조건명"], 		ref: 'PAY_TERM_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findPayTermCodeForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["지급일"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
             {caption: ["어음만기일"],       ref: 'BILL_DUE_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
             {caption: ["어음만기지급일"],       ref: 'BILL_DUE_PAY_DATE', 		type:'inputdate',  	width:'93px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
             {caption: ['보류'],         ref: 'HOLD_FLAG',				type:'checkbox',        width:'40px', style : 'text-align:center',
                 typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }
@@ -740,14 +740,13 @@
             },
             {caption: ["거래처C"],         ref: 'CS_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["지급처명"],         ref: 'CS_NAME',    type:'output',  	width:'187px',  style:'text-align:left'},
-            {caption: ["지급방식"], 		ref: 'PAY_METHOD',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["지급방법"], 		ref: 'PAY_METHOD',   	    type:'combo', style:'text-align:left' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonPayMethod',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
             {caption: ["통화"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '70px',
                 typeinfo: {
@@ -780,6 +779,11 @@
             {caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'100px',  style:'text-align:center;text-decoration: underline;cursor:pointer;color:#149fff'},
             {caption: ["거래처계좌순번"],         ref: 'BANK_ACCOUNT_SEQ',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["계좌번호"],         ref: 'ACCOUNT_NUM',    type:'output',  	width:'140px',  style:'text-align:left'},
+            {caption: ["계좌번호"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["계좌비고"],         ref: 'BANK_DESC',    type:'output',  	width:'200px',  style:'text-align:left'},
             {caption: ["은행코드"], 		ref: 'BANK_CODE',   	    type:'combo', style:'text-align:left' ,width: '70px',
                 typeinfo: {
@@ -813,7 +817,6 @@
             {caption: ["어음기일"],       ref: 'BILL_DUE_DAY', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
             {caption: ["전표유형"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
                 typeinfo: {
@@ -912,6 +915,67 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
+    }
+
+    var fn_findPayTermCodeForGvwList = function (row) {
+        var replaceText0 = "_PAY_TERM_CODE_";
+        var replaceText1 = "_PAY_TERM_NAME_";
+        var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        compopup1({
+            compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_PAY_DATE_P'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions: ["코드", "명칭"]
+            , searchInputFields: ["PAY_TERM_CODE", "PAY_TERM_NAME"]
+            , searchInputValues: ['', '']
+            , height: '400px'
+            , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
+            , tableColumnNames: ["PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD_NAME"]
+            , tableColumnWidths: ["80px", "250px", "100px"]
+            , itemSelectEvent: function (data) {
+                gvwList.setCellData(row, gvwList.getColRef("PAY_TERM_CODE"), data.PAY_TERM_CODE);
+                gvwList.setCellData(row, gvwList.getColRef("PAY_TERM_NAME"), data.PAY_TERM_NAME);
+                gvwList.setCellData(row, gvwList.getColRef("PAY_METHOD"), data.PAY_METHOD);
+                gvwList.setCellData(row, gvwList.getColRef("BASIS_TYPE"), data.BASIS_TYPE);
+            },
+        });
+    }
+
+    var fn_findAccountForGvwList = function (row) {
+        var replaceText0 = "_PAY_TERM_CODE_";
+        var replaceText1 = "_PAY_TERM_NAME_";
+        var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        compopup1({
+            compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_PAY_DATE_P'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions: ["코드", "명칭"]
+            , searchInputFields: ["PAY_TERM_CODE", "PAY_TERM_NAME"]
+            , searchInputValues: ['', '']
+            , height: '400px'
+            , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
+            , tableColumnNames: ["SEQ_NAME", "MAIN_FLAG", "BANK_CODE", "BANK_NAME", "BANK_ACCOUNT_NO", "DESCRIPTION",
+                "BANK_ACCOUNT_OWNER", "NOTE_TYPE", "BTB_CODE", "CS_CODE", "EFFECT_START_DATE", "EFFECT_END_DATE"]
+            , tableColumnWidths: ["70px", "100px", "60px", "120px", "130px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
+            , itemSelectEvent: function (data) {
+                gvwList.setCellData(row, gvwList.getColRef("BANK_ACCOUNT_SEQ"), data.BANK_ACCOUNT_SEQ);
+                gvwList.setCellData(row, gvwList.getColRef("BANK_CODE"), data.BANK_CODE);
+                gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_NUM"), data.BANK_ACCOUNT_NO);
+                gvwList.setCellData(row, gvwList.getColRef("BANK_DESC"), data.DESCRIPTION);
+                gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_OWNER"), data.BANK_ACCOUNT_OWNER);
+                gvwList.setCellData(row, gvwList.getColRef("NOTE_TYPE"), data.NOTE_TYPE);
+                gvwList.setCellData(row, gvwList.getColRef("BTB_CODE"), data.BTB_CODE);
+                gvwList.setCellData(row, gvwList.getColRef("BTB_CODE"), data.BTB_CODE);
+            },
+        });
     }
 
     // 복사모드토글

@@ -173,7 +173,7 @@
                                     </ul>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwDetail" style="height:450px;"></div>
+                                    <div id="sb-area-gvwDetail" style="height:270px;"></div>
                                 </div>
                             </div>
                             <div id="tabPageEx3">
@@ -183,7 +183,7 @@
                                     </ul>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwAccount" style="height:450px;"></div>
+                                    <div id="sb-area-gvwAccount" style="height:270px;"></div>
                                 </div>
                             </div>
                         </div>
