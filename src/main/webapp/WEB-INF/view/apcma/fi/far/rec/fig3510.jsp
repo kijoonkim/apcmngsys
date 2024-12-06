@@ -269,7 +269,7 @@
                                                 id="DOC_DATE"
                                                 name="DOC_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                                 style="width:100%;"
                                                 onchange="fn_changeDocDate(DOC_DATE)"
                                                 group-id="panWFTop"
@@ -283,7 +283,7 @@
                                                 id="STANDARD_DATE"
                                                 name="STANDARD_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                                 style="width:100%;"
                                                 onchange="fn_changeStandardDate(STANDARD_DATE)"
                                                 group-id="panWFTop"
@@ -318,7 +318,7 @@
                                                 id="VOUCHER_RECEIPT_DATE"
                                                 name="VOUCHER_RECEIPT_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                                 style="width:100%;"
                                                 group-id="panWFTop"
                                                 required
@@ -345,7 +345,7 @@
                                                 id="PAY_BASE_DATE"
                                                 name="PAY_BASE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -361,7 +361,7 @@
                                                 id="APPROVE_DATE"
                                                 name="APPROVE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 readonly
                                         />
@@ -394,7 +394,7 @@
                                                 id="EXPECTED_PAY_DATE"
                                                 name="EXPECTED_PAY_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                                 style="width:100%;"
                                                 onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
                                                 group-id="panWFTop"
@@ -408,7 +408,7 @@
                                                 id="BILL_DUE_DATE"
                                                 name="BILL_DUE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -419,7 +419,7 @@
                                                 id="POSTING_DATE"
                                                 name="POSTING_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 readonly
                                         />
@@ -462,7 +462,7 @@
                                                 id="UNPOSTING_DATE"
                                                 name="UNPOSTING_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 readonly
                                         />
@@ -615,7 +615,7 @@
                                                             id="STANDARD_DATE1"
                                                             name="STANDARD_DATE1"
                                                             date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
                                                             onchange="fn_changeRowData('STANDARD_DATE', STANDARD_DATE1)"
@@ -668,7 +668,7 @@
                                                             id="SHIPPING_DATE"
                                                             name="SHIPPING_DATE"
                                                             date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
                                                             onchange="fn_changeRowData('SHIPPING_DATE', SHIPPING_DATE)"
@@ -781,7 +781,7 @@
                                                             id="DOCUMENT_ISSUE_DATE"
                                                             name="DOCUMENT_ISSUE_DATE"
                                                             date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                             style="width:100%;"
                                                             group-id="panWFVat"
                                                             onchange="fn_changeRowData('DOCUMENT_ISSUE_DATE', DOCUMENT_ISSUE_DATE)"

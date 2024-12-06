@@ -193,7 +193,7 @@
                                         id="REQUEST_DATE"
                                         name="REQUEST_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                         style="width:100%;"
                                         group-id="panBottom"
                                         placement="top"
@@ -269,7 +269,7 @@
                                         name="INCOME_YEAR"
                                         date-format="yyyy"
                                         datepicker-mode="year"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                         style="width:100%;"
                                         group-id="panBottom"
                                 />
@@ -281,7 +281,7 @@
                                         id="INCOME_RECEIVE_START_DATE"
                                         name="INCOME_RECEIVE_START_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                         style="width:100%;"
                                         group-id="panBottom"
                                 />
@@ -295,7 +295,7 @@
                                         id="INCOME_RECEIVE_END_DATE"
                                         name="INCOME_RECEIVE_END_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                         style="width:100%;"
                                         group-id="panBottom"
                                 />

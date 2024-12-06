@@ -191,7 +191,7 @@
                                                 id="APPOINT_DATE"
                                                 name="APPOINT_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="input-sm inpt_data_reqed"
+                                                class="input-sm inpt_data_reqed table-datepicker-ma"
                                                 autocomplete="off"
                                                 group-id="panAppoint"
                                                 required
@@ -239,7 +239,7 @@
                                                 id="APPROVE_DATE"
                                                 name="APPROVE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -450,7 +450,7 @@
                                                     id="POP_APPOINT_DATE_FR"
                                                     name="POP_APPOINT_DATE_FR"
                                                     date-format="yyyy-mm-dd"
-                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                     style="width:100%;"
                                             />
                                         </td>
@@ -463,7 +463,7 @@
                                                     id="POP_APPOINT_DATE"
                                                     name="POP_APPOINT_DATE"
                                                     date-format="yyyy-mm-dd"
-                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                     style="width:100%;"
                                             />
                                         </td>
