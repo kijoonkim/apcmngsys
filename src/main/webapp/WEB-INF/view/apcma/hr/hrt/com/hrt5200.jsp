@@ -783,6 +783,12 @@
 
         let rowData = gvwInfo.getRowData(nRow);
 
+        SBUxMethod.set("CARRIED_DAY", rowData.CARRIED_DAY);
+        SBUxMethod.set("TOT_DAY", rowData.TOT_DAY);
+        SBUxMethod.set("USE_DAY", rowData.USE_DAY);
+        SBUxMethod.set("CHARGE_DAY", rowData.CHARGE_DAY);
+        SBUxMethod.set("BALANCE_DAY", rowData.BALANCE_DAY);
+
         if(!SBUxMethod.validateRequired({group_id: "panHeader"}) || !validateRequired("panHeader")) {
             return false;
         }
