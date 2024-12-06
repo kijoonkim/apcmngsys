@@ -91,11 +91,13 @@
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td colspan="4" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			                            <sbux-select style="width:150px" onchange="fn_currencyCodeChange(SCH_CURRENCY_CODE)" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+			                            <sbux-select style="width:120px" onchange="fn_currencyCodeChange(SCH_CURRENCY_CODE)" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                    <font style="width:5px"></font>
-	   									<sbux-input style="width:100px" id="SCH_EXCHANGE_RATE" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:80px" id="SCH_EXCHANGE_RATE" uitype="text" class="form-control input-sm"></sbux-input>
 					                    <font style="width:5px"></font>
-		                       			<sbux-checkbox id="SCH_CHKSPOT_YN" uitype="normal" text="스팟환율" true-value="Y" false-value="N" ></sbux-checkbox>
+					                    <span style="padding-top:5px">
+			                       			<sbux-checkbox id="SCH_CHKSPOT_YN" uitype="normal" text="스팟환율" true-value="Y" false-value="N" ></sbux-checkbox>
+					                    </span>
 	                            	</div>
 	                            </td>
 	                            

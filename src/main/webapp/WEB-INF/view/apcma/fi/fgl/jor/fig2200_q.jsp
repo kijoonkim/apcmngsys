@@ -654,7 +654,7 @@
         	    }
         	},        	
             {caption: ["전표상태"],					ref: 'DOC_STATUS_NAME', 		type:'output', 		width:'80px',  		style:'text-align:left'},
-            {caption: ["APC"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: ["APC"], 						ref: 'FI_ORG_NAME',    			type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["사업장"], 					ref: 'SITE_NAME', 				type:'output',		width:'80px',  		style:'text-align:left'},
             {caption: ["역발행승인"],    			ref: 'SIGN_YN', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},

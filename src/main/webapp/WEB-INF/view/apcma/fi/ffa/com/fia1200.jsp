@@ -155,7 +155,7 @@
                                 </tbody>
                             </table>
 	                        <div>
-	                            <div id="sb_area_grid2" style="height:550px; width:100%;"></div>
+	                            <div id="sb_area_grid2" style="height:540px; width:100%;"></div>
 	                        </div>
                         </div>
                     </div>
