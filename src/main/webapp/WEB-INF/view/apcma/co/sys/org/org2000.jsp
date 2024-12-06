@@ -264,11 +264,11 @@
                                 <tr>
                                     <th scope="row" class="th_bg">적용시작일</th>
                                     <td class="td_input ">
-                                		<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
+                                		<sbux-datepicker id="START_DATE" name="START_DATE" class="table-datepicker-ma" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
                                     <th scope="row" class="th_bg">적용종료일</th>
                                     <td class="td_input" style="border-right: hidden;">
-                               			<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
+                               			<sbux-datepicker id="END_DATE" name="END_DATE" class="table-datepicker-ma" uitype="popup" datepicker-mode="day" style="height: 3.6vh;width:100%;" date-format="yyyy-mm-dd"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;"></td>
                                 </tr>

@@ -154,7 +154,7 @@
                             ></sbux-button>
                         </div>                        
                         <div>
-                            <div id="sb-area-grdCom2100" style="height:75vh; width:100%;"></div>
+                            <div id="sb-area-grdCom2100" style="height:70vh; width:100%;"></div>
                         </div>
                 </div>
             </div>
@@ -259,7 +259,9 @@
 	
 	// 마스터 그리드 삭제
 	function cfn_del() {
-		fn_delete();
+		if(gfn_comConfirm("Q0001", "삭제")){ //{0} 하시겠습니까?
+			fn_delete();
+		}
 	}
  
 	// 조회
@@ -288,10 +290,10 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [ 
-            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:right', typeinfo : {oneclickedit : true} },
-            {caption: ['시작일'],       ref: 'START_DATE',      type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료일'],       ref: 'END_DATE',        type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'100px',  	style:'text-align:center',
+            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:center', typeinfo : {oneclickedit : true} },
+            {caption: ['시작일'],       ref: 'START_DATE',      type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true, oneclickedit : true},      width : '150px', style : 'text-align:center'},
+            {caption: ['종료일'],       ref: 'END_DATE',        type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true, oneclickedit : true},      width : '150px', style : 'text-align:center'},
+            {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'150px',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonFiscalStatus',
 					label		: 'label',
@@ -303,58 +305,106 @@
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
     }
-    const fn_save = async function() {
-		 //세부코드 정보  저장
-		 let rowLength	= masterGrid.getUpdateData(true, 'all').length;
-		 let rowVal 	= masterGrid.getUpdateData(true, 'all');
-		 if(rowLength >= 1 ){
-	    		for(var i = 0; rowLength > i; i ++){
-	    			var workType = rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-	    			var paramObj = {
-	    					 V_P_DEBUG_MODE_YN     : ''
-	    						,V_P_LANG_ID           : ''
-	    						,V_P_COMP_CODE         : gv_ma_selectedCorpCd
-	    						,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-	    						,V_P_FISCAL_NO         : gfn_nvl(rowVal[i].data.FISCAL_NO)
-	    						,V_P_START_DATE        : gfn_nvl(rowVal[i].data.START_DATE)
-	    						,V_P_END_DATE          : gfn_nvl(rowVal[i].data.END_DATE)
-	    						,V_P_FISCAL_STATUS     : gfn_nvl(rowVal[i].data.FISCAL_STATUS)
-	    						,V_P_DESCR             : gfn_nvl(rowVal[i].data.DESCR)
-	    						,V_P_DESCR_CHN         : ''
-	    						,V_P_FORM_ID           : p_formId
-	    						,V_P_MENU_ID           : p_menuId
-	    						,V_P_PROC_ID           : ''
-	    						,V_P_USERID            : p_userId
-	    						,V_P_PC                : ''
-	    		    };		
-	    			
-	    	        const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {
-	    	        	getType				: 'json',
-	    	        	workType			: workType,
-	    	        	cv_count			: '0',
-	    	        	params				: gfnma_objectToString(paramObj)
-	    			});    	 
-	    	        const subdata = await postJsonPromise;
+    const fn_delete = async function() {
+        let rowVal = masterGrid.getRow();
+        let rowData = masterGrid.getRowData(rowVal);
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        }
+		var paramObj = {
+				 V_P_DEBUG_MODE_YN     : ''
+				,V_P_LANG_ID           : ''
+				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+				,V_P_FISCAL_NO         : gfn_nvl(rowData.FISCAL_NO)
+				,V_P_START_DATE        : gfn_nvl(rowData.START_DATE)
+				,V_P_END_DATE          : gfn_nvl(rowData.END_DATE)
+				,V_P_FISCAL_STATUS     : gfn_nvl(rowData.FISCAL_STATUS)
+				,V_P_DESCR             : gfn_nvl(rowData.DESCR)
+				,V_P_DESCR_CHN         : ''
+				,V_P_FORM_ID           : p_formId
+				,V_P_MENU_ID           : p_menuId
+				,V_P_PROC_ID           : ''
+				,V_P_USERID            : p_userId
+				,V_P_PC                : ''
+	    };		
+		
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/deleteCom2100.do", {
+        	getType				: 'json',
+        	workType			: 'D',
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});
+        const subdata = await postJsonPromise;
 
-	    	        try {
-	    	        	if (_.isEqual("S", subdata.resultStatus)) {
-	    	        		if(subdata.resultMessage){
-	    		          		alert(subdata.resultMessage);
-	    	        		}
-	    	        		cfn_search();
-	    	        	} else {
-	    	          		alert(subdata.resultMessage);
-	    	        	}
-	    	        } catch (e) {
-	    	    		if (!(e instanceof Error)) {
-	    	    			e = new Error(e);
-	    	    		}
-	    	    		console.error("failed", e.message);
-	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	    	        }
-	    		}
+        try {
+        	if (_.isEqual("S", subdata.resultStatus)) {
+        		if(subdata.resultMessage){
+	          		alert(subdata.resultMessage);
+        		}
+        		cfn_search();
+        	} else {
+          		alert(subdata.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    const fn_save = async function() {
+ 		//세부코드 정보  저장
+ 		let updatedData		= masterGrid.getUpdateData(true, 'all');
+ 		let listData		= [];
+		updatedData.forEach((item, index) => {
+			const param = {
+				cv_count: '0',
+				getType: 'json',
+				workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN      : ''
+					,V_P_LANG_ID           : ''
+					,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+					,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+					,V_P_FISCAL_NO         : gfn_nvl(item.data.FISCAL_NO)
+					,V_P_START_DATE        : gfn_nvl(item.data.START_DATE)
+					,V_P_END_DATE          : gfn_nvl(item.data.END_DATE)
+					,V_P_FISCAL_STATUS     : gfn_nvl(item.data.FISCAL_STATUS)
+					,V_P_DESCR             : gfn_nvl(item.data.DESCR)
+					,V_P_DESCR_CHN         : ''
+					,V_P_FORM_ID           : p_formId
+					,V_P_MENU_ID           : p_menuId
+					,V_P_PROC_ID           : ''
+					,V_P_USERID            : p_userId
+					,V_P_PC                : ''
+				})
+			};
+			listData.push(param);
+		});
+				
+		const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {listData: listData});
+		const data = await postJsonPromise;
+console.log('save data ==> ',data);
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+//         		if(data.resultMessage){
+// 	          		alert(subdata.resultMessage);
+//         		}
+				gfn_comAlert("I0001");
+				cfn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
-    	
     }
     /**
      * 코드목록 조회
@@ -367,7 +417,7 @@
     	let SRCH_FISCAL_NO = gfnma_multiSelectGet('#SRCH_FISCAL_NO');
     	
     	var paramObj = {
-  	   			V_P_DEBUG_MODE_YN     : ''
+  	   			V_P_DEBUG_MODE_YN      : ''
   				,V_P_LANG_ID           : ''
   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
@@ -378,48 +428,48 @@
   				,V_P_USERID            : p_userId
   				,V_P_PC                : ''
   		    };		
-    	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2100.do", {
-    	        	getType				: 'json',
-    	        	workType			: 'Q',
-    	        	cv_count			: '2',
-    	        	params				: gfnma_objectToString(paramObj)
-    			});
+   	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2100.do", {
+   	        	getType				: 'json',
+   	        	workType			: 'Q',
+   	        	cv_count			: '2',
+   	        	params				: gfnma_objectToString(paramObj)
+   			});
 
-    	        const data = await postJsonPromise;
-    	        try {
-    	  			if (_.isEqual("S", data.resultStatus)) {
+   	        const data = await postJsonPromise;
+   	        try {
+   	  			if (_.isEqual("S", data.resultStatus)) {
 
-    	  	        	/** @type {number} **/
-    	  	    		let totalRecordCount = 0;
+   	  	        	/** @type {number} **/
+   	  	    		let totalRecordCount = 0;
 
-    	  	    		masterGrid.length = 0;
-    	  	        	data.cv_1.forEach((item, index) => {
-    	  					const msg = {
-    	  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
-    	  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-    	  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-    	  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
-    	  							DESCR			: gfn_nvl(item.DESCR),
-    	  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
-    	  					}
-    	  					jsonMasterList.push(msg);
-    	  					totalRecordCount ++;
-    	  				});
+   	  	    		masterGrid.length = 0;
+   	  	        	data.cv_1.forEach((item, index) => {
+   	  					const msg = {
+   	  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
+   	  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+   	  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+   	  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
+   	  							DESCR			: gfn_nvl(item.DESCR),
+   	  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
+   	  					}
+   	  					jsonMasterList.push(msg);
+   	  					totalRecordCount ++;
+   	  				});
 
-    	  	        	masterGrid.rebuild();
-    	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
+   	  	        	masterGrid.rebuild();
+   	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
 
-    	        	} else {
-    	          		alert(data.resultMessage);
-    	        	}
+   	        	} else {
+   	          		alert(data.resultMessage);
+   	        	}
 
-    	        } catch (e) {
-    	    		if (!(e instanceof Error)) {
-    	    			e = new Error(e);
-    	    		}
-    	    		console.error("failed", e.message);
-    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	        }
+   	        } catch (e) {
+   	    		if (!(e instanceof Error)) {
+   	    			e = new Error(e);
+   	    		}
+   	    		console.error("failed", e.message);
+   	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+   	        }
     	        
     }
     const fn_clearForm = function() {
@@ -503,7 +553,10 @@
              gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
              return;
          } else {
-             masterGrid.deleteRow(rowVal);
+     		if(gfn_comConfirm("Q0001", "삭제")){ //{0} 하시겠습니까?
+    			fn_delete();
+    		}
+//              masterGrid.deleteRow(rowVal);
          }
      }
      

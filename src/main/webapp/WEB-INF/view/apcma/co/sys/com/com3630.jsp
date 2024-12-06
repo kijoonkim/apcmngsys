@@ -99,7 +99,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3630" style="height:75vh; width:100%;"></div>
+                            <div id="sb-area-grdCom3630" style="height:73vh; width:100%;"></div>
                         </div>
                     </div>
                     
@@ -109,7 +109,7 @@
 						title-text-array="기본정보^회계관리^예산관리^관리항목^외화관련계정">
 					</sbux-tabs>
                     <div class="col-sm-8 tab-content">
-                        <div id="tab1" style="height:72vh;">
+                        <div id="tab1" style="height:68vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:16%">
@@ -444,7 +444,7 @@
                                 </tr>                                                                                                                                                                                     
                             </table>
                         </div>
-                        <div id="tab2" style="height:72vh;">
+                        <div id="tab2" style="height:68vh;">
                             <table id="dataArea2" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
@@ -609,7 +609,7 @@
 								</tr>                                                                                                                                                                        
                             </table>
                         </div>
-                        <div id="tab3" style="height:72vh;">
+                        <div id="tab3" style="height:68vh;">
 							<table id="dataArea3" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:18%">
@@ -845,7 +845,7 @@
                                 </tr>																                                                                                                                                                                
                             </table>                        	
                         </div>
-                        <div id="tab4" style="height:72vh;">
+                        <div id="tab4" style="height:68vh;">
                             <table id="dataArea4" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
@@ -1012,7 +1012,7 @@
                                 </tr>   															   								 												                                                                                                                                                                 
                             </table>                        	
                         </div>
-                        <div id="tab5" style="height:72vh">
+                        <div id="tab5" style="height:68vh">
 							<table id="dataArea5" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">

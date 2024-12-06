@@ -194,7 +194,7 @@
                            </ul>
                        </div>
                        <div>
-                           <div id="sb-area-grdCom3400" style="height:69vh; width:100%;"></div>
+                           <div id="sb-area-grdCom3400" style="height:65vh; width:100%;"></div>
                        </div>
                    </div>
                    <div style="display:flex">
@@ -205,7 +205,7 @@
                        </sbux-tabs>   
                    </div>
                    <div class="col-sm-8 tab-content">
-                       <div id="tabInfo" style="height:65vh;">
+                       <div id="tabInfo" style="height:60vh;">
                     	<table id="dataArea1" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:10%">
@@ -581,7 +581,7 @@
                     	</table>
                    	</div>
                        <!-- 주소 ~ 매핑이력 - 주소/연락처 -->
-					<div id="tabAddress" style="height:65vh;">
+					<div id="tabAddress" style="height:60vh;">
 						<table id="addressTable" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:15%">
@@ -661,7 +661,7 @@
 						</table>									
 					</div>
 					<!-- 주소 ~ 매핑이력 - 자금정보 -->
-					<div id="tabFinance" style="height:65vh;">
+					<div id="tabFinance" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:ruby;float: right;">
 								<span style="vertical-align:middle; text-align:center;">FBS 서비스</span>
@@ -690,7 +690,7 @@
 						</div>
 					</div>
 					<!-- 주소 ~ 매핑이력 - 구매정보 -->
-					<div id="tabPurchase" style="height:65vh;">
+					<div id="tabPurchase" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddPurchaseRow" name="btnAddPurchaseRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addPurchaseRow" style="float: right;"></sbux-button>
@@ -855,7 +855,7 @@
 						</div>
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매정보 -->
-					<div id="tabSales" style="height:65vh;">
+					<div id="tabSales" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesRow" name="btnAddSalesRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesRow" style="float: right;"></sbux-button>
@@ -957,7 +957,7 @@
 						</div>									
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매납품처 -->
-					<div id="tabSalesShipTo" style="height:65vh;">
+					<div id="tabSalesShipTo" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesShipToRow" name="btnAddSalesShipToRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesShipToRow" style="float: right;"></sbux-button>
@@ -969,7 +969,7 @@
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 판매처분류 -->
-					<div id="tabSalesCategory" style="height:65vh;">
+					<div id="tabSalesCategory" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddSalesCategoryRow" name="btnAddSalesCategoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addSalesCategoryRow" style="float: right;"></sbux-button>
@@ -1027,7 +1027,7 @@
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 세금 등 -->
-					<div id="tabTax" style="height:65vh;">
+					<div id="tabTax" style="height:60vh;">
 						<table id="taxTable" class="table table-bordered tbl_fixed">
 							<colgroup>
 								<col style="width:15%">
@@ -1109,7 +1109,7 @@
 						</table>											
 					</div>
 					<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
-					<div id="tabHistory" style="height:65vh;">
+					<div id="tabHistory" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddHistoryRow" name="btnAddHistoryRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addHistoryRow" style="float: right;"></sbux-button>
@@ -1121,7 +1121,7 @@
 						</div>										
 					</div>
 					<!-- 주소 ~ 매핑이력 - 매핑이력 -->
-					<div id="tabMapping" style="height:65vh;">
+					<div id="tabMapping" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
 								<sbux-button id="btnAddMappingRow" name="btnAddMappingRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addMappingRow" style="float: right;"></sbux-button>

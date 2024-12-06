@@ -27,6 +27,18 @@
     <title>title : 환율정보</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <style>
+		.table-search-ma > tbody > tr > th {
+ 			padding-top : 3px; 
+ 			padding-bottom : 3px; 
+ 			padding-left : 0px;
+		}
+		.table-search-ma > tbody > tr > td {
+ 			padding-top : 3px; 
+ 			padding-bottom : 3px; 
+ 			padding-left : 0px;
+		}
+    </style>
 </head>
 
 <body oncontextmenu="return false">

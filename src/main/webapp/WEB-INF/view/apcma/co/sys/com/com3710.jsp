@@ -99,7 +99,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdCom3710" style="height:75vh; width:100%;"></div>
+                            <div id="sb-area-grdCom3710" style="height:70vh; width:100%;"></div>
                         </div>
                     </div>
 	                <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
@@ -108,7 +108,7 @@
 						title-text-array="기본정보^채번관리^관리항목">
 					</sbux-tabs>
                     <div class="col-sm-8 tab-content">
-						<div id="tab1" style="height:71vh;">
+						<div id="tab1" style="height:66vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -327,7 +327,7 @@
                                 </tr>                                                                                                                                                                                   
                             </table>
                         </div>
-						<div id="tab2" style="height:71vh;">
+						<div id="tab2" style="height:66vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">
@@ -535,7 +535,7 @@
                                 </tr>  																					                                                                                                                                                         
                             </table>
                         </div>                        
-						<div id="tab3"  style="height:71vh;">
+						<div id="tab3"  style="height:66vh;">
                             <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:25%">

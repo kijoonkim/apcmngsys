@@ -160,7 +160,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-grdOrg3100" style="height:72vh; width:100%;"></div>
+                            <div id="sb-area-grdOrg3100" style="height:70vh; width:100%;"></div>
                         </div>
                     </div>
                     <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal"
@@ -169,7 +169,7 @@
 						title-text-array="기본정보^관리항목">
 					</sbux-tabs>
                     <div class="col-sm-8 tab-content">
-                        <div id="NORMAL" style="height:68vh;">
+                        <div id="NORMAL" style="height:65vh;">
 	                    	<table id="dataArea1" class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width:13%">
@@ -441,7 +441,7 @@
 								</tr>  													 
 	                    	</table>
                     	</div>              	
-                        <div id="CATEGORY" style="height:68vh;">
+                        <div id="CATEGORY" style="height:65vh;">
 	                    	<table id="dataArea2" class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width:15%">
