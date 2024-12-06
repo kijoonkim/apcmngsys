@@ -457,7 +457,7 @@
             {caption: ["순액(통화)"], 	   			ref: 'ORIGINAL_NET_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["거래처코드"],				ref: 'CS_CODE', 				type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["라인순번"],					ref: 'ITEM_SEQ', 				type:'output',  	width:'80', 		style:'text-align:left'},
+            {caption: ["라인순번"],					ref: 'ITEM_SEQ', 				type:'output',  	width:'80', 		style:'text-align:center'},
             {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',		width:'200px',  	style:'text-align:left'},
             {caption: ["적요"],						ref: 'DESCRIPTION', 			type:'output',  	width:'300px', 		style:'text-align:left'},
             
