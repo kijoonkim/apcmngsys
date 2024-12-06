@@ -290,6 +290,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			    if(p_errorCode.equals(key)) {
 			    	rmap.put("resultStatus", 	"E");
 			    	rmap.put("resultMessage", 	value);
+					rmap.put("v_errorStr", 	value);
 //			    	if(!p_errorCode.equals("MSG0001")) {
 //			    		rmap.put("resultMessage", 	"");
 //			    	}
@@ -301,7 +302,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			for (int i = 0; i < cv_1.size() ; i++) {
 		        if (p_errorCode.equals(Optional.ofNullable(cv_1.get(i).get("ERROR_CODE")).orElse("").toString())){
 			    	rmap.put("resultStatus", 	"E");
-		    		rmap.put("resultMessage", 	Optional.ofNullable(cv_1.get(i).get("ERROR_STR")).orElse("").toString() + "\n" + p_errorStr);
+					rmap.put("resultMessage", 	(Optional.ofNullable(cv_1.get(i).get("ERROR_STR")).orElse("").toString() + "\n" + p_errorStr));
+		    		rmap.put("v_errorStr", 	(Optional.ofNullable(cv_1.get(i).get("ERROR_STR")).orElse("").toString() + "\n" + p_errorStr));
 			    	return rmap;
 		        }
 			}
