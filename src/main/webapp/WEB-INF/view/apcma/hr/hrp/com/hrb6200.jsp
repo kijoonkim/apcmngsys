@@ -93,7 +93,7 @@
                                     uitype="popup"
                                     datepicker-mode="year"
                                     date-format="yyyy"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                    class="table-datepicker-ma"
                                     readonly>
                             </sbux-datepicker>
                         </td>
@@ -106,7 +106,7 @@
                                     name="APPLY_START_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed">
+                                    class="table-datepicker-ma">
                             </sbux-datepicker>
                         </td>
                         <th>~</th>
@@ -116,7 +116,7 @@
                                     name="APPLY_END_DATE"
                                     uitype="popup"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed">
+                                    class="table-datepicker-ma">
                             </sbux-datepicker>
                         </td>
                     </tr>

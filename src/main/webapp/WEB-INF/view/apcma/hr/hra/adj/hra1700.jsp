@@ -323,7 +323,7 @@
                                         uitype="popup"
                                         datepicker-mode="month"
                                         date-format="yyyy-mm"
-                                        class="form-control input-sm input-sm-ast"
+                                        class="table-datepicker-ma"
                                         readonly>
                                     <%--onchange="fn_payDate"--%>
                                 </sbux-datepicker>

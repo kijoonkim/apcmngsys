@@ -733,14 +733,14 @@
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-datepicker uitype="popup"
                                                 id="SM_COM_AMT_DED_JOIN_DAT" name="SM_COM_AMT_DED_JOIN_DAT" date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="table-datepicker-ma"
                                         />
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">대상기간종료일</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-datepicker uitype="popup"
                                                          id="SM_COM_AMT_TGT_P_END_DAT" name="SM_COM_AMT_TGT_P_END_DAT" date-format="yyyy-mm-dd"
-                                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                         class="table-datepicker-ma"
                                         />
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center; display: none;">①본인 신용카드(전통시장ㆍ대중교통사용분 제외)</th>
@@ -1212,12 +1212,12 @@
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기술도입계약 또는 근로제공일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="TECH_INTRO_CONTRACT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">감면기간 만료일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="TECH_INTRO_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <td rowspan="4" style="border-right: hidden;">&nbsp;</td>
                                 </tr>
@@ -1226,12 +1226,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="FOREI_INC_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="FOREI_INC_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1239,12 +1239,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="TX_TREATY_RED_RECV_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="TX_TREATY_RED_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1252,12 +1252,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">접수일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="EMP_YOUTH_ST_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="EMP_YOUTH_RED_END_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                 </tr>
                             </table>
@@ -1655,12 +1655,12 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">납부일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="FOREI_PAY_TX_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                     <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">신청서제출일</th>
                                     <td class="td_input" style="border-right: hidden;">
                                         <sbux-datepicker id="FOREI_REQ_SUBMIT_DAT" name="srch-date_fr" uitype="popup" date-format="yyyy-mm-dd"
-                                                         class="form-control input-sm input-sm-ast"></sbux-datepicker>
+                                                         class="table-datepicker-ma"></sbux-datepicker>
                                     </td>
                                 </tr>
                                 <tr>

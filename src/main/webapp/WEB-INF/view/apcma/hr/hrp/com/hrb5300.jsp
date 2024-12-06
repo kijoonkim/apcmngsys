@@ -134,7 +134,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-gvwMaster" style="height:170px; width:100%;"></div>
+                <div id="sb-area-gvwMaster" style="height:150px; width:100%;"></div>
             </div>
         </div>
 
@@ -154,17 +154,17 @@
             <div class="tab-content">
                 <div id="salaryTab" >
                     <div>
-                        <div id="sb-area-gvwSalary" style="height:150px; width:100%;"></div>
+                        <div id="sb-area-gvwSalary" style="height:170px; width:100%;"></div>
                     </div>
                 </div>
                 <div id="workTab" >
                     <div>
-                        <div id="sb-area-gvwWork" style="height:150px; width:100%;"></div>
+                        <div id="sb-area-gvwWork" style="height:170px; width:100%;"></div>
                     </div>
                 </div>
                 <div id="settingTab" >
                     <div>
-                        <div id="sb-area-gvwSetting" style="height:150px; width:100%;"></div>
+                        <div id="sb-area-gvwSetting" style="height:170px; width:100%;"></div>
                     </div>
                 </div>
             </div>

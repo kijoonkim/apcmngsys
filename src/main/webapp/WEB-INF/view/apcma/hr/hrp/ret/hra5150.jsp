@@ -1736,7 +1736,7 @@
                                                 uitype="popup"
                                                 datepicker-mode="year"
                                                 date-format="yyyy"
-                                                class="form-control input-sm input-sm-ast"
+                                                class="table-datepicker-ma"
                                                 style="background-color: #FFFFFF !important;"
                                                 readonly>
                                         </sbux-datepicker>
@@ -1834,7 +1834,7 @@
                                                 id="RET_PENS_END_DAT"
                                                 name="RET_PENS_END_DAT"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                class="table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>

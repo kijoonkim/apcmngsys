@@ -358,7 +358,7 @@
 												            id="FM_LOAN_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed ">
+												            class="table-datepicker-ma inpt_data_reqed ">
 												    </sbux-datepicker>
 			                                    </td>		                        
 			                                    
@@ -368,7 +368,7 @@
 												            id="FM_EXPIRE_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="table-datepicker-ma inpt_data_reqed">
 												    </sbux-datepicker>
 			                                    </td>
 
@@ -771,7 +771,7 @@
 												            id="FM_REPAY_START_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="table-datepicker-ma inpt_data_reqed">
 												    </sbux-datepicker>
 			                                    </td>		
 		                        			</tr>
@@ -838,7 +838,7 @@
 												            id="FM_INTEREST_REPAY_START_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="table-datepicker-ma inpt_data_reqed">
 												    </sbux-datepicker>
 			                                    </td>		                        
 			                                    
@@ -848,7 +848,7 @@
 												            id="FM_INTEREST_PAY_DD"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="table-datepicker-ma inpt_data_reqed">
 												    </sbux-datepicker>
 			                                    </td>		
 		                        			</tr>
@@ -884,7 +884,7 @@
 												            id="FM_AMORTIZE_BASE_DATE"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
-												            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												            class="table-datepicker-ma inpt_data_reqed">
 												    </sbux-datepicker>
 			                                    </td>		                        
 			                                    

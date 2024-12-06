@@ -142,7 +142,7 @@
                 </ul>
             </div>
             <div>
-                <div id="sb-area-grwInfo" style="height:800px; width:100%;"></div>
+                <div id="sb-area-grwInfo" style="height:600px; width:100%;"></div>
             </div>
         </div>
     </div>

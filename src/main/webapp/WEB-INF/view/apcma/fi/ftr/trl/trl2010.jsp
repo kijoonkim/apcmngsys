@@ -167,7 +167,7 @@
 		                   title-target-value-array="1^2"
 		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
 						
-						<div class="tab-content" style="height:420px;width:100%;padding-top:0px" >
+						<div class="tab-content" style="height:300px;width:100%;padding-top:0px" >
 						
 							<div id="SB_TOP_TAB1" >
 		                        <div class="ad_tbl_top">
@@ -181,7 +181,7 @@
 									</div>
 		                        </div>
 		                        <div>
-		                            <div id="sb_area_grid1" style="height:360px; width:100%;"></div>
+		                            <div id="sb_area_grid1" style="height:240px; width:100%;"></div>
 		                        </div>
 							</div>
 						
@@ -197,7 +197,7 @@
 									</div>
 		                        </div>
 		                        <div>
-		                            <div id="sb_area_grid2" style="height:360px; width:100%;"></div>
+		                            <div id="sb_area_grid2" style="height:240px; width:100%;"></div>
 		                        </div>
 							</div>
 						</div>
