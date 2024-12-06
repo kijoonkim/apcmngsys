@@ -477,13 +477,13 @@
     /**
      * 저장
      */
-    function cfn_save() {
+    async function cfn_save() {
 
         let gridUpdateData = gvwListGrid.getUpdateData(true, 'i');
         let gridInsertData = gvwListGrid.getUpdateData(true, 'u');
 
         if (_.isEmpty(gridUpdateData) || _.isEmpty(gridInsertData)){
-            gfn_comConfirm("Q0000","신규 및 수정된 데이터가 존재하지 않습니다.");
+            gfn_comAlert("Q0000","신규 및 수정된 데이터가 존재하지 않습니다.");
             return ;
         }
 
@@ -491,23 +491,25 @@
         let btnDataCheckAttrValue = $('#btnDataCheck').attr('disabled');
 
         if (!_.isEqual(btnDataCheckAttrValue, 'disabled')){
-            gfn_comConfirm("Q0000","검증되지 않은 데이터가 있습니다. 검증 후 저장하세요.");
+            gfn_comAlert("Q0000","검증되지 않은 데이터가 있습니다. 검증 후 저장하세요.");
             return false;
         }
 
         if (_.isEqual(editType, 'N')){
 
-            fn_check();
+            await fn_check();
 
             if(gfn_comConfirm("Q0001", "신규 등록")){
-                fn_save();
+                await fn_save();
+                fn_search('LIST');
             }
 
         }else if (_.isEqual(editType, 'E')){
 
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
-                fn_save();
+                await fn_save();
+                fn_search('LIST');
             }
 
         }
@@ -516,16 +518,18 @@
     /**
      * 삭제
      */
-    function cfn_del() {
+    async function cfn_del() {
 
-        let gridDeleteData =gvwListGrid.getUpdateData(true, 'd');
+        /*let gridDeleteData =gvwListGrid.getUpdateData(true, 'd');
 
-        if (_.isEmpty(gridUpdateData) || _.isEmpty(gridDeleteData)){
+        if (_.isEmpty(gridDeleteData)){
             gfn_comConfirm("Q0000","삭제 처리된 데이터가 존재하지 않습니다.");
-        }
+            return;
+        }*/
 
         if (gfn_comConfirm("Q0001", "삭제")) {
-            fn_del();
+            await fn_del();
+            fn_search('LIST');
         }
     }
     /**
@@ -1727,9 +1731,11 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                }
+                }else{
 
-                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+
+                }
 
             } else {
                 alert(data.resultMessage);
