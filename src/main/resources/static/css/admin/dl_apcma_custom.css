@@ -197,3 +197,7 @@ select.form-control {
 .sbux-tabs-nor-bd.sbux-tabs-top{
 	font-size: 12px !important;
 }
+
+.sbgrid_inputdate_button {
+    display:none;
+}
