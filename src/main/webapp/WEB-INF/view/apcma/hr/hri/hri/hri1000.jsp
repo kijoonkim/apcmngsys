@@ -315,7 +315,7 @@
                                                 id="ENTER_DATE"
                                                 name="ENTER_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 required
                                         />
@@ -327,7 +327,7 @@
                                                 id="CAREER_DATE"
                                                 name="CAREER_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -343,7 +343,7 @@
                                                 id="GROUP_ENTER_DATE"
                                                 name="GROUP_ENTER_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -354,7 +354,7 @@
                                                 id="COMP_ENTER_DATE"
                                                 name="COMP_ENTER_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>
@@ -365,7 +365,7 @@
                                                 id="PROMOTION_BASE_DATE"
                                                 name="PROMOTION_BASE_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                         />
                                     </td>

@@ -216,7 +216,7 @@
                                                 id="START_DATE"
                                                 name="START_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 readonly
                                         />
@@ -230,7 +230,7 @@
                                                 id="END_DATE"
                                                 name="END_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
                                                 readonly
                                         />

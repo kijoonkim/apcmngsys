@@ -132,7 +132,7 @@
                                                 uitype="popup"
                                                 id="YYYYMMDD"
                                                 name="YYYYMMDD"
-                                                class="input-sm"
+                                                class="input-sm table-datepicker-ma"
                                                 autocomplete="off"
                                                 readonly
                                         ></sbux-datepicker>
@@ -143,7 +143,7 @@
                                                 uitype="popup"
                                                 id="LUNAR_DATE"
                                                 name="LUNAR_DATE"
-                                                class="input-sm"
+                                                class="input-sm table-datepicker-ma"
                                                 autocomplete="off"
                                                 readonly
                                         ></sbux-datepicker>

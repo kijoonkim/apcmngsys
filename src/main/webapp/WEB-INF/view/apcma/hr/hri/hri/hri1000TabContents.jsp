@@ -174,7 +174,7 @@
                             id="ANNUAL_INITIAL_DATE"
                             name="ANNUAL_INITIAL_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                             required
                     />
@@ -187,7 +187,7 @@
                             id="ANNUAL_BASE_DATE"
                             name="ANNUAL_BASE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -219,7 +219,7 @@
                             id="CAREER_TRACK_ENTER_DATE"
                             name="CAREER_TRACK_ENTER_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -345,7 +345,7 @@
                             id="TEMP_END_DATE"
                             name="TEMP_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -356,7 +356,7 @@
                             id="BONUS_APPLY_START_DATE"
                             name="BONUS_APPLY_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -368,7 +368,7 @@
                             id="PROMOTION_DATA"
                             name="PROMOTION_DATA"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -380,7 +380,7 @@
                             id="AGREE_DATE"
                             name="AGREE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -404,7 +404,7 @@
                             id="RETIRE_DATE"
                             name="RETIRE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -441,7 +441,7 @@
                             id="RETIRE_BASE_DATE"
                             name="RETIRE_BASE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -460,7 +460,7 @@
                             id="CURRENT_PAY_GRADE_DATE"
                             name="CURRENT_PAY_GRADE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -473,7 +473,7 @@
                             id="PREMATURE_DATE"
                             name="PREMATURE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -485,7 +485,7 @@
                             id="RETIRE_INITIAL_DATE"
                             name="RETIRE_INITIAL_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -497,7 +497,7 @@
                             id="RET_RENS_ST_DAT"
                             name="RET_RENS_ST_DAT"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -591,7 +591,7 @@
                             id="UNION_JOIN_START_DATE"
                             name="UNION_JOIN_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -618,7 +618,7 @@
                             id="UNION_JOIN_END_DATE"
                             name="UNION_JOIN_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -949,7 +949,7 @@
                                         id="MARRIAGE_DATE"
                                         name="MARRIAGE_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                         style="width:100%;"
                                 />
                             </td>
@@ -1222,7 +1222,7 @@
                                 id="ARMY_START_DATE"
                                 name="ARMY_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1233,7 +1233,7 @@
                                 id="ARMY_END_DATE"
                                 name="ARMY_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 onchange="fn_changeArmyEndDate(ARMY_END_DATE)"
                         />
@@ -1325,7 +1325,7 @@
                                 id="VETERANS_ORDER_DATE"
                                 name="VETERANS_ORDER_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1378,7 +1378,7 @@
                                 id="HANDICAP_ISSUE_DATE"
                                 name="HANDICAP_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1415,7 +1415,7 @@
                                 id="PASSPORT_ISSUE_DATE"
                                 name="PASSPORT_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1426,7 +1426,7 @@
                                 id="PASSPORT_EXPIRE_DATE"
                                 name="PASSPORT_EXPIRE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1443,7 +1443,7 @@
                                 id="VISA_ISSUE_DATE"
                                 name="VISA_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1454,7 +1454,7 @@
                                 id="VISA_EXPIRE_DATE"
                                 name="VISA_EXPIRE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1532,7 +1532,7 @@
                                 id="INSURE_START_DATE"
                                 name="INSURE_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1543,7 +1543,7 @@
                                 id="INSURE_END_DATE"
                                 name="INSURE_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1608,7 +1608,7 @@
                                 id="GUARANTOR1_START_DATE"
                                 name="GUARANTOR1_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1619,7 +1619,7 @@
                                 id="GUARANTOR1_END_DATE"
                                 name="GUARANTOR1_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -1693,7 +1693,7 @@
                             id="GUARANTOR2_START_DATE"
                             name="GUARANTOR2_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>
@@ -1704,7 +1704,7 @@
                             id="GUARANTOR2_END_DATE"
                             name="GUARANTOR2_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                             style="width:100%;"
                     />
                 </td>

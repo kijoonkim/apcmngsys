@@ -63,7 +63,7 @@
                                     id="SRCH_TXN_DATE_FR_POP"
                                     name="SRCH_TXN_DATE_FR_POP"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                     style="width:100%;"
                             />
                         </td>
@@ -76,7 +76,7 @@
                                     id="SRCH_TXN_DATE_TO_POP"
                                     name="SRCH_TXN_DATE_TO_POP"
                                     date-format="yyyy-mm-dd"
-                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                     style="width:100%;"
                             />
                         </td>
