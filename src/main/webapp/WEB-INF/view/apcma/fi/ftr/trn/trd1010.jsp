@@ -192,7 +192,7 @@
                     </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                    <div id="sb-area-gvwList" style="height:300px;"></div>
+                    <div id="sb-area-gvwList" style="height:220px;"></div>
                 </div>
                 <div>
                     <sbux-tabs id="idxTab" name="idxTab" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData" onclick="fn_idxTabClick">
@@ -205,7 +205,7 @@
                                 </ul>
                             </div>
                             <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
-                                <div id="sb-area-gvwDetail" style="height:300px;"></div>
+                                <div id="sb-area-gvwDetail" style="height:220px;"></div>
                             </div>
                         </div>
                         <div id="tabPageEx3">
@@ -215,7 +215,7 @@
                                 </ul>
                             </div>
                             <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
-                                <div id="sb-area-gvwAccount" style="height:300px;"></div>
+                                <div id="sb-area-gvwAccount" style="height:220px;"></div>
                             </div>
                         </div>
                     </div>

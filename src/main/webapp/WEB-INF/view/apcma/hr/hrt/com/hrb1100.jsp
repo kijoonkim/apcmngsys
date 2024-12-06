@@ -101,7 +101,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwDay" style="height:580px;"></div>
+                        <div id="sb-area-gvwDay" style="height:570px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwHoliday" style="height:580px;"></div>
+                        <div id="sb-area-gvwHoliday" style="height:570px;"></div>
                     </div>
                 </div>
             </div>

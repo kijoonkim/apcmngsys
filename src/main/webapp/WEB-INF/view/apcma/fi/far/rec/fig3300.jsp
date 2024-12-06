@@ -203,7 +203,7 @@
 						</div>
 					</div>
 					<div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-						<div id="sb-area-gvwList" style="height:350px;"></div>
+						<div id="sb-area-gvwList" style="height:250px;"></div>
 					</div>
 					<div class="ad_tbl_top2">
 						<ul class="ad_tbl_count">
@@ -211,7 +211,7 @@
 						</ul>
 					</div>
 					<div>
-						<div id="sb-area-gvwItem" style="height:350px;"></div>
+						<div id="sb-area-gvwItem" style="height:250px;"></div>
 					</div>
 				</div>
 				<input type="file" name="file" id="xmlFile" accept="text/xml" style="display: none;" multiple>

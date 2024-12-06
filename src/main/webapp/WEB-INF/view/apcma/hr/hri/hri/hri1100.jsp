@@ -191,7 +191,7 @@
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                        <div id="sb-area-gvwList" style="height: 80vh"></div>
+                        <div id="sb-area-gvwList" style="height: 470px;"></div>
                     </div>
 
                 </div>

@@ -158,7 +158,7 @@
                     </ul>
                 </div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-bandgvwInfo" style="height:443px;"></div>
+                    <div id="sb-area-bandgvwInfo" style="height:430px;"></div>
                 </div>
                 <div class="ad_tbl_top2">
                     <ul class="ad_tbl_count">

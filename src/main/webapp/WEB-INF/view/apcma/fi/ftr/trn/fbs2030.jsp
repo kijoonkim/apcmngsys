@@ -203,7 +203,7 @@
                     </ul>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                    <div id="sb-area-gvwInfo" style="height:350px;"></div>
+                    <div id="sb-area-gvwInfo" style="height:250px;"></div>
                 </div>
                 <div class="ad_tbl_top2">
                     <ul class="ad_tbl_count">

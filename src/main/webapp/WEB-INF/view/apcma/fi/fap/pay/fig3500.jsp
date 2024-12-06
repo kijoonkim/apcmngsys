@@ -431,7 +431,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                <div id="sb-area-gvwMaster" style="height:200px;"></div>
+                                <div id="sb-area-gvwMaster" style="height:130px;"></div>
                             </div>
                             <div>
                                 <sbux-tabs id="idxTabSub" name="idxTabSub" uitype="normal" is-scrollable="false" jsondata-ref="jsonSubTabData">
@@ -444,7 +444,7 @@
                                             </ul>
                                         </div>
                                         <div>
-                                            <div id="sb-area-gvwAccount" style="height:150px;"></div>
+                                            <div id="sb-area-gvwAccount" style="height:130px;"></div>
                                         </div>
                                     </div>
                                     <div id="tpgApply">
@@ -454,7 +454,7 @@
                                             </ul>
                                         </div>
                                         <div>
-                                            <div id="sb-area-gvwPayment" style="height:150px;"></div>
+                                            <div id="sb-area-gvwPayment" style="height:130px;"></div>
                                         </div>
                                     </div>
                                     <div id="tpgApprove">
@@ -464,7 +464,7 @@
                                             </ul>
                                         </div>
                                         <div>
-                                            <div id="sb-area-gvwApprove" style="height:150px;"></div>
+                                            <div id="sb-area-gvwApprove" style="height:130px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -483,7 +483,7 @@
                                 </div>--%>
                             </div>
                             <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                <div id="sb-area-gvwInfo" style="height:650px;"></div>
+                                <div id="sb-area-gvwInfo" style="height:370px;"></div>
                             </div>
                         </div>
                     </div>

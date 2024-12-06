@@ -392,7 +392,7 @@
                     </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 20px;">
-                    <div id="sb-area-gvwList" style="height:600px;"></div>
+                    <div id="sb-area-gvwList" style="height:460px;"></div>
                 </div>
                 <div id="panBottom" class="ad_tbl_top2">
                     <div class="ad_tbl_toplist" style="display: flex; align-items: center; justify-content: flex-end;">
@@ -581,7 +581,7 @@
             {caption: ["입출계좌"],         ref: 'DEPOSIT_NAME',    type:'output',  	width:'155px',  style:'text-align:left'}, // TODO : P_DEPOSIT_OUT
             {caption: ["그룹"],         ref: 'GROUP_ID',    type:'output',  	width:'50px',  style:'text-align:left'},
             {caption: ["PAY_DATE_P"],         ref: 'PAY_DATE_P',    type:'output',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["지급일자"],       ref: 'PLANNED_PAY_DATE', 		type:'inputdate',  	width:'86px',  	style:'text-align:left',
+            {caption: ["지급일자"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'86px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -604,12 +604,12 @@
                 }
                 , disabled: true
             },
-            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'inputdate',  	width:'94px',  	style:'text-align:left',
+            {caption: ["전기일자"],       ref: 'DOC_DATE', 		type:'datepicker',  	width:'94px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["승인일자"],       ref: 'POSTING_DATE', 		type:'inputdate',  	width:'94px',  	style:'text-align:left',
+            {caption: ["승인일자"],       ref: 'POSTING_DATE', 		type:'datepicker',  	width:'94px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true

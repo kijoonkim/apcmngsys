@@ -224,7 +224,7 @@
                             </div>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-bandgvwInfo" style="height:616px;"></div>
+                            <div id="sb-area-bandgvwInfo" style="height:510px;"></div>
                         </div>
 
                     </div>

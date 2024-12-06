@@ -120,7 +120,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-treeMaster" style="height:725px;"></div>
+                        <div id="sb-area-treeMaster" style="height:570px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-9">
@@ -276,7 +276,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive tbl_scroll_sm">
-                                        <div id="sb-area-gvwPattern" style="height:340px;"></div>
+                                        <div id="sb-area-gvwPattern" style="height:190px;"></div>
                                     </div>
                                 </div>
                                 <div id="tpgShiftPattenForEmployee">
@@ -325,7 +325,7 @@
                                         </table>
                                     </div>
                                     <div>
-                                        <div id="sb-area-gvwEmp" style="height:300px;"></div>
+                                        <div id="sb-area-gvwEmp" style="height:150px;"></div>
                                     </div>
                                 </div>
                             </div>

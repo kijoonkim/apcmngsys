@@ -867,7 +867,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwPlan" style="height:450px;"></div>
+                                    <div id="sb-area-gvwPlan" style="height:280px;"></div>
                                 </div>
                             </div>
                             <div id="tabAmortize">

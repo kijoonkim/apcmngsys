@@ -203,7 +203,7 @@
                     </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
-                    <div id="sb-area-gvwDetail" style="height:350px;"></div>
+                    <div id="sb-area-gvwDetail" style="height:250px;"></div>
                 </div>
             </div>
         </div>

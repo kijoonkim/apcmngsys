@@ -220,7 +220,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwShift" style="height:725px;"></div>
+                        <div id="sb-area-gvwShift" style="height:500px;"></div>
                     </div>
                 </div>
                 <div class="col-sm-7">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div>
-                        <div id="sb-area-gvwShiftInfo" style="height:480px;"></div>
+                        <div id="sb-area-gvwShiftInfo" style="height:250px;"></div>
                     </div>
 
                     <div class="ad_tbl_top2">
