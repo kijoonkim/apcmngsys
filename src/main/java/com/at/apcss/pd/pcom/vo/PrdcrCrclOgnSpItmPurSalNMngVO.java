@@ -15,10 +15,15 @@ public class PrdcrCrclOgnSpItmPurSalNMngVO extends ComVO{
 	private String uoSeNm;
 	private String flnm;
 	private String slsCnsgnPrchsAmt;
+	private String slsCnsgnPrchsVlm;
 	private String slsCnsgnSlsAmt;
+	private String slsCnsgnSlsVlm;
 	private String uoSpmtAmt;
+	private String uoSpmtVlm;
 	private String uoOtherSpmtAmt;
+	private String uoOtherSpmtVlm;
 	private String SpmtAmtTot;
+	private String SpmtVlmTot;
 	private String rmrk;
 
 	private String apoCd;
