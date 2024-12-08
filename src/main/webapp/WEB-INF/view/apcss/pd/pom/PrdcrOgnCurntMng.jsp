@@ -293,7 +293,9 @@
 							</tr>
 						</tbody>
 					</table>
-
+					<!--
+					%@ include file="../prgrs/PrgrsUo.jsp" %>
+					-->
 				</c:if>
 
 				<!--[pp] //검색 -->
@@ -407,6 +409,13 @@
 						</tr>
 					</tbody>
 				</table>
+
+				<!-- 출자출하조직 진척도 -->
+				<c:if test="${loginVO.userType eq '22'}">
+					<!--
+					%@ include file="../prgrs/PrgrsIso.jsp" %>
+					-->
+				</c:if>
 
 				<!--[pp] 검색결과 상세보기-->
 				<!-- 생산자조직 리스트 그리드 -->

@@ -237,6 +237,62 @@
 				</table>
 			</c:if>
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<!-- 통합조직 정보 , 통합조직 진척도 -->
+				<c:if test="${loginVO.userType eq '21'}">
+					<table class="table table-bordered tbl_fixed">
+						<caption>통합조직 정보 표기</caption>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg th_border_right">법인명</th>
+								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userCorpNm"
+										name="dtl-input-userCorpNm"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+								<th scope="row" class="th_bg th_border_right">사업자번호</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userBrno"
+										name="dtl-input-userBrno"
+										class="form-control input-sm"
+										mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+								</td>
+								<th scope="row" class="th_bg th_border_right">법인등록번호</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-userCrno"
+										name="dtl-input-userCrno"
+										class="form-control input-sm"
+										mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+							</tr>
+						</tbody>
+					</table>
+					<!--
+					%@ include file="../prgrs/PrgrsUo.jsp" %>
+					-->
+				</c:if>
+
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -266,6 +322,7 @@
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>출하조직 표기</caption>
 					<tbody>
@@ -333,6 +390,14 @@
 						</tr>
 					</tbody>
 				</table>
+
+				<!-- 출자출하조직 진척도 -->
+				<c:if test="${loginVO.userType eq '22'}">
+					<!--
+					%@ include file="../prgrs/PrgrsIso.jsp" %>
+					-->
+				</c:if>
+
 				<br>
 				<div>
 					<span>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</span>

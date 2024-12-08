@@ -4,9 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -70,12 +70,12 @@
 									id="srch-input-yr"
 									name="srch-input-yr"
 									uitype="normal"
-                					step-value="1"
-                				></sbux-spinner>
-                				<sbux-checkbox
-                					id="srch-input-yrChk"
-                					name="srch-input-yrChk"
-                					uitype="normal"
+									step-value="1"
+								></sbux-spinner>
+								<sbux-checkbox
+									id="srch-input-yrChk"
+									name="srch-input-yrChk"
+									uitype="normal"
 									text="해당년도 신청사용자만 보기"
 									text-left-padding="5px"
 									text-right-padding="25px"
@@ -303,6 +303,14 @@
 						</tr>
 					</tbody>
 				</table>
+
+				<!-- 통합조직 진척도 -->
+				<c:if test="${loginVO.userType eq '21'}">
+					<!--
+					%@ include file="../prgrs/PrgrsUo.jsp" %>
+					-->
+				</c:if>
+
 				<br>
 				<div>
 					<span>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</span>

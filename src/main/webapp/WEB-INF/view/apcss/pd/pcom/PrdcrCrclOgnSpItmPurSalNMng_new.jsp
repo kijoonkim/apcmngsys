@@ -312,7 +312,9 @@
 
 				<!-- 통합조직 진척도 -->
 				<c:if test="${loginVO.userType eq '21'}">
-					<%@ include file="../prgrs/PrgrsUo.jsp" %>
+					<!--
+					%@ include file="../prgrs/PrgrsUo.jsp" %>
+					-->
 				</c:if>
 
 				<br>
