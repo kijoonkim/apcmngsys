@@ -248,7 +248,7 @@
 			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSe */
 				TB_EV_APO
 			   SET
-				, APO_SE 		= '2'
+				APO_SE 		= '2'
 		]]>
 		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
@@ -265,7 +265,7 @@
 			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSeHstry */
 				TB_EV_APO_HSTRY
 			   SET
-				, APO_SE 		= '2'
+				APO_SE 		= '2'
 		]]>
 		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

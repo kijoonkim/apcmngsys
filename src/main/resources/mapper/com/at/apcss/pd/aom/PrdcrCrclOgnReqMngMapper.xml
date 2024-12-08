@@ -751,7 +751,7 @@
 			<if test='yr != null and yr != ""'>
 				AND CM.YR = #{yr}
 			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		ORDER BY STTG_UPBR_ITEM_SE , ITEM_NM DESC
 	</select>
 
 	<delete id="deleteGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
