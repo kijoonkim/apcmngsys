@@ -146,7 +146,9 @@
 			if(_selType == 'Y'){
 				SBGridProperties.columns = [
 					{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
-					{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+					{caption: ['신규부류코드'], 	ref: 'clsfCd', hidden : true},
+					{caption: ['전문/육성 구분'], 	ref: 'sttgUpbrItemSe', hidden : true},
+					{caption: ['전문/육성 구분'], 	ref: 'sttgUpbrItemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
 					//{caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
 					{caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
 					{caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
@@ -216,6 +218,9 @@
 				data.resultList.forEach((item, index) => {
 					const gpc = {
 							ctgryCd : item.ctgryCd,
+							clsfCd : item.clsfCd,
+							sttgUpbrItemNm : item.sttgUpbrItemNm,
+							sttgUpbrItemSe : item.sttgUpbrItemSe,
 							ctgryNm : item.ctgryNm,
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm,

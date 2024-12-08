@@ -455,7 +455,7 @@
 		return false;
 	}
 
-	//실적 저장
+	//선택 저장
 	const fn_subUpdateDtl = async function(isConfirmed){
 		if (!isConfirmed) return;
 
@@ -490,7 +490,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-				fn_dtlSearch();//상세조회
+				fn_view();//상세조회
 			} else {
 				alert(data.resultMessage);
 			}
