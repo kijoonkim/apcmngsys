@@ -20,8 +20,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvShipOgnPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
-    	<![CDATA[
+	<select id="selectInvShipOgnPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMng */
 				  CM.YR
 				, CM.APO_CD
@@ -276,24 +276,24 @@
 					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 				) TOTA ,
 				(SELECT YR , BRNO , UO_BRNO , ITEM_CD ,  SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
-			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			  		WHERE 1=1
-			  		  AND APO_SE = '2'
-			  		  AND TRMT_TYPE = '3'
-			  		  AND TYPE_SE_NO = '5'
-			  		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-			  		  							FROM TB_EV_FRMHS_APO
-			  		  							WHERE 1=1
-			  		  							  AND APO_SE = '2'
-			  		  							  AND STBLT_YN = 'Y'
-			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
-			  		  							<if test='brno != null and brno != ""'>
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					WHERE 1=1
+					  AND APO_SE = '2'
+					  AND TRMT_TYPE = '3'
+					  AND TYPE_SE_NO = '5'
+					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+												FROM TB_EV_FRMHS_APO
+												WHERE 1=1
+												  AND APO_SE = '2'
+												  AND STBLT_YN = 'Y'
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
-					  						)
+											)
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
@@ -317,23 +317,23 @@
 
 					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 				) TOTC
-			 WHERE 1=1
-			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
-			   AND ITEM.BRNO 	= CM.BRNO(+)
-			   AND ITEM.UO_BRNO = CM.UO_BRNO(+)
-			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+			WHERE 1=1
+			  AND ITEM.ITEM_CD = CM.ITEM_CD(+)
+			  AND ITEM.BRNO = CM.BRNO(+)
+			  AND ITEM.UO_BRNO = CM.UO_BRNO(+)
+			  AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
 
-			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
-			   AND ITEM.BRNO 	= TOTA.BRNO(+)
-			   AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
+			  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+			  AND ITEM.BRNO = TOTA.BRNO(+)
+			  AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
 
-			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
-			   AND ITEM.BRNO 	= TOTB.BRNO(+)
-			   AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
+			  AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+			  AND ITEM.BRNO = TOTB.BRNO(+)
+			  AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
 
-			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
-			   AND ITEM.BRNO 	= TOTC.BRNO(+)
-			   AND ITEM.UO_BRNO = TOTC.UO_BRNO(+)
+			  AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
+			  AND ITEM.BRNO = TOTC.BRNO(+)
+			  AND ITEM.UO_BRNO = TOTC.UO_BRNO(+)
 
 			UNION ALL
 
@@ -470,26 +470,26 @@
 					  AND YR = #{yr}
 					</if>
 				) CM ,
-			  	(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
-			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			  		WHERE 1=1
-			  		  AND APO_SE = '2'
-			  		  AND TRMT_TYPE = '1'
-			  		  AND TYPE_SE_NO = '5'
+				(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					WHERE 1=1
+					  AND APO_SE = '2'
+					  AND TRMT_TYPE = '1'
+					  AND TYPE_SE_NO = '5'
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-			  		  							FROM TB_EV_FRMHS_APO
-			  		  							WHERE 1=1
-			  		  							  AND APO_SE = '2'
-			  		  							  AND STBLT_YN = 'Y'
-			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
-			  		  							<if test='brno != null and brno != ""'>
+												FROM TB_EV_FRMHS_APO
+												WHERE 1=1
+												  AND APO_SE = '2'
+												  AND STBLT_YN = 'Y'
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
-					  						)
-			  		  <if test='brno != null and brno != ""'>
+											)
+					  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
 					  <if test='yr != null and yr != ""'>
@@ -497,20 +497,20 @@
 					  </if>
 
 					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
-			  		) TOTA ,
-			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
-			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			  		WHERE 1=1
-			  		  AND APO_SE = '2'
-			  		  AND TRMT_TYPE = '2'
-			  		  AND TYPE_SE_NO = '5'
+					) TOTA ,
+					(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					WHERE 1=1
+					  AND APO_SE = '2'
+					  AND TRMT_TYPE = '2'
+					  AND TYPE_SE_NO = '5'
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-			  		  							FROM TB_EV_FRMHS_APO
-			  		  							WHERE 1=1
-			  		  							  AND APO_SE = '2'
-			  		  							  AND STBLT_YN = 'Y'
-			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
-			  		  							<if test='brno != null and brno != ""'>
+												FROM TB_EV_FRMHS_APO
+												WHERE 1=1
+												  AND APO_SE = '2'
+												  AND STBLT_YN = 'Y'
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
 												<if test='yr != null and yr != ""'>

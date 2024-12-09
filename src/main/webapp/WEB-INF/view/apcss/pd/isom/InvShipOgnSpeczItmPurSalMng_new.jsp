@@ -704,17 +704,17 @@
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
 				{caption : ['품목명','품목명','품목명'],
-					ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
+					ref : "itemNm",   width : '100px',			style : 'text-align:center',     type : 'output'},
 				{caption : ['판매위임(매입)현황','구분','구분'],
-					ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+					ref : "seNm",   width : '150px',			style : 'text-align:center',     type : 'output'},
 				//{caption : ['판매위임(매입)금액(천원)','구분'],
 					//ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 				//{caption : ['판매위임(매입)금액(천원)','품목구분'],
 					//ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
 				{caption : ['판매위임(매입)현황','취급유형','취급유형'],
-					ref : "trmtTypeNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
+					ref : "trmtTypeNm",   width : '80px',		style : 'text-align:center',     type : 'output' , merge:false},
 				{caption : ['판매위임(매입)현황','매입처','매입처'],
-					ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
+					ref : "prchsNm",   width : '150px',			style : 'text-align:center',     type : 'output', merge:false},
 				{caption : ['판매위임(매입)현황','물량(톤)','물량(톤)'],
 					ref : "slsCnsgnPrchsVlm",   width : '100px',	style : 'text-align:right',	type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
@@ -738,13 +738,13 @@
 
 
 				{caption : ['출하(매출)현황','합계','물량(톤)'],
-					//ref : "SpmtVlmTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
-					ref : "SpmtVlmTot",	width : '100px',	style : 'text-align:right',		type : 'input'
-						,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					ref : "SpmtVlmTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcVlmSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
+					//ref : "SpmtVlmTot",	width : '100px',	style : 'text-align:right',		type : 'input'
+					//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['출하(매출)현황','합계','금액(천원)'],
-					ref : "SpmtAmtTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
+					ref : "SpmtAmtTot",		width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcAmtSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['비고','비고','비고'],
-					ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
+					ref : "rmrk",   width : '150px',			style : 'text-align:right',      type : 'input', merge:false},
 
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -771,30 +771,41 @@
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh01 = [
 			'slsCnsgnPrchsAmt','uoSpmtAmt','uoOtherSpmtAmt','SpmtAmtTot'
+			,'slsCnsgnPrchsVlm','uoSpmtVlm','uoOtherSpmtVlm','SpmtVlmTot'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit01(){
 		let prevCol = grdPrdcrOgnCurntMng01.getPrevCol();
 		let prevRef = grdPrdcrOgnCurntMng01.getRefOfCol(prevCol);
-	    if(columnsToRefresh01.includes(prevRef)){
-	    	grdPrdcrOgnCurntMng01.refresh();
-	    }
+		if(columnsToRefresh01.includes(prevRef)){
+			grdPrdcrOgnCurntMng01.refresh();
+		}
 	}
 
 	//통합조직 출하 합계 함수
-	function fn_calcSum(objGrid, nRow, nCol) {
+	function fn_calcAmtSum(objGrid, nRow, nCol) {
 		//console.log("==========fn_calcSum=======");
-		var strSum
+		var strSum = 0;
 		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtAmt')));
 		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtAmt')));
 		strSum = (value01 + value02).toString();
-		fn_totSum(objGrid, nRow, nCol);
-	    return strSum;
+		fn_totAmtSum(objGrid, nRow, nCol);
+		return strSum;
+	}
+	//통합조직 출하 합계 함수
+	function fn_calcVlmSum(objGrid, nRow, nCol) {
+		//console.log("==========fn_calcSum=======");
+		var strSum = 0;
+		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtVlm')));
+		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtVlm')));
+		strSum = (value01 + value02).toString();
+		fn_totVlmSum(objGrid, nRow, nCol);
+		return strSum;
 	}
 
 	//통합조직 이외 출하 합계 함수
-	function fn_totSum(objGrid, nRow, nCol) {
+	function fn_totAmtSum(objGrid, nRow, nCol) {
 		//console.log("==========fn_uoSpmtAmtSum=======");
 
 		let gridData01 = objGrid.getGridDataAll();
@@ -826,11 +837,47 @@
 		objGrid.setCellData(Number(targetRow), slsCnsgnPrchsAmt , strSum1 );
 		objGrid.setCellData(Number(targetRow), uoSpmtAmt , strSum2 );
 		objGrid.setCellData(Number(targetRow), uoOtherSpmtAmt , strSum3 );
-		fn_totalTotSum(objGrid, nRow, nCol);
+		fn_totalTotAmtSum(objGrid, nRow, nCol);
+	}
+
+	//통합조직 이외 출하 합계 함수
+	function fn_totVlmSum(objGrid, nRow, nCol) {
+		//console.log("==========fn_uoSpmtAmtSum=======");
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
+		let slsCnsgnPrchsVlm = objGrid.getColRef("slsCnsgnPrchsVlm");//판매 위임 매입
+		let uoSpmtVlm = objGrid.getColRef("uoSpmtVlm");//통합 이외 출하
+		let uoOtherSpmtVlm = objGrid.getColRef("uoOtherSpmtVlm");//통합 이외 출하
+		let itemCd = objGrid.getColRef("itemCd");//품목코드
+		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
+
+		let strSum1 = 0;
+		let strSum2 = 0;
+		let strSum3 = 0;
+		let targetRow1;
+		for(var i=1+2; i <= gridData01.length+2; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+
+			if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCdVal){
+				strSum1 += Number(rowData01.slsCnsgnPrchsVlm);
+				strSum2 += Number(rowData01.uoSpmtVlm);
+				strSum3 += Number(rowData01.uoOtherSpmtVlm);
+			}
+			//소계 위치 row
+			if(rowData01.typeSeNo == '6' && rowData01.itemCd == itemCdVal){
+				targetRow = i;
+			}
+		}
+		objGrid.setCellData(Number(targetRow), slsCnsgnPrchsVlm , strSum1 );
+		objGrid.setCellData(Number(targetRow), uoSpmtVlm , strSum2 );
+		objGrid.setCellData(Number(targetRow), uoOtherSpmtVlm , strSum3 );
+		fn_totalTotVlmSum(objGrid, nRow, nCol);
 	}
 
 	//판매위임 매입 금액 합계 함수
-	function fn_totalTotSum(objGrid, nRow, nCol) {
+	function fn_totalTotAmtSum(objGrid, nRow, nCol) {
 		//console.log("==========fn_totalTotSum=======");
 
 		let gridData01 = objGrid.getGridDataAll();
@@ -878,14 +925,63 @@
 		objGrid.setCellData(targetRow, SpmtAmtTot , strSum4 );
 	}
 
+	//판매위임 매입 금액 합계 함수
+	function fn_totalTotVlmSum(objGrid, nRow, nCol) {
+		//console.log("==========fn_totalTotSum=======");
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
+		let slsCnsgnPrchsVlm = objGrid.getColRef("slsCnsgnPrchsVlm");//판매위임 매입 금액
+		let uoSpmtVlm = objGrid.getColRef("uoSpmtVlm");//통합 출하
+		let uoOtherSpmtVlm = objGrid.getColRef("uoOtherSpmtVlm");//통합 이외 출하
+		let SpmtVlmTot = objGrid.getColRef("SpmtVlmTot");//출하 합계
+		let slsCnsgnPrchsVlmVal = objGrid.getCellData(Number(nRow), slsCnsgnPrchsVlm);
+
+		let itemCd = objGrid.getColRef("itemCd");//품목코드
+		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
+
+		let strSum1 = 0;
+		let strSum2 = 0;
+		let strSum3 = 0;
+		let strSum4 = 0;
+		let targetRow;
+		for(var i=1+2; i <= gridData01.length+2; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			if(rowData01.itemCd == itemCdVal){
+				if(rowData01.typeSeNo == '6'){
+					strSum1 += Number(rowData01.slsCnsgnPrchsVlm);
+					strSum2 += Number(rowData01.uoSpmtVlm);
+					strSum3 += Number(rowData01.uoOtherSpmtVlm);
+					strSum4 += Number(rowData01.SpmtVlmTot);
+				}
+				if(rowData01.typeSeNo == '7'){
+					strSum1 += Number(rowData01.slsCnsgnPrchsVlm);
+					strSum2 += Number(rowData01.uoSpmtVlm);
+					strSum3 += Number(rowData01.uoOtherSpmtVlm);
+					strSum4 += Number(rowData01.SpmtVlmTot);
+				}
+				//합계 위치 row
+				if(rowData01.typeSeNo == '8'){
+					targetRow = i;
+				}
+			}
+		}
+
+		objGrid.setCellData(targetRow, slsCnsgnPrchsVlm , strSum1 );
+		objGrid.setCellData(targetRow, uoSpmtVlm , strSum2 );
+		objGrid.setCellData(targetRow, uoOtherSpmtVlm , strSum3 );
+		objGrid.setCellData(targetRow, SpmtVlmTot , strSum4 );
+	}
+
 	/**
      * 목록 조회
      */
-    const fn_search = async function() {
+	const fn_search = async function() {
 
-    	// set pagination
-    	let pageSize = grdPrdcrOgnCurntMng.getPageSize();
-    	let pageNo = 1;
+		// set pagination
+		let pageSize = grdPrdcrOgnCurntMng.getPageSize();
+		let pageNo = 1;
 
 		fn_setGrdFcltList(pageSize, pageNo);
 	}
@@ -1298,35 +1394,39 @@
 	//그리드 커스텀 배경 및 disabled 처리
 	const fn_gridCustom = async function(){
 		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
-		console.log(gridData01);
+		//console.log(gridData01);
 		for(var i=1+2; i <= gridData01.length+2; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let slsCnsgnPrchsAmt = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnPrchsAmt");//판매위임 금액 인덱스
 			let uoSpmtAmt = grdPrdcrOgnCurntMng01.getColRef("uoSpmtAmt");//통합조직 출하 금액
 			let uoOtherSpmtAmt = grdPrdcrOgnCurntMng01.getColRef("uoOtherSpmtAmt");//통합조직 이외 출하 금액
+
+			let slsCnsgnPrchsVlm = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnPrchsVlm");//판매위임 물량 인덱스
+			let uoSpmtVlm = grdPrdcrOgnCurntMng01.getColRef("uoSpmtVlm");//통합조직 출하 물량
+			let uoOtherSpmtVlm = grdPrdcrOgnCurntMng01.getColRef("uoOtherSpmtVlm");//통합조직 이외 출하 물량
+
 			let seNm = grdPrdcrOgnCurntMng01.getColRef("seNm");//구분
 			let prchsNm = grdPrdcrOgnCurntMng01.getColRef("prchsNm");//매입처
-			//let sttgUpbrItemNm = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm");//품목구분
+
 			let trmtTypeNm = grdPrdcrOgnCurntMng01.getColRef("trmtTypeNm");//취급유형
 
 			let rmrk = grdPrdcrOgnCurntMng01.getColRef("rmrk");//비고
-			//uoOtherSpmtAmt uoSpmtAmt
-			//grdPrdcrOgnCurntMng01.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
+
 			//생산자조직
 			if(rowData01.typeSeNo == '5'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, true);
 				if(gfn_isEmpty(rowData01.prchsNm)){
-					grdPrdcrOgnCurntMng01.setCellDisabled(i, uoSpmtAmt, i, uoOtherSpmtAmt, true);
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, uoSpmtVlm, i, uoOtherSpmtAmt, true);
 				}
 				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, 'lightblue');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, uoSpmtAmt, i, uoSpmtAmt, 'lightgreen');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightblue');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, uoSpmtVlm, i, uoSpmtAmt, 'lightgreen');
 			}
 			//생산자조직 소계
 			if(rowData01.typeSeNo == '6'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, uoOtherSpmtAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, uoOtherSpmtAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				// 배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, rmrk, 'lightgray');
@@ -1340,7 +1440,7 @@
 			//합계
 			if(rowData01.typeSeNo == '8'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, uoOtherSpmtAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, uoOtherSpmtAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				//배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, seNm, i, rmrk, 'lightgray');
