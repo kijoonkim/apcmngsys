@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : asstMapper.xml                                   			-->
+<!-- DESC : 부자재 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.10.08  	qkrtmdwls       Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.asst.mapper.AsstMtrMapper">
+
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  	-->
+	<!-- DESC : 부자재 기준 등록.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertAsstMtrCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  */
+	    	  INTO TB_ASST_MTR_CRTR (
+				APC_CD
+				, ASST_MTR_CRTR_TYPE
+				, CRTR_CD
+				, CRTR_VL
+				, CRTR_INDCT_NM
+				, INDCT_SEQ
+				, USE_YN
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+
+	    	  ) VALUES (
+
+				#{apcCd}
+				, #{asstMtrCrtrType}
+				, #{crtrCd}
+				, #{crtrVl}
+				, #{crtrIndctNm}
+				, #{indctSeq}
+				, #{useYn}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+
+
+	    	  )
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  	-->
+	<!-- DESC : 부자재 상세 기준 등록.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertAsstMtrCrtrDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  */
+	    	  INTO TB_ASST_MTR_CRTR_DTL (
+				APC_CD
+				, ASST_MTR_CRTR_TYPE
+				, CRTR_CD
+				, DTL_SN
+				, DTL_CD
+				, DTL_VL
+				, DTL_INDCT_NM
+				, USE_YN
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+	    	  ) VALUES (
+				#{apcCd}
+				, #{asstMtrCrtrType}
+				, #{crtrCd}
+				, #{dtlSn}
+				, #{dtlCd}
+				, #{dtlVl}
+				, #{dtlIndctNm}
+				, #{useYn}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+
+	    	  )
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
+	<!-- DESC : 부자재 기준 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectAsstMtrCrtrInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList */
+				*
+			  FROM TB_ASST_MTR_CRTR AMC
+			 WHERE AMC.APC_CD = #{apcCd}
+			 ]]>
+			 <if test='asstMtrCrtrType != null and asstMtrCrtrType != ""'>
+				AND AMC.ASST_MTR_CRTR_TYPE = #{asstMtrCrtrType}
+    		 </if>
+    		 <if test='crtrCd != null and crtrCd != ""'>
+				AND AMC.CRTR_CD = #{crtrCd}
+    		 </if>
+
+    		 <![CDATA[
+		  ORDER BY AMC.INDCT_SEQ
+
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
+	<!-- DESC : 부자재 기준상세 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectAsstMtrCrtrInfoDtlList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoDtlList */
+				*
+			  FROM TB_ASST_MTR_CRTR_DTL AMD
+			 WHERE AMD.APC_CD = #{apcCd}
+			 ]]>
+			 <if test='asstMtrCrtrType != null and asstMtrCrtrType != ""'>
+				AND AMD.ASST_MTR_CRTR_TYPE = #{asstMtrCrtrType}
+    		 </if>
+    		 <if test='crtrCd != null and crtrCd != ""'>
+				AND AMD.CRTR_CD = #{crtrCd}
+    		 </if>
+    		 <if test='dtlSn != null and dtlSn != ""'>
+				AND AMD.DTL_SN= #{dtlSn}
+    		 </if>
+
+    		 <![CDATA[
+		  ORDER BY AMD.DTL_SN
+
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrInfo  	-->
+	<!-- DESC : 부자재 기준 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateAsstMtrCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrInfo */
+	    	  TB_ASST_MTR_CRTR SET
+				CRTR_VL = #{crtrVl}
+				, CRTR_INDCT_NM = #{crtrIndctNm}
+				, INDCT_SEQ = #{indctSeq}
+				, USE_YN = #{useYn}
+				, DEL_YN = #{delYn}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND ASST_MTR_CRTR_TYPE = #{asstMtrCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+		]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrDtlInfo  	-->
+	<!-- DESC : 부자재 상세기준 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateAsstMtrCrtrDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrDtlInfo */
+	    	  TB_ASST_MTR_CRTR_DTL SET
+				DTL_SN = #{dtlSn}
+				, DTL_CD = #{dtlCd}
+				, DTL_VL = #{dtlVl}
+				, DTL_INDCT_NM = #{dtlIndctNm}
+				, USE_YN = #{useYn}
+				, DEL_YN = #{delYn}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+
+			 WHERE APC_CD = #{apcCd}
+			   AND ASST_MTR_CRTR_TYPE = #{asstMtrCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+			   AND DTL_SN = #{dtlSn}
+		]]>
+    </update>
+
+
+
+</mapper>
