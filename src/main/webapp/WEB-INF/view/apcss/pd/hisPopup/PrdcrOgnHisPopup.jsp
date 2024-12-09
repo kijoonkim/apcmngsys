@@ -969,14 +969,14 @@
 
 	//통합조직 콤보박스 선택시 값 변경
 	function fn_changeSelUoBrno(){
-		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+		let selVal = SBUxMethod.get('dtl-inp-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
 		console.log(selCombo);
 
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
-			SBUxMethod.set('dtl-input-uoBrno' , null);
+			SBUxMethod.set('dtl-inp-uoBrno' , null);
 		}else{
-			SBUxMethod.set('dtl-input-uoBrno' , selCombo.value);
+			SBUxMethod.set('dtl-inp-uoBrno' , selCombo.value);
 		}
 		fn_clearForm();
 	}
