@@ -26,6 +26,15 @@ public class FcltApcVO extends ComVO{
 	private String itemNm2;
 	private String itemNm3;
 
+	/* 운영조직 실적에 사용할 품목 */
+	private String ognzItemCd1;
+	private String ognzItemCd2;
+	private String ognzItemCd3;
+
+	private String ognzItemNm1;
+	private String ognzItemNm2;
+	private String ognzItemNm3;
+
 
 	private String operOgnzNm;
 	private String operOgnzBrno;
