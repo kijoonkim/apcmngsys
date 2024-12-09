@@ -463,6 +463,15 @@
 	var p_ss_deptName 			= '${loginVO.maDeptName}';
 	//-----------------------------------------------------------
 	
+    var Tab1Fig2210Grid; 			// 그리드를 담기위한 객체 선언
+    var jsonTab1Fig2210 = []; 		// 그리드의 참조 데이터 주소 선언
+
+    var Tab2Fig2200Grid; 			// 그리드를 담기위한 객체 선언
+    var jsonTab2Fig2200 = []; 		// 그리드의 참조 데이터 주소 선언
+
+    var Tab3Fim3420Grid; 			// 그리드를 담기위한 객체 선언
+    var jsonTab3Fim3420 = []; 		// 그리드의 참조 데이터 주소 선언
+	
     var jsonCbofiOrgCode 		= []; // APC
     var jsonCbositeCode 		= []; // 사업장
     var jsonCboholdFlag 		= []; // 보류여부
@@ -736,6 +745,15 @@
      * 목록 조회
      */
 	function cfn_search() {
+    	
+		jsonTab1Fig2210 = [];
+		jsonTab2Fig2200 = []; 	
+		jsonTab3Fim3420 = []; 
+		
+    	fn_createGridTab1Fig2210();	
+    	fn_createGridTab2Fig2200();
+    	fn_createGridTab3Fim3420();
+		
 		fn_setFig2200Grid('Q');
 	}
     
@@ -1759,10 +1777,6 @@
 		}       	
   	}   
     
-    //tab1(회계처리) grid 초기화
-    var Tab1Fig2210Grid; 			// 그리드를 담기위한 객체 선언
-    var jsonTab1Fig2210 = []; 		// 그리드의 참조 데이터 주소 선언
-
     function fn_createGridTab1Fig2210() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTab1';
@@ -2015,10 +2029,6 @@
         }
     }   
     
-    //tab2(반재/역분개실적) grid 초기화
-    var Tab2Fig2200Grid; 			// 그리드를 담기위한 객체 선언
-    var jsonTab2Fig2200 = []; 		// 그리드의 참조 데이터 주소 선언
-
     function fn_createGridTab2Fig2200() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTab2';
@@ -2167,10 +2177,6 @@
         }
     }       
     
-    //tab3(결재이력) grid 초기화
-    var Tab3Fim3420Grid; 			// 그리드를 담기위한 객체 선언
-    var jsonTab3Fim3420 = []; 		// 그리드의 참조 데이터 주소 선언
-
     function fn_createGridTab3Fim3420() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTab3';

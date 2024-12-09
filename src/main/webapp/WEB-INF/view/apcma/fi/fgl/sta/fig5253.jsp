@@ -37,7 +37,9 @@
                     </h3><!-- 손익계산서 -->
                 </div>
                 <div style="margin-left: auto;">
+                	<!-- 
                     <sbux-button uitype="normal" text="수불내역"  class="btn btn-sm btn-outline-danger" onclick="fn_dtlView()" ></sbux-button>
+                	 -->
                 </div>
             </div>
             <div class="box-body">

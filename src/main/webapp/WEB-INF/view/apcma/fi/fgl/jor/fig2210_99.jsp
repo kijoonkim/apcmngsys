@@ -40,9 +40,7 @@
                     </h3><!-- 전표등록 -->
                 </div>
                 <div id="top_lable1" style="margin-left:auto">
-                	<span style="padding-top:5px">
-	                    <font style="font-size:12px">전표템플릿</font>
-                	</span>
+                    <font style="font-size:12px;font-weight:bold">전표템플릿</font>
                 </div>
                 <div id="top_lable2" style="padding-left:10px;padding-right:10px">
 					<div class="dropdown">
@@ -57,6 +55,7 @@
                 <div style="margin-left: auto;margin-left: 10px">
         			<sbux-checkbox 
         				id="srh-cost-class-check-yn" 
+        				style="font-size:12px"
         				uitype="normal" 
         				text="원가유형제한" 
         				true-value="Y" 
@@ -1223,7 +1222,7 @@
      */
     var fn_enableSet = function(code) {
     	
-console.log('fn_enableSet(code):', code);
+		console.log('fn_enableSet(code):', code);
 
     	if(code=='0'){
     		
