@@ -2770,7 +2770,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -2786,30 +2786,6 @@
             },
             datasorting	: true,
             usedecimal : false
-        };
-       /* SBGridProperties.total = {
-            type 		: 'grand',
-            position	: 'bottom',
-            columns		: {
-                standard : [1],
-                sum : [2,3,4,8]
-            },
-            subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
-            grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                stylestartcol	: 0
-            },
-            datasorting	: false,
-            usedecimal : false,
         };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'PEAK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -2998,17 +2974,17 @@
         }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            //gvwPayGrid.addRow(true, msg);
-            jsonPayList.push(msg);
+            gvwPayGrid.addRow(true, msg);
+            //jsonPayList.push(msg);
 
         }else{
-            //gvwPayGrid.insertRow(rowVal, 'below', msg);
+            gvwPayGrid.insertRow(rowVal, 'below', msg);
 
-            jsonPayList.splice(rowVal, 0, msg);
+            //jsonPayList.splice(rowVal, 0, msg);
 
         }
 
-        gvwPayGrid.rebuild();
+       // gvwPayGrid.rebuild();
     }
 
     // 행삭제( 급여내역 리스트 )
@@ -3020,9 +2996,9 @@
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-            //gvwPayGrid.deleteRow(rowVal);
-            jsonPayList.splice(rowVal-1, 1);
-            gvwPayGrid.rebuild();
+            gvwPayGrid.deleteRow(rowVal);
+            //jsonPayList.splice(rowVal-1, 1);
+            //gvwPayGrid.rebuild();
 
             // 삭제시 적용금액의 합계 / 3 을 평균급여에 넣어줌
             let dSum = 0;
@@ -6420,6 +6396,28 @@
         }
 
     }
+
+
+
+    /**
+     * 전표조회
+     */
+    const fn_btnPaper = async function (type) {
+
+        //var rowData = gvwInfoGrid.getRowData(nRow);
+
+        var ht = {};
+        ht["WORK_TYPE"] = 'VIEW';
+        ht["DOC_ID"] = gfn_nvl(SBUxMethod.get("DOC_NAME"));
+
+
+        ht["target"] = 'MA_A20_030_020_150';
+        let json = JSON.stringify(ht);
+
+        window.parent.postMessage(json);
+
+    }
+
 
     /**
      * 피크시작일
