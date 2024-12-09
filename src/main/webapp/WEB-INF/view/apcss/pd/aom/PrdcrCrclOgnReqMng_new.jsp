@@ -2069,16 +2069,6 @@
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',	style:'text-align:center',
 				typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'},
 				validate : fn_Validate},
-			{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComClsfCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
-			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
-
-			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
-			/*
-			{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
-			*/
-			{caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["품목선택"], 				ref: 'sel',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				let delYnCol = objGrid.getColRef('delYn');
@@ -2090,6 +2080,16 @@
 				}
 				return "";
 			}},
+			{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'150px',	style:'text-align:center',
+				typeinfo : {ref:'jsonComClsfCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
+			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
+				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
+
+			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
+			/*
+			{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
+			*/
+			{caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'orgCtgryCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgSttgUpbrItemSe',   hidden : true},
