@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrOgnHisPopupMapper.xml                                    		-->
+<!-- DESC : 생산자조직 과거조회 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoMngList				-->
+	<!-- DESC : 변경된 사업자번호 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisBrnoMngList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoMngList */
+			MNG_NO
+			, BRNO
+			, CRNO
+			, CORP_NM
+			, INDCT_SEQ
+		FROM TB_EV_BRNO_MNG
+		WHERE 1=1
+		  AND BRNO != '0'
+		  AND MNG_NO IN (SELECT MNG_NO FROM TB_EV_BRNO_MNG WHERE BRNO = #{brno})
+		ORDER BY INDCT_SEQ
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoInfo					-->
+	<!-- DESC : 사업자 정보 조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisBrnoInfo" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoInfo */
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			, APO_SE
+			, UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO) AS UO_CORP_NM
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoList					-->
+	<!-- DESC : 통합조직 및 하위 출자출하조직 리스트 조회.                                     	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisBrnoList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoList */
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			, APO_SE
+			, DECODE(APO_SE, '1', '통합조직', '2', '출자출하조직', '') AS APO_SE_NM
+			, UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO) AS UO_CORP_NM
+			, (SELECT COUNT(*) FROM TB_EV_FRMHS_APO WHERE YR = EAM.YR AND BRNO = EAM.BRNO AND UO_BRNO = EAM.UO_BRNO) AS FRMHS_CNT
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+		  AND YR = #{yr}
+		  AND (
+				BRNO = #{brno}
+				OR
+				BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD_HSTRY WHERE UO_BRNO = #{brno} AND YR = #{yr})
+				)
+		ORDER BY APO_SE, CORP_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisUoList						-->
+	<!-- DESC : 속한 통합조직 리스트 조회                                     				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisUoList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisUoList */
+			  CM.UO_APO_CD
+			, CM.UO_BRNO
+			, CM.UO_CORP_NM
+		  FROM TB_EV_APO_UO_CD CM
+		 WHERE 1=1
+			AND CM.ISO_BRNO = #{brno}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2024				-->
+	<!-- DESC : 생산자조직 조회 2024년                                     				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisPrdcrOgnz2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2024 */
+			EFA.YR
+			, EFA.BRNO
+			, EFA.APO_SE
+			, EFA.UO_BRNO
+
+			, EFA.PRDCR_OGNZ_SN
+			, EFA.PRDCR_OGNZ_NM
+
+			, EFA.ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = EFA.ITEM_CD) AS ITEM_NM
+
+			, ITEM.CTGRY_CD
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+
+			, EFA.TRMT_TYPE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = EFA.TRMT_TYPE) AS TRMT_TYPE_NM
+
+			, ITEM.STTG_UPBR_ITEM_SE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+
+			, EFA.STBLT_YN
+			, TOT.CNT
+
+			, TOT.PRDCTN_VLM_TOT
+			, TOT.EC_SPMT_PLAN_VLM_TOT
+			, TOT.EC_SPMT_VLM_TOT
+			, TOT.SPMT_PRC_TOT
+			, ROUND(NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.PRDCTN_VLM_TOT, 0 ) , 0 ) * 100 , 2) AS EC_SPMT_RATE_A
+			, ROUND(NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 , 2) AS EC_SPMT_RATE_B
+
+		FROM
+			(SELECT *
+				FROM TB_EV_FRMHS_APO
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{brno}
+				  AND UO_BRNO = #{uoBrno}
+			) EFA
+			,(SELECT
+					YR
+					, BRNO
+					, PRDCR_OGNZ_SN
+					, NVL (COUNT(PRDCR_OGNZ_SN),0) AS CNT
+					, NVL (SUM(PRDCTN_VLM),0)  AS PRDCTN_VLM_TOT
+					, NVL (SUM(EC_SPMT_VLM),0)  AS EC_SPMT_VLM_TOT
+					, NVL (SUM(EC_SPMT_PLAN_VLM),0) AS EC_SPMT_PLAN_VLM_TOT
+					, NVL (SUM(SPMT_PRC),0) AS SPMT_PRC_TOT
+				FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{brno}
+				GROUP BY YR, BRNO, PRDCR_OGNZ_SN) TOT
+			,(SELECT *
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{uoBrno}
+			) ITEM
+		WHERE 1=1
+		  AND EFA.YR = TOT.YR(+)
+		  AND EFA.BRNO = TOT.BRNO(+)
+		  AND EFA.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN(+)
+
+		  AND EFA.YR = ITEM.YR(+)
+		  AND EFA.UO_BRNO = ITEM.BRNO(+)
+		  AND EFA.ITEM_CD = ITEM.ITEM_CD(+)
+		ORDER BY ITEM.STTG_UPBR_ITEM_SE , EFA.PRDCR_OGNZ_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2025				-->
+	<!-- DESC : 생산자조직 조회 2025년                                     				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisPrdcrOgnz2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2025 */
+			EFA.YR
+			, EFA.BRNO
+			, EFA.APO_SE
+			, EFA.UO_BRNO
+
+			, EFA.PRDCR_OGNZ_SN
+			, EFA.PRDCR_OGNZ_NM
+
+			, ITEM.STTG_UPBR_ITEM_SE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			, ITEM.CLSF_CD
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = ITEM.CLSF_CD) AS CLSF_NM
+			, ITEM.CTGRY_CD
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+			, EFA.ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = EFA.ITEM_CD) AS ITEM_NM
+			, EFA.TRMT_TYPE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = EFA.TRMT_TYPE) AS TRMT_TYPE_NM
+
+			, EFA.STBLT_YN
+			, TOT.CNT
+
+			, TOT.EC_SPMT_PLAN_VLM_TOT
+			, TOT.EC_SPMT_VLM_TOT
+
+			, TOT.SPMT_PRC_TOT
+
+			, ROUND(NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 , 2) AS EC_SPMT_RATE_B
+
+			, TOT.PRDCTN_VLM_TOT
+			, ROUND(NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.PRDCTN_VLM_TOT, 0 ) , 0 ) * 100 , 2) AS EC_SPMT_RATE_A
+		FROM
+			(SELECT *
+				FROM TB_EV_FRMHS_APO
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{brno}
+				  AND UO_BRNO = #{uoBrno}
+			) EFA
+			,(SELECT
+					YR
+					, BRNO
+					, PRDCR_OGNZ_SN
+					, NVL (COUNT(PRDCR_OGNZ_SN),0) AS CNT
+					, NVL (SUM(PRDCTN_VLM),0)  AS PRDCTN_VLM_TOT
+					, NVL (SUM(EC_SPMT_VLM),0)  AS EC_SPMT_VLM_TOT
+					, NVL (SUM(EC_SPMT_PLAN_VLM),0) AS EC_SPMT_PLAN_VLM_TOT
+					, NVL (SUM(SPMT_PRC),0) AS SPMT_PRC_TOT
+				FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{brno}
+				GROUP BY YR, BRNO, PRDCR_OGNZ_SN) TOT
+			,(SELECT *
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND BRNO = #{uoBrno}
+			) ITEM
+		WHERE 1=1
+		  AND EFA.YR = TOT.YR(+)
+		  AND EFA.BRNO = TOT.BRNO(+)
+		  AND EFA.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN(+)
+
+		  AND EFA.YR = ITEM.YR(+)
+		  AND EFA.UO_BRNO = ITEM.BRNO(+)
+		  AND EFA.ITEM_CD = ITEM.ITEM_CD(+)
+		ORDER BY ITEM.STTG_UPBR_ITEM_SE , EFA.PRDCR_OGNZ_NM
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2024				-->
+	<!-- DESC : 농가  조회 2024년                                     				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisCltvtnLand2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2024 */
+			ESS.YR
+			, ESS.APO_SE
+			, ESS.BRNO
+
+			, ESS.ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ESS.ITEM_CD) AS ITEM_NM
+
+			, (SELECT STTG_UPBR_ITEM_SE
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS STTG_UPBR_ITEM_SE
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = STTG.STTG_UPBR_ITEM_SE)
+				FROM TB_EV_APO_YR_GPC_CD STTG
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS STTG_UPBR_ITEM_NM
+
+			, (SELECT CTGRY_CD
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CTGRY_CD
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CTGRY.CTGRY_CD)
+				FROM TB_EV_APO_YR_GPC_CD CTGRY
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CTGRY_NM
+
+			, (SELECT CLSF_CD
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CLSF_CD
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CLSF.CLSF_CD)
+				FROM TB_EV_APO_YR_GPC_CD CLSF
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CLSF_NM
+
+			,EFA.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = EFA.TRMT_TYPE) AS TRMT_TYPE_NM
+
+			, ESS.PRDCR_OGNZ_SN
+			, ESS.PRDCR_OGNZ_CD
+			, ESS.PRDCR_OGNZ_NM
+
+			, ESS.CLTVTN_LAND_SN
+			, ESS.FLNM
+			, ESS.CLTVTN_LAND_ADDR
+
+			, ESS.CLTVTN_SFC
+			, ESS.AVG_YR_PRDCTN_VLM
+
+			, ESS.PRDCTN_PLAN_VLM
+			, ESS.PRDCTN_VLM
+
+			, ESS.EC_SPMT_PLAN_VLM
+			, ESS.EC_SPMT_VLM
+			, ESS.SPMT_PRC
+
+			, ESS.JOIN_DAY
+			, ESS.CLTVTN_AREA_RMRK
+
+			, ESS.WHDWL_DAY
+			, ESS.PLAN_RMRK
+			, ESS.SPMT_RMRK
+
+		FROM
+			(SELECT *
+				FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+			)ESS
+			,(SELECT *
+				FROM TB_EV_FRMHS_APO
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+			)EFA
+		WHERE 1=1
+		  AND ESS.YR = EFA.YR(+)
+		  AND ESS.BRNO = EFA.BRNO(+)
+		  AND ESS.PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN(+)
+
+		ORDER BY PRDCR_OGNZ_SN, CLTVTN_LAND_SN
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2025				-->
+	<!-- DESC : 농가  조회 2025년                                     				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisCltvtnLand2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2025 */
+			ESS.YR
+			, ESS.APO_SE
+			, ESS.BRNO
+
+			, ESS.ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ESS.ITEM_CD) AS ITEM_NM
+
+			, (SELECT STTG_UPBR_ITEM_SE
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS STTG_UPBR_ITEM_SE
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = STTG.STTG_UPBR_ITEM_SE)
+				FROM TB_EV_APO_YR_GPC_CD STTG
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS STTG_UPBR_ITEM_NM
+
+			, (SELECT CTGRY_CD
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CTGRY_CD
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CTGRY.CTGRY_CD)
+				FROM TB_EV_APO_YR_GPC_CD CTGRY
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CTGRY_NM
+
+			, (SELECT CLSF_CD
+				FROM TB_EV_APO_YR_GPC_CD
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CLSF_CD
+			, (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CLSF.CLSF_CD)
+				FROM TB_EV_APO_YR_GPC_CD CLSF
+				WHERE 1=1
+				  AND YR = EFA.YR
+				  AND APO_SE = '1'
+				  AND BRNO = DECODE(EFA.APO_SE,'1',EFA.BRNO,'2',EFA.UO_BRNO,'')
+				  AND ITEM_CD = EFA.ITEM_CD
+			) AS CLSF_NM
+
+			,EFA.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = EFA.TRMT_TYPE) AS TRMT_TYPE_NM
+
+			, ESS.PRDCR_OGNZ_SN
+			, ESS.PRDCR_OGNZ_CD
+			, ESS.PRDCR_OGNZ_NM
+
+			, ESS.CLTVTN_LAND_SN
+			, ESS.FLNM
+			, ESS.CLTVTN_LAND_ADDR
+
+			, ESS.CLTVTN_SFC
+			, ESS.AVG_YR_PRDCTN_VLM
+
+			, ESS.EC_CLTVTN_SFC
+			, ESS.EC_SPMT_PLAN_VLM
+
+			, ESS.EC_SPMT_VLM
+			, ESS.SPMT_PRC
+
+			, ESS.JOIN_DAY
+			, ESS.CLTVTN_AREA_RMRK
+
+		FROM
+			(SELECT *
+				FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+			)ESS
+			,(SELECT *
+				FROM TB_EV_FRMHS_APO
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+			)EFA
+		WHERE 1=1
+		  AND ESS.YR = EFA.YR(+)
+		  AND ESS.BRNO = EFA.BRNO(+)
+		  AND ESS.PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN(+)
+
+		ORDER BY PRDCR_OGNZ_SN, CLTVTN_LAND_SN
+	</select>
+</mapper>
