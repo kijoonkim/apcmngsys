@@ -1316,10 +1316,10 @@
 		}
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngList.do", {
-    		brno : brno
-    		,uoBrno : uoBrnoVal
-    		,yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", {
+			brno : brno
+			,uoBrno : uoBrnoVal
+			,yr : yr
 		});
 
 		let data = await postJsonPromise ;
