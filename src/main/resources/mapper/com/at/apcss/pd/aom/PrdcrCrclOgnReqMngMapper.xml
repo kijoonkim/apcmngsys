@@ -640,16 +640,13 @@
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-					 WHERE 1=1
-					 AND CLT.APO_CD  	= #{apoCd}
-					 AND CLT.YR  		= #{yr}
-					 AND CLT.ITEM_CD  	= #{itemCd}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 					(
 						APO_CD
 					  , APO_SE
 					  , BRNO
+					  , UO_BRNO
 					  , CRNO
 					  , CORP_NM
 
@@ -675,6 +672,7 @@
 					    #{apoCd}
 					  , #{apoSe}
 					  , #{brno}
+					  , #{uoBrno}
 					  , #{crno}
 					  , #{corpNm}
 

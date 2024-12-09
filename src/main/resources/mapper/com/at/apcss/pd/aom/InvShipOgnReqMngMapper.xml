@@ -75,15 +75,15 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvShipOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
+	<select id="selectInvShipOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
 
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectInvShipOgnReqMngList */
 				  CM.APO_CD
@@ -223,23 +223,22 @@
 					  , UO_CD
 					  , ISO_FUND_APLY_AMT
 					  , APLY_TRGT_SE
-
 					)
 			VALUES
-				(
-					#{apoCd}
-				  , '2'
-				  , #{brno}
-				  , #{crno}
-				  , #{corpNm}
-				  , TO_CHAR(SYSDATE,'YYYY')
-				  , SYSDATE
-				  , #{uoBrno}
-				  , #{uoCd}
-				  , #{isoFundAplyAmt}
-				  , #{aplyTrgtSe}
+					(
+						#{apoCd}
+					  , '2'
+					  , #{brno}
+					  , #{crno}
+					  , #{corpNm}
+					  , TO_CHAR(SYSDATE,'YYYY')
+					  , SYSDATE
+					  , #{uoBrno}
+					  , #{uoCd}
+					  , #{isoFundAplyAmt}
+					  , #{aplyTrgtSe}
 
-				)
+					)
 		]]>
 	</insert>
 

@@ -13,6 +13,7 @@ public class GpcVO extends ComVO{
 	private String apoCd;			//산지유통조직코드
 	private String apoSe;			//산지유통조직구분
 	private String brno;			//사업자번호
+	private String uoBrno;			//통합조직 사업자번호
 	private String corpNm;			//법인명
 	private String crno;			//법인등록번호
 
@@ -26,13 +27,10 @@ public class GpcVO extends ComVO{
 	private String clsfNm;			//품목명
 	private String rmrk;			//비고
 
-
-
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
-
 
 }
 
