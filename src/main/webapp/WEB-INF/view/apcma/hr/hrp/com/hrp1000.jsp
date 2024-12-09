@@ -690,7 +690,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>급여정보</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
                                 </li>
                             </ul>
                             <sbux-button
@@ -1901,7 +1901,7 @@
 
                     /*****************급여정보********************/
                     /** @type {number} **/
-                    let totalRecordCount2 = 0;
+                   // let totalRecordCount2 = 0;
                     jsonPayInfoList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
@@ -1931,11 +1931,11 @@
                             ADJUST_BASE_AMT         : gfnma_nvl2(item.ADJUST_BASE_AMT)
                         }
                         jsonPayInfoList.push(msg);
-                        totalRecordCount2++;
+                        //totalRecordCount2++;
                     });
 
                     gvwPayInfoGrid.rebuild();
-                    document.querySelector('#listCount2').innerText = totalRecordCount2;
+                    //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
                     /*****************고정 수당항목********************/
                     /** @type {number} **/
