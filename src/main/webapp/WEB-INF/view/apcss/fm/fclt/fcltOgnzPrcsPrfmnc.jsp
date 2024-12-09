@@ -1353,12 +1353,12 @@
 						,apcNm			:item.apcNm
 						,crtrYr			:item.crtrYr
 
-						,itemCd1		:item.itemCd1
-						,itemNm1		:item.itemNm1
-						,itemCd2		:item.itemCd2
-						,itemNm2		:item.itemNm2
-						,itemCd3		:item.itemCd3
-						,itemNm3		:item.itemNm3
+						,itemCd1		:item.ognzItemCd1
+						,itemNm1		:item.ognzItemNm1
+						,itemCd2		:item.ognzItemCd2
+						,itemNm2		:item.ognzItemNm2
+						,itemCd3		:item.ognzItemCd3
+						,itemNm3		:item.ognzItemNm3
 
 						,ctpvCd			:item.ctpvCd
 						,ctpvNm			:item.ctpvNm
