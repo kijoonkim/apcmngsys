@@ -20,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
 --=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
@@ -267,9 +267,13 @@ SELECT
 	--, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = UOFA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
 	, UOFA.YR AS YR
 	, UOFA.SPMT_PRC_TOT AS SLS_CNSGN_PRCHS_AMT
+	, UOFA.EC_SPMT_VLM_TOT AS SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.SLS_CNSGN_SLS_VLM
 	, TOT.UO_SPMT_AMT
+	, TOT.UO_SPMT_VLM
 	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_VLM
 	, TOT.RMRK
 	, UOFA.BRNO AS UO_BRNO
 	, TOT.STBLT_YN
@@ -285,7 +289,9 @@ FROM
 			,FA.STTG_UPBR_ITEM_SE
 			,FA.TRMT_TYPE
 			,FA.YR
-			,(SELECT SUM(SPMT_PRC) FROM  TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN  AND  ITEM_CD = FA.ITEM_CD
+			,(SELECT SUM(EC_SPMT_VLM) FROM  TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN AND ITEM_CD = FA.ITEM_CD
+			) AS EC_SPMT_VLM_TOT
+			,(SELECT SUM(SPMT_PRC) FROM  TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN AND ITEM_CD = FA.ITEM_CD
 			) AS SPMT_PRC_TOT
 		FROM TB_EV_FRMHS_APO FA
 		WHERE FA.BRNO = #{brno}
@@ -337,9 +343,13 @@ SELECT
 	--, '소계' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, 0 AS SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.SLS_CNSGN_SLS_VLM
 	, TOT.UO_SPMT_AMT
+	, TOT.UO_SPMT_VLM
 	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_VLM
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
 	, TOT.STBLT_YN
@@ -385,9 +395,13 @@ SELECT
 	--, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, TOT.SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.SLS_CNSGN_SLS_VLM
 	, TOT.UO_SPMT_AMT
+	, TOT.UO_SPMT_VLM
 	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_VLM
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
 	, TOT.STBLT_YN
@@ -433,9 +447,13 @@ SELECT
 	--, '합계' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, 0 AS SLS_CNSGN_PRCHS_VLM
 	, 0 AS SLS_CNSGN_SLS_AMT
+	, 0 AS SLS_CNSGN_SLS_VLM
 	, 0 AS UO_SPMT_AMT
+	, 0 AS UO_SPMT_VLM
 	, 0 AS UO_OTHER_SPMT_AMT
+	, 0 AS UO_OTHER_SPMT_VLM
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
 	, TOT.STBLT_YN
@@ -463,12 +481,12 @@ WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
 )
 ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
-    </select>
+	</select>
 
 
 	<insert id="insertInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	<![CDATA[
-    	MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMng */
+		<![CDATA[
+		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD   		= #{apoCd}
@@ -484,94 +502,95 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 				)
 		WHEN MATCHED THEN
 				 UPDATE
-					   SET
-		    	        SLS_CNSGN_PRCHS_AMT		= #{slsCnsgnPrchsAmt}
-		    	        , UO_SPMT_AMT			= #{uoSpmtAmt}
-		    	        , UO_OTHER_SPMT_AMT		= #{uoOtherSpmtAmt}
-		    	        , TRMT_TYPE				= #{trmtType}
+					SET
+						SLS_CNSGN_PRCHS_AMT		= #{slsCnsgnPrchsAmt}
+						, UO_SPMT_AMT			= #{uoSpmtAmt}
+						, UO_OTHER_SPMT_AMT		= #{uoOtherSpmtAmt}
 
-		    	        , RMRK					= #{rmrk}
+						, SLS_CNSGN_PRCHS_VLM	= #{slsCnsgnPrchsVlm}
+						, UO_SPMT_VLM			= #{uoSpmtVlm}
+						, UO_OTHER_SPMT_VLM		= #{uoOtherSpmtVlm}
 
-		    	        , SYS_LAST_CHG_DT		= SYSDATE
-	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
+						, TRMT_TYPE				= #{trmtType}
 
-					 WHERE 1=1
-					   AND CLT.APO_CD   		= #{apoCd}
-					   AND CLT.APO_SE	 		= #{apoSe}
-					   AND CLT.BRNO 			= #{brno}
-					   AND CLT.YR	 			= #{yr}
-					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
-					   AND CLT.ITEM_CD 			= #{itemCd}
-					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
-					   AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
-					   AND CLT.TYPE_SE_NO		= #{typeSeNo}
-					   AND CLT.UO_BRNO 			= #{uoBrno}
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
 		WHEN NOT MATCHED THEN
 			 INSERT
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , CRNO
-		    		  , YR
-		    		  , CTGRY_CD
-		    		  , ITEM_CD
-		    		  , ISO_BRNO
-		    		  , PRDCR_OGNZ_SN
-		    		  , PRDCR_OGNZ_CD
-		    		  , CLTVTN_LAND_SN
-		    		  , TYPE_SE_NO
-		    		  , UO_BRNO
-		    		  , TRMT_TYPE
+					(
+						APO_CD
+					  , APO_SE
+					  , BRNO
+					  , CRNO
+					  , YR
+					  , CTGRY_CD
+					  , ITEM_CD
+					  , ISO_BRNO
+					  , PRDCR_OGNZ_SN
+					  , PRDCR_OGNZ_CD
+					  , CLTVTN_LAND_SN
+					  , TYPE_SE_NO
+					  , UO_BRNO
+					  , TRMT_TYPE
 
-		    		  , SLS_CNSGN_PRCHS_AMT
-		    		  , UO_SPMT_AMT
-		    		  , UO_OTHER_SPMT_AMT
+					  , SLS_CNSGN_PRCHS_AMT
+					  , UO_SPMT_AMT
+					  , UO_OTHER_SPMT_AMT
 
-		    		  , RMRK
+					  , SLS_CNSGN_PRCHS_VLM
+					  , UO_SPMT_VLM
+					  , UO_OTHER_SPMT_VLM
 
-		    		  , SYS_FRST_INPT_DT
-		    		  , SYS_FRST_INPT_USER_ID
-		    		  , SYS_FRST_INPT_PRGRM_ID
-		    		  , SYS_LAST_CHG_DT
-		    		  , SYS_LAST_CHG_USER_ID
-		    		  , SYS_LAST_CHG_PRGRM_ID
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		    		  , #{apoSe}
-		    		  , #{brno}
-		    		  , #{crno}
-		    		  , TO_CHAR(SYSDATE,'YYYY')
-		    		  , #{ctgryCd}
-		    		  , #{itemCd}
-		    		  , #{isoBrno}
-		    		  , #{prdcrOgnzSn}
-		    		  , #{prdcrOgnzCd}
-		    		  , #{cltvtnLandSn}
-		    		  , #{typeSeNo}
-		    		  , #{uoBrno}
-		    		  , #{trmtType}
+					  , RMRK
 
-		   			  , #{slsCnsgnPrchsAmt}
-		   			  , #{uoSpmtAmt}
-		   			  , #{uoOtherSpmtAmt}
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    #{apoCd}
+					  , #{apoSe}
+					  , #{brno}
+					  , #{crno}
+					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{ctgryCd}
+					  , #{itemCd}
+					  , #{isoBrno}
+					  , #{prdcrOgnzSn}
+					  , #{prdcrOgnzCd}
+					  , #{cltvtnLandSn}
+					  , #{typeSeNo}
+					  , #{uoBrno}
+					  , #{trmtType}
 
-		   			  , #{rmrk}
+					  , #{slsCnsgnPrchsAmt}
+					  , #{uoSpmtAmt}
+					  , #{uoOtherSpmtAmt}
 
-		   			  , SYSDATE
-	   			  	  , #{sysFrstInptUserId}
-		   			  , #{sysFrstInptPrgrmId}
-		   			  , SYSDATE
-		   			  , #{sysLastChgUserId}
-		   			  , #{sysLastChgPrgrmId}
-		   			)
-    	]]>
-    </insert>
+					  , #{slsCnsgnPrchsVlm}
+					  , #{uoSpmtVlm}
+					  , #{uoOtherSpmtVlm}
+
+					  , #{rmrk}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
 
 	<select id="selectItemStbltYnList" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
 		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList */
