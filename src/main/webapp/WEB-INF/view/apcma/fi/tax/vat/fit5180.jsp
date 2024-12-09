@@ -67,7 +67,7 @@
             	<!--[APC] START -->
             	<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             	<!--[APC] END -->
-	            <table id="srchTable" class="table table-bordered tbl_fixed">
+	            <table id="srchTable" class="table table-search-ma table-bordered tbl_fixed">
 	                <colgroup>
 	                    <col style="width: 8%">	
 						<col style="width: 7%">
@@ -97,14 +97,14 @@
 	                <tr>
 	                    <th scope="row" class="th_bg_search">기준연도</th>
 	                    <td colspan="3" class="td_input" style="border-right: hidden;">
-	                        <sbux-datepicker
-	                        	id="srch-dtp-yyyy" 
-	                        	name="srch-dtp-yyyy" 
-	                        	uitype="popup" 
-	                        	datepicker-mode="year"
-	                        	date-format="yyyy"
-	                        	class="table-datepicker-ma inpt_data_reqed"
-	                        ></sbux-datepicker>
+                            <sbux-datepicker id="srch-dtp-yyyy"
+                                             name="srch-dtp-yyyy"
+                                             uitype="popup"
+                                             datepicker-mode="year"
+                                             date-format="yyyy"
+                                             class="table-datepicker-ma"
+                                             onchange="fn_setMultSelect(srch-dtp-yyyy)">
+                            </sbux-datepicker>
 	                    </td>
 						<td></td>
 	                    <th scope="row" class="th_bg_search">신고구분명</th>
@@ -379,26 +379,33 @@
         window.parent.document.getElementById("main-btn-save").style.display = "none";
     });
 
-    const fn_init = async function(){
+    const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'COMP_CODE', "COMP_NAME");
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
+        SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
 
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy){
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TYPE_NAME'
             ,columns		:[
@@ -411,21 +418,10 @@
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
-        })
+        });
     }
 
     async function fn_choice(_value){
-        /** reset **/
-        // jsonGrdList.length = 0;
-        // jsonGrdDivision.length = 0;
-        // jsonGrdCalc.length = 0;
-        // jsonGrdReCalc.length = 0;
-        //
-        // grdListGrid.rebuild();
-        // grdDivision.rebuild();
-        // grdCalc.rebuild();
-        // grdReCalc.rebuild();
-
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
@@ -509,7 +505,7 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
-        grdListGrid.bind("click","fn_setSiteCode");
+        // grdListGrid.bind("click","fn_setSiteCode");
     }
     const fn_createGridDivision = function(){
         var SBGridProperties = {};
