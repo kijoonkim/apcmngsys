@@ -66,6 +66,7 @@
 	var jsonItemPop01 = [];
 	//팝업은 같은화면에서 작동하게 되므로 다른곳과 겹치지 않게 변수 사용할것
 	var popYrGpcBrno;
+	var popYrGpcUoBrno;
 	var popYrGpcYr;
 
 	var jsonPopComCtgryCd = [];
@@ -84,10 +85,11 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_brno,_yr,_callbackFnc) {
+		init: async function(_yr, _brno, _uoBrno,_callbackFnc) {
 			console.log("========init===========");
-			popYrGpcBrno = _brno;
 			popYrGpcYr = _yr;
+			popYrGpcBrno = _brno;
+			popYrGpcUoBrno = _uoBrno;
 			SBUxMethod.hide('btnEditItem');
 			SBUxMethod.hide('btnCancelItem');
 			SBUxMethod.hide('btnSaveItem');
@@ -169,13 +171,15 @@
 			//var itemCd = SBUxMethod.get("item-inp-itemCd");
 			var itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
 
-			console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
+			//console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
 
 			const postJsonPromise = gfn_postJSON("/fm/popup/selectYrGpcListPopup.do", {
 
-				itemNm : itemNm, //검색 파라미터
-				brno : popYrGpcBrno,
 				yr : popYrGpcYr,
+				brno : popYrGpcBrno,
+				uoBrno : popYrGpcUoBrno,
+				itemNm : itemNm, //검색 파라미터
+
 				// pagination
 				pagingYn : 'Y',
 				currentPageNo : pageNo,

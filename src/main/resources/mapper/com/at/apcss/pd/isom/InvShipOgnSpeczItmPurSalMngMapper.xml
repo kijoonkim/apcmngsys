@@ -1046,6 +1046,7 @@ FROM
 		WHERE BRNO = #{brno}
 		  AND YR = #{yr}
 		  AND APO_SE = '2'
+		  AND STTG_UPBR_ITEM_SE != '3'
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -1099,6 +1100,7 @@ FROM
 		WHERE BRNO = #{brno}
 		  AND YR = #{yr}
 		  AND APO_SE = '2'
+		  AND STTG_UPBR_ITEM_SE != '3'
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -1152,6 +1154,7 @@ FROM
 		WHERE BRNO = #{brno}
 		  AND YR = #{yr}
 		  AND APO_SE = '2'
+		  AND STTG_UPBR_ITEM_SE != '3'
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
