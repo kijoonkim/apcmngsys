@@ -1081,6 +1081,7 @@
 
         if (PAY_FORMULA == '' && PAY_FORMULA_DESC == '') {
             gfn_comAlert("Q0000", "급여산식은 필수항목입니다. [HRB5300_003]");
+            return;
         }
 
         let salary  = gvwSalaryGrid.getGridDataAll();

@@ -310,15 +310,15 @@
                                 onclick="fn_uld"
                                 style="float: right;"
                         ></sbux-button>--%>
-                        <sbux-button
+                        <%--<sbux-button
                                 id="btnSearchItem"
                                 name="btnSearchItem"
                                 uitype="normal"
                                 text="검색"
                                 class="btn btn-sm btn-outline-danger"
-                                onclick="fn_payInfoDelRow"
+                                onclick="fn_paySearch"
                                 style="float: right;"
-                        ></sbux-button>
+                        ></sbux-button>--%>
                         <sbux-button
                                 id="btnDownload"
                                 name="btnDownload"
@@ -655,9 +655,9 @@
 
     //급여변동항목 등록 리스트
     function fn_createDetallGrid(chMode, rowData) {
-        jsonDetallList = jsonDetallList.filter(data => {
+        /*jsonDetallList = jsonDetallList.filter(data => {
             return gfn_nvl(data.EMP_CODE) != '';
-        });
+        });*/
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwDetall';
         SBGridProperties.id = 'gvwDetallGrid';
@@ -680,7 +680,7 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -696,7 +696,7 @@
             },
             datasorting	: false,
             usedecimal : false,
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '100px', style: 'text-align:center', /*hidden: true,*/
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -1029,11 +1029,14 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
+            //jsonDetallList.push(msg);
             gvwDetallGrid.addRow(true, msg);
         }else{
+            //jsonDetallList.splice(rowVal, 0, msg);
             gvwDetallGrid.insertRow(rowVal,'below', msg);
         }
 
+        //gvwDetallGrid.rebuild();
     }
 
     // 행삭제
@@ -1046,7 +1049,8 @@
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-
+            //jsonDetallList.splice(rowVal-1, 1);
+            //gvwDetallGrid.rebuild();
             gvwDetallGrid.deleteRow(rowVal);
 
         }
@@ -1178,6 +1182,10 @@
             gvwDetallGrid.exportData("xlsx","급여 변동항목 등록_"+PAY_ITEM_NAME,true,msg);
         }
         //gvwDetallGrid.exportData("xlsx",'급여 변동항목 등록_복지포인트정산 [호환모드]', true , true);
+
+    }
+
+    const fn_paySearch = function () {
 
     }
 

@@ -2586,7 +2586,7 @@
     }
 
     const fn_reject = async function () {
-        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwMaster.getColRef("CHECK_YN"), true);
         let APPR_OPINION = gfn_nvl(SBUxMethod.get("APPR_OPINION"));
         if (gvwListCheckedList.length == 0)
             return;
