@@ -2043,7 +2043,7 @@
 
 	//전문/육성 품목 선택
 	function fn_Validate(objGrid, nRow, nCol, strValue) {
-		//console.log(strValue);
+		//console.log("fn_Validate");
 		let aprv = SBUxMethod.get("dtl-input-aprv");
 		if(strValue != ""){
 			if(aprv == "2"){
@@ -2403,18 +2403,18 @@
 					return false;
 				}
 			}
-
 			let selRowData = grdGpcList.getRowData(selGridRow);
 			let sttgUpbrItemSe = selRowData.sttgUpbrItemSe;
 
 			//그리드 값 세팅
-			if(!gfn_isEmpty(rowData.ctgryCd) && sttgUpbrItemSe != '3'){
+			if(sttgUpbrItemSe != '3'){
+				//sttgUpbrItemSe 해당 값이 변경될떄 초기화 로직이 있어 먼저 배치
+				grdGpcList.setCellData(selGridRow,colRefIdx7,rowData.sttgUpbrItemSe,true);
+
 				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
 				grdGpcList.setCellData(selGridRow,colRefIdx6,rowData.clsfCd,true);
-				grdGpcList.setCellData(selGridRow,colRefIdx7,rowData.sttgUpbrItemSe,true);
 				grdGpcList.setCellData(selGridRow,colRefIdx8,rowData.brno,true);
 			}
-			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
