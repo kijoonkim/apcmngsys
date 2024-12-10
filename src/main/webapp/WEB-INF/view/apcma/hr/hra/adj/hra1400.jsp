@@ -2949,8 +2949,8 @@
 
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN: 'N'
-            , V_P_LANG_ID: 'KOR'
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
             , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
@@ -5213,6 +5213,7 @@
         } else {
             gfn_comConfirm("Q0000","대상인원을 선택하십시요");
             //SetMessageBox("대상인원을 선택하십시요");
+            return;
         }
 
         if (stremp_code.Length > 0)
