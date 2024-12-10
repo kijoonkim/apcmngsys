@@ -61,6 +61,20 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	}
 
 	@Override
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
 	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
 
 		int insertedCnt = InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
