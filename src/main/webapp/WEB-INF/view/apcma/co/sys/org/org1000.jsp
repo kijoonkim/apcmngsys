@@ -13,7 +13,6 @@
  * @see
  *
  */
- 
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -262,12 +261,12 @@
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
 										<div class="dropdown">
 										    <button
-										    	style="width:160px;text-align:left" 
-										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" 
-										    	type="button" 
-										    	id="CURRENCY_CODE" 
-										    	data-toggle="dropdown" 
-										    	aria-haspopup="true" 
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	type="button"
+										    	id="CURRENCY_CODE"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
 										    	aria-expanded="false"
 										    	required>
 										    	<font>선택</font>
@@ -299,11 +298,11 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">회기시작월일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-		                                <sbux-input uitype="text" id="FISCAL_START_MMDD" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>
+		                                <sbux-input uitype="text" id="FISCAL_START_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%"></sbux-input>
 		                            </td>
 			                        <th scope="row" class="th_bg">회기종료월일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="FISCAL_END_MMDD" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>
+		                                <sbux-input uitype="text" id="FISCAL_END_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%"></sbux-input>
 		                            </td>
 		                        </tr>
 		                        <tr>

@@ -24,8 +24,9 @@
 <head>
     <title>title : 퇴직소득원천징수영수증</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
-
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <%@ include file="../../../../frame/inc/clipreport.jsp" %>
+    
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
 </head>
@@ -46,7 +47,8 @@
 
         <!--[pp] 검색 -->
         <!--[APC] START -->
-        <div class="box-search-ma">
+        <div class="">
+<!--         <div class="box-search-ma"> -->
             <div style="padding-left: 500px; padding-right: 500px; padding-top: 250px; padding-bottom: 250px">
                 <div style="display: none">
                     <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -606,8 +608,9 @@
                     }
                     jsonReportList.push(msg);
                 });
-
-
+                if(data.cv_1.length > 0){
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+                }
             } else {
                 alert(data.resultMessage);
             }
@@ -618,9 +621,11 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        return data;
     }
 
     /**
+    
      * 초기화
      */
     var cfn_init = function() {
@@ -633,7 +638,17 @@
      * 출력
      */
     const fn_btnPrint = async function() {
-        fn_search();
+        
+        let conn = '';
+        conn = await fn_search();
+        if(conn.cv_1.length > 0){
+	        conn = await gfnma_convertDataForReport(conn);
+        }else{
+        	return;
+        }
+        
+		gfn_popClipReportPost("퇴직소득 원천징수영수증", "ma/RPT_HRA5200.crf", null, conn );	
+        
     }
 
 </script>

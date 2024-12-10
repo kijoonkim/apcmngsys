@@ -92,7 +92,7 @@
 									    	<font>선택</font>
 									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 									    </button>
-									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:200px;height:150px;padding-top:0px;overflow:auto">
+									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:350px;height:150px;padding-top:0px;overflow:auto">
 									    </div>
 									</div>                                
 	                            </td>   
@@ -129,7 +129,7 @@
                     <div class="col-sm-9">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
-                                <li><span>세부코드 정보</span></li>
+                                <li><span>◎ 특정일 설정</span></li>
                             </ul>
                             <div class="ad_tbl_toplist">
 	                            <sbux-button
@@ -212,7 +212,7 @@
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
 	var jsonDayName	= [];	// 요일
-	
+	var mode = 'byrow';
 	const fn_initSBSelect = async function() {
 		SBUxMethod.set("SRCH_YYYY", gfn_dateToYmd(new Date()));
 		let rst = await Promise.all([
@@ -235,7 +235,7 @@
 				,colLabel		: 'COMP_NAME'
 				,columns		:[
 		            {caption: "법인코드",		ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'250px',  	style:'text-align:left'},
 				]
 			}),
 		]);
@@ -259,7 +259,9 @@
     }
 	// 삭제
 	function cfn_del() {
-		fn_delete();
+		if(gfn_comConfirm("Q0001", "삭제")){
+			fn_delete();
+		}
 	}
  
 	// 조회
@@ -338,8 +340,8 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
             {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
@@ -352,9 +354,9 @@
             {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
             			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
             {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
             {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
         ];               
         subGrid	= _SBGrid.create(SBSubGridProperties);
@@ -382,73 +384,50 @@
 	    	   ,V_P_USERID              : p_userId
 	    	   ,V_P_PC                  : ''
    		    };		
-   	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
-   	        	getType				: 'json',
-   	        	workType			: 'Q',
-   	        	cv_count			: '2',
-   	        	params				: gfnma_objectToString(paramObj)
-   			});
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
+        	getType				: 'json',
+        	workType			: 'Q',
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj)
+		});
 
-   	        const data = await postJsonPromise;
-   	        try {
-   	  			if (_.isEqual("S", data.resultStatus)) {
-
-   	  	        	/** @type {number} **/
-   	  	    		let totalRecordCount = 0;
-					
-   	  	    		masterGrid.length = 0;
-   	  	    		//메인 그리드
-   	  	        	data.cv_1.forEach((item, index) => {
-   	  					const msg = {
-   	  						BUSINESS_DAY_YN		: item.BUSINESS_DAY_YN,
-	   	  					DAY_NAME			: item.DAY_NAME,
-		   	  				HOLIDAY_YN			: item.HOLIDAY_YN,
-			   	  			SEQ					: item.SEQ,
-				   	  		WORKING_DAY_YN		: item.WORKING_DAY_YN
-   	  					}
-   	  					jsonMasterList.push(msg);
-   	  					totalRecordCount ++;
-   	  				});
-					masterGrid.rebuild();
-				  	document.querySelector('#listCount').innerText = totalRecordCount;
-				  	
-				  	//서브 그리드
-   	  	        	data.cv_2.forEach((item, index) => {
-   	  					const subMsg = {
-   	  						BUSINESS_DAY_YN			: item.BUSINESS_DAY_YN,
-   	  						CHK_YN					: item.CHK_YN,
-	   	  					DAY_TITLE				: item.DAY_TITLE,
-		   	  				END_DAY					: item.END_DAY.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-			   	  			END_DAY_SOLAR			: item.END_DAY_SOLAR.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-				   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
-					   	  	HOLIDAY_YN				: item.HOLIDAY_YN,
-					   	 	LEAP_MONTH_YN			: item.LEAP_MONTH_YN,
-						   	SOLAR_YN				: item.SOLAR_YN,
-						   	START_DAY				: item.START_DAY.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-						   	START_DAY_SOLAR			: item.START_DAY_SOLAR.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-						   	START_WEEK_NAME			: item.START_WEEK_NAME,
-						   	TXN_ID					: item.TXN_ID,
-						   	WORKING_DAY_YN			: item.WORKING_DAY_YN
-   	  					}
-   	  					jsonSubList.push(subMsg);
-   	  				});
-   	  	       		subGrid.rebuild();
-				  	
-   	        	} else {
-   	          		alert(data.resultMessage);
-   	        	}
-
-   	        } catch (e) {
-   	    		if (!(e instanceof Error)) {
-   	    			e = new Error(e);
-   	    		}
-   	    		console.error("failed", e.message);
-   	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-   	        }
+        const data = await postJsonPromise;
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+	
+  	    		masterGrid.length = 0;
+  	    		//메인 그리드
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  						BUSINESS_DAY_YN		: item.BUSINESS_DAY_YN,
+	  					DAY_NAME			: item.DAY_NAME,
+ 	  					HOLIDAY_YN			: item.HOLIDAY_YN,
+  	  					SEQ					: item.SEQ,
+   	  					WORKING_DAY_YN		: item.WORKING_DAY_YN
+  					}
+  					jsonMasterList.push(msg);
+  					totalRecordCount ++;
+  				});
+				masterGrid.rebuild();
+			  	document.querySelector('#listCount').innerText = totalRecordCount;
+			  	//특정일 설정 그리드
+			  	await fn_drawSubGrid(mode, data.cv_2, true)
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 	
     //세부코드 정보
-    const fn_drawSubGrid = async function(mode, data,copymod) {
+    const fn_drawSubGrid = async function(mode, data, copymod) {
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
         SBSubGridProperties.parentid 			= 'sb-area-subGrdCom2300';
@@ -463,8 +442,8 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-                    {caption: ['시작일'], 			ref: 'START_DAY',  		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-                    {caption: ['종료일'], 			ref: 'END_DAY',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+                    {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+                    {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
                     {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
                     	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
                     {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
@@ -477,9 +456,9 @@
                     {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
                     			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
                     {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-                    {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+                    {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
                     {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-                    {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'datepicker' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
+                    {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
                     {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
                 ];  
 		// 이전에 그렸던 그리드 삭제 후 다시 그리기
@@ -491,14 +470,15 @@
 					BUSINESS_DAY_YN			: item.BUSINESS_DAY_YN,
 					CHK_YN					: item.CHK_YN,
   					DAY_TITLE				: item.DAY_TITLE,
-   	  				END_DAY					: item.END_DAY.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-	   	  			END_DAY_SOLAR			: item.END_DAY_SOLAR.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+   	  				END_DAY					: gfn_nvl(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+	   	  			END_DAY_SOLAR			: gfn_nvl(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 		   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
 			   	  	HOLIDAY_YN				: item.HOLIDAY_YN,
 			   	 	LEAP_MONTH_YN			: item.LEAP_MONTH_YN,
 				   	SOLAR_YN				: item.SOLAR_YN,
-				   	START_DAY				: item.START_DAY.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-				   	START_DAY_SOLAR			: item.START_DAY_SOLAR.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+				   	MEMO					: item.MEMO,
+				   	START_DAY				: gfn_nvl(item.START_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+				   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 				   	START_WEEK_NAME			: item.START_WEEK_NAME,
 				   	TXN_ID					: item.TXN_ID,
 				   	WORKING_DAY_YN			: item.WORKING_DAY_YN	
@@ -578,8 +558,8 @@
     		   ,V_P_PROC_ID              : ''
     		   ,V_P_USERID               : p_userId
     		   ,V_P_PC                   : ''
-	    };			
-        const postJsonPromise = gfn_postJSON("/co/sys/cal/deletecom2300.do", {
+	    };
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/deleteCom2300.do", {
         	getType				: 'json',
         	workType			: 'D',
         	cv_count			: '0',
@@ -603,7 +583,6 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    	
     }
 
     //그룹코드 내역 저장
@@ -695,8 +674,8 @@
 								,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 								,V_P_YYYY                 : SRCH_YYYY
 								,V_P_TXN_ID               : gfn_nvl(item.data.TXN_ID)
-								,V_P_START_DAY            : gfn_nvl(item.data.START_DAY)
-								,V_P_END_DAY              : gfn_nvl(item.data.END_DAY)
+								,V_P_START_DAY            : gfn_nvl(item.data.START_DAY).replaceAll('-','')
+								,V_P_END_DAY              : gfn_nvl(item.data.END_DAY).replaceAll('-','')
 								,V_P_SOLAR_YN             : gfn_nvl(item.data.SOLAR_YN)
 								,V_P_LEAP_MONTH_YN        : gfn_nvl(item.data.LEAP_MONTH_YN)
 								,V_P_DAY_TITLE            : gfn_nvl(item.data.DAY_TITLE)
@@ -777,7 +756,7 @@
 
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
-		 let mode = 'byrow'; //행 단위 단일  선택
+		 mode = 'byrow'; //행 단위 단일  선택
          fn_drawSubGrid(mode, data, true);
 
      }
@@ -791,7 +770,7 @@
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
 
-		 let mode = 'byrows'; //행 단위 다중 선택
+		 mode = 'byrows'; //행 단위 다중 선택
          fn_drawSubGrid(mode, data, true);
 
      }
@@ -805,7 +784,7 @@
          let data = subGrid.getGridDataAll();
      	 jsonSubList = [];
 	 
-         let mode = 'free'; //셀 단위 다중 선택
+         mode = 'free'; //셀 단위 다중 선택
          fn_drawSubGrid(mode, data, true);
      }
      
@@ -875,54 +854,53 @@
      
 	//캘린더 신규 생성
 	const fn_createCalendar = async function() {
-
 		await fn_save();
 
      	// 코드목록 그리드 초기화
      	fn_clearForm();
-     	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+     	let SRCH_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
      	
      	var paramObj = {
-	     		    V_P_DEBUG_MODE_YN       : ''
-	 	    	   ,V_P_LANG_ID             : ''
-	 	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-	 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-	 	    	   ,V_P_YYYY	            : SRCH_YYYY
-	 	    	   ,V_P_FORM_ID        		: p_formId
-	 	    	   ,V_P_MENU_ID             : p_menuId
-	 	    	   ,V_P_PROC_ID             : ''
-	 	    	   ,V_P_USERID              : p_userId
-	 	    	   ,V_P_PC                  : ''
-    		    };		
-   	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
-   	        	getType				: 'json',
-   	        	workType			: 'CREATE',
-   	        	cv_count			: '2',
-   	        	params				: gfnma_objectToString(paramObj)
-   			});
+	    	    V_P_DEBUG_MODE_YN       : ''
+	 	   	   ,V_P_LANG_ID             : ''
+	 	   	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+	 	   	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+	 	  	   ,V_P_YYYY	            : SRCH_YYYY
+	 	   	   ,V_P_FORM_ID        		: p_formId
+	 	   	   ,V_P_MENU_ID             : p_menuId
+	 	   	   ,V_P_PROC_ID             : ''
+	 	   	   ,V_P_USERID              : p_userId
+	 	   	   ,V_P_PC                  : ''
+    	};		
+   	       const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
+   	       	getType				: 'json',
+   	       	workType			: 'CREATE',
+   	       	cv_count			: '2',
+   	       	params				: gfnma_objectToString(paramObj)
+   		});
 
-   	        const data = await postJsonPromise;
-   	        try {
-   	         	if (_.isEqual("S", data.resultStatus)) {
-   	         		if(data.resultMessage){
-   	 	          		alert(data.resultMessage);
-   	         		}
-   	         	} else {
-   	           		alert(data.resultMessage);
-   	         	}
-   	        } catch (e) {
-   	    		if (!(e instanceof Error)) {
-   	    			e = new Error(e);
-   	    		}
-   	    		console.error("failed", e.message);
-   	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-   	        }
-     }
+   	    const data = await postJsonPromise;
+        try {
+         	if (_.isEqual("S", data.resultStatus)) {
+         		if(data.resultMessage){
+ 	          		alert(data.resultMessage);
+         		}
+         	} else {
+           		alert(data.resultMessage);
+         	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    	}
+    }
      
 	//캘린더 갱신 반영
     const fn_reflectChangeCalendar = async function() {
 		await fn_save();
-
+		
      	// 코드목록 그리드 초기화
      	fn_clearForm();
      	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
@@ -938,33 +916,30 @@
 	 	    	   ,V_P_PROC_ID             : ''
 	 	    	   ,V_P_USERID              : p_userId
 	 	    	   ,V_P_PC                  : ''
-    		    };		
-   	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
-   	        	getType				: 'json',
-   	        	workType			: 'MODIFY',
-   	        	cv_count			: '2',
-   	        	params				: gfnma_objectToString(paramObj)
-   			});
-
-   	        const data = await postJsonPromise;
-   	        try {
-   	         	if (_.isEqual("S", data.resultStatus)) {
-   	         		if(data.resultMessage){
-   	 	          		alert(data.resultMessage);
-   	         		}
-   	         	} else {
-   	           		alert(data.resultMessage);
-   	         	}
-   	        } catch (e) {
-   	    		if (!(e instanceof Error)) {
-   	    			e = new Error(e);
-   	    		}
-   	    		console.error("failed", e.message);
-   	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-   	        }
-    } 
-	
-	
+	    };		
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
+        	getType				: 'json',
+        	workType			: 'MODIFY',
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj)
+		});
+   	    const data = await postJsonPromise;
+   	    try {
+   	        if (_.isEqual("S", data.resultStatus)) {
+         		if(data.resultMessage){
+ 	          		alert(data.resultMessage);
+         		}
+         	} else {
+           		alert(data.resultMessage);
+         	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
