@@ -411,7 +411,7 @@
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerLogfarmerInfoReg */
 	    	  INTO TB_AX_FRMER_INFO_LOG
 	    		(
-	    		      AX_SN
+	    		      LOG_SN
 	    		    , FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
@@ -445,7 +445,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			      (SELECT NVL(MAX(AX_SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+	   			      (SELECT NVL(MAX(LOG_SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
 	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
@@ -486,7 +486,7 @@
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerLogfarmerInfoRegMap */
 	    	  INTO TB_AX_FRMER_INFO_LOG
 	    		(
-	    		      AX_SN
+	    		      LOG_SN
 	    		    , FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
@@ -521,7 +521,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			      (SELECT NVL(MAX(AX_SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+	   			      (SELECT NVL(MAX(LOG_SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
 	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}

@@ -50,7 +50,7 @@
 				, ACTL_FRLN_AREA
 				, ACTL_LDCG
 
-				, AX_SN AS SN
+				, LOG_SN AS SN
 				, DEL_YN
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_PRGRM_ID
@@ -118,7 +118,7 @@
 				, ACTL_FRLN_AREA
 				, ACTL_LDCG
 
-				, AX_SN AS SN
+				, LOG_SN AS SN
 				, DEL_YN
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_PRGRM_ID
