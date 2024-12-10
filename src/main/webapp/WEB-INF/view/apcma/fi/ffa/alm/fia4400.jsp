@@ -341,6 +341,8 @@
 			//
 			gfnma_setComSelect(['grdClclnDsctn'], jsonDept, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
 
+			gfnma_setComSelect(['grdClclnDsctn'], jsonCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode']
@@ -457,6 +459,7 @@
 	var jsonAssetLevel3 = []; //소분류
 	var jsonCostCenter = []; //코스트센터
 	var jsonDept = []; //부서
+	var jsonCurrency = []; //통화
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -487,7 +490,7 @@
             {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
             {caption: ["취득구분"],    	ref: 'acquireType', 		type:'combo',  	width:'100px', style:'text-align:left', typeinfo : {ref:'jsonAcqsSe', label:'label', value:'value'}  },
             {caption: ["회계기준"],		ref: 'acctRuleCode',	type : 'combo', typeinfo : {ref:'jsonAcntgCrtr', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화"], 		ref: 'currencyCode', 				type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["통화"], 		ref: 'currencyCode', 	type : 'combo', typeinfo : {ref:'jsonCurrency', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
             {caption: ["환율"], 		ref: 'exchangeRate',  			type:'input',  	width:'100px',  	style:'text-align:left'},
         	{caption: ["정산총액"], 	ref: 'totalTransferAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'memo', 				type:'input',		width:'80px',		style:'text-align:center'},
@@ -581,10 +584,6 @@
 
 
 
-
-
-
-
 		let data ={WORK_TYPE : 'VIEW', DOC_ID : docId};
 		/** 전달하고자하는 TAB의 아이디를 객체 필드에 담아서 전달 **/
 		data.target = 'MA_A20_030_020_150' //FIG2210_99
@@ -642,12 +641,11 @@
 
     const fn_saveClick = async function(){
 
-    	let rowId = grdClclnList.getRow();
     	// 자산정산리스 에 선택된 행이 없을때
+    	let rowId = grdClclnList.getRow();
     	if ( rowId < 0){
     		return;
     	}
-
 
         let strwork_type = "U";
 
@@ -659,6 +657,7 @@
         		strwork_type = "N";
         	}
         })
+
 		let test = await fnSET_P_FIA4400_S(strwork_type);
         if (test){
             //fnSET_P_FIA4400_S 마지막에 txn_id 셋팅한거 포커스 두는 로직 사용안함
@@ -669,6 +668,7 @@
             //gvwList.FocusedRowHandle = GetGridRowIndex(grdList, "txn_id", strtxn_id);
         }
     }
+
 
     const fnSET_P_FIA4400_S = async function(strWorkType){
         try
@@ -913,7 +913,7 @@
 		        getType				: 'json',
 		        cv_count			: '0',
 		        workType            : status,
-		        params				: dtData
+		        params				: gfnma_objectToString(dtData)
 		    });
 		    const data = await postJsonPromise;
 
@@ -1009,8 +1009,10 @@
             if (_.isEqual("S", data.resultStatus)) {
                 //gfn_comAlert("I0001");
                 //fn_search();
+                return true;
             } else {
                 alert(data.resultMessage);
+                return false;
             }
 
 	        } catch (e) {
@@ -1114,7 +1116,7 @@
             		grdClclnDsctn.rebuild();
 
             	}else if(strWorkType === "NUM"){
-            		newCipTransferNo = data.cv_1["CIP_TRANSFER_NO"];
+            		newCipTransferNo = data.cv_1[0]["CIP_TRANSFER_NO"];
 
             	}
                 //fn_search();
@@ -1151,6 +1153,8 @@
     const fn_queryClick = async function(){
     	var iBeforeFocus = grdClclnList.getRow();
 
+
+
          await fnQRY_P_FIA4400_Q("Q"); //자산정산내역 조회
 
          //if (iBeforeFocus == 0 && grdClclnList.getRow() == -1)
@@ -1168,6 +1172,13 @@
     }
 
     const fn_focusedRowChanged = async function(){
+
+    	var row = grdClclnList.getRow();
+    	if(grdClclnList.getRowStatus(row) === 3){
+    		return;
+    	}
+
+
     	/* for(var i = 0; i < grdClclnList.getRows(); i++)
         {
             if (grdClclnList.getRowStatus(i) == 1)
@@ -1535,6 +1546,7 @@
     const fn_clclnListAddRow = async function(){
 
     	await fnQRY_P_FIA4400_Q("NUM");
+
     	let clclnNo = SBUxMethod.get('srch-inp-cipTransferNo'); //정산번호
     	let bplc = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
     	let acqsSe = gfnma_multiSelectGet('#srch-slt-acquireType') //취득구분

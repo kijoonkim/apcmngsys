@@ -421,15 +421,20 @@
     //strWorkType : INFO, LOG
     const fnQRY_P_FIA5200_Q = async function(strWorkType){
 
+    	let fiOrgCode = SBUxMethod.get("srch-slt-fiOrgCode");
+    	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	let depreciationYyyymm = SBUxMethod.get("srch-dtp-depreciationYyyymm");
+    	let depreciationType = SBUxMethod.get("srch-slt-depreciationType");
+
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
       			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      		    ,V_P_FI_ORG_CODE    : ''
-      		    ,V_P_DEPRECIATION_YYYYMM : ''
-      		    ,V_P_DEPRECIATION_TYPE   : ''
-      		    ,V_P_SITE_CODE           : ''
+      		    ,V_P_FI_ORG_CODE    : gfnma_nvl(fiOrgCode)
+      		    ,V_P_DEPRECIATION_YYYYMM : gfnma_nvl(depreciationYyyymm)
+      		    ,V_P_DEPRECIATION_TYPE   : gfnma_nvl(depreciationType)
+      		    ,V_P_SITE_CODE           : gfnma_nvl(siteCode)
       			,V_P_FORM_ID		: p_formId
       			,V_P_MENU_ID		: p_menuId
       			,V_P_PROC_ID		: ''
@@ -437,10 +442,11 @@
       			,V_P_PC				: ''
       	    };
 
-    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","memomemo");
-	 	 if(!postFlag){
-	 	    return;
-	 	 }
+    	 //let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","memomemo");
+	 	 //if(!postFlag){
+	 	 //   return;
+	 	 //}
+
 
           const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5200.do", {
            	getType				: 'json',
@@ -624,12 +630,16 @@
   	//조회? 확인 후 다시 정리
 	// srrWorkType : LOG,INFO
     const fnSET_P_FIA5200_Q = async function(strWorkType){
+
+
+
+
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
       			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_ACCT_RULE_CODE	: NATION_CODE
+      			,V_P_ACCT_RULE_CODE	: ''
       			,V_P_TXN_ID_D       : strtxn_id
       			,V_P_CIP_TRANSFER_NO_D : strcip_no
       			,V_P_TXN_DATE_D	    : strtxn_date

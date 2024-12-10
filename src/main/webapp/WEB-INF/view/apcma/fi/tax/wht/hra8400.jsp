@@ -267,7 +267,7 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId = '${loginVO.id}';
-	var empCode = '${loginVO.maEmpCode}';
+	var empCode = "${loginVO.maEmpCode}";
 	var languageID = '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
 
@@ -332,13 +332,14 @@
 
 		//SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
 		//SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
-		//fnQRY_P_HRA8400_Q("INFO");
+
 
 		let yyyy = gfn_dateToYear(new Date()).toString();
 		SBUxMethod.set("srch-dtp-jobYyyy",yyyy);
 		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
     	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
     	SBUxMethod.set("srch-inp-submitDate",gfnma_date2());
+    	await fnQRY_P_HRA8400_Q("INFO");
 
     	grdSimpleGiveSpcfct.rebuild();
     	grdEricmGiveSpcfct.rebuild();
@@ -629,7 +630,7 @@
 			,V_P_LANG_ID		: languageID
 			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_EMP_CODE       : empCode == "" ? "T02" : ""
+			,V_P_EMP_CODE       : empCode == "" ? "T02" : empCode
 			,V_P_JOB_YYYYMM_FR  : ''
 			,V_P_JOB_YYYYMM_TO  : ''
 			,V_P_SUBMIT_YYYYMM  : workType == "DETAIL" ? dclrRow.submitYyyymm : ""
@@ -669,12 +670,11 @@
   				 	if(fileData.length === 0){
   				 		return;
   				 	}
-  				 	SBUxMethod.set("srch-inp-homeTaxId",fileData["HOME_TAX_ID"]);
-  				 	SBUxMethod.set("srch-inp-memomemo",fileData["SUBMIT_DATE"]);
-  				 	SBUxMethod.set("srch-inp-deptName",fileData["DEPT_NAME"]);
-  				 	SBUxMethod.set("srch-inp-memomemo",fileData["EMP_NAME"]);
-  				 	SBUxMethod.set("srch-inp-tel",fileData["TEL"]);
-  				 	SBUxMethod.set("srch-inp-memomemo",fileData["MEMOMEMO"]);
+  				 	SBUxMethod.set("srch-inp-homeTaxId",fileData[0]["HOME_TAX_ID"]);
+  				 	SBUxMethod.set("srch-inp-memomemo",fileData[0]["SUBMIT_DATE"]);
+  				 	SBUxMethod.set("srch-inp-deptName",fileData[0]["DEPT_NAME"]);
+  				 	SBUxMethod.set("srch-inp-empName",fileData[0]["EMP_NAME"]);
+  				 	SBUxMethod.set("srch-inp-tel",fileData[0]["TEL"]);
 
 
   				}else if(workType === "LIST"){
@@ -804,7 +804,8 @@
     	let empName = gfnma_nvl(SBUxMethod.get("srch-inp-empName"));
     	let tel = gfnma_nvl(SBUxMethod.get("srch-inp-tel"));
     	let deptName = gfnma_nvl(SBUxMethod.get("srch-inp-deptName"));
-    	//let filePath = SBUxMethod.get("srch-inp-filePath")
+    	let submitDate = gfnma_nvl(SBUxMethod.get("srch-inp-submitDate"));
+    	let filePath = gfnma_nvl(SBUxMethod.get("srch-inp-filePath"));
 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
@@ -842,6 +843,8 @@
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
+	 	 paramObj["V_P_DATA_HANDOUT_DATE"] = submitDate;
+	 	paramObj["V_P_FILE_PATH"] = filePath;
 
         const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400S1.do", {
         	getType				: 'json',
