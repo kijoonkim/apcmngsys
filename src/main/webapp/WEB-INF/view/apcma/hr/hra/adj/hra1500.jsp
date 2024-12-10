@@ -49,7 +49,7 @@
                 ></sbux-button>
                 <sbux-button
                         id="btnCalculation" name="btnCalculation" uitype="normal" text="세액계산"
-                        class="btn btn-sm btn-outline-danger" onclick="fn_btnCalculation" style="float: right;"
+                        class="btn btn-sm btn-outline-danger" onclick="fn_btnCalculation" style="float: right; display: none;"
                 ></sbux-button>
             </div>
         </div>
@@ -420,14 +420,14 @@
 
 
 
-    function cfn_save() {
+    /*function cfn_save() {
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
                 fn_save();
 
         }
-    }
+    }*/
 
     function cfn_search(){
         fn_search();
@@ -667,14 +667,16 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
-                            return true;
-                        }else{
+                        if (data.resultMessage) {
                             alert(data.resultMessage);
                         }
 
+                        return true;
+
                     } else {
                         alert(data.resultMessage);
+
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -728,7 +730,7 @@
         let IntRowCount     = 0;
         let IntChkCount     = 0;
 
-        if (_.isEqual(type, 'PREWORK')) {
+        if (_.isEqual(type, 'N')) {
             infoGridData.forEach((item, index) => {
 
                 if (item.CHK_YN == 'Y') {
@@ -937,9 +939,9 @@
 
     //계산취소
     const fn_btnCancel = async function () {
-        if (await fn_save('PREWORK'))
+        if (await fn_save(/*'PREWORK'*/'N'))
         {
-            if (await fn_save('CANCEL'))
+            if (await fn_saveS1('CANCEL'))
             {
                 gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 fn_search();
@@ -950,15 +952,14 @@
     //세액계산표준세액 자동 계산
     const fn_btnCalculation_Auto = async function () {
 
-       /* if (await fn_save('PREWORK'))
-        {*/
-            //MessageBox.Show("세액계산표준세액 자동계산 시작!!");
-            if (await fn_saveS1("AUTO"))
-            {
+        if (await fn_save(/*'PREWORK'*/'N')) {
+
+            if (await fn_saveS1("AUTO")) {
                 gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 fn_search();
             }
-        //}
+
+        }
 
     }
 

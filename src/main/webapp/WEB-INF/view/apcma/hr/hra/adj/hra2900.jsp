@@ -525,9 +525,9 @@
 
     //계산결과 마감 리스트
     function fn_createResultGrid(chMode, rowData) {
-        jsonYearEndTaxResultList = jsonYearEndTaxResultList.filter(data => {
+        /*jsonYearEndTaxResultList = jsonYearEndTaxResultList.filter(data => {
             return gfn_nvl(data.EMP_CODE) != '';
-        });
+        });*/
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwYearEndTaxResult';
         SBGridProperties.id = 'gvwYearEndTaxResultGrid';
@@ -551,7 +551,7 @@
         //그리드 총계 하단 고정
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.useinitsorting = true;
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -565,23 +565,9 @@
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
             },
-            /*subtotalrow : {
-                1: {
-                    titlecol: 0,
-                    titlevalue: '합계',
-                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                    stylestartcol: 0
-                },
-            },
-            grandtotalrow : {
-                titlecol 	: 0,
-                titlevalue	: '합계',
-                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
-                stylestartcol	: 0
-            },*/
             datasorting	: true,
             usedecimal : false
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -617,7 +603,7 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["분납월수"], ref: 'SPLIT_MONTH', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["분납월수"], ref: 'SPLIT_MONTH', type: 'input', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' }},
             {caption: ["총세금"], ref: 'TAX_TOT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
