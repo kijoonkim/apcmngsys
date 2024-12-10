@@ -112,7 +112,7 @@
 	                        </ul>
 	                    </div>
 	                    <div>
-	                        <div id="sb_area_grid1" style="height:590px; width:100%;"></div>
+	                        <div id="sb_area_grid1" style="height:580px; width:100%;"></div>
 	                    </div>
 	                </div>
 	
@@ -122,7 +122,7 @@
 	                            <li><span>자산분류정보편집</span></li>
 	                        </ul>
 	                    </div>
-	                    <div style="height:590px;overflow:auto;">
+	                    <div style="height:580px;overflow:auto;">
 	                        <table id="dataArea1" class="table table-bordered tbl_fixed">
 	                            <colgroup>
 	                                <col style="width: 10%">
