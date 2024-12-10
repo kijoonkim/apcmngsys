@@ -59,6 +59,7 @@
                         <col style="width: 1%">
                         <col style="width: 4%">
                         <col style="width: 2%">
+                        <col style="width: 6%">
                     </colgroup>
                     <tbody>
                     <tr>
@@ -86,6 +87,7 @@
                                 <%--onchange="fn_payDate"--%>
                             </sbux-datepicker>
                         </td>
+                        <td style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">정산구분</th>
@@ -102,11 +104,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                        <td colspan="4" style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">법인</th>
-                        <td colspan="4" class="td_input" style="border-right: hidden;">
+                        <td colspan="5" class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text="전체"
                                     uitype="single"
@@ -120,7 +122,7 @@
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">사업장</th>
-                        <td colspan="4" class="td_input" style="border-right: hidden;">
+                        <td colspan="5" class="td_input" style="border-right: hidden;">
                             <div class="dropdown">
                                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle"
                                         type="button" id="SITE_CODE" data-toggle="dropdown" aria-haspopup="true"
@@ -159,6 +161,7 @@
                                     onclick="fn_compopup1"
                             ></sbux-button>
                         </td>
+                        <td style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">사원</th>
@@ -185,6 +188,7 @@
                                     onclick="fn_compopup2"
                             ></sbux-button>
                         </td>
+                        <td style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">출력유형</th>
@@ -202,7 +206,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                        <td colspan="4" style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">지급일자</th>
@@ -217,7 +221,7 @@
                                 <%--onchange="fn_payDate"--%>
                             </sbux-datepicker>
                         </td>
-                        <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                        <td colspan="4" style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     </tbody>
                 </table>
@@ -245,6 +249,8 @@
 
 
     var jsonCompCode = []; //통화 ( L_ORG000 )COMP_CODE
+
+    var jsonReportList = [];
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -411,6 +417,210 @@
     }
 
     /**
+     * 목록 조회
+     */
+    const fn_search = async function () {
+
+        let RET_DATE_FR     = gfnma_nvl2(SBUxMethod.get("RETIRE_CALC_DATE_FR")); //정산일자
+        let RET_DATE_TO     = gfnma_nvl2(SBUxMethod.get("RETIRE_CALC_DATE_TO")); //정산일자
+        let RET_CALC_TYPE	= gfnma_multiSelectGet('#RET_CALC_TYPE');//정산구분
+        let SITE_CODE	    = gfnma_multiSelectGet('#SITE_CODE');//사업장
+        let DEPT_CODE       = gfnma_nvl2(SBUxMethod.get("DEPT_CODE")); //부서
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원
+        let PRINT_TYPE      = gfnma_multiSelectGet('#PRINT_TYPE');//출력유형
+        let PAY_DATE        = gfnma_nvl2(SBUxMethod.get("PAY_DATE")); //지급일자
+
+        if (!PRINT_TYPE) {
+            gfn_comAlert("W0002", "출력유형");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_RET_CALC_DAT_FR : RET_DATE_FR
+            ,V_P_RET_CALC_DAT_TO : RET_DATE_TO
+            ,V_P_RET_CALC_TYPE   : RET_CALC_TYPE
+            ,V_P_SITE_CODE       : SITE_CODE
+            ,V_P_DEPT_CODE       : DEPT_CODE
+            ,V_P_EMP_CODE        : EMP_CODE
+            ,V_P_PRINT_TYPE      : PRINT_TYPE
+            ,V_P_PAY_DATE        : PAY_DATE
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5200List.do", {
+            getType: 'json',
+            workType: 'REPORT',
+            cv_count: '2',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                jsonReportList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        LIVE_YN                         : gfnma_nvl2(item.LIVE_YN),
+                        FOREIGNER_YN                    : gfnma_nvl2(item.FOREIGNER_YN),
+                        NATION_NAME                     : gfnma_nvl2(item.NATION_NAME),
+                        BIZ_REGNO                       : gfnma_nvl2(item.BIZ_REGNO),
+                        COMP_NAME                       : gfnma_nvl2(item.COMP_NAME),
+                        CEO_NAME                        : gfnma_nvl2(item.CEO_NAME),
+                        COMP_REGNO                      : gfnma_nvl2(item.COMP_REGNO),
+                        ADDRESS                         : gfnma_nvl2(item.ADDRESS),
+                        EMP_NAME                        : gfnma_nvl2(item.EMP_NAME),
+                        SOCIAL_NUM                      : gfnma_nvl2(item.SOCIAL_NUM),
+                        SOCIAL_NUM_REAL                 : gfnma_nvl2(item.SOCIAL_NUM_REAL),
+                        RESIDENCE_ADDRESS               : gfnma_nvl2(item.RESIDENCE_ADDRESS),
+                        EXEC_YN                         : gfnma_nvl2(item.EXEC_YN),
+                        RET_PENS_ST_DAT                 : gfnma_nvl2(item.RET_PENS_ST_DAT),
+                        EXEC_RET_PAY_AMT                : gfnma_nvl2(item.EXEC_RET_PAY_AMT),
+                        JOB_ST_DAT                      : gfnma_nvl2(item.JOB_ST_DAT),
+                        JOB_END_DAT                     : gfnma_nvl2(item.JOB_END_DAT),
+                        RET_REASON                      : gfnma_nvl2(item.RET_REASON),
+                        PREV_COM_NAME                   : gfnma_nvl2(item.PREV_COM_NAME),
+                        PREV_COM_NUM                    : gfnma_nvl2(item.PREV_COM_NUM),
+                        PREV_RETIRE_INC_AMT             : gfnma_nvl2(item.PREV_RETIRE_INC_AMT),
+                        PREV_TAX_FREE_RETIRE_INC_AMT    : gfnma_nvl2(item.PREV_TAX_FREE_RETIRE_INC_AMT),
+                        PREV_TAX_RETIRE_INC_AMT         : gfnma_nvl2(item.PREV_TAX_RETIRE_INC_AMT),
+                        //-- 근무처명, 사업자등록번호 위와 동일
+                        RET_INC_AMT                     : gfnma_nvl2(item.RET_INC_AMT),
+                        TXFREE_RET_INC_AMT              : gfnma_nvl2(item.TXFREE_RET_INC_AMT),
+                        TX_RET_INC_AMT                  : gfnma_nvl2(item.TX_RET_INC_AMT),
+                        TOT_RET_INC_AMT                 : gfnma_nvl2(item.TOT_RET_INC_AMT),
+                        TOT_TXFREE_RET_INC_AMT          : gfnma_nvl2(item.TOT_TXFREE_RET_INC_AMT),
+                        TOT_TX_RET_INC_AMT              : gfnma_nvl2(item.TOT_TX_RET_INC_AMT),
+                        PREV_ENTER_DAT                  : gfnma_nvl2(item.PREV_ENTER_DAT),
+                        PREV_RET_INITIAL_DAT            : gfnma_nvl2(item.PREV_RET_INITIAL_DAT),
+                        PREV_RET_DAT                    : gfnma_nvl2(item.PREV_RET_DAT),
+                        PREV_RET_PAY_DATE               : gfnma_nvl2(item.PREV_RET_PAY_DATE),
+                        PREV_WORKING_MM_CNT             : gfnma_nvl2(item.PREV_WORKING_MM_CNT),
+                        PREV_EXCP_MM_CNT                : gfnma_nvl2(item.PREV_EXCP_MM_CNT),
+                        PREV_ADD_MM_CNT                 : gfnma_nvl2(item.PREV_ADD_MM_CNT),
+                        PREV_WORKING_YEAR_CNT           : gfnma_nvl2(item.PREV_WORKING_YEAR_CNT),
+                        ENTER_DAT                       : gfnma_nvl2(item.ENTER_DAT),
+                        CALC_ST_DAT                     : gfnma_nvl2(item.CALC_ST_DAT),
+                        RET_DAT                         : gfnma_nvl2(item.RET_DAT),
+                        PAY_DATE                        : gfnma_nvl2(item.PAY_DATE),
+                        WORKING_MM_CNT                  : gfnma_nvl2(item.WORKING_MM_CNT),
+                        EXCP_MM_CNT                     : gfnma_nvl2(item.EXCP_MM_CNT),
+                        ADD_MM_CNT                      : gfnma_nvl2(item.ADD_MM_CNT),
+                        WORKING_YEAR_CNT                : gfnma_nvl2(item.WORKING_YEAR_CNT),
+                        TOT_CALC_ST_DAT                 : gfnma_nvl2(item.TOT_CALC_ST_DAT),
+                        TOT_RET_DAT                     : gfnma_nvl2(item.TOT_RET_DAT),
+                        TOT_WORKING_MM_CNT              : gfnma_nvl2(item.TOT_WORKING_MM_CNT),
+                        TOT_EXCP_MM_CNT                 : gfnma_nvl2(item.TOT_EXCP_MM_CNT),
+                        TOT_ADD_MM_CNT                  : gfnma_nvl2(item.TOT_ADD_MM_CNT),
+                        TOT_OVERLAP_MM_CNT              : gfnma_nvl2(item.TOT_OVERLAP_MM_CNT),
+                        TOT_WORKING_YEAR_CNT            : gfnma_nvl2(item.TOT_WORKING_YEAR_CNT),
+                        TOT_CALC_ST_DAT_BEF             : gfnma_nvl2(item.TOT_CALC_ST_DAT_BEF),
+                        TOT_RET_DAT_BEF                 : gfnma_nvl2(item.TOT_RET_DAT_BEF),
+                        TOT_WORKING_MM_CNT_BEF          : gfnma_nvl2(item.TOT_WORKING_MM_CNT_BEF),
+                        TOT_EXCP_MM_CNT_BEF             : gfnma_nvl2(item.TOT_EXCP_MM_CNT_BEF),
+                        TOT_ADD_MM_CNT_BEF              : gfnma_nvl2(item.TOT_ADD_MM_CNT_BEF),
+                        TOT_WORKING_YEAR_CNT_BEF        : gfnma_nvl2(item.TOT_WORKING_YEAR_CNT_BEF),
+                        TOT_CALC_ST_DAT_AFT             : gfnma_nvl2(item.TOT_CALC_ST_DAT_AFT),
+                        TOT_RET_DAT_AFT                 : gfnma_nvl2(item.TOT_RET_DAT_AFT),
+                        TOT_WORKING_MM_CNT_AFT          : gfnma_nvl2(item.TOT_WORKING_MM_CNT_AFT),
+                        TOT_EXCP_MM_CNT_AFT             : gfnma_nvl2(item.TOT_EXCP_MM_CNT_AFT),
+                        TOT_ADD_MM_CNT_AFT              : gfnma_nvl2(item.TOT_ADD_MM_CNT_AFT),
+                        TOT_WORKING_YEAR_CNT_AFT        : gfnma_nvl2(item.TOT_WORKING_YEAR_CNT_AFT),
+                        // --퇴직소득과세표준계산(2015.12.31 이전 계산방법)
+                        PREV_RET_PAY_AMT                : gfnma_nvl2(item.PREV_RET_PAY_AMT),
+                        RET_PAY_AMT                     : gfnma_nvl2(item.RET_PAY_AMT),
+                        TOT_RET_PAY_AMT                 : gfnma_nvl2(item.TOT_RET_PAY_AMT),
+                        TOT_RET_FX_R_DEDUCT             : gfnma_nvl2(item.TOT_RET_FX_R_DEDUCT),
+                        TOT_WORKING_CNT_DEDUCT          : gfnma_nvl2(item.TOT_WORKING_CNT_DEDUCT),
+                        TOT_RET_PAY_TX_STD_AMT          : gfnma_nvl2(item.TOT_RET_PAY_TX_STD_AMT),
+                        // --퇴직소득과세표준계산(2016.01.01 이후 계산방법)
+                        TOT_RET_PAY_AMT                 : gfnma_nvl2(item.TOT_RET_PAY_AMT),
+                        TOT_WORKING_CNT_DE_A63          : gfnma_nvl2(item.TOT_WORKING_CNT_DE_A63),
+                        CONV_INC_AMT_2016               : gfnma_nvl2(item.CONV_INC_AMT_2016),
+                        CONV_INC_DEDUCT_2016            : gfnma_nvl2(item.CONV_INC_DEDUCT_2016),
+                        RET_PAY_TX_STD_AMT_2016         : gfnma_nvl2(item.RET_PAY_TX_STD_AMT_2016),
+                        //--퇴직소득세액계산 (2015.12.31 이전 계산방법)
+                        RET_PAY_TX_STD_BEF              : gfnma_nvl2(item.RET_PAY_TX_STD_BEF),
+                        RET_PAY_TX_STD_AFT              : gfnma_nvl2(item.RET_PAY_TX_STD_AFT),
+                        TOT_RET_PAY_TX_STD              : gfnma_nvl2(item.TOT_RET_PAY_TX_STD),
+                        ANN_AVG_TX_STD_AMT_BEF          : gfnma_nvl2(item.ANN_AVG_TX_STD_AMT_BEF),
+                        ANN_AVG_TX_STD_AMT_AFT          : gfnma_nvl2(item.ANN_AVG_TX_STD_AMT_AFT),
+                        TOT_ANN_AVG_TX_STD_AMT          : gfnma_nvl2(item.TOT_ANN_AVG_TX_STD_AMT),
+                        CONV_TX_STD_AMT_AFT             : gfnma_nvl2(item.CONV_TX_STD_AMT_AFT),
+                        TOT_CONV_TX_STD_AMT             : gfnma_nvl2(item.TOT_CONV_TX_STD_AMT),
+                        CONV_CALC_TX_AMT_AFT            : gfnma_nvl2(item.CONV_CALC_TX_AMT_AFT),
+                        TOT_CONV_CALC_TX_AMT            : gfnma_nvl2(item.TOT_CONV_CALC_TX_AMT),
+                        ANN_AVG_CALC_TX_AMT_BEF         : gfnma_nvl2(item.ANN_AVG_CALC_TX_AMT_BEF),
+                        ANN_AVG_CALC_TX_AMT_AFT         : gfnma_nvl2(item.ANN_AVG_CALC_TX_AMT_AFT),
+                        TOT_ANN_AVG_CALC_TX_AMT         : gfnma_nvl2(item.TOT_ANN_AVG_CALC_TX_AMT),
+                        CALC_TX_AMT_BEF                 : gfnma_nvl2(item.CALC_TX_AMT_BEF),
+                        CALC_TX_AMT_AFT                 : gfnma_nvl2(item.CALC_TX_AMT_AFT),
+                        TOT_CALC_TX_AMT                 : gfnma_nvl2(item.TOT_CALC_TX_AMT),
+                        // --퇴직소득세액계산(2016.01.01 이후 계산방법)
+                        CONV_CALC_TX_AMT_2016           : gfnma_nvl2(item.CONV_CALC_TX_AMT_2016),
+                        CALC_TX_AMT_2016                : gfnma_nvl2(item.CALC_TX_AMT_2016),
+                        PAY_YYYY_RETIRE_DATE            : gfnma_nvl2(item.PAY_YYYY_RETIRE_DATE),
+                        SPEC_CALC_TX_AMT_AMT_2016       : gfnma_nvl2(item.SPEC_CALC_TX_AMT_AMT_2016),
+                        INC_PREV_PAID_TX_AMT            : gfnma_nvl2(item.INC_PREV_PAID_TX_AMT),
+                        INC_TX_AMT                      : gfnma_nvl2(item.INC_TX_AMT),
+                        DEFER_INC_TX_AMT                : gfnma_nvl2(item.DEFER_INC_TX_AMT),
+                        // --A.IRP_BANK_CODE,
+                        IRP_BANK_NAME                   : gfnma_nvl2(item.IRP_BANK_NAME),
+                        IRP_BIZ_REGNO                   : gfnma_nvl2(item.IRP_BIZ_REGNO),
+                        IRP_BANK_ACC                    : gfnma_nvl2(item.IRP_BANK_ACC),
+                        RET_PENS_END_DAT                : gfnma_nvl2(item.RET_PENS_END_DAT),
+                        RET_PENS_AMT                    : gfnma_nvl2(item.RET_PENS_AMT),
+                        DEFER_RET_INC_AMT               : gfnma_nvl2(item.DEFER_RET_INC_AMT),
+                        DEFER_RET_TX_AMT                : gfnma_nvl2(item.DEFER_RET_TX_AMT),
+                        INC_RET_TX_AMT                  : gfnma_nvl2(item.INC_RET_TX_AMT),
+                        INC_DEFER_TX_AMT                : gfnma_nvl2(item.INC_DEFER_TX_AMT),
+                        INC_BALANCE_TX_AMT              : gfnma_nvl2(item.INC_BALANCE_TX_AMT),
+                        LOCAL_RET_TX_AMT                : gfnma_nvl2(item.LOCAL_RET_TX_AMT),
+                        LOCAL_DEFER_TX_AMT              : gfnma_nvl2(item.LOCAL_DEFER_TX_AMT),
+                        LOCAL_BALANCE_TX_AMT            : gfnma_nvl2(item.LOCAL_BALANCE_TX_AMT),
+                        SPEC_RET_TX_AMT                 : gfnma_nvl2(item.SPEC_RET_TX_AMT),
+                        SPEC_DEFER_TX_AMT               : gfnma_nvl2(item.SPEC_DEFER_TX_AMT),
+                        SPEC_BALANCE_TX_AMT             : gfnma_nvl2(item.SPEC_BALANCE_TX_AMT),
+                        RET_TX_SUM                      : gfnma_nvl2(item.RET_TX_SUM),
+                        DEFER_TX_SUM                    : gfnma_nvl2(item.DEFER_TX_SUM),
+                        BALANCE_TX_SUM                  : gfnma_nvl2(item.BALANCE_TX_SUM),
+                        PRINT_TYPE                      : gfnma_nvl2(item.PRINT_TYPE),
+                        PAY_YYYY_RETIRE_DATE            : gfnma_nvl2(item.PAY_YYYY_RETIRE_DATE),
+                        PAY_DATE_YYYY                   : gfnma_nvl2(item.PAY_DATE_YYYY),
+                        PAY_DATE_MM                     : gfnma_nvl2(item.PAY_DATE_MM),
+                        PAY_DATE_DD                     : gfnma_nvl2(item.PAY_DATE_DD),
+                        COMP_STAMP                      : gfnma_nvl2(item.COMP_STAMP),
+                        STAMP_FILE_NAME                 : gfnma_nvl2(item.STAMP_FILE_NAME),
+
+                    }
+                    jsonReportList.push(msg);
+                });
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    /**
      * 초기화
      */
     var cfn_init = function() {
@@ -423,7 +633,7 @@
      * 출력
      */
     const fn_btnPrint = async function() {
-
+        fn_search();
     }
 
 </script>
