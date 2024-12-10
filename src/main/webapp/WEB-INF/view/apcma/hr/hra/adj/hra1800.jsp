@@ -38,7 +38,7 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
+            <div style="margin-left: auto; display: none">
                 <sbux-button
                         id="btnFile" name="btnFile" uitype="normal" text="인쇄"
                         class="btn btn-sm btn-outline-danger" onclick="fn_btnFile" style="float: right;"

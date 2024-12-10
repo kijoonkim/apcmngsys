@@ -230,7 +230,7 @@
                     <ul class="ad_tbl_count">
                         <li><span>사원정보</span></li>
                     </ul>
-                    <div style="margin-left: auto;">
+                    <div style="margin-left: auto; display: none">
                         <sbux-button id="btnMonthlyPrint" name="btnMonthlyPrint" uitype="normal" text="월세 명세서" class="btn btn-sm btn-outline-danger"
                                      onclick="fn_btnMonthlyPrint"></sbux-button>
                         <sbux-button id="btnPenPrint" name="btnPenPrint" uitype="normal" text="연금저축 명세서" class="btn btn-sm btn-outline-danger"
