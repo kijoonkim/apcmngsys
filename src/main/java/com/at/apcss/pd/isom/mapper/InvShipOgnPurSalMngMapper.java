@@ -48,6 +48,20 @@ public interface InvShipOgnPurSalMngMapper {
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+
+	/**
+	 * 출자출하조직 총 매입 매출 의 매입 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입현황을 저장한다.
 	 * @param InvShipOgnPurSalMngVO

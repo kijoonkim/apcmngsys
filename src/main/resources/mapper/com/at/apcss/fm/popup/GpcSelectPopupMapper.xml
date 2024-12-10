@@ -95,7 +95,7 @@
 		<if test='yr != null and yr != ""'>
 		  AND IC.YR = #{yr}
 		</if>
-		 ORDER BY IC.ITEM_NM ASC
+		ORDER BY CORP_NM, IC.STTG_UPBR_ITEM_SE, IC.ITEM_NM ASC
 
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

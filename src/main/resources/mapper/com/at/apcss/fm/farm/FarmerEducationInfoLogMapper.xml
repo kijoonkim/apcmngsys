@@ -33,7 +33,7 @@
 				, EDU_END_YMD
 				, IDNTY_YN
 
-				, AX_SN AS SN
+				, LOG_SN AS SN
 				, DEL_YN
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_PRGRM_ID
@@ -84,7 +84,7 @@
 				, EDU_END_YMD
 				, IDNTY_YN
 
-				, AX_SN AS SN
+				, LOG_SN AS SN
 				, DEL_YN
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_PRGRM_ID

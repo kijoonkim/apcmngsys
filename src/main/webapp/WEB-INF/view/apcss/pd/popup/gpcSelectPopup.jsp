@@ -173,7 +173,18 @@
 			//this.search();
 		},
 		choice: function() {
+			//데이터가 존재하는 그리드 범위 확인
+			let nCol = grdGpcPop.getCol();
+			if (nCol < 1) {
+				return;
+			}
 			let nRow = grdGpcPop.getRow();
+			if (nRow < 1) {
+				return;
+			}
+			if(nRow == null){
+				nRow = 1;
+			}
 			let rowData = grdGpcPop.getRowData(nRow);
 			popGpcSelect.close(rowData);
 		},
