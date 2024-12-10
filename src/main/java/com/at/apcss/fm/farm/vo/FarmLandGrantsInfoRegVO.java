@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class FarmLandGrantsInfoRegVO extends ComVO{
 	private String sn;
-
+	private String axSn;
 	private String frmerno;		//농업인 번호 FRMER_SN
 	private String pnuCd;		//PNU 코드 PNU_CODE
 	private String bizBgngYmd;	//사업 시작일 BSNS_BGNDE

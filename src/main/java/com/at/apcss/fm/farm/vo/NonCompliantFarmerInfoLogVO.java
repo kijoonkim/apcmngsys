@@ -10,7 +10,7 @@ import lombok.Setter;
 public class NonCompliantFarmerInfoLogVO extends ComVO{
 
 	private String sn;
-
+	private String axSn;
 	private String frmerno;			//농업인 번호 FRMER_SN
 	private String bizYr;			//사업 년도 BSNS_YEAR
 	private String bizNm;			//사업 명 BSNS_NM
