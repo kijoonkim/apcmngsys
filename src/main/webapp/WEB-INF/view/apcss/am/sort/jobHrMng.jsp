@@ -303,6 +303,9 @@
     /** 포장실적 grid 생성 **/
     await fn_create_pckgPrfmnc();
     await fn_search();
+    /** 생산자 활성화만 남기기 **/
+    $("#prdcrInfoWrap > div > div > div.tabBox:not(.active)").hide();
+
   }
   const fn_create_pckgPrfmnc = async function(){
     var SBGridProperties = {};
@@ -316,12 +319,12 @@
           return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
         }
       },
-      {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업자"],	ref: 'flnm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["팔레트번호"],	ref: 'sortno',		type:'output',  width:'30%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center;' , fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업자"],	ref: 'flnm',		type:'output',  width:'15%', style: 'text-align:center;' , fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["팔레트번호"],	ref: 'sortno',		type:'output',  width:'30%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
     ]
     gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
   }

@@ -42,6 +42,14 @@
 						text="원물인식표"
 					></sbux-button>
 					<sbux-button
+							id="btnCmndDocRaw"
+							name="btnCmndDocRaw"
+							uitype="normal"
+							class="btn btn-sm btn-primary"
+							onclick="fn_docRawMtrWrhsList"
+							text="입고내역"
+					></sbux-button>
+					<sbux-button
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
@@ -698,13 +706,33 @@ async function cfn_search() {
 		const regex = /Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/;
 		const mobileYn = regex.test(navigator.userAgent);
 		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'N',mobileYn:mobileYn });
-		//if(gv_selectedApcCd === '8888'){
-		//	gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
-		//}else{
-		//	gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
-		//}
-
 	}
+/**
+ * @name fn_docRawMtrWrhsList
+ * @description 입고내역 발행 버튼
+ */
+const fn_docRawMtrWrhsList = async function() {
+
+	const rawMtrWrhsList = [];
+	const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DL_DOC');
+	const allData = grdRawMtrWrhs.getGridDataAll();
+	allData.forEach((item, index) => {
+		if (item.checkedYn === "Y") {
+			rawMtrWrhsList.push(
+					item.wrhsno
+			);
+		}
+
+	});
+	if (rawMtrWrhsList.length === 0) {
+		gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+		return;
+	}
+	const wrhsno = rawMtrWrhsList.join("','");
+	const regex = /Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/;
+	const mobileYn = regex.test(navigator.userAgent);
+	gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'N',mobileYn:mobileYn });
+}
 
 	/**
      * @name fn_search
