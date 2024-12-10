@@ -20,5 +20,6 @@ public class FarmerEducationInfoLogVO extends ComVO{
 	private String idntyYn;			//확인여부 CNFM_YN
 
 	private String sn;
+	private String axSn;
 
 }
