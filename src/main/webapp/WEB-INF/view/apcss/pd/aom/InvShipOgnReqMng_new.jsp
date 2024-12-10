@@ -2383,7 +2383,6 @@
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값
-
 			let selGridRow = grdGpcList.getRow();
 
 			let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
@@ -2419,11 +2418,10 @@
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
 
-
 			let grdStatus = grdGpcList.getRowStatus(selGridRow);
-		 	if(grdStatus != '1'){
-		 		grdGpcList.setRowStatus(selGridRow,'update');
-		 	}
+			if(grdStatus != '1'){
+				grdGpcList.setRowStatus(selGridRow,'update');
+			}
 		}
 	}
 

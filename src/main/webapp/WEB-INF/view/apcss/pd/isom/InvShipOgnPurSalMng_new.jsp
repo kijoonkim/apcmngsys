@@ -1978,7 +1978,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngPrchsSlsList.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do", {
 			brno : brno
 			,yr : yr
 		});
