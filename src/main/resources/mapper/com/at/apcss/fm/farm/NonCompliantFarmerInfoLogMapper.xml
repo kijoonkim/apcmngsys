@@ -33,7 +33,7 @@
 				, RDM_TRGT_PRNCPL
 				, RDM_TRGT_AMT
 
-				, AX_SN
+				, AX_SN AS SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT
@@ -81,7 +81,7 @@
 				, RDM_TRGT_PRNCPL
 				, RDM_TRGT_AMT
 
-				, AX_SN
+				, AX_SN AS SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT
