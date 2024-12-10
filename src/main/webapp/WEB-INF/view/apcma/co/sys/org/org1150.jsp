@@ -97,7 +97,7 @@
 	                    </ul>
 	                </div>  
 	                <div>
-	                	<div id="sb-area-grdOrg1150" style="width:100%;"></div>
+	                	<div id="sb-area-grdOrg1150" style="width:100%; height:70vh;"></div>
 	                </div>                      
             	</div>    
             </div>

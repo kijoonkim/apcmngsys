@@ -507,6 +507,8 @@ console.log('save data ==> ',data);
 	       	if (_.isEqual("S", data.resultStatus)) {
 	       		if(data.resultMessage){
 	          		alert(data.resultMessage);
+	       		}else{
+	       			gfn_comAlert('I0001');
 	       		}
 	       		cfn_search();
 	       	} else {

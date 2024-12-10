@@ -229,17 +229,17 @@
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">FAX</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="FAX" class="form-control input-sm" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="FAX" class="form-control input-sm" style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">주소지 전화번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="RESIDENCE_TEL" class="form-control input-sm" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="RESIDENCE_TEL" class="form-control input-sm" style="width:100%" required ></sbux-input>		
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">휴대전화</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CELL_PHONE" class="form-control input-sm" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="CELL_PHONE" class="form-control input-sm" style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>

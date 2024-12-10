@@ -414,6 +414,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_createGrid();
         fn_init();
+        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SUB_CODE', 'CODE_NAME', 'Y');
         fn_search('TAB_DAILY');
     });
 	// 신규
@@ -597,14 +598,14 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	var SRCH_CURRENCY_CODE		= '';
-    	var SRCH_FBS_SERVICE		= '';
-    	var SRCH_FBS_YN				= '';
-    	var SRCH_USE_YN				= '';
-    	var SRCH_BASE_DATE_FR		= '';
-    	var SRCH_BASE_DATE_TO		= '';
-    	var SRCH_EXCHANGE_SEQ_P		= '';
-    	var workType 				= '';
+    	let SRCH_CURRENCY_CODE		= '';
+    	let SRCH_FBS_SERVICE		= '';
+    	let SRCH_FBS_YN				= '';
+    	let SRCH_USE_YN				= '';
+    	let SRCH_BASE_DATE_FR		= '';
+    	let SRCH_BASE_DATE_TO		= '';
+    	let SRCH_EXCHANGE_SEQ_P		= '';
+    	let workType 				= '';
     	
     	if(tabId == 'TAB_DAILY'){
         	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE');
@@ -621,7 +622,7 @@
         	SRCH_BASE_DATE_TO		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
         	workType 				= 'AVERAGE';
     	}else if(tabId == 'TAB_MONTH'){
-        	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE1');
+        	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE3');
         	workType 				= 'CURRENCY';
     	}
     	
@@ -1026,7 +1027,7 @@
                 ]
             }),
         ]);
-        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SUB_CODE', 'CODE_NAME', 'Y');
+        
     }
     
 	//일별환율 - 환율정보 그리드
@@ -1615,7 +1616,7 @@
 			    "TTS": "525.44",
 			    "KFTC_DEAL_BAS_R": "540.84"
 			}
-			, {
+			,{
 			    "CUR_UNIT": "JPY",
 			    "YY_EFEE_R": "0",
 			    "MM_EFEE_R": "0",
@@ -1623,13 +1624,19 @@
 			    "TTS": "613.96",
 			    "KFTC_DEAL_BAS_R": "613.96"
 			}
+			,{
+			    "CUR_UNIT": "EUR",
+			    "YY_EFEE_R": "1.5",
+			    "MM_EFEE_R": "2.5",
+			    "TTB": "1500.15",
+			    "TTS": "1500.15",
+			    "KFTC_DEAL_BAS_R": "1500.15"
+			}
     	]
     	var dayGridData = dailyDayGrid.getGridDataAll();
-		
 		for(var i=0; dayGridData.length > i; i ++){
 			for(var j=0; data.length > j; j++){
-				if(dayGridData[i].CURRENCY_CODE == data[j].CUR_UNIT && 
-					dayGridData[i].BASE_DATE == "20241128"){
+				if(dayGridData[i].CURRENCY_CODE == data[j].CUR_UNIT && dayGridData[i].BASE_DATE.replaceAll('-','') == gfn_dateToYmd(new Date()) ){
 		            const param = {
 		                    cv_count: '0',
 		                    getType: 'json',
@@ -1641,7 +1648,7 @@
 	                    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	                    		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	                    		   ,V_P_BASE_CURRENCY        : gfn_nvl(dayGridData[i].BASE_CURRENCY)
-	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE)
+	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE).replaceAll('-','')
 	                    		   ,V_P_CURRENCY_CODE        : gfn_nvl(data[j].CUR_UNIT)
 	                    		   ,V_P_EXCHANGE_SEQ         : gfn_nvl(dayGridData[i].EXCHANGE_SEQ) == "" ? $('#SRCH_EXCHANGE_SEQ_P').val() : gfn_nvl(dayGridData[i].EXCHANGE_SEQ)
 	                    		   ,V_P_RCV_EX_RATE          : gfn_nvl(dayGridData[i].RCV_EX_RATE)

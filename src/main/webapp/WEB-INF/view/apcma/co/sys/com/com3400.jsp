@@ -47,7 +47,7 @@
                     </h3>
                 </div>
                 <div style="margin-left: auto;">
-					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;margin-right:1rem;" ></sbux-button>
+					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;" ></sbux-button>
 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -104,7 +104,7 @@
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
-										<div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
+										<div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:450px;height:250px;padding-top:0px;overflow:auto">
 										</div>
 									</div>
 								</td>
@@ -152,7 +152,7 @@
 								<td class="td_input" style="border-right:hidden;">
 									<sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 								</td>
-								<td>~</td>
+								<td style="text-align:center;">~</td>
 								<td style="border-right: hidden;">
 									<sbux-input id="SRCH_CS_CODE_TO" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 								</td>
@@ -613,16 +613,16 @@
 								<th scope="row" class="th_bg">주소</th>
 								<td class="td_input" style="border-right: hidden;" colspan="6">
 									<sbux-input id="ADDRESS" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-								</td>	
+								</td>
 							</tr>    
 							<tr>
 								<th scope="row" class="th_bg">대표전화</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%" ></sbux-input>
 								</td>	
 								<th scope="row" class="th_bg">팩스</th>
 								<td class="td_input" style="border-right: hidden;">
-									<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%" ></sbux-input>
 								</td>	                                    
 								<th scope="row" class="th_bg">이메일</th>
 								<td class="td_input" style="border-right: hidden;" colspan="">
@@ -682,7 +682,7 @@
 								</div>   			                        	
 								<sbux-button id="btnDelFinanceRow" name="btnDelFinanceRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delFinanceRow" style="float: right;"></sbux-button>
 								<sbux-button id="btnAddFinanceRow" name="btnAddFinanceRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addFinanceRow" style="float: right;"></sbux-button>
-								<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;padding-right: 3px;"></sbux-button>
+								<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;"></sbux-button>
 							</div>
 						</div>									
 						<div>
@@ -1155,7 +1155,7 @@
     
     <!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup3">
     	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
@@ -1301,9 +1301,9 @@
 				,colValue		: 'SUB_CODE'
 				,colLabel		: 'CODE_NAME'
 				,columns		:[
-		            {caption: "거래처유형코드",		ref: 'SUB_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "거래처유형코드",		ref: 'SUB_CODE', 		width:'150px',  	style:'text-align:left'},
 		            {caption: "거래처유형명", 			ref: 'CODE_NAME',    	width:'250px',  	style:'text-align:left'},
-		            {caption: "사업자등록번호필수", 	ref: 'EXTRA_FIELD3',    width:'150px',  	style:'text-align:left'}
+		            {caption: "사업자등록번호", 	ref: 'EXTRA_FIELD3',    width:'200px',  	style:'text-align:left'}
 				]
 			}),
 			//거래처구분
@@ -2032,8 +2032,6 @@
 			}
 		}
 		
-		
-		
 		if(await fn_save() == true){
 			if(await fn_save_S3() == true){
 				if(await fn_save_S4() == true){
@@ -2686,7 +2684,8 @@
 		SBUxMethod.enableTab('tabTax');
 		SBUxMethod.enableTab('tabHistory');
 		SBUxMethod.enableTab('tabMapping');
-		
+		// 거래처 리스트 선택시 탭 선택 초기화
+		SBUxMethod.setTab('idxTab_detail', 'tabInfo');
     	// 코드목록 그리드 초기화
     	await fn_clearSubForm();
 	    const selectRowVal = masterGrid.getRowData(nRow);
@@ -2702,28 +2701,27 @@
     	let SRCH_CS_GROUP_P		= gfnma_multiSelectGet("#SRCH_CS_GROUP_P");
     	let SRCH_CS_TYPE 		= gfnma_multiSelectGet("#SRCH_CS_TYPE");
     	var paramObj = {
-    			  V_P_DEBUG_MODE_YN       : ''
-   				  ,V_P_LANG_ID            : ''
-   				  ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-   				  ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-   				  ,V_P_CS_CODE_FR         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
-   				  ,V_P_CS_CODE_TO         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
-   				  ,V_P_CS_CODE            : gfn_nvl(selectRowVal.CS_CODE)
-   				  ,V_P_CS_NAME            : gfn_nvl(selectRowVal.CS_NAME)
-   				  ,V_P_CS_GROUP_P         : SRCH_CS_GROUP_P
-   				  ,V_P_BIZ_REGNO          : SRCH_BIZ_REGNO1
-   				  ,V_P_USE_YN1            : SRCH_USE_YN1
-   				  ,V_P_USE_YN2            : SRCH_USE_YN2
-   				  ,V_P_DELETE_YN          : SRCH_DELETE_YN
-   				  ,V_P_CS_TYPE            : SRCH_CS_TYPE
-   				  ,V_P_CHIEF_NAME         : SRCH_CHIEF_NAME1
-   				  ,V_P_FORM_ID            : p_formId
-   				  ,V_P_MENU_ID            : p_menuId
-   				  ,V_P_PROC_ID            : ""
-   				  ,V_P_USERID             : p_userId
-   				  ,V_P_PC                 : ""
+    			V_P_DEBUG_MODE_YN       : ''
+   				,V_P_LANG_ID            : ''
+   				,V_P_COMP_CODE          : gv_ma_selectedCorpCd
+   				,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+   				,V_P_CS_CODE_FR         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
+   				,V_P_CS_CODE_TO         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
+   				,V_P_CS_CODE            : gfn_nvl(selectRowVal.CS_CODE)
+   				,V_P_CS_NAME            : gfn_nvl(selectRowVal.CS_NAME)
+   				,V_P_CS_GROUP_P         : SRCH_CS_GROUP_P
+   				,V_P_BIZ_REGNO          : SRCH_BIZ_REGNO1
+   				,V_P_USE_YN1            : SRCH_USE_YN1
+   				,V_P_USE_YN2            : SRCH_USE_YN2
+   				,V_P_DELETE_YN          : SRCH_DELETE_YN
+   				,V_P_CS_TYPE            : SRCH_CS_TYPE
+   				,V_P_CHIEF_NAME         : SRCH_CHIEF_NAME1
+   				,V_P_FORM_ID            : p_formId
+   				,V_P_MENU_ID            : p_menuId
+   				,V_P_PROC_ID            : ""
+   				,V_P_USERID             : p_userId
+   				,V_P_PC                 : ""
 	    };
-    	
 		const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3400.do", {
 			getType				: 'json',
 			workType			: 'MASTER',
@@ -3282,7 +3280,6 @@
             }else{
             	$('#btnSubmit').hide();
             }
-            
 		})
 		
 		$('#FOREIGN_YN').change(function(){
@@ -3345,12 +3342,14 @@
             $('#TXN_STOP_REASON').addClass('inpt_data_reqed');
             $('#TXN_STOP_DATE').addClass('inpt_data_reqed');
             $('#TXN_STOP_REASON').prop('disabled', false);
-            SBUxMethod.attr('TXN_STOP_DATE','disabled','false')
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','false');
 		}else{
             $('#TXN_STOP_REASON').removeClass('inpt_data_reqed');
             $('#TXN_STOP_DATE').removeClass('inpt_data_reqed');
             $('#TXN_STOP_REASON').prop('disabled', true);
-            SBUxMethod.attr('TXN_STOP_DATE','disabled','true')
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','true');
+            gfnma_multiSelectSet("#TXN_STOP_REASON", "", "", "");
+            SBUxMethod.set('TXN_STOP_DATE','');
 		}
     }
     
@@ -4083,17 +4082,18 @@
 		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
 
 	}
+
 	/* 주소 팝업 */
 	//팝업 콜백
 	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
 		/*
-			roadFullAddr 전체 도로명주소
-			roadAddrPart1 도로명주소(참고항목 제외)
-			roadAddrPart2 도로명주소 참고항목
-			addrDetail 상세주소
-			engAddr 도로명 주소 영문
-			jibunAddr 지번 정보
-			zipNo 우편번호
+			roadFullAddr 	전체 도로명주소
+			roadAddrPart1 	도로명주소(참고항목 제외)
+			roadAddrPart2 	도로명주소 참고항목
+			addrDetail 		상세주소
+			engAddr 		도로명 주소 영문
+			jibunAddr 		지번 정보
+			zipNo 			우편번호
 		*/
 		if(addrDetail.length>30){
 			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
@@ -4373,7 +4373,11 @@
   		const data = await postJsonPromise;
 		try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	            gfn_comAlert("I0001"); // I0001 처리 되었습니다.
+	    		if(data.resultMessage){
+	    			alert(data.resultMessage);
+	    		}
+	    	}else{
+    			alert(data.resultMessage);
 	    	}
 	  	} catch (e) {
 	    	if (!(e instanceof Error)) {
@@ -5069,6 +5073,7 @@
    	    	return false;
    	    }
    	}
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
