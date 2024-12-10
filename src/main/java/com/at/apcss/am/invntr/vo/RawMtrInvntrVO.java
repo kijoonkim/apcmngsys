@@ -433,8 +433,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 저장위치
 	 */
 	private String strgLoctnCd;
-
-
+	/**
+	 * 작업자
+	 */
+	private String flnm;
 	/**
 	 * 제외 입고번호 목록
 	 */

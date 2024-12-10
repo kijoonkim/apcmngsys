@@ -139,8 +139,9 @@
                         name="btnCmndDocPckg"
                         uitype="normal"
                         class="btn btn-sm btn-primary btn-mbl"
-                        onclick="fn_save"
+                        onclick="fn_report"
                         text="리포트 발행"
+                        disabled
                 ></sbux-button>
                 <sbux-button
                         id="btnReset"
@@ -151,12 +152,20 @@
                         text="초기화"
                 ></sbux-button>
                 <sbux-button
-                        id="btnSave"
-                        name="btnSave"
+                        id="btnAdd"
+                        name="btnAdd"
                         uitype="normal"
                         class="btn btn-sm btn-outline-danger btn-mbl"
                         onclick="fn_add"
                         text="확인"
+                ></sbux-button>
+                <sbux-button
+                        id="btnSave"
+                        name="btnSave"
+                        uitype="normal"
+                        class="btn btn-sm btn-outline-danger btn-mbl"
+                        onclick="fn_save"
+                        text="저장"
                 ></sbux-button>
                 <sbux-button
                         id="btnClose"
@@ -471,8 +480,26 @@
         let result = await Promise.all([
             fn_initSBSelect(),
             fn_getPrdcrs(),
+            // fn_searchWrhsPrfmncList(),
         ]);
+    }
 
+    const fn_searchWrhsPrfmncList = async function(){
+        let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");
+        let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
+        const postJsonPromise = gfn_postJSON(postUrl, {
+            apcCd: gv_selectedApcCd,
+            wrhsYmdFrom: wrhsYmd,
+            wrhsYmdTo: wrhsYmd,
+            // invntrYn: 'Y'
+        });
+
+        const data = await postJsonPromise;
+
+        if (_.isEqual("S", data.resultStatus)) {
+            await fn_setSaveTable(data.resultList);
+            return;
+        }
     }
 
     /**
@@ -504,7 +531,10 @@
                     jsonSave[idx].wrhsno = item.wrhsno;
                     updateCell(idx,2,item.pltno);
                 });
-                await fn_autoPrint(jsonSave);
+                if(!gfn_isEmpty(jsonSave[0].wrhsno)){
+                    SBUxMethod.attr("btnCmndDocPckg","disabled","false");
+                }
+                // await fn_autoPrint(jsonSave);
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }
@@ -647,6 +677,7 @@
             SBUxMethod.set("srch-inp-prdcrCd", value);
             SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
             let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+            SBUxMethod.set("srch-inp-prdcrIdentno",prdcr.prdcrIdentno);
             prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
             /** 생산자 변경시 원복 **/
             if(!gfn_isEmpty(jsonApcVrtyTemp)) {
@@ -938,6 +969,10 @@
         });
 
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+        SBUxMethod.attr("srch-slt-itemCd","readonly","false");
+        SBUxMethod.attr("srch-slt-vrtyCd","readonly","false");
+        SBUxMethod.attr("srch-slt-spcfctCd","readonly","false");
+        SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:#FFF8DC");
     }
 
     const fn_close = function(){
@@ -1016,7 +1051,9 @@
 
         /** 기존데이터에 있을시 confirm **/
         const idx = jsonSave.findIndex(obj =>
-            obj.prdcrNm === item.prdcrNm && obj.itemNm === item.itemNm && obj.vrtyNm === item.vrtyNm && obj.wrhsYmd === item.wrhsYmd
+            obj.prdcrNm === item.prdcrNm && obj.itemNm === item.itemNm
+            && obj.vrtyNm === item.vrtyNm && obj.wrhsYmd === item.wrhsYmd
+            && obj.spcfctCd === item.spcfctCd
         );
         if(idx !== -1){
             if(gfn_comConfirm("Q0002","등록내역","추가")){
@@ -1050,7 +1087,6 @@
             let key = element.id.split('-').pop();
             SBUxMethod.set(element.id,jsonData[key]);
         }
-
     }
     const fn_add = async function(){
         let check = gfn_getTableElement("saveTable","srch-",["pltno","wrhsno","vrtyCd"]);
@@ -1063,7 +1099,6 @@
         /** 해당 규격의 단중 **/
         let itemSpcfctCd = check.itemCd + check.spcfctCd;
         check.wght = jsonSpcfctCd.filter((item) => item.itemSpcfctCd === itemSpcfctCd)[0].wght;
-
 
         let wrhsno = check.wrhsno || '';
         check.apcCd = gv_selectedApcCd;
@@ -1085,6 +1120,10 @@
         check.spcfctNm = spcfctNm;
 
         await fn_setSaveTable(check);
+
+        SBUxMethod.attr("srch-slt-itemCd","readonly","true");
+        SBUxMethod.attr("srch-slt-vrtyCd","readonly","true");
+        SBUxMethod.attr("srch-slt-spcfctCd","readonly","true");
     }
 
     const fn_deleteRow = async function(_el,event){
@@ -1130,6 +1169,15 @@
         });
         SBUxMethod.refresh('srch-slt-vrtyCd');
         SBUxMethod.set("srch-slt-itemCd", '');
+    }
+    const fn_report = async function(){
+        try{
+            fn_autoPrint(jsonSave);
+        }catch(e){
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+        }
     }
 
 </script>

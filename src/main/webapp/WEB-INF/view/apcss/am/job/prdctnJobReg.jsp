@@ -184,72 +184,76 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg th-mbl">품목/품종</th>
+                    <th scope="row" class="th_bg th-mbl">품목/품종/생산자</th>
                     <td class="td_input" >
                         <div style="display: flex;gap: 10px">
                             <sbux-input
-                                    id="dtl-inp-itemNm"
-                                    name="dtl-inp-itemNm"
+                                    id="mergeItemNm"
+                                    name="mergeItemNm"
                                     uitype="text"
                                     class="inpt-mbl"
-                                    wrap-style="flex-basis: 30%"
-                                    unselected-text="선택"
-                                    readonly
+                                    wrap-style="flex-basis: calc(60% + 10px)"
+                                    readonly>
+                            </sbux-input>
+                            <sbux-input
+                                    id="dtl-inp-itemNm"
+                                    name="dtl-inp-itemNm"
+                                    uitype="hidden"
                             ></sbux-input>
                             <sbux-input
                                     id="dtl-inp-vrtyNm"
                                     name="dtl-inp-vrtyNm"
-                                    uitype="text"
-                                    class="inpt-mbl"
-                                    wrap-style="flex-basis: 30%"
-                                    unselected-text="선택"
-                                    readonly
+                                    uitype="hidden"
+                            ></sbux-input>
+                            <sbux-input
+                                    id="dtl-inp-prdcrNm"
+                                    name="dtl-inp-prdcrNm"
+                                    uitype="hidden"
                             ></sbux-input>
                             <sbux-input
                                     id="dtl-inp-itemCd"
                                     name="dtl-inp-itemCd"
-                                    uitype="text"
-                                    wrap-style="flex-basis: 30%; display:none"
+                                    uitype="hidden"
                             ></sbux-input>
                             <sbux-input
                                     id="dtl-inp-vrtyCd"
                                     name="dtl-inp-vrtyCd"
-                                    uitype="text"
-                                    wrap-style="flex-basis: 30%; display:none"
+                                    uitype="hidden"
                             ></sbux-input>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg th-mbl">원물규격/<span style="color: red">재고수량</span>/<span style="color: red">투입수량</span></th>
+                    <th scope="row" class="th_bg th-mbl">규격/재고/<span style="color: red">투입</span></th>
                     <td class="td_input">
                         <div style="display: flex; gap: 10px">
                             <sbux-input
-                                    id="dtl-inp-rawMtrSpcfctNm"
-                                    name="dtl-inp-rawMtrSpcfctNm"
+                                    id="mergeSpcfctNm"
+                                    name="mergeSpcfctNm"
                                     uitype="text"
                                     wrap-style="flex-basis: 30%"
                                     class="inpt-mbl"
                                     placeholder=""
                                     readonly
                             ></sbux-input>
-                        <sbux-input
-                                id="dtl-inp-invntrQntt"
-                                name="dtl-inp-invntrQntt"
-                                uitype="text"
-                                wrap-style="flex-basis: 30%"
-                                class="inpt-mbl"
-                                placeholder=""
-                                readonly
-                        ></sbux-input>
                             <sbux-input
                                     id="dtl-inp-qntt"
                                     name="dtl-inp-qntt"
                                     uitype="text"
-                                    wrap-style="flex-basis: 15%"
+                                    wrap-style="flex-basis: 30%"
                                     class="inpt-mbl inpt_data_reqed"
                                     onchange="fn_qnttChange(dtl-inp-qntt)"
                                     placeholder=""
+                            ></sbux-input>
+                            <sbux-input
+                                    id="dtl-inp-rawMtrSpcfctNm"
+                                    name="dtl-inp-rawMtrSpcfctNm"
+                                    uitype="hidden"
+                            ></sbux-input>
+                            <sbux-input
+                                    id="dtl-inp-invntrQntt"
+                                    name="dtl-inp-invntrQntt"
+                                    uitype="hidden"
                             ></sbux-input>
                             <sbux-input
                                     id="wght"
@@ -259,23 +263,22 @@
                         </div>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg th-mbl">생산자</th>
+                    <th scope="row" class="th_bg th-mbl">작업자</th>
                     <td class="td_input">
                         <div style="display: flex; gap: 10px">
                             <sbux-input
-                                    id="dtl-inp-prdcrNm"
-                                    name="dtl-inp-prdcrNm"
+                                    id="dtl-inp-flnm"
+                                    name="dtl-inp-flnm"
                                     uitype="text"
-                                    wrap-style="flex-basis: 30%"
+                                    wrap-style="flex-basis: calc(60% + 10px)"
                                     class="inpt-mbl"
-                                    placeholder=""
                                     readonly
                             ></sbux-input>
+                            <input readonly id="jobMsg" type="text" value="작업중" style="display: none; border:0; color: red;font-size: 28px">
                             <sbux-input
                                     id="dtl-inp-prdcrCd"
                                     name="dtl-inp-prdcrCd"
-                                    uitype="text"
-                                    wrap-style="flex-basis: 30%; display:none"
+                                    uitype="hidden"
                             ></sbux-input>
                         </div>
                 </tr>
@@ -342,17 +345,19 @@
             </table>
                 <table id="latestInfo" class="table table-bordered tbl_fixed tbl_mbl">
                     <colgroup>
+                        <col style="width: 5%">
                         <col style="width: 10%">
                         <col style="width: 15%">
                         <col style="width: 10%">
-                        <col style="width: 13%">
-                        <col style="width: 13%">
-                        <col style="width: 13%">
-                        <col style="width: 13%">
-                        <col style="width: 13%">
+                        <col style="width: 12%">
+                        <col style="width: 12%">
+                        <col style="width: 12%">
+                        <col style="width: 12%">
+                        <col style="width: 12%">
                     </colgroup>
                     <thead>
                     <tr>
+                        <th>처리</th>
                         <th>생산자명</th>
                         <th>팔레트 번호</th>
                         <th>품목</th>
@@ -432,25 +437,45 @@
             });
 
             const data = await postJsonPromise;
+            console.log(data,"없어도 S잖아");
             if(data.resultStatus === 'S'){
-                SBUxMethod.set("dtl-inp-wrhsno", data.resultMap.wrhsno);
-                SBUxMethod.set("dtl-inp-invntrQntt", data.resultMap.invntrQntt);
-                SBUxMethod.set("dtl-inp-invntrWght", data.resultMap.invntrWght);
-                SBUxMethod.set("dtl-inp-itemNm", data.resultMap.itemNm);
-                SBUxMethod.set("dtl-inp-itemCd", data.resultMap.itemCd);
-                SBUxMethod.set("dtl-inp-vrtyNm", data.resultMap.vrtyNm);
-                SBUxMethod.set("dtl-inp-vrtyCd", data.resultMap.vrtyCd);
-                SBUxMethod.set("dtl-inp-prdcrCd", data.resultMap.prdcrCd);
-                SBUxMethod.set("dtl-inp-prdcrNm", data.resultMap.prdcrNm);
-                SBUxMethod.set("dtl-inp-rawMtrSpcfctNm", data.resultMap.spcfctNm);
-                SBUxMethod.set("wght", data.resultMap.wght);
-                /** 상품규격 == 원물규격 **/
-                await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd,gv_selectedApcCd,data.resultMap.itemCd);
+                if(!gfn_isEmpty(data.resultMap)) {
+                    /** 품목/품종/생산자 취합 **/
+                    let mergeItemNm = data.resultMap.itemNm + " / " + data.resultMap.vrtyNm + " / " + data.resultMap.prdcrNm;
+                    SBUxMethod.set("mergeItemNm", mergeItemNm);
+                    /** 규격/재고 취합 **/
+                    let mergeSpcfctNm = data.resultMap.spcfctNm + " / " + data.resultMap.invntrQntt + "개";
+                    SBUxMethod.set("mergeSpcfctNm", mergeSpcfctNm);
 
-                await fn_setGrdSelect(data.resultMap.itemCd);
-                await fn_getSortno();
-                /** 하단 table 정보 조회 **/
-                await fn_selectSortPrfmnc();
+                    SBUxMethod.set("dtl-inp-wrhsno", data.resultMap.wrhsno);
+                    SBUxMethod.set("dtl-inp-invntrQntt", data.resultMap.invntrQntt);
+                    SBUxMethod.set("dtl-inp-invntrWght", data.resultMap.invntrWght);
+                    SBUxMethod.set("dtl-inp-itemNm", data.resultMap.itemNm);
+                    SBUxMethod.set("dtl-inp-itemCd", data.resultMap.itemCd);
+                    SBUxMethod.set("dtl-inp-vrtyNm", data.resultMap.vrtyNm);
+                    SBUxMethod.set("dtl-inp-vrtyCd", data.resultMap.vrtyCd);
+                    SBUxMethod.set("dtl-inp-prdcrCd", data.resultMap.prdcrCd);
+                    SBUxMethod.set("dtl-inp-prdcrNm", data.resultMap.prdcrNm);
+                    SBUxMethod.set("dtl-inp-rawMtrSpcfctNm", data.resultMap.spcfctNm);
+                    if (data.resultMap.flnm) {
+                        SBUxMethod.set("dtl-inp-flnm", data.resultMap.flnm);
+                        $("#jobMsg").show()
+                    } else {
+                        SBUxMethod.set("dtl-inp-flnm", "");
+                        $("#jobMsg").hide();
+                    }
+                    SBUxMethod.set("wght", data.resultMap.wght);
+                    /** 상품규격 == 원물규격 **/
+                    await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
+
+                    await fn_setGrdSelect(data.resultMap.itemCd);
+                    await fn_getSortno();
+                    /** 하단 table 정보 조회 **/
+                    await fn_selectSortPrfmnc();
+                }else{
+                    let elements = document.querySelectorAll('[id^="dtl-inp-"]');
+                    console.log(elements,"요소들");
+                }
             }
 
         }catch (e) {
@@ -509,7 +534,7 @@
     }
 
     const fn_add = async function(){
-        let check = gfn_getTableElement("saveTable","dtl-",["warehouseSeCd","grdCd"]);
+        let check = gfn_getTableElement("saveTable","dtl-",["warehouseSeCd","grdCd","flnm"]);
         if(!check){
             return;
         }
@@ -527,6 +552,9 @@
     const fn_setSaveTable = async function(item){
             let el = `
            <tr onclick="selectLatestInfo(this)">
+           <td>
+                <input  type="button" value="삭제" onclick="fn_deleteRow(this, event)" class="btn-primary btn">
+            </td>
             <td>
                 ${'${item.prdcrNm}'}
             </td>
@@ -702,6 +730,13 @@
             }
         }
         // SBUxMethod.attr('dtl-inp-pltno', 'type', 'number');
+    }
+    const fn_deleteRow = async function(_el,event){
+        event.stopPropagation();
+        var row = $(_el).closest('tr');
+        let idx = row.index();
+        jsonSave.splice(idx,1);
+        row.remove();
     }
 
 </script>
