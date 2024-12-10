@@ -178,7 +178,7 @@
 				
 				    <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
 	                   title-target-id-array = "sb_area_tab1^sb_area_tab2^sb_area_tab3^sb_area_tab4^sb_area_tab5^sb_area_tab6"
-	                   title-text-array = "관리용^증감비교^월별손익^관리용(트리)^증감비료(트리)^월별손익(트리)"
+	                   title-text-array = "관리용^증감비교^월별손익^관리용(트리)^증감비교(트리)^월별손익(트리)"
 	                   title-target-value-array="1^2^3^4^5^6"
 	                   onclick="fn_tabClick(tab_norm)"></sbux-tabs>					
 					
