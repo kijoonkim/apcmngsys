@@ -851,7 +851,8 @@ const gfnma_multiSelectSet = async function (id, colValue, colLabel, findValue) 
 				var cu_label = $(this).find('[cu-code=' + colLabel + ']').text();
 				$(id).attr('cu-value', cu_value);
 				$(id).attr('cu-label', cu_label);
-				$(id).find('font').text(cu_label);
+				//$(id).find('font').text(cu_label);
+				$(id).html('<font>' + cu_label + '</font>');
 				return false;
 			}
 		});
