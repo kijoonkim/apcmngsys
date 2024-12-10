@@ -38,7 +38,7 @@
 				, SNO
 				, APLY_SFC
 
-				, SN
+				, AX_SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT
@@ -91,7 +91,7 @@
 				, SNO
 				, APLY_SFC
 
-				, SN
+				, AX_SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT

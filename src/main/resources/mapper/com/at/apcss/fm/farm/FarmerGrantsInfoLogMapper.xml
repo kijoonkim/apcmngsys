@@ -36,7 +36,7 @@
 				, LCLT_EXPND_SBSDS
 				, PRCS_SYS
 
-				, SN
+				, AX_SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT
@@ -87,7 +87,7 @@
 				, LCLT_EXPND_SBSDS
 				, PRCS_SYS
 
-				, SN
+				, AX_SN
 
 				, DEL_YN
 				, SYS_FRST_INPT_DT
