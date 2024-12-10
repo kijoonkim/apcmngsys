@@ -528,10 +528,8 @@ var p_userId = '${loginVO.id}';
 			        	console.log('data:', data2);
 
 			        	data2.cv_3.forEach((item, index) => {
-	        			   msg = {
 
-		  	  					}
-	        			   jsonDclrDtlInfo.push(msg);
+	        			   jsonDclrDtlInfo.push(item);
 	        		   })
 	                   grdDclrDtlInfo.rebuild();
 
@@ -560,10 +558,7 @@ var p_userId = '${loginVO.id}';
 				        	console.log('data:', data3);
 
 		                   data3.cv_3.forEach((item, index) => {
-		        			   msg = {
-
-			  	  					}
-		        			   jsonDclrDtlInfo.push(msg);
+		        			   jsonDclrDtlInfo.push(item);
 		        		   })
 		                   grdDclrDtlInfo.rebuild();
 
@@ -587,7 +582,9 @@ var p_userId = '${loginVO.id}';
     const fnSET_P_HRA8200_S = async function(workType){
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
     	let dclrData = grdDclrDtlInfo.getGridDataAll();
+    	let paramObjList = [];
     	dclrData.forEach(row => {
+
     		var paramObj = {
          			V_P_DEBUG_MODE_YN	: ''
          			,V_P_LANG_ID		: ''
@@ -640,6 +637,7 @@ var p_userId = '${loginVO.id}';
          			,V_P_USERID			: ''
          			,V_P_PC				: ''
          	    };
+    		//paramObjList.push(paramObj);
     	})
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
 
@@ -647,7 +645,7 @@ var p_userId = '${loginVO.id}';
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
-          	params				: gfnma_objectToString(paramObj)
+          	params				: gfnma_objectToString(paramObjList)
   			});
 
        	const data = await postJsonPromise;

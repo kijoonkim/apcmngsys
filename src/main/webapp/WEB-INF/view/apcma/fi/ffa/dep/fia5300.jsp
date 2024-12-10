@@ -295,7 +295,7 @@
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-
+			fn_saveClick();
 		}
     }
 
@@ -745,8 +745,8 @@
     }
 
 
-    const focusedRowChanged = function(){
-         fnQRY_P_FIA5300_Q("DETAIL");
+    const focusedRowChanged = async function(){
+         await fnQRY_P_FIA5300_Q("DETAIL");
     }
 
     const focusedRowChanged2 = function(){
@@ -786,22 +786,22 @@
          			,V_P_LANG_ID		: ''
          			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-         			,V_P_TXN_ID         : row.txnId //그리드에 없음 -> 안보이게 ㄲ json에만 넣으면 될듯
-         		    ,V_P_DEPRECIATION_YYYYMM  : row.depreciationYyyymm //그리드에 없음
-         		    ,V_P_ASSET_NO             : row.assetNo
-         		    ,V_P_DEPRECIATION_TYPE     : row.depreciationType //그리드에 없음
-         		    ,V_P_DEPRECIATION_METHOD : row.depreciationMethod
-         		    ,V_P_DEPRECIATION_PERIOD : row.depreciationPeriod
-         		    ,V_P_DEPRECIATION_RATE : row.depreciationRate
-         		    ,V_P_BEGIN_ACQUISITION_AMOUNT : row.beginAcquisitionAmount //그리드에 없음
-         		    ,V_P_BEGIN_SUBSIDIES_AMOUNT : row.beginSubsidiesAmount
-         		    ,V_P_ACQ_DEPR_AMT : row.acqDeprAmt
-         		    ,V_P_SUBSIDIES_DEPR_AMT : row.subsidiesDeprAmt
-         		    ,V_P_END_ACQUISITION_AMOUNT : row.endAcquisitionAmount
-         		    ,V_P_END_SUBSIDIES_AMOUNT : row.endSubsidiesAmount
-         		    ,V_P_END_ACCUM_DEPR : row.endAccumDepr
-         		    ,V_P_END_SUBSIDES_ACCUM_DEPR : row.endSubsidesAccumDepr
-         		    ,V_P_MEMO : row.memomemo
+         			,V_P_TXN_ID         : gfnma_nvl(row.txnId) //그리드에 없음 -> 안보이게 ㄲ json에만 넣으면 될듯
+         		    ,V_P_DEPRECIATION_YYYYMM  : gfnma_nvl(row.depreciationYyyymm) //그리드에 없음
+         		    ,V_P_ASSET_NO             : gfnma_nvl(row.assetNo)
+         		    ,V_P_DEPRECIATION_TYPE     : gfnma_nvl(row.depreciationType)//그리드에 없음
+         		    ,V_P_DEPRECIATION_METHOD : gfnma_nvl(row.depreciationMethod)
+         		    ,V_P_DEPRECIATION_PERIOD : gfnma_nvl(row.depreciationPeriod)
+         		    ,V_P_DEPRECIATION_RATE : gfnma_nvl(row.depreciationRate)
+         		    ,V_P_BEGIN_ACQUISITION_AMOUNT : gfnma_nvl(row.beginAcquisitionAmount) //그리드에 없음
+         		    ,V_P_BEGIN_SUBSIDIES_AMOUNT : gfnma_nvl(row.beginSubsidiesAmount)
+         		    ,V_P_ACQ_DEPR_AMT : gfnma_nvl(row.acqDeprAmt)
+         		    ,V_P_SUBSIDIES_DEPR_AMT : gfnma_nvl(row.subsidiesDeprAmt)
+         		    ,V_P_END_ACQUISITION_AMOUNT : gfnma_nvl(row.endAcquisitionAmount)
+         		    ,V_P_END_SUBSIDIES_AMOUNT : gfnma_nvl(row.endSubsidiesAmount)
+         		    ,V_P_END_ACCUM_DEPR : gfnma_nvl(row.endAccumDepr)
+         		    ,V_P_END_SUBSIDES_ACCUM_DEPR : gfnma_nvl(row.endSubsidesAccumDepr)
+         		    ,V_P_MEMO : gfnma_nvl(row.memomemo)
          			,V_P_FORM_ID		: p_formId
          			,V_P_MENU_ID		: p_menuId
          			,V_P_PROC_ID		: ''
