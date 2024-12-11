@@ -1214,6 +1214,7 @@ function gfnma_showPopover(element) {
  */
 const validateRequired = function (target) {
 	var dropdownList = [];
+	var returnValue = true;
 
 	if(target) {
 		dropdownList = $('button[group-id='+target+'][required]');
@@ -1230,11 +1231,12 @@ const validateRequired = function (target) {
 
 		if (!selectedValue) {
 			gfnma_showPopover(dropdownList[i]);
-			return false;
-		} else {
-			return true;
+			returnValue = false;
+			break;
 		}
 	}
+
+	return returnValue;
 }
 
 /**
