@@ -130,9 +130,15 @@ const gfn_getReportPdfFetch = async function(_downloadFileName, _reportFileName,
 		a.remove()
 	}
 
+	/*
+
 	if (typeof _callback === 'function') {
 		_callback();
 	}
+
+	 */
+
+	return true;
 }
 const gfn_getReportPdf = async function(_downloadFileName, _reportFileName, _conn, _password, _callback){
 
