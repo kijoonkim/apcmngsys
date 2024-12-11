@@ -121,7 +121,7 @@ const gfn_getReportPdfFetch = async function(_downloadFileName, _reportFileName,
 	const result = await response.blob();
 
 	if (result != null) {
-		let downloadUrl = window.URL.createObjectURL(blob)
+		let downloadUrl = window.URL.createObjectURL(result)
 		var a = document.createElement('a')
 		a.href = downloadUrl;
 		a.download = _downloadFileName;
@@ -238,6 +238,11 @@ const gfn_getReportPdf = async function(_downloadFileName, _reportFileName, _con
 	document.body.appendChild(frm);
 	frm.submit();
 	frm.remove();
+
+	if (typeof _callback === 'function') {
+		_callback();
+	}
+
 }
 
 
