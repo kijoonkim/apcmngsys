@@ -80,7 +80,6 @@
 								jsondata-ref="jsonComWarehouse"
 								unselected-text="선택"
 								class="form-control input-sm"
-								onchange="fn_warehouseSeChange(srch-slt-warehouseSeCd)"
 							></sbux-select>
 						</td>
 						<td></td>
@@ -272,13 +271,6 @@
         ]
         grdWarehouse = _SBGrid.create(SBGridProperties);
         grdWarehouse.bind('click', 'fn_view');
-    }
-
-    const fn_warehouseSeChange = function () {
-
-    	let warehouseNm = SBUxMethod.getText("srch-slt-warehouseSeCd");
-    	console.log("warehouseNm");
-
     }
 
     const fn_view = function () {

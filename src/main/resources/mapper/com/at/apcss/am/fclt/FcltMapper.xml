@@ -35,22 +35,22 @@
 					     , STRG_LOCTN_COL
 					     , STRG_LOCTN_ROW
 					     , SUM(A_QNTT)      AS AA_QNTT
-					     , MAX(A_PRDCR_NM)  AS AA_PRDCR_NM
+					     , LISTAGG(A_PRDCR_NM, ',') WITHIN GROUP(ORDER BY A_PRDCR_NM) AS AA_PRDCR_NM
 					     , MAX(A_WRHS_YMD)  AS AA_WRHS_YMD
 					     , SUM(B_QNTT)      AS BB_QNTT
-					     , MAX(B_PRDCR_NM)  AS BB_PRDCR_NM
+                         , LISTAGG(B_PRDCR_NM, ',') WITHIN GROUP(ORDER BY B_PRDCR_NM) AS BB_PRDCR_NM
 					     , MAX(B_WRHS_YMD)  AS BB_WRHS_YMD
 					     , SUM(C_QNTT)      AS CC_QNTT
-					     , MAX(C_PRDCR_NM)  AS CC_PRDCR_NM
+                         , LISTAGG(C_PRDCR_NM, ',') WITHIN GROUP(ORDER BY C_PRDCR_NM) AS CC_PRDCR_NM
 					     , MAX(C_WRHS_YMD)  AS CC_WRHS_YMD
 					     , SUM(D_QNTT)      AS DD_QNTT
-					     , MAX(D_PRDCR_NM)  AS DD_PRDCR_NM
+                         , LISTAGG(D_PRDCR_NM, ',') WITHIN GROUP(ORDER BY D_PRDCR_NM) AS DD_PRDCR_NM
 					     , MAX(D_WRHS_YMD)  AS DD_WRHS_YMD
 					     , SUM(E_QNTT)      AS EE_QNTT
-					     , MAX(E_PRDCR_NM)  AS EE_PRDCR_NM
+                         , LISTAGG(E_PRDCR_NM, ',') WITHIN GROUP(ORDER BY E_PRDCR_NM) AS EE_PRDCR_NM
 					     , MAX(E_WRHS_YMD)  AS EE_WRHS_YMD
 					     , SUM(F_QNTT)      AS FF_QNTT
-					     , MAX(F_PRDCR_NM)  AS FF_PRDCR_NM
+                         , LISTAGG(F_PRDCR_NM, ',') WITHIN GROUP(ORDER BY F_PRDCR_NM) AS FF_PRDCR_NM
 					     , MAX(F_WRHS_YMD)  AS FF_WRHS_YMD
 					  FROM (
 					        SELECT
