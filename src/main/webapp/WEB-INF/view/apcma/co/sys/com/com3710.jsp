@@ -127,7 +127,8 @@
 										    	id="FI_ORG_CODE" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -145,7 +146,8 @@
 										    	id="PROJECT_TYPE" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -157,7 +159,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">프로젝트코드</th>
                                     <td class="td_input " >
-                                        <sbux-input id="PROJECT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="PROJECT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAppoint" required style="width:100%"></sbux-input>
                                     </td>
                                   	<th scope="row" class="th_bg">약칭</th>
                                     <td class="td_input">
@@ -167,7 +169,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">프로젝트명</th>
                                     <td colspan="3" class="td_input ">
-                                        <sbux-input id="PROJECT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="PROJECT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="panAppoint" required style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -179,7 +181,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">카테고리</th>
 									<td class="td_input " style="border-right: hidden;">
-		   								<sbux-input uitype="text" id="PROJECT_CATEGORY" class="form-control input-sm inpt_data_reqed"></sbux-input>
+		   								<sbux-input uitype="text" id="PROJECT_CATEGORY" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 									</td>
                                     <th scope="row" class="th_bg">상위여부</th>
 									<td class="td_input" style="border-right: hidden;">
@@ -316,7 +318,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input" >
-		   								<sbux-input uitype="text" id="SORT_SEQ" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+		   								<sbux-input uitype="text" id="SORT_SEQ" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>   
                                 <tr>
@@ -1170,26 +1172,11 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-    	if(gfnma_multiSelectGet('#FI_ORG_CODE') == "") {
-            gfn_comAlert("W0002", "APC");
-            return;
+    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+    		return false;
     	}
-    	if(gfnma_multiSelectGet('#PROJECT_TYPE') == "") {
-            gfn_comAlert("W0002", "프로젝트유형");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("PROJECT_NAME")) == "") {
-            gfn_comAlert("W0002", "프로젝트명");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("PROJECT_CATEGORY")) == "") {
-            gfn_comAlert("W0002", "카테고리");
-            return;
-    	}
-    	if(gfnma_multiSelectGet('#CODE_SEG01') == "" ||
-    			gfnma_multiSelectGet('#CODE_SEG02') == ""||
-    			gfnma_multiSelectGet('#CODE_SEG03') == ""||
-    			gfnma_multiSelectGet('#CODE_SEG04') == ""){
+    	
+    	if(gfnma_multiSelectGet('#CODE_SEG01') == "" ||	gfnma_multiSelectGet('#CODE_SEG02') == "" || gfnma_multiSelectGet('#CODE_SEG03') == ""|| gfnma_multiSelectGet('#CODE_SEG04') == ""){
             gfn_comAlert("W0002", "채번관리 탭 정보");
             return;
     	}

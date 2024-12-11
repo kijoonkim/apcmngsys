@@ -122,7 +122,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">계정과목코드</th>
                                     <td class="td_input">
-                                        <sbux-input id="ACCOUNT_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"readonly>
+                                        <sbux-input id="ACCOUNT_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required readonly>
                                         </sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">계정과목 약어</th>
@@ -134,7 +134,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">계정과목명</th>
                                     <td colspan="5" class="td_input" >
-                                        <sbux-input id="ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -208,7 +208,8 @@
 										    	id="ACC_GROUP_GUBUN" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -227,7 +228,8 @@
 										    	id="ACC_CATEGORY" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -239,14 +241,8 @@
                                 <tr>
                                     <th scope="row" class="th_bg">계정잔액구분</th>
                                     <td class="td_input " colspan="2">
-										<p class="ad_input_row inpt_data_reqed">
-											<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" uitype="normal" value="D" class="radio_label" checked></sbux-radio>
-											<label class="radio_label" for-id="RDO_BALANCE_SIDE1">차변</label>
-										</p>
-										<p class="ad_input_row inpt_data_reqed">
-											<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" uitype="normal" value="C" class="radio_label"></sbux-radio>
-											<label class="radio_label" for-id="RDO_BALANCE_SIDE2">대변</label>
-										</p>
+										<sbux-radio id="BALANCE_SIDE1" name="RDO_BALANCE_SIDE" text="차변"uitype="normal" value="D" class="radio_label inpt_data_reqed" checked></sbux-radio>
+										<sbux-radio id="BALANCE_SIDE2" name="RDO_BALANCE_SIDE" text="대변"uitype="normal" value="C" class="radio_label inpt_data_reqed"></sbux-radio>
 									</td>
                                     <th scope="row" class="th_bg">미결관리대상</th>
                                     <td class="td_input" colspan="2">
@@ -338,6 +334,7 @@
 											uitype="text"
 											id="SORT_SEQ"
 											class="form-control input-sm inpt_data_reqed"
+											group-id="panAppoint" required
 		   								></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">Report 사용여부</th>
@@ -409,6 +406,7 @@
 											uitype="text"
 											id="SORT_SEQ_PL"
 											class="form-control input-sm inpt_data_reqed"
+											group-id="panAppoint" required
 		   								></sbux-input>                                    
                                     </td>
                                     <th scope="row" class="th_bg">PL사용여부</th>
@@ -429,6 +427,7 @@
 											uitype="text"
 											id="SORT_SEQ_KGAAP_PL"
 											class="form-control input-sm inpt_data_reqed"
+											group-id="panAppoint" required
 		   								></sbux-input>                                    
                                     </td>
                                     <th scope="row" class="th_bg">KGAAP PL사용여부</th>
@@ -1737,34 +1736,9 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-    	if(gfn_nvl(SBUxMethod.get("ACCOUNT_CODE")) == "") {
-            gfn_comAlert("W0002", "계정과목코드");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("ACCOUNT_NAME")) == "") {
-            gfn_comAlert("W0002", "계정과목명");
-            return;
-    	}
-    	if(gfnma_multiSelectGet('#ACC_GROUP_GUBUN') == "") {
-            gfn_comAlert("W0002", "계정그룹구분");
-            return;
-    	}
-    	if(gfnma_multiSelectGet('#ACC_CATEGORY') == "") {
-            gfn_comAlert("W0002", "계정분류");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SORT_SEQ")) == "") {
-            gfn_comAlert("W0002", "정렬순서");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SORT_SEQ_PL")) == "") {
-            gfn_comAlert("W0002", "IFRS PL 순서");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SORT_SEQ_KGAAP_PL")) == "") {
-            gfn_comAlert("W0002", "KGAAP PL 순서");
-            return;
-    	}
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
     	
     	if(editType == "N"){
     		var valUrl = "/co/sys/com/insertCom3630.do";
