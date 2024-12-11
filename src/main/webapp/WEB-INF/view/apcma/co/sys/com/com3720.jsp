@@ -123,7 +123,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">그룹코드</th>
                                     <td class="td_input" colspan="2">
-                                        <sbux-input id="GROUP_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="GROUP_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션1</th>
                                     <td class="td_input" >
@@ -137,7 +137,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">코드그룹명</th>
                                     <td class="td_input" colspan="2">
-                                        <sbux-input id="GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션2</th>
                                     <td class="td_input" >
@@ -151,7 +151,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">코드길이</th>
                                     <td class="td_input" colspan="2">
-                                        <sbux-input id="CODE_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="CODE_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row"class="th_bg">여유필드캡션3</th>
                                     <td class="td_input" >
@@ -716,6 +716,10 @@
 
     //그룹코드 내역 저장
     const fn_saveFieldCaption = async function() {
+    	
+    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+    		return false;
+    	}
 
     	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
     	let GROUP_NAME			= gfn_nvl(SBUxMethod.get("GROUP_NAME"));
@@ -738,18 +742,6 @@
     	let FIELD_CAPTION9 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9"));
     	let FIELD_CAPTION10 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"));
     	
-    	if(GROUP_CODE == "") {
-            gfn_comAlert("W0002", "그룹코드");
-            return;
-    	}
-    	if(GROUP_NAME == "") {
-            gfn_comAlert("W0002", "코드그룹명");
-            return;
-    	}
-    	if(CODE_LENGTH == "") {
-            gfn_comAlert("W0002", "코드길이");
-            return;
-    	}
     	
     	if(editType == "N"){
     		var valUrl = "/co/sys/com/insertCom3720.do";

@@ -199,7 +199,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:401px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:544px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -298,14 +298,14 @@
             {caption: ['계량번호'], 	ref: 'wghno', hidden: true},
         	{caption: ["선택"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
 				typeinfo: {ignoreupdate : true, checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ['계량일자'], 	ref: 'wghYmd', 		width: '120px', type: 'output', style:'text-align:center'},
+            {caption: ['계량일자'], 	ref: 'wghYmd', 		width: '120px', type: 'output', style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'], 		ref: 'cnptNm', 		width: '120px', type: 'output', style:'text-align:center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['총 중량'], 		ref: 'wholWght', 	width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### '}},
             {caption: ['공차중량'],		ref: 'emptVhclWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### '}},
             {caption: ['실중량'], 		ref: 'actlWght', 	width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### '}},
             {caption: ['감량율'], 		ref: 'rdcdRt', 		width: '80px', type: 'output', style:'text-align:right;', format : {type:'number', rule:'###.## '}},
-        	{caption: ['인수량'], 		ref: 'acptnWght', 	width: '100px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### '}},
+        	{caption: ['인수량'], 		ref: 'bxQntt', 		width: '100px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### '}},
             {caption: ['생산자'], 		ref: 'prdcrNm', 	width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['저장위치'], 	ref: 'warehouseSeCd', width: '140px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonComWarehouse', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},

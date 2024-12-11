@@ -232,7 +232,6 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
     	fn_initSBSelect();
     	fn_createGrid();
     	cfn_search();
@@ -387,7 +386,6 @@
 				
 		const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {listData: listData});
 		const data = await postJsonPromise;
-console.log('save data ==> ',data);
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 //         		if(data.resultMessage){
@@ -558,7 +556,6 @@ console.log('save data ==> ',data);
      		if(gfn_comConfirm("Q0001", "삭제")){ //{0} 하시겠습니까?
     			fn_delete();
     		}
-//              masterGrid.deleteRow(rowVal);
          }
      }
      

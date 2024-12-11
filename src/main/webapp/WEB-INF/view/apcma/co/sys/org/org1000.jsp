@@ -127,7 +127,7 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">법인코드</th>
 		                            <td class="td_input"  style="border-right:hidden;">
-										<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm inpt_data_reqed"></sbux-input>	
+										<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>	
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
 		                            </td>
@@ -136,13 +136,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인명</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>
-<!-- 										<sbux-input id="COMP_NAME" name="COMP_NAME" model-name="COMP_NAME" uitype="text"  -->
-<!-- 											grid-id="masterGrid"  -->
-<!-- 											class="form-control input-sm inpt_data_reqed" -->
-<!-- 											grid-direction="both" -->
-<!-- 											grid-event="valuechanged"> -->
-<!-- 										</sbux-input> -->
+										<sbux-input uitype="text" id="COMP_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>
 		                            </td>
 		                            <td id="COMP_LOGO_AREA" class="td_input"  style="border-right:hidden;width:100%;" colspan="2" rowspan="3">
                                         <img id="COMP_LOGO" style="width: 410px; height: 105px;object-fit: contain;">
@@ -158,13 +152,13 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인영문명</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-										<sbux-input uitype="text" id="COMP_NAME_ENG" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>		                            
+										<sbux-input uitype="text" id="COMP_NAME_ENG" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		                            
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인등록번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-										<sbux-input uitype="text" id="COMP_REGNO" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
+										<sbux-input uitype="text" id="COMP_REGNO" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		                            
 		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
@@ -173,7 +167,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인설립일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" style="height: 3.5vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
+		                                <sbux-datepicker id="ESTABLISH_DATE" name="ESTABLISH_DATE" uitype="popup" datepicker-mode="day" group-id="panAppoint" required style="height: 3.5vh;width:100%;" class="table-datepicker-ma inpt_data_reqed" date-format="yyyy-mm-dd"></sbux-datepicker>
 		                            </td>	                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
@@ -185,7 +179,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인대표</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CEO_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="CEO_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
@@ -193,7 +187,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">우편번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="ZIP_CODE" class="form-control input-sm inpt_data_reqed inpt_data_reqed" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="ZIP_CODE" class="form-control input-sm inpt_data_reqed inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
@@ -201,7 +195,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">주소</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="4">
-		                                <sbux-input uitype="text" id="ADDRESS" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="ADDRESS" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -213,7 +207,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">전화번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-		                                <sbux-input uitype="text" id="TEL" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="TEL" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">팩스번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
@@ -268,7 +262,7 @@
 										    	data-toggle="dropdown"
 										    	aria-haspopup="true"
 										    	aria-expanded="false"
-										    	required>
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -286,7 +280,8 @@
 										    	id="NATION_CODE"
 										    	data-toggle="dropdown"
 										    	aria-haspopup="true"
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -298,11 +293,11 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">회기시작월일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="2">
-		                                <sbux-input uitype="text" id="FISCAL_START_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%"></sbux-input>
+		                                <sbux-input uitype="text" id="FISCAL_START_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%" group-id="panAppoint" required></sbux-input>
 		                            </td>
 			                        <th scope="row" class="th_bg">회기종료월일</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="FISCAL_END_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%"></sbux-input>
+		                                <sbux-input uitype="text" id="FISCAL_END_MMDD" class="form-control input-sm inpt_data_reqed" style="width:50%" group-id="panAppoint" required></sbux-input>
 		                            </td>
 		                        </tr>
 		                        <tr>
@@ -316,7 +311,8 @@
 										    	id="ACCT_RULE_CODE"
 										    	data-toggle="dropdown"
 										    	aria-haspopup="true"
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -326,7 +322,7 @@
 									</td>
 			                        <th scope="row" class="th_bg">법인코드약칭</th> 
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="COMP_CODE_ABBR" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>
+		                                <sbux-input uitype="text" id="COMP_CODE_ABBR" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>
 		                            </td>
 		                        </tr>
 		                    </tbody>
@@ -842,107 +838,46 @@
 	    	if(txt == '직인 변경'){
 	    		workType = 'U';
 	    	}
-	        if (gfn_nvl(SBUxMethod.get("COMP_CODE")) == "") {
-	            gfn_comAlert("W0002", "법인코드");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("COMP_CODE")).length != 4) {
-	            gfn_comAlert("E0000", "법인코드는 4자리로 설정해야합니다.");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("COMP_NAME")) == "") {
-	            gfn_comAlert("W0002", "법인명");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("COMP_NAME_ENG")) == "") {
-	            gfn_comAlert("W0002", "법인영문명");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("COMP_REGNO")) == "") {
-	            gfn_comAlert("W0002", "법인등록번호");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("ESTABLISH_DATE")) == "") {
-	            gfn_comAlert("W0002", "법인설립일");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("CEO_NAME")) == "") {
-	            gfn_comAlert("W0002", "법인대표");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("ZIP_CODE")) == "") {
-	            gfn_comAlert("W0002", "우편번호");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("ADDRESS")) == "") {
-	            gfn_comAlert("W0002", "주소");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("TEL")) == "") {
-	            gfn_comAlert("W0002", "전화번호");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD")) == "") {
-	            gfn_comAlert("W0002", "회기시작월일");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD")) == "") {
-	            gfn_comAlert("W0002", "회기종료월일");
-	            return;
-	        }
-	        if (gfn_nvl(SBUxMethod.get("COMP_CODE_ABBR")) == "") {
-	            gfn_comAlert("W0002", "법인코드약칭");
-	            return;
-	        }
-	        if (gfnma_multiSelectGet("#CURRENCY_CODE") == "") {
-	            gfn_comAlert("W0002", "기준통화");
-	            return;
-	        }
-	        if (gfnma_multiSelectGet("#NATION_CODE") == "") {
-	            gfn_comAlert("W0002", "국가");
-	            return;
-	        }
-	        if (gfnma_multiSelectGet("#ACCT_RULE_CODE") == "") {
-	            gfn_comAlert("W0002", "회계기준");
-	            return;
+	        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+	            return false;
 	        }
 	        var paramObj = {
-        		   V_P_DEBUG_MODE_YN        : ''
-       			  ,V_P_LANG_ID              : ''
-       			  ,V_P_COMP_CODE            : gfn_nvl(SBUxMethod.get("COMP_CODE"))
-       			  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-       			  ,V_P_COMP_CODE_P          : gfn_nvl(SBUxMethod.get("COMP_CODE"))
-       			  ,V_P_COMP_NAME            : gfn_nvl(SBUxMethod.get("COMP_NAME"))
-       			  ,V_P_COMP_NAME_CHN        : gfn_nvl(SBUxMethod.get("COMP_NAME_CHN"))
-       			  ,V_P_COMP_NAME_ENG        : gfn_nvl(SBUxMethod.get("COMP_NAME_ENG"))
-       			  ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO"))
-       			  ,V_P_ESTABLISH_DATE       : gfn_nvl(SBUxMethod.get("ESTABLISH_DATE"))
-       			  ,V_P_COMP_LOGO            : ''
-       			  ,V_P_COMP_STAMP           : ''
-       			  ,V_P_CEO_NAME             : gfn_nvl(SBUxMethod.get("CEO_NAME"))
-       			  ,V_P_ZIP_CODE             : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
-       			  ,V_P_ADDRESS              : gfn_nvl(SBUxMethod.get("ADDRESS"))
-       			  ,V_P_ADDRESS_ENG          : gfn_nvl(SBUxMethod.get("ADDRESS_ENG")).replace(/,/gi, '')
-       			  ,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
-       			  ,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
-       			  ,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
-       			  ,V_P_STOCK_COUNT          : removeComma(gfn_nvl(SBUxMethod.get("STOCK_COUNT")) )
-       			  ,V_P_STOCK_AMOUNT         : removeComma(gfn_nvl(SBUxMethod.get("STOCK_AMOUNT")))
-       			  ,V_P_PRE_STOCK_COUNT1     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT1")))
-       			  ,V_P_PRE_STOCK_AMOUNT1    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT1")))
-       			  ,V_P_PRE_STOCK_COUNT2     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT2")))
-       			  ,V_P_PRE_STOCK_AMOUNT2    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT2")))
-       			  ,V_P_FISCAL_START_MMDD    : gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
-       			  ,V_P_FISCAL_END_MMDD      : gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD"))
-       			  ,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
-       			  ,V_P_ACCT_RULE_CODE       : gfnma_multiSelectGet("#ACCT_RULE_CODE")
-       			  ,V_P_COMP_CODE_ABBR       : gfn_nvl(SBUxMethod.get("COMP_CODE_ABBR"))
-       			  ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE") 
-       			  ,V_P_FORM_ID              : p_formId
-       			  ,V_P_MENU_ID              : p_menuId
-       			  ,V_P_PROC_ID              : ''
-       			  ,V_P_USERID               : p_userId
-       			  ,V_P_PC                   : ''
+        		 V_P_DEBUG_MODE_YN        : ''
+       			,V_P_LANG_ID              : ''
+       			,V_P_COMP_CODE            : gfn_nvl(SBUxMethod.get("COMP_CODE"))
+       			,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+       			,V_P_COMP_CODE_P          : gfn_nvl(SBUxMethod.get("COMP_CODE"))
+       			,V_P_COMP_NAME            : gfn_nvl(SBUxMethod.get("COMP_NAME"))
+       			,V_P_COMP_NAME_CHN        : gfn_nvl(SBUxMethod.get("COMP_NAME_CHN"))
+       			,V_P_COMP_NAME_ENG        : gfn_nvl(SBUxMethod.get("COMP_NAME_ENG"))
+       			,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO"))
+       			,V_P_ESTABLISH_DATE       : gfn_nvl(SBUxMethod.get("ESTABLISH_DATE"))
+       			,V_P_COMP_LOGO            : ''
+       			,V_P_COMP_STAMP           : ''
+       			,V_P_CEO_NAME             : gfn_nvl(SBUxMethod.get("CEO_NAME"))
+       			,V_P_ZIP_CODE             : gfn_nvl(SBUxMethod.get("ZIP_CODE"))
+       			,V_P_ADDRESS              : gfn_nvl(SBUxMethod.get("ADDRESS"))
+       			,V_P_ADDRESS_ENG          : gfn_nvl(SBUxMethod.get("ADDRESS_ENG")).replace(/,/gi, '')
+       			,V_P_TEL                  : gfn_nvl(SBUxMethod.get("TEL"))
+       			,V_P_FAX                  : gfn_nvl(SBUxMethod.get("FAX"))
+       			,V_P_WEB_URL              : gfn_nvl(SBUxMethod.get("WEB_URL"))
+       			,V_P_STOCK_COUNT          : removeComma(gfn_nvl(SBUxMethod.get("STOCK_COUNT")) )
+       			,V_P_STOCK_AMOUNT         : removeComma(gfn_nvl(SBUxMethod.get("STOCK_AMOUNT")))
+       			,V_P_PRE_STOCK_COUNT1     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT1")))
+       			,V_P_PRE_STOCK_AMOUNT1    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT1")))
+       			,V_P_PRE_STOCK_COUNT2     : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_COUNT2")))
+       			,V_P_PRE_STOCK_AMOUNT2    : removeComma(gfn_nvl(SBUxMethod.get("PRE_STOCK_AMOUNT2")))
+       			,V_P_FISCAL_START_MMDD    : gfn_nvl(SBUxMethod.get("FISCAL_START_MMDD"))
+       			,V_P_FISCAL_END_MMDD      : gfn_nvl(SBUxMethod.get("FISCAL_END_MMDD"))
+       			,V_P_CURRENCY_CODE        : gfnma_multiSelectGet("#CURRENCY_CODE")
+       			,V_P_ACCT_RULE_CODE       : gfnma_multiSelectGet("#ACCT_RULE_CODE")
+       			,V_P_COMP_CODE_ABBR       : gfn_nvl(SBUxMethod.get("COMP_CODE_ABBR"))
+       			,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE") 
+       			,V_P_FORM_ID              : p_formId
+       			,V_P_MENU_ID              : p_menuId
+       			,V_P_PROC_ID              : ''
+       			,V_P_USERID               : p_userId
+       			,V_P_PC                   : ''
 	        };
 	        const postJsonPromise = gfn_postJSON("/co/sys/org/insertOrg1000.do", {
 	            getType: 'json',
@@ -968,7 +903,6 @@
 	            gfn_comAlert("E0001"); //	E0001	오류가 발생하였습니다.
 	        }
 	    }
-	    
 	    
 	    const fn_changeCompLogo = async function() {
 	    	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"))

@@ -136,7 +136,10 @@
                                     <th scope="row" class="th_bg">APC</th>
                                     <td colspan="3" class="td_input">
 										<div class="dropdown" style="margin-right:5px" >
-										    <button id="FI_ORG_CODE" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    <button id="FI_ORG_CODE" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												group-id="frmBody" 
+												required                                       
+										    >
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -148,23 +151,35 @@
                                 <tr>
                                     <th scope="row" class="th_bg">카드번호</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="CARD_NO" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="CARD_NO" class="form-control input-sm inpt_data_reqed" uitype="text" required style="width:100%"
+											group-id="frmBody" 
+											required                                       
+                                        ></sbux-input>
                                         <sbux-input id="CARD_ID" class="form-control input-sm" uitype="hidden" ></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">카드명</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="CARD_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="CARD_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" required style="width:100%"
+											group-id="frmBody" 
+											required                                       
+                                        ></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">카드사</th>
                                     <td colspan="3" class="td_input">
                                     	<div style="display:flex;float:left">
-	                                        <sbux-input id="CARD_CS_CODE" class="form-control input-sm" uitype="text" style="width:120px" placeholder="코드"></sbux-input>
+	                                        <sbux-input id="CARD_CS_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:120px" placeholder="코드"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
-	                                        <sbux-input id="CARD_CS_NAME" class="form-control input-sm" uitype="text" style="width:200px" placeholder="카드사"></sbux-input>
+	                                        <sbux-input id="CARD_CS_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:200px" placeholder="카드사"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
@@ -207,7 +222,10 @@
 									            id="ISSUE_DATE"
 									            uitype="popup"
 									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast table-datepicker-ma">
+									            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+												group-id="frmBody" 
+												required                                       
+									            >
 									    </sbux-datepicker>                          
                                     </td>
                                     <th scope="row" class="th_bg">유효기간</th>
@@ -218,7 +236,9 @@
 										        datepicker-mode="month"
 										        date-format="yyyy-mm"
 										        style="width:80px"
-										        class="form-control input-sm input-sm-ast table-datepicker-ma"
+										        class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+												group-id="frmBody" 
+												required                                       
 										        >
 										</sbux-datepicker>                            
                                     </td>
@@ -226,7 +246,10 @@
                                 <tr>
                                     <th scope="row" class="th_bg">한도금액</th>
                                     <td class="td_input">
-                                        <sbux-input id="LIMIT_AMT" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="LIMIT_AMT" class="form-control input-sm inpt_data_reqed" uitype="text" required style="width:100%"
+												group-id="frmBody" 
+												required                                       
+                                        ></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">해지일</th>
                                     <td class="td_input">
@@ -243,9 +266,15 @@
                                     <th scope="row" class="th_bg">채무계정</th>
                                     <td colspan="3" class="td_input">
                                     	<div style="display:flex;float:left">
-	                                        <sbux-input id="AP_ACCOUNT_CODE" class="form-control input-sm" uitype="text" style="width:120px" placeholder="계정코드"></sbux-input>
+	                                        <sbux-input id="AP_ACCOUNT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:120px" placeholder="계정코드"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
-	                                        <sbux-input id="AP_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:200px" placeholder="계정명"></sbux-input>
+	                                        <sbux-input id="AP_ACCOUNT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:200px" placeholder="계정명"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
@@ -260,9 +289,15 @@
                                     <th scope="row" class="th_bg">지급거래처</th>
                                     <td colspan="3" class="td_input">
                                     	<div style="display:flex;float:left">
-	                                        <sbux-input id="PAY_CS_CODE" class="form-control input-sm" uitype="text" style="width:120px" placeholder="지급처코드"></sbux-input>
+	                                        <sbux-input id="PAY_CS_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:120px" placeholder="지급처코드"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
-	                                        <sbux-input id="PAY_CS_NAME" class="form-control input-sm" uitype="text" style="width:200px" placeholder="지급처명"></sbux-input>
+	                                        <sbux-input id="PAY_CS_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:200px" placeholder="지급처명"
+												group-id="frmBody" 
+												required                                       
+	                                        ></sbux-input>
 	                                        <font style="width:5px"></font>
 											<sbux-button 
 												class="btn btn-xs btn-outline-dark"
@@ -277,7 +312,10 @@
                                     <th scope="row" class="th_bg">카드상태</th>
                                     <td class="td_input">
 										<div class="dropdown" style="margin-right:5px" >
-										    <button id="CARD_STATUS" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    <button id="CARD_STATUS" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												group-id="frmBody" 
+												required                                       
+										    >
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -288,7 +326,10 @@
                                     <th scope="row" class="th_bg">상태(카드사기준)</th>
                                     <td class="td_input">
 										<div class="dropdown" style="margin-right:5px" >
-										    <button id="CARD_STATUS2" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    <button id="CARD_STATUS2" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												group-id="frmBody" 
+												required                                       
+										    >
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -369,7 +410,10 @@
 		                                    <td colspan="3" class="td_input">
 		                                    	<div style="display:flex;float:left">
 													<div class="dropdown" style="margin-right:5px" >
-													    <button id="SETTLE_DD" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													    <button id="SETTLE_DD" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+															group-id="frmBody" 
+															required                                       
+													    >
 													    	<font>선택</font>
 													        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 													    </button>
@@ -378,7 +422,10 @@
 													</div>                                    
 			                                        <font style="width:10px"></font>
 													<div class="dropdown" style="margin-right:5px" >
-													    <button id="PAY_TERM_CODE" style="width:350px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													    <button id="PAY_TERM_CODE" style="width:350px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+															group-id="frmBody" 
+															required                                       
+													    >
 													    	<font>선택</font>
 													        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 													    </button>
@@ -585,6 +632,9 @@
 
 	var editType	= "N";
 	
+    var Fim3100Grid; 			// 그리드를 담기위한 객체 선언
+    var jsonFim3100List = []; 	// 그리드의 참조 데이터 주소 선언
+	
 	var jsonCbocardStatus2		= [];	// 상태(카드사기준)
 	var jsonCbocardStatus1		= [];	// 카드상태
 	
@@ -768,12 +818,15 @@
 		]);
 	}	
 
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+	async function fn_init() {
 		
-    	fn_initSBSelect();
-    	fn_createGrid();	
-    	
+  		await fn_initSBSelect()
+  		
+		//화면셋팅
+ 		fn_state('A');
+  		
+  		fn_createGrid();
+  		
 		//재직상태
 		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
 			function(list){
@@ -798,6 +851,12 @@
 			e.preventDefault();
 			fn_tab2RowClear();
 		});
+	}	
+	
+    // only document
+    window.addEventListener('DOMContentLoaded', function(e) {
+		
+    	fn_init();
     });
 
     /**
@@ -807,10 +866,48 @@
     	gfnma_uxDataClear('#dataArea1');
     }
     
-    //grid 초기화
-    var Fim3100Grid; 			// 그리드를 담기위한 객체 선언
-    var jsonFim3100List = []; 	// 그리드의 참조 데이터 주소 선언
-
+    /**
+     * 화면 state 변경
+     */
+    function fn_state(type) {
+    
+    	if(type=='A'){
+    		
+    		cfn_init();
+    		
+			$('#main-btn-add', parent.document).attr('disabled', false);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+    		
+// 	        SBUxMethod.set("SCH_TRANSFER_DATE_FROM",	gfnma_date9(-1));
+// 	        SBUxMethod.set("SCH_ACQUIRE_DATE_TO",		gfnma_date4());
+	    
+// 	 		SBUxMethod.set('SCH_FI_ORG_CODE1', 			p_ss_fiOrgCode);
+// 	 		SBUxMethod.set('SCH_SITE_CODE1', 			p_ss_siteCode);
+// 	 		SBUxMethod.set('SCH_FI_ORG_CODE2', 			p_ss_fiOrgCode);
+// 	 		SBUxMethod.set('SCH_SITE_CODE2', 			p_ss_siteCode);
+	 		
+// 	    	gfnma_uxDataClear('#dataArea1');
+	    	
+// 	    	SBUxMethod.attr('FM_ASSET_TRANSFER_NO', 	'disabled', true);
+// 	    	SBUxMethod.attr('FM_SITE_CODE_FROM', 		'disabled', true);
+	    	
+// 	    	SBUxMethod.attr('FM_DEPT_CODE_FROM', 		'disabled', true);
+// 	    	SBUxMethod.attr('BTN_FM_DEPT_CODE_FROM', 	'disabled', true);
+// 	    	SBUxMethod.attr('FM_DEPT_NAME_FROM', 		'disabled', true);
+	    	
+// 	    	SBUxMethod.attr('FM_COST_CENTER_CODE_FROM', 		'disabled', true);
+// 	    	SBUxMethod.attr('BTN_FM_COST_CENTER_CODE_FROM', 	'disabled', true);
+// 	    	SBUxMethod.attr('FM_COST_CENTER_NAME_FROM', 		'disabled', true);
+	    	
+    	} else if('B'){
+    		
+			$('#main-btn-add', parent.document).attr('disabled', false);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			$('#main-btn-del', parent.document).attr('disabled', false);
+    	}
+    	
+    }     
+    
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdComMsg';
@@ -879,7 +976,9 @@
      * 목록 조회
      */
 	function cfn_search() {
-    	editType = "N";    	
+    	editType = "N";    
+    	
+ 		fn_state('B');
     	gfnma_uxDataClear('#dataArea1');
 		fn_setFim3100Grid('Q');
 	}
@@ -1010,6 +1109,10 @@
     function cfn_add() {
     	
     	editType = "N";    	
+    	
+ 		$('#main-btn-save', parent.document).attr('disabled', false);
+ 		$('#main-btn-del', 	parent.document).attr('disabled', true);
+    	
     	gfnma_uxDataClear('#dataArea1');
     	fn_tab2RowClear();
     }
@@ -1018,6 +1121,9 @@
      * 저장
      */
     function cfn_save() {
+        if(!SBUxMethod.validateRequired({group_id: "frmBody"}) || !validateRequired("frmBody")) {        
+            return false;
+        }        
     	fn_saveMast(editType);
     }
     
@@ -1029,14 +1135,14 @@
 		let p_card_no	= gfnma_nvl(SBUxMethod.get("CARD_NO"));
 		let p_card_name	= gfnma_nvl(SBUxMethod.get("CARD_NAME"));
     	
-		if(!p_card_no){
-        	gfn_comAlert("W0002", "카드번호");
-        	return;
-		}    	
-		if(!p_card_name){
-        	gfn_comAlert("W0002", "카드명");
-        	return;
-		}    	
+// 		if(!p_card_no){
+//         	gfn_comAlert("W0002", "카드번호");
+//         	return;
+// 		}    	
+// 		if(!p_card_name){
+//         	gfn_comAlert("W0002", "카드명");
+//         	return;
+// 		}    	
 		
 		if(wtype=='N'){
 			if(confirm("신규 저장 하시겠습니까?")){
@@ -1196,6 +1302,92 @@
             }
         }       	
     }
+    
+    /**
+     * 삭제
+     */
+    const fn_deleteMast = async function(wtype) {
+    	
+		let p_card_no	= gfnma_nvl(SBUxMethod.get("CARD_NO"));
+		let p_card_name	= gfnma_nvl(SBUxMethod.get("CARD_NAME"));
+    	
+		if(!p_card_no){
+        	gfn_comAlert("W0002", "카드번호");
+        	return;
+		}    	
+		if(!p_card_name){
+        	gfn_comAlert("W0002", "카드명");
+        	return;
+		}    	
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN			: ''
+			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedCorpCd)
+			,V_P_CLIENT_CODE			: gfnma_nvl(gv_ma_selectedClntCd)
+			,V_P_FI_ORG_CODE      		: gfnma_nvl(gfnma_multiSelectGet("#FI_ORG_CODE"))
+			,V_P_CARD_NO          		: gfnma_nvl(SBUxMethod.get("CARD_NO"))
+			,V_P_CARD_NAME        		: gfnma_nvl(SBUxMethod.get("CARD_NAME"))
+			,V_P_CARD_CS_CODE     		: gfnma_nvl(SBUxMethod.get("CARD_CS_CODE"))
+			,V_P_BIZ_TYPE         		: gfnma_nvl(gfnma_multiSelectGet("#BIZ_TYPE"))
+			,V_P_CARD_USE_TYPE    		: gfnma_nvl(gfnma_multiSelectGet("#CARD_USE_TYPE"))
+			,V_P_ISSUE_DATE       		: gfnma_nvl(SBUxMethod.get("ISSUE_DATE"))
+			,V_P_EXPIRE_YYYYMM    		: gfnma_nvl(SBUxMethod.get("EXPIRE_YYYYMM"))
+			,V_P_LIMIT_AMT        		: gfnma_nvl(SBUxMethod.get("LIMIT_AMT"))
+			,V_P_CARD_STATUS      		: gfnma_nvl(gfnma_multiSelectGet("#CARD_STATUS"))
+			,V_P_CARD_STATUS2     		: gfnma_nvl(gfnma_multiSelectGet("#CARD_STATUS2"))
+			,V_P_DEPOSIT_CODE     		: gfnma_nvl(SBUxMethod.get("DEPOSIT_CODE"))
+			,V_P_BANK_CODE        		: gfnma_nvl(SBUxMethod.get("BANK_CODE"))
+			,V_P_ACCOUNT_NO       		: gfnma_nvl(SBUxMethod.get("ACCOUNT_NO"))
+			,V_P_PAY_BANK_CODE    		: gfnma_nvl(SBUxMethod.get("PAY_BANK_CODE"))
+			,V_P_PAY_BANK_ACCOUNT_NO	: gfnma_nvl(SBUxMethod.get("PAY_BANK_ACCOUNT_NO"))
+			,V_P_SETTLE_DD        		: gfnma_nvl(gfnma_multiSelectGet("#SETTLE_DD"))
+			,V_P_SITE_CODE        		: gfnma_nvl(gfnma_multiSelectGet("#SITE_CODE"))
+			,V_P_DEPT_CODE        		: gfnma_nvl(SBUxMethod.get("DEPT_CODE"))
+			,V_P_EMP_CODE         		: gfnma_nvl(SBUxMethod.get("EMP_CODE"))
+			,V_P_ACCOUNT_EMP_CODE 		: gfnma_nvl(SBUxMethod.get("ACCOUNT_EMP_CODE"))
+			,V_P_PAY_DATE         		: gfnma_nvl(SBUxMethod.get("PAY_DATE"))
+			,V_P_RECEIVE_DATE     		: gfnma_nvl(SBUxMethod.get("RECEIVE_DATE"))
+			,V_P_DESCR            		: gfnma_nvl(SBUxMethod.get("DESCR"))
+			,V_P_AP_ACCOUNT_CODE  		: gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_CODE"))
+			,V_P_PAY_TERM_CODE    		: gfnma_nvl(gfnma_multiSelectGet("#PAY_TERM_CODE"))
+			,V_P_PAY_CS_CODE      		: gfnma_nvl(SBUxMethod.get("PAY_CS_CODE"))
+			,V_P_CARD_ID          		: gfnma_nvl(SBUxMethod.get("CARD_ID"))
+			,V_P_VIEW_LEVEL       		: gfnma_nvl(gfnma_multiSelectGet("#VIEW_LEVEL"))
+			,V_P_VIEW_EMP_CODE    		: gfnma_nvl(SBUxMethod.get("VIEW_EMP_CODE"))
+			,V_P_PERSONAL_CARD_ACCT_YN	: gfnma_nvl(SBUxMethod.get("PERSONAL_CARD_ACCT_YN")['PERSONAL_CARD_ACCT_YN'])	//checkbox
+			,V_P_FORM_ID				: gfnma_nvl(p_formId)
+			,V_P_MENU_ID				: gfnma_nvl(p_menuId)
+			,V_P_PROC_ID				: ''
+			,V_P_USERID					: ''
+			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFim3100Mast.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+  				cfn_search();  				
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }        	
+    }    
     
     /**
      * 카드사 팝업
@@ -1563,7 +1755,21 @@
     var fn_tab2RowClear = function() {
     	$('#card-history-table').find('tbody').html('');
     }
-        
+     
+    /**
+     * 삭제
+     */
+   	var cfn_del = async function() {
+    	
+        var nRow = Fim3100Grid.getRow();
+		if (nRow < 1) {
+            return;
+		}
+		console.log('nRow:', nRow);
+		if(gfn_comConfirm("Q0001", "선택하신 카드정보를 삭제하시겠습니까?")){
+			fn_deleteMast('D');
+		} 
+    }    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

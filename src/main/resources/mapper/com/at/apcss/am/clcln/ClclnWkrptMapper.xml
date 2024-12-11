@@ -109,6 +109,7 @@
 			            ) Y
 			    ) Z
 			 GROUP BY Z.APC_CD, Z.WRHS_SPMT_TYPE, Z.PRDCR_CD
+			 ORDER BY Z.WRHS_SPMT_TYPE
     	]]>
     </select>
 

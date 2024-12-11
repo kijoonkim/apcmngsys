@@ -851,7 +851,8 @@ const gfnma_multiSelectSet = async function (id, colValue, colLabel, findValue) 
 				var cu_label = $(this).find('[cu-code=' + colLabel + ']').text();
 				$(id).attr('cu-value', cu_value);
 				$(id).attr('cu-label', cu_label);
-				$(id).find('font').text(cu_label);
+				//$(id).find('font').text(cu_label);
+				$(id).html('<font>' + cu_label + '</font>');
 				return false;
 			}
 		});
@@ -1240,20 +1241,19 @@ const validateRequired = function (target) {
 }
 
 /**
- * @name 		gfnma_multiSelectInit
+ * @name 		gfnma_getComCode
  * @description 멀티 컬럼 select
  * @function
  * @param 		{string} target
- * @param 		{string} compCode
- * @param 		{string} clientCode
- * @param 		{string} bizcompId
- * @param 		{string} whereClause
+ * @param 		{string} groupCategory
+ * @param 		{string} groupCode
+ * @param 		{string} groupName
+ * @param 		{string} subCode
+ * @param 		{string} extraField1
+ * @param 		{string} extraField2
+ * @param 		{string} extraField3
  * @param 		{string} formId
  * @param 		{string} menuId
- * @param 		{string} selectValue
- * @param 		{string} colValue
- * @param 		{string} colLabel
- * @param 		{string} columns
  * @returns 	{void}
  */
 async function gfnma_getComCode(obj, callbackFn) {

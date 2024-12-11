@@ -174,7 +174,7 @@
                  text-align: center;font-weight: bold;border-radius:0}">
       </sbux-tabs>
 
-      <div class="tab-content">
+      <div class="tab-content" style="height: 500px">
         <div id="tab_pckgPrfmncReg">
           <table class="table table-bordered tbl_fixed" style="margin-top: 10px">
             <colgroup>
@@ -240,7 +240,7 @@
           </table>
         </div>
         <div id="tab_pckgPrfmnc">
-          <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
+          <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px;overflow: scroll!important;"></div>
         </div>
       </div>
     </div>
@@ -319,12 +319,12 @@
           return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
         }
       },
-      {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center;' , fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업자"],	ref: 'flnm',		type:'output',  width:'15%', style: 'text-align:center;' , fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
-      {caption: ["팔레트번호"],	ref: 'sortno',		type:'output',  width:'30%', style: 'text-align:center;', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["구분"],	ref: 'jobClsfNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업자"],	ref: 'flnm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["시작시간"],	ref: 'jobBgngHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["종료시간"],	ref: 'jobEndHr',		type:'input',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["작업시간"],	ref: 'jobHr',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+      {caption: ["팔레트번호"],	ref: 'sortno',		type:'output',  width:'30%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
     ]
     gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
   }
@@ -416,8 +416,15 @@
             obj.sortno = pltno;
             obj.jobYmd = jobYmd;
             obj.brdt = jsonOprtr.find(item => item.flnm === obj.flnm && item.jobClsfCd === obj.jobClsfCd)?.brdt;
-            /** 해당 실적 저장 반영 **/
-            let data = await gfn_postJSON("/am/oprtr/updateOprtrSortPrfmnc",obj);
+            /** 작업시간 1분미만 미저장 및 행삭제처리 **/
+            if(obj.jobHr < 2){
+              jsonPckgPrfmnc.slice(idx,1);
+              gridPckgPrfmnc.rebuild();
+              let data = await gfn_postJSON("/am/cmns/deleteOprtrPrfmnc.do",obj);
+            }else{
+              /** 해당 실적 저장 반영 **/
+              let data = await gfn_postJSON("/am/oprtr/updateOprtrSortPrfmnc",obj);
+            }
             $(_el).removeClass("active");
           }
           /** 작업 시작 Insert **/
@@ -651,9 +658,18 @@
     let minutes = 0;
 
     if (timeString.length === 4) {
+      // 4자리 숫자의 경우: 앞 2자리 = 시간, 뒤 2자리 = 분
       hours = parseInt(timeString.slice(0, 2), 10);
       minutes = parseInt(timeString.slice(2, 4), 10);
+    } else if (timeString.length === 3) {
+      // 3자리 숫자의 경우: 첫 번째 자리 = 시간, 뒤 2자리 = 분
+      hours = parseInt(timeString.slice(0, 1), 10);
+      minutes = parseInt(timeString.slice(1, 3), 10);
     } else if (timeString.length === 2) {
+      // 2자리 숫자의 경우: 분으로 간주
+      minutes = parseInt(timeString, 10);
+    } else if (timeString.length === 1) {
+      // 1자리 숫자의 경우: 분으로 간주
       minutes = parseInt(timeString, 10);
     }
 
