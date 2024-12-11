@@ -241,7 +241,7 @@
         SBGridProperties.id = 'grdRawMtrWrhs';
         SBGridProperties.jsonref = 'jsonRawMtrWrhs';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.mergecells = 'bycol';
         SBGridProperties.columns = [
             {caption: [],ref: 'MERGE', type:'output',hidden: true},
             {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',      type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
@@ -250,10 +250,10 @@
             {caption: ["원물입고","규격"],		ref: 'SPCFCT_NM',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["원물입고","생산자"],		ref: 'PRDCR_NM',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["원물입고","팔레트번호"],		ref: 'PLTNO',      type:'output',  width:'12%',    style:'text-align:center'},
-            {caption: ["원물입고","수량"],		ref: 'WRHS_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","수량"],		ref: 'INPT_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["생산작업","작업자"],		ref: 'FLNM',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["생산작업","작업시간"],		ref: 'JOB_FORMAT',      type:'output',  width:'12%',    style:'text-align:center',merge:false},
-            {caption: ["재고","재고"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["생산작업","작업시간"],		ref: 'JOB_HR',      type:'output',  width:'12%',    style:'text-align:center',merge:false},
+            {caption: ["생산작업","재고"],		ref: 'SORT_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["상품출고","함안"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["상품출고","안성"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
         ];
@@ -395,7 +395,7 @@
         }
     }
     const fn_search = async function(){
-        let check = gfn_getTableElement("searchTable","srch-",["pltno","flnm"]);
+        let check = gfn_getTableElement("searchTable","srch-",["pltno","flnm","itemCd","vrtyCd","prdcrCd","prdcrNm"]);
         /** datePicker range **/
         let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");
         let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");
@@ -407,7 +407,7 @@
         }
         const postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrPrfmncListToPltno.do",check);
         const data = await postJsonPromise;
-        console.log(data.resultList);
+
         if(data.resultStatus === 'S'){
             /** merge key **/
             let pltno = data.resultList[0].PLTNO;
