@@ -103,7 +103,10 @@
 								            name="srch-ymddoc-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
+		                                    group-id="schHeader"
+		                                    required
+								            >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -113,7 +116,10 @@
 								            name="srch-ymddoc-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
+		                                    group-id="schHeader"
+		                                    required
+								            >
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -125,7 +131,10 @@
 								            name="srch-ymdtxn-date-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
+		                                    group-id="schHeader"
+		                                    required
+								            >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input">-</td>
@@ -135,7 +144,10 @@
 								            name="srch-ymdtxn-date-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma"">
+								            class="form-control input-sm input-sm-ast inpt_data_reqed table-datepicker-ma""
+		                                    group-id="schHeader"
+		                                    required
+								            >
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -502,6 +514,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"})) {
+            return false;
+        }    	
 		fn_setFig3150Grid('Q');
 	}
     
