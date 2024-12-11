@@ -130,7 +130,7 @@
 		                            </td>
 		                            <th scope="row" class="th_bg">변경일자</th>
 		                            <td class="td_input"  style="border-right:hidden;" colspan="2">
-                                		<sbux-datepicker id="CHANGE_DATE" name="CHANGE_DATE" uitype="popup" date-format="yyyy-mm-dd" style="height: 3.6vh;width: 120px;" readonly class="inpt_data_reqed" onchange="fn_search('CHANGE')"></sbux-datepicker>
+                                		<sbux-datepicker id="CHANGE_DATE" name="CHANGE_DATE" uitype="popup" date-format="yyyy-mm-dd" style="height: 3.6vh;width: 120px;" readonly class="inpt_data_reqed" onchange="fn_search('CHANGE')" group-id="panAppoint" required></sbux-datepicker>
 		                            </td>		                            
 		                        </tr>
 		                        <tr>
@@ -180,7 +180,7 @@
 											    	data-toggle="dropdown" 
 											    	aria-haspopup="true" 
 											    	aria-expanded="false"
-											    	required>
+											    	group-id="panAppoint" required>
 											    	<font>선택</font>
 											        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 											    </button>
@@ -192,13 +192,13 @@
 			                        <tr>
 			                            <th scope="row" class="th_bg">부서코드</th>
 			                            <td class="td_input"style="border-right:hidden;" colspan="3">
-			                            	<sbux-input uitype="text" id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" readonly required></sbux-input>		
+			                            	<sbux-input uitype="text" id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" readonly group-id="panAppoint" required></sbux-input>		
 			                            </td>
 			                        </tr>
 			                        <tr>
 			                            <th scope="row" class="th_bg">부서명</th>
 			                            <td class="td_input" style="border-right:hidden;" colspan="3">
-			                            	<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" required></sbux-input>		
+			                            	<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>		
 			                            </td>
 			                        </tr>
 			                        <tr>
@@ -911,10 +911,11 @@
     //그룹코드 내역 저장
     const fn_save = async function(workType) {
     	workType = gfn_nvl(workType);
-        if (gfn_nvl(SBUxMethod.get("CHANGE_DATE")) == "") {
-            gfn_comAlert("W0002", "변경일자");
-            return;
+        
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
         }
+        
         var paramObj = {
        		   V_P_DEBUG_MODE_YN        : ""
    			  ,V_P_LANG_ID              : ""

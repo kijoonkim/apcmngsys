@@ -851,7 +851,8 @@ const gfnma_multiSelectSet = async function (id, colValue, colLabel, findValue) 
 				var cu_label = $(this).find('[cu-code=' + colLabel + ']').text();
 				$(id).attr('cu-value', cu_value);
 				$(id).attr('cu-label', cu_label);
-				$(id).find('font').text(cu_label);
+				//$(id).find('font').text(cu_label);
+				$(id).html('<font>' + cu_label + '</font>');
 				return false;
 			}
 		});
@@ -1182,7 +1183,7 @@ function gfnma_showPopover(element) {
         <div id="popover_wrap_` + element.id + `" style="position: absolute; display: inline;">
             <div id="popover_req_` + element.id + `" class="sbux-pop sbux-fade sbux-pop-bottom sbux-in sbux-required-popover" style="display: block;">
                 <div class="sbux-pop-arrow"></div>
-                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 작성하세요.</div>
+                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 선택하세요.</div>
             </div>
         </div>`;
 
@@ -1197,7 +1198,7 @@ function gfnma_showPopover(element) {
 
 	popover.css({
 		top: offset.top + (elementHeight / 2),
-		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),
+		left: offset.left + (elementWidth / 2) - (popoverWidth),
 	});
 
 	setTimeout(function() {
@@ -1214,6 +1215,7 @@ function gfnma_showPopover(element) {
  */
 const validateRequired = function (target) {
 	var dropdownList = [];
+	var returnValue = true;
 
 	if(target) {
 		dropdownList = $('button[group-id='+target+'][required]');
@@ -1230,28 +1232,28 @@ const validateRequired = function (target) {
 
 		if (!selectedValue) {
 			gfnma_showPopover(dropdownList[i]);
-			return false;
-		} else {
-			return true;
+			returnValue = false;
+			break;
 		}
 	}
+
+	return returnValue;
 }
 
 /**
- * @name 		gfnma_multiSelectInit
+ * @name 		gfnma_getComCode
  * @description 멀티 컬럼 select
  * @function
  * @param 		{string} target
- * @param 		{string} compCode
- * @param 		{string} clientCode
- * @param 		{string} bizcompId
- * @param 		{string} whereClause
+ * @param 		{string} groupCategory
+ * @param 		{string} groupCode
+ * @param 		{string} groupName
+ * @param 		{string} subCode
+ * @param 		{string} extraField1
+ * @param 		{string} extraField2
+ * @param 		{string} extraField3
  * @param 		{string} formId
  * @param 		{string} menuId
- * @param 		{string} selectValue
- * @param 		{string} colValue
- * @param 		{string} colLabel
- * @param 		{string} columns
  * @returns 	{void}
  */
 async function gfnma_getComCode(obj, callbackFn) {

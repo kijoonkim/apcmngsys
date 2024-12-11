@@ -10,6 +10,7 @@ import lombok.Setter;
 public class FarmerSnCertificationInfoRegVO extends ComVO{
 
 	private String sn;
+	private String logSn;
 	private String frmerno;				//농업인 번호 FRMER_SN
 	private String certNo;				//인증번호 CON_NUM
 	private String certBgngYmd;			//인증시작일 EFFECTIVE_STRAT_DT

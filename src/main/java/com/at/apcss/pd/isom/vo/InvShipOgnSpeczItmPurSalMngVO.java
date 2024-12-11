@@ -14,13 +14,15 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String prchsNm;
 	private String flnm;
 	private String slsCnsgnPrchsAmt;
-	private String slsCnsgnPrchsVlm;
 	private String uoSpmtAmt;
-	private String uoSpmtVlm;
 	private String uoOtherSpmtAmt;
-	private String uoOtherSpmtVlm;
 	private String SpmtAmtTot;
+
+	private String slsCnsgnPrchsVlm;
+	private String uoSpmtVlm;
+	private String uoOtherSpmtVlm;
 	private String SpmtVlmTot;
+
 	private String rmrk;
 
 	private String corpNm;

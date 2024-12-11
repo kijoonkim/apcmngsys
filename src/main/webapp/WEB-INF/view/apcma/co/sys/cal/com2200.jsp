@@ -186,7 +186,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">년도</th>
                                     <td colspan="" class="td_input ">
-										<sbux-datepicker id="PERIOD_YYYY" name="PERIOD_YYYY" uitype="popup" datepicker-mode="year" readonly></sbux-datepicker>
+										<sbux-datepicker id="PERIOD_YYYY" name="PERIOD_YYYY" uitype="popup" datepicker-mode="year" readonly  style="height:3.5vh;width:100%;"></sbux-datepicker>
                                     </td>
                                 </tr>
                                 <tr>
@@ -202,11 +202,11 @@
                                 <tr>
                                     <th scope="row" class="th_bg">시작일자</th>
 									<td class="td_input " style="border-right: hidden;">
-										<sbux-datepicker id="START_DATE" name="START_DATE" uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd"></sbux-datepicker>
+										<sbux-datepicker id="START_DATE" name="START_DATE" class="table-datepicker-ma"uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd" style="height:3.5vh;width:100%;"></sbux-datepicker>
 									</td>
                                     <th scope="row" class="th_bg">종료일자</th>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="END_DATE" name="END_DATE" uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd"></sbux-datepicker>
+										<sbux-datepicker id="END_DATE" name="END_DATE" class="table-datepicker-ma" uitype="popup" datepicker-mode="day" readonly date-format="yyyy-mm-dd"  style="height:3.5vh;width:100%;"></sbux-datepicker>
 									</td>
                                 </tr>
                                 <tr>
@@ -671,7 +671,7 @@
     	}
     	
         $('#dataArea2 button').each(function() {
-            const tagetId = $(this).attr('id');
+            let tagetId = $(this).attr('id');
             fn_workClick( tagetId , '2');
         });
     	
@@ -688,8 +688,8 @@
     	}
     	
         $('#dataArea3 button').each(function() {
-            const tagetId = $(this).attr('id');
-            fn_contractClick( tagetId , '2');
+        	let tagetId = $(this).attr('id');
+        	fn_contractClick( tagetId , '2');
         });
     	
     }
@@ -822,6 +822,7 @@
    				,V_P_USERID            : p_userId
    				,V_P_PC                : ''
    	    };	
+    	console.log('saveParamObj ==>' ,saveParamObj );
         const postJsonPromise = gfn_postJSON('/co/sys/cal/updateCom2200.do', {
 	       	getType				: 'json',
 	       	workType			: workType,
@@ -1439,7 +1440,6 @@
     						if(gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD) != ''){
                                 strbtntxt1 += "\n";
                                 strbtntxt1 += gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD);
-
     						}
     						//초기화
     						$('#WORK' + strsubmodule).html("");
@@ -1447,7 +1447,6 @@
     						$('#WORK' + strsubmodule).css('white-space','pre-line');
     						//텍스트 입력
     						$('#WORK' + strsubmodule).html(strbtntxt1);
-    						
                         }
 					}
 					if(gfn_nvl(subData.cv_2[i].CLOSE_DATE) != ''){
@@ -1460,7 +1459,7 @@
 					$('#' + strsubmodule).css('white-space','pre-line');				
 					//텍스트 입력
 					$('#' + strsubmodule).html(strbtntxt);
-				}	
+				}
     		} else {
     	  		alert(subData.resultMessage);
     		}

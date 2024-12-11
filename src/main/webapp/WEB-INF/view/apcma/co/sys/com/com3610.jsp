@@ -121,7 +121,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">기재항목코드</th>
                                     <td class="td_input">
-                                        <sbux-input id="ACC_ITEM_CODE" name="ACC_ITEM_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"readonly>
+                                        <sbux-input id="ACC_ITEM_CODE" name="ACC_ITEM_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required readonly>
                                         </sbux-input>
                                     </td>
                                     <th></th>
@@ -131,7 +131,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">기재항목명</th>
                                     <td colspan="4" class="td_input" colspan="3">
-                                        <sbux-input id="ACC_ITEM_NAME" name="ACC_ITEM_NAME"  class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="ACC_ITEM_NAME" name="ACC_ITEM_NAME"  class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -175,12 +175,12 @@
                                 <tr>
                                     <th scope="row" class="th_bg">데이터길이</th>
                                     <td class="td_input">
-                                        <sbux-input id="DATA_LENGTH" name="DATA_LENGTH"  class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="DATA_LENGTH" name="DATA_LENGTH"  class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg">소수자리수</th>
                                     <td class="td_input">
-                                        <sbux-input id="DECIMAL_POINT" name="DECIMAL_POINT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="DECIMAL_POINT" name="DECIMAL_POINT" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -689,6 +689,9 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
+    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+    		return false;
+    	}
     	let ACC_ITEM_CODE 	= gfn_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
     	let ACC_ITEM_NAME	= gfn_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
     	let DATA_LENGTH		= gfn_nvl(SBUxMethod.get("DATA_LENGTH"));
@@ -697,34 +700,6 @@
     	let CONTROL_TYPE	= gfnma_multiSelectGet("#CONTROL_TYPE");
     	let CREATE_TYPE		= gfnma_multiSelectGet("#CREATE_TYPE");
     	let POPUP_DATA 		= gfnma_multiSelectGet("#POPUP_DATA");
-    	if(ACC_ITEM_CODE == "") {
-            gfn_comAlert("W0002", "기재항목코드");
-            return;
-    	}
-    	if(ACC_ITEM_NAME == "") {
-            gfn_comAlert("W0002", "기재항목명");
-            return;
-    	}
-    	if(DATA_TYPE == "") {
-            gfn_comAlert("W0002", "데이터유형");
-            return;
-    	}
-    	if(CONTROL_TYPE == "") {
-            gfn_comAlert("W0002", "컨트롤유형");
-            return;
-    	}
-    	if(DATA_LENGTH == "") {
-            gfn_comAlert("W0002", "데이터길이");
-            return;
-    	}
-    	if(DECIMAL_POINT == "") {
-            gfn_comAlert("W0002", "소수자리수");
-            return;
-    	}
-    	if(CREATE_TYPE == "") {
-            gfn_comAlert("W0002", "생성구분");
-            return;
-    	}
     	
     	if(editType == "N"){
     		var valUrl = "/co/sys/com/insertCom3610.do";

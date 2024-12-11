@@ -133,7 +133,8 @@
 										    	id="SITE_CODE" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -143,7 +144,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td class="td_input" colspan="2">
-                                        <sbux-input id="SORT_SEQ" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="SORT_SEQ" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -153,7 +154,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">부서명</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -207,7 +208,8 @@
 										    	id="DEPT_CATEGORY" 
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
-										    	aria-expanded="false">
+										    	aria-expanded="false"
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -784,22 +786,9 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-    	if(gfnma_multiSelectGet("#SITE_CODE") == "") {
-            gfn_comAlert("W0002", "사업장	");
-            return;
-    	}
-    	if(gfnma_multiSelectGet("#DEPT_CATEGORY") == "") {
-            gfn_comAlert("W0002", "부서구분");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SORT_SEQ")) == "") {
-            gfn_comAlert("W0002", "정렬순서");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
-            gfn_comAlert("W0002", "부서명");
-            return;
-    	}
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
     	
   	    var paramObj = {
   	    		 V_P_DEBUG_MODE_YN       : ''

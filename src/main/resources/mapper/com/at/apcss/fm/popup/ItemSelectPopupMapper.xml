@@ -84,14 +84,13 @@
 		]]>
 
 		<if test='brno != null and brno != ""'>
-			AND (
-					IC.BRNO IN (SELECT UO_BRNO FROM TB_EV_APO_UO_CD WHERE ISO_BRNO = #{brno})
-					OR
-					IC.BRNO = #{brno}
-				)
+			AND IC.BRNO = #{brno}
 		</if>
 		<if test='yr != null and yr != ""'>
 			AND IC.YR = #{yr}
+			<if test='uoBrno != null and uoBrno != ""'>
+			AND IC.ITEM_CD IN (SELECT ITEM_CD FROM WHERE BRNO = #{uoBrno} AND YR = #{yr} AND APO_SE = '1')
+			</if>
 		</if>
 		 ORDER BY IC.BRNO, IC.ITEM_NM ASC
 

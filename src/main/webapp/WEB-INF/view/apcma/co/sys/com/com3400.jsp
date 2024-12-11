@@ -47,7 +47,7 @@
                     </h3>
                 </div>
                 <div style="margin-left: auto;">
-					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;margin-right:1rem;" ></sbux-button>
+					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;" ></sbux-button>
 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -104,7 +104,7 @@
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
-										<div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:350px;height:250px;padding-top:0px;overflow:auto">
+										<div class="dropdown-menu" aria-labelledby=SRCH_CS_GROUP_P style="width:450px;height:250px;padding-top:0px;overflow:auto">
 										</div>
 									</div>
 								</td>
@@ -152,7 +152,7 @@
 								<td class="td_input" style="border-right:hidden;">
 									<sbux-input id="SRCH_CS_CODE_FR" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 								</td>
-								<td>~</td>
+								<td style="text-align:center;">~</td>
 								<td style="border-right: hidden;">
 									<sbux-input id="SRCH_CS_CODE_TO" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
 								</td>
@@ -237,7 +237,7 @@
 							<tr>
 								<th scope="row" class="th_bg">거래처명</th>
 								<td class="td_input" colspan="4">
-									<sbux-input id="CS_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="CS_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">통화</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -294,7 +294,8 @@
 											id="CS_GROUP" 
 											data-toggle="dropdown" 
 											aria-haspopup="true" 
-											aria-expanded="false">
+											aria-expanded="false"
+											group-id="panAppoint" required>
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
@@ -467,7 +468,7 @@
 							<tr>
 								<th scope="row" class="th_bg">대표자</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed"></sbux-input>
+									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">주민번호</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -482,11 +483,11 @@
 							<tr>
 								<th scope="row" class="th_bg">업태</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2" >
-									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>								
 								<th scope="row" class="th_bg">종목</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>								
 								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
 									<sbux-checkbox uitype="normal" id="TRANSPORT_YN" class="form-control input-sm check hidden-check" text="운송사여부" true-value="Y" false-value="N"/>
@@ -613,16 +614,16 @@
 								<th scope="row" class="th_bg">주소</th>
 								<td class="td_input" style="border-right: hidden;" colspan="6">
 									<sbux-input id="ADDRESS" class="form-control input-sm "  uitype="text"  style="width:100%"></sbux-input>
-								</td>	
+								</td>
 							</tr>    
 							<tr>
 								<th scope="row" class="th_bg">대표전화</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="TEL" class="form-control input-sm"  uitype="text"  style="width:100%" ></sbux-input>
 								</td>	
 								<th scope="row" class="th_bg">팩스</th>
 								<td class="td_input" style="border-right: hidden;">
-									<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="FAX" class="form-control input-sm"  uitype="text"  style="width:100%" ></sbux-input>
 								</td>	                                    
 								<th scope="row" class="th_bg">이메일</th>
 								<td class="td_input" style="border-right: hidden;" colspan="">
@@ -682,7 +683,7 @@
 								</div>   			                        	
 								<sbux-button id="btnDelFinanceRow" name="btnDelFinanceRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delFinanceRow" style="float: right;"></sbux-button>
 								<sbux-button id="btnAddFinanceRow" name="btnAddFinanceRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addFinanceRow" style="float: right;"></sbux-button>
-								<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;padding-right: 3px;"></sbux-button>
+								<sbux-button id="btnFinanceName" name="btnFinanceName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" onclick="fn_FinanceName" style="float: right;"></sbux-button>
 							</div>
 						</div>									
 						<div>
@@ -1155,7 +1156,7 @@
     
     <!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup3">
     	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
@@ -1301,9 +1302,9 @@
 				,colValue		: 'SUB_CODE'
 				,colLabel		: 'CODE_NAME'
 				,columns		:[
-		            {caption: "거래처유형코드",		ref: 'SUB_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "거래처유형코드",		ref: 'SUB_CODE', 		width:'150px',  	style:'text-align:left'},
 		            {caption: "거래처유형명", 			ref: 'CODE_NAME',    	width:'250px',  	style:'text-align:left'},
-		            {caption: "사업자등록번호필수", 	ref: 'EXTRA_FIELD3',    width:'150px',  	style:'text-align:left'}
+		            {caption: "사업자등록번호", 	ref: 'EXTRA_FIELD3',    width:'200px',  	style:'text-align:left'}
 				]
 			}),
 			//거래처구분
@@ -2032,8 +2033,6 @@
 			}
 		}
 		
-		
-		
 		if(await fn_save() == true){
 			if(await fn_save_S3() == true){
 				if(await fn_save_S4() == true){
@@ -2686,7 +2685,8 @@
 		SBUxMethod.enableTab('tabTax');
 		SBUxMethod.enableTab('tabHistory');
 		SBUxMethod.enableTab('tabMapping');
-		
+		// 거래처 리스트 선택시 탭 선택 초기화
+		SBUxMethod.setTab('idxTab_detail', 'tabInfo');
     	// 코드목록 그리드 초기화
     	await fn_clearSubForm();
 	    const selectRowVal = masterGrid.getRowData(nRow);
@@ -2702,28 +2702,27 @@
     	let SRCH_CS_GROUP_P		= gfnma_multiSelectGet("#SRCH_CS_GROUP_P");
     	let SRCH_CS_TYPE 		= gfnma_multiSelectGet("#SRCH_CS_TYPE");
     	var paramObj = {
-    			  V_P_DEBUG_MODE_YN       : ''
-   				  ,V_P_LANG_ID            : ''
-   				  ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-   				  ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-   				  ,V_P_CS_CODE_FR         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
-   				  ,V_P_CS_CODE_TO         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
-   				  ,V_P_CS_CODE            : gfn_nvl(selectRowVal.CS_CODE)
-   				  ,V_P_CS_NAME            : gfn_nvl(selectRowVal.CS_NAME)
-   				  ,V_P_CS_GROUP_P         : SRCH_CS_GROUP_P
-   				  ,V_P_BIZ_REGNO          : SRCH_BIZ_REGNO1
-   				  ,V_P_USE_YN1            : SRCH_USE_YN1
-   				  ,V_P_USE_YN2            : SRCH_USE_YN2
-   				  ,V_P_DELETE_YN          : SRCH_DELETE_YN
-   				  ,V_P_CS_TYPE            : SRCH_CS_TYPE
-   				  ,V_P_CHIEF_NAME         : SRCH_CHIEF_NAME1
-   				  ,V_P_FORM_ID            : p_formId
-   				  ,V_P_MENU_ID            : p_menuId
-   				  ,V_P_PROC_ID            : ""
-   				  ,V_P_USERID             : p_userId
-   				  ,V_P_PC                 : ""
+    			V_P_DEBUG_MODE_YN       : ''
+   				,V_P_LANG_ID            : ''
+   				,V_P_COMP_CODE          : gv_ma_selectedCorpCd
+   				,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+   				,V_P_CS_CODE_FR         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_FR : ""
+   				,V_P_CS_CODE_TO         : gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == 'N' ? SRCH_CS_CODE_TO : ""
+   				,V_P_CS_CODE            : gfn_nvl(selectRowVal.CS_CODE)
+   				,V_P_CS_NAME            : gfn_nvl(selectRowVal.CS_NAME)
+   				,V_P_CS_GROUP_P         : SRCH_CS_GROUP_P
+   				,V_P_BIZ_REGNO          : SRCH_BIZ_REGNO1
+   				,V_P_USE_YN1            : SRCH_USE_YN1
+   				,V_P_USE_YN2            : SRCH_USE_YN2
+   				,V_P_DELETE_YN          : SRCH_DELETE_YN
+   				,V_P_CS_TYPE            : SRCH_CS_TYPE
+   				,V_P_CHIEF_NAME         : SRCH_CHIEF_NAME1
+   				,V_P_FORM_ID            : p_formId
+   				,V_P_MENU_ID            : p_menuId
+   				,V_P_PROC_ID            : ""
+   				,V_P_USERID             : p_userId
+   				,V_P_PC                 : ""
 	    };
-    	
 		const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3400.do", {
 			getType				: 'json',
 			workType			: 'MASTER',
@@ -3005,9 +3004,13 @@
 	    		if(obj.RESIDENT_YN == 'Y'){
 	    			if(obj.CS_GROUP != '6000'){
 		    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+		                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+		                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
 	    			}
 				}else{
 	    			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
 				}
 				
     		} else {
@@ -3057,9 +3060,13 @@
     		if($(this).val() == 'Y'){
     			if(gfnma_multiSelectGet('#CS_GROUP' != '6000')){
 	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
     			}
 			}else{
     			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
+                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
 			}
 		})
 		//법인구분 라디오 버튼
@@ -3210,20 +3217,35 @@
             
             if(SBUxMethod.get('FOREIGN_YN').FOREIGN_YN == "Y"){ 
 				$('#CHIEF_NAME').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('CHIEF_NAME','group-id','');
+                SBUxMethod.attr('CHIEF_NAME','required','');
             }else{
                 if(CS_GROUP == "4000" || CS_GROUP == "5000" || CS_GROUP == "6000" || CS_GROUP == "6100" || CS_GROUP == "7000" || CS_GROUP == "9000"){
                     $('#CHIEF_NAME').removeClass('inpt_data_reqed');
+                    SBUxMethod.attr('CHIEF_NAME','group-id','');
+                    SBUxMethod.attr('CHIEF_NAME','required','');
                 }else{
 	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
                 }
             }
             
             if(CS_GROUP == "1000" || CS_GROUP == "2000" || CS_GROUP == "4000"){
                 $('#BIZ_CATEGORY').addClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').addClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','panAppoint');
+                SBUxMethod.attr('BIZ_CATEGORY','required','required');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','panAppoint');
+                SBUxMethod.attr('BIZ_ITEMS','required','required');
+                
             }else{
                 $('#BIZ_CATEGORY').removeClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','');
+                SBUxMethod.attr('BIZ_CATEGORY','required','');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','');
+                SBUxMethod.attr('BIZ_ITEMS','required','');
             }
             
             if(AP_ACC_CODE != ''){
@@ -3276,13 +3298,16 @@
         		
                 $('#BIZ_CATEGORY').removeClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','');
+                SBUxMethod.attr('BIZ_CATEGORY','required','');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','');
+                SBUxMethod.attr('BIZ_ITEMS','required','');
             }
             if(gfnma_multiSelectGet('#STATUS_CODE') == '5'){
             	$('#btnSubmit').show();
             }else{
             	$('#btnSubmit').hide();
             }
-            
 		})
 		
 		$('#FOREIGN_YN').change(function(){
@@ -3330,8 +3355,12 @@
 		$('#DEFER_YN').change(function(){
 			if($(this).val() == 'Y'){
                 $('#DEFER_REASON').addClass('inpt_data_reqed');
+                SBUxMethod.attr('DEFER_REASON','group-id','panAppoint');
+                SBUxMethod.attr('DEFER_REASON','required','required');
 			}else{
                 $('#DEFER_REASON').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('DEFER_REASON','group-id','');
+                SBUxMethod.attr('DEFER_REASON','required','');
 			}
 		});
 		
@@ -3345,12 +3374,23 @@
             $('#TXN_STOP_REASON').addClass('inpt_data_reqed');
             $('#TXN_STOP_DATE').addClass('inpt_data_reqed');
             $('#TXN_STOP_REASON').prop('disabled', false);
-            SBUxMethod.attr('TXN_STOP_DATE','disabled','false')
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','false');
+            
+            SBUxMethod.attr('TXN_STOP_REASON','group-id','panAppoint');
+            SBUxMethod.attr('TXN_STOP_REASON','required','required');
+            SBUxMethod.attr('TXN_STOP_DATE','group-id','panAppoint');
+            SBUxMethod.attr('TXN_STOP_DATE','required','required');
 		}else{
             $('#TXN_STOP_REASON').removeClass('inpt_data_reqed');
             $('#TXN_STOP_DATE').removeClass('inpt_data_reqed');
             $('#TXN_STOP_REASON').prop('disabled', true);
-            SBUxMethod.attr('TXN_STOP_DATE','disabled','true')
+            SBUxMethod.attr('TXN_STOP_DATE','disabled','true');
+            gfnma_multiSelectSet("#TXN_STOP_REASON", "", "", "");
+            SBUxMethod.set('TXN_STOP_DATE','');
+            SBUxMethod.attr('TXN_STOP_REASON','group-id','');
+            SBUxMethod.attr('TXN_STOP_REASON','required','');
+            SBUxMethod.attr('TXN_STOP_DATE','group-id','');
+            SBUxMethod.attr('TXN_STOP_DATE','required','');
 		}
     }
     
@@ -3602,6 +3642,11 @@
     }
     //기본정보, 관리항목 탭 내역 저장
     const fn_save = async function() {
+    	
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
+        
   	    var paramObj = {
        		    V_P_DEBUG_MODE_YN        : ""
    			   ,V_P_LANG_ID              : ""
@@ -4083,17 +4128,18 @@
 		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
 
 	}
+
 	/* 주소 팝업 */
 	//팝업 콜백
 	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
 		/*
-			roadFullAddr 전체 도로명주소
-			roadAddrPart1 도로명주소(참고항목 제외)
-			roadAddrPart2 도로명주소 참고항목
-			addrDetail 상세주소
-			engAddr 도로명 주소 영문
-			jibunAddr 지번 정보
-			zipNo 우편번호
+			roadFullAddr 	전체 도로명주소
+			roadAddrPart1 	도로명주소(참고항목 제외)
+			roadAddrPart2 	도로명주소 참고항목
+			addrDetail 		상세주소
+			engAddr 		도로명 주소 영문
+			jibunAddr 		지번 정보
+			zipNo 			우편번호
 		*/
 		if(addrDetail.length>30){
 			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
@@ -4373,7 +4419,11 @@
   		const data = await postJsonPromise;
 		try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	            gfn_comAlert("I0001"); // I0001 처리 되었습니다.
+	    		if(data.resultMessage){
+	    			alert(data.resultMessage);
+	    		}
+	    	}else{
+    			alert(data.resultMessage);
 	    	}
 	  	} catch (e) {
 	    	if (!(e instanceof Error)) {
@@ -5069,6 +5119,7 @@
    	    	return false;
    	    }
    	}
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

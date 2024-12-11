@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltMapper.xml                                   					-->
+<!-- DESC : 창고현황  mapper                                    				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.12.03  	김 호         	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.fclt.mapper.FcltMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList		-->
+	<!-- DESC : 창고현황 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWarehouseCurSiList" parameterType="com.at.apcss.am.fclt.vo.FcltVO" resultType="com.at.apcss.am.fclt.vo.FcltVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList */
+    			   Z.*
+			     , SUM(AA_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS AA_SUM
+			     , SUM(BB_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS BB_SUM
+			     , SUM(CC_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS CC_SUM
+			     , SUM(DD_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS DD_SUM
+			     , SUM(EE_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS EE_SUM
+			     , SUM(FF_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS FF_SUM
+		  	 FROM (SELECT
+			    		   APC_CD
+					     , STRG_LOCTN_COL
+					     , STRG_LOCTN_ROW
+					     , SUM(A_QNTT)      AS AA_QNTT
+					     , LISTAGG(A_PRDCR_NM, ',') WITHIN GROUP(ORDER BY A_PRDCR_NM) AS AA_PRDCR_NM
+					     , MAX(A_WRHS_YMD)  AS AA_WRHS_YMD
+					     , SUM(B_QNTT)      AS BB_QNTT
+                         , LISTAGG(B_PRDCR_NM, ',') WITHIN GROUP(ORDER BY B_PRDCR_NM) AS BB_PRDCR_NM
+					     , MAX(B_WRHS_YMD)  AS BB_WRHS_YMD
+					     , SUM(C_QNTT)      AS CC_QNTT
+                         , LISTAGG(C_PRDCR_NM, ',') WITHIN GROUP(ORDER BY C_PRDCR_NM) AS CC_PRDCR_NM
+					     , MAX(C_WRHS_YMD)  AS CC_WRHS_YMD
+					     , SUM(D_QNTT)      AS DD_QNTT
+                         , LISTAGG(D_PRDCR_NM, ',') WITHIN GROUP(ORDER BY D_PRDCR_NM) AS DD_PRDCR_NM
+					     , MAX(D_WRHS_YMD)  AS DD_WRHS_YMD
+					     , SUM(E_QNTT)      AS EE_QNTT
+                         , LISTAGG(E_PRDCR_NM, ',') WITHIN GROUP(ORDER BY E_PRDCR_NM) AS EE_PRDCR_NM
+					     , MAX(E_WRHS_YMD)  AS EE_WRHS_YMD
+					     , SUM(F_QNTT)      AS FF_QNTT
+                         , LISTAGG(F_PRDCR_NM, ',') WITHIN GROUP(ORDER BY F_PRDCR_NM) AS FF_PRDCR_NM
+					     , MAX(F_WRHS_YMD)  AS FF_WRHS_YMD
+					  FROM (
+					        SELECT
+					               X.APC_CD
+					             , STRG_LOCTN_COL
+					             , STRG_LOCTN_ROW
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS A_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS A_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'A' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS A_WRHS_YMD
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS B_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS B_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'B' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS B_WRHS_YMD
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS C_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS C_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'C' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS C_WRHS_YMD
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS D_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS D_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'D' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS D_WRHS_YMD
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS E_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS E_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'E' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS E_WRHS_YMD
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.INVNTR_QNTT
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.INVNTR_QNTT
+					                    ELSE 0
+					               END AS F_QNTT
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.PRDCR_NM
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.PRDCR_NM
+					                    ELSE ''
+					               END AS F_PRDCR_NM
+					             , CASE WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '01' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '02' THEN X.WRHS_YMD
+					                    WHEN SUBSTR(X.STRG_LOCTN_CD, 1, 1) = 'F' AND SUBSTR(X.STRG_LOCTN_CD, 4, 2) = '03' THEN X.WRHS_YMD
+					                    ELSE ''
+					               END AS F_WRHS_YMD
+					         FROM (
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '01'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '02'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '03'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '04'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '05'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '06'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '07'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '08'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '09'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '10'
+					                    UNION ALL
+					                    SELECT
+					                           RI.APC_CD           AS APC_CD
+					                         , RI.WRHS_YMD         AS WRHS_YMD
+					                         , (SELECT FN_GET_PRDCR_NM(RI.PRDCR_CD, RI.APC_CD) FROM DUAL) AS PRDCR_NM
+					                         , RI.INVNTR_QNTT      AS INVNTR_QNTT
+					                         , RI.STRG_LOCTN_CD    AS STRG_LOCTN_CD
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 4, 2) AS STRG_LOCTN_ROW
+					                         , SUBSTR(RI.STRG_LOCTN_CD, 2, 2) AS STRG_LOCTN_COL
+					                      FROM TB_RAW_MTR_INVNTR RI
+					                     WHERE RI.APC_CD = #{apcCd}
+					                       AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+					                       AND SUBSTR(RI.STRG_LOCTN_CD, 2, 2) = '11'
+					                 ) X
+					            ORDER BY STRG_LOCTN_COL, STRG_LOCTN_ROW
+					    ) Y
+					    GROUP BY APC_CD, STRG_LOCTN_COL, STRG_LOCTN_ROW
+			) Z
+			ORDER BY STRG_LOCTN_COL, STRG_LOCTN_ROW
+		]]>
+    </select>
+
+</mapper>
+
+

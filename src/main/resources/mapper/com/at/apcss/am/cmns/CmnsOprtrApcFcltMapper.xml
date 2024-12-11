@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsOprtrApcFcltMapper.xml                                   				-->
+<!-- DESC : 운영설비 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.07.16  	박승진        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsOprtrApcFcltMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
+	<!-- DESC : APC 품목 단건 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.05  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCmnsOprtrApcSortFcltList" parameterType="com.at.apcss.am.cmns.vo.CmnsOprtrApcFcltVO" resultType="com.at.apcss.am.cmns.vo.CmnsOprtrApcFcltVO">
+    	<![CDATA[
+	    	SELECT  /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsOprtrApcSortFcltList */
+			       OAF.FCLT_NM AS FCLT_NM
+			       , OAF.FCLT_EXPLN AS FCLT_EXPLN
+
+			  FROM TB_OPRTNG_APC_FCLT OAF
+
+		]]>
+    </select>
+</mapper>
+
+

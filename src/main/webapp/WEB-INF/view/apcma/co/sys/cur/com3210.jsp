@@ -414,6 +414,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_createGrid();
         fn_init();
+        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SUB_CODE', 'CODE_NAME', 'Y');
         fn_search('TAB_DAILY');
     });
 	// 신규
@@ -578,6 +579,7 @@
 	// 조회
 	function cfn_search() {
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
+		console.log('tabId ==>', tabId);
 		if(tabId == 'TAB_DAILY'){
 			fn_search('TAB_DAILY');
 		}else if(tabId == 'TAB_AVERAGE'){
@@ -597,14 +599,14 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	var SRCH_CURRENCY_CODE		= '';
-    	var SRCH_FBS_SERVICE		= '';
-    	var SRCH_FBS_YN				= '';
-    	var SRCH_USE_YN				= '';
-    	var SRCH_BASE_DATE_FR		= '';
-    	var SRCH_BASE_DATE_TO		= '';
-    	var SRCH_EXCHANGE_SEQ_P		= '';
-    	var workType 				= '';
+    	let SRCH_CURRENCY_CODE		= '';
+    	let SRCH_FBS_SERVICE		= '';
+    	let SRCH_FBS_YN				= '';
+    	let SRCH_USE_YN				= '';
+    	let SRCH_BASE_DATE_FR		= '';
+    	let SRCH_BASE_DATE_TO		= '';
+    	let SRCH_EXCHANGE_SEQ_P		= '';
+    	let workType 				= '';
     	
     	if(tabId == 'TAB_DAILY'){
         	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE');
@@ -621,7 +623,7 @@
         	SRCH_BASE_DATE_TO		= gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE2"));
         	workType 				= 'AVERAGE';
     	}else if(tabId == 'TAB_MONTH'){
-        	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE1');
+        	SRCH_CURRENCY_CODE		= gfnma_multiSelectGet('#SRCH_CURRENCY_CODE3');
         	workType 				= 'CURRENCY';
     	}
     	
@@ -1026,7 +1028,7 @@
                 ]
             }),
         ]);
-        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SUB_CODE', 'CODE_NAME', 'Y');
+        
     }
     
 	//일별환율 - 환율정보 그리드
@@ -1345,7 +1347,8 @@
         fn_drawdailyDayGrid(gridMode, data, true, 'input');
         //데이터가 없고 행선택이 없을경우.
         if (rowVal == -1) {
-            dailyDayGrid.addRow(true,
+            dailyDayGrid.addRow
+            	(true,
         			{
 					IMG:"/static/images/ma/cancel.png"
 					,BASE_CURRENCY:""
@@ -1380,44 +1383,47 @@
 					,BANK_CODE:""
 					,AVG_EX_RATE:"0"
 					,FBS_YN:"Y"
-			});
-        } else {
-        	dailyDayGrid.insertRow(rowVal, 'below', 
-        			{
-        				IMG:"/static/images/ma/cancel.png"
-        				,BASE_CURRENCY:""
-        				,BASE_DATE:""
-       					,EXCHANGE_SEQ:""
-       					,CURRENCY_CODE:""
-    					,REMARK:""
-   						,EXCHANGE_BASE_SCALE: "1"
- 						,SLE_BSE_EX_RATE:"0"
- 						,RCV_EX_RATE:"0"
-        				,SND_EX_RATE:"0"
-       					,SLE_EX_RATE:"0"
-        				,BUY_EX_RATE:"0"
-       					,TC_SLE_EX_RATE:"0"
-   						,USA_EX_RATE: "0"
-  						,TT_BUY_EX_RATE:"0"
-						,TT_SLE_EX_RATE:"0"
-						,TT_BUY_PRM_EX_RATE:"0"
-						,TT_SLE_PRM_EX_RATE:"0"
-        				,LIBOR_M1_EX_RATE:"0"
-          				,LIBOR_M3_EX_RATE:"0"
-          				,LIBOR_Y1_EX_RATE:"0"
-          				,EX_COM_Y1_EX_RATE:"0"
-          				,EX_COM_M1_EX_RATE:"0"
-          				,EX_COM_M3_EX_RATE:"0"
-          				,USER_EXCHANGE_RATE1:"0"
-          				,USER_EXCHANGE_RATE2:"0"
-          				,USER_EXCHANGE_RATE3:"0"
-        				,DATA_TYPE:""
-        				,DATA_TYPE2:"N"
-        				,FBS_SERVICE:''
-  						,BANK_CODE:""
-        				,AVG_EX_RATE:"0"
-        				,FBS_YN:"Y"
 					}
+		        );
+        } else {
+        	dailyDayGrid.insertRow
+        		(rowVal, 
+        		'below', 
+       			{
+       				IMG:"/static/images/ma/cancel.png"
+       				,BASE_CURRENCY:""
+       				,BASE_DATE:""
+     				,EXCHANGE_SEQ:""
+      				,CURRENCY_CODE:""
+   					,REMARK:""
+  					,EXCHANGE_BASE_SCALE: "1"
+					,SLE_BSE_EX_RATE:"0"
+					,RCV_EX_RATE:"0"
+       				,SND_EX_RATE:"0"
+      				,SLE_EX_RATE:"0"
+       				,BUY_EX_RATE:"0"
+      				,TC_SLE_EX_RATE:"0"
+  					,USA_EX_RATE: "0"
+ 					,TT_BUY_EX_RATE:"0"
+					,TT_SLE_EX_RATE:"0"
+					,TT_BUY_PRM_EX_RATE:"0"
+					,TT_SLE_PRM_EX_RATE:"0"
+       				,LIBOR_M1_EX_RATE:"0"
+         			,LIBOR_M3_EX_RATE:"0"
+         			,LIBOR_Y1_EX_RATE:"0"
+         			,EX_COM_Y1_EX_RATE:"0"
+         			,EX_COM_M1_EX_RATE:"0"
+         			,EX_COM_M3_EX_RATE:"0"
+         			,USER_EXCHANGE_RATE1:"0"
+         			,USER_EXCHANGE_RATE2:"0"
+         			,USER_EXCHANGE_RATE3:"0"
+       				,DATA_TYPE:""
+       				,DATA_TYPE2:"N"
+       				,FBS_SERVICE:''
+ 					,BANK_CODE:""
+       				,AVG_EX_RATE:"0"
+       				,FBS_YN:"Y"
+				}
        		);
         }
     }
@@ -1615,7 +1621,7 @@
 			    "TTS": "525.44",
 			    "KFTC_DEAL_BAS_R": "540.84"
 			}
-			, {
+			,{
 			    "CUR_UNIT": "JPY",
 			    "YY_EFEE_R": "0",
 			    "MM_EFEE_R": "0",
@@ -1623,13 +1629,19 @@
 			    "TTS": "613.96",
 			    "KFTC_DEAL_BAS_R": "613.96"
 			}
+			,{
+			    "CUR_UNIT": "EUR",
+			    "YY_EFEE_R": "1.5",
+			    "MM_EFEE_R": "2.5",
+			    "TTB": "1500.15",
+			    "TTS": "1500.15",
+			    "KFTC_DEAL_BAS_R": "1500.15"
+			}
     	]
     	var dayGridData = dailyDayGrid.getGridDataAll();
-		
 		for(var i=0; dayGridData.length > i; i ++){
 			for(var j=0; data.length > j; j++){
-				if(dayGridData[i].CURRENCY_CODE == data[j].CUR_UNIT && 
-					dayGridData[i].BASE_DATE == "20241128"){
+				if(dayGridData[i].CURRENCY_CODE == data[j].CUR_UNIT && dayGridData[i].BASE_DATE.replaceAll('-','') == gfn_dateToYmd(new Date()) ){
 		            const param = {
 		                    cv_count: '0',
 		                    getType: 'json',
@@ -1641,7 +1653,7 @@
 	                    		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 	                    		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 	                    		   ,V_P_BASE_CURRENCY        : gfn_nvl(dayGridData[i].BASE_CURRENCY)
-	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE)
+	                    		   ,V_P_BASE_DATE            : gfn_nvl(dayGridData[i].BASE_DATE).replaceAll('-','')
 	                    		   ,V_P_CURRENCY_CODE        : gfn_nvl(data[j].CUR_UNIT)
 	                    		   ,V_P_EXCHANGE_SEQ         : gfn_nvl(dayGridData[i].EXCHANGE_SEQ) == "" ? $('#SRCH_EXCHANGE_SEQ_P').val() : gfn_nvl(dayGridData[i].EXCHANGE_SEQ)
 	                    		   ,V_P_RCV_EX_RATE          : gfn_nvl(dayGridData[i].RCV_EX_RATE)

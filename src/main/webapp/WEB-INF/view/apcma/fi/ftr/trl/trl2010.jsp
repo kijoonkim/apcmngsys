@@ -1045,8 +1045,8 @@
 
         if (fn_P_TRL2010_S1("CONFIRM")) {
             //Allcheck1 = "N";
-
-            fn_search('Q', nRow);
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
     }
@@ -1075,8 +1075,8 @@
 
         if (fn_P_TRL2010_S1("UNCONFIRM")) {
             //Allcheck1 = "N";
-
-            fn_search('Q', nRow);
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
 
@@ -1086,7 +1086,29 @@
      * 자금계획등록
      */
     const fn_btnInterface = async function () {
+        var nCol = Trl2010GridTop.getCol();
+        var nRow = Trl2010GridTop.getRow();
 
+        if (nCol == -1) {
+            return;
+        }
+
+        if (nRow == -1) {
+            return;
+        }
+
+        let gridData = Trl2010GridTop.getRowData(nRow);
+
+        if (_.isEmpty(gridData)){
+            return;
+        }
+
+        if (fn_P_TRL2010_S1("ACCOUNT")) {
+            //Allcheck1 = "N";
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_P_TRL2010_Q_LIST('Q', nRow);
+
+        }
     }
 
     /**
@@ -1113,8 +1135,8 @@
 
         if (fn_P_TRL2010_S1("CANCEL")) {
             //Allcheck1 = "N";
-
-            fn_search('Q', nRow);
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
 
@@ -1157,48 +1179,59 @@
     const getParamForm = async function (strWorkType) {
 
         let returnData = [];
-
+        let check_row = 0;
         let updatedData = Trl2010GridTop.getGridDataAll();
 
         updatedData.forEach((item, index) => {
 
-            const param = {
+            if (_.isEqual(item.CHECK_YN, 'Y')) {
 
-                cv_count: '0',
-                getType: 'json',
-                workType: strWorkType,
-                params: gfnma_objectToString({
-                    V_P_DEBUG_MODE_YN: ''
-                    , V_P_LANG_ID: ''
-                    , V_P_COMP_CODE: gv_ma_selectedCorpCd
-                    , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+                check_row = Number(check_row) + 1;
 
-                    ,V_P_ACCT_RULE_CODE            : p_ss_defaultAcctRule
-                    ,V_P_PERIOD_CODE               : gfn_nvl(item.PERIOD_CODE)
-                    ,V_P_OUT_DEPOSIT_CODE          : gfn_nvl(item.OUT_DEPOSIT_CODE)
-                    ,V_P_TXN_TYPE                  : gfn_nvl(item.TXN_TYPE)
-                    ,V_P_TXN_ID                    : gfn_nvl(item.TXN_ID)
-                    ,V_P_CONFIRM_FLAG              : gfn_nvl(item.CONFIRM_FLAG)
-                    ,V_P_EXCHANGE_RATE             : gfn_nvl(item.EXCHANGE_RATE)
-                    ,V_P_REPAY_PLAN_AMT_F          : gfn_nvl(item.REPAY_PLAN_AMT_F)
-                    ,V_P_REMAIN_LOAN_AMT_F         : gfn_nvl(item.REMAIN_LOAN_AMT_F)
-                    ,V_P_INTEREST_REPAY_PLAN_AMT_F : gfn_nvl(item.INTEREST_REPAY_PLAN_AMT_F)
-                    ,V_P_REPAY_PLAN_AMT_BEFORE     : gfn_nvl(item.REPAY_PLAN_AMT_BEFORE)
-                    ,V_P_FOREIGN_EXCHANGE_PL       : gfn_nvl(item.FOREIGN_EXCHANGE_PL)
-                    ,V_P_PAY_METHOD                : gfn_nvl(item.PAY_METHOD)
+                const param = {
 
-                    , V_P_FORM_ID: p_formId
-                    , V_P_MENU_ID: p_menuId
-                    , V_P_PROC_ID: ''
-                    , V_P_USERID: ''
-                    , V_P_PC: ''
+                    cv_count: '0',
+                    getType: 'json',
+                    workType: strWorkType,
+                    params: gfnma_objectToString({
+                        V_P_DEBUG_MODE_YN: ''
+                        , V_P_LANG_ID: ''
+                        , V_P_COMP_CODE: gv_ma_selectedCorpCd
+                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                })
+                        , V_P_ACCT_RULE_CODE: p_ss_defaultAcctRule
+                        , V_P_PERIOD_CODE: gfn_nvl(item.PERIOD_CODE)
+                        , V_P_OUT_DEPOSIT_CODE: gfn_nvl(item.OUT_DEPOSIT_CODE)
+                        , V_P_TXN_TYPE: gfn_nvl(item.TXN_TYPE)
+                        , V_P_TXN_ID: gfn_nvl(item.TXN_ID)
+                        , V_P_CONFIRM_FLAG: gfn_nvl(item.CONFIRM_FLAG)
+                        , V_P_EXCHANGE_RATE: gfn_nvl(item.EXCHANGE_RATE)
+                        , V_P_REPAY_PLAN_AMT_F: gfn_nvl(item.REPAY_PLAN_AMT_F)
+                        , V_P_REMAIN_LOAN_AMT_F: gfn_nvl(item.REMAIN_LOAN_AMT_F)
+                        , V_P_INTEREST_REPAY_PLAN_AMT_F: gfn_nvl(item.INTEREST_REPAY_PLAN_AMT_F)
+                        , V_P_REPAY_PLAN_AMT_BEFORE: gfn_nvl(item.REPAY_PLAN_AMT_BEFORE)
+                        , V_P_FOREIGN_EXCHANGE_PL: gfn_nvl(item.FOREIGN_EXCHANGE_PL)
+                        , V_P_PAY_METHOD: gfn_nvl(item.PAY_METHOD)
+
+                        , V_P_FORM_ID: p_formId
+                        , V_P_MENU_ID: p_menuId
+                        , V_P_PROC_ID: ''
+                        , V_P_USERID: ''
+                        , V_P_PC: ''
+
+                    })
+                }
+
+                returnData.push(param);
             }
-
-            returnData.push(param);
-
         });
+
+        if (check_row == 0)
+        {
+            gfn_comAlert("Q0000", "check된 Row가 없습니다."); // {0}
+            //MessageBoxW("check된 Row가 없습니다.");
+            return false;
+        }
 
         return returnData;
     }

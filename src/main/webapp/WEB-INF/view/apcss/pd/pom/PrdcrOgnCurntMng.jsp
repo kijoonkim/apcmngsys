@@ -2205,9 +2205,10 @@
 			return
 		}
 		grdPrdcrOgnCurntMng01.setRow(nRow);
-		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
-		popYrGpcSelect.init(brno,yr, fn_setGridItem);
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		popYrGpcSelect.init(yr, brno, uoBrno, fn_setGridItem);
 		SBUxMethod.openModal('modal-yrGpcList');
 	}
 

@@ -158,13 +158,13 @@
 		                            </td>
 		                            <th scope="row" class="th_bg">홈택스 ID</th>
 		                            <td class="td_input"  style="border-right:hidden;">
-										<sbux-input uitype="text" id="HOME_TAX_ID" class="form-control input-sm inpt_data_reqed"></sbux-input>	
+										<sbux-input uitype="text" id="HOME_TAX_ID" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>	
 		                            </td>		                            
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">사업장명</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="3">
-										<sbux-input uitype="text" id="TAX_SITE_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
+										<sbux-input uitype="text" id="TAX_SITE_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		                            
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -176,7 +176,7 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">사업자 번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-										<sbux-input uitype="text" id="BIZ_REGNO1" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>		                            
+										<sbux-input uitype="text" id="BIZ_REGNO1" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		                            
 		                            </td>		           
 			                        <th scope="row" class="th_bg" rowspan="3">사용 인감</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" rowspan="3">
@@ -187,19 +187,19 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">대표자</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-										<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		                            
+										<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		                            
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">대표주민번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm " style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm " style="width:100%"></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">업태</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="3">
-		                                <sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -219,27 +219,27 @@
 		                        <tr>
 			                        <th scope="row" class="th_bg">주소</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="3">
-		                                <sbux-input uitype="text" id="ADDRESS" class="form-control input-sm inpt_data_reqed" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="ADDRESS" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">대표전화</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="TEL" class="form-control input-sm inpt_data_reqed" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="TEL" class="form-control input-sm inpt_data_reqed" style="width:100%" group-id="panAppoint" required></sbux-input>		
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">FAX</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="FAX" class="form-control input-sm" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="FAX" class="form-control input-sm" style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">주소지 전화번호</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="RESIDENCE_TEL" class="form-control input-sm" style="width:100%" required></sbux-input>		
+		                                <sbux-input uitype="text" id="RESIDENCE_TEL" class="form-control input-sm" style="width:100%" required ></sbux-input>		
 		                            </td>		                        
 			                        <th scope="row" class="th_bg">휴대전화</th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CELL_PHONE" class="form-control input-sm" style="width:100%"></sbux-input>		
+		                                <sbux-input uitype="text" id="CELL_PHONE" class="form-control input-sm" style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -264,7 +264,7 @@
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
 										    	aria-expanded="false"
-										    	required>
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -283,7 +283,7 @@
 										    	data-toggle="dropdown" 
 										    	aria-haspopup="true" 
 										    	aria-expanded="false"
-										    	required>
+										    	group-id="panAppoint" required>
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										    </button>
@@ -382,19 +382,6 @@
 </body>
 
 <script type="text/javascript">
-	
-	
-	/*
-	
-그리드 전체 초기화(rebuild)
-SBGrid의 UI와 속성들을 모두 초기화하고 다시 생성합니다.
-	
-그리드 데이터 초기화(refresh)
-SBGrid의 데이터 변경 사항을 갱신합니다.
-	*/
-	
-	
-	
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -1019,46 +1006,9 @@ SBGrid의 데이터 변경 사항을 갱신합니다.
 	    if (txt == '사용인감 변경') {
 	        workType = 'U';
 	    }
-	    if (gfnma_nvl(SBUxMethod.get("HOME_TAX_ID")) == "") {
-	        gfn_comAlert("W0002", "홈택스 ID");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME")) == "") {
-	        gfn_comAlert("W0002", "사업장명");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("BIZ_REGNO1")) == "") {
-	        gfn_comAlert("W0002", "사업자 번호");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("CHIEF_NAME")) == "") {
-	        gfn_comAlert("W0002", "대표자	");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("ADDRESS")) == "") {
-	        gfn_comAlert("W0002", "주소");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("TEL")) == "") {
-	        gfn_comAlert("W0002", "대표전화");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("ADDRESS")) == "") {
-	        gfn_comAlert("W0002", "주소");
-	        return;
-	    }
-	    if (gfnma_nvl(SBUxMethod.get("TEL")) == "") {
-	        gfn_comAlert("W0002", "전화번호");
-	        return;
-	    }
-	    if (gfnma_multiSelectGet("#VAT_OFFICE") == "") {
-	        gfn_comAlert("W0002", "부가세관할세무소");
-	        return;
-	    }
-	    if (gfnma_multiSelectGet("#INCOME_TAX_OFFICE") == "") {
-	        gfn_comAlert("W0002", "원천세관할세무소");
-	        return;
-	    }
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
 	    var paramObj = {
 	    		   V_P_DEBUG_MODE_YN       : ''
     			  ,V_P_LANG_ID             : ''

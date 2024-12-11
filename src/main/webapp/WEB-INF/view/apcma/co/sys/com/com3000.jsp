@@ -133,7 +133,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg_content">그룹코드</th>
                                     <td class="td_input">
-                                        <sbux-input id="GROUP_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="GROUP_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg_content">사용여부</th>
                                     <td class="td_input">
@@ -149,13 +149,13 @@
                                 <tr>
                                     <th scope="row" class="th_bg_content">코드그룹명</th>
                                     <td class="td_input" colspan="3">
-                                        <sbux-input id="GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="GROUP_NAME" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg_content">코드길이</th>
                                     <td class="td_input">
-                                        <sbux-input id="CODE_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="CODE_LENGTH" class="form-control input-sm inpt_data_reqed" uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg_content">유형분류</th>
 		                            <td colspan="" class="td_input" style="border-right:hidden;">
@@ -166,6 +166,7 @@
 		                                        jsondata-ref="jsonGroupCode"
 		                                        unselected-text="전체"
 		                                        class="form-control input-sm inpt_data_reqed"
+		                                        group-id="panAppoint" required
 		                                ></sbux-select>                            
 									</td>
                                 </tr>
@@ -980,6 +981,10 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
+        
     	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
     	let USE_YN				= gfn_nvl(SBUxMethod.get("USE_YN"));
     	let DESCR 				= gfn_nvl(SBUxMethod.get("DESCR"));
@@ -1007,23 +1012,6 @@
     	let FIELD_CAPTION18 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION18"));
     	let FIELD_CAPTION19 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION19"));
     	let FIELD_CAPTION20 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION20"));
-    	
-    	if(GROUP_CODE == "") {
-            gfn_comAlert("W0002", "그룹코드");
-            return;
-    	}
-    	if(GROUP_NAME == "") {
-            gfn_comAlert("W0002", "코드그룹명");
-            return;
-    	}
-    	if(CODE_LENGTH == "") {
-            gfn_comAlert("W0002", "코드길이");
-            return;
-    	}
-    	if(GROUP_CATEGORY == "") {
-            gfn_comAlert("W0002", "유형분류");
-            return;
-    	}
     	
     	if(editType == "N"){
     		var valUrl = "/co/sys/com/insertCom3000.do";

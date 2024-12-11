@@ -65,6 +65,24 @@ public class InvShipOgnPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 매입, 매출 조회 (출자출하조직 자체 품목 조회로 변경)
+	@PostMapping(value = "/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnPurSalMngPrchsSlsListNew(Model model, @RequestBody InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<InvShipOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
+		List<InvShipOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		try {
+			 resultPrchsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO);
+			 resultSlsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put("resultPrchsList", resultPrchsList);
+		resultMap.put("resultSlsList", resultSlsList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	//등록
 	@PostMapping(value = "/pd/isom/insertInvShipOgnPurSalMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})

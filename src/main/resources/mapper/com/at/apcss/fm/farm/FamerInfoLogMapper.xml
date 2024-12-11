@@ -16,7 +16,7 @@
 	   <select id="selectFarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.selectFarmerInfoLog */
-				  SN                                 as SEQ
+				  LOG_SN                             as SEQ
 				, FRMERNO                            as FRMER_SN
 				, MNGMST_REGNO                       as BZOB_RGNO
 				, ADMST_OWNR_REL                     as MNGER_RELATE
@@ -76,7 +76,7 @@
     <select id="selectFarmerInfoLogList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.selectFarmerInfoLogList */
-				  SN                                 as SEQ
+				  LOG_SN                             as SEQ
 				, FRMERNO                            as FRMER_SN
 				, MNGMST_REGNO                       as BZOB_RGNO
 				, ADMST_OWNR_REL                     as MNGER_RELATE
@@ -308,7 +308,7 @@
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.insertMegerLogFarmerInfoLog */
 	    	  INTO TB_AX_FRMER_INFO_LOG
-	    	  (       SN
+	    	  (       LOG_SN
 	    		    , FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
@@ -342,7 +342,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			      (SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+	   			      (SELECT NVL(MAX(LOG_SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
 	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}

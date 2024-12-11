@@ -76,7 +76,7 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" colspan="" style="border-right:hidden;">
-	                                <sbux-input id="SRCH_ORG_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+	                                <sbux-input id="SRCH_ORG_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm" ></sbux-input>
 	                            </td>
 	                            <td></td>
 	                            <th scope="row" class="th_bg_search">APC명</th>
@@ -122,7 +122,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">APC</th>
                                     <td class="td_input">
-                                        <sbux-input id="FI_ORG_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="FI_ORG_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
 									</td>               
 									<td class="td_input" style="border-right: hidden;"></td>                     
 									<td class="td_input" style="border-right: hidden;"></td>                     
@@ -131,7 +131,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">APC명</th>
                                     <td class="td_input" colspan="4">
-                                        <sbux-input id="FI_ORG_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+                                        <sbux-input id="FI_ORG_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
 									</td>                                    
                                 </tr>    
                                 <tr>
@@ -627,15 +627,9 @@
     //그룹코드 내역 저장
     const fn_save = async function(type) {
 
-    	//필수 데이터 입력하지 않았을 경우 리턴
-    	if(gfn_nvl(SBUxMethod.get("FI_ORG_CODE")) == "") {
-            gfn_comAlert("W0002", "APC");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("FI_ORG_NAME")) == "") {
-            gfn_comAlert("W0002", "APC명");
-            return;
-    	}
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
         let updatedDetailData	 = detailGrid.getGridDataAll();
         let updatedAuthorityData = authorityGrid.getGridDataAll();
    	    let strWorkType2 	= '';

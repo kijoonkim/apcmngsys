@@ -192,7 +192,8 @@
 												id="FI_ORG_CODE" 
 												data-toggle="dropdown" 
 												aria-haspopup="true" 
-												aria-expanded="false">
+												aria-expanded="false"
+												group-id="panAppoint" required>
 												<font>선택</font>
 												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 											</button>
@@ -204,7 +205,7 @@
 								<tr>
 									<th scope="row" class="th_bg">원가중심점코드</th>
 									<td class="td_input" colspan="3">
-										<sbux-input id="COST_CENTER_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+										<sbux-input id="COST_CENTER_CODE" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100% group-id="panAppoint" required"></sbux-input>
 									</td>
 									<th scope="row" class="th_bg">사용여부</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
@@ -214,7 +215,7 @@
 								<tr>
 									<th scope="row" class="th_bg">원가중심점명</th>
 									<td colspan="7" class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="COST_CENTER_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+										<sbux-input uitype="text" id="COST_CENTER_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 									</td>
 								</tr>                                   
 								<tr>
@@ -250,7 +251,8 @@
 												id="COST_CLASS" 
 												data-toggle="dropdown" 
 												aria-haspopup="true" 
-												aria-expanded="false">
+												aria-expanded="false"
+												group-id="panAppoint" required>
 												<font>선택</font>
 												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 											</button>
@@ -274,7 +276,8 @@
 												id="DIV_CODE" 
 												data-toggle="dropdown" 
 												aria-haspopup="true" 
-												aria-expanded="false">
+												aria-expanded="false"
+												group-id="panAppoint" required>
 												<font>선택</font>
 												<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 											</button>
@@ -382,20 +385,20 @@
 								<tr>
 									<th scope="row" class="th_bg">부서</th>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+										<sbux-input uitype="text" id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+										<sbux-input uitype="text" id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 									</td>
 									<td class="td_input">
 										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupDept" ></sbux-button>
 									</td>
 									<th scope="row" class="th_bg">손익사업장</th>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="SITE_CODE" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+										<sbux-input uitype="text" id="SITE_CODE" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-input uitype="text" id="SITE_NAME" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+										<sbux-input uitype="text" id="SITE_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required ></sbux-input>
 									</td>
 									<td class="td_input">
 										<sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_compopupSite" ></sbux-button>
@@ -980,43 +983,9 @@
     //기본정보, 관리항목 탭 내역 저장
     const fn_save = async function(type) {
 
-    	//필수 데이터 입력하지 않았을 경우 리턴
-    	if(gfnma_multiSelectGet("#FI_ORG_CODE") == "") {
-            gfn_comAlert("W0002", "원가중심점");
-            return;
-    	}
-    	if(gfnma_multiSelectGet("#COST_CLASS") == "") {
-            gfn_comAlert("W0002", "원가유형");
-            return;
-    	}
-    	if(gfnma_multiSelectGet("#DIV_CODE") == "") {
-            gfn_comAlert("W0002", "사업부");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("COST_CENTER_CODE")) == "") {
-            gfn_comAlert("W0002", "원가중심점코드");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("COST_CENTER_NAME")) == "") {
-            gfn_comAlert("W0002", "원가중심점명");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("DEPT_CODE")) == "") {
-            gfn_comAlert("W0002", "부서");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("DEPT_NAME")) == "") {
-            gfn_comAlert("W0002", "부서");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SITE_CODE")) == "") {
-            gfn_comAlert("W0002", "사업장");
-            return;
-    	}
-    	if(gfn_nvl(SBUxMethod.get("SITE_NAME")) == "") {
-            gfn_comAlert("W0002", "사업장");
-            return;
-    	}
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
   	    var paramObj = {
        			 V_P_DEBUG_MODE_YN        : ""
    				,V_P_LANG_ID              : ""

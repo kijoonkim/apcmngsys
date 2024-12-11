@@ -241,7 +241,7 @@
                     <td colspan="4" class="td_input">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
-                                text="복수전표" uitype="modal"
+                                text="복수사원" uitype="modal"
                                 target-id="modal-compopup3"
                                 onclick="btnMultiEmp"
                         ></sbux-button>

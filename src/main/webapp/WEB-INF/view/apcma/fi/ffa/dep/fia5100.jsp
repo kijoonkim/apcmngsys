@@ -183,7 +183,7 @@
                         	<th scope="row" class="th_bg_search">담당부서</th>
                              <td colspan="3" class="td_input" style="border-right: hidden;">
 								<div style="display:flex;float:left;vertical-align:middle;width:100%">
-									<sbux-input uitype="text" id="srch-inp-dspsTab-pic1"
+									<sbux-input uitype="text" id="srch-inp-tckgDept1"
 										name="srch-inp-tckgDept1" class="form-control input-sm" group-id="dsps1"></sbux-input>
 									<font style="width:5px"></font>
 									<sbux-button
@@ -468,7 +468,7 @@
 
 	//조회
 	function cfn_search(){
-		fnQRY_P_FIA5100_Q();
+		fnQRY_P_FIA5100_Q("LIST");
 	}
 	//저장
 	function cfn_save(){
@@ -515,7 +515,9 @@
 			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+
+			gfnma_setComSelect(['grdDprcDtStopList'], jsonSiteCd, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 
 			//회계단위
 			gfnma_multiSelectInit({
@@ -576,6 +578,7 @@
 	var jsonBplc = []; // 사업장
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
+	var jsonSiteCd = []; //사업장
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -587,16 +590,16 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["중지처리일"],		ref: 'clclnNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"], 	ref: 'clclnYmd',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'bplc',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산번호"],    	ref: 'acps', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산명"],		ref: 'acntgCrtr',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["담당부서"], 		ref: 'currency', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["담당자"], 		ref: 'exchngRt',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["중지시작년월"], 	ref: 'clclnGramt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["중지종료년월"], 		ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["취득금액"], 		ref: 'slipNm', 				type:'output',		width:'80px',		style:'text-align:center'}
+            {caption: ["중지처리일"],		ref: 'holdingDate', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업단위"], 	ref: 'acctRuleCode',    	type:'combo', typeinfo : {ref:'jsonAcntgCrtr', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type:'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산번호"],    	ref: 'assetNo', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산명"],		ref: 'assetName',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["담당부서"], 		ref: 'deptName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["담당자"], 		ref: 'empName',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["중지시작년월"], 	ref: 'holdingStartYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["중지종료년월"], 		ref: 'holdingEndYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["취득금액"], 		ref: 'acquireAmount', 				type:'output',		width:'80px',		style:'text-align:center'}
         ];
 
         grdDprcDtStopList = _SBGrid.create(SBGridProperties);
@@ -641,10 +644,10 @@
     const fnSET_P_FIA5100_S = async function(strStauts) {
         let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
         let bplc = gfnma_multiSelectGet("#srch-slt-bplc2")//사업장,site_code
-        let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
+        let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr2");//회계기준, acct_rule_code
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
         let stopEndYmd = SBUxMethod.get("srch-dtp-stopEndYmd"); //중지종료년월
-        let tckgDept = SBUxMethod.get("srch-inp-tckgDept1"); //담당부서
+        let tckgDept = SBUxMethod.get("srch-inp-tckgDept3"); //담당부서
         let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
         let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
         let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
@@ -680,7 +683,7 @@
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
           	getType				: 'json',
           	workType			:  strStauts,
-          	cv_count			: '1',
+          	cv_count			: '0',
           	params				: gfnma_objectToString(paramObj)
   			});
 
@@ -711,18 +714,17 @@
          let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
          let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
          let bplc = gfnma_multiSelectGet("#srch-slt-bplc1")//사업장,site_code
-         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
+         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr1");//회계기준, acct_rule_code
          let stopBgngYmdFrom = SBUxMethod.get("srch-dtp-stopBgngYmdFrom"); //중지시작년월From
          let stopBgngYmdTo = SBUxMethod.get("srch-dtp-stopBgngYmdTo"); //중지시작년월To
          let stopEndYmdFrom = SBUxMethod.get("srch-dtp-stopEndYmdFrom"); //중지종료년월From
          let stopEndYmdTo = SBUxMethod.get("srch-dtp-stopEndYmdTo"); //중지종료년월To
          let tckgDept = SBUxMethod.get("srch-inp-tckgDept1"); //담당부서
-         let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
+         let pic = SBUxMethod.get("srch-inp-dspsTab-pic1"); //담당자
          let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
          let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
     	 var paramObj = {
-    	 		V_P_WORK_TYPE : strWorkType
-     			,V_P_DEBUG_MODE_YN	: ''
+     			V_P_DEBUG_MODE_YN	: ''
      			,V_P_LANG_ID		: ''
      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
@@ -760,21 +762,7 @@
          if (_.isEqual("S", data.resultStatus)) {
              gfn_comAlert("I0001");
              jsonDprcDtStopList.length = 0;
-	        	data.cv_1.forEach((item, index) => {
-					const msg = {
-						NATION_CODE				: item.NATION_CODE,
-						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-						NATION_NAME				: item.NATION_NAME,
-						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-						REGION_CODE				: item.REGION_CODE,
-						CURRENCY_CODE			: item.CURRENCY_CODE,
-						MEMO					: item.MEMO,
-						SORT_SEQ				: item.SORT_SEQ,
-						USE_YN 					: item.USE_YN
-					}
-					jsonDprcDtStopList.push(msg);
-				});
+             jsonDprcDtStopList = convertArrayToCamelCase(data.cv_1);
 
         	grdDprcDtStopList.rebuild();
          } else {
@@ -1037,6 +1025,21 @@
 		})
 		return chkValidation;
  	}
+
+ 	/** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
+    }
 
 
 
