@@ -381,7 +381,7 @@
 			             , CASE
 			                    WHEN JOB_END_HR IS NULL
 			                    THEN ''
-			                    ELSE JOB_BGNG_HR || ' ~ ' || JOB_END_HR || '  ' || JOB_HR
+			                    ELSE JOB_BGNG_HR || ' ~ ' || JOB_END_HR || '  ' || JOB_HR || '분'
 			               END  AS JOB_HR
 			             , SI.SORT_QNTT         AS SORT_QNTT
 

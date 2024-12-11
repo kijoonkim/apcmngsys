@@ -391,6 +391,8 @@
     var jsonSave = [];
     var jsonRawMtrInvntr = [];
     var jsonSpcfctCd = [];
+    /** 조회 JSON **/
+    var jsonSearchList = [];
 
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -413,6 +415,9 @@
     }
 
     const fn_searchInvntr = async function () {
+        jsonSave.length = 0;
+        await SBUxMethod.set("dtl-inp-qntt","");
+        await SBUxMethod.set("dtl-inp-sortQntt","");
 
         const pltno = SBUxMethod.get("dtl-inp-pltno");
 
@@ -429,7 +434,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log(data,"없어도 S잖아");
             if(data.resultStatus === 'S'){
                 if(!gfn_isEmpty(data.resultMap)) {
                     /** 품목/품종/생산자 취합 **/
@@ -475,12 +479,17 @@
     }
     const fn_getSortno = async function(){
         let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
-        const postJsonPromise = gfn_postJSON("/am/sort/selectSortno.do", {
-            apcCd: gv_selectedApcCd,
-            inptYmd : inptYmd
-        });
-        const data = await postJsonPromise;
-        SBUxMethod.set("dtl-inp-sortno",data.sortno);
+        if(gfn_isEmpty(jsonSearchList)){
+            const postJsonPromise = gfn_postJSON("/am/sort/selectSortno.do", {
+                apcCd: gv_selectedApcCd,
+                inptYmd : inptYmd
+            });
+            const data = await postJsonPromise;
+            SBUxMethod.set("dtl-inp-sortno",data.sortno);
+        }else{
+            SBUxMethod.set("dtl-inp-sortno",jsonSearchList[0].SORTNO);
+        }
+
     }
     const fn_setGrdSelect = async function(_itemCd){
         /** 팔레트번호 조회 후 상품 규격 셋팅 **/
@@ -569,9 +578,25 @@
         let qntt = SBUxMethod.get("dtl-inp-qntt");
         let maxWght = parseInt(wght) * parseInt(qntt);
         let total = 0;
+        /** 기존 실적중에 끝 순번 조회 **/
+        let max = 0;
+        jsonSearchList.forEach(function(item){
+            if(max < item.SORT_SN){
+                max = item.SORT_SN
+            }
+        });
+        /** 중량기준 초과한도 **/
+        jsonSave.forEach(function(item){
+            /** wght Validation **/
+            total += item.sortWght;
+        });
+        if(total > maxWght){
+            gfn_comAlert("W0008","재고수량","등록수량");
+            return;
+        }
 
         jsonSave.forEach(function(item,idx){
-           jsonSave[idx].sortSn = idx;
+           jsonSave[idx].sortSn = idx + max;
            jsonSave[idx].grdCd = "01";
            jsonSave[idx].gdsSeCd = "01"
            jsonSave[idx].wrhsSeCd = "1";
@@ -592,15 +617,19 @@
                grdSeCd : "01",
                itemCd : jsonSave[idx].itemCd
            }];
-            /** wght Validation **/
-           total += jsonSave[idx].sortWght;
         });
-        if(total > maxWght){
-            gfn_comAlert("W0008","재고수량","등록수량");
-            return;
-        }
+
         let sortYmd = SBUxMethod.get('dtl-dtp-inptYmd');
         let sortno = SBUxMethod.get('dtl-inp-sortno');
+
+        /** 기존실적은 제외 **/
+        jsonSave = jsonSave.filter(function(item){
+            let flag
+           jsonSearchList.forEach(function(iner){
+               flag = iner.SORTNO === item.sortno && iner.SORT_SN === item.sortSn;
+           });
+            return !flag;
+        });
 
         const sortMng = {
             apcCd: gv_selectedApcCd,
@@ -615,7 +644,9 @@
 
         if(data.resultStatus ==='S'){
             gfn_comAlert("I0001");
-            fn_searchInvntr();
+            await SBUxMethod.set("dtl-inp-qntt","");
+            await SBUxMethod.set("dtl-inp-sortQntt","");
+            await fn_searchInvntr();
         }
     }
     const fn_reset = function(){
@@ -661,7 +692,7 @@
             $("#latestInfoBody").empty();
 
             if(data.resultList.length !== 0){
-
+                jsonSearchList = [...data.resultList];
                 data.resultList.forEach(function(item,idx){
                     let check = Object.keys(item).reduce((acc,key) => {
                         acc[gfn_snakeToCamel(key)] = item[key];
@@ -719,6 +750,23 @@
         event.stopPropagation();
         var row = $(_el).closest('tr');
         let idx = row.index();
+        let selectObj = {sortno : jsonSave[idx].sortno};
+        if(jsonSave[idx].hasOwnProperty("sortSn")){
+            if(!gfn_comConfirm("Q0001","저장된 선별실적입니다 삭제")){
+                return;
+            }
+            const sortMng = {
+                apcCd: gv_selectedApcCd,
+                sortPrfmncList: selectObj
+            }
+
+            const postJsonPromise = gfn_postJSON("/am/sort/deleteSortPrfmnc.do", sortMng);
+            const data = await postJsonPromise;
+
+            if(date.resultStatus === 'S'){
+
+            }
+        }
         jsonSave.splice(idx,1);
         row.remove();
     }
