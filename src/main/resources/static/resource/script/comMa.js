@@ -1197,7 +1197,7 @@ function gfnma_showPopover(element) {
 
 	popover.css({
 		top: offset.top + (elementHeight / 2),
-		left: offset.left + (elementWidth / 2) - (popoverWidth / 2),
+		left: offset.left + (elementWidth / 2) - (popoverWidth),
 	});
 
 	setTimeout(function() {
