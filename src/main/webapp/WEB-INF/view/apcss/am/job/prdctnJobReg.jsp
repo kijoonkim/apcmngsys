@@ -102,14 +102,6 @@
                             text="저장"
                     ></sbux-button>
                     <sbux-button
-                            id="btnSearch"
-                            name="btnSearch"
-                            uitype="normal"
-                            class="btn btn-sm btn-outline-danger btn-mbl"
-                            onclick="fn_search"
-                            text="조회"
-                    ></sbux-button>
-                    <sbux-button
                             id="btnClose"
                             name="btnClose"
                             uitype="normal"
@@ -473,8 +465,7 @@
                     /** 하단 table 정보 조회 **/
                     await fn_selectSortPrfmnc();
                 }else{
-                    let elements = document.querySelectorAll('[id^="dtl-inp-"]');
-                    console.log(elements,"요소들");
+                    fn_reset();
                 }
             }
 
@@ -500,25 +491,14 @@
         SBUxMethod.refresh('dtl-slt-spcfctCd');
     }
 
-    const fn_search = async function(){
-
-    }
-
     const fn_setJobHr = async function(){
         let pltno = SBUxMethod.get("dtl-inp-pltno");
-        let sortno = SBUxMethod.get("dtl-inp-sortno");
-        let sortSn = SBUxMethod.get("sortSn");
         if(gfn_isEmpty(pltno)){
             gfn_comAlert("W0005","팔레트번호");
             return;
         }
-        if(gfn_isEmpty(sortSn)){
-            gfn_comAlert("W0005","선택된 선별내역");
-            return;
-        }
-
         /** 선별 순번 **/
-        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno,sortno:sortno,sortSn:sortSn}));
+        window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno}));
     }
 
     function fn_qnttChange(_value){
@@ -661,7 +641,11 @@
         });
 
         SBUxMethod.set("dtl-dtp-inptYmd", gfn_dateToYmd(new Date()));
-        // SBUxMethod.attr("dtl-inp-qntt","readonly",'false');
+        /** 작업자 수정 이후 초기화 목록 24.12.09**/
+        $("#jobMsg").hide();
+        /** 정보없는경우 취합 목록 reset **/
+        SBUxMethod.set("mergeItemNm", '');
+        SBUxMethod.set("mergeSpcfctNm", '');
     }
     const fn_selectSortPrfmnc = async function(){
         /** 하단 table 정보 조회 **/
