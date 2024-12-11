@@ -289,18 +289,18 @@
                     return '<img src="'+'/com/getFileImage.do?fkey='+objRowData.EMP_PHOTO_NAME+'&comp_code='+gv_ma_selectedCorpCd+'&client_code=' + gv_ma_selectedClntCd+'" style="width: 100%; height: 100%">';
                 }
             },
-            {caption: ["생년월일"],   ref: 'BIRTHDAY', 		type:'output',  	width:'90px',    	style:'text-align:left',
+            {caption: ["생년월일\n(나이)"],   ref: 'BIRTHDAY', 		type:'output',  	width:'90px',    	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
-            {caption: ["입사일자"], 	ref: 'ENTER_DATE', 		type:'output',  	width:'90px',    	style:'text-align:left',
+            {caption: ["입사일자\n(연차기산일)"], 	ref: 'ENTER_DATE', 		type:'output',  	width:'90px',    	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
             },
             {caption: ["입사년수"],	ref: 'ENTER_YEAR',	    type:'output',  	width:'90px',   	style:'text-align:left'},
-            {caption: ["승진일자"], 	ref: 'POSITION_DATE',  	type:'output',  	width:'90px',   	style:'text-align:left',
+            {caption: ["승진일자\n(직책발령일자)"], 	ref: 'POSITION_DATE',  	type:'output',  	width:'90px',   	style:'text-align:left',
                 renderer:function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue ? strValue.replaceAll('\n', '<br>') : strValue;
                 }
