@@ -925,14 +925,18 @@
 				);
 	}
 
-	const fn_reportPdfJSON = function() {
+	const fn_reportPdfJSON = async function() {
 
 		const conn = [];
 		conn.push({data: score},{data: students});
 
-		gfn_getReportPdf("test.pdf", "am/jsonSample.crf", conn, {userPassword:"111"}, null);
+		await gfn_getReportPdf("test.pdf", "am/jsonSample.crf", conn, {userPassword:"111"}, null);
+
+		console.log("test")
 	}
-	
+
+
+
 	/* End */
 </script>
 </body>
