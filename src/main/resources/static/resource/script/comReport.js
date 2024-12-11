@@ -4,6 +4,8 @@
  * @description 리포트 관련 공통함수
  */
 
+const __JSP_SERVER = "report_server.jsp";
+const __JSP_PDF_JSON = "exportForPdfByJson.jsp";
 
 let gv_reportDbName;
 let gv_reportUrl;
@@ -39,7 +41,7 @@ const gfn_viewClipReport = async function(divId, fileName, param, modalId) {
 		});
 	}
 
-	const report = createOOFReport(gv_reportUrl, oof.toString(), document.getElementById(divId));
+	const report = createOOFReport(gv_reportUrl + __JSP_SERVER, oof.toString(), document.getElementById(divId));
 
 	if (!gfn_isEmpty(modalId)) {
 		report.setCloseButtonCustomEvent(function() {
@@ -68,6 +70,168 @@ const gfn_getReportKey = async function(fileName, param) {
 	}
 
 	return oof.toString();
+}
+
+const gfn_getReportPdfFetch = async function(_downloadFileName, _reportFileName, _conn, _password, _callback){
+
+	let url = gv_reportUrl + __JSP_PDF_JSON;
+
+	const formData = new FormData();
+	formData.append("reportType", gv_reportType);
+	formData.append("reportFile", gv_reportPath + _reportFileName);
+	formData.append("pdfFileName", _downloadFileName);
+
+	if (!gfn_isEmpty(_password)) {
+		if (!gfn_isEmpty(_password['userPassword'])) {
+			formData.append("userPassword", _password['userPassword']);
+		}
+		if (!gfn_isEmpty(_password['ownerPassword'])) {
+			formData.append("ownerPassword", _password['ownerPassword']);
+		}
+	}
+
+	const prfxMemo = "JSON";
+	const prfxName = "JSONDS";
+	const defaultRoot = "{%dataset.json.root%}";
+
+	let jsonCount = 0;
+	_conn.forEach((item, index) => {
+		const objIndex = index + 1;
+		const memoName = gfn_nvl(item.memo, prfxMemo + objIndex);
+		const jsonName = gfn_nvl(item.name, prfxName + objIndex);
+		const rootPath = gfn_nvl(item.rootPath, defaultRoot);
+		const jsonData = gfn_nvl(JSON.stringify(item.data), "{}");
+
+		formData.append("memoName" + objIndex, memoName);
+		formData.append("jsonName" + objIndex, jsonName);
+		formData.append("rootPath" + objIndex, rootPath);
+		formData.append("jsonData" + objIndex, jsonData);
+
+		jsonCount++;
+	});
+
+	formData.append("jsonCount", jsonCount);
+	const response = await fetch(
+		url, {
+			method: 'POST',
+			cache: 'no-cache',
+			body: formData // body 부분에 폼데이터 변수를 할당
+		});
+
+	const result = await response.blob();
+
+	if (result != null) {
+		let downloadUrl = window.URL.createObjectURL(blob)
+		var a = document.createElement('a')
+		a.href = downloadUrl;
+		a.download = _downloadFileName;
+		document.body.appendChild(a)
+		a.click()
+		a.remove()
+	}
+
+	if (typeof _callback === 'function') {
+		_callback();
+	}
+}
+const gfn_getReportPdf = async function(_downloadFileName, _reportFileName, _conn, _password, _callback){
+
+	let url = gv_reportUrl + __JSP_PDF_JSON;
+
+	const nowDate   = new Date();
+	const randomNo = Math.floor(Math.random() * 10000) + 1;
+	const sid = "clip_" + nowDate.getTime() + "_" + randomNo;
+
+	const frm = document.createElement("form");
+
+	frm.name = sid;
+	frm.id = sid;
+	frm.action = url;
+	frm.method = "POST";
+
+	let elReportType = document.createElement("input");
+	elReportType.setAttribute("type", "hidden");
+	elReportType.setAttribute("name", "reportType");
+	elReportType.setAttribute("value", gv_reportType);
+	frm.appendChild(elReportType);
+
+	let elReportFile = document.createElement("input");
+	elReportFile.setAttribute("type", "hidden");
+	elReportFile.setAttribute("name", "reportFile");
+	elReportFile.setAttribute("value", gv_reportPath + _reportFileName);
+	frm.appendChild(elReportFile);
+
+	let elPdfFileName = document.createElement("input");
+	elPdfFileName.setAttribute("type", "hidden");
+	elPdfFileName.setAttribute("name", "pdfFileName");
+	elPdfFileName.setAttribute("value", _downloadFileName);
+	frm.appendChild(elPdfFileName);
+
+	if (!gfn_isEmpty(_password)) {
+		if (!gfn_isEmpty(_password['userPassword'])) {
+			let elUserPassword = document.createElement("input");
+			elUserPassword.setAttribute("type", "hidden");
+			elUserPassword.setAttribute("name", "userPassword");
+			elUserPassword.setAttribute("value", _password['userPassword']);
+			frm.appendChild(elUserPassword);
+		}
+		if (!gfn_isEmpty(_password['ownerPassword'])) {
+			let elOwnerPassword = document.createElement("input");
+			elOwnerPassword.setAttribute("type", "hidden");
+			elOwnerPassword.setAttribute("name", "ownerPassword");
+			elOwnerPassword.setAttribute("value", _password['ownerPassword']);
+			frm.appendChild(elOwnerPassword);
+		}
+	}
+
+	const prfxMemo = "JSON";
+	const prfxName = "JSONDS";
+	const defaultRoot = "{%dataset.json.root%}";
+
+	let jsonCount = 0;
+	_conn.forEach((item, index) => {
+		const objIndex = index + 1;
+		const memoName = gfn_nvl(item.memo, prfxMemo + objIndex);
+		const jsonName = gfn_nvl(item.name, prfxName + objIndex);
+		const rootPath = gfn_nvl(item.rootPath, defaultRoot);
+		const jsonData = gfn_nvl(JSON.stringify(item.data), "{}");
+
+		let elMemoName = document.createElement("input");
+		elMemoName.setAttribute("type", "hidden");
+		elMemoName.setAttribute("name", "memoName" + objIndex);
+		elMemoName.setAttribute("value", memoName);
+		frm.appendChild(elMemoName);
+
+		let elJsonName = document.createElement("input");
+		elJsonName.setAttribute("type", "hidden");
+		elJsonName.setAttribute("name", "jsonName" + objIndex);
+		elJsonName.setAttribute("value", jsonName);
+		frm.appendChild(elJsonName);
+
+		let elRootPath = document.createElement("input");
+		elRootPath.setAttribute("type", "hidden");
+		elRootPath.setAttribute("name", "rootPath" + objIndex);
+		elRootPath.setAttribute("value", rootPath);
+		frm.appendChild(elRootPath);
+
+		let elJsonData = document.createElement("input");
+		elJsonData.setAttribute("type", "hidden");
+		elJsonData.setAttribute("name", "jsonData" + objIndex);
+		elJsonData.setAttribute("value", jsonData);
+		frm.appendChild(elJsonData);
+
+		jsonCount++;
+	});
+
+	let elJsonCount = document.createElement("input");
+	elJsonCount.setAttribute("type", "hidden");
+	elJsonCount.setAttribute("name", "jsonCount");
+	elJsonCount.setAttribute("value", jsonCount);
+	frm.appendChild(elJsonCount);
+
+	document.body.appendChild(frm);
+	frm.submit();
+	frm.remove();
 }
 
 
@@ -136,7 +300,7 @@ const gfn_getReportKeyByJson = async function(_fileName, _param, _conn) {
 	memo2.addContentParamJSON("JSONDS2", "utf-8", "{%dataset.json.root%}");
 	console.log("memo2", memo2);
 	*/
-	
+
 	if (!gfn_isEmpty(_param)) {
 		let keys = Object.getOwnPropertyNames(_param);
 		keys.forEach((item) => {
@@ -157,7 +321,7 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 	const reportKey = await gfn_getReportKey(fileName, param);
 
 	const report = createOOFReport(
-				gv_reportUrl,
+				gv_reportUrl + __JSP_SERVER,
 				reportKey,
 		document.getElementById(gv_dvClipReportPrint)
 			);
@@ -186,7 +350,7 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 const gfn_printClipReport = async function(fileName, param) {
 	const reportKey = await gfn_getReportKey(fileName, param);
 	const report = createOOFReport(
-				gv_reportUrl,
+				gv_reportUrl + __JSP_SERVER,
 				reportKey,
 				document.getElementById(gv_dvClipReportPrint)
 			);
@@ -201,7 +365,7 @@ const gfn_printClipReport = async function(fileName, param) {
 const gfn_DirectPrintClipReport = async function(fileName, param) {
 	const reportKey = await gfn_getReportKey(fileName, param);
 	const report = createOOFReport(
-				gv_reportUrl,
+				gv_reportUrl + __JSP_SERVER,
 				reportKey,
 				document.getElementById(param.element)
 			);
@@ -217,7 +381,7 @@ const gfn_DirectPrintClipReport = async function(fileName, param) {
  * @description 클립리포트 View
  */
 const gfn_drawClipReport = async function(divId, reportKey,check) {
-	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
+	const report = createOOFReport(gv_reportUrl + __JSP_SERVER, reportKey, document.getElementById(divId));
 console.log("report", report);
 	//printEXEDirect()
 	report.setViewType(1);
@@ -263,7 +427,7 @@ console.log("report", report);
  * @description 클립리포트 View
  */
 const gfn_drawClipReportPOST = async function(divId, reportKey,check) {
-	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
+	const report = createOOFReport(gv_reportUrl + __JSP_SERVER, reportKey, document.getElementById(divId));
 console.log("report", report);
 	//printEXEDirect()
 	report.setViewType(1);
@@ -432,7 +596,7 @@ const gfn_popClipReportPost = async function(_title, _fileName, _param, _conn) {
 	elConn.setAttribute("name", "conn");
 	elConn.setAttribute("value", conn);
 	frm.appendChild(elConn);
-	
+
 /*	
 
 	frm.onsubmit = function(){
@@ -474,7 +638,7 @@ const gfn_popClipReportPost = async function(_title, _fileName, _param, _conn) {
 const gfn_exeDirectPrint = async function(fileName, param){
 	const reportKey = await gfn_getReportKey(fileName, param);
 	const report = createOOFReport(
-		gv_reportUrl,
+		gv_reportUrl + __JSP_SERVER,
 		reportKey,
 		document.getElementById(param.element)
 	);
