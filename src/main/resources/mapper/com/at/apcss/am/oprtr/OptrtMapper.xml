@@ -305,14 +305,18 @@
 	</update>
 	<delete id="deleteOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
-		DELETE FROM TB_OPRTR_SORT_PRFMNC
+		DELETE TB_OPRTR_SORT_PRFMNC
 		WHERE APC_CD = #{apcCd}
 		AND JOB_CLSF_CD = #{jobClsfCd}
 		AND SORTNO = #{sortno}
 		AND PRFMNC_SN = #{prfmncSn}
-		AND BRDT = #{brdt}
-		AND FLNM = #{flnm}
 		]]>
+		<if test='brdt != null and brdt != ""'>
+		AND BRDT = #{brdt}
+		</if>
+		<if test='flnm != null and flnm != ""'>
+		AND FLNM = #{flnm}
+		</if>
 	</delete>
 </mapper>
 
