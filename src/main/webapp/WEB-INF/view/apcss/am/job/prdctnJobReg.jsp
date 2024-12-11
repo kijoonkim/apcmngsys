@@ -598,7 +598,7 @@
         jsonSave.forEach(function(item,idx){
            jsonSave[idx].sortSn = idx + max;
            jsonSave[idx].grdCd = "01";
-           jsonSave[idx].gdsSeCd = "01"
+           jsonSave[idx].gdsSeCd = "1"
            jsonSave[idx].wrhsSeCd = "1";
            /** 상품재고 까지 포장Y**/
            jsonSave[idx].autoPckgInptYn = 'Y';
