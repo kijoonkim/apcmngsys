@@ -1182,7 +1182,7 @@ function gfnma_showPopover(element) {
         <div id="popover_wrap_` + element.id + `" style="position: absolute; display: inline;">
             <div id="popover_req_` + element.id + `" class="sbux-pop sbux-fade sbux-pop-bottom sbux-in sbux-required-popover" style="display: block;">
                 <div class="sbux-pop-arrow"></div>
-                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 작성하세요.</div>
+                <div class="sbux-pop-content" style="width: max-content;">이 입력란을 선택하세요.</div>
             </div>
         </div>`;
 
