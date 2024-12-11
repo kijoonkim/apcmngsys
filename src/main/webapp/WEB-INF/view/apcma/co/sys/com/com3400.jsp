@@ -237,7 +237,7 @@
 							<tr>
 								<th scope="row" class="th_bg">거래처명</th>
 								<td class="td_input" colspan="4">
-									<sbux-input id="CS_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%"></sbux-input>
+									<sbux-input id="CS_NAME" class="form-control input-sm inpt_data_reqed"  uitype="text"  style="width:100%" group-id="panAppoint" required></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">통화</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -294,7 +294,8 @@
 											id="CS_GROUP" 
 											data-toggle="dropdown" 
 											aria-haspopup="true" 
-											aria-expanded="false">
+											aria-expanded="false"
+											group-id="panAppoint" required>
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
@@ -467,7 +468,7 @@
 							<tr>
 								<th scope="row" class="th_bg">대표자</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed"></sbux-input>
+									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">주민번호</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
@@ -482,11 +483,11 @@
 							<tr>
 								<th scope="row" class="th_bg">업태</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2" >
-									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>								
 								<th scope="row" class="th_bg">종목</th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm inpt_data_reqed" ></sbux-input>
+									<sbux-input uitype="text" id="BIZ_ITEMS" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>								
 								<td class="td_input hidden-td" style="border-right: hidden;  text-align:center !important;">	
 									<sbux-checkbox uitype="normal" id="TRANSPORT_YN" class="form-control input-sm check hidden-check" text="운송사여부" true-value="Y" false-value="N"/>
@@ -3003,9 +3004,13 @@
 	    		if(obj.RESIDENT_YN == 'Y'){
 	    			if(obj.CS_GROUP != '6000'){
 		    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+		                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+		                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
 	    			}
 				}else{
 	    			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
 				}
 				
     		} else {
@@ -3055,9 +3060,13 @@
     		if($(this).val() == 'Y'){
     			if(gfnma_multiSelectGet('#CS_GROUP' != '6000')){
 	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
     			}
 			}else{
     			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
+                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
 			}
 		})
 		//법인구분 라디오 버튼
@@ -3208,20 +3217,35 @@
             
             if(SBUxMethod.get('FOREIGN_YN').FOREIGN_YN == "Y"){ 
 				$('#CHIEF_NAME').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('CHIEF_NAME','group-id','');
+                SBUxMethod.attr('CHIEF_NAME','required','');
             }else{
                 if(CS_GROUP == "4000" || CS_GROUP == "5000" || CS_GROUP == "6000" || CS_GROUP == "6100" || CS_GROUP == "7000" || CS_GROUP == "9000"){
                     $('#CHIEF_NAME').removeClass('inpt_data_reqed');
+                    SBUxMethod.attr('CHIEF_NAME','group-id','');
+                    SBUxMethod.attr('CHIEF_NAME','required','');
                 }else{
 	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
+	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
                 }
             }
             
             if(CS_GROUP == "1000" || CS_GROUP == "2000" || CS_GROUP == "4000"){
                 $('#BIZ_CATEGORY').addClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').addClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','panAppoint');
+                SBUxMethod.attr('BIZ_CATEGORY','required','required');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','panAppoint');
+                SBUxMethod.attr('BIZ_ITEMS','required','required');
+                
             }else{
                 $('#BIZ_CATEGORY').removeClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','');
+                SBUxMethod.attr('BIZ_CATEGORY','required','');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','');
+                SBUxMethod.attr('BIZ_ITEMS','required','');
             }
             
             if(AP_ACC_CODE != ''){
@@ -3274,6 +3298,10 @@
         		
                 $('#BIZ_CATEGORY').removeClass('inpt_data_reqed');
                 $('#BIZ_ITEMS').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('BIZ_CATEGORY','group-id','');
+                SBUxMethod.attr('BIZ_CATEGORY','required','');
+                SBUxMethod.attr('BIZ_ITEMS','group-id','');
+                SBUxMethod.attr('BIZ_ITEMS','required','');
             }
             if(gfnma_multiSelectGet('#STATUS_CODE') == '5'){
             	$('#btnSubmit').show();
@@ -3327,8 +3355,12 @@
 		$('#DEFER_YN').change(function(){
 			if($(this).val() == 'Y'){
                 $('#DEFER_REASON').addClass('inpt_data_reqed');
+                SBUxMethod.attr('DEFER_REASON','group-id','panAppoint');
+                SBUxMethod.attr('DEFER_REASON','required','required');
 			}else{
                 $('#DEFER_REASON').removeClass('inpt_data_reqed');
+                SBUxMethod.attr('DEFER_REASON','group-id','');
+                SBUxMethod.attr('DEFER_REASON','required','');
 			}
 		});
 		
@@ -3343,6 +3375,11 @@
             $('#TXN_STOP_DATE').addClass('inpt_data_reqed');
             $('#TXN_STOP_REASON').prop('disabled', false);
             SBUxMethod.attr('TXN_STOP_DATE','disabled','false');
+            
+            SBUxMethod.attr('TXN_STOP_REASON','group-id','panAppoint');
+            SBUxMethod.attr('TXN_STOP_REASON','required','required');
+            SBUxMethod.attr('TXN_STOP_DATE','group-id','panAppoint');
+            SBUxMethod.attr('TXN_STOP_DATE','required','required');
 		}else{
             $('#TXN_STOP_REASON').removeClass('inpt_data_reqed');
             $('#TXN_STOP_DATE').removeClass('inpt_data_reqed');
@@ -3350,6 +3387,10 @@
             SBUxMethod.attr('TXN_STOP_DATE','disabled','true');
             gfnma_multiSelectSet("#TXN_STOP_REASON", "", "", "");
             SBUxMethod.set('TXN_STOP_DATE','');
+            SBUxMethod.attr('TXN_STOP_REASON','group-id','');
+            SBUxMethod.attr('TXN_STOP_REASON','required','');
+            SBUxMethod.attr('TXN_STOP_DATE','group-id','');
+            SBUxMethod.attr('TXN_STOP_DATE','required','');
 		}
     }
     
@@ -3601,6 +3642,11 @@
     }
     //기본정보, 관리항목 탭 내역 저장
     const fn_save = async function() {
+    	
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+            return false;
+        }
+        
   	    var paramObj = {
        		    V_P_DEBUG_MODE_YN        : ""
    			   ,V_P_LANG_ID              : ""

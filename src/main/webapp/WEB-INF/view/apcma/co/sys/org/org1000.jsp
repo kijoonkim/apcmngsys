@@ -127,7 +127,7 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">법인코드</th>
 		                            <td class="td_input"  style="border-right:hidden;">
-										<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm inpt_data_reqed" ></sbux-input>	
+										<sbux-input uitype="text" id="COMP_CODE" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>	
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
 		                            </td>
@@ -903,7 +903,6 @@
 	            gfn_comAlert("E0001"); //	E0001	오류가 발생하였습니다.
 	        }
 	    }
-	    
 	    
 	    const fn_changeCompLogo = async function() {
 	    	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"))

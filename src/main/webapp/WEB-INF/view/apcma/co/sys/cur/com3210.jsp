@@ -579,6 +579,7 @@
 	// 조회
 	function cfn_search() {
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
+		console.log('tabId ==>', tabId);
 		if(tabId == 'TAB_DAILY'){
 			fn_search('TAB_DAILY');
 		}else if(tabId == 'TAB_AVERAGE'){
@@ -1346,7 +1347,8 @@
         fn_drawdailyDayGrid(gridMode, data, true, 'input');
         //데이터가 없고 행선택이 없을경우.
         if (rowVal == -1) {
-            dailyDayGrid.addRow(true,
+            dailyDayGrid.addRow
+            	(true,
         			{
 					IMG:"/static/images/ma/cancel.png"
 					,BASE_CURRENCY:""
@@ -1381,44 +1383,47 @@
 					,BANK_CODE:""
 					,AVG_EX_RATE:"0"
 					,FBS_YN:"Y"
-			});
-        } else {
-        	dailyDayGrid.insertRow(rowVal, 'below', 
-        			{
-        				IMG:"/static/images/ma/cancel.png"
-        				,BASE_CURRENCY:""
-        				,BASE_DATE:""
-       					,EXCHANGE_SEQ:""
-       					,CURRENCY_CODE:""
-    					,REMARK:""
-   						,EXCHANGE_BASE_SCALE: "1"
- 						,SLE_BSE_EX_RATE:"0"
- 						,RCV_EX_RATE:"0"
-        				,SND_EX_RATE:"0"
-       					,SLE_EX_RATE:"0"
-        				,BUY_EX_RATE:"0"
-       					,TC_SLE_EX_RATE:"0"
-   						,USA_EX_RATE: "0"
-  						,TT_BUY_EX_RATE:"0"
-						,TT_SLE_EX_RATE:"0"
-						,TT_BUY_PRM_EX_RATE:"0"
-						,TT_SLE_PRM_EX_RATE:"0"
-        				,LIBOR_M1_EX_RATE:"0"
-          				,LIBOR_M3_EX_RATE:"0"
-          				,LIBOR_Y1_EX_RATE:"0"
-          				,EX_COM_Y1_EX_RATE:"0"
-          				,EX_COM_M1_EX_RATE:"0"
-          				,EX_COM_M3_EX_RATE:"0"
-          				,USER_EXCHANGE_RATE1:"0"
-          				,USER_EXCHANGE_RATE2:"0"
-          				,USER_EXCHANGE_RATE3:"0"
-        				,DATA_TYPE:""
-        				,DATA_TYPE2:"N"
-        				,FBS_SERVICE:''
-  						,BANK_CODE:""
-        				,AVG_EX_RATE:"0"
-        				,FBS_YN:"Y"
 					}
+		        );
+        } else {
+        	dailyDayGrid.insertRow
+        		(rowVal, 
+        		'below', 
+       			{
+       				IMG:"/static/images/ma/cancel.png"
+       				,BASE_CURRENCY:""
+       				,BASE_DATE:""
+     				,EXCHANGE_SEQ:""
+      				,CURRENCY_CODE:""
+   					,REMARK:""
+  					,EXCHANGE_BASE_SCALE: "1"
+					,SLE_BSE_EX_RATE:"0"
+					,RCV_EX_RATE:"0"
+       				,SND_EX_RATE:"0"
+      				,SLE_EX_RATE:"0"
+       				,BUY_EX_RATE:"0"
+      				,TC_SLE_EX_RATE:"0"
+  					,USA_EX_RATE: "0"
+ 					,TT_BUY_EX_RATE:"0"
+					,TT_SLE_EX_RATE:"0"
+					,TT_BUY_PRM_EX_RATE:"0"
+					,TT_SLE_PRM_EX_RATE:"0"
+       				,LIBOR_M1_EX_RATE:"0"
+         			,LIBOR_M3_EX_RATE:"0"
+         			,LIBOR_Y1_EX_RATE:"0"
+         			,EX_COM_Y1_EX_RATE:"0"
+         			,EX_COM_M1_EX_RATE:"0"
+         			,EX_COM_M3_EX_RATE:"0"
+         			,USER_EXCHANGE_RATE1:"0"
+         			,USER_EXCHANGE_RATE2:"0"
+         			,USER_EXCHANGE_RATE3:"0"
+       				,DATA_TYPE:""
+       				,DATA_TYPE2:"N"
+       				,FBS_SERVICE:''
+ 					,BANK_CODE:""
+       				,AVG_EX_RATE:"0"
+       				,FBS_YN:"Y"
+				}
        		);
         }
     }
