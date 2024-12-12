@@ -312,7 +312,7 @@
                                     jsondata-ref="jsonSpcfctCd"
                                     unselected-text="선택"
                                     jsondata-text="spcfctNm"
-                                    jsondata-value="spcfctCd">
+                                    jsondata-value="spmtPckgUnitCd">
                             </sbux-select>
                             <sbux-input
                                     id="dtl-inp-sortQntt"
@@ -462,8 +462,9 @@
                     }
                     SBUxMethod.set("wght", data.resultMap.wght);
                     /** 상품규격 == 원물규격 **/
-                    await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
-
+                    // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
+                    // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
+                    await fn_searchGrdCd(data.resultMap.itemCd);
                     await fn_setGrdSelect(data.resultMap.itemCd);
                     // await fn_getSortno();
                     /** 하단 table 정보 조회 **/
@@ -475,6 +476,14 @@
 
         }catch (e) {
            console.error(e);
+        }
+    }
+    const fn_searchGrdCd = async function(_itemCd){
+        let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : gv_selectedApcCd, itemCd : _itemCd});
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            jsonSpcfctCd = data.resultList;
+            SBUxMethod.refresh('dtl-slt-spcfctCd');
         }
     }
     // const fn_getSortno = async function(){
