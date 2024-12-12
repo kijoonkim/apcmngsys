@@ -504,7 +504,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -691,61 +691,58 @@
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
-	function fn_AfterEdit01(){
-		let prevCol = grdPrdcrOgnCurntMng01.getPrevCol();
-		let prevRef = grdPrdcrOgnCurntMng01.getRefOfCol(prevCol);
-		if(columnsToRefresh01.includes(prevRef)){
-			grdPrdcrOgnCurntMng01.refresh();
+	function fn_AfterEdit01(e){
+		let objGrid = e.data.target;
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
+		if(columnsToRefresh01.includes(nRef)){
+			objGrid.refresh();
 		}
 	}
 
 	//통합조직 출하 합계 함수
 	function fn_calcAmtSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_calcSum=======");
-		var strSum = 0;
-		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtAmt')));
-		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtAmt')));
+		let rowData = objGrid.getRowData(Number(nRow));
+		let strSum = 0;
+		let value01 = Number(rowData.uoSpmtAmt);
+		let value02 = Number(rowData.uoOtherSpmtAmt);
 		strSum = (value01 + value02).toString();
-		fn_totAmtSum(objGrid, nRow, nCol);
+		if(rowData.typeSeNo === '8'){
+			fn_totSum(objGrid, nRow);
+		}
 		return strSum;
 	}
 	//통합조직 출하 합계 함수
 	function fn_calcVlmSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_calcSum=======");
-		var strSum = 0;
-		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtVlm')));
-		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtVlm')));
+		let rowData = objGrid.getRowData(Number(nRow));
+		let strSum = 0;
+		let value01 = Number(rowData.uoSpmtVlm);
+		let value02 = Number(rowData.uoOtherSpmtVlm);
 		strSum = (value01 + value02).toString();
-		fn_totVlmSum(objGrid, nRow, nCol);
 		return strSum;
 	}
 
-	//통합조직 이외 출하 합계 함수
-	function fn_totAmtSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_uoSpmtAmtSum=======");
-
+	//소계 함수
+	function fn_totSum(objGrid, nRow) {
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
 
-		//let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매 위임 매입
-		//let uoSpmtAmt = objGrid.getColRef("uoSpmtAmt");//통합 이외 출하
-		//let uoOtherSpmtAmt = objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
-		let itemCd = objGrid.getColRef("itemCd");//품목코드
-		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
+		let itemCdCol = objGrid.getColRef("itemCd");//품목코드
+		let itemCdVal = objGrid.getCellData(Number(nRow), itemCdCol);
 
 		// 취급 유형별 소계 추가 (조직 적합 여부 포함)
 		let sumMap = {
 			'Y': {
-				'0': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'1': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'2': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'3': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
+				'0': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'1': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'2': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'3': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
 			},
 			'N': {
-				'0': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'1': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'2': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
-				'3': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0 },
+				'0': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'1': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'2': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
+				'3': { slsCnsgnPrchsAmt: 0, uoSpmtAmt: 0, uoOtherSpmtAmt: 0, slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
 			},
 		};
 
@@ -766,6 +763,7 @@
 			if (rowData01.typeSeNo === '5' && rowData01.itemCd === itemCdVal) {
 				let trmtType = rowData01.trmtType;
 				if (sumMap[ognzStbltYn] && sumMap[ognzStbltYn][trmtType]) {
+					//금액
 					//전속출하 합계
 					sumMap[ognzStbltYn][totSet].slsCnsgnPrchsAmt	+= Number(rowData01.slsCnsgnPrchsAmt || 0);
 					sumMap[ognzStbltYn][totSet].uoSpmtAmt			+= Number(rowData01.uoSpmtAmt || 0);
@@ -774,82 +772,16 @@
 					sumMap[ognzStbltYn][trmtType].slsCnsgnPrchsAmt 	+= Number(rowData01.slsCnsgnPrchsAmt || 0);
 					sumMap[ognzStbltYn][trmtType].uoSpmtAmt 		+= Number(rowData01.uoSpmtAmt || 0);
 					sumMap[ognzStbltYn][trmtType].uoOtherSpmtAmt 	+= Number(rowData01.uoOtherSpmtAmt || 0);
-				}
-			}
 
-			// 소계 위치 ROW 찾기
-			if (rowData01.typeSeNo === '6' && rowData01.itemCd === itemCdVal) {
-				let trmtType = rowData01.trmtType;
-				if (targetRows[ognzStbltYn]) {
-					targetRows[ognzStbltYn][trmtType] = i;
-				}
-			}
-		}
-
-		// 소계 데이터를 objGrid에 설정
-		Object.keys(sumMap).forEach((stbltYn) => {
-			Object.keys(sumMap[stbltYn]).forEach((key) => {
-				if (targetRows[stbltYn][key] !== null) {
-					let rowIndex = Number(targetRows[stbltYn][key]); // 행 번호를 숫자로 변환
-					let rowSum = sumMap[stbltYn][key]; // 소계 데이터
-					// 각 열 데이터 설정
-					Object.keys(rowSum).forEach((column) => {
-						objGrid.setCellData(rowIndex, objGrid.getColRef(column), rowSum[column]);
-					});
-				}
-			});
-		});
-		fn_totalTotAmtSum(objGrid, nRow, nCol);
-	}
-
-	//통합조직 이외 출하 합계 함수
-	function fn_totVlmSum(objGrid, nRow, nCol) {
-		let gridData01 = objGrid.getGridDataAll();
-		if(gridData01.length == 0) return;
-
-		let itemCd = objGrid.getColRef("itemCd");//품목코드
-		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
-
-		// 취급 유형별 소계 추가 (조직 적합 여부 포함)
-		let sumMap = {
-			'Y': {
-				'0': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'1': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'2': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'3': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-			},
-			'N': {
-				'0': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'1': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'2': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-				'3': { slsCnsgnPrchsVlm: 0, uoSpmtVlm: 0, uoOtherSpmtVlm: 0 },
-			},
-		};
-
-		let targetRows = {
-			'Y': { '0': null, '1': null, '2': null, '3': null },
-			'N': { '0': null, '1': null, '2': null, '3': null },
-		};
-		const totSet = '0';
-		//테이블 해더 row 수
-		let captionRow = objGrid.getFixedRows();
-		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-
-			// 조직 적합 여부 확인
-			let ognzStbltYn = rowData01.ognzStbltYn || 'N'; // 기본값 'N'
-			// 소계 계산
-			if (rowData01.typeSeNo === '5' && rowData01.itemCd === itemCdVal) {
-				let trmtType = rowData01.trmtType;
-				if (sumMap[ognzStbltYn] && sumMap[ognzStbltYn][trmtType]) {
+					//물량
 					//전속출하 합계
 					sumMap[ognzStbltYn][totSet].slsCnsgnPrchsVlm	+= Number(rowData01.slsCnsgnPrchsVlm || 0);
 					sumMap[ognzStbltYn][totSet].uoSpmtVlm			+= Number(rowData01.uoSpmtVlm || 0);
 					sumMap[ognzStbltYn][totSet].uoOtherSpmtVlm		+= Number(rowData01.uoOtherSpmtVlm || 0);
 					//취급유형별 합계
-					sumMap[ognzStbltYn][trmtType].slsCnsgnPrchsVlm	+= Number(rowData01.slsCnsgnPrchsVlm || 0);
+					sumMap[ognzStbltYn][trmtType].slsCnsgnPrchsVlm 	+= Number(rowData01.slsCnsgnPrchsVlm || 0);
 					sumMap[ognzStbltYn][trmtType].uoSpmtVlm			+= Number(rowData01.uoSpmtVlm || 0);
-					sumMap[ognzStbltYn][trmtType].uoOtherSpmtVlm	+= Number(rowData01.uoOtherSpmtVlm || 0);
+					sumMap[ognzStbltYn][trmtType].uoOtherSpmtVlm 	+= Number(rowData01.uoOtherSpmtVlm || 0);
 				}
 			}
 
@@ -868,20 +800,18 @@
 				if (targetRows[stbltYn][key] !== null) {
 					let rowIndex = Number(targetRows[stbltYn][key]); // 행 번호를 숫자로 변환
 					let rowSum = sumMap[stbltYn][key]; // 소계 데이터
-
 					// 각 열 데이터 설정
 					Object.keys(rowSum).forEach((column) => {
-						console.log(rowIndex,column,rowSum[column]);
 						objGrid.setCellData(rowIndex, objGrid.getColRef(column), rowSum[column]);
 					});
 				}
 			});
 		});
-		fn_totalTotVlmSum(objGrid, nRow, nCol);
+		fn_totalTotSum(objGrid, nRow);
 	}
 
 	//판매위임 매입 금액 합계 함수
-	function fn_totalTotAmtSum(objGrid, nRow, nCol) {
+	function fn_totalTotSum(objGrid, nRow) {
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
 
@@ -894,49 +824,7 @@
 			uoSpmtAmt: 0,
 			uoOtherSpmtAmt: 0,
 			SpmtAmtTot: 0,
-		};
 
-		let targetRow = null; // 합계가 설정될 행 번호
-		let captionRow = objGrid.getFixedRows();
-		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
-			// 현재 행 데이터 가져오기
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-
-			// itemCd가 일치하는 경우만 처리
-			if (rowData01.itemCd === itemCdVal) {
-				// typeSeNo에 따른 합계 계산
-				if (rowData01.typeSeNo === '5' || rowData01.typeSeNo === '7') {
-					totalSum.slsCnsgnPrchsAmt 	+= Number(rowData01.slsCnsgnPrchsAmt || 0);
-					totalSum.uoSpmtAmt 			+= Number(rowData01.uoSpmtAmt || 0);
-					totalSum.uoOtherSpmtAmt 	+= Number(rowData01.uoOtherSpmtAmt || 0);
-					totalSum.SpmtAmtTot 		+= Number(rowData01.SpmtAmtTot || 0);
-				}
-
-				// 합계 위치 행 번호 저장
-				if (rowData01.typeSeNo === '8') {
-					targetRow = i;
-				}
-			}
-		}
-
-		// 합계 데이터를 objGrid에 설정
-		if (targetRow !== null) {
-			Object.keys(totalSum).forEach((key) => {
-				objGrid.setCellData(targetRow, objGrid.getColRef(key), totalSum[key]);
-			});
-		}
-	}
-
-	//판매위임 매입 금액 합계 함수
-	function fn_totalTotVlmSum(objGrid, nRow, nCol) {
-		let gridData01 = objGrid.getGridDataAll();
-		if(gridData01.length == 0) return;
-
-		let itemCd = objGrid.getColRef("itemCd");//품목코드
-		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
-
-		// 합계를 저장할 변수 초기화
-		let totalSum = {
 			slsCnsgnPrchsVlm: 0,
 			uoSpmtVlm: 0,
 			uoOtherSpmtVlm: 0,
@@ -953,6 +841,11 @@
 			if (rowData01.itemCd === itemCdVal) {
 				// typeSeNo에 따른 합계 계산
 				if (rowData01.typeSeNo === '5' || rowData01.typeSeNo === '7') {
+					totalSum.slsCnsgnPrchsAmt 	+= Number(rowData01.slsCnsgnPrchsAmt || 0);
+					totalSum.uoSpmtAmt 			+= Number(rowData01.uoSpmtAmt || 0);
+					totalSum.uoOtherSpmtAmt 	+= Number(rowData01.uoOtherSpmtAmt || 0);
+					totalSum.SpmtAmtTot 		+= Number(rowData01.SpmtAmtTot || 0);
+
 					totalSum.slsCnsgnPrchsVlm 	+= Number(rowData01.slsCnsgnPrchsVlm || 0);
 					totalSum.uoSpmtVlm 			+= Number(rowData01.uoSpmtVlm || 0);
 					totalSum.uoOtherSpmtVlm 	+= Number(rowData01.uoOtherSpmtVlm || 0);
@@ -1097,8 +990,6 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		console.log(yr);
-
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
 			,apoSe : '2'
@@ -1135,9 +1026,8 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				<c:if test="${loginVO.userType eq '21'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
@@ -1204,7 +1094,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -1212,7 +1102,6 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
@@ -1231,7 +1120,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1263,7 +1152,7 @@
 		</c:if>
 		<c:if test="${loginVO.userType eq '21'}">
 		let brno = '${loginVO.brno}';
-		console.log(brno);
+		//console.log(brno);
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
@@ -1327,7 +1216,7 @@
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemNm;
 				if(item.sttgUpbrItemSe == '1'){
@@ -1339,6 +1228,7 @@
 						yr:				item.yr
 						,brno:			item.brno
 						,uoBrno:		item.uoBrno
+						,isoBrno:		item.isoBrno
 
 						,typeSeNo:		item.typeSeNo
 						,itemCd:		item.itemCd
@@ -1374,7 +1264,6 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-			console.log(jsonPrdcrOgnCurntMng01);
 
 			//생산자조직 외 인경우 disabled 해제
 		}catch (e) {
@@ -1390,7 +1279,6 @@
 	//그리드 커스텀 배경 및 disabled 처리
 	const fn_gridCustom = async function(){
 		let objGrid = grdPrdcrOgnCurntMng01;
-		const gridData01 = objGrid.getGridDataAll();
 
 		// 컬럼 레퍼런스 설정
 		const columnRefs = {
@@ -1406,8 +1294,10 @@
 			rmrk: objGrid.getColRef("rmrk"),
 		};
 
+		const gridData01 = objGrid.getGridDataAll();
 		// 행 데이터 처리
-		for (let i = 1 + 2; i <= gridData01.length + 2; i++) {
+		let captionRow = objGrid.getFixedRows();
+		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
 			const rowData01 = objGrid.getRowData(i);
 			const typeSeNo = rowData01.typeSeNo;
 
@@ -1425,7 +1315,6 @@
 					objGrid.setCellDisabled(i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.uoOtherSpmtAmt, true);
 					objGrid.setCellDisabled(i, columnRefs.rmrk, i, columnRefs.rmrk, true);
 					objGrid.setMergeByFree(i, columnRefs.trmtTypeNm, i, columnRefs.prchsNm, true);
-					console.log(rowData01.ognzStbltYn);
 					if (rowData01.trmtType === '0') {
 						objGrid.setCellStyle('background-color', i, columnRefs.trmtTypeNm, i, columnRefs.rmrk, 'lightgray');
 					} else {
@@ -1454,31 +1343,26 @@
 
 	//실적 저장
 	const fn_listSave = async function(){
-
-		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let gridData01 = objGrid.getGridDataAll();
 		let saveList = [];
 
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i = 1+2; i <= gridData01.length +2; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
+			let rowData01 = objGrid.getRowData(i);
+			let rowSts01 = objGrid.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
 			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
-			//console.log("slsCnsgnPrchsAmt = "+rowData01.slsCnsgnPrchsAmt);
-			//console.log("slsCnsgnPrchsAmt = "+rowData01.uoSpmtAmt);
-			//console.log("slsCnsgnPrchsAmt = "+rowData01.uoOtherSpmtAmt);
 			if(rowData01.typeSeNo == '5'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1487,7 +1371,7 @@
 						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0)){
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return;
 					}
 				}
@@ -1499,7 +1383,7 @@
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1509,36 +1393,19 @@
 					//매입금액을 작성해야함
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return;
 					}
 				}
 			}
 
-			rowData01.apoCd = apoCd;
-			rowData01.apoSe = apoSe;
-			rowData01.crno = crno;
+			rowData01.apoSe = '2';
+			rowData01.isoBrno = '0';
 			rowData01.brno = brno;
-			rowData01.prdcrOgnzCd = uoBrno;
 			rowData01.uoBrno = uoBrno;
 
 			rowData01.rowSts = "I";
 			saveList.push(rowData01);
-
-			/*
-			if (rowSts01 === 3){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else if (rowSts01 === 2){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else if (rowSts01 === 1){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else {
-				continue;
-			}
-			*/
 
 		}
 		if(saveList.length == 0){
@@ -1547,11 +1414,8 @@
 		}
 
 		let regMsg = "저장 하시겠습니까?";
-		//console.log(saveList);
-
 		if(confirm(regMsg)){
-
-			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnSpeczItmPurSalMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnSpeczItmPurSalMngListNew.do", saveList);
 			let data = await postJsonPromise;
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
@@ -1618,11 +1482,10 @@
 
 
 	//통합조직 콤보박스 선택시 값 변경
-	//const fn_changeSelUoBrno = async function() {
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			//SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1694,7 +1557,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr					: item.yr

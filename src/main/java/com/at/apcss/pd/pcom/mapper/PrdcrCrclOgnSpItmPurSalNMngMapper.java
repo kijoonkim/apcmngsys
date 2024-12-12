@@ -34,8 +34,6 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 
-	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
-
 	public int insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
@@ -45,4 +43,9 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	//20241212 개발서버 신규 화면 조회
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+	//20241212 개발서버 신규 화면 등록
+	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 }

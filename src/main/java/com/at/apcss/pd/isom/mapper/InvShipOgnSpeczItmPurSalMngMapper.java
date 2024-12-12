@@ -9,7 +9,7 @@ import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -18,7 +18,7 @@ import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -33,7 +33,6 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 	public InvShipOgnSpeczItmPurSalMngVO selectInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
-	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
 	public int insertInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
@@ -45,4 +44,8 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
+	//20241212 개발서버 테스트 화면용
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+	//20241212 개발서버 테스트 화면용
+	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 }
