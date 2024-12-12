@@ -660,7 +660,7 @@
 				,typeinfo : {ref:'jsonGrdComAprv', label:'label', value:'value', displayui : false}},
 			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-			{caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["적합품목"], 		ref: 'stbltYnNmList',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonGrdComCorpSeCd', label:'label', value:'value', displayui : false}},
 			{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -1606,6 +1606,7 @@
 						,brno: item.brno
 						,yr: item.yr
 						,stbltYnNm: item.stbltYnNm
+						,stbltYnNmList: item.stbltYnNmList
 						,corpSeCd: item.corpSeCd
 						,prfmncCorpDdlnYn: item.prfmncCorpDdlnYn
 				}

@@ -1337,10 +1337,9 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		if(apoSe == '1'){
-			let uoBrno = brno;
-		}else{
-			let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+			uoBrno = brno;
 		}
 
 		let uoCd = SBUxMethod.get('dtl-input-uoCd');

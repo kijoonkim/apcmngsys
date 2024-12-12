@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
-	private String itemNm;
 	private String seNm;
 	private String seDtlNm;
 	private String prchsNm;
@@ -29,7 +28,6 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String uoCorpNm;
 	private String aprv;
 	private String typeSeNoNm;
-	private String ctgryNm;
 
 	private String apoCd;
 	private String apoSe;
@@ -37,8 +35,12 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String uoBrno;
 	private String crno;
 	private String yr;
+	private String clsfCd;
+	private String clsfNm;
 	private String ctgryCd;
+	private String ctgryNm;
 	private String itemCd;
+	private String itemNm;
 	private String isoBrno;
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
@@ -50,6 +52,7 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String sttgUpbrItemNm;
 
 	private String stbltYn; // 적합여부
+	private String ognzStbltYn; // 조직 적합여부
 	private String lastStbltYn; // 선정여부
 
 	private String typeSe; //실적 구분  1~6

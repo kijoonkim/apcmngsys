@@ -84,15 +84,18 @@
 		]]>
 
 		<if test='brno != null and brno != ""'>
-			AND IC.BRNO = #{brno}
+			  AND IC.BRNO = #{brno}
+		</if>
+		<if test='uoBrno != null and uoBrno != ""'>
+			  AND IC.UO_BRNO = #{uoBrno}
 		</if>
 		<if test='yr != null and yr != ""'>
-			AND IC.YR = #{yr}
+			  AND IC.YR = #{yr}
 			<if test='uoBrno != null and uoBrno != ""'>
-			AND IC.ITEM_CD IN (SELECT ITEM_CD FROM WHERE BRNO = #{uoBrno} AND YR = #{yr} AND APO_SE = '1')
+			  AND IC.ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = #{uoBrno} AND YR = #{yr} AND APO_SE = '1')
 			</if>
 		</if>
-		 ORDER BY IC.BRNO, IC.ITEM_NM ASC
+		ORDER BY IC.BRNO, IC.ITEM_NM ASC
 
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
