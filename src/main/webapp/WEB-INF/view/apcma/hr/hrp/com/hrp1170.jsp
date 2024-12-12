@@ -837,6 +837,7 @@
     }
 
     const fn_importExcelData = function (e){
+
         SBUxMethod.openModal('modal-excel');
         /*fn_createGridGdsPopup();*/
         jsonExceptionList = 0;
@@ -853,8 +854,22 @@
     const fn_exportData = function () {
 
         if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
-            grdExceptionList.exportData("xlsx","급여 변동항목 등록_복지포인트정산",true);
+
+            let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+
+            const msg = {
+                arrRemoveCols   : [2],
+                combolabel      : true,
+                sheetName       : "급여 변동항목 등록_복지포인트정산"
+            }
+
+            grdExceptionList.exportData("xlsx","급여 변동항목 등록_복지포인트정산",true,msg);
         }
+
+
+        /*if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
+            grdExceptionList.exportData("xlsx","급여 변동항목 등록_복지포인트정산",true);
+        }*/
         //gvwDetallGrid.exportData("xlsx",'급여 변동항목 등록_복지포인트정산 [호환모드]', true , true);
 
     }
