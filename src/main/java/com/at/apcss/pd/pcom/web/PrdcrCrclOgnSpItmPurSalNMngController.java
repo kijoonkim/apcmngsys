@@ -47,6 +47,21 @@ public class PrdcrCrclOgnSpItmPurSalNMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalNMngListNew(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnSpItmPurSalNMngService.selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	//등록
 	@PostMapping(value = "/pd/pcom/insertPrdcrCrclOgnSpItmPurSalNMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnSpItmPurSalNMng(@RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest requset) throws Exception{

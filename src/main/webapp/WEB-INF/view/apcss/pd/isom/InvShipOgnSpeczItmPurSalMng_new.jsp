@@ -656,8 +656,6 @@
 
 				{caption : ['출하(매출)현황','합계','물량(톤)'],
 					ref : "SpmtVlmTot",   	width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcVlmSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
-					//ref : "SpmtVlmTot",	width : '100px',	style : 'text-align:right',		type : 'input'
-					//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['출하(매출)현황','합계','금액(천원)'],
 					ref : "SpmtAmtTot",		width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcAmtSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['비고','비고','비고'],
@@ -755,7 +753,7 @@
 			'Y': { '0': null, '1': null, '2': null, '3': null },
 			'N': { '0': null, '1': null, '2': null, '3': null },
 		};
-		let totSet = '0';
+		const totSet = '0';
 		//테이블 해더 row 수
 		let captionRow = objGrid.getFixedRows();
 		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
@@ -806,14 +804,9 @@
 
 	//통합조직 이외 출하 합계 함수
 	function fn_totVlmSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_uoSpmtAmtSum=======");
-
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
 
-		//let slsCnsgnPrchsVlm = objGrid.getColRef("slsCnsgnPrchsVlm");//판매 위임 매입
-		//let uoSpmtVlm = objGrid.getColRef("uoSpmtVlm");//통합 이외 출하
-		//let uoOtherSpmtVlm = objGrid.getColRef("uoOtherSpmtVlm");//통합 이외 출하
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
 
@@ -837,7 +830,7 @@
 			'Y': { '0': null, '1': null, '2': null, '3': null },
 			'N': { '0': null, '1': null, '2': null, '3': null },
 		};
-		let totSet = '0';
+		const totSet = '0';
 		//테이블 해더 row 수
 		let captionRow = objGrid.getFixedRows();
 		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
@@ -889,16 +882,8 @@
 
 	//판매위임 매입 금액 합계 함수
 	function fn_totalTotAmtSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_totalTotSum=======");
-
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
-
-		//let slsCnsgnPrchsAmt 	= objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
-		//let uoSpmtAmt 		= objGrid.getColRef("uoSpmtAmt");//통합 출하
-		//let uoOtherSpmtAmt 	= objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
-		//let SpmtAmtTot 		= objGrid.getColRef("SpmtAmtTot");//출하 합계
-		//let slsCnsgnPrchsAmtVal = objGrid.getCellData(Number(nRow), slsCnsgnPrchsAmt);
 
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
@@ -912,9 +897,7 @@
 		};
 
 		let targetRow = null; // 합계가 설정될 행 번호
-
 		let captionRow = objGrid.getFixedRows();
-
 		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
 			// 현재 행 데이터 가져오기
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
@@ -946,16 +929,8 @@
 
 	//판매위임 매입 금액 합계 함수
 	function fn_totalTotVlmSum(objGrid, nRow, nCol) {
-		//console.log("==========fn_totalTotSum=======");
-
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
-
-		//let slsCnsgnPrchsVlm = objGrid.getColRef("slsCnsgnPrchsVlm");//판매위임 매입 금액
-		//let uoSpmtVlm = objGrid.getColRef("uoSpmtVlm");//통합 출하
-		//let uoOtherSpmtVlm = objGrid.getColRef("uoOtherSpmtVlm");//통합 이외 출하
-		//let SpmtVlmTot = objGrid.getColRef("SpmtVlmTot");//출하 합계
-		//let slsCnsgnPrchsVlmVal = objGrid.getCellData(Number(nRow), slsCnsgnPrchsVlm);
 
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
@@ -969,9 +944,7 @@
 		};
 
 		let targetRow = null; // 합계가 설정될 행 번호
-
 		let captionRow = objGrid.getFixedRows();
-
 		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
 			// 현재 행 데이터 가져오기
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
