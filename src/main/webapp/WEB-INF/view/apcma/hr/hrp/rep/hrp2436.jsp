@@ -40,6 +40,8 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnPdf" name="btnPdf" uitype="normal" text="PDF 저장"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_dwnPdf"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
@@ -1115,6 +1117,60 @@
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
 
+        }
+    }
+    
+    const fn_dwnPdf = async function(){
+        var nRow = gvwInfoGrid.getRow();
+     	var conn = '';
+     	var connTest = '';
+     	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+     	if (nRow < 1) {
+             return;
+        }
+         
+        let checkData = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
+        let rowData = gvwInfoGrid.getRowData(nRow);
+         
+     	if (SENDTYPE == "ALL") {
+            conn = await fn_GetReportData('REPORT5', checkData);
+            conn = await gfnma_convertDataForReport(conn);
+            gfn_getReportPdf(
+            		"급여명세서.pdf", 
+            		"ma/RPT_HRP2436_Q_ALL.crf", 
+            		conn, 
+            		{	userPassword : '1234',
+            			ownerPassword : '1111'}, 
+            		function(){
+           				alert('다운로드');
+            		}
+            );
+        } else if(SENDTYPE == "PAY") {
+            conn = await fn_GetReportData('REPORT3', checkData);
+            conn = await gfnma_convertDataForReport(conn);
+            gfn_getReportPdf(
+            		"급여명세서.pdf", 
+            		"ma/RPT_HRP2436_Q_PAY.crf", 
+            		conn, 
+            		{	userPassword : '1234',
+            			ownerPassword : '1111'}, 
+            		function(){
+           				alert('다운로드');
+            		}
+            );
+        } else if(SENDTYPE == "WORK") {
+            conn = await fn_GetReportData('REPORT4', checkData);
+            conn = await gfnma_convertDataForReport(conn);
+            gfn_getReportPdf(
+            		"근태현황.pdf", 
+            		"ma/RPT_HRP2436_Q_WORK.crf", 
+            		conn, 
+            		{	userPassword : '1234',
+            			ownerPassword : '1111'}, 
+            		function(){
+           				alert('다운로드');
+            		}
+            );
         }
     }
 
