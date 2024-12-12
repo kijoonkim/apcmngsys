@@ -1,6 +1,7 @@
 package com.at.apcss.am.tot.service.impl;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -51,11 +52,11 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 	@Override
 	public int insertTotCrtrInfo(TotMngVO totMngVO) throws Exception {
 		// TODO Auto-generated method stub
-		String status = totMngVO.getStatus();
+		String status = totMngVO.getGubun();
 		int result = 0;
-		if(status.equals("3")) {
+		if(status.equals("insert")) {
 			result = totMngMapper.insertTotMngInfo(totMngVO);
-		}else if(status.equals("2")) {
+		}else if(status.equals("update")) {
 			result = totMngMapper.updateTotMngInfo(totMngVO);
 		}
 		return result;
@@ -67,10 +68,10 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 		// TODO Auto-generated method stub
 		int result = 0;
 		TotMngVOList.forEach(item->{
-		String status = item.getStatus();
-			if(status.equals("3")) {
+		String status = item.getGubun();
+			if(status.equals("insert")) {
 				totMngMapper.insertTotMngDtlInfo(item);
-			}else if(status.equals("2")) {
+			}else if(status.equals("update")) {
 				totMngMapper.updateTotMngDtlInfo(item);
 			}
 		});
@@ -86,7 +87,47 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 		return result;
 	}
 
+	@Override
+	public List<HashMap<String, Object>> selectSpmtPrfmncTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectSpmtPrfmncTotInfo(totMngVO);
+		return result;
+	}
 
+	@Override
+	public List<HashMap<String, Object>> selectGdsInvntrTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectGdsInvntrTotInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectPckgPrfmncTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectPckgPrfmncTotInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectRawMtrInvntrTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectRawMtrInvntrTotInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectRawMtrWrhsTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectRawMtrWrhsTotInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectSortInvntrTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectSortInvntrTotInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectSortPrfmncTotInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectSortPrfmncTotInfo(totMngVO);
+		return result;
+	}
 
 
 

@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : rawMtrInvntrTot.jsp
-  * @Description : 원물재고집계
+  * @Class Name : pckgPrfmncTot.jsp
+  * @Description :포장실적집계
   * @author SI개발부
   * @since 2024.10.23
   * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 원물재고집계</title>
+	<title>title : 포장실적집계</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -30,17 +30,9 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물재고집계 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장실적집계 -->
 				</div>
 				<div style="margin-left: auto;">
-				<sbux-button
-						id="btnDoc"
-						name="btnDoc"
-						uitype="normal"
-						text="리포트"
-						class="btn btn-sm btn-success"
-						onclick="fn_doc"
-					></sbux-button>
 					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -153,7 +145,7 @@
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
-									<span>원물재고집계</span>
+									<span>포장실적집계</span>
 								</li>
 							</ul>
 						</div>
@@ -187,7 +179,7 @@
 		let result = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_apcCd),		// 품목
 			gfn_setApcVrtySBSelect("srch-slt-vrtyCd", 		jsonApcVrty, 	gv_apcCd),			// APC 품종(저장)
-			await fn_totCrtrInfoList("RI","TOT_TERM_KND")
+			await fn_totCrtrInfoList("DP","TOT_TERM_KND")
         ]);
 
 
@@ -329,7 +321,7 @@
 				let replaceItem = item.replaceAll("-","");
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = replaceItem;
-				col["ref"] = "col" + (index + 1);
+				col["ref"] = replaceItem;
 				dateSaveList.push(replaceItem);
 				columns.push(col);
 			})
@@ -381,7 +373,7 @@
     		dates.forEach((item,index) => {
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = item.nm;
-				col["ref"] = "col" + (index + 1);
+				col["ref"] = "h" + (index+1);
 				dateSaveList.push(item.toString());
 				columns.push(col);
 			})
@@ -403,7 +395,7 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 
-		 const postJsonPromise = gfn_postJSON("/am/tot/selectRawMtrInvntrTotInfo.do", {
+		 const postJsonPromise = gfn_postJSON("/am/tot/selectPckgPrfmncTotInfo.do", {
 			 apcCd: gv_selectedApcCd
 				, itemCd : itemCd
 				, vrtyCd : vrtyCd
@@ -640,79 +632,6 @@
             }, {});
         });
     }
-
-    /**
-	 * @name fn_doc
-	 * @description 리포트 발행
-	 */
-	const fn_doc = async function() {
-
-		//const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'TOT_DOC');
-
-		//HY : 반기별 , MM : 월별 , QY : 분기별 , YY : 연도별
-		const dtlCd = SBUxMethod.get("srch-rdo-json");
-		const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
-
-		//기준일자
-		const crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
-
-
-		//let allData = grdRawMtrInvntrTot.getGridDataAll();
-		let allData = [{
-			"itemNm" : "품목"
-				,"vrtyNm" : "품종"
-				,"COL1":1
-				,"COL2":2
-				,"COL3":3
-				,"COL4":4
-				,"COL5":5
-				,"COL6":6
-				,"COL7":7
-				,"COL8":8
-				,"COL9":9
-				,"COL10":10
-				,"COL11":11
-				,"COL12":12
-				,"COL13":13
-				,"COL14":14
-				,"COL15":15
-				,"dtlCd":"YY"
-				,"crtrYr" : 2024
-			},{
-				"itemNm" : "품목"
-					,"vrtyNm" : "품종"
-					,"COL1":1
-					,"COL2":2
-					,"COL3":3
-					,"COL4":4
-					,"COL5":5
-					,"COL6":6
-					,"COL7":7
-					,"COL8":8
-					,"COL9":9
-					,"COL10":10
-					,"COL11":11
-					,"COL12":12
-					,"COL13":13
-					,"COL14":14
-					,"COL15":15
-					,"dtlCd":"YY"
-					,"crtrYr" : 2024
-				}];
-		/* allData.map(item => {
-			item['dtlCd'] = dtlCd;
-			item['crtrYr'] = crtrYr;
-			}); */
-		let data = {
-				"root" : allData
-			}
-		const conn = [];
-		conn.push({data:data})
-
- 		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
-
- 		gfn_popClipReportPost("원물재고집계", "am/rawMtrInvntrTot.crf",null, conn);
- 	}
 
 
 

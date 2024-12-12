@@ -132,9 +132,12 @@
 				*
 			  FROM TB_TOT_CRTR TC
 			 WHERE TC.APC_CD = #{apcCd}
-		  ORDER BY TC.INDCT_SEQ
-
 		]]>
+
+	   	  <if test='totCrtrType != null and totCrtrType != ""'>
+	   		AND TC.TOT_CRTR_TYPE = #{totCrtrType}
+		  </if>
+		  ORDER BY TC.INDCT_SEQ
     </select>
 
     <!-- ==========================================================================	-->
@@ -148,13 +151,31 @@
     <select id="selectTotMngInfoDtlList" parameterType="com.at.apcss.am.tot.vo.TotMngVO" resultType="com.at.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.tot.mapper.selectTotMngInfoDtlList */
-				*
+				TCD.APC_CD
+				, TCD.TOT_CRTR_TYPE
+				, TCD.CRTR_CD
+				, TCD.DTL_SN
+				, TCD.DTL_CD
+				, TCD.DTL_VL
+				, TCD.DTL_INDCT_NM
+				, TCD.TOT_DTL_PRCS_CD
+				, TCD.INDCT_SEQ
+				, TCD.USE_YN
+				, TCD.DEL_YN
+				, (SELECT FN_GET_COM_CD_VL_NM('TOT_TERM_KND',TCD.DTL_CD,'0000') FROM DUAL) AS DTL_NM
 			  FROM TB_TOT_CRTR_DTL TCD
 			 WHERE TCD.APC_CD = #{apcCd}
+			]]>
+			<if test='totCrtrType != null and totCrtrType != ""'>
+	   			AND TCD.TOT_CRTR_TYPE = #{totCrtrType}
+		  	</if>
+		  	<if test='crtrCd != null and crtrCd != ""'>
+	   			AND TCD.CRTR_CD = #{crtrCd}
+		  	</if>
+
 
 		  ORDER BY TCD.DTL_SN
 
-		]]>
     </select>
 
 
@@ -253,6 +274,211 @@
 			   AND DTL_SN = #{dtlSn}
 		]]>
 	</delete>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSpmtPrfmncTotInfo  	-->
+	<!-- DESC : 집계조회 - 출하.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtPrfmncTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PRD_SPMT A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectGdsInvntrTotInfo  	-->
+	<!-- DESC : 집계조회 - 상품.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGdsInvntrTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_GDS_INVNTR A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectPckgPrfmncTotInfo  	-->
+	<!-- DESC : 집계조회 - 포장.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPckgPrfmncTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PCKG_PRFMNC A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectRawMtrInvntrTotInfo  	-->
+	<!-- DESC : 집계조회 - 원물재고.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrInvntrTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_RAW_MTR_INVNTR A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectRawMtrWrhsTotInfo  	-->
+	<!-- DESC : 집계조회 - 원물입고.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrWrhsTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_RAW_MTR_WRHS A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortInvntrTotInfo  	-->
+	<!-- DESC : 집계조회 - 선별재고.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortInvntrTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_SORT_INVNTR A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncTotInfo  	-->
+	<!-- DESC : 집계조회 - 선별실적.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortPrfmncTotInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_SORT_PRFMNC A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
 
 
 
