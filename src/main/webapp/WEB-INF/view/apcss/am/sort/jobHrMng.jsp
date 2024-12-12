@@ -215,6 +215,7 @@
                         autocomplete="off"
                         onblur="fn_ipt_pltno"
                         onclick="fn_ipt_init"
+                        readonly
                 ></sbux-input>
                 <sbux-input
                         id="dtl-inp-sortno"
@@ -430,6 +431,10 @@
           /** 작업 시작 Insert **/
         }else{
           $(_el).addClass("active");
+          if(gfn_isEmpty(pltno)){
+            gfn_comAlert("W0005","팔레트번호");
+            return;
+          }
 
           let obj = {
             apcCd : gv_selectedApcCd,
@@ -481,6 +486,7 @@
     postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrSortPrfmncList",{apcCd: gv_apcCd,jobYmd: jobYmd});
 
     const data = await postJsonPromise;
+    console.log(data,"작업자");
     try {
       if(data.resultStatus === 'S'){
         let pltno = SBUxMethod.get("dtl-inp-pltno");
@@ -499,16 +505,21 @@
             return $(element).data('oprtr') === obj.jobClsfCd && $(element).text().trim() === obj.flnm;
           });
 
-          /** 다른 팔레트에서 작업중인 작업자 제외 **/
-          if(obj.sortno !== pltno){
+          if(gfn_isEmpty(obj.jobEndHr)){
+            $(el).addClass("active");
             $(el).hide();
-            $(el).addClass("notMatch");
-          }else{
-            /** 목록에 있지만 작업종료된 작업자 **/
-            if(!obj.jobEndHr){
-              $(el).addClass("active");
-            }
           }
+
+          // /** 다른 팔레트에서 작업중인 작업자 제외 **/
+          // if(obj.sortno === pltno){
+          //   $(el).hide();
+          //   $(el).addClass("notMatch");
+          // }else{
+          //   /** 목록에 있지만 작업종료된 작업자 **/
+          //   if(!obj.jobEndHr){
+          //     $(el).addClass("active");
+          //   }
+          // }
         });
         jsonPckgPrfmnc = data.resultList;
         gridPckgPrfmnc.rebuild();
@@ -523,6 +534,9 @@
         return;
       }
     let delObj = gridPckgPrfmnc.getRowData(_nRow);
+    console.log(delObj,"삭제전");
+    delObj.jobHr = parseAndFormatToHHmm(delObj.jobHr);
+
     const postJsonPromise = gfn_postJSON("/am/cmns/deleteOprtrPrfmnc.do",delObj);
     const data = await postJsonPromise;
     try {
