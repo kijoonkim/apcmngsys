@@ -93,7 +93,10 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                        	<td></td>
 	                        	
@@ -139,7 +142,10 @@
 								            name="srch-ymddate-fr"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+								    >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="td_input" >-
@@ -150,7 +156,10 @@
 								            name="srch-ymddate-to"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+								            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+								    >
 								    </sbux-datepicker>                            
 	                            </td>
 	                        	<td></td>
@@ -722,6 +731,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "frmBody"}) || !validateRequired("frmBody")) {        
+            return false;
+        }        
 		fn_setFig2200Grid('Q');
 	}
     

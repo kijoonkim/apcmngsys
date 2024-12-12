@@ -150,7 +150,9 @@
 	   								<sbux-input
 										uitype="text"
 										id="sch-dept-name"
-										class="form-control input-sm"									
+										class="form-control input-sm inpt_data_reqed"									
+										group-id="frmBody" 
+										required                                       
 	   								></sbux-input>
 									<sbux-input
 										uitype="hidden"
@@ -170,7 +172,10 @@
 	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
@@ -238,7 +243,10 @@
 	                            
 	                            <th scope="row" class="th_bg_search">전표유형</th>
 	                            <td class="td_input" >
-	                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            <td class="td_input" >
@@ -249,10 +257,13 @@
 	                            <th scope="row" class="th_bg_search">전기일자</th>
 	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
-								            id="sch-doc-date"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="sch-doc-date"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+						            >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td colspan="3"></td>
@@ -278,17 +289,20 @@
 	                            <th scope="row" class="th_bg_search">증빙일자</th>
 	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
-								            id="sch-voucher-receipt-date"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="sch-voucher-receipt-date"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma">
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td colspan="3"></td>
 
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td class="td_input" >
-	                                <sbux-select id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            <td class="td_input" >
@@ -298,7 +312,10 @@
 
 	                            <th scope="row" class="th_bg_search">제목</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input id="sch-description" uitype="text" class="form-control input-sm"></sbux-input>
+	   								<sbux-input id="sch-description" uitype="text" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+	   								></sbux-input>
 	                            </td>
 	                            <td></td>
 	                            
@@ -866,6 +883,7 @@
 		SBUxMethod.set("sch-exchange-rate", 	'1');
 		
 		var strinvoice_status_code = SBUxMethod.get('sch-doc-status');
+		console.log('strinvoice_status_code:', strinvoice_status_code);		
 		fn_enableSet(strinvoice_status_code);
 		
 		pg_vat_type_bizId		= 'P_NOT_ACCOUNT_POPUP_Q';
@@ -2276,6 +2294,10 @@
      * 저장
      */
     var cfn_save = function() {
+    	
+        if(!SBUxMethod.validateRequired({group_id: "frmBody"}) || !validateRequired("frmBody")) {        
+            return false;
+        }        
     	
     	if(fn_saveFig2310S('')){
     		if( Number(gfnma_nvl(SBUxMethod.get("sch-doc-id"))) !=0 && gfnma_nvl(SBUxMethod.get("sch-doc-status")) == '1'  ){
