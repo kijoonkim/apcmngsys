@@ -246,7 +246,6 @@
 		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             {caption: [],ref: 'MERGE', type:'output',hidden: true},
-            {caption: ["원물입고","팔레트번호"],	ref: 'PLTNO', 		type:'output',  hidden:true},
             {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',   	type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
             {caption: ["품목","품목"],				ref: 'ITEM_NM',     type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["품종","품종"],				ref: 'VRTY_NM',     type:'output',  width:'7%',    style:'text-align:center'},
@@ -433,7 +432,7 @@
         }
         const postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrPrfmncListToPltno.do",check);
         const data = await postJsonPromise;
-
+        jsonRawMtrWrhs.length = 0;
         if(data.resultStatus === 'S'){
             /** merge key **/
             let pltno = data.resultList[0].PLTNO;
