@@ -676,7 +676,7 @@
 				,"COL13":13
 				,"COL14":14
 				,"COL15":15
-				,"dtlCd":"YY"
+				,"dtlCd":"HY"
 				,"crtrYr" : 2024
 			},{
 				"itemNm" : "품목"
@@ -696,9 +696,30 @@
 					,"COL13":13
 					,"COL14":14
 					,"COL15":15
-					,"dtlCd":"YY"
+					,"dtlCd":"HY"
 					,"crtrYr" : 2024
-				}];
+			},{
+				"itemNm" : "품목"
+					,"vrtyNm" : "품종"
+					,"COL1":11
+					,"COL2":21
+					,"COL3":31
+					,"COL4":41
+					,"COL5":51
+					,"COL6":61
+					,"COL7":71
+					,"COL8":81
+					,"COL9":91
+					,"COL10":10
+					,"COL11":11
+					,"COL12":12
+					,"COL13":13
+					,"COL14":14
+					,"COL15":15
+					,"dtlCd":"HY"
+					,"crtrYr" : 2024
+			}
+				];
 		/* allData.map(item => {
 			item['dtlCd'] = dtlCd;
 			item['crtrYr'] = crtrYr;

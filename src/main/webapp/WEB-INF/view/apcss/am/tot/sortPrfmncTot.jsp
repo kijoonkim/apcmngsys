@@ -34,6 +34,14 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+						id="btnDoc"
+						name="btnDoc"
+						uitype="normal"
+						text="리포트"
+						class="btn btn-sm btn-success"
+						onclick="fn_doc"
+					></sbux-button>
+					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
 						uitype="normal"
@@ -633,7 +641,99 @@
         });
     }
 
+    /**
+	 * @name fn_doc
+	 * @description 리포트 발행
+	 */
+	const fn_doc = async function() {
 
+		//const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'TOT_DOC');
+
+		//HY : 반기별 , MM : 월별 , QY : 분기별 , YY : 연도별
+		const dtlCd = SBUxMethod.get("srch-rdo-json");
+		const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
+
+		//기준일자
+		const crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+
+
+		//let allData = grdRawMtrInvntrTot.getGridDataAll();
+		let allData = [{
+			"itemNm" : "품목"
+				,"vrtyNm" : "품종"
+				,"COL1":1
+				,"COL2":2
+				,"COL3":3
+				,"COL4":4
+				,"COL5":5
+				,"COL6":6
+				,"COL7":7
+				,"COL8":8
+				,"COL9":9
+				,"COL10":10
+				,"COL11":11
+				,"COL12":12
+				,"COL13":13
+				,"COL14":14
+				,"COL15":15
+				,"dtlCd":"HY"
+				,"crtrYr" : 2024
+			},{
+				"itemNm" : "품목"
+					,"vrtyNm" : "품종"
+					,"COL1":1
+					,"COL2":2
+					,"COL3":3
+					,"COL4":4
+					,"COL5":5
+					,"COL6":6
+					,"COL7":7
+					,"COL8":8
+					,"COL9":9
+					,"COL10":10
+					,"COL11":11
+					,"COL12":12
+					,"COL13":13
+					,"COL14":14
+					,"COL15":15
+					,"dtlCd":"HY"
+					,"crtrYr" : 2024
+			},{
+				"itemNm" : "품목"
+					,"vrtyNm" : "품종"
+					,"COL1":11
+					,"COL2":21
+					,"COL3":31
+					,"COL4":41
+					,"COL5":51
+					,"COL6":61
+					,"COL7":71
+					,"COL8":81
+					,"COL9":91
+					,"COL10":10
+					,"COL11":11
+					,"COL12":12
+					,"COL13":13
+					,"COL14":14
+					,"COL15":15
+					,"dtlCd":"HY"
+					,"crtrYr" : 2024
+			}
+				];
+		/* allData.map(item => {
+			item['dtlCd'] = dtlCd;
+			item['crtrYr'] = crtrYr;
+			}); */
+		let data = {
+				"root" : allData
+			}
+		const conn = [];
+		conn.push({data:data})
+
+ 		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
+
+ 		gfn_popClipReportPost("선별실적집계", "am/rawMtrInvntrTot.crf",null, conn);
+ 	}
 
 
 
