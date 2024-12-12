@@ -486,7 +486,6 @@
     postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrSortPrfmncList",{apcCd: gv_apcCd,jobYmd: jobYmd});
 
     const data = await postJsonPromise;
-    console.log(data,"작업자");
     try {
       if(data.resultStatus === 'S'){
         let pltno = SBUxMethod.get("dtl-inp-pltno");
@@ -534,7 +533,6 @@
         return;
       }
     let delObj = gridPckgPrfmnc.getRowData(_nRow);
-    console.log(delObj,"삭제전");
     delObj.jobHr = parseAndFormatToHHmm(delObj.jobHr);
 
     const postJsonPromise = gfn_postJSON("/am/cmns/deleteOprtrPrfmnc.do",delObj);
