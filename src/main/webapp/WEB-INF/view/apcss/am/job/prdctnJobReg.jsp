@@ -537,7 +537,14 @@
         }
         let spcfctNm = SBUxMethod.getText("dtl-slt-spcfctCd");
         let spcfctCd = SBUxMethod.get("dtl-slt-spcfctCd");
-        let wght = jsonSpcfctCd.filter((item) => item.spcfctCd === spcfctCd)[0].wght;
+        let itemCd = SBUxMethod.get("dtl-inp-itemCd");
+
+        let wght = 0;
+        let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, spcfctCd : spcfctCd});
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+           wght =  data.resultList[0].wght;
+        }
 
         check.apcCd = gv_selectedApcCd;
         check.spcfctNm = spcfctNm;

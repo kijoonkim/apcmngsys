@@ -421,6 +421,7 @@
             if(obj.jobHr < 2){
               jsonPckgPrfmnc.slice(idx,1);
               gridPckgPrfmnc.rebuild();
+              obj.prfmncSn = '';
               let data = await gfn_postJSON("/am/cmns/deleteOprtrPrfmnc.do",obj);
             }else{
               /** 해당 실적 저장 반영 **/
