@@ -77,7 +77,10 @@
 	                            <th scope="row" class="th_bg_search">집계단위</th>
 	                            <td colspan="3" class="td_input" >
 									<div class="dropdown" style="margin-right:5px" >
-									    <button id="srch-cbozaccd-g" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <button id="srch-cbozaccd-g" style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+											group-id="schHeader" 
+											required                                       
+									    >
 									    	<font>선택</font>
 									        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 									    </button>
@@ -383,6 +386,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
 		fn_setEfi0010Grid('Q');
 	}
     
@@ -394,10 +400,10 @@
 		Efi0010Grid.clearStatus();
 
 		let p_cbozaccd_g 		= gfnma_multiSelectGet("#srch-cbozaccd-g", true);
-		if(!p_cbozaccd_g){
-    		gfn_comAlert("E0000", "집계단위를 선택하세요");
-    		return;
-		}
+// 		if(!p_cbozaccd_g){
+//     		gfn_comAlert("E0000", "집계단위를 선택하세요");
+//     		return;
+// 		}
 		p_cbozaccd_g 			= p_cbozaccd_g['ZACCD_G'];
 		let p_cbozaccd_gname	= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", true)['ZACCD_GNAME']);
 		let p_txtzaccd_d		= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-d"));

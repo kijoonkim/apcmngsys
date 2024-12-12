@@ -163,7 +163,10 @@
 	                            
 	                            <th scope="row" class="th_bg">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="sch-acct-rule-code" name="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="sch-acct-rule-code" name="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td class="th_bg" style="border-left:none;padding-left:0px"></td>
 	                            
@@ -172,7 +175,9 @@
 	   								<sbux-input
 										uitype="text"
 										id="sch-dept-name"
-										class="form-control input-sm"									
+										class="form-control input-sm inpt_data_reqed"									
+										group-id="frmBody" 
+										required                                       
 	   								></sbux-input>
 									<sbux-input
 										uitype="hidden"
@@ -256,7 +261,10 @@
 	                        
 	                            <th scope="row" class="th_bg">전표유형</th>
 	                            <td class="td_input" >
-	                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="sch-doc-type" name="sch-doc-type" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            <td class="td_input" >
@@ -287,11 +295,14 @@
 	                            <th scope="row" class="th_bg">전기일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
-								            id="sch-doc-date"
-								            name="sch-doc-date"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="sch-doc-date"
+							            name="sch-doc-date"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+								    >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="th_bg" style="border-left:none;padding-left:0px"></td>
@@ -299,11 +310,14 @@
 	                            <th scope="row" class="th_bg">증빙일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
-								            id="sch-voucher-receipt-date"
-								            name="sch-voucher-receipt-date"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="sch-voucher-receipt-date"
+							            name="sch-voucher-receipt-date"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+								    >
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td class="th_bg" style="border-left:none;padding-left:0px"></td>
@@ -324,7 +338,10 @@
 	                            
 	                            <th scope="row" class="th_bg">제목</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm" onchange="fn_DescChange(sch-description)"  ></sbux-input>
+	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm inpt_data_reqed" onchange="fn_DescChange(sch-description)"  
+										group-id="frmBody" 
+										required                                       
+	   								></sbux-input>
 	                            </td>
 	                            <td class="th_bg" style="border-left:none;padding-left:0px"></td>
 
@@ -347,7 +364,10 @@
 	                            <th scope="row" class="th_bg">통화</th>
 	                            <td colspan="5" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select onchange="fn_currencyCodeChange(sch-currency-code)"  style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                                <sbux-select onchange="fn_currencyCodeChange(sch-currency-code)"  style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+		                                ></sbux-select>
 		                                <font style="padding-left:5px"></font>
 		   								<sbux-input uitype="text" id="sch-exchange-type" class="form-control input-sm" ></sbux-input>
 		                                <font style="padding-left:5px"></font>
@@ -1445,6 +1465,10 @@
      */
     function cfn_save() {
 
+        if(!SBUxMethod.validateRequired({group_id: "frmBody"}) || !validateRequired("frmBody")) {        
+            return false;
+        }        
+    	
     	var len = jsonFig2210.length;
     	if(len==0){
     		gfn_comAlert("E0000","회계전표를 등록하세요");
