@@ -530,19 +530,21 @@
 					ref : "prchsNm",   width : '150px',			style : 'text-align:center',     type : 'output', merge:false},
 
 				{caption : ['판매위임(매입)현황','물량(톤)']
-					, calc : 'fn_calcSlsCnsgnPrchsVlm'
+					//, calc : 'fn_calcSlsCnsgnPrchsVlm'
 					,ref : "slsCnsgnPrchsVlm",   width : '100px',	style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
-				{caption : ['판매위임(매입)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnPrchsAmt',
+				{caption : ['판매위임(매입)현황','금액(천원)']
+					, calc : 'fn_calcSlsCnsgnPrchsAmt',
 					ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
 
 
 				{caption : ['판매(매출)현황','물량(톤)']
-					, calc : 'fn_calcSlsCnsgnSlsVlm'
+					//, calc : 'fn_calcSlsCnsgnSlsVlm'
 					,ref : "slsCnsgnSlsVlm",   width : '100px',		style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
-				{caption : ['판매(매출)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
+				{caption : ['판매(매출)현황','금액(천원)']
+					, calc : 'fn_calcSlsCnsgnSlsAmt',
 					ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['비고','비고']
@@ -1013,7 +1015,7 @@
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngListNew.do", {
 			brno : brno
 			, yr : yr
 		});

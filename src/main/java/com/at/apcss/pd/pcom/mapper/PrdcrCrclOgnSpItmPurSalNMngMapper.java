@@ -9,7 +9,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -18,7 +18,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -33,6 +33,8 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public PrdcrCrclOgnSpItmPurSalNMngVO selectPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 
 	public int insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 
