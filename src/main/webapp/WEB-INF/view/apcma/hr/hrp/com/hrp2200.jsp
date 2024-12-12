@@ -1175,7 +1175,7 @@
 
             const msg = {
                 arrRemoveCols   : [0,3],
-                combolabel      : false,
+                combolabel      : true,
                 sheetName       : "급여 변동항목 등록_"+PAY_ITEM_NAME
             }
 
