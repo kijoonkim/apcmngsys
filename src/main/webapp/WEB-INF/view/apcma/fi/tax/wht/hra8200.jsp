@@ -579,6 +579,64 @@ var p_userId = '${loginVO.id}';
  	        }
     }
 
+
+    const fnQRY_P_HRA8200_Q_DEF = async function(workType){
+    	//grdDclrDtlInfo
+    	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
+    	let allData = grdDclrList.getGridDataAll();
+    	let originalFlag = SBUxMethod.get("srch-chk-originalFlag")['srch-chk-originalFlag'];
+    	let allYn = SBUxMethod.get("srch-chk-allYn")['srch-chk-allYn'];
+    	var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      			,V_P_SUBMIT_YYYYMM_FR : ''
+      			,V_P_SUBMIT_YYYYMM_TO : ''
+      			,V_P_SUBMIT_YYYYMM    : workType == "LIST" ? "" : rowData.submitYyyymm
+      			,V_P_JOB_YYYYMM       : workType == "LIST" ? "" : rowData.jobYyyymm
+      			,V_P_PAY_YYYYMM       : workType == "LIST" ? "" : rowData.payYyyymm
+      			,V_P_PAY_AREA_TYPE    : ''
+      			,V_P_ORIGINAL_FLAG    : originalFlag
+      			,V_P_CHKALL_YN        : allYn
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
+
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["submitYyyymm","jobYyyymm","payYyyymm","originalFlag","chkallYn"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+          const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
+           	getType				: 'json',
+           	workType			:  workType,
+           	cv_count			: '2',
+           	params				: gfnma_objectToString(paramObj)
+   			});
+
+        	const data = await postJsonPromise;
+        	console.log('data:', data);
+          // 비즈니스 로직 정보
+           try {
+	          if (_.isEqual("S", data.resultStatus)) {
+
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
+    }
+
     const fnSET_P_HRA8200_S = async function(workType){
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
     	let dclrData = grdDclrDtlInfo.getGridDataAll();
@@ -677,8 +735,35 @@ var p_userId = '${loginVO.id}';
 
     //확정버튼
     const fn_defBtnClick = async function(){
-        await fnQRY_P_HRA8200_Q("DEF");
-        queryClick();
+    	let allData = grdDclrDtlInfo.getGridDataAll();
+    	allData.forEach(item => {
+    		var paramObj = {
+          			V_P_DEBUG_MODE_YN	: ''
+          			,V_P_LANG_ID		: ''
+          			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
+          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+          			,V_P_SUBMIT_YYYYMM_FR : ''
+          			,V_P_SUBMIT_YYYYMM_TO : ''
+          			,V_P_SUBMIT_YYYYMM    : item.submitYyyymm
+          			,V_P_JOB_YYYYMM       : item.jobYyyymm
+          			,V_P_PAY_YYYYMM       : item.payYyyymm
+          			,V_P_PAY_AREA_TYPE    : ''
+          			,V_P_ORIGINAL_FLAG    : originalFlag
+          			,V_P_CHKALL_YN        : allYn
+          			,V_P_FORM_ID		: p_formId
+          			,V_P_MENU_ID		: p_menuId
+          			,V_P_PROC_ID		: ''
+          			,V_P_USERID			: ''
+          			,V_P_PC				: ''
+          	    };
+    		fnQRY_P_HRA8200_Q_DEF_TEST(param)
+    	})
+
+
+    }
+
+    const fnQRY_P_HRA8200_Q_DEF_TEST = async function(param){
+    	await fnQRY_P_HRA8200_Q_DEF(param);
     }
 
     //확정취소

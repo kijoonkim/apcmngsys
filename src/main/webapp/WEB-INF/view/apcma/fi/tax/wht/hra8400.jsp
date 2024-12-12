@@ -791,7 +791,9 @@
         }
     }
 
-
+	const fnQRY_P_HRA8400_S1_TEST = async function(sendWorkType, empCodeList, socialNumList){
+		await fnQRY_P_HRA8400_S1(sendWorkType, empCodeList, socialNumList)
+	}
     /**
      * 목록 가져오기
      */
@@ -980,7 +982,7 @@
     				empCodeList = empCodeList.substring(0,empCodeList.length-1);
     				socialNumList = socialNumList.substring(0,socialNumList.length-1);
     			}
-    			fnQRY_P_HRA8400_S1(sendWorkType, empCodeList, socialNumList);
+    			fnQRY_P_HRA8400_S1_TEST(sendWorkType, empCodeList, socialNumList);
                 sendWorkType = sendWorkType + (intChkCount / 1000).toString();
                 empCodeList = "";
                 socialNumList = "";
