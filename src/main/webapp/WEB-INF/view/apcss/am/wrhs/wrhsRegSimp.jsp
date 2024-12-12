@@ -242,23 +242,49 @@
         SBGridProperties.jsonref = 'jsonRawMtrWrhs';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.mergecells = 'bycol';
+        SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             {caption: [],ref: 'MERGE', type:'output',hidden: true},
-            {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',      type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
-            {caption: ["품목","품목"],		ref: 'ITEM_NM',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["품종","품종"],		ref: 'VRTY_NM',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","규격"],		ref: 'SPCFCT_NM',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","생산자"],		ref: 'PRDCR_NM',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["원물입고","팔레트번호"],		ref: 'PLTNO',      type:'output',  width:'12%',    style:'text-align:center'},
-            {caption: ["원물입고","수량"],		ref: 'INPT_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["생산작업","작업자"],		ref: 'FLNM',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","팔레트번호"],	ref: 'PLTNO', 		type:'output',  hidden:true},
+            {caption: ["작업일자","작업일자"],		ref: 'INPT_YMD',   	type:'output',  width:'13%',    style:'text-align:center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["품목","품목"],				ref: 'ITEM_NM',     type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["품종","품종"],				ref: 'VRTY_NM',     type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","규격"],			ref: 'SPCFCT_NM',   type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","생산자"],		ref: 'PRDCR_NM',    type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["원물입고","팔레트번호"],	ref: 'PLTNO',      	type:'output',  width:'12%',    style:'text-align:center'},
+            {caption: ["원물입고","수량"],			ref: 'INPT_QNTT',   type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["생산작업","작업자"],		ref: 'FLNM',      	type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["생산작업","작업시간"],		ref: 'JOB_HR',      type:'output',  width:'12%',    style:'text-align:center',merge:false},
-            {caption: ["생산작업","재고"],		ref: 'SORT_QNTT',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["상품출고","함안"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["상품출고","안성"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["생산작업","재고"],			ref: 'SORT_QNTT',   type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["상품출고","함안"],			ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["상품출고","안성"],			ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
         ];
         grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
     }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        },
+    };
+
+    // 엑셀 다운로드 (재배농가품질)
+    function fn_excelDwnld () {
+
+    	if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
+    		grdRawMtrWrhs.exportData("xlsx","작업일지",true);
+    	} else {
+    		grdRawMtrWrhs.exportLocalExcel("작업일지", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	}
+    }
+
     /**
      * @name fn_choicePrdcr
      * @description 생산자 선택 popup 호출
