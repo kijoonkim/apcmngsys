@@ -937,7 +937,8 @@ SELECT
 	'5' AS TYPE_SE_NO
 	,'(생산자조직)전속출하' AS SE_NM
 	, ITEM.PRDCR_OGNZ_NM AS PRCHS_NM
-	, ITEM.BRNO AS ISO_BRNO
+	, ITEM.BRNO
+	, '0' AS ISO_BRNO
 	, NVL ( ITEM.PRDCR_OGNZ_SN , 0 ) AS PRDCR_OGNZ_SN
 	, ITEM.ITEM_CD AS ITEM_CD
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
@@ -1030,7 +1031,8 @@ SELECT
 	'5' AS TYPE_SE_NO
 	,'(요건미달)전속출하' AS SE_NM
 	, ITEM.PRDCR_OGNZ_NM AS PRCHS_NM
-	, ITEM.BRNO AS ISO_BRNO
+	, ITEM.BRNO
+	, '0' AS ISO_BRNO
 	, NVL ( ITEM.PRDCR_OGNZ_SN , 0 ) AS PRDCR_OGNZ_SN
 	, ITEM.ITEM_CD AS ITEM_CD
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
@@ -1122,7 +1124,8 @@ SELECT
 	'6' AS TYPE_SE_NO
 	, ITEM.SE_NM AS SE_NM
 	, ITEM.TRMT_TYPE_NM AS PRCHS_NM
-	, ITEM.BRNO AS ISO_BRNO
+	, ITEM.BRNO
+	, '0' AS ISO_BRNO
 	, 0 AS PRDCR_OGNZ_SN
 	, ITEM.ITEM_CD AS ITEM_CD
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
@@ -1218,7 +1221,8 @@ SELECT
 	'7' AS TYPE_SE_NO
 	,'생산자조직 외' AS SE_NM
 	, '농가 , 법인 등' AS PRCHS_NM
-	, ITEM.BRNO AS ISO_BRNO
+	, ITEM.BRNO
+	, '0' AS ISO_BRNO
 	, 0 AS PRDCR_OGNZ_SN
 	, ITEM.ITEM_CD AS ITEM_CD
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
@@ -1274,7 +1278,8 @@ SELECT
 	'8' AS TYPE_SE_NO
 	,'합계' AS SE_NM
 	, '' AS PRCHS_NM
-	, ITEM.BRNO AS ISO_BRNO
+	, ITEM.BRNO
+	, '0' AS ISO_BRNO
 	, 0 AS PRDCR_OGNZ_SN
 	, ITEM.ITEM_CD AS ITEM_CD
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
@@ -1334,4 +1339,113 @@ ORDER BY
 	, TRMT_TYPE
 	, TYPE_SE_NO
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew	-->
+	<!-- DESC : 출자출하조직 전문품목 매입매출 등록                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.12  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertInvShipOgnSpeczItmPurSalMngNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		<![CDATA[
+		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew */
+		USING DUAL
+			ON (
+					CLT.YR	 			= #{yr}
+				AND CLT.APO_SE	 		= #{apoSe}
+				AND CLT.BRNO 			= #{brno}
+				AND CLT.ITEM_CD 		= #{itemCd}
+				AND CLT.ISO_BRNO 		= #{isoBrno}
+				AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
+				AND CLT.TYPE_SE_NO		= #{typeSeNo}
+				AND CLT.OGNZ_STBLT_YN	= #{ognzStbltYn}
+				AND CLT.UO_BRNO 		= #{uoBrno}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					SET
+						SLS_CNSGN_PRCHS_AMT		= #{slsCnsgnPrchsAmt}
+						, UO_SPMT_AMT			= #{uoSpmtAmt}
+						, UO_OTHER_SPMT_AMT		= #{uoOtherSpmtAmt}
+
+						, SLS_CNSGN_PRCHS_VLM	= #{slsCnsgnPrchsVlm}
+						, UO_SPMT_VLM			= #{uoSpmtVlm}
+						, UO_OTHER_SPMT_VLM		= #{uoOtherSpmtVlm}
+
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , APO_CD
+					  , APO_SE
+					  , BRNO
+					  , CRNO
+					  , ITEM_CD
+					  , ISO_BRNO
+					  , PRDCR_OGNZ_SN
+					  , TRMT_TYPE
+					  , TYPE_SE_NO
+					  , OGNZ_STBLT_YN
+					  , UO_BRNO
+
+					  , SLS_CNSGN_PRCHS_AMT
+					  , UO_SPMT_AMT
+					  , UO_OTHER_SPMT_AMT
+
+					  , SLS_CNSGN_PRCHS_VLM
+					  , UO_SPMT_VLM
+					  , UO_OTHER_SPMT_VLM
+
+					  , RMRK
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    #{yr}
+					  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , '2'
+					  , #{brno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{itemCd}
+					  , '0'
+					  , #{prdcrOgnzSn}
+					  , #{trmtType}
+					  , #{typeSeNo}
+					  , #{ognzStbltYn}
+					  , #{uoBrno}
+
+					  , #{slsCnsgnPrchsAmt}
+					  , #{uoSpmtAmt}
+					  , #{uoOtherSpmtAmt}
+
+					  , #{slsCnsgnPrchsVlm}
+					  , #{uoSpmtVlm}
+					  , #{uoOtherSpmtVlm}
+
+					  , #{rmrk}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
 </mapper>
