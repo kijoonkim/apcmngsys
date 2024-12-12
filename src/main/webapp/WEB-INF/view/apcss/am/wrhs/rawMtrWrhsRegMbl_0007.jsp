@@ -1098,7 +1098,7 @@
                 ${'${item.wrhsYmd}'}
             </td>
              <td>
-                ${'${formattedDate}'}
+                ${'${item.sysFrstInptDt ? item.sysFrstInptDt : formattedDate}'}
             </td>
            </tr>
            `

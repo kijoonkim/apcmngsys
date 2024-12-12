@@ -33,6 +33,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물재고집계 -->
 				</div>
 				<div style="margin-left: auto;">
+				<sbux-button
+						id="btnDoc"
+						name="btnDoc"
+						uitype="normal"
+						text="리포트"
+						class="btn btn-sm btn-success"
+						onclick="fn_doc"
+					></sbux-button>
 					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -117,6 +125,7 @@
 									jsondata-ref="radioJsonData"
 									jsondata-text="dtlNm"
 									jsondata-value="dtlCd"
+									text-right-padding="10px"
 									onchange="fn_radioChange(srch-rdo-json)" >
 								</sbux-radio>
 							</td>
@@ -181,7 +190,11 @@
 			await fn_totCrtrInfoList("RI","TOT_TERM_KND")
         ]);
 
-		jsonTermKnd = await gfn_getComCdDtls('TOT_TERM_KND');
+
+		let  jsonTermKndTest  = await gfn_getComCdDtls('TOT_TERM_KND');
+		jsonTermKndTest[0]['checked'] = "checked";
+		jsonTermKnd = jsonTermKndTest;
+
 	}
 
 	const fn_modalVrty = function() {
@@ -316,7 +329,7 @@
 				let replaceItem = item.replaceAll("-","");
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = replaceItem;
-				col["ref"] = replaceItem;
+				col["ref"] = "col" + (index + 1);
 				dateSaveList.push(replaceItem);
 				columns.push(col);
 			})
@@ -368,7 +381,7 @@
     		dates.forEach((item,index) => {
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = item.nm;
-				col["ref"] = "h" + (index+1);
+				col["ref"] = "col" + (index + 1);
 				dateSaveList.push(item.toString());
 				columns.push(col);
 			})
@@ -390,13 +403,12 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 
-		 const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListDay.do", {
-			apcCd: gv_selectedApcCd,
-			wrhsYmdFrom : startDay,
-			wrhsYmdTo : endDay,
-			itemCd : itemCd,
-			vrtyCd : vrtyCd,
-			dateList : dateSaveList
+		 const postJsonPromise = gfn_postJSON("/am/tot/selectRawMtrInvntrTotInfo.do", {
+			 apcCd: gv_selectedApcCd
+				, itemCd : itemCd
+				, vrtyCd : vrtyCd
+				, totYmdFrom : startDay
+				, totYmdEnd : endDay
   		});
 
         const data = await postJsonPromise;
@@ -485,59 +497,7 @@
 
 
 
-    const fn_save = async function(){
-    	let rowData = grdTotCrtrList.getRowData(grdTotCrtrList.getRow());
-    	let status1 = grdTotCrtrList.getRowStatus(grdTotCrtrList.getRow());
-		if(rowData === undefined){
-			return;
-		}
-        try{
 
-        	let totCrtr = {
-        			apcCd : gv_selectedApcCd
-        			, totCrtrType : rowData.totCrtrType
-        			, crtrCd : rowData.crtrCd
-        			, crtrVl : rowData.crtrVl
-        			, crtrIndctNm : mergeArray.find(item => item.cdVl === "VRTY")['cdVlNm']
-        			, indctSeq : parseInt(rowData.indctSeq)
-        			, useYn : rowData.useYn
-        			, status : status1
-      				, totDtlType : rowData.totDtlType
-        	};
-
-
-
-			let totCrtrDtlList = grdTotCrtrDtlList.getGridDataAll();
-			    totCrtrDtlList.forEach((item,sn) => {
-					delete item.itemCd;
-					item["apcCd"] = gv_selectedApcCd;
-        			item["totCrtrType"] = rowData.totCrtrType;
-        			item["crtrCd"] = rowData.crtrCd;
-        			item["crtrVl"] = rowData.crtrVl;
-					item["apcCd"] = gv_selectedApcCd;
-					item["dtlIndctNm"] = item["dtlVl"];
-				});
-
-            let totDtlList = totCrtrDtlList.filter(x => x.status === "3" || x.status ==="2")
-
-
-
-            let postJsonPromise = gfn_postJSON("/am/tot/insertTotCrtrInfoList.do",[totCrtr,totDtlList]);
-
-            if(postJsonPromise){
-                let data = await postJsonPromise;
-                if (data.resultStatus == "S") {
-                    // gfn_comAlert(data.resultCode, data.resultMessage);
-                    //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
-                    //fn_reset();
-                    return;
-                }
-            }
-
-        }catch (e){
-            console.log(e);
-        }
-    }
 
 
     function getWeeklyDates(date) {
@@ -680,6 +640,79 @@
             }, {});
         });
     }
+
+    /**
+	 * @name fn_doc
+	 * @description 리포트 발행
+	 */
+	const fn_doc = async function() {
+
+		//const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'TOT_DOC');
+
+		//HY : 반기별 , MM : 월별 , QY : 분기별 , YY : 연도별
+		const dtlCd = SBUxMethod.get("srch-rdo-json");
+		const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
+
+		//기준일자
+		const crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+
+
+		//let allData = grdRawMtrInvntrTot.getGridDataAll();
+		let allData = [{
+			"itemNm" : "품목"
+				,"vrtyNm" : "품종"
+				,"COL1":1
+				,"COL2":2
+				,"COL3":3
+				,"COL4":4
+				,"COL5":5
+				,"COL6":6
+				,"COL7":7
+				,"COL8":8
+				,"COL9":9
+				,"COL10":10
+				,"COL11":11
+				,"COL12":12
+				,"COL13":13
+				,"COL14":14
+				,"COL15":15
+				,"dtlCd":"YY"
+				,"crtrYr" : 2024
+			},{
+				"itemNm" : "품목"
+					,"vrtyNm" : "품종"
+					,"COL1":1
+					,"COL2":2
+					,"COL3":3
+					,"COL4":4
+					,"COL5":5
+					,"COL6":6
+					,"COL7":7
+					,"COL8":8
+					,"COL9":9
+					,"COL10":10
+					,"COL11":11
+					,"COL12":12
+					,"COL13":13
+					,"COL14":14
+					,"COL15":15
+					,"dtlCd":"YY"
+					,"crtrYr" : 2024
+				}];
+		/* allData.map(item => {
+			item['dtlCd'] = dtlCd;
+			item['crtrYr'] = crtrYr;
+			}); */
+		let data = {
+				"root" : allData
+			}
+		const conn = [];
+		conn.push({data:data})
+
+ 		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
+
+ 		gfn_popClipReportPost("원물재고집계", "am/rawMtrInvntrTot.crf",null, conn);
+ 	}
 
 
 

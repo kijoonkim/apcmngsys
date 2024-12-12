@@ -1,7 +1,7 @@
 <%
 /**
  * @Class Name 		: fig2310_99.jsp
- * @Description 	: 미결잔액조회 신규 화면
+ * @Description 	: 미결잔액조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.09.20
  * @version 		: 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 미결잔액조회 신규</title>
+	<title>title : 미결잔액조회 </title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
@@ -33,7 +33,7 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 미결잔액조회 신규 -->
+                    </h3><!-- 미결잔액조회  -->
                 </div>
                 <div>
                 </div>
@@ -91,7 +91,10 @@
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td colspan="4" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			                            <sbux-select style="width:120px" onchange="fn_currencyCodeChange(SCH_CURRENCY_CODE)" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+			                            <sbux-select style="width:120px" onchange="fn_currencyCodeChange(SCH_CURRENCY_CODE)" id="SCH_CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+											group-id="schHeader" 
+											required                                       
+			                            ></sbux-select>
 					                    <font style="width:5px"></font>
 	   									<sbux-input style="width:80px" id="SCH_EXCHANGE_RATE" uitype="text" class="form-control input-sm"></sbux-input>
 					                    <font style="width:5px"></font>
@@ -104,17 +107,23 @@
 	                            <th scope="row" class="th_bg_search">기준일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
-								            id="SCH_ENTRY_DATE_TO"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="SCH_ENTRY_DATE_TO"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+								    >
 								    </sbux-datepicker>                            
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
@@ -454,6 +463,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
 		fn_setFig4195Grid('Q');
 	}
     
@@ -516,22 +528,22 @@
 		let p_related_yn			= gfnma_nvl(SBUxMethod.get("SCH_RELATED_YN"));
 		let p_related_cs_type		= gfnma_nvl(SBUxMethod.get("SCH_RELATED_CS_TYPE"));
 		
-		if(!p_currency_code){
- 			gfn_comAlert("E0000","통화를 선택하세요");
-			return;      		 
-		}
-		if(!p_acct_rule_code){
- 			gfn_comAlert("E0000","회계기준을 선택하세요");
-			return;      		 
-		}
-		if(!p_entry_date_to){
- 			gfn_comAlert("E0000","기준일자를 입력하세요");
-			return;      		 
-		}
-		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
- 			gfn_comAlert("E0000","계정과목을 선택하세요");
-			return;      		 
-		}
+// 		if(!p_currency_code){
+//  			gfn_comAlert("E0000","통화를 선택하세요");
+// 			return;      		 
+// 		}
+// 		if(!p_acct_rule_code){
+//  			gfn_comAlert("E0000","회계기준을 선택하세요");
+// 			return;      		 
+// 		}
+// 		if(!p_entry_date_to){
+//  			gfn_comAlert("E0000","기준일자를 입력하세요");
+// 			return;      		 
+// 		}
+// 		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
+//  			gfn_comAlert("E0000","계정과목을 선택하세요");
+// 			return;      		 
+// 		}
 // 		if(!gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_CS_CODE_TO"))){
 //  			gfn_comAlert("E0000","거래처를 선택하세요");
 // 			return;      		 

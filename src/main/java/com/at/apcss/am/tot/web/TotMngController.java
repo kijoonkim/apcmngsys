@@ -115,6 +115,24 @@ public class TotMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/tot/selectTotCrtrInfoDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTotCrtrInfoDtlList(@RequestBody TotMngVO TotMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<TotMngVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = totMngService.selectTotCrtrInfoDtlList(TotMngVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/tot/deleteTotMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteTotMngInfo(@RequestBody TotMngVO totMngVO, HttpServletRequest request) throws Exception {
 
@@ -134,6 +152,176 @@ public class TotMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectGdsInvntrTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectGdsInvntrTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+
+
+	@PostMapping(value = "/am/tot/selectSpmtPrfmncTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectSpmtPrfmncTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectPckgPrfmncTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPckgPrfmncTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectPckgPrfmncTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectRawMtrInvntrTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectRawMtrInvntrTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectRawMtrWrhsTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectRawMtrWrhsTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectSortInvntrTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortInvntrTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectSortInvntrTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/tot/selectSortPrfmncTotInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncTotInfo(@RequestBody HashMap<String,Object> totMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> result = new ArrayList<>();
+		try {
+
+			result = totMngService.selectSortPrfmncTotInfo(totMngVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
 
 		return getSuccessResponseEntity(resultMap);
 

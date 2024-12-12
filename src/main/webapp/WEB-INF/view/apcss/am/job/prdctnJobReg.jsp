@@ -312,7 +312,7 @@
                                     jsondata-ref="jsonSpcfctCd"
                                     unselected-text="선택"
                                     jsondata-text="spcfctNm"
-                                    jsondata-value="spcfctCd">
+                                    jsondata-value="spmtPckgUnitCd">
                             </sbux-select>
                             <sbux-input
                                     id="dtl-inp-sortQntt"
@@ -462,10 +462,11 @@
                     }
                     SBUxMethod.set("wght", data.resultMap.wght);
                     /** 상품규격 == 원물규격 **/
-                    await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
-
+                    // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
+                    // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
+                    await fn_searchGrdCd(data.resultMap.itemCd);
                     await fn_setGrdSelect(data.resultMap.itemCd);
-                    await fn_getSortno();
+                    // await fn_getSortno();
                     /** 하단 table 정보 조회 **/
                     await fn_selectSortPrfmnc();
                 }else{
@@ -477,20 +478,27 @@
            console.error(e);
         }
     }
-    const fn_getSortno = async function(){
-        let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
-        if(gfn_isEmpty(jsonSearchList)){
-            const postJsonPromise = gfn_postJSON("/am/sort/selectSortno.do", {
-                apcCd: gv_selectedApcCd,
-                inptYmd : inptYmd
-            });
-            const data = await postJsonPromise;
-            SBUxMethod.set("dtl-inp-sortno",data.sortno);
-        }else{
-            SBUxMethod.set("dtl-inp-sortno",jsonSearchList[0].SORTNO);
+    const fn_searchGrdCd = async function(_itemCd){
+        let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : gv_selectedApcCd, itemCd : _itemCd});
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            jsonSpcfctCd = data.resultList;
+            SBUxMethod.refresh('dtl-slt-spcfctCd');
         }
-
     }
+    // const fn_getSortno = async function(){
+    //     let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+    //     if(gfn_isEmpty(jsonSearchList)){
+    //         const postJsonPromise = gfn_postJSON("/am/sort/selectSortno.do", {
+    //             apcCd: gv_selectedApcCd,
+    //             inptYmd : inptYmd
+    //         });
+    //         const data = await postJsonPromise;
+    //         SBUxMethod.set("dtl-inp-sortno",data.sortno);
+    //     }else{
+    //         SBUxMethod.set("dtl-inp-sortno",jsonSearchList[0].SORTNO);
+    //     }
+    // }
     const fn_setGrdSelect = async function(_itemCd){
         /** 팔레트번호 조회 후 상품 규격 셋팅 **/
         let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {apcCd : gv_selectedApcCd, itemCd : _itemCd, grdSeCd : '02', grdKnd : '01'});
@@ -523,13 +531,20 @@
     }
 
     const fn_add = async function(){
-        let check = gfn_getTableElement("saveTable","dtl-",["warehouseSeCd","grdCd","flnm"]);
+        let check = gfn_getTableElement("saveTable","dtl-",["warehouseSeCd","grdCd","flnm","sortno"]);
         if(!check){
             return;
         }
         let spcfctNm = SBUxMethod.getText("dtl-slt-spcfctCd");
         let spcfctCd = SBUxMethod.get("dtl-slt-spcfctCd");
-        let wght = jsonSpcfctCd.filter((item) => item.spcfctCd === spcfctCd)[0].wght;
+        let itemCd = SBUxMethod.get("dtl-inp-itemCd");
+
+        let wght = 0;
+        let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, spcfctCd : spcfctCd});
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+           wght =  data.resultList[0].wght;
+        }
 
         check.apcCd = gv_selectedApcCd;
         check.spcfctNm = spcfctNm;
@@ -626,7 +641,7 @@
         jsonSave = jsonSave.filter(function(item){
             let flag
            jsonSearchList.forEach(function(iner){
-               flag = iner.SORTNO === item.sortno && iner.SORT_SN === item.sortSn;
+               flag = iner.SORTNO === item.sortno;
            });
             return !flag;
         });
@@ -644,7 +659,10 @@
 
         if(data.resultStatus ==='S'){
             gfn_comAlert("I0001");
+            let pltno = SBUxMethod.get("dtl-inp-pltno");
+            await fn_reset();
             await SBUxMethod.set("dtl-inp-qntt","");
+            await SBUxMethod.set("dtl-inp-pltno",pltno);
             await SBUxMethod.set("dtl-inp-sortQntt","");
             await fn_searchInvntr();
         }
@@ -701,7 +719,7 @@
                     fn_setSaveTable(check);
                 });
                 /** 선별번호 발번 취소 **/
-                SBUxMethod.set("dtl-inp-sortno",data.resultList[0].SORTNO);
+                // SBUxMethod.set("dtl-inp-sortno",data.resultList[0].SORTNO);
             }
         }
 

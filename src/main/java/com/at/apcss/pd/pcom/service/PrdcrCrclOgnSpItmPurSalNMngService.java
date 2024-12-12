@@ -46,4 +46,10 @@ public interface PrdcrCrclOgnSpItmPurSalNMngService {
 
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 
+	//20241212 개발서버 신규 화면 조회
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception;
+	//20241212 개발서버 신규 화면 등록
+	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception;
+	//20241212 개발서버 신규 화면 등록
+	public int multiSavePrdcrCrclOgnSpItmPurSalNMngListNew(List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList) throws Exception;
 }

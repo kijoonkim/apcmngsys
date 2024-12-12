@@ -1769,14 +1769,12 @@
 			let rowSts = grdGpcList.getRowStatus(i);
 			//console.log(i+"행 상태값 : "+rowSts);
 
-			//let ctgryCd = rowData.ctgryCd;
-			//let itemCd = rowData.itemCd;
-
 			let delYn = rowData.delYn;
 
 			rowData.apoCd = apoCd;
 			rowData.apoSe = '1';
 			rowData.brno = brno;
+			rowData.uoBrno = brno;
 			rowData.crno = crno;
 			rowData.corpNm = corpNm;
 			rowData.yr = yr;
@@ -1785,7 +1783,6 @@
 				//모든데이터 저장 처리
 				rowData.rowSts = "I";
 				gpcList.push(rowData);
-
 			}
 		}
 
@@ -1793,28 +1790,22 @@
 				apoCd: SBUxMethod.get('dtl-input-apoCd')//
 				,apoSe: SBUxMethod.get('dtl-input-apoSe')//
 				,brno: SBUxMethod.get('dtl-input-brno')//
+				,uoBrno: SBUxMethod.get('dtl-input-brno')//
 				,crno: SBUxMethod.get('dtl-input-crno')//
 				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
 				,yr: yr
-					//생산유통통합조직 승인형,육성형
-					,aprv: SBUxMethod.get('rdo-aprv')//
-					,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//
-					//원물확보 시군 및 시도 개소 수
-					,uoCd: SBUxMethod.get('dtl-input-apoCd')//
-					,rawMtrEnsrSigunCnt: rawMtrEnsrSigunCnt
-					,rawMtrEnsrCtpvCnt: rawMtrEnsrCtpvCnt
-					,ctpvNm: ctpvNm
+				//생산유통통합조직 승인형,육성형
+				,aprv: SBUxMethod.get('rdo-aprv')//
+				,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//
+				//원물확보 시군 및 시도 개소 수
+				,uoCd: SBUxMethod.get('dtl-input-apoCd')//
+				,rawMtrEnsrSigunCnt: rawMtrEnsrSigunCnt
+				,rawMtrEnsrCtpvCnt: rawMtrEnsrCtpvCnt
+				,ctpvNm: ctpvNm
 				,sigunNm: sigunNm
-				//타조직통합여부
-				//,untyYn: SBUxMethod.get('dtl-input-untyYn')//
-				//,uoNm: SBUxMethod.get('dtl-input-uoNm')//
-				//,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
-				//,untyYr: SBUxMethod.get('dtl-input-untyYr')//
 				//산지유통활성지원금 자금신청 현황
 				,pruoFundAplyAmt: SBUxMethod.get('dtl-input-pruoFundAplyAmt')//
 				,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-				//신청대상구분
-				//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 			};
 
 		saveList.gpcList = gpcList;
@@ -1836,12 +1827,8 @@
 				alert(data.resultMessage);
 			}
 		} catch(e) {
-
 		}
-
 	}
-
-
 
 	//그리드 클릭시 상세보기 이벤트
 	function fn_view() {

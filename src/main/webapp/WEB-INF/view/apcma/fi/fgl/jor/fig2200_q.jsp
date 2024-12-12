@@ -94,7 +94,10 @@
 	                        
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="srch-cbofi-org-code" name="srch-cbofi-org-code" uitype="single" jsondata-ref="jsonCbofiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 						        <td></td>
 	                            
@@ -137,28 +140,37 @@
 	                            <th scope="row" class="th_bg_search">전표일자</th>
 	                            <td class="td_input" >
 								    <sbux-datepicker
-								            id="srch-ymddate-fr"
-								            name="srch-ymddate-fr"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="srch-ymddate-fr"
+							            name="srch-ymddate-fr"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+								    >
 								    </sbux-datepicker>                          
 	                            </td>
 						        <td>-</td>
 	                            <td class="td_input" >
 								    <sbux-datepicker
-								            id="srch-ymddate-to"
-								            name="srch-ymddate-to"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="srch-ymddate-to"
+							            name="srch-ymddate-to"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+								    >
 								    </sbux-datepicker>                            
 	                            </td>
 						        <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="srch-cboacct-rule-code" name="srch-cboacct-rule-code" uitype="single" jsondata-ref="jsonCboacctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="srch-cboacct-rule-code" name="srch-cboacct-rule-code" uitype="single" jsondata-ref="jsonCboacctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 						        <td></td>
 						        
@@ -355,7 +367,7 @@
 						</div>
 	                </div>
 	                <div>
-	                    <div id="sb-area-grdTop" style="height:300px; width:100%;">
+	                    <div id="sb-area-grdTop" style="height:200px; width:100%;">
 	                    </div>
 	                </div>
 	                
@@ -745,6 +757,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
     	
 		jsonTab1Fig2210 = [];
 		jsonTab2Fig2200 = []; 	

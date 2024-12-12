@@ -1337,10 +1337,9 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		if(apoSe == '1'){
-			let uoBrno = brno;
-		}else{
-			let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+			uoBrno = brno;
 		}
 
 		let uoCd = SBUxMethod.get('dtl-input-uoCd');
@@ -2190,9 +2189,14 @@
 			if (selGridCol == itemNmCol){
 				//팝업창 오픈
 				//통합조직 팝업창 id : modal-gpcList
-				let brno = SBUxMethod.get('dtl-input-brno');
 				let yr = SBUxMethod.get('dtl-input-yr');
-				popYrGpcSelect.init(brno,yr, fn_setGridItem);
+				let brno = SBUxMethod.get('dtl-input-brno');
+				let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+				if(gfn_isEmpty(uoBrno)){
+					uoBrno = brno;
+				}
+				console.log(yr, brno, uoBrno);
+				popYrGpcSelect.init(yr, brno, uoBrno, fn_setGridItem);
 				SBUxMethod.openModal('modal-yrGpcList');
 			}
 		}
@@ -2208,6 +2212,10 @@
 		let yr = SBUxMethod.get('dtl-input-yr');
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		if(gfn_isEmpty(uoBrno)){
+			uoBrno = brno;
+		}
+		console.log(yr, brno, uoBrno);
 		popYrGpcSelect.init(yr, brno, uoBrno, fn_setGridItem);
 		SBUxMethod.openModal('modal-yrGpcList');
 	}
@@ -2305,7 +2313,7 @@
 	 * @name fn_upload
 	 * @description 올리기 버튼 클릭
 	 */
-    const fn_upload = async function() {
+	const fn_upload = async function() {
 
 		const brno = SBUxMethod.get('dtl-input-brno01');
 
@@ -2624,7 +2632,7 @@
 		}
 		_grdImp.refresh();
 
-     }
+	}
 
 
 	/*	엑셀 서식 받기	*/

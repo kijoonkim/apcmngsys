@@ -16,7 +16,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 /**
  * @Class Name : BbsServiceImpl.java
  * @Description : 게시판 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -25,7 +25,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("PrdcrCrclOgnSpItmPurSalNMngService")
@@ -117,5 +117,50 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
 		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO);
 		return resultList;
+	}
+
+	/* 20241212 개발서버 신규 화면 */
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
+		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO);
+		return resultList;
+	}
+
+	@Override
+	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
+		int insertedCnt = PrdcrCrclOgnSpItmPurSalNMngMapper.insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public int multiSavePrdcrCrclOgnSpItmPurSalNMngListNew(List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList) throws Exception {
+		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//통합조직 사업자번호
+		for (PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO : PrdcrCrclOgnSpItmPurSalNMngVOList) {
+			yrVal = PrdcrCrclOgnSpItmPurSalNMngVO.getYr();
+			brnoVal = PrdcrCrclOgnSpItmPurSalNMngVO.getBrno();
+
+			savedCnt += insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO);
+		}
+		//전문품목 매입 매출 저장 완료 후 적합여부 체크
+		if(yrVal != null && !yrVal.equals("")
+			&& brnoVal != null && !brnoVal.equals("")){
+			List<ItemUoStbltYnVO> resultVoList = new ArrayList<>();
+			ItemUoStbltYnVO ItemStbltYnVo = new ItemUoStbltYnVO();
+
+			ItemStbltYnVo.setYr(yrVal);
+			ItemStbltYnVo.setBrno(brnoVal);
+			resultVoList = selectItemUoStbltYnList(ItemStbltYnVo);
+			//조회 결과가 있을 경우에만 업데이트
+			if(resultVoList != null) {
+				//적합여부 초기화
+				PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
+				for (ItemUoStbltYnVO resultVo : resultVoList) {
+					updateItemUoStbltYn(resultVo);
+				}
+			}
+		}
+		return savedCnt;
 	}
 }

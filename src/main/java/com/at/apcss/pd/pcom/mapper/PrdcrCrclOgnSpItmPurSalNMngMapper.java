@@ -9,7 +9,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -18,7 +18,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -43,4 +43,9 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	//20241212 개발서버 신규 화면 조회
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+	//20241212 개발서버 신규 화면 등록
+	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 }

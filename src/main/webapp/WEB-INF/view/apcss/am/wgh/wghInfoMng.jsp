@@ -212,6 +212,22 @@
 	<div id="body-modal-cnpt">
 		<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
 	</div>
+	<!-- 생산자 선택 Modal -->
+    <div>
+        <sbux-modal
+        	id="modal-prdcr"
+        	name="modal-prdcr"
+        	uitype="middle"
+        	header-title="생산자 선택"
+        	body-html-id="body-modal-prdcr"
+        	footer-is-close-button="false"
+        	header-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 

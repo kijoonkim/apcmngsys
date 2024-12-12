@@ -40,6 +40,8 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnPdf" name="btnPdf" uitype="normal" text="PDF 저장"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_dwnPdf"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
@@ -1121,80 +1123,61 @@
     /**
      * 파일저장
      */
-    const fn_btnFile = async function () {
-
+    const fn_btnFile = async function(){
         var nRow = gvwInfoGrid.getRow();
-        var _conn = '';
-        var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        if (nRow < 1) {
-            return;
+     	var conn = '';
+     	var connTest = '';
+     	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+     	if (nRow < 1) {
+             return;
         }
+         
+        let checkDatas = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
+
+         if (_.isEmpty(checkDatas)){
+             gfn_comAlert("Q0000","파일 저장할 항목을 체크박스 선택하세요.");
+             return;
+         }
+
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        if (SENDTYPE == "ALL") {
-            _conn = await fn_GetReportData('REPORT5', rowData);
-            _conn = await gfnma_convertDataForReport(_conn);
-            /*const conn = JSON.stringify(_conn);*/
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_ALL.crf", _conn, 'testFile');
+        for (let i = 0; i < checkDatas.length; i++){
 
-        } else if(SENDTYPE == "PAY") {
-            _conn = await fn_GetReportData('REPORT3', rowData);
-            _conn = await gfnma_convertDataForReport(_conn);
-            /*const conn = JSON.stringify(_conn);*/
-            //fn_pdfDowmload("급여명세서",  "ma/RPT_HRP2436_Q_PAY.crf", '', conn );
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_PAY.crf", _conn, '급여명세서');
+            let datas = [];
+            datas.push(checkDatas[i]);
 
-        } else if(SENDTYPE == "WORK") {
-            _conn = await fn_GetReportData('REPORT4', rowData);
-            _conn = await gfnma_convertDataForReport(_conn);
-           /* const conn = JSON.stringify(_conn);*/
-            //fn_pdfDowmload("근태현황", "ma/RPT_HRP2436_Q_WORK.crf", '', conn );
-            gfn_pdfDwnlClipReport("ma/RPT_HRP2436_Q_WORK.crf", _conn, '근태현황');
-        }
+            if (SENDTYPE == "ALL") {
+                conn = await fn_GetReportData('REPORT5', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
 
-    }
+                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_ALL.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
+            } else if(SENDTYPE == "PAY") {
+                conn = await fn_GetReportData('REPORT3', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
 
-    const fn_pdfDowmload = async function (_title, _fileName, _param, _conn) {
+                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_PAY.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
+            } else if(SENDTYPE == "WORK") {
+                conn = await fn_GetReportData('REPORT4', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
 
-        if (!gfn_isEmpty(_param)) {
-            _param.userNm = p_userNm;
-            _param.title = _title;
-            _param.fileName = _fileName;
-        }
-
-        const param = JSON.stringify(_param);
-        const conn = JSON.stringify(_conn);
-
-        /*SBUxMethod.set("title"          , 	_title);
-        SBUxMethod.set("fileName"       , 	_fileName);
-        SBUxMethod.set("param"          , 	param);
-        SBUxMethod.set("conn"           , 	conn);*/
-
-
-        var url = "/report/openClipReport.do";
-        var formData = new FormData();
-        formData.append("title", _title);
-        formData.append("fileName", _fileName);
-        formData.append("param", param);
-        formData.append("conn", conn);
-
-        $.ajax({
-            url : url,
-            type : 'post',
-            data : formData,
-            cache : false,
-            contentType : false,
-            processData : false,
-            error : function (jqXHR, testStatus, errorThrown){
-
-            },
-            success : function (data, jqXHR, textStatus){
-
+                await gfn_getReportPdf("근태현황.pdf", "ma/RPT_HRP2436_Q_WORK.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
             }
-        });
-
-
-
+        }
     }
 
     /**

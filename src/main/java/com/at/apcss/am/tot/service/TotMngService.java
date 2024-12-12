@@ -65,6 +65,64 @@ public interface TotMngService {
 
 
 
+	/**
+	 * 집계조회 - 출하
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectSpmtPrfmncTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 상품재고
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectGdsInvntrTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 포장실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPckgPrfmncTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 원물재고
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectRawMtrInvntrTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 원물입고
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectRawMtrWrhsTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 선별재고
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectSortInvntrTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+	/**
+	 * 집계조회 - 선별실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectSortPrfmncTotInfo(HashMap<String,Object> totMngVO) throws Exception;
+
+
+
 
 
 }

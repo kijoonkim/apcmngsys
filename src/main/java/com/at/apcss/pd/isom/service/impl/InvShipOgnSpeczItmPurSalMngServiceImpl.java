@@ -48,12 +48,6 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList(InvShipOgnSpeczItmPurSalMngVO);
 		return resultList;
 	}
-	@Override
-	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
-
-		List<InvShipOgnSpeczItmPurSalMngVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO);
-		return resultList;
-	}
 
 	@Override
 	public int insertInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
@@ -92,11 +86,12 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 				savedCnt += updateInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
 			}
 		}
-		int stbltYnUpdateCnt = 0;
+
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
 		if(yrVal != null && !yrVal.equals("")
 			&& brnoVal != null && !brnoVal.equals("")
 			&& uoBrnoVal != null && !uoBrnoVal.equals("")){
+
 			List<ItemStbltYnVO> resultVoList = new ArrayList<>();
 			ItemStbltYnVO ItemStbltYnVo = new ItemStbltYnVO();
 
@@ -110,12 +105,13 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 				//적합여부 초기화
 				InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit(ItemStbltYnVo);
 				for (ItemStbltYnVO resultVo : resultVoList) {
-					stbltYnUpdateCnt += updateItemStbltYn(resultVo);
+					updateItemStbltYn(resultVo);
 				}
 			}
 		}
 		return savedCnt;
 	}
+
 	//품목별 적합여부 리스트
 	@Override
 	public List<ItemStbltYnVO> selectItemStbltYnList(ItemStbltYnVO ItemStbltYnVo) throws Exception {
@@ -136,6 +132,58 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectRawDataList(InvShipOgnSpeczItmPurSalMngVO);
 		return resultList;
+	}
+
+	/* 20241212 개발서버 신규 화면 */
+	@Override
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
+		List<InvShipOgnSpeczItmPurSalMngVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
+		int insertedCnt = InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public int multiSaveInvShipOgnSpeczItmPurSalMngListNew(List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList) throws Exception {
+		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String uoBrnoVal = null;//통합조직 사업자번호
+		for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
+			yrVal = InvShipOgnSpeczItmPurSalMngVO.getYr();
+			brnoVal = InvShipOgnSpeczItmPurSalMngVO.getBrno();
+			uoBrnoVal = InvShipOgnSpeczItmPurSalMngVO.getUoBrno();
+
+			savedCnt += insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO);
+		}
+
+		//전문품목 매입 매출 저장 완료 후 적합여부 체크
+		if(yrVal != null && !yrVal.equals("")
+			&& brnoVal != null && !brnoVal.equals("")
+			&& uoBrnoVal != null && !uoBrnoVal.equals("")){
+
+			List<ItemStbltYnVO> resultVoList = new ArrayList<>();
+			ItemStbltYnVO ItemStbltYnVo = new ItemStbltYnVO();
+
+			ItemStbltYnVo.setYr(yrVal);
+			ItemStbltYnVo.setBrno(brnoVal);
+			ItemStbltYnVo.setUoBrno(uoBrnoVal);
+			resultVoList = selectItemStbltYnList(ItemStbltYnVo);
+
+			//조회 결과가 있을 경우에만 업데이트
+			if(resultVoList != null) {
+				//적합여부 초기화
+				InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit(ItemStbltYnVo);
+				for (ItemStbltYnVO resultVo : resultVoList) {
+					updateItemStbltYn(resultVo);
+				}
+			}
+		}
+		return savedCnt;
 	}
 
 }

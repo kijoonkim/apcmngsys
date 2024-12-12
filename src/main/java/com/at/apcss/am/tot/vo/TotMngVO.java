@@ -81,6 +81,16 @@ public class TotMngVO extends ComVO{
 	 */
 	private String totDtlType;
 
+	/**
+	 * 구분
+	 */
+	private String gubun;
+
+	/**
+	 *
+	 */
+	private String dtlNm;
+
 
 
 }
