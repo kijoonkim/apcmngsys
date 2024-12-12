@@ -1,4 +1,4 @@
-package com.at.apcss.am.tot.vo;
+package com.at.apcss.am.stat.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TotMngVO extends ComVO{
+public class StatMngVO extends ComVO{
 
 	/**
 	APC코드
@@ -15,9 +15,9 @@ public class TotMngVO extends ComVO{
 	private String apcCd;
 
 	/**
-	부자재기준유형코드
+	통계기준유형코드
 	**/
-	private String totCrtrType;
+	private String statCrtrType;
 
 
 	/**
@@ -67,19 +67,15 @@ public class TotMngVO extends ComVO{
 	private String status;
 
 	/**
-	집계상세처리코드
+	통계상세처리코드
 	**/
-	private String totDtlPrcsCd;
+	private String statDtlPrcsCd;
 
 	/**
 	비고
 	**/
 	private String rmrk;
 
-	/**
-	 * 집계상세유형
-	 */
-	private String totDtlType;
 
 	/**
 	 * 구분

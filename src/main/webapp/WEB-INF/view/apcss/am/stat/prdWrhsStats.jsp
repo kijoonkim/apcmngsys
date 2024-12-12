@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : rawMtrInvntrTot.jsp
-  * @Description : 원물재고집계
+  * @Class Name : prdWrhsStats.jsp
+  * @Description : 기간별 입고통계 조회
   * @author SI개발부
   * @since 2024.10.23
   * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 원물재고집계</title>
+	<title>title : 기간별 입고통계 조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -30,17 +30,9 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물재고집계 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 기간별 입고통계 조회 -->
 				</div>
 				<div style="margin-left: auto;">
-				<sbux-button
-						id="btnDoc"
-						name="btnDoc"
-						uitype="normal"
-						text="리포트"
-						class="btn btn-sm btn-success"
-						onclick="fn_doc"
-					></sbux-button>
 					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -116,7 +108,7 @@
 									onclick="fn_modalVrty"
 								/>
 							</td>
-							<th scope="row" class="th_bg">집계 기간</th>
+							<th scope="row" class="th_bg">통계 기간</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-radio
 									id="srch-rdo-json"
@@ -153,11 +145,11 @@
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
-									<span>원물재고집계</span>
+									<span>기간별 입고통계</span>
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdRawMtrInvntrTot" style="height:60vh;"></div>
+						<div id="sb-area-grdRawMtrInvntrStat" style="height:60vh;"></div>
  					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -187,11 +179,12 @@
 		let result = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_apcCd),		// 품목
 			gfn_setApcVrtySBSelect("srch-slt-vrtyCd", 		jsonApcVrty, 	gv_apcCd),			// APC 품종(저장)
-			await fn_totCrtrInfoList("RI","TOT_TERM_KND")
+			await fn_statCrtrInfoTermList("WRHS","STAT_TERM_KND"),
+			await fn_statCrtrElmtInfoList("WRHS","STAT_ELMT_KND")
         ]);
 
 
-		let  jsonTermKndTest  = await gfn_getComCdDtls('TOT_TERM_KND');
+		let  jsonTermKndTest  = await gfn_getComCdDtls('STAT_TERM_KND');
 		jsonTermKndTest[0]['checked'] = "checked";
 		jsonTermKnd = jsonTermKndTest;
 
@@ -241,11 +234,11 @@
 
     const fn_init = async function() {
     	await fn_initSBSelect();
-    	fn_createRawMtrInvntrTot();
+    	fn_createRawMtrInvntrStat();
     	SBUxMethod.set("dtl-dtp-crtrYmd",gfn_dateToYmd(new Date()));
 
 
-    	 radioJsonData = jsonTotCrtrDtlList;
+    	 radioJsonData = jsonStatCrtrDtlTermList;
     	 SBUxMethod.refresh("srch-rdo-json");
 
 
@@ -268,24 +261,27 @@
 	//기간 저장용
 	var dateSaveList = [];
 
-	//집계기준상세
-	var jsonTotCrtrDtlList = [];
+	//통계기간상세
+	var jsonStatCrtrDtlTermList = [];
+
+	//통계기간상세
+	var jsonStatCrtrDtlElmtList = [];
 
 	//기간
 	var jsonTermKnd = [];
 
     // grid
-    // 원물재고집계 현황
-    var grdRawMtrInvntrTot;
-    var jsonRawMtrInvntrTot = [];
+    // 원물재고통계 현황
+    var grdRawMtrInvntrStat;
+    var jsonRawMtrInvntrStat = [];
 
 
 
-    const fn_createRawMtrInvntrTot = function(columns) {
+    const fn_createRawMtrInvntrStat = function(columns) {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdRawMtrInvntrTot';
-	    SBGridProperties.id = 'grdRawMtrInvntrTot';
-	    SBGridProperties.jsonref = 'jsonRawMtrInvntrTot';
+	    SBGridProperties.parentid = 'sb-area-grdRawMtrInvntrStat';
+	    SBGridProperties.id = 'grdRawMtrInvntrStat';
+	    SBGridProperties.jsonref = 'jsonRawMtrInvntrStat';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
@@ -304,11 +300,11 @@
         }
 
 
-        SBGridProperties.columns.push({caption: ["총수량"],  ref: 'totQntt', type:'input', width:'10%',  style:'text-align:center'});
+        SBGridProperties.columns.push({caption: ["총수량"],  ref: 'statQntt', type:'input', width:'10%',  style:'text-align:center'});
         SBGridProperties.columns.push({caption: ["현재고"],  ref: 'sttnInvntrQntt', type:'input', width:'10%',  style:'text-align:center'});
 
-        grdRawMtrInvntrTot = _SBGrid.create(SBGridProperties);
-        //grdTotCrtrList.bind('click', 'fn_grdTotCrtrClick');
+        grdRawMtrInvntrStat = _SBGrid.create(SBGridProperties);
+        //grdStatCrtrList.bind('click', 'fn_grdStatCrtrClick');
 
     }
 
@@ -320,7 +316,7 @@
     const fn_radioChange = function(obj){
     	let columns = [];
     	dateSaveList = [];
-    	jsonRawMtrInvntrTot.length = 0;
+    	jsonRawMtrInvntrStat.length = 0;
     	let crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
     	let dateCrtrYmd = stringToDate(crtrYmd);
     	if(obj === "day"){
@@ -329,7 +325,7 @@
 				let replaceItem = item.replaceAll("-","");
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = replaceItem;
-				col["ref"] = "col" + (index + 1);
+				col["ref"] = replaceItem;
 				dateSaveList.push(replaceItem);
 				columns.push(col);
 			})
@@ -381,13 +377,13 @@
     		dates.forEach((item,index) => {
 				let col = {type:'input', width:'10%',  style:'text-align:center; border-right-width: 10px;'}
 				col["caption"] = item.nm;
-				col["ref"] = "col" + (index + 1);
+				col["ref"] = "h" + (index+1);
 				dateSaveList.push(item.toString());
 				columns.push(col);
 			})
     	}
-    	grdRawMtrInvntrTot.destroy();
-    	fn_createRawMtrInvntrTot(columns);
+    	grdRawMtrInvntrStat.destroy();
+    	fn_createRawMtrInvntrStat(columns);
     }
 
 
@@ -402,13 +398,27 @@
 		let endDay = copy.pop().replaceAll("-","");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let avgChk = false; //"AVG평균",
+		let usgrtChk = false; //"USGRT사용률"
+		let badrtChk = false; //"BADRT불량률"
 
-		 const postJsonPromise = gfn_postJSON("/am/tot/selectRawMtrInvntrTotInfo.do", {
+
+		jsonStatCrtrDtlElmtList.forEach(item => {
+			if(item.dtlCd ==="AVG"){
+				avgChk = true
+			}else if(item.dtlCd ==="USGRT"){
+				usgrtChk = true
+			}else if(item.dtlCd ==="BADRT"){
+				badrtChk = true
+			}
+		})
+
+		 const postJsonPromise = gfn_postJSON("/am/stat/selectPrdWrhsStatInfo.do", {
 			 apcCd: gv_selectedApcCd
 				, itemCd : itemCd
 				, vrtyCd : vrtyCd
-				, totYmdFrom : startDay
-				, totYmdEnd : endDay
+				, statYmdFrom : startDay
+				, statYmdEnd : endDay
   		});
 
         const data = await postJsonPromise;
@@ -416,28 +426,28 @@
   		try {
  			if (_.isEqual("S", data.resultStatus)) {
 
-  	      		jsonRawMtrInvntrTot.length = 0;
+  	      		jsonRawMtrInvntrStat.length = 0;
 
-  	      		jsonRawMtrInvntrTot = convertArrayToCamelCase(data.resultList);
-  	      		let totalRow = {};
+  	      		jsonRawMtrInvntrStat = convertArrayToCamelCase(data.resultList);
+  	      		let statalRow = {};
 
-	  	      	const dayResult = jsonRawMtrInvntrTot.reduce((acc, item) => {
+	  	      	const dayResult = jsonRawMtrInvntrStat.reduce((acc, item) => {
 		  	          // Iterate through each key-value pair in the object
 		  	          Object.keys(item).forEach(key => {
 		  	              // If the key represents a date, add the value to the result
 		  	              if (key >= startDay && key <= endDay ) {
 		  	                  acc[key] = (acc[key] || 0) + item[key];
 		  	              }
-		  	              if (key === "totQntt") {
+		  	              if (key === "statQntt") {
 		  	                  acc[key] = (acc[key] || 0) + item[key];
 		  	              }
 		  	          });
 		  	          return acc;
 		  	      }, {});
 
-	  	      	const totalCount = data.resultList.length; // Number of objects in the data array
+	  	      	const statalCount = data.resultList.length; // Number of objects in the data array
 	  	    	const avgResult = Object.keys(dayResult).reduce((acc, key) => {
-	  	    		let avg = dayResult[key] / totalCount;
+	  	    		let avg = dayResult[key] / statalCount;
 	  	        	acc[key] = avg.toFixed(1);
 	  	        return acc;
 	  	    	}, {});
@@ -445,10 +455,13 @@
 	  	      //dayResult["itemNm"] = "합계";
 	  	      dayResult["vrtyNm"] = "합계";
 	  	      avgResult["vrtyNm"] = "평균";
-	  	      jsonRawMtrInvntrTot.push(dayResult);
-	  	      jsonRawMtrInvntrTot.push(avgResult);
+	  	      jsonRawMtrInvntrStat.push(dayResult);
+	  	      if(avgChk){
+	  	    	jsonRawMtrInvntrStat.push(avgResult);
+	  	      }
 
-  	          grdRawMtrInvntrTot.rebuild();
+
+  	          grdRawMtrInvntrStat.rebuild();
  			 }
   		}
  		catch (e) {
@@ -462,15 +475,15 @@
 
 
     /**
-     * @name fn_totCrtrInfoList
-     * @description 집계기준 버튼
+     * @name fn_statCrtrInfoTermList
+     * @description 통계기간 버튼
      */
-    const fn_totCrtrInfoList = async function(totCrtrType,crtrCd) {
+    const fn_statCrtrInfoTermList = async function(statCrtrType,crtrCd) {
 
 
-    	const postJsonPromise = gfn_postJSON("/am/tot/selectTotCrtrInfoDtlList.do", {
+    	const postJsonPromise = gfn_postJSON("/am/stat/selectStatCrtrInfoDtlList.do", {
 			apcCd: gv_selectedApcCd,
-			totCrtrType : totCrtrType,
+			statCrtrType : statCrtrType,
 			crtrCd : crtrCd
   		});
 
@@ -480,9 +493,42 @@
  			if (_.isEqual("S", data.resultStatus)) {
 
   	          	/** @type {number} **/
-  	      		let totalRecordCount = 0;
-  	      	    jsonTotCrtrDtlList.length = 0;
-  	      		jsonTotCrtrDtlList = data.resultList;
+  	      		let statalRecordCount = 0;
+  	      		jsonStatCrtrDtlTermList.length = 0;
+  	      		jsonStatCrtrDtlTermList = data.resultList;
+ 			 }
+  		}
+ 		catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	    }
+	}
+
+    /**
+     * @name fn_statCrtrElmtInfoList
+     * @description 통계요소종류 버튼
+     */
+    const fn_statCrtrElmtInfoList = async function(statCrtrType,crtrCd) {
+
+
+    	const postJsonPromise = gfn_postJSON("/am/stat/selectStatCrtrInfoDtlList.do", {
+			apcCd: gv_selectedApcCd,
+			statCrtrType : statCrtrType,
+			crtrCd : crtrCd
+  		});
+
+        const data = await postJsonPromise;
+
+  		try {
+ 			if (_.isEqual("S", data.resultStatus)) {
+
+  	          	/** @type {number} **/
+  	      		let statalRecordCount = 0;
+  	      		jsonStatCrtrDtlElmtList.length = 0;
+  	      		jsonStatCrtrDtlElmtList = data.resultList;
  			 }
   		}
  		catch (e) {
@@ -640,79 +686,6 @@
             }, {});
         });
     }
-
-    /**
-	 * @name fn_doc
-	 * @description 리포트 발행
-	 */
-	const fn_doc = async function() {
-
-		//const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'TOT_DOC');
-
-		//HY : 반기별 , MM : 월별 , QY : 분기별 , YY : 연도별
-		const dtlCd = SBUxMethod.get("srch-rdo-json");
-		const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
-
-		//기준일자
-		const crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
-
-
-		//let allData = grdRawMtrInvntrTot.getGridDataAll();
-		let allData = [{
-			"itemNm" : "품목"
-				,"vrtyNm" : "품종"
-				,"COL1":1
-				,"COL2":2
-				,"COL3":3
-				,"COL4":4
-				,"COL5":5
-				,"COL6":6
-				,"COL7":7
-				,"COL8":8
-				,"COL9":9
-				,"COL10":10
-				,"COL11":11
-				,"COL12":12
-				,"COL13":13
-				,"COL14":14
-				,"COL15":15
-				,"dtlCd":"YY"
-				,"crtrYr" : 2024
-			},{
-				"itemNm" : "품목"
-					,"vrtyNm" : "품종"
-					,"COL1":1
-					,"COL2":2
-					,"COL3":3
-					,"COL4":4
-					,"COL5":5
-					,"COL6":6
-					,"COL7":7
-					,"COL8":8
-					,"COL9":9
-					,"COL10":10
-					,"COL11":11
-					,"COL12":12
-					,"COL13":13
-					,"COL14":14
-					,"COL15":15
-					,"dtlCd":"YY"
-					,"crtrYr" : 2024
-				}];
-		/* allData.map(item => {
-			item['dtlCd'] = dtlCd;
-			item['crtrYr'] = crtrYr;
-			}); */
-		let data = {
-				"root" : allData
-			}
-		const conn = [];
-		conn.push({data:data})
-
- 		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
-
- 		gfn_popClipReportPost("원물재고집계", "am/rawMtrInvntrTot.crf",null, conn);
- 	}
 
 
 
