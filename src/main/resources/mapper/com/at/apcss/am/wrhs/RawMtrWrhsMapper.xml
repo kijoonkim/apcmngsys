@@ -682,6 +682,7 @@
 				, WP.INQ_YN			AS INQ_YN
 				, INV.SPCFCT_CD 	AS SPCFCT_CD
 	    		, INV.CHCKR 		AS CHCKR
+	    		, WP.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -1716,6 +1717,8 @@
 	    AND WP.APC_CD = #{apcCd}
 	    AND WP.PRDCR_CD = #{prdcrCd}
 	    AND MI.VRTY_CD IS NOT NULL
+		AND WP.DEL_YN = 'N'
+		AND MI.DEL_YN = 'N'
 		GROUP BY MI.ITEM_CD,MI.VRTY_CD
 	</select>
 
