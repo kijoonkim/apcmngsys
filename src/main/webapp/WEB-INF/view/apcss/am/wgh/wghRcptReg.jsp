@@ -702,10 +702,12 @@
 						if (!(gfn_isEmpty(qntt) || parseInt(qntt) == 0)) {
 
 							insertRow.grdCd = jsonApcGrd[(j-1)].grdCd
+							insertRow.dtlWrhsWght = ((parseFloat(insertRow.actlWght) / parseFloat(insertRow.bxQntt)) * parseFloat(insertRow[grdQnttKey])).toFixed(2);
 							insertRow.bxQntt = insertRow[grdQnttKey];
 							insertRow.rowSts = "I";
 							insertRow.groupId = i;
 							insertRow.wholWght = insertRow.actlWght;
+							insertRow.spmtPrfmncYn = "Y";
 							multiList.push(insertRow)
 						} else {
 							continue;
@@ -739,7 +741,7 @@
 							let bxQntt = rowData[grdQnttKey];
 							let wrhsno = rowData[grdWrhsnoKey];
 							let wghSn = rowData[grdWghSnKey];
-
+							updateRow.dtlWrhsWght = ((parseFloat(updateRow.actlWght) / parseFloat(updateRow.bxQntt)) * parseFloat(updateRow[grdQnttKey])).toFixed(2);
 							updateRow.grdCd = grdCd;
 							updateRow.bxQntt = bxQntt;
 							updateRow.wrhsno = wrhsno;
@@ -757,6 +759,7 @@
 								updateRow.grdCd = jsonApcGrd[(k-1)].grdCd;
 							}
 							updateRow.wholWght = updateRow.actlWght;
+							updateRow.spmtPrfmncYn = "Y";
 							updateRow.groupId = i;
 
 							if (!gfn_isEmpty(wghSn) || bxQntt > 0) {
@@ -770,6 +773,8 @@
 				}
 			}
 		}
+
+		console.log("multiList", multiList)
 
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", multiList);
