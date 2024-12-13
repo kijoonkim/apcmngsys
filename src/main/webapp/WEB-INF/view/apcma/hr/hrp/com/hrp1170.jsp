@@ -440,10 +440,10 @@
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}/*, disabled: true*/},
-            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
+            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
+            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonApplyType',  displayui : true, label : 'label', value : 'value'}
             },
@@ -862,7 +862,12 @@
         let chkCount = 0;
         for (const item of headers) {
 
-            item.trim();
+            if (gfnma_nvl2(item) == ''){
+                chkCount = 1;
+                break;
+            }else{
+                item.trim();
+            }
 
             if (_.isEqual('지급구분', item)){
                 jsonHeaders.push('PAY_TYPE');
@@ -906,37 +911,57 @@
             let msg = {}; // 실제 데이터값
             for (let i = 0; i < jsonData.length; i++) {
 
-                if (_.isEqual(jsonHeaders[i], 'PAY_TYPE')) {
+                if (_.isEqual(jsonHeaders[i], 'PAY_TYPE')) {  //combo 공통코드
 
                     let value = jsonData[i];
-                    value = value.trim();
-                    jsonPayType.filter(data => {
-                        if (value == data.CODE_NAME) {
-                            value = data.SUB_CODE
-                        }
-                    });
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPayType.filter(data => {
+                            if (value == data.CODE_NAME) {
+                                value = data.SUB_CODE
+                            }
+                        });
+                    }
                     msg[jsonHeaders[i]] = value;
 
-                } else if (_.isEqual(jsonHeaders[i], 'PAY_ITEM_CODE')) {
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_ITEM_CODE')) {    //combo 공통코드
 
                     let value = jsonData[i];
-                    value = value.trim();
-                    jsonPayItemCode.filter(data => {
-                        if (value == data.PAY_ITEM_NAME) {
-                            value = data.PAY_ITEM_CODE
-                        }
-                    });
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPayItemCode.filter(data => {
+                            if (value == data.PAY_ITEM_NAME) {
+                                value = data.PAY_ITEM_CODE
+                            }
+                        });
+                    }
                     msg[jsonHeaders[i]] = value;
 
-                } else if (_.isEqual(jsonHeaders[i], 'PAY_APPLY_TYPE')) {
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_APPLY_TYPE')) {   //combo 공통코드
 
                     let value = jsonData[i];
-                    value = value.trim();
-                    jsonApplyType.filter(data => {
-                        if (value == data.CODE_NAME) {
-                            value = data.SUB_CODE
-                        }
-                    });
+                    value = gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != ''){
+                        jsonApplyType.filter(data => {
+                            if (value == data.CODE_NAME) {
+                                value = data.SUB_CODE
+                            }
+                        });
+                    }
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_YYYYMM_FR')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : ((value.replace(/-/g, "")).trim()).substring(0, 6);
+                    //value = gfnma_nvl2(value) == '' ? '' : value.toString().replace(/-/g, "");
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_YYYYMM_TO')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : ((value.replace(/-/g, "")).trim()).substring(0, 6);
+                    //value = gfnma_nvl2(value) == '' ? '' : value.toString().replace(/-/g, "");
                     msg[jsonHeaders[i]] = value;
 
                 } else {
@@ -947,16 +972,14 @@
 
             results.push(msg);
 
+
         }
 
-        //SBUxMethod.openModal('modal-excel');
-        /*fn_createGridGdsPopup();*/
         jsonExceptionList = 0;
 
         jsonExceptionList = results;
         grdExceptionList.rebuild();
 
-        //grdExceptionList.importExcelData(e);
     }
     const fn_uld = async function() {
         document.querySelector("#btnFileUpload").value = "";
