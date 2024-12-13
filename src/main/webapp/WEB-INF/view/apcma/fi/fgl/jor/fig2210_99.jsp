@@ -1266,8 +1266,9 @@
     		if(code=='1'){
     			
         		//미승인
-    			$('#main-btn-save', parent.document).attr('disabled', true);
-    			$('#main-btn-del', 	parent.document).attr('disabled', true);
+				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
+    			$('#main-btn-save', parent.document).attr('disabled', false);
+    			$('#main-btn-del', 	parent.document).attr('disabled', false);
     			
         		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
         		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
@@ -1282,8 +1283,9 @@
         		
         		let insert_userid = SBUxMethod.get('sch-insert-userid');
         		if(insert_userid != p_userId || !p_summit_yn){
+    				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
         			$('#main-btn-save', parent.document).attr('disabled', true);
-        			$('#main-btn-del', parent.document).attr('disabled', true);
+        			$('#main-btn-del', 	parent.document).attr('disabled', true);
             		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
             		$('#btn1-row-add').attr('disabled', 	true);
             		$('#btn1-row-del').attr('disabled', 	true);
@@ -1291,8 +1293,9 @@
         	} else if(code=='3'){
         		
         		//승인중
+				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
     			$('#main-btn-save', parent.document).attr('disabled', true);
-    			$('#main-btn-del', parent.document).attr('disabled', false);
+    			$('#main-btn-del', 	parent.document).attr('disabled', true);
         		
         		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
         		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
@@ -1331,8 +1334,9 @@
         	} else if(code=='5'){
         		
         		//승인완료
+				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
     			$('#main-btn-save', parent.document).attr('disabled', true);
-    			$('#main-btn-del', parent.document).attr('disabled', true);
+    			$('#main-btn-del', 	parent.document).attr('disabled', true);
         		
         		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
         		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
@@ -1350,14 +1354,16 @@
     			
         		let insert_userid		= SBUxMethod.get('sch-insert-userid');
         		if(insert_userid == p_userId || !p_summit_yn){
+    				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
         			$('#main-btn-save', parent.document).attr('disabled', false);
-        			$('#main-btn-del', parent.document).attr('disabled', false);
+        			$('#main-btn-del', 	parent.document).attr('disabled', false);
             		$('#btn1-row-add').attr('disabled', 	false);
             		$('#btn1-row-del').attr('disabled', 	false);
         		}
         		if(p_ss_isAccountManager){
+    				$('#main-btn-add', 	parent.document).attr('disabled', true);        		
         			$('#main-btn-save', parent.document).attr('disabled', false);
-        			$('#main-btn-del', parent.document).attr('disabled', false);
+        			$('#main-btn-del',	parent.document).attr('disabled', false);
         		}
         		let appr_acount			= SBUxMethod.get('sch-appr-acount');
         		appr_acount = (appr_acount=="") ? '0' : appr_acount;
@@ -1370,8 +1376,9 @@
         		}
         	} else {
         		
+				$('#main-btn-add', 	parent.document).attr('disabled', false);        		
     			$('#main-btn-save', parent.document).attr('disabled', true);
-    			$('#main-btn-del', parent.document).attr('disabled', true);
+    			$('#main-btn-del', 	parent.document).attr('disabled', true);
         		
         		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
         		let appr_id 			= SBUxMethod.get('sch-appr-id');
@@ -1805,13 +1812,14 @@
     	
     	var fn_convert = function(data_type, acc_item_value){
     		var rstr = '';
-    		if(data_type && acc_item_value){
+    		var p_acc_item_value = (acc_item_value) ? acc_item_value : '';
+    		if(data_type && p_acc_item_value){
     			if(data_type=='TEXT' || data_type=='POPUP'){
-                    rstr = acc_item_value + "|";
+                    rstr = p_acc_item_value + "|";
     			} else if(data_type=='NUM'){
-                    rstr = acc_item_value.replace(/,/gi, "") + "|";
+                    rstr = p_acc_item_value.replace(/,/gi, "") + "|";
     			} else if(data_type=='YYYY' || data_type=='YYYYMM' || data_type=='YYYYMMDD'){
-                    rstr = acc_item_value.replace(/-/gi, "") + "|";
+                    rstr = p_acc_item_value.replace(/-/gi, "") + "|";
     			} else {
         			rstr = '|';
     			}
@@ -2280,10 +2288,25 @@
 	          		alert(data.resultMessage);
         		}
         		
-        		//성공했을때..
+        		//성공했을때 --------------------------------
+        		var doc_id  = '';
+        		if(data.v_returnStr){
+            		doc_id  = data.v_returnStr + '';
+        		} else {
+        			doc_id 	= gfnma_nvl2(SBUxMethod.get('sch-doc-id')) + '';
+        		}
+        		var doc_idx = doc_id.indexOf('|');
+        		doc_id = doc_id.substr(doc_idx + 1);
         		
-        		
-        		
+        		console.log('doc_id:', doc_id);
+        		console.log('p_menu_param:', p_menu_param);
+        		if(!p_menu_param){
+        			p_menu_param = {};
+        		}
+        		p_menu_param.DOC_ID = doc_id;
+				pg_state = 'edit';			
+		     	fn_init(false);
+		     	//--------------------------------------------
         		
         	} else {
           		alert(data.resultMessage);
@@ -4067,7 +4090,8 @@
         
     	//본인이 상신하는 경우
     	compopappvmng({
-    		compCode		: gv_ma_selectedCorpCd
+    		workType		: 'TEMPLATE'
+    		,compCode		: gv_ma_selectedCorpCd
     		,compCodeNm		: gv_ma_selectedCorpNm
     		,clientCode		: gv_ma_selectedClntCd
     		,apprId			: gfnma_nvl(SBUxMethod.get("sch-appr-id"))  

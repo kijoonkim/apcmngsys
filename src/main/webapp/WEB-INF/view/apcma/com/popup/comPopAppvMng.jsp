@@ -264,7 +264,7 @@ function compopappvmng(options) {
   	    fn_createTreeGrid();
   	    fn_treeSearch();
   	    
-console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory);  	    
+		console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory);  	    
   	    
   	    fn_basicSearch(function(){
   	    	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
@@ -648,6 +648,7 @@ console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory)
 		});
     	const data = await postJsonPromise;
     	console.log('popup appr basic data:', data);
+    	console.log('settings.workType:', settings.workType);
 
     	var dlist = [];
     	try {
@@ -822,10 +823,14 @@ console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory)
 		var myEmpCode	= settings.empCode;
 		var myIdx		= $('#compopappvmng').find('.cu-basic-table').find('tbody').find('[cu-col-emp-code=' + myEmpCode + ']').index();
 		
-		if(tar.length<2){
-            gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
+		if(tar.length==0){
+            gfn_comAlert("E0000", "승인경로에 결재자가 없습니다.");
 			return false;
 		}
+// 		if(tar.length<2){
+//             gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
+// 			return false;
+// 		}
 		if(myIdx>0){
 			myIdx = myIdx - 1;
 			if(tar.eq(myIdx).attr('cu-col-appr-date')==null || tar.eq(myIdx).attr('cu-col-appr-date')==''){
