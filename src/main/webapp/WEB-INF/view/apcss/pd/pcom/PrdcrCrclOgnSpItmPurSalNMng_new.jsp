@@ -563,7 +563,8 @@
 
 		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 		//grdPrdcrOgnCurntMng01.bind('click','gridClick01');
-		grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+		//grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+		grdPrdcrOgnCurntMng01.bind('valuechanged','fn_AfterEdit01');
 	}
 
 	//해당 컬럼 변경시 리프래시 리스트
@@ -584,7 +585,9 @@
 	function fn_slsCnsgnSlsAmtCalc(objGrid , nRow , nCol) {
 		let strVal = objGrid.getCellData(Number(nRow), Number(nCol));
 		let rowData = objGrid.getRowData(Number(nRow));
-		fn_totSum(objGrid , nRow);
+		if(rowData.typeSeNo === '5' || rowData.typeSeNo === '7'){
+			fn_totSum(objGrid , nRow);
+		}
 		return strVal;
 	}
 
