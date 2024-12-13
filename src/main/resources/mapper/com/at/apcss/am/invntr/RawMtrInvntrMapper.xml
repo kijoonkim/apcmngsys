@@ -1069,6 +1069,7 @@
 		    		, SYS_LAST_CHG_PRGRM_ID
 					, SPCFCT_CD
 					, PLOR_CD
+					, STRG_LOCTN_CD
 	    		)
 	   		VALUES
 	   			(
@@ -1105,6 +1106,7 @@
 		    		, #{sysLastChgPrgrmId}
 					, #{spcfctCd}
 					, #{plorCd}
+					, #{strgLoctnCd}
 	   			)
     	]]>
     </insert>
@@ -1134,6 +1136,9 @@
 				, BX_QNTT	= #{bxQntt}
 				, RMRK		= #{rmrk}
 		]]>
+			<if test='strgLoctnCd != null and strgLoctnCd != ""'>
+				, STRG_LOCTN_CD			= #{strgLoctnCd}
+			</if>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
 			</if>

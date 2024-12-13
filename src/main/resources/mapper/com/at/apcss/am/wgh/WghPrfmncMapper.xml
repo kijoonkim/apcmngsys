@@ -679,6 +679,8 @@
 			             , WC.RDCD_WGHT         AS RDCD_WGHT
 			             , WC.WRHS_WGHT         AS WRHS_WGHT
 			             , WC.RMRK              AS RMRK
+			             , WC.WRHS_SPMT_TYPE	AS WRHS_SPMT_TYPE
+			             , WP.PLTNO				AS PLTNO
 			             , WD.GRD_CD            AS GRD_CD
 			             , WD.PLT_KND		    AS PLT_KND
 			             , WD.PLT_WGHT          AS PLT_WGHT
