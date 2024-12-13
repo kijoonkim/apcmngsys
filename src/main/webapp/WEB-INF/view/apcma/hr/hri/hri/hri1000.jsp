@@ -134,7 +134,7 @@
                                 id="SRCH_ENTER_DATE_FR"
                                 name="SRCH_ENTER_DATE_FR"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -147,7 +147,7 @@
                                 id="SRCH_ENTER_DATE_TO"
                                 name="SRCH_ENTER_DATE_TO"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                         />
                     </td>
@@ -159,8 +159,10 @@
                                 id="SRCH_INITIAL_DATE"
                                 name="SRCH_INITIAL_DATE"
                                 date-format="yyyy-mm-dd"
+                                group-id="panHeader"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
+                                required
                         />
                     </td>
                     <td colspan="3"></td>
@@ -224,12 +226,12 @@
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%;"></sbux-input>
-                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" required></sbux-input>
+                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" group-id="panInfo" required></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
                                     <td class="td_input">
-                                        <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                        <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -239,10 +241,10 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>생년월일</th>
                                     <td class="td_input">
-                                        <sbux-input id="BIRTHDAY" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "{ 'alias': 'yyyy-mm-dd', 'autoUnmask': true}" required></sbux-input>
+                                        <sbux-input id="BIRTHDAY" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "{ 'alias': 'yyyy-mm-dd', 'autoUnmask': true}" group-id="panInfo" required></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-select id="BIRTHDAY_TYPE" uitype="single" jsondata-ref="jsonBirthdayType" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                        <sbux-select id="BIRTHDAY_TYPE" uitype="single" jsondata-ref="jsonBirthdayType" unselected-text="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                     </td>
                                     <td class="td_input">
                                         <sbux-checkbox
@@ -257,7 +259,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>사원구분</th>
                                     <td class="td_input">
-                                        <sbux-select id="EMP_TYPE" uitype="single" jsondata-ref="jsonEmpType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                        <sbux-select id="EMP_TYPE" uitype="single" jsondata-ref="jsonEmpType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                     </td>
                                     <td class="td_input">
                                         <p class="ad_input_row">
@@ -280,7 +282,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>성별</th>
                                     <td class="td_input">
-                                        <sbux-select id="GENDER" uitype="single" jsondata-ref="jsonGender" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                        <sbux-select id="GENDER" uitype="single" jsondata-ref="jsonGender" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">나이</th>
                                     <td class="td_input">
@@ -300,7 +302,7 @@
                                     <td class="td_input">
                                         <%--<sbux-select id="ENTER_TYPE" uitype="single" jsondata-ref="jsonEnterType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                                         <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ENTER_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="ENTER_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" required>
                                                 <font>선택</font>
                                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                             </button>
@@ -317,6 +319,7 @@
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
+                                                group-id="panInfo"
                                                 required
                                         />
                                     </td>
@@ -1796,7 +1799,7 @@
      * 저장
      */
     const fn_save = async function() {
-        if(!SBUxMethod.validateRequired()) {
+        if(!SBUxMethod.validateRequired({group_id: "panInfo"}) || !validateRequired("panInfo")) {
             return false;
         }
 
@@ -2154,6 +2157,10 @@
      * 목록 조회
      */
     const fn_search = async function() {
+        if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
+            return false;
+        }
+
         editType = "N";
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
         let SITE_CODE	    = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));

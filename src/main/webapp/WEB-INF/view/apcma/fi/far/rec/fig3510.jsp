@@ -1064,6 +1064,7 @@
     var p_isAccountChief = "${loginVO.maIsAccountChief}";
     var p_siteCode = "${loginVO.maSiteCode}";
     var p_fiDeleteUser = "${loginVO.maFI_DELETE_USER}";
+    var p_empCode = '${loginVO.maEmpCode}';
 
     var bnew = true;
     var bAllowPrint = false;
@@ -5664,8 +5665,9 @@
         if (editType != "Q")
             bNoCommitRow = true;
         if (!bNoCommitRow) {
+            var accountLineList = gvwWFItem.getUpdateData(true, 'all');
             // TODO 필수값 체크 필요
-            if (jsonAccountLineList.length > 0)   // TODO 필수값을 입력 안한 경우
+            if (accountLineList.length > 0)   // TODO 필수값을 입력 안한 경우
                 bNoCommitRow = true;
         }
 
@@ -6476,7 +6478,7 @@
         if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "")
             return;
 
-        if (fn_noCommitYN())
+        if (await fn_noCommitYN())
             return;
 
         let strApprId = gfn_nvl(SBUxMethod.get("APPR_ID"));

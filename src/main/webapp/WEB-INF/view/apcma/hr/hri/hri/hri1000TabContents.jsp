@@ -23,14 +23,14 @@
             <tr>
                 <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
                 <td class="td_input">
-                    <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
                 <td class="td_input" data-group="DEPT">
-                    <sbux-input id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
+                    <sbux-input id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" tab-index="0" required></sbux-input>
                 </td>
                 <td class="td_input" data-group="DEPT">
-                    <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
+                    <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" tab-index="0" required></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                     <sbux-button
@@ -59,14 +59,14 @@
             <tr>
                 <th scope="row" class="th_bg"><span class="data_required"></span>신고사업장</th>
                 <td class="td_input">
-                    <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>귀속부서</th>
                 <td class="td_input" data-group="COST_DEPT">
-                    <sbux-input id="COST_DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
+                    <sbux-input id="COST_DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" tab-index="0" required></sbux-input>
                 </td>
                 <td class="td_input" data-group="COST_DEPT">
-                    <sbux-input id="COST_DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
+                    <sbux-input id="COST_DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" group-id="panInfo" tab-index="0" required></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;" data-group="COST_DEPT">
                     <sbux-button
@@ -97,7 +97,7 @@
                 <td class="td_input">
                     <%--<sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                     <div class="dropdown">
-                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" tab-index="0" required>
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
@@ -109,7 +109,7 @@
                 <td colspan="2" class="td_input">
                     <%--<sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                     <div class="dropdown">
-                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" tab-index="0" required>
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
@@ -120,7 +120,7 @@
                 <td></td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직군</th>
                 <td colspan="2" class="td_input">
-                    <sbux-select id="JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <td></td>
                 <th scope="row" class="th_bg">겸직직책</th>
@@ -139,7 +139,7 @@
             <tr>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직위</th>
                 <td class="td_input">
-                    <sbux-select id="POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <td class="td_input" style="display:none;">
                     <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
@@ -151,7 +151,7 @@
                 <td></td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직원하위그룹</th>
                 <td class="td_input">
-                    <sbux-select id="JOB_FAMILY" uitype="single" jsondata-ref="jsonJobFamily" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="JOB_FAMILY" uitype="single" jsondata-ref="jsonJobFamily" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <td class="td_input">
                     <sbux-input id="SALARY_LEVEL" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -165,7 +165,7 @@
             <tr>
                 <th scope="row" class="th_bg"><span class="data_required"></span>직급</th>
                 <td class="td_input">
-                    <sbux-select id="JOB_RANK" uitype="single" jsondata-ref="jsonJobRank" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                    <sbux-select id="JOB_RANK" uitype="single" jsondata-ref="jsonJobRank" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="0" required></sbux-select>
                 </td>
                 <th scope="row" class="th_bg"><span class="data_required"></span>연차기산일(재직)</th>
                 <td colspan="2" class="td_input">
@@ -176,7 +176,7 @@
                             date-format="yyyy-mm-dd"
                             class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                             style="width:100%;"
-                            required
+                            group-id="panInfo" tab-index="0" required
                     />
                 </td>
                 <td></td>
@@ -229,7 +229,7 @@
                 <td class="td_input">
                     <%--<sbux-select id="LABOR_COST_GROUP" uitype="single" jsondata-ref="jsonLaborCostGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>--%>
                     <div class="dropdown">
-                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LABOR_COST_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="LABOR_COST_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panInfo" tab-index="0" required>
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
@@ -648,7 +648,7 @@
                     <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="…" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
+                    <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="1" required></sbux-input>
                 </td>
                 <th scope="row" class="th_bg">자택전화번호</th>
                 <td class="td_input" style="border-right:hidden;">
