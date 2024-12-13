@@ -836,14 +836,127 @@
         }
     }
 
-    const fn_importExcelData = function (e){
+    const fn_importExcelData = async function (e){
 
-        SBUxMethod.openModal('modal-excel');
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        const arrayBuffer = await new Promise((resolve, reject) => {
+            reader.onload = function(e) {
+                resolve(new Uint8Array(e.target.result));
+            };
+            reader.onerror = function(e) {
+                reject(new Error("File read failed"));
+
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        const workbook = XLSX.read(arrayBuffer, {type: 'array'});
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonDatas = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+        const headers = jsonDatas[0];
+
+        let jsonHeaders = [];
+        let chkCount = 0;
+        for (const item of headers) {
+
+            item.trim();
+
+            if (_.isEqual('지급구분', item)){
+                jsonHeaders.push('PAY_TYPE');
+            }else if (_.isEqual('사번', item)){
+                jsonHeaders.push('EMP_CODE');
+            }else if (_.isEqual('이름', item)){
+                jsonHeaders.push('EMP_NAME');
+            } else if (_.isEqual('급여항목', item)){
+                jsonHeaders.push('PAY_ITEM_CODE');
+            }else if (_.isEqual('귀속년월(FROM)', item)){
+                jsonHeaders.push('PAY_YYYYMM_FR');
+            }else if (_.isEqual('귀속년월(TO)', item)){
+                jsonHeaders.push('PAY_YYYYMM_TO');
+            }else if (_.isEqual('적용구분', item)){
+                jsonHeaders.push('PAY_APPLY_TYPE');
+            }else if (_.isEqual('적용비율', item)){
+                jsonHeaders.push('PAY_APPLY_RATE');
+            }else if (_.isEqual('적용금액', item)){
+                jsonHeaders.push('PAY_APPLY_AMT');
+            }else if (_.isEqual('비고', item)) {
+                jsonHeaders.push('MEMO');
+            }else{
+                chkCount = 1;
+            }
+        }
+
+        if (chkCount == 1){
+            gfn_comAlert("Q0000","엑셀 시트 양식을 확인해 주세요. [헤더명이 일지 하지 않습니다.]");
+            //SetMessageBox(GetFormMessage("HRA1300_002")); // 종전근무지 정보가 일치하지 않습니다.
+            return false;
+        }
+
+        const results = []; // 실제 데이터값
+        for (const jsonData of jsonDatas) {
+
+            const idx = jsonDatas.indexOf(jsonData);
+            if (idx == 0){ // 헤더값은 제외
+                continue;
+            }
+
+            let msg = {}; // 실제 데이터값
+            for (let i = 0; i < jsonData.length; i++) {
+
+                if (_.isEqual(jsonHeaders[i], 'PAY_TYPE')) {
+
+                    let value = jsonData[i];
+                    value = value.trim();
+                    jsonPayType.filter(data => {
+                        if (value == data.CODE_NAME) {
+                            value = data.SUB_CODE
+                        }
+                    });
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_ITEM_CODE')) {
+
+                    let value = jsonData[i];
+                    value = value.trim();
+                    jsonPayItemCode.filter(data => {
+                        if (value == data.PAY_ITEM_NAME) {
+                            value = data.PAY_ITEM_CODE
+                        }
+                    });
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_APPLY_TYPE')) {
+
+                    let value = jsonData[i];
+                    value = value.trim();
+                    jsonApplyType.filter(data => {
+                        if (value == data.CODE_NAME) {
+                            value = data.SUB_CODE
+                        }
+                    });
+                    msg[jsonHeaders[i]] = value;
+
+                } else {
+                    msg[jsonHeaders[i]] = jsonData[i];
+                }
+
+            }
+
+            results.push(msg);
+
+        }
+
+        //SBUxMethod.openModal('modal-excel');
         /*fn_createGridGdsPopup();*/
         jsonExceptionList = 0;
+
+        jsonExceptionList = results;
         grdExceptionList.rebuild();
 
-        grdExceptionList.importExcelData(e);
+        //grdExceptionList.importExcelData(e);
     }
     const fn_uld = async function() {
         document.querySelector("#btnFileUpload").value = "";
