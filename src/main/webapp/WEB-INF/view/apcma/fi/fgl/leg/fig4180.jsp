@@ -80,43 +80,58 @@
 	                    	<tr>
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">회계일자</th>
 	                            <td class="td_input" >
 									<sbux-datepicker
-									        id="SCH_DOC_DATE_FR"
-									        name="SCH_DOC_DATE_FR"
-									        uitype="popup"
-									        datepicker-mode="month"
-									        date-format="yyyy-mm"
-									        class="form-control input-sm input-sm-ast table-datepicker-ma">
+								        id="SCH_DOC_DATE_FR"
+								        name="SCH_DOC_DATE_FR"
+								        uitype="popup"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+								        class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+									>
 									</sbux-datepicker>                            
 	                            </td>	      
 	                            <td>-</td>
 	                            <td class="td_input" >
 									<sbux-datepicker
-									        id="SCH_DOC_DATE_TO"
-									        name="SCH_DOC_DATE_TO"
-									        uitype="popup"
-									        datepicker-mode="month"
-									        date-format="yyyy-mm"
-									        class="form-control input-sm input-sm-ast table-datepicker-ma">
+								        id="SCH_DOC_DATE_TO"
+								        name="SCH_DOC_DATE_TO"
+								        uitype="popup"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+								        class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+									>
 									</sbux-datepicker>                            
 	                            </td>	      
 	                            <td></td>
 	                             	                            
 	                            <th scope="row" class="th_bg_search">계정수준</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="frmBody" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                                          	
@@ -143,7 +158,10 @@
 	                            <th scope="row" class="th_bg_search">계정과목</th>
 	                            <td colspan="19" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	   									<sbux-input style="width:100px" placeholder="코드" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px" placeholder="코드" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+	   									></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -151,11 +169,17 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('1')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px"  placeholder="계정과목명" id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:200px"  placeholder="계정과목명" id="SCH_ACCOUNT_NAME_FR" uitype="text" class="form-control input-sm inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+	   									></sbux-input>
 	   									<font style="width:5px"></font>
 					                    <font>~</font>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:100px"  placeholder="코드" id="SCH_ACCOUNT_CODE_TO" uitype="text" class="form-control input-sm inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+	   									></sbux-input>
 	   									<font style="width:5px"></font>
 										<sbux-button
 											class="btn btn-xs btn-outline-dark"
@@ -163,7 +187,10 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup1('2')"></sbux-button>
 	   									<font style="width:5px"></font>
-	   									<sbux-input style="width:200px" placeholder="계정과목명" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm"></sbux-input>
+	   									<sbux-input style="width:200px" placeholder="계정과목명" id="SCH_ACCOUNT_NAME_TO" uitype="text" class="form-control input-sm inpt_data_reqed"
+											group-id="frmBody" 
+											required                                       
+	   									></sbux-input>
 	   									<font style="width:10px"></font>
 	   									<span style="padding-top:7px">
 			                       			<sbux-checkbox 
@@ -438,6 +465,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "frmBody"}) || !validateRequired("frmBody")) {        
+            return false;
+        }        
 		fn_setFig4180QGrid('Q');
 	}
     
@@ -651,15 +681,15 @@
 		let p_relaated_yn			= gfnma_nvl(SBUxMethod.get("SCH_RELATED_YN"));
 		let p_related_cs_type		= gfnma_nvl(SBUxMethod.get("SCH_RELATED_CS_TYPE"));
 		
-		if(!p_doc_date_fr ||  !p_doc_date_to){
- 			gfn_comAlert("E0000","회계일자를 선택하세요");
-			return;      		 
-		}
+// 		if(!p_doc_date_fr ||  !p_doc_date_to){
+//  			gfn_comAlert("E0000","회계일자를 선택하세요");
+// 			return;      		 
+// 		}
 		
-		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
- 			gfn_comAlert("E0000","계정과목을 선택하세요");
-			return;      		 
-		}
+// 		if(!gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_FR")) &&  !gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_CODE_TO"))){
+//  			gfn_comAlert("E0000","계정과목을 선택하세요");
+// 			return;      		 
+// 		}
 		
 		
 	    var paramObj = { 
