@@ -478,16 +478,16 @@
 
                         list.forEach((item, index) => {
 
-                            item["CHK_YN"] = 'Y';
-                            item["DEPT_NAME"] = item.DEPT_NAME;
-                            item["EMP_CODE"] = item.EMP_CODE;
-                            item["EMP_FULL_NAME"] = item.EMP_FULL_NAME;
-                            item["PAY_AMT"] = item.PAY_AMT;
-                            item["TAX_PAY_DATE"] = item.TAX_PAY_DATE.replace(/-/gi, "");
-                            item["MEMO"] = item.MEMO;
-                            item["UPDATE_TIME"] = item.UPDATE_TIME.replace(/-/gi, "");
-                            item["UPDATE_USERID"] = item.UPDATE_USERID;
-                            item["TXN_ID"] = '';
+                            item["CHK_YN"]          = 'Y';
+                            item["DEPT_NAME"]       = gfnma_nvl2(item.DEPT_NAME);
+                            item["EMP_CODE"]        = gfnma_nvl2(item.EMP_CODE);
+                            item["EMP_FULL_NAME"]   = gfnma_nvl2(item.EMP_FULL_NAME);
+                            item["PAY_AMT"]         = gfnma_nvl2(item.PAY_AMT);
+                            item["TAX_PAY_DATE"]    = gfnma_nvl2(item.TAX_PAY_DATE) == '' ? 0 : item.TAX_PAY_DATE.replace(/-/gi, "");
+                            item["MEMO"]            = gfnma_nvl2(item.MEMO);
+                            item["UPDATE_TIME"]     = gfnma_nvl2(item.UPDATE_TIME) == '' ? 0 : item.UPDATE_TIME.replace(/-/gi, "");
+                            item["UPDATE_USERID"]   = gfnma_nvl2(item.UPDATE_USERID);
+                            item["TXN_ID"]          = '';
 
                             gvwDetallGrid.addRow(true, item);
                         });
@@ -714,10 +714,10 @@
             {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["TXN_ID"], ref: 'TXN_ID', type: 'input', width: '100px', style: 'text-align:left', hidden: true},

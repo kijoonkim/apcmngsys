@@ -351,11 +351,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ['기준년도'], ref: 'YYYY', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기준년도'], ref: 'YYYY', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}, disabled: true},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["메모"], ref: 'MEMO', type: 'output', width: '200px', style: 'text-align:left', disabled: true}
 
@@ -433,9 +433,9 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["공제대상 가족의 수","11(다자녀)"], ref: 'SUPPORTEE11_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["기간","시작일"], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ["기간","시작일"], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["기간","종료일"], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ["기간","종료일"], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}}
         ];
 
@@ -479,9 +479,9 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ["세율2"], ref: 'TAX_RATE2', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}}
 
         ];

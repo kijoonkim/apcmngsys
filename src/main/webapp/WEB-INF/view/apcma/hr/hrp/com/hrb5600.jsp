@@ -408,7 +408,7 @@
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["keyfield"], ref: 'KEYFIELD', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
             {caption: ["적용기준1"], ref: 'PAY_ITEM_RANGE_TYPE1', type: 'output', width: '200px', style: 'text-align:left', hidden: true},
