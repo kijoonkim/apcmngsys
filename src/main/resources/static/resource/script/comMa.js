@@ -1044,6 +1044,7 @@ const gfnma_getObjectRowTable = function (target) {
 const gfnma_getNumber = function (str) {
 	
 	var regex 	= /[^0-9]/g;
+	str = (str) ? str + '' : '';
 	var result 	= str.replace(regex, "");
     return Number(result);
 }
