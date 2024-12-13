@@ -317,10 +317,14 @@ public class RawMtrWrhsVO extends ComVO {
 	 * */
 	private String spcfctNm;
 
+	/*
+	 * 검수자
+	 * */
+	private String chckr;
     /*
-     * 검수자
+     * 저장위치
      * */
-    private String chckr;
+    private String strgLoctnCd;
 
 
 	/**
