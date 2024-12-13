@@ -1339,7 +1339,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ETAX_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ETAX_TYPE"), value, true, true);
                 }
             }),
             // 카드용도구분
@@ -1363,7 +1363,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("CARD_USE_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("CARD_USE_TYPE"), value, true, true);
                 }
             }),
             // 내국신용장구분
@@ -1387,7 +1387,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("LOCAL_CREDIT_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("LOCAL_CREDIT_TYPE"), value, true, true);
                 }
             }),
             // 불공제 사유 유형
@@ -1411,7 +1411,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_NOT_DEDUCTION_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_NOT_DEDUCTION_TYPE"), value, true, true);
                 }
             }),
             // 예정누락여부
@@ -1435,7 +1435,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("REPORT_OMIT_YN"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("REPORT_OMIT_YN"), value, true, true);
                 }
             }),
             // 중복발행구분
@@ -1459,7 +1459,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("DUP_ISSUE_BILL_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("DUP_ISSUE_BILL_TYPE"), value, true, true);
                 }
             }),
             // 감가상각자산유형
@@ -1483,7 +1483,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_ASSET_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_ASSET_TYPE"), value, true, true);
                 }
             }),
             // 중복발행구분
@@ -1507,7 +1507,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("AFTER_DUE_DATE_YN"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("AFTER_DUE_DATE_YN"), value, true, true);
                 }
             }),
             // 영세율첨부서류여부
@@ -1531,7 +1531,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_REPORT_YN"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_REPORT_YN"), value, true, true);
                 }
             }),
             // 수입금액제외
@@ -1555,7 +1555,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCLUDE_REVENUE_AMT_YN"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCLUDE_REVENUE_AMT_YN"), value, true, true);
                 }
             }),
             // 수입금액제외
@@ -1580,7 +1580,7 @@
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
                     if(nRow < 0) return;
-                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_TYPE"), value);
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_TYPE"), value, true, true);
                 }
             }),
             // 계좌정보
@@ -1914,8 +1914,8 @@
             , tableColumnNames: ["VAT_CODE", "VAT_NAME", "VAT_TYPE_CODE"]
             , tableColumnWidths: ["100px", "200px", "100px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_CODE"), data.VAT_CODE);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_NAME"), data.VAT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_CODE"), data.VAT_CODE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_NAME"), data.VAT_NAME, true, true);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '600px'})
@@ -1944,19 +1944,19 @@
             , tableColumnNames: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
             , tableColumnWidths: ["100px", "200px", "200px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME, true, true);
                 for(var i = 1; i < 11; i++) {
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_CODE"+i), data["ACC_ITEM_CODE"+i]);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_NAME"+i), data["ACC_ITEM_NAME"+i]);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("DATA_TYPE"+i), data["DATA_TYPE"+i]);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("POPUP_ID"+i), data["POPUP_ID"+i]);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_YN"+i), data["ACC_ITEM_YN"+i]);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_CODE"+i), data["ACC_ITEM_CODE"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_NAME"+i), data["ACC_ITEM_NAME"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("DATA_TYPE"+i), data["DATA_TYPE"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("POPUP_ID"+i), data["POPUP_ID"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_YN"+i), data["ACC_ITEM_YN"+i], true, true);
                 }
 
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_CHARACTER"), data.ACC_CHARACTER);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_YN"), data.PROJECT_YN);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_CHARACTER"), data.ACC_CHARACTER, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_YN"), data.PROJECT_YN, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS, true, true);
             },/*
             returnDataFilter: function (data) {
                 if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {
@@ -1992,9 +1992,9 @@
             , tableColumnNames: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "CREDIT_AREA"]
             , tableColumnWidths: ["100px", "150px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.COST_CENTER_CODE);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.COST_CENTER_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.COST_CENTER_CODE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.COST_CENTER_NAME, true, true);
             },
         });
     }
@@ -2017,8 +2017,8 @@
             ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
             ,tableColumnWidths		: ["150px", 		"250px"]
             ,itemSelectEvent		: function (data){
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CODE);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CODE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NAME, true, true);
             },
         });
         SBUxMethod.openModal('modal-compopup1');
@@ -2045,8 +2045,8 @@
             , tableColumnNames: ["PROJECT_CODE", "PROJECT_NAME", "COST_CENTER_CODE", "COST_CENTER_NAME"]
             , tableColumnWidths: ["150px", "250px", "100px", "250px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME, true, true);
             },
         });
 
@@ -3296,13 +3296,13 @@
 
             let ht = fn_getExchangeRate(SBUxMethod.get("DOC_DATE"), rowData.CURRENCY_CODE, null);
 
-            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCHANGE_RATE"), Number(ht["RATE"]));
-            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("BASE_SCALE"), Number(ht["BASE_SCALE"]));
-            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("EXCHANGE_RATE"))) / Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("BASE_SCALE"))), p_currUnit));
+            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCHANGE_RATE"), Number(ht["RATE"]), true, true);
+            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("BASE_SCALE"), Number(ht["BASE_SCALE"]), true, true);
+            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("EXCHANGE_RATE"))) / Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("BASE_SCALE"))), p_currUnit), true, true);
         }
 
         if (nCol == gvwWFItem.getColRef("ORIGINAL_AMT")) {
-            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(SBUxMethod.get("EXCHANGE_RATE")) / Number(SBUxMethod.get("BASE_SCALE")), p_currUnit));
+            gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(SBUxMethod.get("EXCHANGE_RATE")) / Number(SBUxMethod.get("BASE_SCALE")), p_currUnit), true, true);
             // 합계
             fn_summary();
         }
@@ -3743,7 +3743,7 @@
         if (jsonAccountLineList.length != 0) {
             for (var i = 0; i < jsonAccountLineList.length; i++) {
                 if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DESCRIPTION")) == "") {
-                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DESCRIPTION", value));
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DESCRIPTION", value), true, true);
                 }
             }
         }
@@ -3786,7 +3786,7 @@
             for (var i = 0; i < jsonAccountLineList.length; i++) {
                 if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
                     gvwWFItem.clickRow((i+1));
-                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), Number(value.replace(/,/gi, '')));
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), Number(value.replace(/,/gi, '')), true, true);
                 }
             }
         }
@@ -3811,7 +3811,7 @@
                 if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
                     gvwWFItem.clickRow((i+1));
                     SBUxMethod.set("STANDARD_DATE1", value)
-                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("STANDARD_DATE"), value);
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("STANDARD_DATE"), value, true, true);
                 }
             }
         }
@@ -4173,13 +4173,13 @@
         if (x > 0) {
             let VAT_TYPE = gfn_nvl(gfnma_multiSelectGet('#VAT_CODE'));
             if (VAT_TYPE == "A0" || VAT_TYPE == "A1" || VAT_TYPE == "A2" || VAT_TYPE == "A3") {
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT"), exp_amt)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT_KRW"), exp_amt_krw)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT"), exp_amt)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT_KRW"), exp_amt_krw)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("FOREIGN_AMT"), exp_amt)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("WON_AMT"), exp_amt_krw)
-                gvwWFItem.setCellData(x, gvwWFItem.getColRef("SHIPPING_DATE"), SBUxMethod.get("DOC_DATE"))
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT"), exp_amt, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT_KRW"), exp_amt_krw, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT"), exp_amt, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT_KRW"), exp_amt_krw, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("FOREIGN_AMT"), exp_amt, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("WON_AMT"), exp_amt_krw, true, true)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("SHIPPING_DATE"), SBUxMethod.get("DOC_DATE"), true, true)
             }
         }
 
@@ -5808,10 +5808,10 @@
         // 20181004 LJE  복사시 APPLY FLAG CLEAR
         if (jsonAccountLineList.length != 0) {
             for (var i = 0; i < jsonAccountLineList.length; i++) {
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("APPLY_COMPLETE_DATE"), "");
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("APPLY_COMPLETE_FLAG"), "");
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("RELEASE_USER"), "");
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("RELEASE_DATE"), "");
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("APPLY_COMPLETE_DATE"), "", true, true);
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("APPLY_COMPLETE_FLAG"), "", true, true);
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("RELEASE_USER"), "", true, true);
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("RELEASE_DATE"), "", true, true);
             }
         }
     }
@@ -6120,8 +6120,8 @@
 
     const fn_exchageUpdate = async function () {
         for (var i = 0; i < jsonAccountLineList.length; i++) {
-            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')));
-            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(SBUxMethod.get("EXCHANGE_RATE")) / Number(SBUxMethod.get("BASE_SCALE")), p_currUnit));
+            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')), true, true);
+            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(SBUxMethod.get("EXCHANGE_RATE")) / Number(SBUxMethod.get("BASE_SCALE")), p_currUnit), true, true);
 
             fn_summary();
         }
