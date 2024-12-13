@@ -680,7 +680,7 @@
 
 		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 		//grdPrdcrOgnCurntMng01.bind('click','gridClick01');
-		grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+		grdPrdcrOgnCurntMng01.bind('valuechanged','fn_AfterEdit01');
 	}
 
 
@@ -693,8 +693,10 @@
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit01(e){
 		let objGrid = e.data.target;
+		let nRow = objGrid.getRow();
 		let nCol = objGrid.getCol();
 		let nRef = objGrid.getRefOfCol(nCol);
+		console.log(nRow,nCol,nRef);
 		if(columnsToRefresh01.includes(nRef)){
 			objGrid.refresh();
 		}
@@ -707,7 +709,7 @@
 		let value01 = Number(rowData.uoSpmtAmt);
 		let value02 = Number(rowData.uoOtherSpmtAmt);
 		strSum = (value01 + value02).toString();
-		if(rowData.typeSeNo === '8'){
+		if(rowData.typeSeNo === '5' || rowData.typeSeNo === '7'){
 			fn_totSum(objGrid, nRow);
 		}
 		return strSum;
@@ -719,6 +721,9 @@
 		let value01 = Number(rowData.uoSpmtVlm);
 		let value02 = Number(rowData.uoOtherSpmtVlm);
 		strSum = (value01 + value02).toString();
+		if(rowData.typeSeNo === '5' || rowData.typeSeNo === '7'){
+			fn_totSum(objGrid, nRow);
+		}
 		return strSum;
 	}
 
