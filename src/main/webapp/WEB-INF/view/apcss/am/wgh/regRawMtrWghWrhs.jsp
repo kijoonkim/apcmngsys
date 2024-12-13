@@ -706,7 +706,7 @@
         let pltWght = SBUxMethod.get("pltWght") || 0;
 
         /** 실중량 계산 **/
-        let total = (parseFloat(wholWght) - parseFloat(emptVhclWght) - (parseFloat(pltQntt) * parseFloat(pltWght)) - (parseFloat(bxQntt) * parseFloat(boxWght))).toFixed(1);
+        let total = (parseFloat(wholWght) - parseFloat(emptVhclWght) - (parseFloat(pltQntt) * parseFloat(pltWght)) - (parseFloat(bxQntt) * parseFloat(boxWght))).toFixed(2);
         SBUxMethod.set("reg-inp-wrhsWght",String(total));
 
         if(total < 0){
@@ -714,7 +714,7 @@
         }
 
         if (!gfn_isEmpty(bxQntt) && !gfn_isEmpty(total) && bxQntt > 0 && total > 0) {
-        	let avg = (total / parseFloat(bxQntt)).toFixed(1);
+        	let avg = (total / parseFloat(bxQntt)).toFixed(2);
         	SBUxMethod.set("reg-inp-avgWght",String(avg));
         }
 
@@ -750,8 +750,10 @@
                 obj.grdCd2 = '';
                 if(item.grdCd === '01'){
                     obj.bxQntt = obj.grdQntt1;
+                    obj.dtlWrhsWght = (parseFloat(obj.grdQntt1) * parseFloat(obj.avgWght)).toFixed(2);
                 }else{
                     obj.bxQntt = obj.grdQntt2;
+                    obj.dtlWrhsWght = (parseFloat(obj.grdQntt2) * parseFloat(obj.avgWght)).toFixed(2);
                 }
                 saveList.push({...obj});
             });
@@ -765,9 +767,11 @@
             obj.grdCd1 = '';
             obj.grdCd2 = '';
             obj.bxQntt = obj.grdQntt1;
+            obj.dtlWrhsWght = (parseFloat(obj.grdQntt1) * parseFloat(obj.avgWght)).toFixed(2);
             saveList.push({...obj});
         }
 
+        console.log("saveList", saveList)
 
         if (gfn_comConfirm("Q0001", "저장")) {
             const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", saveList);
@@ -866,10 +870,11 @@
         let wrhsWght = selectJson.wrhsWght;
         let bxQntt =  SBUxMethod.get("reg-inp-bxQntt");
 
-        let ctWght = (selectJson.wholWght - selectJson.emptVhclWght - (selectJson.pltQntt * 20) - selectJson.wrhsWght) / parseInt(selectJson.bxQntt);
-        SBUxMethod.set("boxWght",ctWght);
+        let ctWght = (parseFloat(selectJson.wholWght) - parseFloat(selectJson.emptVhclWght) - (parseFloat(selectJson.pltQntt) * 20) - parseFloat(selectJson.wrhsWght)) / (parseFloat(qntt[0]) + parseFloat(qntt[1]));
 
-        SBUxMethod.set("reg-inp-avgWght",parseInt(wrhsWght) / parseInt(bxQntt));
+        SBUxMethod.set("boxWght", ctWght.toFixed(1));
+
+        SBUxMethod.set("reg-inp-avgWght", (parseFloat(wrhsWght) / parseFloat(bxQntt)).toFixed(2));
         /** 콘티중량 역연산 해야할듯? **/
         SBUxMethod.attr("reg-inp-prdcrNm", "style", "background-color:aquamarine");
         SBUxMethod.attr("btnCmndDocspmt", "disabled", "false");

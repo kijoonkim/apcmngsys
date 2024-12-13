@@ -559,18 +559,18 @@
             },
             {
             	caption: ['선별재고(투입진행)','수량'],
-            	ref: 'invntrQntt', 		
-            	width: '70px', 	
-            	type: 'output', 
+            	ref: 'invntrQntt',
+            	width: '70px',
+            	type: 'output',
             	style: 'text-align:right',
             	format : {type:'number', rule:'#,###'
             	}
             },
             {
-            	caption: ['선별재고(투입진행)','중량 (Kg)'], 
-            	ref: 'invntrWght', 		
-            	width: '70px', 	
-            	type: 'output', 
+            	caption: ['선별재고(투입진행)','중량 (Kg)'],
+            	ref: 'invntrWght',
+            	width: '70px',
+            	type: 'output',
             	style: 'text-align:right',
             	format : {
             		type:'number', rule:'#,###'
@@ -602,10 +602,10 @@
             		}
             },
             {
-            	caption: ["포장투입","수량"],			
-            	ref: 'inptQntt',  		
-            	width: '70px', 	
-            	type:'input',  	
+            	caption: ["포장투입","수량"],
+            	ref: 'inptQntt',
+            	width: '70px',
+            	type:'input',
             	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
@@ -670,7 +670,7 @@
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
   		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");			// 규격
-  		
+
   		if(!gfn_isEmpty(vrtyCd)){
   			vrtyCd = vrtyCd.substring(4,8);
   		}
@@ -736,13 +736,13 @@
   	          				pckgFcltCd		: item.pckgFcltCd,
   	          				pckgFcltNm		: item.pckgFcltNm,
   	  				}
-  	          		
+
 	  	          	if (parseFloat(item.inptPrgrsWght) || 0 > 0) {
 	  	          		sortInvntr.sortInptPrgrsYn = "Y";
 	  	          		sortInvntr.invntrQntt = item.inptPrgrsQntt;
 	          			sortInvntr.invntrWght = item.inptPrgrsWght;
 	          		}
-  	          		
+
   	          		jsonSortInvntr.push(sortInvntr);
   	  			});
 
@@ -1201,7 +1201,7 @@
 			fn_getStdGrd()
 		]);
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -1210,7 +1210,7 @@
 
 		let itemCd = obj.value;
 		const itemInfo = _.find(jsonApcItem, {value: itemCd});
-		
+
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),				// 품종
 			fn_getSpmtPckgUnit(itemCd),
@@ -1356,7 +1356,7 @@
 	const fn_setValue = function() {
     	let nRow = grdSortInvntr.getRow();
     	let nCol = grdSortInvntr.getCol();
-    	
+
     	let checkboxChecked = grdSortInvntr.getCheckedRows(0, true);
     	const allCheckbox = grdSortInvntr.getGridDataAll();
     	if(checkboxChecked.length == allCheckbox.length){
@@ -1453,7 +1453,7 @@
 						rowData.inptWght = invntrWght;
 					}
 				} else {
-					if (tmpInptQntt > cmndQntt) {
+					if (tmpInptQntt > cmndQntt && cmndQntt > 0) {
 						gfn_comAlert("W0008", "지시수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
@@ -1472,7 +1472,7 @@
 				fn_setInptInfo();
 
 			} else if (usrAttr.colNm == "inptWght") {
-				
+
 				if(cmndWght - tmpInptWght < 0){
 					gfn_comAlert("W0008", "지시중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					rowData.checkedYn = "N";

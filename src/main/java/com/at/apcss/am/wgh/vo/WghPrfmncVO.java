@@ -173,6 +173,7 @@ public class WghPrfmncVO extends ComVO {
 	 * 입고중량
 	 */
 	private double wrhsWght;
+	private double dtlWrhsWght;
 
 	/**
 	 * 재고중량/ 수량
@@ -361,6 +362,15 @@ public class WghPrfmncVO extends ComVO {
      * 계좌번호
      * */
     private String actno;
+
+    /*
+     * 출하실적생성여부
+     * */
+    private String spmtPrfmncYn;
+    /*
+     * 중량분배여부
+     * */
+    private String distributionYn;
 
 	/**
 	 * 계량상세리스트
