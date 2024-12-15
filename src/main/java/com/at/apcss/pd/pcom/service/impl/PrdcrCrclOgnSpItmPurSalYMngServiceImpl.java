@@ -16,7 +16,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 /**
  * @Class Name : BbsServiceImpl.java
  * @Description : 게시판 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -25,7 +25,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("PrdcrCrclOgnSpItmPurSalYMngService")
@@ -77,7 +77,6 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 				savedCnt += updatePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
 			}
 		}
-		int stbltYnUpdateCnt = 0;
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
 		if(yrVal != null && !yrVal.equals("")
 			&& brnoVal != null && !brnoVal.equals("")){
@@ -92,7 +91,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 				//적합여부 초기화
 				PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
 				for (ItemUoStbltYnVO resultVo : resultVoList) {
-					stbltYnUpdateCnt += updateItemUoStbltYn(resultVo);
+					updateItemUoStbltYn(resultVo);
 				}
 			}
 		}
@@ -118,4 +117,47 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 		return resultList;
 	}
 
+	/* 개발서버 신규화면 조회 */
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+		return resultList;
+	}
+	/* 개발서버 신규화면 등록 */
+	@Override
+	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+		return insertedCnt;
+	}
+	/* 개발서버 신규화면 등록 */
+	@Override
+	public int multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList) throws Exception {
+		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//통합조직 사업자번호
+		for (PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO : PrdcrCrclOgnSpItmPurSalYMngVOList) {
+			yrVal = PrdcrCrclOgnSpItmPurSalYMngVO.getYr();
+			brnoVal = PrdcrCrclOgnSpItmPurSalYMngVO.getBrno();
+			savedCnt += insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+		}
+		//전문품목 매입 매출 저장 완료 후 적합여부 체크
+		if(yrVal != null && !yrVal.equals("")
+			&& brnoVal != null && !brnoVal.equals("")){
+			List<ItemUoStbltYnVO> resultVoList = new ArrayList<>();
+			ItemUoStbltYnVO ItemStbltYnVo = new ItemUoStbltYnVO();
+
+			ItemStbltYnVo.setYr(yrVal);
+			ItemStbltYnVo.setBrno(brnoVal);
+			resultVoList = selectItemUoStbltYnList(ItemStbltYnVo);
+			//조회 결과가 있을 경우에만 업데이트
+			if(resultVoList != null) {
+				//적합여부 초기화
+				PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
+				for (ItemUoStbltYnVO resultVo : resultVoList) {
+					updateItemUoStbltYn(resultVo);
+				}
+			}
+		}
+		return savedCnt;
+	}
 }

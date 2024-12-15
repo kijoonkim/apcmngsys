@@ -129,4 +129,41 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 개발서버 신규화면 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalYMngListNew(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnSpItmPurSalYMngService.selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+	// 개발서버 신규화면 등록
+	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(@RequestBody List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO : PrdcrCrclOgnSpItmPurSalYMngVOList) {
+				PrdcrCrclOgnSpItmPurSalYMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnSpItmPurSalYMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnSpItmPurSalYMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnSpItmPurSalYMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = PrdcrCrclOgnSpItmPurSalYMngService.multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

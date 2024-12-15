@@ -1017,6 +1017,7 @@ FROM
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
 									  AND UO_BRNO = PST.UO_BRNO
+									  AND ITEM_CD = PST.ITEM_CD
 									)
 	) TOT
 WHERE 1=1
@@ -1110,6 +1111,7 @@ FROM
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
 									  AND UO_BRNO = PST.UO_BRNO
+									  AND ITEM_CD = PST.ITEM_CD
 									)
 	) TOT
 WHERE 1=1
