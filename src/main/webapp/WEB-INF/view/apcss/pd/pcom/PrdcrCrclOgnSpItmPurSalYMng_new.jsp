@@ -556,20 +556,18 @@
 				{caption : ['비고','비고'],
 					ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 
+				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
 				{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
-				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-				{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
-				{caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
-				{caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
 				{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 				{caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'ognzStbltYn',   	hidden : true},
 			];
 
 		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -598,13 +596,13 @@
 	function fn_calcSlsCnsgnPrchsAmt(objGrid, nRow, nCol) {
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
-		//console.log(nRow + " : " + rowData.slsCnsgnPrchsAmt);
 		let itemCd = rowData.itemCd;
 		if(rowData.typeSeNo == '2'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				//console.log(i + " : " + rowData01.slsCnsgnPrchsAmt);
 				if(rowData01.typeSeNo == '1' && rowData01.itemCd == itemCd){
 					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
@@ -615,7 +613,9 @@
 		}
 		if(rowData.typeSeNo == '4'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3'){
@@ -630,7 +630,9 @@
 
 		if(rowData.typeSeNo == '6'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
 					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
@@ -642,7 +644,9 @@
 		}
 		if(rowData.typeSeNo == '8'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
@@ -665,7 +669,9 @@
 		let itemCd = rowData.itemCd;
 		if(rowData.typeSeNo == '2'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				//console.log(i + " : " + rowData01.slsCnsgnPrchsAmt);
 				if(rowData01.typeSeNo == '1' && rowData01.itemCd == itemCd){
@@ -678,7 +684,9 @@
 		}
 		if(rowData.typeSeNo == '4'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3'){
@@ -693,7 +701,9 @@
 
 		if(rowData.typeSeNo == '6'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
 					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
@@ -705,7 +715,9 @@
 		}
 		if(rowData.typeSeNo == '8'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
@@ -727,7 +739,9 @@
 		let itemCd = rowData.itemCd;
 		if(rowData.typeSeNo == '4'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
@@ -742,7 +756,9 @@
 
 		if(rowData.typeSeNo == '8'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
@@ -764,7 +780,9 @@
 		let itemCd = rowData.itemCd;
 		if(rowData.typeSeNo == '4'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
@@ -779,7 +797,9 @@
 
 		if(rowData.typeSeNo == '8'){
 			let sumVal = 0;
-			for (var i = 2; i < grdData.length + 1; i++) {
+			//테이블 해더 row수
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
 					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
@@ -1084,7 +1104,7 @@
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", {
 			brno : brno
 			, yr : yr
 		});
@@ -1097,6 +1117,8 @@
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						yr: 			item.yr
+						,brno: 			item.brno
+						,apoSe: 		item.apoSe
 						,typeSeNo: 		item.typeSeNo
 						,seNm: 			item.seNm
 						,seDtlNm: 		item.seDtlNm
@@ -1104,9 +1126,7 @@
 
 						,isoBrno: 			item.isoBrno
 						,prdcrOgnzSn: 		item.prdcrOgnzSn
-						,prdcrOgnzCd: 		item.prdcrOgnzCd
 						,prdcrOgnzNm: 		item.prdcrOgnzNm
-						,cltvtnLandSn: 		item.cltvtnLandSn
 						,sttgUpbrItemSe: 	item.sttgUpbrItemSe
 						//,sttgUpbrItemNm: 	item.sttgUpbrItemNm
 						,itemCd: item.itemCd
@@ -1118,9 +1138,9 @@
 						,slsCnsgnSlsVlm: 	item.slsCnsgnSlsVlm
 						,rmrk: item.rmrk
 
-						,ctgryCd: '0'
 						,trmtType: 		item.trmtType
 						,trmtTypeNm: 	item.trmtTypeNm
+						,ognzStbltYn: 	item.ognzStbltYn
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1243,19 +1263,17 @@
 
 	//실적 저장
 	const fn_listSave = async function(){
+		let objGrid = grdPrdcrOgnCurntMng01;
 
-		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let gridData01 = objGrid.getGridDataAll();
 		let saveList = [];
-
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=2; i<=gridData01.length + 1; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+		//테이블 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
+			let rowData01 = objGrid.getRowData(i);
+			let rowSts01 = objGrid.getRowStatus(i);
 			//let delYn = rowData01.delYn;
 
 			//매입 값이 있을경우 매출 값을 입력 필수
@@ -1263,7 +1281,7 @@
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1275,7 +1293,7 @@
 					if(Number(rowData01.slsCnsgnPrchsAmt) != 0){
 						if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 							alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-							grdPrdcrOgnCurntMng01.selectRow(i);
+							objGrid.selectRow(i);
 							return false;
 						}
 					}
@@ -1285,35 +1303,20 @@
 					if(Number(rowData01.slsCnsgnSlsAmt) != 0){
 						if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
 							alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
-							grdPrdcrOgnCurntMng01.selectRow(i);
+							objGrid.selectRow(i);
 							return false;
 						}
 					}
 				}
 			}
 
-			rowData01.apoCd = apoCd;
-			rowData01.apoSe = apoSe;
-			rowData01.crno = crno;
+			rowData01.apoSe = '1';
 			rowData01.brno = brno;
+			rowData01.uoBrno = brno;
 
 			rowData01.rowSts = "I";
 			saveList.push(rowData01);
 
-			/*
-			if (rowSts01 === 3){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else if (rowSts01 === 2){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else if (rowSts01 === 1){
-				rowData01.rowSts = "I";
-				saveList.push(rowData01);
-			} else {
-				continue;
-			}
-			*/
 		}
 		if(saveList.length == 0){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
@@ -1322,7 +1325,7 @@
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngListNew.do", saveList);
 			let data = await postJsonPromise;
 			try {
 				if (_.isEqual("S", data.resultStatus)) {

@@ -237,7 +237,7 @@
 
 			SBUxMethod.attr("bbsDtl-inp-bbsTtl","readonly","true");//제목
 			SBUxMethod.attr("bbsDtl-inp-bbsSbjt","readonly","true");//내용
-			SBUxMethod.attr("bbsDtl-inp-ansSbjt","readonly","true");//답변내용
+			//SBUxMethod.attr("bbsDtl-inp-ansSbjt","readonly","true");//답변내용
 			SBUxMethod.attr("bbsDtl-chk-prvtPstYn","readonly","true");//비밀글여부
 
 			//첨부파일 리스트 초기화

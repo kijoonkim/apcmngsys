@@ -30,6 +30,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
 	private String brno;
+	private String uoBrno;
 	private String crno;
 	private String corpNm;
 	private String aprv;

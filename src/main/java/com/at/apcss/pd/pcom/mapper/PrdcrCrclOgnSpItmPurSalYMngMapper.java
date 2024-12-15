@@ -43,4 +43,9 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	/* 개발서버 신규 화면 조회 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	/* 개발서버 신규 화면 등록 */
+	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 }

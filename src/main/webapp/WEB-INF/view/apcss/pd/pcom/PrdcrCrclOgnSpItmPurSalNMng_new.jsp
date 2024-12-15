@@ -1132,7 +1132,7 @@
 
 		let brno = SBUxMethod.get('dtl-input-brno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		//테이블 해더 row수
 		let captionRow = objGrid.getFixedRows();
 		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
 			let rowData01 = objGrid.getRowData(i);
