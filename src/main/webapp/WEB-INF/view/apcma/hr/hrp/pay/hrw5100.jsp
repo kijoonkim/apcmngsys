@@ -169,7 +169,7 @@
                         <sbux-button
                                 id="btnDownload" name="btnDownload" uitype="normal" text="Excel 양식받기"
                                 class="btn btn-sm btn-outline-danger" onclick="fn_exportData"
-                                style="float: right; margin-left: 15px; display: none;"
+                                style="float: right; margin-left: 15px;"
                         ></sbux-button>
                         <sbux-button
                                 id="btnDataCheck"
@@ -326,7 +326,7 @@
 
     var jsonPayAreaType = []; //지급구분 //SRCH_PAY_AREA_TYPE, PAY_AREA_TYPE  //L_HRP034
     var jsonPayItem = []; //급여항목 //EMP_PAY_ITEM, COMP_PAY_ITEM ,EMP_HEALTH_PAY_ITEM//L_HRP004
-    //var jsonPositionCode = []; //직위 //POSITION_CODE //L_HRI002
+    var jsonPositionCode = []; //직위 //POSITION_CODE //L_HRI002
 
     var tabJsonData = [
         {
@@ -352,7 +352,7 @@
 
             gfnma_setComSelect(['gvwListGrid', 'SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            //gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
         ]);
     }
@@ -651,7 +651,10 @@
             {caption: ["급여영역"], ref: 'PAY_AREA_TYPE', width: '100px', style: 'text-align:center', type: 'combo', disabled: true,
                 typeinfo: {ref: 'jsonPayAreaType',  label: 'label', value: 'value'}
             },
-            {caption: ["직위"], ref: 'POSITION_CODE', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["직위"], ref: 'POSITION_CODE', width: '100px', style: 'text-align:center', type: 'combo', disabled: true,
+                typeinfo: {ref: 'jsonPositionCode',  label: 'label', value: 'value'}
+            },
+            /*{caption: ["직위"], ref: 'POSITION_CODE', type: 'output', width: '100px', style: 'text-align:left'},*/
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["기준소득월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right',
                 typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###', emptyvalue:'0'}},
@@ -1397,13 +1400,197 @@
         }
     }
 
-    const fn_importExcelData = function (e) {
-        SBUxMethod.openModal('modal-excel');
-        /*fn_createGridGdsPopup();*/
+    const fn_importExcelData = async function (e) {
+
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        const arrayBuffer = await new Promise((resolve, reject) => {
+            reader.onload = function(e) {
+                resolve(new Uint8Array(e.target.result));
+            };
+            reader.onerror = function(e) {
+                reject(new Error("File read failed"));
+
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        const workbook = XLSX.read(arrayBuffer, {
+            type: 'array',
+            //cellText: true, // 셀 데이터를 텍스트로 강제 처리
+            cellDates: true, // 날짜 데이터를 텍스트로 유지
+            raw: false, // 숫자도 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonDatas = XLSX.utils.sheet_to_json(worksheet,  {
+            header: 1,
+            defval: '', // 빈 셀 기본 값 설정
+            raw: false, // 모든 값을 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
+        const headers = jsonDatas[0];
+
+        let jsonHeaders = [];
+        let chkCount = 0;
+        for (const item of headers) {
+
+            if (gfnma_nvl2(item) == ''){
+                chkCount = 1;
+                break;
+            }else{
+                item.trim();
+            }
+
+            if (_.isEqual('사번', item)){
+                jsonHeaders.push('EMP_CODE');
+            }else if (_.isEqual('성명', item)){
+                jsonHeaders.push('EMP_NAME');
+            }else if (_.isEqual('부서코드', item)){
+                jsonHeaders.push('DEPT_CODE');
+            }else if (_.isEqual('부서명', item)){
+                jsonHeaders.push('DEPT_NAME');
+            }else if (_.isEqual('보험년월', item)){ // yyyy-mm
+                jsonHeaders.push('INSURE_YYYYMM');
+            }else if (_.isEqual('급여영역', item)){ //jsonPayAreaType
+                jsonHeaders.push('PAY_AREA_TYPE');
+            }else if (_.isEqual('직위', item)){   //jsonPositionCode
+                jsonHeaders.push('POSITION_CODE');
+            }else if (_.isEqual('주민등록번호', item)){
+                jsonHeaders.push('SOCIAL_NO');
+            }else if (_.isEqual('기준소득월액', item)){
+                jsonHeaders.push('BASE_INCOME_AMT');
+            }else if (_.isEqual('월보험료(계)', item)){
+                jsonHeaders.push('TOTAL_INSURE_AMT');
+            }else if (_.isEqual('사용자부담금', item)){
+                jsonHeaders.push('COMP_INSURE_AMT');
+            }else if (_.isEqual('본인기여금', item)){
+                jsonHeaders.push('EMP_INSURE_AMT');
+            }else if (_.isEqual('비고', item)){
+                jsonHeaders.push('MEMO');
+            }else if (_.isEqual('급여월', item)){  //yyyy-mm
+                jsonHeaders.push('PAY_YYYYMM');
+            }else if (_.isEqual('급여유형', item)){
+                jsonHeaders.push('PAY_TYPE');
+            }else if (_.isEqual('급여일', item)){  //yyyy-mm-dd
+                jsonHeaders.push('PAY_DATE');
+            }else if (_.isEqual('급여항목(직원)', item)){ //jsonPayItem
+                jsonHeaders.push('EMP_PAY_ITEM');
+            }else if (_.isEqual('급여(직원)', item)){
+                jsonHeaders.push('EMP_PAY_AMT');
+            }else if (_.isEqual('급여항목(회사)', item)){ //jsonPayItem
+                jsonHeaders.push('COMP_PAY_ITEM');
+            }else if (_.isEqual('급여(회사)', item)){
+                jsonHeaders.push('COMP_PAY_AMT');
+            }else{
+                chkCount = 1;
+            }
+        }
+
+        if (chkCount == 1){
+            gfn_comAlert("Q0000","엑셀 시트 양식을 확인해 주세요. [헤더명이 일지 하지 않습니다.]");
+            //SetMessageBox(GetFormMessage("HRA1300_002")); // 종전근무지 정보가 일치하지 않습니다.
+            return false;
+        }
+
+        const results = []; // 실제 데이터값
+        for (const jsonData of jsonDatas) {
+
+            const idx = jsonDatas.indexOf(jsonData);
+            if (idx == 0){ // 헤더값은 제외
+                continue;
+            }
+
+            let msg = {}; // 실제 데이터값
+            for (let i = 0; i < jsonData.length; i++) {
+
+                if (_.isEqual(jsonHeaders[i], 'PAY_AREA_TYPE')) {  //combo 공통코드
+
+                    let value = jsonData[i];
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPayAreaType.filter(data => {
+                            if (value == data.CODE_NAME) {
+                                value = data.SUB_CODE
+                            }
+                        });
+                    }
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'POSITION_CODE')) {    //combo 공통코드
+
+                    let value = jsonData[i];
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPositionCode.filter(data => {
+                            if (value == data.CODE_NAME) {
+                                value = data.SUB_CODE
+                            }
+                        });
+                    }
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'EMP_PAY_ITEM')) {    //combo 공통코드
+
+                    let value = jsonData[i];
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPayItem.filter(data => {
+                            if (value == data.PAY_ITEM_NAME) {
+                                value = data.PAY_ITEM_CODE
+                            }
+                        });
+                    }
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'COMP_PAY_ITEM')) {    //combo 공통코드
+
+                    let value = jsonData[i];
+                    value =  gfnma_nvl2(value) == '' ? '' : value.trim();
+                    if (value != '') {
+                        jsonPayItem.filter(data => {
+                            if (value == data.PAY_ITEM_NAME) {
+                                value = data.PAY_ITEM_CODE
+                            }
+                        });
+                    }
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'INSURE_YYYYMM')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, "")).substring(0, 6);
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_YYYYMM')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, "")).substring(0, 6);
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'PAY_DATE')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, "")).substring(0, 8);
+                    msg[jsonHeaders[i]] = value;
+
+                } else {
+                    msg[jsonHeaders[i]] = jsonData[i];
+                }
+            }
+            results.push(msg);
+        }
+
         jsonGvwList = 0;
+        jsonGvwList = results;
+
         gvwListGrid.rebuild();
 
-        gvwListGrid.importExcelData(e);
     }
 
     const fn_uld = async function () {
@@ -1414,8 +1601,19 @@
 
     const fn_exportData = function () {
 
-        if (gfn_comConfirm("Q0000", "엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")) {
+        /*if (gfn_comConfirm("Q0000", "엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")) {
             gvwListGrid.exportData("xlsx", "국민연금 내역 등록", true);
+        }*/
+
+        if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
+
+            const msg = {
+                arrRemoveCols   : [0,5,14,15],
+                combolabel      : true,
+                sheetName       : "국민연금 내역 등록"
+            }
+
+            gvwListGrid.exportData("xlsx", "국민연금 내역 등록", true, msg);
         }
 
     }
