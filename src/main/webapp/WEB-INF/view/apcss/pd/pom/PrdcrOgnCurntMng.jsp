@@ -892,7 +892,10 @@
 			{caption: ["제외여부"], 		ref: 'exclYn',   	type:'combo',  width:'60px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComGrdExclYn', label:'label', value:'value', displayui : true}},
 		</c:if>
-
+			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+			{caption: ["출하시기"], 		ref: 'spmtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',		hidden : true},
@@ -2047,6 +2050,9 @@
 						,prdcrOgnzCd: 	item.prdcrOgnzCd
 						,prdcrOgnzNm: 	item.prdcrOgnzNm
 						,rmrk: 			item.rmrk
+
+						,ctrtDt: 	item.ctrtDt
+						,spmtDt: 	item.spmtDt
 				}
 
 				jsonPrdcrOgnCurntMng01.push(itemVO);

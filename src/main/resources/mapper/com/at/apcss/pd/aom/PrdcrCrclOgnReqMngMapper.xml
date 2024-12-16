@@ -650,6 +650,8 @@
 						, STTG_UPBR_ITEM_SE 	= #{sttgUpbrItemSe}
 						, CLSF_CD 				= #{clsfCd}
 						, CLSF_NM 				= (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = #{clsfCd})
+						, TRGT_TRMT_AMT			= #{trgtTrmtAmt}
+						, TRGT_TRMT_RT			= #{trgtTrmtRt}
 				]]>
 				<if test='delYn != null and delYn != ""'>
 						, DEL_YN 				= #{delYn}
@@ -676,6 +678,8 @@
 					  , CLSF_NM
 					  , ITEM_CD
 					  , ITEM_NM
+					  , TRGT_TRMT_AMT
+					  , TRGT_TRMT_RT
 					  , RMRK
 
 					  , SYS_FRST_INPT_DT
@@ -702,6 +706,8 @@
 					  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = #{clsfCd})
 					  , #{itemCd}
 					  , #{itemNm}
+					  , #{trgtTrmtAmt}
+					  , #{trgtTrmtRt}
 					  , #{rmrk}
 
 					  , SYSDATE
@@ -731,6 +737,8 @@
 				, CM.CTGRY_NM
 				, CM.ITEM_CD
 				, CM.ITEM_NM
+				, CM.TRGT_TRMT_AMT
+				, CM.TRGT_TRMT_RT
 				, CM.RMRK
 
 				, CM.DEL_YN

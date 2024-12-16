@@ -543,6 +543,8 @@
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
+				, CM.CTRT_DT
+				, CM.SPMT_DT
 				, CM.RMRK
 				, CM.DEL_YN
 
@@ -631,6 +633,8 @@
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
+				, CM.CTRT_DT
+				, CM.SPMT_DT
 				, CM.RMRK
 				, CM.DEL_YN
 				, CM.STBLT_YN
@@ -716,6 +720,9 @@
 
 						, PRDCR_OGNZ_CD 		= FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
 
+						, CTRT_DT				= #{ctrtDt}
+						, SPMT_DT				= #{spmtDt}
+
 						<if test='exclYn != null and exclYn != ""'>
 						, EXCL_YN				= #{exclYn}
 						</if>
@@ -749,6 +756,8 @@
 					  , EXCL_YN
 					</if>
 
+					  , CTRT_DT
+					  , SPMT_DT
 					  , RMRK
 
 					  , SYS_FRST_INPT_DT
@@ -782,6 +791,8 @@
 					  , #{exclYn}
 					</if>
 
+					  , #{ctrtDt}
+					  , #{spmtDt}
 					  , #{rmrk}
 
 					  , SYSDATE
@@ -824,12 +835,12 @@
 	<!-- 적합여부 업데이트 -->
 	<update id="updateTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 			UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
-	    		TB_EV_FRMHS_APO
+				TB_EV_FRMHS_APO
 			   SET
 			 	  STBLT_YN	= #{stbltYn}
 			 WHERE 1=1
 			   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
-		   	   AND YR				= #{yr}
+			   AND YR				= #{yr}
 	</update>
 
 	<!-- 적합여부 조회 -->
@@ -1092,6 +1103,9 @@
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = (SELECT CLSF_CD FROM TB_EV_APO_YR_GPC_CD WHERE TO_CHAR(BRNO) = FA.UO_BRNO AND ITEM_CD = FA.ITEM_CD AND YR = FA.YR AND APO_SE =1)) AS CLSF_NM
 
 			,FA.STBLT_YN
+
+			,FA.CTRT_DT
+			,FA.SPMT_DT
 
 			,(SELECT COUNT(CLTVTN_LAND_SN) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS CNT
 
