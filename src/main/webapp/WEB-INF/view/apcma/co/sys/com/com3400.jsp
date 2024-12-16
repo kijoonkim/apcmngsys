@@ -2108,6 +2108,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2185,6 +2187,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2209,7 +2213,7 @@
                 typeinfo : {
                     ref : 'jsonNoteType',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2222,7 +2226,7 @@
                 typeinfo : {
                     ref : 'jsonPayReason',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2231,7 +2235,7 @@
                 typeinfo : {
                     ref : 'jsonSendReason',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2240,7 +2244,7 @@
                 typeinfo : {
                     ref : 'jsonFeeCharger',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2249,23 +2253,23 @@
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
             },
-            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
             {caption : ["부가세전용계좌여부"], 		ref : 'VAT_ACCOUNT_YN', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonVatAccountYN',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
             },
-            {caption : ['수취인확인일'],			ref : 'FIRM_PAYEE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}},
+            {caption : ['수취인확인일'],			ref : 'FIRM_PAYEE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}},
             {caption : ["수취인확인전문번호"],		ref: 'FIRM_PAYEE_TRF_NO',		type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption : ["수취인조회결과코드"],		ref: 'RESULT_CODE',		type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption : ["예금주확인값"],			ref: 'RESULT_NAME',		type:'input',  	width:'200px',  	style:'text-align:left'},
@@ -2284,6 +2288,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2292,7 +2298,7 @@
                 typeinfo : {
                     ref : 'jsonPurContactType',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2319,6 +2325,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2327,7 +2335,7 @@
                 typeinfo : {
                     ref : 'jsonSaleContactType',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2353,6 +2361,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2381,6 +2391,8 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2389,7 +2401,7 @@
                 typeinfo : {
                     ref : 'jsonCreditArea',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2408,7 +2420,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory2',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2417,7 +2429,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory3',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2426,7 +2438,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory4',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2435,7 +2447,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory5',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2444,7 +2456,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory6',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2453,7 +2465,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory7',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2462,7 +2474,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory8',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2471,7 +2483,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory9',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2480,7 +2492,7 @@
                 typeinfo : {
                     ref : 'jsonCsCategory10',
                     displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }
@@ -2499,12 +2511,15 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.oneclickedit  		= true;
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd', oneclickedit:true, displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["사업자번호"],	ref : 'BIZ_REGNO', 		type:'input',  	width:'150px', 		style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["업    태"],		ref : 'BIZ_CATEGORY', 	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
             {caption : ["종    목"],		ref : 'BIZ_ITEMS',		type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
@@ -2523,6 +2538,8 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
     	SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
@@ -2530,8 +2547,7 @@
             {caption : ["매칭유형"], 			ref: 'MAP_TYPE', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;',
                 typeinfo : {
                     ref : 'jsonMapType',
-                    displayui : true,
-                    oneclickedit:true,
+                    
                     label : 'label',
                     value : 'value'
                 }

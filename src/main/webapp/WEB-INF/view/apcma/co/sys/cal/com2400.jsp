@@ -93,19 +93,18 @@
 						<col style="width: 2%">
 	                </colgroup>
 	                <tbody>
-	                <tr>
-	                    <td colspan="5"></td>
-	                    <td class="td_input" style="border-right:hidden;" align="right">
-	                        <sbux-button id="btnBeforeYear" name="btnBeforeYear" 	uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
-	                    </td>
-	                    <td colspan ="2" class="td_input" style="border-right:hidden;">
-	                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly style="text-align:center !important;"></sbux-input>
-	                    </td>
-	                    <td class="td_input" style="border-right:hidden;">
-	                        <sbux-button id="btnNextYear" name="btnNextYear" 	uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
-	                    </td>
-	                    <td colspan="8"></td>
-	                </tr>
+		                <tr>
+		                    <td colspan="6"></td>
+		                    <td class="td_input" style="border-right:hidden;" align="right">
+		                        <sbux-button id="btnBeforeYear" name="btnBeforeYear" uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
+		                    </td>
+		                    <td colspan ="2" class="td_input" style="border-right:hidden;">
+		                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly style="text-align:center !important;"></sbux-input>
+		                    </td>
+		                    <td class="td_input" style="border-right:hidden;">
+		                        <sbux-button id="btnNextYear" name="btnNextYear" uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
+		                    </td>
+		                </tr>
 	                </tbody>
 	            </table>
 	        </div>    

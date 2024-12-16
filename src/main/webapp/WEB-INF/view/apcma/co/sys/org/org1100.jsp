@@ -596,6 +596,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 	    SBGridProperties.rowheadercaption = { seq: 'No' };
 	    SBGridProperties.rowheaderwidth = {  seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -615,7 +617,6 @@
 					label		: 'label',
 					value		: 'value',
 					displayui :true, 
-					oneclickedit: true
             	}
             },
 	        
@@ -643,6 +644,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
+        SBGridProperties.allowcopy 			= true; //복사	  ( true : 가능 , false : 불가능 )
+        SBGridProperties.allowpaste 		= true; //붙여넣기 ( true : 가능 , false : 불가능 )
 	    SBGridProperties.rowheadercaption = {  seq: 'No'  };
 	    SBGridProperties.rowheaderwidth = { seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';

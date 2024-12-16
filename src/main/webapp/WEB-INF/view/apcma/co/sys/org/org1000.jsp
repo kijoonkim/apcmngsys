@@ -425,7 +425,6 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		console.log('gv_selectedUserType ==>', gv_selectedUserType);
         document.getElementById('btnChangeCompLogo').addEventListener('click', function() {
         	let COMP_CODE = gfn_nvl(SBUxMethod.get("COMP_CODE"));
     		if(COMP_CODE == ''){
