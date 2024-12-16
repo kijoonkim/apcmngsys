@@ -728,6 +728,10 @@
 	}
 
 	//소계 함수
+	/*
+		20241216 출자출하조직의 취급유형은 1품목 1조직씩만 가능하다 함
+		로직상 문제는 없어서 남겨둠
+	*/
 	function fn_totSum(objGrid, nRow) {
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
