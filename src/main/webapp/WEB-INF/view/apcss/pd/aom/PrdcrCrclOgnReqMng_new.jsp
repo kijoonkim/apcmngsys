@@ -934,6 +934,7 @@
 						</tr>
 					</tbody>
 				</table>
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -945,6 +946,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdApcList" style="height:200px; width: 100%;"></div>
 				</div>
+			</c:if>
 				<!--
 				<div>
 				*신청대상구분
