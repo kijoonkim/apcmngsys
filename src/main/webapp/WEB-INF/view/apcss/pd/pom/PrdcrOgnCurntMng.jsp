@@ -863,8 +863,12 @@
 
 			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하시기"], 		ref: 'spmtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -892,10 +896,6 @@
 			{caption: ["제외여부"], 		ref: 'exclYn',   	type:'combo',  width:'60px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComGrdExclYn', label:'label', value:'value', displayui : true}},
 		</c:if>
-			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-			{caption: ["출하시기"], 		ref: 'spmtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',		hidden : true},
