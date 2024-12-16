@@ -988,8 +988,8 @@
         }
 
         jsonExceptionList = 0;
-
         jsonExceptionList = results;
+
         grdExceptionList.rebuild();
 
     }

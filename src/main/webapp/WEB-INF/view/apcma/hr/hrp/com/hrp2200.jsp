@@ -297,7 +297,7 @@
                     </ul>
                     <div>
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
-                        <input type="file" name="excelFile2" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
+                        <%--<input type="file" name="excelFile2" id="excelFile2" accept=".xls,.xlsx" style="display: none; ">--%>
                         <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal"
                                      class="btn btn-sm btn-outline-danger" text="Excel 업로드"
                                      onclick="fn_uld"></sbux-button>
@@ -1189,14 +1189,131 @@
 
     }
 
-    const fn_importExcelData = function (e){
+    const fn_importExcelData = async function (e){
 
-        SBUxMethod.openModal('modal-excel');
-        /*fn_createGridGdsPopup();*/
+        if (!window.FileReader) return;
+
+        let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+
+        //급여 변동항목 등록_출산경조금공제 - Excel파일 명
+        if (event.target.files[0].name.indexOf("_") < 0) {
+            gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
+            return;
+        } else if (event.target.files[0].name.substring(event.target.files[0].name.indexOf("_") + 1,
+            event.target.files[0].name.length - 5) != PAY_ITEM_NAME) {
+            gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
+            return;
+        }
+
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        const arrayBuffer = await new Promise((resolve, reject) => {
+            reader.onload = function(e) {
+                resolve(new Uint8Array(e.target.result));
+            };
+            reader.onerror = function(e) {
+                reject(new Error("File read failed"));
+
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+
+        const workbook = XLSX.read(arrayBuffer, {
+            type: 'array',
+            //cellText: true, // 셀 데이터를 텍스트로 강제 처리
+            cellDates: true, // 날짜 데이터를 텍스트로 유지
+            raw: false, // 숫자도 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonDatas = XLSX.utils.sheet_to_json(worksheet,  {
+            header: 1,
+            defval: '', // 빈 셀 기본 값 설정
+            raw: false, // 모든 값을 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
+        const headers = jsonDatas[0];
+
+        let jsonHeaders = [];
+        let chkCount = 0;
+        for (const item of headers) {
+
+            if (gfnma_nvl2(item) == ''){
+                chkCount = 1;
+                break;
+            }else{
+                item.trim();
+            }
+
+            if (_.isEqual('부서', item)){
+                jsonHeaders.push('DEPT_NAME');
+            }else if (_.isEqual('사번', item)){
+                jsonHeaders.push('EMP_CODE');
+            }else if (_.isEqual('이름', item)){
+                jsonHeaders.push('EMP_FULL_NAME');
+            } else if (_.isEqual('통화금액', item)){
+                jsonHeaders.push('PAY_AMT');
+            }else if (_.isEqual('지급일(세무)', item)){
+                jsonHeaders.push('TAX_PAY_DATE');
+            }else if (_.isEqual('비고', item)){
+                jsonHeaders.push('MEMO');
+            }else if (_.isEqual('수정일', item)){
+                jsonHeaders.push('UPDATE_TIME');
+            }else if (_.isEqual('수정자', item)){
+                jsonHeaders.push('UPDATE_USERID');
+            }else{
+                chkCount = 1;
+            }
+        }
+
+        if (chkCount == 1){
+            gfn_comAlert("Q0000","엑셀 시트 양식을 확인해 주세요. [헤더명이 일지 하지 않습니다.]");
+            return false;
+        }
+
+        const results = []; // 실제 데이터값
+        for (const jsonData of jsonDatas) {
+
+            const idx = jsonDatas.indexOf(jsonData);
+            if (idx == 0){ // 헤더값은 제외
+                continue;
+            }
+
+            let msg = {}; // 실제 데이터값
+            for (let i = 0; i < jsonData.length; i++) {
+
+                if (_.isEqual(jsonHeaders[i], 'TAX_PAY_DATE')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, ""));
+                    msg[jsonHeaders[i]] = value;
+
+                } else if (_.isEqual(jsonHeaders[i], 'UPDATE_TIME')) {    //날짜 '-' 제거
+
+                    let value = jsonData[i];
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, ""));
+                    msg[jsonHeaders[i]] = value;
+
+                } else {
+                    msg[jsonHeaders[i]] = jsonData[i];
+                }
+
+            }
+
+            results.push(msg);
+
+
+        }
+
         jsonDetallList = 0;
-        gvwDetallGrid.rebuild();
+        jsonDetallList = results;
 
-        gvwDetallGrid.importExcelData(e);
+        gvwDetallGrid.rebuild();
     }
     const fn_uld = async function() {
         /*let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -1209,8 +1326,8 @@
        /* document.querySelector("#btnFileUpload").value = "";
         $("#btnFileUpload").click();*/
 
-        document.querySelector("#excelFile2").value = "";
-        $('#excelFile2').click();
+        document.querySelector("#btnFileUpload").value = "";
+        $('#btnFileUpload').click();
 
     }
 
