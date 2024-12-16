@@ -822,7 +822,6 @@
    				,V_P_USERID            : p_userId
    				,V_P_PC                : ''
    	    };	
-    	console.log('saveParamObj ==>' ,saveParamObj );
         const postJsonPromise = gfn_postJSON('/co/sys/cal/updateCom2200.do', {
 	       	getType				: 'json',
 	       	workType			: workType,

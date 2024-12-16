@@ -181,7 +181,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.useinitsorting 	= true;
-	    SBGridProperties.oneclickedit 		= true;
+	    SBGridProperties.allowcopy 			= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -196,16 +196,14 @@
             	typeinfo: {
 					ref			: 'jsonRegionCode',
 					label		: 'label',
-					value		: 'value',
-					oneclickedit: true
+					value		: 'value'
             	}
             },
             {caption: ["통화"],			ref: 'CURRENCY_CODE',   		type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonCurrenvyCode',
 					label		: 'label',
-					value		: 'value',
-					oneclickedit: true
+					value		: 'value'
             	}
             },
             {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
@@ -406,7 +404,7 @@
         let data = masterGrid.getGridDataAll();
         jsonMasterList = [];
 		mode = 'byrow'; //행 단위 단일  선택
-        fn_drawMasterGrid(mode, data, true);
+        fn_drawMasterGrid(mode, data, false);
 
     }
     
@@ -445,7 +443,6 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= mode;
         SBGridProperties.allowcopy 			= copymode;
-        SBGridProperties.oneclickedit 		= true;
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -461,16 +458,14 @@
             	typeinfo: {
 					ref			: 'jsonRegionCode',
 					label		: 'label',
-					value		: 'value',
-					oneclickedit: true
+					value		: 'value'
             	}
             },
             {caption: ["통화"],			ref: 'CURRENCY_CODE',   		type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonCurrenvyCode',
 					label		: 'label',
-					value		: 'value',
-					oneclickedit: true
+					value		: 'value'
             	}
             },
             {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
