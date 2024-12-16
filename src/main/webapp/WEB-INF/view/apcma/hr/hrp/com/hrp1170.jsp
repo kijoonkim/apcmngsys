@@ -852,10 +852,22 @@
             reader.readAsArrayBuffer(file);
         });
 
-        const workbook = XLSX.read(arrayBuffer, {type: 'array'});
+
+        const workbook = XLSX.read(arrayBuffer, {
+            type: 'array',
+            //cellText: true, // 셀 데이터를 텍스트로 강제 처리
+            cellDates: true, // 날짜 데이터를 텍스트로 유지
+            raw: false, // 숫자도 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
-        const jsonDatas = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+        const jsonDatas = XLSX.utils.sheet_to_json(worksheet,  {
+            header: 1,
+            defval: '', // 빈 셀 기본 값 설정
+            raw: false, // 모든 값을 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
         const headers = jsonDatas[0];
 
         let jsonHeaders = [];
@@ -953,15 +965,15 @@
                 } else if (_.isEqual(jsonHeaders[i], 'PAY_YYYYMM_FR')) {    //날짜 '-' 제거
 
                     let value = jsonData[i];
-                    value = gfnma_nvl2(value) == '' ? '' : ((value.replace(/-/g, "")).trim()).substring(0, 6);
-                    //value = gfnma_nvl2(value) == '' ? '' : value.toString().replace(/-/g, "");
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, "")).substring(0, 6);
                     msg[jsonHeaders[i]] = value;
 
                 } else if (_.isEqual(jsonHeaders[i], 'PAY_YYYYMM_TO')) {    //날짜 '-' 제거
 
                     let value = jsonData[i];
-                    value = gfnma_nvl2(value) == '' ? '' : ((value.replace(/-/g, "")).trim()).substring(0, 6);
-                    //value = gfnma_nvl2(value) == '' ? '' : value.toString().replace(/-/g, "");
+                    value = gfnma_nvl2(value) == '' ? '' : value.replace(/\s+/g, ""); // 공백제거
+                    value = gfnma_nvl2(value) == '' ? '' : (value.replace(/-/g, "")).substring(0, 6);
                     msg[jsonHeaders[i]] = value;
 
                 } else {
