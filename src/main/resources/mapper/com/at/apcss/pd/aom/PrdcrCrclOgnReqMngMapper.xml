@@ -301,6 +301,42 @@
 							  AND BRNO = CM.BRNO
 							)
 				) AS STBLT_YN_NM_LIST
+				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+					FROM (SELECT
+								(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+							WHERE 1=1
+							  AND STBLT_YN = 'Y'
+							  AND APO_SE = EAM.APO_SE
+							  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = EAM.YR AND BRNO = EAM.BRNO AND APO_SE = EAM.APO_SE AND STTG_UPBR_ITEM_SE = '1')
+							  AND TYPE_SE_NO = '8'
+							<if test='apoSe == "2"'>
+							  <if test='stbltYnBrno != null and stbltYnBrno != ""'>
+							  AND UO_BRNO = #{brno}
+							  </if>
+							</if>
+							  AND YR = EAM.YR
+							  AND BRNO = CM.BRNO
+							)
+				) AS STBLT_YN_NM_LIST1
+				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+					FROM (SELECT
+								(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+							WHERE 1=1
+							  AND STBLT_YN = 'Y'
+							  AND APO_SE = EAM.APO_SE
+							  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = EAM.YR AND BRNO = EAM.BRNO AND APO_SE = EAM.APO_SE AND STTG_UPBR_ITEM_SE = '2')
+							  AND TYPE_SE_NO = '8'
+							<if test='apoSe == "2"'>
+							  <if test='stbltYnBrno != null and stbltYnBrno != ""'>
+							  AND UO_BRNO = #{brno}
+							  </if>
+							</if>
+							  AND YR = EAM.YR
+							  AND BRNO = CM.BRNO
+							)
+				) AS STBLT_YN_NM_LIST2
 				</if>
 				, CM.MNGMST_YN
 				<if test='frmhsHld == "Y"'>
