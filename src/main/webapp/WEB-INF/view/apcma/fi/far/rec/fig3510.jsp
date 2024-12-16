@@ -6488,7 +6488,7 @@
         let apprStatus = gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS'));
 
         compopappvmng({
-            workType		: strApprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+            workType		: strApprId == "0" ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
             ,compCode		: gv_ma_selectedCorpCd
             ,compCodeNm		: gv_ma_selectedCorpNm
             ,clientCode		: gv_ma_selectedClntCd
@@ -6501,10 +6501,7 @@
             ,costCenterCode : costCenterCode
             ,apprStatus     : apprStatus
             ,callback       : function(data) {
-                if (gfn_nvl(SBUxMethod.get("DOC_STATUS")) != "1") {
-                } else {
-                    fn_search(); //조회
-                }
+                fn_search(); //조회
             }
         });
     }
