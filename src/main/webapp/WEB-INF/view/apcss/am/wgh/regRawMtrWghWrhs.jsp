@@ -771,8 +771,6 @@
             saveList.push({...obj});
         }
 
-        console.log("saveList", saveList)
-
         if (gfn_comConfirm("Q0001", "저장")) {
             const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", saveList);
             const data = await postJsonPromise;
@@ -865,13 +863,15 @@
         let qntt = selectJson.bxQntt.split(',');
         SBUxMethod.set("reg-inp-grdQntt1",qntt[0]);
         SBUxMethod.set("reg-inp-grdQntt2",qntt[1]);
-        SBUxMethod.set("reg-inp-bxQntt",(parseInt(qntt[0]) + (parseInt(qntt[1])|| 0)));
+        SBUxMethod.set("reg-inp-bxQntt",(parseInt(qntt[0]) + (parseInt(qntt[1]) || 0)));
 
         let wrhsWght = selectJson.wrhsWght;
         let bxQntt =  SBUxMethod.get("reg-inp-bxQntt");
 
-        let ctWght = (parseFloat(selectJson.wholWght) - parseFloat(selectJson.emptVhclWght) - (parseFloat(selectJson.pltQntt) * 20) - parseFloat(selectJson.wrhsWght)) / (parseFloat(qntt[0]) + parseFloat(qntt[1]));
-
+        let ctWght = (parseFloat(selectJson.wholWght)
+        		   - parseFloat(selectJson.emptVhclWght)
+        		   - (parseFloat(selectJson.pltQntt) * 20)
+        		   - parseFloat(selectJson.wrhsWght)) / (parseFloat(qntt[0] || 0) + parseFloat(qntt[1] || 0));
         SBUxMethod.set("boxWght", ctWght.toFixed(1));
 
         SBUxMethod.set("reg-inp-avgWght", (parseFloat(wrhsWght) / parseFloat(bxQntt)).toFixed(2));
