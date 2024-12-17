@@ -540,19 +540,21 @@
 					ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
 				{caption : ['판매위임(매입)현황','물량(톤)']
-					, calc : 'fn_calcSlsCnsgnPrchsVlm'
+					,calc : 'fn_calcSlsCnsgnPrchsVlm'
 					,ref : "slsCnsgnPrchsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
-				{caption : ['판매위임(매입)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnPrchsAmt',
-					ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+				{caption : ['판매위임(매입)현황','금액(천원)']
+					,calc : 'fn_calcSlsCnsgnPrchsAmt'
+					,ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
 
 				{caption : ['판매(매출)현황','물량(톤)']
-					, calc : 'fn_calcSlsCnsgnSlsVlm'
+					,calc : 'fn_calcSlsCnsgnSlsVlm'
 					,ref : "slsCnsgnSlsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
-				{caption : ['판매(매출)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
-					ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+				{caption : ['판매(매출)현황','금액(천원)']
+					,calc : 'fn_calcSlsCnsgnSlsAmt'
+					,ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
 				{caption : ['비고','비고'],
 					ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
@@ -598,28 +600,32 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
 		let itemCd = rowData.itemCd;
-		if(rowData.typeSeNo == '2'){
+		if(rowData.typeSeNo === '2'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				if(rowData01.typeSeNo == '1' && rowData01.itemCd == itemCd){
-					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+				if (rowData01.itemCd === itemCd && rowData01.ognzStbltYn === rowData.ognzStbltYn) {
+					const isValidTypeSeNo =
+						(rowData.ognzStbltYn === '0' && rowData01.typeSeNo === '3') ||
+						(rowData.ognzStbltYn !== '0' && rowData01.typeSeNo === '1');
+
+					if (isValidTypeSeNo && !gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)) {
 						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
 					}
 				}
 			}
 			return sumVal;
 		}
-		if(rowData.typeSeNo == '4'){
+		if(rowData.typeSeNo === '4'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3'){
+					if(rowData01.typeSeNo === '1' || rowData01.typeSeNo === '3'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 							sumVal += Number(rowData01.slsCnsgnPrchsAmt);
 						}
@@ -629,28 +635,32 @@
 			return sumVal;
 		}
 
-		if(rowData.typeSeNo == '6'){
+		if(rowData.typeSeNo === '6'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
-					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+				if(rowData01.typeSeNo === '5' && rowData01.itemCd == itemCd){
+					const isValidTypeSeNo =
+						(rowData.trmtType === '0') ||
+						(rowData.trmtType !== '0' && rowData.trmtType == rowData01.trmtType && rowData01.ognzStbltYn === rowData.ognzStbltYn);
+
+					if(isValidTypeSeNo && !gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
 					}
 				}
 			}
 			return sumVal;
 		}
-		if(rowData.typeSeNo == '8'){
+		if(rowData.typeSeNo === '8'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
+					if(rowData01.typeSeNo === '1' || rowData01.typeSeNo === '3' || rowData01.typeSeNo === '5' || rowData01.typeSeNo === '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 							sumVal += Number(rowData01.slsCnsgnPrchsAmt);
 						}
@@ -666,31 +676,34 @@
 	function fn_calcSlsCnsgnPrchsVlm(objGrid, nRow, nCol) {
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
-		//console.log(nRow + " : " + rowData.slsCnsgnPrchsAmt);
+
 		let itemCd = rowData.itemCd;
-		if(rowData.typeSeNo == '2'){
+		if(rowData.typeSeNo === '2'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				//console.log(i + " : " + rowData01.slsCnsgnPrchsAmt);
-				if(rowData01.typeSeNo == '1' && rowData01.itemCd == itemCd){
-					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
+				if (rowData01.itemCd === itemCd && rowData01.ognzStbltYn === rowData.ognzStbltYn) {
+					const isValidTypeSeNo =
+						(rowData.ognzStbltYn === '0' && rowData01.typeSeNo === '3') ||
+						(rowData.ognzStbltYn !== '0' && rowData01.typeSeNo === '1');
+
+					if (isValidTypeSeNo && !gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)) {
 						sumVal += Number(rowData01.slsCnsgnPrchsVlm);
 					}
 				}
 			}
 			return sumVal;
 		}
-		if(rowData.typeSeNo == '4'){
+		if(rowData.typeSeNo === '4'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3'){
+					if(rowData01.typeSeNo === '1' || rowData01.typeSeNo === '3'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
 							sumVal += Number(rowData01.slsCnsgnPrchsVlm);
 						}
@@ -700,28 +713,32 @@
 			return sumVal;
 		}
 
-		if(rowData.typeSeNo == '6'){
+		if(rowData.typeSeNo === '6'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
-					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
+				if(rowData01.typeSeNo === '5' && rowData01.itemCd == itemCd && rowData01.ognzStbltYn === rowData.ognzStbltYn){
+					const isValidTypeSeNo =
+						(rowData.trmtType === '0') ||
+						(rowData.trmtType !== '0' && rowData.trmtType == rowData01.trmtType);
+
+					if(isValidTypeSeNo && !gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
 						sumVal += Number(rowData01.slsCnsgnPrchsVlm);
 					}
 				}
 			}
 			return sumVal;
 		}
-		if(rowData.typeSeNo == '8'){
+		if(rowData.typeSeNo === '8'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
+					if(rowData01.typeSeNo === '1' || rowData01.typeSeNo === '3' || rowData01.typeSeNo === '5' || rowData01.typeSeNo === '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnPrchsVlm)){
 							sumVal += Number(rowData01.slsCnsgnPrchsVlm);
 						}
@@ -745,11 +762,30 @@
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
+					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
+					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
+					if(rowData01.typeSeNo == '2'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
 							sumVal += Number(rowData01.slsCnsgnSlsAmt);
 						}
 					}
+				}
+			}
+			return sumVal;
+		}
+
+		if(rowData.typeSeNo === '6' && rowData.trmtType === '0'){
+			let sumVal = 0;
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd
+						&& rowData01.typeSeNo === '6'
+						&& rowData01.trmtType !== '0'
+						&& rowData01.ognzStbltYn === rowData.ognzStbltYn
+						&& !gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+
+					sumVal += Number(rowData01.slsCnsgnSlsAmt);
 				}
 			}
 			return sumVal;
@@ -762,7 +798,10 @@
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
+					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
+					//직속 생산자조직에는 trmtType이 0인 경우를 제외
+					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
+					if(rowData01.typeSeNo == '2' || (rowData01.typeSeNo == '6' && rowData01.trmtType != '0') || rowData01.typeSeNo == '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
 							sumVal += Number(rowData01.slsCnsgnSlsAmt);
 						}
@@ -779,14 +818,16 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
 		let itemCd = rowData.itemCd;
-		if(rowData.typeSeNo == '4'){
+		if(rowData.typeSeNo === '4'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
+					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
+					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3'){
+					if(rowData01.typeSeNo === '2'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsVlm)){
 							sumVal += Number(rowData01.slsCnsgnSlsVlm);
 						}
@@ -796,14 +837,34 @@
 			return sumVal;
 		}
 
-		if(rowData.typeSeNo == '8'){
+		if(rowData.typeSeNo === '6' && rowData.trmtType === '0'){
+			let sumVal = 0;
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd
+						&& rowData01.typeSeNo === '6'
+						&& rowData01.trmtType !== '0'
+						&& rowData01.ognzStbltYn === rowData.ognzStbltYn
+						&& !gfn_isEmpty(rowData01.slsCnsgnSlsVlm)){
+
+					sumVal += Number(rowData01.slsCnsgnSlsVlm);
+				}
+			}
+			return sumVal;
+		}
+
+		if(rowData.typeSeNo === '8'){
 			let sumVal = 0;
 			//테이블 해더 row수
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
 				if(rowData01.itemCd == itemCd){
-					if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
+					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
+					//직속 생산자조직에는 trmtType이 0인 경우를 제외
+					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
+					if(rowData01.typeSeNo === '2' || (rowData01.typeSeNo === '6' && rowData01.trmtType !== '0') || rowData01.typeSeNo === '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsVlm)){
 							sumVal += Number(rowData01.slsCnsgnSlsVlm);
 						}
@@ -1188,6 +1249,7 @@
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
 				//배경 속성 추가
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
 				//해당 타입 위치 저장
 				let rowVal = {itmeCd : rowData01.itemCd, row : i};
@@ -1207,9 +1269,11 @@
 			//통합조직에 속한 출자출하조직 생산자조직 외
 			if(rowData01.typeSeNo == '3'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, true);
+				//grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
 				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
 			}
 			//통합조직에 속한 출자출하조직 생산자조직 외 소계
 			if(rowData01.typeSeNo == '4'){
@@ -1226,6 +1290,8 @@
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
 				// 배경 속성 추가
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
 				//grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightblue');
 				//grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, uoSpmtVlm, i, uoSpmtAmt, 'lightgreen');
 				//해당 타입 위치 저장
@@ -1235,12 +1301,17 @@
 			//생산자조직 소계
 
 			if(rowData01.typeSeNo == '6'){
-				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, trmtTypeNm, i, slsCnsgnPrchsAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
-				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, slsCnsgnPrchsAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, rmrk, i, rmrk, 'lightgray');
+				if(rowData01.trmtType == '0'){
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, trmtTypeNm, i, slsCnsgnSlsAmt, true);
+					grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, rmrk, 'lightgray');
+				}else{
+					//disabled 처리
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, trmtTypeNm, i, slsCnsgnPrchsAmt, true);
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
+					// 배경 속성 추가
+					grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, slsCnsgnPrchsAmt, 'lightgray');
+					grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, rmrk, i, rmrk, 'lightgray');
+				}
 				//셀단위 병합
 				grdPrdcrOgnCurntMng01.setMergeByFree(i,trmtTypeNm,i,prchsNm,true);
 			}
@@ -1249,6 +1320,8 @@
 			if(rowData01.typeSeNo == '7'){
 				//disabled 처리
 				//grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, uoOtherSpmtAmt, true);
+				//배경 속성 추가
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
 			}
 			//합계
 			if(rowData01.typeSeNo == '8'){
@@ -1292,7 +1365,7 @@
 			}
 
 			//매입 값이 있을경우 매출 값을 입력 필수
-			if(rowData01.typeSeNo == '3' || rowData01.typeSeNo == '7' ){
+			if(rowData01.typeSeNo == '7' ){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 					if(Number(rowData01.slsCnsgnPrchsAmt) != 0){
 						if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
