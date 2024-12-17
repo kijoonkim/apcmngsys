@@ -39,8 +39,6 @@ public interface PrdcrCrclOgnPurSalMngMapper {
 
 	public int insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 
-	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
-
 	public int deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
 	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);

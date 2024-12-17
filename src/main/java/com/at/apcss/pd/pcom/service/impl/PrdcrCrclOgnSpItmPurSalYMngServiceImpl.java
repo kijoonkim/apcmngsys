@@ -148,7 +148,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 
 			ItemStbltYnVo.setYr(yrVal);
 			ItemStbltYnVo.setBrno(brnoVal);
-			resultVoList = selectItemUoStbltYnList(ItemStbltYnVo);
+			resultVoList = selectItemUoStbltYnListNew(ItemStbltYnVo);
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
 				//적합여부 초기화
@@ -159,5 +159,11 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 			}
 		}
 		return savedCnt;
+	}
+	/* 개발서버 신규화면 적합여부 체크 */
+	@Override
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnListNew(ItemUoStbltYnVo);
+		return resultList;
 	}
 }

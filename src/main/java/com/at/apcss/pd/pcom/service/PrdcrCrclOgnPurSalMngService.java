@@ -37,8 +37,6 @@ public interface PrdcrCrclOgnPurSalMngService {
 
 	public int insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
-	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
-
 	public int multiSavePrdcrCrclOgnPurSalMngList01(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception;
 
 	public int multiSavePrdcrCrclOgnPurSalMngList02(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception;
