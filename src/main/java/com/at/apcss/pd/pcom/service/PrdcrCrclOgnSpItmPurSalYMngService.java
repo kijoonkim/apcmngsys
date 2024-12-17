@@ -52,4 +52,6 @@ public interface PrdcrCrclOgnSpItmPurSalYMngService {
 	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 	/* 개발서버 신규화면 등록 */
 	public int multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList) throws Exception;
+	/* 개발서버 신규화면 적합여부 체크 */
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 }

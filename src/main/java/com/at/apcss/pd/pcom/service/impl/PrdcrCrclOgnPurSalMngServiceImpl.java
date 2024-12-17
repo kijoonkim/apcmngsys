@@ -71,14 +71,6 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
-
-		int updatedCnt = PrdcrCrclOgnPurSalMngMapper.updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
 	public int multiSavePrdcrCrclOgnPurSalMngList01(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
