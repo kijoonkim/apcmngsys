@@ -25,6 +25,7 @@
     <title>title : 원천징수영수증 조회/출력</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
@@ -1009,8 +1010,104 @@
     /**
      * 파일저장
      */
-    const fn_btnFile = async function () {
+    const fn_btnFile = async function() {
 
+        let checkDatas = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
+
+        if (_.isEmpty(checkDatas)){
+            gfn_comAlert("Q0000","파일 저장할 항목을 체크박스 선택하세요.");
+            return;
+        }
+
+        for (let i = 0; i < checkDatas.length; i++) {
+
+            let datas = [];
+            datas.push(checkDatas[i]);
+
+            conn = await fn_GetReportDataIncomeC(datas);
+            conn = await gfnma_convertDataForReport(conn);
+            let psw = conn[0].data.root[0].SOCIAL_NUM; //주민등록번호
+
+            await gfn_getReportPdf("근로소득 원천징수영수증.pdf", "ma/RPT_HRA1600_INCOME_C.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                function(){
+                    gfn_comConfirm("Q0001", "다운로드");
+                }
+            );
+        }
+    }
+
+    //근로소득 원천징수영수증 리포트
+    const fn_GetReportDataIncomeC = async function(checkData) {
+
+        let obj = checkData[0].data;
+        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+
+        let YEAR_END_TX_TYPE = gfn_nvl(obj.YE_TX_TYPE);
+        let EMP_CODE = gfn_nvl(obj.EMP_CODE);
+        //let INCOME_YEAR = gfn_nvl(obj.INCOME_YEAR);
+        let INCOME_RECEIVE_START_DATE = gfn_nvl(obj.WORK_ST_DAT);
+        let INCOME_RECEIVE_END_DATE = gfn_nvl(obj.WORK_END_DAT);
+        let RETIRE_YYYY = gfn_nvl(obj.RETIRE_DATE) == '' ? '' : obj.RETIRE_DATE.substring(0, 4);
+
+      /*  if(INCOME_YEAR == RETIRE_YYYY){
+            YEAR_END_TX_TYPE = 'RETIRE';
+        }else{
+            YEAR_END_TX_TYPE = 'YEAREND';
+        }*/
+        var paramObj = {
+            V_P_DEBUG_MODE_YN       : '',
+            V_P_LANG_ID             : '',
+            V_P_COMP_CODE           : gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE         : gv_ma_selectedClntCd,
+            V_P_YE_TX_YYYY          : YE_TX_YYYY,
+            V_P_YEAR_END_TX_TYPE    : YEAR_END_TX_TYPE,
+            V_P_SITE_CODE           : '',
+            V_P_DEPT_CODE           : '',
+            V_P_EMP_CODE            : '',
+            V_P_PRINT_TYPE          : '10',
+            V_P_PRINT_TYPE1         : '30',
+            V_P_WORK_END_DAT_FR     : INCOME_RECEIVE_START_DATE,
+            V_P_WORK_END_DAT_TO     : INCOME_RECEIVE_END_DATE,
+            V_P_EMP_CODE_LIST       : EMP_CODE,
+            V_P_PAY_AREA_TYPE       : '',
+            V_P_CONFIRM_PRINT_YN    : 'N',
+            V_P_FORM_ID             : p_formId,
+            V_P_MENU_ID             : p_menuId,
+            V_P_PROC_ID             : '',
+            V_P_USERID              : '',
+            V_P_PC                  : ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHri1600ReportListIncomeC.do", {
+            getType             : 'json',
+            workType            : 'REPORT',
+            cv_count            : '8',
+            params              : gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.cv_1.length > 0){
+                    data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");  //  E0001   오류가 발생하였습니다.
+        }
+
+        return data;
     }
 
     /**

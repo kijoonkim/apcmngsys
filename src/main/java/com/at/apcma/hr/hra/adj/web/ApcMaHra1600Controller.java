@@ -93,5 +93,35 @@ public class ApcMaHra1600Controller extends BaseController {
 
     }
 
+    //  근로소득 원천징수 영수증 리포트 출력 리스트
+    @PostMapping(value = "/hr/hra/adj/selectHri1600ReportListIncomeC.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHri1600ReportListIncomeC(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1600ReportListIncomeC=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRA1600_2023_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+            //self url 편집
+            String f_path1 = request.getRequestURL().toString();
+            String f_path2 = request.getRequestURI().toString();
+            String f_path3 = f_path1.replaceAll(f_path2, "");
+            resultMap.put("SEVER_ROOT_PATH", f_path3);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1600ReportListIncomeC=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
 
 }
