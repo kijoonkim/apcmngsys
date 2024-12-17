@@ -147,7 +147,7 @@
 
 	var mode				= 'byrow';
 	var jsonRegionCode		= [];	// 지역
-	var jsonCurrenvyCode	= [];	// 통화
+	var jsonCurrencyCode	= [];	// 통화
 	var jsonUserYnCode		= [
 		{value: 'Y', label: '사용', text: '사용'},
 		{value: 'N', label: '불가',	text: '불가'}
@@ -158,7 +158,7 @@
 			//지역
 			gfnma_setComSelect(['masterGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//통화
-			gfnma_setComSelect(['masterGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -192,6 +192,7 @@
             {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'input',  	width:'15%',  	style:'text-align:center'},
+            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'},
             {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonRegionCode',
@@ -201,14 +202,13 @@
             },
             {caption: ["통화"],			ref: 'CURRENCY_CODE',   		type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
-					ref			: 'jsonCurrenvyCode',
+					ref			: 'jsonCurrencyCode',
 					label		: 'label',
 					value		: 'value'
             	}
             },
             {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'},
-            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'}
+            {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'}
         ];
         masterGrid = _SBGrid.create(SBGridProperties);
     }
@@ -441,6 +441,7 @@
 	    SBGridProperties.id 				= 'masterGrid';
 	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.selectmode 		= mode;
         SBGridProperties.allowcopy 			= copymode;
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -454,6 +455,7 @@
             {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center'},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'input',  	width:'15%',  	style:'text-align:center'},
+            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'},
             {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonRegionCode',
@@ -463,14 +465,13 @@
             },
             {caption: ["통화"],			ref: 'CURRENCY_CODE',   		type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
-					ref			: 'jsonCurrenvyCode',
+					ref			: 'jsonCurrencyCode',
 					label		: 'label',
 					value		: 'value'
             	}
             },
             {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'},
-            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'}
+            {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'}
         ];
         jsonMasterList = [];
         _SBGrid.destroy('masterGrid');
