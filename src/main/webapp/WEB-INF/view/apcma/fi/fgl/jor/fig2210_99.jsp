@@ -4140,8 +4140,13 @@
      */
    	var cfn_del = async function() {
     	
-    	var chk = gfnma_nvl(SBUxMethod.get('sch-doc-status'));
-    	if(chk != '1' && chk != '5'){
+    	var p_doc_id 	 = gfnma_nvl(SBUxMethod.get('sch-doc-id'));
+    	var p_doc_status = gfnma_nvl(SBUxMethod.get('sch-doc-status'));
+    	
+    	if(!p_doc_id){
+    		return;
+    	}
+    	if(p_doc_status != '1' && p_doc_status != '5'){
     		return;
     	}
 		if(gfn_comConfirm("Q0001", "선택하신 전표를 삭제하시겠습니까?")){
