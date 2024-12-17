@@ -25,6 +25,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,6 +60,9 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
 
     @Value("${mail.user.password}")
     private String userPassword;
+
+    @Value("${mail.report.url}")
+    private String emsReportURL;
 
     public HashMap<String, Object> sendMailForPdfByJson(Map<String, Object> params, HttpServletRequest request, ClipReportVO clipReportVO) throws Exception {
 
@@ -224,9 +228,11 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             dataParam.put(key, value);
             //logger.debug("key {},  value  {}", key, value);
         }
+
         logger.debug("2");
         String reportUrl = clipReportVO.getReportUrl();
-        String clipURL = reportUrl + ComConstants.REPORT_JSP_EXPORT_PDF_JSON;
+        String clipURL = emsReportURL + ComConstants.REPORT_JSP_EXPORT_PDF_JSON;
+
         logger.debug("3");
         String filename = (String)params.get("pdfFileName");
         logger.debug("4");
@@ -236,14 +242,75 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
         logger.debug("filename {}", filename);
         logger.debug("jsessionId {}", jsessionId);
 
-        /*
-        model.addAttribute("reportDbName", getReportDbName());
-        model.addAttribute("reportUrl", getReportUrl());
-        model.addAttribute("reportType", getReportType());
-        model.addAttribute("reportPath", getReportPath());
-         */
+        JSONParser jsonParser = new JSONParser();
+        JSONObject emsResult = null;
+        String boundary = "------=_Part_123456_789012345.1710102030";
+        String LINE_FEED = "\r\n";
+        String charset = "UTF-8";
+        OutputStream outputStream;
+        PrintWriter writer;
 
         try {
+
+            /*
+            URL downloadUrl = new URL(clipURL);
+
+            StringBuilder postData = new StringBuilder();
+            for ( Map.Entry<String, Object> param : params.entrySet() ) {
+                if (postData.length() != 0) {
+                    postData.append("&");
+                }
+                postData.append(URLEncoder.encode(param.getKey(), charset));
+                postData.append("=");
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), charset));
+            }
+
+
+            byte[] postDataBytes = postData.toString().getBytes(charset);
+
+            HttpURLConnection downloadConn = (HttpURLConnection) downloadUrl.openConnection();
+            downloadConn.setRequestMethod(HttpMethod.POST);
+            downloadConn.setRequestProperty("Content-Type", "application/json"); //JSON 형태로 데이터 전송
+            downloadConn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            downloadConn.setDoOutput(true);
+            downloadConn.setUseCaches(false);
+            downloadConn.setConnectTimeout(15000);
+
+            conn.getOutputStream().write(postDataBytes);
+
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(downloadConn.getOutputStream());
+            writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
+
+            writer.append("--" + boundary).append(LINE_FEED);
+            //writer.append("Content-Disposition: form-data; name=\"데이터 키값\"").append(LINE_FEED);
+            writer.append("Content-Disposition: form-data;");
+            Set<String> dataParamKeys = dataParam.keySet();
+            for ( String key : dataParamKeys ) {
+                String value = (String)dataParam.getOrDefault(key, ComConstants.CON_BLANK);
+                writer.append("Content-Disposition: form-data; name=").append("\"").append(key).append("\"").append(LINE_FEED);
+                writer.append("Content-Type: text/plain; charset=").append(charset).append(LINE_FEED);
+                writer.append(LINE_FEED);
+                writer.append(value).append(LINE_FEED);
+            }
+
+            writer.flush();
+            writer.append("--").append(boundary).append("--").append(LINE_FEED);
+            writer.close();
+
+            FileInputStream fileInputStream = new FileInputStream(file);
+            byte[] emsBuffer = new byte[(int)file.length()];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(emsBuffer)) != -1) {
+                outputStream.write(emsBuffer, 0, bytesRead);
+            }
+            outputStream.flush();
+            inputStream.close();
+            writer.append(LINE_FEED);
+            writer.flush();
+            writer.append("--").append(boundary).append("--").append(LINE_FEED);
+            writer.close();
+            */
+
             Connection.Response reportResponse = Jsoup.connect(clipURL)
                     .timeout(10000)
                     .header("Origin", reportUrl)
@@ -302,13 +369,7 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             fos.close();
 
             // 파일저장완료
-            JSONParser jsonParser = new JSONParser();
-            JSONObject emsResult = null;
-            String boundary = "------=_Part_123456_789012345.1710102030";
-            String LINE_FEED = "\r\n";
-            String charset = "UTF-8";
-            OutputStream outputStream;
-            PrintWriter writer;
+
 
             String emsURL = "http://172.16.10.10/sendMailFile.do";
 
