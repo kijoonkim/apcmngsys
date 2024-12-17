@@ -161,15 +161,15 @@
 		    }},
 	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
  	        {
 				caption: ["선별등급"],
 				ref: 'gdsGrd',
 				type:'combo',
-				width:'60px',
+				width:'100px',
 				style:'text-align:center',
  				typeinfo : {
  					ref:'gjsonStdGrdObj_1',
@@ -181,13 +181,14 @@
 			},
 	        {caption: ["상품명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
-	        {caption: ["브랜드명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
+	        {caption: ["브랜드명"], 		ref: 'brndNm',  type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
+	        {caption: ["순서"], 			ref: 'sn',  	type:'input',  width:'60px',    style:'text-align:center', typeinfo : {maxlength : 4}, format : {type:'number'}},
 	        {caption: ["원산지코드"], ref: 'plorCd',  	type:'outputbutton',  width:'70px',    style:'text-align:center',
 	        	typeinfo : {callback: fn_grdChoicePlor}
 	        },
-	        {caption: ["설비연계"], ref: 'extrnlLnkgCd',  	type:'input',  width:'60px',    style:'text-align:center'},
+	        {caption: ["설비연계"], 		ref: 'extrnlLnkgCd',  	type:'input',  width:'60px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["변경"], 			ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalClick(" + nRow + ")'>단가</button>";
 	        	}else{
@@ -320,10 +321,11 @@
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
 					  , plorCd			: item.plorCd
 					  , addRow			: "N"
-					  , stdPckgCd      : item.stdPckgCd
-					  , stdGrdCd      : item.stdGrdCd
-					  , stdUnitCd      : item.stdUnitCd
+					  , stdPckgCd      	: item.stdPckgCd
+					  , stdGrdCd      	: item.stdGrdCd
+					  , stdUnitCd      	: item.stdUnitCd
 					  , stdEcfrdCd      : item.stdEcfrdCd
+					  , sn				: item.sn
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});
@@ -373,10 +375,6 @@
 		  		}
 				if (gfn_isEmpty(spmtPckgUnitNm)) {
 		  			gfn_comAlert("W0002", "상품명");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
-				if (gfn_isEmpty(ntslUntprc)) {
-		  			gfn_comAlert("W0002", "단가");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
 				if (rowSts === 3){
