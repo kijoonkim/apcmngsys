@@ -2,9 +2,16 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
+	public final static String SERVER_TYPE_PRD = "prd";
+	public final static String SERVER_TYPE_DEV = "dev";
+	public final static String SERVER_TYPE_LOCAL = "local";
+
 
 	public final static String DEFAULT_ERR_USER = "SYSTEM";
 	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";
+
+
+	public final static String REPORT_JSP_EXPORT_PDF_JSON = "exportForPdfByJson.jsp";
 
 	/**
 	 * 미등록
