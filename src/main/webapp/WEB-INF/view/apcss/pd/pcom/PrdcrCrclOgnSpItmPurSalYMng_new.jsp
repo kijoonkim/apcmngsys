@@ -518,6 +518,7 @@
 		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
 		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		//SBGridProperties.selectcellfocus = true;
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
 		SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
@@ -1353,12 +1354,13 @@
 			let rowSts01 = objGrid.getRowStatus(i);
 			//let delYn = rowData01.delYn;
 
+			let slsCnsgnSlsAmtCol = objGrid.getColRef("slsCnsgnSlsAmt");
 			//매입 값이 있을경우 매출 값을 입력 필수
 			if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '6'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-						objGrid.selectRow(i);
+						fn_movefocus(objGrid , i);
 						return false;
 					}
 				}
@@ -1370,7 +1372,7 @@
 					if(Number(rowData01.slsCnsgnPrchsAmt) != 0){
 						if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 							alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-							objGrid.selectRow(i);
+							fn_movefocus(objGrid , i);
 							return false;
 						}
 					}
@@ -1380,7 +1382,7 @@
 					if(Number(rowData01.slsCnsgnSlsAmt) != 0){
 						if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
 							alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
-							objGrid.selectRow(i);
+							fn_movefocus(objGrid , i);
 							return false;
 						}
 					}
@@ -1419,6 +1421,12 @@
 				console.error("failed", e.message);
 			}
 		}
+	}
+
+	function fn_movefocus(objGrid , i) {
+		objGrid.clearSelection();
+		objGrid.selectRow(i);
+		//objGrid.moveScrollTop(i); // 사용시 그리드 꺠짐 현상이 있음
 	}
 
 	/* 로우데이터 요청 */
