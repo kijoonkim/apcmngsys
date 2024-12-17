@@ -74,20 +74,15 @@ const gfn_getReportKey = async function(fileName, param) {
 
 const gfn_getReportPdfFetch = async function(_downloadFileName, _reportFileName, _conn, _password, _callback){
 
-	let url = gv_reportUrl + __JSP_PDF_JSON;
+	//const url = "/report/exportPdfForJson.do";
+	const url = "/report/sendMailForPdfByJson.do";
 
-	const formData = new FormData();
-	formData.append("reportType", gv_reportType);
-	formData.append("reportFile", gv_reportPath + _reportFileName);
-	formData.append("pdfFileName", _downloadFileName);
-
-	if (!gfn_isEmpty(_password)) {
-		if (!gfn_isEmpty(_password['userPassword'])) {
-			formData.append("userPassword", _password['userPassword']);
-		}
-		if (!gfn_isEmpty(_password['ownerPassword'])) {
-			formData.append("ownerPassword", _password['ownerPassword']);
-		}
+	const param = {
+		"reportType": gv_reportType,
+		"reportFile": gv_reportPath + _reportFileName,
+		"pdfFileName": _downloadFileName,
+		"userPassword": gfn_nvl(_password['userPassword']),
+		"ownerPassword": gfn_nvl(_password['ownerPassword']),
 	}
 
 	const prfxMemo = "JSON";
@@ -102,44 +97,37 @@ const gfn_getReportPdfFetch = async function(_downloadFileName, _reportFileName,
 		const rootPath = gfn_nvl(item.rootPath, defaultRoot);
 		const jsonData = gfn_nvl(JSON.stringify(item.data), "{}");
 
-		formData.append("memoName" + objIndex, memoName);
-		formData.append("jsonName" + objIndex, jsonName);
-		formData.append("rootPath" + objIndex, rootPath);
-		formData.append("jsonData" + objIndex, jsonData);
+		param["memoName" + objIndex] = memoName;
+		param["jsonName" + objIndex] = jsonName;
+		param["rootPath" + objIndex] = rootPath;
+		param["jsonData" + objIndex] = jsonData;
 
 		jsonCount++;
 	});
 
-	formData.append("jsonCount", jsonCount);
-	const response = await fetch(
-		url, {
-			method: 'POST',
-			cache: 'no-cache',
-			body: formData // body 부분에 폼데이터 변수를 할당
-		});
+	param["jsonCount"] = "" + jsonCount;		// string 처리
 
-	const result = await response.blob();
+	try{
 
-	if (result != null) {
-		let downloadUrl = window.URL.createObjectURL(result)
-		var a = document.createElement('a')
-		a.href = downloadUrl;
-		a.download = _downloadFileName;
-		document.body.appendChild(a)
-		a.click()
-		a.remove()
+		console.log("param", param);
+
+		let postJsonPromise = gfn_postJSON(url, param);
+		const data = await postJsonPromise;
+
+		if (_.isEqual("S", data.resultStatus)) {
+			gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		} else {
+			gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+		}
+	} catch(e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	}
-
-	/*
-
-	if (typeof _callback === 'function') {
-		_callback();
-	}
-
-	 */
-
-	return true;
 }
+
 const gfn_getReportPdf = async function(_downloadFileName, _reportFileName, _conn, _password, _callback){
 
 	let url = gv_reportUrl + __JSP_PDF_JSON;
