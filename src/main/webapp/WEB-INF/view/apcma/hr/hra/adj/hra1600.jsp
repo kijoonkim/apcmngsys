@@ -424,9 +424,12 @@
                     {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
-
-
         ]);
+
+
+        //출력구분 = 원천징수영수증 값으로 고정
+        SBUxMethod.set("SRCH_PRINT_TYPE", '10');
+        SBUxMethod.attr('SRCH_PRINT_TYPE',	'readonly', true);
     }
 
     var fn_compopup1 = function() {
