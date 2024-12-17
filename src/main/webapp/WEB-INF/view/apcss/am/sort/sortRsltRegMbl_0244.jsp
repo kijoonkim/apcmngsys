@@ -467,353 +467,6 @@ input::-webkit-inner-spin-button {
 							-->
 							<td colspan="4"></td>
 						</tr>
-
-						<!-- 옵션등급 -->
-						<tr class="tr-grdEx1">
-							<th scope="row" class="th-mbl">
-								<sbux-select
-									id="dtl-slt-grdEx1"
-									name="dtl-slt-grdEx1"
-									uitype="single"
-									class="input-sm-ast inpt-mbl align-center"
-									jsondata-ref="jsonOptnGrd"
-									jsondata-text="grdNm"
-									jsondata-value="grdCd"
-									onchange="fn_onChangeSltGrd(0)"
-								></sbux-select>
-							</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-qnttEx1"
-									name="dtl-inp-qnttEx1"
-									uitype="text"
-									class="inpt_data_reqed inpt-mbl"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									onchange="fn_onChangeSortQntt"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-wghtEx1"
-									name="dtl-inp-wghtEx1"
-									uitype="text"
-									class="input-sm-ast inpt-mbl dsp-wght"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-select
-									id="dtl-slt-spmtPckgUnitCdEx1"
-									name="dtl-slt-spmtPckgUnitCdEx1"
-									uitype="single"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
-									jsondata-ref="jsonSpmtPckgUnit"
-									jsondata-text="spmtPckgUnitNm"
-									jsondata-value="spmtPckgUnitCd"
-									onchange="fn_onChangeSltPckgEx(1)"
-								></sbux-select>
-							</td>
-							<td colspan="3">
-								<sbux-button
-									id="dtl-btn-addGrdEx1"
-									name="dtl-btn-addGrdEx1"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="추가"
-									uitype="normal"
-									onclick="fn_addGrdEx(1)"
-								></sbux-button>
-							</td>
-						</tr>
-
-						<tr class="tr-grdEx2">
-							<th scope="row" class="th-mbl">
-								<sbux-select
-									id="dtl-slt-grdEx2"
-									name="dtl-slt-grdEx2"
-									uitype="single"
-									class="input-sm-ast inpt-mbl align-center"
-									jsondata-ref="jsonOptnGrd"
-									jsondata-text="grdNm"
-									jsondata-value="grdCd"
-									onchange="fn_onChangeSltGrd(1)"
-								></sbux-select>
-							</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-qnttEx2"
-									name="dtl-inp-qnttEx2"
-									uitype="text"
-									class="inpt_data_reqed inpt-mbl"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									onchange="fn_onChangeSortQntt"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-wghtEx2"
-									name="dtl-inp-wghtEx2"
-									uitype="text"
-									class="input-sm-ast inpt-mbl dsp-wght"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-select
-									id="dtl-slt-spmtPckgUnitCdEx2"
-									name="dtl-slt-spmtPckgUnitCdEx2"
-									uitype="single"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
-									jsondata-ref="jsonSpmtPckgUnit"
-									jsondata-text="spmtPckgUnitNm"
-									jsondata-value="spmtPckgUnitCd"
-									onchange="fn_onChangeSltPckgEx(2)"
-								></sbux-select>
-							</td>
-							<td colspan="3">
-								<sbux-button
-									id="dtl-btn-addGrdEx2"
-									name="dtl-btn-addGrdEx2"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="추가"
-									uitype="normal"
-									onclick="fn_addGrdEx(2)"
-								></sbux-button>
-								<sbux-button
-									id="dtl-btn-delGrdEx2"
-									name="dtl-btn-delGrdEx2"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="삭제"
-									uitype="normal"
-									onclick="fn_delGrdEx(1)"
-								></sbux-button>
-							</td>
-						</tr>
-
-						<tr class="tr-grdEx3">
-							<th scope="row" class="th-mbl">
-								<sbux-select
-									id="dtl-slt-grdEx3"
-									name="dtl-slt-grdEx3"
-									uitype="single"
-									class="input-sm-ast inpt-mbl align-center"
-									jsondata-ref="jsonOptnGrd"
-									jsondata-text="grdNm"
-									jsondata-value="grdCd"
-									onchange="fn_onChangeSltGrd(2)"
-								></sbux-select>
-							</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-qnttEx3"
-									name="dtl-inp-qnttEx3"
-									uitype="text"
-									class="inpt_data_reqed inpt-mbl"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									onchange="fn_onChangeSortQntt"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-wghtEx3"
-									name="dtl-inp-wghtEx3"
-									uitype="text"
-									class="input-sm-ast inpt-mbl dsp-wght"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-select
-									id="dtl-slt-spmtPckgUnitCdEx3"
-									name="dtl-slt-spmtPckgUnitCdEx3"
-									uitype="single"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
-									jsondata-ref="jsonSpmtPckgUnit"
-									jsondata-text="spmtPckgUnitNm"
-									jsondata-value="spmtPckgUnitCd"
-									onchange="fn_onChangeSltPckgEx(3)"
-								></sbux-select>
-							</td>
-							<td colspan="3">
-								<sbux-button
-									id="dtl-btn-addGrdEx3"
-									name="dtl-btn-addGrdEx3"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="추가"
-									uitype="normal"
-									onclick="fn_addGrdEx(3)"
-								></sbux-button>
-								<sbux-button
-									id="dtl-btn-delGrdEx3"
-									name="dtl-btn-delGrdEx3"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="삭제"
-									uitype="normal"
-									onclick="fn_delGrdEx(2)"
-								></sbux-button>
-							</td>
-						</tr>
-
-						<tr class="tr-grdEx4">
-							<th scope="row" class="th-mbl">
-								<sbux-select
-									id="dtl-slt-grdEx4"
-									name="dtl-slt-grdEx4"
-									uitype="single"
-									class="input-sm-ast inpt-mbl align-center"
-									jsondata-ref="jsonOptnGrd"
-									jsondata-text="grdNm"
-									jsondata-value="grdCd"
-									onchange="fn_onChangeSltGrd(3)"
-								></sbux-select>
-							</th>
-							<td class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-qnttEx4"
-									name="dtl-inp-qnttEx4"
-									uitype="text"
-									class="inpt_data_reqed inpt-mbl"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									onchange="fn_onChangeSortQntt"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input
-									id="dtl-inp-wghtEx4"
-									name="dtl-inp-wghtEx4"
-									uitype="text"
-									class="input-sm-ast inpt-mbl dsp-wght"
-									placeholder=""
-									title=""
-									autocomplete="off"
-									permit-keycodes-set="num"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-select
-									id="dtl-slt-spmtPckgUnitCdEx4"
-									name="dtl-slt-spmtPckgUnitCdEx4"
-									uitype="single"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
-									jsondata-ref="jsonSpmtPckgUnit"
-									jsondata-text="spmtPckgUnitNm"
-									jsondata-value="spmtPckgUnitCd"
-									onchange="fn_onChangeSltPckgEx(4)"
-								></sbux-select>
-							</td>
-							<td colspan="3">
-								<sbux-button
-									id="dtl-btn-addGrdEx4"
-									name="dtl-btn-addGrdEx4"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="추가"
-									uitype="normal"
-									onclick="fn_addGrdEx(4)"
-								></sbux-button>
-								<sbux-button
-									id="dtl-btn-delGrdEx4"
-									name="dtl-btn-delGrdEx4"
-									class="btn btn-xs btn-outline-dark btn-mbl"
-									text="삭제"
-									uitype="normal"
-									onclick="fn_delGrdEx(3)"
-								></sbux-button>
-							</td>
-						</tr>
-
-                <!-- ex5 -->
-                <tr class="tr-grdEx5">
-                    <th scope="row" class="th-mbl">
-                        <sbux-select
-                                id="dtl-slt-grdEx5"
-                                name="dtl-slt-grdEx5"
-                                uitype="single"
-                                class="input-sm-ast inpt-mbl align-center"
-                                jsondata-ref="jsonOptnGrd"
-                                jsondata-text="grdNm"
-                                jsondata-value="grdCd"
-                                onchange="fn_onChangeSltGrd(4)"
-                        ></sbux-select>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qnttEx5"
-                                name="dtl-inp-qnttEx5"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wghtEx5"
-                                name="dtl-inp-wghtEx5"
-                                uitype="text"
-                                class="input-sm-ast inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCdEx5"
-                                name="dtl-slt-spmtPckgUnitCdEx5"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckgEx(5)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrdEx5"
-                                name="dtl-btn-delGrdEx5"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrdEx(4)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
                 <!-- grd 1 -->
                 <tr class="tr-grd1">
                     <th scope="row" class="th_bg th-mbl">
@@ -854,6 +507,7 @@ input::-webkit-inner-spin-button {
                                 name="dtl-slt-spmtPckgUnitCd1"
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-filter="gdsGrd"
                                 jsondata-ref="jsonSpmtPckgUnit"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
@@ -871,257 +525,6 @@ input::-webkit-inner-spin-button {
                         ></sbux-button>
                     </td>
                 </tr>
-                <tr class="tr-grd11">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd11"></span>
-                        <sbux-input id="dtl-inp-grdCd11" name="dtl-inp-grd11" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt11"
-                                name="dtl-inp-qntt11"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght11"
-                                name="dtl-inp-wght11"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd11"
-                                name="dtl-slt-spmtPckgUnitCd11"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(1,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd11"
-                                name="dtl-btn-addGrd11"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(1,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd11"
-                                name="dtl-btn-delGrd11"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(1,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd12">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd12"></span>
-                        <sbux-input id="dtl-inp-grdCd12" name="dtl-inp-grd12" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt12"
-                                name="dtl-inp-qntt12"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght12"
-                                name="dtl-inp-wght12"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd12"
-                                name="dtl-slt-spmtPckgUnitCd12"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(1,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd12"
-                                name="dtl-btn-addGrd12"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(1,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd12"
-                                name="dtl-btn-delGrd12"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(1,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd13">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd13"></span>
-                        <sbux-input id="dtl-inp-grdCd13" name="dtl-inp-grd13" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt13"
-                                name="dtl-inp-qntt13"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght13"
-                                name="dtl-inp-wght13"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd13"
-                                name="dtl-slt-spmtPckgUnitCd13"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(1,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd13"
-                                name="dtl-btn-addGrd13"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(1,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd13"
-                                name="dtl-btn-delGrd13"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(1,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd14">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd14"></span>
-                        <sbux-input id="dtl-inp-grdCd14" name="dtl-inp-grd14" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt14"
-                                name="dtl-inp-qntt14"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght14"
-                                name="dtl-inp-wght14"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd14"
-                                name="dtl-slt-spmtPckgUnitCd14"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(1,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd14"
-                                name="dtl-btn-delGrd14"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(1,4)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
                 <!-- grd 2 -->
                 <tr class="tr-grd2">
                     <th scope="row" class="th_bg th-mbl">
@@ -1163,6 +566,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(2)"
@@ -1179,257 +583,6 @@ input::-webkit-inner-spin-button {
                         ></sbux-button>
                     </td>
                 </tr>
-                <tr class="tr-grd21">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd21"></span>
-                        <sbux-input id="dtl-inp-grdCd21" name="dtl-inp-grd21" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt21"
-                                name="dtl-inp-qntt21"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght21"
-                                name="dtl-inp-wght21"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd21"
-                                name="dtl-slt-spmtPckgUnitCd21"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(2,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd21"
-                                name="dtl-btn-addGrd21"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(2,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd21"
-                                name="dtl-btn-delGrd21"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(2,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd22">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd22"></span>
-                        <sbux-input id="dtl-inp-grdCd2" name="dtl-inp-grd2" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt22"
-                                name="dtl-inp-qntt22"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght22"
-                                name="dtl-inp-wght22"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd22"
-                                name="dtl-slt-spmtPckgUnitCd22"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(2,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd22"
-                                name="dtl-btn-addGrd22"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(2,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd22"
-                                name="dtl-btn-delGrd22"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(2,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd23">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd23"></span>
-                        <sbux-input id="dtl-inp-grdCd23" name="dtl-inp-grd23" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt23"
-                                name="dtl-inp-qntt23"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght23"
-                                name="dtl-inp-wght23"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd23"
-                                name="dtl-slt-spmtPckgUnitCd23"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(2,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd23"
-                                name="dtl-btn-addGrd23"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(2,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd23"
-                                name="dtl-btn-delGrd23"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(2,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd24">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd24"></span>
-                        <sbux-input id="dtl-inp-grdCd24" name="dtl-inp-grd24" uitype="hidden"></sbux-input>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt24"
-                                name="dtl-inp-qntt24"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght24"
-                                name="dtl-inp-wght24"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd24"
-                                name="dtl-slt-spmtPckgUnitCd24"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(2,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd24"
-                                name="dtl-btn-delGrd24"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(2,4)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
                 <!-- grd 3 -->
                 <tr class="tr-grd3">
                     <th scope="row" class="th_bg th-mbl">
@@ -1470,6 +623,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(3)"
@@ -1483,252 +637,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(3,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd31">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd31"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt31"
-                                name="dtl-inp-qntt31"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght31"
-                                name="dtl-inp-wght31"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd31"
-                                name="dtl-slt-spmtPckgUnitCd31"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(3,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd31"
-                                name="dtl-btn-addGrd31"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(3,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd31"
-                                name="dtl-btn-delGrd31"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(3,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd32">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd32"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt32"
-                                name="dtl-inp-qntt32"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght32"
-                                name="dtl-inp-wght32"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd32"
-                                name="dtl-slt-spmtPckgUnitCd32"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(3,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd32"
-                                name="dtl-btn-addGrd32"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(3,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd32"
-                                name="dtl-btn-delGrd32"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(3,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd33">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd33"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt33"
-                                name="dtl-inp-qntt33"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght33"
-                                name="dtl-inp-wght33"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd33"
-                                name="dtl-slt-spmtPckgUnitCd33"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(3,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd33"
-                                name="dtl-btn-addGrd33"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(3,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd33"
-                                name="dtl-btn-delGrd33"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(3,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd34">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd34"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt34"
-                                name="dtl-inp-qntt34"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght34"
-                                name="dtl-inp-wght34"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd34"
-                                name="dtl-slt-spmtPckgUnitCd34"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(3,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd34"
-                                name="dtl-btn-delGrd34"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(3,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -1772,6 +680,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(4)"
@@ -1785,252 +694,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(4,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd41">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd41"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt41"
-                                name="dtl-inp-qntt41"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght41"
-                                name="dtl-inp-wght41"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd41"
-                                name="dtl-slt-spmtPckgUnitCd41"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(4,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd41"
-                                name="dtl-btn-addGrd41"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(4,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd41"
-                                name="dtl-btn-delGrd41"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(4,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd42">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd42"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt42"
-                                name="dtl-inp-qntt42"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght42"
-                                name="dtl-inp-wght42"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd42"
-                                name="dtl-slt-spmtPckgUnitCd42"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(4,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd42"
-                                name="dtl-btn-addGrd42"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(4,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd42"
-                                name="dtl-btn-delGrd42"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(4,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd43">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd43"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt43"
-                                name="dtl-inp-qntt43"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght43"
-                                name="dtl-inp-wght43"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd43"
-                                name="dtl-slt-spmtPckgUnitCd43"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(4,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd43"
-                                name="dtl-btn-addGrd43"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(4,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd43"
-                                name="dtl-btn-delGrd43"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(4,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd44">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd44"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt44"
-                                name="dtl-inp-qntt44"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght44"
-                                name="dtl-inp-wght44"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd44"
-                                name="dtl-slt-spmtPckgUnitCd44"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(4,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd44"
-                                name="dtl-btn-delGrd44"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(4,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -2074,6 +737,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(5)"
@@ -2087,252 +751,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(5,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd51">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd51"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt51"
-                                name="dtl-inp-qntt51"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght51"
-                                name="dtl-inp-wght51"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd51"
-                                name="dtl-slt-spmtPckgUnitCd51"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(5,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd51"
-                                name="dtl-btn-addGrd51"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(5,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd51"
-                                name="dtl-btn-delGrd51"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(5,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd52">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd52"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt52"
-                                name="dtl-inp-qntt52"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght52"
-                                name="dtl-inp-wght52"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd52"
-                                name="dtl-slt-spmtPckgUnitCd52"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(5,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd52"
-                                name="dtl-btn-addGrd52"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(5,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd52"
-                                name="dtl-btn-delGrd52"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(5,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd53">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd53"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt53"
-                                name="dtl-inp-qntt53"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght53"
-                                name="dtl-inp-wght53"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd53"
-                                name="dtl-slt-spmtPckgUnitCd53"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(5,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd53"
-                                name="dtl-btn-addGrd53"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(5,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd53"
-                                name="dtl-btn-delGrd53"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(5,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd54">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd54"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt54"
-                                name="dtl-inp-qntt54"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght54"
-                                name="dtl-inp-wght54"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd54"
-                                name="dtl-slt-spmtPckgUnitCd54"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(5,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd54"
-                                name="dtl-btn-delGrd54"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(5,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -2376,6 +794,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(6)"
@@ -2389,252 +808,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(6,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd61">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd61"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt61"
-                                name="dtl-inp-qntt61"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght61"
-                                name="dtl-inp-wght61"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd61"
-                                name="dtl-slt-spmtPckgUnitCd61"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(6,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd61"
-                                name="dtl-btn-addGrd61"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(6,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd61"
-                                name="dtl-btn-delGrd61"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(6,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd62">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd62"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt62"
-                                name="dtl-inp-qntt62"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght62"
-                                name="dtl-inp-wght62"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd62"
-                                name="dtl-slt-spmtPckgUnitCd62"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(6,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd62"
-                                name="dtl-btn-addGrd62"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(6,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd62"
-                                name="dtl-btn-delGrd62"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(6,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd63">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd63"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt63"
-                                name="dtl-inp-qntt63"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght63"
-                                name="dtl-inp-wght63"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd63"
-                                name="dtl-slt-spmtPckgUnitCd63"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(6,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd63"
-                                name="dtl-btn-addGrd63"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(6,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd63"
-                                name="dtl-btn-delGrd63"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(6,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd64">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd64"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt64"
-                                name="dtl-inp-qntt64"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght64"
-                                name="dtl-inp-wght64"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd64"
-                                name="dtl-slt-spmtPckgUnitCd64"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(6,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd64"
-                                name="dtl-btn-delGrd64"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(6,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -2678,6 +851,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(7)"
@@ -2691,252 +865,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(7,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd71">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd71"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt71"
-                                name="dtl-inp-qntt71"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght71"
-                                name="dtl-inp-wght71"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd71"
-                                name="dtl-slt-spmtPckgUnitCd71"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(7,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd71"
-                                name="dtl-btn-addGrd71"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(7,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd71"
-                                name="dtl-btn-delGrd71"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(7,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd72">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd72"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt72"
-                                name="dtl-inp-qntt72"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght72"
-                                name="dtl-inp-wght72"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd72"
-                                name="dtl-slt-spmtPckgUnitCd72"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(7,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd72"
-                                name="dtl-btn-addGrd72"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(7,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd72"
-                                name="dtl-btn-delGrd72"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(7,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd73">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd73"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt73"
-                                name="dtl-inp-qntt73"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght73"
-                                name="dtl-inp-wght73"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd73"
-                                name="dtl-slt-spmtPckgUnitCd73"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(7,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd73"
-                                name="dtl-btn-addGrd73"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(7,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd73"
-                                name="dtl-btn-delGrd73"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(7,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd74">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd74"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt74"
-                                name="dtl-inp-qntt74"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght74"
-                                name="dtl-inp-wght74"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd74"
-                                name="dtl-slt-spmtPckgUnitCd74"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(7,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd74"
-                                name="dtl-btn-delGrd74"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(7,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -2980,6 +908,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(8)"
@@ -2993,252 +922,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(8,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd81">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd81"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt81"
-                                name="dtl-inp-qntt81"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght81"
-                                name="dtl-inp-wght81"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd81"
-                                name="dtl-slt-spmtPckgUnitCd81"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(8,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd81"
-                                name="dtl-btn-addGrd81"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(8,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd81"
-                                name="dtl-btn-delGrd81"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(8,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd82">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd82"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt82"
-                                name="dtl-inp-qntt82"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght82"
-                                name="dtl-inp-wght82"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd82"
-                                name="dtl-slt-spmtPckgUnitCd82"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(8,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd82"
-                                name="dtl-btn-addGrd82"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(8,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd82"
-                                name="dtl-btn-delGrd82"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(8,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd83">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd83"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt83"
-                                name="dtl-inp-qntt83"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght83"
-                                name="dtl-inp-wght83"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd83"
-                                name="dtl-slt-spmtPckgUnitCd83"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(8,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd83"
-                                name="dtl-btn-addGrd83"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(8,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd83"
-                                name="dtl-btn-delGrd83"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(8,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd84">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd84"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt84"
-                                name="dtl-inp-qntt84"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght84"
-                                name="dtl-inp-wght84"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd84"
-                                name="dtl-slt-spmtPckgUnitCd84"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(8,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd84"
-                                name="dtl-btn-delGrd84"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(8,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -3282,6 +965,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(9)"
@@ -3295,252 +979,6 @@ input::-webkit-inner-spin-button {
                                 text="추가"
                                 uitype="normal"
                                 onclick="fn_addGrd(9,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd91">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd91"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt91"
-                                name="dtl-inp-qntt91"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght91"
-                                name="dtl-inp-wght91"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd91"
-                                name="dtl-slt-spmtPckgUnitCd91"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(9,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd91"
-                                name="dtl-btn-addGrd91"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(9,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd91"
-                                name="dtl-btn-delGrd91"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(9,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd92">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd92"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt92"
-                                name="dtl-inp-qntt92"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght92"
-                                name="dtl-inp-wght92"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd92"
-                                name="dtl-slt-spmtPckgUnitCd92"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(9,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd92"
-                                name="dtl-btn-addGrd92"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(9,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd92"
-                                name="dtl-btn-delGrd92"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(9,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd93">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd93"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt93"
-                                name="dtl-inp-qntt93"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght93"
-                                name="dtl-inp-wght93"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd93"
-                                name="dtl-slt-spmtPckgUnitCd93"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(9,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd93"
-                                name="dtl-btn-addGrd93"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(9,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd93"
-                                name="dtl-btn-delGrd93"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(9,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd94">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd94"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt94"
-                                name="dtl-inp-qntt94"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght94"
-                                name="dtl-inp-wght94"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd94"
-                                name="dtl-slt-spmtPckgUnitCd94"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(9,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd94"
-                                name="dtl-btn-delGrd94"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(9,4)"
                         ></sbux-button>
                     </td>
                 </tr>
@@ -3584,6 +1022,7 @@ input::-webkit-inner-spin-button {
                                 uitype="single"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
                                 jsondata-text="spmtPckgUnitNm"
                                 jsondata-value="spmtPckgUnitCd"
                                 onchange="fn_onChangeSltPckg(10)"
@@ -3600,253 +1039,272 @@ input::-webkit-inner-spin-button {
                         ></sbux-button>
                     </td>
                 </tr>
-                <tr class="tr-grd101">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd101"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt101"
-                                name="dtl-inp-qntt101"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght101"
-                                name="dtl-inp-wght101"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd101"
-                                name="dtl-slt-spmtPckgUnitCd101"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(10,1)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd101"
-                                name="dtl-btn-addGrd101"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(10,2)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd101"
-                                name="dtl-btn-delGrd101"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(10,1)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd102">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd102"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt102"
-                                name="dtl-inp-qntt102"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght102"
-                                name="dtl-inp-wght102"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd102"
-                                name="dtl-slt-spmtPckgUnitCd102"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(10,2)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd102"
-                                name="dtl-btn-addGrd102"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(10,3)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd102"
-                                name="dtl-btn-delGrd102"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(10,2)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-
-                <tr class="tr-grd103">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd103"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt103"
-                                name="dtl-inp-qntt103"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght103"
-                                name="dtl-inp-wght103"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd103"
-                                name="dtl-slt-spmtPckgUnitCd103"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(10,3)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-addGrd103"
-                                name="dtl-btn-addGrd103"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="추가"
-                                uitype="normal"
-                                onclick="fn_addGrd(10,4)"
-                        ></sbux-button>
-                        <sbux-button
-                                id="dtl-btn-delGrd103"
-                                name="dtl-btn-delGrd103"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(10,3)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                <tr class="tr-grd104">
-                    <th scope="row" class="th_bg th-mbl">
-                        <span></span>
-                        <span class="spn-grd104"></span>
-                    </th>
-                    <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-qntt104"
-                                name="dtl-inp-qntt104"
-                                uitype="text"
-                                class="inpt_data_reqed inpt-mbl"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                onchange="fn_onChangeSortQntt"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="dtl-inp-wght104"
-                                name="dtl-inp-wght104"
-                                uitype="text"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-                                placeholder=""
-                                title=""
-                                autocomplete="off"
-                                permit-keycodes-set="num"
-                                mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select
-                                id="dtl-slt-spmtPckgUnitCd104"
-                                name="dtl-slt-spmtPckgUnitCd104"
-                                uitype="single"
-                                class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                jsondata-ref="jsonSpmtPckgUnit"
-                                jsondata-text="spmtPckgUnitNm"
-                                jsondata-value="spmtPckgUnitCd"
-                                onchange="fn_onChangeSltPckg(10,4)"
-                        ></sbux-select>
-                    </td>
-                    <td colspan="3">
-                        <sbux-button
-                                id="dtl-btn-delGrd104"
-                                name="dtl-btn-delGrd104"
-                                class="btn btn-xs btn-outline-dark btn-mbl"
-                                text="삭제"
-                                uitype="normal"
-                                onclick="fn_delGrd(10,4)"
-                        ></sbux-button>
-                    </td>
-                </tr>
-                </tbody>
+				<!-- grd 11 -->
+				<tr class="tr-grd11">
+					<th scope="row" class="th_bg th-mbl">
+						<span></span>
+						<span class="spn-grd11"></span>
+					</th>
+					<td class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-qntt11"
+								name="dtl-inp-qntt11"
+								uitype="text"
+								class="inpt_data_reqed inpt-mbl"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								onchange="fn_onChangeSortQntt"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-wght11"
+								name="dtl-inp-wght11"
+								uitype="text"
+								class="input-sm-ast inpt-mbl dsp-wght"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-select
+								id="dtl-slt-spmtPckgUnitCd11"
+								name="dtl-slt-spmtPckgUnitCd11"
+								uitype="single"
+								class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
+								jsondata-text="spmtPckgUnitNm"
+								jsondata-value="spmtPckgUnitCd"
+								onchange="fn_onChangeSltPckg(11)"
+						></sbux-select>
+					</td>
+					<td colspan="3">
+						<sbux-button
+								id="dtl-btn-addGrd11"
+								name="dtl-btn-addGrd11"
+								class="btn btn-xs btn-outline-dark btn-mbl"
+								text="추가"
+								uitype="normal"
+								onclick="fn_addGrd(11,1)"
+						></sbux-button>
+					</td>
+				</tr>
+				<!-- grd 12 -->
+				<tr class="tr-grd12">
+					<th scope="row" class="th_bg th-mbl">
+						<span></span>
+						<span class="spn-grd12"></span>
+					</th>
+					<td class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-qntt12"
+								name="dtl-inp-qntt12"
+								uitype="text"
+								class="inpt_data_reqed inpt-mbl"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								onchange="fn_onChangeSortQntt"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-wght12"
+								name="dtl-inp-wght12"
+								uitype="text"
+								class="input-sm-ast inpt-mbl dsp-wght"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-select
+								id="dtl-slt-spmtPckgUnitCd12"
+								name="dtl-slt-spmtPckgUnitCd12"
+								uitype="single"
+								class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
+								jsondata-text="spmtPckgUnitNm"
+								jsondata-value="spmtPckgUnitCd"
+								onchange="fn_onChangeSltPckg(12)"
+						></sbux-select>
+					</td>
+					<td colspan="3">
+						<sbux-button
+								id="dtl-btn-addGrd12"
+								name="dtl-btn-addGrd12"
+								class="btn btn-xs btn-outline-dark btn-mbl"
+								text="추가"
+								uitype="normal"
+								onclick="fn_addGrd(12,1)"
+						></sbux-button>
+					</td>
+				</tr>
+				<!-- grd 13 -->
+				<tr class="tr-grd13">
+					<th scope="row" class="th_bg th-mbl">
+						<span></span>
+						<span class="spn-grd13"></span>
+					</th>
+					<td class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-qntt13"
+								name="dtl-inp-qntt13"
+								uitype="text"
+								class="inpt_data_reqed inpt-mbl"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								onchange="fn_onChangeSortQntt"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-wght13"
+								name="dtl-inp-wght13"
+								uitype="text"
+								class="input-sm-ast inpt-mbl dsp-wght"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-select
+								id="dtl-slt-spmtPckgUnitCd13"
+								name="dtl-slt-spmtPckgUnitCd13"
+								uitype="single"
+								class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
+								jsondata-text="spmtPckgUnitNm"
+								jsondata-value="spmtPckgUnitCd"
+								onchange="fn_onChangeSltPckg(13)"
+						></sbux-select>
+					</td>
+					<td colspan="3">
+						<sbux-button
+								id="dtl-btn-addGrd13"
+								name="dtl-btn-addGrd13"
+								class="btn btn-xs btn-outline-dark btn-mbl"
+								text="추가"
+								uitype="normal"
+								onclick="fn_addGrd(13,1)"
+						></sbux-button>
+					</td>
+				</tr>
+				<!-- grd 14 -->
+				<tr class="tr-grd14">
+					<th scope="row" class="th_bg th-mbl">
+						<span></span>
+						<span class="spn-grd14"></span>
+					</th>
+					<td class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-qntt14"
+								name="dtl-inp-qntt14"
+								uitype="text"
+								class="inpt_data_reqed inpt-mbl"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								onchange="fn_onChangeSortQntt"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-wght14"
+								name="dtl-inp-wght14"
+								uitype="text"
+								class="input-sm-ast inpt-mbl dsp-wght"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-select
+								id="dtl-slt-spmtPckgUnitCd14"
+								name="dtl-slt-spmtPckgUnitCd14"
+								uitype="single"
+								class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
+								jsondata-text="spmtPckgUnitNm"
+								jsondata-value="spmtPckgUnitCd"
+								onchange="fn_onChangeSltPckg(14)"
+						></sbux-select>
+					</td>
+					<td colspan="3">
+						<sbux-button
+								id="dtl-btn-addGrd14"
+								name="dtl-btn-addGrd14"
+								class="btn btn-xs btn-outline-dark btn-mbl"
+								text="추가"
+								uitype="normal"
+								onclick="fn_addGrd(14,1)"
+						></sbux-button>
+					</td>
+				</tr>
+				<!-- grd 15 -->
+				<tr class="tr-grd15">
+					<th scope="row" class="th_bg th-mbl">
+						<span></span>
+						<span class="spn-grd15"></span>
+					</th>
+					<td class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-qntt15"
+								name="dtl-inp-qntt15"
+								uitype="text"
+								class="inpt_data_reqed inpt-mbl"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								onchange="fn_onChangeSortQntt"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-input
+								id="dtl-inp-wght15"
+								name="dtl-inp-wght15"
+								uitype="text"
+								class="input-sm-ast inpt-mbl dsp-wght"
+								autocomplete="off"
+								permit-keycodes-set="num"
+								mask="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+						></sbux-input>
+					</td>
+					<td colspan="2" class="td_input" style="border-right:hidden;">
+						<sbux-select
+								id="dtl-slt-spmtPckgUnitCd15"
+								name="dtl-slt-spmtPckgUnitCd15"
+								uitype="single"
+								class="input-sm-ast inpt_data_reqed inpt-mbl"
+								jsondata-ref="jsonSpmtPckgUnit"
+								jsondata-filter="gdsGrd"
+								jsondata-text="spmtPckgUnitNm"
+								jsondata-value="spmtPckgUnitCd"
+								onchange="fn_onChangeSltPckg(15)"
+						></sbux-select>
+					</td>
+					<td colspan="3">
+						<sbux-button
+								id="dtl-btn-addGrd15"
+								name="dtl-btn-addGrd15"
+								class="btn btn-xs btn-outline-dark btn-mbl"
+								text="추가"
+								uitype="normal"
+								onclick="fn_addGrd(15,1)"
+						></sbux-button>
+					</td>
+				</tr>
+					</tbody>
             </table>
 
             <!-- 최근 실적 조회구간 -->
@@ -3927,12 +1385,11 @@ input::-webkit-inner-spin-button {
 
     const grdList = [
         '1', '2', '3', '4', '5',
-        '6', '7', '8', '9', '10'
+        '6', '7', '8', '9', '10',
+		'11','12','13','14','15'
     ];
 
-    const dtlList = [
-        '', '1', '2', '3', '4'
-    ];
+    const dtlList = [''];
 
     const sortGrdObj = {
 
@@ -3990,8 +1447,8 @@ input::-webkit-inner-spin-button {
 		indctArtclType = await gfn_getComCdDtls('INDCT_ARTCL_TYPE');
 
         fn_reset();
-        fn_setApcForm();
-        fn_setSortInptForm();
+        await fn_setApcForm();
+        await fn_setSortInptForm();
 		await gfn_setApcItemSBSelect("dtl-inp-itemNm",jsonApcItem,gv_apcCd);
 		await gfn_setApcVrtySBSelect("dtl-inp-vrtyNm",jsonApcVrty,gv_apcCd);
     }
@@ -4086,7 +1543,6 @@ input::-webkit-inner-spin-button {
 		        SBUxMethod.set("dtl-dtp-inptYmd", sort.inptYmd)
 		]);
 
-
 		let _indctArtclType = indctArtclType.filter(
 				function(item){
 					return item.cdVl == sort.indctArtclType;
@@ -4177,9 +1633,6 @@ input::-webkit-inner-spin-button {
 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
-
-
-
         const el = document.querySelector(".srch-pltno")
         el.addEventListener("keyup", (event) => {
             if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
@@ -4319,19 +1772,19 @@ input::-webkit-inner-spin-button {
             });
         }
 
-        for (let i = 0; i < 5; i++) {
-            const grdId = grdList[i];
-            SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
-            document.querySelector('.tr-grdEx' + grdId).style.display = "none";
-            if (jsonOptnGrd.length > 0 && i == 0) {
-                document.querySelector('.tr-grdEx' + grdId).style.display = "";
+        // for (let i = 0; i < 5; i++) {
+        //     const grdId = grdList[i];
+            // SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
+            // document.querySelector('.tr-grdEx' + grdId).style.display = "none";
+            // if (jsonOptnGrd.length > 0 && i == 0) {
+            //     document.querySelector('.tr-grdEx' + grdId).style.display = "";
                 //document.querySelector('.spn-grd' + grdId).innerText = gjsonStdGrdObj_1[i].grdNm;
-            }
-            SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
-            SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
-        }
+            // }
+            // SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
+            // SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
+        // }
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < grdList.length; i++) {
             const grdId = grdList[i];
             dtlList.forEach((dtl, idx) => {
 
@@ -4343,6 +1796,8 @@ input::-webkit-inner-spin-button {
                     document.querySelector('.spn-grd' + grdId + dtl).innerText = jsonFxngGrd[i].grdNm;
                     // hidden input set
                     SBUxMethod.set("dtl-inp-grdCd" + grdId + dtl, jsonFxngGrd[i].grdCd);
+					/** select filter **/
+					SBUxMethod.refresh("dtl-slt-spmtPckgUnitCd" + grdId + dtl,{jsondataFilterValues: jsonFxngGrd[i].grdCd});
                 } else {
                     document.querySelector('.spn-grd' + grdId + dtl).innerText = "";
                     SBUxMethod.set("dtl-inp-grdCd" + grdId + dtl, "");
@@ -4381,14 +1836,14 @@ input::-webkit-inner-spin-button {
             });
         }
 
-        for (let i = 0; i < 5; i++) {
-            const grdId = grdList[i];
-            SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
-            document.querySelector('.tr-grdEx' + grdId).style.display = "none";
-
-            SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
-            SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
-        }
+        // for (let i = 0; i < 5; i++) {
+        //     const grdId = grdList[i];
+        //     SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
+        //     document.querySelector('.tr-grdEx' + grdId).style.display = "none";
+		//
+        //     SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
+        //     SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
+        // }
 
         /**
          for ( let i=0; i<10; i++ ) {
@@ -4403,7 +1858,7 @@ input::-webkit-inner-spin-button {
          }
          */
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const grdId = grdList[i];
             dtlList.forEach((dtl, idx) => {
                 document.querySelector('.tr-grd' + grdId + dtl).style.display = "none";
@@ -4661,8 +2116,7 @@ input::-webkit-inner-spin-button {
             if (!gfn_isEmpty(_itemCd) && !gfn_isEmpty(_vrtyCd)) {
                 jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, _itemCd, _vrtyCd);
             }
-
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < grdList.length; i++) {
                 dtlList.forEach((dtl) => {
                     const sltId = "dtl-slt-spmtPckgUnitCd" + grdList[i] + dtl;
 
@@ -4675,20 +2129,21 @@ input::-webkit-inner-spin-button {
                         let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
 
 						if(!gfn_isEmpty(_indctArtclType)){
-						switch(_indctArtclType[0].cdVl){
-							case "GDS":
-								SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
-								break;
-							case "SPCFCT":
-								SBUxMethod.refresh(sltId,{jsondataText:'spcfctNm'});
-								break;
-							case "VRTY":
-								SBUxMethod.refresh(sltId,{jsondataText:'vrtyNm'});
-								break;
-							case "ITEM":
-								SBUxMethod.refresh(sltId,{jsondataText:'itemNm'});
-								break;
-							}
+						// switch(_indctArtclType[0].cdVl){
+						// 	case "GDS":
+						// 		SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
+						// 		break;
+						// 	case "SPCFCT":
+						// 		SBUxMethod.refresh(sltId,{jsondataText:'spcfctNm'});
+						// 		break;
+						// 	case "VRTY":
+						// 		SBUxMethod.refresh(sltId,{jsondataText:'vrtyNm'});
+						// 		break;
+						// 	case "ITEM":
+						// 		SBUxMethod.refresh(sltId,{jsondataText:'itemNm'});
+						// 		break;
+						// 	}
+							SBUxMethod.refresh(sltId);
 						}else{
 							SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
 						}
@@ -4702,20 +2157,20 @@ input::-webkit-inner-spin-button {
                 });
             }
 
-            for (let i = 0; i < 5; i++) {
-                const sltId = "dtl-slt-spmtPckgUnitCdEx" + grdList[i];
-                SBUxMethod.refresh(sltId);
-
-                if (jsonSpmtPckgUnit.length > 0) {
-                    const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[i]);
-                    let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
-                    if (gfn_isEmpty(chkInfo)) {
-                        SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
-                    } else {
-                        SBUxMethod.set(sltId, chkInfo.spmtPckgUnitCd);
-                    }
-                }
-            }
+            // for (let i = 0; i < 5; i++) {
+            //     const sltId = "dtl-slt-spmtPckgUnitCdEx" + grdList[i];
+            //     SBUxMethod.refresh(sltId);
+			//
+            //     if (jsonSpmtPckgUnit.length > 0) {
+            //         const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[i]);
+            //         let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+            //         if (gfn_isEmpty(chkInfo)) {
+            //             SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
+            //         } else {
+            //             SBUxMethod.set(sltId, chkInfo.spmtPckgUnitCd);
+            //         }
+            //     }
+            // }
 
         }
 
@@ -5027,7 +2482,6 @@ input::-webkit-inner-spin-button {
 			itemCd : itemCd
         }
 
-
         const postUrl = gfn_isEmpty(sortno) ?
             "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
 
@@ -5269,6 +2723,7 @@ input::-webkit-inner-spin-button {
             }
 
             console.error("failed", e.message);
+			console.error("Stack Trace:", e.stack);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 
             fn_reset();
