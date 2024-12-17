@@ -1443,7 +1443,6 @@
      * 신규
      */
 	var cfn_add = function() {
-    	
     	cfn_sub_add('new');
     }
      
@@ -1621,7 +1620,7 @@
     	
 		// 신규 등록
 		if(gfn_comConfirm("Q0001", "저장")){
-			fn_subInsert();
+			fn_subModify('N');
 		} 
     }
     
@@ -1649,9 +1648,9 @@
     }
     
     /**
-     * 저장
+     * 저장, 삭제
      */   
-    const fn_subInsert = async function (){
+    const fn_subModify = async function (wtype){
     	
     	var p_doc_batch_no			= gfnma_nvl(SBUxMethod.get("sch-doc-batch-no"));
     	var p_doc_id				= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
@@ -2275,7 +2274,7 @@
 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/insertFig2210S.do", {
         	getType				: 'json',
-        	workType			: 'N',
+        	workType			: wtype,
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj)
 		});    	 
@@ -2288,25 +2287,29 @@
 	          		alert(data.resultMessage);
         		}
         		
-        		//성공했을때 --------------------------------
-        		var doc_id  = '';
-        		if(data.v_returnStr){
-            		doc_id  = data.v_returnStr + '';
+        		if(wtype=='N'){
+	        		//성공했을때 --------------------------------
+	        		var doc_id  = '';
+	        		if(data.v_returnStr){
+	            		doc_id  = data.v_returnStr + '';
+	        		} else {
+	        			doc_id 	= gfnma_nvl2(SBUxMethod.get('sch-doc-id')) + '';
+	        		}
+	        		var doc_idx = doc_id.indexOf('|');
+	        		doc_id = doc_id.substr(doc_idx + 1);
+	        		
+	        		console.log('doc_id:', doc_id);
+	        		console.log('p_menu_param:', p_menu_param);
+	        		if(!p_menu_param){
+	        			p_menu_param = {};
+	        		}
+	        		p_menu_param.DOC_ID = doc_id;
+					pg_state = 'edit';			
+			     	fn_init(false);
+			     	//--------------------------------------------
         		} else {
-        			doc_id 	= gfnma_nvl2(SBUxMethod.get('sch-doc-id')) + '';
+        			cfn_sub_add('new');        			
         		}
-        		var doc_idx = doc_id.indexOf('|');
-        		doc_id = doc_id.substr(doc_idx + 1);
-        		
-        		console.log('doc_id:', doc_id);
-        		console.log('p_menu_param:', p_menu_param);
-        		if(!p_menu_param){
-        			p_menu_param = {};
-        		}
-        		p_menu_param.DOC_ID = doc_id;
-				pg_state = 'edit';			
-		     	fn_init(false);
-		     	//--------------------------------------------
         		
         	} else {
           		alert(data.resultMessage);
@@ -4132,6 +4135,19 @@
     	}
     }
     
+    /**
+     * 삭제
+     */
+   	var cfn_del = async function() {
+    	
+    	var chk = gfnma_nvl(SBUxMethod.get('sch-doc-status'));
+    	if(chk != '1' && chk != '5'){
+    		return;
+    	}
+		if(gfn_comConfirm("Q0001", "선택하신 전표를 삭제하시겠습니까?")){
+			fn_subModify('D');
+		} 
+    }    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
