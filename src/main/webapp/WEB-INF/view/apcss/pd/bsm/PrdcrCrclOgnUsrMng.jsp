@@ -1045,6 +1045,9 @@
 		if(gfn_isEmpty(userId)) return;
 
 		let userType = SBUxMethod.get("dtl-input-userType");
+		//관리자 계정
+		if(userType == "00" || userType == "01" || userType == "02" )  return;
+
 		/*
 		//통합,출자출하 조직만 가능하게 설정
 		if(userType != '21' && userType != '22'){
