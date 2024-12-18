@@ -105,7 +105,9 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:70px"
-											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+											group-id="schHeader" 
+											required                                       
 										></sbux-datepicker>
 									    <font style="padding-left:5px;padding-right:5px">-</font>  
 										<sbux-datepicker
@@ -114,7 +116,9 @@
 									        datepicker-mode="month"
 									        date-format="yyyy-mm"
 									        style="width:70px"
-											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+											class="form-control pull-right input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+											group-id="schHeader" 
+											required                                       
 										></sbux-datepicker>
 									    <font style="padding-left:5px;"></font>  
 									    <span style="padding-top:7px">
@@ -423,6 +427,9 @@
      * 목록 조회
      */
  	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
     	if(p_sel_tab==1){
 	    	fn_setFig5210Grid('Q');
     	} else {
