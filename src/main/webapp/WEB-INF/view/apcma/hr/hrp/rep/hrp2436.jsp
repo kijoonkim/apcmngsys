@@ -318,57 +318,86 @@
         <div>
             <div id="sb-area-gvwInfo" style="height:280px; width:100%;"></div>
         </div>
-        <div class="ad_tbl_top">
-            <ul class="ad_tbl_count">
-                <li>
-                    <span>메일정보</span>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <table id="dataArea2" class="table table-bordered tbl_fixed">
-                <caption>검색 조건 설정</caption>
-                <colgroup>
-                    <col style="width: 3%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
-
-                    <col style="width: 3%">
-                    <col style="width: 6%">
-                    <col style="width: 3%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">메일제목</th>
-                    <td colspan="2" class="td_input" >
-                        <sbux-input
-                                uitype="text"
-                                id="EMAIL_SUBJECT"
-                                class="form-control input-sm"
-                        ></sbux-input>
-                    </td>
-                    <td colspan="3" class="td_input" >
-                        <p>※ 저장된 내용이 발송되므로 편집 후 반드시 저장하세요.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">메일내용</th>
-                    <td colspan="2" class="td_input" >
-                        <sbux-textarea id="EMAIL_BODY" class="form-control input-sm" uitype="normal" style="width:100%; height: 68px;"></sbux-textarea>
-                    </td>
-                    <th scope="row" rowspan="2" class="th_bg">급여산정기준</th>
-                    <td colspan="2"  rowspan="2" class="td_input" >
-                        <sbux-textarea id="PAY_CALCULATE_MEMO" rows="2" class="form-control" uitype="normal" style="width:100%; height: 156px;"></sbux-textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg">공지사항</th>
-                    <td colspan="2" class="td_input" >
-                        <sbux-textarea id="NOTICE_MEMO" class="form-control" uitype="normal" style="width:100%; height:88px;"></sbux-textarea>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div style="margin-top:1vh;">
+	        <sbux-tabs id="idxTab_detail" name="idxTab_detail" uitype="normal"
+	            is-scrollable="false"
+	            title-target-id-array="mail^sms"
+	            title-text-array="메일 정보^SMS 정보">
+	        </sbux-tabs>
+	        <div class="tab-content">
+	           <div id="mail" style="height:20vh;">
+		            <table id="dataArea2" class="table table-bordered tbl_fixed">
+		                <caption>검색 조건 설정</caption>
+		                <colgroup>
+		                    <col style="width: 3%">
+		                    <col style="width: 6%">
+		                    <col style="width: 3%">
+		
+		                    <col style="width: 3%">
+		                    <col style="width: 6%">
+		                    <col style="width: 3%">
+		                </colgroup>
+		                <tbody>
+		                <tr>
+		                    <th scope="row" class="th_bg">메일제목</th>
+		                    <td colspan="2" class="td_input" >
+		                        <sbux-input
+		                                uitype="text"
+		                                id="EMAIL_SUBJECT"
+		                                class="form-control input-sm"
+		                        ></sbux-input>
+		                    </td>
+		                    <td colspan="3" class="td_input" >
+		                        <p>※ 저장된 내용이 발송되므로 편집 후 반드시 저장하세요.</p>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <th scope="row" class="th_bg">메일내용</th>
+		                    <td colspan="2" class="td_input" style="border-right: hidden;">
+		                        <sbux-textarea id="EMAIL_BODY" class="form-control input-sm" uitype="normal" style="width:100%; height: 60px;"></sbux-textarea>
+		                    </td>
+		                    <th scope="row" rowspan="2" class="th_bg">급여산정기준</th>
+		                    <td colspan="2"  rowspan="2" class="td_input" style="border-right: hidden;">
+		                        <sbux-textarea id="PAY_CALCULATE_MEMO" rows="2" class="form-control" uitype="normal" style="width:100%; height: 120px;"></sbux-textarea>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <th scope="row" class="th_bg">공지사항</th>
+		                    <td colspan="2" class="td_input" style="border-right: hidden;">
+		                        <sbux-textarea id="NOTICE_MEMO" class="form-control" uitype="normal" style="width:100%; height:60px;"></sbux-textarea>
+		                    </td>
+		                </tr>
+		                </tbody>
+		            </table>
+	           </div>
+	           <div id="sms" style="height:20vh;">        
+		            <table id="dataArea3" class="table table-bordered tbl_fixed">
+		                <caption>검색 조건 설정</caption>
+		                <colgroup>
+		                    <col style="width: 3%">
+		                    <col style="width: 6%">
+		                    <col style="width: 3%">
+		
+		                    <col style="width: 3%">
+		                    <col style="width: 6%">
+		                    <col style="width: 3%">
+		                </colgroup>
+		                <tbody>
+			                <tr>
+			                    <td colspan="3" class="" style="border-right: hidden;">
+			                        <p style="vertical-align:top">※ 저장된 내용이 발송되므로 편집 후 반드시 저장하세요.</p>
+			                    </td>
+			                </tr>
+			                <tr>
+			                    <th scope="row" class="th_bg">SMS 전송 내용</th>
+				                <td colspan="2"  rowspan="2" class="td_input" style="border-right: hidden;">
+			                        <sbux-textarea id="SMS_MESSAGE" rows="2" class="form-control" uitype="normal" style="width:100%; height: 100px;"></sbux-textarea>
+			                    </td>
+			                </tr>
+		                </tbody>
+		            </table>
+	           </div>
+	        </div>
         </div>
         <%--<form id="reportPdfDownload">
             <input type="hidden" name="title" value="">
@@ -918,6 +947,7 @@
 
                         SBUxMethod.set("EMAIL_SUBJECT"      , 	gfn_nvl(item.EMAIL_SUBJECT));
                         SBUxMethod.set("EMAIL_BODY"         , 	gfn_nvl(item.EMAIL_BODY));
+                        SBUxMethod.set("SMS_MESSAGE"         , 	gfn_nvl(item.SMS_MESSAGE));
                         SBUxMethod.set("NOTICE_MEMO"        , 	gfn_nvl(item.NOTICE_MEMO));
                         /*SBUxMethod.set("NOTICE_MEMO2", 	gfn_nvl(item.NOTICE_MEMO2),);*/
                         SBUxMethod.set("PAY_CALCULATE_MEMO" , 	gfn_nvl(item.PAY_CALCULATE_MEMO));
@@ -964,6 +994,7 @@
 
             let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
             let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+            let SMS_MESSAGE 		= gfn_nvl(SBUxMethod.get("SMS_MESSAGE"));
             let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
             let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
 
@@ -973,6 +1004,10 @@
             }
             if (!EMAIL_BODY) {
                 gfn_comAlert("W0002", "메일내용");
+                return;
+            }
+            if (!SMS_MESSAGE) {
+                gfn_comAlert("W0002", "SMS 내용");
                 return;
             }
 
@@ -989,7 +1024,8 @@
                 ,V_P_EMAIL_BODY         : EMAIL_BODY
                 ,V_P_NOTICE_MEMO        : NOTICE_MEMO
                 ,V_P_PAY_CALCULATE_MEMO : PAY_CALCULATE_MEMO
-
+				,V_P_SMS_MESSAGE		: SMS_MESSAGE
+					
                 ,V_P_FORM_ID            : p_formId
                 ,V_P_MENU_ID            : p_menuId
                 ,V_P_PROC_ID            : ''
@@ -1053,6 +1089,7 @@
 
             let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
             let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+            let SMS_MESSAGE 		= gfn_nvl(SBUxMethod.get("SMS_MESSAGE"));
             let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
             let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
 
@@ -1062,6 +1099,10 @@
             }
             if (!EMAIL_BODY) {
                 gfn_comAlert("W0002", "메일내용");
+                return;
+            }
+            if (!SMS_MESSAGE) {
+                gfn_comAlert("W0002", "SMS 내용");
                 return;
             }
 
@@ -1078,14 +1119,13 @@
                 ,V_P_EMAIL_BODY         : EMAIL_BODY
                 ,V_P_NOTICE_MEMO        : NOTICE_MEMO
                 ,V_P_PAY_CALCULATE_MEMO : PAY_CALCULATE_MEMO
+                ,V_P_SMS_MESSAGE		: SMS_MESSAGE
 
                 ,V_P_FORM_ID            : p_formId
                 ,V_P_MENU_ID            : p_menuId
                 ,V_P_PROC_ID            : ''
                 ,V_P_USERID             : ''
                 ,V_P_PC                 : ''
-
-
             };
             const postJsonPromise = gfn_postJSON("/hr/hrp/rep/insertHrp2436.do", {
                 getType: 'json',
@@ -1100,12 +1140,10 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
-                        fn_view();
                     }else {
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_view();
                     }
-
+                    fn_view();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1126,7 +1164,6 @@
     const fn_btnFile = async function(){
         var nRow = gvwInfoGrid.getRow();
      	var conn = '';
-     	var connTest = '';
      	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
      	if (nRow < 1) {
              return;
@@ -1184,7 +1221,6 @@
      * Email 발송
      */
     const fn_btnSendEmail = async function () {
-
     }
 
     /**
