@@ -642,10 +642,10 @@
 			let captionRow = objGrid.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				if(rowData01.typeSeNo === '5' && rowData01.itemCd == itemCd){
+				if(rowData01.typeSeNo === '5' && rowData01.itemCd == itemCd && rowData01.ognzStbltYn === rowData.ognzStbltYn){
 					const isValidTypeSeNo =
 						(rowData.trmtType === '0') ||
-						(rowData.trmtType !== '0' && rowData.trmtType == rowData01.trmtType && rowData01.ognzStbltYn === rowData.ognzStbltYn);
+						(rowData.trmtType !== '0' && rowData.trmtType == rowData01.trmtType);
 
 					if(isValidTypeSeNo && !gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
@@ -654,6 +654,7 @@
 			}
 			return sumVal;
 		}
+
 		if(rowData.typeSeNo === '8'){
 			let sumVal = 0;
 			//테이블 해더 row수
