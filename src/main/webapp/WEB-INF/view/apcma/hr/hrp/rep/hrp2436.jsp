@@ -659,7 +659,8 @@
             position	: 'bottom',
             columns		: {
                 standard : [1],
-                sum : [9,15,16,17,18]
+                count : [9],
+                sum : [15,16,17,18]
             },
             subtotalrow : {
                 1: {
@@ -1006,10 +1007,6 @@
                 gfn_comAlert("W0002", "메일내용");
                 return;
             }
-            if (!SMS_MESSAGE) {
-                gfn_comAlert("W0002", "SMS 내용");
-                return;
-            }
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN	    : ''
@@ -1099,10 +1096,6 @@
             }
             if (!EMAIL_BODY) {
                 gfn_comAlert("W0002", "메일내용");
-                return;
-            }
-            if (!SMS_MESSAGE) {
-                gfn_comAlert("W0002", "SMS 내용");
                 return;
             }
 
