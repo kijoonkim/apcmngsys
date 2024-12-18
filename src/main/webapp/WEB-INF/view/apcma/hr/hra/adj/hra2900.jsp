@@ -344,7 +344,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -373,7 +373,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -526,7 +526,7 @@
     //계산결과 마감 리스트
     function fn_createResultGrid(chMode, rowData) {
         /*jsonYearEndTaxResultList = jsonYearEndTaxResultList.filter(data => {
-            return gfn_nvl(data.EMP_CODE) != '';
+            return gfnma_nvl2(data.EMP_CODE) != '';
         });*/
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwYearEndTaxResult';
@@ -642,10 +642,10 @@
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-        let DEPT_CODE           = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-        let EMP_CODE            = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let YE_TX_YYYY          = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE           = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -696,19 +696,19 @@
                 jsonYearEndTaxBaseList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			    : gfn_nvl(item.CHK_YN)
-                        ,CLOSE_STATE 		: gfn_nvl(item.CLOSE_STATE)
-                        ,YE_TX_TYPE 		: gfn_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
-                        ,INSERT_USERID 		: gfn_nvl(item.INSERT_USERID)
-                        ,INSERT_TIME 		: gfn_nvl(item.INSERT_TIME)
-                        ,INSERT_PC 			: gfn_nvl(item.INSERT_PC)
-                        ,UPDATE_USERID 		: gfn_nvl(item.UPDATE_USERID)
-                        ,UPDATE_TIME 		: gfn_nvl(item.UPDATE_TIME)
+                        CHK_YN 			    : gfnma_nvl2(item.CHK_YN)
+                        ,CLOSE_STATE 		: gfnma_nvl2(item.CLOSE_STATE)
+                        ,YE_TX_TYPE 		: gfnma_nvl2(item.YE_TX_TYPE)
+                        ,SITE_CODE 			: gfnma_nvl2(item.SITE_CODE)
+                        ,DEPT_CODE 			: gfnma_nvl2(item.DEPT_CODE)
+                        ,DEPT_NAME 			: gfnma_nvl2(item.DEPT_NAME)
+                        ,EMP_CODE 			: gfnma_nvl2(item.EMP_CODE)
+                        ,EMP_NAME 			: gfnma_nvl2(item.EMP_NAME)
+                        ,INSERT_USERID 		: gfnma_nvl2(item.INSERT_USERID)
+                        ,INSERT_TIME 		: gfnma_nvl2(item.INSERT_TIME)
+                        ,INSERT_PC 			: gfnma_nvl2(item.INSERT_PC)
+                        ,UPDATE_USERID 		: gfnma_nvl2(item.UPDATE_USERID)
+                        ,UPDATE_TIME 		: gfnma_nvl2(item.UPDATE_TIME)
 
                     }
                     jsonYearEndTaxBaseList.push(msg);
@@ -721,30 +721,30 @@
                 jsonYearEndTaxResultList.length = 0;
                 data.cv_2.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			    : gfn_nvl(item.CHK_YN)
-                        ,CLOSE_STATE 		: gfn_nvl(item.CLOSE_STATE)
-                        ,CONFIRM_FLAG 		: gfn_nvl(item.CONFIRM_FLAG)
-                        ,YE_TX_TYPE 		: gfn_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
-                        ,INSERT_USERID 		: gfn_nvl(item.INSERT_USERID)
-                        ,INSERT_TIME 		: gfn_nvl(item.INSERT_TIME)
-                        ,INSERT_PC 			: gfn_nvl(item.INSERT_PC)
-                        ,SPLIT_YN 			: gfn_nvl(item.SPLIT_YN)
-                        ,SPLIT_MONTH 		: gfn_nvl(item.SPLIT_MONTH)
-                        ,YE_YYYYMM 			: gfn_nvl(item.YE_YYYYMM)
-                        ,TAX_TOT 			: gfn_nvl(item.TAX_TOT)
-                        ,INC_TAX_TOT 		: gfn_nvl(item.INC_TAX_TOT)
-                        ,LOCAL_TAX_TOT 		: gfn_nvl(item.LOCAL_TAX_TOT)
-                        ,INC_TAX_01 		: gfn_nvl(item.INC_TAX_01)
-                        ,LOCAL_TAX_01 		: gfn_nvl(item.LOCAL_TAX_01)
-                        ,INC_TAX_02 		: gfn_nvl(item.INC_TAX_02)
-                        ,LOCAL_TAX_02 		: gfn_nvl(item.LOCAL_TAX_02)
-                        ,INC_TAX_03 		: gfn_nvl(item.INC_TAX_03)
-                        ,LOCAL_TAX_03 		: gfn_nvl(item.LOCAL_TAX_03)
+                        CHK_YN 			    : gfnma_nvl2(item.CHK_YN)
+                        ,CLOSE_STATE 		: gfnma_nvl2(item.CLOSE_STATE)
+                        ,CONFIRM_FLAG 		: gfnma_nvl2(item.CONFIRM_FLAG)
+                        ,YE_TX_TYPE 		: gfnma_nvl2(item.YE_TX_TYPE)
+                        ,SITE_CODE 			: gfnma_nvl2(item.SITE_CODE)
+                        ,DEPT_CODE 			: gfnma_nvl2(item.DEPT_CODE)
+                        ,DEPT_NAME 			: gfnma_nvl2(item.DEPT_NAME)
+                        ,EMP_CODE 			: gfnma_nvl2(item.EMP_CODE)
+                        ,EMP_NAME 			: gfnma_nvl2(item.EMP_NAME)
+                        ,INSERT_USERID 		: gfnma_nvl2(item.INSERT_USERID)
+                        ,INSERT_TIME 		: gfnma_nvl2(item.INSERT_TIME)
+                        ,INSERT_PC 			: gfnma_nvl2(item.INSERT_PC)
+                        ,SPLIT_YN 			: gfnma_nvl2(item.SPLIT_YN)
+                        ,SPLIT_MONTH 		: gfnma_nvl2(item.SPLIT_MONTH)
+                        ,YE_YYYYMM 			: gfnma_nvl2(item.YE_YYYYMM)
+                        ,TAX_TOT 			: gfnma_nvl2(item.TAX_TOT)
+                        ,INC_TAX_TOT 		: gfnma_nvl2(item.INC_TAX_TOT)
+                        ,LOCAL_TAX_TOT 		: gfnma_nvl2(item.LOCAL_TAX_TOT)
+                        ,INC_TAX_01 		: gfnma_nvl2(item.INC_TAX_01)
+                        ,LOCAL_TAX_01 		: gfnma_nvl2(item.LOCAL_TAX_01)
+                        ,INC_TAX_02 		: gfnma_nvl2(item.INC_TAX_02)
+                        ,LOCAL_TAX_02 		: gfnma_nvl2(item.LOCAL_TAX_02)
+                        ,INC_TAX_03 		: gfnma_nvl2(item.INC_TAX_03)
+                        ,LOCAL_TAX_03 		: gfnma_nvl2(item.LOCAL_TAX_03)
 
                     }
                     jsonYearEndTaxResultList.push(msg);
@@ -794,13 +794,13 @@
                     isCount = true;
                     stremp_code     += item.EMP_CODE    + '|';
                     strsplit_yn     += item.SPLIT_YN    + '|';
-                    strsplit_month  += gfn_nvl(item.SPLIT_MONTH ) == '' ? 0 + '|' : item.SPLIT_MONTH + '|';
-                    strinc_tax_01   += gfn_nvl(item.INC_TAX_01  ) == '' ? 0 + '|' : item.INC_TAX_01  + '|';
-                    strlocal_tax_01 += gfn_nvl(item.LOCAL_TAX_01) == '' ? 0 + '|' : item.LOCAL_TAX_01+ '|';
-                    strinc_tax_02   += gfn_nvl(item.INC_TAX_02  ) == '' ? 0 + '|' : item.INC_TAX_02  + '|';
-                    strlocal_tax_02 += gfn_nvl(item.LOCAL_TAX_02) == '' ? 0 + '|' : item.LOCAL_TAX_02+ '|';
-                    strinc_tax_03   += gfn_nvl(item.INC_TAX_03  ) == '' ? 0 + '|' : item.INC_TAX_03  + '|';
-                    strlocal_tax_03 += gfn_nvl(item.LOCAL_TAX_03) == '' ? 0 + '|' : item.LOCAL_TAX_03+ '|';
+                    strsplit_month  += gfnma_nvl2(item.SPLIT_MONTH ) == '' ? 0 + '|' : item.SPLIT_MONTH + '|';
+                    strinc_tax_01   += gfnma_nvl2(item.INC_TAX_01  ) == '' ? 0 + '|' : item.INC_TAX_01  + '|';
+                    strlocal_tax_01 += gfnma_nvl2(item.LOCAL_TAX_01) == '' ? 0 + '|' : item.LOCAL_TAX_01+ '|';
+                    strinc_tax_02   += gfnma_nvl2(item.INC_TAX_02  ) == '' ? 0 + '|' : item.INC_TAX_02  + '|';
+                    strlocal_tax_02 += gfnma_nvl2(item.LOCAL_TAX_02) == '' ? 0 + '|' : item.LOCAL_TAX_02+ '|';
+                    strinc_tax_03   += gfnma_nvl2(item.INC_TAX_03  ) == '' ? 0 + '|' : item.INC_TAX_03  + '|';
+                    strlocal_tax_03 += gfnma_nvl2(item.LOCAL_TAX_03) == '' ? 0 + '|' : item.LOCAL_TAX_03+ '|';
                 }
             })
 
@@ -856,7 +856,7 @@
         }
 
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-        let YE_TX_YYYY          = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_YYYY          = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
@@ -907,10 +907,10 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                    cfn_search()
+                    fn_search()
                 }else{
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    cfn_search()
+                    fn_search()
                 }
 
             } else {
