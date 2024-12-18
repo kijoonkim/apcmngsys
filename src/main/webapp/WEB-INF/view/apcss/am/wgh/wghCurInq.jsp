@@ -61,71 +61,80 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg">계량대</th>
-                    <td class="td_input" colspan="3" style="border-right: hidden; border-top: hidden">
-                        <sbux-select
-                                id="srch-slt-wghFcltCd"
-                                name="srch-slt-wghFcltCd"
-                                uitype="single"
-                                class="form-control input-sm"
-                                jsondata-ref="jsonWghFclt"
-                                jsondata-text="cdVlNm"
-                                jsondata-value="cdVl"
-                                style="max-width:80%;">
+                    <td class="td_input" colspan="3" style="border-right: hidden">
+                        <sbux-select id="srch-slt-sortFcltCd"
+                                     name="srch-slt-sortFcltCd"
+                                     uitype="single"
+                                     unselected-text="선택"
+                                     class="form-control input-sm"
+                                     style="width: 80%"
+                                     jsondata-ref="jsonSortFclt">
                         </sbux-select>
                     </td>
-                    <td colspan="9" style="border-top: hidden"></td>
+                    <td colspan="9" style="border-top: hidden;"></td>
                 </tr>
                 </tbody>
             </table>
-            <div>
-                <div class="ad_tbl_top">
-                    <ul class="ad_tbl_count">
-                        <li>
-                            <span>계량대 현황</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="sb-area-grdWghInfo" style="height: 400px"></div>
+            <div class="ad_tbl_top">
+                <ul class="ad_tbl_count">
+                    <li>
+                        <span>계량대 현황</span>
+                    </li>
+                </ul>
             </div>
+            <div id="sb-area-wghCurInq"></div>
         </div>
     </div>
 </section>
 </body>
 <script type="application/javascript">
-    var jsonWghFclt = [];
+    var jsonWghCurInq = [];
+    let gridWghCurInq;
+    var jsonSortFclt = [];
 
-    /** grid **/
-    var jsonWghFcltStts = [];
-    var grdWghFcltStts;
 
-    document.addEventListener("DOMContentLoaded",function(){
-        fn_init();
+    window.addEventListener("DOMContentLoaded", function(){
+       fn_init();
     });
     const fn_init = async function(){
-        let postJsonPromise = gfn_postJSON("/co/cd/selectFcltList.do", {apcCd : gv_selectedApcCd});
+        await gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', 	gv_selectedApcCd),
+        await fn_create_wghCurInq();
+    }
+    const fn_create_wghCurInq = async function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-wghCurInq';
+        SBGridProperties.id = 'gridWghCurInq';
+        SBGridProperties.jsonref = 'jsonWghCurInq';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.datamergefalseskip = true;
+        SBGridProperties.columns = [
+            {caption: ["코드"],	ref: 'fcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["명칭"],	ref: 'fcltNm',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["상태정보"],	ref: 'status',		type:'output',  width:'35%', style: 'text-align:center;'},
+            {caption: ["최근 가동 일자"],	ref: 'sysLastChgDt',	type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["연계코드"],	ref: 'spcfctNm',		type:'output',  width:'15%', style: 'text-align:center;'},
+        ]
+        gridWghCurInq = _SBGrid.create(SBGridProperties);
+    }
+    const fn_search = async function(){
+        let fcltCd = SBUxMethod.get("srch-slt-sortFcltCd");
+        console.log(fcltCd,"?");
+        let postJsonPromise = gfn_postJSON("/am/wgh/selectWghFclt.do",{apcCd:gv_apcCd,fcltCd:fcltCd});
         let data = await postJsonPromise;
         if(data.resultStatus === 'S'){
-            let wghList = data.resultList.filter((item) => item.cdVl === '01' && item.cdId === 'WGH_FCLT_CD');
-            jsonWghFclt = [...wghList];
-            SBUxMethod.refresh("srch-slt-wghFcltCd");
+            jsonWghCurInq = data.resultList;
+            jsonWghCurInq.forEach(function(item){
+               if(item.bgngYmd){
+                   if(item.endYmd){
+                       item.status = 'OFF';
+                   }else{
+                       item.status = 'ON';
+                   }
+               }
+            });
+            gridWghCurInq.rebuild();
         }
-        fn_createGrid();
-    }
-
-    function fn_createGrid() {
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdWghInfo';
-        SBGridProperties.id = 'grdWghFcltStts';
-        SBGridProperties.jsonref = 'jsonRawMtrWrhs';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.columns = [
-            {caption: ["코드"],ref: 'wrhsYmd',type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["명칭"],ref: 'wrhsYmd',type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["상태정보"],ref: 'wrhsYmd',type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["최근 가동 일자"],ref: 'wrhsYmd',type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["연계코드"],ref: 'wrhsYmd',type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-        ]
-        grdWghFcltStts = _SBGrid.create(SBGridProperties);
+        console.log(data);
     }
 
 </script>

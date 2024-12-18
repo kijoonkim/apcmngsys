@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.mapper;
+package com.at.apcss.am.wgh.mapper;
 
 import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
 import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
@@ -9,7 +9,7 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 import java.util.List;
 
 @Mapper
-public interface CmnsFcltMapper {
+public interface WghInfoMapper {
 
     /**
      * 계량대 시설코드 발번

@@ -3,6 +3,7 @@ package com.at.apcss.am.wgh.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.wgh.vo.WghFcltVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
@@ -188,4 +189,11 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
     List<HashMap<String, Object>> selectMultiWghPrfmncList(WghPrfmncVO wghPrfmnc) throws Exception;
+	/**
+	 * 계량대 목록 조회
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception;
 }

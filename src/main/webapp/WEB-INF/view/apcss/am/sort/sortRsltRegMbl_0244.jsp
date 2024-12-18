@@ -1705,7 +1705,7 @@ input::-webkit-inner-spin-button {
 
         sortGrdObj.hide();
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const grdId = grdList[i];
             const qnttId = "dtl-inp-qntt" + grdId;
             const wghtId = "dtl-inp-wght" + grdId;
@@ -1989,7 +1989,7 @@ input::-webkit-inner-spin-button {
         let totalQntt = 0;
         let totalWght = 0;
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const grdId = grdList[i];
             dtlList.forEach((dtl) => {
                 const qnttId = "dtl-inp-qntt" + grdId + dtl;
@@ -2051,7 +2051,7 @@ input::-webkit-inner-spin-button {
         let totalQntt = 0;
         let totalWght = 0;
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const grdId = grdList[i];
 
             dtlList.forEach((dtl) => {
