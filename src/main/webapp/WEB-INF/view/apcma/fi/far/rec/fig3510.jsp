@@ -3461,9 +3461,10 @@
                 $("#btnCreateLine").attr('disabled', 'true');
             }
 
-            if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+            // TODO : 추후 프로세스 확인 바람
+            /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                 // TODO : btnConfirmHist.Enabled = true;
-                $("#main-btn-appr", parent.document).removeAttr('disabled');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');*/
         } else {
             if (strDoc_status == "1") {
                 //미승인
@@ -3556,9 +3557,10 @@
 
                 $("#VAT_CODE").attr('disabled', 'true');
 
-                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                // TODO : 추후 프로세스 확인 바람
+                /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');*/
             }
         }
 
@@ -5563,16 +5565,17 @@
                     jsonAccountLineList.push(msg);
                 });
 
+                gvwWFItem.rebuild();
+
                 if (gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
                     $("#main-btn-attach", parent.document).removeAttr('disabled');
-                    gvwWFItem.clickRow(1);
+                    gvwWFItem.clickCell(1, 1);
                     fn_summary();
                 } else {
                     jsonAccountLineList.length = 0;
-                    gvwWFItem.rebuild();
                     fn_create();
                 }
-                gvwWFItem.rebuild();
+
 
                 gfnma_multiSelectSet('#RULE_CODE', '', '', '');
                 $("#RULE_CODE").attr('disabled', 'true');
