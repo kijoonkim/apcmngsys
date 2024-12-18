@@ -528,6 +528,7 @@
 			    , GI.RMRK			AS RMRK
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
+			   AND GI.INVNTR_QNTT > 0
 			   AND GI.APC_CD = #{apcCd}
 		]]>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>

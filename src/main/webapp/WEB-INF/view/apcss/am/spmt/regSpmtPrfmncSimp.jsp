@@ -111,7 +111,7 @@
                         name="btnReset"
                         uitype="normal"
                         class="btn btn-sm btn-outline-danger"
-                        text="신규"
+                        text="초기화"
                         onclick="fn_reset"
                 ></sbux-button>
             </div>
@@ -726,7 +726,7 @@
                 let resultQntt = data.selectCnt;
 
                 if(regQntt){
-                    resultQntt -= regQntt.invntrQntt;
+                    resultQntt -= regQntt.spmtQntt;
                 }
 
                 if(resultQntt <= 0){
@@ -790,15 +790,19 @@
         spmtObj.spmtQntt = addCnt;
         /** 등급추가 **/
         spmtObj.gdsGrd = spmtObj.grdCd;
-        let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(obj,spmtObj));
+        // let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(obj,spmtObj));
+        let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(_.omit(obj,['spmtQntt']),_.omit(spmtObj, ['spmtQntt'])));
         if(prevObj){
-            prevObj.invntrQntt += addCnt;
+            let addQntt = prevObj.spmtQntt + addCnt;
+            prevObj.spmtQntt = addQntt;
         }else{
-            jsonPckgPrfmnc.push(spmtObj);
+            jsonPckgPrfmnc.push({...spmtObj});
         }
         gridPckgPrfmnc.rebuild();
+        await fn_RegReset();
+        await fn_check_buttonAll();
 
-        fn_reset();
+        // fn_reset();
     }
     const fn_RegReset = function(){
         $("#pckgQntt").val('');
