@@ -72,7 +72,7 @@
                         </sbux-select>
                     </td>
                     <th scope="row" class="th_bg">계량번호</th>
-                    <td class="td_input" colspan="4" style="border-right: hidden;">
+                    <td class="td_input" colspan="4" style="border-right: hidden;border-top: hidden">
                         <sbux-input id="srch-slt-wghno"
                                     name="srch-slt-wghno"
                                     uitype="text"
@@ -90,15 +90,44 @@
                                          uitype="popup">
                         </sbux-datepicker>
                     </td>
-
                     <th scope="row" class="th_bg">차량번호</th>
-                    <td class="td_input" colspan="3">
+                    <td class="td_input" colspan="4" style="border-right: hidden">
                         <sbux-input id="srch-slt-vhclno"
                                     name="srch-slt-vhclno"
                                     uitype="text"
                                     class="form-control input-sm"
                                     style="width: 80%">
                         </sbux-input>
+                    </td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">품목</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="전체"
+                                uitype="single"
+                                id="srch-slt-itemCd"
+                                name="srch-slt-itemCd"
+                                class="form-control input-sm input-sm-ast"
+                                style="width: 80%"
+                                jsondata-ref="jsonApcItem"
+                                onchange="fn_onChangeSrchItemCd(this)">
+                        </sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">품</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-select
+                                unselected-text="선택"
+                                uitype="single"
+                                id="srch-slt-vrtyCd"
+                                name="srch-slt-vrtyCd"
+                                class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                style="width: 80%"
+                                jsondata-ref="jsonApcVrty"
+                                jsondata-value="itemVrtyCd"
+                                onchange="fn_onChangeSrchVrtyCd(this)">
+                        </sbux-select>
                     </td>
                 </tr>
                 <tr>
@@ -133,14 +162,30 @@
     let gridWghCurInq;
     var jsonSortFclt = [];
 
+    /* SB Select */
+    var jsonApcItem			= [];	// 품목 		itemCd		검색
+    var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 
     window.addEventListener("DOMContentLoaded", function(){
         fn_init();
     });
     const fn_init = async function(){
         await gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', 	gv_selectedApcCd),
-            await fn_create_wghCurInq();
+        await fn_create_wghCurInq();
+        await fn_initSBSelect();
     }
+    /**
+     * @name fn_initSBSelect
+     * @description SBSelect JSON 불러오기
+     */
+    const fn_initSBSelect = async function() {
+        // 검색 SB select
+        let result = await Promise.all([
+            gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),		// 품목
+            gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),		// 품종
+        ]);
+    }
+
     const fn_create_wghCurInq = async function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-wghCurInq';
