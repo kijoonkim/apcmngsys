@@ -83,19 +83,25 @@
 	                    	<tr>
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+		                            ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">기간</th>
 	                            <td colspan="3" class="td_input" >
 									<sbux-datepicker
-									        id="SCH_PERIOD_YYYYMM"
-									        name="SCH_PERIOD_YYYYMM"
-									        datepicker-mode="month"
-									        date-format="yyyy-mm"
-									        style="width:80px"
-									        class="form-control input-sm input-sm-ast table-datepicker-ma">
+								        id="SCH_PERIOD_YYYYMM"
+								        name="SCH_PERIOD_YYYYMM"
+								        datepicker-mode="month"
+								        date-format="yyyy-mm"
+								        style="width:80px"
+								        class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+								    >
 									</sbux-datepicker>                            
 	                            </td>
 	                            <td></td>
@@ -253,6 +259,9 @@
      * 목록 조회
      */
 	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
 		fn_setFig2410QGrid('Q');
 		fn_setFig2410INFOGrid('INFO');
 	}

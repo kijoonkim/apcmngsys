@@ -338,7 +338,7 @@
 	                            
 	                            <th scope="row" class="th_bg">제목</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm inpt_data_reqed" onchange="fn_DescChange(sch-description)"  
+	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm inpt_data_reqed" onchange="fn_DescChange(sch-description)"  onblur="fn_DescBlur(sch-description)"
 										group-id="frmBody" 
 										required                                       
 	   								></sbux-input>
@@ -1434,6 +1434,7 @@
     	pg_state = 'new';
     	fn_init(false);
     	fn_createGrid2210();	
+    	gfnma_uxDataClear('#srchArea1');
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	fn_gridTotal();
@@ -2622,6 +2623,19 @@
     //제목 값 --> 그리드에 셋팅하기
     function fn_DescChange(val) {
 		console.log('val:', val);        
+		let allDatas = Fig2210Grid.getOrgGridDataAll()
+		if(allDatas.length>0){
+			for (var i = 0; i < allDatas.length; i++) {
+				allDatas[i]['DESCRIPTION'] = val;
+			}
+			Fig2210Grid.refresh();
+		}
+    }
+
+    //제목 값 --> 그리드에 셋팅하기
+    function fn_DescBlur(val) {
+		console.log('val:', val);   
+		val = gfnma_nvl(val);
 		let allDatas = Fig2210Grid.getOrgGridDataAll()
 		if(allDatas.length>0){
 			for (var i = 0; i < allDatas.length; i++) {

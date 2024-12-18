@@ -121,5 +121,13 @@ public class SpmtPckgUnitVO extends ComVO{
 	 *  표준등급코드
 	 */
 	private String stdGrdCd;
+	/**
+	 *  선별이후등급(상품등급)
+	 */
+	private String aftrGrdCd;
+	/**
+	 *  순서
+	 */
+	private int sn;
 
 }

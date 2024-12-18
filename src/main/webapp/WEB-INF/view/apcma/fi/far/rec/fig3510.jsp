@@ -3445,8 +3445,8 @@
             $("#btnDocCopy").attr('disabled', 'true');
 
         if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
-            $("#main-btn-del").attr('disabled', 'true');
-            $("#main-btn-appr").attr('disabled', 'true');
+            $("#main-btn-del", parent.document).attr('disabled', true);
+            $("#main-btn-appr", parent.document).attr('disabled', true);
             $("#btnPrint").removeAttr('disabled');
 
             $("#btnAddRow").attr('disabled', 'true');
@@ -3454,21 +3454,22 @@
             $("#btnCreateLine").attr('disabled', 'true');
 
             if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-appr", parent.document).attr('disabled', true);
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
                 $("#btnCreateLine").attr('disabled', 'true');
             }
 
-            if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+            // TODO : 추후 프로세스 확인 바람
+            /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                 // TODO : btnConfirmHist.Enabled = true;
-                $("#main-btn-appr").removeAttr('disabled');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');*/
         } else {
             if (strDoc_status == "1") {
                 //미승인
-                $("#main-btn-del").removeAttr('disabled');
-                $("#main-btn-appr").removeAttr('disabled');
+                $("#main-btn-del", parent.document).removeAttr('disabled');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").removeAttr('disabled');
@@ -3478,8 +3479,8 @@
                 $("#VAT_CODE").removeAttr('disabled');
 
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
-                    $("#main-btn-del").attr('disabled', 'true');
-                    $("#main-btn-appr").attr('disabled', 'true');
+                    $("#main-btn-del", parent.document).attr('disabled', true);
+                    $("#main-btn-appr", parent.document).attr('disabled', true);
 
                     $("#btnAddRow").attr('disabled', 'true');
                     $("#btnDeleteRow").attr('disabled', 'true');
@@ -3487,12 +3488,12 @@
                 }
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").removeAttr('disabled');
+                    $("#main-btn-del", parent.document).removeAttr('disabled');
                 }
 
             } else if (strDoc_status == "3") {
                 //승인중
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3502,27 +3503,27 @@
                 $("#VAT_CODE").attr('disabled', 'true');
 
                 if (gfn_nvl(SBUxMethod.get('CONFIRM_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('PROXY_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd) {
-                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
                 }
 
                 if ((gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == gfn_nvl(SBUxMethod.get('REQUEST_EMP_CODE'))) && (gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd)) {
-                    $("#main-btn-del").removeAttr('disabled');
+                    $("#main-btn-del", parent.document).removeAttr('disabled');
                 } else {
-                    $("#main-btn-del").attr('disabled', 'true');
+                    $("#main-btn-del", parent.document).attr('disabled', true);
                 }
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").removeAttr('disabled');
-                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-del", parent.document).removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
                 }
 
                 if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "")
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
             } else if (strDoc_status == "5") {
                 //승인완료
-                $("#main-btn-del").attr('disabled', 'true');
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-del", parent.document).attr('disabled', true);
+                $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3532,22 +3533,22 @@
                 $("#VAT_CODE").attr('disabled', 'true');
 
                 if (strFI_DELETE_USER == p_userId) {
-                    $("#main-btn-del").removeAttr('disabled');
+                    $("#main-btn-del", parent.document).removeAttr('disabled');
                 }
 
                 //본인이 등록했고 본인만 결제권자 였으면 반려 가능
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId && parseInt(gfn_nvl(SBUxMethod.get('APPR_COUNT')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_COUNT'))) == 1) {
-                    $("#main-btn-appr").removeAttr('disabled');
-                    $("#main-btn-del").removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-del", parent.document).removeAttr('disabled');
                 }
 
                 if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
             } else {
                 //최종완료, 반려
-                $("#main-btn-del").attr('disabled', 'true');
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-del", parent.document).attr('disabled', true);
+                $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3556,9 +3557,10 @@
 
                 $("#VAT_CODE").attr('disabled', 'true');
 
-                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                // TODO : 추후 프로세스 확인 바람
+                /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr").removeAttr('disabled');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');*/
             }
         }
 
@@ -4264,9 +4266,8 @@
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
-        $("#main-btn-save").removeAttr("disabled");
-        $("#main-btn-save").attr("disabled", "true");
-        $("#main-btn-appr").attr("disabled", "true");
+        $("#main-btn-save", parent.document).attr('disabled', true);
+        $("#main-btn-appr", parent.document).attr('disabled', true);
 
         // TODO: PreviewButton = false;
         // TODO: PrintButton = false;
@@ -5564,16 +5565,17 @@
                     jsonAccountLineList.push(msg);
                 });
 
+                gvwWFItem.rebuild();
+
                 if (gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
-                    $("#main-btn-attach").removeAttr("disabled");
-                    gvwWFItem.clickRow(1);
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
+                    gvwWFItem.clickCell(1, 1);
                     fn_summary();
                 } else {
                     jsonAccountLineList.length = 0;
-                    gvwWFItem.rebuild();
                     fn_create();
                 }
-                gvwWFItem.rebuild();
+
 
                 gfnma_multiSelectSet('#RULE_CODE', '', '', '');
                 $("#RULE_CODE").attr('disabled', 'true');
@@ -5783,8 +5785,8 @@
     const fn_docCopy = async function () {
         $("#btnCreateLine").removeAttr("disabled");
         $("#btnAddRow").removeAttr("disabled");
-        $("#main-btn-attach").attr("disabled", "true");
-        $("#main-btn-appr").attr("disabled", "true");
+        $("#main-btn-attach", parent.document).attr('disabled', true);
+        $("#main-btn-appr", parent.document).attr('disabled', true);
 
         strCurrntDate = gfn_dateToYmd(new Date());
 
@@ -6097,7 +6099,7 @@
 
             gvwWFItem.clickRow(1);
 
-            $("#main-btn-save").removeAttr('disabled');
+            $("#main-btn-save", parent.document).removeAttr('disabled');
         }
     }
 
@@ -6113,7 +6115,7 @@
             }
             gvwWFItem.clickRow(1);
 
-            $("#main-btn-save").removeAttr("disabled");
+            $("#main-btn-save", parent.document).removeAttr('disabled');
         }
 
     }

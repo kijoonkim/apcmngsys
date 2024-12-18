@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.asst.service.AsstMtrService;
 import com.at.apcss.am.asst.vo.AsstMtrVO;
+import com.at.apcss.am.asst.vo.AsstMtrVO;
 import com.at.apcss.am.sort.vo.SortFcltVO;
+import com.at.apcss.am.tot.vo.TotMngVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,41 +46,20 @@ public class AsstMtrController extends BaseController {
 	private AsstMtrService asstMtrService;
 
 	@PostMapping(value = "/am/asst/insertAsstMtrCrtrInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertAsstMtrCrtrInfoList(@RequestBody List<Object> data, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertAsstMtrCrtrInfoList(@RequestBody List<AsstMtrVO> asstMtrVOList, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
 
-		/** 선별설비 속성 VO **/
-        ObjectMapper mapper = new ObjectMapper();
-        AsstMtrVO asstMtrVO = mapper.convertValue(data.get(0), AsstMtrVO.class);
-        asstMtrVO.setDelYn("N");
-        asstMtrVO.setSysFrstInptUserId(getUserId());
-        asstMtrVO.setSysFrstInptPrgrmId(getPrgrmId());
-        asstMtrVO.setSysLastChgUserId(getUserId());
-        asstMtrVO.setSysLastChgPrgrmId(getPrgrmId());
-
-		/** 계량설비 상세 propertise VO **/
-        List<Map<String,Object>> cmnsFcltAtrbList = (List<Map<String, Object>>) data.get(1);
-        CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, AsstMtrVO.class);
-        List<AsstMtrVO> asstMtrDtlVOList = mapper.convertValue(cmnsFcltAtrbList, listType);
-
+		asstMtrVOList.forEach(item -> {
+			item.setDelYn("N");
+			item.setSysFrstInptUserId(getUserId());
+			item.setSysFrstInptPrgrmId(getPrgrmId());
+			item.setSysLastChgUserId(getUserId());
+			item.setSysLastChgPrgrmId(getPrgrmId());
+		});
 		try {
-			asstMtrVO.setSysFrstInptUserId(getUserId());
-			asstMtrVO.setSysFrstInptPrgrmId(getPrgrmId());
-			asstMtrVO.setSysLastChgUserId(getUserId());
-			asstMtrVO.setSysLastChgPrgrmId(getPrgrmId());
-			asstMtrVO.setDelYn("N");
-			result = asstMtrService.insertAsstMtrCrtrInfo(asstMtrVO);
-
-			asstMtrDtlVOList.forEach(item->{
-				item.setSysFrstInptUserId(getUserId());
-				item.setSysFrstInptPrgrmId(getPrgrmId());
-				item.setSysLastChgUserId(getUserId());
-				item.setSysLastChgPrgrmId(getPrgrmId());
-				item.setDelYn("N");
-			});
-			result = asstMtrService.insertAsstMtrCrtrDtlInfo(asstMtrDtlVOList);
+			result = asstMtrService.insertAsstMtrCrtrInfo(asstMtrVOList);
 
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
@@ -100,11 +81,30 @@ public class AsstMtrController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<AsstMtrVO> resultList = new ArrayList<>();
-		List<AsstMtrVO> resultList2 = new ArrayList<>();
 
 		try {
 			resultList = asstMtrService.selectAsstMtrCrtrInfoList(asstMtrVO);
-			resultList2 = asstMtrService.selectAsstMtrCrtrInfoDtlList(asstMtrVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	@PostMapping(value = "/am/asst/selectBomInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectBomInfoList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<AsstMtrVO> resultList = new ArrayList<>();
+		List<AsstMtrVO> resultList2 = new ArrayList<>();
+
+		try {
+			resultList = asstMtrService.selectBomMstrList(bomVO);
+			resultList2 = asstMtrService.selectBomDtlList(bomVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -114,6 +114,247 @@ public class AsstMtrController extends BaseController {
 
 
 		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/asst/insertBomInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertBomInfoList(@RequestBody List<Object> data, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		/** 집계기준 속성 VO **/
+        ObjectMapper mapper = new ObjectMapper();
+        AsstMtrVO bomVO = mapper.convertValue(data.get(0), AsstMtrVO.class);
+        bomVO.setDelYn("N");
+        bomVO.setSysFrstInptUserId(getUserId());
+        bomVO.setSysFrstInptPrgrmId(getPrgrmId());
+        bomVO.setSysLastChgUserId(getUserId());
+        bomVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		/** 집계기준 상세 propertise VO **/
+        List<Map<String,Object>> cmnsTotCrtrList = (List<Map<String, Object>>) data.get(1);
+        CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, AsstMtrVO.class);
+        List<AsstMtrVO> bomVODtlList = mapper.convertValue(cmnsTotCrtrList, listType);
+
+		try {
+			bomVO.setSysFrstInptUserId(getUserId());
+			bomVO.setSysFrstInptPrgrmId(getPrgrmId());
+			bomVO.setSysLastChgUserId(getUserId());
+			bomVO.setSysLastChgPrgrmId(getPrgrmId());
+			bomVO.setDelYn("N");
+			result = asstMtrService.insertBomMstrInfo(bomVO);
+
+			bomVODtlList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			result = asstMtrService.insertBomDtlInfo(bomVODtlList);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/deleteAsstMtrCrtrInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteAsstMtrCrtrInfoList(@RequestBody AsstMtrVO asstMtrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			result = asstMtrService.deleteAsstMtrCrtrInfo(asstMtrVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/deleteBomCrtrInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBomCrtrInfo(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			result = asstMtrService.deleteBomCrtrInfo(bomVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/deleteBomDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBomDtlList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			result = asstMtrService.deleteBomDtlList(bomVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/selectBomWrhsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectBomWrhsInfoList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<AsstMtrVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = asstMtrService.selectBomWrhsInfoList(bomVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/asst/insertBomWrhsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertBomWrhsInfoList(@RequestBody List<AsstMtrVO> bomVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			bomVOList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			asstMtrService.insertBomWrhsInfoList(bomVOList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/selectBomInvntrInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectBomInvntrInfoList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<AsstMtrVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = asstMtrService.selectBomInvntrInfoList(bomVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/asst/selectBomSpmtInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectBomSpmtInfoList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<AsstMtrVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = asstMtrService.selectBomSpmtInfoList(bomVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/asst/insertBomSpmtInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertBomSpmtInfoList(@RequestBody List<AsstMtrVO> bomVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			bomVOList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			asstMtrService.insertBomSpmtInfoList(bomVOList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
 	}
 
 

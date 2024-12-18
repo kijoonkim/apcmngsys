@@ -1395,6 +1395,7 @@ ORDER BY
 				AND CLT.TYPE_SE_NO		= #{typeSeNo}
 				AND CLT.OGNZ_STBLT_YN	= #{ognzStbltYn}
 				AND CLT.UO_BRNO 		= #{uoBrno}
+				AND CLT.TRMT_TYPE		= #{trmtType}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
