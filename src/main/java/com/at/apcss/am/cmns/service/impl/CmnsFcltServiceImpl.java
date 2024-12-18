@@ -1,10 +1,10 @@
 package com.at.apcss.am.cmns.service.impl;
 
-import com.at.apcss.am.cmns.mapper.CmnsFcltMapper;
 import com.at.apcss.am.cmns.service.CmnsFcltService;
 import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
 import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
 import com.at.apcss.am.cmns.vo.CmnsFcltVO;
+import com.at.apcss.am.wgh.mapper.WghInfoMapper;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ import java.util.List;
 public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltService {
 
     @Autowired
-    private CmnsFcltMapper wghInfoMapper;
+    private WghInfoMapper wghInfoMapper;
     @Override
     public List<CmnsFcltAtrbVO> selectWghInfoList(CmnsFcltAtrbVO cmnsFcltAtrbVO) throws Exception {
         return wghInfoMapper.selectWghInfoList(cmnsFcltAtrbVO);
@@ -35,25 +35,10 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 
     @Override
     public int insertWghInfo(CmnsFcltVO cmnsFcltVO, List<CmnsFcltAtrbVO> cmnsFcltAtrbVoList) throws Exception{
-
+        int fcltAtrb = 0;
         /** 계량대 코드 발번 **/
         String fcltCd = wghInfoMapper.selectWghFcltCd(cmnsFcltVO.getApcCd());
         cmnsFcltVO.setFcltCd(fcltCd);
-
-        /** 계량대 공통 정보 생성 **/
-        CmnsFcltDtlVO cmnsFcltDtlVO = new CmnsFcltDtlVO();
-        BeanUtils.copyProperties(cmnsFcltDtlVO,cmnsFcltVO);
-        cmnsFcltDtlVO.setDtlIndctNm(cmnsFcltVO.getFcltNm());
-
-        int result = wghInfoMapper.insertWghFcltDtl(cmnsFcltDtlVO);
-        if(result == 0){
-            new EgovBizException("insert error");
-        }
-
-        /** 계량대 코드 set **/
-        for(CmnsFcltAtrbVO cmnsFcltAtrbVO : cmnsFcltAtrbVoList){
-            cmnsFcltAtrbVO.setFcltCd(fcltCd);
-        }
 
         /** 계량대 정보 생성 [FN_GET_ID_WGH_FCLT] **/
         int fcltResult = wghInfoMapper.insertWghFclt(cmnsFcltVO);
@@ -61,9 +46,26 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
             new EgovBizException("insert error");
         }
 
-        int fcltAtrb = wghInfoMapper.insertWghFcltAtrb(cmnsFcltAtrbVoList);
-        if(fcltAtrb != cmnsFcltAtrbVoList.size()){
-            new EgovBizException("insert error");
+        if(!cmnsFcltAtrbVoList.isEmpty()){
+            /** 계량대 코드 set **/
+            for(CmnsFcltAtrbVO cmnsFcltAtrbVO : cmnsFcltAtrbVoList){
+                cmnsFcltAtrbVO.setFcltCd(fcltCd);
+            }
+
+            /** 계량대 공통 정보 생성 **/
+            CmnsFcltDtlVO cmnsFcltDtlVO = new CmnsFcltDtlVO();
+            BeanUtils.copyProperties(cmnsFcltDtlVO,cmnsFcltVO);
+            cmnsFcltDtlVO.setDtlIndctNm(cmnsFcltVO.getFcltNm());
+
+            int result = wghInfoMapper.insertWghFcltDtl(cmnsFcltDtlVO);
+            if(result < 0){
+                new EgovBizException("insert error");
+            }
+
+            fcltAtrb = wghInfoMapper.insertWghFcltAtrb(cmnsFcltAtrbVoList);
+            if(fcltAtrb != cmnsFcltAtrbVoList.size()){
+                new EgovBizException("insert error");
+            }
         }
         return fcltAtrb;
     }

@@ -47,34 +47,41 @@
             </div>
             <div class="box-body">
                 <%@ include file="../../../frame/inc/apcSelect.jsp" %>
-<%--                <table class="table table-bordered tbl_fixed">--%>
-<%--                    <caption>검색 조건 설정</caption>--%>
-<%--                    <colgroup>--%>
-<%--                        <col style="width: 7%">--%>
-<%--                        <col style="width: 6%">--%>
-<%--                        <col style="width: 6%">--%>
-<%--                        <col style="width: 3%">--%>
-<%--                        <col style="width: 7%">--%>
-<%--                        <col style="width: 6%">--%>
-<%--                        <col style="width: 3%">--%>
-<%--                        <col style="width: 3%">--%>
-<%--                        <col style="width: 3%">--%>
-<%--                        <col style="width: 7%">--%>
-<%--                        <col style="width: 6%">--%>
-<%--                        <col style="width: 3%">--%>
-<%--                        <col style="width: 6%">--%>
-<%--                    </colgroup>--%>
-<%--                    <tbody>--%>
-<%--                        <tr>--%>
-<%--                            <th scope="row" class="th_bg">계량대</th>--%>
-<%--                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">--%>
-<%--                                <sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem">--%>
-<%--                                </sbux-select>--%>
-<%--                            </td>--%>
-<%--                            <td colspan="9" style="border-top: hidden"></td>--%>
-<%--                        </tr>--%>
-<%--                    </tbody>--%>
-<%--                </table>--%>
+                <table class="table table-bordered tbl_fixed">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 7%">
+                        <col style="width: 6%">
+                        <col style="width: 6%">
+                        <col style="width: 3%">
+                        <col style="width: 7%">
+                        <col style="width: 6%">
+                        <col style="width: 3%">
+                        <col style="width: 3%">
+                        <col style="width: 3%">
+                        <col style="width: 7%">
+                        <col style="width: 6%">
+                        <col style="width: 3%">
+                        <col style="width: 6%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="th_bg">계량대</th>
+                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">
+                                <sbux-select
+                                        unselected-text="전체"
+                                        uitype="single"
+                                        id="srch-slt-sortFcltCd"
+                                        name="srch-slt-sortFcltCd"
+                                        class="form-control input-sm"
+                                        style="width: 80%"
+                                        jsondata-ref="jsonSortFclt">
+                                </sbux-select>
+                            </td>
+                            <td colspan="9" style="border-top: hidden"></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div>
                     <div>
                         <div class="ad_tbl_top">
@@ -91,7 +98,7 @@
                             <div class="ad_tbl_top">
                                 <ul class="ad_tbl_count">
                                     <li>
-                                        <span>상세정보</span>
+                                        <span>기본정보</span>
                                     </li>
                                     <li id="createFlag"style="display: none">
                                         <span style="color: red">신규생성중</span>
@@ -174,21 +181,21 @@
                                             </sbux-input>
                                         </td>
                                         <th scope="row" class="th_bg">기본창고</th>
-<%--                                        <td class="td_input">--%>
-<%--                                            <sbux-select--%>
-<%--                                                    id="dtl-slt-warehouseSeCd"--%>
-<%--                                                    name="dtl-slt-warehouseSeCd"--%>
-<%--                                                    uitype="single"--%>
-<%--                                                    jsondata-ref="jsonWarehouseSeCd"--%>
-<%--                                                    unselected-text="전체"--%>
-<%--                                                    class="form-control input-sm input-sm-ast"--%>
-<%--                                            &lt;%&ndash;                                                    onchange="fn_onChangeSrchItemCd(this)"&ndash;%&gt;--%>
-<%--                                            ></sbux-select>--%>
-<%--                                        </td>--%>
+                                        <td class="td_input">
+                                            <sbux-select
+                                                    id="dtl-slt-warehouseSeCd"
+                                                    name="dtl-slt-warehouseSeCd"
+                                                    uitype="single"
+                                                    jsondata-ref="jsonWarehouseSeCd"
+                                                    unselected-text="전체"
+                                                    class="form-control input-sm input-sm-ast"
+                                            <%--    onchange="fn_onChangeSrchItemCd(this)"--%>
+                                            ></sbux-select>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="th_bg">중량단위</th>
-                                        <td class="td_input">
+                                        <td class="td_input" style="border-right: hidden">
                                             <sbux-select
                                                     id="dtl-slt-cpctUnit"
                                                     name="dtl-slt-cpctUnit"
@@ -214,8 +221,13 @@
                                     <tr style="height: 5vh">
                                         <th rowspan="2" scope="row" class="th_bg">비고</th>
                                         <td rowspan="2" class="td_input" colspan="3">
-                                            <sbux-input wrap-style="height: 100%" id="dtl-inp-fcltRmrk" name="dtl-inp-fcltRmrk" uitype="text" class="form-control input-sm">
-                                            </sbux-input>
+                                            <sbux-textarea
+                                                    uitype="normal"
+                                                    id="dtl-inp-fcltRmrk"
+                                                    name="dtl-inp-fcltRmrk"
+                                                    style="height: 100%"
+                                                    class="form-control input-sm">
+                                            </sbux-textarea>
                                         </td>
                                     </tr>
                                     <tr><td></td></tr>
@@ -242,6 +254,7 @@
     </section>
 </body>
 <script>
+    var jsonSortFclt = [];
     /** 상단 grid ref Json **/
     var jsonWghList =[];
     var grdWghList;
@@ -266,6 +279,7 @@
         $('*[id^="dtl"]').on("change",fn_editMode.bind(this));
 
         let result = await Promise.all([
+            gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', 	gv_selectedApcCd),
             gfn_setComCdSBSelect('dtl-slt-warehouseSeCd',	jsonWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
             gfn_setComCdSBSelect('dtl-slt-cpctUnit',	jsonCpctUnit, 	'UNIT_CD'),	// 창고
             gfn_setComCdSBSelect('dtl-slt-wrhsType',	jsonWrhsType, 	'WRHS_SE_CD'),	// 입고유형
@@ -329,8 +343,9 @@
     }
     const fn_search = async function(){
         try{
-            let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfoList.do",{apcCd:gv_apcCd});
+            let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",{apcCd:gv_apcCd});
             let data = await postJsonPromise;
+            console.log(data);
 
             if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
