@@ -33,7 +33,9 @@
 						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+						<!--
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+						-->
 					</c:if>
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
@@ -477,26 +479,6 @@
 			</div>
 			</c:if>
 		</div>
-		<div>
-			<!--
-
-			<div>
-				<sbux-input
-					uitype="text"
-					id="dtl-input-mblTelno"
-					name="dtl-input-mblTelno"
-					class="form-control input-sm"
-					autocomplete="off"
-					readonly
-				></sbux-input>
-			</div>
-
-			<div id = "filesArea">
-				<sbux-fileupload id="atest" name="atest" uitype="multiple">
-				</sbux-fileupload>
-			</div>
-			-->
-		</div>
 	</section>
 </body>
 <script type="text/javascript">
@@ -526,9 +508,6 @@
 
 	function fn_test() {
 		//var pdfVal = SBUxMethod.get("files");
-		//console.log(pdfVal);
-		//console.log(SBUxMethod.getFileCheckedInList('atest'));
-		//console.log(SBUxMethod.getFileUpdateData('atest'));
 	}
 
 
@@ -713,7 +692,7 @@
 		try{
 			jsonPrdcrCrclOgnUsrMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				//console.log(item.cmptncInst);
 				let PrdcrCrclOgnUsrMngVO = {
@@ -780,8 +759,6 @@
 		});
 		let data = await postJsonPromise;
 		try{
-			console.log("selectPrdcrCrclOgnUsrMngList");
-			console.log(data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-userId", item.userId);  //  아이디
 				SBUxMethod.set("dtl-input-userNm", item.userNm);  //  이름
@@ -832,7 +809,6 @@
 	//포털에서 가입하고 넘어오기에 update 만 필요함
 	//저장
 	const fn_saveFmList = async function (){
-		console.log("******************fn_saveFmList**********************************");
 
 		if(!fn_checkRequiredInput()){
 			return;
@@ -856,7 +832,6 @@
 		});
 
 		const data = await postJsonPromise;
-		console.log("update result", data);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -877,7 +852,6 @@
 
 	//레드닷 처리한 필수값들 확인
 	function fn_checkRequiredInput(){
-		console.log("============fn_checkRequiredInput==============");
 
 		//관할기관 필수로 할필요 없음
 		/*
@@ -909,7 +883,6 @@
 
 	//상세정보 보기 클릭이벤트
 	function fn_view() {
-		console.log("******************fn_view**********************************");
 		var nCol = grdPrdcrCrclOgnUsrMng.getCol();
 		//특정 열 부터 이벤트 적용
 		if (nCol < 0) {
@@ -925,7 +898,7 @@
 
 		//서치폼에서 클릭시 디테일폼에 데이터출력
 		let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
-		//console.log(rowData.userStts);
+
 		SBUxMethod.set("dtl-input-userId", gfn_nvl(rowData.userId));  //  아이디
 		SBUxMethod.set("dtl-input-userNm", gfn_nvl(rowData.userNm));  //  이름
 		SBUxMethod.set("dtl-input-userType1", gfn_nvl(rowData.userType));  //  권한
@@ -933,6 +906,7 @@
 		SBUxMethod.set("dtl-input-userStts", gfn_nvl(rowData.userStts));  //  1차승인
 		SBUxMethod.set("dtl-input-telno", gfn_nvl(rowData.telno));  //  전화번호
 		SBUxMethod.set("dtl-input-brno", gfn_nvl(rowData.brno));  //  사업자번호
+
 		SBUxMethod.set("dtl-input-crno", gfn_nvl(rowData.crno));  //  법인등록 번호
 		SBUxMethod.set("dtl-input-typeCd", gfn_nvl(rowData.typeCd));  //  회원타입
 		SBUxMethod.set("dtl-input-mblTelno", gfn_nvl(rowData.mblTelno));  //  휴대폰번호
@@ -982,7 +956,6 @@
 	  * ysh
 	  */
 	async function fn_updatePwd(){
-		console.log("========fn_updatePwd================");
 		var userId = SBUxMethod.get("dtl-input-userId");
 		if(gfn_isEmpty(userId)) return;
 
@@ -1014,7 +987,6 @@
 	  * ysh
 	  */
 	async function fn_updatePwFmList(){
-		console.log("========fn_updatePwd================");
 		var userId = SBUxMethod.get("dtl-input-userId");
 		var userIdTest = "all";
 		//if(gfn_isEmpty(userId)) return;
@@ -1080,7 +1052,6 @@
 			return;
 		}
 		*/
-		console.log(userType);
 		if (!confirm("선택된 유저로 접속하시겠습니까?")) return;
 
 		let brno = SBUxMethod.get("dtl-input-brno");
@@ -1097,7 +1068,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log(data);
 			//iframe 부모요소에 접근해야 전체 새로고침 가능
 			window.parent.document.location.reload();
 		}catch (e) {
@@ -1147,7 +1117,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log(data);
 			fn_search();
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1170,7 +1139,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log(data);
 			fn_search();
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1195,7 +1163,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log(data);
 			fn_search();
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1205,47 +1172,29 @@
 		}
 	}
 
-	<c:if test="${loginVO.userId eq 'admin'}">
-	//첨부파일 업로드
-	function fn_fileUpload() {
-		console.log("===========fn_fileUpload");
+	//법인명 수정
+	async function fn_changeCorpNm(){
+		//법인명
+		let corpNm = SBUxMethod.get("dtl-inp-corpNm");
+		//사업자등록번호
+		let brno = SBUxMethod.get("dtl-inp-brno");
+		if(gfn_isEmpty(brno)) return;
 
-		let userId = SBUxMethod.get("dtl-input-userId");
-
-		if(gfn_isEmpty(userId)) return;
-
-		var formData = new FormData();
-
-		formData.append('userId', userId);
-
-		const brcFile = $('#brcFile')[0].files;
-
-		//파일이 없으면
-		if(brcFile.length == 0){
-			alert('파일을 올려주세요.');
-			return;
-		}
-
-		/*
-		$.ajax({
-			type: 'POST',
-			url: '/pd/bsm/brcfileUpload.do',
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function (response) {
-				console.log(response);
-				alert("처리 되었습니다.");
-				fn_dtlSearch();
-			},
-			error: function (error) {
-				 console.log('Error:', error);
-			}
+		let postJsonPromise = gfn_postJSON("/pd/bsm/updateCorpNm.do", {
+			corpNm : corpNm
+			,brno : brno
 		});
-		*/
-	}
-	</c:if>
+		let data = await postJsonPromise;
 
+		try{
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 </script>
 
 </html>
