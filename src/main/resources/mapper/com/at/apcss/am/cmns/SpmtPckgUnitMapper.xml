@@ -67,14 +67,14 @@
 			    , SPU.VRTY_CD              	AS VRTY_CD
 			    , SPU.SPCFCT_CD            	AS SPCFCT_CD
 	    	    , SPU.EXTRNL_LNKG_CD 		AS EXTRNL_LNKG_CD
-	    	    , SPU.STD_PCKG_CD AS STD_PCKG_CD
-	    	    , SPU.STD_UNIT_CD AS STD_UNIT_CD
-	    	    , SPU.STD_ECFRD_CD AS STD_ECFRD_CD
-	    	    , SPU.STD_GRD_CD AS STD_GRD_CD
-				, SPU.DEL_YN               AS DEL_YN
+	    	    , SPU.STD_PCKG_CD 			AS STD_PCKG_CD
+	    	    , SPU.STD_UNIT_CD 			AS STD_UNIT_CD
+	    	    , SPU.STD_ECFRD_CD 			AS STD_ECFRD_CD
+	    	    , SPU.STD_GRD_CD 			AS STD_GRD_CD
+				, SPU.DEL_YN               	AS DEL_YN
 			    , SPU.GDS_GRD				AS GDS_GRD
-                , SC.WGHT                  AS SPCFCT_WGHT
-				, SC.BX_GDS_QNTT           AS BX_GDS_QNTT
+                , SC.WGHT                  	AS SPCFCT_WGHT
+				, SC.BX_GDS_QNTT           	AS BX_GDS_QNTT
 			  FROM
 			  	  TB_SPMT_PCKG_UNIT SPU
 				, TB_APC_SPCFCT_CRTR SC
@@ -86,9 +86,9 @@
 			   AND SPU.APC_CD = #{apcCd}
 			   AND SPU.ITEM_CD = #{itemCd}
 			   AND SPU.VRTY_CD = #{vrtyCd}
-			   
+
 		]]>
-		
+
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND SPU.SPCFCT_CD = #{spcfctCd}
 		</if>
@@ -102,12 +102,12 @@
 		  	   AND SPU.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<![CDATA[
-			  ORDER BY APC_CD, ITEM_CD, SPMT_PCKG_UNIT_CD
+			  ORDER BY SPU.APC_CD, SPU.ITEM_CD, SPU.SN
 		]]>
     	<!-- End 페이징 -->
     </select>
-    
-    
+
+
 	<!-- ===============================================================================-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitList	-->
 	<!-- DESC : 출하포장단위 목록 조회.	                                       			-->
@@ -143,12 +143,13 @@
 					     , SPU.ITEM_CD				AS ITEM_CD
 					     , SPU.VRTY_CD              AS VRTY_CD
 					     , SPU.SPCFCT_CD            AS SPCFCT_CD
+					     , SPU.SN					AS SN
 			    	     , SPU.EXTRNL_LNKG_CD 		AS EXTRNL_LNKG_CD
 			    	     , SPU.PLOR_CD 				AS PLOR_CD
-			    	     , SPU.STD_PCKG_CD AS STD_PCKG_CD
-			    	     , SPU.STD_UNIT_CD AS STD_UNIT_CD
-			    	     , SPU.STD_ECFRD_CD AS STD_ECFRD_CD
-			    	     , SPU.STD_GRD_CD AS STD_GRD_CD
+			    	     , SPU.STD_PCKG_CD 			AS STD_PCKG_CD
+			    	     , SPU.STD_UNIT_CD 			AS STD_UNIT_CD
+			    	     , SPU.STD_ECFRD_CD 		AS STD_ECFRD_CD
+			    	     , SPU.STD_GRD_CD 			AS STD_GRD_CD
 					     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
 					          FROM TB_SPMT_SLS_UNTPRC_REG X
 					         WHERE X.APC_CD = SPU.APC_CD
@@ -159,6 +160,13 @@
 					     , SPU.GDS_GRD				AS GDS_GRD
                          , SC.WGHT                  AS SPCFCT_WGHT
                          , SC.BX_GDS_QNTT           AS BX_GDS_QNTT
+                         , (SELECT AFTR_GRD_CD
+                              FROM TB_APC_STD_GRD_DTL X
+                             WHERE X.APC_CD = SPU.APC_CD
+                               AND X.ITEM_CD = SPU.ITEM_CD
+                               AND X.GRD_SE_CD = '02'
+                               AND X.GRD_CD = SPU.GDS_GRD
+                           ) AFTR_GRD_CD
 					  FROM TB_SPMT_PCKG_UNIT SPU
                          , TB_APC_SPCFCT_CRTR SC
 				     WHERE SPU.APC_CD = SC.APC_CD
@@ -187,7 +195,7 @@
 		  	   AND SPU.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<![CDATA[
-			  ORDER BY APC_CD, ITEM_CD, SPMT_PCKG_UNIT_CD
+			  ORDER BY SPU.APC_CD, SPU.ITEM_CD, SPU.SN
 
 			) pt0
 		]]>
@@ -219,6 +227,7 @@
 					, ITEM_CD
 					, VRTY_CD
 					, SPCFCT_CD
+					, SN
 					, GDS_GRD
 					, NTSL_UNTPRC
 					, EXTRNL_LNKG_CD
@@ -243,6 +252,7 @@
 		    		, #{itemCd}
 					, #{vrtyCd}
 					, #{spcfctCd}
+					, #{sn}
 					, #{gdsGrd}
 					, #{ntslUntprc}
 					, #{extrnlLnkgCd}
@@ -283,13 +293,14 @@
 				, VRTY_CD					= #{vrtyCd}
 				, SPCFCT_CD					= #{spcfctCd}
 				, GDS_GRD					= #{gdsGrd}
+				, SN						= #{sn}
 				, NTSL_UNTPRC  				= #{ntslUntprc}
 				, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 				, PLOR_CD					= #{plorCd}
-				, STD_PCKG_CD			= #{stdPckgCd}
-	    		, STD_UNIT_CD			= #{stdUnitCd}
-	    		, STD_ECFRD_CD			= #{stdEcfrdCd}
-	    		, STD_GRD_CD			= #{stdGrdCd}
+				, STD_PCKG_CD				= #{stdPckgCd}
+	    		, STD_UNIT_CD				= #{stdUnitCd}
+	    		, STD_ECFRD_CD				= #{stdEcfrdCd}
+	    		, STD_GRD_CD				= #{stdGrdCd}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
 			   AND APC_CD					= #{apcCd}
 		]]>

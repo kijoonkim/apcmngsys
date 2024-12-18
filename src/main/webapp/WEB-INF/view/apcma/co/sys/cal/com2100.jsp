@@ -284,6 +284,7 @@
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.useinitsorting 	= true;
+	    SBGridProperties.oneclickedit 		= false;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
@@ -415,60 +416,56 @@
     	let SRCH_FISCAL_NO = gfnma_multiSelectGet('#SRCH_FISCAL_NO');
     	
     	var paramObj = {
-  	   			V_P_DEBUG_MODE_YN      : ''
-  				,V_P_LANG_ID           : ''
-  				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
-  				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-  				,V_P_FISCAL_NO         : SRCH_FISCAL_NO
-  				,V_P_FORM_ID           : p_formId
-  				,V_P_MENU_ID           : p_menuId
-  				,V_P_PROC_ID           : ''
-  				,V_P_USERID            : p_userId
-  				,V_P_PC                : ''
-  		    };		
-   	        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2100.do", {
-   	        	getType				: 'json',
-   	        	workType			: 'Q',
-   	        	cv_count			: '2',
-   	        	params				: gfnma_objectToString(paramObj)
-   			});
+  			V_P_DEBUG_MODE_YN      : ''
+			,V_P_LANG_ID           : ''
+			,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+			,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+			,V_P_FISCAL_NO         : SRCH_FISCAL_NO
+			,V_P_FORM_ID           : p_formId
+			,V_P_MENU_ID           : p_menuId
+			,V_P_PROC_ID           : ''
+			,V_P_USERID            : p_userId
+			,V_P_PC                : ''
+	    };		
+        const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2100.do", {
+        	getType				: 'json',
+        	workType			: 'Q',
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj)
+		});
 
-   	        const data = await postJsonPromise;
-   	        try {
-   	  			if (_.isEqual("S", data.resultStatus)) {
+        const data = await postJsonPromise;
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-   	  	        	/** @type {number} **/
-   	  	    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-   	  	    		masterGrid.length = 0;
-   	  	        	data.cv_1.forEach((item, index) => {
-   	  					const msg = {
-   	  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
-   	  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-   	  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-   	  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
-   	  							DESCR			: gfn_nvl(item.DESCR),
-   	  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
-   	  					}
-   	  					jsonMasterList.push(msg);
-   	  					totalRecordCount ++;
-   	  				});
-
-   	  	        	masterGrid.rebuild();
-   	  	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
-   	        	} else {
-   	          		alert(data.resultMessage);
-   	        	}
-
-   	        } catch (e) {
-   	    		if (!(e instanceof Error)) {
-   	    			e = new Error(e);
-   	    		}
-   	    		console.error("failed", e.message);
-   	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-   	        }
-    	        
+  	    		masterGrid.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
+  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
+  							DESCR			: gfn_nvl(item.DESCR),
+  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
+  					}
+  					jsonMasterList.push(msg);
+  					totalRecordCount ++;
+  				});
+  	        	masterGrid.rebuild();
+  	        	document.querySelector('#listCount').innerText = totalRecordCount;
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
     const fn_clearForm = function() {
     	//코드목록

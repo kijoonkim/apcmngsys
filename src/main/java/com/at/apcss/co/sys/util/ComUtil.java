@@ -37,7 +37,9 @@ public class ComUtil {
 	public static final String toString(int num) {
 		return Integer.toString(num);
 	}
-	
+	public static final String toString(double num) { return Double.toString(num);}
+
+
 	public static final String nullToEmpty(String str) {
 		return nullToDefault(str, ComConstants.CON_BLANK);
 	}

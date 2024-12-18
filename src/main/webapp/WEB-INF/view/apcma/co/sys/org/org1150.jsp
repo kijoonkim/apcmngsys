@@ -180,7 +180,6 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
         SBGridProperties.useinitsorting 	= true;	
-        SBGridProperties.oneclickedit 		= true;
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';

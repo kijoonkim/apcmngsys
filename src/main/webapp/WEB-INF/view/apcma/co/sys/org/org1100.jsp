@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: org1100.jsp
  * @Description 	: 신고사업장 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.30
@@ -45,7 +45,7 @@
 					<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-	                <table class="table table-bordered tbl_fixed table-search-ma">
+	                <table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
 							<col style="width: 8%">
@@ -522,6 +522,14 @@
 			SBUxMethod.selectTab('idxTab_norm', tabId);
 		}
 	}
+	
+    /**
+     * 초기화
+     */
+    function cfn_init() {
+    	gfnma_uxDataClear('#srchArea1');
+    }
+    
 	// 신규
 	function cfn_add() {
 	    fn_clearSubTable();
@@ -546,8 +554,10 @@
 		}
 	}
 	// 조회
-	function cfn_search() {
-	    fn_search();
+	async function cfn_search() {
+	    await fn_search();
+	    await fn_clearForm();
+	    await fn_clearSubTable();
 	}
 	
 	var masterGrid; // 그리드를 담기위한 객체 선언
@@ -596,6 +606,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
 	    SBGridProperties.rowheadercaption = { seq: 'No' };
 	    SBGridProperties.rowheaderwidth = {  seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -615,7 +627,6 @@
 					label		: 'label',
 					value		: 'value',
 					displayui :true, 
-					oneclickedit: true
             	}
             },
 	        
@@ -643,6 +654,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.rowheader = 'seq';
+        SBGridProperties.allowcopy 			= true; //복사	  ( true : 가능 , false : 불가능 )
+        SBGridProperties.allowpaste 		= true; //붙여넣기 ( true : 가능 , false : 불가능 )
 	    SBGridProperties.rowheadercaption = {  seq: 'No'  };
 	    SBGridProperties.rowheaderwidth = { seq: '60' };
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -737,7 +750,6 @@
                 if(jsonMasterList.length > 0) {
                 	masterGrid.clickRow(1);
                 }
-                
 	        } else {
 	            alert(data.resultMessage);
 	        }
@@ -873,11 +885,13 @@
 	    }
 	    const selectRowVal = masterGrid.getRowData(nRow);
 	    
-		await fn_searchHistoryGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
-		await fn_searchLimitGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
-	
 	    // 사업장정보 테이블 초기화
 	    await fn_clearSubTable();
+
+	    //변경이력관리, 발행한도관리 그리드
+	    await fn_searchHistoryGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
+		await fn_searchLimitGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
+	
 	    
 	    var paramObj = {
 		        V_P_DEBUG_MODE_YN			: '',
@@ -983,6 +997,13 @@
 	    gfnma_multiSelectSet('#INCOME_TAX_OFFICE', 'SUB_CODE', 'CODE_NAME', "");
 	    gfnma_multiSelectSet('#SITE_CODE', 'SITE_CODE', 'SITE_NAME', "");
 	    $("#TAX_SITE_STAMP").attr("src", "");
+	    
+	    jsonLimitList = []
+	    limitGrid.rebuild();
+	    jsonHistoryList = []
+	    historyGrid.rebuild();
+	    
+	    
 	}
 	
 	/**

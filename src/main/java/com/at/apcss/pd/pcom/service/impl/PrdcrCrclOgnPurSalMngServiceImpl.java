@@ -71,14 +71,6 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
-
-		int updatedCnt = PrdcrCrclOgnPurSalMngMapper.updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
 	public int multiSavePrdcrCrclOgnPurSalMngList01(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
@@ -122,6 +114,20 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
 
 		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectRawDataList(PrdcrCrclOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
 		return resultList;
 	}
 

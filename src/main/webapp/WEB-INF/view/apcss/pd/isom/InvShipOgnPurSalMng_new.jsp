@@ -563,18 +563,6 @@
 	var jsonGrdComCorpSeCd = [];//법인구분
 	var jsonGrdComAprv = [];//승인형 육성형 구분
 
-
-	var jsonCtgryCd = [];//분류코드
-	var jsonGrdClsfCd_1 = [];//부류
-	var jsonGrdClsfCd_2 = [];//부류
-	var jsonGrdClsfCd_3 = [];//부류
-	var jsonGrdCtgryCd_1 = [];//평가부류
-	var jsonGrdCtgryCd_2 = [];//평가부류
-	var jsonGrdCtgryCd_3 = [];//평가부류
-	var jsonGrdSttgUpbrItemSe_1 = [];//취급코드
-	var jsonGrdSttgUpbrItemSe_2 = [];//취급코드
-	var jsonGrdSttgUpbrItemSe_3 = [];//취급코드
-
 	//적합품목 보유 여부
 	var jsonComStbltHldYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
@@ -601,17 +589,6 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'),//법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD_1'), //평가부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdClsfCd_1, 		'CLSF_CD'), //부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
-
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD_1'), //평가부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdClsfCd_2, 		'CLSF_CD'), //부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
-
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng03', 	jsonGrdCtgryCd_3, 	'CTGRY_CD_1'), //평가부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng03', 	jsonGrdClsfCd_3, 		'CLSF_CD'), //부류
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng03', 	jsonGrdSttgUpbrItemSe_3, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 		]);
 	}
 
@@ -660,7 +637,8 @@
 				,typeinfo : {ref:'jsonGrdComAprv', label:'label', value:'value', displayui : false}},
 			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-			{caption: ["적합품목"], 		ref: 'stbltYnNmList',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["적합품목(전문품목)"], 		ref: 'stbltYnNmList1',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["적합품목(육성품목)"], 		ref: 'stbltYnNmList2',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonGrdComCorpSeCd', label:'label', value:'value', displayui : false}},
 			{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -711,12 +689,10 @@
 		SBGridProperties.frozencols=4;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
-			{caption: ["구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류"], 	ref: 'clsfCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdClsfCd_1', label:'label', value:'value', displayui : true}},
-			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
-			{caption: ["품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["구분","구분","구분"], 			ref: 'sttgUpbrItemNm',	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
 
@@ -776,12 +752,15 @@
 			*/
 			{caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'clsfCd',  	hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',  	hidden : true},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-			{caption: ["상세내역"], 	ref: 'crno',		hidden : true}
+			{caption: ["상세내역"], 	ref: 'crno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'delYn',		hidden : true}
 		];
 
 		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -804,11 +783,10 @@
 	function fn_valuechanged01(){
 		let nCol = grdPrdcrOgnCurntMng01.getCol();
 		let nRef = grdPrdcrOgnCurntMng01.getRefOfCol(nCol);
-		console.log('fn_valuechanged01',nCol,nRef);
+
 		if(columnsToRefresh01.includes(nRef)){
 			grdPrdcrOgnCurntMng01.refresh();
-			console.log('true');
-			fn_grdTot01("refresh");
+			fn_grdTot01();
 		}
 	}
 
@@ -869,19 +847,7 @@
 	}
 
 	//소계 추가를 위해 조정
-	function fn_grdTot01(_gubun){
-		console.log("===========fn_grdTot01==============");
-		//그리드 추가 용 1줄 합계용 1줄
-		let objGrid = grdPrdcrOgnCurntMng01;
-		let grdJson = jsonPrdcrOgnCurntMng01;
-
-		//조회인 경우 1줄 추가
-		if(_gubun == "Search"){
-			objGrid.addRow();
-		}
-
-		let grdLength = grdJson.length;
-
+	function fn_grdTot01(){
 		// 계산할 열 이름 배열
 		const columnsToSum = [
 			'prchsSortTrstVlm', 'prchsSortTrstAmt'
@@ -895,11 +861,15 @@
 			,'prchsEmspapVlm', 'prchsEmspapAmt'
 			,'prchsTotVlm', 'prchsTotAmt'
 		];
+		//그리드 추가 용 1줄 합계용 1줄
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let grdJson = jsonPrdcrOgnCurntMng01;
 
-		for (var i = 1+2; i <= grdLength+1; i++) {
-			let rowData01 = objGrid.getRowData(i);
-			console.log(rowData01);
-		}
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		//그리드 메인 길이
+		let grdLength = grdJson.length;
+
 		//마지막 줄은 소계라서 제외
 		grdJson = grdJson.slice(0, -1);
 		// 각 열의 합계 계산
@@ -909,9 +879,8 @@
 		}, {});
 
 		columnsToSum.forEach(col => {
-			objGrid.setCellData(grdLength+2, objGrid.getColRef(col), subtotals[col]);
+			objGrid.setCellData(grdLength + captionRow - 1, objGrid.getColRef(col), subtotals[col]);
 		});
-
 		objGrid.refresh();
 
 		fn_gridCustom();
@@ -950,10 +919,8 @@
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
 			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류","부류"], 	ref: 'clsfCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdClsfCd_2', label:'label', value:'value', displayui : true}},
-			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
+			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -1012,15 +979,17 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
-			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-			//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 			//{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
-			{caption: ["상세내역"], 	ref: 'crno',		hidden : true}
+			{caption: ["상세내역"], 	ref: 'crno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'delYn',		hidden : true}
 		];
 
 		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
@@ -1040,10 +1009,8 @@
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_valuechanged02(){
-		console.log('fn_valuechanged02');
-
 		grdPrdcrOgnCurntMng02.refresh();
-		fn_grdTot02("refresh");
+		fn_grdTot02();
 
 		/*
 		if(columnsToRefresh02.includes(nRef)){
@@ -1056,7 +1023,6 @@
 	}
 
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
-		//console.log("====fn_totTrmtPrfmncVlm===");
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
@@ -1065,13 +1031,12 @@
 				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
 				+ Number(gfn_nvl(rowData.ddcMlsrVlm))
 				+ Number(gfn_nvl(rowData.ajmtVlm));
-		}else if (rowData.sttgUpbrItemSe == '3' || rowData.delYn == '소계'){
+		}else{
 			sumVal = rowData.totTrmtPrfmncVlm;
 		}
 		return sumVal;
 	}
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
-		//console.log("====fn_totTrmtPrfmncAmt===");
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
@@ -1080,7 +1045,7 @@
 				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
 				+ Number(gfn_nvl(rowData.ddcMlsrAmt))
 				+ Number(gfn_nvl(rowData.ajmtAmt));
-		}else if (rowData.sttgUpbrItemSe == '3' || rowData.delYn == '소계'){
+		}else{
 			sumVal = rowData.totTrmtPrfmncAmt;
 		}
 		return sumVal;
@@ -1131,19 +1096,7 @@
 
 
 	//소계 추가를 위해 조정
-	function fn_grdTot02(_gubun){
-		console.log("===========fn_grdTot02==============");
-		//그리드 추가 용 1줄 합계용 1줄
-		let objGrid = grdPrdcrOgnCurntMng02;
-		let grdJson = jsonPrdcrOgnCurntMng02;
-
-		//조회인 경우 1줄 추가
-		if(_gubun == "Search"){
-			objGrid.addRow();
-		}
-
-		let grdLength = grdJson.length;
-
+	function fn_grdTot02(){
 		// 계산할 열 이름 배열
 		const columnsToSum = [
 			'totTrmtPrfmncVlm', 'totTrmtPrfmncAmt'
@@ -1158,6 +1111,15 @@
 			,'ajmtVlm', 'ajmtAmt'
 		];
 
+		//그리드 추가 용 1줄 합계용 1줄
+		let objGrid = grdPrdcrOgnCurntMng02;
+		let grdJson = jsonPrdcrOgnCurntMng02;
+
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		//그리드 내용 row수
+		let grdLength = grdJson.length;
+
 		//마지막 줄은 소계라서 제외
 		grdJson = grdJson.slice(0, -1);
 		// 각 열의 합계 계산
@@ -1167,7 +1129,7 @@
 		}, {});
 
 		columnsToSum.forEach(col => {
-			objGrid.setCellData(grdLength+3, objGrid.getColRef(col), subtotals[col]);
+			objGrid.setCellData(grdLength + captionRow - 1, objGrid.getColRef(col), subtotals[col]);
 		});
 
 		objGrid.refresh();
@@ -1210,10 +1172,8 @@
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
 			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류","부류"], 	ref: 'clsfCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdClsfCd_3', label:'label', value:'value', displayui : true}},
-			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonGrdCtgryCd_3', label:'label', value:'value', displayui : true}},
+			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -1275,12 +1235,15 @@
 			{caption: ["상세내역"], 	ref: 'ajmtAmt',  hidden : true},//출하비율 구하는 용도
 			{caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',  	hidden : true},
+			{caption: ["상세내역"], 	ref: 'clsfCd',  	hidden : true},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-			{caption: ["상세내역"], 	ref: 'crno',		hidden : true}
+			{caption: ["상세내역"], 	ref: 'crno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'delYn',		hidden : true}
 		];
 
 		grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
@@ -1301,10 +1264,8 @@
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_valuechanged03(){
-		console.log('fn_valuechanged03');
-
 		grdPrdcrOgnCurntMng03.refresh();
-		fn_grdTot03("refresh");
+		fn_grdTot03();
 
 		/*
 		if(columnsToRefresh03.includes(nRef)){
@@ -1370,19 +1331,7 @@
 	}
 
 	//소계 추가를 위해 조정
-	function fn_grdTot03(_gubun){
-		console.log("===========fn_grdTot03==============");
-		//그리드 추가 용 1줄 합계용 1줄
-		let objGrid = grdPrdcrOgnCurntMng03;
-		let grdJson = jsonPrdcrOgnCurntMng03;
-
-		//조회인 경우 1줄 추가
-		if(_gubun == "Search"){
-			objGrid.addRow();
-		}
-
-		let grdLength = grdJson.length;
-
+	function fn_grdTot03(){
 		// 계산할 열 이름 배열
 		const columnsToSum = [
 			'totSpmtPrfmncVlm','totSpmtPrfmncAmt'
@@ -1398,6 +1347,15 @@
 			, 'slsCprtnTotVlm', 'slsCprtnTotAmt'
 		];
 
+		//그리드 추가 용 1줄 합계용 1줄
+		let objGrid = grdPrdcrOgnCurntMng03;
+		let grdJson = jsonPrdcrOgnCurntMng03;
+
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		//그리드 내용 row수
+		let grdLength = grdJson.length;
+
 		//마지막 줄은 소계라서 제외
 		grdJson = grdJson.slice(0, -1);
 		// 각 열의 합계 계산
@@ -1407,7 +1365,7 @@
 		}, {});
 
 		columnsToSum.forEach(col => {
-			objGrid.setCellData(grdLength+3, objGrid.getColRef(col), subtotals[col]);
+			objGrid.setCellData(grdLength + captionRow - 1, objGrid.getColRef(col), subtotals[col]);
 		});
 
 		objGrid.refresh();
@@ -1607,6 +1565,8 @@
 						,yr: item.yr
 						,stbltYnNm: item.stbltYnNm
 						,stbltYnNmList: item.stbltYnNmList
+						,stbltYnNmList1: item.stbltYnNmList1
+						,stbltYnNmList2: item.stbltYnNmList2
 						,corpSeCd: item.corpSeCd
 						,prfmncCorpDdlnYn: item.prfmncCorpDdlnYn
 				}
@@ -1682,7 +1642,9 @@
 	//매입 다중 세이브
 	const fn_listSave01 = async function(){
 
-		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let objGrid = grdPrdcrOgnCurntMng01;
+
+		let gridData01 = objGrid.getGridDataAll();
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
@@ -1690,18 +1652,18 @@
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1+1; i<=gridData01.length + 1; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
+			let rowData01 = objGrid.getRowData(i);
+			let rowSts01 = objGrid.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
 			if(delYn == 'N'){
-
 				if(Number(rowData01.prchsTrstAmt) > 0){
 					if(gfn_isEmpty(rowData01.prchsTrstVlm)){
 						alert('공선수탁,공동수탁 금액이 존재하는 경우 물량 작성이 필요합니다');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1709,7 +1671,7 @@
 				if(Number(rowData01.prchsEmspapAmt) > 0){
 					if(gfn_isEmpty(rowData01.prchsEmspapVlm)){
 						alert('공선매취 금액이 존재하는 경우 물량 작성이 필요합니다');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1717,7 +1679,7 @@
 				if(Number(rowData01.etcAmt) > 0){
 					if(gfn_isEmpty(rowData01.etcVlm)){
 						alert('기타 금액이 존재하는 경우 물량 작성이 필요합니다');
-						grdPrdcrOgnCurntMng01.selectRow(i);
+						objGrid.selectRow(i);
 						return false;
 					}
 				}
@@ -1761,8 +1723,8 @@
 
 	//매출 다중 세이브
 	const fn_listSave02 = async function(){
-
-		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
+		let objGrid = grdPrdcrOgnCurntMng02;
+		let gridData02 = objGrid.getGridDataAll();
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
@@ -1771,10 +1733,11 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1+3; i<=gridData02.length + 3; i++ ){
-			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
-			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData02.length + captionRow; i++ ){
+			let rowData02 = objGrid.getRowData(i);
+			let rowSts02 = objGrid.getRowStatus(i);
 
 			let delYn = rowData02.delYn;
 
@@ -1820,7 +1783,9 @@
 	//매출 다중 세이브
 	const fn_listSave03 = async function(){
 
-		let gridData03 = grdPrdcrOgnCurntMng03.getGridDataAll();
+		let objGrid = grdPrdcrOgnCurntMng03;
+
+		let gridData03 = objGrid.getGridDataAll();
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
@@ -1829,10 +1794,11 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1+3; i<=gridData02.length + 3; i++ ){
-			let rowData = grdPrdcrOgnCurntMng03.getRowData(i);
-			let rowSts = grdPrdcrOgnCurntMng03.getRowStatus(i);
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData03.length + captionRow; i++ ){
+			let rowData = objGrid.getRowData(i);
+			let rowSts = objGrid.getRowStatus(i);
 
 			let delYn = rowData.delYn;
 
@@ -1878,14 +1844,13 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
-
+		let objGrid = grdPrdcrOgnCurntMng;
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		var nCol = objGrid.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = grdPrdcrOgnCurntMng.getRow();
+		var nRow = objGrid.getRow();
 		if (nRow < 1) {
 			return;
 		}
@@ -1893,8 +1858,7 @@
 			nRow = 1;
 		}
 
-		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		let rowData = objGrid.getRowData(nRow);
 		fn_clearForm();
 
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
@@ -1947,7 +1911,6 @@
 			yr = year;
 		}
 
-
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
@@ -1964,14 +1927,9 @@
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
 		//조회 대상 유무 확인
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(gfn_isEmpty(apoCd)){return;}
-		//let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
-		//let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
-		//총매입매출은 통합조직을 고르지 않고 전체 데이터를 보여줌
-		//let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+
 		let yr = SBUxMethod.get('dtl-input-yr');
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
@@ -2003,10 +1961,12 @@
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-						,ctgryCd: 		item.ctgryCd
 						,itemCd: 		item.itemCd
-						//,ctgryNm: 		item.ctgryNm
 						,itemNm: 		item.itemNm
+						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
+						,clsfCd: 		item.clsfCd
+						,clsfNm: 		item.clsfNm
 						,prchsSlsSe: 	item.prchsSlsSe
 
 						,prchsSortTrstVlm: 		item.prchsSortTrstVlm
@@ -2049,10 +2009,12 @@
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-						,ctgryCd: 		item.ctgryCd
 						,itemCd: 		item.itemCd
-						//,ctgryNm: 		item.ctgryNm
 						,itemNm: 		item.itemNm
+						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
+						,clsfCd: 		item.clsfCd
+						,clsfNm: 		item.clsfNm
 						,prchsSlsSe: 	item.prchsSlsSe
 
 
@@ -2097,10 +2059,12 @@
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-						,ctgryCd: 		item.ctgryCd
 						,itemCd: 		item.itemCd
-						//,ctgryNm: 		item.ctgryNm
 						,itemNm: 		item.itemNm
+						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
+						,clsfCd: 		item.clsfCd
+						,clsfNm: 		item.clsfNm
 						,prchsSlsSe: 	item.prchsSlsSe
 
 						,totSpmtPrfmncVlm: 		item.totSpmtPrfmncVlm
@@ -2118,19 +2082,24 @@
 						,slsCprtnTrstVlm: 			item.slsCprtnTrstVlm
 						,slsCprtnTrstAmt: 			item.slsCprtnTrstAmt
 
+						,slsCprtnTotVlm: 			item.slsCprtnTotVlm
+						,slsCprtnTotAmt: 			item.slsCprtnTotAmt
+
 						,ajmtAmt: 		item.ajmtAmt
 				}
 				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
 				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
 			})
-
 			grdPrdcrOgnCurntMng01.rebuild();
 			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng03.rebuild();
-
-			fn_grdTot01("Search");
-			fn_grdTot02("Search");
-			fn_grdTot03("Search");
+			//소계 줄 추가
+			grdPrdcrOgnCurntMng01.addRow();
+			grdPrdcrOgnCurntMng02.addRow();
+			grdPrdcrOgnCurntMng03.addRow();
+			fn_grdTot01();
+			fn_grdTot02();
+			fn_grdTot03();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -2140,154 +2109,180 @@
 	}
 	//그리드 커스텀 배경 및 disabled 처리
 	const fn_gridCustom = async function(){
-		console.log("=========fn_gridCustom================");
+		//console.log("=========fn_gridCustom================");
 
-		let prchsSortTrstVlm = grdPrdcrOgnCurntMng01.getColRef("prchsSortTrstVlm");//
+		//매입 그리드
+		let objGrid01 = grdPrdcrOgnCurntMng01;
 
-		let prchsSortTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsSortTrstAmt");//
-		let prchsSpmtTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsSpmtTrstAmt");//
-		let prchsSmplTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsSmplTrstAmt");//
+		let prchsSortTrstAmt = objGrid01.getColRef("prchsSortTrstAmt");//
+		let prchsSpmtTrstAmt = objGrid01.getColRef("prchsSpmtTrstAmt");//
+		let prchsSmplTrstAmt = objGrid01.getColRef("prchsSmplTrstAmt");//
 
-		let prchsSortEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsSortEmspapAmt");//
-		let prchsSmplEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsSmplEmspapAmt");//
+		let prchsSortTrstVlm = objGrid01.getColRef("prchsSortTrstVlm");//
+		let prchsSpmtTrstVlm = objGrid01.getColRef("prchsSpmtTrstVlm");//
+		let prchsSmplTrstVlm = objGrid01.getColRef("prchsSmplTrstVlm");//
 
-		let prchsTrstVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTrstVlm");//
-		let prchsTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTrstAmt");//
-		let prchsEmspapVlm = grdPrdcrOgnCurntMng01.getColRef("prchsEmspapVlm");//
-		let prchsEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsEmspapAmt");//
-		let prchsTotVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTotVlm");//
-		let prchsTotAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTotAmt");//
+		let prchsSortEmspapAmt = objGrid01.getColRef("prchsSortEmspapAmt");//
+		let prchsSmplEmspapAmt = objGrid01.getColRef("prchsSmplEmspapAmt");//
 
-		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
-		console.log(gridData01.length);
-		for(var i=1+2; i <= gridData01.length+2; i++ ){
-			let rowData = grdPrdcrOgnCurntMng01.getRowData(i);
+		let prchsSortEmspapVlm = objGrid01.getColRef("prchsSortEmspapVlm");//
+		let prchsSmplEmspapVlm = objGrid01.getColRef("prchsSmplEmspapVlm");//
+
+		let prchsTrstVlm = objGrid01.getColRef("prchsTrstVlm");//
+		let prchsTrstAmt = objGrid01.getColRef("prchsTrstAmt");//
+		let prchsEmspapVlm = objGrid01.getColRef("prchsEmspapVlm");//
+		let prchsEmspapAmt = objGrid01.getColRef("prchsEmspapAmt");//
+
+		let prchsTotVlm = objGrid01.getColRef("prchsTotVlm");//
+		let prchsTotAmt = objGrid01.getColRef("prchsTotAmt");//
+
+		let sttgUpbrItemNm01 = objGrid01.getColRef("sttgUpbrItemNm");//
+
+		let gridData01 = objGrid01.getGridDataAll();
+		//그리드 해더 row수
+		let captionRow01 = objGrid01.getFixedRows();
+		for(var i = captionRow01; i < gridData01.length + captionRow01; i++){
+			let rowData = objGrid01.getRowData(i);
 			if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSortTrstAmt, i, prchsSortTrstAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSpmtTrstAmt, i, prchsSpmtTrstAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSortEmspapAmt, i, prchsSortEmspapAmt, true);
+				objGrid01.setCellDisabled(i, prchsSortTrstVlm, i, prchsSortTrstAmt, true);
+				objGrid01.setCellDisabled(i, prchsSpmtTrstVlm, i, prchsSpmtTrstAmt, true);
+				objGrid01.setCellDisabled(i, prchsSortEmspapVlm, i, prchsSortEmspapAmt, true);
 
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstVlm, i, prchsTrstAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsEmspapVlm, i, prchsEmspapAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTotVlm, i, prchsEmspapAmt, true);
+				objGrid01.setCellDisabled(i, prchsTrstVlm, i, prchsTrstAmt, true);
+				objGrid01.setCellDisabled(i, prchsEmspapVlm, i, prchsEmspapAmt, true);
+				objGrid01.setCellDisabled(i, prchsTotVlm, i, prchsEmspapAmt, true);
 
 				//배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsSortTrstAmt, i, prchsSortTrstAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsSpmtTrstAmt, i, prchsSpmtTrstAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsSortEmspapAmt, i, prchsSortEmspapAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsSortTrstAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsSpmtTrstVlm, i, prchsSpmtTrstAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsSortEmspapVlm, i, prchsSortEmspapAmt, 'lightgray');
 
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
 				//해당 타입 위치 저장
 			}else if (rowData.sttgUpbrItemSe == '3') {
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSortTrstAmt, i, prchsSortTrstAmt, false);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSpmtTrstAmt, i, prchsSpmtTrstAmt, false);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSortEmspapAmt, i, prchsSortEmspapAmt, false);
+				objGrid01.setCellDisabled(i, prchsSortTrstVlm, i, prchsSortTrstAmt, false);
+				objGrid01.setCellDisabled(i, prchsSpmtTrstVlm, i, prchsSpmtTrstAmt, false);
+				objGrid01.setCellDisabled(i, prchsSortEmspapVlm, i, prchsSortEmspapAmt, false);
 
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstVlm, i, prchsTrstAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsEmspapVlm, i, prchsEmspapAmt, true);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTotVlm, i, prchsTotAmt, true);
+				objGrid01.setCellDisabled(i, prchsTrstVlm, i, prchsTrstAmt, true);
+				objGrid01.setCellDisabled(i, prchsEmspapVlm, i, prchsEmspapAmt, true);
+				objGrid01.setCellDisabled(i, prchsTotVlm, i, prchsTotAmt, true);
 
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsTotAmt, 'white');
+				objGrid01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsTotAmt, 'white');
 
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTotVlm, i, prchsEmspapAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
 			}else{
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsSortTrstVlm, i, prchsTotAmt, true);
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellDisabled(i, sttgUpbrItemNm01, i, prchsTotAmt, true);
+				objGrid01.setCellStyle('background-color', i, sttgUpbrItemNm01, i, prchsTotAmt, 'lightgray');
 			}
 		}
 
-		let totTrmtPrfmncVlm = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncVlm");//총취급물량
-		let totTrmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncAmt");//총취급실적
-		let ddcTotVlm = grdPrdcrOgnCurntMng02.getColRef("ddcTotVlm");//
-		let ddcTotAmt = grdPrdcrOgnCurntMng02.getColRef("ddcTotAmt");//
-		let ajmtAmt = grdPrdcrOgnCurntMng02.getColRef("ajmtAmt");//
+		let objGrid02 = grdPrdcrOgnCurntMng02;
 
-		let ddcExprtVlm = grdPrdcrOgnCurntMng02.getColRef("ddcExprtVlm");//자체수출 물량
+		let totTrmtPrfmncVlm = objGrid02.getColRef("totTrmtPrfmncVlm");//총취급물량
+		let totTrmtPrfmncAmt = objGrid02.getColRef("totTrmtPrfmncAmt");//총취급실적
+		let ddcTotVlm = objGrid02.getColRef("ddcTotVlm");//
+		let ddcTotAmt = objGrid02.getColRef("ddcTotAmt");//
+		let ajmtVlm = objGrid02.getColRef("ajmtVlm");//
+		let ajmtAmt = objGrid02.getColRef("ajmtAmt");//
 
-		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
-		for(var i=1+3; i <= gridData02.length+3; i++ ){
-			let rowData = grdPrdcrOgnCurntMng02.getRowData(i);
+		let ddcExprtVlm = objGrid02.getColRef("ddcExprtVlm");//자체수출 물량
+
+		let sttgUpbrItemNm02 = objGrid02.getColRef("sttgUpbrItemNm");//
+
+		let gridData02 = objGrid02.getGridDataAll();
+		//그리드 해더 row수
+		let captionRow02 = objGrid02.getFixedRows();
+		for(var i = captionRow02; i < gridData02.length + captionRow02; i++){
+			let rowData = objGrid02.getRowData(i);
 
 			if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
 				//비활성화
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, ddcTotVlm, i, ddcTotAmt, true);
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, ajmtAmt, i, ajmtAmt, true);
+				objGrid02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
+				objGrid02.setCellDisabled(i, ddcTotVlm, i, ddcTotAmt, true);
+				objGrid02.setCellDisabled(i, ajmtVlm, i, ajmtAmt, true);
 
 				//배경색
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcTotVlm, i, ddcTotAmt, 'lightgray');
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ajmtAmt, i, ajmtAmt, 'lightgray');
+				objGrid02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
+				objGrid02.setCellStyle('background-color', i, ddcTotVlm, i, ddcTotAmt, 'lightgray');
+				objGrid02.setCellStyle('background-color', i, ajmtVlm, i, ajmtAmt, 'lightgray');
 
 			}else if(rowData.sttgUpbrItemSe == '3'){
 				//기타
 				//비활성화
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, ddcExprtVlm, i, ajmtAmt, true);
+				objGrid02.setCellDisabled(i, ddcExprtVlm, i, ajmtAmt, true);
 
 				//배경색
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcExprtVlm, i, ajmtAmt, 'lightgray');
+				objGrid02.setCellStyle('background-color', i, ddcExprtVlm, i, ajmtAmt, 'lightgray');
 
 				//소계였던 줄 떄문에 추가
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, false);
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'white');
+				objGrid02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, false);
+				objGrid02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'white');
 
 			}else{
 				//소계
 				//비활성화
-				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, ajmtAmt, true);
+				objGrid02.setCellDisabled(i, sttgUpbrItemNm02, i, ajmtAmt, true);
 				//배경색
-				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, ajmtAmt, 'lightgray');
+				objGrid02.setCellStyle('background-color', i, sttgUpbrItemNm02, i, ajmtAmt, 'lightgray');
 			}
 		}
 
-		let totSpmtPrfmncVlm = grdPrdcrOgnCurntMng03.getColRef("totSpmtPrfmncVlm");//
-		let totSpmtPrfmncAmt = grdPrdcrOgnCurntMng03.getColRef("totSpmtPrfmncAmt");//
-		let slsCprtnTotVlm = grdPrdcrOgnCurntMng03.getColRef("slsCprtnTotVlm");//
-		let slsCprtnTotAmt = grdPrdcrOgnCurntMng03.getColRef("slsCprtnTotAmt");//
-		let spmtRtAmt = grdPrdcrOgnCurntMng03.getColRef("spmtRtAmt");//
+		let objGrid03 = grdPrdcrOgnCurntMng03;
 
-		let smplInptVlm = grdPrdcrOgnCurntMng03.getColRef("smplInptVlm");//
+		let totSpmtPrfmncVlm = objGrid03.getColRef("totSpmtPrfmncVlm");//
+		let totSpmtPrfmncAmt = objGrid03.getColRef("totSpmtPrfmncAmt");//
+		let slsCprtnTotVlm = objGrid03.getColRef("slsCprtnTotVlm");//
+		let slsCprtnTotAmt = objGrid03.getColRef("slsCprtnTotAmt");//
+		let spmtRtAmt = objGrid03.getColRef("spmtRtAmt");//
 
-		let gridData03 = grdPrdcrOgnCurntMng03.getGridDataAll();
-		for(var i=1+3; i <= gridData03.length+3; i++ ){
-			let rowData = grdPrdcrOgnCurntMng03.getRowData(i);
+		let smplInptVlm = objGrid03.getColRef("smplInptVlm");//
+
+		let slsCprtnSortTrstVlm = objGrid03.getColRef("slsCprtnSortTrstVlm");//
+
+		let sttgUpbrItemNm03 = objGrid03.getColRef("sttgUpbrItemNm");//
+
+		let gridData03 = objGrid03.getGridDataAll();
+		//그리드 해더 row수
+		let captionRow03 = objGrid03.getFixedRows();
+		for(var i = captionRow03; i < gridData03.length + captionRow03; i++){
+			let rowData = objGrid03.getRowData(i);
 
 			if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
 				//비활성화
-				grdPrdcrOgnCurntMng03.setCellDisabled(i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, true);
-				grdPrdcrOgnCurntMng03.setCellDisabled(i, slsCprtnTotVlm, i, spmtRtAmt, true);
+				objGrid03.setCellDisabled(i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, true);
+				objGrid03.setCellDisabled(i, slsCprtnSortTrstVlm, i, spmtRtAmt, true);
 
 				//배경색
-				grdPrdcrOgnCurntMng03.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, 'lightgray');
-				grdPrdcrOgnCurntMng03.setCellStyle('background-color', i, slsCprtnTotVlm, i, spmtRtAmt, 'lightgray');
+				objGrid03.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, 'lightgray');
+				objGrid03.setCellStyle('background-color', i, slsCprtnSortTrstVlm, i, spmtRtAmt, 'lightgray');
 
 			}else if(rowData.sttgUpbrItemSe == '3'){
 				//기타
 				//비활성화
-				grdPrdcrOgnCurntMng03.setCellDisabled(i, smplInptVlm, i, spmtRtAmt, true);
+				objGrid03.setCellDisabled(i, smplInptVlm, i, spmtRtAmt, true);
 
 				//배경색
-				grdPrdcrOgnCurntMng03.setCellStyle('background-color', i, smplInptVlm, i, spmtRtAmt, 'lightgray');
+				objGrid03.setCellStyle('background-color', i, smplInptVlm, i, spmtRtAmt, 'lightgray');
 
 				//소계였던 줄 떄문에 추가
-				grdPrdcrOgnCurntMng03.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, false);
-				grdPrdcrOgnCurntMng03.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, 'white');
+				objGrid03.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, false);
+				objGrid03.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, 'white');
 
 			}else{
 				//소계
 				//비활성화
-				grdPrdcrOgnCurntMng03.setCellDisabled(i, totSpmtPrfmncVlm, i, spmtRtAmt, true);
+				objGrid03.setCellDisabled(i, sttgUpbrItemNm03, i, spmtRtAmt, true);
 				//배경색
-				grdPrdcrOgnCurntMng03.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, spmtRtAmt, 'lightgray');
+				objGrid03.setCellStyle('background-color', i, sttgUpbrItemNm03, i, spmtRtAmt, 'lightgray');
 			}
 		}
 	}
-
 
 	var comUoBrno = [];//통합조직 선택
 

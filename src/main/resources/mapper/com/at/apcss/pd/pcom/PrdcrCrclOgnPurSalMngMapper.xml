@@ -448,247 +448,6 @@
 		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD DESC
 	</select>
 
-	<!-- 통합조직 총매입매출 매입리스트 -->
-	<select id="selectPrdcrCrclOgnPurSalMngPrchsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		SELECT * FROM
-		(
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList */
-				ITEM.YR
-				, ITEM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
-				, ITEM.CTGRY_CD
-				, ITEM.CLSF_CD
-				, ITEM.STTG_UPBR_ITEM_SE
-				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
-
-				, CM.APO_CD
-				, CM.APO_SE
-				, CM.BRNO
-				, CM.CRNO
-
-				, '1' AS PRCHS_SLS_SE
-
-				/*수탁*/
-				, CM.PRCHS_SORT_TRST_VLM
-				, CM.PRCHS_SORT_TRST_AMT
-				, CM.PRCHS_SPMT_TRST_VLM
-				, CM.PRCHS_SPMT_TRST_AMT
-				, CM.PRCHS_SMPL_TRST_VLM
-				, CM.PRCHS_SMPL_TRST_AMT
-				, CM.PRCHS_TRST_VLM
-				, CM.PRCHS_TRST_AMT
-				/*매취*/
-				, CM.PRCHS_SORT_EMSPAP_VLM
-				, CM.PRCHS_SORT_EMSPAP_AMT
-				, CM.PRCHS_SMPL_EMSPAP_VLM
-				, CM.PRCHS_SMPL_EMSPAP_AMT
-				, CM.PRCHS_EMSPAP_VLM
-				, CM.PRCHS_EMSPAP_AMT
-
-				, '' AS PRCHS_TOT_VLM
-				, NVL(TOT.PRCHS_TOT_AMT,'') AS PRCHS_TOT_AMT
-
-				, CM.RMRK
-
-				, NVL(CM.DEL_YN,'N')		AS DEL_YN
-
-			FROM (SELECT *
-						FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
-						WHERE APO_SE = '1'
-						  AND PRCHS_SLS_SE = '1'
-						<if test='brno != null and brno != ""'>
-						  AND BRNO = #{brno}
-						</if>
-						<if test='yr != null and yr != ""'>
-						  AND YR = #{yr}
-						</if>
-				) CM ,
-				(SELECT
-						YGC.YR
-						,YGC.BRNO
-						,YGC.ITEM_CD
-						,YGC.CTGRY_CD
-						,YGC.CLSF_CD
-						,YGC.STTG_UPBR_ITEM_SE
-					FROM TB_EV_APO_YR_GPC_CD YGC
-					WHERE 1=1
-					  AND APO_SE = '1'
-					<if test='brno != null and brno != ""'>
-					  AND BRNO = #{brno}
-					</if>
-					<if test='yr != null and yr != ""'>
-					  AND YR = #{yr}
-					</if>
-				) ITEM ,
-				(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
-					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-					WHERE 1=1
-					  AND APO_SE = '1'
-					  AND TYPE_SE_NO IN ('1','3','5','7')
-					  AND (
-							(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-											FROM TB_EV_FRMHS_APO
-											WHERE 1=1
-											  AND STBLT_YN = 'Y'
-											  AND NVL(EXCL_YN,'N') != 'Y'
-											  AND APO_SE = '1'
-											<if test='brno != null and brno != ""'>
-											  AND BRNO = #{brno}
-											</if>
-											<if test='yr != null and yr != ""'>
-											  AND YR = #{yr}
-											</if>
-											  AND ITEM_CD IN  (SELECT ITEM_CD
-																FROM TB_EV_APO_YR_GPC_CD
-																WHERE 1=1
-																<if test='brno != null and brno != ""'>
-																  AND BRNO = #{brno}
-																</if>
-																<if test='yr != null and yr != ""'>
-																  AND YR = #{yr}
-																</if>
-																)
-											)
-							) OR
-							(PRDCR_OGNZ_SN = '0')
-						)
-					  AND (
-							(ISO_BRNO IN (SELECT BRNO
-											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-											WHERE 1=1
-											  AND APO_SE = '2'
-											  AND STBLT_YN = 'Y'
-											<if test='brno != null and brno != ""'>
-											  AND UO_BRNO = #{brno}
-											</if>
-											<if test='yr != null and yr != ""'>
-											  AND YR = #{yr}
-											</if>
-											GROUP BY BRNO
-										)
-							) OR
-							(ISO_BRNO = '0')
-							)
-			  		<if test='brno != null and brno != ""'>
-					  AND BRNO = #{brno}
-					</if>
-					<if test='yr != null and yr != ""'>
-					  AND YR = #{yr}
-					</if>
-
-					  GROUP BY  BRNO , ITEM_CD
-					) TOT
-			 WHERE 1=1
-			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
-			   AND ITEM.BRNO = CM.BRNO(+)
-			   AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
-			   AND ITEM.BRNO = TOT.BRNO(+)
-			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
-		)
-		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD
-	</select>
-
-	<!-- 통합조직 총매입매출 매출리스트 -->
-	<select id="selectPrdcrCrclOgnPurSalMngSlsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		SELECT * FROM
-		(
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList */
-				ITEM.YR
-				, ITEM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
-				, ITEM.CTGRY_CD
-				, ITEM.CLSF_CD
-				, ITEM.STTG_UPBR_ITEM_SE
-				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
-
-				, CM.APO_CD
-				, CM.APO_SE
-				, CM.BRNO
-				, CM.CRNO
-
-				, '2' AS PRCHS_SLS_SE
-
-				/*매출*/
-				, CM.SLS_EMSPAP_VLM
-				, CM.SLS_EMSPAP_AMT
-				, CM.SLS_TRST_VLM
-				, CM.SLS_TRST_AMT
-
-				, (NVL(CM.SLS_EMSPAP_VLM , 0) + NVL(CM.SLS_TRST_VLM , 0)) AS SLS_TOT_VLM
-				, TOT.SLS_TOT_AMT AS SLS_TOT_AMT
-
-				, CM.DDC_VLM
-				, CM.DDC_AMT
-
-				/*출하실적*/
-				, CM.PBLC_WHLSL_MRKT_VLM
-				, CM.PBLC_WHLSL_MRKT_AMT
-				, CM.ONLN_WHLSL_MRKT_VLM
-				, CM.ONLN_WHLSL_MRKT_AMT
-				, CM.LGSZ_RTL_VLM
-				, CM.LGSZ_RTL_AMT
-				, CM.ARMY_DLVGDS_VLM
-				, CM.ARMY_DLVGDS_AMT
-				, CM.EATOUT_MTRL_MLSR_VLM
-				, CM.EATOUT_MTRL_MLSR_AMT
-				, CM.MNFC_RTL_VLM
-				, CM.MNFC_RTL_AMT
-				, CM.EXPRT_VLM
-				, CM.EXPRT_AMT
-				, CM.ONLN_DLNG_PRFMNC_VLM
-				, CM.ONLN_DLNG_PRFMNC_AMT
-				, CM.ETC_VLM
-				, CM.ETC_AMT
-
-				, CM.RMRK
-
-				, NVL(CM.DEL_YN,'N')		AS DEL_YN
-
-			FROM (SELECT *
-						FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
-						WHERE APO_SE = '1'
-						  AND PRCHS_SLS_SE = '2'
-						<if test='brno != null and brno != ""'>
-						  AND BRNO = #{brno}
-						</if>
-						<if test='yr != null and yr != ""'>
-						  AND YR = #{yr}
-						</if>
-					) CM ,
-				(SELECT *
-					FROM TB_EV_APO_YR_GPC_CD
-					WHERE 1=1
-					<if test='brno != null and brno != ""'>
-					  AND BRNO = #{brno}
-					</if>
-					<if test='yr != null and yr != ""'>
-					  AND YR = #{yr}
-					</if>
-				) ITEM ,
-				(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_TOT_AMT
-					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-					WHERE 1=1
-					  AND APO_SE = '1'
-					  AND TYPE_SE_NO IN ('2','3','6','7')
-					  <if test='brno != null and brno != ""'>
-					  AND BRNO = #{brno}
-					  </if>
-					  <if test='yr != null and yr != ""'>
-					  AND YR = #{yr}
-					  </if>
-
-					  GROUP BY  BRNO , ITEM_CD
-					) TOT
-			 WHERE 1=1
-			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
-			   AND ITEM.BRNO = CM.BRNO(+)
-			   AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
-			   AND ITEM.BRNO = TOT.BRNO(+)
-			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
-		)
-		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD
-	</select>
-
 	<insert id="insertPrdcrCrclOgnPurSalMng01" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng01 */
 		USING DUAL
@@ -908,7 +667,6 @@
 		   			)
 	</insert>
 
-
 	<insert id="insertPrdcrCrclOgnPurSalMng03" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
 		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03 */
@@ -1046,55 +804,6 @@
 		   			)
     	]]>
     </insert>
-
-	<update id="updatePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.upatePrdcrCrclOgnPurSalMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
-			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
-			 	, CC_CODE 	= #{ccCode}
-			 	, DD 	= #{dd}
-			 	, DD_CODE 	= #{ddCode}
-			 	, EE 	= #{ee}
-			 	, FF 	= #{ff}
-			 	, GG 	= #{gg}
-			 	, HH 	= #{hh}
-			 	, II 	= #{ii}
-			 	, II_CODE 	= #{iiCode}
-			 	, JJ 	= #{jj}
-			 	, KK 	= #{kk}
-			 	, LL 	= #{ll}
-			 	, MM 	= #{mm}
-			 	, NN 	= #{nn}
-			 	, OO 	= #{oo}
-			 	, PP 	= #{pp}
-			 	, QQ 	= #{qq}
-			 	, RR 	= #{rr}
-			 	, SS 	= #{ss}
-			 	, TT 	= #{tt}
-			 	, UU 	= #{uu}
-			 	, VV 	= #{vv}
-			 	, WW 	= #{ww}
-			 	, XX 	= #{xx}
-			 	, YY 	= #{yy}
-			 	, ZZ 	= #{zz}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-
-			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
-    	]]>
-    </update>
-
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng */
@@ -1234,5 +943,277 @@
 									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = A.BRNO AND YR = A.YR AND ITEM_CD = A.ITEM_CD)
 								)
 		ORDER BY BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , ITEM_CD
+	</select>
+
+
+	<!-- 통합조직 총매입매출 매입리스트 -->
+	<select id="selectPrdcrCrclOgnPurSalMngPrchsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT * FROM
+		(
+			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList */
+				ITEM.YR
+				, ITEM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, ITEM.CTGRY_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+				, ITEM.CLSF_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = ITEM.CLSF_CD) AS CLSF_NM
+				, ITEM.STTG_UPBR_ITEM_SE
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+
+				, (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS APO_CD
+				, '1' AS APO_SE
+				, ITEM.BRNO
+				, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CRNO
+
+				, '1' AS PRCHS_SLS_SE
+
+				/*수탁*/
+				, CM.PRCHS_SORT_TRST_VLM
+				, CM.PRCHS_SORT_TRST_AMT
+				, CM.PRCHS_SPMT_TRST_VLM
+				, CM.PRCHS_SPMT_TRST_AMT
+				, CM.PRCHS_SMPL_TRST_VLM
+				, CM.PRCHS_SMPL_TRST_AMT
+				, CM.PRCHS_TRST_VLM
+				, CM.PRCHS_TRST_AMT
+				/*매취*/
+				, CM.PRCHS_SORT_EMSPAP_VLM
+				, CM.PRCHS_SORT_EMSPAP_AMT
+				, CM.PRCHS_SMPL_EMSPAP_VLM
+				, CM.PRCHS_SMPL_EMSPAP_AMT
+				, CM.PRCHS_EMSPAP_VLM
+				, CM.PRCHS_EMSPAP_AMT
+
+				, NVL(TOT.PRCHS_TOT_VLM,'') AS PRCHS_TOT_VLM
+				, NVL(TOT.PRCHS_TOT_AMT,'') AS PRCHS_TOT_AMT
+
+				, CM.RMRK
+
+				, NVL(CM.DEL_YN,'N')		AS DEL_YN
+
+			FROM
+				(SELECT
+						YGC.YR
+						,YGC.BRNO
+						,YGC.ITEM_CD
+						,YGC.CTGRY_CD
+						,YGC.CLSF_CD
+						,YGC.STTG_UPBR_ITEM_SE
+					FROM TB_EV_APO_YR_GPC_CD YGC
+					WHERE 1=1
+					  AND APO_SE = '1'
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+				) ITEM ,
+				(SELECT *
+						FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+						WHERE APO_SE = '1'
+						  AND PRCHS_SLS_SE = '1'
+						<if test='brno != null and brno != ""'>
+						  AND BRNO = #{brno}
+						</if>
+						<if test='yr != null and yr != ""'>
+						  AND YR = #{yr}
+						</if>
+				) CM ,
+				(SELECT BRNO , ITEM_CD
+						, SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
+						, SUM( NVL( SLS_CNSGN_PRCHS_VLM , 0 ) ) AS PRCHS_TOT_VLM
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND TYPE_SE_NO IN ('1','3','5','7')
+					  AND (
+							(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+												FROM TB_EV_FRMHS_APO FA
+												WHERE 1=1
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												  AND APO_SE = '1'
+												  AND BRNO = PST.BRNO
+												  AND YR = PST.YR
+												  AND ITEM_CD IN  (SELECT ITEM_CD
+																	FROM TB_EV_APO_YR_GPC_CD
+																	WHERE 1=1
+																	  AND YR = FA.YR
+																	  AND BRNO = FA.BRNO
+																	  AND APO_SE = '1'
+																	  AND STTG_UPBR_ITEM_SE != '3'
+																	)
+												)
+							)
+							OR
+							(PRDCR_OGNZ_SN = '0')
+						)
+					  AND (
+							(ISO_BRNO IN (SELECT BRNO
+											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT IPST
+											WHERE 1=1
+											  AND APO_SE = '2'
+											  AND YR = PST.YR
+											  AND UO_BRNO = PST.BRNO
+											  AND ITEM_CD IN (SELECT ITEM_CD
+																FROM TB_EV_APO_YR_GPC_CD
+																WHERE 1=1
+																  AND YR = IPST.YR
+																  AND BRNO = IPST.BRNO
+																  AND UO_BRNO = IPST.UO_BRNO
+																  AND APO_SE = '2'
+																  AND STTG_UPBR_ITEM_SE != '3'
+																)
+											GROUP BY BRNO
+										)
+							)
+							OR
+							(ISO_BRNO = '0')
+						)
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+			  		<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+
+					  GROUP BY  BRNO , ITEM_CD
+					) TOT
+			 WHERE 1=1
+			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
+			   AND ITEM.BRNO = CM.BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+			   AND ITEM.BRNO = TOT.BRNO(+)
+			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+		)
+		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD
+	</select>
+
+	<!-- 통합조직 총매입매출 매출리스트 -->
+	<select id="selectPrdcrCrclOgnPurSalMngSlsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT * FROM
+		(
+			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList */
+				ITEM.YR
+				, ITEM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, ITEM.CTGRY_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+				, ITEM.CLSF_CD
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = ITEM.CLSF_CD) AS CLSF_NM
+				, ITEM.STTG_UPBR_ITEM_SE
+				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+
+				, (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS APO_CD
+				, '1'
+				, ITEM.BRNO
+				, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CRNO
+
+				, '2' AS PRCHS_SLS_SE
+
+				/* 매출 수탁 */
+				, SLS_CPRTN_TRST_VLM
+				, SLS_CPRTN_TRST_AMT
+				, SLS_CPRTN_SORT_TRST_VLM
+				, SLS_CPRTN_SORT_TRST_AMT
+				, SLS_SMPL_TRST_VLM
+				, SLS_SMPL_TRST_AMT
+
+				, CM.SLS_TRST_VLM
+				, CM.SLS_TRST_AMT
+
+				/* 매출 매취 */
+				, SLS_CPRTN_SORT_EMSPAP_VLM
+				, SLS_CPRTN_SORT_EMSPAP_AMT
+				, SLS_SMPL_EMSPAP_VLM
+				, SLS_SMPL_EMSPAP_AMT
+
+				, CM.SLS_EMSPAP_VLM
+				, CM.SLS_EMSPAP_AMT
+
+				/* 매출 합계 */
+				, TOT.SLS_TOT_AMT AS SLS_TOT_VLM
+				, TOT.SLS_TOT_AMT AS SLS_TOT_AMT
+
+				/* 출하실적 */
+				/* 온라인도매시장 제외 별도로 받음 */
+				, CM.PBLC_WHLSL_MRKT_VLM
+				, CM.PBLC_WHLSL_MRKT_AMT
+				, CM.ONLN_WHLSL_MRKT_VLM
+				, CM.ONLN_WHLSL_MRKT_AMT
+				, CM.LGSZ_RTL_VLM
+				, CM.LGSZ_RTL_AMT
+				, CM.ARMY_DLVGDS_VLM
+				, CM.ARMY_DLVGDS_AMT
+				, CM.EATOUT_MTRL_MLSR_VLM
+				, CM.EATOUT_MTRL_MLSR_AMT
+				, CM.MNFC_RTL_VLM
+				, CM.MNFC_RTL_AMT
+				, CM.EXPRT_VLM
+				, CM.EXPRT_AMT
+				, CM.ONLN_DLNG_PRFMNC_VLM
+				, CM.ONLN_DLNG_PRFMNC_AMT
+				, CM.ETC_VLM
+				, CM.ETC_AMT
+
+				, CM.RMRK
+
+				, NVL(CM.DEL_YN,'N')		AS DEL_YN
+
+			FROM
+				(SELECT *
+					FROM TB_EV_APO_YR_GPC_CD
+					WHERE 1=1
+					  AND APO_SE = '1'
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+				) ITEM ,
+				(SELECT *
+					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND PRCHS_SLS_SE = '2'
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+				) CM ,
+				(SELECT BRNO , ITEM_CD
+						, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_TOT_AMT
+						, SUM( NVL( SLS_CNSGN_SLS_VLM , 0 ) ) AS SLS_TOT_VLM
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND (
+							TYPE_SE_NO IN ('2','7')
+							OR
+							(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
+							)
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+
+					  GROUP BY  BRNO , ITEM_CD
+				) TOT
+			WHERE 1=1
+			  AND ITEM.BRNO = CM.BRNO(+)
+			  AND ITEM.ITEM_CD = CM.ITEM_CD(+)
+			  AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+
+			  AND ITEM.BRNO = TOT.BRNO(+)
+			  AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+		)
+		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD
 	</select>
 </mapper>

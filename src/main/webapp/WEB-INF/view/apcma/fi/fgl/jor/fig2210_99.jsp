@@ -338,7 +338,7 @@
 	                            
 	                            <th scope="row" class="th_bg">제목</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm inpt_data_reqed" onchange="fn_DescChange(sch-description)"  
+	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm inpt_data_reqed" onchange="fn_DescChange(sch-description)"  onblur="fn_DescBlur(sch-description)"
 										group-id="frmBody" 
 										required                                       
 	   								></sbux-input>
@@ -1434,6 +1434,7 @@
     	pg_state = 'new';
     	fn_init(false);
     	fn_createGrid2210();	
+    	gfnma_uxDataClear('#srchArea1');
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	fn_gridTotal();
@@ -1443,7 +1444,6 @@
      * 신규
      */
 	var cfn_add = function() {
-    	
     	cfn_sub_add('new');
     }
      
@@ -1621,7 +1621,7 @@
     	
 		// 신규 등록
 		if(gfn_comConfirm("Q0001", "저장")){
-			fn_subInsert();
+			fn_subModify('N');
 		} 
     }
     
@@ -1649,9 +1649,9 @@
     }
     
     /**
-     * 저장
+     * 저장, 삭제
      */   
-    const fn_subInsert = async function (){
+    const fn_subModify = async function (wtype){
     	
     	var p_doc_batch_no			= gfnma_nvl(SBUxMethod.get("sch-doc-batch-no"));
     	var p_doc_id				= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
@@ -2275,7 +2275,7 @@
 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/insertFig2210S.do", {
         	getType				: 'json',
-        	workType			: 'N',
+        	workType			: wtype,
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj)
 		});    	 
@@ -2288,25 +2288,29 @@
 	          		alert(data.resultMessage);
         		}
         		
-        		//성공했을때 --------------------------------
-        		var doc_id  = '';
-        		if(data.v_returnStr){
-            		doc_id  = data.v_returnStr + '';
+        		if(wtype=='N'){
+	        		//성공했을때 --------------------------------
+	        		var doc_id  = '';
+	        		if(data.v_returnStr){
+	            		doc_id  = data.v_returnStr + '';
+	        		} else {
+	        			doc_id 	= gfnma_nvl2(SBUxMethod.get('sch-doc-id')) + '';
+	        		}
+	        		var doc_idx = doc_id.indexOf('|');
+	        		doc_id = doc_id.substr(doc_idx + 1);
+	        		
+	        		console.log('doc_id:', doc_id);
+	        		console.log('p_menu_param:', p_menu_param);
+	        		if(!p_menu_param){
+	        			p_menu_param = {};
+	        		}
+	        		p_menu_param.DOC_ID = doc_id;
+					pg_state = 'edit';			
+			     	fn_init(false);
+			     	//--------------------------------------------
         		} else {
-        			doc_id 	= gfnma_nvl2(SBUxMethod.get('sch-doc-id')) + '';
+        			cfn_sub_add('new');        			
         		}
-        		var doc_idx = doc_id.indexOf('|');
-        		doc_id = doc_id.substr(doc_idx + 1);
-        		
-        		console.log('doc_id:', doc_id);
-        		console.log('p_menu_param:', p_menu_param);
-        		if(!p_menu_param){
-        			p_menu_param = {};
-        		}
-        		p_menu_param.DOC_ID = doc_id;
-				pg_state = 'edit';			
-		     	fn_init(false);
-		     	//--------------------------------------------
         		
         	} else {
           		alert(data.resultMessage);
@@ -2619,6 +2623,19 @@
     //제목 값 --> 그리드에 셋팅하기
     function fn_DescChange(val) {
 		console.log('val:', val);        
+		let allDatas = Fig2210Grid.getOrgGridDataAll()
+		if(allDatas.length>0){
+			for (var i = 0; i < allDatas.length; i++) {
+				allDatas[i]['DESCRIPTION'] = val;
+			}
+			Fig2210Grid.refresh();
+		}
+    }
+
+    //제목 값 --> 그리드에 셋팅하기
+    function fn_DescBlur(val) {
+		console.log('val:', val);   
+		val = gfnma_nvl(val);
 		let allDatas = Fig2210Grid.getOrgGridDataAll()
 		if(allDatas.length>0){
 			for (var i = 0; i < allDatas.length; i++) {
@@ -4132,6 +4149,24 @@
     	}
     }
     
+    /**
+     * 삭제
+     */
+   	var cfn_del = async function() {
+    	
+    	var p_doc_id 	 = gfnma_nvl(SBUxMethod.get('sch-doc-id'));
+    	var p_doc_status = gfnma_nvl(SBUxMethod.get('sch-doc-status'));
+    	
+    	if(!p_doc_id){
+    		return;
+    	}
+    	if(p_doc_status != '1' && p_doc_status != '5'){
+    		return;
+    	}
+		if(gfn_comConfirm("Q0001", "선택하신 전표를 삭제하시겠습니까?")){
+			fn_subModify('D');
+		} 
+    }    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

@@ -2,9 +2,16 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
+	public final static String SERVER_TYPE_PRD = "prd";
+	public final static String SERVER_TYPE_DEV = "dev";
+	public final static String SERVER_TYPE_LOCAL = "local";
+
 
 	public final static String DEFAULT_ERR_USER = "SYSTEM";
 	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";
+
+
+	public final static String REPORT_JSP_EXPORT_PDF_JSON = "exportForPdfByJson.jsp";
 
 	/**
 	 * 미등록
@@ -113,7 +120,7 @@ public class ComConstants {
 	public final static String CON_NONE = "N";
 
 	public final static String CON_XSDENY_CHAR = "----==_dummy_part_66f108b0c681a_bf1d241437c4";
-	
+
 	public final static String EXCEL_YES = "Y";
 
 	/* MSG CODE */
@@ -142,15 +149,15 @@ public class ComConstants {
 	public final static String MSGCD_NOT_EQUAL = "W0006";
 
 	/**
-	 * W0003	{0}할 대상이 없습니다. 
+	 * W0003	{0}할 대상이 없습니다.
 	 */
 	public final static String MSGCD_NOT_FOUND_TARGET_TODO = "W0003";
 	/**
-	 * W0004	{0}한 대상이 없습니다. 
+	 * W0004	{0}한 대상이 없습니다.
 	 */
 	public final static String MSGCD_NOT_FOUND_TARGET = "W0004";
-	
-	
+
+
 	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
@@ -167,19 +174,19 @@ public class ComConstants {
 	 * W0011	{0}이/가 아닙니다.
 	 */
 	public final static String MSGCD_NOT_TARGET = "W0011";		//	W0011	{0}이/가 아닙니다.
-	
+
 	/**
 	 * W0022	{0}의 {1}된 {2}이/가 아닙니다.
 	 */
 	public final static String MSGCD_NOT_PARAM_THREE = "W0022";	//	W0022	{0}의 {1}된 {2}이/가 아닙니다.
-	
-	
+
+
 	/**
 	 * W0020	{0} 상태의 {1} 입니다.
 	 */
 	public final static String MSGCD_TARGET_STATUS = "W0020";	//	{0} 상태의 {1} 입니다.
-	
-	
+
+
 	/**
 	 * W0012	마감등록 된 {0} 입니다.
 	 */
@@ -215,21 +222,22 @@ public class ComConstants {
 	public final static String CON_UNTY_AUTHRT_TYPE_SYS = "00";
 	public final static String CON_UNTY_AUTHRT_TYPE_AT = "10";
 	public final static String CON_UNTY_AUTHRT_TYPE_ADMIN = "20";
-	
+
 	/* 사용자 유형 */
 	public final static String CON_USER_TYPE_SYS = "00";
 	public final static String CON_USER_TYPE_AT = "01";
 	public final static String CON_USER_TYPE_ADMIN = "10";
 	public final static String CON_USER_TYPE_USER = "11";
+	public final static String CON_USER_TYPE_PRDCR = "20";
 
-	
-	
+
+
 	/* 사용자 상태 */
 	public final static String CON_USER_STTS_STANDBY = "00";
 	public final static String CON_USER_STTS_VALID = "01";
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
-	
+
 
 	/**
 	 * 회원유형코드 : 1 법인
@@ -243,8 +251,8 @@ public class ComConstants {
 	 * 회원유형코드 : 3 개인
 	 */
 	public final static String CON_MBR_TYPE_CD_PRSNA = "3";
-	
-	
+
+
 
 	/* 토큰 관련 */
 	public final static String CON_TOKEN_ACCESSTOKEN_EXPIRED = "30";
@@ -321,7 +329,7 @@ public class ComConstants {
 	public final static String CON_APRV_PRGRS_CD_APLY_CNCL = "R9";
 	public final static String CON_APRV_PRGRS_CD_APRV = "C0";
 	public final static String CON_APRV_PRGRS_CD_APRV_CNCL = "C9";
-	
+
 	/**
 	 * 중복허용 여부
 	 */

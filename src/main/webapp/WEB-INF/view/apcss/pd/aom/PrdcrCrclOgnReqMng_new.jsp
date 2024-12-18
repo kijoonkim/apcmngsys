@@ -934,6 +934,7 @@
 						</tr>
 					</tbody>
 				</table>
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -945,6 +946,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdApcList" style="height:200px; width: 100%;"></div>
 				</div>
+			</c:if>
 				<!--
 				<div>
 				*신청대상구분
@@ -2072,12 +2074,15 @@
 			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
 				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
-			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
-			/*
-			{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
-			*/
-			{caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',	style:'text-align:center'},
+			{caption: ["품목명"], 			ref: 'itemNm',   		type:'output',  width:'150px',	style:'text-align:center'},
+
+			{caption: ["품목코드"], 		ref: 'itemCd',   		type:'output',  width:'60px',	style:'text-align:center'},
+			{caption: ["취급액 목표(천원)"], 	ref: 'trgtTrmtAmt',   	type:'input',  width:'150px',	style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
+			{caption: ["취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
+				,format: {type: 'number', rule: '#,##0.00'}},
+			{caption: ["비고"], 			ref: 'rmrk',   			type:'input',  width:'150px',	style:'text-align:center'},
+			//{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgCtgryCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgSttgUpbrItemSe',   hidden : true},
 		];
@@ -2239,6 +2244,9 @@
 						,brno: item.brno
 
 						,clsfCd: item.clsfCd
+
+						,trgtTrmtAmt: item.trgtTrmtAmt
+						,trgtTrmtRt: item.trgtTrmtRt
 				}
 				jsonGpcList.push(GpcListVO);
 			});

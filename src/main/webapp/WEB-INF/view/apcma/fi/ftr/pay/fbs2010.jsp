@@ -1526,9 +1526,9 @@
 
                 // SessionInfo.IsTrUser 추가
                 if (gfn_nvl(SBUxMethod.get("SRCH_INSERT_USERID")) == p_userID || p_isTrUser == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode)
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
                 else
-                    $("#main-btn-appr").attr('disabled', 'true');
+                    $("#main-btn-appr", parent.document).attr('disabled', true);
 
                 SBUxMethod.attr("btnAddRow", "disabled", "false");
                 SBUxMethod.attr("btnDeleteRow", "disabled", "false");
@@ -1539,16 +1539,16 @@
 
                 // SessionInfo.IsTrManager 추가
                 if (gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_EMP_CODE")) == p_empCode || p_isTrManager == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode) {
-                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
                 } else {
-                    $("#main-btn-appr").attr('disabled', 'true');
+                    $("#main-btn-appr", parent.document).attr('disabled', true);
                 }
 
                 SBUxMethod.attr("btnAddRow", "disabled", "true");
                 SBUxMethod.attr("btnDeleteRow", "disabled", "true");
             } else if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "5") {
                 //승인완료
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-appr", parent.document).attr('disabled', true);
                 SBUxMethod.attr("btnRetry", "disabled", "false");
                 SBUxMethod.attr("btnResultQuery", "disabled", "false");
 
@@ -1561,7 +1561,7 @@
                 SBUxMethod.attr("btnAddRow", "disabled", "true");
                 SBUxMethod.attr("btnDeleteRow", "disabled", "false");
             } else {
-                $("#main-btn-appr").attr('disabled', 'false');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');
                 SBUxMethod.attr("btnTxnComplete", "disabled", "true");
                 SBUxMethod.attr("btnRetry", "disabled", "true");
                 SBUxMethod.attr("btnResultQuery", "disabled", "true");
@@ -1571,9 +1571,9 @@
             }
 
             if (parseInt(gfn_nvl(SBUxMethod.get("SRCH_APPR_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("SRCH_APPR_ID"))) != 0)
-                $("#main-btn-appr").attr('disabled', 'false');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');
             else
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-appr", parent.document).attr('disabled', true);
         }
     }
 
@@ -1590,7 +1590,7 @@
             gvwDetail.rebuild();
             gvwAct.rebuild();
 
-            $("#main-btn-appr").attr('disabled', 'true');
+            $("#main-btn-appr", parent.document).attr('disabled', true);
             SBUxMethod.attr("btnAddRow", "disabled", "false");
             SBUxMethod.attr("btnDeleteRow", "disabled", "false");
 
@@ -1619,7 +1619,7 @@
             gvwDetail.rebuild();
             gvwAct.rebuild();
 
-            $("#main-btn-appr").attr('disabled', 'true');
+            $("#main-btn-appr", parent.document).attr('disabled', true);
             SBUxMethod.attr("btnAddRow", "disabled", "false");
             SBUxMethod.attr("btnDeleteRow", "disabled", "false");
 
@@ -1638,7 +1638,7 @@
                 gvwDetail.rebuild();
                 gvwAct.rebuild();
 
-                $("#main-btn-appr").attr('disabled', 'true');
+                $("#main-btn-appr", parent.document).attr('disabled', true);
                 SBUxMethod.attr("btnAddRow", "disabled", "false");
                 SBUxMethod.attr("btnDeleteRow", "disabled", "false");
 

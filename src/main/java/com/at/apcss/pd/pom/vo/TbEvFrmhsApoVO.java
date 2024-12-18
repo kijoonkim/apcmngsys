@@ -37,6 +37,8 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
 	private String prdcrOgnzNm;
+	private String ctrtDt;
+	private String spmtDt;
 	private String rmrk;
 
 	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량

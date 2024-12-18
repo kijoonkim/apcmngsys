@@ -863,8 +863,12 @@
 
 			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하시기"], 		ref: 'spmtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -892,7 +896,6 @@
 			{caption: ["제외여부"], 		ref: 'exclYn',   	type:'combo',  width:'60px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComGrdExclYn', label:'label', value:'value', displayui : true}},
 		</c:if>
-
 			{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',		hidden : true},
@@ -1390,20 +1393,20 @@
 		if(confirm(regMsg)){
 
 			let postJsonPromise = gfn_postJSON("/pd/pom/multiSaveTbEvFrmhsApoList.do", saveList);
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_dtlGridSearch01();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch01();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
 
 		}
 	}
@@ -1593,25 +1596,36 @@
 
 	/* Grid Row 추가 및 삭제 기능*/
 	function fn_procRow01(gubun, grid, nRow, nCol) {
-		console.log("======fn_procRow01=========");
+		//console.log("======fn_procRow01=========");
+		let objGrid = grdPrdcrOgnCurntMng01;
 		if (gubun === "ADD") {
 			if (grid === "grdPrdcrOgnCurntMng01") {
-				grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
+				objGrid.setCellData(nRow, nCol, "N", true);
 				//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
-				grdPrdcrOgnCurntMng01.addRow(true);
+				objGrid.addRow(true);
+
+				let rmrkCol = objGrid.getColRef('rmrk');//부류
+				let prdcrOgnzNmCol = objGrid.getColRef('prdcrOgnzNm');//평가부류
+
+				//기존 row 활성화
+				objGrid.setCellDisabled(nRow, prdcrOgnzNmCol, nRow, rmrkCol, false);
+				objGrid.setCellStyle('background-color', nRow, prdcrOgnzNmCol, nRow, rmrkCol, 'white');
+				//추가 row 비활성화
+				objGrid.setCellDisabled(nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, true);
+				objGrid.setCellStyle('background-color', nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, 'lightgray');
 			}
 		}
 		else if (gubun === "DEL") {
 			if (grid === "grdPrdcrOgnCurntMng01") {
-				if(grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng01.getRowStatus(nRow) == 2){
+				if(objGrid.getRowStatus(nRow) == 0 || objGrid.getRowStatus(nRow) == 2){
 					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
 					if(confirm(delMsg)){
-						var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
+						var rowVal = objGrid.getRowData(nRow);
 						fn_deleteRsrc01(rowVal);
 						fn_dtlGridSearch01();
 					}
 				}else{
-					grdPrdcrOgnCurntMng01.deleteRow(nRow);
+					objGrid.deleteRow(nRow);
 				}
 			}
 		}
@@ -2036,6 +2050,9 @@
 						,prdcrOgnzCd: 	item.prdcrOgnzCd
 						,prdcrOgnzNm: 	item.prdcrOgnzNm
 						,rmrk: 			item.rmrk
+
+						,ctrtDt: 	item.ctrtDt
+						,spmtDt: 	item.spmtDt
 				}
 
 				jsonPrdcrOgnCurntMng01.push(itemVO);
@@ -2047,7 +2064,14 @@
 			let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 			if (prfmncCorpDdlnYn != 'Y') {
 				//입력 그리드 인 경우 추가
+				let nRow = jsonPrdcrOgnCurntMng01.length;
 				grdPrdcrOgnCurntMng01.addRow();
+				let rmrkCol = grdPrdcrOgnCurntMng01.getColRef('rmrk');//부류
+				let prdcrOgnzNmCol = grdPrdcrOgnCurntMng01.getColRef('prdcrOgnzNm');//평가부류
+
+				//추가 row 비활성화
+				grdPrdcrOgnCurntMng01.setCellDisabled(nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, true);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, 'lightgray');
 			}
 
 		}catch (e) {

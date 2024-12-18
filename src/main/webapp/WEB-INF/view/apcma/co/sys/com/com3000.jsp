@@ -355,24 +355,10 @@
 	var mode 			= 'byrows';
 	var jsonGroupCode	= [];	// 유형분류
 	
-	var selectJsonData = [
-		{ text : "빨강", value : "red",       style : "color:red;"},
-		{ text : "주황", value : "orange",    style : "color:orange;"},
-		{ text : "노랑", value : "yellow",    style : "color:yellow;"},
-		{ text : "초록", value : "green",     style : "color:green;"},
-		{ text : "파랑", value : "blue",      style : "color:blue;"},
-		{ text : "남색", value : "navy",      style : "color:navy;"},
-		{ text : "보라", value : "purple",    style : "color:purple;"},
-		{ text : "금색", value : "gold",      style : "color:gold;"},
-		{ text : "은색", value : "silver",    style : "color:silver;"},
-		{ text : "검정", value : "black",     style : "color:black;"},
-		{ text : "흰색", value : "white"  }
-	];
-	
     /**
-     * 공통팝업
-     * 예산계정	
-     */
+    * 공통팝업
+    * 예산계정	
+    */
    	var fn_compopupBudgetAcc = function() {
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_CODE"));
@@ -461,6 +447,17 @@
             await cfn_search();
         }
     });
+    
+    
+    /*여유필드캡션 1~20 입력한 값 그리드 컬럼명으로 적용 */
+    const fn_changeFieldCaption = async function () {
+		
+    	let gridData = CMNSCDSubGrid.getGridDataAll();
+    	jsonCMNSCDSubList = [];
+    	let fieldData = await fn_fieldCaption(); 
+    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
+    }
+    
 	// 신규
 	function cfn_add() {
 		fn_clearForm();
@@ -471,7 +468,11 @@
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-			fn_saveData();
+	        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+	            return false;
+	        }else{
+				fn_saveData();
+	        }
 		}
     }
 	
@@ -981,10 +982,6 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
-            return false;
-        }
-        
     	let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
     	let USE_YN				= gfn_nvl(SBUxMethod.get("USE_YN"));
     	let DESCR 				= gfn_nvl(SBUxMethod.get("DESCR"));
@@ -1094,7 +1091,6 @@
         };
         CMNSCDSubGridData = deleteRemove(CMNSCDSubGridData, 'd');
         
-        console.log('CMNSCDSubGridData' , CMNSCDSubGridData);
         let paramList = [];
         CMNSCDSubGridData.forEach((item, index) => {
             const param = {
@@ -1145,8 +1141,6 @@
         if(paramList.length > 0) {
 	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {listData: paramList});
 	        const updateData = await postJsonPromise;
-	console.log('postJsonPromise', postJsonPromise);        
-	console.log('updateData', updateData);        
 	        try {
 	            if (_.isEqual("S", updateData.resultStatus)) {
 	            } else {
@@ -1320,16 +1314,6 @@
 		
     	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
     }
-     
-     /*여유필드 캡션1~20 수정 시 그리드에 적용되게 */
-     const fn_changeFieldCaption = async function () { 
-		
-        let gridData = CMNSCDSubGrid.getGridDataAll();
-        jsonCMNSCDSubList = [];
-        let fieldData = await fn_fieldCaption(); 
-        
-        fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
-     }
      
     //그룹코드 내역 보기
     function fn_view() {

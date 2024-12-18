@@ -8,7 +8,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -17,7 +17,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -39,9 +39,11 @@ public interface PrdcrCrclOgnPurSalMngMapper {
 
 	public int insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 
-	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
-
 	public int deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
 	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+	//매입 리스트
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+	//매출 리스트
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 }

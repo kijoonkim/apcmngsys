@@ -579,7 +579,6 @@
 	// 조회
 	function cfn_search() {
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
-		console.log('tabId ==>', tabId);
 		if(tabId == 'TAB_DAILY'){
 			fn_search('TAB_DAILY');
 		}else if(tabId == 'TAB_AVERAGE'){
@@ -1059,7 +1058,8 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.oneclickedit  		= true;
-        SBGridProperties.allowcopy 			= false; //복사
+        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
         SBGridProperties.rowheadercaption 	= { seq: 'No' };
@@ -1313,7 +1313,7 @@
         let data = dailyDayGrid.getGridDataAll();
         jsonDailyDayList = [];
 		gridMode = 'byrow'; //행 단위 단일  선택
-		fn_drawdailyDayGrid(gridMode, data, true);
+		fn_drawdailyDayGrid(gridMode, data, false);
     }
     /*행 복사 (행복사모드)*/
     const fn_gridCopyLine = function() {
