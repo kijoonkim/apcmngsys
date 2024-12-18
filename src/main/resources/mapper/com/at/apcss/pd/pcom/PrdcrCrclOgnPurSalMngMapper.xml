@@ -1113,19 +1113,32 @@
 
 				, '2' AS PRCHS_SLS_SE
 
-				/*매출*/
-				, CM.SLS_EMSPAP_VLM
-				, CM.SLS_EMSPAP_AMT
+				/* 매출 수탁 */
+				, SLS_CPRTN_TRST_VLM
+				, SLS_CPRTN_TRST_AMT
+				, SLS_CPRTN_SORT_TRST_VLM
+				, SLS_CPRTN_SORT_TRST_AMT
+				, SLS_SMPL_TRST_VLM
+				, SLS_SMPL_TRST_AMT
+
 				, CM.SLS_TRST_VLM
 				, CM.SLS_TRST_AMT
 
-				, (NVL(CM.SLS_EMSPAP_VLM , 0) + NVL(CM.SLS_TRST_VLM , 0)) AS SLS_TOT_VLM
+				/* 매출 매취 */
+				, SLS_CPRTN_SORT_EMSPAP_VLM
+				, SLS_CPRTN_SORT_EMSPAP_AMT
+				, SLS_SMPL_EMSPAP_VLM
+				, SLS_SMPL_EMSPAP_AMT
+
+				, CM.SLS_EMSPAP_VLM
+				, CM.SLS_EMSPAP_AMT
+
+				/* 매출 합계 */
+				, TOT.SLS_TOT_AMT AS SLS_TOT_VLM
 				, TOT.SLS_TOT_AMT AS SLS_TOT_AMT
 
-				, CM.DDC_VLM
-				, CM.DDC_AMT
-
-				/*출하실적*/
+				/* 출하실적 */
+				/* 온라인도매시장 제외 별도로 받음 */
 				, CM.PBLC_WHLSL_MRKT_VLM
 				, CM.PBLC_WHLSL_MRKT_AMT
 				, CM.ONLN_WHLSL_MRKT_VLM
@@ -1179,13 +1192,17 @@
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 					WHERE 1=1
 					  AND APO_SE = '1'
-					  AND TYPE_SE_NO IN ('2','6','7')
-					  <if test='yr != null and yr != ""'>
+					  AND (
+							TYPE_SE_NO IN ('2','7')
+							OR
+							(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
+							)
+					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
-					  </if>
-					  <if test='brno != null and brno != ""'>
+					</if>
+					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
-					  </if>
+					</if>
 
 					  GROUP BY  BRNO , ITEM_CD
 				) TOT

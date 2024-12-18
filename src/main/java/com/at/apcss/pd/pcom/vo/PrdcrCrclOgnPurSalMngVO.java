@@ -13,22 +13,25 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String apoSe;
 	private String aprv;
 	private String brno;
-	private String corpNm;
-	private String ccCode;
 	private String crno;
+	private String corpNm;
+
 	private String ctgryCd;
-	private String clsfCd;
-	private String itemCd;
 	private String ctgryNm;
+	private String clsfCd;
+	private String clsfNm;
+	private String itemCd;
 	private String itemNm;
+
 	private String sttgUpbrItemSe;
 	private String sttgUpbrItemNm;
 
 	private String prchsSlsSe;
 	private String prchsSlsSeNm;
-	//매입
+	//매입 수탁
 	private String prchsTrstVlm;
 	private String prchsTrstAmt;
+	//매입 매취
 	private String prchsEmspapVlm;
 	private String prchsEmspapAmt;
 
@@ -36,26 +39,29 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String prchsTotAmt;
 	private String orgPrchsTotAmt;
 
-	//매출
+	//매출 수탁
 	private String slsCprtnSortTrstVlm;
 	private String slsCprtnSortTrstAmt;
 	private String slsCprtnTrstVlm;
 	private String slsCprtnTrstAmt;
-	private String slsCprtnSortEmspapVlm;
-	private String slsCprtnSortEmspapAmt;
 	private String slsSmplTrstVlm;
 	private String slsSmplTrstAmt;
+
+	private String slsTrstVlm;
+	private String slsTrstAmt;
+
+	//매출 매취
+	private String slsCprtnSortEmspapVlm;
+	private String slsCprtnSortEmspapAmt;
 	private String slsSmplEmspapVlm;
 	private String slsSmplEmspapAmt;
+
+	private String slsEmspapVlm;
+	private String slsEmspapAmt;
 
 	private String slsTotVlm;
 	private String slsTotAmt;
 	private String orgSlsTotAmt;
-
-	private String slsTrstVlm;
-	private String slsTrstAmt;
-	private String slsEmspapVlm;
-	private String slsEmspapAmt;
 
 	private String ddcVlm;
 	private String ddcAmt;
@@ -97,14 +103,14 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String sysLastChgDtYmd;
 
 
-	/* 매입 수탁 , 매취 추가*/
+	/* 매입 수탁 추가 */
 	private String prchsSortTrstVlm;
 	private String prchsSortTrstAmt;
 	private String prchsSpmtTrstVlm;
 	private String prchsSpmtTrstAmt;
 	private String prchsSmplTrstVlm;
 	private String prchsSmplTrstAmt;
-
+	/* 매입 매취 추가 */
 	private String prchsSortEmspapVlm;
 	private String prchsSortEmspapAmt;
 	private String prchsSmplEmspapVlm;

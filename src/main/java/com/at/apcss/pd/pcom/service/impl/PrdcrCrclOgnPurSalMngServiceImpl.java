@@ -117,4 +117,18 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 		return resultList;
 	}
 
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
+		return resultList;
+	}
+
 }

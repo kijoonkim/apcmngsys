@@ -179,4 +179,24 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 매입, 매출 리스트 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngListNew(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
+		List<PrdcrCrclOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		try {
+			//매입 리스트
+			resultPrchsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
+			//매출 리스트
+			resultSlsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put("resultPrchsList", resultPrchsList);
+		resultMap.put("resultSlsList", resultSlsList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
