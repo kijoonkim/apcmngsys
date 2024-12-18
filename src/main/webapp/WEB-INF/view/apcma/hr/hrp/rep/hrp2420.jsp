@@ -600,7 +600,7 @@
         {caption: ["코스트센터"], ref: 'COST_DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
     ];
 
-    var sumCol = [19,20,21,22];
+   /* var sumCol = [19,20,21,22];*/
 
 
     //급여내역 리스트
@@ -618,7 +618,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.frozenbottomrows 	= 1;
-        SBGridProperties.total = {
+       /* SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
             columns		: {
@@ -641,7 +641,7 @@
             },
             datasorting	: false,
             usedecimal : false,
-        };
+        };*/
         SBGridProperties.columns = [];
 
         columns1.forEach((col) => {
