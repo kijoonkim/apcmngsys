@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: org1100.jsp
  * @Description 	: 신고사업장 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.30

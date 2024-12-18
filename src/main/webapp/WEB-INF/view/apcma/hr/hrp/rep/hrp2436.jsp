@@ -1191,11 +1191,13 @@
      * SMS 발송
      */
     const fn_btnSendSMS = async function () {
-
-        /*let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+/*
+        let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
         let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
-
+        let checkData 	  = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
+        let SENDTYPE 	  = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+console.log('checkData ==>', checkData);
         if (!PAY_YYYYMM_FR) {
             gfn_comAlert("W0002", "귀속년월");
             return;
@@ -1208,73 +1210,102 @@
             gfn_comAlert("W0002", "지급일");
             return;
         }
-
-        let EMAIL_SUBJECT 		= gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
-        let EMAIL_BODY 			= gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
-        let PAY_CALCULATE_MEMO  = gfn_nvl(SBUxMethod.get("PAY_CALCULATE_MEMO"));
-        let NOTICE_MEMO 		= gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
-
-       /!* if (!EMAIL_SUBJECT) {
-            gfn_comAlert("W0002", "메일제목");
+     	if (_.isEmpty(checkData)) {
+     		gfn_comAlert("W0001", "SMS 발송할 데이터");
             return;
         }
-        if (!EMAIL_BODY) {
-            gfn_comAlert("W0002", "메일내용");
-            return;
-        }*!/
-
-        var paramObj = {
-
-            V_P_DEBUG_MODE_YN	    : ''
-            ,V_P_LANG_ID		    : ''
-            ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
-            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
-
-            ,V_P_PAY_YYYYMM         : PAY_YYYYMM_FR
-            ,V_P_PAY_TYPE           : PAY_TYPE
-            ,V_P_PAY_DATE           : PAY_DATE
-            ,V_P_RAD_SEND_TYPE      : ''
-            ,V_P_EMP_CODE           : ''
-            ,V_P_SMS_SEND_YN        : ''
-            ,V_P_SMS_SEND_MSG 	    : EMAIL_BODY
-
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/rep/insertHrp2436SMS.do", {
-            getType: 'json',
-            workType: 'N',
-            cv_count: '0',
-            params: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
+     	
+     	let paramObj = {};
+ 		let listData = [];
+ 		let objToString = '';
+ 		checkData.forEach((item, index) => {
+			
+	        paramObj = {
+	                V_P_DEBUG_MODE_YN 		: '',
+	                V_P_LANG_ID 			: '',
+	                V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
+	                V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
+	                
+	                V_P_SITE_CODE 			: '',
+	                V_P_DEPT_CODE 			: '',
+	                V_P_EMP_CODE     		: gfn_nvl(item.data.EMP_CODE),
+	                V_P_PAY_YYYYMM    		: gfn_nvl(item.data.PAY_YYYYMM),
+	                V_P_PAY_YYYYMM1       	: gfn_nvl(item.data.PAY_YYYYMM),
+	                V_P_PAY_TYPE        	: gfn_nvl(item.data.PAY_TYPE),
+	                V_P_PAY_DATE			: gfn_nvl(item.data.PAY_DATE),
+	                V_P_EMP_CODE_LIST 		: gfn_nvl(item.data.EMP_CODE),
+	                V_P_PAY_YYYYMM2 		: gfn_nvl(item.data.PAY_YYYYMM),
+	                V_P_PAY_TYPE1     		: gfn_nvl(item.data.PAY_TYPE),
+	                V_P_PAY_DATE1    		: gfn_nvl(item.data.EMP_CODE),
+	                V_P_PAY_AREA_TYPE       : '',
+	                V_P_REPORT_TYPE        	: SENDTYPE,
+	                
+	                V_P_FORM_ID 			: p_formId,
+	                V_P_MENU_ID 			: p_menuId,
+	                V_P_PROC_ID 			: '',
+	                V_P_USERID 				: '',
+	                V_P_PC 					: ''
+	        };
+// 	        파라미터 구분자 추가
+// 	        objToString = '';
+// 	    	for (let data in paramObj){
+// 	    		objToString += paramObj[data] + '|'
+// 	    	}
+			const param = {
+				cv_count: '0',
+				getType: 'json',
+				workType: 'N',
+				rownum: item.rownum,
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN      : ''
+					,V_P_LANG_ID           : ''
+					,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+					,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+					
+					,V_P_UUID         			: gfnma_generateUUID().replaceAll('-', '')
+					,V_P_GUBUN        			: '1'
+					,V_P_OPEN_DATE          	: '20240125'
+					,V_P_PWD     				: '1234'
+					,V_P_REPORT_NAME        	: SENDTYPE == 'ALL' ? 'ma/RPT_HRP2436_Q_ALL.crf' : (SENDTYPE == 'PAY' ? 'ma/RPT_HRP2436_Q_PAY.crf' : 'ma/RPT_HRP2436_Q_WORK.crf') 
+					,V_P_PROCEDURE_NAME     	: 'P_HRP2436_Q'
+					,V_P_PROCEDURE_URL      	: '/hr/hrp/rep/selectHrp2436Report.do'
+					,V_P_PROCEDURE_WORKTYPE 	: SENDTYPE == 'ALL' ? 'REPORT5' : (SENDTYPE == 'PAY' ? 'REPORT3' : 'REPORT4')
+					,V_P_PROCEDURE_CV_COUNT 	: '15'
+					,V_P_PROCEDURE_PARAMAMETER	: gfnma_objectToString(paramObj)
+// 					,V_P_PROCEDURE_PARAMAMETER	: objToString
+					
+					,V_P_FORM_ID           : p_formId
+					,V_P_MENU_ID           : p_menuId
+					,V_P_PROC_ID           : ''
+					,V_P_USERID            : p_userId
+					,V_P_PC                : ''
+				})
+			};
+			listData.push(param);
+		});
+ 		console.log(' listData ==> ' , listData);
+ 		return;
+ 		
+		const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {listData: listData});
+		const data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                    fn_view();
                 }else {
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    fn_view();
                 }
-
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }*/
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+    	*/
     }
 
     /**
@@ -1283,7 +1314,6 @@
     const fn_btnPrint = async function() {
         var nRow = gvwInfoGrid.getRow();
      	var conn = '';
-     	var connTest = '';
      	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
      	if (nRow < 1) {
              return;
