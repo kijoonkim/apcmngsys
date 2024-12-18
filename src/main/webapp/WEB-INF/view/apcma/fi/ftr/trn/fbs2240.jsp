@@ -46,7 +46,7 @@
                     <sbux-button id="btnDownload" name="btnDownload" uitype="normal" text="급여이체파일 저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_download"></sbux-button>
                     <sbux-button id="btnName" name="btnName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_name"></sbux-button>
                     <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_create"></sbux-button>
-                    <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
+                    <%--<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>--%>
                 </div>
             </div>
             <div class="box-body">
