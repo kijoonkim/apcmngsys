@@ -94,21 +94,7 @@
 
 							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-fiOrgCode"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
+								<sbux-select id="srch-slt-fiOrgCode" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg_search">사업장</th>
@@ -283,6 +269,11 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId = '${loginVO.id}';
+
+	var p_ss_languageID			= '${loginVO.maLanguageID}';
+	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
+	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
+	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
 
 	var jsonRegionCode		= [];	// 지역
@@ -361,30 +352,12 @@
 			//코스트센터
 			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
 
-			//회계단위
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-fiOrgCode']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_FIM022'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'FI_ORG_CODE'
-				,colLabel		: 'FI_ORG_NAME'
-				,columns		:[
-		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			})
-		]);
+					]);
 
 		let yyyymm = gfnma_date6().substring(0,6);
 		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
-		SBUxMethod.set("srch-slt-depreciationType","2")
+		SBUxMethod.set("srch-slt-depreciationType",p_ss_defaultAcctRule);
+		SBUxMethod.set("srch-slt-fiOrgCode",p_ss_fiOrgCode);
 	}
 
     // only document
