@@ -331,7 +331,7 @@
                             <th scope="row" class="th_bg">정산구분</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <div class="dropdown">
-                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LIVE_NATION_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LIVE_NATION_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
@@ -2139,12 +2139,12 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
             let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-            let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+            let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
             let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
             if (!YE_TX_YYYY) {
@@ -2159,6 +2159,8 @@
                 gfn_comAlert("W0002", "사원");
                 return;
             }
+
+            let chk = true;
 
             /************ strperiod_check 이컬럼이 몬지 모르겠음**********************/
             /************ txtresult_state.Text 이컬럼 값이 어디서 들어오는지 확인해야함
@@ -2176,74 +2178,76 @@
             }*/
 
             //연금보험료공제, 특별소득공제, 그밖의 소득공제, 세금감면/세액공제, 저장
-            if (fn_saveS1('U') == false){
-                return;
-            }
+            chk = await fn_saveS1('U');
 
             //인적공제 및 소득공제 명세 리스트
             let supportData = gvwSupportGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(supportData) == false){
+            if (_.isEmpty(supportData) == false && chk == true){
 
-                fn_saveS(supportData); //P_HRA1400_2023_S
+                chk = await fn_saveS(supportData); //P_HRA1400_2023_S
 
             }
 
             //인적공제 및 소득공제 명세 리스트
             let pensionSavingData = gvwPensionSavingGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(pensionSavingData) == false){
+            if (_.isEmpty(pensionSavingData) == false && chk == true){
 
-                fn_saveS2(pensionSavingData); //P_HRA1400_2023_S2
+                chk = await fn_saveS2(pensionSavingData); //P_HRA1400_2023_S2
 
             }
 
             //월세액 등 소득공제명세 리스트
             let houseMonthlyData = gvwHouseMonthlyGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(houseMonthlyData) == false){
+            if (_.isEmpty(houseMonthlyData) == false && chk == true){
 
-                fn_saveS3(houseMonthlyData); //P_HRA1400_2023_S3
+                chk = await fn_saveS3(houseMonthlyData); //P_HRA1400_2023_S3
 
             }
 
             //의료비 지급명세서 리스트
             let medExpenseData = gvwMedExpenseGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(medExpenseData) == false){
+            if (_.isEmpty(medExpenseData) == false && chk == true){
 
-                fn_saveS4(medExpenseData); //P_HRA1400_2023_S3
+                chk = await fn_saveS4(medExpenseData); //P_HRA1400_2023_S3
 
             }
 
             //기부금 리스트
             let donationData = gvwDonationGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(donationData) == false){
+            if (_.isEmpty(donationData) == false && chk == true){
 
-                fn_saveS5(donationData); //P_HRA1400_2023_S3
+                chk = await fn_saveS5(donationData); //P_HRA1400_2023_S3
 
             }
 
             //전년도이월 기부금 관리 리스트
             let adjust3Data = gvwAdjust3Grid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(adjust3Data) == false){
+            if (_.isEmpty(adjust3Data) == false && chk == true){
 
-                fn_saveS6(adjust3Data); //P_HRA1400_2023_S3
+                chk = await fn_saveS6(adjust3Data); //P_HRA1400_2023_S3
 
             }
 
             //보험료 리스트
             let insureData = gvwInsureGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(insureData) == false){
+            if (_.isEmpty(insureData) == false && chk == true){
 
-                fn_saveS7(insureData); //P_HRA1400_2023_S3
+                chk = await fn_saveS7(insureData); //P_HRA1400_2023_S3
 
             }
-            fn_saveS8(); //P_HRA1400_2023_S3
+            chk = await fn_saveS8(); //P_HRA1400_2023_S3
 
+            if (chk){
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search();
+            }
         }
 
     }
@@ -2362,194 +2366,193 @@
                 typeinfo : {ref : 'jsonFamilyYeTxRel',  label : 'label', value : 'value'}
             },
             {caption : ["외국인"], ref : 'FAMILY_FOREI_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["기본공제"], ref : 'FAMILY_BASIC_DED_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["경로우대"], ref : 'FAMILY_SENIOR_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["부녀자"], ref : 'FAMILY_WOMAN_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["한부모"], ref : 'FAMILY_SINGLE_PARENT_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["장애인"], ref : 'FAMILY_HDCP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyHdcpType',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyHdcpType',  label : 'label', value : 'value'}
             },
             {caption : ["7세이하"], ref : 'FAMILY_BRING_CHILD_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["출생ㆍ입양"], ref : 'FAMILY_CHILDBIRTH_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:right', hidden : true
+            {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["의료비(기타)"], ref: 'MED_EXP_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["의료비(기타)"], ref: 'MED_EXP_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["일반보장성보험(국세청)"], ref: 'INSURANCE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["일반보장성보험(국세청)"], ref: 'INSURANCE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["일반보장성보험(기타)"], ref: 'INSURANCE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["일반보장성보험(기타)"], ref: 'INSURANCE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["교육비구분"], ref : 'EDU_EXP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonEduExpType',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonEduExpType',  label : 'label', value : 'value'}
             },
-            {caption: ["교육비(국세청)"], ref: 'EDU_EXP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교육비(국세청)"], ref: 'EDU_EXP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(기타)"], ref: 'EDU_EXP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교육비(기타)"], ref: 'EDU_EXP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비구분(장애인)"], ref: 'EDU_HDCP_TYPE', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교육비구분(장애인)"], ref: 'EDU_HDCP_TYPE', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(장애인,국세청)"], ref: 'EDU_EXP_HDCP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교육비(장애인,국세청)"], ref: 'EDU_EXP_HDCP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(장애인,기타)"], ref: 'EDU_EXP_HDCP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교육비(장애인,기타)"], ref: 'EDU_EXP_HDCP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)_3월"], ref: 'CD_USE_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["신용카드(국세청)_3월"], ref: 'CD_USE_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)_4~7월"], ref: 'CD_USE_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["신용카드(국세청)_4~7월"], ref: 'CD_USE_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)_그외"], ref: 'CD_USE_AMT_C_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["신용카드(국세청)_그외"], ref: 'CD_USE_AMT_C_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드 등(국세청)"], ref: 'CHKCD_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["직불카드 등(국세청)"], ref: 'CHKCD_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)(1~3)"], ref: 'TDMK_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(국세청)(1~3)"], ref: 'TDMK_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)(1~3)"], ref: 'TDMK_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(기타)(1~3)"], ref: 'TDMK_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)(4~12)"], ref: 'TDMK_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(국세청)(4~12)"], ref: 'TDMK_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)(4~12)"], ref: 'TDMK_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장(기타)(4~12)"], ref: 'TDMK_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~6월대중교통(국세청)"], ref: 'PBTRN_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["1~6월대중교통(국세청)"], ref: 'PBTRN_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["7~12월 대중교통(국세청)"], ref: 'PBTRN_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["7~12월 대중교통(국세청)"], ref: 'PBTRN_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~6월 대중교통(기타)"], ref: 'PBTRN_AMT_A_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["1~6월 대중교통(기타)"], ref: 'PBTRN_AMT_A_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["7~12월 대중교통(기타)"], ref: 'PBTRN_AMT_B_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["7~12월 대중교통(기타)"], ref: 'PBTRN_AMT_B_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT1_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT1_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT2_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT2_NTS', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT2_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT2_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT1_ETC', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT1_ETC', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT2_ETC', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT2_ETC', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["1~3월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
+            {caption: ["4~12월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년도사용액(국세청)"], ref: 'CD_USE_PREV_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["전년도사용액(국세청)"], ref: 'CD_USE_PREV_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년도사용액(기타)"], ref: 'CD_USE_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전년도사용액(기타)"], ref: 'CD_USE_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["당해사용액(국세청)"], ref: 'CD_USE_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["당해사용액(국세청)"], ref: 'CD_USE_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["당해사용액(기타)"], ref: 'CD_USE_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["당해사용액(기타)"], ref: 'CD_USE_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장전년(국세청)"], ref: 'TDMK_PREV_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장전년(국세청)"], ref: 'TDMK_PREV_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장전년(기타)"], ref: 'TDMK_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장전년(기타)"], ref: 'TDMK_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장당해(국세청)"], ref: 'TDMK_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장당해(국세청)"], ref: 'TDMK_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장당해(기타)"], ref: 'TDMK_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["전통시장당해(기타)"], ref: 'TDMK_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부금(국세청)"], ref: 'DON_AMT_NTS', type: 'input', width: '130px', style: 'text-align:right', hidden : true
+            {caption: ["기부금(국세청)"], ref: 'DON_AMT_NTS', type: 'input', width: '130px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부금(기타)"], ref: 'DON_AMT_ETC', type: 'input', width: '130px', style: 'text-align:right', hidden : true
+            {caption: ["기부금(기타)"], ref: 'DON_AMT_ETC', type: 'input', width: '130px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["난임시술비"], ref: 'MED_INFERTILITY_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
+            {caption: ["난임시술비"], ref: 'MED_INFERTILITY_AMT', type: 'input', width: '130px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["산후조리원비"], ref: 'POSTPARTUM_CARE_CENTER_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
+            {caption: ["산후조리원비"], ref: 'POSTPARTUM_CARE_CENTER_AMT', type: 'input', width: '130px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
+            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_AMT', type: 'input', width: '130px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["미숙아·선천성이상아에 대한 의료비"], ref: 'PREEMIE_BABY_AMT', type: 'input', width: '200px', style: 'text-align:right', hidden : true
+            {caption: ["미숙아·선천성이상아에 대한 의료비"], ref: 'PREEMIE_BABY_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교복구입비(국세청)"], ref: 'EDU_SCH_UNIFORM_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
+            {caption: ["교복구입비(국세청)"], ref: 'EDU_SCH_UNIFORM_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교복구입비(기타)"], ref: 'EDU_SCH_UNIFORM_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["교복구입비(기타)"], ref: 'EDU_SCH_UNIFORM_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["체험학습비(국세청)"], ref: 'EDU_EXP_TRAINING_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["체험학습비(국세청)"], ref: 'EDU_EXP_TRAINING_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["체험학습비(기타)"], ref: 'EDU_EXP_TRAINING_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
+            {caption: ["체험학습비(기타)"], ref: 'EDU_EXP_TRAINING_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["수능/대학입학전형료(국세청)"], ref: 'EDU_EXP_SAT_PAY_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["수능/대학입학전형료(국세청)"], ref: 'EDU_EXP_SAT_PAY_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["수능/대학입학전형료(기타)"], ref: 'EDU_EXP_SAT_PAY_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["수능/대학입학전형료(기타)"], ref: 'EDU_EXP_SAT_PAY_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["자녀순서"], ref : 'FAMILY_CHILD_SEQ_TYPE', width : '130px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonFamilyChildSeqType',  label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["65세ㆍ장애인<의료비(국세청)>"], ref: 'MED_SENIOR_HDCP_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["65세ㆍ장애인<의료비(국세청)>"], ref: 'MED_SENIOR_HDCP_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["65세ㆍ장애인<의료비(기타)>"], ref: 'MED_SENIOR_HDCP_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+            {caption: ["65세ㆍ장애인<의료비(기타)>"], ref: 'MED_SENIOR_HDCP_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["65세 이상ㆍ장애인"], ref : 'FAMILY_65AGE_HDC_YN', width : '140px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["50세 이상"], ref : 'FAMILY_50AGE_YN', width : '130px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption: ["장애인증명자료사업자번호"], ref: 'R101_BUSNID', type: 'output', width: '170px', style: 'text-align:left' , hidden : true},
-            {caption: ["장애인증명자료발급기관"], ref: 'R101_TRADE_NM', type: 'output', width: '170px', style: 'text-align:left', hidden : true},
-            {caption: ["장애인증명자료장애내용"], ref: 'R101_PWD_CD', type: 'output', width: '170px', style: 'text-align:left'  , hidden : true},
-            {caption: ["원천"], ref: 'DATA_SOURCE', type: 'output', width: '130px', style: 'text-align:left', hidden : true},
-            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', hidden : true}//스타일상 빈값
+            {caption: ["장애인증명자료사업자번호"], ref: 'R101_BUSNID', type: 'output', width: '170px', style: 'text-align:left' },
+            {caption: ["장애인증명자료발급기관"], ref: 'R101_TRADE_NM', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["장애인증명자료장애내용"], ref: 'R101_PWD_CD', type: 'output', width: '170px', style: 'text-align:left'  },
+            {caption: ["원천"], ref: 'DATA_SOURCE', type: 'output', width: '130px', style: 'text-align:left'},
 
         ];
 
@@ -3980,14 +3983,19 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }else{
-                        alert(data.resultMessage);
-                        //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4006,7 +4014,7 @@
         let returnData = [];
 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
        /* if (!YE_TX_YYYY) {
@@ -4190,20 +4198,20 @@
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
-        /*if (!YE_TX_YYYY) {
+        if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산연도");
             return;
         }
         if (!YE_TX_TYPE) {
             gfn_comAlert("W0002", "정산구분");
             return;
-        }*/
+        }
 
         let supportFamData  = gvwSupportGrid.getGridDataAll();
 
-        if (_.isEmpty(supportFamData)){
+        /*if (_.isEmpty(supportFamData)){
             return false;
-        }
+        }*/
 
         supportFamData.forEach((item, index) =>{
 
@@ -4219,7 +4227,7 @@
 
         });
 
-        let pensionData = gvwPensionSavingGrid.getGridDataAll();
+        /*let pensionData = gvwPensionSavingGrid.getGridDataAll();
 
         if (_.isEmpty(pensionData)){
             return false;
@@ -4227,13 +4235,13 @@
 
         pensionData.forEach((item,index) => {
 
-        });
+        });*/
 
         let houseData = gvwHouseMonthlyGrid.getGridDataAll();
 
-        if (_.isEmpty(houseData)){
+        /*if (_.isEmpty(houseData)){
             return false;
-        }
+        }*/
 
         // 월세액
         houseData.forEach((item,index) => {
@@ -4275,9 +4283,9 @@
 
         let medExpenseData = gvwMedExpenseGrid.getGridDataAll();
 
-        if (_.isEmpty(medExpenseData)){
+        /*if (_.isEmpty(medExpenseData)){
             return false;
-        }
+        }*/
 
         medExpenseData.forEach((item,index) => {
 
@@ -4303,9 +4311,9 @@
 
         let donationData = gvwDonationGrid.getGridDataAll();
 
-        if (_.isEmpty(donationData)){
+        /*if (_.isEmpty(donationData)){
             return false;
-        }
+        }*/
 
         donationData.forEach((item,index) => {
             if (item.DON_COUNT == 0) {
@@ -4322,15 +4330,15 @@
             ,V_P_COMP_CODE		    : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
 
-            ,V_P_YE_TX_YYYY                      : gfnma_nvl2(SBUxMethod.get("YE_TX_YYYY"))
-            ,V_P_YEAR_END_TX_TYPE                : gfnma_nvl2(SBUxMethod.get("YEAR_END_TX_TYPE"))
+            ,V_P_YE_TX_YYYY                      : YE_TX_YYYY/*gfnma_nvl2(SBUxMethod.get("YE_TX_YYYY"))*/
+            ,V_P_YEAR_END_TX_TYPE                : YE_TX_TYPE/*gfnma_nvl2(SBUxMethod.get("YEAR_END_TX_TYPE"))*/
             ,V_P_EMP_CODE                        : gfnma_nvl2(SBUxMethod.get("EMP_CODE"))
-            ,V_P_LIVE_YN                         : gfnma_nvl2(SBUxMethod.get("LIVE_YN"))
-            ,V_P_LIVE_NATION_CODE                : gfnma_nvl2(SBUxMethod.get("LIVE_NATION_CODE"))
-            ,V_P_FAMILY_OWNER_YN                 : gfnma_nvl2(SBUxMethod.get("FAMILY_OWNER_YN"))
-            ,V_P_BEF_YEAR_EQUAL_YN               : gfnma_nvl2(SBUxMethod.get("BEF_YEAR_EQUAL_YN"))
-            ,V_P_FOREI_TX_YN                     : gfnma_nvl2(SBUxMethod.get("FOREI_TX_YN"))
-            ,V_P_FOREITX_DISPATCH_WRK_YN         : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN"))
+            ,V_P_LIVE_YN                         : gfnma_nvl2(SBUxMethod.get("LIVE_YN").LIVE_YN)
+            ,V_P_LIVE_NATION_CODE                : gfnma_multiSelectGet('#LIVE_NATION_CODE')
+            ,V_P_FAMILY_OWNER_YN                 : gfnma_nvl2(SBUxMethod.get("FAMILY_OWNER_YN").FAMILY_OWNER_YN)
+            ,V_P_BEF_YEAR_EQUAL_YN               : gfnma_nvl2(SBUxMethod.get("BEF_YEAR_EQUAL_YN").BEF_YEAR_EQUAL_YN)
+            ,V_P_FOREI_TX_YN                     : gfnma_nvl2(SBUxMethod.get("FOREI_TX_YN").FOREI_TX_YN)
+            ,V_P_FOREITX_DISPATCH_WRK_YN         : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN").FOREITX_DISPATCH_WRK_YN)
             ,V_P_PENS_AMT                        : gfnma_nvl2(SBUxMethod.get("PENS_AMT"))
             ,V_P_OFFICIAL_PENS_AMT               : gfnma_nvl2(SBUxMethod.get("OFFICIAL_PENS_AMT"))
             ,V_P_MILITARY_PENS_AMT               : gfnma_nvl2(SBUxMethod.get("MILITARY_PENS_AMT"))
@@ -4465,8 +4473,8 @@
             ,V_P_LOSS_MED_INSUR_ME_AMT          : gfnma_nvl2(SBUxMethod.get("LOSS_MED_INSUR_ME_AMT"))
             ,V_P_LOSS_MED_INSUR_EXEC_AMT        : gfnma_nvl2(SBUxMethod.get("LOSS_MED_INSUR_EXEC_AMT"))
 
-            ,V_P_CLOSE_STATE                    : gfnma_nvl2(SBUxMethod.get("CLOSE_STATE"))
-            ,V_P_RELIGIOUS_WORKER_YN            : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN1"))//chkreligious_worker_yn
+            ,V_P_CLOSE_STATE                    : gfnma_nvl2(SBUxMethod.get("CLOSE_STATE").CLOSE_STATE)
+            ,V_P_RELIGIOUS_WORKER_YN            : gfnma_nvl2(SBUxMethod.get("FOREITX_DISPATCH_WRK_YN1").FOREITX_DISPATCH_WRK_YN1)//chkreligious_worker_yn
 
             ,V_P_SM_COM_RULE_YN                 : gfnma_nvl2(SBUxMethod.get("SM_COM_RULE_YN"))
             ,V_P_LT_COL_INV_SV_AMT              : gfnma_nvl2(SBUxMethod.get("LT_COL_INV_SV_AMT"))
@@ -4479,6 +4487,7 @@
 
 
         };
+
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1400S1.do", {
             getType: 'json',
             workType: type,
@@ -4491,7 +4500,12 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
                 }
                 return true;
 
@@ -4528,15 +4542,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                      /*  gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4553,7 +4570,7 @@
         let returnData = [];
 
         let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
         let YE_TX_TYPE  = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
 
         if (!_.isEmpty(pensionSavingData)) {
@@ -4621,15 +4638,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                        /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4646,7 +4666,7 @@
         let returnData = [];
 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!_.isEmpty(houseMonthlyData)) {
 
@@ -4725,15 +4745,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                        /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4781,7 +4804,7 @@
 
 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!_.isEmpty(medExpenseData)) {
 
@@ -4853,15 +4876,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                        /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4878,7 +4904,7 @@
         let returnData = [];
 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!_.isEmpty(donationData)) {
 
@@ -4942,15 +4968,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                        /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4967,7 +4996,7 @@
         let returnData = [];
 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!_.isEmpty(adjust3Data)) {
 
@@ -5032,15 +5061,19 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    } else {
-                        alert(data.resultMessage);
-                        /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -5057,7 +5090,7 @@
         let returnData = [];
 
         let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
 
         if (!_.isEmpty(insureData)) {
 
@@ -5108,9 +5141,8 @@
 
         let YE_TX_YYYY  = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let YE_TX_TYPE  = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE');//정산구분
-        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_NAME")); //사원코드
-        let CLOSE_STATE = gfnma_nvl2(SBUxMethod.get("CLOSE_STATE")); //등록완효
-
+        let EMP_NAME    = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사원코드
+        let CLOSE_STATE = gfnma_nvl2(SBUxMethod.get("CLOSE_STATE").CLOSE_STATE); //등록완효
 
 
         var paramObj = {
@@ -5123,7 +5155,7 @@
             ,V_P_YEAR_END_TX_TYPE   : YE_TX_TYPE
             ,V_P_EMP_CODE           : EMP_NAME
 
-            ,V_P_CLOSE_STATE        : CLOSE_STATE.CLOSE_STATE
+            ,V_P_CLOSE_STATE        : CLOSE_STATE
 
             ,V_P_FORM_ID            : p_formId
             ,V_P_MENU_ID            : p_menuId
@@ -5131,8 +5163,8 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
 
-
         };
+
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1400S8.do", {
             getType: 'json',
             workType: 'U',
@@ -5145,15 +5177,19 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }else {
-                    alert(data.resultMessage);
-                    /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    fn_view();*/
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
                 }
+                return true;
 
             } else {
                 alert(data.resultMessage);
+
+                return false
             }
         } catch (e) {
             if (!(e instanceof Error)) {

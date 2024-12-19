@@ -966,18 +966,26 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            fn_save('U');
+            let chk = true;
+
+            chk = await fn_save('U');
 
             let updateData = gvwTaxFreeAmtGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(updateData) == false){
+            if (_.isEmpty(updateData) == false && chk == true){
 
-                fn_saveS1();
+                chk = await fn_saveS1(updateData);
 
+            }
+
+            if (chk){
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_view();
             }
 
         }
@@ -1477,14 +1485,19 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }/*else {
-                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                   /!* fn_view();*!/
-                }*/
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
+                }
+                return true;
 
             } else {
                 alert(data.resultMessage);
+
+                return false;
             }
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -1510,14 +1523,19 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }/*else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
-                    }*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -1561,9 +1579,9 @@
                     ,V_P_YE_TX_YYYY       : YE_TX_YYYY
                     ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
                     ,V_P_EMP_CODE         : EMP_CODE
-                    ,V_P_TXFREE_CODE      : updatedData.data.TXFREE_CODE
-                    ,V_P_PAY_AMT          : updatedData.data.PAY_AMT
-                    ,V_P_TXFREE_AMT       : updatedData.data.TXFREE_AMT
+                    ,V_P_TXFREE_CODE      : gfnma_nvl2(item.data.TXFREE_CODE)
+                    ,V_P_PAY_AMT          : gfnma_nvl2(item.data.PAY_AMT)
+                    ,V_P_TXFREE_AMT       : gfnma_nvl2(item.data.TXFREE_AMT)
 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId

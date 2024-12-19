@@ -524,7 +524,6 @@
 
             if (gfn_comConfirm("Q0001", "신규 등록")) {
                 await fn_save();
-                fn_search('LIST');
             }
 
         } else if (_.isEqual(editType, 'E')) {
@@ -532,7 +531,6 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
                 await fn_save();
-                fn_search('LIST');
             }
 
         }
@@ -1756,7 +1754,7 @@
                     alert(data.resultMessage);
                 }
 
-                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search('LIST');
 
             } else {
                 alert(data.resultMessage);

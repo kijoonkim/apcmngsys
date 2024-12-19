@@ -1014,7 +1014,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function (/*tabMoveVal*/) {
+    const fn_search = async function (nRow) {
 
         fn_clearForm('1');
 
@@ -1106,7 +1106,7 @@
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if(jsonGvwList.length > 0) {
-                    gvwListGrid.clickRow(1);
+                    gvwListGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
                 }
 
                 //fn_view();
@@ -1577,6 +1577,8 @@
     //저장
     const fn_save = async function () {
 
+        var rowData = gvwListGrid.getRow();
+
         var paramObj;
 
         // 수정 저장
@@ -1606,11 +1608,9 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
                     await alert(data.resultMessage);
-                    fn_view();
-                }else{
-                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    fn_view();
                 }
+
+                fn_search(rowData);
 
             } else {
                 alert(data.resultMessage);

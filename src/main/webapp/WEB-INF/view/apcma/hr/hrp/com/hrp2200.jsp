@@ -1353,10 +1353,9 @@
 
                         if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }else{
-                            gfn_comAlert("I0001");
-                            fn_search(nRow);
                         }
+
+                        fn_search(nRow);
 
                     } else {
                         alert(data.resultMessage);

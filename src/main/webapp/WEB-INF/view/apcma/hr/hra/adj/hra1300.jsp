@@ -647,24 +647,29 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
+            let chk = true;
+
             let WorkComList = gvwWorkComGrid.getUpdateData(true, 'all');
 
             if (_.isEmpty(WorkComList) == false){
 
-                await fn_save(WorkComList);
+                chk = await fn_save(WorkComList);
 
             }
 
             let updateData = gvwTaxFreeGrid.getUpdateData(true, 'all');
 
-            if (_.isEmpty(updateData) == false){
+            if (_.isEmpty(updateData) == false && chk == true){
 
-                fn_saveS1(updateData);
+                chk = await fn_saveS1(updateData);
 
             }
 
+            if (chk){
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search();
+            }
         }
-
     }
     // 삭제
     /*function cfn_del() {
@@ -738,8 +743,9 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
+        SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
-            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonWorkCompanyType',  label : 'label', value : 'value'}
             },
             {caption: ["납세조합여부"], ref: 'TX_UNION_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -747,16 +753,16 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["근무처명"], ref: 'PREV_COM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["근무처명"], ref: 'PREV_COM_NAME', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ['근무시작일'], ref: 'PREV_WORK_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['근무종료일'], ref: 'PREV_WORK_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['감면시작일'], ref: 'PREV_REDUCT_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['감면종료일'], ref: 'PREV_REDUCT_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["급여"], ref: 'PREV_PAY_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["상여"], ref: 'PREV_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right'
@@ -817,7 +823,7 @@
             {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonWorkCompanyType',  label : 'label', value : 'value'}
             },
-            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["비과세코드"], ref: 'TXFREE_CODE', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["세액감면여부"], ref: 'TX_RED_INC_YN', type: 'checkbox', width: '130px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -965,6 +971,12 @@
                     });
 
                     gvwWorkComGrid.rebuild();
+                    if (jsonWorkComList.length > 0){
+                        jsonWorkComList.forEach((item, index) => {
+                            gvwWorkComGrid.setCellDisabled(index+1, gvwListGrid.getColRef("WORK_COMPANY_TYPE"), index+1, gvwListGrid.getColRef("WORK_COMPANY_TYPE"), true, false, true);
+                            gvwWorkComGrid.setCellDisabled(index+1, gvwListGrid.getColRef("PREV_COM_NAME"), index+1, gvwListGrid.getColRef("PREV_COM_NUM"), true, false, true);
+                        })
+                    }
                     //document.querySelector('#listCount2').innerText = totalRecordCount2;
 
 
@@ -1208,14 +1220,19 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }/*else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
-                    }*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -1352,14 +1369,19 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }/*else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
-                    }*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {

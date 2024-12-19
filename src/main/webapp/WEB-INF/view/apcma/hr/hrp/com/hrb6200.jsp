@@ -310,14 +310,27 @@
     // 저장
     async function cfn_save() {
         let nRow = gvwMasterGrid.getRow();
+        let chk = true;
 
-        if (fn_save()){
+        chk = await fn_save();
 
-            await fn_saveS1();
-            await fn_saveS2();
+        let updatedData = grdDetail.getUpdateData(true, 'all');
+        if (_.isEmpty(updatedData) == false && chk == true){
+
+            chk = await fn_saveS1(updatedData);
         }
 
-        fn_search(nRow);
+        let updatedData2 = grdItemList.getUpdateData(true, 'all');
+
+        if (_.isEmpty(updatedData2) == false && chk == true){
+
+            chk = await fn_saveS2(updatedData2);
+        }
+
+        if (chk){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_search(nRow);
+        }
     }
     // 삭제
     function cfn_del() {
@@ -976,10 +989,13 @@
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
-                            alert(data.resultMessage);
+                            if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                                return true;
+                            }else {
+                                alert(data.resultMessage);
+                                return false;
+                            }
                         }
-                        //await fn_saveS1();
-                        //await fn_saveS2();
                         return true;
 
                     } else {
@@ -1032,9 +1048,7 @@
 
     //저장 Detail
 
-    const fn_saveS1 = async function () {
-
-        let updatedData = grdDetail.getUpdateData(true, 'all');
+    const fn_saveS1 = async function (updatedData) {
 
        /* if (_.isEmpty(updatedData)){
             fn_saveS2();
@@ -1051,13 +1065,13 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        /*fn_search();*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
-
-                    //fn_saveS2();
                     return true;
 
                 } else {
@@ -1137,14 +1151,7 @@
     }
 
     //저장 Item
-    const fn_saveS2 = async function () {
-
-        let updatedData = grdItemList.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            fn_search();
-            return;
-        }
+    const fn_saveS2 = async function (updatedData) {
 
         let listData = [];
         listData =  await getParamFormS2(updatedData);
@@ -1156,11 +1163,13 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }/*else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
-                    }*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
                     return true;
 
                 } else {

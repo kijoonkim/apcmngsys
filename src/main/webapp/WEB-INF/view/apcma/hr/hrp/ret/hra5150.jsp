@@ -2607,7 +2607,7 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
 
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
@@ -2625,29 +2625,32 @@
 
             if (!_.isEmpty(rowData)) {
 
-                fn_save();
-
                 let complateCode = true;
+
+                complateCode = await fn_save();
 
                 let payData     = gvwPayGrid.getUpdateData(true, 'all');
                 let bonusData   = gvwBonusGrid.getUpdateData(true, 'all');
                 let changeData  = gvwChangeGrid.getUpdateData(true, 'all');
                 //P_HRA5150_S1
-                if (_.isEmpty(payData) == false) {
-                    complateCode = fn_saveS1(payData, rowData);
+                if (_.isEmpty(payData) == false && complateCode == true) {
+                    complateCode = await fn_saveS1(payData, rowData);
 
                     //P_HRA5150_S2
-                } else if (_.isEmpty(bonusData) == false) {
-                    complateCode = fn_saveS2(bonusData, rowData);
+                } else if (_.isEmpty(bonusData) == false && complateCode == true) {
+                    complateCode = await fn_saveS2(bonusData, rowData);
 
                     //P_HRA5150_S2
-                } else if (_.isEmpty(changeData) == false) {
-                    complateCode = fn_saveS3(changeData, rowData);
+                } else if (_.isEmpty(changeData) == false && complateCode == true) {
+                    complateCode = await fn_saveS3(changeData, rowData);
 
-                } else if (complateCode) {
+                }
+
+                if (complateCode){
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     fn_search();
                 }
+
             }
         }
     }
@@ -4281,12 +4284,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-
-                        return false;
-                    } else {
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
@@ -4317,13 +4322,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4405,13 +4415,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4489,13 +4504,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
