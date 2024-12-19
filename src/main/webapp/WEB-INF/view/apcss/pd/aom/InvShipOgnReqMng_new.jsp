@@ -761,7 +761,7 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear();//기본년도 세팅
-		return ;
+
 		fn_gpcListGrid();
 		fn_uoListGrid();
 		fn_fcltMngCreateGrid01();
