@@ -211,7 +211,6 @@
 		</if>
 	</select>
 
-
 	<insert id="insertPrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
 		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
@@ -536,7 +535,8 @@
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
 				, CM.CTRT_DT
-				, CM.SPMT_DT
+				, CM.SPMT_BGNG_DT
+				, CM.SPMT_END_DT
 				, CM.RMRK
 				, CM.DEL_YN
 
@@ -625,8 +625,8 @@
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
-				, CM.CTRT_DT
-				, CM.SPMT_DT
+				, CM.SPMT_BGNG_DT
+				, CM.SPMT_END_DT
 				, CM.RMRK
 				, CM.DEL_YN
 				, CM.STBLT_YN
@@ -713,7 +713,8 @@
 						, PRDCR_OGNZ_CD 		= FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
 
 						, CTRT_DT				= #{ctrtDt}
-						, SPMT_DT				= #{spmtDt}
+						, SPMT_BGNG_DT			= #{spmtBgngDt}
+						, SPMT_END_DT			= #{spmtEndDt}
 
 						<if test='exclYn != null and exclYn != ""'>
 						, EXCL_YN				= #{exclYn}
@@ -746,7 +747,8 @@
 					</if>
 
 					  , CTRT_DT
-					  , SPMT_DT
+					  , SPMT_BGNG_DT
+					  , SPMT_END_DT
 					  , RMRK
 
 					  , SYS_FRST_INPT_DT
@@ -779,7 +781,8 @@
 					</if>
 
 					  , #{ctrtDt}
-					  , #{spmtDt}
+					  , #{spmtBgngDt}
+					  , #{spmtEndDt}
 					  , #{rmrk}
 
 					  , SYSDATE
@@ -1092,7 +1095,8 @@
 			,FA.STBLT_YN
 
 			,FA.CTRT_DT
-			,FA.SPMT_DT
+			,FA.SPMT_BGNG_DT
+			,FA.SPMT_END_DT
 
 			,(SELECT COUNT(CLTVTN_LAND_SN) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS CNT
 
