@@ -353,6 +353,10 @@
             CAROUSEL_LENGTH : 0,
             current : 0
         },
+        spcfctInfoWrap :{
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        },
         grdCdWrap : {
             CAROUSEL_LENGTH : 0,
             current : 0
@@ -469,11 +473,13 @@
         const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
+        carouselObj.spcfctInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#spcfctInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
     const fn_search_stdGrd = async function(_itemCd){
         const postJsonPromise = gfn_postJSON("/am/cmns/apcStdGrdDtls", {apcCd: gv_apcCd, grdSeCd:"03", itemCd: _itemCd, delYn:"N"});
         const data = await postJsonPromise;
         await fn_append_button(data,"grdCdWrap","grdNm","grdCd");
+        carouselObj.grdCdWrap.CAROUSEL_LENGTH = document.querySelectorAll("#grdCdWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
 
     const fn_append_button = async function(data, id, label, value, flag = false){
