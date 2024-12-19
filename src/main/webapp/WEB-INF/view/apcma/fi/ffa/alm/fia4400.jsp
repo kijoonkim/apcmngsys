@@ -125,14 +125,14 @@
 								<sbux-datepicker id="srch-dtp-startDate"
 									name="srch-dtp-startDate" uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast table-datepicker-ma"
+									class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-startDate)"></sbux-datepicker>
 							</td>
 							<td>-</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-endDate" name="srch-dtp-endDate"
 									uitype="popup" date-format="yyyy-mm-dd"
-									class="form-control input-sm input-sm-ast table-datepicker-ma"
+									class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-endDate)"></sbux-datepicker>
 							</td>
 							<td></td>
@@ -183,7 +183,7 @@
 							<th scope="row" class="th_bg_search">회계기준</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-acctRuleCode"
-									name="srch-slt-acctRuleCode" class="form-control input-sm"
+									name="srch-slt-acctRuleCode" class="form-control input-sm inpt_data_reqed"
 									uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
 							</td>
 							<td></td>
