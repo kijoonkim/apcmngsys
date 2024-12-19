@@ -14317,7 +14317,8 @@ TODO: Some files from word appear to write line extensions with bare equals:
 	}
 	function write_Label(R, C, v, os, opts) {
 		var b8 = !opts || opts.biff == 8;
-		var o = new_buf(6 + 2 + +b8 + (1 + b8) * v.length);
+		console.log(b8)
+		var o = new_buf(6 + 2 + b8 + (1 + b8) * v.length);
 		write_XLSCell(R, C, os, o);
 		o.write_shift(2, v.length);
 		if (b8) o.write_shift(1, 1);
@@ -19101,7 +19102,7 @@ TODO: Some files from word appear to write line extensions with bare equals:
 			],
 			w;
 		if (wb.SSF && (w = write_numFmts(wb.SSF)) != null) o[o.length] = w;
-		o[o.length] = '<fonts count="1"><font><sz val="12"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts>';
+		o[o.length] = '<fonts count="1"><font><sz val="'+opts.fontSize+'"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts>';
 		o[o.length] = '<fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills>';
 		o[o.length] = '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>';
 		o[o.length] = '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>';

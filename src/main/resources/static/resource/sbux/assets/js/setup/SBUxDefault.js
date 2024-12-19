@@ -113,6 +113,8 @@
 		ignoreFocusOnButton  : false,
 		doubleOpen         : false,
 		fromValidateCheck  : true,
+		fromValidateCheckAfterInit : true,
+		fromValidateCheckAlert : false,
 		modifyValidateDate : false,
 		fromDeselectCheck  : false,
 		peroidCloseOnDateSelection : false,

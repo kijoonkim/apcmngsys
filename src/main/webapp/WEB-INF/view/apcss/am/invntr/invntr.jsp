@@ -25,7 +25,7 @@
 </head>
 <body oncontextmenu="return false">
 	<section>
-		<div class="box box-solid"">
+		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -317,7 +317,7 @@
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
             {caption: ["팔레트번호","팔레트번호"],    ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
             {caption: ["입고일자","입고일자"],        ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center',
-	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},filtering: { uitype: 'datepicker^checklist', listsearch: true, useDashFormat: false }},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -1078,10 +1078,9 @@
             {caption: ["포장번호","포장번호"],        ref: 'pckgno',          type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
             {caption: ["순번","순번"],                ref: 'pckgSn',          type:'output',  width:'55px',    style:'text-align:center',  filtering : {usemode : false}},
             {caption: ["입고일자","입고일자"],        ref: 'wrhsYmd',          type:'output',  width:'105px',    style:'text-align:center',
-	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  filtering : {usemode : false}},
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},filtering: { uitype: 'datepicker^checklist', listsearch: true, useDashFormat: false }},
             {caption: ["포장일자","포장일자"],        ref: 'pckgYmd',          type:'output',  width:'105px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  filtering : {usemode : false}},
-
 	        {caption: ["설비","설비"],                ref: 'fcltNm',          type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'100px',    style:'text-align:center'},

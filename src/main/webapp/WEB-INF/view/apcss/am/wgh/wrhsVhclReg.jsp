@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : regWghPrfmnc.jsp
-     * @Description : 계량 실적 등록 화면
+     * @Class Name : wrhsVhclReg.jsp
+     * @Description : 원물 입차등록 화면
      * @author SI개발부
      * @since 2024.12.18
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 계량실적등록</title>
+    <title>title : 원물 입차등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,11 +29,11 @@
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 계량현황조회 -->
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물 입차등록 -->
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
-                                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
                 <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
                 <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -104,36 +104,6 @@
                     <td colspan="4"></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">품목</th>
-                    <td class="td_input" colspan="3" style="border-right: hidden;">
-                        <sbux-select
-                                unselected-text="전체"
-                                uitype="single"
-                                id="srch-slt-itemCd"
-                                name="srch-slt-itemCd"
-                                class="form-control input-sm input-sm-ast"
-                                style="width: 80%"
-                                jsondata-ref="jsonApcItem"
-                                onchange="fn_onChangeSrchItemCd(this)">
-                        </sbux-select>
-                    </td>
-                    <th scope="row" class="th_bg">품종</th>
-                    <td class="td_input" colspan="4" style="border-right: hidden;">
-                        <sbux-select
-                                unselected-text="선택"
-                                uitype="single"
-                                id="srch-slt-vrtyCd"
-                                name="srch-slt-vrtyCd"
-                                class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                style="width: 80%"
-                                jsondata-ref="jsonApcVrty"
-                                jsondata-value="itemVrtyCd"
-                                onchange="fn_onChangeSrchVrtyCd(this)">
-                        </sbux-select>
-                    </td>
-                    <td colspan="4"></td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg">계량유형</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;">
                         <sbux-select id="srch-slt-f"
@@ -148,13 +118,49 @@
                     <td colspan="9"></td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg">계량중량</th>
+                    <th scope="row" class="th_bg">입차중량</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;">
                         <sbux-input id="srch-slt-wght"
-                                     name="srch-slt-wght"
-                                     uitype="text"
-                                     class="form-control input-sm"
-                                     style="width: 80%">
+                                    name="srch-slt-wght"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="9"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">팔레트정보</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght"
+                                    name="srch-slt-wght"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="9"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">입차시각</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght"
+                                    name="srch-slt-wght"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="9"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">비고</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght"
+                                    name="srch-slt-wght"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
                         </sbux-input>
                     </td>
                     <td colspan="9"></td>
@@ -164,7 +170,7 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li>
-                        <span>계량실적 내역</span>
+                        <span>입차 목록</span>
                     </li>
                 </ul>
             </div>
@@ -187,7 +193,7 @@
     });
     const fn_init = async function(){
         await gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', 	gv_selectedApcCd),
-        await fn_create_wghCurInq();
+            await fn_create_wghCurInq();
         await fn_initSBSelect();
     }
     /**
@@ -210,14 +216,18 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: ["처리"],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["투입유형"],	ref: 'wghYmd',		type:'output',  width:'20%', style: 'text-align:center;'},
-            {caption: ["투입수량"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["투입중량"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["작업수량"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["작업중량"],	ref: 'qntt',		type:'output',  width:'15%', style: 'text-align:center;'},
+            {caption: ["계량대"],	ref: 'fcltCd',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["차량번호"],	ref: 'itemNm',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["계량구분"],	ref: 'vrtyNm',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["입차시각"],	ref: 'wghYmd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["출차시각"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["입차중량"],	ref: 'wghno',	type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["출차중량"],	ref: 'vhclno',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["차이"],	ref: 'qntt',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["계량번호"],	ref: 'qntt',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["처리업무"],	ref: 'qntt',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["완료일시"],	ref: 'qntt',		type:'output',  width:'8%', style: 'text-align:center;'},
+            {caption: ["비고"],	ref: 'qntt',		type:'output',  width:'8%', style: 'text-align:center;'},
         ]
         gridWghCurInq = _SBGrid.create(SBGridProperties);
     }

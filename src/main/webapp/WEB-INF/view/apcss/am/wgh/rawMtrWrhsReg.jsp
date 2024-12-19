@@ -203,8 +203,8 @@
 									name="srch-slt-itemCd"
 									class="form-control input-sm input-sm-ast"
 									jsondata-ref="jsonApcItem"
-									onchange="fn_onChangeSrchItemCd(this)"
-								/>
+									onchange="fn_onChangeSrchItemCd(this)">
+								</sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -215,8 +215,8 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
 									jsondata-value="itemVrtyCd"
-									onchange="fn_onChangeSrchVrtyCd(this)"
-								/>
+									onchange="fn_onChangeSrchVrtyCd(this)">
+								</sbux-select>
 							</td>
 							<td>&nbsp;</td>
 
