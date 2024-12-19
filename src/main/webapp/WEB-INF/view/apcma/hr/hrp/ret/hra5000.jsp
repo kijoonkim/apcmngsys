@@ -368,7 +368,7 @@
           fn_add();
       }
      // 저장
-    function cfn_save() {
+    async function cfn_save() {
 
         //저장 성고 : 실패 구분
         let complateCode = true;
@@ -377,22 +377,27 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "신규 등록")) {
 
-                complateCode = fn_save('N');
+                complateCode = await fn_save('N');
 
                 //근속연수공제
                 let detailData = gvwDetailGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(detailData) == false){
-                    complateCode = fn_saveS1(detailData);
+                if (_.isEmpty(detailData) == false && complateCode == true){
+                    complateCode = await fn_saveS1(detailData);
                 }
                 //누진일수
                 let dayData = gvwDayGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(dayData) == false){
-                    complateCode = fn_saveS2(dayData);
+                if (_.isEmpty(dayData) == false && complateCode == true){
+                    complateCode = await fn_saveS2(dayData);
                 }
                 //환산급여
                 let convertData = gvwConvertGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(convertData) == false){
-                    complateCode = fn_saveS3(convertData);
+                if (_.isEmpty(convertData) == false && complateCode == true){
+                    complateCode = await fn_saveS3(convertData);
+                }
+
+                if (complateCode){
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
                 }
 
             }
@@ -400,30 +405,32 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-                complateCode = fn_save('U');
+                complateCode = await fn_save('U');
 
                 //근속연수공제
                 let detailData = gvwDetailGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(detailData) == false){
-                    complateCode = fn_saveS1(detailData);
+                if (_.isEmpty(detailData) == false && complateCode == true){
+                    complateCode = await fn_saveS1(detailData);
                 }
                 //누진일수
                 let dayData = gvwDayGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(dayData) == false){
-                    complateCode = fn_saveS2(dayData);
+                if (_.isEmpty(dayData) == false && complateCode == true){
+                    complateCode = await fn_saveS2(dayData);
                 }
                 //환산급여
                 let convertData = gvwConvertGrid.getUpdateData(true, 'all');
-                if (_.isEmpty(convertData) == false){
-                    complateCode = fn_saveS3(convertData);
+                if (_.isEmpty(convertData) == false && complateCode == true){
+                    complateCode = await fn_saveS3(convertData);
+                }
+
+                if (complateCode){
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
                 }
             }
         }
 
-        if (complateCode){
-            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-            fn_search();
-        }
+
 
     }
     // 삭제
@@ -982,12 +989,14 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
-
-                    return false;
-                }else{
-                    return true;
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
                 }
+                return true;
 
             } else {
                 alert(data.resultMessage);
@@ -1017,11 +1026,14 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
@@ -1092,11 +1104,14 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
@@ -1166,11 +1181,14 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
