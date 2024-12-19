@@ -231,7 +231,7 @@
 					  , #{brno}
 					  , #{crno}
 					  , #{corpNm}
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{yr}
 					  , SYSDATE
 					  , #{uoBrno}
 					  , #{uoCd}

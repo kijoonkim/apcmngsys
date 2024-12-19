@@ -217,7 +217,7 @@
 		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
-					CLT.APO_CD  = #{apoCd}
+					CLT.BRNO  = #{brno}
 				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 				 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 				)
@@ -249,10 +249,6 @@
 				]]>
 				<![CDATA[
 
-					 WHERE 1=1
-					 AND CLT.APO_CD			= #{apoCd}
-					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
-					 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
 					(
@@ -297,15 +293,11 @@
 					)
 				VALUES
 					(
-					    #{apoCd}
-					  , (case when #{apoSe} is not null then #{apoSe}
-					  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-					  			END)
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{apoSe}
 					  , #{brno}
-					  , (case when #{crno} is not null then #{crno}
-					  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
-					  			END)
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{yr}
 					  , #{sttgUpbrItemSe}
 					  , '0'
 					  , #{itemCd}
@@ -701,20 +693,20 @@
 		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL
 			ON (
-					CLT.APO_CD  = #{apoCd}
-				AND CLT.BRNO	= #{brno}
+					CLT.BRNO			= #{brno}
+				AND CLT.YR 				= #{yr}
 				AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 				)
 		WHEN MATCHED THEN
-				 UPDATE
-						SET
+				UPDATE
+					SET
 						PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
 						, RMRK				= #{rmrk}
 
 						, ITEM_CD				= #{itemCd}
 						, UO_BRNO				= #{uoBrno}
 						, UO_CD					= #{uoCd}
-						, CTGRY_CD				= #{ctgryCd}
+						, CTGRY_CD				= (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND APO_SE = #{apoSe} AND BRNO = #{brno} AND ITEM_CD = #{itemCd})
 						, TRMT_TYPE				= #{trmtType}
 						, STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
 
@@ -731,9 +723,6 @@
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-					 WHERE 1=1
-					 AND CLT.APO_CD			= #{apoCd}
-					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
 					(
@@ -770,12 +759,10 @@
 				VALUES
 					(
 					    #{apoCd}
-					  , (case when #{apoSe} is not null then #{apoSe}
-					  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-					  			END)
+					  , #{apoSe}
 					  , #{brno}
 					  , #{crno}
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{yr}
 					  , #{sttgUpbrItemSe}
 					  , #{ctgryCd}
 					  , #{itemCd}
