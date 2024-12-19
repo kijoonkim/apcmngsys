@@ -748,6 +748,7 @@
 			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
 			       pt0.*
 			     , (SELECT FN_GET_PRDCR_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 									AS CNPT_NM
+			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
 			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
 			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
@@ -762,6 +763,7 @@
 			             , WC.WGH_YMD           AS WGH_YMD
 			             , WC.VHCLNO            AS VHCLNO
 			             , WC.PRDCR_CD	        AS PRDCR_CD
+			             , WC.WRHS_SPMT_TYPE	AS WRHS_SPMT_TYPE
 			             , NVL(PC.CNPT_CD, WC.PRDCR_CD)			AS CNPT_CD
 			             , WC.WHOL_WGHT         AS WHOL_WGHT
 			             , WC.EMPT_VHCL_WGHT    AS EMPT_VHCL_WGHT
