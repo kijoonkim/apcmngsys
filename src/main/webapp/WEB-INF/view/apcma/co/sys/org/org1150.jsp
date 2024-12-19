@@ -236,7 +236,11 @@
             const data = await postJsonPromise;
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    gfn_comAlert("I0001");
+                	if(data.resultMessage){
+                		alert(data.resultMessage);
+                	}else{
+	                    gfn_comAlert("I0001");
+                	}
                     fn_search();
                 } else {
                     alert(data.resultMessage);

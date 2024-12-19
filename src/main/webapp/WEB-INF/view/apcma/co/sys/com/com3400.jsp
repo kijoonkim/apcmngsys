@@ -48,7 +48,7 @@
                 </div>
                 <div style="margin-left: auto;">
 					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;" ></sbux-button>
-					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button>
+<!-- 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button> -->
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnUnconfirm" name="btnUnconfirm" uitype="normal" text="미확정" class="btn btn-sm btn-outline-danger" onclick="fn_unconfirm" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -1820,6 +1820,11 @@
     	
     });
     
+    // 결재처리
+    async function cfn_appr() {
+    	await fn_submit();
+    }
+
     const fn_init = async function () {
     	await fn_initSBSelect();
     	await fn_createGrid();
@@ -1832,12 +1837,11 @@
     	await fn_createMappingGrid();
     	cfn_search();
     	fn_event();
-
     }
     
     /**
-     * 파일첨부
-     */
+    * 파일첨부
+    */
     var cfn_attach = function() {
     	
     	const nRow = masterGrid.getRow();
@@ -1885,7 +1889,10 @@
     		,sourceType		: sourceType
    			,empCode		: p_empCd
    			,formID			: p_formId
-   			,menuId			: p_menuId    		
+   			,menuId			: p_menuId
+            ,callback       : function(data) {
+                cfn_search(); //조회
+            }
 		});
     }
     
@@ -1991,6 +1998,14 @@
 	    salesCategoryGrid.rebuild(); 	// 판매처분류 그리드 초기화
 	    historyGrid.rebuild(); 			// 변경이력관리 그리드 초기화
 	    mappingGrid.rebuild(); 			// 매핑이력관리 그리드 초기화
+	    
+	    //결재완료된 거래처 선택 후 신규버튼 눌렀을때 버튼 disbled 삭제
+        if($("#main-btn-save", parent.document).attr('disabled') == 'disabled'){
+            $("#main-btn-save", parent.document).removeAttr('disabled');
+            $("#main-btn-appr", parent.document).removeAttr('disabled');
+            $("#main-btn-attach", parent.document).removeAttr('disabled');
+            $("#main-btn-del", parent.document).removeAttr('disabled');
+        }
 	}
 	
     // 저장
@@ -2804,9 +2819,15 @@
 		        	gfnma_multiSelectSet("#CURRENCY_CODE", 		"CURRENCY_CODE", 	"CURRENCY_NAME",gfn_nvl(cv_1.CURRENCY_CODE));
 		        	
 		            if(gfn_nvl(cv_1.STATUS_CODE) == '5'){
-		            	$('#btnSubmit').show();
+		                $("#main-btn-save", parent.document).removeAttr('disabled');
+		                $("#main-btn-appr", parent.document).removeAttr('disabled');
+		                $("#main-btn-attach", parent.document).removeAttr('disabled');
+		                $("#main-btn-del", parent.document).removeAttr('disabled');
 		            }else{
-		            	$('#btnSubmit').hide();
+		                $("#main-btn-save", parent.document).attr('disabled', true);
+		                $("#main-btn-appr", parent.document).attr('disabled', true);
+		                $("#main-btn-attach", parent.document).attr('disabled', true);
+		                $("#main-btn-del", parent.document).attr('disabled', true);
 		            }
 		            fn_changeTXN_STOP_YN(gfn_nvl(cv_1.TXN_STOP_YN));
 		        	//주소 ~ 매핑이력 - 구매정보 -> 업체전표마감구분 데이터
@@ -3320,9 +3341,15 @@
                 SBUxMethod.attr('BIZ_ITEMS','required','');
             }
             if(gfnma_multiSelectGet('#STATUS_CODE') == '5'){
-            	$('#btnSubmit').show();
+                $("#main-btn-save", parent.document).removeAttr('disabled');
+                $("#main-btn-appr", parent.document).removeAttr('disabled');
+                $("#main-btn-attach", parent.document).removeAttr('disabled');
+                $("#main-btn-del", parent.document).removeAttr('disabled');
             }else{
-            	$('#btnSubmit').hide();
+                $("#main-btn-save", parent.document).attr('disabled', true);
+                $("#main-btn-appr", parent.document).attr('disabled', true);
+                $("#main-btn-attach", parent.document).attr('disabled', true);
+                $("#main-btn-del", parent.document).attr('disabled', true);
             }
 		})
 		
