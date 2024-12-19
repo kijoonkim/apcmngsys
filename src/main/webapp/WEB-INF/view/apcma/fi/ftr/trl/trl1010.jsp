@@ -920,14 +920,6 @@
 											<%--<span style="font-size:12px">(조회건수 <span id="listCoun2">0</span>건)</span>--%>
 		                                </li>
 		                            </ul>
-				                    <%--<div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-										<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
-											<img src="../../../resource/images/plus.png" width="20px" /> 행추가
-										</a>
-										<a href="#" id="btn1-row-del" class="cu-btn-minus" style="padding-left:10px">
-											<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
-										</a>
-									</div>--%>
 									<sbux-button
 											id="btnDel"
 											name="btnDel"
@@ -951,55 +943,6 @@
 		                            <div id="sb_area_grid_tap4" style="height:280px; width:100%;"></div>
 		                        </div>							
 							</div>
-						
-							<%--<div id="SB_TOP_TAB5" >
-		                        <div class="ad_tbl_top">
-		                            <ul class="ad_tbl_count">
-		                                <li>
-		                                    <span>상환계획</span>
-		                                </li>
-		                            </ul>
-				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-									</div>
-									<sbux-button
-											id="btnDelPlan"
-											name="btnDelPlan"
-											uitype="normal"
-											text="행삭제"
-											class="btn btn-sm btn-outline-danger"
-											onclick="fn_btnDelPlan()"
-											style="float: right;"
-									></sbux-button>
-									<sbux-button
-											id="btnAddPlan"
-											name="btnAddPlan"
-											uitype="normal"
-											text="행추가"
-											class="btn btn-sm btn-outline-danger"
-											onclick="fn_btnAddPlan()"
-											style="float: right;"
-									></sbux-button>
-		                        </div>
-		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap5" style="height:280px; width:100%;"></div>
-		                        </div>							
-							</div>--%>
-						
-							<%--<div id="SB_TOP_TAB6" >
-		                        <div class="ad_tbl_top">
-		                            <ul class="ad_tbl_count">
-		                                <li>
-		                                    <span>현재가치관리</span>
-		                                </li>
-		                            </ul>
-				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-									</div>
-		                        </div>
-		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap6" style="height:280px; width:100%;"></div>
-		                        </div>							
-							</div>--%>
-						
 							<div id="SB_TOP_TAB7" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
@@ -1011,7 +954,6 @@
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
-		                        
 		                        	<table id="srchArea5" class="table table-bordered tbl_fixed">
 		                                <colgroup>
 					                        <col style="width: 7%">
@@ -1105,10 +1047,8 @@
 		                        			</tr>
 		                        		</tbody>	
 		                        	</table>
-		                        	
 		                        </div>							
 							</div>
-						
 							<div id="SB_TOP_TAB8" >
 		                        <div class="ad_tbl_top">
 		                            <ul class="ad_tbl_count">
@@ -1120,7 +1060,6 @@
 									</div>
 		                        </div>
 		                        <div style="width:100%;">
-		                        
 		                        	<table id="srchArea6" class="table table-bordered tbl_fixed">
 		                                <colgroup>
 					                        <col style="width: 7%">
@@ -1159,7 +1098,6 @@
 													></sbux-button>
 												</td>
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품이익계정</th>
 												<td class="td_input" data-group="FM_HDG_GAIN_ACCOUNT_CODE">
@@ -1178,7 +1116,6 @@
 													></sbux-button>
 												</td>
 		                        			</tr>
-		                        			
 			                                <tr>
 			                                    <th scope="row" class="th_bg">파생상품손실계정</th>
 												<td class="td_input" data-group="FM_HDG_LOSS_ACCOUNT_CODE">
@@ -1222,21 +1159,15 @@
 			                                    </td>		                        
 		                        			</tr>
 		                        		</tbody>	
-		                        	</table>		                        
-		                        
+		                        	</table>
 		                        </div>							
 							</div>
-							
-						</div>					
-						
+						</div>
 					</div>
-        		
         		</div>
         	</div>	
         </div>
-        			
     </section>
-    
 	<!-- 팝업 Modal -->
     <div>
         <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
@@ -1685,100 +1616,6 @@
         Trl1010GridTab4 = _SBGrid.create(SBGridProperties);
         //Trl1010GridTab4.bind('click', 			'fn_viewTrl1010GridTab4Event');
     }
-
-	//상환계획
-    /*function fn_createTrl1010GridTab5() {
-        var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb_area_grid_tap5';
-	    SBGridProperties.id 				= 'Trl1010GridTab5';
-	    SBGridProperties.jsonref 			= 'jsonTrl1010Tab5';
-        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
-	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [
-			{caption: ["차입금번호"], 		ref: 'LOAN_NUM', 			  	type:'output',  	width:'230px',  	style:'text-align:left'},
-			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'200px',  	style:'text-align:left'},
-			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}},
-			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden : true},
-			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center',
-				typeinfo : {ref : 'jsonRepayDd',  label : 'label', value : 'value'}
-			},
-			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'datepicker',	width:'220px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ["확정여부"], 	ref: 'CONFIRM_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-			{caption: ["전송여부"], 	ref: 'INTERFACE_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-			{caption: ["완료여부"], 	ref: 'COMPLETE_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-			{caption: ["id"],	ref: 'TXN_ID',	type:'output',  width:'300px',  style:'text-align:left' , hidden : true},
-
-        ];
-
-        Trl1010GridTab5 = _SBGrid.create(SBGridProperties);
-        //Trl1010GridTab5.bind('click', 			'fn_viewTrl1010GridTab5Event');
-    }*/
-
-	//현재가치관리
-   /* function fn_createTrl1010GridTab6() {
-        var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb_area_grid_tap6';
-	    SBGridProperties.id 				= 'Trl1010GridTab6';
-	    SBGridProperties.jsonref 			= 'jsonTrl1010Tab6';
-        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
-	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [
-			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'150px',  	style:'text-align:left'},
-			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'datepicker',	width:'120px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '120px', style : 'text-align:center', type : 'combo',
-				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}},
-			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'100px',  style:'text-align:right',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-			{caption: ["유효이자율"],     ref: 'EFFECTIVE_INTEREST_RATE',    type:'input',  	width:'100px',  style:'text-align:right',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-			{caption: ["원금"],			ref: 'REMAIN_LOAN_AMT',   	type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["원금상환액"],		ref: 'REPAY_PLAN_AMT',  	type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["유효이자"],		ref: 'EFFECTIVE_INTEREST_PLAN_AMT',  type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["액면이자"],		ref: 'INTEREST_REPAY_PLAN_AMT',  type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["상각액"],		ref: 'AMORTIZE_PLAN_AMT',  type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ["장부가액"],		ref: 'LOAN_BOOK_VALUE_AMT',  type:'output',  	width:'130px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			{caption: ['시작일자'], 		ref: 'INTEREST_FROM_DATE', 	type:'datepicker',	width:'120px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['종료일자'], 		ref: 'INTEREST_TO_DATE', 	type:'datepicker',	width:'120px', 		style: 'text-align: center', sortable: false,
-				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ["확정여부"], 	ref: 'CONFIRM_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-			{caption: ["전송여부"], 	ref: 'INTERFACE_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-			{caption: ["완료여부"], 	ref: 'COMPLETE_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
-				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
-			},
-        ];
-
-        Trl1010GridTab6 = _SBGrid.create(SBGridProperties);
-        //Trl1010GridTab6.bind('click', 			'fn_viewTrl1010GridTab6Event');
-    }*/
     
     /**
      * 차입기관 
@@ -2329,55 +2166,6 @@
 
 	}
 
-	/*// 행 추가 [상황계횐]
-	const fn_btnAddPlan = function() {
-		let rowVal = Trl1010GridTab5.getRow();
-
-		let LOAN_NUM 	= gfn_nvl(SBUxMethod.get("FM_LOAN_NUM")); //차입금번호
-
-		const msg = {
-			LOAN_NUM            		: LOAN_NUM,	//차입금번호
-			PLAN_SEQ            		: '',		//순번
-			REPAY_PLAN_DATE  			: '',		//상환예정일
-			CURRENCY_CODE    			: '',		//통화
-			REPAY_TOTAL_AMT            	: 0,		//총상환액
-			REPAY_TRANSFER_AMT          : 0,		//차입금대체
-			REPAY_PLAN_AMT            	: 0,		//원금상환예정액
-			REMAIN_LOAN_AMT            	: 0,		//차입금잔액
-			INTEREST_REPAY_PLAN_AMT     : 0,		//이자상환예정액
-			INTEREST_RATE            	: 0,		//이자율
-			INTEREST_DAY            	: '',		//이자일수
-			INTEREST_FROM_DATE          : '',		//적용시작일
-			INTEREST_TO_DATE          	: '',		//적용종료일
-			CONFIRM_FLAG            	: 'N',		//확정여부
-			INTERFACE_FLAG            	: 'N',		//전송여부
-			COMPLETE_FLAG            	: 'N',		//완료여부
-			TXN_ID            			: '',		//id
-
-
-			status: 'i'
-		}
-
-		if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-			Trl1010GridTab5.addRow(true, msg);
-		}else{
-			Trl1010GridTab5.insertRow(rowVal, 'below', msg);
-		}
-	}
-
-	// 행삭제 [상황계횐]
-	const fn_btnDelPlan = async function () {
-
-		let rowVal = Trl1010GridTab5.getRow();
-
-		if (rowVal == -1) {
-			gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
-			return;
-		} else {
-			Trl1010GridTab5.deleteRow(rowVal);
-		}
-
-	}*/
 	const fn_keyup = async function(event) {
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
@@ -3009,9 +2797,13 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }
-
+					if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+						return true;
+					}else {
+						alert(data.resultMessage);
+						return false;
+					}
+				}
 				return true;
 
 			} else {
@@ -3042,7 +2834,12 @@
 				if (_.isEqual("S", data.resultStatus)) {
 
 					if (data.resultMessage) {
-						alert(data.resultMessage);
+						if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+							return true;
+						}else {
+							alert(data.resultMessage);
+							return false;
+						}
 					}
 					return true;
 
