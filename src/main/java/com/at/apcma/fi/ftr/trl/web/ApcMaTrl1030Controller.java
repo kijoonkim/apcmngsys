@@ -67,7 +67,30 @@ public class ApcMaTrl1030Controller extends BaseController {
 
 		logger.info("=============selectTrl1030List=====end========");
 		return getSuccessResponseEntity(resultMap);
-	}	
+	}
+
+
+	// 차입금원장등록 저장
+	@PostMapping(value = "/fi/ffa/alm/insertTrl1030S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertTrl1030S2(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============insertTrl1030S2=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRL1010_S2");
+
+			logger.info("=============insertTrl1030S2=====end========");
+			return getSuccessResponseEntityMa(resultMap);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+	}
 	
 	
 }
