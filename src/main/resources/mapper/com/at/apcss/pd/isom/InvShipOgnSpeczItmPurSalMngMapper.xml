@@ -1163,6 +1163,7 @@ SELECT
 	, TOT.RMRK
 FROM
 	(SELECT * FROM
+		/* 출자출하조직의 경우 취급유형은 종류별로 1조직만 가능해서 소계 제외 처리 */
 		/*
 		(SELECT * FROM
 			(SELECT
@@ -1221,6 +1222,7 @@ FROM
 		  AND UO_BRNO = #{uoBrno}
 		  AND APO_SE = '2'
 		  AND TYPE_SE_NO = '6'
+		  AND TRMT_TYPE = '0'
 	) TOT
 WHERE 1=1
   AND ITEM.ITEM_CD = TOT.ITEM_CD(+)

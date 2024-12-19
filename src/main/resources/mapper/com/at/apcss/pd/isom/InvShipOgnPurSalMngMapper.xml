@@ -1878,7 +1878,7 @@
 					  AND TYPE_SE_NO = '5'
 					  AND CTGRY_CD IS NULL
 					  AND CLTVTN_LAND_SN IS NULL
-					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3')
+					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3' AND UO_BRNO = PST.UO_BRNO)
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 												FROM TB_EV_FRMHS_APO
 												WHERE 1=1
@@ -1888,6 +1888,7 @@
 												  AND BRNO = PST.BRNO
 												  AND UO_BRNO = PST.UO_BRNO
 												  AND YR = PST.YR
+												  AND STBLT_YN = PST.OGNZ_STBLT_YN
 					  						)
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
