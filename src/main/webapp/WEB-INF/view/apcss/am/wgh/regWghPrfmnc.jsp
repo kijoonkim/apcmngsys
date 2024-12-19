@@ -87,6 +87,8 @@
                     <td class="td_input" colspan="3" style="border-right: hidden;">
                         <sbux-datepicker id="srch-slt-wghYmd"
                                          name="srch-slt-wghYmd"
+                                         class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+                                         wrap-style="width:80%"
                                          uitype="popup">
                         </sbux-datepicker>
                     </td>
@@ -115,8 +117,8 @@
                                 onchange="fn_onChangeSrchItemCd(this)">
                         </sbux-select>
                     </td>
-                    <th scope="row" class="th_bg">품</th>
-                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                    <th scope="row" class="th_bg">품종</th>
+                    <td class="td_input" colspan="4" style="border-right: hidden;">
                         <sbux-select
                                 unselected-text="선택"
                                 uitype="single"
@@ -129,10 +131,11 @@
                                 onchange="fn_onChangeSrchVrtyCd(this)">
                         </sbux-select>
                     </td>
+                    <td colspan="4"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">계량유형</th>
-                    <td class="td_input" colspan="4" style="border-right: hidden;border-top: hidden">
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
                         <sbux-select id="srch-slt-f"
                                      name="srch-slt-sortFcltCd"
                                      uitype="single"
@@ -142,6 +145,19 @@
                                      jsondata-ref="jsonSortFclt">
                         </sbux-select>
                     </td>
+                    <td colspan="9"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">계량중량</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght"
+                                     name="srch-slt-wght"
+                                     uitype="text"
+                                     class="form-control input-sm"
+                                     style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="9"></td>
                 </tr>
                 </tbody>
             </table>
@@ -195,15 +211,13 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {caption: ["처리"],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["계량일자"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["계량대"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["계량번호"],	ref: 'wghno',	type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["차량번호"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
             {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center;'},
             {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["수량"],	ref: 'qntt',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["중량"],	ref: 'wght',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["비고"],	ref: 'rmrk',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["투입유형"],	ref: 'wghYmd',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["투입수량"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["투입중량"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
+            {caption: ["작업수량"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
+            {caption: ["작업중량"],	ref: 'qntt',		type:'output',  width:'15%', style: 'text-align:center;'},
         ]
         gridWghCurInq = _SBGrid.create(SBGridProperties);
     }

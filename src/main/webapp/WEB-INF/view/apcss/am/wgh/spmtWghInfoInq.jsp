@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : wghCurInq.jsp
-     * @Description : 원물 계량대 정보 조회 화면
+     * @Class Name : spmtWghInfoInq.jsp
+     * @Description : 출하 계량 정보 조회 화면
      * @author SI개발부
      * @since 2024.12.18
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 원물 계량대 정보조회</title>
+    <title>title : 출하 계량 정보 조회</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,7 +29,7 @@
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 계량현황조회 -->
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하 계량 정보 조회 -->
             </div>
             <div style="margin-left: auto;">
                 <%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
@@ -78,7 +78,7 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li>
-                        <span>원물 계량대 목록</span>
+                        <span>계량대 목록</span>
                     </li>
                 </ul>
             </div>

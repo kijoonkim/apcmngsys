@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name : wrhsVhclReg.jsp
-     * @Description : 원물 입차등록 화면
+     * @Description : 원물 출차등록 화면
      * @author SI개발부
      * @since 2024.12.18
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 원물 입차등록</title>
+    <title>title : 원물 출차등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,7 +29,7 @@
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물 입차등록 -->
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물 출차등록 -->
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
@@ -127,7 +127,16 @@
                                     style="width: 80%">
                         </sbux-input>
                     </td>
-                    <td colspan="9"></td>
+                    <th scope="row" class="th_bg">출차중량</th>
+                    <td class="td_input" colspan="4" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght1"
+                                    name="srch-slt-wght1"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="4"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">팔레트정보</th>
@@ -151,7 +160,16 @@
                                     style="width: 80%">
                         </sbux-input>
                     </td>
-                    <td colspan="9"></td>
+                    <th scope="row" class="th_bg">출차시각</th>
+                    <td class="td_input" colspan="4" style="border-right: hidden;">
+                        <sbux-input id="srch-slt-wght1"
+                                    name="srch-slt-wght1"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="width: 80%">
+                        </sbux-input>
+                    </td>
+                    <td colspan="4"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">비고</th>
@@ -170,7 +188,7 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li>
-                        <span>입차 목록</span>
+                        <span>입출차 목록</span>
                     </li>
                 </ul>
             </div>
