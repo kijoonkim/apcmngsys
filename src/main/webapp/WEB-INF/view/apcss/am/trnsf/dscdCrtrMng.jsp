@@ -7,9 +7,9 @@
      * @version 1.0
      * @Modification Information
      * @
-     * @ 수정일        수정자        수정내용
-     * @ ---------- ---------- ---------------------------
-     * @ 2024.11.25     손민성       최초 생성
+     * @ 수정일       	수정자      	수정내용
+     * @ ----------	----------	---------------------------
+     * @ 2024.11.25   	손민성		최초 생성
      * @see
      *
      */
@@ -33,11 +33,11 @@
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
-<%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
-                    <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-<%--                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>--%>
-<%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
+                <%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
+                <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+                <%--                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>--%>
+                <%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
             </div>
         </div>
         <div class="box-body">
@@ -60,18 +60,18 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준유형</th>
-                    <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
+                    <th scope="row" class="th_bg">폐기유형</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden">
                         <sbux-select id="srch-slt-sortFcltCd"
                                      name="srch-slt-sortFcltCd"
                                      uitype="single"
-                                     unselected-text="전체"
+                                     unselected-text="선택"
                                      class="form-control input-sm"
                                      style="width: 80%"
                                      jsondata-ref="jsonSortFclt">
                         </sbux-select>
                     </td>
-                    <td colspan="9"></td>
+                    <td colspan="9" style="border-top: hidden;"></td>
                 </tr>
                 </tbody>
             </table>
@@ -80,7 +80,7 @@
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li>
-                                <span>반품기준 목록</span>
+                                <span>폐기기준 목록</span>
                             </li>
                         </ul>
                     </div>
@@ -90,7 +90,7 @@
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li>
-                                <span>반품기준 상세정보</span>
+                                <span>폐기기준 상세정보</span>
                             </li>
                         </ul>
                     </div>
@@ -102,6 +102,7 @@
 </section>
 </body>
 <script type="application/javascript">
+    var jsonSortFclt = [];
     /** grid 변수 셋팅 **/
     var jsonRtnCrtr = [];
     var jsonRtnCrtrDtl = [];
@@ -109,14 +110,15 @@
     let gridRtnCrtr;
     let gridRtnCrtrDtl;
 
-    window.addEventListener("DOMContentLoaded",function(){
-       fn_init();
+
+    window.addEventListener("DOMContentLoaded", function(){
+        fn_init();
     });
     const fn_init = async function(){
-        await fn_create_rtnCrtr();
-        await fn_create_rtnCrtrDtl();
+        await gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', 	gv_selectedApcCd),
+            await fn_create_rtnCrtr();
+            await fn_create_rtnCrtrDtl();
     }
-
     const fn_create_rtnCrtr = async function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-rtnCrtr';
@@ -126,10 +128,10 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["기준유형코드"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준유형명칭"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준코드"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
+            {caption: ["기준유형코드"],	ref: 'wghFcltCd',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["기준유형명칭"],	ref: 'wghFcltCd',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["기준코드"],	ref: 'wghno',	type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["기준 비고"],	ref: 'vhclno',		type:'output',  width:'35%', style: 'text-align:center;'},
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
     }
@@ -142,13 +144,34 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["상세순번"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세코드"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세값"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
+            {caption: ["상세순번"],	ref: 'wghYmd',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["상세코드"],	ref: 'wghFcltCd',		type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["상세값"],	ref: 'wghno',	type:'output',  width:'20%', style: 'text-align:center;'},
+            {caption: ["상세 비고"],	ref: 'vhclno',		type:'output',  width:'35%', style: 'text-align:center;'},
         ]
         gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
     }
+    const fn_search = async function(){
+        let fcltCd = SBUxMethod.get("srch-slt-sortFcltCd");
+        console.log(fcltCd,"?");
+        let postJsonPromise = gfn_postJSON("/am/wgh/selectWghFclt.do",{apcCd:gv_apcCd,fcltCd:fcltCd});
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            jsonWghCurInq = data.resultList;
+            jsonWghCurInq.forEach(function(item){
+                if(item.bgngYmd){
+                    if(item.endYmd){
+                        item.status = 'OFF';
+                    }else{
+                        item.status = 'ON';
+                    }
+                }
+            });
+            gridWghCurInq.rebuild();
+        }
+        console.log(data);
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
