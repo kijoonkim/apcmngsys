@@ -68,7 +68,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">사업장</th>
+                    <th scope="row" class="th_bg_search">사업장</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
@@ -80,7 +80,7 @@
                         </div>
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">귀속연월</th>
+                    <th scope="row" class="th_bg_search">귀속연월</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
@@ -111,7 +111,7 @@
                         />
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg">소득자 성명</th>
+                    <th scope="row" class="th_bg_search">소득자 성명</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         <sbux-input id="JUMIN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>

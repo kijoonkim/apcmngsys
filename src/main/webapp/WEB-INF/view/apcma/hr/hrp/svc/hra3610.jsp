@@ -68,12 +68,12 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">소득자 성명</th>
+                    <th scope="row" class="th_bg_search">소득자 성명</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td></td>
-                    <th id="TH_SRCH_BIZ_REGNO" scope="row" class="th_bg">사업자등록번호</th>
+                    <th id="TH_SRCH_BIZ_REGNO" scope="row" class="th_bg_search">사업자등록번호</th>
                     <td colspan="3" id="TD_SRCH_BIZ_REGNO" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
