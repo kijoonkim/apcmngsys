@@ -231,6 +231,13 @@
     var p_siteCode = "${loginVO.maSiteCode}";
     //-----------------------------------------------------------
 
+    var strEmail = "";
+    var strSmtpHost = "";
+    var IntSmtpPort = 25;
+    var strUserName = "";
+    var strPassword = "";
+    var strJobGroup = "";
+
     var jsonWorkGbn = []; // 작업구분
     var jsonWorkPlace = []; // 작업장소
     var jsonWorkName = []; // 작업명
@@ -534,6 +541,8 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
+        gvwDetail.bind('click', 'fn_viewForDetail');
+        gvwDetail.bind('keyup', 'fn_keyupForDetail');
     }
 
     const fn_keyup = async function(event) {
@@ -639,6 +648,68 @@
                     jsonServiceFeeList.push(msg);
                 });
                 gvwDetail.rebuild();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_keyupForDetail = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_viewForDetail();
+        }
+    }
+
+    const fn_viewForDetail = async function () {
+        var nRow = gvwDetail.getRow();
+        if(nRow < 1) return;
+        var rowData = gvwDetail.getRowData(nRow);
+
+        if(gfn_nvl(rowData) == "") return;
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE_FR : '',
+            V_P_PAY_DATE_TO : '',
+            V_P_SITE_CODE : '',
+            V_P_EARNER_NAME : '',
+            V_P_PAY_DATE : '',
+            V_P_EARNER_CODE : '',
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
+            getType				: 'json',
+            workType			: 'EMAIL',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                var returnData = data.cv_1[0];
+
+                strSmtpHost = returnData.SMTP_HOST;
+                IntSmtpPort = parseInt(returnData.SMTP_PORT);
+                strUserName = returnData.USERNAME;
+                strPassword = returnData.PASSWORD;
+                strEmail = returnData.MAILID;
             } else {
                 alert(data.resultMessage);
             }
@@ -866,9 +937,7 @@
         }
     }
 
-    const fn_create = async function () {
-
-    }
+    const fn_create = async function () {}
 
     const fn_saveFile = async function(){
         var nRow = gvwInfoGrid.getRow();
@@ -926,8 +995,106 @@
         }
     }
 
-    const fn_sendEmail = async function () {}
+    const fn_sendEmail = async function () {
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
+        let MAIL_SEND_YN = gfn_nvl(SBUxMethod.get("MAIL_SEND_YN"));
+        let MAIL_SEND_MSG = gfn_nvl(SBUxMethod.get("MAIL_SEND_MSG"));
 
-    const fn_sendSMS = async function () {}
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_EARNER_CODE : EARNER_CODE,
+            V_P_MAIL_SEND_YN : MAIL_SEND_YN,
+            V_P_MAIL_SEND_MSG : MAIL_SEND_MSG,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendEmail.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_sendSMS = async function () {
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
+        let TEL_NO = gfn_nvl(SBUxMethod.get("TEL_NO"));
+        let SMS_SEND_YN = gfn_nvl(SBUxMethod.get("SMS_SEND_YN"));
+        let SMS_SEND_MSG = gfn_nvl(SBUxMethod.get("SMS_SEND_MSG"));
+        let SMS_KEY = gfn_nvl(SBUxMethod.get("SMS_KEY"));
+        let SMS_DATA_SET = gfn_nvl(SBUxMethod.get("SMS_DATA_SET"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_EARNER_CODE : EARNER_CODE,
+            V_P_TEL_NO : TEL_NO,
+            V_P_SMS_SEND_YN : SMS_SEND_YN,
+            V_P_SMS_SEND_MSG : SMS_SEND_MSG,
+            V_P_SMS_KEY : SMS_KEY,
+            V_P_SMS_DATA_SET : SMS_DATA_SET,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
