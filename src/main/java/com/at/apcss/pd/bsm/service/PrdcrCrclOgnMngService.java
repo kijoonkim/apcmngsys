@@ -135,4 +135,11 @@ public interface PrdcrCrclOgnMngService {
 	 */
 	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception;
 
+	/**
+	 * 세팅된 년도값 조회
+	 * @param PrdcrCrclOgnMngVO
+	 * @return PrdcrCrclOgnMngVO
+	 * @throws Exception
+	 */
+	public PrdcrCrclOgnMngVO selectSetYear(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception;
 }

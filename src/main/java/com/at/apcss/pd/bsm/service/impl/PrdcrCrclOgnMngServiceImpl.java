@@ -142,9 +142,14 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 
 	@Override
 	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
-
 		List<PrdcrCrclOgnMngVO> resultList = PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO);
 		return resultList;
+	}
+
+	@Override
+	public PrdcrCrclOgnMngVO selectSetYear(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
+		PrdcrCrclOgnMngVO result = PrdcrCrclOgnMngMapper.selectSetYear(PrdcrCrclOgnMngVO);
+		return result;
 	}
 
 }

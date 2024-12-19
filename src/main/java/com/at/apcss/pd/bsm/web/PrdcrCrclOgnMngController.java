@@ -234,4 +234,22 @@ public class PrdcrCrclOgnMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 기본년도 세팅 조회
+	@PostMapping(value = "/pd/bsm/selectSetYear.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSetYear(Model model, @RequestBody PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		PrdcrCrclOgnMngVO result = new PrdcrCrclOgnMngVO();
+
+		try {
+			result = PrdcrCrclOgnMngService.selectSetYear(PrdcrCrclOgnMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		if(result != null) {
+			resultMap.put("setYear", result.getCdVl());
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

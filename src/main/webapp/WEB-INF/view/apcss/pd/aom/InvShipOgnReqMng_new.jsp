@@ -699,10 +699,6 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
-
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -764,6 +760,8 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		fn_setYear();//기본년도 세팅
+		return ;
 		fn_gpcListGrid();
 		fn_uoListGrid();
 		fn_fcltMngCreateGrid01();
@@ -777,13 +775,37 @@
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("dtl-input-yr",year);//
 		$(".uoInfo").hide();
 		$(".uoGrid").hide();
 		await fn_dtlSearch();
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		console.log('fn_selectSetYear');
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	var jsonInvShipOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
@@ -852,7 +874,7 @@
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02'}">
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
-				console.log(corpDdlnSeCd);
+				//console.log(corpDdlnSeCd);
 				if(corpDdlnSeCd != 'Y'){
 					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
 				}
@@ -1011,7 +1033,7 @@
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
 		let yr = SBUxMethod.get("srch-input-yr");//
-		console.log(yr);
+		//console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1110,7 +1132,7 @@
 		//사용자는 현재년도만 필요함
 		let now = new Date();
 		let year = now.getFullYear();
-		//year = '2025';
+
 		let yr = SBUxMethod.get("dtl-input-yr");//
 		if(gfn_isEmpty(yr)){
 			yr = year;
@@ -1119,7 +1141,7 @@
 		let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 		//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			brno : brno
-			,yr : year
+			,yr : yr
 		});
 
 		let data = await postJsonPromise01 ;
@@ -1134,12 +1156,8 @@
 				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
-				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
-				if(gfn_isEmpty(item.yr)){
-					SBUxMethod.set('dtl-input-yr',year)//
-				}else{
-					SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
-				}
+				//신청정보가 없는 경우 년도값이 없음
+				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 				apoSe = item.apoSe;
@@ -1197,15 +1215,20 @@
 	//출자출하조직 리스트 조회
 	const fn_dtlSearch01 = async function(){
 		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
-
-		if(gfn_isEmpty(brno)) return;
+		let yr = SBUxMethod.get('dtl-input-yr');
+		//년도가 비어있는 예외의 경우
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : brno
-			,yr : year
+			,yr : yr
 		});
 		let data = await postJsonPromise;
 		try{
@@ -1272,10 +1295,10 @@
 		let yr = SBUxMethod.get('dtl-input-yr');
 
 		if(gfn_isEmpty(brno)) return;
+		//년도가 비어있는 예외의 경우
 		if(gfn_isEmpty(yr)){
 			yr = year;
 		}
-		console.log(yr, year);
 		let wrtYn = null;
 		let corpDdlnSeCd = null;
 
