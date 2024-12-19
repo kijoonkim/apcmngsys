@@ -532,11 +532,11 @@
 					)
 				VALUES
 					(
-						#{apoCd}
-					  , #{apoSe}
+						(SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , '1'
 					  , #{brno}
-					  , '0'
-					  , NVL(#{crno},'NULL')
+					  , #{brno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , #{yr}
 					  , #{sttgUpbrItemSe}
 
@@ -583,87 +583,131 @@
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.YR	 				= #{yr}
 				AND CLT.APO_SE	 			= '1'
-				AND CLT.PRCHS_SLS_SE	= '2'
+				AND CLT.PRCHS_SLS_SE		= '2'
 				)
 		WHEN MATCHED THEN
 				 UPDATE
-					   SET
-						SLS_EMSPAP_VLM			= #{slsEmspapVlm}
-						, SLS_EMSPAP_AMT		= #{slsEmspapAmt}
-						, SLS_TRST_VLM			= #{slsTrstVlm}
-						, SLS_TRST_AMT			= #{slsTrstAmt}
+					SET
+						SLS_CPRTN_TRST_VLM			= #{slsCprtnTrstVlm}
+						, SLS_CPRTN_TRST_AMT		= #{slsCprtnTrstAmt}
+						, SLS_CPRTN_SORT_TRST_VLM	= #{slsCprtnSortTrstVlm}
+						, SLS_CPRTN_SORT_TRST_AMT	= #{slsCprtnSortTrstAmt}
+						, SLS_SMPL_TRST_VLM			= #{slsSmplTrstVlm}
+						, SLS_SMPL_TRST_AMT			= #{slsSmplTrstAmt}
 
-						, DDC_VLM				= #{ddcVlm}
-						, DDC_AMT				= #{ddcAmt}
+						, SLS_TRST_VLM				= #{slsTrstVlm}
+						, SLS_TRST_AMT				= #{slsTrstAmt}
 
-						, RMRK					= #{rmrk}
+						, SLS_CPRTN_SORT_EMSPAP_VLM	= #{slsCprtnSortEmspapVlm}
+						, SLS_CPRTN_SORT_EMSPAP_AMT	= #{slsCprtnSortEmspapAmt}
+						, SLS_SMPL_EMSPAP_VLM		= #{slsSmplEmspapVlm}
+						, SLS_SMPL_EMSPAP_AMT		= #{slsSmplEmspapAmt}
 
-						, SYS_LAST_CHG_DT		= SYSDATE
-						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+						, SLS_EMSPAP_VLM			= #{slsEmspapVlm}
+						, SLS_EMSPAP_AMT			= #{slsEmspapAmt}
+
+						, DDC_VLM					= #{ddcVlm}
+						, DDC_AMT					= #{ddcAmt}
+
+						, CTGRY_CD 					= #{ctgryCd}
+						, CLSF_CD 					= #{clsfCd}
+
+						, RMRK						= #{rmrk}
+
+						, SYS_LAST_CHG_DT			= SYSDATE
+						, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
 				]]>
 		WHEN NOT MATCHED THEN
 			 INSERT
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , UO_BRNO
-		    		  , CRNO
-		    		  , YR
+					(
+						APO_CD
+					  , APO_SE
+					  , BRNO
+					  , UO_BRNO
+					  , CRNO
+					  , YR
 
-		    		  , CTGRY_CD
-		    		  , ITEM_CD
-		    		  , PRCHS_SLS_SE
-		    		  , STTG_UPBR_ITEM_SE
+					  , ITEM_CD
+					  , CTGRY_CD
+					  , CLSF_CD
+					  , PRCHS_SLS_SE
+					  , STTG_UPBR_ITEM_SE
 
-		    		  , SLS_EMSPAP_VLM
-		    		  , SLS_EMSPAP_AMT
-		    		  , SLS_TRST_VLM
-		    		  , SLS_TRST_AMT
+					  , SLS_CPRTN_TRST_VLM
+					  , SLS_CPRTN_TRST_AMT
+					  , SLS_CPRTN_SORT_TRST_VLM
+					  , SLS_CPRTN_SORT_TRST_AMT
+					  , SLS_SMPL_TRST_VLM
+					  , SLS_SMPL_TRST_AMT
 
-		    		  , DDC_VLM
-		    		  , DDC_AMT
+					  , SLS_TRST_VLM
+					  , SLS_TRST_AMT
 
-		    		  , RMRK
+					  , SLS_CPRTN_SORT_EMSPAP_VLM
+					  , SLS_CPRTN_SORT_EMSPAP_AMT
+					  , SLS_SMPL_EMSPAP_VLM
+					  , SLS_SMPL_EMSPAP_AMT
 
-		    		  , SYS_FRST_INPT_DT
-		    		  , SYS_FRST_INPT_USER_ID
-		    		  , SYS_FRST_INPT_PRGRM_ID
-		    		  , SYS_LAST_CHG_DT
-		    		  , SYS_LAST_CHG_USER_ID
-		    		  , SYS_LAST_CHG_PRGRM_ID
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		   			  , #{apoSe}
-		   			  , #{brno}
-		   			  , '0'
-		   			  , NVL(#{crno},'NULL')
-		   			  , #{yr}
+					  , SLS_EMSPAP_VLM
+					  , SLS_EMSPAP_AMT
 
-		   			  , #{ctgryCd}
-		   			  , #{itemCd}
-		   			  , '2'
-		   			  , #{sttgUpbrItemSe}
+					  , DDC_VLM
+					  , DDC_AMT
 
-		   			  , #{slsEmspapVlm}
-		   			  , #{slsEmspapAmt}
-		   			  , #{slsTrstVlm}
-		   			  , #{slsTrstAmt}
+					  , RMRK
 
-		   			  , #{ddcVlm}
-		   			  , #{ddcAmt}
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , '1'
+					  , #{brno}
+					  , #{brno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{yr}
 
-		   			  , #{rmrk}
+					  , #{itemCd}
+					  , #{ctgryCd}
+					  , #{clsfCd}
+					  , '2'
+					  , #{sttgUpbrItemSe}
 
-		   			  , SYSDATE
-	   			  	  , #{sysFrstInptUserId}
-		   			  , #{sysFrstInptPrgrmId}
-		   			  , SYSDATE
-		   			  , #{sysLastChgUserId}
-		   			  , #{sysLastChgPrgrmId}
+					  , #{slsCprtnTrstVlm}
+					  , #{slsCprtnTrstAmt}
+					  , #{slsCprtnSortTrstVlm}
+					  , #{slsCprtnSortTrstAmt}
+					  , #{slsSmplTrstVlm}
+					  , #{slsSmplTrstAmt}
+
+					  , #{slsTrstVlm}
+					  , #{slsTrstAmt}
+
+					  , #{slsCprtnSortEmspapVlm}
+					  , #{slsCprtnSortEmspapAmt}
+					  , #{slsSmplEmspapVlm}
+					  , #{slsSmplEmspapAmt}
+
+					  , #{slsEmspapVlm}
+					  , #{slsEmspapAmt}
+
+					  , #{ddcVlm}
+					  , #{ddcAmt}
+
+					  , #{rmrk}
+
+					  , SYSDATE
+				  	  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
 		   			)
 	</insert>
 
@@ -681,33 +725,36 @@
 				)
 		WHEN MATCHED THEN
 				 UPDATE
-					   SET
-		    	          PBLC_WHLSL_MRKT_VLM 	= #{pblcWhlslMrktVlm}
-					    , PBLC_WHLSL_MRKT_AMT 	= #{pblcWhlslMrktAmt}
-					    , ONLN_WHLSL_MRKT_VLM 	= #{onlnWhlslMrktVlm}
-					    , ONLN_WHLSL_MRKT_AMT 	= #{onlnWhlslMrktAmt}
-					    , LGSZ_RTL_VLM 			= #{lgszRtlVlm}
-					    , LGSZ_RTL_AMT 			= #{lgszRtlAmt}
-					    , ARMY_DLVGDS_VLM 		= #{armyDlvgdsVlm}
-					    , ARMY_DLVGDS_AMT 		= #{armyDlvgdsAmt}
-					    , EATOUT_MTRL_MLSR_VLM 	= #{eatoutMtrlMlsrVlm}
-					    , EATOUT_MTRL_MLSR_AMT 	= #{eatoutMtrlMlsrAmt}
-					    , MNFC_RTL_VLM 			= #{mnfcRtlVlm}
-					    , MNFC_RTL_AMT 			= #{mnfcRtlAmt}
-					    , EXPRT_VLM 			= #{exprtVlm}
-					    , EXPRT_AMT 			= #{exprtAmt}
-					    , ONLN_DLNG_PRFMNC_VLM 	= #{onlnDlngPrfmncVlm}
-					    , ONLN_DLNG_PRFMNC_AMT 	= #{onlnDlngPrfmncAmt}
-					    , ETC_VLM 				= #{etcVlm}
-					    , ETC_AMT 				= #{etcAmt}
+					SET
+						PBLC_WHLSL_MRKT_VLM 	= #{pblcWhlslMrktVlm}
+						, PBLC_WHLSL_MRKT_AMT 	= #{pblcWhlslMrktAmt}
+						, ONLN_WHLSL_MRKT_VLM 	= #{onlnWhlslMrktVlm}
+						, ONLN_WHLSL_MRKT_AMT 	= #{onlnWhlslMrktAmt}
+						, LGSZ_RTL_VLM 			= #{lgszRtlVlm}
+						, LGSZ_RTL_AMT 			= #{lgszRtlAmt}
+						, ARMY_DLVGDS_VLM 		= #{armyDlvgdsVlm}
+						, ARMY_DLVGDS_AMT 		= #{armyDlvgdsAmt}
+						, EATOUT_MTRL_MLSR_VLM 	= #{eatoutMtrlMlsrVlm}
+						, EATOUT_MTRL_MLSR_AMT 	= #{eatoutMtrlMlsrAmt}
+						, MNFC_RTL_VLM 			= #{mnfcRtlVlm}
+						, MNFC_RTL_AMT 			= #{mnfcRtlAmt}
+						, EXPRT_VLM 			= #{exprtVlm}
+						, EXPRT_AMT 			= #{exprtAmt}
+						, ONLN_DLNG_PRFMNC_VLM 	= #{onlnDlngPrfmncVlm}
+						, ONLN_DLNG_PRFMNC_AMT 	= #{onlnDlngPrfmncAmt}
+						, ETC_VLM 				= #{etcVlm}
+						, ETC_AMT 				= #{etcAmt}
 
-		    	        , RMRK					= #{rmrk}
+						, CTGRY_CD 				= #{ctgryCd}
+						, CLSF_CD 				= #{clsfCd}
 
-		    	        , SYS_LAST_CHG_DT		= SYSDATE
-	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.BRNO   			= #{brno}
@@ -719,20 +766,21 @@
 
 		WHEN NOT MATCHED THEN
 			 INSERT
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , UO_BRNO
-		    		  , CRNO
-		    		  , YR
+					(
+						APO_CD
+					  , APO_SE
+					  , BRNO
+					  , UO_BRNO
+					  , CRNO
+					  , YR
 
-		    		  , CTGRY_CD
-		    		  , ITEM_CD
-		    		  , PRCHS_SLS_SE
-		    		  , STTG_UPBR_ITEM_SE
+					  , ITEM_CD
+					  , CTGRY_CD
+					  , CLSF_CD
+					  , PRCHS_SLS_SE
+					  , STTG_UPBR_ITEM_SE
 
-		    		  , PBLC_WHLSL_MRKT_VLM
+					  , PBLC_WHLSL_MRKT_VLM
 					  , PBLC_WHLSL_MRKT_AMT
 					  , ONLN_WHLSL_MRKT_VLM
 					  , ONLN_WHLSL_MRKT_AMT
@@ -751,30 +799,31 @@
 					  , ETC_VLM
 					  , ETC_AMT
 
-		    		  , RMRK
+					  , RMRK
 
-		    		  , SYS_FRST_INPT_DT
-		    		  , SYS_FRST_INPT_USER_ID
-		    		  , SYS_FRST_INPT_PRGRM_ID
-		    		  , SYS_LAST_CHG_DT
-		    		  , SYS_LAST_CHG_USER_ID
-		    		  , SYS_LAST_CHG_PRGRM_ID
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		   			  , #{apoSe}
-		   			  , #{brno}
-		   			  , '0'
-		   			  , NVL(#{crno},'NULL')
-		   			  , #{yr}
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , '1'
+					  , #{brno}
+					  , #{brno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{yr}
 
-		   			  , #{ctgryCd}
-		   			  , #{itemCd}
-		   			  , '2'
-		   			  , #{sttgUpbrItemSe}
+					  , #{itemCd}
+					  , #{ctgryCd}
+					  , #{clsfCd}
+					  , '2'
+					  , #{sttgUpbrItemSe}
 
-		   			  , #{pblcWhlslMrktVlm}
+					  , #{pblcWhlslMrktVlm}
 					  , #{pblcWhlslMrktAmt}
 					  , #{onlnWhlslMrktVlm}
 					  , #{onlnWhlslMrktAmt}
@@ -793,17 +842,17 @@
 					  , #{etcVlm}
 					  , #{etcAmt}
 
-		   			  , #{rmrk}
+					  , #{rmrk}
 
-		   			  , SYSDATE
-	   			  	  , #{sysFrstInptUserId}
-		   			  , #{sysFrstInptPrgrmId}
-		   			  , SYSDATE
-		   			  , #{sysLastChgUserId}
-		   			  , #{sysLastChgPrgrmId}
-		   			)
-    	]]>
-    </insert>
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng */
@@ -1107,7 +1156,7 @@
 				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
 
 				, (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS APO_CD
-				, '1'
+				, '1' AS APO_SE
 				, ITEM.BRNO
 				, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CRNO
 
@@ -1121,20 +1170,23 @@
 				, SLS_SMPL_TRST_VLM
 				, SLS_SMPL_TRST_AMT
 
-				, CM.SLS_TRST_VLM
-				, CM.SLS_TRST_AMT
+				, CM.SLS_CPRTN_TRST_VLM
+				, CM.SLS_CPRTN_TRST_AMT
 
 				/* 매출 매취 */
-				, SLS_CPRTN_SORT_EMSPAP_VLM
-				, SLS_CPRTN_SORT_EMSPAP_AMT
-				, SLS_SMPL_EMSPAP_VLM
-				, SLS_SMPL_EMSPAP_AMT
+				, CM.SLS_CPRTN_SORT_EMSPAP_VLM
+				, CM.SLS_CPRTN_SORT_EMSPAP_AMT
+				, CM.SLS_SMPL_EMSPAP_VLM
+				, CM.SLS_SMPL_EMSPAP_AMT
 
 				, CM.SLS_EMSPAP_VLM
 				, CM.SLS_EMSPAP_AMT
 
+				, CM.DDC_VLM
+				, CM.DDC_AMT
+
 				/* 매출 합계 */
-				, TOT.SLS_TOT_AMT AS SLS_TOT_VLM
+				, TOT.SLS_TOT_VLM AS SLS_TOT_VLM
 				, TOT.SLS_TOT_AMT AS SLS_TOT_AMT
 
 				/* 출하실적 */
