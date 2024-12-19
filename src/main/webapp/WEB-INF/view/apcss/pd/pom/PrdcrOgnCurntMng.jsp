@@ -887,12 +887,13 @@
 			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-			{caption: ["출하시기"], 		ref: 'spmtDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-
+			{caption: ["출하시작시기"], 		ref: 'spmtBgngDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
+			{caption: ["출하종료시기"], 		ref: 'spmtEndDt',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
@@ -1015,7 +1016,7 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["가입일","가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150, displayui : true}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			//{caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 				//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 			{caption: ["비고","비고"], 			ref: 'cltvtnAreaRmrk',   	type:'input',  width:'220px',    style:'text-align:center'},
@@ -2075,7 +2076,8 @@
 						,rmrk: 			item.rmrk
 
 						,ctrtDt: 	item.ctrtDt
-						,spmtDt: 	item.spmtDt
+						,spmtBgngDt: 	item.spmtBgngDt
+						,spmtEndDt: 	item.spmtEndDt
 				}
 
 				jsonPrdcrOgnCurntMng01.push(itemVO);
@@ -2830,30 +2832,33 @@
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["등록년도"], 		ref: 'yr',   		type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["조직구분"], 		ref: 'apoSeNm',   	type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["통합조직 사업자등록번호"],ref: 'uoBrno',		type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["조직명"], 			ref: 'corpNm',   	type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["사업자등록번호"], 	ref: 'brno',   		type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'180px',    style:'text-align:center'},
-			{caption: ["구분"], 			ref: 'sttgUpbrItemNm',   type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["부류"], 			ref: 'clsfNm',   	type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["평가부류"], 		ref: 'ctgryNm',   	type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["품목"], 			ref: 'itemNm',   	type:'input',  width:'150px',    style:'text-align:center'},
-			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["등록년도"], 		ref: 'yr',   		type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["조직구분"], 		ref: 'apoSeNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["통합조직 사업자등록번호"],ref: 'uoBrno',		type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["조직명"], 			ref: 'corpNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["사업자등록번호"], 	ref: 'brno',   		type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["구분"], 			ref: 'sttgUpbrItemNm',   type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["부류"], 			ref: 'clsfNm',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["평가부류"], 		ref: 'ctgryNm',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'100px',    style:'text-align:center'},
 
-			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'input',  width:'50px',    style:'text-align:center'},
-			{caption: ["조직원수"], 		ref: 'cnt',   		type:'input',  width:'70px',    style:'text-align:center'},
+			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["조직원수"], 		ref: 'cnt',   		type:'output',  width:'70px',    style:'text-align:center'},
 
-			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'input',  width:'140px',    style:'text-align:center'},
-			{caption: ["출하량(톤)\n[B]"], 		ref: 'ecSpmtVlmTot',   	type:'input',  width:'140px',    style:'text-align:center'},
+			{caption: ["계약시기"], 		ref: 'ctrtDt',   	type:'output',  width:'140px',    style:'text-align:center'},
+			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'},
+			{caption: ["출하시작시기"], 		ref: 'spmtBgngDt',   	type:'output',  width:'140px',    style:'text-align:center'},
+			{caption: ["출하종료시기"], 		ref: 'spmtEndDt',   	type:'output',  width:'140px',    style:'text-align:center'},
+			{caption: ["출하량(톤)\n[B]"], 		ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'},
 
-			{caption: ["출하대금\n지급액(천원)"], 	ref: 'spmtPrcTot',   	type:'input',  width:'140px',    style:'text-align:center'},
+			{caption: ["출하대금\n지급액(천원)"], 	ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'},
 
-			{caption: ["출하비율(%)\n[B/A]"], 	ref: 'ecSpmtRateB',   	type:'input',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율(%)\n[B/A]"], 	ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
 
-			{caption: ["비고"], 				ref: 'rmrk',   			type:'input',  width:'220px',    style:'text-align:center'},
+			{caption: ["비고"], 				ref: 'rmrk',   			type:'output',  width:'220px',    style:'text-align:center'},
 
 		];
 
@@ -2909,6 +2914,10 @@
 						,spmtPrcTot: 		item.spmtPrcTot
 						,ecSpmtRateB: 		item.ecSpmtRateB
 						,rmrk: 				item.rmrk
+
+						,ctrtDt: 		item.ctrtDt
+						,spmtBgngDt: 	item.spmtBgngDt
+						,spmtEndDt: 	item.spmtEndDt
 
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
