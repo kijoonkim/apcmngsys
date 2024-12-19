@@ -256,7 +256,7 @@
 			 	  ANS_STTS		= '2'
 			 	, ANS_USER_ID 	= #{userId}
 			 	, ANS_DT	 	= SYSDATE
-			 	, ANS_SBJT 		= #{bbsSbjt}
+			 	, ANS_SBJT 		= #{ansSbjt}
 		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
