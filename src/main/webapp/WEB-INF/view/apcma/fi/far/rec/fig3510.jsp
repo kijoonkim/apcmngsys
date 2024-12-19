@@ -3447,6 +3447,8 @@
         if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
             $("#main-btn-del", parent.document).attr('disabled', true);
             $("#main-btn-appr", parent.document).attr('disabled', true);
+            $("#main-btn-save", parent.document).attr('disabled', true);
+            $("#main-btn-attach", parent.document).attr('disabled', true);
             $("#btnPrint").removeAttr('disabled');
 
             $("#btnAddRow").attr('disabled', 'true');
@@ -3455,6 +3457,8 @@
 
             if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
                 $("#main-btn-appr", parent.document).attr('disabled', true);
+                $("#main-btn-save", parent.document).attr('disabled', true);
+                $("#main-btn-attach", parent.document).attr('disabled', true);
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3462,14 +3466,20 @@
             }
 
             // TODO : 추후 프로세스 확인 바람
-            /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+            /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0) {
                 // TODO : btnConfirmHist.Enabled = true;
-                $("#main-btn-appr", parent.document).removeAttr('disabled');*/
+                $("#main-btn-appr", parent.document).removeAttr('disabled');
+                $("#main-btn-save", parent.document).removeAttr('disabled');
+                $("#main-btn-attach", parent.document).removeAttr('disabled');
+            }
+                */
         } else {
             if (strDoc_status == "1") {
                 //미승인
                 $("#main-btn-del", parent.document).removeAttr('disabled');
                 $("#main-btn-appr", parent.document).removeAttr('disabled');
+                $("#main-btn-save", parent.document).removeAttr('disabled');
+                $("#main-btn-attach", parent.document).removeAttr('disabled');
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").removeAttr('disabled');
@@ -3481,6 +3491,8 @@
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
                     $("#main-btn-del", parent.document).attr('disabled', true);
                     $("#main-btn-appr", parent.document).attr('disabled', true);
+                    $("#main-btn-save", parent.document).attr('disabled', true);
+                    $("#main-btn-attach", parent.document).attr('disabled', true);
 
                     $("#btnAddRow").attr('disabled', 'true');
                     $("#btnDeleteRow").attr('disabled', 'true');
@@ -3494,6 +3506,8 @@
             } else if (strDoc_status == "3") {
                 //승인중
                 $("#main-btn-appr", parent.document).attr('disabled', true);
+                $("#main-btn-save", parent.document).attr('disabled', true);
+                $("#main-btn-attach", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3504,6 +3518,8 @@
 
                 if (gfn_nvl(SBUxMethod.get('CONFIRM_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('PROXY_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd) {
                     $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
                 }
 
                 if ((gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == gfn_nvl(SBUxMethod.get('REQUEST_EMP_CODE'))) && (gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd)) {
@@ -3515,15 +3531,22 @@
                 if (strFI_DELETE_USER == p_userId) {
                     $("#main-btn-del", parent.document).removeAttr('disabled');
                     $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
                 }
 
-                if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "")
+                if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "") {
                     // TODO : btnConfirmHist.Enabled = true;
                     $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
+                }
             } else if (strDoc_status == "5") {
                 //승인완료
                 $("#main-btn-del", parent.document).attr('disabled', true);
                 $("#main-btn-appr", parent.document).attr('disabled', true);
+                $("#main-btn-save", parent.document).attr('disabled', true);
+                $("#main-btn-attach", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3540,15 +3563,22 @@
                 if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId && parseInt(gfn_nvl(SBUxMethod.get('APPR_COUNT')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_COUNT'))) == 1) {
                     $("#main-btn-appr", parent.document).removeAttr('disabled');
                     $("#main-btn-del", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
                 }
 
-                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0) {
                     // TODO : btnConfirmHist.Enabled = true;
                     $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
+                }
             } else {
                 //최종완료, 반려
                 $("#main-btn-del", parent.document).attr('disabled', true);
                 $("#main-btn-appr", parent.document).attr('disabled', true);
+                $("#main-btn-save", parent.document).attr('disabled', true);
+                $("#main-btn-attach", parent.document).attr('disabled', true);
                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
@@ -3558,9 +3588,12 @@
                 $("#VAT_CODE").attr('disabled', 'true');
 
                 // TODO : 추후 프로세스 확인 바람
-                /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                /*if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0) {
                     // TODO : btnConfirmHist.Enabled = true;
-                    $("#main-btn-appr", parent.document).removeAttr('disabled');*/
+                    $("#main-btn-appr", parent.document).removeAttr('disabled');
+                    $("#main-btn-save", parent.document).removeAttr('disabled');
+                    $("#main-btn-attach", parent.document).removeAttr('disabled');
+                }*/
             }
         }
 
@@ -4266,8 +4299,10 @@
             gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
-        $("#main-btn-save", parent.document).attr('disabled', true);
-        $("#main-btn-appr", parent.document).attr('disabled', true);
+        $("#main-btn-save", parent.document).removeAttr('disabled');
+        $("#main-btn-appr", parent.document).removeAttr('disabled');
+        $("#main-btn-attach", parent.document).removeAttr('disabled');
+        $("#main-btn-del", parent.document).removeAttr('disabled');
 
         // TODO: PreviewButton = false;
         // TODO: PrintButton = false;
