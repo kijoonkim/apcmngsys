@@ -147,7 +147,15 @@ select.form-control.input-sm {
     border-color: rgb(215, 215, 215) !important;
     color: #000 !important;
 }
-
+/*테이블에서 그려진 셀렉트 inpt_data_reqed 색상 변경*/
+.table-search-ma > tbody > tr > td > select.inpt_data_reqed.input-sm{
+	background-color: #FFF8DC;
+    background: url(../../images/admin/img_select.png) no-repeat right -6px top -6px;
+    background-size: 38px;
+    border-color: rgb(215, 215, 215) !important;
+    color: #000 !important;
+    
+}
 /*
 * 그리드 생성시 자동으로 생성되는 div의 보더를 탑만 제외하고 안보이게 처리함
 */
