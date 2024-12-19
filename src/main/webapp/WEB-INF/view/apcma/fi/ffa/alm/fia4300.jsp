@@ -96,19 +96,7 @@
 						<tr>
 							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="dropdown">
-									<button style="width: 160px; text-align: left"
-										class="btn btn-sm btn-light dropdown-toggle " type="button"
-										id="srch-slt-fiOrgCode" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">
-										<font>선택</font> <i style="padding-left: 10px"
-											class="sbux-sidemeu-ico fas fa-angle-down"></i>
-									</button>
-									<div class="dropdown-menu bplc"
-										aria-labelledby="srch-slt-fiOrgCode"
-										style="width: 250px; height: 150px; padding-top: 0px; overflow: auto">
-									</div>
-								</div>
+								<sbux-select id="srch-slt-fiOrgCode" uitype="single" jsondata-ref="jsonAcntgUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg_search">사업장</th>
@@ -932,6 +920,11 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
+
+    var p_ss_languageID			= '${loginVO.maLanguageID}';
+	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
+	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
+	var p_ss_siteCode			= '${loginVO.maSiteCode}';
     //-----------------------------------------------------------
 	var saveButton = true;
 
@@ -1045,7 +1038,7 @@
 			//회계단위
 			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//회계단위
-			gfnma_multiSelectInit({
+			/* gfnma_multiSelectInit({
 				target			: ['#srch-slt-fiOrgCode']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1062,7 +1055,7 @@
 		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}), */
 			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-dsps-expenseCurrencyCode','#srch-dsps-currencyCode']
@@ -1155,8 +1148,9 @@
 
 
 		//초기값 IFRS
-		SBUxMethod.set("srch-slt-acctRuleCodeP","2");
-		SBUxMethod.set("srch-slt-acctRuleCode","2")
+		SBUxMethod.set("srch-slt-acctRuleCodeP",p_ss_defaultAcctRule);
+		SBUxMethod.set("srch-slt-acctRuleCode",p_ss_defaultAcctRule)
+		SBUxMethod.set("srch-slt-fiOrgCode",p_ss_fiOrgCode)
 	}
 
     // only document
@@ -1276,7 +1270,7 @@
     //workType = DISP / LIST /SAVE /DETAIL
     const fnQRY_P_FIA4300_Q = async function(workType){
 
-    	var acntgUnit = gfnma_nvl(gfnma_multiSelectGet("#srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
+    	var acntgUnit = gfnma_nvl(SBUxMethod.get("srch-slt-fiOrgCode")); // 회계단위 cbofi_org_code1
     	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acctRuleCodeP")); // 회계기준 cboacct_rule_code_p
     	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-originalAssetDispNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
     	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-ast-assetDisposalNo"));  // 자산내역 : 처분번호 txtasset_disposal_no
@@ -2091,7 +2085,7 @@
     	let sourceId = gfnma_nvl(SBUxMethod.get("srch-ast-sourceId"));
     	let disposalType = SBUxMethod.get("srch-slt-disposalType");
     	let docBatchNo1 = SBUxMethod.get("srch-ast-docBatchNo1");
-    	let fiOrgCode = gfnma_multiSelectGet("#srch-slt-fiOrgCode");
+    	let fiOrgCode = SBUxMethod.get("srch-slt-fiOrgCode");
         if (sourceId === ""){
             //SetMessageBox("전표생성후 사용하세요.");
             alert("전표생성후 사용하세요.");

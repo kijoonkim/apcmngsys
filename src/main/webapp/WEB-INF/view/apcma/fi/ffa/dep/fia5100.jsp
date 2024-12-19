@@ -78,21 +78,7 @@
 
                             <th scope="row" class="th_bg_search">APC</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
-									<div class="dropdown">
-										    <button
-										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle "
-										    	type="button"
-										    	id="srch-slt-bizUnit"
-										    	data-toggle="dropdown"
-										    	aria-haspopup="true"
-										    	aria-expanded="false">
-										    	<font>선택</font>
-										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-fiOrgCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-										    </div>
-										</div>
+								<sbux-select id="srch-slt-bizUnit" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg_search">사업장</th>
@@ -457,6 +443,11 @@
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
+
+	var p_ss_languageID			= '${loginVO.maLanguageID}';
+	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
+	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
+	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
 
 	var editType			= "N";
@@ -515,35 +506,19 @@
 			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
-			//gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 
 			gfnma_setComSelect(['grdDprcDtStopList'], jsonSiteCd, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 
-			//회계단위
-			gfnma_multiSelectInit({
-				target			: ['#srch-slt-bizUnit']
-				,compCode		: gv_ma_selectedCorpCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_FIM022'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'FI_ORG_CODE'
-				,colLabel		: 'FI_ORG_NAME'
-				,columns		:[
-		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			}),
+
 
 
 		]);
 		//초기값 IFRS
-		SBUxMethod.set("srch-slt-acntgCrtr1","2");
-		SBUxMethod.set("srch-slt-acntgCrtr2","2");
+		SBUxMethod.set("srch-slt-acntgCrtr1",p_ss_defaultAcctRule);
+		SBUxMethod.set("srch-slt-acntgCrtr2",p_ss_defaultAcctRule);
+		SBUxMethod.set("srch-slt-bizUnit",p_ss_fiOrgCode);
+
 
 
 	}
@@ -579,6 +554,7 @@
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
 	var jsonSiteCd = []; //사업장
+
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -642,7 +618,7 @@
     //감가상각 일시중지등록 로직인듯
     //strStauts : N, U
     const fnSET_P_FIA5100_S = async function(strStauts) {
-        let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
+        let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
         let bplc = gfnma_multiSelectGet("#srch-slt-bplc2")//사업장,site_code
         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr2");//회계기준, acct_rule_code
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
@@ -712,7 +688,7 @@
     const fnQRY_P_FIA5100_Q = async function(strWorkType) {
 
          let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
-         let bizUnit = gfnma_multiSelectGet("#srch-slt-bizUnit")//회계단위 fi_org_code
+         let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
          let bplc = gfnma_multiSelectGet("#srch-slt-bplc1")//사업장,site_code
          let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr1");//회계기준, acct_rule_code
          let stopBgngYmdFrom = SBUxMethod.get("srch-dtp-stopBgngYmdFrom"); //중지시작년월From
