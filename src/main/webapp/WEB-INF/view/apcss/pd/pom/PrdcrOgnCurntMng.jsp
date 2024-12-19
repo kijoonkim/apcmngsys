@@ -1657,12 +1657,23 @@
 
 	/* Grid Row 추가 및 삭제 기능*/
 	function fn_procRow02(gubun, grid, nRow, nCol) {
-		console.log("======fn_procRow02=========");
+		//console.log("======fn_procRow02=========");
+		let objGrid = grdPrdcrOgnCurntMng02;
 		if (gubun === "ADD") {
 			if (grid === "grdPrdcrOgnCurntMng02") {
-				grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
-				//grdPrdcrCrclOgnReqClsMng.setCellData(nRow, 5, gv_apcCd, true);
-				grdPrdcrOgnCurntMng02.addRow(true);
+				objGrid.setCellData(nRow, nCol, "N", true);
+				//objGrid.setCellData(nRow, 5, gv_apcCd, true);
+				objGrid.addRow(true);
+
+				let flnmCol = objGrid.getColRef('flnm');//조직원명
+				let cltvtnAreaRmrkCol = objGrid.getColRef('cltvtnAreaRmrk');//비고
+
+				//기존 row 활성화
+				objGrid.setCellDisabled(nRow, flnmCol, nRow, cltvtnAreaRmrkCol, false);
+				objGrid.setCellStyle('background-color', nRow, flnmCol, nRow, cltvtnAreaRmrkCol, 'white');
+				//추가 row 비활성화
+				objGrid.setCellDisabled(nRow+1, flnmCol, nRow+1, cltvtnAreaRmrkCol, true);
+				objGrid.setCellStyle('background-color', nRow+1, flnmCol, nRow+1, cltvtnAreaRmrkCol, 'lightgray');
 			}
 		}
 		else if (gubun === "DEL") {
@@ -2089,14 +2100,16 @@
 			let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 			if (prfmncCorpDdlnYn != 'Y') {
 				//입력 그리드 인 경우 추가
-				let nRow = jsonPrdcrOgnCurntMng01.length;
+				//그리드 해더 row수
+				let captionRow = grdPrdcrOgnCurntMng01.getFixedRows();
+				let nRow = jsonPrdcrOgnCurntMng01.length + captionRow;
 				grdPrdcrOgnCurntMng01.addRow();
-				let rmrkCol = grdPrdcrOgnCurntMng01.getColRef('rmrk');//부류
-				let prdcrOgnzNmCol = grdPrdcrOgnCurntMng01.getColRef('prdcrOgnzNm');//평가부류
+				let rmrkCol = grdPrdcrOgnCurntMng01.getColRef('rmrk');//비고
+				let prdcrOgnzNmCol = grdPrdcrOgnCurntMng01.getColRef('prdcrOgnzNm');//조직명
 
 				//추가 row 비활성화
-				grdPrdcrOgnCurntMng01.setCellDisabled(nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, true);
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', nRow+1, prdcrOgnzNmCol, nRow+1, rmrkCol, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellDisabled(nRow, prdcrOgnzNmCol, nRow, rmrkCol, true);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', nRow, prdcrOgnzNmCol, nRow, rmrkCol, 'lightgray');
 			}
 
 		}catch (e) {
@@ -2197,7 +2210,17 @@
 			let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 			if (prfmncCorpDdlnYn != 'Y') {
 				//입력폼 추가를 위한 줄추가
+				//그리드 해더 row수
+				let captionRow = grdPrdcrOgnCurntMng02.getFixedRows();
+				let nRow = jsonPrdcrOgnCurntMng02.length + captionRow;
 				grdPrdcrOgnCurntMng02.addRow();
+				let flnmCol = grdPrdcrOgnCurntMng02.getColRef('flnm');//조직원명
+				let cltvtnAreaRmrkCol = grdPrdcrOgnCurntMng02.getColRef('cltvtnAreaRmrk');//비고
+				console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
+				//추가 row 비활성화
+				grdPrdcrOgnCurntMng02.setCellDisabled(nRow, flnmCol, nRow, cltvtnAreaRmrkCol, true);
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', nRow, flnmCol, nRow, cltvtnAreaRmrkCol, 'lightgray');
+				console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
 			}
 
 		}catch (e) {
