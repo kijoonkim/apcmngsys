@@ -1137,12 +1137,7 @@
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
-				<if test='uoBrno != null and uoBrno != ""'>
 				AND CLT.UO_BRNO	 			= #{uoBrno}
-				</if>
-				<if test='uoBrno == null or uoBrno == ""'>
-				AND CLT.UO_BRNO	 			= '0'
-				</if>
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -1225,7 +1220,7 @@
 					)
 				VALUES
 					(
-						  #{apoCd}
+						  (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 						, '2'
 						, #{brno}
 						<if test='uoBrno != null and uoBrno != ""'>
@@ -1234,9 +1229,7 @@
 						<if test='uoBrno == null or uoBrno == ""'>
 						, '0'
 						</if>
-						, (case when #{crno} is not null then #{crno}
-									ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
-									END)
+						, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
 						, #{yr}
 
 						, #{ctgryCd}
@@ -1281,12 +1274,7 @@
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
-				<if test='uoBrno != null and uoBrno != ""'>
 				AND CLT.UO_BRNO	 			= #{uoBrno}
-				</if>
-				<if test='uoBrno == null or uoBrno == ""'>
-				AND CLT.UO_BRNO	 			= '0'
-				</if>
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -1359,18 +1347,11 @@
 					)
 				VALUES
 					(
-						  #{apoCd}
+						  (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 						, '2'
 						, #{brno}
-						<if test='uoBrno != null and uoBrno != ""'>
 						, #{uoBrno}
-						</if>
-						<if test='uoBrno == null or uoBrno == ""'>
-						, '0'
-						</if>
-						, (case when #{crno} is not null then #{crno}
-									ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
-									END)
+						, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
 						, #{yr}
 
 						, #{ctgryCd}
@@ -1409,12 +1390,7 @@
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
-				<if test='uoBrno != null and uoBrno != ""'>
 				AND CLT.UO_BRNO	 			= #{uoBrno}
-				</if>
-				<if test='uoBrno == null or uoBrno == ""'>
-				AND CLT.UO_BRNO	 			= '0'
-				</if>
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -1503,18 +1479,11 @@
 					)
 				VALUES
 					(
-						#{apoCd}
+						(SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 						, '2'
 						, #{brno}
-						<if test='uoBrno != null and uoBrno != ""'>
 						, #{uoBrno}
-						</if>
-						<if test='uoBrno == null or uoBrno == ""'>
-						, '0'
-						</if>
-						, (case when #{crno} is not null then #{crno}
-									ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
-									END)
+						, (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
 						, #{yr}
 
 						, #{ctgryCd}
@@ -1560,19 +1529,14 @@
 	<delete id="deleteInvShipOgnPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
 		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 		 WHERE 1=1
-					 AND BRNO				= #{brno}
-					 <if test='uoBrno != null and uoBrno != ""'>
-					 AND UO_BRNO	 		= #{uoBrno}
-					 </if>
-					 <if test='uoBrno == null or uoBrno == ""'>
-					 AND UO_BRNO 			= '0'
-					 </if>
-					 AND CTGRY_CD			= #{ctgryCd}
-					 AND ITEM_CD			= #{itemCd}
-					 AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
-					 AND PRCHS_SLS_SE		= #{prchsSlsSe}
-					 AND APO_SE 			= '2'
-					 AND YR	 				= #{yr}
+			 AND BRNO				= #{brno}
+			 AND UO_BRNO	 		= #{uoBrno}
+			 AND CTGRY_CD			= #{ctgryCd}
+			 AND ITEM_CD			= #{itemCd}
+			 AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+			 AND PRCHS_SLS_SE		= #{prchsSlsSe}
+			 AND APO_SE 			= '2'
+			 AND YR	 				= #{yr}
 	</delete>
 	<!-- 총매입매출 출자출하조직 로우데이터 -->
 	<select id="selectRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">

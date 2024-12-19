@@ -434,10 +434,6 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
-
 		fn_init();
 
 		/**
@@ -459,6 +455,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		fn_setYear()//기본년도 세팅
 		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
@@ -478,6 +475,32 @@
 	<c:if test="${loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	var jsonComCmptnInst = [];//관할기관
@@ -1098,10 +1121,13 @@
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		let yr = SBUxMethod.get('dtl-input-yr');
 		if(gfn_isEmpty(brno)) return;
+		if(gfn_isEmpty(yr)) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
+			,yr: yr
 		});
 
 		let data = await postJsonPromise ;
@@ -1113,7 +1139,12 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
-				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
+				if(gfn_isEmpty(item.yr)){
+					//저장 버튼 숨김처리
+					$('#btnSaveFclt1').hide();
+					alert('신청정보가 없습니다');
+				}
+
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리

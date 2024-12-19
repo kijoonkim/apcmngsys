@@ -1030,10 +1030,6 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		let now = new Date();
-		let year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
-
 		fn_init();
 
 		/**
@@ -1116,7 +1112,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-
+		fn_setYear();//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
@@ -1125,15 +1121,38 @@
 		await fn_apcListGrid();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("dtl-input-yr",year);//
-		//SBUxMethod.set("dtl-input-yr",'2025');
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 		await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		console.log('fn_selectSetYear');
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	//그리드 변수
@@ -1439,14 +1458,13 @@
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		let year = SBUxMethod.get("dtl-input-yr");
 		if(gfn_isEmpty(brno)) return;
-		//사용자는 현재년도만 필요함
-		let now = new Date();
-		let year = now.getFullYear();
+		if(gfn_isEmpty(year)) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
-			,yr : year//TEST
+			,yr : year
 		});
 		let data = await postJsonPromise;
 		try{
@@ -1460,11 +1478,9 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//
-				if(gfn_isEmpty(item.yr)){
-					SBUxMethod.set('dtl-input-yr',year)//
-				}else{
-					SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
-				}
+				//신청정보가 없는 경우 년도값이 없음
+				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
+
 				SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))//
 				SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))//
 				SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr))//

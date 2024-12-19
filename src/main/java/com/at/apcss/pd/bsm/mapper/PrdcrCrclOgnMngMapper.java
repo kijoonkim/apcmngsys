@@ -9,7 +9,7 @@ import com.at.apcss.pd.bsm.vo.UoListVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -108,4 +108,11 @@ public interface PrdcrCrclOgnMngMapper {
 	 * @return List<PrdcrCrclOgnMngVO>
 	 */
 	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO);
+
+	/**
+	 * 세팅된 년도값 조회
+	 * @param PrdcrCrclOgnMngVO
+	 * @return PrdcrCrclOgnMngVO
+	 */
+	public PrdcrCrclOgnMngVO selectSetYear(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO);
 }

@@ -600,10 +600,6 @@
 //그리드 에디트 상태에서 영역외 클릭시 부자연스럽게 그리드 영역이 부자연스럽게 이동함
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
-
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -623,6 +619,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		fn_setYear()//기본년도 세팅
 		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
@@ -641,6 +638,32 @@
 	<c:if test="${loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	var jsonComCmptnInst = [];//관할기관
@@ -724,12 +747,12 @@
 	            "accesskey": "e",					//단축키
 	            "callback": fn_excelDwnld,			//콜백함수명
 	        }
-	    };
+		};
 
 
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("생산자조직 현황(검색리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 

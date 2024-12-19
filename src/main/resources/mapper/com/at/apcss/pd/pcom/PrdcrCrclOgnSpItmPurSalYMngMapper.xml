@@ -879,8 +879,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMng */
 		USING DUAL
 			ON (
-					CLT.APO_CD   		= #{apoCd}
-				AND CLT.APO_SE	 		= #{apoSe}
+					CLT.APO_SE	 		= '1'
 				AND CLT.BRNO 			= #{brno}
 				AND CLT.YR	 			= #{yr}
 				AND CLT.CTGRY_CD	 	= #{ctgryCd}
@@ -940,11 +939,11 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					)
 				VALUES
 					(
-					    #{apoCd}
-					  , #{apoSe}
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , '1'
 					  , #{brno}
-					  , #{crno}
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{yr}
 					  , #{ctgryCd}
 					  , #{itemCd}
 					  , #{isoBrno}
@@ -952,7 +951,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					  , #{prdcrOgnzCd}
 					  , #{cltvtnLandSn}
 					  , #{typeSeNo}
-					  , '0'
+					  , #{brno}
 
 					  , #{slsCnsgnPrchsAmt}
 					  , #{slsCnsgnSlsAmt}
@@ -2208,7 +2207,7 @@ ORDER BY
 		USING DUAL
 			ON (
 					CLT.YR	 			= #{yr}
-				AND CLT.APO_SE	 		= #{apoSe}
+				AND CLT.APO_SE	 		= '1'
 				AND CLT.BRNO 			= #{brno}
 				AND CLT.ITEM_CD 		= #{itemCd}
 				AND CLT.ISO_BRNO 		= #{isoBrno}

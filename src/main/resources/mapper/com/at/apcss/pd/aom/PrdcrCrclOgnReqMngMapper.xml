@@ -634,6 +634,7 @@
 						APO_CD
 					  , APO_SE
 					  , BRNO
+					  , UO_BRNO
 					  , CRNO
 					  , CORP_NM
 					  , YR
@@ -649,11 +650,12 @@
 					)
 				VALUES
 					(
-					    #{apoCd}
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , '1'
 					  , #{brno}
-					  , #{crno}
-					  , #{corpNm}
+					  , #{brno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , #{yr}
 					  , SYSDATE
 					  , #{rawMtrEnsrSigunCnt}

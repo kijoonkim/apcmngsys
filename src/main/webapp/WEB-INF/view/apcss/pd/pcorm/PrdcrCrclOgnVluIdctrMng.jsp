@@ -477,11 +477,8 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		var now = new Date();
-		var year = now.getFullYear();//현재년도
-
+		fn_setYear()//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
 		await fn_fcltMngCreateGrid01();//통합조직
@@ -497,10 +494,35 @@
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-		SBUxMethod.set("dtl-input-yr",year);//
 		//관리자만 사용 예정
 		//await fn_dtlSearch();
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	var jsonComCmptnInst = [];//관할기관

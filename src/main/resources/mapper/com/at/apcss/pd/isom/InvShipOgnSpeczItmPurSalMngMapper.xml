@@ -557,11 +557,11 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					)
 				VALUES
 					(
-					    #{apoCd}
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , #{apoSe}
 					  , #{brno}
-					  , #{crno}
-					  , TO_CHAR(SYSDATE,'YYYY')
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+					  , #{yr}
 					  , #{ctgryCd}
 					  , #{itemCd}
 					  , #{isoBrno}

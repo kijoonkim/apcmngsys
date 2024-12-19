@@ -75,6 +75,9 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String mno;				//본번(생산유통통합조직 관리자가 정한 정렬)
 	private String sno;				//부번(생산유통통합조직 관리자가 정한 정렬)
 
+	private String cdId;			//코드 아이디
+	private String cdVl;			//코드 값
+
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd
 

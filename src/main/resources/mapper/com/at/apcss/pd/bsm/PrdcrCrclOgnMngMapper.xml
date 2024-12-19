@@ -870,4 +870,15 @@
 		 WHERE 1=1
 		ORDER BY CM.CORP_NM ASC
 	</select>
+
+	<select id="selectSetYear" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
+		SELECT
+			CD_VL
+		FROM
+			TB_COM_CD_DTL
+		WHERE 1=1
+		  AND CD_ID = #{cdId}
+		  AND INDCT_SEQ = '1'
+		  AND USE_YN = 'Y'
+	</select>
 </mapper>

@@ -207,14 +207,38 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		let now = new Date();
-		let year = now.getFullYear();
-		SBUxMethod.set('srch-input-yr',year);//현재 년도 세팅
+		fn_setYear()//기본년도 세팅
 
 		await fn_uoAprvGrid();
 		await fn_prfmncChckMngGrid();
 
 		await fn_search();
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		//SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	//그리드 변수
