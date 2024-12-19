@@ -483,6 +483,8 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:300px; width: 100%;"></div>
 				</div>
 			</div>
+
+			<!-- 로우데이터 -->
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
@@ -509,10 +511,6 @@
 //조직 선택후 품목 취급유형 선택후 다시 조회
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
-
 		fn_init();
 
 		/**
@@ -532,6 +530,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		fn_setYear();//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
@@ -547,6 +546,32 @@
 	<c:if test="${loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
+	}
+
+	/* 기본 년도값 세팅 */
+	const fn_setYear = async function() {
+		let cdId = "SET_YEAR";
+		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+			cdId : cdId
+		});
+		let data = await postJsonPromise;
+		//현재 년도(세팅값이 없는경우 현재년도로)
+		let now = new Date();
+		let year = now.getFullYear();
+		try{
+			if(!gfn_isEmpty(data.setYear)){
+				year = data.setYear;
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		//기본년도 세팅
+		SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("dtl-input-yr",year);
 	}
 
 	var jsonComCmptnInst = [];//관할기관
@@ -1373,6 +1398,62 @@
 		fn_gridCustom();
 	}
 
+	/* 매출현황 요약표 */
+	var jsonPrdcrOgnCurntMng04 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng04;
+
+	const objMenuList04 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld04,			//콜백함수명
+			}
+		};
+
+	function fn_excelDwnld04() {
+		grdPrdcrOgnCurntMng04.exportLocalExcel("출자출하조직관리(총 매출현황 - 매출현황 요약)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+	/* Grid 화면 그리기 기능*/
+	const fn_fcltMngCreateGrid04 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng04';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng04';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng04';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList04;	// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols=4;
+		SBGridProperties.frozenbottomrows=1;
+		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["","구분"]
+				,ref: 'clsfNm',		type:'output',  width:'55px',    style:'text-align:center'},
+
+			{caption: ["2023년","취급 물량(톤)"]
+				,ref: 'trmtVlm1',	type:'input',	width:'50px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["2023년","취급액(천원)"]
+				,ref: 'trmtAmt1',	type:'input',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["2024년","취급 물량(톤)"]
+				,ref: 'trmtVlm2',	type:'input',  width:'50px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["2024년","취급액(천원)"]
+				,ref: 'trmtAmt2',	type:'input',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
+		];
+		grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
+	}
 
 
 	/**
@@ -1603,10 +1684,13 @@
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		let yr = SBUxMethod.get('dtl-input-yr');
 		if(gfn_isEmpty(brno)) return;
+		if(gfn_isEmpty(yr)) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
+			,yr:yr
 		});
 
 		let data = await postJsonPromise ;
@@ -1619,8 +1703,12 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
-
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				if(gfn_isEmpty(item.yr)){
+					//저장 버튼 숨김처리
+					$('#btnSaveFclt1').hide();
+					alert('신청정보가 없습니다');
+				}
+				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
@@ -2093,10 +2181,13 @@
 			grdPrdcrOgnCurntMng01.rebuild();
 			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng03.rebuild();
+			//grdPrdcrOgnCurntMng04.rebuild(); 매출현황 요약
+
 			//소계 줄 추가
 			grdPrdcrOgnCurntMng01.addRow();
 			grdPrdcrOgnCurntMng02.addRow();
 			grdPrdcrOgnCurntMng03.addRow();
+
 			fn_grdTot01();
 			fn_grdTot02();
 			fn_grdTot03();
