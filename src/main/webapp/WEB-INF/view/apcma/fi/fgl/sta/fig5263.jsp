@@ -89,7 +89,10 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">APC</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
@@ -101,7 +104,10 @@
 	                            
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select style="width:150px" id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select style="width:150px" id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
@@ -112,8 +118,10 @@
 										id="SCH_YMDPERIOD_CODE_FR"
 								        datepicker-mode="month"
 								        date-format="yyyy-mm"
-										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma"
+										class="form-control pull-right input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 								        onchange = "fn_cngBasicDate"
+										group-id="schHeader" 
+										required                                       
 									></sbux-datepicker>
 								</td>
 								<td id="SCH_LBLBETWEEN" >-</td>
@@ -135,7 +143,10 @@
 								                            
 	                            <th scope="row" class="th_bg_search">계정수준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select style="width:150px" id="SCH_ACCOUNT_LEVEL" uitype="single" jsondata-ref="jsonAccountLevel" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select style="width:150px" id="SCH_ACCOUNT_LEVEL" uitype="single" jsondata-ref="jsonAccountLevel" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 								                            
@@ -404,7 +415,9 @@
      * 목록 조회
      */
  	function cfn_search() {
-    	
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
 		console.log('p_sel_tab:', p_sel_tab);		
 		
     	if(p_sel_tab==1){
