@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : prdWrhsStats.jsp
-  * @Description : 기간별 입고통계 조회
+  * @Class Name : prdPrdctnPrfmncStats.jsp
+  * @Description : 기간별 생산 실적 조회
   * @author SI개발부
   * @since 2024.10.23
   * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 기간별 입고통계 조회</title>
+	<title>title : 기간별 생산 실적 조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -30,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 기간별 입고통계 조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 기간별 생산 실적 조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -153,7 +153,7 @@
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
-									<span>기간별 입고통계</span>
+									<span>기간별 생산실적통계</span>
 								</li>
 							</ul>
 						</div>
@@ -187,8 +187,8 @@
 		let result = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_apcCd),		// 품목
 			gfn_setApcVrtySBSelect("srch-slt-vrtyCd", 		jsonApcVrty, 	gv_apcCd),			// APC 품종(저장)
-			await fn_statCrtrInfoTermList("WRHS","STAT_TERM_KND"),
-			await fn_statCrtrElmtInfoList("WRHS","STAT_ELMT_KND")
+			await fn_statCrtrInfoTermList("PRCS","STAT_TERM_KND"),
+			await fn_statCrtrElmtInfoList("PRCS","STAT_ELMT_KND")
         ]);
 
 
@@ -786,7 +786,7 @@
 
  		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
 
- 		gfn_popClipReportPost("기간별입고통계조회", "am/rawMtrInvntrTot.crf",null, conn);
+ 		gfn_popClipReportPost("기간별생산실적조회", "am/rawMtrInvntrTot.crf",null, conn);
  	}
 
 

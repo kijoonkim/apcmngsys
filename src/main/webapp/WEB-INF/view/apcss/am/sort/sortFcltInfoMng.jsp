@@ -116,12 +116,12 @@
                                     <tr>
                                         <th scope="row" class="th_bg">설비코드</th>
                                         <td class="td_input">
-                                            <sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm" group-id="group1" disabled>
+                                            <sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm"  readonly>
                                             </sbux-input>
                                         </td>
                                         <th scope="row" class="th_bg">명칭</th>
                                         <td class="td_input">
-                                            <sbux-input id="dtl-inp-alias" name="dtl-inp-alias" uitype="text" class="form-control input-sm" group-id="group1" disabled>
+                                            <sbux-input id="dtl-inp-alias" name="dtl-inp-alias" uitype="text" class="form-control input-sm"  readonly>
                                             </sbux-input>
                                         </td>
                                     </tr>
@@ -135,7 +135,8 @@
                                                     jsondata-ref="jsonFcltType"
                                                     unselected-text="전체"
                                                     class="form-control input-sm input-sm-ast"
-                                                    group-id="group1"
+
+                                                    readonly
                                             ></sbux-select>
                                         </td>
                                         <th scope="row" class="th_bg">포장구분</th>
@@ -328,6 +329,8 @@
 			gfn_setApcItemSBSelect('dtl-inp-rprsItem', 		jsonApcItem, gv_apcCd),		// 품목
 			gfn_setApcVrtySBSelect("dtl-inp-rprsVrty", 		jsonApcVrty, 	gv_apcCd)			// APC 품종(저장)
         ]);
+
+        SBUxMethod.set("dtl-slt-fcltType","SORT_FCLT_CD");
     }
 
     const fn_search = async function(){
@@ -335,10 +338,11 @@
     	jsonSortFcltDtlList.length = 0;
     	grdSortFcltDtlList.refresh();
 		let sortFcltCd = SBUxMethod.get("srch-slt-sortFcltCd");
+		let fcltType = SBUxMethod.get("dtl-slt-fcltType");
     	let condition = {
     		apcCd:gv_apcCd
     		, fcltCd : sortFcltCd
-    		, fcltType : "SORT_FCLT_CD"
+    		, fcltType : fcltType
     	}
 
         try{
@@ -386,6 +390,7 @@
 		let bgngYmd = SBUxMethod.get("dtl-dtp-bgngYmd");
 		let endYmd = SBUxMethod.get("dtl-dtp-endYmd");
 		let fcltNm = SBUxMethod.get("dtl-inp-alias");
+		let fcltType = SBUxMethod.get("dtl-slt-fcltType");
 
 
 
@@ -393,7 +398,7 @@
         try{
             let sortFcltInfo ={
             			apcCd : gv_apcCd
-            			, fcltType : "SORT_FCLT_CD"
+            			, fcltType : fcltType
             			, fcltCd : fcltCd
             			, atrbCd : fcltCd
             			, atrbVl : ""
@@ -447,9 +452,10 @@
         if(!gfn_comConfirm("Q0001","삭제")){
             return;
         };
-
+        let fcltType = SBUxMethod.get("dtl-slt-fcltType");
         let idx = grdSortFcltList.getRow();
         let sortFcltVO = grdSortFcltList.getRowData(idx);
+        sortFcltVO['FCLT_TYPE'] = fcltType;
         let postJsonPromise = gfn_postJSON("/am/sort/deleteSortFclt.do",sortFcltVO);
         let data = await postJsonPromise;
 
