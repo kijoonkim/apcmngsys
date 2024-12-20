@@ -96,7 +96,10 @@
 	                        
 	                            <th scope="row" class="th_bg_search">실적구분</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="jsonActualFlagP" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        </tr>
@@ -123,10 +126,13 @@
 	                            <th scope="row" class="th_bg_search">조회기준일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
-								            id="SCH_BASE_DATE"
-								            uitype="popup"
-								            date-format="yyyy-mm-dd"
-								            class="form-control input-sm input-sm-ast table-datepicker-ma">
+							            id="SCH_BASE_DATE"
+							            uitype="popup"
+							            date-format="yyyy-mm-dd"
+							            class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+								    >
 								    </sbux-datepicker>
 									<sbux-input style="display:none" id="SCH_LANG_ID" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
@@ -164,13 +170,19 @@
 	                        
 	                            <th scope="row" class="th_bg_search">감가상각기준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_DEPRECIATION_TYPE" uitype="single" jsondata-ref="jsonDepreciationType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_DEPRECIATION_TYPE" uitype="single" jsondata-ref="jsonDepreciationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        </tr>
@@ -987,7 +999,9 @@
      * 목록 조회
      */
  	function cfn_search() {
- 		
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
 //     	var SaveButton =  $('#main-btn-save', parent.document).prop('disabled');
 //     	if(!SaveButton){
 // 			if(gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장 후 이동하시겠습니까?")){

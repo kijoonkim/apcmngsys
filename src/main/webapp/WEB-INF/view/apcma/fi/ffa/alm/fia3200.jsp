@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fia3100.jsp
+ * @Class Name 		: fia3200.jsp
  * @Description 	: 자산명세조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.10.17
@@ -88,7 +88,10 @@
 	                        
 	                            <th scope="row" class="th_bg_search">회계기준</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        
@@ -319,6 +322,9 @@
      * 목록 조회
      */
  	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
     	if(p_sel_tab==1){
 	    	fn_setFia3200Grid01('Q');
     	} else {

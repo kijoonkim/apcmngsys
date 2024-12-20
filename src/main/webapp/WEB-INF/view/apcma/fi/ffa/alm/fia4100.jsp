@@ -80,7 +80,10 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동전]</font> APC</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE1" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE1" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        
@@ -92,7 +95,10 @@
 	                            
 	                            <th scope="row" class="th_bg_search"><font style="font-weight:bold;color:blue">[이동후]</font> APC</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE2" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select style="width:200px" id="SCH_FI_ORG_CODE2" uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
+										group-id="schHeader" 
+										required                                       
+	                                ></sbux-select>
 	                            </td>
 	                            <td></td>
 	                        
@@ -101,7 +107,6 @@
 	                                <sbux-select style="width:200px" id="SCH_SITE_CODE2" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
-	                            
 	                        </tr>
 	                    
 	                        <tr>
@@ -461,6 +466,9 @@
      * 목록 조회
      */
  	function cfn_search() {
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+            return false;
+        }        
     	
  		fn_state('B');
     	
