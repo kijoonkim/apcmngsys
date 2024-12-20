@@ -2154,16 +2154,17 @@
 		let clsfCdCol = objGrid.getColRef('clsfCd');//부류
 		let ctgryCdCol = objGrid.getColRef('ctgryCd');//평가부류
 		//기타일떄 부류,평가부류 비활성화
+		//20241220 기타인경우도 평가부류 가능하게 요청
 		if(strValue == '3'){
 			//objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
-			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
-			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'lightgray');
+			//objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
+			//objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'lightgray');
 			//objGrid.setCellData(nRow,clsfCdCol,"");
-			objGrid.setCellData(nRow,ctgryCdCol,"");
+			//objGrid.setCellData(nRow,ctgryCdCol,"");
 		}else{
 			//objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
-			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
-			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'white');
+			//objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
+			//objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'white');
 		}
 		return strValue;
 	}
@@ -2310,14 +2311,14 @@
 					//기타일떄 부류,평가부류 비활성화
 					if(rowData.sttgUpbrItemSe == '3'){
 						//grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, true);
-						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
-						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'lightgray');
+						//grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
+						//grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'lightgray');
 						//grdGpcList.setCellData(i,clsfCdCol,0);
-						grdGpcList.setCellData(i,ctgryCdCol,0);
+						//grdGpcList.setCellData(i,ctgryCdCol,0);
 					}else{
 						//grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, false);
-						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, false);
-						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
+						//grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, false);
+						//grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
 					}
 				}
 			}
