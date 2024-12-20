@@ -36,6 +36,15 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+                            id="btn-srch-apcLinkPop"
+                            name="btn-srch-apcLinkPop"
+                            class="btn btn-sm btn-outline-danger"
+                            text="연계요청"
+                            uitype="modal"
+                            target-id="modal-apcLinkPop"
+                            onclick="fn_popApcLink"
+                    ></sbux-button>
+					<sbux-button
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
@@ -228,6 +237,21 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
+    <div>
+        <sbux-modal
+            id="modal-apcLinkPop"
+            name="modal-apcLinkPop"
+            uitype="middle"
+            header-title="계량연계수신"
+            body-html-id="body-modal-apcLinkPop"
+            header-is-close-button="false"
+            footer-is-close-button="false"
+            style="width:800px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-apcLinkPop">
+        <jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+     </div>
 </body>
 <script type="text/javascript">
 
@@ -650,9 +674,14 @@
      * @function
      */
 	const fn_clearForm = function() {
+		SBUxMethod.set("srch-slt-itemCd", "");			// 품목
+  		SBUxMethod.set("srch-rdo-wrhsSpmtType", "RT");	// 입고출고구분
+  		SBUxMethod.set("srch-inp-prdcrCd", "");			// 생산자코드
+  		SBUxMethod.set("srch-inp-prdcrNm", "");			// 생산자명
+  		SBUxMethod.set("srch-inp-prdcrIdentno", "");	// 생산자번호
 
+  		fn_onChangeWrhsSpmtType("RT");
 	}
-
 
     /**
      * @name fn_setGrdWghPrfmnc
@@ -930,6 +959,22 @@
 		fn_setPrdcrForm(prdcrInfo);
 
 	}
+
+	const fn_popApcLink = function() {
+        popApcLink.init(
+                    {
+                        apcCd: gv_selectedApcCd,
+                        apcNm: gv_selectedApcNm,
+                        linkKnd: "W",
+                        kndList: ["W"]
+                    },
+                    fn_popApcLinkCallBack
+                );
+    }
+
+	const fn_popApcLinkCallBack = function() {
+
+    }
 
 
 
