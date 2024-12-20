@@ -472,7 +472,7 @@
             	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
             },
             {caption : ['적용종료일'],     	ref: 'END_DATE',      type:'inputdate' ,   
-            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true},      width : '20%', style : 'text-align:center'
+            	typeinfo : {dateformat :"yyyy-mm-dd", displayui:true, oneclickedit  : true},      width : '20%', style : 'text-align:center'
             }
         ];
         authorityGrid	= _SBGrid.create(SBGridProperties);
@@ -641,11 +641,11 @@
    	    if(updatedDetailData.lenght != 0){
 	    	for(var i = 0; updatedDetailData.length > i; i++){
 	        	if(updatedDetailData[i].SITE_CODE == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 사업장코드");
+	           		gfn_comAlert("W0002","대상사업장탭의 " + i+1 + "번 행의 사업장코드");
 	           		return;
 	           	}
 	           	if(updatedDetailData[i].SITE_NAME == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 사업장명");
+	           		gfn_comAlert("W0002","대상사업장탭의 " + i+1 + "번 행의 사업장명");
 	           		return;
 	           	}
 	           	strSiteCode	+= updatedDetailData[i].SITE_CODE 	+ "|";
@@ -657,19 +657,19 @@
    	    if(updatedAuthorityData.lenght != 0){
 	    	for(var i = 0; updatedAuthorityData.length > i; i++){
 	        	if(updatedAuthorityData[i].USER_ID == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 사용자ID");
+	           		gfn_comAlert("W0002","전표 전기 권한탭의 " + i+1 + "번 행의 사용자ID");
 	           		return;
 	           	}
 	           	if(updatedAuthorityData[i].USER_NAME == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 사용자명");
+	           		gfn_comAlert("W0002","전표 전기 권한탭의 " + i+1 + "번 행의 사용자명");
 	           		return;
 	           	}
 	           	if(updatedAuthorityData[i].START_DATE == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 적용시작일");
+	           		gfn_comAlert("W0002","전표 전기 권한탭의 " + i+1 + "번 행의 적용시작일");
 	           		return;
 	           	}
 	           	if(updatedAuthorityData[i].END_DATE == ''){
-	           		gfn_comAlert("W0002", i+1 + "번 행의 적용종료일");
+	           		gfn_comAlert("W0002","전표 전기 권한탭의 " + i+1 + "번 행의 적용종료일");
 	           		return;
 	           	}
 	           	strWorkType2 	+= "N" + "|";

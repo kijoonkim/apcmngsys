@@ -581,7 +581,7 @@
 							</tr>
                     	</table>
                    	</div>
-                       <!-- 주소 ~ 매핑이력 - 주소/연락처 -->
+                       <!--주소/연락처 -->
 					<div id="tabAddress" style="height:60vh;">
 						<table id="addressTable" class="table table-bordered tbl_fixed">
 							<colgroup>
@@ -661,7 +661,7 @@
 							</tr>    										   
 						</table>									
 					</div>
-					<!-- 주소 ~ 매핑이력 - 자금정보 -->
+					<!--자금정보 -->
 					<div id="tabFinance" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:ruby;float: right;">
@@ -690,7 +690,7 @@
 							<div id="sb-area-grdFinance" style="height:60vh; width:100%;"></div>
 						</div>
 					</div>
-					<!-- 주소 ~ 매핑이력 - 구매정보 -->
+					<!--구매정보 -->
 					<div id="tabPurchase" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -855,7 +855,7 @@
 							<div id="sb-area-grdPurchase" style="height:350px; width:100%;"></div>
 						</div>
 					</div>
-					<!-- 주소 ~ 매핑이력 - 판매정보 -->
+					<!--판매정보 -->
 					<div id="tabSales" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -957,7 +957,7 @@
 							<div id="sb-area-grdSales" style="height:350px; width:100%;"></div>
 						</div>									
 					</div>
-					<!-- 주소 ~ 매핑이력 - 판매납품처 -->
+					<!--판매납품처 -->
 					<div id="tabSalesShipTo" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -969,7 +969,7 @@
 							<div id="sb-area-grdSalesShipTo" style="height:60vh; width:100%;"></div>
 						</div>										
 					</div>
-					<!-- 주소 ~ 매핑이력 - 판매처분류 -->
+					<!--판매처분류 -->
 					<div id="tabSalesCategory" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -1027,7 +1027,7 @@
 							<div id="sb-area-grdSalesCategory" style="height:300px; width:100%;"></div>
 						</div>										
 					</div>
-					<!-- 주소 ~ 매핑이력 - 세금 등 -->
+					<!--세금 등 -->
 					<div id="tabTax" style="height:60vh;">
 						<table id="taxTable" class="table table-bordered tbl_fixed">
 							<colgroup>
@@ -1109,7 +1109,7 @@
 							</tr>  										
 						</table>											
 					</div>
-					<!-- 주소 ~ 매핑이력 - 변경이력관리 -->
+					<!--변경이력관리 -->
 					<div id="tabHistory" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -1121,7 +1121,7 @@
 							<div id="sb-area-grdHistory" style="height:60vh; width:100%;"></div>
 						</div>										
 					</div>
-					<!-- 주소 ~ 매핑이력 - 매핑이력 -->
+					<!--매핑이력 -->
 					<div id="tabMapping" style="height:60vh;">
 						<div class="ad_tbl_toplist">
 							<div style="display:flex;float: right;">
@@ -1214,26 +1214,26 @@
 	var jsonWithholdTaxType		= []; // 원천세유형
 	var jsonUseYn				= []; //확정여부, 거래중지여부, 삭제여부
 	var jsonStatusCode			= []; // 거래처 리스트 - 상태
-	var jsonNoteType 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
-	var jsonPayReason 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 지급사유
-	var jsonSendReason 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 송금사유
-	var jsonFeeCharger 			= []; // 주소 ~ 매핑이력 - 자금정보 탭 수수료부담자
-	var jsonCurrencyCode 		= []; // 주소 ~ 매핑이력 - 자금정보 탭 통화
-	var jsonVatAccountYN 		= []; // 주소 ~ 매핑이력 - 자금정보 탭 부가세전용계좌여부
-	var jsonPurContactType 		= []; // 주소 ~ 매핑이력 - 구매정보 탭 용도
-	var jsonSaleContactType 	= []; // 주소 ~ 매핑이력 - 판매정보 탭 용도
-	var jsonCreditArea	 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 여신관리영역
-	var jsonCsCategory1 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류1
-	var jsonCsCategory2 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류2
-	var jsonCsCategory3 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류3
-	var jsonCsCategory4 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류4
-	var jsonCsCategory5 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류5
-	var jsonCsCategory6 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류6
-	var jsonCsCategory7 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류7
-	var jsonCsCategory8 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류8
-	var jsonCsCategory9 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류9
-	var jsonCsCategory10 		= []; // 주소 ~ 매핑이력 - 판매처분류 탭 분류10
-	var jsonMapType 			= []; // 주소 ~ 매핑이력 - 매핑이력 탭 매칭유형
+	var jsonNoteType 			= []; //자금정보 탭 어음상품종류
+	var jsonPayReason 			= []; //자금정보 탭 지급사유
+	var jsonSendReason 			= []; //자금정보 탭 송금사유
+	var jsonFeeCharger 			= []; //자금정보 탭 수수료부담자
+	var jsonCurrencyCode 		= []; //자금정보 탭 통화
+	var jsonVatAccountYN 		= []; //자금정보 탭 부가세전용계좌여부
+	var jsonPurContactType 		= []; //구매정보 탭 용도
+	var jsonSaleContactType 	= []; //판매정보 탭 용도
+	var jsonCreditArea	 		= []; //판매처분류 탭 여신관리영역
+	var jsonCsCategory1 		= []; //판매처분류 탭 분류1
+	var jsonCsCategory2 		= []; //판매처분류 탭 분류2
+	var jsonCsCategory3 		= []; //판매처분류 탭 분류3
+	var jsonCsCategory4 		= []; //판매처분류 탭 분류4
+	var jsonCsCategory5 		= []; //판매처분류 탭 분류5
+	var jsonCsCategory6 		= []; //판매처분류 탭 분류6
+	var jsonCsCategory7 		= []; //판매처분류 탭 분류7
+	var jsonCsCategory8 		= []; //판매처분류 탭 분류8
+	var jsonCsCategory9 		= []; //판매처분류 탭 분류9
+	var jsonCsCategory10 		= []; //판매처분류 탭 분류10
+	var jsonMapType 			= []; //매핑이력 탭 매칭유형
 	var jsonEmpState				= [];
 	var jsonCOM011				= [];
 	const fn_initSBSelect = async function() {
@@ -1245,47 +1245,47 @@
             gfnma_setComSelect([], jsonCOM011, 'L_COM011', "AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//원천세 유형
             gfnma_setComSelect([], jsonWithholdTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
+			//자금정보 탭 어음상품종류
             gfnma_setComSelect(['masterGrid','STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 어음상품종류
+			//자금정보 탭 어음상품종류
             gfnma_setComSelect(['financeGrid','NOTE_TYPE'], jsonNoteType, 'L_FIF044', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 지급사유
+			//자금정보 탭 지급사유
             gfnma_setComSelect(['financeGrid','PAY_REASON'], jsonPayReason, 'L_COM062', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 송금사유
+			//자금정보 탭 송금사유
             gfnma_setComSelect(['financeGrid','SEND_REASON'], jsonSendReason, 'L_COM063', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 수수료부담자
+			//자금정보 탭 수수료부담자
             gfnma_setComSelect(['financeGrid','FEE_CHARGER'], jsonFeeCharger, 'L_COM064', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 통화
+			//자금정보 탭 통화
             gfnma_setComSelect(['financeGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 자금정보 탭 통화
+			//자금정보 탭 통화
             gfnma_setComSelect(['financeGrid','VAT_ACCOUNT_YN'], jsonVatAccountYN, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 구매정보 탭 용도
+			//구매정보 탭 용도
             gfnma_setComSelect(['purchaseGrid','PUR_CONTACT_TYPE'], jsonPurContactType, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			// 주소 ~ 매핑이력 - 구매정보 탭 용도
+			//구매정보 탭 용도
             gfnma_setComSelect(['salesGrid','SALE_CONTACT_TYPE'], jsonSaleContactType, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 여신관리영역
+         	//판매처분류 탭 여신관리영역
             gfnma_setComSelect(['salesCategoryGrid','CREDIT_AREA'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류1
+         	//판매처분류 탭 분류1
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY1'], jsonCsCategory1, 'L_COM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류2
+         	//판매처분류 탭 분류2
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY2'], jsonCsCategory2, 'L_COM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류3
+         	//판매처분류 탭 분류3
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY3'], jsonCsCategory3, 'L_COM053', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류4
+         	//판매처분류 탭 분류4
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY4'], jsonCsCategory4, 'L_COM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류5
+         	//판매처분류 탭 분류5
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY5'], jsonCsCategory5, 'L_COM055', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류6
+         	//판매처분류 탭 분류6
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY6'], jsonCsCategory6, 'L_COM056', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류7
+         	//판매처분류 탭 분류7
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY7'], jsonCsCategory7, 'L_COM057', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류8
+         	//판매처분류 탭 분류8
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY8'], jsonCsCategory8, 'L_COM058', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류9
+         	//판매처분류 탭 분류9
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY9'], jsonCsCategory9, 'L_COM059', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 판매처분류 탭 분류10
+         	//판매처분류 탭 분류10
             gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY10'], jsonCsCategory10,'L_COM060', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-         	// 주소 ~ 매핑이력 - 매핑이력 탭 매칭유형
+         	//매핑이력 탭 매칭유형
             gfnma_setComSelect(['mappingGrid','MAP_TYPE'], jsonMapType	,'L_COM111_G', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'MAP_TYPE', 'MAP_TYPE_NAME', 'Y', ''),
 			//거래처유형
 			gfnma_multiSelectInit({
@@ -2209,7 +2209,7 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ['기본계좌'],    			ref: 'MAIN_FLAG',		type:'checkbox',	width: '80px', 
-            	typeinfo : { 
+            	typeinfo : {
             		checkedvalue : "Y", 
             		uncheckedvalue : "N" }, 
             		style : 'text-align:center'
@@ -4276,8 +4276,8 @@
     	
     
     /**
-     * 주소 ~ 매핑이력 - 구매정보 채무계정코드, 채무정산계정, 채무계정 코드외화, 선급금계정 오픈
-     * 주소 ~ 매핑이력 - 판매처분류 채권계정코드, 채권계정코드외화, 선수금계정 오픈
+     *구매정보 채무계정코드, 채무정산계정, 채무계정 코드외화, 선급금계정 오픈
+     *판매처분류 채권계정코드, 채권계정코드외화, 선수금계정 오픈
      */
     var fn_compopupAccountCode = function(type) {
     	
