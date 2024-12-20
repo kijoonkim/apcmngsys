@@ -105,7 +105,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 			}
 
 			insertedCnt += PrdcrCrclOgnReqMngService.multiSaveGpcList(GpcVoList);
-			
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -147,18 +147,18 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
 		logger.debug("/pd/aom/deletePrdcrCrclOgnReqMng >>> 호출 >>> ");
 
-		int result = 0;
+		int resultCnt = 0;
 		try {
-			result =+ PrdcrCrclOgnReqMngService.deleteUoAply(PrdcrCrclOgnReqMngVO);
-			result =+ PrdcrCrclOgnReqMngService.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
-			result =+ PrdcrCrclOgnReqMngService.deleteUoItem(PrdcrCrclOgnReqMngVO);
-			result =+ PrdcrCrclOgnReqMngService.updateUoApoSe(PrdcrCrclOgnReqMngVO);//조직구분 변경
+			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoAply(PrdcrCrclOgnReqMngVO);
+			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
+			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoItem(PrdcrCrclOgnReqMngVO);
+			resultCnt =+ PrdcrCrclOgnReqMngService.updateUoApoSe(PrdcrCrclOgnReqMngVO);//조직구분 변경
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
+		resultMap.put("resultCnt", resultCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

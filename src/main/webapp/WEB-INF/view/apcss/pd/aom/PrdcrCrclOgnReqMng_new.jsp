@@ -1641,13 +1641,20 @@
 					return true;
 				}
 				//기타가 아닌 경우
+				/* 20241220 기타인 경우에도 평가부류 입력하게 변경 요청 */
+				/*
 				if(rowData.sttgUpbrItemSe != '3'){
-
 					if(gfn_isEmpty(rowData.ctgryCd)){
 						alert('품목 리스트의 평가부류를 선택해주세요');
 						grdGpcList.focus();//그리드 객체로 포커스 이동
 						return true;
 					}
+				}
+				*/
+				if(gfn_isEmpty(rowData.ctgryCd)){
+					alert('품목 리스트의 평가부류를 선택해주세요');
+					grdGpcList.focus();//그리드 객체로 포커스 이동
+					return true;
 				}
 				if(gfn_isEmpty(rowData.clsfCd)){
 					alert('품목 리스트의 부류를 선택해주세요');
@@ -1656,6 +1663,16 @@
 				}
 				if(gfn_isEmpty(rowData.itemCd)){
 					alert('품목 리스트의 품목을 선택해주세요');
+					grdGpcList.focus();
+					return true;
+				}
+				if(gfn_isEmpty(rowData.trgtTrmtAmt)){
+					alert('품목 리스트의 취급액 목표 값을 입력해주세요');
+					grdGpcList.focus();
+					return true;
+				}
+				if(gfn_isEmpty(rowData.trgtTrmtRt)){
+					alert('품목 리스트의 취급률 목표 값을 입력해주세요');
 					grdGpcList.focus();
 					return true;
 				}

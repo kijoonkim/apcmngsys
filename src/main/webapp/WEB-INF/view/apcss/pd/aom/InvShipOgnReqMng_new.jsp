@@ -783,7 +783,7 @@
 
 	/* 기본 년도값 세팅 */
 	const fn_setYear = async function() {
-		console.log('fn_selectSetYear');
+		//console.log('fn_selectSetYear');
 		let cdId = "SET_YEAR";
 		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
 		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
@@ -1134,6 +1134,7 @@
 		let year = now.getFullYear();
 
 		let yr = SBUxMethod.get("dtl-input-yr");//
+		console.log(yr);
 		if(gfn_isEmpty(yr)){
 			yr = year;
 		}
@@ -1536,22 +1537,29 @@
 					return false;
 				}
 				//기타가 아닌 경우
+				/* 20241220 기타 품목인 경우에도 평가부류 입력 하게 변경 요청 */
+				/*
 				if(rowData.sttgUpbrItemSe != '3'){
-
 					if(gfn_isEmpty(rowData.ctgryCd)){
 						alert('품목 리스트의 평가부류를 선택해주세요');
 						grdGpcList.focus();//그리드 객체로 포커스 이동
 						return false;
 					}
 				}
-				if(gfn_isEmpty(rowData.clsfCd)){
-					alert('품목 리스트의 부류를 선택해주세요');
-					grdGpcList.focus();//그리드 객체로 포커스 이동
-					return false;
-				}
+				*/
 				if(gfn_isEmpty(rowData.itemCd)){
 					alert('품목 리스트의 품목을 선택해주세요');
 					grdGpcList.focus();
+					return false;
+				}
+				if(gfn_isEmpty(rowData.ctgryCd)){
+					alert('품목 리스트의 평가부류를 선택해주세요');
+					grdGpcList.focus();//그리드 객체로 포커스 이동
+					return false;
+				}
+				if(gfn_isEmpty(rowData.clsfCd)){
+					alert('품목 리스트의 부류를 선택해주세요');
+					grdGpcList.focus();//그리드 객체로 포커스 이동
 					return false;
 				}
 			}
@@ -1742,7 +1750,7 @@
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : uoBrno
 			//,apoCd : apoCd
-
+			,yr : yr
 		});
 		let data = await postJsonPromise;
 		try{
@@ -1836,7 +1844,14 @@
 		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
 		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
 		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
-		SBUxMethod.set("dtl-input-yr", rowData.yr);
+		//신청정보가 없는 예외의 경우 년도 값이 없음
+		if(!gfn_isEmpty(rowData.yr)){
+			SBUxMethod.set("dtl-input-yr", rowData.yr);
+		}
+		if(gfn_isEmpty(SBUxMethod.get("dtl-input-yr"))){
+			SBUxMethod.set("dtl-input-yr", SBUxMethod.get("srch-input-yr") );
+		}
+
 		SBUxMethod.set("dtl-input-aprv", rowData.aprv);
 
 		//SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
@@ -2098,14 +2113,15 @@
 		//기타일떄 부류,평가부류 비활성화
 		if(strValue == '3'){
 			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
-			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
-			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'lightgray');
+			//20241220 기존 기타 선택시 평가부류 선택 불가 처리에서 다시 선택가능하게 변경 요청
+			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
+			//objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'lightgray');
 			//objGrid.setCellData(nRow,clsfCdCol,0);
-			objGrid.setCellData(nRow,ctgryCdCol,0);
+			//objGrid.setCellData(nRow,ctgryCdCol,0);
 		}else{
 			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
 			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
-			objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'white');
+			//objGrid.setCellStyle('background-color', nRow, ctgryCdCol, nRow, ctgryCdCol, 'white');
 		}
 		return strValue;
 	}
@@ -2186,14 +2202,15 @@
 					//기타일떄 부류,평가부류 비활성화
 					if(rowData.sttgUpbrItemSe == '3'){
 						grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, false);
-						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
-						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'lightgray');
+						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, false);//20241220 기타인경우 평가부류 다시 활성화 요청
+						//grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'lightgray');
 						//grdGpcList.setCellData(i,clsfCdCol,0);
-						grdGpcList.setCellData(i,ctgryCdCol,0);
+						//grdGpcList.setCellData(i,ctgryCdCol,0);
 					}else{
+						/* 출자출하조직 품목 전문/육성 품목의 경우 통합조직의 부류, 평가부류를 따라감 */
 						grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, true);
 						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
-						grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
+						//grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
 					}
 				}
 			}
@@ -2394,6 +2411,7 @@
 		let brno = SBUxMethod.get('dtl-input-brno');//
 		let yr = SBUxMethod.get('dtl-input-yr');//
 		if(gfn_isEmpty(brno)){return}
+		console.log(selType , brno , yr);
 		popGpcSelect.init(fn_setGridItem , selType , brno , yr);
 		SBUxMethod.openModal('modal-gpcList');
 	}
@@ -2697,7 +2715,6 @@
 					alert("통합조직을 선택해주세요");
 					return;
 				}
-
 				if (rowSts === 1){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -2733,6 +2750,29 @@
 				alert(data.resultMessage);
 			}
 		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	async function fn_deleteAply(){
+		var delMsg = "기존 신청된 정보를 삭제 하시겠습니까?";
+		if(!confirm(delMsg)){return;}
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/deletePrdcrCrclOgnReqMng.do", {
+			brno : brno
+			, yr : yr
+		});
+
+		let data = await postJsonPromise;
+		try{
+
+		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -2824,7 +2864,7 @@
 						, frmerInvstAmt:			Number(item.frmerInvstAmt)
 						, prdcrGrpInvstAmt:			Number(item.prdcrGrpInvstAmt)
 						, locgovInvstAmt:			Number(item.locgovInvstAmt)
-						, etcInvstAmt:					Number(item.etcInvstAmt)
+						, etcInvstAmt:				Number(item.etcInvstAmt)
 						, frmerInvstAmtRt:			Number(item.frmerInvstAmtRt)
 						, isoFundAplyAmt:			Number(item.isoFundAplyAmt)
 						, picFlnm:					item.picFlnm
