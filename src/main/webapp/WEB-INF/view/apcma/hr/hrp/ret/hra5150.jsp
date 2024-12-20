@@ -2796,21 +2796,21 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, disabled : false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
-            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###',  emptyvalue:'0'}},
-            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["급여금액"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
         ];
 
@@ -2840,16 +2840,16 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
                 typeinfo : {ref : 'jsonPayItemCode',  label : 'label', value : 'value'}
             },
-            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
@@ -2955,6 +2955,19 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         /*  gvwInfoGrid.bind('click', 'fn_view');*/
+    }
+
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+       /* if (!(/[0-9]/g).test(strValue)) {
+            return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+        }*/
+
+        return Number(strValue);
     }
 
 

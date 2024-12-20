@@ -1328,9 +1328,9 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['시작일자'], 		ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, isvalidatecheck: true, validate : 'fnValidate'},
             {caption: ['종료일자'], 		ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, isvalidatecheck: true, validate : 'fnValidate'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["급여기본급"], ref: 'SALARY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -1380,6 +1380,18 @@
 
         gvwPayInfoGrid = _SBGrid.create(SBGridProperties);
         gvwPayInfoGrid.bind('valuechanged','gridValueChanged');
+    }
+
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        if (!(/[0-9]/g).test(strValue)) {
+            return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+        }
+
+        return Number(strValue);
     }
 
     //고정 수당항목
