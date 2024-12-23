@@ -66,4 +66,19 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList(InvShipOgnGenalTblMngVO);
 		return resultList;
 	}
+
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataListNew(InvShipOgnGenalTblMngVO);
+		return resultList;
+	}
+
 }
