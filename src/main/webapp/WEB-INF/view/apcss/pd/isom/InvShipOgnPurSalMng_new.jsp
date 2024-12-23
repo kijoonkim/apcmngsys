@@ -1551,6 +1551,10 @@
 	/* 출력물 */
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
@@ -1621,6 +1625,10 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
