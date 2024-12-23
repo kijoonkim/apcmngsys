@@ -193,9 +193,9 @@ input::-webkit-inner-spin-button {
 					></sbux-button>
 					<div style="float:right;margin-left:10px;">
 						<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
+						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint"/>
 						    <label for="srch-chk-autoPrint">자동출력</label>
-							<input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
+							<input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint"/>
 							<label for="srch-chk-exePrint">미리보기</label>
 					    </p>
 					</div>
@@ -1789,7 +1789,6 @@ input::-webkit-inner-spin-button {
         for (let i = 0; i < grdList.length; i++) {
             const grdId = grdList[i];
             dtlList.forEach((dtl, idx) => {
-
                 document.querySelector('.tr-grd' + grdId + dtl).style.display = "none";
                 if (i < jsonFxngGrd.length) {
                     if (idx == 0) {
@@ -2529,7 +2528,7 @@ input::-webkit-inner-spin-button {
 				await gfn_DirectPrintClipReport(rptUrl, param);
 			}
         } else {
-            await gfn_popClipReport("선별확인서", rptUrl, param);
+            // await gfn_popClipReport("선별확인서", rptUrl, param);
         }
     }
 

@@ -439,7 +439,7 @@
         const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         let filterData = await fn_search_prdcr_invntrY(data);
-        await fn_append_button(filterData,"prdcrInfoWrap","prdcrNm","prdcrCd");
+        await fn_append_button(filterData,"prdcrInfoWrap","prdcrIdentno","prdcrCd");
         carouselObj.prdcrInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#prdcrInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
     const fn_search_prdcr_invntrY = async function(origin){
