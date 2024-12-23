@@ -60,7 +60,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준유형</th>
+                    <th scope="row" class="th_bg">재고유형</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
                         <sbux-select id="srch-slt-sortFcltCd"
                                      name="srch-slt-sortFcltCd"

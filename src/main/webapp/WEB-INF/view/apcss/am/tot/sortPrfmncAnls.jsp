@@ -33,11 +33,11 @@
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
-                <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+                <%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
+<%--                <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>--%>
+<%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
                 <%--                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>--%>
-                <%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
             </div>
         </div>
         <div class="box-body">
@@ -60,7 +60,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">입고일자</th>
+                    <th scope="row" class="th_bg">기준일자</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
                         <div style="display: flex;justify-content: center;align-items: center">
                             <sbux-datepicker
@@ -118,7 +118,7 @@
                                     style="width: 80%">
                         </sbux-input>
                     </td>
-                    <th scope="row" class="th_bg">창고구분</th>
+                    <th scope="row" class="th_bg">상세구분</th>
                     <td class="td_input" colspan="4" style="border-right: hidden">
                         <sbux-select
                                 unselected-text="선택"
@@ -150,36 +150,11 @@
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li>
-                                <span>재고 목록</span>
+                                <span>선별 실적 분석 목록</span>
                             </li>
                         </ul>
                     </div>
                     <div id="sb-area-rtnCrtr"></div>
-                </div>
-                <div style="flex: 1">
-                    <div style="display: flex; justify-content: space-between;margin-bottom: 10px">
-                        <span style="margin-right: 3px; font-weight: 600; color: #3c6dbc;align-content: end">
-                            반품 등록 목록
-                        </span>
-                        <div style="display: flex">
-                            <div style="font-size: 13px;
-                            text-align: right; border-color: #e8f1f9;width: 150px;
-                            background-color: #e8f1f9; font-weight: 700;padding: 8px"
-                            >반품일자
-                            </div>
-                            <div class="td_input">
-                                <sbux-input
-                                        uitype="text"
-                                        id="srch-inp-pltno"
-                                        name="srch-inp-pltno"
-                                        class="form-control input-sm"
-                                        autocomplete="off">
-                                </sbux-input>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div id="sb-area-rtnCrtrDtl"></div>
                 </div>
             </div>
         </div>
@@ -189,17 +164,13 @@
 <script type="application/javascript">
     /** grid 변수 셋팅 **/
     var jsonRtnCrtr = [];
-    var jsonRtnCrtrDtl = [];
-
     let gridRtnCrtr;
-    let gridRtnCrtrDtl;
 
     window.addEventListener("DOMContentLoaded",function(){
         fn_init();
     });
     const fn_init = async function(){
         await fn_create_rtnCrtr();
-        await fn_create_rtnCrtrDtl();
     }
 
     const fn_create_rtnCrtr = async function(){
@@ -210,36 +181,19 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["품목"],	ref: 'wghYmd',		type:'output',  width:'13%', style: 'text-align:center;'},
-            {caption: ["품종"],	ref: 'wghFcltCd',		type:'output',  width:'13%', style: 'text-align:center;'},
-            {caption: ["생산자"],	ref: 'wghno',	type:'output',  width:'13%', style: 'text-align:center;'},
-            {caption: ["재고번호"],	ref: 'vhclno',		type:'output',  width:'13%', style: 'text-align:center;'},
-            {caption: ["재고정보"],	ref: 'vhclno',		type:'output',  width:'13%', style: 'text-align:center;'},
-            {caption: ["수량"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["중량"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
-        ]
-        gridRtnCrtr = _SBGrid.create(SBGridProperties);
-    }
-    const fn_create_rtnCrtrDtl = async function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-rtnCrtrDtl';
-        SBGridProperties.id = 'gridRtnCrtrDtl';
-        SBGridProperties.jsonref = 'jsonRtnCrtrDtl';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.datamergefalseskip = true;
-        SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'4%', style: 'text-align:center;'},
             {caption: ["품목"],	ref: 'wghYmd',		type:'output',  width:'10%', style: 'text-align:center;'},
             {caption: ["품종"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
             {caption: ["생산자"],	ref: 'wghno',	type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["재고번호"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["수량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["중량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["상세코드"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-            {caption: ["반품사유"],	ref: 'vhclno',		type:'output',  width:'25%', style: 'text-align:center;'},
+            {caption: ["기준일자"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["입고수량"],	ref: 'vhclno',		type:'output',  width:'9%', style: 'text-align:center;'},
+            {caption: ["입고중량"],	ref: 'vhclno',		type:'output',  width:'9%', style: 'text-align:center;'},
+            {caption: ["선별수량"],	ref: 'vhclno',		type:'output',  width:'9%', style: 'text-align:center;'},
+            {caption: ["선별중량"],	ref: 'vhclno',		type:'output',  width:'9%', style: 'text-align:center;'},
+            {caption: ["수율"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["처리기간"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
         ]
-        gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
+        gridRtnCrtr = _SBGrid.create(SBGridProperties);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
