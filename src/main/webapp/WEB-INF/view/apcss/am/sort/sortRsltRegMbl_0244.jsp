@@ -1652,6 +1652,7 @@ input::-webkit-inner-spin-button {
             //sbux-pik-icon
         });
         fn_init();
+		$("#dtl-inp-pltno").focus();
     });
 
     /**
@@ -1736,6 +1737,7 @@ input::-webkit-inner-spin-button {
         // SBUxMethod.focus("dtl-inp-pltno");
 
         fn_searchSort();
+		$("#dtl-inp-pltno").focus();
     }
 
     /**
