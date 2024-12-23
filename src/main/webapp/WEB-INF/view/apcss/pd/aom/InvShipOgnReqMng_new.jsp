@@ -1733,8 +1733,18 @@
 		//SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
 		//SBUxMethod.set("dtl-input-uoBrno", rowData.brno);
 
-		let uoBrno = rowData.brno
-		//let apoCd = rowData.apoCd
+		let uoBrno = rowData.brno;
+		let yr = rowData.yr;
+		if(gfn_isEmpty(yr)){
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			yr = SBUxMethod.set("srch-input-yr");
+			</c:if>
+			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+			yr = SBUxMethod.set("dtl-input-yr");
+			</c:if>
+
+		}
+		//let apoCd = rowData.apoCd;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : uoBrno
