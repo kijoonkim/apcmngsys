@@ -989,6 +989,10 @@
 
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1034,6 +1038,10 @@
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
