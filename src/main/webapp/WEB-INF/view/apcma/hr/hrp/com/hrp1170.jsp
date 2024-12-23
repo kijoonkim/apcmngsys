@@ -413,6 +413,7 @@
         } else if(_.isEqual(chMode, 'line')){ //행복사모드
             SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
             SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+
             SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
 
         } else if(_.isEqual(chMode, 'cell')){ //셀복사모드
@@ -422,10 +423,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
                 typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/, isvalidatecheck: true,	validate : 'fnValidate'},
            /* {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /!*disabled: true,*!/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='ma-btn1' style='width:30px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
@@ -437,14 +438,14 @@
                 }
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
                 typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
-            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
+            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
                 typeinfo : {ref : 'jsonApplyType',  displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',
@@ -459,6 +460,22 @@
         grdExceptionList.bind('valuechanged','gridValueChanged');
         grdExceptionList.bind('click', 'fn_view');
         grdExceptionList.bind('keyup', 'fn_keyup');
+    }
+
+    /**
+     * 그리드내 필수값 체크
+     */
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
+
+        return Number(strValue);
     }
 
     const fn_keyup = async function(event) {
@@ -759,10 +776,9 @@
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }else{
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search();
                         }
+
+                        fn_search();
 
                     } else {
                         alert(data.resultMessage);

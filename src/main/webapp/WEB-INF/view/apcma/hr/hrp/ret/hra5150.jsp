@@ -2607,7 +2607,7 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
 
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
@@ -2625,29 +2625,32 @@
 
             if (!_.isEmpty(rowData)) {
 
-                fn_save();
-
                 let complateCode = true;
+
+                complateCode = await fn_save();
 
                 let payData     = gvwPayGrid.getUpdateData(true, 'all');
                 let bonusData   = gvwBonusGrid.getUpdateData(true, 'all');
                 let changeData  = gvwChangeGrid.getUpdateData(true, 'all');
                 //P_HRA5150_S1
-                if (_.isEmpty(payData) == false) {
-                    complateCode = fn_saveS1(payData, rowData);
+                if (_.isEmpty(payData) == false && complateCode == true) {
+                    complateCode = await fn_saveS1(payData, rowData);
 
                     //P_HRA5150_S2
-                } else if (_.isEmpty(bonusData) == false) {
-                    complateCode = fn_saveS2(bonusData, rowData);
+                } else if (_.isEmpty(bonusData) == false && complateCode == true) {
+                    complateCode = await fn_saveS2(bonusData, rowData);
 
                     //P_HRA5150_S2
-                } else if (_.isEmpty(changeData) == false) {
-                    complateCode = fn_saveS3(changeData, rowData);
+                } else if (_.isEmpty(changeData) == false && complateCode == true) {
+                    complateCode = await fn_saveS3(changeData, rowData);
 
-                } else if (complateCode) {
+                }
+
+                if (complateCode){
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     fn_search();
                 }
+
             }
         }
     }
@@ -2793,21 +2796,21 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, disabled : false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
-            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###',  emptyvalue:'0'}},
-            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false, isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["급여금액"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:right'
+            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
         ];
 
@@ -2837,16 +2840,16 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
                 typeinfo : {ref : 'jsonPayItemCode',  label : 'label', value : 'value'}
             },
-            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right'
+            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
@@ -2952,6 +2955,19 @@
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         /*  gvwInfoGrid.bind('click', 'fn_view');*/
+    }
+
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+       /* if (!(/[0-9]/g).test(strValue)) {
+            return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+        }*/
+
+        return Number(strValue);
     }
 
 
@@ -4281,12 +4297,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-
-                        return false;
-                    } else {
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
@@ -4317,13 +4335,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4405,13 +4428,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -4489,13 +4517,18 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
-                        return false;
-                    }else{
-                        return true;
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {

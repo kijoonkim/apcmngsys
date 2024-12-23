@@ -484,9 +484,20 @@
     // 저장
     async function cfn_save() {
 
+        let chk = true;
+        let nRow = gvwListGrid.getRow();
 
-        if (await fn_save()){
-            fn_saveS1()
+        chk = await fn_save();
+
+        let updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
+
+        if (_.isEmpty(updatedData) == false && chk == true){
+            chk = await fn_saveS1(updatedData);
+        }
+
+        if (chk){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_search(nRow);
         }
     }
     // 삭제
@@ -931,9 +942,14 @@
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }
 
+                            if (_.isEqual(data.v_errorCode, "MSG0004") || _.isEqual(data.v_errorCode, 'MSG0002')){
+                                return true;
+                            }else {
+                                alert(data.resultMessage);
+                                return false;
+                            }
+                        }
                         return true;
 
                     } else {
@@ -962,9 +978,14 @@
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }
 
+                            if (_.isEqual(data.v_errorCode, 'MSG0004')){
+                                return true;
+                            }else {
+                                alert(data.resultMessage);
+                                return false;
+                            }
+                        }
                         return true;
 
                     } else {
@@ -983,10 +1004,10 @@
     }
 
     //저장
-    const fn_saveS1 = async function () {
+    const fn_saveS1 = async function (updatedData) {
 
         let listData = [];
-        listData =  await getParamForm();
+        listData =  await getParamForm(updatedData);
 
         if (listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
@@ -995,15 +1016,15 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    let nRow = gvwListGrid.getRow();
-
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                        fn_search();
-                    }else{
-                        //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search(nRow);
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
 
                 } else {
@@ -1019,16 +1040,13 @@
     }
 
 
-    const getParamForm = async function () {
+    const getParamForm = async function (updatedData) {
 
         let PAY_ITEM_CODE       = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
         let PAY_TYPE            = gfn_nvl(SBUxMethod.get("PAY_TYPE"));
         let APPLY_START_DATE    = gfn_nvl(SBUxMethod.get("APPLY_START_DATE"));
 
-        let updatedData;
         let returnData = [];
-
-        updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
 
         updatedData.forEach((item, index) => {
 

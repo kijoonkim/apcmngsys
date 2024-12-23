@@ -283,20 +283,20 @@
 											init="0"
 											group-id="group1"></sbux-input></td>
 									<th scope="row" class="th_bg group2" hidden>취득가액</th>
-									<td class="td_input group2" style="border-right: hidden;"
-										hidden><sbux-input id="srch-ast-acquisitionAmount2"
+									<td class="td_input group2" style="border-right: hidden;"hidden>
+										<sbux-input id="srch-ast-acquisitionAmount2"
 											name="srch-ast-acquisitionAmount2"
 											class="form-control input-sm"
 											init="0"
-											uitype="input" group-id="group1"></sbux-input></td>
+											uitype="text" group-id="group1"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>기초취득가액</th>
-									<td class="td_input group2" style="border-right: hidden;"
-										hidden><sbux-input id="srch-ast-beginAcquisitionAmount"
+									<td class="td_input group2" style="border-right: hidden;" hidden>
+										<sbux-input id="srch-ast-beginAcquisitionAmount"
 											name="srch-ast-beginAcquisitionAmount"
 											class="form-control input-sm"
 											init="0"
-											uitype="input" group-id="group1"></sbux-input></td>
+											uitype="text" group-id="group1"></sbux-input></td>
 
 								</tr>
 								<tr>
@@ -339,7 +339,7 @@
 											name="srch-num-subsidiesAmount" class="form-control input-sm"
 											uitype="text"
 											init="0"
-											uitype="input" group-id="group1"></sbux-input></td>
+											uitype="text" group-id="group1"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>기초국고보조금</th>
 									<td class="td_input group2" style="border-right: hidden;"
@@ -347,7 +347,7 @@
 											name="srch-ast-beginSubsidiesAmount"
 											class="form-control input-sm" uitype="text"
 											init="0"
-											uitype="input" group-id="group1"></sbux-input></td>
+											uitype="text" group-id="group1"></sbux-input></td>
 
 								</tr>
 								<tr>
@@ -391,7 +391,7 @@
 											name="srch-ast-accumulatedDepreciation"
 											class="form-control input-sm" uitype="text"
 											init="0"
-											uitype="input"
+											uitype="text"
 											group-id="group1"></sbux-input></td>
 
 									<th scope="row" class="th_bg group2" hidden>처분비율</th>
@@ -399,7 +399,7 @@
 										hidden><sbux-input id="srch-ast-acquisitionRate"
 											name="srch-ast-acquisitionRate" class="form-control input-sm"
 											init="0"
-											uitype="input"
+											uitype="text"
 											group-id="group1" ></sbux-input></td>
 
 								</tr>
@@ -443,7 +443,7 @@
 									<td class="td_input group2" style="border-right: hidden;"
 										hidden><sbux-input id="srch-ast-subsidiesAccDepreciation"
 											name="srch-ast-subsidiesAccDepreciation"
-											class="form-control input-sm" uitype="input"
+											class="form-control input-sm" uitype="text"
 											init="0"
 											group-id="group1"></sbux-input></td>
 
@@ -451,7 +451,7 @@
 									<td class="td_input group2" style="border-right: hidden;"
 										hidden><sbux-input id="srch-ast-acquisitionAmountEvent"
 											name="srch-ast-acquisitionAmountEvent"
-											class="form-control input-sm" uitype="input"
+											class="form-control input-sm" uitype="text"
 											onchange="numout_acquisition_amount_event_EditValueModified(srch-ast-acquisitionAmountEvent)"
 											init="0"
 											group-id="group1"></sbux-input></td>

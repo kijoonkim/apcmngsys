@@ -1181,11 +1181,9 @@
 
                         if (data.resultMessage) {
                             alert(data.resultMessage);
-                            fn_search('save');
-                        }else{
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search('save');
                         }
+
+                        fn_search('save');
 
                     } else {
                         alert(data.resultMessage);
@@ -1225,10 +1223,8 @@
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }else{
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search('save');
                         }
+                            fn_search('save');
 
                     } else {
                         alert(data.resultMessage);

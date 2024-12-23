@@ -35,6 +35,11 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFile"></sbux-button>
+                <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendEmail"></sbux-button>
+                <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendSMS"></sbux-button>
+            </div>
         </div>
         <div class="box-body">
             <div class="box-search-ma">
@@ -225,6 +230,13 @@
     var p_menuId = '${comMenuVO.menuId}';
     var p_siteCode = "${loginVO.maSiteCode}";
     //-----------------------------------------------------------
+
+    var strEmail = "";
+    var strSmtpHost = "";
+    var IntSmtpPort = 25;
+    var strUserName = "";
+    var strPassword = "";
+    var strJobGroup = "";
 
     var jsonWorkGbn = []; // 작업구분
     var jsonWorkPlace = []; // 작업장소
@@ -529,6 +541,8 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
+        gvwDetail.bind('click', 'fn_viewForDetail');
+        gvwDetail.bind('keyup', 'fn_keyupForDetail');
     }
 
     const fn_keyup = async function(event) {
@@ -647,31 +661,66 @@
         }
     }
 
-    const fn_findEarnerCode = function(row) {
-        SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
+    const fn_keyupForDetail = async function(event) {
+        if(event.keyCode == 38 || event.keyCode == 40) {
+            fn_viewForDetail();
+        }
+    }
 
-        compopup1({
-            compCode				: gv_ma_selectedCorpCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRA060'
-            ,popupType				: 'A'
-            ,whereClause			: ''
-            ,searchCaptions			: ["소득자코드", "소득자명"]
-            ,searchInputFields		: ["CS_CODE", "CS_NAME"]
-            ,searchInputValues		: ["", ""]
-            ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
-            ,searchInputTypeValues	: ["", ""]				//select 경우
-            ,height					: '400px'
-            ,tableHeader			: ["거래처코드", "거래처명"]
-            ,tableColumnNames		: ["CS_CODE", "CS_NAME"]
-            ,tableColumnWidths		: ["80px", "160px"]
-            ,itemSelectEvent		: function (data){
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_CODE"), data.CS_CODE);
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_NAME"), data.CS_NAME);
-            },
+    const fn_viewForDetail = async function () {
+        var nRow = gvwDetail.getRow();
+        if(nRow < 1) return;
+        var rowData = gvwDetail.getRowData(nRow);
+
+        if(gfn_nvl(rowData) == "") return;
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE_FR : '',
+            V_P_PAY_DATE_TO : '',
+            V_P_SITE_CODE : '',
+            V_P_EARNER_NAME : '',
+            V_P_PAY_DATE : '',
+            V_P_EARNER_CODE : '',
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
+            getType				: 'json',
+            workType			: 'EMAIL',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
         });
 
-        SBUxMethod.openModal('modal-compopup1');
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                var returnData = data.cv_1[0];
+
+                strSmtpHost = returnData.SMTP_HOST;
+                IntSmtpPort = parseInt(returnData.SMTP_PORT);
+                strUserName = returnData.USERNAME;
+                strPassword = returnData.PASSWORD;
+                strEmail = returnData.MAILID;
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
@@ -713,6 +762,11 @@
     }
 
     const fn_save = async function () {
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EMAIL_SUBJECT = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
+        let EMAIL_BODY = gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+        let NOTICE_MEMO = gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
+        let SMS_MESSAGE = gfn_nvl(SBUxMethod.get("SMS_MESSAGE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -733,7 +787,7 @@
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630.do", {
             getType				: 'json',
-            workType			: strStatus,
+            workType			: 'N',
             cv_count			: '0',
             params				: gfnma_objectToString(paramObj)
         });
@@ -742,26 +796,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if(enableTab == "tpgResident") {
-                    let strFocus = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-                    if(strStatus == "N") {
-                        strFocus = data.v_returnStr;
-                        SBUxMethod.set("EARNER_CODE", data.v_returnStr);
-                    }
-
-                    await fn_search();
-
-                    gvwResident.clickRow(jsonResidentList.findIndex(item => item.EARNER_CODE == strFocus) + 1)
-                } else if(enableTab == "tpgNonresident") {
-                    let strFocus = gfn_nvl(SBUxMethod.get("EARNER_CODE1"));
-                    if(strStatus == "N") {
-                        strFocus = data.v_returnStr;
-                        SBUxMethod.set("EARNER_CODE1", data.v_returnStr);
-                    }
-
-                    await fn_search();
-                    gvwNonresident.clickRow(jsonNonResidentList.findIndex(item => item.EARNER_CODE == strFocus) + 1);
-                }
+                gfn_comAlert("I0001");
+                await fn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -776,80 +812,52 @@
     }
 
     const fn_delete = async function () {
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
-        let strMessage = "";
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EMAIL_SUBJECT = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
+        let EMAIL_BODY = gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
+        let NOTICE_MEMO = gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
+        let SMS_MESSAGE = gfn_nvl(SBUxMethod.get("SMS_MESSAGE"));
 
-        if(enableTab == "tpgResident") {
-            strMessage = gfn_nvl(SBUxMethod.get("EARNER_CODE1")) + " 정보를 삭제하시겠습니까?";
-        } else if(enableTab == "tpgNonresident") {
-            strMessage = gfn_nvl(SBUxMethod.get("EARNER_CODE3")) + " 정보를 삭제하시겠습니까?";
-        }
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_EMAIL_SUBJECT : EMAIL_SUBJECT,
+            V_P_EMAIL_BODY : EMAIL_BODY,
+            V_P_NOTICE_MEMO : NOTICE_MEMO,
+            V_P_SMS_MESSAGE : SMS_MESSAGE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
 
-        if (gfn_comConfirm("Q0000", strMessage)) {
-            let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630.do", {
+            getType				: 'json',
+            workType			: 'D',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: '',
-                V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
-                V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
-                V_P_EARNER_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_NAME1")) : gfn_nvl(SBUxMethod.get("EARNER_NAME3")),
-                V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),
-                V_P_BIZ_REGNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BIZ_REGNO1")) : "",
-                V_P_COMP_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("COMP_NAME")) : "",
-                V_P_NATION_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("NATION_CODE")) : gfn_nvl(SBUxMethod.get("NATION_CODE1")),
-                V_P_FOREI_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE1')),
-                V_P_RESIDE_TYPE : enableTab == "tpgResident" ? "1" : "2",
-                V_P_SITE_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ZIP_CODE")) : "",
-                V_P_SITE_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ADDRESS")) : "",
-                V_P_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ZIP_CODE")) : "",
-                V_P_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ADDRESS")) : gfn_nvl(SBUxMethod.get("ADDRESS1")),
-                V_P_INC_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE1')),
-                V_P_INC_SEC : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC1')),
-                V_P_WORK_REGION : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#WORK_REGION')) : gfn_nvl(gfnma_multiSelectGet('#WORK_REGION1')),
-                V_P_BUSINESS_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE1')) : gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE')),
-                V_P_BANK_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_CODE")) : gfn_nvl(SBUxMethod.get("BANK_CODE1")),
-                V_P_BANK_ACC : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_ACCOUNT")) : gfn_nvl(SBUxMethod.get("BANK_ACCOUNT1")),
-                V_P_TEL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TEL")) : gfn_nvl(SBUxMethod.get("TEL1")),
-                V_P_BIRTHDAY : enableTab == "tpgResident" ? "" : gfn_nvl(SBUxMethod.get("BIRTHDAY")),
-                V_P_MOBILE_PHONE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MOBILE_PHONE")) : "",
-                V_P_EMAIL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EMAIL")) : "",
-                V_P_PAY_CYCLE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#PAY_CYCLE')) : "",
-                V_P_MEMO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MEMO")) : gfn_nvl(SBUxMethod.get("MEMO1")),
-                V_P_TAX_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TAX_SITE_CODE1")) : gfn_nvl(SBUxMethod.get("TAX_SITE_CODE2")),
-                V_P_FORM_ID		: p_formId,
-                V_P_MENU_ID		: p_menuId,
-                V_P_PROC_ID		: '',
-                V_P_USERID			: '',
-                V_P_PC				: ''
-            };
+        const data = await postJsonPromise;
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3610.do", {
-                getType				: 'json',
-                workType			: 'D',
-                cv_count			: '0',
-                params				: gfnma_objectToString(paramObj)
-            });
-
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    gfn_comAlert("I0001");
-                    await fn_search();
-                } else {
-                    alert(data.resultMessage);
-                }
-
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
             }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -929,20 +937,163 @@
         }
     }
 
-    const fn_create = async function () {
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+    const fn_create = async function () {}
 
-        if(enableTab == "tpgResident") {
-            gfnma_uxDataClear('#panResidentInfo');
+    const fn_saveFile = async function(){
+        var nRow = gvwInfoGrid.getRow();
+        var conn = '';
+        var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
+        if (nRow < 1) {
+            return;
+        }
 
-            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SUB_CODE', 'CODE_NAME', "1");
-            SBUxMethod.attr("EARNER_CODE", "readonly", false);
-            $("#SITE_CODE").focus();
-        } else if(enableTab == "tpgNonresident") {
-            gfnma_uxDataClear('#grpNonresidentInfo');
+        let checkDatas = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
 
-            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SUB_CODE', 'CODE_NAME', "1");
-            $("#SITE_CODE").focus();
+        if (_.isEmpty(checkDatas)){
+            gfn_comAlert("Q0000","파일 저장할 항목을 체크박스 선택하세요.");
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        for (let i = 0; i < checkDatas.length; i++){
+
+            let datas = [];
+            datas.push(checkDatas[i]);
+
+            if (SENDTYPE == "ALL") {
+                conn = await fn_GetReportData('REPORT5', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
+
+                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_ALL.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
+            } else if(SENDTYPE == "PAY") {
+                conn = await fn_GetReportData('REPORT3', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
+
+                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_PAY.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
+            } else if(SENDTYPE == "WORK") {
+                conn = await fn_GetReportData('REPORT4', datas);
+                conn = await gfnma_convertDataForReport(conn);
+                let psw = conn[5].data.root[0].BIRTH_DATE;
+
+                await gfn_getReportPdf("근태현황.pdf", "ma/RPT_HRP2436_Q_WORK.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
+                    function(){
+                        gfn_comConfirm("Q0001", "다운로드");
+                    }
+                );
+            }
+        }
+    }
+
+    const fn_sendEmail = async function () {
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
+        let MAIL_SEND_YN = gfn_nvl(SBUxMethod.get("MAIL_SEND_YN"));
+        let MAIL_SEND_MSG = gfn_nvl(SBUxMethod.get("MAIL_SEND_MSG"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_EARNER_CODE : EARNER_CODE,
+            V_P_MAIL_SEND_YN : MAIL_SEND_YN,
+            V_P_MAIL_SEND_MSG : MAIL_SEND_MSG,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendEmail.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_sendSMS = async function () {
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
+        let TEL_NO = gfn_nvl(SBUxMethod.get("TEL_NO"));
+        let SMS_SEND_YN = gfn_nvl(SBUxMethod.get("SMS_SEND_YN"));
+        let SMS_SEND_MSG = gfn_nvl(SBUxMethod.get("SMS_SEND_MSG"));
+        let SMS_KEY = gfn_nvl(SBUxMethod.get("SMS_KEY"));
+        let SMS_DATA_SET = gfn_nvl(SBUxMethod.get("SMS_DATA_SET"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_EARNER_CODE : EARNER_CODE,
+            V_P_TEL_NO : TEL_NO,
+            V_P_SMS_SEND_YN : SMS_SEND_YN,
+            V_P_SMS_SEND_MSG : SMS_SEND_MSG,
+            V_P_SMS_KEY : SMS_KEY,
+            V_P_SMS_DATA_SET : SMS_DATA_SET,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                await fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 </script>

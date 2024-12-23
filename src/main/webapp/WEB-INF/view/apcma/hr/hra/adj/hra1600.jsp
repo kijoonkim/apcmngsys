@@ -993,10 +993,9 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
-                }else{
-                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    cfn_search()
                 }
+
+                cfn_search();
 
             } else {
                 alert(data.resultMessage);

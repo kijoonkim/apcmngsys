@@ -533,10 +533,18 @@
     //저장
     async function cfn_save() {
 
-        let chk  = await fn_save();
+        let chk  = true;
 
-        if (chk == true){
-            fn_saveS3();
+        chk  = await fn_save();
+
+        let allData = gvwInfoGrid.getGridDataAll();
+        if (_.isEmpty(allData) == false && chk == true){
+            chk = await fn_saveS3(allData);
+        }
+
+        if (chk){
+            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            fn_search();
         }
 
     }
@@ -965,14 +973,19 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        /*if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }*/
-
+                        if (data.resultMessage) {
+                            if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                                return true;
+                            }else {
+                                alert(data.resultMessage);
+                                return false;
+                            }
+                        }
                         return true;
 
                     } else {
                         alert(data.resultMessage);
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -1004,14 +1017,20 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        /*if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }*/
-
+                        if (data.resultMessage) {
+                            if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                                return true;
+                            }else {
+                                alert(data.resultMessage);
+                                return false;
+                            }
+                        }
                         return true;
 
                     } else {
                         alert(data.resultMessage);
+
+                        return false;
                     }
                 } catch (e) {
                     if (!(e instanceof Error)) {
@@ -1096,10 +1115,10 @@
     }
 
     //급상여 회계처리 라인 그리드 저장,수정
-    const fn_saveS3 = async function () {
+    const fn_saveS3 = async function (allData) {
 
         let listData = [];
-        listData =  await getParamFormS2();
+        listData =  await getParamFormS2(allData);
 
         if (listData.length > 0) {
 
@@ -1111,15 +1130,18 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        await alert(data.resultMessage);
-                        fn_search();
-                    }else{
-                        await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
                     }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -1133,7 +1155,7 @@
     }
 
 
-    const getParamFormS2 = async function(){
+    const getParamFormS2 = async function(allData){
 
         let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
@@ -1152,8 +1174,6 @@
             gfn_comAlert("W0002", "지급일자");
             return;
         }
-
-        let allData = gvwInfoGrid.getGridDataAll();
 
         let dDebitAmt = 0;
         let dCreditAmt = 0;

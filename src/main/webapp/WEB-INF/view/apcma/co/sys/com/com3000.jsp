@@ -141,7 +141,7 @@
                                             <sbux-checkbox uitype="normal" id="USE_YN" name="USE_YN" uitype="normal" class="form-control input-sm check" text="사용" true-value="Y" false-value="N"/></sbux-checkbox>
                                         </p>                                    
                                     </td>
-                                    <th scope="row" rowspan="3" colspan="" class="th_bg_content" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;요</th>
+                                    <th scope="row" rowspan="3" colspan="" class="th_bg_content" style="text-align: center">적&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;요</th>
                                     <td class="td_input" rowspan="3" colspan="3">
                                         <sbux-textarea id="DESCR" class="form-control input-sm" uitype="normal" style="width:100%; height:100px;""></sbux-textarea>
                                     </td>
@@ -466,22 +466,17 @@
 	}
 	
 	// 그룹코드 내역, 세부코드 정보 저장
-    function cfn_save() {
-		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-	        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+    async function cfn_save() {
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
 	            return false;
-	        }else{
-				fn_saveData();
+	    }else{
+			if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+	    		await fn_save();
+	    		await fn_saveSubGrid();
+	    		await fn_search();
 	        }
 		}
     }
-	
-	const fn_saveData = async function(){
-		await fn_save();
-		await fn_saveSubGrid();
-		await fn_search();
-	}
-	
 	// 마스터 그리드 삭제
 	function cfn_del() {
 		let GROUP_CODE = gfn_nvl(SBUxMethod.get("GROUP_CODE"));

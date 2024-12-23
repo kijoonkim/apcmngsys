@@ -16,9 +16,11 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="aplyBrno-btnSearch" name="aplyBrno-btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popAplyBrno.search" onkeyup="enterKey();"></sbux-button>
+					<!--
 					<sbux-button id="aplyBrno-btnEdit" name="aplyBrno-btnEdit" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popAplyBrno.edit"></sbux-button>
 					<sbux-button id="aplyBrno-btnCancel" name="aplyBrno-btnCancel" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popAplyBrno.cancel"></sbux-button>
 					<sbux-button id="aplyBrno-btnSave" name="aplyBrno-btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popAplyBrno.save" disabled></sbux-button>
+					-->
 					<sbux-button id="aplyBrno-btnEnd" name="aplyBrno-btnEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popAplyBrno.close"></sbux-button>
 				</div>
 			</div>
@@ -44,7 +46,7 @@
 							 -->
 							<th scope="row">사업자번호</th>
 							<th>
-								<sbux-input id="aplyBrno-inp-brno" name="aplyBrno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey"></sbux-input>
+								<sbux-input id="aplyBrno-inp-brno" name="aplyBrno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey" mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"></sbux-input>
 							</th>
 							<th scope="row">법인체명</th>
 							<th>
@@ -105,7 +107,6 @@
 				//this.yr = _yr;
 				SBUxMethod.set('aplyBrno-inp-yr' , _yr);
 			}
-			console.log('_yr',_yr,'this.yr',this.yr);
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
@@ -114,8 +115,6 @@
 
 		},
 		close: function(_apc) {
-			console.log(_apc);
-			console.log(this.modalId);
 			gfn_closeModal(this.modalId, this.callbackFnc, _apc);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {

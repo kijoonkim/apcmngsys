@@ -131,7 +131,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div style="display: flex;gap: 3vw" id="sb-area-grdSortFcltPrfmnc"></div>
+                        <div style="display: flex;gap: 3vw; height:300px" id="sb-area-grdSortFcltPrfmnc"></div>
                     </div>
                     <div style="display: flex;gap: 3vw">
                         <div style="flex: 1.6">

@@ -527,8 +527,10 @@
                         <td colspan="" class="td_input" style="border-right:hidden;">
                         <th scope="row" class="th_bg">기본계좌</th>
                         <td colspan="2" class="td_input" style="border-right:hidden;">
-                            <sbux-input id="MAIN_ACC_TYPE" uitype="text" style="width:90%" placeholder=""
-                                        class="form-control input-sm"></sbux-input>
+                            <%--<sbux-input id="MAIN_ACC_TYPE" uitype="text" style="width:90%" placeholder=""
+                                        class="form-control input-sm"></sbux-input>--%>
+                            <sbux-input id="MAIN_ACC_TYPE" uitype="text" style="width:100%" placeholder=""
+                                        class="form-control input-sm" mask = "{ 'alias': 'numeric'}" maxlength="3"></sbux-input>
                         </td>
                     </tr>
                     <tr>
@@ -1117,9 +1119,16 @@
                 return;
             }
 
-            ret = await fn_saveS1();
+            //수정시 수정된 데이터만 가져감
+            let updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
+            if (_.isEmpty(updatedData) == false && ret == true){
+                ret = await fn_saveS1(updatedData);
+            }
 
-            ret = await fn_saveS2();
+            let updatedData2 = gvwWithholdGrid.getUpdateData(true, 'all');
+            if (_.isEmpty(updatedData2) == false && ret == true){
+                ret = await fn_saveS2(updatedData2);
+            }
 
             /************ 사회보험가입이력 ************/
             let detailGridData = gvwDetailGrid.getUpdateData(true, 'all');
@@ -1155,7 +1164,10 @@
             });
 
            /* ret = fnSET_P_HRP5600_S("");*/
-            ret = await fn_saveS3();
+            let updatedData3 = gvwDetailGrid.getUpdateData(true, 'all');
+            if (_.isEmpty(updatedData3) == false && ret == true){
+                ret = await fn_saveS3(updatedData3);
+            }
 
 
             /************ 사회보험가입이력 ************/
@@ -1190,8 +1202,10 @@
                 }
 
             });
-
-            ret = await fn_saveS4();
+            let updatedData4 = gvwDetailGrid.getUpdateData(true, 'all');
+            if (_.isEmpty(updatedData4) == false && ret == true){
+                ret = await fn_saveS4(updatedData4);
+            }
 
             if (ret) {
                 gfn_comAlert("I0001");
@@ -1314,9 +1328,9 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ['시작일자'], 		ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, isvalidatecheck: true, validate : 'fnValidate'},
             {caption: ['종료일자'], 		ref: 'APPLY_END_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, isvalidatecheck: true, validate : 'fnValidate'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["급여기본급"], ref: 'SALARY_BASE_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -1366,6 +1380,18 @@
 
         gvwPayInfoGrid = _SBGrid.create(SBGridProperties);
         gvwPayInfoGrid.bind('valuechanged','gridValueChanged');
+    }
+
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        if (!(/[0-9]/g).test(strValue)) {
+            return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+        }
+
+        return Number(strValue);
     }
 
     //고정 수당항목
@@ -2958,10 +2984,14 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                /*if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }*/
-
+                if (data.resultMessage) {
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
+                }
                 return true;
 
             } else {
@@ -2979,14 +3009,7 @@
     }
 
     //저장
-    const fn_saveS1 = async function () {
-
-        //수정시 수정된 데이터만 가져감
-        let updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            return true;
-        }
+    const fn_saveS1 = async function (updatedData) {
 
         let listData = [];
         listData =  await getParamFormS1(updatedData);
@@ -2999,9 +3022,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    /*if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }*/
+                    if (data.resultMessage) {
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
                     return true;
 
                 } else {
@@ -3019,13 +3047,7 @@
     }
 
     //저장
-    const fn_saveS2 = async function () {
-
-        let updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            return true;
-        }
+    const fn_saveS2 = async function (updatedData) {
 
         let listData = [];
         listData =  await getParamFormS2(updatedData);
@@ -3039,10 +3061,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    /*if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }*/
-
+                    if (data.resultMessage) {
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
                     return true;
 
                 } else {
@@ -3061,13 +3087,7 @@
     }
 
     //사회보험 가입이력 저장
-    const fn_saveS3 = async function () {
-
-        let updatedData = gvwDetailGrid.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            return true;
-        }
+    const fn_saveS3 = async function (updatedData) {
 
         let listData = [];
         listData =  await getParamFormS3(updatedData);
@@ -3081,12 +3101,15 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    /*if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }*/
-
+                    if (data.resultMessage) {
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
                     return true;
-
 
                 } else {
                     alert(data.resultMessage);
@@ -3103,13 +3126,7 @@
     }
 
     //월보수액 저장
-    const fn_saveS4 = async function () {
-
-        let updatedData = gvwDetailGrid.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            return true;
-        }
+    const fn_saveS4 = async function (updatedData) {
 
         let listData = [];
         listData =  await getParamFormS4(updatedData);
@@ -3123,9 +3140,14 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                   /* if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }*/
+                    if (data.resultMessage) {
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
                     return true;
 
                 } else {

@@ -1979,33 +1979,49 @@
           fn_create();
       }
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
 
         if (_.isEqual(editType, 'N')){
 
             if (gfn_comConfirm("Q0001", "신규 등록")) {
-                fn_save('N');
+
+                let chk = true;
+
+                chk = await fn_save('N');
 
                 let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
 
-                if (_.isEmpty(gridData) == false){
+                if (_.isEmpty(gridData) == false && chk == true){
 
-                    fn_saveS1(gridData);
+                    chk = await fn_saveS1(gridData);
 
+                }
+
+                if (chk){
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
                 }
             }
         }else if (_.isEqual(editType, 'E')){
 
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
-                fn_save('U');
+
+                let chk = true;
+
+                chk = await fn_save('U');
 
                 let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
 
-                if (_.isEmpty(gridData) == false){
+                if (_.isEmpty(gridData) == false && chk == true){
 
-                    fn_saveS1(gridData);
+                    chk = await fn_saveS1(gridData);
 
+                }
+
+                if (chk){
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
                 }
             }
         }
@@ -2354,14 +2370,19 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }/*else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
-                    }*/
+                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                            return true;
+                        }else {
+                            alert(data.resultMessage);
+                            return false;
+                        }
+                    }
+                    return true;
 
                 } else {
                     alert(data.resultMessage);
+
+                    return false;
                 }
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -2734,11 +2755,19 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
+                    if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
+                        return true;
+                    }else {
+                        alert(data.resultMessage);
+                        return false;
+                    }
                 }
+                return true;
 
             } else {
                 alert(data.resultMessage);
+
+                return false;
             }
         } catch (e) {
             if (!(e instanceof Error)) {

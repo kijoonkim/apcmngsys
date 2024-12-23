@@ -42,7 +42,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -53,20 +53,19 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>포장기</th>
+							<th scope="row" class="th_bg">포장기</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
 								<sbux-select
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast"
 									id="srch-slt-pckgFcltCd"
 									name="srch-slt-pckgFcltCd"
 									uitype="single"
@@ -85,34 +84,34 @@
 						</ul>
 					</div>
 					<div>
-						<div id="sb-area-grdPckgFcltList" style="width:100%;height:300px;"></div>
+						<div id="sb-area-grdPckgFcltList"></div>
 					</div>
 				</div>
 
-					<div class="row">
-						<div class="col-sm-7">
-							<div class="ad_tbl_top2">
-								<ul class="ad_tbl_count">
+					 <div style="display: flex;gap: 3vw">
+                        <div style="flex: 1.6">
+                            <div class="ad_tbl_top">
+                                <ul class="ad_tbl_count">
 									<li><span>▶상세정보</span></li>
 								</ul>
 							</div>
 							<div>
-								<table class="table table-bordered tbl_fixed">
+								<table id="sortFcltTable" class="table table-bordered tbl_fixed">
 									<colgroup>
-										<col style="width: 20%">
-										<col style="width: 30%">
-										<col style="width: 20%">
-										<col style="width: 30%">
+										<col style="width: 15%">
+                                    <col style="width: 35%">
+                                    <col style="width: 15%">
+                                    <col style="width: 35%">
 									</colgroup>
 									<thead>
 										<tr>
 											<th scope="row" class="th_bg">설비코드</th>
 											<td class="td_input">
-												<sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm"  group-id="group1" disabled></sbux-input>
+												<sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm"  readonly></sbux-input>
 											</td>
 											<th scope="row" class="th_bg">설비명</th>
 											<td class="td_input">
-												<sbux-input id="dtl-inp-fcltNm" name="dtl-inp-fcltNm" uitype="text" class="form-control input-sm" required style="width:100%"  group-id="group1" disabled></sbux-input>
+												<sbux-input id="dtl-inp-fcltNm" name="dtl-inp-fcltNm" uitype="text" class="form-control input-sm" 	readonly></sbux-input>
 											</td>
 										</tr>
 										<tr>
@@ -125,8 +124,7 @@
                                                     jsondata-ref="jsonFcltType"
                                                     unselected-text="전체"
                                                     class="form-control input-sm input-sm-ast"
-                                                    group-id="group1"
-                                                    disabled
+                                                    readonly
                                             ></sbux-select>
 											</td>
 											<th scope="row" class="th_bg">포장구분</th>
@@ -229,10 +227,9 @@
 								</table>
 							</div>
 						</div>
-
-						<div class="col-sm-5">
-							<div class="ad_tbl_top2"  >
-								<ul class="ad_tbl_count">
+						<div style="flex: 1;display: flex;flex-direction: column;">
+							<div class="ad_tbl_top">
+	                                <ul class="ad_tbl_count">
 									<li><span>▶상세정보</span></li>
 								</ul>
 							</div>
@@ -335,7 +332,7 @@
 			gfn_setApcItemSBSelect('dtl-inp-rprsItem', 		jsonApcItem, gv_apcCd),		// 품목
 			gfn_setApcVrtySBSelect("dtl-inp-rprsVrty", 		jsonApcVrty, 	gv_apcCd)			// APC 품종(저장)
         ]);
-
+		SBUxMethod.set("dtl-slt-fcltType","PCKG_FCLT_CD");
 	}
 
     /**
@@ -373,10 +370,10 @@
         SBGridProperties.rowheader = 'seq';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["코드"],			ref: 'fcltCd',		type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["명칭"],			ref: 'fcltNm',    	type:'output',  width:'40%',    style:'text-align:center'},
-            {caption: ["설명"],			ref: 'rmrk',			type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["연계코드"],	ref: 'lnkgCd',    	type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["코드"],			ref: 'fcltCd',		type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["명칭"],			ref: 'fcltNm',    	type:'output',  width:'30%',    style:'text-align:center'},
+            {caption: ["설명"],			ref: 'fcltExpln',			type:'output',  width:'40%',    style:'text-align:center'},
+            {caption: ["연계코드"],	ref: 'extrnlLnkgCd',    	type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["권한설명"],	ref: 'test',        	type:'output',  hidden: true},
 
         ];
@@ -436,6 +433,31 @@
         grdPckgFcltDtl.setCellDisabled(nRow, 0, nRow, grdPckgFcltDtl.getCols() - 1, true);
     }
 
+     const fn_delete = async function(){
+
+         if(!gfn_comConfirm("Q0001","삭제")){
+             return;
+         };
+         let fcltType = SBUxMethod.get("dtl-slt-fcltType");
+         let idx = grdPckgFcltList.getRow();
+         let pckgFcltVO = grdPckgFcltList.getRowData(idx);
+
+         pckgFcltVO['FCLT_TYPE'] = fcltType;
+         let postJsonPromise = gfn_postJSON("/am/sort/deleteSortFclt.do",pckgFcltVO);
+         let data = await postJsonPromise;
+
+         try{
+             if(data.resultStatus == "S"){
+                 if(data.deletedCnt > 0){
+                     gfn_comAlert("I0001");
+                     fn_search();
+                 }
+             };
+         }catch (e){
+             console.error(e);
+         }
+     }
+
     /**
      * @name fn_delRow
      * @description 행삭제
@@ -458,6 +480,7 @@
          };
 
          let rowData = grdPckgFcltDtl.getRowData(rowIndex);
+
          let postJsonPromise = gfn_postJSON("/am/sort/deleteSortFcltDtl.do",rowData);
          let data = await postJsonPromise;
 
@@ -479,10 +502,11 @@
     	jsonPckgFcltDtlList.length = 0;
     	grdPckgFcltDtl.refresh();
 		let sortFcltCd = SBUxMethod.get("srch-slt-pckgFcltCd");
+		let fcltType = SBUxMethod.get("dtl-slt-fcltType");
     	let condition = {
     		apcCd:gv_apcCd
     		, fcltCd : sortFcltCd
-    		, fcltType : "PCKG_FCLT_CD"
+    		, fcltType : fcltType
     	}
 
         try{
@@ -527,6 +551,7 @@
 		let unit = SBUxMethod.get("dtl-slt-unit");
 		let oprtngHr = SBUxMethod.get("dtl-dtp-oprtngHr");
 		let noprtngHr = SBUxMethod.get("dtl-dtp-noprtngHr");
+		let fcltType = SBUxMethod.get("dtl-slt-fcltType");
 		//let bgngYmd = SBUxMethod.get("dtl-dtp-bgngYmd");
 		//let endYmd = SBUxMethod.get("dtl-dtp-endYmd");
 
@@ -537,7 +562,7 @@
         try{
             let pckgFcltInfo ={
             			apcCd : gv_apcCd
-            			, fcltType : "PCKG_FCLT_CD"
+            			, fcltType : fcltType
             			, fcltCd : fcltCd
             			, atrbCd : fcltCd
             			, atrbVl : ""
@@ -606,6 +631,7 @@
 		SBUxMethod.set("dtl-inp-pckgCapa",gfn_nvl(pckgFcltVO.cpctUnit));
 		SBUxMethod.set("dtl-inp-rmrk",gfn_nvl(pckgFcltVO.fcltRmrk));
 		SBUxMethod.set("dtl-inp-rprsItem",gfn_nvl(pckgFcltVO.rprsItem));
+		SBUxMethod.refresh("dtl-inp-rprsVrty");
 		SBUxMethod.set("dtl-inp-rprsVrty",gfn_nvl(pckgFcltVO.rprsVrty));
 		SBUxMethod.set("dtl-slt-unit",gfn_nvl(pckgFcltVO.unit));
 		SBUxMethod.set("dtl-dtp-oprtngHr",gfn_nvl(pckgFcltVO.oprtngHr));

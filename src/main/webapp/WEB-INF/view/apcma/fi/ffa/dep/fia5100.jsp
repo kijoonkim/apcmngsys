@@ -270,7 +270,7 @@
 											name="srch-dtp-stopPrcsYmd"
 											uitype="popup"
 											date-format="yyyy-mm-dd"
-											class="form-control input-sm input-sm-ast table-datepicker-ma"
+											class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 											onchange="fn_dtpChange(srch-dtp-stopPrcsYmd)"
 											group-id="group2"
 										></sbux-datepicker>
@@ -301,7 +301,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 			                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-inp-astNo1"
-												name="srch-inp-astNo1" class="form-control input-sm" group-id="dsps1"></sbux-input>
+												name="srch-inp-astNo1" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP8"
@@ -311,7 +311,7 @@
 												onclick="fn_astPopup()">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-inp-astNo2" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-inp-astNo2" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 										</div>
 									</td>
 		                            <td>
@@ -337,7 +337,7 @@
 											uitype="popup"
 											date-format="yyyy-mm"
 											datepicker-mode = "month"
-											class="form-control input-sm input-sm-ast table-datepicker-ma"
+											class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 											onchange="fn_dtpChange(srch-dtp-stopBgngYmd)"
 											group-id="group2"
 										></sbux-datepicker>
@@ -352,7 +352,7 @@
 											uitype="popup"
 											date-format="yyyy-mm"
 											datepicker-mode = "month"
-											class="form-control input-sm input-sm-ast table-datepicker-ma"
+											class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 											onchange="fn_dtpChange(srch-dtp-stopEndYmd)"
 											group-id="group2"
 										></sbux-datepicker>
@@ -371,7 +371,7 @@
 		                            <td colspan="3" class="td_input" style="border-right: hidden;">
 			                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-inp-tckgDept3"
-												name="srch-inp-tckgDept3" class="form-control input-sm" group-id="group2"></sbux-input>
+												name="srch-inp-tckgDept3" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP10"
@@ -381,7 +381,7 @@
 												onclick="fn_tckgDeptPopup('srch-inp-tckgDept4')">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-inp-tckgDept4" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-inp-tckgDept4" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 										</div>
 									</td>
 									<td></td>
@@ -391,7 +391,7 @@
 		                            <td colspan="3" class="td_input" style="border-right: hidden;">
 			                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-inp-pic1"
-												name="srch-inp-pic1" class="form-control input-sm" group-id="group2"></sbux-input>
+												name="srch-inp-pic1" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP9"
@@ -401,7 +401,7 @@
 												onclick="fn_picPopup('srch-inp-pic2')" >
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-inp-pic2" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-inp-pic2" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="group2"></sbux-input>
 										</div>
 									</td>
 		                            <td></td>
@@ -409,7 +409,7 @@
 		                        <tr>
 		                        	<th scope="row" class="th_bg">비고</th>
 		                            <td colspan="9" style="border-right:hidden;">
-											<sbux-textarea id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" uitype="normal" rows="3"></sbux-textarea>
+											<sbux-textarea id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" uitype="normal" rows="3" group-id="group2"></sbux-textarea>
 		                            </td>
 
 		                        </tr>
@@ -476,8 +476,8 @@
 	//초기화
 	function cfn_init(){
 		//SBUxMethod.clearGroupData('group1');
-		//SBUxMethod.clearGroupData('group2');
-		SBUxMethod.refreshAll()
+		SBUxMethod.clearGroupData('group2');
+		//SBUxMethod.refreshAll();
 	}
 
 	const fn_initSBSelect = async function() {
@@ -624,7 +624,7 @@
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
         let stopEndYmd = SBUxMethod.get("srch-dtp-stopEndYmd"); //중지종료년월
         let tckgDept = SBUxMethod.get("srch-inp-tckgDept3"); //담당부서
-        let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
+        let pic = SBUxMethod.get("srch-inp-pic2"); //담당자
         let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
         let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
         let rmrk = SBUxMethod.get("srch-inp-rmrk");//비고

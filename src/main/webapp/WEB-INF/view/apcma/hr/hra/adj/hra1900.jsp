@@ -458,7 +458,7 @@
 
 
 
-    function cfn_save() {
+    /*function cfn_save() {
 
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
@@ -466,7 +466,7 @@
             fn_save();
 
         }
-    }
+    }*/
 
     function cfn_search() {
 

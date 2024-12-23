@@ -1201,8 +1201,8 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","소속 통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","물량(톤)"]
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:center'

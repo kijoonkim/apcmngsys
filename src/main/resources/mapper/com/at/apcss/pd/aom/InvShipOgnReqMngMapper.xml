@@ -108,10 +108,11 @@
 				, ( ROUND ( FRMER_INVST_AMT / DECODE(INVST_AMT, 0, NULL, INVST_AMT)  * 100, 2) ) AS FRMER_INVST_AMT_RT
 				, CM.FXNO
 
-				, (SELECT 'Y'
-					FROM TB_EV_APLY_MNG
-					WHERE BRNO = CM.BRNO
-					  AND YR = EAM.YR
+				, NVL((SELECT 'Y'
+							FROM TB_EV_APLY_MNG
+							WHERE BRNO = CM.BRNO
+							  AND YR = EAM.YR
+						),'N'
 				) AS APLY_CHK
 
 				, (CASE WHEN CM.APO_SE = '1' THEN '통합조직 가입'
@@ -167,15 +168,16 @@
 						</if>
 					) EAM
 			 WHERE 1=1
-			   AND UO.ISO_BRNO = CM.BRNO(+)
-			   AND CM.BRNO = EAM.BRNO(+)
-			   AND CM.BRNO IS NOT NULL
 			<if test='uoBrno != null and uoBrno != ""'>
+				AND UO.ISO_BRNO = CM.BRNO(+)
 				AND UO.UO_BRNO = #{uoBrno}
 			</if>
 			<if test='isoBrno != null and isoBrno != ""'>
-				AND UO.ISO_BRNO = #{isoBrno}
+				AND CM.BRNO = UO.ISO_BRNO(+)
+				AND CM.BRNO = #{isoBrno}
 			</if>
+			   AND CM.BRNO = EAM.BRNO(+)
+			   AND CM.BRNO IS NOT NULL
 			ORDER BY CORP_NM
 
 		<!-- 페이징 -->

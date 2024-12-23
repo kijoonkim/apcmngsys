@@ -88,7 +88,7 @@
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	class="btn btn-sm btn-light dropdown-toggle"
 										    	type="button"
 										    	id="srch-slt-siteCode"
 										    	data-toggle="dropdown"
@@ -383,9 +383,9 @@
 			return false;
 		}
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
-    	if(siteCode === ""){
-    		return false;
-    	}
+    	//if(siteCode === ""){
+    	//	return false;
+    	//}
 
         await fnQRY_P_FIA5200_Q("INFO");
 		await fnQRY_P_FIA5200_Q("LOG");
@@ -487,11 +487,11 @@
      			bresult = false;
      			strsite_code = item.siteCode;
      			if(depreciationType === "1"){
-     				bresult = fnSET_P_FIA5200_S("GAAP", strsite_code);
+     				bresult = fnSET_P_FIA5200_S_TEST("GAAP", strsite_code);
      			}else if(depreciationType === "2"){
-     				bresult = fnSET_P_FIA5200_S("IFRS", strsite_code);
+     				bresult = fnSET_P_FIA5200_S_TEST("IFRS", strsite_code);
      			}else if(depreciationType === "3"){
-     				bresult = fnSET_P_FIA5200_S("TAX", strsite_code);
+     				bresult = fnSET_P_FIA5200_S_TEST("TAX", strsite_code);
      			}else{
      				gfn_comAlert("I0001"); //감가상각기준을 선택하여주시기 바랍니다.
      			}
@@ -534,7 +534,7 @@
 	    			intmax_seq = intmax_seq + 1;
 	    			bresult = false;
 	    			strsite_code = item.siteCode;
-	   				bresult = await fnSET_P_FIA5200_S("CANCEL", strsite_code);
+	   				bresult = fnSET_P_FIA5200_S_TEST("CANCEL", strsite_code);
 	    			intprogram_seq = intprogram_seq + 1;
 	    			if (!bresult){
 	    				//break;
@@ -548,29 +548,35 @@
         }
   	}
 
+  	const fnSET_P_FIA5200_S_TEST = async function(strWorkType,strSiteCodeP){
+  		await fnSET_P_FIA5200_S(strWorkType,strSiteCodeP);
+  	}
+
+
 	//조회
 	// srrWorkType : GAAP, IFRS, TAX, CANCLE
     const fnSET_P_FIA5200_S = async function(strWorkType,strSiteCodeP){
+		let depreciationYyyymm = 	SBUxMethod.get("srch-dtp-depreciationYyyymm");
+		let depreciationType = SBUxMethod.get("srch-slt-depreciationType");
+
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
       			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_DEPRECIATION_YYYYMM : ''
-      			,V_P_DEPRECIATION_TYPE   : ''
-      			,V_P_SITE_CODE           : ''
+      			,V_P_DEPRECIATION_YYYYMM : depreciationYyyymm
+      			,V_P_DEPRECIATION_TYPE   : depreciationType
+      			,V_P_SITE_CODE           : strSiteCodeP
       			,V_P_MEMO                : ''
       			,V_P_FORM_ID		: p_formId
       			,V_P_MENU_ID		: p_menuId
       			,V_P_PROC_ID		: ''
-      			,V_P_USERID			: ''
+      			,V_P_USERID			: p_userId
       			,V_P_PC				: ''
       	    };
 
-    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["memomemo"]);
- 		 if(!postFlag){
- 	        return;
- 	     }
+
+
 
           const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5200.do", {
            	getType				: 'json',
