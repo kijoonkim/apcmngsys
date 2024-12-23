@@ -1203,8 +1203,6 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		console.log(yr);
-
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
 			,yr : yr
@@ -1310,11 +1308,17 @@
 
 		if(gfn_isEmpty(brno)) return;
 		//사용자인경우는 현재 올해 년도만 사용함
-		let now = new Date();
-		let year = now.getFullYear();
-		SBUxMethod.set('dtl-input-yr',year);
+
+		let yr = SBUxMethod.get('dtl-input-yr');
+		console.log(yr);
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
+			,yr : yr
 		});
 
 		let data = await postJsonPromise ;
@@ -1820,8 +1824,9 @@
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
-				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
-				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				await SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await fn_dtlGridSearch01();
 			}
 			SBUxMethod.closeProgress("loadingOpen");
 		}catch (e) {
