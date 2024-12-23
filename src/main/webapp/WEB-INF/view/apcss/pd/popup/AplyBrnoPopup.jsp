@@ -46,7 +46,7 @@
 							 -->
 							<th scope="row">사업자번호</th>
 							<th>
-								<sbux-input id="aplyBrno-inp-brno" name="aplyBrno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey"></sbux-input>
+								<sbux-input id="aplyBrno-inp-brno" name="aplyBrno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey" mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"></sbux-input>
 							</th>
 							<th scope="row">법인체명</th>
 							<th>
