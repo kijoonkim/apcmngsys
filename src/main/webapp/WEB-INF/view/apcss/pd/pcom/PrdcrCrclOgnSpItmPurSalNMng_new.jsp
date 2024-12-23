@@ -1119,6 +1119,12 @@
 					if (gfn_isEmpty(rowData01.prchsNm)) {
 						objGrid.setCellDisabled(i, columnRefs.slsCnsgnSlsVlm, i, columnRefs.slsCnsgnSlsAmt, true);
 					}
+					//disabled 처리
+					objGrid.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
+					// 배경 속성 추가
+					objGrid.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
+					objGrid.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
+
 					objGrid.setCellStyle('background-color', i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, '#e1e1e1');
 					//objGrid.setCellStyle('background-color', i, columnRefs.uoSpmtVlm, i, columnRefs.uoSpmtAmt, 'lightgreen');
 					break;
@@ -1168,7 +1174,7 @@
 			let rowSts01 = objGrid.getRowStatus(i);
 
 			//매입 값이 있을경우 매출 값을 입력 필수
-			if(rowData01.typeSeNo == '5'){
+			if(rowData01.typeSeNo == '6' && rowData01.trmtType !== '0'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
@@ -1176,12 +1182,43 @@
 						return false;
 					}
 				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+			}
+
+			if(rowData01.typeSeNo == '7'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						objGrid.selectRow(i);
+						return false;
+					}
+				}
+
 				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						objGrid.selectRow(i);
 						return false;
 					}
+				}
+
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) && Number(rowData01.slsCnsgnSlsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnSlsVlm) || Number(rowData01.slsCnsgnSlsVlm) == 0)){
+					alert('매입 금액이 있는 경우 매입 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
 				}
 			}
 

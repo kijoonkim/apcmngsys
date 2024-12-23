@@ -762,12 +762,18 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			/*= 매입 합계 =*/
-			{caption: ["합계","합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:center'
+			{caption: ["합계","합계","물량(톤)"], 	ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:center'
 				,calc : 'fn_prchsVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["합계","합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center'
+			{caption: ["합계","합계","차이"], 		ref: 'prchsTotVlmDiff',   		type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
+				, calc : 'fn_prchsVlmDiff'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","합계","금액(천원)"], 	ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center'
 				,calc : 'fn_prchsAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","합계","차이"], 		ref: 'prchsTotAmtDiff',   		type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
+				, calc : 'fn_prchsAmtDiff'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*= 기타 =*/
 			/*
 			{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
@@ -851,11 +857,46 @@
 	function fn_prchsVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(gfn_nvl(rowData.prchsSortTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
-				+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm));
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = Number(gfn_nvl(rowData.prchsSortTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm));
+		}else{
+			sumVal = rowData.prchsTotVlm;
+		}
+
+		return sumVal;
+	}
+	//매입 물량 합계 차이
+	function fn_prchsVlmDiff(objGrid, nRow, nCol){
+		nRow = Number(nRow);
+		nCol = Number(nCol);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		if(rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
+			sumVal = Number(gfn_nvl(rowData.prchsTotVlm)) -
+					(
+							Number(gfn_nvl(rowData.prchsSortTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
+							+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm))
+					);
+			console.log(sumVal);
+			if(sumVal === 0){
+				console.log('0');
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
+			}else{
+				console.log('!0');
+				console.log(nRow,nCol);
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'red');
+			}
+			return sumVal;
+		}else{
+			sumVal = '';
+		}
 		return sumVal;
 	}
 
@@ -863,11 +904,43 @@
 	function fn_prchsAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(gfn_nvl(rowData.prchsSortTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
-				+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt));
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = Number(gfn_nvl(rowData.prchsSortTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt));
+		}else{
+			sumVal = rowData.prchsTotAmt;
+		}
+		return sumVal;
+	}
+
+	//매입 금액 합계 차이
+	function fn_prchsAmtDiff(objGrid, nRow, nCol){
+		nRow = Number(nRow);
+		nCol = Number(nCol);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		//금액의 경우 기타인 경우만 합산 처리
+		if(rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
+			sumVal = Number(gfn_nvl(rowData.prchsTotAmt)) -
+					(
+					Number(gfn_nvl(rowData.prchsSortTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt))
+					);
+			if(sumVal === 0){
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
+			}else{
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'red');
+			}
+			return sumVal;
+		}else{
+			sumVal = '';
+		}
 		return sumVal;
 	}
 
@@ -2251,7 +2324,8 @@
 
 				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
 				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotVlm, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotAmt, i, prchsTotAmt, 'lightgray');
 				//해당 타입 위치 저장
 			}else if (rowData.sttgUpbrItemSe == '3') {
 				objGrid01.setCellDisabled(i, prchsSortTrstVlm, i, prchsSortTrstAmt, false);
@@ -2266,7 +2340,8 @@
 
 				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
 				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotVlm, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotAmt, i, prchsTotAmt, 'lightgray');
 			}else{
 				objGrid01.setCellDisabled(i, sttgUpbrItemNm01, i, prchsTotAmt, true);
 				objGrid01.setCellStyle('background-color', i, sttgUpbrItemNm01, i, prchsTotAmt, 'lightgray');

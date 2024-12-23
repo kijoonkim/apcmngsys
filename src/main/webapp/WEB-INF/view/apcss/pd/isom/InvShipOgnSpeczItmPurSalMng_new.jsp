@@ -1418,6 +1418,19 @@
 						return;
 					}
 				}
+
+				if(!gfn_isEmpty(rowData01.uoSpmtAmt) && Number(rowData01.uoSpmtAmt) != 0
+						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0 )){
+					alert('매출 금액이 있는 경우 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+				if(!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0
+						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0 )){
+					alert('매출 금액이 있는 경우 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
 			}
 
 			//'생산자조직 외' 인 경우
@@ -1439,6 +1452,24 @@
 						objGrid.selectRow(i);
 						return;
 					}
+				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+					alert('매입 금액이 있는 경우 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+				if(!gfn_isEmpty(rowData01.uoSpmtAmt) && Number(rowData01.uoSpmtAmt) != 0
+						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0)){
+					alert('매출 금액이 있는 경우 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+				if(!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0
+						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoOtherSpmtVlm) == 0)){
+					alert('매출 금액이 있는 경우 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
 				}
 			}
 
