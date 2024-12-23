@@ -625,6 +625,7 @@
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
+				, CM.CTRT_DT
 				, CM.SPMT_BGNG_DT
 				, CM.SPMT_END_DT
 				, CM.RMRK
