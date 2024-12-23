@@ -566,10 +566,11 @@
 							</li>
 						</ul>
 					</div>
-
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdUoList" style="height:150px; width: 100%; overflow-x: hidden; margin-bottom: 5px;"></div>
+					<!--
 					<sbux-button id="btnSaveUoList" name="btnSaveUoList" uitype="normal" text="출자출하조직이 속한 통합조직 리스트 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveUoList"></sbux-button>
+					-->
 				</div>
 
 				<div class="ad_tbl_top">
@@ -2474,7 +2475,7 @@
 				if(corpDdlnSeCd == 'Y'){
 					return "";
 				}
-				let delYn = SBUxMethod.get("dtl-input-delYn");
+				let delYn = objRowData.delYn;
 				if(delYn != 'N'){
 					return "";
 				}
@@ -2502,7 +2503,6 @@
 			if (grid === "grdUoList") {
 				grdUoList.setCellData(nRow, nCol, "N", true);
 				grdUoList.addRow(true);
-
 				let rmrkCol = grdUoList.getColRef('rmrk');
 				let selCol = grdUoList.getColRef('sel');
 				grdUoList.setCellStyle('background-color', nRow, selCol, nRow, rmrkCol, 'white');
@@ -2625,6 +2625,7 @@
 			if(grdStatus != '1'){
 				grdUoList.setRowStatus(selGridUoListRow,'update');
 			}
+			fn_saveUoList();
 		}
 	}
 
@@ -2733,7 +2734,7 @@
 		let data = await postJsonPromise;
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				//gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
