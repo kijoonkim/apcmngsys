@@ -104,4 +104,34 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 조회
+	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngListNew(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 출자출하조직 총괄표 로우데이터 리스트 조회
+	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataListNew(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = InvShipOgnGenalTblMngService.selectRawDataListNew(InvShipOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

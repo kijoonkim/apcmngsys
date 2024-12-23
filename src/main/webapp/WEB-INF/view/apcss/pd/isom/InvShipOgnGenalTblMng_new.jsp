@@ -73,12 +73,12 @@
 									id="srch-input-yr"
 									name="srch-input-yr"
 									uitype="normal"
-                					step-value="1"
-                				></sbux-spinner>
-                				<sbux-checkbox
-                					id="srch-input-yrChk"
-                					name="srch-input-yrChk"
-                					uitype="normal"
+									step-value="1"
+								></sbux-spinner>
+								<sbux-checkbox
+									id="srch-input-yrChk"
+									name="srch-input-yrChk"
+									uitype="normal"
 									text="해당년도 신청사용자만 보기"
 									text-left-padding="5px"
 									text-right-padding="25px"
@@ -622,8 +622,6 @@
 		//grdPrdcrOgnCurntMng.refresh({"combo":true});
 		//클릭 이벤트 바인드
 		//grdPrdcrOgnCurntMng.bind('click','gridClick');
-
-
 	}
 
 	/**
@@ -914,7 +912,7 @@
 			return;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngList.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngListNew.do", {
 			apoCd : apoCd
 			,apoSe : apoSe
 			,itemCd : itemCd
@@ -1017,7 +1015,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1033,7 +1031,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		fn_clearForm();
 
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
@@ -1095,8 +1093,9 @@
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
-				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
-				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				await SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				fn_dtlGridSearch();
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1244,8 +1243,8 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList.do", {
-		    yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataListNew.do", {
+				yr : yr
 			});
 
 			let data = await postJsonPromise;
