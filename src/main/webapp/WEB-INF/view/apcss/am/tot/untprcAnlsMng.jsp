@@ -33,11 +33,11 @@
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
-<%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
-                    <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-<%--                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>--%>
-<%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
+                <%--                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>--%>
+                <%--                <sbux-button disabled="true" id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>--%>
+                <%--                <sbux-button disabled="true" id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>--%>
+                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+                <%--                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>--%>
             </div>
         </div>
         <div class="box-body">
@@ -60,18 +60,30 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">기준유형</th>
+                    <th scope="row" class="th_bg">기준일자</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
-                        <sbux-select id="srch-slt-sortFcltCd"
-                                     name="srch-slt-sortFcltCd"
-                                     uitype="single"
-                                     unselected-text="전체"
-                                     class="form-control input-sm"
-                                     style="width: 80%"
-                                     jsondata-ref="jsonSortFclt">
-                        </sbux-select>
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="srch-dtp-wrhsYmdFrom"
+                                name="srch-dtp-wrhsYmdFrom"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+                                onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+                        ></sbux-datepicker>
                     </td>
-                    <td colspan="9" style="border-top: hidden"></td>
+                    <th scope="row" class="th_bg">단가구분</th>
+                    <td class="td_input" colspan="4" style="border-top: hidden;border-right: hidden">
+                            <sbux-select
+                                    unselected-text="전체"
+                                    uitype="single"
+                                    id="srch-slt-itemCd"
+                                    name="srch-slt-itemCd"
+                                    class="form-control input-sm input-sm-ast"
+                                    jsondata-ref="jsonApcItem"
+                                    onchange="fn_onChangeSrchItemCd(this)">
+                            </sbux-select>
+                    </td>
+                    <td colspan="4" style="border-top: hidden"></td>
                 </tr>
                 </tbody>
             </table>
@@ -80,21 +92,11 @@
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li>
-                                <span>반품기준 목록</span>
+                                <span>단가 분석 목록</span>
                             </li>
                         </ul>
                     </div>
                     <div id="sb-area-rtnCrtr"></div>
-                </div>
-                <div style="flex: 1">
-                    <div class="ad_tbl_top">
-                        <ul class="ad_tbl_count">
-                            <li>
-                                <span>반품기준 상세정보</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="sb-area-rtnCrtrDtl"></div>
                 </div>
             </div>
         </div>
@@ -104,17 +106,13 @@
 <script type="application/javascript">
     /** grid 변수 셋팅 **/
     var jsonRtnCrtr = [];
-    var jsonRtnCrtrDtl = [];
-
     let gridRtnCrtr;
-    let gridRtnCrtrDtl;
 
     window.addEventListener("DOMContentLoaded",function(){
-       fn_init();
+        fn_init();
     });
     const fn_init = async function(){
         await fn_create_rtnCrtr();
-        await fn_create_rtnCrtrDtl();
     }
 
     const fn_create_rtnCrtr = async function(){
@@ -126,28 +124,19 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["기준유형코드"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준유형명칭"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준코드"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
+            {caption: ["품목구분"],	ref: 'wghYmd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["품종구분"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["상세코드"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
+            {caption: ["품목번호"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["평균단가"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M-1"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M-2"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M-3"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M-4"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+            {caption: ["M-5"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
-    }
-    const fn_create_rtnCrtrDtl = async function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-rtnCrtrDtl';
-        SBGridProperties.id = 'gridRtnCrtrDtl';
-        SBGridProperties.jsonref = 'jsonRtnCrtrDtl';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.datamergefalseskip = true;
-        SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["상세순번"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세코드"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세값"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
-        ]
-        gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

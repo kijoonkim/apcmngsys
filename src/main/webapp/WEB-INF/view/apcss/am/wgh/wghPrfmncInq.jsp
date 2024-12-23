@@ -116,7 +116,7 @@
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
                     <li>
-                        <span>계량대 현황</span>
+                        <span>계량 실적 목록</span>
                     </li>
                 </ul>
             </div>
