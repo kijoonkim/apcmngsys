@@ -1079,7 +1079,7 @@
 		try{
 			jsonInvShipOgnReqMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
 						apoSe: item.apoSe
@@ -1126,7 +1126,7 @@
 	}
 	//사용자 조회
 	const fn_dtlSearch = async function(){
-		console.log('============fn_dtlSearch=============');
+		//console.log('============fn_dtlSearch=============');
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		//사용자는 현재년도만 필요함
@@ -1134,7 +1134,7 @@
 		let year = now.getFullYear();
 
 		let yr = SBUxMethod.get("dtl-input-yr");//
-		console.log(yr);
+		//console.log(yr);
 		if(gfn_isEmpty(yr)){
 			yr = year;
 		}
@@ -1151,6 +1151,7 @@
 			let wrtYn = null;
 			let corpDdlnSeCd = null;
 			let apoSe = null;
+			//console.log('data');
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(item.apoSe))//통합조직 구분
@@ -1289,12 +1290,13 @@
 
 	//출자출하조직 조회
 	const fn_dtlSearch02 = async function(){
+		//console.log('fn_dtlSearch02');
 		let brno = '${loginVO.brno}';
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
 		let yr = SBUxMethod.get('dtl-input-yr');
-
+		//console.log(brno,yr);
 		if(gfn_isEmpty(brno)) return;
 		//년도가 비어있는 예외의 경우
 		if(gfn_isEmpty(yr)){
@@ -1310,7 +1312,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonInvShipOgnReqMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
 				SBUxMethod.set("dtl-input-apoSe", item.apoSe);
@@ -1341,32 +1343,6 @@
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
-
-
-			let userType = '${loginVO.userType}';
-			let apoSe = SBUxMethod.get('dtl-input-apoSe');
-			//조직관계 데이터가 없어 조회를 못하는 경우면 apoSe 값이 없음
-			if(!gfn_isEmpty(apoSe)){
-				if(userType == '21'){
-					userType = '1'
-				}else if(userType == '22'){
-					userType = '2'
-				}
-				//유저 권한과 데이터가 맞지 않는 경우 오류 처리
-				if(userType != apoSe){
-					alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
-							"\n관리자에게 문의 해주세요");
-					$(".btn").hide();// 모든 버튼 숨기기
-					$(".uoList").hide();
-					SBUxMethod.clearAllData();//모든 데이터 클리어
-					return false;
-				}
-			}else{
-				$(".btn").hide();// 모든 버튼 숨기기
-				$(".uoList").hide();
-				SBUxMethod.clearAllData();//모든 데이터 클리어
-				return false;
-			}
 
 			//산지조직신청 확인
 			if(wrtYn != 'Y'){
@@ -1412,6 +1388,7 @@
 
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
+		//console.log('fn_searchUoList');
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.userType ne '22'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
@@ -1467,6 +1444,20 @@
 			if(corpDdlnSeCd != 'Y'){
 				grdUoList.addRow();
 			}
+
+			let rmrkCol = grdUoList.getColRef('rmrk');
+			let selCol = grdUoList.getColRef('sel');
+
+			let grdData = grdUoList.getGridDataAll();
+			let captionRow = grdUoList.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData = grdUoList.getRowData(i);
+				console.log(rowData.delYn);
+				if(rowData.delYn != 'N'){
+					grdUoList.setCellStyle('background-color', i, selCol, i, rmrkCol, 'lightgray');
+				}
+			}
+
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1481,7 +1472,6 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1495,7 +1485,7 @@
 	 * 저장 버튼
 	 */
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
+		//console.log("******************fn_save**********************************");
 
 		let brno = SBUxMethod.get('dtl-input-brno')//
 		if(gfn_isEmpty(brno)) return;
@@ -1573,7 +1563,7 @@
      * 신규 등록
      */
 	const fn_subInsert = async function (isConfirmed){
-		console.log("******************fn_subInsert**********************************");
+		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let yr = SBUxMethod.get('dtl-input-yr')//
@@ -1596,7 +1586,7 @@
 		});
 
 		const data = await postJsonPromise;
-		console.log("insert result", data);
+		//console.log("insert result", data);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -1631,7 +1621,7 @@
      * 업데이트
      */
 	const fn_subUpdate = async function (isConfirmed){
-		console.log("******************fn_subUpdate**********************************");
+		//console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
 		let gridData = grdGpcList.getGridDataAll();
@@ -1647,7 +1637,6 @@
 		for(var i=1; i<=gridData.length; i++ ){
 
 			let rowData = grdGpcList.getRowData(i);
-			console.log(rowData);
 			let rowSts = grdGpcList.getRowStatus(i);
 			//console.log(i+"행 상태값 : "+rowSts);
 
@@ -1685,7 +1674,7 @@
 		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", saveList);
 
 		const data = await postJsonPromise;
-		console.log("update result", data);
+		//console.log("update result", data);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -1719,7 +1708,7 @@
 
 	//통합조직 리스트 그리드 클릭시 출자출하조직 리스트 조회 이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 		fn_clearForm();
 
 		//데이터가 존재하는 그리드 범위 확인
@@ -1737,7 +1726,7 @@
 
 		//해당 로우 데이터로 출자출하조직 리스트 조회
 		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 
 		//콤보박스로 선택할수 있게 변경 됨
 		//SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
@@ -1754,7 +1743,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonInvShipOgnReqMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
@@ -1806,7 +1795,7 @@
 
 	//출자출하조직 상세 조회
 	const fn_view01 = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdInvShipOgnReqMng01.getCol();
@@ -1823,8 +1812,8 @@
 		fn_clearForm01();
 
 		//해당 로우 데이터로 출자출하조직 리스트 조회
-        let rowData = grdInvShipOgnReqMng01.getRowData(nRow);
-		console.log(rowData);
+		let rowData = grdInvShipOgnReqMng01.getRowData(nRow);
+		//console.log(rowData);
 
 		SBUxMethod.set("dtl-input-apoCd", rowData.apoCd);
 		SBUxMethod.set("dtl-input-crno", rowData.crno);
@@ -1913,7 +1902,7 @@
 
 	//신규
 	function fn_create() {
-		console.log("******************fn_create**********************************");
+		//console.log("******************fn_create**********************************");
 		SBUxMethod.set('dtl-input-intyYn',null)//
 		SBUxMethod.set('dtl-input-uoNm',null)//
 		SBUxMethod.set('dtl-input-uoBrno',null)//
@@ -1923,11 +1912,7 @@
 	//삭제
 	//출자출하조직 리스트 삭제
 	async function fn_deleteRsrc(InvShipOgnReqMngVO,nRow){
-		console.log("===========fn_deleteRsrc===========");
-		//console.log(InvShipOgnReqMngVO);
-		//console.log(typeof InvShipOgnReqMngVO);
-		//console.log(nRow);
-		//console.log(typeof nRow);
+		//console.log("===========fn_deleteRsrc===========");
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
 		let data = await postJsonPromise;
 
@@ -1983,9 +1968,7 @@
 
 	// Grid Row 추가 및 삭제 기능
 	function fn_procRow(gubun, grid, nRow, nCol) {
-		console.log("===========fn_procRow===========");
-		//console.log(nRow);
-		//console.log(typeof nRow);
+		//console.log("===========fn_procRow===========");
 		if (grid === "grdInvShipOgnReqMng01") {
 			let vo = grdInvShipOgnReqMng01.getRowData(nRow);
 			var delMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
@@ -2043,7 +2026,6 @@
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				let delYnCol = objGrid.getColRef('delYn');
 				let delYnVal = objGrid.getCellData(nRow,delYnCol);
-				console.log(delYnVal);
 				if(corpDdlnSeCd != 'Y'){
 					if(delYnVal == 'N'){
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
@@ -2099,7 +2081,6 @@
 		let uoBrnoCol = objGrid.getColRef('uoBrno');//통합조직 사업자등록번호
 
 		let orgStr = objGrid.getCellData(nRow,nCol);
-		//console.log(orgStr);
 		//값 초기화
 		if(strValue != orgStr){
 			objGrid.setCellData(nRow,clsfCdCol,null,true);
@@ -2108,7 +2089,6 @@
 			objGrid.setCellData(nRow,itemNmCol,null,true);
 			objGrid.setCellData(nRow,uoBrnoCol,null,true);
 		}
-		//console.log("strValue = " +strValue ,clsfCdCol , ctgryCdCol);
 		//기타일떄 부류,평가부류 비활성화
 		if(strValue == '3'){
 			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
@@ -2127,7 +2107,7 @@
 
 	/* 품목리스트 조회 기능*/
 	const fn_selectGpcList = async function(){
-		console.log("===========fn_selectGpcList===========");
+		//console.log("===========fn_selectGpcList===========");
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
 		let yr = SBUxMethod.get('dtl-input-yr')//
 		if(gfn_isEmpty(yr)){
@@ -2182,7 +2162,6 @@
 				grdGpcList.addRow();
 			}
 			var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
-			//console.log(nCol);
 			window.scrollTo(0, 0);
 
 			let rmrkCol = grdGpcList.getColRef('rmrk');//부류
@@ -2276,7 +2255,7 @@
 
 	//품목 리스트 저장
 	const fn_gpcListMultiSave = async function (){
-		console.log("******************fn_GpcListMultiSave**********************************");
+		//console.log("******************fn_GpcListMultiSave**********************************");
 
 		let gridData = grdGpcList.getGridDataAll();
 		let saveList = [];
@@ -2343,7 +2322,7 @@
 	}
 
 	function fn_GridPop(gubun, grid, nRow, nCol) {
-		console.log("================fn_GridPop================");
+		//console.log("================fn_GridPop================");
 		if (gubun === "pop") {
 			if (grid === "grdGpcList") {
 				//부른 선택된 그리드 셀의 값을 N 으로 변경
@@ -2354,7 +2333,7 @@
 
 	//그리드 클릭이벤트
 	function gridClick(){
-		console.log("================gridClick================");
+		//console.log("================gridClick================");
 		//grdGpcList 그리드 객체
 		let selGridRow = grdGpcList.getRow();
 		let selGridCol = grdGpcList.getCol();
@@ -2397,7 +2376,6 @@
 		}
 		let rowData = grdGpcList.getRowData(nRow);
 		let selType = 'Y';
-		console.log(rowData);
 
 		if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
 			alert('전문/육성 구분을 선택해주세요');
@@ -2410,7 +2388,6 @@
 		let brno = SBUxMethod.get('dtl-input-brno');//
 		let yr = SBUxMethod.get('dtl-input-yr');//
 		if(gfn_isEmpty(brno)){return}
-		console.log(selType , brno , yr);
 		popGpcSelect.init(fn_setGridItem , selType , brno , yr);
 		SBUxMethod.openModal('modal-gpcList');
 	}
@@ -2418,8 +2395,7 @@
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
-		console.log("================fn_setGridItem================");
-		console.log(rowData);
+		//console.log("================fn_setGridItem================");
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값
@@ -2466,7 +2442,6 @@
 	}
 
 	/* 20241022 신청관리 출자출하조직 신청 통합조직 선택 추가 */
-
 	var jsonUoList = []; // 그리드의 참조 데이터 주소 선언
 	var grdUoList; //그리드 객체
 
@@ -2499,6 +2474,10 @@
 				if(corpDdlnSeCd == 'Y'){
 					return "";
 				}
+				let delYn = SBUxMethod.get("dtl-input-delYn");
+				if(delYn != 'N'){
+					return "";
+				}
 				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
 			}},
 			{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
@@ -2513,7 +2492,7 @@
 
 		grdUoList = _SBGrid.create(SBGridProperties);
 
-	  	//클릭 이벤트 바인드
+		//클릭 이벤트 바인드
 		grdUoList.bind('click','gridUoListClick');
 	}
 
@@ -2523,6 +2502,11 @@
 			if (grid === "grdUoList") {
 				grdUoList.setCellData(nRow, nCol, "N", true);
 				grdUoList.addRow(true);
+
+				let rmrkCol = grdUoList.getColRef('rmrk');
+				let selCol = grdUoList.getColRef('sel');
+				grdUoList.setCellStyle('background-color', nRow, selCol, nRow, rmrkCol, 'white');
+				grdUoList.setCellStyle('background-color', nRow+1, selCol, nRow+1, rmrkCol, 'lightgray');
 			}
 		}
 		else if (gubun === "DEL") {
@@ -2646,7 +2630,6 @@
 
 	/* 상위 통합조직 리스트 조회 */
 	const fn_selectUoList = async function(){
-
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let brno = SBUxMethod.get('dtl-input-brno');
 
@@ -2682,6 +2665,18 @@
 			let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 			if(corpDdlnSeCd != 'Y'){
 				grdUoList.addRow();
+			}
+
+			let rmrkCol = grdUoList.getColRef('rmrk');
+			let selCol = grdUoList.getColRef('sel');
+
+			let grdData = grdUoList.getGridDataAll();
+			let captionRow = grdUoList.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData = grdUoList.getRowData(i);
+				if(rowData.delYn != 'N'){
+					grdUoList.setCellStyle('background-color', i, selCol, i, rmrkCol, 'lightgray');
+				}
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -2841,7 +2836,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						aprv:						item.aprv
@@ -2911,7 +2906,7 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		console.log(hiddenGrd.exportData);
+		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
