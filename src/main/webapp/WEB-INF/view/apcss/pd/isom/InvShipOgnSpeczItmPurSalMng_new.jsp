@@ -246,7 +246,6 @@
 								<th scope="row" class="th_bg th_border_right">법인명</th>
 								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<td colspan="2" class="td_input">
 									<sbux-input
 										uitype="text"
@@ -456,6 +455,12 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear()//기본년도 세팅
+	<c:if test="${loginVO.apoSe eq '1'}">
+		//통합조직 기본정보
+		SBUxMethod.set("dtl-input-userCorpNm","${loginVO.corpNm}");
+		SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
+		SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
+	</c:if>
 		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();

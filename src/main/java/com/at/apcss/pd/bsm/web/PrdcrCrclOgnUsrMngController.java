@@ -151,6 +151,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		String typeCd = loginVo.getTypeCd();
 		String userType = loginVo.getUserType();
 		String apoSe = loginVo.getApoSe();
+		String corpNm = loginVo.getCorpNm();
 		String menuId ="userChange";
 
 		try{
@@ -165,6 +166,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 			sessionLoginVo.setId(userId);
 			sessionLoginVo.setMbrTypeCd(typeCd);
 			sessionLoginVo.setApoSe(apoSe);
+			sessionLoginVo.setCorpNm(corpNm);
 			request.getSession().setAttribute("loginVO", sessionLoginVo);
 
 			comLogVo.setUserId(userId);
