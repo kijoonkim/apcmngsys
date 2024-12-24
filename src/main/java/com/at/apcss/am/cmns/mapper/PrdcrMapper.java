@@ -134,4 +134,37 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public int updateApcPrdcrFrmhs(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * 생산자상세유형정보 목록 조회
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrVO> selectPrdcrTypeDtlList(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * 생산자상세유형정보 목록 등록
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int insertPrdcrTypeDtl(PrdcrVO prdcrVO) ;
+
+	/**
+	 * 생산자상세유형정보 목록 수정
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updatePrdcrTypeDtl(PrdcrVO prdcrVO) ;
+
+
+	/**
+	 * 생산자상세유형정보 목록 삭제
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) ;
 }

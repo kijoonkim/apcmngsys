@@ -123,4 +123,28 @@ public interface PrdcrService {
 	 */
 	public HashMap<String, Object> updatePrdcrList(List<PrdcrVO> prdcrVO) throws Exception;
 
+	/**
+	 * 생산자상세유형정보 목록 조회
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrVO> selectPrdcrTypeDtlList(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * 생산자상세유형정보 목록 저장
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int savePrdcrTypeDtlList(List<PrdcrVO> prdcrVO) throws Exception;
+
+	/**
+	 * 생산자상세유형정보 목록 삭제
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) throws Exception;
+
 }

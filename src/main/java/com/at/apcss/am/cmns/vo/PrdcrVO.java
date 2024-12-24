@@ -300,6 +300,12 @@ public class PrdcrVO extends ComVO {
 	private int plntngPrcl;
 	private String yr;
 
+	private String prdcrCrtrType;
+	private String crtrDtlCd;
+	private String crtrCd;
+	private int indctSeq;
+	private String gubun;
+
 	private List<PrdcrVO> prdcrList;
 
 	public List<PrdcrVO> getPrdcrList() {

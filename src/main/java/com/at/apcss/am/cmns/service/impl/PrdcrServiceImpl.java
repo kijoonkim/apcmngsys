@@ -241,6 +241,34 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		return updatedCnt;
 	}
 
+	@Override
+	public List<PrdcrVO> selectPrdcrTypeDtlList(PrdcrVO prdcrVO) throws Exception {
+		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrTypeDtlList(prdcrVO);
+		return resultList;
+	}
+
+	@Override
+	public int savePrdcrTypeDtlList(List<PrdcrVO> prdcrVO) throws Exception {
+
+		int result = 0;
+		prdcrVO.forEach(item->{
+		String status = item.getGubun();
+			if(status.equals("insert")) {
+				prdcrMapper.insertPrdcrTypeDtl(item);
+			}else if(status.equals("update")) {
+				//prdcrMapper.updatePrdcrTypeDtl(item);
+			}
+		});
+		return result;
+	}
+
+	@Override
+	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) throws Exception {
+		int result = 0;
+		prdcrMapper.deletePrdcrTypeDtl(prdcrVO);
+		return result;
+	}
+
 
 
 }
