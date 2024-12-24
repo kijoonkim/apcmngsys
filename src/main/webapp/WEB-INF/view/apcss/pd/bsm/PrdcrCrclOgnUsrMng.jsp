@@ -610,6 +610,7 @@
 			{caption: ["1차승인일"], 	ref: 'userType',   		hidden : true},
 			{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
 			{caption: ["조직 구분"], 	ref: 'apoSe',   			hidden : true},
+			{caption: ["법인명"], 		ref: 'corpNm',   			hidden : true},
 			{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
 			{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
 			{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : true},
@@ -721,6 +722,7 @@
 				  , mbrUpdtTm 		: item.mbrUpdtTm
 
 				  , apoSe 			: item.apoSe
+				  , corpNm 			: item.corpNm
 
 
 				  , cmptncInst 	: item.cmptncInst
@@ -919,6 +921,7 @@
 		SBUxMethod.set("dtl-input-coNm", gfn_nvl(rowData.coNm));  //  법인명
 
 		SBUxMethod.set("dtl-input-apoSe", gfn_nvl(rowData.apoSe));
+		SBUxMethod.set("dtl-input-corpNm", gfn_nvl(rowData.corpNm));
 
 		if(rowData.userStts == '01'){
 			SBUxMethod.set("dtl-input-cmptncInstAprvSe", gfn_nvl(rowData.cmptncInstAprvSe));  //  2차승인
@@ -1066,6 +1069,7 @@
 
 		let brno = SBUxMethod.get("dtl-input-brno");
 		let crno = SBUxMethod.get("dtl-input-crno");
+		let corpNm = SBUxMethod.get("dtl-input-corpNm");
 		let typeCd = SBUxMethod.get("dtl-input-typeCd");
 		let apoSe = SBUxMethod.get("dtl-input-apoSe");
 
@@ -1073,6 +1077,7 @@
 			userId : userId
 			,brno : brno
 			,crno : crno
+			,corpNm : corpNm
 			,typeCd : typeCd
 			,userType : userType
 			,apoSe : apoSe
