@@ -61,7 +61,7 @@
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
-    	<![CDATA[ 
+    	<![CDATA[
 			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserList */
     	]]>
     	<!-- Start 페이징 -->
@@ -69,7 +69,7 @@
 
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
@@ -93,9 +93,9 @@
 					ELSE
 						NULL
 				  END	AS OGNZ_NM
-						
+
     		  FROM (
-			SELECT 
+			SELECT
 			      CU.USER_ID            	AS USER_ID
 				, CU.USER_NM            	AS USER_NM
 				, CU.PSWD					AS PSWD
@@ -121,21 +121,21 @@
 				, CU.CRNO                   AS CRNO
 				, CU.BRNO					AS BRNO
 				, CU.BRDT                   AS BRDT
-				
+
 				, CU.JBPS					AS JBPS
 				, CU.CO_TELNO				AS CO_TELNO
 				, CU.CO_NM					AS CO_NM
 				, CU.CTPV					AS CTPV
 				, CU.SGG					AS SGG
 				, CU.UNTY_OGNZ_CD			AS UNTY_OGNZ_CD
-				
+
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
 				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
 				, CU.SYS_LAST_CHG_DT       	AS SYS_LAST_CHG_DT
 				, CU.SYS_LAST_CHG_USER_ID  	AS SYS_LAST_CHG_USER_ID
 				, CU.SYS_LAST_CHG_PRGRM_ID 	AS SYS_LAST_CHG_PRGRM_ID
-				
+
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
     	]]>
@@ -160,18 +160,18 @@
 		<if test='apcNm != null and apcNm != ""'>
 			   AND (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) LIKE #{apcNm}
 		</if>
-		
+
 		<if test='mbrTypeCd != null and mbrTypeCd != ""'>
 			   AND CU.TYPE_CD = #{mbrTypeCd}
 		</if>
-		
+
 		<if test='ctpv != null and ctpv != ""'>
 			   AND CU.CTPV = #{ctpv}
 		</if>
 		<if test='sgg != null and sgg != ""'>
 			   AND CU.SGG = #{sgg}
 		</if>
-		
+
 		<if test='ognzNm != null and ognzNm != ""'>
 			   AND EXISTS (
 					SELECT 1
@@ -180,7 +180,7 @@
 					   AND X.OGNZ_NM LIKE '%' || #{ognzNm} || '%'
 			   )
 		</if>
-		
+
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     		  ) pt0
@@ -285,7 +285,7 @@
 	<!-- 2023.11.28  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectUntyUserAprvList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
-    	
+
 		<![CDATA[
     		SELECT /* com.at.apcss.co.user.ComUserMapper.selectUntyUserAprvList */
 		]]>
@@ -323,7 +323,7 @@
 				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
-				
+
 				, CU.CRNO					AS CRNO
 				, CU.BRNO					AS BRNO
 				, CU.UNTY_OGNZ_ID			AS UNTY_OGNZ_ID
@@ -337,7 +337,7 @@
 				, NVL(
 					CU.UNTY_OGNZ_TYPE
 					, CASE
-						WHEN CU.USER_TYPE = '21' THEN 'C10'						
+						WHEN CU.USER_TYPE = '21' THEN 'C10'
 						WHEN CU.USER_TYPE = '22' THEN 'C20'
 						WHEN CU.USER_TYPE = '24' THEN 'C30'
 						WHEN CU.USER_TYPE = '27' THEN 'G20'
@@ -345,30 +345,30 @@
 						ELSE NULL
 					  END
 				)							AS UNTY_OGNZ_TYPE
-						
+
 				, CU.UNTY_OGNZ_CD			AS UNTY_OGNZ_CD
 				, CU.UNTY_AUTHRT_TYPE		AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN		AS UNTY_AUTHRT_MNG_YN
-				
+
 				, CU.CTPV	AS CTPV
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', CU.CTPV) FROM DUAL) AS CTPV_NM
 				, CU.SGG	AS SGG
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', CU.SGG) FROM DUAL) AS SGG_NM
-				
+
 				, (
 					SELECT MAX(X.USER_ID)	AS USER_ID
 					  FROM TB_COM_USER X
 					 WHERE X.UNTY_OGNZ_ID = CU.UNTY_OGNZ_ID
 					   AND X.UNTY_AUTHRT_MNG_YN = 'Y'
 				)	AS UNTY_AUTHRT_MNG_USER_ID
-				
+
 				, (
 					SELECT COUNT(*)
 					  FROM TB_COM_USER X
 					 WHERE X.UNTY_OGNZ_ID = CU.UNTY_OGNZ_ID
 					   AND X.UNTY_AUTHRT_MNG_YN = 'Y'
 				)	AS UNTY_AUTHRT_MNG_USER_CNT
-				
+
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
 			   AND CU.USER_TYPE IN ('21', '22', '23', '24', '27', '28', '30')
@@ -388,23 +388,23 @@
 		<if test='untyAuthrtType != null and untyAuthrtType != ""'>
 			   AND CU.UNTY_AUTHRT_TYPE = #{untyAuthrtType}
 		</if>
-		
+
 		<if test='ctpv != null and ctpv != ""'>
 			   AND CU.CTPV = #{ctpv}
 		</if>
-		
+
 		<if test='sgg != null and sgg != ""'>
 			   AND CU.SGG = #{sgg}
 		</if>
-		
+
 		<choose>
     		<when test='superUserYn != null and superUserYn.equals("Y")'>
-				
+
     		</when>
     		<when test='untyOgnzId != null and untyOgnzId != ""'>
     			AND #{untyAuthrtMngYn} = 'Y'
 				AND (
-						(	
+						(
 							CU.UNTY_OGNZ_ID IN (
 								SELECT
 									#{untyOgnzId}		AS UNTY_OGNZ_ID
@@ -439,7 +439,7 @@
 						   		#{untyOgnzType} IN ('G20')
 						   		AND
 						   		CU.CTPV = (
-						   			SELECT 
+						   			SELECT
 										UO.UNTY_OGNZ_LINK_CD AS UNTY_OGNZ_LINK_CD
 									  FROM VW_COM_UNTY_OGNZ UO
 									 WHERE UO.DEL_YN = 'N'
@@ -451,7 +451,7 @@
 						   		#{untyOgnzType} IN ('G30')
 						   		AND
 						   		CU.SGG = (
-						   			SELECT 
+						   			SELECT
 										UO.UNTY_OGNZ_LINK_CD AS UNTY_OGNZ_LINK_CD
 									  FROM VW_COM_UNTY_OGNZ UO
 									 WHERE UO.DEL_YN = 'N'
@@ -462,10 +462,10 @@
 					)
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
-		
+
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     		  ) pt0
@@ -488,7 +488,7 @@
 	<!-- 2023.11.28  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCorpUserAprvList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
-    	
+
 		<![CDATA[
     		SELECT /* com.at.apcss.co.user.ComUserMapper.selectCorpUserAprvList */
 		]]>
@@ -521,7 +521,7 @@
 				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
-				
+
 				--, CU.CRNO					AS CRNO
 				, (
 					SELECT X.CRNO
@@ -551,7 +551,7 @@
 						) THEN 'Y'
 					ELSE 'N'
 				  END						AS AUTHRT_MNGR_YN
-				
+
 				, NVL((
 					SELECT MAX(X.APLY_YN)		AS APRV_YN
 					  FROM TB_COM_USER_SYS_AUTH X
@@ -576,7 +576,7 @@
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.SYS_ID = 'CS'
 					), 'N')					AS SYS_CS_YN
-					
+
 				, CASE
 					WHEN EXISTS (
 							SELECT 1
@@ -596,39 +596,39 @@
 							 WHERE X.USER_ID = CU.USER_ID
 							   AND X.DEL_YN = 'N'
 							   AND X.APLY_YN = 'Y'
-							   AND X.APRV_YN = 'N'	
+							   AND X.APRV_YN = 'N'
 						) THEN 'Y'
 					ELSE 'N'
 				  END		AS AUTHRT_APLY_YN
 				, (
-					SELECT AGGR_CONCAT(X.SYS_ID, ',') 
-					  FROM TB_COM_USER_SYS_AUTH X 
+					SELECT AGGR_CONCAT(X.SYS_ID, ',')
+					  FROM TB_COM_USER_SYS_AUTH X
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.DEL_YN = 'N'
 					   AND X.APLY_YN = 'Y'
 					   AND X.APRV_YN = 'N'
 				)			AS APLY_SYS_ID
-				
+
 				, (
 					SELECT MAX(X.FILE_SN) AS FILE_SN
 					  FROM TB_COM_BRC_FILE X
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.DEL_YN = 'N'
 				)	AS BRC_ATCHFL_SN
-				
+
 				, (
 					SELECT MAX(X.FILE_NM) KEEP (DENSE_RANK LAST ORDER BY X.FILE_SN) AS FILE_NM
 					  FROM TB_COM_BRC_FILE X
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.DEL_YN = 'N'
 				)	AS BRC_ATCHFL_NM
-									
-					
+
+
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
 			   AND CU.TYPE_CD = #{mbrTypeCd}
     	]]>
-    	
+
 		<if test='userId != null and userId != ""'>
 			   AND CU.USER_ID LIKE '%' || #{userId} || '%'
 		</if>
@@ -638,7 +638,7 @@
 		<if test='userStts != null and userStts != ""'>
 			   AND CU.USER_STTS = #{userStts}
 		</if>
-		
+
 		<if test='corpNm != null and corpNm != ""'>
 			   AND EXISTS (
 					SELECT 1
@@ -647,7 +647,7 @@
 					   AND X.OGNZ_NM LIKE '%' || #{corpNm} || '%'
 			   )
 		</if>
-		
+
 		<if test='crno != null and crno != ""'>
 			   AND EXISTS (
 					SELECT 1
@@ -673,7 +673,7 @@
 						 WHERE X.USER_ID = CU.USER_ID
 						   AND X.DEL_YN = 'N'
 						   AND X.APLY_YN = 'Y'
-						   AND X.APRV_YN = 'N'						
+						   AND X.APRV_YN = 'N'
 					)
     		</when>
     		<when test='aplyYn != null and aplyYn.equals("N")'>
@@ -691,27 +691,27 @@
 						 WHERE X.USER_ID = CU.USER_ID
 						   AND X.DEL_YN = 'N'
 						   AND X.APLY_YN = 'Y'
-						   AND X.APRV_YN = 'N'						
+						   AND X.APRV_YN = 'N'
 					)
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
 
 		<choose>
     		<when test='superUserYn != null and superUserYn.equals("Y")'>
-				
+
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
     			AND #{authrtMngrYn} = 'Y'
 				AND CU.UNTY_OGNZ_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
-		
+
     	<![CDATA[
     		 ORDER BY USER_NM, USER_ID
     		  ) pt0
@@ -735,7 +735,7 @@
 	<!-- 2023.11.28  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectLocgovUserAprvList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
-    	
+
 		<![CDATA[
     		SELECT /* com.at.apcss.co.user.ComUserMapper.selectLocgovUserAprvList */
 		]]>
@@ -768,7 +768,7 @@
 				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
-				
+
 				, CU.CRNO					AS CRNO
 				, CU.BRNO					AS BRNO
 				, CASE
@@ -777,7 +777,7 @@
 					ELSE
 						'UC' || CU.CTPV
 				  END		AS UNTY_OGNZ_CD
-				
+
 				, CASE
 					WHEN EXISTS (
 							SELECT 1
@@ -824,24 +824,24 @@
 							 WHERE X.USER_ID = CU.USER_ID
 							   AND X.DEL_YN = 'N'
 							   AND X.APLY_YN = 'Y'
-							   AND X.APRV_YN = 'N'	
+							   AND X.APRV_YN = 'N'
 						) THEN 'Y'
 					ELSE 'N'
 				  END		AS AUTHRT_APLY_YN
 				, (
-					SELECT AGGR_CONCAT(X.SYS_ID, ',') 
-					  FROM TB_COM_USER_SYS_AUTH X 
+					SELECT AGGR_CONCAT(X.SYS_ID, ',')
+					  FROM TB_COM_USER_SYS_AUTH X
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.DEL_YN = 'N'
 					   AND X.APLY_YN = 'Y'
 					   AND X.APRV_YN = 'N'
 				)			AS APLY_SYS_ID
-				
+
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
 			   AND CU.TYPE_CD = #{mbrTypeCd}
     	]]>
-    	
+
 		<if test='userId != null and userId != ""'>
 			   AND CU.USER_ID LIKE '%' || #{userId} || '%'
 		</if>
@@ -854,11 +854,11 @@
 		<if test='ctpv != null and ctpv != ""'>
 			   AND CU.CTPV = #{ctpv}
 		</if>
-		
+
 		<if test='sgg != null and sgg != ""'>
 			   AND CU.SGG = #{sgg}
 		</if>
-		
+
 		<choose>
     		<when test='aplyYn != null and aplyYn.equals("Y")'>
 				AND EXISTS (
@@ -880,7 +880,7 @@
 						 WHERE X.USER_ID = CU.USER_ID
 						   AND X.DEL_YN = 'N'
 						   AND X.APLY_YN = 'Y'
-						   AND X.APRV_YN = 'N'						
+						   AND X.APRV_YN = 'N'
 					)
     		</when>
     		<when test='aplyYn != null and aplyYn.equals("N")'>
@@ -903,27 +903,27 @@
 						 WHERE X.USER_ID = CU.USER_ID
 						   AND X.DEL_YN = 'N'
 						   AND X.APLY_YN = 'Y'
-						   AND X.APRV_YN = 'N'						
+						   AND X.APRV_YN = 'N'
 					)
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
-		
+
 		<choose>
     		<when test='superUserYn != null and superUserYn.equals("Y")'>
-				
+
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
     			AND #{authrtMngrYn} = 'Y'
 				AND CU.CTPV = SUBSTR(#{untyOgnzCd}, 3, 2)
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
-		
+
     	<![CDATA[
     		 ORDER BY USER_NM, USER_ID
     		  ) pt0
@@ -1017,7 +1017,7 @@
     	 WHERE USER_ID 					= #{userId}
     	]]>
     </update>
-    
+
 	<!-- APC관리자승인등록 사용자 승인 -->
 	<update id="updateComUserStts" parameterType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
@@ -1509,6 +1509,7 @@
 			     , PA.APRV_YN       AS APRV_YN
 			     , PA.REQ_DT        AS REQ_DT
 			     , PA.APRV_DT       AS APRV_DT
+			     , (SELECT FN_GET_PRDCR_NM(PA.PRDCR_CD, PA.APC_CD) FROM DUAL) AS PRDCR_NM
 			  FROM TB_COM_USER_PRDCR_APRV PA
 			 WHERE PA.DEL_YN 	= 'N'
 			   AND PA.APRV_YN 	= 'Y'
@@ -1564,7 +1565,7 @@
 
 		]]>
     </delete>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertSpUntyAuthAprv             -->
 	<!-- DESC : 통합사용자 권한승인처리.                                            -->
@@ -1591,8 +1592,8 @@
             }
 		]]>
 	</insert>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertSpUserAuthAprv             -->
 	<!-- DESC : 통합사용자 승인(법인, 지자체)                                            		-->
@@ -1646,8 +1647,8 @@
 	</insert>
 
 
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectUserApcList             	-->
 	<!-- DESC : 사용자별APC 테이블 목록 조회.                                       -->
@@ -1664,18 +1665,18 @@
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
 				  pt0.*
 				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', pt0.USER_TYPE) FROM DUAL) AS USER_TYPE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', pt0.USER_STTS) FROM DUAL) AS USER_STTS_NM
-				
+
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', pt0.CTPV) FROM DUAL) AS CTPV_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', pt0.SGG) FROM DUAL) AS SGG_NM
 				, (SELECT FN_GET_COM_CD_VL_EXPLN('UNTY_SGG', pt0.SGG) FROM DUAL) AS SGG_EXPLN
-				
+
     		  FROM (
 			SELECT
 			      UA.USER_ID		AS USER_ID
@@ -1687,7 +1688,7 @@
 			    , UA.APLY_YN		AS APLY_YN
 			    , TO_CHAR(UA.APLY_DT, 'YYYY-MM-DD HH24:MI')	AS APLY_DT
 			    , UA.APLY_RMRK		AS APLY_RMRK
-			    
+
 				, CU.USER_NM		AS USER_NM
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS      AS USER_STTS
@@ -1702,28 +1703,28 @@
 				, CU.TKCG_TASK_NM 		AS TKCG_TASK_NM
 				, CU.OD_SBMSN_YN		AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN	AS APLY_DOC_SBMSN_YN
-				
+
 				, AI.APC_NM			AS APC_NM
 				, AI.CTPV			AS CTPV
 				, AI.SGG			AS SGG
-				
+
 			  FROM TB_COM_USER_APC UA
-			  
+
 			  JOIN TB_COM_USER CU
 			    ON CU.USER_ID = UA.USER_ID
 			   AND CU.DEL_YN = 'N'
-			  
+
 			  JOIN TB_APC_INFO AI
 			    ON AI.APC_CD = UA.APC_CD
 			   AND AI.DEL_YN = 'N'
-			   
+
 			 WHERE UA.DEL_YN = 'N'
-			 
+
     	]]>
-    	
+
 		<choose>
    			<when test='superUserYn != null and superUserYn.equals("Y")'>
-			
+
    			</when>
    			<when test='aplyUserId != null and aplyUserId != ""'>
 			   AND UA.USER_ID = #{aplyUserId}
@@ -1745,22 +1746,22 @@
 	   		<otherwise>
    			</otherwise>
     	</choose>
-    	
+
 		<if test='apcCd != null and apcCd != ""'>
 			   AND UA.APC_CD = #{apcCd}
 		</if>
 		<if test='apcNm != null and apcNm != ""'>
 			   AND AI.APC_NM LIKE '%' || #{apcNm} || '%'
 		</if>
-		
+
 		<if test='aprvYn != null and aprvYn != ""'>
 			   AND UA.APRV_YN = #{aprvYn}
 		</if>
 		<if test='aplyYn != null and aplyYn != ""'>
 			   AND UA.APLY_YN = #{aplyYn}
 		</if>
-		
-		
+
+
 		<if test='userId != null and userId != ""'>
 			   AND UA.USER_ID LIKE '%' || #{userId} || '%'
 		</if>
@@ -1784,7 +1785,7 @@
 			   		   AND X.CRNO LIKE '%' || REPLACE(#{crno}, '-', '') || '%'
 			   	)
 		</if>
-		
+
     	<![CDATA[
     		 ORDER BY USER_NM
     		  ) pt0
@@ -1796,7 +1797,7 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectUserApc	                -->
 	<!-- DESC : 사용자 APC 단건조회.                                             	-->
@@ -1840,11 +1841,11 @@
 			   			SELECT X.UNTY_OGNZ_CD
 			   			  FROM TB_COM_USER X
 			   			 WHERE X.USER_ID = #{userId}
-			   		) 
+			   		)
     	]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertUserApc                    -->
 	<!-- DESC : 사용자 APC 사용등록.                                           		-->
@@ -1862,7 +1863,7 @@
 				, APLY_YN
 				, APLY_DT
 				, APLY_RMRK
-				
+
 				, DEL_YN
 			    , SYS_FRST_INPT_DT
 			    , SYS_FRST_INPT_USER_ID
@@ -1876,7 +1877,7 @@
 				, 'Y'
 				, SYSDATE
 				, #{aplyRmrk}
-				
+
 				, 'N'
 				, SYSDATE
 				, #{sysFrstInptUserId}
@@ -1887,7 +1888,7 @@
 			)
     	]]>
     </insert>
-	
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.deleteUserApc                    -->
 	<!-- DESC : 사용자 APC 사용등록 삭제.                                           -->
@@ -1904,7 +1905,7 @@
     	 	   AND APC_CD	= #{apcCd}
     	]]>
     </delete>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.updateUserApcAprv                -->
 	<!-- DESC : 사용자 APC 사용 승인.                                           	-->
@@ -1921,7 +1922,7 @@
 				  APRV_DT	= SYSDATE
 				, APRV_YN	= 'Y'
 				, APRV_RMRK	= #{aprvRmrk}
-				
+
 				, SYS_LAST_CHG_DT 			= SYSDATE
 	    	    , SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
 	    	    , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
@@ -1929,7 +1930,7 @@
     	 	   AND APC_CD	= #{apcCd}
     	]]>
     </update>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.updateUserApcAprvCncl          	-->
 	<!-- DESC : 사용자 APC 사용 승인 취소.                                          -->
@@ -1946,7 +1947,7 @@
 				  APRV_DT	= NULL
 				, APRV_YN	= 'N'
 				, APRV_RMRK	= #{aprvRmrk}
-				
+
 				, SYS_LAST_CHG_DT 			= SYSDATE
 	    	    , SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
 	    	    , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
@@ -1954,8 +1955,8 @@
     	 	   AND APC_CD	= #{apcCd}
     	]]>
     </update>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertUserApcHstry               -->
 	<!-- DESC : 사용자 APC 변경이력 등록.                                           -->
@@ -2018,7 +2019,7 @@
 	<!-- 2024.10.28  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectApcUserPopList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
-    	
+
 		<![CDATA[
     		SELECT /* com.at.apcss.co.user.ComUserMapper.selectApcUserPopList */
 		]]>
@@ -2026,14 +2027,14 @@
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-    			pt0.*    			
+    			pt0.*
     			, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', pt0.USER_STTS) FROM DUAL) AS USER_STTS_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('TYPE_CD', pt0.MBR_TYPE_CD) FROM DUAL) AS MBR_TYPE_NM
-    			
+
     		  FROM (
 			SELECT
 			      CU.USER_ID            	AS USER_ID
@@ -2050,18 +2051,18 @@
 				, OI.OGNZ_NM				AS OGNZ_NM
 				, OI.CRNO					AS CRNO
 				, OI.BRNO					AS BRNO
-				
+
 			  FROM TB_COM_USER CU
-			  
+
 			  LEFT JOIN TB_APC_OGNZ_INFO OI
 			    ON OI.OGNZ_CD = CU.UNTY_OGNZ_CD
-			    
+
 			 WHERE CU.DEL_YN = 'N'
     	]]>
-    	
+
 		<choose>
     		<when test='superUserYn != null and superUserYn.equals("Y")'>
-				
+
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
     			AND #{authrtMngrYn} = 'Y'
@@ -2072,18 +2073,18 @@
 						CU.UNTY_OGNZ_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
 					)
 					OR
-					CU.TYPE_CD = '3' 
+					CU.TYPE_CD = '3'
 				)
 			</when>
     		<otherwise>
-			   
+
     		</otherwise>
     	</choose>
-    	
+
 		<if test='mbrTypeCd != null and mbrTypeCd != ""'>
 			   AND CU.TYPE_CD = #{mbrTypeCd}
 		</if>
-		
+
 		<if test='ognzNm != null and ognzNm != ""'>
 			   AND OI.OGNZ_NM LIKE '%' || #{corpNm} || '%'
 		</if>
@@ -2092,11 +2093,11 @@
 		</if>
 		<if test='userNm != null and userNm != ""'>
 			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'
-		</if>		
+		</if>
 		<if test='crno != null and crno != ""'>
 			   AND OI.CRNO LIKE '%' || REPLACE(#{crno}, '-', '') || '%'
 		</if>
-				
+
     	<![CDATA[
     		 ORDER BY MBR_TYPE_CD, USER_NM, USER_ID
     		  ) pt0
@@ -2133,5 +2134,5 @@
 			   AND BF.USER_ID = #{userId}
     	]]>
     </select>
-    
+
 </mapper>
