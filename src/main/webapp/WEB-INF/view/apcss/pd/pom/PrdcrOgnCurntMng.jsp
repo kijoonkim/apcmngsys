@@ -38,7 +38,6 @@
 					<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 하위 농가리스트 출력" onclick="fn_report4"></sbux-button>
 				</c:if>
 				</div>
-
 			</div>
 			<div class="box-body">
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">

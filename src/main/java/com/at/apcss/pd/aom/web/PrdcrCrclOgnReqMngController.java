@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
@@ -35,6 +36,22 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 	}
 
 	// 조회
+	@PostMapping(value = "/pd/aom/selectPrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMng(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		PrdcrCrclOgnReqMngVO result = new PrdcrCrclOgnReqMngVO();
+		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
+		try {
+			 result = PrdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 조회
 	@PostMapping(value = "/pd/aom/selectPrdcrCrclOgnReqMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMngList(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -49,8 +66,6 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
-
-
 
 	//등록
 	@PostMapping(value = "/pd/aom/insertPrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
@@ -96,6 +111,16 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		try {
 			insertedCnt = PrdcrCrclOgnReqMngService.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
 
+			if(insertedCnt > 0) {
+				LoginVO sessionLoginVo =(LoginVO) requset.getSession().getAttribute("loginVO");
+				String apoSe = sessionLoginVo.getApoSe();
+				String mbrTypeCd = sessionLoginVo.getMbrTypeCd();
+				if(apoSe == null && "1".equals(mbrTypeCd)) {
+					sessionLoginVo.setApoSe("1");
+					requset.getSession().setAttribute("loginVO", sessionLoginVo);
+				}
+			}
+
 			List<GpcVO> GpcVoList = PrdcrCrclOgnReqMngVO.getGpcList();
 			for (GpcVO gpcVO : GpcVoList) {
 				gpcVO.setSysFrstInptPrgrmId(getPrgrmId());
@@ -105,6 +130,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 			}
 
 			insertedCnt += PrdcrCrclOgnReqMngService.multiSaveGpcList(GpcVoList);
+
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

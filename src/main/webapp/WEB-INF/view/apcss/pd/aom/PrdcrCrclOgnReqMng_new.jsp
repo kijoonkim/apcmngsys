@@ -1118,13 +1118,12 @@
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_search();
-		await fn_apcListGrid();
+		await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_dtlSearch();
-		await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
 	}
 
@@ -1856,6 +1855,10 @@
 				fn_search();
 			</c:if>
 			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
+				<c:if test="${loginVO.apoSe ne '1' && loginVO.apoSe ne '2'}">
+				//iframe 부모요소에 접근해야 전체 새로고침 가능
+				window.parent.document.location.reload();
+				</c:if>
 				fn_dtlSearch();
 			</c:if>
 			} else {

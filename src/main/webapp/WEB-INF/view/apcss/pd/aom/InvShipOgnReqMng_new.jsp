@@ -1688,7 +1688,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
 			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
@@ -1702,6 +1702,10 @@
 				<c:if test="${loginVO.apoSe eq '2'}">
 				//console.log('출하조직인');
 				fn_dtlSearch02();
+				</c:if>
+				<c:if test="${loginVO.apoSe ne '1' && loginVO.apoSe ne '2'}">
+				//iframe 부모요소에 접근해야 전체 새로고침 가능
+				window.parent.document.location.reload();
 				</c:if>
 			</c:if>
 			} else {
